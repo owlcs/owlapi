@@ -57,7 +57,8 @@ public class RDFResourceNode extends RDFNode {
 
     /**
      * Constructs a named resource (i.e. a resource with
-     * a URI).
+     * a IRI).
+     * @param iri the IRI
      */
     public RDFResourceNode(IRI iri) {
         this.iri = iri;

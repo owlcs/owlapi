@@ -371,6 +371,7 @@ public class OBOConsumer implements OBOParserHandler {
     public IRI getIdIRI(String identifier) {
         if(identifier == null) {
             Thread.dumpStack();
+            return null;
         }
         if(identifier.indexOf(":") != -1) {
             return getIRI(identifier);

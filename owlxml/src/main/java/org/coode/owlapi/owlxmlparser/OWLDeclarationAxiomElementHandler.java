@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
- */
+ */@SuppressWarnings("javadoc")
 public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHandler {
 
     private OWLEntity entity;

@@ -47,17 +47,25 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Information Management Group<br>
  * Date: 15-Jul-2009
  */
+@SuppressWarnings("javadoc")
 public class RendererEvent {
 
     private ManchesterOWLSyntaxFrameRenderer frameRenderer;
 
     private OWLObject frameSubject;
 
+    /**
+     * @param frameRenderer the frame renderer
+     * @param frameSubject the subject
+     */
     public RendererEvent(ManchesterOWLSyntaxFrameRenderer frameRenderer, OWLObject frameSubject) {
         this.frameSubject = frameSubject;
         this.frameRenderer = frameRenderer;
     }
 
+    /**
+     * @return the frame renderer
+     */
     public ManchesterOWLSyntaxFrameRenderer getFrameRenderer() {
         return frameRenderer;
     }

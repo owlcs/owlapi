@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 04-Feb-2009
  */
+@SuppressWarnings("javadoc")
 public class TypeAnnotationHandler extends BuiltInTypeHandler {
 
     public TypeAnnotationHandler(OWLRDFConsumer consumer) {

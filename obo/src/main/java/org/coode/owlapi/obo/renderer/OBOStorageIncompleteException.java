@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.io.OWLRendererException;
  * Bio Health Informatics Group<br>
  * Date: Apr 9, 2009<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OBOStorageIncompleteException extends OWLRendererException {
 
     private List<OBOStorageException> exceptions;

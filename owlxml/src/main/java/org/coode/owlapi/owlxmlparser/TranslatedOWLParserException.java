@@ -50,6 +50,7 @@ import org.xml.sax.SAXException;
  * </p>
  * Translates an {@link org.semanticweb.owlapi.io.OWLParserException} to a {@link org.xml.sax.SAXException}.
  */
+@SuppressWarnings("javadoc")
 public class TranslatedOWLParserException extends SAXException {
 
     private OWLParserException parserException;

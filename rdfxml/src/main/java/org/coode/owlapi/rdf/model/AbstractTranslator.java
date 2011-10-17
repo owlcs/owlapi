@@ -63,6 +63,10 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * Date: 06-Dec-2006<br><br>
  * An abstract translator that can produce an RDF graph from an OWLOntology.  Subclasses must
  * provide implementations to create concrete representations of resources, triples etc.
+ * @param <NODE> the basic node
+ * @param <RESOURCE> a resource node
+ * @param <PREDICATE> a predicate node
+ * @param <LITERAL> a literal node
  */
 public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE extends NODE, LITERAL extends NODE> implements OWLObjectVisitor, SWRLObjectVisitor {
 
@@ -73,6 +77,11 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     private boolean useStrongTyping = true;
 
 
+    /**
+     * @param manager the manager
+     * @param ontology the ontology
+     * @param useStrongTyping true if strong typing should be used
+     */
     public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping) {
         this.ontology = ontology;
         this.manager = manager;
@@ -168,13 +177,13 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), desc.getProperty());
     }
-    
+
     private <R extends OWLPropertyRange, P extends OWLPropertyExpression<R,P>, F extends OWLPropertyExpression<R,P>> void addRestrictionCommonTriplePropertyExpression(OWLRestriction<R, P, F> desc) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), desc.getProperty());
     }
-    
+
     private void addObjectCardinalityRestrictionTriples(OWLCardinalityRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> ce, OWLRDFVocabulary cardiPredicate) {
     	addRestrictionCommonTriplePropertyRange(ce);
         addTriple(ce, cardiPredicate.getIRI(), toTypedConstant(ce.getCardinality()));

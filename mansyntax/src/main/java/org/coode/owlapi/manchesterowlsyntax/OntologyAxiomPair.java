@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 18-Feb-2009
  */
+@SuppressWarnings("javadoc")
 public class OntologyAxiomPair {
 
     private OWLOntology ontology;

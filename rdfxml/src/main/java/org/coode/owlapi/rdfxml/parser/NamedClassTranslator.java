@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLClass;
  * Information Management Group<br>
  * Date: 28-Jun-2009
  */
+@SuppressWarnings("javadoc")
 public class NamedClassTranslator extends AbstractClassExpressionTranslator {
 
 

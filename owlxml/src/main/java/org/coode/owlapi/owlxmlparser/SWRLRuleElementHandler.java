@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.SWRLAtom;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 02-Oct-2009
- */
+ */@SuppressWarnings("javadoc")
 public class SWRLRuleElementHandler extends AbstractOWLAxiomElementHandler {
 
     private Set<SWRLAtom> body = null;

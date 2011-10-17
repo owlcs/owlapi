@@ -45,6 +45,7 @@ package org.coode.owlapi.obo.parser;
  * Bio-Health Informatics Group<br>
  * Date: 03/02/2011
  */
+@SuppressWarnings("javadoc")
 public class XRefTagHandler extends AbstractTagValueHandler {
 
     public XRefTagHandler(OBOConsumer consumer) {
@@ -54,5 +55,5 @@ public class XRefTagHandler extends AbstractTagValueHandler {
     public void handle(String id, String value, String comment) {
     }
 
-    
+
 }

@@ -44,6 +44,7 @@ package org.coode.owl.krssparser;
 /**
  * Token Manager Error.
  */
+@SuppressWarnings("javadoc")
 public class TokenMgrError extends Error {
 
     /**
@@ -172,6 +173,8 @@ public class TokenMgrError extends Error {
 
     /**
      * Constructor with message and reason.
+     * @param message the message
+     * @param reason the reason
      */
     public TokenMgrError(String message, int reason) {
         super(message);

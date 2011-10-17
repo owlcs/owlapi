@@ -65,7 +65,8 @@ public class RDFGraph {
     private Set<RDFTriple> triples;
 
 
-    public RDFGraph() {
+    @SuppressWarnings("javadoc")
+	public RDFGraph() {
         triples = new HashSet<RDFTriple>();
         triplesBySubject = new HashMap<RDFResourceNode, Set<RDFTriple>>();
 //        triplesByObject = new HashMap<RDFNode, Set<RDFTriple>>();
@@ -73,6 +74,9 @@ public class RDFGraph {
     }
 
 
+    /**
+     * @param triple triple to add
+     */
     public void addTriple(RDFTriple triple) {
         // Reset the computation of root anon nodes
         rootAnonymousNodes = null;
@@ -105,6 +109,10 @@ public class RDFGraph {
     }
 
 
+    /**
+     * @param subject node to search
+     * @return triples which have subject as subject
+     */
     public Set<RDFTriple> getTriplesForSubject(RDFNode subject) {
         if (triplesBySubject.containsKey(subject)) {
             return new HashSet<RDFTriple>(triplesBySubject.get(subject));
@@ -115,6 +123,10 @@ public class RDFGraph {
     }
 
 
+    /**
+     * @param node node to search
+     * @return true if the anon node is shared
+     */
     public boolean isAnonymousNodeSharedSubject(RDFResourceNode node) {
         if(!node.isAnonymous()) {
             return false;
@@ -134,6 +146,9 @@ public class RDFGraph {
         return false;
     }
 
+    /**
+     * @return root anonymous nodes
+     */
     public Set<RDFResourceNode> getRootAnonymousNodes() {
         if (rootAnonymousNodes == null) {
             rebuildAnonRoots();
@@ -157,6 +172,10 @@ public class RDFGraph {
         }
     }
 
+    /**
+     * @param w writer to write to
+     * @throws IOException if exceptions happen
+     */
     public void dumpTriples(Writer w) throws IOException {
         for(RDFNode subj : triplesBySubject.keySet()) {
             for(RDFTriple triple : triplesBySubject.get(subj)) {

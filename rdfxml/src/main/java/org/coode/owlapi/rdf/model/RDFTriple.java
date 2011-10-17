@@ -57,6 +57,11 @@ public class RDFTriple {
     private int hashCode = 0;
 
 
+    /**
+     * @param subject subject of triple
+     * @param property property of triple
+     * @param object object of triple
+     */
     public RDFTriple(RDFResourceNode subject, RDFResourceNode property, RDFNode object) {
         this.object = object;
         this.property = property;
@@ -64,17 +69,24 @@ public class RDFTriple {
     }
 
 
+    /**
+     * @return subject
+     */
     public RDFResourceNode getSubject() {
         return subject;
     }
 
-
+    /**
+     * @return property
+     */
     public RDFResourceNode getProperty() {
         return property;
     }
 
-
-    public RDFNode getObject() {
+     /**
+      * @return object
+      */
+     public RDFNode getObject() {
         return object;
     }
 

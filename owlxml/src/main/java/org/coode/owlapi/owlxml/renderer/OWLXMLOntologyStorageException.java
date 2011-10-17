@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * Bio-Health Informatics Group<br>
  * Date: 13-Apr-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLXMLOntologyStorageException extends OWLOntologyStorageException {
 
     public OWLXMLOntologyStorageException(String message) {

@@ -43,7 +43,7 @@ package org.coode.owlapi.owlxmlparser;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Apr-2007<br><br>
- */
+ */@SuppressWarnings("javadoc")
 public class OWLXMLParserAttributeNotFoundException extends OWLXMLParserException {
 
     public OWLXMLParserAttributeNotFoundException(int lineNumber, int columnNumber, String attributeName) {

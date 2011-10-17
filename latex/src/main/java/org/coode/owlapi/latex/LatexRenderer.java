@@ -59,7 +59,6 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.AxiomTypeProvider;
 import org.semanticweb.owlapi.util.OWLEntityComparator;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
@@ -70,6 +69,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * Medical Informatics Group<br>
  * Date: 15-Jun-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class LatexRenderer extends AbstractOWLRenderer {
 
     private ShortFormProvider shortFormProvider;
@@ -178,9 +178,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
     private static class OWLAxiomComparator implements Comparator<OWLAxiom> {
 
         public int compare(OWLAxiom o1, OWLAxiom o2) {
-            AxiomTypeProvider provider = new AxiomTypeProvider();
-            int index1 = provider.getAxiomType(o1).getIndex();
-            int index2 = provider.getAxiomType(o2).getIndex();
+            int index1 = o1.getAxiomType().getIndex();
+            int index2 = o2.getAxiomType().getIndex();
             return index1 - index2;
         }
     }

@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 25-Jan-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class ObjectPropertyListItemTranslator implements ListItemTranslator<OWLObjectPropertyExpression> {
 
     private static final Logger logger = Logger.getLogger(ObjectPropertyListItemTranslator.class.getName());

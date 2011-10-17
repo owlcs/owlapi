@@ -66,6 +66,7 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
  * - unknown tags (which are rendered at the end of the known tags)
  * - extraction of TVPs from annotations
  */
+@SuppressWarnings("javadoc")
 public class OBOTagValuePairList {
 
 

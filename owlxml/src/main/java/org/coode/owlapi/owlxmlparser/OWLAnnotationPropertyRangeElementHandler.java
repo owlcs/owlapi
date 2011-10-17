@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 16/12/2010
  */
+@SuppressWarnings("javadoc")
 public class OWLAnnotationPropertyRangeElementHandler extends AbstractOWLAxiomElementHandler {
 
     private IRI range;

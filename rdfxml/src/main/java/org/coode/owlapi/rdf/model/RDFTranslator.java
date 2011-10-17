@@ -57,12 +57,20 @@ public class RDFTranslator
 		AbstractTranslator<RDFNode, RDFResourceNode, RDFResourceNode, RDFLiteralNode> {
 	private RDFGraph graph;
 
+	/**
+	 * @param manager the manager
+	 * @param ontology the ontology
+	 * @param useStrongTyping true if strong typing is required
+	 */
 	public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology,
 			boolean useStrongTyping) {
 		super(manager, ontology, useStrongTyping);
 		graph = new RDFGraph();
 	}
 
+	/**
+	 * @return the graph
+	 */
 	public RDFGraph getGraph() {
 		return graph;
 	}
@@ -92,6 +100,10 @@ public class RDFTranslator
 		return translateLiteralNode(literal);
 	}
 
+	/**
+	 * @param literal literal to translate
+	 * @return translated literal
+	 */
 	public static RDFLiteralNode translateLiteralNode(OWLLiteral literal) {
 		if (!literal.isRDFPlainLiteral()) {
 			return new RDFLiteralNode(literal.getLiteral(), literal
@@ -112,6 +124,9 @@ public class RDFTranslator
 		return new RDFResourceNode(uri);
 	}
 
+	/**
+	 * clear the graph
+	 */
 	public void reset() {
 		graph = new RDFGraph();
 	}

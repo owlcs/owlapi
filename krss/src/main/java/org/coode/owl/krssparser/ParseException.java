@@ -50,6 +50,7 @@ package org.coode.owl.krssparser;
  * You can modify this class to customize your error reporting
  * mechanisms so long as you retain the public fields.
  */
+@SuppressWarnings("javadoc")
 public class ParseException extends Exception {
 
   /**

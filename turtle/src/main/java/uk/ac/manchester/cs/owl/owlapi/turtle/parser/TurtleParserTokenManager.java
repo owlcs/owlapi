@@ -41,6 +41,7 @@
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 /** Token Manager. */
+@SuppressWarnings("javadoc")
 public class TurtleParserTokenManager implements TurtleParserConstants
 {
 
@@ -1260,9 +1261,9 @@ private int jjMoveNfa_1(int startState, int curPos)
    }
 }
 static final int[] jjnextStates = {
-   24, 25, 26, 40, 41, 43, 24, 25, 2, 45, 27, 30, 35, 27, 30, 36, 
-   37, 35, 40, 41, 43, 47, 48, 49, 50, 51, 52, 56, 57, 5, 6, 11, 
-   12, 28, 29, 33, 34, 38, 39, 
+   24, 25, 26, 40, 41, 43, 24, 25, 2, 45, 27, 30, 35, 27, 30, 36,
+   37, 35, 40, 41, 43, 47, 48, 49, 50, 51, 52, 56, 57, 5, 6, 11,
+   12, 28, 29, 33, 34, 38, 39,
 };
 private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2)
 {
@@ -1331,10 +1332,10 @@ private static final boolean jjCanMove_2(int hiByte, int i1, int i2, long l1, lo
 
 /** Token literal values. */
 public static final String[] jjstrLiteralImages = {
-"", null, null, null, null, null, null, null, null, null, null, null, null, 
-null, null, null, null, "\50", "\51", "\133", "\135", "\54", "\56", "\73", 
-"\100\160\162\145\146\151\170", "\136\136", "\100\142\141\163\145", "\100", "\141", null, "\137\72", 
-"\164\162\165\145", "\146\141\154\163\145", "\123\105\114\105\103\124", "\127\110\105\122\105", 
+"", null, null, null, null, null, null, null, null, null, null, null, null,
+null, null, null, null, "\50", "\51", "\133", "\135", "\54", "\56", "\73",
+"\100\160\162\145\146\151\170", "\136\136", "\100\142\141\163\145", "\100", "\141", null, "\137\72",
+"\164\162\165\145", "\146\141\154\163\145", "\123\105\114\105\103\124", "\127\110\105\122\105",
 "\106\111\114\124\105\122", null, null, null, null, null, null, null, null, null, null, null, };
 
 /** Lexer state names. */
@@ -1346,17 +1347,17 @@ public static final String[] lexStateNames = {
 
 /** Lex State array. */
 public static final int[] jjnewLexState = {
-   -1, -1, -1, -1, -1, -1, 1, -1, 0, 2, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
-   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
+   -1, -1, -1, -1, -1, -1, 1, -1, 0, 2, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 };
 static final long[] jjtoToken = {
-   0x7ffffffff901L, 
+   0x7ffffffff901L,
 };
 static final long[] jjtoSkip = {
-   0x3eL, 
+   0x3eL,
 };
 static final long[] jjtoMore = {
-   0x6c0L, 
+   0x6c0L,
 };
 protected JavaCharStream input_stream;
 private final int[] jjrounds = new int[59];
@@ -1439,7 +1440,7 @@ int jjmatchedPos;
 int jjmatchedKind;
 
 /** Get the next Token. */
-public Token getNextToken() 
+public Token getNextToken()
 {
   Token matchedToken;
   int curPos = 0;

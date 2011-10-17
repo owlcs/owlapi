@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
  * Information Management Group<br>
  * Date: 13-May-2009
  */
+@SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxInlineAxiomParser implements OWLExpressionParser<OWLAxiom> {
 
     private OWLDataFactory dataFactory;

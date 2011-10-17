@@ -63,6 +63,12 @@ public class ManchesterOWLSyntaxOntologyHeader {
     private Collection<OWLImportsDeclaration> importsDeclarations;
 
 
+    /**
+     * @param ontologyIRI the ontology IRI
+     * @param versionIRI the version IRI
+     * @param annotations the ontology annotations
+     * @param importsDeclarations the imports declarations
+     */
     public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI,
                                              IRI versionIRI,
                                              Set<OWLAnnotation> annotations,
@@ -73,16 +79,25 @@ public class ManchesterOWLSyntaxOntologyHeader {
     }
 
 
+    /**
+     * @return the ontology ID
+     */
     public OWLOntologyID getOntologyID() {
         return ontologyID;
     }
 
 
+    /**
+     * @return the annotations
+     */
     public Collection<OWLAnnotation> getAnnotations() {
         return annotations;
     }
 
 
+    /**
+     * @return the imports declarations
+     */
     public Collection<OWLImportsDeclaration> getImportsDeclarations() {
         return importsDeclarations;
     }

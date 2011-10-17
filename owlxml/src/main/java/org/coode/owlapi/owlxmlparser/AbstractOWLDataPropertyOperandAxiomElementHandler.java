@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractOWLDataPropertyOperandAxiomElementHandler extends AbstractOperandAxiomElementHandler<OWLDataPropertyExpression> {
 
     public AbstractOWLDataPropertyOperandAxiomElementHandler(OWLXMLParserHandler handler) {

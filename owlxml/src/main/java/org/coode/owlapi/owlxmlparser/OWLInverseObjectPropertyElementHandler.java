@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
- */
+ */@SuppressWarnings("javadoc")
 public class OWLInverseObjectPropertyElementHandler extends AbstractOWLObjectPropertyElementHandler {
 
     private OWLObjectPropertyExpression inverse;

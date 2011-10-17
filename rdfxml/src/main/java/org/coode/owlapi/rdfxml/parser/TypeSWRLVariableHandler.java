@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.vocab.SWRLVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 18-Feb-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class TypeSWRLVariableHandler extends BuiltInTypeHandler {
 
     public TypeSWRLVariableHandler(OWLRDFConsumer consumer) {

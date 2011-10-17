@@ -62,6 +62,10 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
 
     private OWLOntology defaultOntology;
 
+    /**
+     * @param dataFactory the data factory
+     * @param checker the entity checker
+     */
     public ManchesterOWLSyntaxFramesParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
         this.checker = checker;
@@ -72,10 +76,16 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
         this.checker = entityChecker;
     }
 
+    /**
+     * @param ontologyChecker the ontology checker
+     */
     public void setOWLOntologyChecker(OWLOntologyChecker ontologyChecker) {
         this.ontologyChecker = ontologyChecker;
     }
 
+    /**
+     * @param ontology the ontology to use
+     */
     public void setDefaultOntology(OWLOntology ontology) {
         this.defaultOntology = ontology;
     }

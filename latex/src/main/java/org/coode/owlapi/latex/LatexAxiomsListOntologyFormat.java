@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public class LatexAxiomsListOntologyFormat extends OWLOntologyFormat {
 
-
+	@SuppressWarnings("javadoc")
     public LatexAxiomsListOntologyFormat() {
     }
 

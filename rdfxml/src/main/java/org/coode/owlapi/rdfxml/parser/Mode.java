@@ -45,6 +45,7 @@ package org.coode.owlapi.rdfxml.parser;
  * Bio-Health Informatics Group<br>
  * Date: 11/03/2011
  */
+@SuppressWarnings("javadoc")
 public enum Mode {
 
     STRICT,

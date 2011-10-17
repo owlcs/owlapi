@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 02-Feb-2009
  */
+@SuppressWarnings("javadoc")
 public class HasKeyListItemTranslator implements ListItemTranslator<OWLPropertyExpression<?,?>> {
 
     private OWLRDFConsumer consumer;

@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * Bio-Health Informatics Group<br>
  * Date: 03/02/2011
  */
+@SuppressWarnings("javadoc")
 public class OntologyTagValueHandler extends AbstractTagValueHandler {
 
     public OntologyTagValueHandler(OBOConsumer consumer) {

@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<O> {
 
     private OWLXMLParserHandler handler;

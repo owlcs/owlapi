@@ -46,6 +46,7 @@ import org.coode.owl.krssparser.KRSSOWLParserException;
  * Ulm University<br>
  * Institute of Artificial Intelligence<br>
  */
+@SuppressWarnings("javadoc")
 public class KRSS2OWLParserException extends KRSSOWLParserException {
     public KRSS2OWLParserException(org.coode.owl.krssparser.ParseException e) {
         super(e);

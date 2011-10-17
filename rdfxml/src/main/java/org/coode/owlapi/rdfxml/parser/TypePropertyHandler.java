@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 18-Feb-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class TypePropertyHandler extends BuiltInTypeHandler {
 
     private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());

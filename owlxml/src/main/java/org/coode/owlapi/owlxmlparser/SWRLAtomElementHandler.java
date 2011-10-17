@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.SWRLAtom;
  * Information Management Group<br>
  * Date: 02-Oct-2009
  */
+@SuppressWarnings("javadoc")
 public abstract class SWRLAtomElementHandler extends AbstractOWLElementHandler<SWRLAtom> {
 
     private SWRLAtom atom;

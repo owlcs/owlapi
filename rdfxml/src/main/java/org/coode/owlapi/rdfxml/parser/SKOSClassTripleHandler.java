@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.vocab.SKOSVocabulary;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 05-Nov-2008<br><br>
  */
+@SuppressWarnings("javadoc")
 public class SKOSClassTripleHandler extends BuiltInTypeHandler {
 
 

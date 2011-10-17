@@ -61,6 +61,7 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * Bio-Health Informatics Group<br>
  * Date: 03-Aug-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class SWRLTestCase extends TestCase {
 
     private OWLOntologyManager man;
@@ -80,9 +81,9 @@ public class SWRLTestCase extends TestCase {
     public void testSWRLParser() throws Exception {
         URI uri = getClass().getResource("/owlapi/SWRLTest.owl").toURI();
         OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI.create(uri));
-        for(OWLIndividual i : ont.getIndividualsInSignature()) {
-            System.out.println(i);
-        }
+//        for(OWLIndividual i : ont.getIndividualsInSignature()) {
+//            System.out.println(i);
+//        }
         assertTrue(ont.getIndividualsInSignature().isEmpty());
     }
 }

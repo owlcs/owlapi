@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 23-Apr-2009
  */
+@SuppressWarnings("javadoc")
 public class TPVersionIRIHandler extends TriplePredicateHandler {
 
     public TPVersionIRIHandler(OWLRDFConsumer consumer) {

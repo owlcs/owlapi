@@ -51,6 +51,7 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 19-May-2008<br><br>
  */
+@SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxTokenizer {
 
     public static final String EOF = "|EOF|";

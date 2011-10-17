@@ -350,7 +350,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * Ulm University<br>
  * Institute of Artificial Intelligence<br>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;

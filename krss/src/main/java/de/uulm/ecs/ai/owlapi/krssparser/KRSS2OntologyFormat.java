@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Ulm University<br>
  * Institute of Artificial Intelligence<br>
  */
+@SuppressWarnings("javadoc")
 public class KRSS2OntologyFormat extends OWLOntologyFormat {
     public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
 

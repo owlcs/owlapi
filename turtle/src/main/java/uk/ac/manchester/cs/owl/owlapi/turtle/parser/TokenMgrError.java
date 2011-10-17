@@ -42,6 +42,7 @@
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 /** Token Manager Error. */
+@SuppressWarnings("javadoc")
 public class TokenMgrError extends Error
 {
 

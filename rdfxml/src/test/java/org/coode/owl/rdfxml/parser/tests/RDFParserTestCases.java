@@ -60,6 +60,7 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * Bio-Health Informatics Group<br>
  * Date: 16-Mar-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class RDFParserTestCases extends TestCase {
 
     private OWLOntologyManager man;
@@ -90,7 +91,7 @@ public class RDFParserTestCases extends TestCase {
                 for (File ontologyFile : testSuiteFolder.listFiles()) {
                     if (ontologyFile.getName().endsWith(".rdf") || ontologyFile.getName().endsWith(".owlapi")) {
                         OWLOntology ont = man.loadOntologyFromOntologyDocument(ontologyFile);
-                        System.out.println("Loaded: " + ont);
+                        //System.out.println("Loaded: " + ont);
                         man.removeOntology(ont);
                     }
                 }

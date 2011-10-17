@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractObjectRestrictionElementHandler<F extends OWLObject> extends AbstractRestrictionElementHandler<OWLObjectPropertyExpression, F> {
 
     public AbstractObjectRestrictionElementHandler(OWLXMLParserHandler handler) {

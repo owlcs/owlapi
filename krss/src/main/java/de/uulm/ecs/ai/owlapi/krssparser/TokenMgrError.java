@@ -42,6 +42,7 @@
 package de.uulm.ecs.ai.owlapi.krssparser;
 
 /** Token Manager Error. */
+@SuppressWarnings("javadoc")
 public class TokenMgrError extends Error
 {
 

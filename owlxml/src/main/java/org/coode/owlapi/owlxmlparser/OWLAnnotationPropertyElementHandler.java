@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Information Management Group<br>
  * Date: 23-Apr-2009
  */
+@SuppressWarnings("javadoc")
 public class OWLAnnotationPropertyElementHandler extends AbstractOWLElementHandler<OWLAnnotationProperty> {
 
     private OWLAnnotationProperty prop;

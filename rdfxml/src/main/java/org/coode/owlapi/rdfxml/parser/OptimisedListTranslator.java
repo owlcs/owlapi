@@ -62,6 +62,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * determined by a <code>ListItemTranslator</code>. The translator consumes all
  * triples which are used in the translation.
  */
+@SuppressWarnings("javadoc")
 public class OptimisedListTranslator<O extends OWLObject> {
 	private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class
 			.getName());

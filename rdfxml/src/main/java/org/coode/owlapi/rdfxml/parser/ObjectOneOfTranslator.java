@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class ObjectOneOfTranslator extends AbstractClassExpressionTranslator {
 
     public ObjectOneOfTranslator(OWLRDFConsumer consumer) {

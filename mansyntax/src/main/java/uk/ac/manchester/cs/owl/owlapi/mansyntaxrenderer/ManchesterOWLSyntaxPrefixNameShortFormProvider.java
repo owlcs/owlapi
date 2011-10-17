@@ -59,6 +59,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * between this short form provider and a prefix manager is that names with the default prefix do not have a colon
  * with this short form provider.
  */
+@SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortFormProvider {
 
     private DefaultPrefixManager prefixManager;

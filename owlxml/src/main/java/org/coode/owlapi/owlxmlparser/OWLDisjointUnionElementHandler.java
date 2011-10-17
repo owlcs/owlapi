@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 10-Apr-2007<br><br>
- */
+ */@SuppressWarnings("javadoc")
 public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandler {
 
     private OWLClass cls;

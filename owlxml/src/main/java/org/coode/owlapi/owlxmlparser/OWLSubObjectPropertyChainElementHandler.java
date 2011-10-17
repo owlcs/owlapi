@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 03-Apr-2007<br><br>
- */
+ */@SuppressWarnings("javadoc")
 public class OWLSubObjectPropertyChainElementHandler extends AbstractOWLElementHandler<List<OWLObjectPropertyExpression>> {
 
     private List<OWLObjectPropertyExpression> propertyList;

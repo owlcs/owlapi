@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractClassExpressionFillerRestriction extends AbstractObjectRestrictionElementHandler<OWLClassExpression> {
 
     public AbstractClassExpressionFillerRestriction(OWLXMLParserHandler handler) {

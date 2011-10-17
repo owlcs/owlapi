@@ -77,7 +77,7 @@ public class RDFXMLParser extends AbstractOWLParser {
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
     	InputSource is = null;
     	try {
-        	
+
             final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
             final RDFParser parser = new RDFParser() {
                 @Override

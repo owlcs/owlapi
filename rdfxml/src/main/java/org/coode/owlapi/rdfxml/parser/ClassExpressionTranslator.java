@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * translates the triples to the appropriate OWL API <code>OWLClassExpression</code>
  * object.
  */
+@SuppressWarnings("javadoc")
 public interface ClassExpressionTranslator {
 
     boolean matches(IRI mainNode, Mode mode);
@@ -70,5 +71,5 @@ public interface ClassExpressionTranslator {
      * @return The class expression that represents the translation.
      */
     OWLClassExpression translate(IRI mainNode);
-    
+
 }

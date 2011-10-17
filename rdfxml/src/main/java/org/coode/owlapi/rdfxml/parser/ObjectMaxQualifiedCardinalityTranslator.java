@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 19/12/2010
  */
+@SuppressWarnings("javadoc")
 public class ObjectMaxQualifiedCardinalityTranslator extends AbstractClassExpressionTranslator {
 
     public ObjectMaxQualifiedCardinalityTranslator(OWLRDFConsumer consumer) {

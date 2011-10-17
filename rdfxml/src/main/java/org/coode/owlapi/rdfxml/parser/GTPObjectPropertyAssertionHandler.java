@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHandler {
 
     public GTPObjectPropertyAssertionHandler(OWLRDFConsumer consumer) {

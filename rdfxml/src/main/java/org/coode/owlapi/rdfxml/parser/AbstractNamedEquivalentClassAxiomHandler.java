@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * a direct way without an equivalent class triple.  For example
  * A intersectionOf (C or C)
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePredicateHandler {
 
     public AbstractNamedEquivalentClassAxiomHandler(OWLRDFConsumer consumer, IRI predicateIRI) {
@@ -64,7 +65,7 @@ public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePre
     }
 
 
-    @Override 
+    @Override
     @SuppressWarnings("unused")
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return false;

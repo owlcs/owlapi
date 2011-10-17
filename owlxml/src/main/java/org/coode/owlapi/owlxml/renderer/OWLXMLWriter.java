@@ -71,6 +71,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * the default namespace is always the OWL namespace (http://www.w3.org/2002/07/owl#).  Unlike RDF/XML, entity
  * URIs aren't abbreviated using the XML namespace mechanism, instead they are encoded using 'prefix' elements.
  */
+@SuppressWarnings("javadoc")
 public class OWLXMLWriter {
 
     /**

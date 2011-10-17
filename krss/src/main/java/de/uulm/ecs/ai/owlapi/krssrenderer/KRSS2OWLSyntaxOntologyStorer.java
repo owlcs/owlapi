@@ -55,16 +55,14 @@ import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OntologyFormat;
  */
 public class KRSS2OWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
 
-    /**
-     * @inheritDoc
-     */
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new KRSS2OntologyFormat());
     }
 
     // I changed this class to extend AbstractOWLOntologyStorer - Matthew Horridge
 
-    @Override  @SuppressWarnings("unused")
+    @Override
+    @SuppressWarnings("unused")
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {
             KRSS2OWLSyntaxRenderer renderer = new KRSS2OWLSyntaxRenderer(manager);

@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Handles rdfs:subClassOf triples.  If handling is set to strict then the triple is only consumed if
  * the subject and object are typed as classes.
  */
+@SuppressWarnings("javadoc")
 public class TPSubClassOfHandler extends TriplePredicateHandler {
 
 

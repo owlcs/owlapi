@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Information Management Group<br>
  * Date: 17-May-2009
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractIRIElementHandler extends AbstractOWLElementHandler<IRI> {
 
     public AbstractIRIElementHandler(OWLXMLParserHandler handler) {

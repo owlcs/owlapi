@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractOWLPropertyCharacteristicAxiomElementHandler<P extends OWLObject> extends AbstractOWLAxiomElementHandler {
 
     private P property;

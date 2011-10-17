@@ -54,6 +54,7 @@ import org.xml.sax.SAXException;
  * Bio-Health Informatics Group<br>
  * Date: 24-Feb-2008<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
 
 
@@ -67,7 +68,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
 
     @SuppressWarnings("unused")
     public void handlePrefixDirective(String prefixName, String prefix) {
-        
+
     }
 
 

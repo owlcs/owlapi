@@ -59,9 +59,6 @@ import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OntologyFormat;
  */
 public class KRSS2SyntaxOntologyStorer extends AbstractOWLOntologyStorer {
 
-    /**
-     * @inheritDoc
-     */
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new KRSS2OntologyFormat());
     }

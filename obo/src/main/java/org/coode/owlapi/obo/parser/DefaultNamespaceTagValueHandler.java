@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 01-Sep-2008<br><br>
  */
+@SuppressWarnings("javadoc")
 public class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
 
 

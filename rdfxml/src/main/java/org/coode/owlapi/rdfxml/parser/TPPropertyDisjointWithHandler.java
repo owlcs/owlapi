@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 09-Jul-2009
  */
+@SuppressWarnings("javadoc")
 public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
 
     public TPPropertyDisjointWithHandler(OWLRDFConsumer consumer) {

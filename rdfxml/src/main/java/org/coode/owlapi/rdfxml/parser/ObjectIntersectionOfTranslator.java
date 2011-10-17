@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
  * This relies on the main node having an intersectionOf
  * triple.
  */
+@SuppressWarnings("javadoc")
 public class ObjectIntersectionOfTranslator extends AbstractClassExpressionTranslator {
 
     public ObjectIntersectionOfTranslator(OWLRDFConsumer consumer) {

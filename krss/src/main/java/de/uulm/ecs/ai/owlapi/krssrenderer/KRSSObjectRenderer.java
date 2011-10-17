@@ -327,7 +327,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * Ulm University<br>
  * Institute of Artificial Intelligence<br>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class KRSSObjectRenderer implements OWLObjectVisitor {
     private static final String OPEN_BRACKET = "(";
     private static final String CLOSE_BRACKET = ")";

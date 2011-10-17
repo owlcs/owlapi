@@ -69,12 +69,19 @@ public class RDFLiteralNode extends RDFNode {
     }
 
 
+    /**
+     * @param literal lexical form
+     * @param datatype type
+     */
     public RDFLiteralNode(String literal, IRI datatype) {
         this.literal = literal;
         this.datatype = datatype;
     }
 
-
+    /**
+     * @param literal lexical form
+     * @param lang language tag
+     */
     public RDFLiteralNode(String literal, String lang) {
         this.literal = literal;
         this.lang = lang;
@@ -99,14 +106,16 @@ public class RDFLiteralNode extends RDFNode {
 
 
     /**
-     * Gets the datatype, or <code>null</code> if there is no datatype
-     * @return
+     * @return the datatype, or <code>null</code> if there is no datatype
      */
     public IRI getDatatype() {
         return datatype;
     }
 
 
+    /**
+     * @return true if the node has a datatype
+     */
     public boolean isTyped() {
         return datatype != null;
     }

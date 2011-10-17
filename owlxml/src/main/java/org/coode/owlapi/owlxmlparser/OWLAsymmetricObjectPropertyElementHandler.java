@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 07-Sep-2008<br><br>
- */
+ */@SuppressWarnings("javadoc")
 public class OWLAsymmetricObjectPropertyElementHandler extends AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
 
     public OWLAsymmetricObjectPropertyElementHandler(OWLXMLParserHandler handler) {

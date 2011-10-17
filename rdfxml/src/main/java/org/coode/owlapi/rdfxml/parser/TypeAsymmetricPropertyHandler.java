@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 07-Sep-2008<br><br>
  */
+@SuppressWarnings("javadoc")
 public class TypeAsymmetricPropertyHandler extends BuiltInTypeHandler {
 
     public TypeAsymmetricPropertyHandler(OWLRDFConsumer consumer) {

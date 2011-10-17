@@ -41,6 +41,7 @@
 package org.coode.owlapi.obo.parser;
 
 /** Token Manager. */
+@SuppressWarnings("javadoc")
 public class OBOParserTokenManager implements OBOParserConstants
 {
 
@@ -653,7 +654,7 @@ private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, lo
 
 /** Token literal values. */
 public static final String[] jjstrLiteralImages = {
-"", null, null, null, null, null, "\133", null, "\135", null, null, null, null, 
+"", null, null, null, null, null, "\133", null, "\135", null, null, null, null,
 "\41", null, null, null, };
 
 /** Lexer state names. */
@@ -667,13 +668,13 @@ public static final String[] lexStateNames = {
 
 /** Lex State array. */
 public static final int[] jjnewLexState = {
-   -1, -1, -1, -1, -1, -1, 1, -1, 0, 2, 3, -1, 0, 4, -1, 0, -1, 
+   -1, -1, -1, -1, -1, -1, 1, -1, 0, 2, 3, -1, 0, 4, -1, 0, -1,
 };
 static final long[] jjtoToken = {
-   0x16bc1L, 
+   0x16bc1L,
 };
 static final long[] jjtoSkip = {
-   0x943eL, 
+   0x943eL,
 };
 protected JavaCharStream input_stream;
 private final int[] jjrounds = new int[4];
@@ -756,7 +757,7 @@ int jjmatchedPos;
 int jjmatchedKind;
 
 /** Get the next Token. */
-public Token getNextToken() 
+public Token getNextToken()
 {
   Token matchedToken;
   int curPos = 0;

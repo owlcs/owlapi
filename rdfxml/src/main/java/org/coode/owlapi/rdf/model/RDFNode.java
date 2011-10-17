@@ -49,6 +49,9 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public abstract class RDFNode {
 
+    /**
+     * @return true if the node is a literal
+     */
     public abstract boolean isLiteral();
 
 

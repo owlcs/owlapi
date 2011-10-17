@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
- */
+ */@SuppressWarnings("javadoc")
 public class OWLNegativeDataPropertyAssertionAxiomElementHandler extends AbstractOWLDataPropertyAssertionAxiomElementHandler {
 
     public OWLNegativeDataPropertyAssertionAxiomElementHandler(OWLXMLParserHandler handler) {

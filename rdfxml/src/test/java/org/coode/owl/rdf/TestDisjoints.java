@@ -75,6 +75,7 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * DisjointClasses(A, B, C) must be represented as DisjointWith(A, B), DisjointWith(A, C)
  * DisjointWith(B, C).  ~This test case ensure that these axioms are serialsed correctly.
  */
+@SuppressWarnings("javadoc")
 public class TestDisjoints extends TestCase {
 
     private OWLOntologyManager man;

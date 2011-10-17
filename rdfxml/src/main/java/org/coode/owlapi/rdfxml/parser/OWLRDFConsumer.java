@@ -123,9 +123,10 @@ import org.xml.sax.SAXException;
  * is taking place. Whether or not a triple can be consumed dIRIng parsing is determined
  * by installed triple handlers.
  */
+@SuppressWarnings("javadoc")
 public class OWLRDFConsumer implements RDFConsumer {
 
-    public static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
+    private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
 
     private static final Logger tripleProcessor = Logger.getLogger("Triple processor");
 

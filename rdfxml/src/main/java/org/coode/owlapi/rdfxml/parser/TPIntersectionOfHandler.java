@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * <p/>
  * A handler for top level intersection classes.
  */
+@SuppressWarnings("javadoc")
 public class TPIntersectionOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
 
     public TPIntersectionOfHandler(OWLRDFConsumer consumer) {

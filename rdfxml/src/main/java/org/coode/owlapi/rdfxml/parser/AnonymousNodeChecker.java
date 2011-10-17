@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 07-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public interface AnonymousNodeChecker {
 
     public boolean isAnonymousNode(IRI iri);

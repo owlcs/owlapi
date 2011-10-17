@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.IRI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 18-Dec-2006<br><br>
- */
+ */@SuppressWarnings("javadoc")
 public class OWLDatatypeElementHandler extends AbstractOWLDataRangeHandler {
 
     private IRI iri;

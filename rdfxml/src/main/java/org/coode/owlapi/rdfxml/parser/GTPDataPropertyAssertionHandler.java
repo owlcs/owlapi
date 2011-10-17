@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandler {
 
     public GTPDataPropertyAssertionHandler(OWLRDFConsumer consumer) {

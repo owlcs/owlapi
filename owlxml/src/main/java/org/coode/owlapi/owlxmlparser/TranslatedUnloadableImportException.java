@@ -48,6 +48,7 @@ import org.xml.sax.SAXException;
  * Information Management Group<br>
  * Date: 07-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class TranslatedUnloadableImportException extends SAXException {
 
     private UnloadableImportException unloadableImportException;

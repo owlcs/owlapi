@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * <p/>
  * Translates and consumes an item in an RDF list.
  */
+@SuppressWarnings("javadoc")
 public interface ListItemTranslator<O extends OWLObject> {
 
     /**

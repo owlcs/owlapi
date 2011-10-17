@@ -62,6 +62,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 10-Jan-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractTagValueHandler implements TagValueHandler {
 
     //private Logger logger = Logger.getLogger(AbstractTagValueHandler.class.getName());

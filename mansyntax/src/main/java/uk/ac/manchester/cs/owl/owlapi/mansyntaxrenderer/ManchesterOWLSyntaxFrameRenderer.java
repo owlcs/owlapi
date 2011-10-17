@@ -119,6 +119,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * Bio-Health Informatics Group<br>
  * Date: 25-Apr-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectRenderer implements OWLEntityVisitor {
 
     //private OWLOntology defaultOntology;

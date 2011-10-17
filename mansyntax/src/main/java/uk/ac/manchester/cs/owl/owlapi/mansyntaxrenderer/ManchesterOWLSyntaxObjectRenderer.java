@@ -61,6 +61,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * Bio-Health Informatics Group<br>
  * Date: 25-Apr-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implements OWLObjectVisitor {
 
     public static final int LINE_LENGTH = 70;
@@ -147,7 +148,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             }
         }
     }
-    
+
     private void writeRestriction(OWLQuantifiedObjectRestriction restriction, ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
@@ -982,7 +983,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         write(node.getIRI().toQuotedString());
     }
 
-    
+
     public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
     }
@@ -1014,7 +1015,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     @SuppressWarnings("unused")
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        
+
     }
 
     protected void writeAnnotations(Set<OWLAnnotation> annos) {

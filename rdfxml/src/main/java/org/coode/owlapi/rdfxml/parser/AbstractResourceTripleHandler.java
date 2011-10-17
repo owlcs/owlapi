@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Bio-Health Informatics Group<br>
  * Date: 09-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractResourceTripleHandler extends AbstractTripleHandler {
 
 
@@ -78,7 +79,7 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
     public abstract boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException;
 
     public abstract boolean canHandle(IRI subject, IRI predicate, IRI object);
-    
+
     public void inferTypes(IRI subject, IRI object) {
 		if(getConsumer().isClassExpression(object)) {
             getConsumer().addClassExpression(subject, false);
@@ -93,5 +94,5 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
             getConsumer().addDataRange(object, false);
         }
 	}
-  
+
 }

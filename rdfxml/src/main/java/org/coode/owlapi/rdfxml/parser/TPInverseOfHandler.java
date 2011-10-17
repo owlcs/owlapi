@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * <br>
  * owl:inverseOf is used in both property expressions AND axioms.
  */
+@SuppressWarnings("javadoc")
 public class TPInverseOfHandler extends TriplePredicateHandler {
 
     private boolean axiomParsingMode = false;

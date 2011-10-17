@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class ClassExpressionListItemTranslator implements ListItemTranslator<OWLClassExpression> {
 
     private OWLRDFConsumer consumer;

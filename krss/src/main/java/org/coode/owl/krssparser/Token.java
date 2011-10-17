@@ -44,7 +44,7 @@ package org.coode.owl.krssparser;
 /**
  * Describes the input token stream.
  */
-
+@SuppressWarnings("javadoc")
 public class Token implements java.io.Serializable {
 
   /**

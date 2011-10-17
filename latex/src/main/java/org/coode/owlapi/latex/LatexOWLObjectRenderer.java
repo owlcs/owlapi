@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * Bio-Health Informatics Group<br>
  * Date: 25-Nov-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class LatexOWLObjectRenderer implements OWLObjectRenderer {
 
     private OWLDataFactory dataFactory;

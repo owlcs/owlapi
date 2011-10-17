@@ -64,6 +64,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 10-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public class AbstractTripleHandler {
 
     private OWLRDFConsumer consumer;
@@ -345,7 +346,7 @@ public class AbstractTripleHandler {
 
     private class ClassExpressionMatcher implements TypeMatcher {
     	public ClassExpressionMatcher() {
-		
+
 		}
 
         public boolean isTypeStrict(IRI node) {
@@ -355,7 +356,7 @@ public class AbstractTripleHandler {
 
     private class DataRangeMatcher implements TypeMatcher {
     	public DataRangeMatcher() {
-		
+
 		}
 
         public boolean isTypeStrict(IRI node) {
@@ -365,7 +366,7 @@ public class AbstractTripleHandler {
 
     private class IndividualMatcher implements TypeMatcher {
     	public IndividualMatcher() {
-		
+
 		}
 
         public boolean isTypeStrict(IRI node) {

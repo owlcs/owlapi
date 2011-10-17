@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 20-Mar-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLAnnotationAssertionElementHandler extends AbstractOWLAxiomElementHandler {
 
     public OWLAnnotationAssertionElementHandler(OWLXMLParserHandler handler) {

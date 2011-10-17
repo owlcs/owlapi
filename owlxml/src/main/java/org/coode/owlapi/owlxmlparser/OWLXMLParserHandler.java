@@ -76,6 +76,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * <p/>
  * A handler which knows about OWLXML
  */
+@SuppressWarnings("javadoc")
 public class OWLXMLParserHandler extends DefaultHandler {
 
     private OWLOntologyManager owlOntologyManager;

@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Bio-Health Informatics Group<br>
  * Date: 03/02/2011
  */
+@SuppressWarnings("javadoc")
 public class SynonymTagValueHandler extends AbstractTagValueHandler {
 
     private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();

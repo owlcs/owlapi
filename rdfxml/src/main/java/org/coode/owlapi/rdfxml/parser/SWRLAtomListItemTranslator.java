@@ -62,6 +62,7 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
  * Bio-Health Informatics Group<br>
  * Date: 18-Feb-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> {
 
     private static final Logger logger = Logger.getLogger(SWRLAtomListItemTranslator.class.getName());

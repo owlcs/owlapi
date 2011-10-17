@@ -42,6 +42,7 @@
 package org.coode.owlapi.obo.parser;
 
 /** Token Manager Error. */
+@SuppressWarnings("javadoc")
 public class TokenMgrError extends Error
 {
 

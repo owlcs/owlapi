@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
+@SuppressWarnings("javadoc")
 public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants {
 
 //    private OWLDataFactory dataFactory;
@@ -188,7 +189,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         throw new ParseException();
       }
       if (jj_2_3(2)) {
-        
+
       } else {
         break label_1;
       }
@@ -239,7 +240,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     if (jj_2_6(2)) {
       parsePredicateObjectList(subject);
     } else {
-      
+
     }
   }
 
@@ -254,7 +255,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
       throw new ParseException();
     }
 return iri;
-    
+
   }
 
   final public IRI parseAbbreviatedIRI() throws ParseException {
@@ -262,7 +263,7 @@ return iri;
     Token t;
     t = jj_consume_token(PNAME_LN);
     return getIRIFromQName(t.image);
-    
+
   }
 
   final public IRI parseIRI() throws ParseException {
@@ -270,7 +271,7 @@ return iri;
    // IRI iri;
     t = jj_consume_token(FULLIRI);
     return getIRI(t.image);
-    
+
   }
 
   final public IRI parseBlankNode() throws ParseException {
@@ -290,10 +291,10 @@ return iri;
         if (jj_2_9(2)) {
           jj_consume_token(DOT);
         } else {
-          
+
         }
       } else {
-        
+
       }
       jj_consume_token(CLOSE_SQUARE_BRACKET);
                                                                                                                                            if (iri == null) {iri = getNextBlankNode(null); }
@@ -304,14 +305,14 @@ return iri;
       throw new ParseException();
     }
     return iri;
-    
+
   }
 
   final public IRI parseNodeID() throws ParseException {
     Token t;
     t = jj_consume_token(NODEID);
     return getNextBlankNode(t.image);
-    
+
   }
 
   final public void parsePredicateObjectList(IRI subject) throws ParseException {
@@ -321,7 +322,7 @@ return iri;
     label_2:
     while (true) {
       if (jj_2_15(2)) {
-        
+
       } else {
         break label_2;
       }
@@ -332,7 +333,7 @@ return iri;
     if (jj_2_16(2)) {
       jj_consume_token(SEMICOLON);
     } else {
-      
+
     }
   }
 
@@ -348,14 +349,14 @@ return iri;
       throw new ParseException();
     }
     return iri;
-    
+
   }
 
   final public IRI parsePredicate() throws ParseException {
     IRI iri;
     iri = parseResource();
     return iri;
-    
+
   }
 
   final public IRI parseResource() throws ParseException {
@@ -369,7 +370,7 @@ return iri;
       throw new ParseException();
     }
     return iri;
-    
+
   }
 
   final public void parseObjectList(IRI subject, IRI predicate) throws ParseException {
@@ -377,7 +378,7 @@ return iri;
     label_3:
     while (true) {
       if (jj_2_21(2)) {
-        
+
       } else {
         break label_3;
       }
@@ -412,7 +413,7 @@ return iri;
     iri = parseItemList();
     jj_consume_token(CLOSEPAR);
     return iri;
-    
+
   }
 
   final public IRI parseItemList() throws ParseException {
@@ -429,7 +430,7 @@ return iri;
     label_4:
     while (true) {
       if (jj_2_26(2)) {
-        
+
       } else {
         break label_4;
       }
@@ -451,7 +452,7 @@ return iri;
         handler.handleTriple(subject, rest, nil);
     }
         return firstSubject;
-    
+
   }
 
   final public void parseLiteral(IRI subject, IRI predicate) throws ParseException {
@@ -474,7 +475,7 @@ return iri;
           throw new ParseException();
         }
       } else {
-        
+
       }
             if(datatype != null) {
                 handler.handleTriple(subject, predicate, literal, datatype);
@@ -515,21 +516,21 @@ return iri;
       jj_consume_token(-1);
       throw new ParseException();
     }
-    
+
   }
 
   final public String parseDouble() throws ParseException {
     Token t;
     t = jj_consume_token(DOUBLE);
     return t.image;
-    
+
   }
 
   final public String parseDecimal() throws ParseException {
     Token t;
     t = jj_consume_token(DECIMAL);
     return t.image;
-    
+
   }
 
   final public String parseBoolean() throws ParseException {
@@ -543,14 +544,14 @@ return iri;
       throw new ParseException();
     }
     return t.image;
-    
+
   }
 
   final public String parseQuotedString() throws ParseException {
     String s;
     s = parseString();
     return s;
-    
+
   }
 
   final public String parseString() throws ParseException {
@@ -567,7 +568,7 @@ return iri;
       throw new ParseException();
     }
     return EscapeUtils.unescapeString(rawString);
-    
+
   }
 
   private boolean jj_2_1(int xla) {

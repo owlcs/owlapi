@@ -44,6 +44,7 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
  * Information Management Group<br>
  * Date: 15-Jul-2009
  */
+@SuppressWarnings("javadoc")
 public interface RendererListener {
 
     void frameRenderingPrepared(String frameName, RendererEvent event);

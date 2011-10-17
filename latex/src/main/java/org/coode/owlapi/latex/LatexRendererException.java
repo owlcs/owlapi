@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.io.OWLRendererException;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jun-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class LatexRendererException extends OWLRendererException {
 
     public LatexRendererException(Throwable cause) {

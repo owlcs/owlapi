@@ -41,7 +41,7 @@
 package de.uulm.ecs.ai.owlapi.krssparser;
 
 /** Token Manager. */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class KRSS2ParserTokenManager implements KRSS2ParserConstants
 {
 
@@ -1855,7 +1855,7 @@ private int jjMoveStringLiteralDfa0_1()
    }
 }
 static final int[] jjnextStates = {
-   36, 43, 49, 21, 31, 
+   36, 43, 49, 21, 31,
 };
 private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2)
 {
@@ -1904,14 +1904,14 @@ private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, lo
 
 /** Token literal values. */
 public static final String[] jjstrLiteralImages = {
-"", null, null, null, null, null, null, null, null, null, null, null, null, 
-null, null, null, null, null, "\50", "\51", null, null, null, null, null, null, null, 
-null, null, null, null, null, null, null, null, null, null, null, null, null, 
-"\72\144\157\155\141\151\156", "\151\155\160\154\151\145\163\55\162\157\154\145", "\151\156\166", 
-"\151\156\166\145\162\163\145", "\72\151\156\166\145\162\163\145", 
-"\72\154\145\146\164\55\151\144\145\156\164\151\164\171", null, null, null, "\72\162\141\156\147\145", 
-"\72\162\145\146\154\145\170\151\166\145", "\72\162\151\147\150\164\55\151\144\145\156\164\151\164\171", null, null, 
-"\163\165\142\162\157\154\145", "\72\163\171\155\155\145\164\162\151\143", null, null, null, null, null, null, 
+"", null, null, null, null, null, null, null, null, null, null, null, null,
+null, null, null, null, null, "\50", "\51", null, null, null, null, null, null, null,
+null, null, null, null, null, null, null, null, null, null, null, null, null,
+"\72\144\157\155\141\151\156", "\151\155\160\154\151\145\163\55\162\157\154\145", "\151\156\166",
+"\151\156\166\145\162\163\145", "\72\151\156\166\145\162\163\145",
+"\72\154\145\146\164\55\151\144\145\156\164\151\164\171", null, null, null, "\72\162\141\156\147\145",
+"\72\162\145\146\154\145\170\151\166\145", "\72\162\151\147\150\164\55\151\144\145\156\164\151\164\171", null, null,
+"\163\165\142\162\157\154\145", "\72\163\171\155\155\145\164\162\151\143", null, null, null, null, null, null,
 null, "\72", null, null, null, null, null, null, };
 
 /** Lexer state names. */
@@ -1923,18 +1923,18 @@ public static final String[] lexStateNames = {
 
 /** Lex State array. */
 public static final int[] jjnewLexState = {
-   -1, -1, -1, -1, -1, -1, -1, -1, 1, 0, -1, 2, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
-   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
-   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
+   -1, -1, -1, -1, -1, -1, -1, -1, 1, 0, -1, 2, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 };
 static final long[] jjtoToken = {
-   0xffffffffffffd001L, 0x3fL, 
+   0xffffffffffffd001L, 0x3fL,
 };
 static final long[] jjtoSkip = {
-   0x2feL, 0x0L, 
+   0x2feL, 0x0L,
 };
 static final long[] jjtoMore = {
-   0x2d00L, 0x0L, 
+   0x2d00L, 0x0L,
 };
 protected JavaCharStream input_stream;
 private final int[] jjrounds = new int[51];
@@ -2017,7 +2017,7 @@ int jjmatchedPos;
 int jjmatchedKind;
 
 /** Get the next Token. */
-public Token getNextToken() 
+public Token getNextToken()
 {
   Token matchedToken;
   int curPos = 0;

@@ -51,6 +51,7 @@ import java.io.Writer;
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
  */
+@SuppressWarnings("javadoc")
 public class LatexWriter {
 
     private PrintWriter writer;

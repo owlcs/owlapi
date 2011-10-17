@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractClassExpressionTranslator implements ClassExpressionTranslator {
 
     private OWLRDFConsumer consumer;
@@ -277,7 +278,7 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
 
     private class ClassExpressionMatcher implements TypeMatcher {
     	public ClassExpressionMatcher() {
-    		
+
     	}
 
         public boolean isTypeStrict(IRI node) {
@@ -286,9 +287,9 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
     }
 
     private class DataRangeMatcher implements TypeMatcher {
-    	
+
     	public DataRangeMatcher() {
-		
+
 		}
 
         public boolean isTypeStrict(IRI node) {
@@ -298,7 +299,7 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
 
     private class IndividualMatcher implements TypeMatcher {
     	public IndividualMatcher() {
-		
+
 		}
 
         public boolean isTypeStrict(IRI node) {

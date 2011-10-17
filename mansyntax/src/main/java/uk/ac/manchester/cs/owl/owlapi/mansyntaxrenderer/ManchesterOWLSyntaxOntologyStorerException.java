@@ -50,16 +50,26 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  */
 public class ManchesterOWLSyntaxOntologyStorerException extends OWLOntologyStorageException {
 
+    /**
+     * @param message the message
+     */
     public ManchesterOWLSyntaxOntologyStorerException(String message) {
         super(message);
     }
 
 
+    /**
+     * @param message the message
+     * @param cause the cause
+     */
     public ManchesterOWLSyntaxOntologyStorerException(String message, Throwable cause) {
         super(message, cause);
     }
 
 
+    /**
+     * @param cause the cause
+     */
     public ManchesterOWLSyntaxOntologyStorerException(Throwable cause) {
         super(cause);
     }

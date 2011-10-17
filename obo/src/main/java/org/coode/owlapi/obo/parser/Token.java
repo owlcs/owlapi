@@ -44,7 +44,7 @@ package org.coode.owlapi.obo.parser;
 /**
  * Describes the input token stream.
  */
-
+@SuppressWarnings("javadoc")
 public class Token implements java.io.Serializable {
 
   /**

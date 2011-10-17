@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * Information Management Group<br>
  * Date: 21-May-2009
  */
+@SuppressWarnings("javadoc")
 public class LegacyEntityAnnotationElementHandler extends AbstractOWLAxiomElementHandler {
 
     private OWLEntity entity;

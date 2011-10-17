@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
  * Bio-Health Informatics Group<br>
  * Date: 23-Feb-2008<br><br>
  */
+@SuppressWarnings("javadoc")
 public class TurtleParserException extends OWLParserException {
 
 

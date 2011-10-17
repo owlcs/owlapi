@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Information Management Group<br>
  * Date: 17-May-2009
  */
+@SuppressWarnings("javadoc")
 public class AbbreviatedIRIElementHandler extends AbstractIRIElementHandler {
 
      public AbbreviatedIRIElementHandler(OWLXMLParserHandler handler) {

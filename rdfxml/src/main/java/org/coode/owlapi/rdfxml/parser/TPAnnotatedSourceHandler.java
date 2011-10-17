@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 02-Jul-2009
  */
+@SuppressWarnings("javadoc")
 public class TPAnnotatedSourceHandler extends TriplePredicateHandler {
 
     public TPAnnotatedSourceHandler(OWLRDFConsumer consumer) {

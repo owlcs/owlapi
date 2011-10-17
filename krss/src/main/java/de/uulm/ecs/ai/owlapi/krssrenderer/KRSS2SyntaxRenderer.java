@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Ulm University<br>
  * Institute of Artificial Intelligence<br>
  */
+@SuppressWarnings("javadoc")
 public class KRSS2SyntaxRenderer extends AbstractOWLRenderer {
 
     public KRSS2SyntaxRenderer(OWLOntologyManager owlOntologyManager) {

@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br><br>
- */
+ */@SuppressWarnings("javadoc")
 public class OWLObjectMaxCardinalityElementHandler extends AbstractOWLObjectCardinalityElementHandler {
 
     public OWLObjectMaxCardinalityElementHandler(OWLXMLParserHandler handler) {

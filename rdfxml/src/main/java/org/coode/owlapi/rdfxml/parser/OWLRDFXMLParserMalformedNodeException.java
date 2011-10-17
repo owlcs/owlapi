@@ -44,6 +44,7 @@ package org.coode.owlapi.rdfxml.parser;
  * Bio-Health Informatics Group<br>
  * Date: 13-Apr-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLRDFXMLParserMalformedNodeException extends OWLRDFXMLParserException {
 
     public OWLRDFXMLParserMalformedNodeException(Throwable cause) {

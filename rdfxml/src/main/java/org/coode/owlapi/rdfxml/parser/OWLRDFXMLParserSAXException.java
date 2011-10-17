@@ -48,6 +48,7 @@ import org.xml.sax.SAXException;
  * Bio-Health Informatics Group<br>
  * Date: 13-Apr-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLRDFXMLParserSAXException extends OWLRDFXMLParserException {
 
     public OWLRDFXMLParserSAXException(SAXException cause) {

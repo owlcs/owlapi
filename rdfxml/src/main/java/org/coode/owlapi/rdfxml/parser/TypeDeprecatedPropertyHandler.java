@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 10-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class TypeDeprecatedPropertyHandler extends BuiltInTypeHandler {
 
     public TypeDeprecatedPropertyHandler(OWLRDFConsumer consumer) {

@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Institute of Artificial Intelligence<br>
  */
 public class KRSSSyntaxRenderer extends AbstractOWLRenderer {
+	@SuppressWarnings("javadoc")
     public KRSSSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

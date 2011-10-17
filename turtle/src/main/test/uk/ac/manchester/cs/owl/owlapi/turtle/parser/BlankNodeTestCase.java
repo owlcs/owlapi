@@ -50,6 +50,7 @@ import junit.framework.TestCase;
  * Information Management Group<br>
  * Date: 18-Jan-2010
  */
+@SuppressWarnings("javadoc")
 public class BlankNodeTestCase extends TestCase {
 
     public void testBlankNodes() throws Exception {

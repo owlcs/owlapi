@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 // Suppress warnings in auto-generated code
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class KRSS2Parser implements KRSS2ParserConstants {
 
     private OWLOntology ontology;
@@ -162,7 +162,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     label_1:
     while (true) {
       if (jj_2_1(2)) {
-        
+
       } else {
         break label_1;
       }
@@ -171,12 +171,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     if (jj_2_2(2)) {
       jj_consume_token(ENDTBOX);
     } else {
-      
+
     }
     label_2:
     while (true) {
       if (jj_2_3(2)) {
-        
+
       } else {
         break label_2;
       }
@@ -185,7 +185,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     if (jj_2_4(2)) {
       jj_consume_token(ENDABOX);
     } else {
-      
+
     }
     jj_consume_token(0);
   }
@@ -236,7 +236,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     if (jj_2_19(2)) {
       superClass = ConceptExpression();
     } else {
-      
+
     }
     jj_consume_token(CLOSEPAR);
         if (superClass == null)
@@ -338,7 +338,7 @@ OWLObjectProperty s;
         chain.add(r); chain.add(s);
         addAxiom(dataFactory.getOWLSubPropertyChainOfAxiom(chain, r));
     } else {
-      
+
     }
   }
 
@@ -351,7 +351,7 @@ OWLObjectProperty s;
         chain.add(s); chain.add(r);
         addAxiom(dataFactory.getOWLSubPropertyChainOfAxiom(chain, r));
     } else {
-      
+
     }
   }
 
@@ -362,7 +362,7 @@ OWLObjectPropertyExpression superProp;
       superProp = RoleExpression();
             addAxiom(dataFactory.getOWLInverseObjectPropertiesAxiom(subProp, superProp));
     } else {
-      
+
     }
   }
 
@@ -378,7 +378,7 @@ OWLObjectPropertyExpression superProp;
           desc = ConceptExpression();
                                                           if (desc != null) descs.add(desc);
           if (jj_2_23(2)) {
-            
+
           } else {
             break label_3;
           }
@@ -394,7 +394,7 @@ OWLObjectPropertyExpression superProp;
                 for (OWLClassExpression eachDescription : descs)
                     addAxiom(dataFactory.getOWLObjectPropertyDomainAxiom(subProp, eachDescription));
     } else {
-      
+
     }
   }
 
@@ -410,7 +410,7 @@ OWLObjectPropertyExpression superProp;
           desc = ConceptExpression();
                                                          if (desc != null) descs.add(desc);
           if (jj_2_27(2)) {
-            
+
           } else {
             break label_4;
           }
@@ -427,7 +427,7 @@ OWLObjectPropertyExpression superProp;
                     addAxiom(dataFactory.getOWLObjectPropertyRangeAxiom(subProp, eachDescription));
                 }
     } else {
-      
+
     }
   }
 
@@ -444,7 +444,7 @@ OWLObjectPropertyExpression superProp;
         throw new ParseException();
       }
     } else {
-      
+
     }
   }
 
@@ -461,7 +461,7 @@ OWLObjectPropertyExpression superProp;
         throw new ParseException();
       }
     } else {
-      
+
     }
   }
 
@@ -478,7 +478,7 @@ OWLObjectPropertyExpression superProp;
         throw new ParseException();
       }
     } else {
-      
+
     }
   }
 
@@ -518,7 +518,7 @@ OWLObjectPropertyExpression superProp;
         throw new ParseException();
       }
     } else {
-      
+
     }
   }
 
@@ -528,7 +528,7 @@ OWLObjectPropertyExpression superProp;
       superProp = RoleName();
        addAxiom(dataFactory.getOWLSubObjectPropertyOfAxiom(subProp, superProp));
     } else {
-      
+
     }
   }
 
@@ -607,7 +607,7 @@ OWLObjectPropertyExpression superProp;
     }
     jj_consume_token(CLOSEPAR);
         return chain;
-    
+
   }
 
   final public void Transitive() throws ParseException, KRSS2OWLParserException {
@@ -655,14 +655,14 @@ OWLObjectPropertyExpression superProp;
       throw new ParseException();
     }
         return desc;
-    
+
   }
 
   final public OWLClassExpression ConceptName() throws ParseException, KRSS2OWLParserException {
     IRI IRI;
     IRI = Name();
         return dataFactory.getOWLClass(IRI);
-    
+
   }
 
   final public Set<OWLClassExpression> ConceptSet() throws ParseException, KRSS2OWLParserException {
@@ -673,13 +673,13 @@ OWLObjectPropertyExpression superProp;
       desc = ConceptExpression();
                                 descs.add(desc);
       if (jj_2_59(2)) {
-        
+
       } else {
         break label_5;
       }
     }
         return descs;
-    
+
   }
 
   final public OWLClassExpression And() throws ParseException, KRSS2OWLParserException {
@@ -689,7 +689,7 @@ OWLObjectPropertyExpression superProp;
     operands = ConceptSet();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectIntersectionOf(operands);
-    
+
   }
 
   final public OWLClassExpression Or() throws ParseException, KRSS2OWLParserException {
@@ -699,7 +699,7 @@ OWLObjectPropertyExpression superProp;
     operands = ConceptSet();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectUnionOf(operands);
-    
+
   }
 
   final public OWLClassExpression Not() throws ParseException, KRSS2OWLParserException {
@@ -709,7 +709,7 @@ OWLObjectPropertyExpression superProp;
     operand = ConceptExpression();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectComplementOf(operand);
-    
+
   }
 
   final public OWLClassExpression All() throws ParseException, KRSS2OWLParserException {
@@ -721,7 +721,7 @@ OWLObjectPropertyExpression superProp;
     filler = ConceptExpression();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
-    
+
   }
 
   final public OWLClassExpression Some() throws ParseException, KRSS2OWLParserException {
@@ -733,7 +733,7 @@ OWLObjectPropertyExpression superProp;
     filler = ConceptExpression();
     jj_consume_token(CLOSEPAR);
         return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
-    
+
   }
 
   final public OWLClassExpression AtLeast() throws ParseException, KRSS2OWLParserException {
@@ -747,13 +747,13 @@ OWLObjectPropertyExpression superProp;
     if (jj_2_60(2)) {
       filler = ConceptExpression();
     } else {
-      
+
     }
     jj_consume_token(CLOSEPAR);
         if (filler == null)
             return dataFactory.getOWLObjectMinCardinality(card, prop);
         return dataFactory.getOWLObjectMinCardinality(card, prop, filler);
-    
+
   }
 
   final public OWLClassExpression AtMost() throws ParseException, KRSS2OWLParserException {
@@ -767,13 +767,13 @@ OWLObjectPropertyExpression superProp;
     if (jj_2_61(2)) {
       filler = ConceptExpression();
     } else {
-      
+
     }
     jj_consume_token(CLOSEPAR);
         if (filler == null)
               return dataFactory.getOWLObjectMaxCardinality(card, prop);
         return dataFactory.getOWLObjectMaxCardinality(card, prop, filler);
-    
+
   }
 
   final public OWLClassExpression Exactly() throws ParseException, KRSS2OWLParserException {
@@ -787,13 +787,13 @@ OWLObjectPropertyExpression superProp;
     if (jj_2_62(2)) {
       filler = ConceptExpression();
     } else {
-      
+
     }
     jj_consume_token(CLOSEPAR);
         if (filler == null)
             return dataFactory.getOWLObjectExactCardinality(card, prop);
         return dataFactory.getOWLObjectExactCardinality(card, prop, filler);
-    
+
   }
 
   final public OWLObjectProperty RoleName() throws ParseException, KRSS2OWLParserException {
@@ -801,7 +801,7 @@ OWLObjectPropertyExpression superProp;
     IRI = Name();
             if (IRI == null) return null;
         return dataFactory.getOWLObjectProperty(IRI);
-    
+
   }
 
   final public Set<OWLObjectProperty> RoleNameSet() throws ParseException, KRSS2OWLParserException {
@@ -812,13 +812,13 @@ OWLObjectPropertyExpression superProp;
       role = RoleName();
                        roles.add(role);
       if (jj_2_63(2)) {
-        
+
       } else {
         break label_6;
       }
     }
         return roles;
-    
+
   }
 
   final public OWLObjectPropertyExpression RoleExpression() throws ParseException, KRSS2OWLParserException {
@@ -836,7 +836,7 @@ OWLObjectPropertyExpression superProp;
       jj_consume_token(-1);
       throw new ParseException();
     }
-    
+
   }
 
   final public void ABoxStatement() throws ParseException, KRSS2OWLParserException {
@@ -908,14 +908,14 @@ OWLObjectPropertyExpression superProp;
     IRI name;
     name = Name();
         return  dataFactory.getOWLNamedIndividual(name);
-    
+
   }
 
   final public int Integer() throws ParseException, KRSS2OWLParserException {
     Token t;
     t = jj_consume_token(INT);
         return Integer.parseInt(t.image);
-    
+
   }
 
   final public boolean parseBoolean() throws ParseException {
@@ -930,7 +930,7 @@ OWLObjectPropertyExpression superProp;
       throw new ParseException();
     }
 
-    
+
   }
 
   final public IRI Name() throws ParseException {
@@ -965,7 +965,7 @@ OWLObjectPropertyExpression superProp;
       jj_consume_token(-1);
       throw new ParseException();
     }
-    
+
   }
 
   private boolean jj_2_1(int xla) {

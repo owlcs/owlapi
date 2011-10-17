@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
  * Bio-Health Informatics Group<br>
  * Date: 19-Nov-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxParserException extends OWLParserException {
 
     public ManchesterOWLSyntaxParserException(String message, int lineNumber, int columnNumber) {
