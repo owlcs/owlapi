@@ -71,11 +71,11 @@ public enum DublinCoreVocabulary {
     TITLE("title"),
     TYPE("type");
 
-    private String shortName;
+    private final String shortName;
 
-    private String qname;
+    private final String qname;
 
-    private IRI iri;
+    private final IRI iri;
 
     public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
 

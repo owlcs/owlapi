@@ -51,7 +51,8 @@ public class OWLOntologyManagerProperties {
 
     private boolean treatDublinCoreVocabularyAsBuiltInVocabulary = true;
 
-    public OWLOntologyManagerProperties() {
+    @SuppressWarnings("javadoc")
+	public OWLOntologyManagerProperties() {
         restoreDefaults();
     }
 
@@ -100,6 +101,7 @@ public class OWLOntologyManagerProperties {
      * Specifies if the various parsers, for formats such as RDF based formats that do not require strong typing,
      * should treat Dublin Core Vocabulary as built in vocabulary, so that
      * Dublin Core metadata properties are interpreted as annotation properties.
+     * @param treatDublinCoreVocabularyAsBuiltInVocabulary the new value
      */
     public void setTreatDublinCoreVocabularyAsBuiltInVocabulary(boolean treatDublinCoreVocabularyAsBuiltInVocabulary) {
         this.treatDublinCoreVocabularyAsBuiltInVocabulary = treatDublinCoreVocabularyAsBuiltInVocabulary;

@@ -50,5 +50,9 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public interface OWLAxiomFilter {
 
+    /**
+     * @param axiom axiom to filter
+     * @return true if check passed
+     */
     boolean passes(OWLAxiom axiom);
 }

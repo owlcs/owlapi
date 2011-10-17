@@ -46,6 +46,7 @@ package org.semanticweb.owlapi.model;
  *
  * The root of runtime exceptions in the OWL API.
  */
+@SuppressWarnings("javadoc")
 public class OWLRuntimeException extends RuntimeException {
 
     public OWLRuntimeException() {

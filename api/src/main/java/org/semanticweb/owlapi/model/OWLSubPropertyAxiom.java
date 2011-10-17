@@ -43,11 +43,19 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
+
+ * @param <P> property expression
  */
 public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression<?,?>> extends OWLPropertyAxiom {
 
+    /**
+     * @return the sub property
+     */
     public P getSubProperty();
 
+    /**
+     * @return the super property
+     */
     public P getSuperProperty();
 
 }

@@ -93,11 +93,11 @@ public enum OWLFacet {
     }
 
 
-    private IRI iri;
+    private final IRI iri;
 
-    private String shortName;
+    private final String shortName;
 
-    private String symbolicForm;
+    private final String symbolicForm;
 
 
     OWLFacet(Namespaces ns, String shortName, String symbolicForm) {

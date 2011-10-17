@@ -70,18 +70,21 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  */
 public class PropertyAssertionValueShortFormProvider implements ShortFormProvider {
 
-    private List<OWLPropertyExpression<?,?>> properties;
+    private final List<OWLPropertyExpression<?,?>> properties;
 
-    private Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap;
+    private final Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap;
 
-    private OWLOntologySetProvider ontologySetProvider;
+    private final OWLOntologySetProvider ontologySetProvider;
 
-    private ShortFormProvider alternateShortFormProvider;
+    private final ShortFormProvider alternateShortFormProvider;
 
 
     /**
      * Constructs a property value short form provider. Using <code>SimpleShortFormProvider</code> as the
      * alternate short form provider (see other constructor for details).
+     * @param properties set of properties
+     * @param preferredLanguageMap language map
+     * @param ontologySetProvider the ontology container
      */
     public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression<?,?>> properties, Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
                                                    OWLOntologySetProvider ontologySetProvider) {
@@ -200,11 +203,17 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     }
 
 
+    /**
+     * @return the properties
+     */
     public List<OWLPropertyExpression<?,?>> getProperties() {
         return properties;
     }
 
 
+    /**
+     * @return the language map
+     */
     public Map<OWLDataPropertyExpression, List<String>> getPreferredLanguageMap() {
         return preferredLanguageMap;
     }

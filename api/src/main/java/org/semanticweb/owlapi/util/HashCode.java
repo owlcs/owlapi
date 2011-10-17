@@ -141,6 +141,10 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     private static final int MULT = 37;
 
 
+    /**
+     * @param object the object to compute the hashcode for
+     * @return the hashcode
+     */
     public static int hashCode(OWLObject object) {
         HashCode hashCode = new HashCode();
         object.accept(hashCode);

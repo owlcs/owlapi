@@ -54,7 +54,7 @@ import java.util.List;
  */
 public class SpecificOntologyChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
 
-    private OWLOntology ontology;
+    private final OWLOntology ontology;
 
     /**
      * Constructs a change broadcast strategy which only causes changes that
@@ -66,7 +66,7 @@ public class SpecificOntologyChangeBroadcastStrategy implements OWLOntologyChang
     }
 
 
-    public void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) throws Exception {
+    public void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) throws OWLException {
         List<OWLOntologyChange> broadcastChanges = new ArrayList<OWLOntologyChange>();
         for(OWLOntologyChange change : changes) {
             if(change.getOntology().equals(ontology)) {

@@ -50,7 +50,7 @@ public class VersionInfo {
 
     private static VersionInfo instance;
 
-    private String version;
+    private final String version;
 
     private VersionInfo() {
         String v = VersionInfo.class.getPackage().getImplementationVersion();
@@ -62,6 +62,9 @@ public class VersionInfo {
         }
     }
 
+    /**
+     * @return the version info
+     */
     public synchronized static VersionInfo getVersionInfo() {
         if(instance == null) {
             instance = new VersionInfo();

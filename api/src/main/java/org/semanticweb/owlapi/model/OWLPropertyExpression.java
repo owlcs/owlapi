@@ -48,6 +48,8 @@ import java.util.Set;
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
  * Represents a property or possibly the inverse of a property.
+ * @param <R> range
+ * @param <P> property expression
  */
 public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>> extends OWLObject {
 
@@ -151,8 +153,15 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
     Set<P> getEquivalentProperties(Set<OWLOntology> ontologies);
 
 
+    /**
+     * @param ontology the ontology to use
+     * @return the properties disjoint with this one declared in ontology
+     */
     Set<P> getDisjointProperties(OWLOntology ontology);
-
+    /**
+     * @param ontologies the ontologies to use
+     * @return the properties disjoint with this one declared in ontologies
+     */
     Set<P> getDisjointProperties(Set<OWLOntology> ontologies);
 
     /**
@@ -187,13 +196,18 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
      */
     public boolean isAnonymous();
 
-
+    @SuppressWarnings("javadoc")
     void accept(OWLPropertyExpressionVisitor visitor);
-
+    @SuppressWarnings("javadoc")
     <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor);
 
+    /**
+     * @return true if this is a data property
+     */
     boolean isDataPropertyExpression();
-
+    /**
+     * @return true if this is an object property
+     */
     boolean isObjectPropertyExpression();
 
     /**

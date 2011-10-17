@@ -46,9 +46,10 @@ package org.semanticweb.owlapi.model;
  * A high level exception interface that describes errors that occurred when
  * applying changes to ontologies.
  */
+@SuppressWarnings("javadoc")
 public abstract class OWLOntologyChangeException extends OWLRuntimeException {
 
-    private OWLOntologyChange change;
+    private final OWLOntologyChange change;
 
     public OWLOntologyChangeException(OWLOntologyChange change, String message) {
         super(message);

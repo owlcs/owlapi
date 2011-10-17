@@ -77,9 +77,9 @@ public final class EntityType<E extends OWLEntity> {
         values = Collections.unmodifiableList(l);
     }
 
-    private String name;
+    private final String name;
 
-    private OWLRDFVocabulary vocabulary;
+    private final OWLRDFVocabulary vocabulary;
 
     private EntityType(String name, OWLRDFVocabulary vocabulary) {
         this.name = name;

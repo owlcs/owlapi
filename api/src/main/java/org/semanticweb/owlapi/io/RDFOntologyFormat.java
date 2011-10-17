@@ -56,7 +56,7 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
 
     private boolean addMissingTypes = true;
 
-    private Set<RDFResourceParseError> errors = new HashSet<RDFResourceParseError>();
+    private final Set<RDFResourceParseError> errors = new HashSet<RDFResourceParseError>();
 
     /**
      * Determines if untyped entities should automatically be typed (declared) during rendering.  (This is a hint to an RDF
@@ -120,9 +120,9 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
         return (RDFParserMetaData) super.getOntologyLoaderMetaData();
     }
 
-    public void setOntologyLoaderMetaData(RDFParserMetaData loaderMetaData) {
-        super.setOntologyLoaderMetaData(loaderMetaData);
-    }
+//    public void setOntologyLoaderMetaData(RDFParserMetaData loaderMetaData) {
+//        super.setOntologyLoaderMetaData(loaderMetaData);
+//    }
 
     /**
      * @param error error to add to the error set

@@ -47,8 +47,10 @@ package org.semanticweb.owlapi.model;
  */
 public abstract class OWLOntologyChange {
 
-    private OWLOntology ont;
-
+    private final OWLOntology ont;
+    /**
+     * @param ont the ontology to which the change is to be applied
+     */
     public OWLOntologyChange(OWLOntology ont) {
         this.ont = ont;
     }
@@ -87,7 +89,9 @@ public abstract class OWLOntologyChange {
     }
 
 
-    public abstract void accept(OWLOntologyChangeVisitor visitor);
-    public abstract <O> O accept(OWLOntologyChangeVisitorEx<O> visitor);
+    @SuppressWarnings("javadoc")
+	public abstract void accept(OWLOntologyChangeVisitor visitor);
+    @SuppressWarnings("javadoc")
+	public abstract <O> O accept(OWLOntologyChangeVisitorEx<O> visitor);
 
 }

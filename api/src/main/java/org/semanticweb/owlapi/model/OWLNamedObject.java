@@ -56,6 +56,6 @@ public interface OWLNamedObject extends OWLObject {
      * @return The IRI of this object
      */
     public IRI getIRI();
-
+    @SuppressWarnings("javadoc")
     void accept(OWLNamedObjectVisitor visitor);
 }

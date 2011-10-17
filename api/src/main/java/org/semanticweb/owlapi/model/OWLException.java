@@ -51,16 +51,26 @@ public abstract class OWLException extends Exception {
     protected OWLException() {
     }
 
+    /**
+     * @param message the message
+     */
     public OWLException(String message) {
         super(message);
     }
 
 
+    /**
+     * @param message the message
+     * @param cause the cause
+     */
     public OWLException(String message, Throwable cause) {
         super(message, cause);
     }
 
 
+    /**
+     * @param cause the cause
+     */
     public OWLException(Throwable cause) {
         super(cause);
     }

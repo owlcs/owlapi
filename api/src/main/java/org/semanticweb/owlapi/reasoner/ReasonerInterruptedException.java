@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Information Management Group<br>
  * Date: 29-Oct-2009
  */
+@SuppressWarnings("javadoc")
 public class ReasonerInterruptedException extends OWLRuntimeException {
 
     public ReasonerInterruptedException() {

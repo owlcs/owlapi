@@ -45,6 +45,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 21-Jan-2009
  */
+@SuppressWarnings("javadoc")
 public abstract class OWLReasonerRuntimeException extends OWLRuntimeException {
 
     public OWLReasonerRuntimeException() {

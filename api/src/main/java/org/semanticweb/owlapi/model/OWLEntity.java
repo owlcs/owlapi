@@ -94,6 +94,10 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     Set<OWLAnnotation> getAnnotations(OWLOntology ontology, OWLAnnotationProperty annotationProperty);
 
 
+    /**
+     * @param ontology the ontology to use
+     * @return the annotation assertion axioms about this entity in the provided ontology
+     */
     Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLOntology ontology);
 
 
@@ -224,8 +228,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @return The axioms in the specified ontology whose signature contains this entity.
      */
     Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports);
-
+    @SuppressWarnings("javadoc")
     void accept(OWLEntityVisitor visitor);
-
+    @SuppressWarnings("javadoc")
     <O> O accept(OWLEntityVisitorEx<O> visitor);
 }

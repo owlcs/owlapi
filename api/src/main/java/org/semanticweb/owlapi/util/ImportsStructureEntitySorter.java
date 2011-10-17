@@ -55,11 +55,16 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class ImportsStructureEntitySorter extends ImportsStructureObjectSorter<OWLEntity> {
 
 
+    /**
+     * @param ontology the ontology
+     * @param manager the manager
+     */
     public ImportsStructureEntitySorter(OWLOntology ontology, OWLOntologyManager manager) {
         super(ontology, manager, new ReferencedEntitySelector());
     }
 
-    public static class ReferencedEntitySelector implements ObjectSelector<OWLEntity> {
+    @SuppressWarnings("javadoc")
+	public static class ReferencedEntitySelector implements ObjectSelector<OWLEntity> {
 
 
         public Set<OWLEntity> getObjects(OWLOntology ontology) {

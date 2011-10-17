@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private OutputStream os;
+    private final OutputStream os;
 
 
     /**

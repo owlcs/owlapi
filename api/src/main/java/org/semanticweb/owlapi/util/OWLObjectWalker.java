@@ -145,35 +145,45 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 29-Jul-2008<br><br>
+ * @param <O>  the returned type
  */
 public class OWLObjectWalker<O extends OWLObject> {
 
     protected OWLOntology ontology;
 
-    private Collection<O> objects;
+    private final Collection<O> objects;
 
     private OWLObjectVisitorEx<?> visitor;
 
-    private boolean visitDuplicates;
+    private final boolean visitDuplicates;
 
     protected OWLAxiom ax;
 
     private OWLAnnotation annotation;
 
-    private List<OWLClassExpression> classExpressionPath = new ArrayList<OWLClassExpression>();
+    private final List<OWLClassExpression> classExpressionPath = new ArrayList<OWLClassExpression>();
 
-    private List<OWLDataRange> dataRangePath = new ArrayList<OWLDataRange>();
-    
+    private final List<OWLDataRange> dataRangePath = new ArrayList<OWLDataRange>();
 
+
+    /**
+     * @param objects the set of objects to visit
+     */
     public OWLObjectWalker(Set<O> objects) {
         this(objects, true);
     }
-
+    /**
+     * @param visitDuplicates true if duplicates should be visited
+     * @param objects the set of objects to visit
+     */
     public OWLObjectWalker(Set<O> objects, boolean visitDuplicates) {
         this.objects = new ArrayList<O>(objects);
         this.visitDuplicates = visitDuplicates;
     }
 
+    /**
+     * @param v visitor to use over the objects
+     */
     public void walkStructure(OWLObjectVisitorEx<?> v) {
         this.visitor = v;
         StructureWalker walker = new StructureWalker();
@@ -283,7 +293,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     private class StructureWalker implements OWLObjectVisitor {
 
-        private Set<OWLObject> visited = new HashSet<OWLObject>();
+        private final Set<OWLObject> visited = new HashSet<OWLObject>();
 
         private void process(OWLObject object) {
             if (!visitDuplicates) {

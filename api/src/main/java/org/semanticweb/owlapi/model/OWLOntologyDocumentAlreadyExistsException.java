@@ -47,9 +47,10 @@ package org.semanticweb.owlapi.model;
  * An exception that describes the situation where there was an attempt to create or load an ontology
  * where the corresponding ontology document IRI already was already mapped to an ontology.
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyDocumentAlreadyExistsException extends OWLOntologyCreationException {
 
-    private IRI ontologyDocumentIRI;
+    private final IRI ontologyDocumentIRI;
 
     public OWLOntologyDocumentAlreadyExistsException(IRI ontologyDocumentIRI) {
         this.ontologyDocumentIRI = ontologyDocumentIRI;

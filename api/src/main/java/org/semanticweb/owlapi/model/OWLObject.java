@@ -53,7 +53,7 @@ public interface OWLObject extends Comparable<OWLObject> {
     /**
      * Gets the signature of this object
      * @return A set of entities that correspond to the
-     *         signature of this object. The set is an 
+     *         signature of this object. The set is an
      *         unmodifiable collection.
      */
     Set<OWLEntity> getSignature();
@@ -64,7 +64,7 @@ public interface OWLObject extends Comparable<OWLObject> {
      * that are in the signature of this object
      * @return A set containing the classes that are in the signature
      *         of this object. The set is a subset of the signature, and
-     *         is not backed by the signature; it is a modifiable collection 
+     *         is not backed by the signature; it is a modifiable collection
      *         and changes are not reflected by the signature.
      */
     Set<OWLClass> getClassesInSignature();
@@ -74,7 +74,7 @@ public interface OWLObject extends Comparable<OWLObject> {
      * that are in the signature of this object
      * @return A set containing the data properties that are in the signature
      *         of this object.The set is a subset of the signature, and
-     *         is not backed by the signature; it is a modifiable collection 
+     *         is not backed by the signature; it is a modifiable collection
      *         and changes are not reflected by the signature.
      */
     Set<OWLDataProperty> getDataPropertiesInSignature();
@@ -84,7 +84,7 @@ public interface OWLObject extends Comparable<OWLObject> {
      * that are in the signature of this object
      * @return A set containing the object properties that are in the signature
      *         of this object.The set is a subset of the signature, and
-     *         is not backed by the signature; it is a modifiable collection 
+     *         is not backed by the signature; it is a modifiable collection
      *         and changes are not reflected by the signature.
      */
     Set<OWLObjectProperty> getObjectPropertiesInSignature();
@@ -95,7 +95,7 @@ public interface OWLObject extends Comparable<OWLObject> {
      * that are in the signature of this object
      * @return A set containing the individuals that are in the signature
      *         of this object.The set is a subset of the signature, and
-     *         is not backed by the signature; it is a modifiable collection 
+     *         is not backed by the signature; it is a modifiable collection
      *         and changes are not reflected by the signature.
      */
     Set<OWLNamedIndividual> getIndividualsInSignature();
@@ -105,7 +105,7 @@ public interface OWLObject extends Comparable<OWLObject> {
      * that are in the signature of this object
      * @return A set containing the datatypes that are in the signature
      *         of this object.The set is a subset of the signature, and
-     *         is not backed by the signature; it is a modifiable collection 
+     *         is not backed by the signature; it is a modifiable collection
      *         and changes are not reflected by the signature.
      */
     Set<OWLDatatype> getDatatypesInSignature();
@@ -116,9 +116,9 @@ public interface OWLObject extends Comparable<OWLObject> {
      * expressions used in this object.
      */
     Set<OWLClassExpression> getNestedClassExpressions();
-
+    @SuppressWarnings("javadoc")
     public void accept(OWLObjectVisitor visitor);
-
+    @SuppressWarnings("javadoc")
     <O> O accept(OWLObjectVisitorEx<O> visitor);
 
 
@@ -129,7 +129,7 @@ public interface OWLObject extends Comparable<OWLObject> {
      */
     boolean isTopEntity();
 
-    
+
     /**
      * Determines if this object is either, owl:Nothing (the bottom class), owl:bottomObjectProperty (the bottom object property)
      * , owl:bottomDataProperty (the bottom data property).
@@ -138,5 +138,5 @@ public interface OWLObject extends Comparable<OWLObject> {
     boolean isBottomEntity();
 
 
-    
+
 }

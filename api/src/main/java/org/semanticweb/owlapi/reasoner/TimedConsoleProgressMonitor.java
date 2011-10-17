@@ -52,7 +52,7 @@ public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor {
 
     private int lastPercentage = 0;
     private long lastTime;
-    private ThreadMXBean bean=ManagementFactory.getThreadMXBean();
+    private final ThreadMXBean bean=ManagementFactory.getThreadMXBean();
     private long beginTime;
 
     public void reasonerTaskStarted(String taskName) {
@@ -65,7 +65,7 @@ public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor {
     public void reasonerTaskStopped() {
         System.out.println("    ... finished in "+((bean.getCurrentThreadCpuTime()-beginTime))/1000000D);
         lastPercentage = 0;
-        
+
     }
 
     public void reasonerTaskProgressChanged(int value, int max) {

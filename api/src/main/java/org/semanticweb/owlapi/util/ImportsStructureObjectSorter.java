@@ -62,17 +62,18 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * then it will only appear in the set of objects that are associated with ontology A since
  * A appears higher up the imports closure.  An example of the use of this class is to
  * obtain a map of ontologies to sets of entities where each set of entities contains entities
- * that are first mentioned in the ontology that maps to them. 
- * 
+ * that are first mentioned in the ontology that maps to them.
+ *
  * @see org.semanticweb.owlapi.util.ImportsStructureEntitySorter
+ * @param <O>  the type
  */
 public class ImportsStructureObjectSorter<O> {
 
-    private OWLOntology ontology;
+    private final OWLOntology ontology;
 
-    private OWLOntologyManager manager;
+    private final OWLOntologyManager manager;
 
-    private ObjectSelector<O> objectSelector;
+    private final ObjectSelector<O> objectSelector;
 
 
     /**
@@ -117,8 +118,15 @@ public class ImportsStructureObjectSorter<O> {
     }
 
 
+    /**
+     * @param <O> type of selected objects
+     */
     public static interface ObjectSelector<O> {
 
+        /**
+         * @param ontology the ontology to explore
+         * @return set of objects selected
+         */
         public Set<O> getObjects(OWLOntology ontology);
     }
 

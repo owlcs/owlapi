@@ -55,8 +55,7 @@ import java.util.Set;
 public interface OWLDataOneOf extends OWLDataRange {
 
     /**
-     * Gets the values ({@link OWLLiteral}s) that this data range consists of.  These values may be a mixture
-     * of {@link org.semanticweb.owlapi.model.OWLTypedLiteral}s and {@link org.semanticweb.owlapi.model.OWLStringLiteral}s.
+     * Gets the values ({@link OWLLiteral}s) that this data range consists of.
      * @return The values that this data range consists of.
      */
     public Set<OWLLiteral> getValues();

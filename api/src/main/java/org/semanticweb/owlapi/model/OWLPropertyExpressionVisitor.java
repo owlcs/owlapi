@@ -46,6 +46,7 @@ package org.semanticweb.owlapi.model;
  * </p>
  * An interface to object that can visit the different types of property expressions.
  */
+@SuppressWarnings("javadoc")
 public interface OWLPropertyExpressionVisitor {
 
     void visit(OWLObjectProperty property);

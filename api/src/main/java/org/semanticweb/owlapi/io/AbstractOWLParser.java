@@ -71,7 +71,7 @@ import org.xml.sax.InputSource;
  */
 public abstract class AbstractOWLParser implements OWLParser {
 
-    private static Logger logger = Logger.getLogger(AbstractOWLParser.class.getName());
+    private static final Logger logger = Logger.getLogger(AbstractOWLParser.class.getName());
 
     private static final String ZIP_FILE_EXTENSION = ".zip";
 

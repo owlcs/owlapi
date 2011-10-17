@@ -56,15 +56,15 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 17-Nov-2007<br>
  * <br>
- * 
+ *
  * A convenience class which will prepare an input source from a file.
  */
 public class FileDocumentSource implements OWLOntologyDocumentSource {
-	private File file;
+	private final File file;
 
 	/**
 	 * Constructs an ontology input source using the specified file.
-	 * 
+	 *
 	 * @param file
 	 *            The file from which a concrete representation of an ontology
 	 *            will be obtained.
@@ -98,7 +98,6 @@ public class FileDocumentSource implements OWLOntologyDocumentSource {
 			return new InputStreamReader(getInputStream(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// it cannot not support UTF-8
-			e.printStackTrace();
 			throw new OWLOntologyInputSourceException(e);
 		}
 	}

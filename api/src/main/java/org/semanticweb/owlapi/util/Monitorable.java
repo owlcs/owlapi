@@ -68,7 +68,7 @@ public interface Monitorable {
 
 
     /**
-     * Determines if this long running task can be cancelled.
+     * @return true if this long running task can be cancelled.
      */
     boolean canInterrupt();
 

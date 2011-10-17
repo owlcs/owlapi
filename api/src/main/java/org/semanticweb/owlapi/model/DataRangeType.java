@@ -37,12 +37,11 @@
  * limitations under the License.
  */
 
-package org.semanticweb.owlapi.model;/*
+package org.semanticweb.owlapi.model;
 
 /**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 21-Nov-2008
- * </p>
+ * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group
+
  * Represents the different types of OWL 2 data ranges.
  */
 public enum DataRangeType {
@@ -83,12 +82,15 @@ public enum DataRangeType {
     DATA_INTERSECTION_OF("DataIntersectionOf");
 
 
-    private String name;
+    private final String name;
 
     DataRangeType(String name) {
         this.name = name;
     }
 
+    /**
+     * @return the name
+     */
     public String getName() {
         return name;
     }

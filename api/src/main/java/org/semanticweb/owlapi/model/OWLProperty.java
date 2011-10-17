@@ -46,6 +46,8 @@ package org.semanticweb.owlapi.model;
  *
  * A marker interface for properties that aren't expression i.e. named properties.
  * By definition, properties are either data properties or object properties.
+ * @param <R> range
+ * @param <P> property expression
  */
 public interface OWLProperty<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>> extends OWLPropertyExpression<R, P>, OWLLogicalEntity, OWLNamedObject {
 

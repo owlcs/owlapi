@@ -77,9 +77,9 @@ public enum SWRLVocabulary {
     ARGUMENT_1("argument1"),
     ARGUMENT_2("argument2");
 
-    private String shortName;
+    private final String shortName;
 
-    private IRI iri;
+    private final IRI iri;
 
     SWRLVocabulary(String name) {
         this.shortName = name;

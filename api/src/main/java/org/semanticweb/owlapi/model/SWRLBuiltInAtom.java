@@ -58,6 +58,9 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
      */
     IRI getPredicate();
 
+    /**
+     * @return list of arguments
+     */
     List<SWRLDArgument> getArguments();
 
     /**

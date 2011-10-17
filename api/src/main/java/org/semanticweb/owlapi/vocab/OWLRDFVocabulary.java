@@ -346,13 +346,13 @@ public enum OWLRDFVocabulary {
     OWL_TARGET_VALUE(Namespaces.OWL, "targetValue");
 
 
-    URI uri;
+    final URI uri;
 
-    IRI iri;
+    final IRI iri;
 
-    Namespaces namespace;
+    final Namespaces namespace;
 
-    String shortName;
+    final String shortName;
 
 
     OWLRDFVocabulary(Namespaces namespace, String shortName) {

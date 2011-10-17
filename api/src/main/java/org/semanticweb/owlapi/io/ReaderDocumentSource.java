@@ -60,7 +60,7 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
 
     private static int counter = 0;
 
-    private IRI documentIRI;
+    private final IRI documentIRI;
 
     private String buffer;
 
@@ -98,11 +98,15 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
     private void fillBuffer(Reader reader) {
         try {
             StringBuilder builder = new StringBuilder();
-            char [] tempBuffer = new char [4096];
-            int read;
-            while((read = reader.read(tempBuffer)) != -1) {
-                builder.append(tempBuffer, 0, read);
-            }
+            final int length = 100000;
+			char [] tempBuffer = new char [length];
+			int read=0;
+			do {
+				read=reader.read(tempBuffer, 0, length);
+				if(read>0) {
+					builder.append(tempBuffer, 0, read);
+				}
+			} while(read>0);
             buffer = builder.toString();
         }
         catch (IOException e) {

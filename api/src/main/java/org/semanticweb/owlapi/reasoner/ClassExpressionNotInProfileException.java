@@ -48,11 +48,12 @@ import org.semanticweb.owlapi.profiles.OWLProfile;
  * Information Management Group<br>
  * Date: 22-Nov-2009
  */
+@SuppressWarnings("javadoc")
 public class ClassExpressionNotInProfileException extends OWLReasonerRuntimeException {
 
-    private OWLClassExpression classExpression;
+    private final OWLClassExpression classExpression;
 
-    private OWLProfile profile;
+    private final OWLProfile profile;
 
     public ClassExpressionNotInProfileException(OWLClassExpression classExpression, OWLProfile profile) {
         this.classExpression = classExpression;

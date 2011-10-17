@@ -61,10 +61,11 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
  */
 public abstract class OWLEntityCollectingOntologyChangeListener implements OWLOntologyChangeListener {
 
-    private Set<OWLEntity> entities;
+    private final Set<OWLEntity> entities;
 
 
-    public OWLEntityCollectingOntologyChangeListener() {
+    @SuppressWarnings("javadoc")
+	public OWLEntityCollectingOntologyChangeListener() {
         entities = new HashSet<OWLEntity>();
     }
 
@@ -83,12 +84,13 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements OWLOn
 
     /**
      * Called when a set of changes have been applied.
+     * @throws OWLException if there is any exception
      */
     public abstract void ontologiesChanged() throws OWLException;
 
 
     /**
-     * Gets the entities which were referenced in the last change set.
+     * @return the entities which were referenced in the last change set.
      */
     public Set<OWLEntity> getEntities() {
         return CollectionFactory.getCopyOnRequestSet(entities);

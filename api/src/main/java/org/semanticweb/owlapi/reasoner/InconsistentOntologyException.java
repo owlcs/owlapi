@@ -47,6 +47,7 @@ package org.semanticweb.owlapi.reasoner;
  * the imports closure of the root ontology (returned by {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()})
  * is inconsistent.
  */
+@SuppressWarnings("javadoc")
 public class InconsistentOntologyException extends OWLReasonerRuntimeException {
 
     public InconsistentOntologyException() {

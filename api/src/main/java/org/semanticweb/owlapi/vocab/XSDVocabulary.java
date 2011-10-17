@@ -98,9 +98,9 @@ public enum XSDVocabulary {
     UNSIGNED_SHORT("unsignedShort"),
     UNSIGNED_BYTE("unsignedByte");
 
-    private String shortName;
+    private final String shortName;
 
-    private IRI iri;
+    private final IRI iri;
 
     XSDVocabulary(String name) {
         this.shortName = name;

@@ -37,7 +37,7 @@
  * limitations under the License.
  */
 
-package org.semanticweb.owlapi.model;/*
+package org.semanticweb.owlapi.model;
 
 
 /**

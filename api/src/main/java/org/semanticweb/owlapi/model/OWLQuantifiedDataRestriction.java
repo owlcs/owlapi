@@ -40,5 +40,9 @@
 package org.semanticweb.owlapi.model;
 
 
+/**
+ * A quantified data restriction
+ *
+ */
 public interface OWLQuantifiedDataRestriction extends OWLQuantifiedRestriction<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> {
 }

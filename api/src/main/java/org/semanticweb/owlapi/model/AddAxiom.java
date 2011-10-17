@@ -51,6 +51,10 @@ package org.semanticweb.owlapi.model;
  */
 public class AddAxiom extends OWLAxiomChange {
 
+    /**
+     * @param ont the ontology to which the change is to be applied
+     * @param axiom the axiom to be added
+     */
     public AddAxiom(OWLOntology ont, OWLAxiom axiom) {
         super(ont, axiom);
     }
@@ -86,7 +90,7 @@ public class AddAxiom extends OWLAxiomChange {
 	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
-    
+
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
     	return visitor.visit(this);

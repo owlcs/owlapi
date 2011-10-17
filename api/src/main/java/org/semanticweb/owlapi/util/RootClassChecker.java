@@ -51,6 +51,11 @@ import org.semanticweb.owlapi.model.OWLException;
  */
 public interface RootClassChecker {
 
+    /**
+     * @param cls class to check
+     * @return true if cls is a root class
+     * @throws OWLException
+     */
     boolean isRootClass(OWLClass cls) throws OWLException;
 
 }

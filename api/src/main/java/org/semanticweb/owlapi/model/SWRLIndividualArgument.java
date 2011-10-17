@@ -50,5 +50,8 @@ package org.semanticweb.owlapi.model;
  */
 public interface SWRLIndividualArgument extends SWRLIArgument {
 
+    /**
+     * @return the wrapped individual
+     */
     OWLIndividual getIndividual();
 }

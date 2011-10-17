@@ -54,9 +54,9 @@ import java.util.Set;
  * declaration axioms, imports axioms or logical axioms
  */
 public interface OWLAxiom extends OWLObject {
-
+	@SuppressWarnings("javadoc")
     void accept(OWLAxiomVisitor visitor);
-
+	@SuppressWarnings("javadoc")
     <O> O accept(OWLAxiomVisitorEx<O> visitor);
 
     /**
@@ -83,7 +83,7 @@ public interface OWLAxiom extends OWLObject {
 
     /**
      * Gets a copy of this axiom that is annotated with the specified annotations.  If this axiom has any annotations
-     * on it they will be merged with the specified set of annotations. 
+     * on it they will be merged with the specified set of annotations.
      * Note that this axiom will not be modified (or remove from any ontologies).
      * @param annotations The annotations that will be added to existing annotations to annotate the copy of this axiom
      * @return A copy of this axiom that has the specified annotations plus any existing annotations returned by the

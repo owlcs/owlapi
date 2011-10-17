@@ -49,6 +49,7 @@ package org.semanticweb.owlapi.model;
  * could be found.  This is a runtime exception since clients should really ensure that a
  * mapping exists before attempting to load an ontology.
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyIRIMappingNotFoundException extends OWLRuntimeException {
 
     public OWLOntologyIRIMappingNotFoundException(IRI ontologyIRI) {

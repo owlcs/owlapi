@@ -68,14 +68,14 @@ public interface OWLOntologyLoaderListener {
      */
     void finishedLoadingOntology(LoadingFinishedEvent event);
 
-    
-    public static class LoadingEvent {
+    /***/
+    static class LoadingEvent {
 
-        private OWLOntologyID ontologyID;
+        private final OWLOntologyID ontologyID;
 
-        private IRI documentIRI;
+        private final IRI documentIRI;
 
-        private boolean imported;
+        private final boolean imported;
 
 
         public LoadingEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported) {
@@ -115,7 +115,8 @@ public interface OWLOntologyLoaderListener {
         }
     }
 
-    public static class LoadingStartedEvent extends LoadingEvent {
+    /***/
+    static class LoadingStartedEvent extends LoadingEvent {
 
         public LoadingStartedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported) {
             super(ontologyID, documentIRI, imported);
@@ -127,9 +128,9 @@ public interface OWLOntologyLoaderListener {
      * Describes the situation when the loading process for an ontology has
      * finished.
      */
-    public static class LoadingFinishedEvent extends LoadingEvent {
+    static class LoadingFinishedEvent extends LoadingEvent {
 
-        private OWLOntologyCreationException ex;
+        private final OWLOntologyCreationException ex;
 
         public LoadingFinishedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported, OWLOntologyCreationException ex) {
             super(ontologyID, documentIRI, imported);

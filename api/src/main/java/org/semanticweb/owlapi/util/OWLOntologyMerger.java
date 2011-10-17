@@ -62,32 +62,51 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  */
 public class OWLOntologyMerger implements OWLAxiomFilter {
 
-    private OWLOntologySetProvider setProvider;
+    private final OWLOntologySetProvider setProvider;
 
-    private OWLAxiomFilter axiomFilter;
+    private final OWLAxiomFilter axiomFilter;
 
-    private boolean mergeOnlyLogicalAxioms;
+    private final boolean mergeOnlyLogicalAxioms;
 
 
+    /**
+     * @param setProvider the ontology provider
+     */
     public OWLOntologyMerger(OWLOntologySetProvider setProvider) {
         this.setProvider = setProvider;
         this.axiomFilter = this;
+        mergeOnlyLogicalAxioms = false;
     }
 
 
+    /**
+     * @param setProvider the ontology provider
+     * @param mergeOnlyLogicalAxioms true if only logical axioms should be included
+     */
     public OWLOntologyMerger(OWLOntologySetProvider setProvider, boolean mergeOnlyLogicalAxioms) {
         this.setProvider = setProvider;
         this.mergeOnlyLogicalAxioms = mergeOnlyLogicalAxioms;
         this.axiomFilter = this;
     }
 
+    /**
+     * @param setProvider the ontology provider
+     * @param axiomFilter the filter to use
+     */
 
     public OWLOntologyMerger(OWLOntologySetProvider setProvider, OWLAxiomFilter axiomFilter) {
         this.setProvider = setProvider;
         this.axiomFilter = axiomFilter;
+        mergeOnlyLogicalAxioms = false;
     }
 
 
+    /**
+     * @param ontologyManager the manager containing the ontologies
+     * @param ontologyIRI the new ontology IRI
+     * @return the new ontology
+     * @throws OWLOntologyCreationException if any creation exception arises
+     */
     public OWLOntology createMergedOntology(OWLOntologyManager ontologyManager, IRI ontologyIRI) throws
                                                                                                  OWLOntologyCreationException {
         OWLOntology ontology;

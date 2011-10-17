@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class IRIDocumentSource implements OWLOntologyDocumentSource {
 
-    private IRI documentIRI;
+    private final IRI documentIRI;
 
 
     /**

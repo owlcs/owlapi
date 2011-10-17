@@ -295,7 +295,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology with the specified
      * <code>ontologyIRI</code>.
      * @throws OWLOntologyDocumentAlreadyExistsException if the specified <code>ontologyIRI</code> is mapped to a
-     * ontology document IRI for which there already exists a mapping in this manager. 
+     * ontology document IRI for which there already exists a mapping in this manager.
      */
     OWLOntology createOntology(Set<OWLAxiom> axioms, IRI ontologyIRI) throws OWLOntologyCreationException;
 
@@ -401,7 +401,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * The ontology IRI will be mapped to an ontology document IRI.  The mapping will be determined using one of the loaded
      * {@link OWLOntologyIRIMapper} objects. By default, if no custom <code>OWLOntologyIRIMapper</code>s have been registered
      * using the {@link #addIRIMapper(OWLOntologyIRIMapper)} method, or no mapping can be found, the ontology document
-     * IRI is taken to be the specified ontology IRI. 
+     * IRI is taken to be the specified ontology IRI.
      * @param ontologyIRI The IRI that identifies the ontology.  It is expected that the ontology will also have this
      * IRI (although the OWL API will tolerated situations where this is not the case).
      * @return The <code>OWLOntology</code> representation of the ontology that was loaded.
@@ -510,6 +510,27 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     OWLOntology loadOntologyFromOntologyDocument(OWLOntologyDocumentSource documentSource) throws OWLOntologyCreationException;
 
+    /**
+     * A convenience method that load an ontology from an input source with specified configuration.
+     * @param documentSource The input source that describes where the ontology should be loaded from.
+     * @param config the configuration to use
+     * @return The ontology that was loaded.
+     * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
+     * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was being parsed from a document and
+     * the document contained syntax errors.
+     * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
+     * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
+     * not be thrown.  The <code>UnloadableImportException</code> contains information about the import declaration
+     * that triggered the import and the cause of this exception is an <code>OWLOntologyCreationException</code>
+     * which contains information about why the import could not be loaded.
+     * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException if there was an <code>IOException</code>
+     * when trying to load the ontology.
+     * @throws OWLOntologyDocumentAlreadyExistsException if the document IRI of the input source is already
+     * the document IRI for a loaded ontology.
+     * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology whose ontology IRI and
+     * version IRI is the same as the ontology IRI and version IRI of the ontology contained in the document
+     * represented by the input source.
+     */
     OWLOntology loadOntologyFromOntologyDocument(OWLOntologyDocumentSource documentSource, OWLOntologyLoaderConfiguration config) throws OWLOntologyCreationException;
 
 
@@ -716,12 +737,24 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     void addOntologyChangeListener(OWLOntologyChangeListener listener, OWLOntologyChangeBroadcastStrategy strategy);
 
+    /**
+     * @param listener the listener to add
+     */
     void addImpendingOntologyChangeListener(ImpendingOWLOntologyChangeListener listener);
 
+    /**
+     * @param listener the listener to remove
+     */
     void removeImpendingOntologyChangeListener(ImpendingOWLOntologyChangeListener listener);
 
+    /**
+     * @param listener the listener to add
+     */
     void addOntologyChangesVetoedListener(OWLOntologyChangesVetoedListener listener);
 
+    /**
+     * @param listener the listener to remove
+     */
     void removeOntologyChangesVetoedListener(OWLOntologyChangesVetoedListener listener);
 
     /**
@@ -771,7 +804,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * loading process.  If it is desired that loading continues then this option can be set with this method.
      * @param b <code>true</code> if loading should continue when an imported ontology cannot be loaded, other wise
      *          <code>false</code>.  The default value is <code>false</code>.
-     * @deprecated set it on the OWLOntologyLoaderConfiguration object instead 
+     * @deprecated set it on the OWLOntologyLoaderConfiguration object instead
      */
     @Deprecated
     void setSilentMissingImportsHandling(boolean b);
@@ -780,7 +813,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /**
      * Determines if silent missing imports handling is enabled.
      * @return <code>true</code> if silent missing imports handler is enabled, otherwise <code>false</code>.
-     * @deprecated check it on the OWLOntologyLoaderConfiguration object instead 
+     * @deprecated check it on the OWLOntologyLoaderConfiguration object instead
      */
     @Deprecated
     boolean isSilentMissingImportsHandling();

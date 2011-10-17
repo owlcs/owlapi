@@ -70,7 +70,9 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
 
-    public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology, IRI documentIRI, OWLOntologyFormat ontologyFormat) throws
+    private static final String UTF_8 = "UTF-8";
+
+	public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology, IRI documentIRI, OWLOntologyFormat ontologyFormat) throws
             OWLOntologyStorageException {
         try {
             if (!documentIRI.isAbsolute()) {
@@ -87,7 +89,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             BufferedWriter w=null;
             try {
                 tempOutputStream = new FileOutputStream(tempFile);
-                Writer tempWriter = new BufferedWriter(new OutputStreamWriter(tempOutputStream, "UTF-8"));
+                Writer tempWriter = new BufferedWriter(new OutputStreamWriter(tempOutputStream, UTF_8));
                 storeOntology(manager, ontology, tempWriter, ontologyFormat);
                 tempWriter.flush();
                 tempWriter.close();
@@ -108,14 +110,15 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
 
                 tempInputStream = new FileInputStream(tempFile);
-                inputStreamReader = new InputStreamReader(tempInputStream, "UTF-8");
+                inputStreamReader = new InputStreamReader(tempInputStream, UTF_8);
                 br = new BufferedReader(inputStreamReader);
-                outputStreamWriter = new OutputStreamWriter(os, "UTF-8");
+                outputStreamWriter = new OutputStreamWriter(os, UTF_8);
                 w = new BufferedWriter(outputStreamWriter);
-                String line;
-                while((line = br.readLine()) != null) {
+                String line = br.readLine();
+                while(line != null) {
                     w.write(line);
                     w.write("\n");
+                    line = br.readLine();
                 }
             }
             finally {
@@ -163,7 +166,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
         } else if (target.isOutputStreamAvailable()) {
             Writer writer=null;
             try {
-                writer = new BufferedWriter(new OutputStreamWriter(target.getOutputStream(), "UTF-8"));
+                writer = new BufferedWriter(new OutputStreamWriter(target.getOutputStream(), UTF_8));
                 storeOntology(manager, ontology, writer, format);
                 writer.flush();
 

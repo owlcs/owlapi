@@ -142,10 +142,11 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
-    private Set<OWLObject> result;
+    private final Set<OWLObject> result;
 
 
-    public OWLObjectComponentCollector() {
+    @SuppressWarnings("javadoc")
+	public OWLObjectComponentCollector() {
         result = new HashSet<OWLObject>();
     }
 
@@ -164,6 +165,9 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
         return new HashSet<OWLObject>(result);
     }
 
+    /**
+     * @return the resulting owl objects
+     */
     public Set<OWLObject> getResult() {
         return CollectionFactory.getCopyOnRequestSet(result);
     }

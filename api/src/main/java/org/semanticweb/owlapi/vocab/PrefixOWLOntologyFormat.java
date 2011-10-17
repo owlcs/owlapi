@@ -58,10 +58,11 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
  */
 public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements PrefixManager {
 
-    private DefaultPrefixManager nsm;
+    private final DefaultPrefixManager nsm;
 
 
-    public PrefixOWLOntologyFormat() {
+    @SuppressWarnings("javadoc")
+	public PrefixOWLOntologyFormat() {
         nsm = new DefaultPrefixManager();
         nsm.clear();
     }
@@ -72,6 +73,7 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
      * @param prefixName   The prefix name which maps to a prefix
      * @param prefix The prefix
      */
+    //XXX not in the interface
     public void setPrefix(String prefixName, String prefix) {
         if(!prefixName.endsWith(":")) {
             prefixName = prefixName + ":";
@@ -82,6 +84,7 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
     /**
      * Clears any previously set prefixes
      */
+    //XXX not in the interface
     public void clearPrefixes() {
         nsm.clear();
     }
@@ -90,6 +93,7 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
      * Copies the prefix from another ontology format into this format
      * @param fromFormat The format that the prefixes should be copied from
      */
+    //XXX not in the interface
     public void copyPrefixesFrom(PrefixOWLOntologyFormat fromFormat) {
         Map<String, String> map = fromFormat.getPrefixName2PrefixMap();
         for(String pn : map.keySet()) {
@@ -98,6 +102,10 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
         }
     }
 
+    /**
+     * @param prefixManager prefix to copy prefixes from
+     */
+    //XXX not in the interface
     public void copyPrefixesFrom(PrefixManager prefixManager) {
         for(String prefixName : prefixManager.getPrefixNames()) {
             String prefix = prefixManager.getPrefix(prefixName);
@@ -118,6 +126,7 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
      * namespace.
      * @param namespace The namespace to be set.
      */
+    //XXX not in the interface
     public void setDefaultPrefix(String namespace) {
         nsm.setDefaultPrefix(namespace);
     }

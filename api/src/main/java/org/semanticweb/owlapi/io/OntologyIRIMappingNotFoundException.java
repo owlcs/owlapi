@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  */
 public class OntologyIRIMappingNotFoundException extends OWLOntologyCreationException {
 
-    private IRI ontologyIRI;
+    private final IRI ontologyIRI;
 
     /**
      * @param ontologyIRI the ontology not found

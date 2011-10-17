@@ -47,7 +47,10 @@ package org.semanticweb.owlapi.model;
  * Represents an ontology change where an import statement is added to an ontology.
  */
 public class AddImport extends ImportChange {
-
+    /**
+     * @param ont the ontology to which the change is to be applied
+     * @param importDeclaration the import declaration
+     */
     public AddImport(OWLOntology ont,
                      OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);
@@ -86,7 +89,7 @@ public class AddImport extends ImportChange {
 	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
-    
+
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
     	return visitor.visit(this);

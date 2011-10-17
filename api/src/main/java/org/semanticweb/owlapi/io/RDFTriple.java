@@ -52,11 +52,11 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  */
 public class RDFTriple {
 
-    private RDFResource subject;
+    private final RDFResource subject;
 
-    private RDFResource predicate;
+    private final RDFResource predicate;
 
-    private RDFNode object;
+    private final RDFNode object;
 
     /**
      * @param subject the subject

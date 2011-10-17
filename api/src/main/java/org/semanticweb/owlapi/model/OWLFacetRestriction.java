@@ -68,8 +68,8 @@ public interface OWLFacetRestriction extends OWLObject {
      * @return the restricting value
      */
     OWLLiteral getFacetValue();
-
+    @SuppressWarnings("javadoc")
     void accept(OWLDataVisitor visitor);
-
+    @SuppressWarnings("javadoc")
     <O> O accept(OWLDataVisitorEx<O> visitor);
 }

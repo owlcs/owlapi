@@ -53,22 +53,30 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  */
 public class SimpleIRIMapper implements OWLOntologyIRIMapper {
 
-    private IRI ontologyIRI;
+    private final IRI ontologyIRI;
 
-    private IRI documentIRI;
+    private final IRI documentIRI;
 
+    /**
+     * @param ontologyIRI ontology IRI
+     * @param documentIRI document IRI
+     */
     public SimpleIRIMapper(IRI ontologyIRI, IRI documentIRI) {
         this.ontologyIRI = ontologyIRI;
         this.documentIRI = documentIRI;
     }
 
+    /**
+     * @param ontologyURI ontology IRI
+     * @param documentIRI document IRI
+     */
     public SimpleIRIMapper(URI ontologyURI, IRI documentIRI) {
         this(IRI.create(ontologyURI), documentIRI);
     }
 
 
-    public IRI getDocumentIRI(IRI ontologyIRI) {
-        if(this.ontologyIRI.equals(ontologyIRI)) {
+    public IRI getDocumentIRI(IRI iri) {
+        if(this.ontologyIRI.equals(iri)) {
             return documentIRI;
         }
         else {

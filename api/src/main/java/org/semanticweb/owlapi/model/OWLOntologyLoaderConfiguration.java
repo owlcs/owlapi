@@ -62,16 +62,26 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 public final class OWLOntologyLoaderConfiguration {
 
 
+    /**
+     * strategies to cope with missing headers
+     */
     public enum MissingOntologyHeaderStrategy {
 
-        INCLUDE_GRAPH,
+        /**include triples*/
+    	INCLUDE_GRAPH,
 
-        IMPORT_GRAPH
+        /**keep import structure*/
+    	IMPORT_GRAPH
     }
 
 
+    /**
+     * default annotation value
+     */
     public static final boolean DEFAULT_LOAD_ANNOTATIONS_FLAG_VALUE = true;
-
+    /**
+     * default missing ontology strategy
+     */
     public static final MissingOntologyHeaderStrategy DEFAULT_MISSING_ONTOLOGY_HEADER_STRATEGY = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
 
     private boolean loadAnnotations = DEFAULT_LOAD_ANNOTATIONS_FLAG_VALUE;
@@ -79,12 +89,13 @@ public final class OWLOntologyLoaderConfiguration {
     private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = DEFAULT_MISSING_ONTOLOGY_HEADER_STRATEGY;
 
     private boolean strict = false;
-    
+
     private boolean silentMissingImportsHandling=false;
 
-    private Set<IRI> ignoredImports = new HashSet<IRI>();
-    
-    public OWLOntologyLoaderConfiguration() {
+    private final Set<IRI> ignoredImports = new HashSet<IRI>();
+
+    @SuppressWarnings("javadoc")
+	public OWLOntologyLoaderConfiguration() {
         ignoredImports.add(IRI.create(Namespaces.OWL.toString()));
         ignoredImports.add(IRI.create(Namespaces.RDF.toString()));
         ignoredImports.add(IRI.create(Namespaces.RDFS.toString()));
@@ -96,10 +107,17 @@ public final class OWLOntologyLoaderConfiguration {
 
 
 
+    /**
+     * @return the ontology header strategy
+     */
     public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
         return missingOntologyHeaderStrategy;
     }
 
+    /**
+     * @param missingOntologyHeaderStrategy new value
+     * @return a copy of this configuration object with a different strategy
+     */
     public OWLOntologyLoaderConfiguration setMissingOntologyHeaderStrategy(MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
         copy.missingOntologyHeaderStrategy = missingOntologyHeaderStrategy;
@@ -130,24 +148,44 @@ public final class OWLOntologyLoaderConfiguration {
          return loadAnnotations;
      }
 
-    public void setSilentMissingImportsHandling(boolean b) {
-        silentMissingImportsHandling = b;
+    /**
+     * @param b new value for missing imports
+     * @return a copy of the configuration with b as value for missing imports
+     */
+    public OWLOntologyLoaderConfiguration setSilentMissingImportsHandling(boolean b) {
+    	OWLOntologyLoaderConfiguration copy = copyConfiguration();
+        copy.silentMissingImportsHandling = b;
+        return copy;
     }
 
+    /**
+     * @return true if missing imports should be silenced
+     */
     public boolean isSilentMissingImportsHandling() {
         return silentMissingImportsHandling;
     }
-    
+
+    /**
+     * @return true if parsing should be strict
+     */
     public boolean isStrict() {
         return strict;
     }
 
+    /**
+     * @param strict new value for strict
+     * @return copy of the configuration with new strict value
+     */
     public OWLOntologyLoaderConfiguration setStrict(boolean strict) {
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
         copy.strict = strict;
         return copy;
     }
 
+    /**
+     * @param iri iri to check
+     * @return true if iri should be ignored
+     */
     public boolean isIgnoredImport(IRI iri) {
         return ignoredImports.contains(iri);
     }

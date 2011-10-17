@@ -51,5 +51,8 @@ import java.util.Set;
  */
 public interface OWLSubClassOfAxiomSetShortCut {
 
+    /**
+     * @return the set of axioms equivalent to this expression
+     */
     Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms();
 }

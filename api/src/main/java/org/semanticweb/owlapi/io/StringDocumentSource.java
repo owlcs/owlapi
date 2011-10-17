@@ -59,9 +59,9 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
 
     private static int counter = 0;
 
-    private IRI documentIRI;
+    private final IRI documentIRI;
 
-    private String string;
+    private final String string;
 
     /**
      * @param string the source string

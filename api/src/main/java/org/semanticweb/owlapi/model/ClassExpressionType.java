@@ -153,7 +153,7 @@ public enum ClassExpressionType {
      */
     OBJECT_ONE_OF("ObjectOneOf");
 
-    private String name;
+    private final String name;
 
 
     ClassExpressionType(String name) {
@@ -161,6 +161,9 @@ public enum ClassExpressionType {
     }
 
 
+    /**
+     * @return the name
+     */
     public String getName() {
         return name;
     }

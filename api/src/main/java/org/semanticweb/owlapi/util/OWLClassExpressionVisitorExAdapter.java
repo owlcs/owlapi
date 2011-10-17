@@ -40,7 +40,6 @@
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
@@ -67,7 +66,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * Bio-Health Informatics Group<br>
  * Date: 22-Nov-2006<br><br>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class OWLClassExpressionVisitorExAdapter<O> implements OWLClassExpressionVisitorEx<O> {
 
 	public O visit(OWLClass ce) {

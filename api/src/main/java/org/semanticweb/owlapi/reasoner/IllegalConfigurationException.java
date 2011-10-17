@@ -44,10 +44,11 @@ package org.semanticweb.owlapi.reasoner;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 21-Jan-2009
  */
+@SuppressWarnings("javadoc")
 public class IllegalConfigurationException extends OWLReasonerRuntimeException {
 
 
-    private OWLReasonerConfiguration configuration;
+    private final OWLReasonerConfiguration configuration;
 
     public IllegalConfigurationException(Throwable cause, OWLReasonerConfiguration configuration) {
         super(cause);

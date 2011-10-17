@@ -93,10 +93,11 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements O
 
     private OWLOntology ontology;
 
-    private OWLOntologyChangeVisitor changeVisitor;
+    private final OWLOntologyChangeVisitor changeVisitor;
 
 
-    public OWLOntologyChangeFilter() {
+    @SuppressWarnings("javadoc")
+	public OWLOntologyChangeFilter() {
         changeVisitor = new OWLOntologyChangeVisitorAdapter() {
             @Override
 			public void visit(AddAxiom change) {
@@ -114,6 +115,9 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements O
     }
 
 
+    /**
+     * @param changes changes to process
+     */
     final public void processChanges(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
             change.accept(changeVisitor);

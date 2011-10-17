@@ -90,9 +90,11 @@ import org.semanticweb.owlapi.model.SWRLRule;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jan-2008<br><br>
+ * @deprecated use OWLAxiom::getAxiomType()
  */
+@Deprecated
 //XXX visitorEx?
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","javadoc"})
 public class AxiomTypeProvider implements OWLAxiomVisitor {
 
     private AxiomType<?> axiomType;
@@ -131,7 +133,7 @@ public class AxiomTypeProvider implements OWLAxiomVisitor {
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         axiomType = DATA_PROPERTY_DOMAIN;
     }
-    
+
 
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         axiomType = OBJECT_PROPERTY_DOMAIN;

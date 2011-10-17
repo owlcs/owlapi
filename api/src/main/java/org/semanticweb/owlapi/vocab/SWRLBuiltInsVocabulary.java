@@ -127,14 +127,14 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
     RESOLVE_URI("resolveURI", 3),
     ANY_URI("anyURI", 7);
 
-    private String shortName;
+    private final String shortName;
 
-    private IRI iri;
+    private final IRI iri;
 
     // Arity of the predicate (-1 if infinite)
-    private int minArity;
+    private final int minArity;
 
-    private int maxArity;
+    private final int maxArity;
 
     SWRLBuiltInsVocabulary(String name, int arity) {
         this(name, arity, arity);

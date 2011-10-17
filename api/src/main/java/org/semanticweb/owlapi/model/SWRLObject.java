@@ -50,7 +50,9 @@ package org.semanticweb.owlapi.model;
  */
 public interface SWRLObject extends OWLObject {
 
-    void accept(SWRLObjectVisitor visitor);
+    @SuppressWarnings("javadoc")
+	void accept(SWRLObjectVisitor visitor);
 
-    <O> O accept(SWRLObjectVisitorEx<O> visitor);
+    @SuppressWarnings("javadoc")
+	<O> O accept(SWRLObjectVisitorEx<O> visitor);
 }

@@ -78,19 +78,19 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper {
 
-    private Set<String> fileExtensions;
+    private final Set<String> fileExtensions;
 
-    private File directory;
+    private final File directory;
 
     private boolean mapped;
 
-    private boolean recursive;
+    private final boolean recursive;
 
-    private Map<String, OntologyRootElementHandler> handlerMap;
+    private final Map<String, OntologyRootElementHandler> handlerMap;
 
     private File currentFile;
 
-    private Map<IRI, IRI> ontologyIRI2PhysicalURIMap;
+    private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap;
 
     private Map<String, IRI> oboFileMap;
 
@@ -140,6 +140,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * ontological content. (By default the extensions are, owl,
      * xml and rdf).  Only files that have the specified extensions
      * will be examined to see if they contain ontologies.
+     * @param extensions the set of extensions
      */
     public void setFileExtensions(Set<String> extensions) {
         this.fileExtensions.clear();
@@ -159,6 +160,9 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     }
 
 
+    /**
+     * update the map
+     */
     public void update() {
         mapFiles();
     }
@@ -253,10 +257,11 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         try {
             // Ontology: <URI>
             br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-            String line;
+            String line = br.readLine();
             IRI ontologyIRI = null;
-            while((line = br.readLine()) != null) {
+            while(line != null) {
                 StringTokenizer tokenizer = new StringTokenizer(line, " \r\n", false);
+                line = br.readLine();
                 while(tokenizer.hasMoreTokens()) {
                     String tok = tokenizer.nextToken();
                     if(tok.startsWith("<") && tok.endsWith(">")) {
@@ -274,7 +279,9 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             // Ignore - don't care
         }finally {
         	try {
-				br.close();
+        		if(br!=null) {
+        			br.close();
+        		}
 			} catch (IOException e2) {
 				// no operation
 			}
@@ -335,7 +342,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     private static class RDFXMLOntologyRootElementHandler implements OntologyRootElementHandler {
 
     	public RDFXMLOntologyRootElementHandler() {
-		
+
 		}
         public IRI handle(Attributes attributes) {
             String baseValue = attributes.getValue(Namespaces.XML.toString(), "base");
@@ -353,7 +360,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     private static class OWLXMLOntologyRootElementHandler implements OntologyRootElementHandler {
 
     	public OWLXMLOntologyRootElementHandler() {
-		
+
 		}
         public IRI handle(Attributes attributes) {
             String ontURI = attributes.getValue(Namespaces.OWL.toString(), "ontologyIRI");

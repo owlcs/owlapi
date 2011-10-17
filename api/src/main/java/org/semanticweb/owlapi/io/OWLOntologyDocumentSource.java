@@ -74,7 +74,7 @@ public interface OWLOntologyDocumentSource {
      *         document source, or <code>false</code> if a reader cannot be obtained
      *         from this document source.
      */
-    public boolean isReaderAvailable();
+    boolean isReaderAvailable();
 
 
     /**
@@ -85,7 +85,7 @@ public interface OWLOntologyDocumentSource {
      * thrown if this happens.
      * @return A new <code>Reader</code> which the ontology can be read from.
      */
-    public Reader getReader();
+    Reader getReader();
 
     /**
      * Determines if an input stream is available which an ontology document can be parsed from.
@@ -93,7 +93,7 @@ public interface OWLOntologyDocumentSource {
      *         <code>false</code> if an input stream cannot be obtained from
      *         this document source.
      */
-    public boolean isInputStreamAvailable();
+    boolean isInputStreamAvailable();
 
 
     /**
@@ -103,14 +103,14 @@ public interface OWLOntologyDocumentSource {
      * method returns <code>false</code>.
      * @return A new input stream which the ontology can be read from.
      */
-    public InputStream getInputStream();
+    InputStream getInputStream();
 
 
     /**
      * Gets the IRI of the ontology document.
      * @return An IRI which represents the ontology document IRI - this will never be <code>null</code>.
      */
-    public IRI getDocumentIRI();
+    IRI getDocumentIRI();
 
 
 }

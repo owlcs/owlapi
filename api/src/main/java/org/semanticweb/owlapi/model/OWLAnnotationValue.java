@@ -44,11 +44,12 @@ package org.semanticweb.owlapi.model;
  * Date: 13-Jan-2009
  * <p/>
  * A marker interface for annotation values, which can either be an IRI (URI),
- * Literal or Anonymous Individual.
+ * Literal or Anonymous Individual, with visitor methods.
  * @see org.semanticweb.owlapi.model.IRI
  * @see org.semanticweb.owlapi.model.OWLLiteral
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
  */
+@SuppressWarnings("javadoc")
 public interface OWLAnnotationValue extends OWLAnnotationObject {
 
     void accept(OWLAnnotationValueVisitor visitor);

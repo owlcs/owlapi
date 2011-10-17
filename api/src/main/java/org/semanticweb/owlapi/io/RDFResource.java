@@ -50,9 +50,9 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class RDFResource extends RDFNode {
 
-    private IRI resource;
+    private final IRI resource;
 
-    private boolean anonymous;
+    private final boolean anonymous;
 
     /**
      * @param resource the resource

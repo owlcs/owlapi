@@ -56,7 +56,7 @@ public interface OWLObjectPropertyAssertionAxiom extends OWLPropertyAssertionAxi
      * <li>ObjectPropertyAssertion(P S O) = ObjectPropertyAssertion(P S O)
      * <li>ObjectPropertyAssertion(ObjectInverseOf(P) S O) = ObjectPropertyAssertion(P O S)
      * </ul>
-     * @return
+     * @return the simplified version
      */
     OWLObjectPropertyAssertionAxiom getSimplified();
 

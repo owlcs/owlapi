@@ -64,9 +64,12 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  */
 public class OWLOntologyURIChanger {
 
-    private OWLOntologyManager owlOntologyManager;
+    private final OWLOntologyManager owlOntologyManager;
 
 
+    /**
+     * @param owlOntologyManager the ontology manager to use
+     */
     public OWLOntologyURIChanger(OWLOntologyManager owlOntologyManager) {
         this.owlOntologyManager = owlOntologyManager;
     }
@@ -76,7 +79,7 @@ public class OWLOntologyURIChanger {
      * Changes the URI of the specified ontology to the new URI.
      *
      * @param ontology The ontology whose URI is to be changed.
-     * @param newIRI
+     * @param newIRI the new IRI
      * @return A list of changes, which when applied will change the URI of the
      *         specified ontology, and also update the imports declarations in any ontologies
      *         which import the specified ontology.

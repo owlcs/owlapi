@@ -71,10 +71,20 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
      */
     public abstract boolean isAbsolute();
 
+    /**
+     * @return the IRI scheme, e.g., http, urn... can be null
+     */
     public abstract String getScheme();
-    
+
+    /**
+     * @return the prefix. Can be null.
+     */
     public abstract String getStart();
 
+    /**
+     * @param s the IRI stirng to be resolved
+     * @return s resolved against this IRI (with the URI::resolve() method, unless this IRI is opaque)
+     */
     public abstract IRI resolve(String s);
 
 
@@ -117,7 +127,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
      * @return The IRI fragment, or <code>null</code> if the IRI does not have a fragment
      */
     public abstract String getFragment();
-    
+
     /**
      * Obtained this IRI surrounded by angled brackets
      *
@@ -128,30 +138,46 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
     /**
      * Creates an IRI from the specified String.
      *
-     * @param str The String that specifies the IRI
+     * @param str The String that specifies the IRI. Cannot be null.
      * @return The IRI that has the specified string representation.
      */
     public static IRI create(String str) {
         if (str == null) {
-            throw new NullPointerException("String must not be null");
+            throw new IllegalArgumentException("String must not be null");
         }
         return new IRIImpl(str);
     }
 
+    /**
+     * @param file the file to create the IRI from. Cannot be null.
+     * @return file.toURI() IRI
+     */
     public static IRI create(File file) {
+    	if (file == null) {
+    		throw new IllegalArgumentException("file cannot be null");
+    	}
         return new IRIImpl(file.toURI());
     }
 
+    /**
+     * @param uri the uri to create the IRI from. Cannot be null
+     * @return the IRI wrapping the uri
+     */
     public static IRI create(URI uri) {
         if (uri == null) {
-            throw new NullPointerException("URI must not be null");
+            throw new IllegalArgumentException("uri cannot be null");
         }
         return new IRIImpl(uri);
     }
 
+    /**
+     * @param url the url to create the IRI from. Cannot be null.
+     * @return an IRI wraopping url.toURI()
+     * @throws URISyntaxException if the URL is ill formed
+     */
     public static IRI create(URL url) throws URISyntaxException {
         if (url == null) {
-            throw new NullPointerException("URL must not be null");
+            throw new IllegalArgumentException("url cannot be null");
         }
         return new IRIImpl(url.toURI());
     }
@@ -221,7 +247,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
         @Override
         public String getScheme() {
-            int colonIndex = prefix.indexOf(":");
+            int colonIndex = prefix.indexOf(':');
             if(colonIndex == -1) {
                 return null;
             }
@@ -262,12 +288,12 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 			//    return null;
 			//}
       }
-        
+
         @Override
 		public String getStart() {
         	return prefix;
         }
-       
+
 
         @Override
 		public boolean isNothing() {

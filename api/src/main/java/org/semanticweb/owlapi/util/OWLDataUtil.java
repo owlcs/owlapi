@@ -69,7 +69,7 @@ public class OWLDataUtil {
 
     private static final IRI INT_URI = XSDVocabulary.INT.getIRI();
 
-    private static Map<Class<?>, XSDVocabulary> numberTypeMap;
+    private static final Map<Class<?>, XSDVocabulary> numberTypeMap;
 
 
     static {
@@ -82,21 +82,38 @@ public class OWLDataUtil {
     }
 
 
+    /**
+     * @param dataFactory factory to use
+     * @return int datatype
+     * @throws OWLException if there are exceptions
+     */
     public static OWLDatatype getIntDatatype(OWLDataFactory dataFactory) throws OWLException {
         return dataFactory.getOWLDatatype(INT_URI);
     }
 
-
+    /**
+     * @param dataFactory factory to use
+     * @return long datatype
+     * @throws OWLException if there are exceptions
+     */
     public static OWLDatatype getLongDatatype(OWLDataFactory dataFactory) throws OWLException {
         return dataFactory.getOWLDatatype(XSDVocabulary.LONG.getIRI());
     }
 
-
+    /**
+     * @param dataFactory factory to use
+     * @return float datatype
+     * @throws OWLException if there are exceptions
+     */
     public static OWLDatatype getFloatDatatype(OWLDataFactory dataFactory) throws OWLException {
         return dataFactory.getOWLDatatype(XSDVocabulary.FLOAT.getIRI());
     }
 
-
+    /**
+     * @param dataFactory factory to use
+     * @return double datatype
+     * @throws OWLException if there are exceptions
+     */
     public static OWLDatatype getDoubleDatatype(OWLDataFactory dataFactory) throws OWLException {
         return dataFactory.getOWLDatatype(XSDVocabulary.DOUBLE.getIRI());
     }
@@ -104,6 +121,7 @@ public class OWLDataUtil {
     /**
      * Given a <code>Number</code>, this method returns the datatype of
      * that number.
+     * @param dataFactory the factory to use
      * @param n The <code>Number</code> whose datatype is to be obtained.
      * @return The datatype that corresponds to the type of number.
      */
@@ -115,12 +133,19 @@ public class OWLDataUtil {
         return dataFactory.getOWLDatatype(v.getIRI());
     }
 
+    /**
+     * @param dataFactory the factory to use
+     * @param facet the facet to use
+     * @param facetValue the value to use
+     * @return a collection of facet restrictions
+     */
     public static Set<OWLFacetRestriction> getFacetRestrictionSet(OWLDataFactory dataFactory, OWLFacet facet, OWLLiteral facetValue) {
         return Collections.singleton(dataFactory.getOWLFacetRestriction(facet, facetValue));
     }
 
     /**
      * Given a number, returns a typed constant that represent the number.
+     * @param dataFactory the factory to use
      * @param val The number to be translated to a typed constant.
      * @return The typed constant, consisting of a string literal and datatype that
      *         corresponds to the translation of the specified number.
@@ -130,22 +155,44 @@ public class OWLDataUtil {
     }
 
 
+    /**
+     * @param dataFactory the factory to use
+     * @param minInclusive the value
+     * @return new data range
+     */
     public static <N extends Number> OWLDataRange getMinInclusiveRestrictedInt(OWLDataFactory dataFactory, N minInclusive) {
         return dataFactory.getOWLDatatypeRestriction(getDatatype(dataFactory, minInclusive), getFacetRestrictionSet(dataFactory, OWLFacet.MIN_INCLUSIVE, getTypedConstant(dataFactory, minInclusive)));
     }
-
+    /**
+     * @param dataFactory the factory to use
+     * @param minExclusive the value
+     * @return new data range
+     */
     public static <N extends Number> OWLDataRange getMinExclusiveRestrictedInt(OWLDataFactory dataFactory, N minExclusive) {
         return dataFactory.getOWLDatatypeRestriction(getDatatype(dataFactory, minExclusive), getFacetRestrictionSet(dataFactory, OWLFacet.MIN_EXCLUSIVE, getTypedConstant(dataFactory, minExclusive)));
     }
-
+    /**
+     * @param dataFactory the factory to use
+     * @param maxInclusive the value
+     * @return new data range
+     */
     public static <N extends Number> OWLDataRange getMaxInclusiveRestrictedInteger(OWLDataFactory dataFactory, N maxInclusive) {
         return dataFactory.getOWLDatatypeRestriction(getDatatype(dataFactory, maxInclusive), getFacetRestrictionSet(dataFactory, OWLFacet.MAX_INCLUSIVE, getTypedConstant(dataFactory, maxInclusive)));
     }
-
+    /**
+     * @param dataFactory the factory to use
+     * @param maxExclusive the value
+     * @return new data range
+     */
     public static <N extends Number> OWLDataRange getMaxExclusiveRestrictedInteger(OWLDataFactory dataFactory, N maxExclusive) {
         return dataFactory.getOWLDatatypeRestriction(getDatatype(dataFactory, maxExclusive), getFacetRestrictionSet(dataFactory, OWLFacet.MAX_EXCLUSIVE, getTypedConstant(dataFactory, maxExclusive)));
     }
-
+    /**
+     * @param dataFactory the factory to use
+     * @param minInclusive the min value
+     * @param maxInclusive the max value
+     * @return new data range
+     */
     public static <N extends Number> OWLDataRange getMinMaxInclusiveRestrictedInteger(OWLDataFactory dataFactory, N minInclusive, N maxInclusive) {
         OWLDatatype dr = getDatatype(dataFactory, minInclusive);
         Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
@@ -154,7 +201,12 @@ public class OWLDataUtil {
 
         return dataFactory.getOWLDatatypeRestriction(dr, facetRestrictions);
     }
-
+    /**
+     * @param dataFactory the factory to use
+     * @param minExclusive the min value
+     * @param maxExclusive the max value
+     * @return new data range
+     */
     public static <N extends Number> OWLDataRange getMinMaxExclusiveRestrictedInteger(OWLDataFactory dataFactory, N minExclusive, N maxExclusive) {
         OWLDatatype dr = getDatatype(dataFactory, minExclusive);
         Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();

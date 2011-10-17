@@ -59,30 +59,49 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
 
     private long timeOut = Long.MAX_VALUE;
 
-    public SimpleConfiguration() {
+    @SuppressWarnings("javadoc")
+	public SimpleConfiguration() {
     }
 
+    /**
+     * @param progressMonitor the progress monitor to use
+     */
     public SimpleConfiguration(ReasonerProgressMonitor progressMonitor) {
         this.progressMonitor = progressMonitor;
     }
-
+    /**
+     * @param progressMonitor the progress monitor to use
+     * @param timeOut the timeout in milliseconds
+     *
+     */
     public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, long timeOut) {
         this.progressMonitor = progressMonitor;
         this.timeOut = timeOut;
     }
-
+    /**
+     * @param progressMonitor the progress monitor to use
+     * @param freshEntityPolicy the policy for fresh entities
+     * @param timeOut the timeout in milliseconds
+     * @param individualNodeSetPolicy the policy for individual nodes
+     */
     public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, FreshEntityPolicy freshEntityPolicy, long timeOut, IndividualNodeSetPolicy individualNodeSetPolicy) {
         this.progressMonitor = progressMonitor;
         this.freshEntityPolicy = freshEntityPolicy;
         this.timeOut = timeOut;
         this.individualNodeSetPolicy = individualNodeSetPolicy;
     }
-
+    /**
+     * @param freshEntityPolicy the policy for fresh entities
+     * @param timeOut the timeout in milliseconds
+     */
     public SimpleConfiguration(FreshEntityPolicy freshEntityPolicy, long timeOut) {
         this.freshEntityPolicy = freshEntityPolicy;
         this.timeOut = timeOut;
     }
 
+    /**
+     * @param timeOut the timeout in milliseconds
+     */
     public SimpleConfiguration(long timeOut) {
         this.timeOut = timeOut;
     }

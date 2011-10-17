@@ -124,14 +124,19 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
 
     private boolean negated;
 
-    private OWLDataFactory dataFactory;
+    private final OWLDataFactory dataFactory;
 
 
+    /**
+     * @param dataFactory datafactory to use
+     */
     public NNF(OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
     }
 
 
+    /**
+     * reset the negation */
     public void reset() {
         negated = false;
     }
@@ -151,7 +156,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>, OWL
                 return dataFactory.getOWLNothing();
             }
             else {
-                return getNegation(desc);    
+                return getNegation(desc);
             }
 
         } else {

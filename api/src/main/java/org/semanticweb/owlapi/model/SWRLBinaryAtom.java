@@ -49,6 +49,8 @@ package org.semanticweb.owlapi.model;
  * www.cs.man.ac.uk/~horridgm<br><br>
  *
  * Represents an atom with two ordered arguments
+ * @param <A> type of first argument
+ * @param <B> type of second argument
  */
 public interface SWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtom {
 

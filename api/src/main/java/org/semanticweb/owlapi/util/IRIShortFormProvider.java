@@ -51,5 +51,9 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public interface IRIShortFormProvider {
 
-    String getShortForm(IRI uri);
+    /**
+     * @param iri the IRI to shorten
+     * @return the short form
+     */
+    String getShortForm(IRI iri);
 }

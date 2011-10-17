@@ -63,10 +63,13 @@ import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
  */
 public class ObjectPropertySimplifier {
 
-    private OWLDataFactory dataFactory;
+    private final OWLDataFactory dataFactory;
 
-    private Simplifier simplifier;
+    private final Simplifier simplifier;
 
+    /**
+     * @param dataFactory datafactory to use
+     */
     public ObjectPropertySimplifier(OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
         this.simplifier = new Simplifier();
@@ -119,18 +122,19 @@ public class ObjectPropertySimplifier {
         }
 
 
-        public void visit(OWLObjectProperty property) {
-            this.property = property;
+        public void visit(OWLObjectProperty p) {
+            this.property = p;
         }
 
 
-        public void visit(OWLObjectInverseOf property) {
+        public void visit(OWLObjectInverseOf p) {
             depth++;
-            property.getInverse().accept(this);
+            p.getInverse().accept(this);
         }
 
 
-        public void visit(OWLDataProperty property) {
+        @SuppressWarnings("unused")
+		public void visit(OWLDataProperty p) {
         }
     }
 }

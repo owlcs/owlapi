@@ -54,6 +54,7 @@ package org.semanticweb.owlapi.model;
  * where client code calling methods such as getAxioms() probably doesn't know (or care) how to handle
  * situations where network/database connections fail.
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyResourceAccessException extends OWLRuntimeException {
 
     public OWLOntologyResourceAccessException(String message) {

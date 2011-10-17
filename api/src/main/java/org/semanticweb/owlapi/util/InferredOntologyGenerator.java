@@ -65,17 +65,24 @@ public class InferredOntologyGenerator {
 
 
     // The reasoner which is used to compute the inferred axioms
-    private OWLReasoner reasoner;
+    private final OWLReasoner reasoner;
 
-    private List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators;
+    private final List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators;
 
 
+    /**
+     * @param reasoner the reasoner to use
+     * @param axiomGenerators the axiom generators to use
+     */
     public InferredOntologyGenerator(OWLReasoner reasoner, List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators) {
         this.reasoner = reasoner;
-        this.axiomGenerators = axiomGenerators;
+        this.axiomGenerators =new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>( axiomGenerators);
     }
 
 
+    /**
+     * @param reasoner the reasoner to use
+     */
     public InferredOntologyGenerator(OWLReasoner reasoner) {
         this.reasoner = reasoner;
         axiomGenerators = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
@@ -93,6 +100,9 @@ public class InferredOntologyGenerator {
     }
 
 
+    /**
+     * @return the axiom generators
+     */
     public List<InferredAxiomGenerator<?>> getAxiomGenerators() {
         return new ArrayList<InferredAxiomGenerator<?>>(axiomGenerators);
     }

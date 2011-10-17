@@ -78,21 +78,21 @@ public class OWLObjectPropertyManager {
 	}
 
 
-	private OWLOntologyManager man;
+	private final OWLOntologyManager man;
 
     private OWLOntology ontology;
 
-    private Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
+    private final Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
 
-    private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy;
+    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy;
 
-    private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure;
+    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure;
 
-    private Set<OWLObjectPropertyExpression> compositeProperties;
+    private final Set<OWLObjectPropertyExpression> compositeProperties;
 
-    private Set<OWLObjectPropertyExpression> nonSimpleProperties;
+    private final Set<OWLObjectPropertyExpression> nonSimpleProperties;
 
-    private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> partialOrdering;
+    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> partialOrdering;
 
     private boolean compositeDirty;
 
@@ -105,6 +105,10 @@ public class OWLObjectPropertyManager {
     private boolean partialOrderingDirty;
 
 
+    /**
+     * @param manager the ontology manager to use
+     * @param ont the ontology to use
+     */
     public OWLObjectPropertyManager(OWLOntologyManager manager, OWLOntology ont) {
         this.man = manager;
         this.hierarchy = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
@@ -125,6 +129,9 @@ public class OWLObjectPropertyManager {
     }
 
 
+    /**
+     * clear the object and its resources
+     */
     public void dispose() {
 
     }
@@ -163,6 +170,9 @@ public class OWLObjectPropertyManager {
     }
 
 
+    /**
+     * @return the property expressions
+     */
     public Set<OWLObjectPropertyExpression> getCompositeProperties() {
         if (compositeDirty) {
             compositeProperties.clear();
@@ -260,6 +270,9 @@ public class OWLObjectPropertyManager {
     }
 
 
+    /**
+     * @return transitive reflexive closure
+     */
     public Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> getHierarchyReflexiveTransitiveClosure() {
         if (reflexiveTransitiveClosureDirty) {
             // Produce a map of the transitive reflexive closure of this
@@ -309,6 +322,9 @@ public class OWLObjectPropertyManager {
     }
 
 
+    /**
+     * @return non simple properties
+     */
     public Set<OWLObjectPropertyExpression> getNonSimpleProperties() {
         if (simpleDirty) {
             nonSimpleProperties.clear();
@@ -331,6 +347,9 @@ public class OWLObjectPropertyManager {
         return nonSimpleProperties;
     }
 
+    /**
+     * @return partial ordering
+     */
     public Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> getPropertyPartialOrdering() {
         if (partialOrderingDirty) {
             partialOrdering.clear();
@@ -366,6 +385,11 @@ public class OWLObjectPropertyManager {
         return partialOrdering;
     }
 
+    /**
+     * @param propA first property
+     * @param propB second property
+     * @return true if first property comes first in the default ordering
+     */
     public boolean isLessThan(OWLObjectPropertyExpression propA, OWLObjectPropertyExpression propB) {
         Set<OWLObjectPropertyExpression> props = getPropertyPartialOrdering().get(propA.getSimplified());
         if (props == null) {
@@ -386,6 +410,10 @@ public class OWLObjectPropertyManager {
     }
 
 
+    /**
+     * @param ontologies ontologies to search
+     * @return sets of equivalent properties
+     */
     public static Collection<Set<OWLObjectPropertyExpression>> getEquivalentObjectProperties(Set<OWLOntology> ontologies) {
         Set<Set<OWLObjectPropertyExpression>> result = new HashSet<Set<OWLObjectPropertyExpression>>();
 
@@ -417,11 +445,9 @@ public class OWLObjectPropertyManager {
             Set<OWLObjectPropertyExpression> first = equivs.get(i);
             for (int j = i; j < equivs.size(); j++) {
                 Set<OWLObjectPropertyExpression> second = equivs.get(j);
-                if (second.size() > first.size()) {
-                    if (second.containsAll(first)) {
-                        equivs.remove(i);
-                        break;
-                    }
+				if (second.size() > first.size() && second.containsAll(first)) {
+					equivs.remove(i);
+					break;
                 }
             }
         }
@@ -433,11 +459,25 @@ public class OWLObjectPropertyManager {
         return equivs;
     }
 
+    /**
+     * @return sets of equivalent properties
+     */
     public Collection<Set<OWLObjectPropertyExpression>> getEquivalentObjectProperties() {
         return getEquivalentObjectProperties(getOntologies());
     }
 
 
+    /**
+* @param ontologies The ontologies
+     * @param prop the property
+         * @param index index
+         * @param stack stack
+         * @param indexMap index map
+         * @param lowlinkMap low link map
+         * @param result result
+         * @param processed processed
+         * @param stackProps stack entities
+     */
     public static void tarjan(Set<OWLOntology> ontologies, OWLObjectPropertyExpression prop, int index,
                               Stack<OWLObjectPropertyExpression> stack,
                               Map<OWLObjectPropertyExpression, Integer> indexMap,

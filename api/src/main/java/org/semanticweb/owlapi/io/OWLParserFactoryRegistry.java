@@ -60,11 +60,11 @@ public class OWLParserFactoryRegistry {
 
     private static final OWLParserFactoryRegistry instance = new OWLParserFactoryRegistry();
 
-    private List<OWLParserFactory> parserFactories = new ArrayList<OWLParserFactory>(10);
+    private final List<OWLParserFactory> parserFactories = new ArrayList<OWLParserFactory>(10);
 
 
     private OWLParserFactoryRegistry() {
-        parserFactories = new ArrayList<OWLParserFactory>();
+
     }
 
 

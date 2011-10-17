@@ -37,7 +37,7 @@
  * limitations under the License.
  */
 
-package org.semanticweb.owlapi.model;/*
+package org.semanticweb.owlapi.model;
 
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
@@ -48,9 +48,18 @@ package org.semanticweb.owlapi.model;/*
  */
 public interface OWLOntologyChangeProgressListener {
 
+    /**
+     * @param size the start size
+     */
     void begin(int size);
 
+    /**
+     * @param change the change just applied
+     */
     void appliedChange(OWLOntologyChange change);
 
+    /**
+     * end of the progress
+     */
     void end();
 }

@@ -180,7 +180,17 @@ public interface SWRLDataFactory {
      */
     SWRLLiteralArgument getSWRLLiteralArgument(OWLLiteral literal);
 
+    /**
+     * @param arg0 first individual
+     * @param arg1 second individual
+     * @return a sameindividual atom
+     */
     SWRLSameIndividualAtom getSWRLSameIndividualAtom(SWRLIArgument arg0, SWRLIArgument arg1);
 
+    /**
+     * @param arg0 first individual
+     * @param arg1 second individual
+     * @return a differentindividual atom
+     */
     SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(SWRLIArgument arg0, SWRLIArgument arg1);
 }

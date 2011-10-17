@@ -72,13 +72,16 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverterStrategy {
 
+    /**
+     * default base
+     */
     public static final String DEFAULT_BASE = "http://tinyname.org#";
 
-    private String base;
+    private final String base;
 
-    private Map<OWLEntity, IRI> entityNameMap;
+    private final Map<OWLEntity, IRI> entityNameMap;
 
-    private OWLEntityFragmentProvider fragmentProvider;
+    private final OWLEntityFragmentProvider fragmentProvider;
 
 
     /**

@@ -47,6 +47,7 @@ package org.semanticweb.owlapi.model;
  * an ontology.  If an ontology cannot be created then subclasses
  * of this class will describe the reasons.
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyCreationException extends OWLException {
 
     public OWLOntologyCreationException() {

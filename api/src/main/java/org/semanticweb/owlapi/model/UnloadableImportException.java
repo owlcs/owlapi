@@ -45,11 +45,12 @@ package org.semanticweb.owlapi.model;
  * Information Management Group<br>
  * Date: 07-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class UnloadableImportException extends OWLOntologyCreationException {
 
-    private OWLImportsDeclaration importsDeclaration;
+    private final OWLImportsDeclaration importsDeclaration;
 
-    private OWLOntologyCreationException ontologyCreationException;
+    private final OWLOntologyCreationException ontologyCreationException;
 
     public UnloadableImportException(OWLOntologyCreationException e, OWLImportsDeclaration importsDeclaration) {
         super("Could not load imported ontology: " + importsDeclaration.getIRI().toQuotedString() + " Cause: " + e.getMessage(), e);

@@ -49,11 +49,12 @@ import org.semanticweb.owlapi.profiles.OWLProfile;
  * Information Management Group<br>
  * Date: 22-Nov-2009
  */
+@SuppressWarnings("javadoc")
 public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
 
-    private OWLAxiom axiom;
+    private final OWLAxiom axiom;
 
-    private OWLProfile profile;
+    private final OWLProfile profile;
 
     public AxiomNotInProfileException(OWLAxiom axiom, OWLProfile profile) {
         this.axiom = axiom;

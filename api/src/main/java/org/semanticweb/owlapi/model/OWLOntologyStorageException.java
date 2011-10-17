@@ -44,6 +44,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group<br>
  * Date: 13-Apr-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyStorageException extends OWLException {
 
     public OWLOntologyStorageException(String message) {

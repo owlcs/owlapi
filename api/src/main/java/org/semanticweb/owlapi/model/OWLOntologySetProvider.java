@@ -54,6 +54,9 @@ import java.util.Set;
  */
 public interface OWLOntologySetProvider {
 
+    /**
+     * @return the set of ontologies held by the implementor
+     */
     Set<OWLOntology> getOntologies();
 
 }

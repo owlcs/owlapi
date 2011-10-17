@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  *
  * </p>
  * A set of {@link Node}s.
+ * @param <E> the type of elements in the node set
  */
 public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
 
@@ -61,6 +62,9 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      */
     Set<E> getFlattened();
 
+    /**
+     * @return true if the node set is empty
+     */
     boolean isEmpty();
 
     /**
@@ -81,7 +85,7 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
 
     /**
      * Determines if this <code>NodeSet</code> is a singleton node that only contains the top node (in a hierarchy).
-     * @see {@link Node#isTopNode()} 
+     * @see {@link Node#isTopNode()}
      * @return <code>true</code> if this <code>NodeSet</code> is a singleton that contains only the top node, and
      * <code>false</code> otherwise.
      */
@@ -90,7 +94,7 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
 
     /**
      * Determies if this <code>NodeSet</code> is a singleton that only contains the bottom node (in a hierarchy).
-     * @see {@link Node#isBottomNode()} 
+     * @see {@link Node#isBottomNode()}
      * @return <code>true</code> if this <code>NodeSet</code> is a singleton that only contains a node that is the
      * bottom node, otherwise <code>false</code>
      */

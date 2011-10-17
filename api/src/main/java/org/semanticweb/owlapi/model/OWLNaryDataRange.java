@@ -46,6 +46,8 @@ import java.util.Set;
  * Date: 15-Jan-2009
  */
 public interface OWLNaryDataRange extends OWLDataRange {
-
+    /**
+     * @return the data ranges
+     */
     Set<OWLDataRange> getOperands();
 }

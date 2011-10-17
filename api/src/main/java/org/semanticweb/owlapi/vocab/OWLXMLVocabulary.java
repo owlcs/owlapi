@@ -259,9 +259,9 @@ public enum OWLXMLVocabulary {
     DESCRIPTION_GRAPH_RULE("DescriptionGraphRule")
     ;
 
-    private IRI iri;
+    private final IRI iri;
 
-    private String shortName;
+    private final String shortName;
 
 
 
@@ -290,7 +290,7 @@ public enum OWLXMLVocabulary {
     }
 
 
-    static Set<IRI> BUILT_IN_IRIS;
+    static final Set<IRI> BUILT_IN_IRIS;
 
 
     static {

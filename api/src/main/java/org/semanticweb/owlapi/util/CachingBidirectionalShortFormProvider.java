@@ -60,9 +60,9 @@ import org.semanticweb.owlapi.model.OWLEntity;
  */
 public abstract class CachingBidirectionalShortFormProvider implements BidirectionalShortFormProvider {
 
-    private Map<String, Set<OWLEntity>> shortForm2EntityMap;
+    private final Map<String, Set<OWLEntity>> shortForm2EntityMap;
 
-    private Map<OWLEntity, String> entity2ShortFormMap;
+    private final Map<OWLEntity, String> entity2ShortFormMap;
 
 
     protected CachingBidirectionalShortFormProvider() {
@@ -100,6 +100,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
      *                          that should be used to obtain the entities whose short forms
      *                          will be cached.
      */
+    //XXX not in the interface
     public void rebuild(OWLEntitySetProvider<OWLEntity> entitySetProvider) {
         shortForm2EntityMap.clear();
         entity2ShortFormMap.clear();
@@ -131,6 +132,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
      * Removes an entity and its short form from the cache.
      * @param entity The entity to be removed.
      */
+    //XXX not in the interface
     public void remove(OWLEntity entity) {
         String shortForm = entity2ShortFormMap.remove(entity);
         if (shortForm != null) {
@@ -145,6 +147,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
      * the entity.
      * @param entity The entity whose short form should be updated.
      */
+    //XXX not in the interface
     public void update(OWLEntity entity) {
         remove(entity);
         add(entity);

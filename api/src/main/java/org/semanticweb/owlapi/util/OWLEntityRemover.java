@@ -75,9 +75,9 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class OWLEntityRemover implements OWLEntityVisitor {
 
-    private List<OWLOntologyChange> changes;
+    private final List<OWLOntologyChange> changes;
 
-    private Collection<OWLOntology> ontologies;
+    private final Collection<OWLOntology> ontologies;
 
 
     /**
@@ -95,9 +95,10 @@ public class OWLEntityRemover implements OWLEntityVisitor {
 
 
     /**
-     * Gets the list of ontology changes that are required in order to remove
+     * @return the list of ontology changes that are required in order to remove
      * visited entities from the set of ontologies.
      */
+     //XXX not in the interface
     public List<OWLOntologyChange> getChanges() {
         return new ArrayList<OWLOntologyChange>(changes);
     }
@@ -107,6 +108,7 @@ public class OWLEntityRemover implements OWLEntityVisitor {
      * Clears any changes which have accumulated over the course of visiting
      * different entities.
      */
+    //XXX not in the interface
     public void reset() {
         changes.clear();
     }

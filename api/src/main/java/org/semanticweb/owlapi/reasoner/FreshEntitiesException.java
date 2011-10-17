@@ -53,9 +53,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * if the fresh entity policy is set appropriately. (See {@link FreshEntityPolicy}
  * and {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration}.
  */
+@SuppressWarnings("javadoc")
 public class FreshEntitiesException extends OWLReasonerRuntimeException {
 
-    private List<OWLEntity> entities;
+    private final List<OWLEntity> entities;
 
     public FreshEntitiesException(Set<OWLEntity> entities) {
         this.entities = Collections.unmodifiableList(new ArrayList<OWLEntity>(entities));

@@ -48,9 +48,9 @@ package org.semanticweb.owlapi.model;
 public class SetOntologyID extends OWLOntologyChange {
 
 
-    private OWLOntologyID ontologyID;
+    private final OWLOntologyID ontologyID;
 
-    private OWLOntologyID newOntologyID;
+    private final OWLOntologyID newOntologyID;
 
     /**
      * Creates a set ontology URI change, which will set the URI of the
@@ -125,7 +125,7 @@ public class SetOntologyID extends OWLOntologyChange {
     }
 
     /**
-     * Gets the new URI - i.e. the URI of the ontology after the change
+     * @return the new URI - i.e. the URI of the ontology after the change
      * was applied.
      */
     public OWLOntologyID getNewOntologyID() {
@@ -137,7 +137,7 @@ public class SetOntologyID extends OWLOntologyChange {
 	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
-    
+
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
     	return visitor.visit(this);

@@ -59,9 +59,9 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  */
 public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvider {
 
-    private OWLOntologyManager manager;
+    private final OWLOntologyManager manager;
 
-    private OWLOntology rootOntology;
+    private final OWLOntology rootOntology;
 
 
     /**

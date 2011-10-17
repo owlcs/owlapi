@@ -54,6 +54,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
 
+    /**
+     * @param ont ontology to use
+     * @return short form of the ontology IRI
+     */
     public String getShortForm(OWLOntology ont) {
         if (!ont.isAnonymous()) {
             return getShortForm(ont.getOntologyID().getOntologyIRI());

@@ -47,8 +47,12 @@ package org.semanticweb.owlapi.model;
  * <p/>
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
+ * @param <A> the type of argument
  */
 public interface SWRLUnaryAtom<A extends SWRLArgument> extends SWRLAtom {
 
+    /**
+     * @return the argument
+     */
     A getArgument();
 }

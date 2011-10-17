@@ -39,9 +39,6 @@
 
 package org.semanticweb.owlapi.model;
 
-import java.net.URI;
-
-
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -51,28 +48,34 @@ import java.net.URI;
  * An event that gets posted to objects that listen for missing imports when silent missing import handling is set
  * to <code>true</code> in an ontology manager.
  * @see org.semanticweb.owlapi.model.MissingImportListener
- * @see OWLOntologyManager#isSilentMissingImportsHandling() 
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#addMissingImportListener(MissingImportListener)
- * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener) 
+ * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener)
  */
 public class MissingImportEvent {
 
-    private URI ontologyURI;
+    private final IRI ontologyIRI;
 
-    private OWLOntologyCreationException creationException;
+    private final OWLOntologyCreationException creationException;
 
 
-    public MissingImportEvent(URI ontologyURI, OWLOntologyCreationException creationException) {
-        this.ontologyURI = ontologyURI;
+    /**
+     * @param ontologyIRI the ontology uri
+     * @param creationException the creation exception
+     */
+    public MissingImportEvent(IRI ontologyIRI, OWLOntologyCreationException creationException) {
+        this.ontologyIRI = ontologyIRI;
         this.creationException = creationException;
     }
 
-
-    public URI getImportedOntologyURI() {
-        return ontologyURI;
+    /**@return the IRI*/
+    public IRI getImportedOntologyURI() {
+        return ontologyIRI;
     }
 
 
+    /**
+     * @return the exception
+     */
     public OWLOntologyCreationException getCreationException() {
         return creationException;
     }

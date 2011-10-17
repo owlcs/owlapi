@@ -137,38 +137,42 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 @SuppressWarnings("unused")
 public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
-    public static final int ENTITY_TYPE_INDEX_BASE = 1000;
+	private static final int ENTITY_TYPE_INDEX_BASE = 1000;
 
     private static final int IRI = 0;
 
     private static final int ONTOLOGY = 1;
 
-    public static final int OWL_CLASS = ENTITY_TYPE_INDEX_BASE + ONTOLOGY;
+    private static final int OWL_CLASS = ENTITY_TYPE_INDEX_BASE + ONTOLOGY;
 
 
-    public static final int OBJECT_PROPERTY = ENTITY_TYPE_INDEX_BASE + 2;
+    private static final int OBJECT_PROPERTY = ENTITY_TYPE_INDEX_BASE + 2;
 
 
-    public int type;
+    private int type;
 
-    public static final int OBJECT_PROPERTY_INVERSE = ENTITY_TYPE_INDEX_BASE + 3;
+    private static final int OBJECT_PROPERTY_INVERSE = ENTITY_TYPE_INDEX_BASE + 3;
 
-    public static final int DATA_PROPERTY = ENTITY_TYPE_INDEX_BASE + 4;
+    private static final int DATA_PROPERTY = ENTITY_TYPE_INDEX_BASE + 4;
 
-    public static final int INDIVIDUAL = ENTITY_TYPE_INDEX_BASE + 5;
+    private static final int INDIVIDUAL = ENTITY_TYPE_INDEX_BASE + 5;
 
-    public static final int ANNOTATION_PROPERTY = ENTITY_TYPE_INDEX_BASE + 6;
+    private static final int ANNOTATION_PROPERTY = ENTITY_TYPE_INDEX_BASE + 6;
 
-    public static final int ANON_INDIVIDUAL = ENTITY_TYPE_INDEX_BASE + 7;
-
-
-    public static final int AXIOM_TYPE_INDEX_BASE = 2000;
-
-    public static final int SUBCLASS_AXIOM = AXIOM_TYPE_INDEX_BASE + AxiomType.SUBCLASS_OF.index;
-
-    public static final int NEGATIVE_OBJECT_PROPERTY_ASSERTION = AXIOM_TYPE_INDEX_BASE + AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIndex();
+    private static final int ANON_INDIVIDUAL = ENTITY_TYPE_INDEX_BASE + 7;
 
 
+    private static final int AXIOM_TYPE_INDEX_BASE = 2000;
+
+    private static final int SUBCLASS_AXIOM = AXIOM_TYPE_INDEX_BASE + AxiomType.SUBCLASS_OF.index;
+
+    private static final int NEGATIVE_OBJECT_PROPERTY_ASSERTION = AXIOM_TYPE_INDEX_BASE + AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIndex();
+
+
+    /**
+     * @param object the object to compute the type index of
+     * @return the type
+     */
     public int getTypeIndex(OWLObject object) {
         object.accept(this);
         return type;
@@ -419,7 +423,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static final int CLASS_EXPRESSION_TYPE_INDEX_BASE = 3000;
+    private static final int CLASS_EXPRESSION_TYPE_INDEX_BASE = 3000;
 
 
     public void visit(OWLObjectIntersectionOf desc) {
@@ -511,7 +515,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static final int DATA_TYPE_INDEX_BASE = 4000;
+    private static final int DATA_TYPE_INDEX_BASE = 4000;
 
     public void visit(OWLDatatype node) {
         type = DATA_TYPE_INDEX_BASE + ONTOLOGY;
@@ -553,7 +557,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static final int ANNOTATION_TYPE_INDEX_BASE = 5000;
+    private static final int ANNOTATION_TYPE_INDEX_BASE = 5000;
 
     public void visit(OWLAnnotation node) {
         type = ANNOTATION_TYPE_INDEX_BASE + 1;
@@ -565,7 +569,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static final int RULE_OBJECT_TYPE_INDEX_BASE = 6000;
+    private static final int RULE_OBJECT_TYPE_INDEX_BASE = 6000;
 
 
     public void visit(SWRLClassAtom node) {

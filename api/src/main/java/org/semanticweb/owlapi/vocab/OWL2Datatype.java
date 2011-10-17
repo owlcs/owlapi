@@ -188,13 +188,13 @@ public enum OWL2Datatype {
         throw new OWLRuntimeException(datatype + " is not a built in datatype!");
     }
 
-    private String shortName;
+    private final String shortName;
 
-    private IRI iri;
+    private final IRI iri;
 
-    private Category category;
+    private final Category category;
 
-    private boolean finite;
+    private final boolean finite;
 
     private Pattern pattern;
 
@@ -305,9 +305,9 @@ public enum OWL2Datatype {
 
         TIME("Time instant", OWLFacet.MIN_INCLUSIVE, OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE, OWLFacet.MAX_EXCLUSIVE);
 
-        private String name;
+        private final String name;
 
-        private Set<OWLFacet> facets;
+        private final Set<OWLFacet> facets;
 
 
         Category(String name, OWLFacet... facets) {

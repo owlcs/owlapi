@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class WriterDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private Writer writer;
+    private final Writer writer;
 
 
     /**

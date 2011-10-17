@@ -51,6 +51,9 @@ import java.util.Set;
  */
 public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom, OWLNaryAxiom, OWLSubClassOfAxiomSetShortCut {
 
+    /**
+     * @return the individuals
+     */
     Set<OWLIndividual> getIndividuals();
 
     /**

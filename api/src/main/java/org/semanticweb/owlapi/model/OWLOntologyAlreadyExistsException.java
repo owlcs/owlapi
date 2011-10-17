@@ -47,9 +47,11 @@ package org.semanticweb.owlapi.model;
  */
 public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationException {
 
-    private OWLOntologyID ontologyID;
+    private static final String ONTOLOGY_ALREADY_EXISTS = "Ontology already exists. ";
 
-    private IRI documentIRI;
+	private final OWLOntologyID ontologyID;
+
+    private final IRI documentIRI;
 
     /**
      * Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe the situation where an attempt to
@@ -58,8 +60,9 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
      * @param id The ID of the ontology (not <code>null</code>) that was already contained in the manager.
      */
     public OWLOntologyAlreadyExistsException(OWLOntologyID id) {
-        super("Ontology already exists. " + id);
+        super(ONTOLOGY_ALREADY_EXISTS + id);
         this.ontologyID = id;
+        documentIRI=null;
     }
 
     /**
@@ -70,7 +73,7 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
      * @param documentIRI The IRI of the document where the load attempt occurred from
      */
     public OWLOntologyAlreadyExistsException(OWLOntologyID ontologyID, IRI documentIRI) {
-        super("Ontology already exists. " + ontologyID + " (New ontology loaded from " + documentIRI.toQuotedString() + ")");
+        super(ONTOLOGY_ALREADY_EXISTS + ontologyID + " (New ontology loaded from " + documentIRI.toQuotedString() + ")");
         this.ontologyID = ontologyID;
         this.documentIRI = documentIRI;
     }
@@ -79,10 +82,12 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
      * create an ontology failed because the manager already contained an ontology with specified ontology ID.
      *
      * @param id The ID of the ontology (not <code>null</code>) that was already contained in the manager.
+     * @param t the cause
      */
     public OWLOntologyAlreadyExistsException(OWLOntologyID id, Throwable t) {
-        super("Ontology already exists. " + id,t);
+        super(ONTOLOGY_ALREADY_EXISTS + id,t);
         this.ontologyID = id;
+        documentIRI=null;
     }
 
     /**
@@ -91,9 +96,10 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
      * the ontology being loaded
      * @param ontologyID The ontology ID
      * @param documentIRI The IRI of the document where the load attempt occurred from
+     * @param t the cause
      */
     public OWLOntologyAlreadyExistsException(OWLOntologyID ontologyID, IRI documentIRI, Throwable t) {
-        super("Ontology already exists. " + ontologyID + " (New ontology loaded from " + documentIRI.toQuotedString() + ")", t);
+        super(ONTOLOGY_ALREADY_EXISTS + ontologyID + " (New ontology loaded from " + documentIRI.toQuotedString() + ")", t);
         this.ontologyID = ontologyID;
         this.documentIRI = documentIRI;
     }

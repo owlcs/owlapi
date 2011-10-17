@@ -64,27 +64,28 @@ public class NamedConjunctChecker {
 
     private boolean collect;
 
-    private Set<OWLClass> conjuncts;
+    private final Set<OWLClass> conjuncts;
 
-    private NamedConjunctCheckerVisitor visitor;
+    private final NamedConjunctCheckerVisitor visitor;
 
 
-    public NamedConjunctChecker() {
+    @SuppressWarnings("javadoc")
+	public NamedConjunctChecker() {
         visitor = new NamedConjunctCheckerVisitor();
         conjuncts = new HashSet<OWLClass>();
     }
 
 
     /**
-     * Checks whether a named class is a conjunct in a given class expression.
+     * @return true ifa named class is a conjunct in a given class expression.
      * For class expressions which aren't named classes or object intersections this
      * method will always return false.
-     * @param conjunct The conjunct to check for
+     * @param conj The conjunct to check for
      * @param classExpression The expression to be checked
      */
-    public boolean isNamedConjunct(OWLClass conjunct, OWLClassExpression classExpression) {
+    public boolean isNamedConjunct(OWLClass conj, OWLClassExpression classExpression) {
         reset();
-        this.conjunct = conjunct;
+        this.conjunct = conj;
         classExpression.accept(visitor);
         return found;
     }

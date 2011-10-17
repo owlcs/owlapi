@@ -46,6 +46,10 @@ package org.semanticweb.owlapi.model;
  */
 public class RemoveImport extends ImportChange {
 
+    /**
+     * @param ont the ontology to which the change is to be applied
+     * @param importDeclaration the import declaration
+     */
     public RemoveImport(OWLOntology ont,
                         OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);
@@ -83,7 +87,7 @@ public class RemoveImport extends ImportChange {
 	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
-    
+
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
     	return visitor.visit(this);

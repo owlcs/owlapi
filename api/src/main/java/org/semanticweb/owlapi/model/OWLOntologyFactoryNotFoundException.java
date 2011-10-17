@@ -45,6 +45,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group<br>
  * Date: 13-Apr-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyFactoryNotFoundException extends OWLRuntimeException {
 
     public OWLOntologyFactoryNotFoundException(IRI documentIRI) {

@@ -59,10 +59,11 @@ import org.semanticweb.owlapi.model.OWLEntity;
  */
 public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEntityURIConverterStrategy {
 
-    private Map<IRI, IRI> iriMap;
+    private final Map<IRI, IRI> iriMap;
 
 
-    public OWLEntityURIUnderscores2CamelBackConverterStrategy() {
+    @SuppressWarnings("javadoc")
+	public OWLEntityURIUnderscores2CamelBackConverterStrategy() {
         iriMap = new HashMap<IRI, IRI>();
     }
 

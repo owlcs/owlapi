@@ -120,12 +120,15 @@ import org.semanticweb.owlapi.model.SWRLRule;
  */
 public class StructuralTransformation {
 
-	protected OWLDataFactory df;
+	protected final OWLDataFactory df;
 
     private int nameCounter = 0;
 
-    protected Set<OWLEntity> signature;
+    protected final Set<OWLEntity> signature;
 
+    /**
+     * @param dataFactory factory to use
+     */
     public StructuralTransformation(OWLDataFactory dataFactory) {
         this.df = dataFactory;
         signature = new HashSet<OWLEntity>();
@@ -139,6 +142,10 @@ public class StructuralTransformation {
     }
 
 
+    /**
+     * @param axioms axioms to transform
+     * @return transformed axioms
+     */
     public Set<OWLAxiom> getTransformedAxioms(Set<OWLAxiom> axioms) {
         signature.clear();
         for (OWLAxiom ax : axioms) {
@@ -167,11 +174,11 @@ public class StructuralTransformation {
 
     private class AxiomFlattener implements OWLClassExpressionVisitorEx<OWLClassExpression> {
 
-        private OWLDataFactory ldf;
+        private final OWLDataFactory ldf;
 
-        private Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 
-        private OWLClassExpression rhs;
+        private final OWLClassExpression rhs;
 
 //        private OWLClass lefthandSide;
 

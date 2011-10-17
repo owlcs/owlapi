@@ -48,5 +48,8 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLObjectComplementOf extends OWLBooleanClassExpression {
 
+    /**
+     * @return the wrapped expression
+     */
     OWLClassExpression getOperand();
 }

@@ -56,6 +56,6 @@ public interface OWLOntologyChangeBroadcastStrategy {
      * @param listener The listeners that the changes should be broadcast to
      * @throws OWLException
      */
-    void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) throws Exception;
+    void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) throws OWLException;
 
 }

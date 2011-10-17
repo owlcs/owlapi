@@ -70,10 +70,19 @@ public abstract class OWLOntologyFormat {
         return paramaterMap;
     }
 
+    /**
+     * @param key key for the new entry
+     * @param value value for the new entry
+     */
     public void setParameter(Object key, Object value) {
         getParameterMap().put(key, value);
     }
 
+    /**
+     * @param key key for the new entry
+     * @param defaultValue value for the new entry
+     * @return the value
+     */
     public Object getParameter(Object key, Object defaultValue) {
         Object val = getParameterMap().get(key);
         if(val != null) {

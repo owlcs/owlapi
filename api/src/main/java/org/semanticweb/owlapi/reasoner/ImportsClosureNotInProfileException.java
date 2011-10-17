@@ -52,9 +52,10 @@ import org.semanticweb.owlapi.profiles.OWLProfile;
  * OWL2DL or OWL2EL or OWL2QL or OWL2RL) that the reasoner can handle.  The reasoner will indicate in this exception
  * which profile it expects the axioms to be in.
  */
+@SuppressWarnings("javadoc")
 public class ImportsClosureNotInProfileException extends OWLReasonerRuntimeException {
 
-    private OWLProfile profile;
+    private final OWLProfile profile;
 
     public ImportsClosureNotInProfileException(OWLProfile profile) {
         this.profile = profile;

@@ -80,7 +80,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		}
 	}
 
-	private Map<String, String> prefix2NamespaceMap;
+	private final Map<String, String> prefix2NamespaceMap;
 
 	/**
 	 * Creates a namespace manager that does not have a default namespace.
@@ -90,6 +90,9 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		setupDefaultPrefixes();
 	}
 
+	/**
+	 * @param pm the prefix manager to copy
+	 */
 	public DefaultPrefixManager(PrefixManager pm) {
 		prefix2NamespaceMap = new HashMap<String, String>();
 		for (String prefixName : pm.getPrefixNames()) {
@@ -101,6 +104,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		setupDefaultPrefixes();
 	}
 
+	/**
+	 * clear the map
+	 */
+    //XXX not in the interface
 	public void clear() {
 		// Clear the default namespace and map
 		prefix2NamespaceMap.clear();
@@ -115,7 +122,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
 	/**
 	 * Creates a namespace manager that has the specified default namespace.
-	 * 
+	 *
 	 * @param defaultPrefix
 	 *            The namespace to be used as the default namespace.
 	 */
@@ -139,12 +146,13 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 	/**
 	 * Sets the default namespace. This will also bind the prefix name ":" to
 	 * this prefix
-	 * 
+	 *
 	 * @param defaultPrefix
 	 *            The namespace to be used as the default namespace. Note that
 	 *            the value may be <code>null</code> in order to clear the
 	 *            default namespace.
 	 */
+    //XXX not in the interface
 	public void setDefaultPrefix(String defaultPrefix) {
 		setPrefix(":", defaultPrefix);
 	}
@@ -154,11 +162,11 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		for (String prefixName : prefix2NamespaceMap.keySet()) {
 			String prefix = prefix2NamespaceMap.get(prefixName);
 			if (iriString.startsWith(prefix)) {
-				StringBuilder sb = new StringBuilder();
-				sb.append(prefixName);
+				//StringBuilder sb = new StringBuilder();
+				//sb.append(prefixName);
 				String localName = iriString.substring(prefix.length());
-				sb.append(localName);
-				return sb.toString();
+				//sb.append(localName);
+				return prefixName+localName;
 			}
 		}
 		return null;
@@ -206,19 +214,21 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
 	/**
 	 * Adds a prefix name to prefix mapping
-	 * 
+	 *
 	 * @param prefixName
 	 *            name The prefix name (must not be null)
 	 * @param prefix
-	 *            The prefix
-	 * @throws NullPointerException
-	 *             if the prefix name or prefix is <code>null</code>.
+	 *            The prefix. Cannot be null.
 	 * @throws IllegalArgumentException
-	 *             if the prefix name does not end with a colon.
+	 *             if some parameter is null or the prefix name does not end with a colon.
 	 */
+    //XXX not in the interface
 	public void setPrefix(String prefixName, String prefix) {
 		if (prefix == null) {
-			throw new NullPointerException("Prefix name must not be null");
+			throw new IllegalArgumentException("prefix cannot be null");
+		}
+		if (prefixName == null) {
+			throw new IllegalArgumentException("prefixName cannot be null");
 		}
 		if (!prefixName.endsWith(":")) {
 			throw new IllegalArgumentException(
@@ -229,10 +239,11 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
 	/**
 	 * Removes a previously registerd prefix namespace mapping
-	 * 
+	 *
 	 * @param namespace
 	 *            The namespace to be removed.
 	 */
+    //XXX not in the interface
 	public void unregisterNamespace(String namespace) {
 		List<String> toRemove = new ArrayList<String>();
 		for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {

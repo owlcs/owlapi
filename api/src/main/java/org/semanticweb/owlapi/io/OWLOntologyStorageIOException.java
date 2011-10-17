@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  */
 public class OWLOntologyStorageIOException extends OWLOntologyStorageException {
 
-    private IOException ioException;
+    private final IOException ioException;
 
     /**
      * @param ioException the cause
@@ -65,7 +65,7 @@ public class OWLOntologyStorageIOException extends OWLOntologyStorageException {
 
     /**
      * Gets the IOException that this exception wraps.
-     * @return The IOException 
+     * @return The IOException
      */
     public IOException getIOException() {
         return ioException;

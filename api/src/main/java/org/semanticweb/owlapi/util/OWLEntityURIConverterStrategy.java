@@ -52,5 +52,9 @@ import org.semanticweb.owlapi.model.OWLEntity;
  */
 public interface OWLEntityURIConverterStrategy {
 
+    /**
+     * @param entity the entity to convert
+     * @return the converted IRI
+     */
     IRI getConvertedIRI(OWLEntity entity);
 }

@@ -47,7 +47,7 @@ package org.semanticweb.owlapi.reasoner;
  * <p/>
  * An enumeration that denotes various types of inference task.  Each inference task has a name
  * that is associated with it - reasoners may use these names when reporting progress.
- * 
+ *
  */
 public enum InferenceType {
 
@@ -104,7 +104,7 @@ public enum InferenceType {
     DISJOINT_CLASSES("disjoint classes");
 
 
-    private String name;
+    private final String name;
 
     InferenceType(String name) {
         this.name = name;

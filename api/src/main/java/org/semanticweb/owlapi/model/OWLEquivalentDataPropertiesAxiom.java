@@ -53,5 +53,8 @@ import java.util.Set;
 public interface OWLEquivalentDataPropertiesAxiom extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
     OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations();
+    /**
+     * @return the axioms equivalent to the equivalent data properties axiom
+     */
     Set<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms();
 }

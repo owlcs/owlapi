@@ -53,14 +53,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  */
 public class QNameShortFormProvider implements ShortFormProvider {
 
-    private NamespaceUtil namespaceUtil;
-
-    /**
-     * A place to store the result of splitting URIs into
-     * namespaces and local names.
-     */
-    private static String[] result = new String[2];
-
+    private final NamespaceUtil namespaceUtil;
 
     /**
      * Creates a QNameShortFormProvider where namespace prefix mappings
@@ -86,6 +79,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
 
 
     public String getShortForm(OWLEntity entity) {
+    	String[] result = new String[2];
         String uriString = entity.getIRI().toString();
         namespaceUtil.split(uriString, result);
         String namespace = result[0];

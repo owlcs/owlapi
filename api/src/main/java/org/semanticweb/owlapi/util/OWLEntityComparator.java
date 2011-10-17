@@ -66,22 +66,23 @@ public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisi
 
     int lastValue;
 
-    public static final int OWL_CLASS_INDEX = 0;
+    private static final int OWL_CLASS_INDEX = 0;
 
-    public static final int OWL_OBJECT_PROPERTY_INDEX = 1;
+    private static final int OWL_OBJECT_PROPERTY_INDEX = 1;
 
-    public static final int OWL_DATA_PROPERTY_INDEX = 2;
+    private static final int OWL_DATA_PROPERTY_INDEX = 2;
 
-    public static final int OWL_INDIVIDUAL_INDEX = 3;
+    private static final int OWL_INDIVIDUAL_INDEX = 3;
 
-    public static final int OWL_DATATYPE_INDEX = 4;
+    private static final int OWL_DATATYPE_INDEX = 4;
 
-    private ShortFormProvider shortFormProvider;
+    private final ShortFormProvider shortFormProvider;
 
 
     /**
      * Constructs an entity comparator which uses the specified short form
      * provider
+     * @param shortFormProvider the short form provider to use
      */
     public OWLEntityComparator(ShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;

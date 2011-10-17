@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor {
 
-    private OWLDataFactory dataFactory;
+    private final OWLDataFactory dataFactory;
 
     private Object obj;
 
@@ -112,6 +112,10 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         this.replacementMap = new HashMap<OWLEntity, IRI>(entityIRIReplacementMap);
     }
 
+    /**
+     * @param object the object to duplicate
+     * @return the duplicate
+     */
     @SuppressWarnings("unchecked")
     public <O extends OWLObject> O duplicateObject(OWLObject object) {
         object.accept(this);

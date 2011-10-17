@@ -58,14 +58,14 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class NamespaceUtil {
 
-    private Map<String, String> namespace2PrefixMap;
+    private final Map<String, String> namespace2PrefixMap;
 
-    private Map<String, String> standardNamespacePrefixMappings;
+    private final Map<String, String> standardNamespacePrefixMappings;
 
     private int candidateIndex = 1;
 
-
-    public NamespaceUtil() {
+    @SuppressWarnings("javadoc")
+	public NamespaceUtil() {
         standardNamespacePrefixMappings = new HashMap<String, String>();
         standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE, "dc");
         standardNamespacePrefixMappings.put(Namespaces.SKOS.toString(), "skos");
@@ -74,26 +74,37 @@ public class NamespaceUtil {
         namespace2PrefixMap.put(Namespaces.RDFS.toString(), "rdfs");
         namespace2PrefixMap.put(Namespaces.RDF.toString(), "rdf");
         namespace2PrefixMap.put(Namespaces.XSD.toString(), "xsd");
-
     }
 
-
+    /**
+     * @param ch character to check
+     * @return true if ch is a letter
+     */
     public static boolean isLetter(char ch) {
         return Character.isLetter(ch);
     }
 
-
+    /**
+     * @param ch character to check
+     * @return true if ch is a digit
+     */
     public static boolean isDigit(char ch) {
         return Character.isDigit(ch);
     }
 
-
+    /**
+     * @param ch character to check
+     * @return true if ch is a digit, a letter or .-_
+     */
     public static boolean isNCNameChar(char ch) {
         // No colon in an NCNameChar
         return isLetter(ch) || isDigit(ch) || ch == '.' || ch == '-' || ch == '_';
     }
 
-
+    /**
+     * @param ch character to check
+     * @return true if ch is a letter or _
+     */
     public static boolean isNCNameStartChar(char ch) {
         return isLetter(ch) || ch == '_';
     }
@@ -174,6 +185,9 @@ public class NamespaceUtil {
     }
 
 
+    /**
+     * @return namespace to prefix map
+     */
     public Map<String, String> getNamespace2PrefixMap() {
         return Collections.unmodifiableMap(namespace2PrefixMap);
     }

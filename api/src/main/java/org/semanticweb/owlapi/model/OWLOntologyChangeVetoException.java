@@ -47,6 +47,7 @@ package org.semanticweb.owlapi.model;
  * Describes a situation where a change was vetoed for some reason.  Subclasses of
  * this class may provide more information about why the change was vetoed.
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
 
     public OWLOntologyChangeVetoException(OWLOntologyChange change, String message) {

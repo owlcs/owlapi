@@ -46,9 +46,12 @@ package org.semanticweb.owlapi.model;
  */
 public class RemoveOntologyAnnotation extends OWLOntologyChange {
 
-    private OWLAnnotation annotation;
+    private final OWLAnnotation annotation;
 
-
+    /**
+     * @param ont the ontology to which the change is to be applied
+     * @param annotation the annotation
+     */
     public RemoveOntologyAnnotation(OWLOntology ont,
                                     OWLAnnotation annotation) {
         super(ont);
@@ -56,6 +59,9 @@ public class RemoveOntologyAnnotation extends OWLOntologyChange {
     }
 
 
+    /**
+     * @return the annotation
+     */
     public OWLAnnotation getAnnotation() {
         return annotation;
     }
@@ -83,7 +89,7 @@ public class RemoveOntologyAnnotation extends OWLOntologyChange {
 	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
-    
+
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
     	return visitor.visit(this);

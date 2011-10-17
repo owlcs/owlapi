@@ -37,7 +37,7 @@
  * limitations under the License.
  */
 
-package org.semanticweb.owlapi.model;/*
+package org.semanticweb.owlapi.model;
 
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
@@ -73,13 +73,13 @@ public abstract class NodeID implements Comparable<NodeID> {
     }
 
 
-    public static class NodeIDImpl extends NodeID {
+    static class NodeIDImpl extends NodeID {
 
         private static final String NODE_ID_PREFIX = "genid";
 
         private static long counter = 0;
 
-        private String id;
+        private final String id;
 
         public NodeIDImpl(String id) {
             if (id.startsWith("_:")) {
@@ -111,11 +111,8 @@ public abstract class NodeID implements Comparable<NodeID> {
             if (!(obj instanceof NodeID)) {
                 return false;
             }
-            if(obj instanceof NodeID) {
             NodeID other = (NodeID) obj;
             return id.equals(other.getID());
-            }
-            return false;
         }
 
         @Override

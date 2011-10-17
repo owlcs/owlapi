@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  */
 public class RDFLiteral extends RDFNode {
 
-    private OWLLiteral literal;
+    private final OWLLiteral literal;
 
     /**
      * @param literal the wrapped literal

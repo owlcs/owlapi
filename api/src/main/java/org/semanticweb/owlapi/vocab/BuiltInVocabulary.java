@@ -47,9 +47,10 @@ package org.semanticweb.owlapi.vocab;
  */
 public enum BuiltInVocabulary {
 
+    /** Dublin core */
     DUBLIN_CORE,
-
+    /**SKOS*/
     SKOS,
-
+    /**SWRL*/
     SWRL
 }

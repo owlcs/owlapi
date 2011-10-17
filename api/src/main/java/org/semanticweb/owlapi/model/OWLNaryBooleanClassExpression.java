@@ -51,6 +51,9 @@ import java.util.Set;
  */
 public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression {
 
+    /**
+     * @return the class expressions
+     */
     Set<OWLClassExpression> getOperands();
 
     /**

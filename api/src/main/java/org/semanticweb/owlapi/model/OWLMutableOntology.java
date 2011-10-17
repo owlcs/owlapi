@@ -50,7 +50,16 @@ import java.util.List;
  */
 public interface OWLMutableOntology extends OWLOntology {
 
+    /**
+     * @param change the change to apply
+     * @return the list of ontology changes NOT applied
+     * @throws OWLOntologyChangeException if errors happen
+     */
     public List<OWLOntologyChange> applyChange(OWLOntologyChange change) throws OWLOntologyChangeException;
-
+    /**
+     * @param changes the changes to apply
+     * @return the list of ontology changes NOT applied
+     * @throws OWLOntologyChangeException if errors happen
+     */
     public List<OWLOntologyChange> applyChanges(List<OWLOntologyChange> changes) throws OWLOntologyChangeException;
 }

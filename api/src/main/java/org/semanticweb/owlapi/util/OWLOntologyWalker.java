@@ -50,6 +50,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
 
+    /**
+     * @param objects objects to walk
+     */
     public OWLOntologyWalker(Set<OWLOntology> objects) {
         super(objects);
     }

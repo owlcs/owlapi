@@ -48,7 +48,10 @@ package org.semanticweb.owlapi.model;
  * from an ontology if the change is applied to an ontology.
  */
 public class RemoveAxiom extends OWLAxiomChange {
-
+    /**
+     * @param ont the ontology to which the change is to be applied
+     * @param axiom the axiom to be removed
+     */
     public RemoveAxiom(OWLOntology ont, OWLAxiom axiom) {
         super(ont, axiom);
     }
@@ -85,7 +88,7 @@ public class RemoveAxiom extends OWLAxiomChange {
 	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
-    
+
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
     	return visitor.visit(this);

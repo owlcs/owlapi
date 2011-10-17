@@ -153,9 +153,9 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 @SuppressWarnings({"unused","javadoc"})
 public class DLExpressivityChecker implements OWLObjectVisitor {
 
-    private Set<Construct> constructs;
+    private final Set<Construct> constructs;
 
-    private Set<OWLOntology> ontologies;
+    private final Set<OWLOntology> ontologies;
 
 
     public List<Construct> getConstructs() throws OWLException {
@@ -188,7 +188,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         }
 
 
-        private String s;
+        private final String s;
 
 
         @Override

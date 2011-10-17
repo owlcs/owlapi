@@ -167,11 +167,11 @@ public enum SKOSVocabulary {
         }
     }
 
-    private String localName;
+    private final String localName;
 
-    private IRI iri;
+    private final IRI iri;
 
-    private EntityType<?> entityType;
+    private final EntityType<?> entityType;
 
     SKOSVocabulary(String localname, EntityType<?> entityType) {
         this.localName = localname;

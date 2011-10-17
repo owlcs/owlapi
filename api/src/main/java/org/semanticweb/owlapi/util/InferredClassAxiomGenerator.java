@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
+ * @param <A> the axiom type
  */
 public abstract class InferredClassAxiomGenerator<A extends OWLClassAxiom> extends InferredEntityAxiomGenerator<OWLClass, A> {
 

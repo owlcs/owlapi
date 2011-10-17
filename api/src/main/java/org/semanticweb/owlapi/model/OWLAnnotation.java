@@ -97,8 +97,10 @@ public interface OWLAnnotation extends OWLObject {
      */
     OWLAnnotation getAnnotatedAnnotation(Set<OWLAnnotation> annotations);
 
-    void accept(OWLAnnotationObjectVisitor visitor);
+    @SuppressWarnings("javadoc")
+	void accept(OWLAnnotationObjectVisitor visitor);
 
-    <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor);
+    @SuppressWarnings("javadoc")
+	<O> O accept(OWLAnnotationObjectVisitorEx<O> visitor);
 
 }

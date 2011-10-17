@@ -58,16 +58,19 @@ import java.util.Set;
 public interface OWLInverseObjectPropertiesAxiom extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
     /**
-     * Gets the first of the two object properties.
+     * @return the first of the two object properties.
      */
     OWLObjectPropertyExpression getFirstProperty();
 
 
     /**
-     * Gets the second of the two object properties.
+     * @return the second of the two object properties.
      */
     OWLObjectPropertyExpression getSecondProperty();
 
+    /**
+     * @return the set of subproperty axioms equivalent
+     */
     Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
 
     OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();

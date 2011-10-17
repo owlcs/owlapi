@@ -57,42 +57,83 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression<OWLCl
     boolean isInverseFunctional(OWLOntology ontology);
 
 
+    /**
+     * @param ontologies the ontologies to check
+     * @return true if the property is defined as inverse functional
+     */
     boolean isInverseFunctional(Set<OWLOntology> ontologies);
 
 
+    /**
+     * @param ontology the ontology to check
+     * @return true if symmetric
+     */
     boolean isSymmetric(OWLOntology ontology);
 
-
+    /**
+     * @param ontologies the ontologies to check
+     * @return true if symmetric
+     */
     boolean isSymmetric(Set<OWLOntology> ontologies);
 
-
+    /**
+     * @param ontology the ontology to check
+     * @return true if asymmetric
+     */
     boolean isAsymmetric(OWLOntology ontology);
 
-
+    /**
+     * @param ontologies the ontologies to check
+     * @return true if asymmetric
+     */
     boolean isAsymmetric(Set<OWLOntology> ontologies);
 
-
+    /**
+     * @param ontology the ontology to check
+     * @return true if reflexive
+     */
     boolean isReflexive(OWLOntology ontology);
 
-
+    /**
+     * @param ontologies the ontologies to check
+     * @return true if reflexive
+     */
     boolean isReflexive(Set<OWLOntology> ontologies);
 
-
+    /**
+     * @param ontology the ontology to check
+     * @return true if irreflexive
+     */
     boolean isIrreflexive(OWLOntology ontology);
 
-
+    /**
+     * @param ontologies the ontologies to check
+     * @return true if irreflexive
+     */
     boolean isIrreflexive(Set<OWLOntology> ontologies);
 
-
+    /**
+     * @param ontology the ontology to check
+     * @return true if transitive
+     */
     boolean isTransitive(OWLOntology ontology);
 
-
+    /**
+     * @param ontologies the ontologies to check
+     * @return true if transitive
+     */
     boolean isTransitive(Set<OWLOntology> ontologies);
 
-
+    /**
+     * @param ontology the ontology to check
+     * @return the inverse properties
+     */
     Set<OWLObjectPropertyExpression> getInverses(OWLOntology ontology);
 
-
+    /**
+     * @param ontologies the ontologies to check
+     * @return the inverse properties
+     */
     Set<OWLObjectPropertyExpression> getInverses(Set<OWLOntology> ontologies);
 
 

@@ -52,13 +52,13 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
 
     private static int counter = 0;
 
-    private static String ANON_PREFIX = "Anonymous-";
+    private static final String ANON_PREFIX = "Anonymous-";
 
     private String internalID;
 
-    private IRI ontologyIRI;
+    private final IRI ontologyIRI;
 
-    private IRI versionIRI;
+    private final IRI versionIRI;
 
     private int hashCode;
 
@@ -125,11 +125,17 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID> {
     }
 
 
+    /**
+     * @return the ontology IRI
+     */
     public IRI getOntologyIRI() {
         return ontologyIRI;
     }
 
 
+    /**
+     * @return the version IRI
+     */
     public IRI getVersionIRI() {
         return versionIRI;
     }

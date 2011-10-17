@@ -51,11 +51,12 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * Date: 18-Apr-2007<br><br>
  * <p/>
  * Provides a set of entities to inputs that require this.
+ * @param <E> the entity type
  */
 public interface OWLEntitySetProvider<E extends OWLEntity> {
 
     /**
-     * Gets the entities that are provided by this provider.
+     * @return the entities that are provided by this provider.
      */
     Set<E> getEntities();
 }

@@ -76,11 +76,11 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class OWLEntityURIConverter {
 
-    private OWLOntologyManager manager;
+    private final OWLOntologyManager manager;
 
     // The ontologies that reference the
     // entities whose names will be converted
-    private Collection<OWLOntology> ontologies;
+    private final Collection<OWLOntology> ontologies;
 
     private Map<OWLEntity, IRI> replacementMap;
 
@@ -88,7 +88,7 @@ public class OWLEntityURIConverter {
 
     private Set<OWLEntity> processedEntities;
 
-    private OWLEntityURIConverterStrategy strategy;
+    private final OWLEntityURIConverterStrategy strategy;
 
 
     /**

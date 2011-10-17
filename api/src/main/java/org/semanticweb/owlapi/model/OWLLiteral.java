@@ -174,8 +174,8 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *                               the lexical space of the float datatype.
      */
     float parseFloat() throws NumberFormatException;
-
+    @SuppressWarnings("javadoc")
     void accept(OWLDataVisitor visitor);
-
+    @SuppressWarnings("javadoc")
     <O> O accept(OWLDataVisitorEx<O> visitor);
 }

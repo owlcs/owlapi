@@ -53,6 +53,7 @@ public enum Namespaces {
      */
     OWL2("http://www.w3.org/2006/12/owl2#"),
 
+    /**legacy*/
     OWL11XML("http://www.w3.org/2006/12/owl11-xml#"),
 
 
@@ -61,23 +62,24 @@ public enum Namespaces {
      */
     OWL11("http://www.w3.org/2006/12/owl11#"),
 
+    /**OWL namespace*/
     OWL("http://www.w3.org/2002/07/owl#"),
-
+    /**RDFS namespace*/
     RDFS("http://www.w3.org/2000/01/rdf-schema#"),
-
+    /**RDF namespace*/
     RDF("http://www.w3.org/1999/02/22-rdf-syntax-ns#"),
-
+    /**XSD namespace*/
     XSD("http://www.w3.org/2001/XMLSchema#"),
-
+    /**XML namespace*/
     XML("http://www.w3.org/XML/1998/namespace"),
-
+    /**SWRL namespace*/
     SWRL("http://www.w3.org/2003/11/swrl#"),
-
+    /**SWRLB namespace*/
     SWRLB("http://www.w3.org/2003/11/swrlb#"),
-
+    /**SKOS namespace*/
     SKOS("http://www.w3.org/2004/02/skos/core#");
 
-    String ns;
+    final String ns;
 
 
     Namespaces(String ns) {

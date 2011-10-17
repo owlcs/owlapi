@@ -60,9 +60,9 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
 
     private static boolean includeStackTraceInMessage = false;
 
-    private IRI documentIRI;
+    private final IRI documentIRI;
 
-    private Map<OWLParser, OWLParserException> exceptions;
+    private final Map<OWLParser, OWLParserException> exceptions;
 
     /**
      * @param documentIRI the document IRI

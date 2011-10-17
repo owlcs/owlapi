@@ -53,8 +53,15 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
  */
 public interface OWLOntologyFactory {
 
+    /**
+     * @param owlOntologyManager the ontology manager to set. Cannot be null.
+     */
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager);
 
+    /**
+     * @return the ontology manager
+     */
+    public OWLOntologyManager getOWLOntologyManager() ;
     /**
      * Creates an (empty) ontology.
      * @param ontologyID The ID of the ontology to create. This MUST NOT BE <code>null</code>.
@@ -124,6 +131,10 @@ public interface OWLOntologyFactory {
          */
         void ontologyCreated(OWLOntology ontology);
 
+        /**
+         * @param ontology the ontology
+         * @param format the format
+         */
         void setOntologyFormat(OWLOntology ontology, OWLOntologyFormat format);
     }
 }

@@ -59,27 +59,45 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * <br>
  */
 public class CollectionFactory {
-	private static AtomicInteger expectedThreads = new AtomicInteger(16);
+	private static final AtomicInteger expectedThreads = new AtomicInteger(16);
 
+	/**
+	 * @param value the number of expected threads that will access threadsafe collections; useful for increasing the concurrency in ConcurrentHashMaps
+	 */
 	public static void setExpectedThreads(int value) {
 		expectedThreads.set(value);
 	}
 
+	/**
+	 * @return fresh non threadsafe set
+	 */
 	public static <T> Set<T> createSet() {
 		return new HashSet<T>();
 	}
-
+	/**
+	 * @param c values to add to the set
+	 * @return fresh non threadsafe set
+	 */
 	public static <T> Set<T> createSet(Collection<T> c) {
 		return new HashSet<T>(c);
 	}
+	/**
+	 * @param initialCapacity initial capacity for the new set
+	 * @return fresh non threadsafe set
+	 */
 
 	public static <T> Set<T> createSet(int initialCapacity) {
 		return new HashSet<T>(initialCapacity);
 	}
 
+	/**@return fresh map*/
 	public static <K, V> Map<K, V> createMap() {
 		return new HashMap<K, V>();
 	}
+	/**
+	 * @param elements values to add to the set
+	 * @return fresh non threadsafe set
+	 */
 
 	public static <T> Set<T> createSet(T... elements) {
 		Set<T> result = createSet();
@@ -89,10 +107,14 @@ public class CollectionFactory {
 		return result;
 	}
 
+	/**@return fresh threadsafe set*/
 	public static <T> Set<T> createSyncSet() {
 		return new SyncSet<T>();
 	}
 
+	/**
+	 * @return fresh threadsafe hashmap
+	 */
 	public static <K, V> ConcurrentHashMap<K, V> createSyncMap() {
 		return new ConcurrentHashMap<K, V>(16, 0.75F, expectedThreads.get());
 	}
@@ -197,7 +219,7 @@ public class CollectionFactory {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param source
 	 *            the collection to lazily copy
 	 * @return a lazy defensive copy for source; the source collection will not
@@ -208,6 +230,10 @@ public class CollectionFactory {
 		return new ConditionalCopySet<T>(source);
 	}
 
+	/**
+	 * @param source initial values
+	 * @return a threadsafe copy on request set
+	 */
 	public static <T> Set<T> getThreadSafeCopyOnRequestSet(Set<T> source) {
 		return new ThreadSafeConditionalCopySet<T>(source);
 	}
@@ -222,7 +248,7 @@ public class CollectionFactory {
 	 * supposed to change, then this collection behaves just like a regular
 	 * defensive copy; if the source collection can change, then this collection
 	 * should be built from a cheap copy of the original collection.
-	 * 
+	 *
 	 * For example, if the source collection is a set, it can be copied into a
 	 * list; the cost of the copy operation from set to list is approximately
 	 * 1/3 of the cost of copying into a new HashSet. This is not efficient if
@@ -231,9 +257,10 @@ public class CollectionFactory {
 	 * counter for these calls is maintained by the collection, so if a large
 	 * number of contains/containsAll calls takes place, the delegate is turned
 	 * into a regular set.
-	 * 
+	 *
 	 * This implementation is not threadsafe even if the source set is: there is
 	 * no lock during the copy, and the new set is not threadsafe.
+	 * @param <T> the type contained
 	 */
 	public static class ConditionalCopySet<T> implements Set<T> {
 		private boolean copyDone = false;
@@ -241,6 +268,9 @@ public class CollectionFactory {
 		private final static int maxContains = 10;
 		private int containsCounter = 0;
 
+		/**
+		 * @param source initial elements
+		 */
 		public ConditionalCopySet(Collection<T> source) {
 			this.delegate = source;
 		}
@@ -369,8 +399,9 @@ public class CollectionFactory {
 	 * this class behaves like ConditionalCopySet except it is designed to be
 	 * threadsafe; multiple thread access is regulated by a readwritelock;
 	 * modifications will create a copy based on SyncSet.
-	 * 
-	 * */
+	 *
+	 *@param <T> the type contained
+	 */
 	public static class ThreadSafeConditionalCopySet<T> implements Set<T> {
 		private volatile boolean copyDone = false;
 		private Collection<T> delegate;
@@ -380,6 +411,9 @@ public class CollectionFactory {
 		private final static int maxContains = 10;
 		private volatile int containsCounter = 0;
 
+		/**
+		 * @param source initial values
+		 */
 		public ThreadSafeConditionalCopySet(Collection<T> source) {
 			this.delegate = source;
 		}
@@ -456,14 +490,14 @@ public class CollectionFactory {
 		}
 
 		public boolean contains(Object arg0) {
-			/* note: the check on the number of contains and on 
-			 * the copyDone flag is intentionally not made inside 
-			 * a lock; these operations will not stop other 
+			/* note: the check on the number of contains and on
+			 * the copyDone flag is intentionally not made inside
+			 * a lock; these operations will not stop other
 			 * threads from accessing the collection, and the
-			 * lack of synchronization means that a few 
-			 * contains/containsAll calls might not be recorded; 
-			 * the result is that the copy optimization would be 
-			 * delayed. This is not an issue, since maxContains 
+			 * lack of synchronization means that a few
+			 * contains/containsAll calls might not be recorded;
+			 * the result is that the copy optimization would be
+			 * delayed. This is not an issue, since maxContains
 			 * is only a rough estimate.*/
 			if (!copyDone) {
 				containsCounter++;
@@ -471,7 +505,7 @@ public class CollectionFactory {
 					try {
 						writeLock.lock();
 						// many calls to contains, inefficient if the delegate is not a set
-						// copyDone is doublechecked, but here it's protected by the write 
+						// copyDone is doublechecked, but here it's protected by the write
 						//lock as in all other instances in which its value is changed
 						if (!copyDone && !(delegate instanceof Set)) {
 							copyDone = true;
@@ -500,7 +534,7 @@ public class CollectionFactory {
 					try {
 						writeLock.lock();
 						// many calls to contains, inefficient if the delegate is not a set
-						// copyDone is doublechecked, but here it's protected by the write 
+						// copyDone is doublechecked, but here it's protected by the write
 						//lock as in all other instances in which its value is changed
 						if (!copyDone && !(delegate instanceof Set)) {
 							copyDone = true;

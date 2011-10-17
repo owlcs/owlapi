@@ -47,9 +47,10 @@ package org.semanticweb.owlapi.model;
  * An exception that describes the situation where an ontology could not be renamed (have its ID set) because
  * its manager already contained an ontology with the same name.
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyRenameException extends OWLOntologyChangeException {
 
-    private OWLOntologyID ontologyID;
+    private final OWLOntologyID ontologyID;
 
     public OWLOntologyRenameException(OWLOntologyChange change, OWLOntologyID ontologyID) {
         super(change, "Could not rename ontology. An ontology with this ID already exists: " + ontologyID);

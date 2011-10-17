@@ -51,15 +51,21 @@ package org.semanticweb.owlapi.util;
  */
 public class Version {
 
-    private int major;
+    private final int major;
 
-    private int minor;
+    private final int minor;
 
-    private int patch;
+    private final int patch;
 
-    private int build;
+    private final int build;
 
 
+    /**
+     * @param major major version number
+     * @param minor minor version number
+     * @param patch patch number
+     * @param build build number
+     */
     public Version(int major, int minor, int patch, int build) {
         this.major = major;
         this.minor = minor;
@@ -67,18 +73,29 @@ public class Version {
         this.build = build;
     }
 
+    /**
+     * @return major version
+     */
     public int getMajor() {
         return major;
     }
-
+    /**
+     * @return minor version
+     */
     public int getMinor() {
         return minor;
     }
 
+    /**
+     * @return patch version
+     */
     public int getPatch() {
         return patch;
     }
 
+    /**
+     * @return build version
+     */
     public int getBuild() {
         return build;
     }

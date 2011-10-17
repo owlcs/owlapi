@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private File file;
+    private final File file;
 
     /**
      * Constructs the document target, with the target being the specified file.

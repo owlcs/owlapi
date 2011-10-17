@@ -56,6 +56,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
  * Generates axioms which relate to inferred information for a specific entity.
+ * @param <E> the entity type
+ * @param <A> the axiom type
  */
 public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extends OWLAxiom> implements InferredAxiomGenerator<A> {
 

@@ -158,15 +158,22 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     private IRIShortFormProvider iriShortFormProvider;
 
-    public SimpleRenderer() {
+    @SuppressWarnings("javadoc")
+	public SimpleRenderer() {
         sb = new StringBuilder();
         resetShortFormProvider();
     }
 
+    /**
+     * reset the renderer
+     */
     public void reset() {
         sb = new StringBuilder();
     }
 
+    /**
+     * @return true if default is used
+     */
     public boolean isUsingDefaultShortFormProvider() {
         return shortFormProvider instanceof DefaultPrefixManager;
     }
@@ -238,6 +245,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(s);
     }
 
+    /**
+     * @param iri the iri to shorten
+     * @return the short form
+     */
     public String getShortForm(IRI iri) {
         return iriShortFormProvider.getShortForm(iri);
     }
@@ -266,6 +277,9 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(" ");
     }
 
+    /**
+     * @param axiom the axiom whose annotations should be written
+     */
     public void writeAnnotations(OWLAxiom axiom) {
         for (OWLAnnotation anno : axiom.getAnnotations()) {
             anno.accept(this);
@@ -955,7 +969,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(SWRLClassAtom node) {
         sb.append("ClassAtom(");
         node.getPredicate().accept(this);
-        sb.append(" ");        
+        sb.append(" ");
         node.getArgument().accept(this);
         sb.append(")");
     }
@@ -964,7 +978,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(SWRLDataRangeAtom node) {
         sb.append("DataRangeAtom(");
         node.getPredicate().accept(this);
-        sb.append(" ");        
+        sb.append(" ");
         node.getArgument().accept(this);
         sb.append(")");
     }
@@ -1002,7 +1016,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(SWRLDataPropertyAtom node) {
         sb.append("DataPropertyAtom(");
         node.getPredicate().accept(this);
-        sb.append(" ");        
+        sb.append(" ");
         node.getFirstArgument().accept(this);
         sb.append(" ");
         node.getSecondArgument().accept(this);

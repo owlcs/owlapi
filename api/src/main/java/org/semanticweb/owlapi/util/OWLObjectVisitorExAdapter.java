@@ -134,6 +134,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * Provides a default implementation of <code>OWLObjectVisitorEx</code>.  Only the methods that need specific client
  * implementation need be overridden.  The adapter can be set up to return a default value.
  */
+@SuppressWarnings("javadoc")
 public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
 
     private O defaultReturnValue = null;

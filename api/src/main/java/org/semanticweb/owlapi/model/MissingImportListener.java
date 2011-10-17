@@ -46,11 +46,13 @@ package org.semanticweb.owlapi.model;
  * </p>
  * An interface for objects that listen to missing imports events.
  * @see MissingImportEvent
- * @see OWLOntologyManager#isSilentMissingImportsHandling()
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#addMissingImportListener(MissingImportListener)
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener)
  */
 public interface MissingImportListener {
 
+    /**
+     * @param event the missing import event
+     */
     void importMissing(MissingImportEvent event);
 }

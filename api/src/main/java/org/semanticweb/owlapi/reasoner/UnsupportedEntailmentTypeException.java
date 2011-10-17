@@ -48,9 +48,10 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Information Management Group<br>
  * Date: 18-Mar-2009
  */
+@SuppressWarnings("javadoc")
 public class UnsupportedEntailmentTypeException extends OWLRuntimeException {
 
-    private OWLAxiom axiom;
+    private final OWLAxiom axiom;
 
 
     public UnsupportedEntailmentTypeException(OWLAxiom axiom) {

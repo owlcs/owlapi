@@ -61,7 +61,7 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
 
     private static int counter = 0;
 
-    private IRI documentIRI;
+    private final IRI documentIRI;
 
     private byte [] buffer;
 
@@ -103,18 +103,36 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
      * than once.  In other words, this method caches the input stream.
      * @param stream The stream to be "cached"
      */
-    private void readIntoBuffer(InputStream stream) {
+//    private void readIntoBuffer(InputStream stream) {
+//        try {
+//            byte [] tempBuffer = new byte [4096];
+//            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//            int read;
+//            while((read = stream.read(tempBuffer)) != -1) {
+//                bos.write(tempBuffer, 0, read);
+//            }
+//            buffer = bos.toByteArray();
+//        }
+//        catch (IOException e) {
+//            throw new OWLOntologyInputSourceException(e);
+//        }
+//    }
+    private void readIntoBuffer(InputStream reader) {
         try {
-            byte [] tempBuffer = new byte [4096];
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            int read;
-            while((read = stream.read(tempBuffer)) != -1) {
-                bos.write(tempBuffer, 0, read);
-            }
+        	ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            final int length = 100000;
+			byte [] tempBuffer = new byte [length];
+			int read=0;
+			do {
+				read=reader.read(tempBuffer, 0, length);
+				if(read>0) {
+					bos.write(tempBuffer, 0, read);
+				}
+			} while(read>0);
             buffer = bos.toByteArray();
         }
         catch (IOException e) {
-            throw new OWLOntologyInputSourceException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 

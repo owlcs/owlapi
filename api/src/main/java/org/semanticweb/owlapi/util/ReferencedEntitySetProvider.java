@@ -54,9 +54,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class ReferencedEntitySetProvider implements OWLEntitySetProvider<OWLEntity> {
 
-    private Set<OWLOntology> ontologies;
+    private final Set<OWLOntology> ontologies;
 
 
+    /**
+     * @param ontologies ontologies to use
+     */
     public ReferencedEntitySetProvider(Set<OWLOntology> ontologies) {
         this.ontologies = ontologies;
     }

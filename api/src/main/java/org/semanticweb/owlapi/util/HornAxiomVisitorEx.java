@@ -101,10 +101,10 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
 /**returns true if the visited axioms are an ontology in Horn-SHIQ form*/
-
+@SuppressWarnings("unused")
 public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
-	PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
-	NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
+	final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
+	final NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
 
 	public Boolean visit(OWLSubAnnotationPropertyOfAxiom axiom) {
 		return Boolean.TRUE;

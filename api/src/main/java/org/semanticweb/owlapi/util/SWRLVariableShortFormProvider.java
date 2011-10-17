@@ -49,6 +49,10 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public interface SWRLVariableShortFormProvider {
 
+    /**
+     * @param variable variable to shorten
+     * @return short form
+     */
     String getShortForm(SWRLVariable variable);
-    
+
 }

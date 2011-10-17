@@ -48,9 +48,12 @@ package org.semanticweb.owlapi.model;
  */
 public class AddOntologyAnnotation extends OWLOntologyChange {
 
-    private OWLAnnotation annotation;
+    private final OWLAnnotation annotation;
 
-
+    /**
+     * @param ont the ontology to which the change is to be applied
+     * @param annotation the annotation
+     */
     public AddOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
         super(ont);
         this.annotation = annotation;
@@ -88,7 +91,7 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
 	public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
-    
+
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
     	return visitor.visit(this);

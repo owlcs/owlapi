@@ -46,8 +46,12 @@ package org.semanticweb.owlapi.model;
  */
 public abstract class ImportChange extends OWLOntologyChange {
 
-    private OWLImportsDeclaration declaration;
+    private final OWLImportsDeclaration declaration;
 
+    /**
+     * @param ont the ontology to which the change is to be applied
+     * @param importDeclaration the import declaration
+     */
     public ImportChange(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
         super(ont);
         declaration = importDeclaration;

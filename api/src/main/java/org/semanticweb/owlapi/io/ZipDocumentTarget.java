@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private File file;
+    private final File file;
 
 
     /**
