@@ -41,14 +41,12 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
-import org.semanticweb.owlapi.profiles.OWLProfileViolation;
-
+@SuppressWarnings("javadoc")
 public class TestProfile extends TestCase {
 	public void testOWLEL() throws Exception{
 		String onto = "<?xml version=\"1.0\"?>\n"
@@ -69,14 +67,14 @@ public class TestProfile extends TestCase {
 				+ "<rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/>\n"
 				+ "<rdfs:subPropertyOf rdf:resource=\"http://ex.com#p1\"/>\n"
 				+ "</rdf:Property>\n" + "</rdf:RDF>";
-		OWLOntologyManager m=OWLManager.createOWLOntologyManager();
+		OWLOntologyManager m=Factory.getManager();
 		OWLOntology o=m.loadOntologyFromOntologyDocument(new StringDocumentSource(onto));
 		OWL2RLProfile p=new OWL2RLProfile();
 		OWLProfileReport report=p.checkOntology(o);
-		
-		for(OWLProfileViolation v: report.getViolations()) {
-			System.out.println("TestProfile.testOWLEL() "+v);
-		}
+
+//		for(OWLProfileViolation v: report.getViolations()) {
+//			System.out.println("TestProfile.testOWLEL() "+v);
+//		}
 		assertTrue("unexpected violations! "+report.getViolations(),report.getViolations().size()==0);
 	}
 }

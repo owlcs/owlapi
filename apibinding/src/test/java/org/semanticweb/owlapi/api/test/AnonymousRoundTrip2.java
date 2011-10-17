@@ -45,13 +45,11 @@ import java.io.IOException;
 import junit.framework.TestCase;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -63,21 +61,17 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 @SuppressWarnings("javadoc")
 public class AnonymousRoundTrip2 extends TestCase{
-	public void testRoundTrip() {
-	        try {
+	public void testRoundTrip() throws Exception{
+
 	            AnonymousRoundTrip ma = new AnonymousRoundTrip();
 	            ma.buildOntology();
 	            ma.printAxioms();
 	            ma.write();
 
-	            System.out.println(" -------------- Take 2");
+	            //System.out.println(" -------------- Take 2");
 
 	            ma.loadOntology();
 	            ma.printAxioms();
-	        }
-	        catch (Throwable t) {
-	            t.printStackTrace();
-	        }
 	    }
 
 }
@@ -103,7 +97,7 @@ class AnonymousRoundTrip {
     }
 
     public void buildOntology() throws OWLOntologyCreationException {
-        manager = OWLManager.createOWLOntologyManager();
+        manager = Factory.getManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
         ontology = manager.createOntology(IRI.create(NS));
 
@@ -116,17 +110,17 @@ class AnonymousRoundTrip {
     }
 
     public void loadOntology() throws OWLOntologyCreationException {
-        System.out.println("Reading from location " + savedLocation);
-        manager = OWLManager.createOWLOntologyManager();
+       // System.out.println("Reading from location " + savedLocation);
+        manager = Factory.getManager();
         ontology = manager.loadOntologyFromOntologyDocument(savedLocation);
     }
 
     public void printAxioms() {
-        System.out.println("Printing axioms --- ");
-        for (OWLAxiom axiom : ontology.getAxioms()) {
-            System.out.println("\tAxiom: " + axiom);
-        }
-        System.out.println("End of axiom printout");
+//        System.out.println("Printing axioms --- ");
+//        for (OWLAxiom axiom : ontology.getAxioms()) {
+//            System.out.println("\tAxiom: " + axiom);
+//        }
+//        System.out.println("End of axiom printout");
     }
 
     public void write() throws OWLOntologyStorageException, IOException {
@@ -136,7 +130,7 @@ class AnonymousRoundTrip {
         manager.saveOntology(ontology, new ManchesterOWLSyntaxOntologyFormat(), writer);
         out.flush();
         out.close();
-        System.out.println("Saved to location " + savedLocation);
+       // System.out.println("Saved to location " + savedLocation);
     }
 
 

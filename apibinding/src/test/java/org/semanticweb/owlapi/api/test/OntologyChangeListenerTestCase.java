@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 04-Jul-2010
  */
+@SuppressWarnings("javadoc")
 public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
 
     public void testOntologyChangeListener() {

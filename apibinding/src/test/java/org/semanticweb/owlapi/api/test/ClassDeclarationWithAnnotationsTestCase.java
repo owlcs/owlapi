@@ -52,12 +52,13 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 01-Jul-2010
  */
+
 public class ClassDeclarationWithAnnotationsTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         OWLEntity ent = getOWLClass("A");
-        return getFactory().getOWLDeclarationAxiom(ent);
+        return getFactory().getOWLDeclarationAxiom(ent, annos);
     }
 
     @Override

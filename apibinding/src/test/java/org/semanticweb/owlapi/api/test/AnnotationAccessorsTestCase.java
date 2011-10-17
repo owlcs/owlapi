@@ -56,6 +56,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Bio-Health Informatics Group<br>
  * Date: 01-Jul-2010
  */
+
 @SuppressWarnings("javadoc")
 public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
 

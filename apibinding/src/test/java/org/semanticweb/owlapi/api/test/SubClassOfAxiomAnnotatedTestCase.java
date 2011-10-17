@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLClass;
  * Information Management Group<br>
  * Date: 28-May-2009
  */
+
 public class SubClassOfAxiomAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
     @Override

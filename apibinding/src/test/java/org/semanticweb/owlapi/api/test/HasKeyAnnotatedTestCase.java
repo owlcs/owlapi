@@ -58,8 +58,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * Information Management Group<br>
  * Date: 28-May-2009
  */
-public class HasKeyAnnotatedTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
+public class HasKeyAnnotatedTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override
 	protected Set<? extends OWLAxiom> createAxioms() {

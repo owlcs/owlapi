@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * Information Management Group<br>
  * Date: 28-Jun-2009
  */
+
 public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override
@@ -71,7 +72,7 @@ public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
         OWLDataIntersectionOf disj1 = factory.getOWLDataIntersectionOf(factory.getOWLDataComplementOf(dr), dt); // here I negate dr
         OWLDataIntersectionOf disj2 = factory.getOWLDataIntersectionOf(factory.getOWLDataComplementOf(dt), dr); // here I negate dt
         OWLDataUnionOf union = factory.getOWLDataUnionOf(disj1, disj2);
-        System.out.println(union.toString());
+        //System.out.println(union.toString());
         OWLDataProperty prop = getOWLDataProperty("prop");
         OWLDataPropertyRangeAxiom ax = factory.getOWLDataPropertyRangeAxiom(prop, union);
         return Collections.singleton(ax);

@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * Information Management Group<br>
  * Date: 06-Jun-2008<br><br>
  */
+@SuppressWarnings("javadoc")
 public class ObjectPropertySimplifierTestCase extends AbstractOWLAPITestCase {
 
     public void testNamedSimplification() {

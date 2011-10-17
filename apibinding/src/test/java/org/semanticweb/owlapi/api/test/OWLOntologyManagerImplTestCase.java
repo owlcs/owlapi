@@ -59,6 +59,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  * Bio-Health Informatics Group<br>
  * Date: 02-Jan-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyManagerImplTestCase extends TestCase {
 
     private OWLOntologyManager manager;
@@ -75,9 +76,9 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
     public void testContains() throws Exception {
         OWLOntology ont = manager.createOntology(TestUtils.createIRI());
         assertTrue(manager.contains(ont.getOntologyID()));
-        assertNotNull(manager.getOntology(ont.getOntologyID()));
+        assertNotNull("ontology should not be null",manager.getOntology(ont.getOntologyID()));
         assertTrue(manager.getOntologies().contains(ont));
-        assertNotNull(manager.getOntologyDocumentIRI(ont));
+        assertNotNull("IRI should not be null",manager.getOntologyDocumentIRI(ont));
         manager.removeOntology(ont);
         assertFalse(manager.contains(ont.getOntologyID()));
     }

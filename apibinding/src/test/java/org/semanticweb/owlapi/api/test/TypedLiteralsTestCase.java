@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
  * Information Management Group<br>
  * Date: 02-Jul-2009
  */
+
 public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override

@@ -65,6 +65,7 @@ import org.semanticweb.owlapi.util.OWLEntityRenamer;
  * Information Management Group<br>
  * Date: 29-Nov-2009
  */
+@SuppressWarnings("javadoc")
 public class RenameEntityTestCase extends AbstractOWLAPITestCase {
 
     public void testRenameClass() throws Exception {

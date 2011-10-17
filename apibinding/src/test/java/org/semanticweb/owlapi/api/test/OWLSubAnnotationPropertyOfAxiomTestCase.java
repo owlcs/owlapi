@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
  * Bio-Health Informatics Group<br>
  * Date: 16/12/2010
  */
+
 public class OWLSubAnnotationPropertyOfAxiomTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override

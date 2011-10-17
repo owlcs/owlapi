@@ -46,8 +46,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 22-Jul-2008<br><br>
  */
-public class InversePropertiesAxiomTestCase extends AbstractRoundTrippingTest {
 
+public class InversePropertiesAxiomTestCase extends AbstractRoundTrippingTest {
 
     @Override
 	protected OWLOntology createOntology() {

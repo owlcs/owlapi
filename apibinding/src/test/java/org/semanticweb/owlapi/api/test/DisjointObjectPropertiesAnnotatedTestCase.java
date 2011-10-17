@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Information Management Group<br>
  * Date: 25-Nov-2009
  */
+
 public class DisjointObjectPropertiesAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
     @Override

@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 12-Oct-2008<br><br>
  */
+@SuppressWarnings("javadoc")
 public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
 
     public void testContainsNamedClass() {

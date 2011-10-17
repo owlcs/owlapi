@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
+
 public class OWLDataAllRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLDataProperty, OWLDataRange> {
     @SuppressWarnings("rawtypes")
     @Override

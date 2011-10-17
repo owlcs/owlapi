@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 11/03/2011
  */
+@SuppressWarnings("javadoc")
 public class SubClassOfUntypedSomeValuesFromTestCase extends AbstractFileTestCase {
 
     @Override

@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLClass;
  * Information Management Group<br>
  * Date: 10-Dec-2009
  */
+
 public class IRISubstringTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override

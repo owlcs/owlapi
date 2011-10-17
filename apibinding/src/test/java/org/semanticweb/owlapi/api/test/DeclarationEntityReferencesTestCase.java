@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * entity declaration axioms.  In other words, entity
  * declaration axioms produce the correct entity references.
  */
+@SuppressWarnings("javadoc")
 public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase {
 
     public void testOWLClassDeclarationAxiom() throws Exception {

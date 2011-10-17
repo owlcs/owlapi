@@ -52,8 +52,9 @@ import org.semanticweb.owlapi.util.OWLOntologyURIChanger;
  * Bio-Health Informatics Group<br>
  * Date: 25-May-2007<br><br>
  */
+@SuppressWarnings("javadoc")
 public class ChangeOntologyURITestCase extends AbstractOWLAPITestCase {
-	@SuppressWarnings("javadoc")
+
     public void testChangeURI() throws Exception {
         OWLOntologyManager man = getManager();
         IRI oldIRI = IRI.create("http://www.semanticweb.org/ontologies/ontA");
@@ -68,14 +69,14 @@ public class ChangeOntologyURITestCase extends AbstractOWLAPITestCase {
         assertTrue(man.contains(newIRI));
         assertTrue(man.getOntologies().contains(ont));
         assertTrue(man.getDirectImports(importingOnt).contains(ont));
-        assertNotNull(man.getOntology(newIRI));
+        assertNotNull("ontology should not be null",man.getOntology(newIRI));
         assertEquals(man.getOntology(newIRI), ont);
         assertEquals(man.getOntology(newIRI).getOntologyID().getOntologyIRI(), newIRI);
         assertTrue(man.getImportsClosure(importingOnt).contains(ont));
-        assertNotNull(man.getOntologyDocumentIRI(ont));
+        assertNotNull("ontology should not be null",man.getOntologyDocumentIRI(ont));
         // Document IRI will still be the same (in this case the old ont URI)
         assertEquals(man.getOntologyDocumentIRI(ont), oldIRI);
-        assertNotNull(man.getOntologyFormat(ont));
+        assertNotNull("ontology format should not be null",man.getOntologyFormat(ont));
 
     }
 }

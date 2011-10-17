@@ -47,7 +47,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -67,7 +66,7 @@ public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase 
 
     public void testLiteralWithoutLanguageValue() throws Exception {
 
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager man = Factory.getManager();
         PrefixManager pm = new DefaultPrefixManager("http://org.semanticweb.owlapi/ont#");
         OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
         OWLNamedIndividual root = NamedIndividual("ind", pm);
@@ -83,7 +82,7 @@ public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase 
     }
 
     public void testLiteralWithLanguageValue() throws Exception {
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager man = Factory.getManager();
         PrefixManager pm = new DefaultPrefixManager("http://org.semanticweb.owlapi/ont#");
         OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
         OWLNamedIndividual root = NamedIndividual("ind", pm);
@@ -103,7 +102,7 @@ public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase 
     }
 
     public void testIRIValue() throws Exception {
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager man = Factory.getManager();
         PrefixManager pm = new DefaultPrefixManager("http://org.semanticweb.owlapi/ont#");
         OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
         OWLNamedIndividual root = NamedIndividual("ind", pm);

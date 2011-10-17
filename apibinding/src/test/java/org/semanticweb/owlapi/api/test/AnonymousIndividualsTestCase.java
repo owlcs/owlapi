@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Information Management Group<br>
  * Date: 30-Jun-2009
  */
+
 public class AnonymousIndividualsTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override

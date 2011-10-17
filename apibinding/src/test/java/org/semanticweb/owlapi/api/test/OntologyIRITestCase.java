@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
  * Information Management Group<br>
  * Date: 10-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class OntologyIRITestCase extends AbstractFileTestCase {
 
     public void testCorrectOntologyIRI() {

@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
  * Bio-Health Informatics Group<br>
  * Date: 01-Jul-2010
  */
+@SuppressWarnings("javadoc")
 public class StructuralReasonerRecursionTestCase extends AbstractFileTestCase {
 
     @Override

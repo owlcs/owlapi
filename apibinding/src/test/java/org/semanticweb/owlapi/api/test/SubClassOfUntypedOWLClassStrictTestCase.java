@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  * Bio-Health Informatics Group<br>
  * Date: 25/02/2011
  */
+@SuppressWarnings("javadoc")
 public class SubClassOfUntypedOWLClassStrictTestCase extends AbstractFileTestCase {
 
     @Override

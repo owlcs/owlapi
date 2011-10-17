@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLClass;
  * Information Management Group<br>
  * Date: 16-Oct-2009
  */
+
 public class AnnotationAssertionWithIRITestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override

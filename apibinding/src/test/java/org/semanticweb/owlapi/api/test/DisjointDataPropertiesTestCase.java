@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
  * Information Management Group<br>
  * Date: 14-Jul-2009
  */
+
 public class DisjointDataPropertiesTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override

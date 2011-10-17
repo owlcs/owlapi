@@ -67,7 +67,7 @@ public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLProp
 
     @Override
 	public void testCreation() throws Exception {
-        assertNotNull(createRestriction(createProperty(), createFiller()));
+        assertNotNull("restriction should not be null", createRestriction(createProperty(), createFiller()));
     }
 
 

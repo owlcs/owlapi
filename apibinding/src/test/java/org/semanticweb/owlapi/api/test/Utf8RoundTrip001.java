@@ -45,7 +45,6 @@ import java.io.File;
 
 import junit.framework.TestCase;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -53,11 +52,11 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
+@SuppressWarnings("javadoc")
 public class Utf8RoundTrip001 extends TestCase {
 	public void testUTF8roundTrip() {
 		try {
-			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+			OWLOntologyManager manager = Factory.getManager();
 			String onto = "Ontology(<http://protege.org/UTF8.owl>"
 					+ "Declaration(Class(<http://protege.org/UTF8.owl#A>))"
 					+ "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://protege.org/UTF8.owl#A> "
@@ -66,7 +65,7 @@ public class Utf8RoundTrip001 extends TestCase {
 			ByteArrayOutputStream out=new ByteArrayOutputStream();
 			manager.saveOntology(manager.loadOntologyFromOntologyDocument(in),
 					out);
-			System.out.println("Utf8RoundTrip001.testUTF8roundTrip()\n"+out.toString());
+			//System.out.println("Utf8RoundTrip001.testUTF8roundTrip()\n"+out.toString());
 		} catch (Throwable t) {
 			t.printStackTrace();
 			fail();
@@ -78,7 +77,7 @@ public class Utf8RoundTrip001 extends TestCase {
 			String NS = "http://protege.org/UTF8.owl";
 			OWLOntologyManager manager;
 			OWLOntology ontology;
-			manager = OWLManager.createOWLOntologyManager();
+			manager = Factory.getManager();
 			ontology = manager.createOntology(IRI.create(NS));
 			OWLDataFactory factory = manager.getOWLDataFactory();
 			OWLClass a = factory.getOWLClass(IRI.create(NS + "#A"));
@@ -92,8 +91,8 @@ public class Utf8RoundTrip001 extends TestCase {
 			manager.saveOntology(ontology,
 					new OWLFunctionalSyntaxOntologyFormat(),
 					IRI.create(ontFile));
-			System.out.println("Saved as " + ontFile);
-			manager = OWLManager.createOWLOntologyManager();
+			//System.out.println("Saved as " + ontFile);
+			manager = Factory.getManager();
 			ontology = manager.loadOntologyFromOntologyDocument(ontFile);
 		} catch (Throwable t) {
 			t.printStackTrace();

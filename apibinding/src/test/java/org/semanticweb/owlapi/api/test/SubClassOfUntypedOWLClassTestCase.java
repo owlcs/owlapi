@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 25/02/2011
  */
+@SuppressWarnings("javadoc")
 public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
 
     public static final IRI SUBCLASS_IRI = IRI.create("http://www.semanticweb.org/owlapi/test#A");

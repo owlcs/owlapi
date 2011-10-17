@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Information Management Group<br>
  * Date: 02-Jul-2009
  */
+
 public class ObjectPropertyDomainInverseTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override

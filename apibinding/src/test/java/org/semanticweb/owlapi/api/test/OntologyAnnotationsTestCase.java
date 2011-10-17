@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 23-Nov-2009
  */
+
 public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTest {
 
     @Override

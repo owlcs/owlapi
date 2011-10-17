@@ -43,7 +43,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
@@ -61,15 +60,16 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * Bio-Health Informatics Group<br>
  * Date: 01-Jul-2010
  */
+@SuppressWarnings("javadoc")
 public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
 
-    private static String NS = "http://www.co-ode.org/ontologies/pizza/pizza.owl";
+    private static final String NS = "http://www.co-ode.org/ontologies/pizza/pizza.owl";
 
     public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
 
     public void testRoundTrip() {
         try {
-            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+            OWLOntologyManager manager = Factory.getManager();
             OWLOntology ontology = manager.createOntology(IRI.create(NS));
             OWLDataFactory factory = manager.getOWLDataFactory();
 
@@ -83,7 +83,7 @@ public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
             File tmpFile = File.createTempFile("Test", ".owl");
             manager.saveOntology(ontology, new OWLXMLOntologyFormat(), new StreamDocumentTarget(new FileOutputStream(tmpFile)));
 
-            OWLOntologyManager manager2 = OWLManager.createOWLOntologyManager();
+            OWLOntologyManager manager2 = Factory.getManager();
             manager2.loadOntologyFromOntologyDocument(tmpFile);
         }
         catch (OWLOntologyCreationException e) {

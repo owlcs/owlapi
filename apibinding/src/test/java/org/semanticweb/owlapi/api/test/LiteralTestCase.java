@@ -55,6 +55,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * Bio-Health Informatics Group<br>
  * Date: 07-Jul-2010
  */
+@SuppressWarnings("javadoc")
 public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
 

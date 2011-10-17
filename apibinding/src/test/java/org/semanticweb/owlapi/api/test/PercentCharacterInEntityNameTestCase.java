@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Information Management Group<br>
  * Date: 21-Sep-2009
  */
+
 public class PercentCharacterInEntityNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override

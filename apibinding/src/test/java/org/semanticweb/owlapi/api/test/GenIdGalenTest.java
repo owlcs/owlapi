@@ -41,14 +41,12 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
-
+@SuppressWarnings("javadoc")
 public class GenIdGalenTest extends TestCase {
 	public void testGenIdGalenFragment() throws Exception {
 		String test = "<?xml version=\"1.0\"?>\n"
@@ -149,17 +147,15 @@ public class GenIdGalenTest extends TestCase {
 				+ "	            </owl:Restriction>\n"
 				+ "	        </owl:intersectionOf>\n" + "	    </owl:Class>\n"
 				+ "	</rdf:RDF>";
-		OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+		OWLOntologyManager m = Factory.getManager();
 		OWLOntology o = m
 				.loadOntologyFromOntologyDocument(new StringDocumentSource(test));
-		for(OWLAxiom ax:o.getAxioms()) {
-			System.out.println(ax);
-		}
-//		m.saveOntology(o, new OWLFunctionalSyntaxOntologyFormat(),
-//				new SystemOutDocumentTarget());
+//		for(OWLAxiom ax:o.getAxioms()) {
+//			System.out.println(ax);
+//		}
 		OWL2DLProfile profile = new OWL2DLProfile();
 		OWLProfileReport report = profile.checkOntology(o);
-		System.out.println("GenIdGalenTest.testGenIdGalenFragment() \n"
-				+ report);
+//		System.out.println("GenIdGalenTest.testGenIdGalenFragment() \n"
+//				+ report);
 	}
 }

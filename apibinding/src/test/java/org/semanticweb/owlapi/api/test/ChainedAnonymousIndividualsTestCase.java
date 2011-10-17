@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 21/12/2010
  */
+
 public class ChainedAnonymousIndividualsTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override

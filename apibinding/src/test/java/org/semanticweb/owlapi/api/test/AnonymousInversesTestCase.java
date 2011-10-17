@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.api.test;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 30-Jul-2008<br><br>
  */
+
 public class AnonymousInversesTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Override

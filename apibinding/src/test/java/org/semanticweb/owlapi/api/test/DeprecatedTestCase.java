@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 10-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class DeprecatedTestCase extends AbstractFileTestCase {
 
     public void testAnnotationAssertionsPresent() {

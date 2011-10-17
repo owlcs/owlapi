@@ -55,6 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * Information Management Group<br>
  * Date: 17-Dec-2009
  */
+
 public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
 
@@ -76,7 +77,8 @@ public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
         }
         catch (OWLOntologyStorageException e) {
             if (e.getCause() instanceof IllegalElementNameException) {
-                System.out.println("Caught IllegalElementNameException as expected: " + e.getMessage());
+                //System.out.println("Caught IllegalElementNameException as expected: " + e.getMessage());
+            	//nothing to do
             }
             else {
                 throw e;

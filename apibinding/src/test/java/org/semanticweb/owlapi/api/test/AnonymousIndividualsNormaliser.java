@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.util.OWLObjectDuplicator;
  * Information Management Group<br>
  * Date: 02-Jul-2009
  */
+@SuppressWarnings("javadoc")
 public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
 
     private Map<OWLAnonymousIndividual, OWLAnonymousIndividual> renamingMap = new HashMap<OWLAnonymousIndividual, OWLAnonymousIndividual>();
@@ -75,7 +76,7 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
         super(dataFactory);
         this.dataFactory = dataFactory;
     }
-    @SuppressWarnings("javadoc")
+
     public Set<OWLAxiom> getNormalisedAxioms(Set<OWLAxiom> axioms) {
         List<OWLAxiom> axiomsList = new ArrayList<OWLAxiom>(axioms);
         Collections.sort(axiomsList);

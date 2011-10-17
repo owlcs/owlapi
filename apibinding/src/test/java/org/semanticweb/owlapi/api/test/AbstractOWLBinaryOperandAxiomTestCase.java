@@ -63,7 +63,7 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
 
     @Override
 	public void testCreation() throws Exception {
-        assertNotNull(createAxiom(createLeftOperand(), createRightOperand()));
+        assertNotNull("Axiom should not be null",createAxiom(createLeftOperand(), createRightOperand()));
     }
 
 
@@ -73,7 +73,7 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
         R rightOp = createRightOperand();
         OWLAxiom axiomA = createAxiom(leftOp, rightOp);
         OWLAxiom axiomB = createAxiom(leftOp, rightOp);
-        assertEquals(axiomA, axiomB);
+        assertEquals("Axioms should be equal",axiomA, axiomB);
     }
 
 
@@ -98,6 +98,6 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
         R rightOperand = createRightOperand();
         int hashCodeA = createAxiom(leftOperand, rightOperand).hashCode();
         int hashCodeB = createAxiom(leftOperand, rightOperand).hashCode();
-        assertEquals(hashCodeA, hashCodeB);
+        assertEquals("hashcodes should coincide", hashCodeA, hashCodeB);
     }
 }

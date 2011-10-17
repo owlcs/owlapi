@@ -45,6 +45,7 @@ package org.semanticweb.owlapi.api.test;
  * Bio-Health Informatics Group<br>
  * Date: 11/03/2011
  */
+
 public class TestParser08TestCase extends AbstractFileRoundTrippingTestCase {
 
     @Override

@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * Bio-Health Informatics Group<br>
  * Date: 14/01/2011
  */
+
 public class AnonymousOntologyAnnotationsTestCase extends AbstractRoundTrippingTest {
     @Override
     protected OWLOntology createOntology() {

@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 21-Jan-2009
  */
+@SuppressWarnings("javadoc")
 public class DeclarationsTestCase extends AbstractFileRoundTrippingTestCase {
 
 
@@ -68,7 +69,7 @@ public class DeclarationsTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Override
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        System.out.println(target);
+        //System.out.println(target);
         super.handleSaved(target, format);
     }
 

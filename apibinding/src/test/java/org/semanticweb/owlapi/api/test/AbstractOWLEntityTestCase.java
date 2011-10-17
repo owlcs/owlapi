@@ -55,7 +55,7 @@ public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTe
 
     @Override
 	public void testCreation() throws Exception {
-        assertNotNull(createEntity(createIRI()));
+        assertNotNull("entity should not be null",createEntity(createIRI()));
     }
 
 
@@ -64,7 +64,7 @@ public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTe
         IRI iri = createIRI();
         OWLEntity entityA = createEntity(iri);
         OWLEntity entityB = createEntity(iri);
-        assertEquals(entityA, entityB);
+        assertEquals("entities should be equal", entityA, entityB);
     }
 
 
@@ -81,6 +81,6 @@ public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTe
         IRI iri = createIRI();
         int hashCodeA = createEntity(iri).hashCode();
         int hashCodeB = createEntity(iri).hashCode();
-        assertEquals(hashCodeA, hashCodeB);
+        assertEquals("hashcode should coincide",hashCodeA, hashCodeB);
     }
 }

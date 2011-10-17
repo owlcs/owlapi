@@ -43,7 +43,6 @@ import java.util.Collections;
 
 import junit.framework.TestCase;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -57,12 +56,13 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Bio-Health Informatics Group<br>
  * Date: 17/02/2011
  */
+@SuppressWarnings("javadoc")
 public class MapperlessOntologyManagerTestCase extends TestCase {
 
     private static final IRI ONTOLOGY_IRI = IRI.create("http://test.com/ont");
 
     private OWLOntologyManager createManager() {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = Factory.getManager();
         manager.clearIRIMappers();
         return manager;
     }
@@ -77,7 +77,7 @@ public class MapperlessOntologyManagerTestCase extends TestCase {
     public void testCreateOntologyWithAxioms() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         OWLOntology ontology = manager.createOntology(Collections.<OWLAxiom>emptySet());
-        assertNotNull(manager.getOntologyDocumentIRI(ontology));
+        assertNotNull("ontology should not be null",manager.getOntologyDocumentIRI(ontology));
     }
 
     public void testCreateOntologyWithAxiomsAndIRI() throws OWLOntologyCreationException {

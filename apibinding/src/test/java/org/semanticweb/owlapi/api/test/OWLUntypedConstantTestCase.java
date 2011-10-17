@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
+
 public class OWLUntypedConstantTestCase extends AbstractOWLDataFactoryTest {
 
     @Override

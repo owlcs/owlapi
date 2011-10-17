@@ -45,7 +45,6 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -82,14 +81,14 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
 
 
     public AbstractOWLAPITestCase() {
-        manager = OWLManager.createOWLOntologyManager();
+        manager = Factory.getManager();
         uriBase = IRI.create("http://www.semanticweb.org/owlapi/test");
     }
 
 
     @Override
 	protected void setUp() throws Exception {
-        manager = OWLManager.createOWLOntologyManager();
+        manager = Factory.getManager();
     }
 
 
@@ -194,11 +193,11 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
             ((RDFOntologyFormat) format).setAddMissingTypes(false);
         }
         manager.saveOntology(ont, format, target);
-        handleSaved(target, format);
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+       // handleSaved(target, format);
+        OWLOntologyManager man = Factory.getManager();
         OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringDocumentSource(target.toString()));
         if (!ont.isAnonymous() && !ont2.isAnonymous()) {
-            assertEquals(ont, ont2);
+            assertEquals("Ontologies supposed to be the same", ont, ont2);
         }
         Set<OWLAxiom> axioms1;
         Set<OWLAxiom> axioms2;
@@ -236,7 +235,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
             fail(sb.toString());
         }
 
-        assertEquals(ont.getAnnotations(), ont2.getAnnotations());
+        assertEquals("Annotations supposed to be the same",ont.getAnnotations(), ont2.getAnnotations());
         return ont2;
     }
 
@@ -247,8 +246,8 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
 
     @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        System.out.println("Saved: ");
-        System.out.println(target.toString());
-        System.out.println("------------------------------------------------------------");
+//        System.out.println("Saved: ");
+//        System.out.println(target.toString());
+//        System.out.println("------------------------------------------------------------");
     }
 }

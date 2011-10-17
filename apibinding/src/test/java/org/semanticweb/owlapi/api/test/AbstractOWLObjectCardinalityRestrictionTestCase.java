@@ -62,10 +62,10 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends Ab
         OWLObjectProperty prop = getFactory().getOWLObjectProperty(createIRI());
         int cardinality = 3;
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality);
-        assertNotNull(restA);
+        assertNotNull("restriction should not be null", restA);
         OWLClassExpression cls = getFactory().getOWLClass(createIRI());
         OWLObjectCardinalityRestriction restB = createRestriction(prop, cardinality, cls);
-        assertNotNull(restB);
+        assertNotNull("restriction should not be null", restB);
     }
 
 

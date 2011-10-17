@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
+
 public class OWLIndividualObjectRelationshipAxiomTestCase extends AbstractOWLIndividualRelationshipAxiomTestCase<OWLObjectProperty, OWLIndividual> {
 
 

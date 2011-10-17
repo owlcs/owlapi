@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 07-Sep-2008<br><br>
  */
+@SuppressWarnings("javadoc")
 public class OntologyURITestCase extends AbstractOWLAPITestCase {
 
     public void testOntologyID() throws Exception {

@@ -36,15 +36,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+
 @SuppressWarnings("javadoc")
 public class AllDifferentTestCase extends TestCase {
 	private String onto1 = "<?xml version=\"1.0\"?>\n"
@@ -68,17 +67,11 @@ public class AllDifferentTestCase extends TestCase {
 			+ "</owl:members></owl:AllDifferent></rdf:RDF>";
 
 	public void testDistinctMembers() throws Exception {
-		OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-		OWLOntology o1 = m
-				.loadOntologyFromOntologyDocument(new StringDocumentSource(
-						onto1));
-		System.out.println("AllDifferentTestCase.testDistinctMembers() "
-				+ o1.getLogicalAxiomCount());
-		OWLOntology o2 = m
-				.loadOntologyFromOntologyDocument(new StringDocumentSource(
-						onto2));
-		System.out.println("AllDifferentTestCase.testDistinctMembers() "
-				+ o2.getLogicalAxiomCount());
+		OWLOntologyManager m = Factory.getManager();
+		OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(
+				onto1));
+		OWLOntology o2 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(
+				onto2));
 		assertTrue(o1.getLogicalAxiomCount() == o2.getLogicalAxiomCount());
 	}
 }

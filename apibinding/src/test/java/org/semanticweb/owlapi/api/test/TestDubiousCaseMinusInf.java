@@ -41,12 +41,11 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
+@SuppressWarnings("javadoc")
 public class TestDubiousCaseMinusInf extends TestCase{
 public void testMinusInf() throws Exception{
 	String input="Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"+
@@ -63,7 +62,7 @@ public void testMinusInf() throws Exception{
 "ClassAssertion(:A :a)" +
 "\n)";
 	StringDocumentSource in=new StringDocumentSource(input);
-	OWLOntologyManager m=OWLManager.createOWLOntologyManager();
+	OWLOntologyManager m=Factory.getManager();
 	OWLOntology o=m.loadOntologyFromOntologyDocument(in);
 	StringDocumentTarget t=new StringDocumentTarget();
 	m.saveOntology(o, t);

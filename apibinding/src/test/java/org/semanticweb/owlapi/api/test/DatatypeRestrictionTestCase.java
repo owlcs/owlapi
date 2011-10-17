@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 02-Feb-2009
  */
+@SuppressWarnings("javadoc")
 public class DatatypeRestrictionTestCase extends AbstractFileRoundTrippingTestCase {
 
     public void testCorrectAxioms() {
@@ -71,7 +72,7 @@ public class DatatypeRestrictionTestCase extends AbstractFileRoundTrippingTestCa
     }
 
     protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        System.out.println(target);
+        //System.out.println(target);
     }
 
     protected String getFileName() {

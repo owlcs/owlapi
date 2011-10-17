@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Bio-Health Informatics Group<br>
  * Date: 11-Aug-2010
  */
+@SuppressWarnings("javadoc")
 public class ImportsClosureTestCase extends AbstractOWLAPITestCase {
 
     public void testImportsClosureUpdate() throws Exception {

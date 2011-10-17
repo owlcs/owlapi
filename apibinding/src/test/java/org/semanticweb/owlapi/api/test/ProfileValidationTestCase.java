@@ -47,6 +47,7 @@ import junit.framework.TestCase;
  * Information Management Group<br>
  * Date: 18-Aug-2009
  */
+@SuppressWarnings("javadoc")
 public class ProfileValidationTestCase extends TestCase {
 
 
@@ -74,7 +75,7 @@ public class ProfileValidationTestCase extends TestCase {
 
 
     public void testProfiles() throws Exception {
-//        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+//        OWLOntologyManager man = Factory.getManager();
 //        URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");
 //        URI allTestURI = resourceURL.toURI();
 //        OWLOntology testCasesOntology = man.loadOntologyFromOntologyDocument(allTestURI);

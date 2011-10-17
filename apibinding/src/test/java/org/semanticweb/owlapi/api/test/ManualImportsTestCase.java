@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Information Management Group<br>
  * Date: 18-Jan-2010
  */
+@SuppressWarnings("javadoc")
 public class ManualImportsTestCase extends AbstractOWLAPITestCase {
 
     public void testManualImports() throws Exception {

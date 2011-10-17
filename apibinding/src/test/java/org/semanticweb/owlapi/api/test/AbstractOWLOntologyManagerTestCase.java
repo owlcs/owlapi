@@ -51,20 +51,15 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLOntologyManagerTestCase extends AbstractOWLDataFactoryTest {
 
-    public static final String SYSTEM_PARAM_NAME = "OntologyManagerFactory";
+
 
     private OWLOntologyManager manager;
 
     @Override
 	protected void setUp() throws Exception {
         super.setUp();
-        String factoryName = System.getProperty(SYSTEM_PARAM_NAME);
-        if (factoryName == null) {
-            throw new RuntimeException("System property '" + SYSTEM_PARAM_NAME + " must be set in order to run the tests");
-        }
-        Class<?> cls = Class.forName(factoryName);
-        OWLOntologyManagerFactory factory = (OWLOntologyManagerFactory) cls.newInstance();
-        manager = factory.createOWLOntologyManager(getFactory());
+
+        manager = Factory.getManager();
     }
 
 

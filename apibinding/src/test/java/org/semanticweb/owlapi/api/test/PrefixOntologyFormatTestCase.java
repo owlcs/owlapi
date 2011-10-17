@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 05/01/2011
  */
+
 public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTest {
 
     @Override

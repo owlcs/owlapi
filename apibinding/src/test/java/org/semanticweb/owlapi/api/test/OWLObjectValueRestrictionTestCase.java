@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
+
 public class OWLObjectValueRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLObjectProperty, OWLIndividual> {
 
     @SuppressWarnings("rawtypes")

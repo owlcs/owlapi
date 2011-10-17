@@ -39,7 +39,6 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
@@ -51,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Information Management Group<br>
  * Date: 22-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class DifferentPhysicalURISameOntologyIRITestCase extends AbstractOWLAPITestCase {
 
 
@@ -60,7 +60,7 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends AbstractOWLAPIT
 
     public void testDifferentPhysicalURISameOntologyIRI() throws Exception {
         try {
-            OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+            OWLOntologyManager manager = Factory.getManager();
             IRI ontologyADocumentIRI = IRI.create(DifferentPhysicalURISameOntologyIRITestCase.class.getResource("/" + ONTOLOGY_A).toURI());
             IRI ontologyADocumentIRIB = IRI.create(DifferentPhysicalURISameOntologyIRITestCase.class.getResource("/" + ONTOLOGY_A_EMPTY).toURI());
             OWLOntology ontologyA = manager.loadOntologyFromOntologyDocument(ontologyADocumentIRI);
@@ -70,7 +70,8 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends AbstractOWLAPIT
             fail("Expected an exception to say that the ontology already exists");
         }
         catch (OWLOntologyAlreadyExistsException e) {
-            System.out.println("Caught expected ontology already exists exception: " + e);
+        	//System.out.println("Caught expected ontology already exists exception: " + e);
+        	//success
         }
 
     }

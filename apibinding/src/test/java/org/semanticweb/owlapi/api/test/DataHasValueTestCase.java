@@ -55,8 +55,9 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Information Management Group<br>
  * Date: 23-Apr-2009
  */
+@SuppressWarnings("javadoc")
 public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
-	@SuppressWarnings("javadoc")
+
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClass clsA = getOWLClass("A");
@@ -76,6 +77,6 @@ public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        System.out.println(target);
+      //  System.out.println(target);
     }
 }

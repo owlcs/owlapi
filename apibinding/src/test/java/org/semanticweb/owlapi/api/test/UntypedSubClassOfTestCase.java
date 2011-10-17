@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 21-Jan-2009
  */
+@SuppressWarnings("javadoc")
 public class UntypedSubClassOfTestCase extends AbstractFileRoundTrippingTestCase {
 
     public void testContainsAxioms() {
@@ -64,7 +65,7 @@ public class UntypedSubClassOfTestCase extends AbstractFileRoundTrippingTestCase
     @Override
     @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        System.out.println(target);
+        //System.out.println(target);
     }
 
     @Override

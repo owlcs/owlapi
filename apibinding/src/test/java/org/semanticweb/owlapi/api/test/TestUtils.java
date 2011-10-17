@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
+@SuppressWarnings("javadoc")
 public class TestUtils {
 
     private static int uriCounter = 0;

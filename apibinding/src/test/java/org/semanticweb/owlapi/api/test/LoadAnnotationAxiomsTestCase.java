@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.FileDocumentTarget;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
@@ -76,11 +75,12 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 16/12/2010
  */
+@SuppressWarnings("javadoc")
 public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
 
 
     public void testIgnoreAnnotations() throws Exception {
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager man = Factory.getManager();
         OWLOntology ont = man.createOntology();
         OWLDataFactory df = man.getOWLDataFactory();
         OWLClass clsA = df.getOWLClass(IRI.create("http://ont.com#A"));
@@ -137,7 +137,7 @@ public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
 
         man.saveOntology(ontology, format, new FileDocumentTarget(tempFile));
 
-        OWLOntologyManager man2 = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager man2 = Factory.getManager();
         OWLOntology reloaded =  man2.loadOntologyFromOntologyDocument(new FileDocumentSource(tempFile), configuration);
         man2.removeAxioms(reloaded, new HashSet<OWLAxiom>(reloaded.getAxioms(AxiomType.DECLARATION)));
         return reloaded;

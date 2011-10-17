@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Information Management Group<br>
  * Date: 25-Nov-2009
  */
+
 public class SubObjectPropertyChainOfAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
     @Override

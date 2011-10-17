@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 07-Sep-2008<br><br>
  */
+
 public class AsymmetricPropertyRoundTripTestCase extends AbstractRoundTrippingTest {
 
     @Override

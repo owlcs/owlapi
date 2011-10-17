@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * Information Management Group<br>
  * Date: 22-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
 
     public void testRenameToExistingOntology() throws Exception {
@@ -65,7 +66,7 @@ public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
             fail();
         }
         catch (OWLOntologyRenameException e) {
-            System.out.println("Got expected rename exception: " + e.getMessage());
+            //System.out.println("Got expected rename exception: " + e.getMessage());
         }
     }
 

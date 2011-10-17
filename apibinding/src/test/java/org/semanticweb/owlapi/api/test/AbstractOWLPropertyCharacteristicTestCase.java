@@ -57,7 +57,7 @@ public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPro
     @Override
 	public void testCreation() throws Exception {
         OWLPropertyAxiom axiom = createOWLPropertyAxiom(createProperty());
-        assertNotNull(axiom);
+        assertNotNull("axiom should not be null", axiom);
     }
 
 

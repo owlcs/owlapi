@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Information Management Group<br>
  * Date: 09-Jun-2009
  */
+
 public class ObjectPropertyAssertionWithAnonymousIndividualsTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override

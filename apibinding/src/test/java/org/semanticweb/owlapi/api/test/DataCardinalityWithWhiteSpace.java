@@ -45,6 +45,7 @@ package org.semanticweb.owlapi.api.test;
  * Bio-Health Informatics Group<br>
  * Date: 22/12/2010
  */
+
 public class DataCardinalityWithWhiteSpace extends AbstractFileRoundTrippingTestCase {
 
     @Override

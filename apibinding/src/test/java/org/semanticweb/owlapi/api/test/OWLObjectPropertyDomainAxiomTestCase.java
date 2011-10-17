@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
+
 public class OWLObjectPropertyDomainAxiomTestCase extends AbstractOWLBinaryOperandAxiomTestCase<OWLObjectProperty, OWLClassExpression> {
 
     @Override

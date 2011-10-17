@@ -54,8 +54,9 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Information Management Group<br>
  * Date: 23-Apr-2009
  */
+@SuppressWarnings("javadoc")
 public class DataMinCardinalityTestCase extends AbstractFileRoundTrippingTestCase {
-	@SuppressWarnings("javadoc")
+
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClass clsA = getOWLClass("A");
@@ -67,7 +68,7 @@ public class DataMinCardinalityTestCase extends AbstractFileRoundTrippingTestCas
 
     @Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        System.out.println(target);
+      //  System.out.println(target);
     }
 
     @Override

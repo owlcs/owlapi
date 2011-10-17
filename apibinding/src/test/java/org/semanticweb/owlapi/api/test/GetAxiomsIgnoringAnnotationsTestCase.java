@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 07-Dec-2009
  */
+@SuppressWarnings("javadoc")
 public class GetAxiomsIgnoringAnnotationsTestCase extends AbstractOWLAPITestCase {
 
     public void testGetAxiomsIgnoringAnnoations() throws Exception {

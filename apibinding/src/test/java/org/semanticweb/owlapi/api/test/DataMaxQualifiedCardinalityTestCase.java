@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * Information Management Group<br>
  * Date: 14-Jul-2009
  */
+
 public class DataMaxQualifiedCardinalityTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override

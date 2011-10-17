@@ -66,7 +66,7 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
         operands.add(createOperand());
         operands.add(createOperand());
         OWLObject obj = createObject(operands);
-        assertNotNull(obj);
+        assertNotNull("object should not be null", obj);
     }
 
 

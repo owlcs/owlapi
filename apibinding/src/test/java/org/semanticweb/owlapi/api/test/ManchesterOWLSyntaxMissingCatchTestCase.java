@@ -44,6 +44,7 @@ import java.util.Set;
 import junit.framework.TestCase;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
+import org.omg.PortableInterceptor.SUCCESSFUL;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
@@ -57,7 +58,7 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
-
+@SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxMissingCatchTestCase extends TestCase {
 	public void testManSyntaxEditorParser() {
 		String onto = "<?xml version=\"1.0\"?>"
@@ -100,9 +101,11 @@ public class ManchesterOWLSyntaxMissingCatchTestCase extends TestCase {
 			parser.setDefaultOntology(wine);
 			parser.setOWLEntityChecker(new ShortFormEntityChecker(
 					shortFormProvider));
-			//OWLClassExpression cls = 
+			//OWLClassExpression cls =
 				parser.parseClassExpression();
 		} catch (UnparsableOntologyException e) {
+        	//success
+
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 			fail();

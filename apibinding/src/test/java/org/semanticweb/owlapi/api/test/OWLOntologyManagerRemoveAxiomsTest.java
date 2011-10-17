@@ -41,12 +41,11 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
+@SuppressWarnings("javadoc")
 public class OWLOntologyManagerRemoveAxiomsTest extends TestCase{
 	public void testRemove() throws Exception{
 		String premise = "Prefix(:=<http://example.org/>)\n"
@@ -62,7 +61,7 @@ public class OWLOntologyManagerRemoveAxiomsTest extends TestCase{
 			+ "      xsd:minInclusive \"18\"^^xsd:integer \n"
 			+ "      xsd:maxInclusive \"18\"^^xsd:integer)\n" + "    )\n"
 			+ "  )\n" + "  ClassAssertion(:A :a)\n" + ")";
-		OWLOntologyManager m=OWLManager.createOWLOntologyManager();
+		OWLOntologyManager m=Factory.getManager();
 		OWLOntology o=m.loadOntologyFromOntologyDocument(new StringDocumentSource(premise));
 		m.removeAxioms(o, o.getAxioms(AxiomType.DECLARATION));
 	}

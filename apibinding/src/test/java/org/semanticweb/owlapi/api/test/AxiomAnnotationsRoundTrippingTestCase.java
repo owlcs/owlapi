@@ -61,6 +61,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 10-May-2008<br><br>
  */
+
 public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTrippingTest {
 
     @Override
@@ -87,7 +88,7 @@ public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTripping
 
     @Override  @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        System.out.println(target);
+       // System.out.println(target);
     }
 
 }

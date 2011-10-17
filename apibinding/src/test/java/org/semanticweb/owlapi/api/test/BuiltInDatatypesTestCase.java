@@ -40,7 +40,6 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -58,19 +57,19 @@ public class BuiltInDatatypesTestCase extends TestCase {
 		try {
 			OWL2Datatype dt = OWL2Datatype
 					.getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
-			assertNotNull(dt);
+			assertNotNull("object should not be null",dt);
 			dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL
 					.getIRI());
-			assertNotNull(dt);
-			OWLDatatype datatype = OWLManager.getOWLDataFactory()
+			assertNotNull("object should not be null",dt);
+			OWLDatatype datatype = Factory.getFactory()
 					.getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
-			assertNotNull(datatype);
+			assertNotNull("object should not be null",datatype);
 			OWL2Datatype test = datatype.getBuiltInDatatype();
 			assertEquals(test, dt);
-			if (datatype.isBuiltIn()) {
-				System.out.println("[builtin"
-						+ datatype.getBuiltInDatatype().getShortName() + "]");
-			}
+//			if (datatype.isBuiltIn()) {
+//				System.out.println("[builtin"
+//						+ datatype.getBuiltInDatatype().getShortName() + "]");
+//			}
 		} catch (RuntimeException e) {
 			fail(e.getMessage());
 		}
@@ -78,12 +77,12 @@ public class BuiltInDatatypesTestCase extends TestCase {
 
 	public void testFailure() {
 		for (IRI type : OWL2Datatype.getDatatypeIRIs()) {
-			OWLDatatype datatype = OWLManager.getOWLDataFactory()
+			OWLDatatype datatype = Factory.getFactory()
 					.getOWLDatatype(type);
 
 			if (datatype.isBuiltIn()) {
 				OWL2Datatype builtInDatatype = datatype.getBuiltInDatatype();
-				assertNotNull(builtInDatatype);
+				assertNotNull("object should not be null",builtInDatatype);
 			}
 		}
 	}

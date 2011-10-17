@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 02-Jun-2009
  */
+@SuppressWarnings("javadoc")
 public class DefaultPrefixManagerTestCase extends TestCase {
 
     public void testContainsDefaultPrefixNames() {

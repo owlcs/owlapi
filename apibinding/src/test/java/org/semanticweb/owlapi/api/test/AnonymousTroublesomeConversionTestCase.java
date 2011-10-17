@@ -46,6 +46,7 @@ package org.semanticweb.owlapi.api.test;
  * Date: 30-Jul-2008<br>
  * <br>
  */
+
 public class AnonymousTroublesomeConversionTestCase extends
 		AbstractFileRoundTrippingTestCase {
 	@Override
@@ -61,8 +62,8 @@ public void testRDFXML() throws Exception {
 public void testTurtle() throws Exception {
 	// XXX roundtripping fails because of errors in the check code
 	//super.testTurtle();
-}	
-	
+}
+
 	@Override
 	public void testFunctionalSyntax() throws Exception {
 	}

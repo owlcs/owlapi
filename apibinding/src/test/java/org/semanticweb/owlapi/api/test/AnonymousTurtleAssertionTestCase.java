@@ -36,39 +36,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test;
+
 /**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 30-Jul-2008<br><br>
+ * Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Information Management Group<br>
+ * Date: 30-Jul-2008<br>
+ * <br>
  */
 public class AnonymousTurtleAssertionTestCase extends AbstractFileRoundTrippingTestCase {
-
-    @Override
+	@Override
 	protected String getFileName() {
-        return "testBlankNodesAssertions.ttl";
-    }
+		return "testBlankNodesAssertions.ttl";
+	}
 
-    @Override
-    public void testTurtle() throws Exception {
-    	// TODO Auto-generated method stub
-    	super.testTurtle();
-    }
-    
-    @Override
-    public void testFunctionalSyntax() throws Exception {
-    }
-    @Override
-    public void testManchesterOWLSyntax() throws Exception {
-    
-    }
-    @Override
-    public void testOWLXML() throws Exception {
-    
-    }
-    @Override
-    public void testRDFXML() throws Exception {
-    
-    }
-    
+	@Override
+	public void testFunctionalSyntax() throws Exception {}
+
+	@Override
+	public void testManchesterOWLSyntax() throws Exception {}
+
+	@Override
+	public void testOWLXML() throws Exception {}
+
+	@Override
+	public void testRDFXML() throws Exception {}
 }

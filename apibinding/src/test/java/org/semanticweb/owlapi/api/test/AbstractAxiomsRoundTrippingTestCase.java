@@ -66,39 +66,14 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends AbstractRoundT
         axioms.addAll(createAxioms());
         getManager().addAxioms(ont, axioms);
         for(OWLEntity entity : ont.getSignature()) {
-            if (!entity.isBuiltIn()) {
-                if (!ont.isDeclared(entity, true)) {
-                    getManager().addAxiom(ont, getFactory().getOWLDeclarationAxiom(entity));
-                }
+            if (!entity.isBuiltIn() && !ont.isDeclared(entity, true)) {
+                getManager().addAxiom(ont, getFactory().getOWLDeclarationAxiom(entity));
             }
         }
         return ont;
     }
 
-    @Override
-    public void testRDFXML() throws Exception {
-        super.testRDFXML();
-    }
 
-    @Override
-    public void testOWLXML() throws Exception {
-        super.testOWLXML();
-    }
-
-    @Override
-    public void testFunctionalSyntax() throws Exception {
-        super.testFunctionalSyntax();
-    }
-
-    @Override
-    public void testTurtle() throws Exception {
-        super.testTurtle();
-    }
-
-    @Override
-    public void testManchesterOWLSyntax() throws Exception {
-        super.testManchesterOWLSyntax();
-    }
 
     protected abstract Set<? extends OWLAxiom> createAxioms();
 

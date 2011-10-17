@@ -53,8 +53,9 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 02-Feb-2009
  */
+@SuppressWarnings("javadoc")
 public class ComplexSubPropertyAxiomTestCase extends AbstractFileRoundTrippingTestCase {
-	@SuppressWarnings("javadoc")
+
     public void testContains() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -70,7 +71,7 @@ public class ComplexSubPropertyAxiomTestCase extends AbstractFileRoundTrippingTe
     @Override
     @SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        System.out.println(target);
+       // System.out.println(target);
     }
 
     @Override

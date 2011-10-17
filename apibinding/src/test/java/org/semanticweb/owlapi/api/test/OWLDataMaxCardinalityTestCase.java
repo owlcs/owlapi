@@ -50,14 +50,13 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-public class OWLDataMaxCardinalityTestCase extends AbstractOWLDataCardinalityRestrictionTestCase {
 
+public class OWLDataMaxCardinalityTestCase extends AbstractOWLDataCardinalityRestrictionTestCase {
 
     @Override
 	protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality) throws Exception {
         return getFactory().getOWLDataMaxCardinality(cardinality, prop);
     }
-
 
     @Override
 	protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality, OWLDataRange dataRange) throws Exception {

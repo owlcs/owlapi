@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLClass;
  * Bio-Health Informatics Group<br>
  * Date: 01-Jul-2010
  */
+
 public class AnonymousIndividualRoundtripTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override

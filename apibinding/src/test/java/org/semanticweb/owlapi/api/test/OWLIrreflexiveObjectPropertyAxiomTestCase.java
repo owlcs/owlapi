@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLPropertyAxiom;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
+
 public class OWLIrreflexiveObjectPropertyAxiomTestCase extends AbstractOWLObjectPropertyCharacteristicAxiomTestCase {
 
 

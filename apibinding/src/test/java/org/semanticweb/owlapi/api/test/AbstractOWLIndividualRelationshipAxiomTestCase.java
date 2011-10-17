@@ -63,7 +63,7 @@ public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends O
 
     @Override
 	public void testCreation() throws Exception {
-        assertNotNull(createAxiom(createOWLIndividual(), createProperty(), createObject()));
+        assertNotNull("axiom should not be null", createAxiom(createOWLIndividual(), createProperty(), createObject()));
     }
 
 

@@ -55,6 +55,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
+
 public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
