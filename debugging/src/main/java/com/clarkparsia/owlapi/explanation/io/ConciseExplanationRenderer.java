@@ -27,7 +27,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -48,17 +48,21 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
+/**
+ * Explanation renderer in concise form
+ *
+ */
 public class ConciseExplanationRenderer implements ExplanationRenderer {
 
     private static final String INDENT = "   ";
 
-    private SimpleRenderer renderer = new SimpleRenderer();
+    private final SimpleRenderer renderer = new SimpleRenderer();
 
     private PrintWriter writer;
 
 
-    public void startRendering(Writer writer) {
-        this.writer = writer instanceof PrintWriter ? (PrintWriter) writer : new PrintWriter(writer);
+    public void startRendering(Writer w) {
+        this.writer = w instanceof PrintWriter ? (PrintWriter) w : new PrintWriter(w);
     }
 
 

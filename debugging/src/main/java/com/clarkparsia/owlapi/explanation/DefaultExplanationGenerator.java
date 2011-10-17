@@ -27,7 +27,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -61,17 +61,29 @@ import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
  */
 public class DefaultExplanationGenerator implements ExplanationGenerator {
 
-    private OWLDataFactory dataFactory;
+    private final OWLDataFactory dataFactory;
 
-    private MultipleExplanationGenerator gen;
+    private final MultipleExplanationGenerator gen;
 
 
+    /**
+     * @param man manager
+     * @param reasonerFactory reasoner factory
+     * @param ontology ontology to reason on
+     * @param progressMonitor progress monitor
+     */
     public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
                                        ExplanationProgressMonitor progressMonitor) {
         this(man, reasonerFactory, ontology, reasonerFactory.createNonBufferingReasoner(ontology), progressMonitor);
     }
 
-
+    /**
+     * @param man manager
+     * @param reasonerFactory reasoner factory
+     * @param ontology ontology to reason on
+     * @param reasoner the reasoner to use
+     * @param progressMonitor progress monitor
+     */
     public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
                                        OWLReasoner reasoner, ExplanationProgressMonitor progressMonitor) {
         this.dataFactory = man.getOWLDataFactory();
@@ -88,6 +100,10 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
     }
 
 
+    /**
+     * @param axiom the axiom to explain
+     * @return the explanation
+     */
     public Set<OWLAxiom> getExplanation(OWLAxiom axiom) {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
         return getExplanation(converter.convert(axiom));
@@ -98,7 +114,10 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
         return gen.getExplanations(unsatClass);
     }
 
-
+    /**
+     * @param axiom the axiom to explain
+     * @return the set of explanations
+     */
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom) {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
         return getExplanations(converter.convert(axiom));
@@ -109,7 +128,12 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
         return gen.getExplanations(unsatClass, maxExplanations);
     }
 
-
+    /**
+     * @param maxExplanations max number of explanations
+     * @param axiom the axiom to explain
+     * @return the set of explanations
+     * @throws OWLException if there are exceptions
+     */
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom, int maxExplanations) throws OWLException {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
         return getExplanations(converter.convert(axiom), maxExplanations);

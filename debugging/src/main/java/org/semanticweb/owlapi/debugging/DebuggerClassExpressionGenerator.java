@@ -102,16 +102,22 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 @SuppressWarnings("unused")
 public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
 
-    private OWLDataFactory dataFactory;
+    private final OWLDataFactory dataFactory;
 
     private OWLClassExpression desc;
 
 
+    /**
+     * @param dataFactory factory to use
+     */
     public DebuggerClassExpressionGenerator(OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
     }
 
 
+    /**
+     * @return the class expression
+     */
     public OWLClassExpression getDebuggerClassExpression() {
         return desc;
     }
@@ -148,7 +154,8 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
     }
 
 
-    public void visit(OWLImportsDeclaration axiom) {
+    @SuppressWarnings("javadoc")
+	public void visit(OWLImportsDeclaration axiom) {
         // Nothing to do
     }
 

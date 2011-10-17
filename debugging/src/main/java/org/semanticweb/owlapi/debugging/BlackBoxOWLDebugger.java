@@ -86,32 +86,31 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private static final Logger logger = Logger.getLogger(BlackBoxOWLDebugger.class.getName());
 
 
-    private OWLOntologyManager owlOntologyManager;
-
-//    private OWLOntology ontology;
+    private final OWLOntologyManager owlOntologyManager;
 
     private OWLClass currentClass;
 
     private OWLOntology debuggingOntology;
 
-    private Set<OWLAxiom> debuggingAxioms;
+    private final Set<OWLAxiom> debuggingAxioms;
 
-    private Set<OWLEntity> objectsExpandedWithDefiningAxioms;
+    private final Set<OWLEntity> objectsExpandedWithDefiningAxioms;
 
-    private Set<OWLEntity> objectsExpandedWithReferencingAxioms;
+    private final Set<OWLEntity> objectsExpandedWithReferencingAxioms;
 
-    private Set<OWLAxiom> expandedWithDefiningAxioms;
+    private final Set<OWLAxiom> expandedWithDefiningAxioms;
 
-    private Set<OWLAxiom> expandedWithReferencingAxioms;
+    private final Set<OWLAxiom> expandedWithReferencingAxioms;
 
-    private OWLReasonerFactory reasonerFactory;
+    private final OWLReasonerFactory reasonerFactory;
 
-//    private OWLReasoner reasoner;
+    private final Set<OWLAxiom> temporaryAxioms;
 
-    private Set<OWLAxiom> temporaryAxioms;
+    private final Map<OWLAxiom, OWLAxiom> expandedAxiomMap;
 
-    private Map<OWLAxiom, OWLAxiom> expandedAxiomMap;
-
+    /**
+     * default expansion limit
+     */
     public static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
 
     private int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
@@ -127,6 +126,11 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private boolean performRepeatedFastPruning = false;
 
 
+    /**
+     * @param owlOntologyManager manager to use
+     * @param ontology ontology to debug
+     * @param reasonerFactory factory to use
+     */
     public BlackBoxOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLReasonerFactory reasonerFactory) {
         super(owlOntologyManager, ontology);
         this.reasonerFactory = reasonerFactory;
@@ -454,7 +458,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
 
-    int ontologyCounter = 0;
+    private int ontologyCounter = 0;
 
 
     private void createDebuggingOntology() throws OWLException {

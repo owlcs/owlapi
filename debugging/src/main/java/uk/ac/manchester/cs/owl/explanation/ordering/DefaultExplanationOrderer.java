@@ -127,28 +127,28 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
     private Set<OWLAxiom> currentExplanation;
 
-    private Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap;
+    private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap;
 
-    private Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS;
+    private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS;
 
-    private SeedExtractor seedExtractor;
+    private final SeedExtractor seedExtractor;
 
-    private OWLOntologyManager man;
+    private final OWLOntologyManager man;
 
     private OWLOntology ont;
 
-    private Map<OWLObject, Set<OWLAxiom>> mappedAxioms;
+    private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms;
 
-    private Set<OWLAxiom> consumedAxioms;
+    private final Set<OWLAxiom> consumedAxioms;
 
-    private Set<AxiomType<?>> passTypes;
+    private final Set<AxiomType<?>> passTypes;
 
     private OWLEntity currentSource;
 
     private OWLEntity currentTarget;
 
-
-    public DefaultExplanationOrderer() {
+    @SuppressWarnings("javadoc")
+	public DefaultExplanationOrderer() {
         currentExplanation = Collections.emptySet();
         lhs2AxiomMap = new HashMap<OWLEntity, Set<OWLAxiom>>();
         entitiesByAxiomRHS = new HashMap<OWLAxiom, Set<OWLEntity>>();
@@ -260,37 +260,34 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
     private void insertChildren(OWLEntity entity, ExplanationTree tree) {
         Set<OWLAxiom> currentPath = new HashSet<OWLAxiom>(tree.getUserObjectPathToRoot());
         Set<? extends OWLAxiom> axioms = Collections.emptySet();
-        if (entity == null) {
-
-        }
-        else if (entity.isOWLClass()) {
-            axioms = ont.getAxioms(entity.asOWLClass());
-        }
-        else if (entity.isOWLObjectProperty()) {
-            axioms = ont.getAxioms(entity.asOWLObjectProperty());
-        }
-        else if (entity.isOWLDataProperty()) {
-            axioms = ont.getAxioms(entity.asOWLDataProperty());
-        }
-        else if (entity.isOWLNamedIndividual()) {
-            axioms = ont.getAxioms(entity.asOWLNamedIndividual());
-        }
-        for (OWLAxiom ax : axioms) {
-            if (passTypes.contains(ax.getAxiomType())) {
-                continue;
-            }
-            Set<OWLAxiom> mapped = getIndexedSet(entity, mappedAxioms, true);
-            if (consumedAxioms.contains(ax) || mapped.contains(ax) || currentPath.contains(ax)) {
-                continue;
-            }
-            mapped.add(ax);
-            consumedAxioms.add(ax);
-            ExplanationTree child = new ExplanationTree(ax);
-            tree.addChild(child);
-            for (OWLEntity ent : getRHSEntitiesSorted(ax)) {
-                insertChildren(ent, child);
-            }
-        }
+        if (entity != null) {
+			if (entity.isOWLClass()) {
+				axioms = ont.getAxioms(entity.asOWLClass());
+			} else if (entity.isOWLObjectProperty()) {
+				axioms = ont.getAxioms(entity.asOWLObjectProperty());
+			} else if (entity.isOWLDataProperty()) {
+				axioms = ont.getAxioms(entity.asOWLDataProperty());
+			} else if (entity.isOWLNamedIndividual()) {
+				axioms = ont.getAxioms(entity.asOWLNamedIndividual());
+			}
+			for (OWLAxiom ax : axioms) {
+				if (passTypes.contains(ax.getAxiomType())) {
+					continue;
+				}
+				Set<OWLAxiom> mapped = getIndexedSet(entity, mappedAxioms, true);
+				if (consumedAxioms.contains(ax) || mapped.contains(ax)
+						|| currentPath.contains(ax)) {
+					continue;
+				}
+				mapped.add(ax);
+				consumedAxioms.add(ax);
+				ExplanationTree child = new ExplanationTree(ax);
+				tree.addChild(child);
+				for (OWLEntity ent : getRHSEntitiesSorted(ax)) {
+					insertChildren(ent, child);
+				}
+			}
+		}
         sortChildrenAxioms(tree);
     }
 
@@ -377,7 +374,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
      */
     private static final class OWLAxiomTreeComparator implements Comparator<Tree<OWLAxiom>> {
     	public OWLAxiomTreeComparator() {
-		
+
 		}
         public int compare(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
 
@@ -646,7 +643,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
     private class AxiomMapBuilder implements OWLAxiomVisitor {
 
     	public AxiomMapBuilder() {
-		
+
 		}
         public void visit(OWLSubClassOfAxiom axiom) {
             if (!axiom.getSubClass().isAnonymous()) {

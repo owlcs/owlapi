@@ -27,7 +27,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -66,14 +66,18 @@ import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
 import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 
+/**HST explanation generator*/
 public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
-    public static final Logger log = Logger.getLogger(HSTExplanationGenerator.class.getName());
+    private static final Logger log = Logger.getLogger(HSTExplanationGenerator.class.getName());
 
-    private TransactionAwareSingleExpGen singleExplanationGenerator;
+    private final TransactionAwareSingleExpGen singleExplanationGenerator;
 
     private ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
 
+    /**
+     * @param singleExplanationGenerator explanation generator to use
+     */
     public HSTExplanationGenerator(TransactionAwareSingleExpGen singleExplanationGenerator) {
         this.singleExplanationGenerator = singleExplanationGenerator;
     }
@@ -127,6 +131,9 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 //    }
 
 
+    /**
+     * @return the explanation generator
+     */
     public TransactionAwareSingleExpGen getSingleExplanationGenerator() {
         return singleExplanationGenerator;
     }
@@ -146,9 +153,9 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         if (maxExplanations < 0)
             throw new IllegalArgumentException();
 
-        if (log.isLoggable(Level.CONFIG))
+        if (log.isLoggable(Level.CONFIG)) {
             log.config("Get " + (maxExplanations == 0 ? "all" : maxExplanations) + " explanation(s) for: " + unsatClass);
-
+        }
         try {
             Set<OWLAxiom> firstMups = getExplanation(unsatClass);
             if (firstMups.isEmpty()) {
@@ -246,9 +253,9 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      */
     private void constructHittingSetTree(OWLClassExpression unsatClass, Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations) throws OWLException {
 
-        if (log.isLoggable(Level.FINE))
+        if (log.isLoggable(Level.FINE)) {
             log.fine("MUPS " + allMups.size() + ": " + mups);
-
+        }
         if (progressMonitor.isCancelled()) {
             return;
         }
@@ -264,13 +271,15 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             OWLAxiom axiom = orderedMups.get(0);
             orderedMups.remove(0);
             if (allMups.size() == maxExplanations) {
-                if (log.isLoggable(Level.FINE))
+                if (log.isLoggable(Level.FINE)) {
                     log.fine("Computed " + maxExplanations + "explanations");
+                }
                 return;
             }
 
-            if (log.isLoggable(Level.FINE))
+            if (log.isLoggable(Level.FINE)) {
                 log.fine("Removing axiom: " + axiom + " " + currentPathContents.size() + " more removed: " + currentPathContents);
+            }
 
             // Remove the current axiom from all the ontologies it is included
             // in

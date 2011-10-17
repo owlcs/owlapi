@@ -27,7 +27,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -49,10 +49,13 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 
+/**
+ * Explanation generator for a single explanation
+ */
 public interface SingleExplanationGenerator {
 
     /**
-     * Get the ontology manager for this explanation generator.
+     * @return the ontology manager for this explanation generator.
      */
     public OWLOntologyManager getOntologyManager();
 
@@ -68,8 +71,7 @@ public interface SingleExplanationGenerator {
 //    public void setOntologies(Set<OWLOntology> ontologies);
 
 	/**
-	 * Gets the ontologies according to which the explanations are generated
-     * @return ont
+	 * @return the ontology according to which the explanations are generated
 	 */
     public OWLOntology getOntology();
 //
@@ -92,7 +94,7 @@ public interface SingleExplanationGenerator {
 
 
     /**
-     * Returns the reasoner associated with this generator.
+     * @return the reasoner associated with this generator.
      */
     public OWLReasoner getReasoner();
 
@@ -110,7 +112,7 @@ public interface SingleExplanationGenerator {
 
 
     /**
-     * Returns the reasoner factory used to create fresh reasoners.
+     * @return the reasoner factory used to create fresh reasoners.
      */
     public OWLReasonerFactory getReasonerFactory();
 

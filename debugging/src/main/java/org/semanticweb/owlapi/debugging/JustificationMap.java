@@ -97,21 +97,25 @@ import org.semanticweb.owlapi.util.OWLEntityCollector;
  */
 public class JustificationMap {
 
-    private Set<OWLAxiom> axioms;
+    private final Set<OWLAxiom> axioms;
 
-    private Set<OWLAxiom> rootAxioms;
+    private final Set<OWLAxiom> rootAxioms;
 
-    private Set<OWLAxiom> usedAxioms;
+    private final Set<OWLAxiom> usedAxioms;
 
-    private Map<OWLAxiom, Set<OWLAxiom>> map;
+    private final Map<OWLAxiom, Set<OWLAxiom>> map;
 
-    private Map<OWLEntity, Set<OWLAxiom>> axiomsByRHS;
+    private final Map<OWLEntity, Set<OWLAxiom>> axiomsByRHS;
 
-    private Map<OWLEntity, Set<OWLAxiom>> axiomsByLHS;
+    private final Map<OWLEntity, Set<OWLAxiom>> axiomsByLHS;
 
-    private OWLClassExpression desc;
+    private final OWLClassExpression desc;
 
 
+    /**
+     * @param desc the class expression
+     * @param axioms the axioms
+     */
     public JustificationMap(OWLClassExpression desc, Set<OWLAxiom> axioms) {
         this.axioms = axioms;
         this.desc = desc;
@@ -252,11 +256,18 @@ public class JustificationMap {
     }
 
 
+    /**
+     * @return the root axioms
+     */
     public Set<OWLAxiom> getRootAxioms() {
         return rootAxioms;
     }
 
 
+    /**
+     * @param ax the axiom whose children are to be retrieved
+     * @return children of ax
+     */
     public Set<OWLAxiom> getChildAxioms(OWLAxiom ax) {
         Set<OWLAxiom> result = map.get(ax);
         if (result != null) {

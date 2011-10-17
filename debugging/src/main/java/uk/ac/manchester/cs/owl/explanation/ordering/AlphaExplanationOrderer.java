@@ -59,17 +59,19 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public final class AlphaExplanationOrderer implements ExplanationOrderer {
 
-    protected OWLObjectRenderer renderer;
+    protected final OWLObjectRenderer renderer;
 
 
+    /**
+     * @param renderer the renderer to use
+     */
     public AlphaExplanationOrderer(OWLObjectRenderer renderer) {
         this.renderer = renderer;
     }
 
     public ExplanationTree getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
         EntailedAxiomTree root = new EntailedAxiomTree(entailment);
-        List<OWLAxiom> sortedAxioms = new ArrayList<OWLAxiom>();
-        // XXX sorting an empty list and not using the input parameter = bug?
+        List<OWLAxiom> sortedAxioms = new ArrayList<OWLAxiom>(axioms);
         Collections.sort(sortedAxioms, new Comparator<OWLAxiom>() {
 
             public int compare(OWLAxiom o1, OWLAxiom o2) {

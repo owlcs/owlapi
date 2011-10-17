@@ -27,7 +27,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -52,12 +52,17 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
 
+/**
+ * Some ontology utils methods
+ *
+ */
 public class OntologyUtils {
 
     /**
      * Determines if a class description contains any unreferenced entities with
      * respect to the ontology that contains the entailments which are being
      * explained.
+     * @param ontology the ontology to search
      * @param desc The description to be searched
      * @return <code>true</code> if the description references entities that
      *         the ontology that contains entailments which are being explained,
@@ -101,6 +106,9 @@ public class OntologyUtils {
 
     /**
      * Add the axiom to all the given ontologies.
+     * @param axiom the axiom to add
+     * @param ontologies the ontologies to add the axiom to
+     * @param manager the manager for the application
      */
     public static void addAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies, OWLOntologyManager manager) {
         for (OWLOntology ont : ontologies) {

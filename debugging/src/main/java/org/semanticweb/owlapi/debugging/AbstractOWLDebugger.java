@@ -71,7 +71,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
 
-    private OWLOntologyManager owlOntologyManager;
+    private final OWLOntologyManager owlOntologyManager;
 
     private OWLOntology ontology;
 
@@ -109,7 +109,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     }
 
 
-    public OWLOntologyManager getOWLOntologyManager() throws OWLException {
+    /** @return the manager*/
+    public OWLOntologyManager getOWLOntologyManager() {
         return owlOntologyManager;
     }
 
@@ -144,6 +145,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
      * @param satPaths Paths that have been completed.
      * @param currentPathContents The contents of the current path.  Initially this should be an
      * empty set.
+     * @throws OWLException if there is any problem
      */
     public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents) throws OWLException {
 

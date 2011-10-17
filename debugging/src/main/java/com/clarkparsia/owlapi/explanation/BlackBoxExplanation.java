@@ -27,7 +27,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -74,24 +74,31 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 
+/**
+ * A black box explanation
+ *
+ */
 public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implements SingleExplanationGenerator {
 
-    public static final Logger log = Logger.getLogger(BlackBoxExplanation.class.getName());
+    private static final Logger log = Logger.getLogger(BlackBoxExplanation.class.getName());
 
     private OWLOntology debuggingOntology;
 
-    private Set<OWLAxiom> debuggingAxioms;
+    private final Set<OWLAxiom> debuggingAxioms;
 
-    private Set<OWLEntity> objectsExpandedWithDefiningAxioms;
+    private final Set<OWLEntity> objectsExpandedWithDefiningAxioms;
 
-    private Set<OWLEntity> objectsExpandedWithReferencingAxioms;
+    private final Set<OWLEntity> objectsExpandedWithReferencingAxioms;
 
-    private Set<OWLAxiom> expandedWithDefiningAxioms;
+    private final Set<OWLAxiom> expandedWithDefiningAxioms;
 
-    private Set<OWLAxiom> expandedWithReferencingAxioms;
+    private final Set<OWLAxiom> expandedWithReferencingAxioms;
 
-    private Map<OWLAxiom, OWLAxiom> expandedAxiomMap;
+    private final Map<OWLAxiom, OWLAxiom> expandedAxiomMap;
 
+    /**
+     * default expansion limit
+     */
     public static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
 
     private int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
@@ -106,8 +113,13 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
     private boolean performRepeatedFastPruning = false;
 
-    private OWLOntologyManager owlOntologyManager;
+    private final OWLOntologyManager owlOntologyManager;
 
+    /**
+     * @param ontology the ontology
+     * @param reasonerFactory the reasoner factory
+     * @param reasoner the reasoner
+     */
     public BlackBoxExplanation(OWLOntology ontology, OWLReasonerFactory reasonerFactory, OWLReasoner reasoner) {
         super(ontology, reasonerFactory, reasoner);
         owlOntologyManager = OWLManager.createOWLOntologyManager();
@@ -120,6 +132,10 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
 
+    /**
+     * dispose of the reasoners and ontologies
+     */
+    //XXX not in the interface
     public void dispose() {
         reset();
         getReasoner().dispose();
@@ -143,15 +159,16 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
     public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
 
-        if (!getDefinitionTracker().isDefined(unsatClass))
+        if (!getDefinitionTracker().isDefined(unsatClass)) {
             return Collections.emptySet();
-
+        }
         try {
             satTestCount++;
 
             if (isFirstExplanation()) {
-                if (getReasoner().isSatisfiable(unsatClass))
+                if (getReasoner().isSatisfiable(unsatClass)) {
                 	return Collections.emptySet();
+                }
             }
             reset();
             expandUntilUnsatisfiable(unsatClass);
@@ -261,8 +278,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
             else if (obj instanceof OWLIndividual) {
                 referenceFound = expansionAxioms.addAll(ont.getAxioms((OWLIndividual) obj));
             }
-            if (!referenceFound)
+            if (!referenceFound) {
                 expansionAxioms.add(owlOntologyManager.getOWLDataFactory().getOWLDeclarationAxiom(obj));
+            }
         }
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
@@ -422,7 +440,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
 
-    int ontologyCounter = 0;
+    private int ontologyCounter = 0;
 
 
     private void createDebuggingOntology() throws OWLException {
@@ -570,7 +588,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
                 debuggingAxioms.remove(axiom);
             }
         };
-        for (OWLAxiom axiom : debuggingAxioms.toArray(new OWLAxiom[0])) {
+        for (OWLAxiom axiom : debuggingAxioms.toArray(new OWLAxiom[debuggingAxioms.size()])) {
             axiom.accept(declarationRemover);
         }
     }

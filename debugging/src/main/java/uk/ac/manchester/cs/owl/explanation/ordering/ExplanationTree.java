@@ -52,10 +52,16 @@ import uk.ac.manchester.cs.bhig.util.MutableTree;
  */
 public class ExplanationTree extends MutableTree<OWLAxiom> {
 
+    /**
+     * @param userObject the axiom to wrap
+     */
     public ExplanationTree(OWLAxiom userObject) {
         super(userObject);
     }
 
+    /**
+     * @return true if entailed
+     */
     public boolean isEntailed() {
         return false;
     }

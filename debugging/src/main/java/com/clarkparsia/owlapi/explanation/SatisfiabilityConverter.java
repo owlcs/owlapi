@@ -27,7 +27,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -95,9 +95,13 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
+/**
+ * Satisfiability converter
+ */
 public class SatisfiabilityConverter {
 
-    private class AxiomConverter implements OWLAxiomVisitor {
+    //XXX this class could be rewitten as a simpler stateless OWLAxiomVisitorEx
+	private class AxiomConverter implements OWLAxiomVisitor {
 
         private OWLClassExpression result;
 
@@ -228,8 +232,9 @@ public class SatisfiabilityConverter {
             OWLClassExpression c1 = classes.next();
             OWLClassExpression c2 = classes.next();
 
-            if (classes.hasNext())
+            if (classes.hasNext()) {
                 logger.warning("EquivalentClassesAxiom with more than two elements not supported!");
+            }
 
             // apply simplification for the cases where either concept is owl:Thing or owlapi:Nothin
             if (c1.isOWLNothing())
@@ -393,11 +398,14 @@ public class SatisfiabilityConverter {
 
     private static final Logger logger = Logger.getLogger(SatisfiabilityConverter.class.getName());
 
-    private AxiomConverter converter;
+    private final AxiomConverter converter;
 
-    protected OWLDataFactory factory;
+    protected final OWLDataFactory factory;
 
 
+    /**
+     * @param factory the factory to use
+     */
     public SatisfiabilityConverter(OWLDataFactory factory) {
         this.factory = factory;
 
@@ -405,6 +413,10 @@ public class SatisfiabilityConverter {
     }
 
 
+    /**
+     * @param axiom axiom to convert
+     * @return converted class expression
+     */
     public OWLClassExpression convert(OWLAxiom axiom) {
         converter.reset();
 

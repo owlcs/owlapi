@@ -27,7 +27,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -46,13 +46,31 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 
+/**
+ * Renderer for explanations
+ */
 public interface ExplanationRenderer {
 
+    /**
+     * @param writer the writer to use
+     * @throws OWLException OWL troubles
+     * @throws IOException IO troubles
+     */
     public void startRendering(Writer writer) throws OWLException, IOException;
 
-
+    /**
+     * @param axiom the axiom to render
+     * @param explanations the explanations to render
+     * @throws OWLException OWL troubles
+     * @throws IOException IO troubles
+     */
     public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) throws OWLException, IOException;
 
 
+    /**
+     * end of rendering
+     * @throws OWLException OWL troubles
+     * @throws IOException IO troubles
+     */
     public void endRendering() throws OWLException, IOException;
 }

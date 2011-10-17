@@ -27,7 +27,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -57,22 +57,28 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
+/**
+ * Tracker for definitions
+ */
 public class DefinitionTracker implements OWLOntologyChangeListener {
 
     /**
      * Mapping from entities to the number of axioms
      */
-    private Map<OWLEntity, Integer> referenceCounts = new HashMap<OWLEntity, Integer>();
+    private final Map<OWLEntity, Integer> referenceCounts = new HashMap<OWLEntity, Integer>();
 
-    private OWLOntology ontology;
+    private final OWLOntology ontology;
 
-	private Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+	private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 
-    private OWLOntologyManager manager;
+    private final OWLOntologyManager manager;
 
-    private Integer ONE = Integer.valueOf(1);
+    private final Integer ONE = Integer.valueOf(1);
 
 
+    /**
+     * @param ontology ontology to track
+     */
     public DefinitionTracker(OWLOntology ontology) {
         this.manager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
@@ -87,7 +93,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
 		}
         manager.addOntologyChangeListener(this);
     }
-    
+
 //    private void clear() {
 //        axioms.clear();
 //        ontologies.clear();

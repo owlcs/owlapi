@@ -49,7 +49,10 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Date: 22-Jan-2008<br><br>
  */
 public class EntailedAxiomTree extends ExplanationTree {
-    
+
+    /**
+     * @param userObject the axiom to wrap
+     */
     public EntailedAxiomTree(OWLAxiom userObject) {
         super(userObject);
     }
@@ -61,8 +64,8 @@ public class EntailedAxiomTree extends ExplanationTree {
     }
 
 
-    @Override
-	public String toString() {
-        return super.toString();
-    }
+//    @Override
+//	public String toString() {
+//        return super.toString();
+//    }
 }

@@ -27,7 +27,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -46,19 +46,20 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import com.clarkparsia.owlapi.explanation.util.DefinitionTracker;
 
+@SuppressWarnings("javadoc")
 public abstract class SingleExplanationGeneratorImpl implements TransactionAwareSingleExpGen {
 
 	private boolean inTransaction;
-	
-    private OWLOntologyManager owlOntologyManager;
 
-    private OWLOntology ontology;
+    private final OWLOntologyManager owlOntologyManager;
 
-    private OWLReasoner reasoner;
+    private final OWLOntology ontology;
 
-    private OWLReasonerFactory reasonerFactory;
+    private final OWLReasoner reasoner;
 
-    private DefinitionTracker definitionTracker;
+    private final OWLReasonerFactory reasonerFactory;
+
+    private final DefinitionTracker definitionTracker;
 
     public SingleExplanationGeneratorImpl(OWLOntology ontology, OWLReasonerFactory reasonerFactory, OWLReasoner reasoner) {
         this.ontology = ontology;
@@ -95,18 +96,18 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
     protected boolean isFirstExplanation() {
     	return !inTransaction;
     }
-    
+
     public void beginTransaction() {
 		if (inTransaction)
 			throw new RuntimeException( "Already in transaction" );
-		
+
 		inTransaction = true;
 	}
 
 	public void endTransaction() {
 		if (!inTransaction)
 			throw new RuntimeException( "Cannot end transaction" );
-		
+
 		inTransaction = false;
 	}
 }
