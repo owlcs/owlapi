@@ -68,9 +68,13 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
 
-    private List<OWLOntologyChange> changes;
+    private final List<OWLOntologyChange> changes;
 
 
+    /**
+     * @param ontologies the ontologies to use
+     * @param dataFactory the data factory
+     */
     public AmalgamateSubClassAxioms(Set<OWLOntology> ontologies, OWLDataFactory dataFactory) {
         super(dataFactory);
         changes = new ArrayList<OWLOntologyChange>();

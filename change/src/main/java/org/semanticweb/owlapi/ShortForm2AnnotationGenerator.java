@@ -64,18 +64,25 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange {
 
     // The annotation URI to be used.
-    private IRI annotationIRI;
+    private final IRI annotationIRI;
 
     // An optional language tag to be used - could be null;
-    private String languageTag;
+    private final String languageTag;
 
-    private OWLOntologyManager ontologyManager;
+    private final OWLOntologyManager ontologyManager;
 
-    private ShortFormProvider shortFormProvider;
+    private final ShortFormProvider shortFormProvider;
 
-    private OWLOntology ontology;
+    private final OWLOntology ontology;
 
 
+    /**
+     * @param ontologyManager the ontology manager
+     * @param ontology the ontology
+     * @param shortFormProvider the short form provider
+     * @param annotationIRI iri for annotation property
+     * @param languageTag language
+     */
     public ShortForm2AnnotationGenerator(OWLOntologyManager ontologyManager, OWLOntology ontology,
                                          ShortFormProvider shortFormProvider, IRI annotationIRI, String languageTag) {
         this.ontologyManager = ontologyManager;
@@ -85,7 +92,12 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
         this.ontology = ontology;
     }
 
-
+    /**
+     * @param ontologyManager the ontology manager
+     * @param ontology the ontology
+     * @param shortFormProvider the short form provider
+     * @param annotationIRI iri for annotation property
+     */
     public ShortForm2AnnotationGenerator(OWLOntologyManager ontologyManager, OWLOntology ontology,
                                          ShortFormProvider shortFormProvider, IRI annotationIRI) {
         this(ontologyManager, ontology, shortFormProvider, annotationIRI, null);

@@ -95,13 +95,13 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
 
     private List<OWLOntologyChange> changes;
 
-    private OWLOntology targetOntology;
+    private final OWLOntology targetOntology;
 
-    private Set<OWLClass> valuePartionClasses;
+    private final Set<OWLClass> valuePartionClasses;
 
-    private OWLClass valuePartitionClass;
+    private final OWLClass valuePartitionClass;
 
-    private OWLObjectProperty valuePartitionProperty;
+    private final OWLObjectProperty valuePartitionProperty;
 
 
     /**

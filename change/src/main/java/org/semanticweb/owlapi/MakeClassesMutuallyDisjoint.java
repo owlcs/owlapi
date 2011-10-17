@@ -64,11 +64,11 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange {
 
-    private Set<? extends OWLClassExpression> classExpressions;
+    private final Set<? extends OWLClassExpression> classExpressions;
 
-    private boolean usePairwiseDisjointAxioms;
+    private final boolean usePairwiseDisjointAxioms;
 
-    private OWLOntology targetOntology;
+    private final OWLOntology targetOntology;
 
     private List<OWLOntologyChange> changes;
 

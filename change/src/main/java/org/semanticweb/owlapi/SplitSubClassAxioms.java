@@ -89,7 +89,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
 
-    private List<OWLOntologyChange> changes;
+    private final List<OWLOntologyChange> changes;
 
 
     /**

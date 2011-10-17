@@ -97,17 +97,23 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  */
 public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOntologyChange {
 
-    private OWLOntology targetOntology;
+    private final OWLOntology targetOntology;
 
-    private OWLClass cls;
+    private final OWLClass cls;
 
-    private Set<OWLOntology> ontologies;
+    private final Set<OWLOntology> ontologies;
 
-    private boolean splitIntersections;
+    private final boolean splitIntersections;
 
     private List<OWLOntologyChange> changes;
 
-
+    /**
+     * @param ontologies the ontologies to use
+     * @param dataFactory the data factory
+     * @param cls the class to convert
+     * @param targetOntology the target ontology
+     * @param splitIntersections whether or not intersections should be split
+     */
     public ConvertEquivalentClassesToSuperClasses(OWLDataFactory dataFactory, OWLClass cls, Set<OWLOntology> ontologies,
                                                   OWLOntology targetOntology, boolean splitIntersections) {
         super(dataFactory);

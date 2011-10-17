@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
  */
 public abstract class AbstractCompositeOntologyChange implements OWLCompositeOntologyChange {
 
-    private OWLDataFactory dataFactory;
+    private final OWLDataFactory dataFactory;
 
     protected AbstractCompositeOntologyChange(OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;

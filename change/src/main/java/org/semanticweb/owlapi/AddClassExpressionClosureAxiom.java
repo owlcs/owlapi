@@ -72,19 +72,19 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * (including hasValue restrictions - i.e. nominals) restriction fillers that are the
  * superclasses of class A.
  * <p/>
- * This code is based on the tutorial examples by Sean Bechhofer (see the tutoral module).
+ * This code is based on the tutorial examples by Sean Bechhofer (see the tutorial module).
  */
 public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyChange {
 
-    private OWLClass cls;
+    private final OWLClass cls;
 
-    private OWLObjectPropertyExpression property;
+    private final OWLObjectPropertyExpression property;
 
-    private Set<OWLOntology> ontologies;
+    private final Set<OWLOntology> ontologies;
 
-    private OWLOntology targetOntology;
+    private final OWLOntology targetOntology;
 
-    private List<OWLOntologyChange> changes;
+    private final List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
 
 
     /**
@@ -110,7 +110,7 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
 
 
     private void generateChanges() {
-        changes = new ArrayList<OWLOntologyChange>();
+        changes.clear();
         // We collect all of the fillers for existential restrictions along
         // the target property and all of the fillers for hasValue restrictions
         // as nominals

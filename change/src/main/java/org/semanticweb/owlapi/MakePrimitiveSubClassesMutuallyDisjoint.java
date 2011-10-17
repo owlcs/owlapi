@@ -72,22 +72,34 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOntologyChange {
 
-    private OWLClass cls;
+    private final OWLClass cls;
 
-    private Set<OWLOntology> ontologies;
+    private final Set<OWLOntology> ontologies;
 
-    private OWLOntology targetOntology;
+    private final OWLOntology targetOntology;
 
-    private boolean usePairwiseDisjointAxioms;
+    private final boolean usePairwiseDisjointAxioms;
 
     private List<OWLOntologyChange> changes;
 
 
+    /**
+     * @param dataFactory the datafactory to use
+     * @param cls the class to convert
+     * @param ontologies the ontologies to work on
+     * @param targetOntology the target ontology
+     */
     public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls, Set<OWLOntology> ontologies, OWLOntology targetOntology) {
         this(dataFactory, cls, ontologies, targetOntology, false);
     }
 
-
+    /**
+     * @param dataFactory the datafactory to use
+     * @param cls the class to convert
+     * @param ontologies the ontologies to work on
+     * @param targetOntology the target ontology
+     * @param usePairwiseDisjointAxioms true if pairwise disjoint axioms should be used
+     */
     public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls, Set<OWLOntology> ontologies, OWLOntology targetOntology, boolean usePairwiseDisjointAxioms) {
         super(dataFactory);
         this.cls = cls;
@@ -104,10 +116,8 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOn
         for (OWLOntology ont : ontologies) {
             for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSuperClass(cls)) {
                 OWLClassExpression subCls = ax.getSubClass();
-                if (!subCls.isAnonymous()) {
-                    if (!subCls.asOWLClass().isDefined(ontologies)) {
-                        subclasses.add(subCls.asOWLClass());
-                    }
+				if (!subCls.isAnonymous() && !subCls.asOWLClass().isDefined(ontologies)) {
+					subclasses.add(subCls.asOWLClass());
                 }
             }
         }

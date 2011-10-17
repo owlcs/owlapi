@@ -61,10 +61,13 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
 
-    private Set<OWLOntology> ontologies;
+    private final Set<OWLOntology> ontologies;
 
     private List<OWLOntologyChange> changes;
-
+    /**
+     * @param dataFactory factory to use
+     * @param ontologies ontologies to change
+     */
     public RemoveAllDisjointAxioms(OWLDataFactory dataFactory, Set<OWLOntology> ontologies) {
         super(dataFactory);
         this.ontologies = ontologies;

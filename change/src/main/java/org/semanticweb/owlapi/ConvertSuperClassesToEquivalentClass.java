@@ -95,11 +95,11 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntologyChange {
 
-    private OWLOntology targetOntology;
+    private final OWLOntology targetOntology;
 
-    private OWLClass cls;
+    private final OWLClass cls;
 
-    private Set<OWLOntology> ontologies;
+    private final Set<OWLOntology> ontologies;
 
     private List<OWLOntologyChange> changes;
 
