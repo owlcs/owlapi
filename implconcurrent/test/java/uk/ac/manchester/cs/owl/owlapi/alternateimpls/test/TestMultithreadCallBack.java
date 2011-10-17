@@ -38,7 +38,7 @@
  */
 
 package uk.ac.manchester.cs.owl.owlapi.alternateimpls.test;
-
+@SuppressWarnings("javadoc")
 public interface TestMultithreadCallBack {
 	void execute() throws Exception;
 

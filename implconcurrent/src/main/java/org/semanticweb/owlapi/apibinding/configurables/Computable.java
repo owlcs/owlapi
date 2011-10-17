@@ -58,6 +58,7 @@ package org.semanticweb.owlapi.apibinding.configurables;
  * When refactoring code where the computation of the toReturn value was
  * inlined, this reproduces the behaviour of the refactored code; casting of the
  * Throwable returned may be needed.
+ * @param <V> type of computed result
  *
  */
 public interface Computable<V> {

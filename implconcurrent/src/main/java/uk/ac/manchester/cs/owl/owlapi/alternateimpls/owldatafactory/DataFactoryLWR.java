@@ -40,15 +40,20 @@
 package uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-
+/**
+ * @author ignazio
+ *
+ *Datafactory using concurrent locks with weak references
+ */
 public class DataFactoryLWR extends OWLDataFactoryImpl {
-    private static DataFactoryLWR instance = new DataFactoryLWR();
+    private static final DataFactoryLWR instance = new DataFactoryLWR();
 
     public static DataFactoryLWR getInstance() {
         return instance;
     }
 
-    public DataFactoryLWR() {
+    @SuppressWarnings("javadoc")
+	public DataFactoryLWR() {
         data = new InternalsLWR(this);
     }
 }

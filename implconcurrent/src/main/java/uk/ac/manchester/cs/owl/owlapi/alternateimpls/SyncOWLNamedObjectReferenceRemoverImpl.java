@@ -54,11 +54,19 @@ import uk.ac.manchester.cs.owl.owlapi.Internals;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceRemover;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceRemoverImpl;
 
+/**
+ * @author ignazio
+ *
+ */
 public class SyncOWLNamedObjectReferenceRemoverImpl implements
 		OWLNamedObjectReferenceRemover {
 	private final OWLNamedObjectReferenceRemoverImpl delegate;
-	private ReadWriteLock lock;
+	private final ReadWriteLock lock;
 
+	/**
+	 * @param oi internals to be modified
+	 * @param lock the lock to use
+	 */
 	public SyncOWLNamedObjectReferenceRemoverImpl(Internals oi,
 			ReadWriteLock lock) {
 		delegate = new OWLNamedObjectReferenceRemoverImpl(oi);

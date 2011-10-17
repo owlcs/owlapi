@@ -44,6 +44,7 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.apibinding.configurables.ThreadSafeOWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -63,6 +64,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.test.MultiThreadChecker;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.test.TestMultithreadCallBack;
 
+@SuppressWarnings("javadoc")
 public class OwlOntologyMultipleThreadsTest extends TestCase {
 	private static class TestCallback implements TestMultithreadCallBack {
 		private final OWLOntology o1;
@@ -255,7 +257,8 @@ public class OwlOntologyMultipleThreadsTest extends TestCase {
 	}
 
 	public void testLockingOwlOntologyImpl() {
-		OWLOntologyManager m = ThreadSafeOWLManager.createOWLOntologyManager();
+		Factory.setFactory(new ThreadSafeOWLManager());
+		OWLOntologyManager m = Factory.getManager();
 		OWLOntology o = null;
 		try {
 			o = m.loadOntologyFromOntologyDocument(IRI.create(getClass()

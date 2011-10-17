@@ -48,6 +48,10 @@ import uk.ac.manchester.cs.owl.owlapi.alternateimpls.LockingOWLOntologyImpl;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.LockingOWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryLWR;
 
+/**
+ * @author ignazio
+ * thread safe binding with weak references in caches
+ */
 public final class ThreadSafeWeakRefsBinding implements OWLImplementationBinding {
 	public OWLOntologyManager getOWLOntologyManager(OWLDataFactory d) {
 		return new LockingOWLOntologyManagerImpl(d);

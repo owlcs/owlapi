@@ -98,16 +98,17 @@ public class AlternateParsableOWLOntologyFactory extends AlternateAbstractInMemO
     }
 
 
-    @Override
-	public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
-        super.setOWLOntologyManager(owlOntologyManager);
-    }
+//    @Override
+//	public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
+//        super.setOWLOntologyManager(owlOntologyManager);
+//    }
 
 
     /**
-     * Gets a list of parsers that this factory uses when it tries to
+     * @return a list of parsers that this factory uses when it tries to
      * create an ontology from a concrete representation.
      */
+    @SuppressWarnings("deprecation")
     public List<OWLParser> getParsers() {
         List<OWLParser> parsers = new ArrayList<OWLParser>();
         List<OWLParserFactory> factories = OWLParserFactoryRegistry.getInstance().getParserFactories();
@@ -122,22 +123,14 @@ public class AlternateParsableOWLOntologyFactory extends AlternateAbstractInMemO
 
     /**
      * Overriden - We don't create new empty ontologies - this isn't our responsibility
-     * @param documentIRI
+     * @param documentIRI ignored
+     * @return always false
      */
-    @Override  @SuppressWarnings("unused")
+    @Override
+    @SuppressWarnings("unused")
 	public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return false;
     }
-
-
-    /**
-     * Overriden - This method will throw an OWLException which wraps an UnsupportedOperationException.
-     */
-    @SuppressWarnings("unused")
-    public OWLOntology createOWLOntology(URI ontologyURI, URI physicalURI) {
-        throw new OWLRuntimeException(new UnsupportedOperationException("Cannot create new empty ontologes!"));
-    }
-
 
     public boolean canLoad(OWLOntologyDocumentSource documentSource) {
         if (documentSource.isReaderAvailable()) {
@@ -171,11 +164,6 @@ public class AlternateParsableOWLOntologyFactory extends AlternateAbstractInMemO
         return false;
     }
 
-
-    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, final OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
-        return loadOWLOntology(documentSource, mediator, new OWLOntologyLoaderConfiguration());
-    }
-
     public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler mediator, OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
         // Attempt to parse the ontology by looping through the parsers.  If the
         // ontology is parsed successfully then we break out and return the ontology.
@@ -201,7 +189,7 @@ public class AlternateParsableOWLOntologyFactory extends AlternateAbstractInMemO
                     getOWLOntologyManager().removeOntology(ont);
                     ont = super.createOWLOntology(ontologyID, documentSource.getDocumentIRI(), mediator);
                 }
-                OWLOntologyFormat format = parser.parse(documentSource, ont);
+                OWLOntologyFormat format = parser.parse(documentSource, ont, configuration);
                 mediator.setOntologyFormat(ont, format);
                 return ont;
             }
@@ -235,4 +223,9 @@ public class AlternateParsableOWLOntologyFactory extends AlternateAbstractInMemO
         // that we have tried.
         throw new UnparsableOntologyException(documentSource.getDocumentIRI(), exceptions);
     }
+
+    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, final OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
+        return loadOWLOntology(documentSource, mediator, new OWLOntologyLoaderConfiguration());
+    }
+
 }

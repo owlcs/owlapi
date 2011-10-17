@@ -50,7 +50,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
+@SuppressWarnings("javadoc")
 public class MultiThreadChecker {
 	public static final int defaultRep=10;
 	private int rep = defaultRep;
@@ -111,7 +111,7 @@ public class MultiThreadChecker {
 			}
 		});
 		long end = System.currentTimeMillis();
-		if (list.size() > 0) {
+		if (!list.isEmpty()) {
 			end = (Long) list.get(list.size() - 1);
 		}
 		int expected = rep * rep;

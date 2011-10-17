@@ -70,14 +70,26 @@ import org.semanticweb.owlapi.reasoner.TimeOutException;
 import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
 import org.semanticweb.owlapi.util.Version;
 
+/**
+ * @author ignazio
+ *
+ *a threadsafe wrapper for OWLReasoners
+ */
 public class ThreadSafeOWLReasoner implements OWLReasoner {
 	private final OWLReasoner delegate;
 	private boolean log = false;
 
+	/**
+	 * @param reasoner the reasoner to wrap
+	 * @param log true if logging is required
+	 */
 	public ThreadSafeOWLReasoner(OWLReasoner reasoner, boolean log) {
 		this(reasoner);
 		this.log=log;
 	}
+	/**
+	 * @param reasoner the reasoner to wrap
+	 */
 	public ThreadSafeOWLReasoner(OWLReasoner reasoner) {
 		if (reasoner == null) {
 			throw new IllegalArgumentException(

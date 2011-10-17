@@ -44,7 +44,7 @@ import java.util.List;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-
+@SuppressWarnings("javadoc")
 public class Tester {
 		public static final int _10 = 10;
 		public static final int _10000 = 10000;

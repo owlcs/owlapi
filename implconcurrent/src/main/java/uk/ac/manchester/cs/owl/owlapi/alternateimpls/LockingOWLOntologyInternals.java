@@ -36,14 +36,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
 
 import static org.semanticweb.owlapi.model.AxiomType.DECLARATION;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -113,15 +111,23 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.InternalsImpl;
 
+/**
+ * @author ignazio
+ * threadsafe implementation
+ */
 public class LockingOWLOntologyInternals extends InternalsImpl {
 	private Map<Object, ReadWriteLock> locks;
 	// to be used to lock on access to all lazily built indexes
 	private final ReadWriteLock lazyIndexLock;
 
+	/**
+	 * @return lock for lazy index
+	 */
 	public ReadWriteLock getAxiomTypeLock() {
 		return lazyIndexLock;
 	}
 
+	@SuppressWarnings("javadoc")
 	public LockingOWLOntologyInternals() {
 		//This LOOKS like an unitialized read. Actually the locks map is
 		//initialized in the super() constructor that calls this.initMaps()
@@ -161,8 +167,7 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		locks.put(owlIndividualReferences, new ReentrantReadWriteLock());
 		// guarded by
 		owlAnonymousIndividualReferences = CollectionFactory.createSyncMap();
-		locks.put(owlAnonymousIndividualReferences,
-				new ReentrantReadWriteLock());
+		locks.put(owlAnonymousIndividualReferences, new ReentrantReadWriteLock());
 		// guarded by
 		owlDatatypeReferences = CollectionFactory.createSyncMap();
 		locks.put(owlDatatypeReferences, new ReentrantReadWriteLock());
@@ -179,8 +184,9 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		Lock l = locks.get(importsDeclarations).readLock();
 		l.lock();
 		try {
-			return this.getReturnSet(importsDeclarations);
-		} finally {
+			return super.getImportsDeclarations();
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -191,19 +197,20 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.addImportsDeclaration(importDeclaration);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
 
 	@Override
-	public boolean removeImportsDeclaration(
-			OWLImportsDeclaration importDeclaration) {
+	public boolean removeImportsDeclaration(OWLImportsDeclaration importDeclaration) {
 		Lock l = locks.get(importsDeclarations).writeLock();
 		l.lock();
 		try {
 			return super.removeImportsDeclaration(importDeclaration);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -229,8 +236,7 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	//		}
 	//	}
 	@Override
-	public <K, V extends OWLAxiom> void addToIndexedSet(K key,
-			Map<K, Set<V>> map, V axiom) {
+	public <K, V extends OWLAxiom> void addToIndexedSet(K key, Map<K, Set<V>> map, V axiom) {
 		if (map == null) {
 			return;
 		}
@@ -239,7 +245,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 			l.lock();
 			try {
 				super.addToIndexedSet(key, map, axiom);
-			} finally {
+			}
+			finally {
 				l.unlock();
 			}
 		} else {
@@ -248,8 +255,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	}
 
 	@Override
-	public <K, V extends OWLAxiom> void removeAxiomFromSet(K key,
-			Map<K, Set<V>> map, V axiom, boolean removeSetIfEmpty) {
+	public <K, V extends OWLAxiom> void removeAxiomFromSet(K key, Map<K, Set<V>> map,
+			V axiom, boolean removeSetIfEmpty) {
 		if (map == null) {
 			return;
 		}
@@ -258,7 +265,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 			l.lock();
 			try {
 				super.removeAxiomFromSet(key, map, axiom, removeSetIfEmpty);
-			} finally {
+			}
+			finally {
 				l.unlock();
 			}
 		} else {
@@ -266,49 +274,59 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		}
 	}
 
+
+
+
+//	@Override
+//	public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity entity) {
+//		//TODO lock
+//		return getReturnSet(getAxioms(entity, declarationsByEntity, false));
+//	}
+//
+//	@Override
+//	public Set<OWLAxiom> getReferencingAxioms(OWLAnonymousIndividual individual) {
+//		//TODO lock
+//		return getReturnSet(getAxioms(individual, owlAnonymousIndividualReferences, false));
+//	}
+//
+
 	@Override
 	public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity entity) {
-		//TODO lock
-		return getReturnSet(getAxioms(entity,
-				declarationsByEntity, false));
+		Lock l = locks.get(declarationsByEntity).readLock();
+		l.lock();
+		try {
+			return super.getDeclarationAxioms(entity);
+		}
+		finally {
+			l.unlock();
+		}
 	}
 
-	@Override
-	public Set<OWLAxiom> getReferencingAxioms(OWLAnonymousIndividual individual) {
-
-		//TODO lock
-	    return getReturnSet(getAxioms(individual, owlAnonymousIndividualReferences, false));
-	}
-
-	@Override
-	public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
-		//TODO lock
-        Set<OWLAxiom> axioms;
-        if (owlEntity instanceof OWLClass) {
-            axioms = getAxioms(owlEntity.asOWLClass(), owlClassReferences, false);
-        }
-        else if (owlEntity instanceof OWLObjectProperty) {
-            axioms = getAxioms(owlEntity.asOWLObjectProperty(), owlObjectPropertyReferences, false);
-        }
-        else if (owlEntity instanceof OWLDataProperty) {
-            axioms = getAxioms(owlEntity.asOWLDataProperty(), owlDataPropertyReferences, false);
-        }
-        else if (owlEntity instanceof OWLNamedIndividual) {
-            axioms = getAxioms(owlEntity.asOWLNamedIndividual(), owlIndividualReferences, false);
-        }
-        else if (owlEntity instanceof OWLDatatype) {
-            axioms = getAxioms(owlEntity.asOWLDatatype(), owlDatatypeReferences, false);
-        }
-        else if (owlEntity instanceof OWLAnnotationProperty) {
-            axioms = getAxioms(owlEntity.asOWLAnnotationProperty(), owlAnnotationPropertyReferences, false);
-        }
-        else {
-            axioms = Collections.emptySet();
-        }
-
-        return getReturnSet(axioms);
-    }
-
+//	@Override
+//	public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
+//		//TODO lock
+//		Set<OWLAxiom> axioms;
+//		if (owlEntity instanceof OWLClass) {
+//			axioms = getAxioms(owlEntity.asOWLClass(), owlClassReferences, false);
+//		} else if (owlEntity instanceof OWLObjectProperty) {
+//			axioms = getAxioms(owlEntity.asOWLObjectProperty(),
+//					owlObjectPropertyReferences, false);
+//		} else if (owlEntity instanceof OWLDataProperty) {
+//			axioms = getAxioms(owlEntity.asOWLDataProperty(), owlDataPropertyReferences,
+//					false);
+//		} else if (owlEntity instanceof OWLNamedIndividual) {
+//			axioms = getAxioms(owlEntity.asOWLNamedIndividual(), owlIndividualReferences,
+//					false);
+//		} else if (owlEntity instanceof OWLDatatype) {
+//			axioms = getAxioms(owlEntity.asOWLDatatype(), owlDatatypeReferences, false);
+//		} else if (owlEntity instanceof OWLAnnotationProperty) {
+//			axioms = getAxioms(owlEntity.asOWLAnnotationProperty(),
+//					owlAnnotationPropertyReferences, false);
+//		} else {
+//			axioms = Collections.emptySet();
+//		}
+//		return getReturnSet(axioms);
+//	}
 
 	@Override
 	protected <K, V extends OWLAxiom> Set<V> getAxioms(K key, Map<K, Set<V>> map,
@@ -318,7 +336,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 			l.lock();
 			try {
 				return super.getAxioms(key, map, create);
-			} finally {
+			}
+			finally {
 				l.unlock();
 			}
 		} else {
@@ -341,24 +360,23 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	}
 
 	@Override
-	public Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(
-			OWLClass cls) {
-		Maps.EquivalentClassesAxiomsByClass.initMap(this,
-				lazyIndexLock.writeLock(), equivalentClassesAxiomsByClass);
+	public Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(OWLClass cls) {
+		Maps.EquivalentClassesAxiomsByClass.initMap(this, lazyIndexLock.writeLock(),
+				equivalentClassesAxiomsByClass);
 		return super.getEquivalentClassesAxioms(cls);
 	}
 
 	@Override
 	public Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(OWLClass cls) {
-		Maps.DisjointClassesAxiomsByClass.initMap(this,
-				lazyIndexLock.writeLock(), disjointClassesAxiomsByClass);
+		Maps.DisjointClassesAxiomsByClass.initMap(this, lazyIndexLock.writeLock(),
+				disjointClassesAxiomsByClass);
 		return super.getDisjointClassesAxioms(cls);
 	}
 
 	@Override
 	public Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLClass owlClass) {
-		Maps.DisjointUnionAxiomsByClass.initMap(this,
-				lazyIndexLock.writeLock(), disjointUnionAxiomsByClass);
+		Maps.DisjointUnionAxiomsByClass.initMap(this, lazyIndexLock.writeLock(),
+				disjointUnionAxiomsByClass);
 		return super.getDisjointUnionAxioms(owlClass);
 	}
 
@@ -373,41 +391,40 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	@Override
 	public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(
 			OWLObjectPropertyExpression property) {
-		Maps.ObjectSubPropertyAxiomsByLHS.initMap(this,
-				lazyIndexLock.writeLock(), objectSubPropertyAxiomsByLHS);
+		Maps.ObjectSubPropertyAxiomsByLHS.initMap(this, lazyIndexLock.writeLock(),
+				objectSubPropertyAxiomsByLHS);
 		return super.getObjectSubPropertyAxiomsForSubProperty(property);
 	}
 
 	@Override
 	public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(
 			OWLObjectPropertyExpression property) {
-		Maps.ObjectSubPropertyAxiomsByRHS.initMap(this,
-				lazyIndexLock.writeLock(), objectSubPropertyAxiomsByRHS);
+		Maps.ObjectSubPropertyAxiomsByRHS.initMap(this, lazyIndexLock.writeLock(),
+				objectSubPropertyAxiomsByRHS);
 		return super.getObjectSubPropertyAxiomsForSuperProperty(property);
 	}
 
 	@Override
 	public Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(
 			OWLObjectPropertyExpression property) {
-		Maps.ObjectPropertyDomainAxiomsByProperty
-				.initMap(this, lazyIndexLock.writeLock(),
-						objectPropertyDomainAxiomsByProperty);
+		Maps.ObjectPropertyDomainAxiomsByProperty.initMap(this,
+				lazyIndexLock.writeLock(), objectPropertyDomainAxiomsByProperty);
 		return super.getObjectPropertyDomainAxioms(property);
 	}
 
 	@Override
 	public Set<OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxioms(
 			OWLObjectPropertyExpression property) {
-		Maps.ObjectPropertyRangeAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(), objectPropertyRangeAxiomsByProperty);
+		Maps.ObjectPropertyRangeAxiomsByProperty.initMap(this, lazyIndexLock.writeLock(),
+				objectPropertyRangeAxiomsByProperty);
 		return super.getObjectPropertyRangeAxioms(property);
 	}
 
 	@Override
 	public Set<OWLInverseObjectPropertiesAxiom> getInverseObjectPropertyAxioms(
 			OWLObjectPropertyExpression property) {
-		Maps.InversePropertyAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(), inversePropertyAxiomsByProperty);
+		Maps.InversePropertyAxiomsByProperty.initMap(this, lazyIndexLock.writeLock(),
+				inversePropertyAxiomsByProperty);
 		return super.getInverseObjectPropertyAxioms(property);
 	}
 
@@ -415,8 +432,7 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	public Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(
 			OWLObjectPropertyExpression property) {
 		Maps.EquivalentObjectPropertyAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(),
-				equivalentObjectPropertyAxiomsByProperty);
+				lazyIndexLock.writeLock(), equivalentObjectPropertyAxiomsByProperty);
 		return super.getEquivalentObjectPropertiesAxioms(property);
 	}
 
@@ -424,8 +440,7 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	public Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(
 			OWLObjectPropertyExpression property) {
 		Maps.DisjointObjectPropertyAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(),
-				disjointObjectPropertyAxiomsByProperty);
+				lazyIndexLock.writeLock(), disjointObjectPropertyAxiomsByProperty);
 		return super.getDisjointObjectPropertiesAxioms(property);
 	}
 
@@ -433,8 +448,7 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	public Set<OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxioms(
 			OWLObjectPropertyExpression property) {
 		Maps.FunctionalObjectPropertyAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(),
-				functionalObjectPropertyAxiomsByProperty);
+				lazyIndexLock.writeLock(), functionalObjectPropertyAxiomsByProperty);
 		return super.getFunctionalObjectPropertyAxioms(property);
 	}
 
@@ -442,48 +456,47 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	public Set<OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalObjectPropertyAxioms(
 			OWLObjectPropertyExpression property) {
 		Maps.InverseFunctionalPropertyAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(),
-				inverseFunctionalPropertyAxiomsByProperty);
+				lazyIndexLock.writeLock(), inverseFunctionalPropertyAxiomsByProperty);
 		return super.getInverseFunctionalObjectPropertyAxioms(property);
 	}
 
 	@Override
 	public Set<OWLSymmetricObjectPropertyAxiom> getSymmetricObjectPropertyAxioms(
 			OWLObjectPropertyExpression property) {
-		Maps.SymmetricPropertyAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(), symmetricPropertyAxiomsByProperty);
+		Maps.SymmetricPropertyAxiomsByProperty.initMap(this, lazyIndexLock.writeLock(),
+				symmetricPropertyAxiomsByProperty);
 		return super.getSymmetricObjectPropertyAxioms(property);
 	}
 
 	@Override
 	public Set<OWLAsymmetricObjectPropertyAxiom> getAsymmetricObjectPropertyAxioms(
 			OWLObjectPropertyExpression property) {
-		Maps.AsymmetricPropertyAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(), asymmetricPropertyAxiomsByProperty);
+		Maps.AsymmetricPropertyAxiomsByProperty.initMap(this, lazyIndexLock.writeLock(),
+				asymmetricPropertyAxiomsByProperty);
 		return super.getAsymmetricObjectPropertyAxioms(property);
 	}
 
 	@Override
 	public Set<OWLReflexiveObjectPropertyAxiom> getReflexiveObjectPropertyAxioms(
 			OWLObjectPropertyExpression property) {
-		Maps.ReflexivePropertyAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(), reflexivePropertyAxiomsByProperty);
+		Maps.ReflexivePropertyAxiomsByProperty.initMap(this, lazyIndexLock.writeLock(),
+				reflexivePropertyAxiomsByProperty);
 		return super.getReflexiveObjectPropertyAxioms(property);
 	}
 
 	@Override
 	public Set<OWLIrreflexiveObjectPropertyAxiom> getIrreflexiveObjectPropertyAxioms(
 			OWLObjectPropertyExpression property) {
-		Maps.IrreflexivePropertyAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(), irreflexivePropertyAxiomsByProperty);
+		Maps.IrreflexivePropertyAxiomsByProperty.initMap(this, lazyIndexLock.writeLock(),
+				irreflexivePropertyAxiomsByProperty);
 		return super.getIrreflexiveObjectPropertyAxioms(property);
 	}
 
 	@Override
 	public Set<OWLTransitiveObjectPropertyAxiom> getTransitiveObjectPropertyAxioms(
 			OWLObjectPropertyExpression property) {
-		Maps.TransitivePropertyAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(), transitivePropertyAxiomsByProperty);
+		Maps.TransitivePropertyAxiomsByProperty.initMap(this, lazyIndexLock.writeLock(),
+				transitivePropertyAxiomsByProperty);
 		return super.getTransitiveObjectPropertyAxioms(property);
 	}
 
@@ -491,40 +504,39 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	public Set<OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxioms(
 			OWLDataPropertyExpression property) {
 		Maps.FunctionalDataPropertyAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(),
-				functionalDataPropertyAxiomsByProperty);
+				lazyIndexLock.writeLock(), functionalDataPropertyAxiomsByProperty);
 		return super.getFunctionalDataPropertyAxioms(property);
 	}
 
 	@Override
 	public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(
 			OWLDataProperty lhsProperty) {
-		Maps.DataSubPropertyAxiomsByLHS.initMap(this,
-				lazyIndexLock.writeLock(), dataSubPropertyAxiomsByLHS);
+		Maps.DataSubPropertyAxiomsByLHS.initMap(this, lazyIndexLock.writeLock(),
+				dataSubPropertyAxiomsByLHS);
 		return super.getDataSubPropertyAxiomsForSubProperty(lhsProperty);
 	}
 
 	@Override
 	public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(
 			OWLDataPropertyExpression property) {
-		Maps.DataSubPropertyAxiomsByRHS.initMap(this,
-				lazyIndexLock.writeLock(), dataSubPropertyAxiomsByRHS);
+		Maps.DataSubPropertyAxiomsByRHS.initMap(this, lazyIndexLock.writeLock(),
+				dataSubPropertyAxiomsByRHS);
 		return super.getDataSubPropertyAxiomsForSuperProperty(property);
 	}
 
 	@Override
 	public Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(
 			OWLDataProperty property) {
-		Maps.DataPropertyDomainAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(), dataPropertyDomainAxiomsByProperty);
+		Maps.DataPropertyDomainAxiomsByProperty.initMap(this, lazyIndexLock.writeLock(),
+				dataPropertyDomainAxiomsByProperty);
 		return super.getDataPropertyDomainAxioms(property);
 	}
 
 	@Override
 	public Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(
 			OWLDataProperty property) {
-		Maps.DataPropertyRangeAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(), dataPropertyRangeAxiomsByProperty);
+		Maps.DataPropertyRangeAxiomsByProperty.initMap(this, lazyIndexLock.writeLock(),
+				dataPropertyRangeAxiomsByProperty);
 		return super.getDataPropertyRangeAxioms(property);
 	}
 
@@ -532,50 +544,46 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	public Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(
 			OWLDataProperty property) {
 		Maps.EquivalentDataPropertyAxiomsByProperty.initMap(this,
-				lazyIndexLock.writeLock(),
-				equivalentDataPropertyAxiomsByProperty);
+				lazyIndexLock.writeLock(), equivalentDataPropertyAxiomsByProperty);
 		return super.getEquivalentDataPropertiesAxioms(property);
 	}
 
 	@Override
 	public Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(
 			OWLDataProperty property) {
-		Maps.DisjointDataPropertyAxiomsByProperty
-				.initMap(this, lazyIndexLock.writeLock(),
-						disjointDataPropertyAxiomsByProperty);
+		Maps.DisjointDataPropertyAxiomsByProperty.initMap(this,
+				lazyIndexLock.writeLock(), disjointDataPropertyAxiomsByProperty);
 		return super.getDisjointDataPropertiesAxioms(property);
 	}
 
 	////
 	@Override
-	public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
-			OWLIndividual individual) {
-		Maps.ClassAssertionAxiomsByIndividual.initMap(this,
-				lazyIndexLock.writeLock(), classAssertionAxiomsByIndividual);
+	public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLIndividual individual) {
+		Maps.ClassAssertionAxiomsByIndividual.initMap(this, lazyIndexLock.writeLock(),
+				classAssertionAxiomsByIndividual);
 		return super.getClassAssertionAxioms(individual);
 	}
 
 	@Override
 	public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClassExpression type) {
-		Maps.ClassAssertionAxiomsByClass.initMap(this,
-				lazyIndexLock.writeLock(), classAssertionAxiomsByClass);
+		Maps.ClassAssertionAxiomsByClass.initMap(this, lazyIndexLock.writeLock(),
+				classAssertionAxiomsByClass);
 		return super.getClassAssertionAxioms(type);
 	}
 
 	@Override
 	public Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(
 			OWLIndividual individual) {
-		Maps.DataPropertyAssertionsByIndividual.initMap(this,
-				lazyIndexLock.writeLock(), dataPropertyAssertionsByIndividual);
+		Maps.DataPropertyAssertionsByIndividual.initMap(this, lazyIndexLock.writeLock(),
+				dataPropertyAssertionsByIndividual);
 		return super.getDataPropertyAssertionAxioms(individual);
 	}
 
 	@Override
 	public Set<OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionAxioms(
 			OWLIndividual individual) {
-		Maps.ObjectPropertyAssertionsByIndividual
-				.initMap(this, lazyIndexLock.writeLock(),
-						objectPropertyAssertionsByIndividual);
+		Maps.ObjectPropertyAssertionsByIndividual.initMap(this,
+				lazyIndexLock.writeLock(), objectPropertyAssertionsByIndividual);
 		return super.getObjectPropertyAssertionAxioms(individual);
 	}
 
@@ -598,10 +606,9 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	}
 
 	@Override
-	public Set<OWLSameIndividualAxiom> getSameIndividualAxioms(
-			OWLIndividual individual) {
-		Maps.SameIndividualsAxiomsByIndividual.initMap(this,
-				lazyIndexLock.writeLock(), sameIndividualsAxiomsByIndividual);
+	public Set<OWLSameIndividualAxiom> getSameIndividualAxioms(OWLIndividual individual) {
+		Maps.SameIndividualsAxiomsByIndividual.initMap(this, lazyIndexLock.writeLock(),
+				sameIndividualsAxiomsByIndividual);
 		return super.getSameIndividualAxioms(individual);
 	}
 
@@ -609,16 +616,15 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	public Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(
 			OWLIndividual individual) {
 		Maps.DifferentIndividualsAxiomsByIndividual.initMap(this,
-				lazyIndexLock.writeLock(),
-				differentIndividualsAxiomsByIndividual);
+				lazyIndexLock.writeLock(), differentIndividualsAxiomsByIndividual);
 		return super.getDifferentIndividualAxioms(individual);
 	}
 
 	@Override
 	public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxiomsBySubject(
 			OWLAnnotationSubject subject) {
-		Maps.AnnotationAssertionAxiomsBySubject.initMap(this,
-				lazyIndexLock.writeLock(), annotationAssertionAxiomsBySubject);
+		Maps.AnnotationAssertionAxiomsBySubject.initMap(this, lazyIndexLock.writeLock(),
+				annotationAssertionAxiomsBySubject);
 		return super.getAnnotationAssertionAxiomsBySubject(subject);
 	}
 
@@ -640,14 +646,14 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 				}
 			}
 			return ontologyAnnotations.isEmpty();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
 
 	@Override
-	public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(
-			OWLDatatype datatype) {
+	public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype) {
 		Set<OWLDatatypeDefinitionAxiom> result = createSet();
 		Set<OWLDatatypeDefinitionAxiom> axioms = getAxiomsInternal(AxiomType.DATATYPE_DEFINITION);
 		for (OWLDatatypeDefinitionAxiom ax : axioms) {
@@ -705,7 +711,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getOntologyAnnotations();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -716,7 +723,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.addOntologyAnnotation(ann);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -727,7 +735,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.removeOntologyAnnotation(ann);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -738,7 +747,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.containsAxiom(axiom);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -749,7 +759,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getAxiomCount();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -760,14 +771,22 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getAxioms();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
 
 	@Override
 	public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
-		return super.getAxioms(axiomType);
+		Lock l = locks.get(axiomsByType).readLock();
+		l.lock();
+		try {
+			return super.getAxioms(axiomType);
+		}
+		finally {
+			l.unlock();
+		}
 	}
 
 	@Override
@@ -777,7 +796,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getAxioms(axiomType, importsClosure);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -788,7 +808,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getAxiomCount(axiomType);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -799,7 +820,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getLogicalAxioms();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -810,7 +832,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getLogicalAxiomCount();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -821,7 +844,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getLogicalAxiom2AnnotatedAxiomMap();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -832,7 +856,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getLogicalAxiom2AnnotatedAxiom(ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -843,7 +868,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.addLogicalAxiom2AnnotatedAxiomMap(ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -854,7 +880,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.removeLogicalAxiom2AnnotatedAxiomMap(ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -865,7 +892,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.containsLogicalAxiom2AnnotatedAxiomMap(ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -876,7 +904,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getGeneralClassAxioms();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -887,7 +916,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.addGeneralClassAxioms(ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -898,7 +928,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.removeGeneralClassAxioms(ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -909,7 +940,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getPropertyChainSubPropertyAxioms();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -920,19 +952,20 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.addPropertyChainSubPropertyAxioms(ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
 
 	@Override
-	public void removePropertyChainSubPropertyAxioms(
-			OWLSubPropertyChainOfAxiom ax) {
+	public void removePropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
 		Lock l = locks.get(propertyChainSubPropertyAxioms).writeLock();
 		l.lock();
 		try {
 			super.removePropertyChainSubPropertyAxioms(ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -943,7 +976,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getOwlClassReferences();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -954,7 +988,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.removeOwlClassReferences(c, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -965,7 +1000,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.addOwlClassReferences(c, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -976,7 +1012,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.containsOwlClassReferences(c);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -987,19 +1024,20 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getOwlObjectPropertyReferences();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
 
 	@Override
-	public void removeOwlObjectPropertyReferences(OWLObjectProperty p,
-			OWLAxiom ax) {
+	public void removeOwlObjectPropertyReferences(OWLObjectProperty p, OWLAxiom ax) {
 		Lock l = locks.get(owlObjectPropertyReferences).writeLock();
 		l.lock();
 		try {
 			super.removeOwlObjectPropertyReferences(p, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1010,7 +1048,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.addOwlObjectPropertyReferences(p, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1021,7 +1060,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.containsOwlObjectPropertyReferences(c);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1032,7 +1072,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getOwlDataPropertyReferences();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1043,7 +1084,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.removeOwlDataPropertyReferences(c, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1054,7 +1096,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.addOwlDataPropertyReferences(c, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1065,7 +1108,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.containsOwlDataPropertyReferences(c);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1076,7 +1120,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getOwlIndividualReferences();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1087,7 +1132,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.removeOwlIndividualReferences(c, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1098,7 +1144,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.addOwlIndividualReferences(c, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1109,7 +1156,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.containsOwlIndividualReferences(c);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1120,43 +1168,45 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getOwlAnonymousIndividualReferences();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
 
 	@Override
-	public void removeOwlAnonymousIndividualReferences(
-			OWLAnonymousIndividual c, OWLAxiom ax) {
-		Lock l = locks.get(owlAnonymousIndividualReferences).writeLock();
-		l.lock();
-		try {
-			super.removeOwlAnonymousIndividualReferences(c, ax);
-		} finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public void addOwlAnonymousIndividualReferences(OWLAnonymousIndividual c,
+	public void removeOwlAnonymousIndividualReferences(OWLAnonymousIndividual c,
 			OWLAxiom ax) {
 		Lock l = locks.get(owlAnonymousIndividualReferences).writeLock();
 		l.lock();
 		try {
-			super.addOwlAnonymousIndividualReferences(c, ax);
-		} finally {
+			super.removeOwlAnonymousIndividualReferences(c, ax);
+		}
+		finally {
 			l.unlock();
 		}
 	}
 
 	@Override
-	public boolean containsOwlAnonymousIndividualReferences(
-			OWLAnonymousIndividual c) {
+	public void addOwlAnonymousIndividualReferences(OWLAnonymousIndividual c, OWLAxiom ax) {
+		Lock l = locks.get(owlAnonymousIndividualReferences).writeLock();
+		l.lock();
+		try {
+			super.addOwlAnonymousIndividualReferences(c, ax);
+		}
+		finally {
+			l.unlock();
+		}
+	}
+
+	@Override
+	public boolean containsOwlAnonymousIndividualReferences(OWLAnonymousIndividual c) {
 		Lock l = locks.get(owlAnonymousIndividualReferences).readLock();
 		l.lock();
 		try {
 			return super.containsOwlAnonymousIndividualReferences(c);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1167,7 +1217,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getOwlDatatypeReferences();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1178,7 +1229,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.removeOwlDatatypeReferences(c, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1189,7 +1241,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.addOwlDatatypeReferences(c, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1200,7 +1253,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.containsOwlDatatypeReferences(c);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1211,43 +1265,44 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getOwlAnnotationPropertyReferences();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
 
 	@Override
-	public void removeOwlAnnotationPropertyReferences(OWLAnnotationProperty c,
-			OWLAxiom ax) {
+	public void removeOwlAnnotationPropertyReferences(OWLAnnotationProperty c, OWLAxiom ax) {
 		Lock l = locks.get(owlAnnotationPropertyReferences).writeLock();
 		l.lock();
 		try {
 			super.removeOwlAnnotationPropertyReferences(c, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
 
 	@Override
-	public void addOwlAnnotationPropertyReferences(OWLAnnotationProperty c,
-			OWLAxiom ax) {
+	public void addOwlAnnotationPropertyReferences(OWLAnnotationProperty c, OWLAxiom ax) {
 		Lock l = locks.get(owlAnnotationPropertyReferences).writeLock();
 		l.lock();
 		try {
 			super.addOwlAnnotationPropertyReferences(c, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
 
 	@Override
-	public boolean containsOwlAnnotationPropertyReferences(
-			OWLAnnotationProperty c) {
+	public boolean containsOwlAnnotationPropertyReferences(OWLAnnotationProperty c) {
 		Lock l = locks.get(owlAnnotationPropertyReferences).readLock();
 		l.lock();
 		try {
 			return super.containsOwlAnnotationPropertyReferences(c);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1258,7 +1313,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.getDeclarationsByEntity();
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1269,7 +1325,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.removeDeclarationsByEntity(c, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1280,7 +1337,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			super.addDeclarationsByEntity(c, ax);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}
@@ -1291,7 +1349,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 		l.lock();
 		try {
 			return super.containsDeclarationsByEntity(c);
-		} finally {
+		}
+		finally {
 			l.unlock();
 		}
 	}

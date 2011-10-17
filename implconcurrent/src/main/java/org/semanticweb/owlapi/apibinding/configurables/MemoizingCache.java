@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.apibinding.configurables;
 
 import java.util.ArrayList;
@@ -53,9 +52,23 @@ import java.util.concurrent.FutureTask;
 
 import org.semanticweb.owlapi.util.CollectionFactory;
 
+/**
+ * @author ignazio
+ *
+ *Cache where values computation is carried out with Computables and multithread safe - no stale data, no multiple computations for the same value
+ *
+ * @param <A> type of key
+ * @param <V> type of value
+ */
 public class MemoizingCache<A, V> implements Map<A, V> {
-	private final ConcurrentHashMap<A, FutureTask<V>> cache = CollectionFactory.createSyncMap();
+	private final ConcurrentHashMap<A, FutureTask<V>> cache = CollectionFactory
+			.createSyncMap();
 
+	/**
+	 * @param computant the object that carries out the copmutation
+	 * @param key the key
+	 * @return the computed value
+	 */
 	public V get(final Computable<V> computant, final A key) {
 		while (true) {
 			FutureTask<V> f = cache.get(key);
@@ -81,12 +94,16 @@ public class MemoizingCache<A, V> implements Map<A, V> {
 				throw new RuntimeException(e);
 			} catch (InterruptedException e) {
 				cache.remove(key);
-				throw new RuntimeException("Unexpected interrupted exception",
-						e);
+				throw new RuntimeException("Unexpected interrupted exception", e);
 			}
 		}
 	}
 
+	/**
+	 * @param computed the value
+	 * @param key the key
+	 * @return computed
+	 */
 	public V get(final V computed, final A key) {
 		while (true) {
 			FutureTask<V> f = cache.get(key);
@@ -111,8 +128,7 @@ public class MemoizingCache<A, V> implements Map<A, V> {
 				throw new RuntimeException(e);
 			} catch (InterruptedException e) {
 				cache.remove(key);
-				throw new RuntimeException("Unexpected interrupted exception",
-						e);
+				throw new RuntimeException("Unexpected interrupted exception", e);
 			}
 		}
 	}
@@ -151,9 +167,10 @@ public class MemoizingCache<A, V> implements Map<A, V> {
 		// the run for the future task is supposed to have already been performed, so no exceptions are expected or managed here
 		try {
 			FutureTask<V> futureTask = cache.get(key);
-			if(futureTask!=null) {
-			return futureTask.get();}else {
-				throw new NullPointerException("Unexpected null value in the map");
+			if (futureTask != null) {
+				return futureTask.get();
+			} else {
+				throw new NullPointerException("Unexpected null value in the map: key was expected to be contained and checked in this method, but is no longer contained in the map");
 			}
 		} catch (CancellationException e) {
 			throw new RuntimeException(e);
@@ -184,6 +201,7 @@ public class MemoizingCache<A, V> implements Map<A, V> {
 		return toReturn;
 	}
 
+	@SuppressWarnings("unused")
 	public void putAll(Map<? extends A, ? extends V> t) {
 		throw new UnsupportedOperationException(
 				"Adding values must be done through the get(Computable<A,V>, A) method");

@@ -48,6 +48,10 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 
+/**
+ * @author ignazio
+ * Binding for special implementations
+ */
 public final class DefaultBinding implements
 			OWLImplementationBinding {
 		public OWLOntologyManager getOWLOntologyManager(OWLDataFactory d) {

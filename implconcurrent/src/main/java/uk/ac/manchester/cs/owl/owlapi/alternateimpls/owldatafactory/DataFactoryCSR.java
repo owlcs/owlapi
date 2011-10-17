@@ -41,14 +41,20 @@ package uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
+/**
+ * @author ignazio
+ *
+ *Datafactory using concurrent hash maps with strong references
+ */
 public class DataFactoryCSR extends OWLDataFactoryImpl {
-    private static DataFactoryCSR instance = new DataFactoryCSR();
+    private static final DataFactoryCSR instance = new DataFactoryCSR();
 
     public static DataFactoryCSR getInstance() {
         return instance;
     }
 
-    public DataFactoryCSR() {
+    @SuppressWarnings("javadoc")
+	public DataFactoryCSR() {
         data = new InternalsCSR(this);
 
     }

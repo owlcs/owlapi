@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
+@SuppressWarnings("javadoc")
 public class AlternateEmptyInMemOWLOntologyFactory extends AlternateAbstractInMemOWLOntologyFactory {
 
     public AlternateEmptyInMemOWLOntologyFactory() {

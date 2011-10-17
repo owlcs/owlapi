@@ -47,15 +47,22 @@ import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
+@SuppressWarnings("javadoc")
 public abstract class AlternateAbstractInMemOWLOntologyFactory implements OWLOntologyFactory {
 
     private OWLOntologyManager ontologyManager;
 
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
+    	 if (owlOntologyManager == null) {
+             throw new IllegalArgumentException("ontologyManager cannot be null");
+         }
         this.ontologyManager = owlOntologyManager;
     }
 
 
+    /**
+     * @return the ontology manager
+     */
     public OWLOntologyManager getOWLOntologyManager() {
         return ontologyManager;
     }
@@ -69,12 +76,10 @@ public abstract class AlternateAbstractInMemOWLOntologyFactory implements OWLOnt
      * Creates an empty ontology that a concrete representation can be
      * parsed into.  Subclasses can override this method to change the implementation
      * of the ontology.
-     * @param documentIRI
+     * @param documentIRI the document IRI
      */  @SuppressWarnings("unused")
     public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
-        if (ontologyManager == null) {
-            throw new NullPointerException();
-        }
+
         OWLOntology ont = ThreadSafeOWLManager.getOWLImplementationBinding().getOWLOntology(ontologyManager, ontologyID);
         handler.ontologyCreated(ont);
         return ont;

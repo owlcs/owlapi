@@ -63,16 +63,21 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
-
+/**
+ * @author ignazio
+ * locks with weak references used for cache
+ */
 public class InternalsLWR implements OWLDataFactoryInternals {
-    private WeakHashMap<IRI, WeakReference<? extends OWLEntity>> classesByURI;
-    private WeakHashMap<IRI, WeakReference<? extends OWLEntity>> objectPropertiesByURI;
-    private WeakHashMap<IRI, WeakReference<? extends OWLEntity>> dataPropertiesByURI;
-    private WeakHashMap<IRI, WeakReference<? extends OWLEntity>> datatypesByURI;
-    private WeakHashMap<IRI, WeakReference<? extends OWLEntity>> individualsByURI;
-    private WeakHashMap<IRI, WeakReference<? extends OWLEntity>> annotationPropertiesByURI;
+    private final WeakHashMap<IRI, WeakReference<? extends OWLEntity>> classesByURI;
+    private final WeakHashMap<IRI, WeakReference<? extends OWLEntity>> objectPropertiesByURI;
+    private final WeakHashMap<IRI, WeakReference<? extends OWLEntity>> dataPropertiesByURI;
+    private final WeakHashMap<IRI, WeakReference<? extends OWLEntity>> datatypesByURI;
+    private final WeakHashMap<IRI, WeakReference<? extends OWLEntity>> individualsByURI;
+    private final WeakHashMap<IRI, WeakReference<? extends OWLEntity>> annotationPropertiesByURI;
     private final OWLDataFactory factory;
-
+    /**
+     * @param f the factory to refer to
+     */
     public InternalsLWR(OWLDataFactory f) {
         factory = f;
         classesByURI = new WeakHashMap<IRI, WeakReference<? extends OWLEntity>>();

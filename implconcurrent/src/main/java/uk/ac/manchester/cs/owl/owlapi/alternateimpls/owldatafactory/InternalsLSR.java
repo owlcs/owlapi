@@ -62,16 +62,21 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
-
+/**
+ * @author ignazio
+ * locks with strong references used for cache
+ */
 public class InternalsLSR implements OWLDataFactoryInternals {
-    private Map<IRI, ? extends OWLEntity> classesByURI;
-    private Map<IRI, ? extends OWLEntity> objectPropertiesByURI;
-    private Map<IRI, ? extends OWLEntity> dataPropertiesByURI;
-    private Map<IRI, ? extends OWLEntity> datatypesByURI;
-    private Map<IRI, ? extends OWLEntity> individualsByURI;
-    private Map<IRI, ? extends OWLEntity> annotationPropertiesByURI;
+    private final Map<IRI, ? extends OWLEntity> classesByURI;
+    private final Map<IRI, ? extends OWLEntity> objectPropertiesByURI;
+    private final Map<IRI, ? extends OWLEntity> dataPropertiesByURI;
+    private final Map<IRI, ? extends OWLEntity> datatypesByURI;
+    private final Map<IRI, ? extends OWLEntity> individualsByURI;
+    private final Map<IRI, ? extends OWLEntity> annotationPropertiesByURI;
     private final OWLDataFactory factory;
-
+    /**
+     * @param f the factory to refer to
+     */
     public InternalsLSR(OWLDataFactory f) {
         factory = f;
         classesByURI = new HashMap<IRI, OWLEntity>();

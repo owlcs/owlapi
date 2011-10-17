@@ -56,10 +56,16 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
-
+/**
+ * @author ignazio
+ * no cache used
+ */
 public class InternalsNoCache implements OWLDataFactoryInternals {
     private final OWLDataFactory factory;
 
+    /**
+     * @param f the factory to refer to
+     */
     public InternalsNoCache(OWLDataFactory f) {
         factory = f;
     }

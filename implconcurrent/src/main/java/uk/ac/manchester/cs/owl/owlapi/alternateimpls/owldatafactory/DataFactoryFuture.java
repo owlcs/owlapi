@@ -41,14 +41,19 @@ package uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
+/**
+ * @author ignazio
+ * datafactory using Futures for the cache
+ */
 public class DataFactoryFuture extends OWLDataFactoryImpl {
-    private static DataFactoryFuture instance = new DataFactoryFuture();
+    private static final DataFactoryFuture instance = new DataFactoryFuture();
 
     public static DataFactoryFuture getInstance() {
         return instance;
     }
 
-    public DataFactoryFuture() {
+    @SuppressWarnings("javadoc")
+	public DataFactoryFuture() {
         data = new InternalsFuture(this);
     }
 }

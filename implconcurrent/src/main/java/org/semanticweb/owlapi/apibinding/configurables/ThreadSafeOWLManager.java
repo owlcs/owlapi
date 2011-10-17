@@ -94,6 +94,7 @@ import org.coode.owlapi.owlxmlparser.OWLXMLParserFactory;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
 import org.coode.owlapi.turtle.TurtleOntologyStorer;
+import org.semanticweb.owlapi.apibinding.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -117,7 +118,7 @@ import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
  * <code>OWLOntologyManager</code> with commonly required features (such as an
  * RDF parser for example).
  */
-public class ThreadSafeOWLManager {
+public class ThreadSafeOWLManager implements OWLOntologyManagerFactory {
 	private static OWLImplementationBinding binding = new ThreadSafeBinding();
 	static {
 		// Register useful parsers
@@ -132,6 +133,19 @@ public class ThreadSafeOWLManager {
 		registry.registerParserFactory(new RDFXMLParserFactory());
 	}
 
+	public OWLOntologyManager buildOWLOntologyManager() {
+
+    	return createOWLOntologyManager();
+    }
+    public OWLOntologyManager buildOWLOntologyManager(OWLDataFactory f) {
+
+    	return createOWLOntologyManager(f);
+    }
+
+    public OWLDataFactory getFactory() {
+
+    	return getOWLDataFactory();
+    }
 	/**
 	 * Creates an OWL ontology manager that is configured with standard parsers,
 	 * storeres etc.
@@ -142,10 +156,16 @@ public class ThreadSafeOWLManager {
 		return createOWLOntologyManager(getOWLDataFactory());
 	}
 
+	/**
+	 * @return the binding for threadsafe implementations
+	 */
 	public static OWLImplementationBinding getOWLImplementationBinding() {
 		return binding;
 	}
 
+	/**
+	 * @param b new binding
+	 */
 	public static void setOWLImplementationBinding(OWLImplementationBinding b) {
 		binding = b;
 	}

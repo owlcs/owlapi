@@ -61,15 +61,21 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
 
+/**
+ * @author ignazio
+ * concurrent hash maps with strong references used for cache
+ */
 public class InternalsCSR implements OWLDataFactoryInternals {
-    private ConcurrentHashMap<IRI, OWLEntity> classesByURI;
-    private ConcurrentHashMap<IRI, OWLEntity> objectPropertiesByURI;
-    private ConcurrentHashMap<IRI, OWLEntity> dataPropertiesByURI;
-    private ConcurrentHashMap<IRI, OWLEntity> datatypesByURI;
-    private ConcurrentHashMap<IRI, OWLEntity> individualsByURI;
-    private ConcurrentHashMap<IRI, OWLEntity> annotationPropertiesByURI;
+    private final ConcurrentHashMap<IRI, OWLEntity> classesByURI;
+    private final ConcurrentHashMap<IRI, OWLEntity> objectPropertiesByURI;
+    private final ConcurrentHashMap<IRI, OWLEntity> dataPropertiesByURI;
+    private final ConcurrentHashMap<IRI, OWLEntity> datatypesByURI;
+    private final ConcurrentHashMap<IRI, OWLEntity> individualsByURI;
+    private final ConcurrentHashMap<IRI, OWLEntity> annotationPropertiesByURI;
     private final OWLDataFactory factory;
-
+    /**
+     * @param f the factory to refer to
+     */
     public InternalsCSR(OWLDataFactory f) {
         factory = f;
         classesByURI = CollectionFactory.createSyncMap();

@@ -39,6 +39,11 @@
 
 package org.semanticweb.owlapi.apibinding.configurables;
 
+/**
+ * @author ignazio
+ *
+ * @param <V> computed type
+ */
 public abstract class ComputableAllThrowables<V> implements Computable<V> {
 	protected Throwable exception;
     public boolean hasThrownException() {

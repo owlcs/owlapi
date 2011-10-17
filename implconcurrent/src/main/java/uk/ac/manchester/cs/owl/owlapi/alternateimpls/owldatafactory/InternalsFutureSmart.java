@@ -58,6 +58,10 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
 
+/**
+ * @author ignazio
+ *
+ */
 public class InternalsFutureSmart implements OWLDataFactoryInternals {
     private enum BuildableObjects {
         OWLCLASS {
@@ -107,7 +111,9 @@ public class InternalsFutureSmart implements OWLDataFactoryInternals {
     private final MemoizingCache<IRI, OWLNamedIndividual> individualsByURI;
     private final MemoizingCache<IRI, OWLAnnotationProperty> annotationPropertiesByURI;
     final OWLDataFactory factory;
-
+    /**
+     * @param f the factory to refer to
+     */
     public InternalsFutureSmart(OWLDataFactory f) {
         factory = f;
         classesByURI = new MemoizingCache<IRI, OWLClass>();

@@ -42,7 +42,7 @@ package uk.ac.manchester.cs.owl.owlapi.alternateimpls.test;
 import org.semanticweb.owlapi.model.IRI;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternals;
-
+@SuppressWarnings("javadoc")
 public class InternalsTester extends Tester {
     public void run(OWLDataFactoryInternals toTest) {
         for (int i = 0; i < _10; i++) {

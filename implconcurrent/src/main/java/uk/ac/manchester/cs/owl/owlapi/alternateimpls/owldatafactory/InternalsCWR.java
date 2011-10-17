@@ -63,15 +63,18 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
-
+/**
+ * @author ignazio
+ * concurrent hash maps with weak references used for cache
+ */
 public final class InternalsCWR implements OWLDataFactoryInternals {
-	protected ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> classesByURI;
-	protected ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> objectPropertiesByURI;
-	protected ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> dataPropertiesByURI;
-	protected ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> datatypesByURI;
-	protected ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> individualsByURI;
-	protected ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> annotationPropertiesByURI;
-	protected final OWLDataFactory factory;
+	final ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> classesByURI;
+	final ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> objectPropertiesByURI;
+	final ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> dataPropertiesByURI;
+	final ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> datatypesByURI;
+	final ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> individualsByURI;
+	final ConcurrentHashMap<IRI, WeakReference<? extends OWLEntity>> annotationPropertiesByURI;
+	final OWLDataFactory factory;
     private final Thread reaper = new Thread() {
         @Override
 		public void run() {
@@ -107,7 +110,9 @@ public final class InternalsCWR implements OWLDataFactoryInternals {
             }
         }
     };
-
+    /**
+     * @param f the factory to refer to
+     */
     public InternalsCWR(OWLDataFactory f) {
         factory = f;
         classesByURI = CollectionFactory.createSyncMap();

@@ -53,13 +53,17 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import uk.ac.manchester.cs.owl.owlapi.Internals;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceAdder;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceAdderImpl;
-
+/**
+ * @author ignazio
+ * threadsafe implementation
+ */
 public class SyncOWLNamedObjectReferenceAdderImpl implements OWLNamedObjectReferenceAdder{
 	private final OWLNamedObjectReferenceAdderImpl delegate;
 
         private final ReadWriteLock lock;
 
-        public SyncOWLNamedObjectReferenceAdderImpl(Internals oi, ReadWriteLock lock) {
+        @SuppressWarnings("javadoc")
+		public SyncOWLNamedObjectReferenceAdderImpl(Internals oi, ReadWriteLock lock) {
         	delegate=new OWLNamedObjectReferenceAdderImpl(oi);
 			this.lock=lock;
 		}

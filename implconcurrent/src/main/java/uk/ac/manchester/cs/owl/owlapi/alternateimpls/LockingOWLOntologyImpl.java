@@ -47,8 +47,13 @@ import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceAdder;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceRemover;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
+/**
+ * @author ignazio
+ * threadsafe extension
+ */
 public class LockingOWLOntologyImpl extends OWLOntologyImpl {
-    public LockingOWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
+    @SuppressWarnings("javadoc")
+	public LockingOWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
         super(manager, ontologyID);
         this.internals = new LockingOWLOntologyInternals();
     }

@@ -47,6 +47,7 @@ import java.util.concurrent.TimeUnit;
 
 import junit.framework.TestCase;
 
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.apibinding.configurables.ThreadSafeOWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -58,8 +59,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.test.RaceCallback;
-
-public class Race extends TestCase {
+@SuppressWarnings("javadoc")
+public class RaceTestCase extends TestCase {
 	private static final String A_CLASS = "http://www.race.org#testclass";
 	public static final String NS = "http://www.race.org#";
 	protected RaceCallback callback;
@@ -74,11 +75,11 @@ public class Race extends TestCase {
 	private volatile boolean done = false;
 	ExecutorService exec = Executors.newFixedThreadPool(5);
 
-	public Race(RaceCallback c) throws OWLOntologyCreationException {
+	public RaceTestCase(RaceCallback c) throws OWLOntologyCreationException {
 		callback = c;
 	}
 
-	public Race() {
+	public RaceTestCase() {
 		try {
 			callback= new SubClassLHSCallback();
 		} catch (OWLOntologyCreationException e) {
@@ -94,17 +95,14 @@ public class Race extends TestCase {
 		exec.awaitTermination(5, TimeUnit.SECONDS);
 	}
 
-	/**
-	 * @param args
-	 */
-	public void testSubClassLHS() {
-		try {
+	public void testSubClassLHS() throws Exception{
+
 			final int totalRepetitions = 10000;
 			int repetitions = 0;
-			Race r;
+			RaceTestCase r;
 			do {
 				repetitions++;
-				r = new Race(new SubClassLHSCallback());
+				r = new RaceTestCase(new SubClassLHSCallback());
 				r.racing();
 			} while (!r.callback.failed() && repetitions < totalRepetitions);
 			if (r.callback.failed()) {
@@ -114,9 +112,6 @@ public class Race extends TestCase {
 				System.out.println("No race condition found in "
 						+ totalRepetitions + " repetitiions");
 			}
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
 	}
 
 	public static class SubClassLHSCallback implements RaceCallback {
@@ -128,7 +123,8 @@ public class Race extends TestCase {
 		OWLClass y;
 
 		public SubClassLHSCallback() throws OWLOntologyCreationException {
-			manager = ThreadSafeOWLManager.createOWLOntologyManager();
+			Factory.setFactory(new ThreadSafeOWLManager());
+			manager = Factory.getManager();
 			factory = manager.getOWLDataFactory();
 			ontology = manager.createOntology();
 			x = factory.getOWLClass(IRI.create(NS + "X"));
@@ -144,11 +140,7 @@ public class Race extends TestCase {
 
 		public boolean failed() {
 			int size = computeSize();
-			if (size != counter) {
-				return true;
-			} else {
-				return false;
-			}
+			return size != counter;
 		}
 
 		public int computeSize() {

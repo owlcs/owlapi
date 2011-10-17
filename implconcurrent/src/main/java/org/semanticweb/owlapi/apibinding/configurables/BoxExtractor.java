@@ -60,8 +60,8 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter;
  * */
 public class BoxExtractor extends OWLObjectVisitorExAdapter<Set<OWLAxiom>>
 		implements OWLObjectVisitorEx<Set<OWLAxiom>> {
-	private Collection<AxiomType<?>> types;
-	private boolean closure;
+	private final Collection<AxiomType<?>> types;
+	private final boolean closure;
 
 	/**@param types the set of AxiomType objects to use for selection
 	 * @param importsClosure if true, the imports closure is included in the search, otherwise only the visited ontology is included

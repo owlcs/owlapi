@@ -53,7 +53,7 @@ import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsFut
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsLSR;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsLWR;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsNoCache;
-
+@SuppressWarnings("javadoc")
 public class OWLDataFactoryInternalsPerformanceTest extends TestCase {
 	private final static OWLDataFactory factory = new DataFactoryNoCache();
 	private final InternalsTester tester = new InternalsTester();

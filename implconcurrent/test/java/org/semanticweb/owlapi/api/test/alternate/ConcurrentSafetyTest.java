@@ -51,7 +51,7 @@ import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryL
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.test.MultiThreadChecker;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.test.TestMultithreadCallBack;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.test.Tester;
-
+@SuppressWarnings("javadoc")
 public class ConcurrentSafetyTest extends TestCase {
 	private class CallBack1 implements TestMultithreadCallBack {
 		private final OWLDataFactory f;

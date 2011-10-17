@@ -4,21 +4,38 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.apibinding.configurables.ThreadSafeOWLManager;
-import org.semanticweb.owlapi.model.*;
-
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
-import org.semanticweb.owlapi.vocab.*;
 
 import junit.framework.TestCase;
 
+import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLFacet;
+
 @SuppressWarnings("javadoc")
 public class NullCheckTest_otherfactory extends TestCase {
-	private static final OWLDataFactory f = ThreadSafeOWLManager.getOWLDataFactory();
+	private static final String MESSAGE = "Exception expected!";
+	private static final OWLDataFactory f = Factory.getFactory();
 	OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
 	OWLDataPropertyExpression owldatapropertyexpression = f.getOWLDataProperty(IRI
 			.create("urn:dp"));
@@ -69,7 +86,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEntity1_2() {
@@ -78,7 +95,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLClass0_1() {
@@ -87,7 +104,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLClass0_2() {
@@ -96,7 +113,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLClass1_2() {
@@ -105,7 +122,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectProperty0_1() {
@@ -114,7 +131,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectProperty0_2() {
@@ -123,7 +140,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectProperty1_2() {
@@ -132,7 +149,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectInverseOf0_1() {
@@ -141,7 +158,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataProperty0_1() {
@@ -150,7 +167,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataProperty0_2() {
@@ -159,7 +176,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataProperty1_2() {
@@ -168,7 +185,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNamedIndividual0_1() {
@@ -177,7 +194,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNamedIndividual0_2() {
@@ -186,7 +203,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNamedIndividual1_2() {
@@ -195,7 +212,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnonymousIndividual0_1() {
@@ -204,7 +221,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationProperty0_1() {
@@ -213,7 +230,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationProperty0_2() {
@@ -222,7 +239,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationProperty1_2() {
@@ -231,7 +248,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatype0_1() {
@@ -240,7 +257,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatype0_2() {
@@ -249,7 +266,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatype1_2() {
@@ -258,7 +275,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLLiteral0_2() {
@@ -267,7 +284,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLLiteral1_2_0() {
@@ -276,7 +293,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLLiteral0_2_1() {
@@ -285,7 +302,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLLiteral1_2_1() {
@@ -294,7 +311,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLLiteral0_1_0() {
@@ -303,7 +320,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLLiteral0_2_0() {
@@ -312,7 +329,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLTypedLiteral0_2_0() {
@@ -321,7 +338,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLTypedLiteral1_2_0() {
@@ -330,7 +347,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLTypedLiteral0_2() {
@@ -339,7 +356,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLTypedLiteral1_2() {
@@ -348,7 +365,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLTypedLiteral0_1_0() {
@@ -357,7 +374,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLStringLiteral0_2() {
@@ -366,7 +383,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLStringLiteral0_1() {
@@ -375,7 +392,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataOneOf0_1_0() {
@@ -384,7 +401,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataOneOf0_1_0_1() {
@@ -393,7 +410,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataOneOf0_1_1() {
@@ -402,7 +419,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 	public void testgetOWLDataOneOf0_1_1_1() {
 		try {
@@ -410,7 +427,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataComplementOf0_1() {
@@ -419,7 +436,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeRestriction0_2_0() {
@@ -428,7 +445,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeRestriction1_2_0() {
@@ -437,7 +454,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeRestriction1_2_0_1() {
@@ -446,7 +463,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeRestriction0_3() {
@@ -455,7 +472,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeRestriction1_3() {
@@ -464,7 +481,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeRestriction2_3() {
@@ -473,7 +490,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeRestriction0_2() {
@@ -482,7 +499,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeRestriction1_2() {
@@ -491,7 +508,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeRestriction1_2_1() {
@@ -500,7 +517,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFacetRestriction0_2_0() {
@@ -509,7 +526,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFacetRestriction1_2_0() {
@@ -518,7 +535,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFacetRestriction0_2_1() {
@@ -527,7 +544,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFacetRestriction1_2_1() {
@@ -536,7 +553,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFacetRestriction0_2_3() {
@@ -545,7 +562,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFacetRestriction1_2() {
@@ -554,7 +571,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFacetRestriction0_2_2() {
@@ -563,7 +580,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFacetRestriction1_2_3() {
@@ -572,7 +589,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataUnionOf0_1() {
@@ -581,7 +598,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 	public void testgetOWLDataUnionOf0_1_1() {
 		try {
@@ -589,7 +606,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataUnionOf0_1_0() {
@@ -598,7 +615,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 	public void testgetOWLDataUnionOf0_1_0_1() {
 		try {
@@ -606,7 +623,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataIntersectionOf0_1_0() {
@@ -615,7 +632,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 	public void testgetOWLDataIntersectionOf0_1_0_1() {
 		try {
@@ -623,7 +640,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataIntersectionOf0_1_1() {
@@ -632,7 +649,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 	public void testgetOWLDataIntersectionOf0_1_1_1() {
 		try {
@@ -640,7 +657,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectIntersectionOf0_1_0() {
@@ -649,7 +666,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectIntersectionOf0_1_1() {
@@ -658,7 +675,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 	public void testgetOWLObjectIntersectionOf0_1_0_1() {
 		try {
@@ -666,7 +683,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectIntersectionOf0_1_1_1() {
@@ -675,7 +692,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataSomeValuesFrom0_2() {
@@ -684,7 +701,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataSomeValuesFrom1_2() {
@@ -693,7 +710,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataAllValuesFrom0_2() {
@@ -702,7 +719,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataAllValuesFrom1_2() {
@@ -711,7 +728,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataExactCardinality0_2() {
@@ -720,7 +737,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataExactCardinality1_2() {
@@ -729,7 +746,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataExactCardinality0_3() {
@@ -738,7 +755,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataExactCardinality1_3() {
@@ -747,7 +764,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataExactCardinality2_3() {
@@ -756,7 +773,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataMaxCardinality0_2() {
@@ -765,7 +782,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataMaxCardinality1_2() {
@@ -774,7 +791,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataMaxCardinality0_3() {
@@ -783,7 +800,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataMaxCardinality1_3() {
@@ -792,7 +809,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataMaxCardinality2_3() {
@@ -801,7 +818,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataMinCardinality0_2() {
@@ -810,7 +827,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataMinCardinality1_2() {
@@ -819,7 +836,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataMinCardinality0_3() {
@@ -828,7 +845,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataMinCardinality1_3() {
@@ -837,7 +854,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataMinCardinality2_3() {
@@ -846,7 +863,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataHasValue0_2() {
@@ -855,7 +872,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataHasValue1_2() {
@@ -864,7 +881,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectComplementOf0_1() {
@@ -873,7 +890,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectOneOf0_1() {
@@ -882,7 +899,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectOneOf0_1_0() {
@@ -891,7 +908,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 	public void testgetOWLObjectOneOf0_1_1() {
 		try {
@@ -899,7 +916,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectOneOf0_1_0_1() {
@@ -908,7 +925,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectAllValuesFrom0_2() {
@@ -917,7 +934,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectAllValuesFrom1_2() {
@@ -926,7 +943,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectSomeValuesFrom0_2() {
@@ -935,7 +952,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectSomeValuesFrom1_2() {
@@ -944,7 +961,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectExactCardinality0_2() {
@@ -953,7 +970,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectExactCardinality1_2() {
@@ -962,7 +979,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectExactCardinality0_3() {
@@ -972,7 +989,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectExactCardinality1_3() {
@@ -981,7 +998,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectExactCardinality2_3() {
@@ -990,7 +1007,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectMinCardinality0_3() {
@@ -1000,7 +1017,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectMinCardinality1_3() {
@@ -1009,7 +1026,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectMinCardinality2_3() {
@@ -1018,7 +1035,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectMinCardinality0_2() {
@@ -1027,7 +1044,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectMinCardinality1_2() {
@@ -1036,7 +1053,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectMaxCardinality0_2() {
@@ -1045,7 +1062,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectMaxCardinality1_2() {
@@ -1054,7 +1071,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectMaxCardinality0_3() {
@@ -1064,7 +1081,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectMaxCardinality1_3() {
@@ -1073,7 +1090,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectMaxCardinality2_3() {
@@ -1082,7 +1099,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectHasSelf0_1() {
@@ -1091,7 +1108,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectHasValue0_2() {
@@ -1100,7 +1117,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectHasValue1_2() {
@@ -1109,7 +1126,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectUnionOf0_1() {
@@ -1118,7 +1135,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectUnionOf0_1_0() {
@@ -1127,7 +1144,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 	public void testgetOWLObjectUnionOf0_1_1() {
 		try {
@@ -1135,7 +1152,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectUnionOf0_1_0_1() {
@@ -1144,7 +1161,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDeclarationAxiom0_1() {
@@ -1153,7 +1170,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDeclarationAxiom0_2() {
@@ -1162,7 +1179,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDeclarationAxiom1_2() {
@@ -1171,7 +1188,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDeclarationAxiom1_2_1() {
@@ -1180,7 +1197,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubClassOfAxiom0_2() {
@@ -1189,7 +1206,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubClassOfAxiom1_2() {
@@ -1198,7 +1215,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubClassOfAxiom0_3() {
@@ -1207,7 +1224,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubClassOfAxiom1_3() {
@@ -1216,7 +1233,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubClassOfAxiom2_3() {
@@ -1225,7 +1242,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubClassOfAxiom2_3_1() {
@@ -1235,7 +1252,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentClassesAxiom0_2_0() {
@@ -1244,7 +1261,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentClassesAxiom1_2_0() {
@@ -1253,7 +1270,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentClassesAxiom0_3() {
@@ -1262,7 +1279,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentClassesAxiom1_3() {
@@ -1271,7 +1288,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentClassesAxiom2_3() {
@@ -1280,7 +1297,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentClassesAxiom2_3_1() {
@@ -1290,7 +1307,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentClassesAxiom0_1_0() {
@@ -1299,7 +1316,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentClassesAxiom0_2_1() {
@@ -1308,7 +1325,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentClassesAxiom0_2_1_1() {
@@ -1317,7 +1334,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentClassesAxiom1_2_1() {
@@ -1326,7 +1343,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentClassesAxiom1_2_1_1() {
@@ -1335,7 +1352,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentClassesAxiom0_1_1() {
@@ -1344,7 +1361,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointClassesAxiom0_2() {
@@ -1353,7 +1370,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointClassesAxiom0_2_1() {
@@ -1362,7 +1379,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointClassesAxiom1_2() {
@@ -1371,7 +1388,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointClassesAxiom1_2_1() {
@@ -1380,7 +1397,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointClassesAxiom0_1() {
@@ -1389,7 +1406,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointClassesAxiom0_1_0() {
@@ -1398,7 +1415,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointUnionAxiom0_3() {
@@ -1407,7 +1424,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointUnionAxiom1_3() {
@@ -1416,7 +1433,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointUnionAxiom1_3_1() {
@@ -1426,7 +1443,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointUnionAxiom2_3() {
@@ -1435,7 +1452,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointUnionAxiom2_3_1() {
@@ -1445,7 +1462,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointUnionAxiom0_2() {
@@ -1454,7 +1471,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointUnionAxiom1_2() {
@@ -1463,7 +1480,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubObjectPropertyOfAxiom0_2() {
@@ -1472,7 +1489,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubObjectPropertyOfAxiom1_2() {
@@ -1481,7 +1498,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubObjectPropertyOfAxiom0_3() {
@@ -1491,7 +1508,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubObjectPropertyOfAxiom1_3() {
@@ -1501,7 +1518,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubObjectPropertyOfAxiom2_3() {
@@ -1511,7 +1528,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubObjectPropertyOfAxiom2_3_1() {
@@ -1521,7 +1538,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubPropertyChainOfAxiom0_3() {
@@ -1531,7 +1548,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubPropertyChainOfAxiom0_3_1() {
@@ -1541,7 +1558,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubPropertyChainOfAxiom1_3() {
@@ -1551,7 +1568,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubPropertyChainOfAxiom2_3() {
@@ -1561,7 +1578,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubPropertyChainOfAxiom2_3_1() {
@@ -1571,7 +1588,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubPropertyChainOfAxiom0_2() {
@@ -1580,7 +1597,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubPropertyChainOfAxiom0_2_1() {
@@ -1590,7 +1607,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubPropertyChainOfAxiom1_2() {
@@ -1599,7 +1616,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom0_1_0() {
@@ -1608,7 +1625,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom0_2_0() {
@@ -1617,7 +1634,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom0_2_0_1() {
@@ -1627,7 +1644,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom1_2_0() {
@@ -1636,7 +1653,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom1_2_0_2() {
@@ -1646,7 +1663,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom1_2_0_1() {
@@ -1656,7 +1673,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom0_1_1() {
@@ -1665,7 +1682,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom0_2_1() {
@@ -1674,7 +1691,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom1_2_1() {
@@ -1683,7 +1700,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom0_3() {
@@ -1693,7 +1710,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom1_3() {
@@ -1703,7 +1720,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom2_3() {
@@ -1713,7 +1730,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentObjectPropertiesAxiom2_3_1() {
@@ -1723,7 +1740,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointObjectPropertiesAxiom0_1() {
@@ -1732,7 +1749,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointObjectPropertiesAxiom0_1_0() {
@@ -1741,7 +1758,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointObjectPropertiesAxiom0_2() {
@@ -1750,7 +1767,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointObjectPropertiesAxiom0_2_1() {
@@ -1760,7 +1777,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointObjectPropertiesAxiom1_2() {
@@ -1769,7 +1786,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointObjectPropertiesAxiom1_2_2() {
@@ -1779,7 +1796,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointObjectPropertiesAxiom1_2_1() {
@@ -1789,7 +1806,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public <O> Set<O> getNullSet() {
@@ -1804,7 +1821,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLInverseObjectPropertiesAxiom1_2() {
@@ -1813,7 +1830,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLInverseObjectPropertiesAxiom0_3() {
@@ -1823,7 +1840,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLInverseObjectPropertiesAxiom1_3() {
@@ -1833,7 +1850,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLInverseObjectPropertiesAxiom2_3() {
@@ -1843,7 +1860,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLInverseObjectPropertiesAxiom2_3_1() {
@@ -1853,7 +1870,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyDomainAxiom0_2() {
@@ -1862,7 +1879,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyDomainAxiom1_2() {
@@ -1871,7 +1888,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyDomainAxiom0_3() {
@@ -1880,7 +1897,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyDomainAxiom1_3() {
@@ -1890,7 +1907,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyDomainAxiom2_3() {
@@ -1900,7 +1917,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyDomainAxiom2_3_1() {
@@ -1910,7 +1927,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyRangeAxiom0_3() {
@@ -1919,7 +1936,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyRangeAxiom1_3() {
@@ -1929,7 +1946,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyRangeAxiom2_3() {
@@ -1939,7 +1956,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyRangeAxiom2_3_1() {
@@ -1949,7 +1966,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyRangeAxiom0_2() {
@@ -1958,7 +1975,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyRangeAxiom1_2() {
@@ -1967,7 +1984,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFunctionalObjectPropertyAxiom0_1() {
@@ -1976,7 +1993,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFunctionalObjectPropertyAxiom0_2() {
@@ -1985,7 +2002,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFunctionalObjectPropertyAxiom1_2() {
@@ -1994,7 +2011,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFunctionalObjectPropertyAxiom1_2_1() {
@@ -2004,7 +2021,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLInverseFunctionalObjectPropertyAxiom0_1() {
@@ -2013,7 +2030,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLInverseFunctionalObjectPropertyAxiom0_2() {
@@ -2022,7 +2039,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLInverseFunctionalObjectPropertyAxiom1_2() {
@@ -2032,7 +2049,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLInverseFunctionalObjectPropertyAxiom1_2_1() {
@@ -2042,7 +2059,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLReflexiveObjectPropertyAxiom0_2() {
@@ -2051,7 +2068,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLReflexiveObjectPropertyAxiom1_2() {
@@ -2060,7 +2077,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLReflexiveObjectPropertyAxiom1_2_1() {
@@ -2070,7 +2087,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLReflexiveObjectPropertyAxiom0_1() {
@@ -2079,7 +2096,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLIrreflexiveObjectPropertyAxiom0_2() {
@@ -2088,7 +2105,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLIrreflexiveObjectPropertyAxiom1_2() {
@@ -2097,7 +2114,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLIrreflexiveObjectPropertyAxiom1_2_1() {
@@ -2107,7 +2124,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLIrreflexiveObjectPropertyAxiom0_1() {
@@ -2116,7 +2133,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSymmetricObjectPropertyAxiom0_1() {
@@ -2125,7 +2142,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSymmetricObjectPropertyAxiom0_2() {
@@ -2134,7 +2151,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSymmetricObjectPropertyAxiom1_2() {
@@ -2143,7 +2160,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSymmetricObjectPropertyAxiom1_2_1() {
@@ -2153,7 +2170,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAsymmetricObjectPropertyAxiom0_2() {
@@ -2162,7 +2179,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAsymmetricObjectPropertyAxiom1_2() {
@@ -2171,7 +2188,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAsymmetricObjectPropertyAxiom1_2_1() {
@@ -2181,7 +2198,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAsymmetricObjectPropertyAxiom0_1() {
@@ -2190,7 +2207,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLTransitiveObjectPropertyAxiom0_1() {
@@ -2199,7 +2216,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLTransitiveObjectPropertyAxiom0_2() {
@@ -2208,7 +2225,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLTransitiveObjectPropertyAxiom1_2() {
@@ -2217,7 +2234,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLTransitiveObjectPropertyAxiom1_2_1() {
@@ -2227,7 +2244,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubDataPropertyOfAxiom0_2() {
@@ -2236,7 +2253,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubDataPropertyOfAxiom1_2() {
@@ -2245,7 +2262,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubDataPropertyOfAxiom0_3() {
@@ -2255,7 +2272,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubDataPropertyOfAxiom1_3() {
@@ -2265,7 +2282,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubDataPropertyOfAxiom2_3() {
@@ -2275,7 +2292,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubDataPropertyOfAxiom2_3_1() {
@@ -2285,7 +2302,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentDataPropertiesAxiom0_2_0() {
@@ -2294,7 +2311,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentDataPropertiesAxiom1_2_0() {
@@ -2303,7 +2320,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentDataPropertiesAxiom0_1_0() {
@@ -2312,7 +2329,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentDataPropertiesAxiom0_2_1() {
@@ -2321,7 +2338,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentDataPropertiesAxiom0_2_1_1() {
@@ -2331,7 +2348,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentDataPropertiesAxiom1_2_1() {
@@ -2340,7 +2357,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentDataPropertiesAxiom1_2_1_1() {
@@ -2350,7 +2367,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentDataPropertiesAxiom0_1_1() {
@@ -2359,7 +2376,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentDataPropertiesAxiom0_3() {
@@ -2369,7 +2386,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentDataPropertiesAxiom1_3() {
@@ -2379,7 +2396,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentDataPropertiesAxiom2_3() {
@@ -2389,7 +2406,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLEquivalentDataPropertiesAxiom2_3_1() {
@@ -2399,7 +2416,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointDataPropertiesAxiom0_1() {
@@ -2408,7 +2425,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointDataPropertiesAxiom0_1_0() {
@@ -2417,7 +2434,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointDataPropertiesAxiom0_2() {
@@ -2426,7 +2443,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointDataPropertiesAxiom0_2_1() {
@@ -2436,7 +2453,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointDataPropertiesAxiom1_2() {
@@ -2445,7 +2462,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDisjointDataPropertiesAxiom1_2_1() {
@@ -2455,7 +2472,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyDomainAxiom0_2() {
@@ -2464,7 +2481,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyDomainAxiom1_2() {
@@ -2473,7 +2490,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyDomainAxiom0_3() {
@@ -2482,7 +2499,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyDomainAxiom1_3() {
@@ -2492,7 +2509,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyDomainAxiom2_3() {
@@ -2502,7 +2519,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyDomainAxiom2_3_1() {
@@ -2512,7 +2529,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyRangeAxiom0_3() {
@@ -2521,7 +2538,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyRangeAxiom1_3() {
@@ -2531,7 +2548,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyRangeAxiom2_3() {
@@ -2540,7 +2557,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyRangeAxiom2_3_1() {
@@ -2550,7 +2567,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyRangeAxiom0_2() {
@@ -2559,7 +2576,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyRangeAxiom1_2() {
@@ -2568,7 +2585,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFunctionalDataPropertyAxiom0_1() {
@@ -2577,7 +2594,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFunctionalDataPropertyAxiom0_2() {
@@ -2586,7 +2603,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFunctionalDataPropertyAxiom1_2() {
@@ -2595,7 +2612,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLFunctionalDataPropertyAxiom1_2_1() {
@@ -2605,7 +2622,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLHasKeyAxiom0_2_0() {
@@ -2614,7 +2631,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLHasKeyAxiom1_2_0() {
@@ -2623,7 +2640,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLHasKeyAxiom1_2_0_1() {
@@ -2632,7 +2649,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLHasKeyAxiom0_2_1() {
@@ -2641,7 +2658,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLHasKeyAxiom1_2_1() {
@@ -2651,7 +2668,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLHasKeyAxiom1_2_1_1() {
@@ -2660,7 +2677,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLHasKeyAxiom0_3() {
@@ -2669,7 +2686,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLHasKeyAxiom1_3() {
@@ -2678,7 +2695,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLHasKeyAxiom1_3_1() {
@@ -2688,7 +2705,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLHasKeyAxiom2_3() {
@@ -2697,7 +2714,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLHasKeyAxiom2_3_1() {
@@ -2707,7 +2724,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeDefinitionAxiom0_2() {
@@ -2716,7 +2733,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeDefinitionAxiom1_2() {
@@ -2725,7 +2742,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeDefinitionAxiom0_3() {
@@ -2734,7 +2751,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeDefinitionAxiom1_3() {
@@ -2743,7 +2760,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeDefinitionAxiom2_3() {
@@ -2752,7 +2769,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDatatypeDefinitionAxiom2_3_1() {
@@ -2762,7 +2779,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSameIndividualAxiom0_1() {
@@ -2771,7 +2788,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSameIndividualAxiom0_2() {
@@ -2780,7 +2797,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSameIndividualAxiom0_2_1() {
@@ -2789,7 +2806,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSameIndividualAxiom1_2() {
@@ -2798,7 +2815,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSameIndividualAxiom1_2_1() {
@@ -2807,7 +2824,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSameIndividualAxiom0_1_0() {
@@ -2816,7 +2833,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDifferentIndividualsAxiom0_2() {
@@ -2825,7 +2842,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDifferentIndividualsAxiom0_2_1() {
@@ -2834,7 +2851,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDifferentIndividualsAxiom1_2() {
@@ -2843,7 +2860,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDifferentIndividualsAxiom1_2_1() {
@@ -2852,7 +2869,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDifferentIndividualsAxiom0_1_0() {
@@ -2861,7 +2878,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDifferentIndividualsAxiom0_1() {
@@ -2870,7 +2887,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLClassAssertionAxiom0_2() {
@@ -2879,7 +2896,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLClassAssertionAxiom1_2() {
@@ -2888,7 +2905,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLClassAssertionAxiom0_3() {
@@ -2897,7 +2914,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLClassAssertionAxiom1_3() {
@@ -2906,7 +2923,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLClassAssertionAxiom2_3() {
@@ -2915,7 +2932,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLClassAssertionAxiom2_3_1() {
@@ -2925,7 +2942,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyAssertionAxiom0_3() {
@@ -2934,7 +2951,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyAssertionAxiom1_3() {
@@ -2944,7 +2961,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyAssertionAxiom2_3() {
@@ -2954,7 +2971,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyAssertionAxiom0_4() {
@@ -2964,7 +2981,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyAssertionAxiom1_4() {
@@ -2974,7 +2991,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyAssertionAxiom2_4() {
@@ -2984,7 +3001,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyAssertionAxiom3_4() {
@@ -2994,7 +3011,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLObjectPropertyAssertionAxiom3_4_1() {
@@ -3004,7 +3021,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeObjectPropertyAssertionAxiom0_4() {
@@ -3014,7 +3031,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeObjectPropertyAssertionAxiom1_4() {
@@ -3024,7 +3041,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeObjectPropertyAssertionAxiom2_4() {
@@ -3034,7 +3051,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeObjectPropertyAssertionAxiom3_4() {
@@ -3044,7 +3061,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeObjectPropertyAssertionAxiom3_4_1() {
@@ -3054,7 +3071,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeObjectPropertyAssertionAxiom0_3() {
@@ -3064,7 +3081,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeObjectPropertyAssertionAxiom1_3() {
@@ -3074,7 +3091,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeObjectPropertyAssertionAxiom2_3() {
@@ -3084,7 +3101,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom0_4() {
@@ -3094,7 +3111,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom1_4() {
@@ -3104,7 +3121,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom2_4() {
@@ -3114,7 +3131,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom3_4() {
@@ -3124,7 +3141,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom3_4_1() {
@@ -3134,7 +3151,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom0_3_0() {
@@ -3143,7 +3160,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom1_3_0() {
@@ -3153,7 +3170,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom0_3_1() {
@@ -3162,7 +3179,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom1_3_4() {
@@ -3171,7 +3188,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom0_3_4() {
@@ -3180,7 +3197,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom1_3_1() {
@@ -3189,7 +3206,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom0_3_2() {
@@ -3198,7 +3215,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom1_3_5() {
@@ -3207,7 +3224,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom2_3_4() {
@@ -3217,7 +3234,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom0_3_5() {
@@ -3226,7 +3243,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom1_3_2() {
@@ -3235,7 +3252,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom2_3_2() {
@@ -3245,7 +3262,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom0_3_3() {
@@ -3254,7 +3271,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLDataPropertyAssertionAxiom1_3_3() {
@@ -3263,7 +3280,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeDataPropertyAssertionAxiom0_3() {
@@ -3272,7 +3289,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeDataPropertyAssertionAxiom1_3() {
@@ -3282,7 +3299,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeDataPropertyAssertionAxiom2_3() {
@@ -3292,7 +3309,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeDataPropertyAssertionAxiom0_4() {
@@ -3302,7 +3319,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeDataPropertyAssertionAxiom1_4() {
@@ -3312,7 +3329,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeDataPropertyAssertionAxiom2_4() {
@@ -3322,7 +3339,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeDataPropertyAssertionAxiom3_4() {
@@ -3332,7 +3349,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLNegativeDataPropertyAssertionAxiom3_4_1() {
@@ -3342,7 +3359,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotation0_2() {
@@ -3351,7 +3368,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotation1_2() {
@@ -3360,7 +3377,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotation0_3() {
@@ -3369,7 +3386,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotation1_3() {
@@ -3378,7 +3395,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotation2_3() {
@@ -3387,7 +3404,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotation2_3_1() {
@@ -3397,7 +3414,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom0_2() {
@@ -3406,7 +3423,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom1_2() {
@@ -3415,7 +3432,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom0_3_0() {
@@ -3425,7 +3442,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom1_3_0() {
@@ -3435,7 +3452,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom2_3_0() {
@@ -3445,7 +3462,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom0_4() {
@@ -3455,7 +3472,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom1_4() {
@@ -3465,7 +3482,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom2_4() {
@@ -3475,7 +3492,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom3_4() {
@@ -3485,7 +3502,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom3_4_1() {
@@ -3495,7 +3512,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom0_3_1() {
@@ -3504,7 +3521,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom1_3_1() {
@@ -3513,7 +3530,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom2_3_1() {
@@ -3522,7 +3539,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationAssertionAxiom2_3_1_1() {
@@ -3532,7 +3549,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLImportsDeclaration0_1() {
@@ -3541,7 +3558,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationPropertyDomainAxiom0_2() {
@@ -3550,7 +3567,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationPropertyDomainAxiom1_2() {
@@ -3559,7 +3576,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationPropertyDomainAxiom0_3() {
@@ -3568,7 +3585,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationPropertyDomainAxiom1_3() {
@@ -3578,7 +3595,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationPropertyDomainAxiom2_3() {
@@ -3587,7 +3604,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationPropertyDomainAxiom2_3_1() {
@@ -3597,7 +3614,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationPropertyRangeAxiom0_2() {
@@ -3606,7 +3623,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationPropertyRangeAxiom1_2() {
@@ -3615,7 +3632,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationPropertyRangeAxiom0_3() {
@@ -3624,7 +3641,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationPropertyRangeAxiom1_3() {
@@ -3634,7 +3651,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationPropertyRangeAxiom2_3() {
@@ -3643,7 +3660,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLAnnotationPropertyRangeAxiom2_3_1() {
@@ -3653,7 +3670,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubAnnotationPropertyOfAxiom0_2() {
@@ -3662,7 +3679,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubAnnotationPropertyOfAxiom1_2() {
@@ -3671,7 +3688,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubAnnotationPropertyOfAxiom0_3() {
@@ -3681,7 +3698,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubAnnotationPropertyOfAxiom1_3() {
@@ -3691,7 +3708,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubAnnotationPropertyOfAxiom2_3() {
@@ -3701,7 +3718,7 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 
 	public void testgetOWLSubAnnotationPropertyOfAxiom2_3_1() {
@@ -3711,6 +3728,6 @@ public class NullCheckTest_otherfactory extends TestCase {
 		} catch (IllegalArgumentException ex) {
 			return;
 		}
-		fail("Exception expected!");
+		fail(MESSAGE);
 	}
 }
