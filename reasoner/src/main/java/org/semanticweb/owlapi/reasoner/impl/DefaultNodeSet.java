@@ -113,7 +113,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     //XXX not in the interface
     public void addNode(Node<E> node) {
         if (node == null) {
-            throw new NullPointerException("Cannot add null to a NodeSet");
+            throw new IllegalArgumentException("Cannot add null to a NodeSet");
         }
         nodes.add(node);
     }
