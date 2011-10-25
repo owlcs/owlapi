@@ -127,7 +127,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          * @return array containing all axioms in this set
          */
         public OWLAxiom[] getAllAxioms() {
-            return Arrays.copyOf(ax, ax.length);
+        	OWLAxiom[] toReturn=new OWLAxiom[ax.length];
+            System.arraycopy(ax, 0, toReturn, 0, ax.length);
+            return toReturn;
         }
 
 
