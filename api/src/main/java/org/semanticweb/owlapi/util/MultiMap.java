@@ -1,3 +1,42 @@
+/*
+ * This file is part of the OWL API.
+ *
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ *
+ * Copyright (C) 2011, The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
+ * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ *
+ * Copyright 2011, The University of Manchester
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.semanticweb.owlapi.util;
 
 import java.util.ArrayList;
@@ -7,171 +46,169 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author ignazio palmisano
- *
  * @param <Key>
  * @param <Value>
+ * @author ignazio palmisano
  */
 public class MultiMap<Key, Value> {
-	private final Map<Key, Collection<Value>> map;
-	private int size = 0;
-	private boolean useSets = true;
-	private final boolean threadSafe;
 
-	public MultiMap(boolean threadsafe) {
-		threadSafe = threadsafe;
-		if (threadSafe) {
-			map = CollectionFactory.createSyncMap();
-		} else {
-			map = CollectionFactory.createMap();
-		}
-	}
+private final Map<Key, Collection<Value>> map;
 
-	public MultiMap(boolean threadsafe, boolean usesets) {
-		this(threadsafe);
-		this.useSets = usesets;
-	}
+private int size = 0;
 
-	/**
-	 * @param key
-	 * @param value
-	 */
-	public boolean put(Key key, Value value) {
-		Collection<Value> set = this.map.get(key);
-		if (set == null) {
-			set = createCollection();
-			this.map.put(key, set);
-		}
-		boolean toReturn = set.add(value);
-		if (toReturn) {
-			size = -1;
-		}
-		return toReturn;
-	}
+private boolean useSets = true;
 
-	private Collection<Value> createCollection() {
-		return useSets ? (threadSafe ? CollectionFactory.<Value> createSyncSet()
-				: CollectionFactory.<Value> createSet()) : (threadSafe ? Collections
-				.synchronizedList(new ArrayList<Value>()) : new ArrayList<Value>());
-	}
+private final boolean threadSafe;
 
-	/**
-	 * @param key
-	 * @param values
-	 */
-	public void setEntry(Key key, Set<Value> values) {
-		//		if (this.map.containsKey(key)) {
-		//			this.size = this.size - this.map.get(key).size();
-		//		}
-		this.map.put(key, values);
-		this.size = -1;
-		// this.size + values.size();
-	}
+        public MultiMap(boolean threadsafe) {
+            threadSafe = threadsafe;
+            if (threadSafe) {
+                map = CollectionFactory.createSyncMap();
+            }
+            else {
+                map = CollectionFactory.createMap();
+            }
+        }
 
-	/**
-	 * returns a mutable set of values connected to the key; if no value is
-	 * connected, returns an immutable empty set
-	 *
-	 * @param key
-	 * @return the set of values connected with the key
-	 */
-	public Collection<Value> get(Key key) {
-		final Collection<Value> collection = this.map.get(key);
-		if (collection != null) {
-			return collection;
-		}
-		return Collections.emptyList();
-	}
+        public MultiMap(boolean threadsafe, boolean usesets) {
+            this(threadsafe);
+            this.useSets = usesets;
+        }
 
-	/**
-	 * @return the set of keys
-	 */
-	public Set<Key> keySet() {
-		return this.map.keySet();
-	}
+        /**
+         * @param key
+         * @param value
+         */
+        public boolean put(Key key, Value value) {
+            Collection<Value> set = this.map.get(key);
+            if (set == null) {
+                set = createCollection();
+                this.map.put(key, set);
+            }
+            boolean toReturn = set.add(value);
+            if (toReturn) {
+                size = -1;
+            }
+            return toReturn;
+        }
 
-	/**
-	 * @return all values in the map
-	 */
-	public Set<Value> getAllValues() {
-		Set<Value> toReturn = CollectionFactory.createSet();
-		for (Collection<Value> s : this.map.values()) {
-			toReturn.addAll(s);
-		}
-		return toReturn;
-	}
+        private Collection<Value> createCollection() {
+            return useSets ? (threadSafe ? CollectionFactory.<Value>createSyncSet() : CollectionFactory.<Value>createSet()) : (threadSafe ? Collections.synchronizedList(new ArrayList<Value>()) : new ArrayList<Value>());
+        }
 
-	/**
-	 * removes the set of values connected to the key
-	 *
-	 * @param key
-	 */
-	public boolean remove(Key key) {
-		if (this.map.remove(key) != null) {
-			size = -1;
-			return true;
-		}
-		return false;
-	}
+        /**
+         * @param key
+         * @param values
+         */
+        public void setEntry(Key key, Set<Value> values) {
+            //		if (this.map.containsKey(key)) {
+            //			this.size = this.size - this.map.get(key).size();
+            //		}
+            this.map.put(key, values);
+            this.size = -1;
+            // this.size + values.size();
+        }
 
-	/**
-	 * removes the value connected to the key; if there is more than one value
-	 * connected to the key, only one is removed
-	 *
-	 * @param key
-	 * @param value
-	 */
-	public boolean remove(Key key, Value value) {
-		Collection<Value> c = this.map.get(key);
-		if (c != null) {
-			boolean toReturn = c.remove(value);
-			// if false, no change was actually made - skip the rest
-			if (!toReturn) {
-				return false;
-			}
-			size = -1;
-			if (c.isEmpty()) {
-				this.map.remove(key);
-			}
-			return true;
-		}
-		return false;
-	}
+        /**
+         * returns a mutable set of values connected to the key; if no value is
+         * connected, returns an immutable empty set
+         * @param key
+         * @return the set of values connected with the key
+         */
+        public Collection<Value> get(Key key) {
+            final Collection<Value> collection = this.map.get(key);
+            if (collection != null) {
+                return collection;
+            }
+            return Collections.emptyList();
+        }
 
-	/**
-	 * @return the size of the multimap (sum of all the sizes of the sets)
-	 */
-	public int size() {
-		if (size < 0) {
-			size = getAllValues().size();
-		}
-		return this.size;
-	}
+        /**
+         * @return the set of keys
+         */
+        public Set<Key> keySet() {
+            return this.map.keySet();
+        }
 
-	/**
-	 * @param k
-	 * @param v
-	 * @return true if the pairing (k, v) is in the map (set equality for v)
-	 */
-	public boolean contains(Key k, Value v) {
-		final Collection<Value> collection = this.map.get(k);
-		if (collection == null) {
-			return false;
-		}
-		return collection.contains(v);
-	}
+        /**
+         * @return all values in the map
+         */
+        public Set<Value> getAllValues() {
+            Set<Value> toReturn = CollectionFactory.createSet();
+            for (Collection<Value> s : this.map.values()) {
+                toReturn.addAll(s);
+            }
+            return toReturn;
+        }
 
-	/**
-	 * @param k
-	 *
-	 * @return true if k is a key for the map
-	 */
-	public boolean containsKey(Key k) {
-		return this.map.containsKey(k);
-	}
+        /**
+         * removes the set of values connected to the key
+         * @param key
+         */
+        public boolean remove(Key key) {
+            if (this.map.remove(key) != null) {
+                size = -1;
+                return true;
+            }
+            return false;
+        }
 
-	public void clear() {
-		this.map.clear();
-		this.size = 0;
-	}
+        /**
+         * removes the value connected to the key; if there is more than one value
+         * connected to the key, only one is removed
+         * @param key
+         * @param value
+         */
+        public boolean remove(Key key, Value value) {
+            Collection<Value> c = this.map.get(key);
+            if (c != null) {
+                boolean toReturn = c.remove(value);
+                // if false, no change was actually made - skip the rest
+                if (!toReturn) {
+                    return false;
+                }
+                size = -1;
+                if (c.isEmpty()) {
+                    this.map.remove(key);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        /**
+         * @return the size of the multimap (sum of all the sizes of the sets)
+         */
+        public int size() {
+            if (size < 0) {
+                size = getAllValues().size();
+            }
+            return this.size;
+        }
+
+        /**
+         * @param k
+         * @param v
+         * @return true if the pairing (k, v) is in the map (set equality for v)
+         */
+        public boolean contains(Key k, Value v) {
+            final Collection<Value> collection = this.map.get(k);
+            if (collection == null) {
+                return false;
+            }
+            return collection.contains(v);
+        }
+
+        /**
+         * @param k
+         * @return true if k is a key for the map
+         */
+        public boolean containsKey(Key k) {
+            return this.map.containsKey(k);
+        }
+
+        public void clear() {
+            this.map.clear();
+            this.size = 0;
+        }
 }

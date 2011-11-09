@@ -113,9 +113,9 @@ public class EscapeUtils {
 
 
     /**
-     * @param s the xml string to escape
-     * @return the escaped string
+     * @deprecated Use {@link org.semanticweb.owlapi.io.XMLUtils#escapeXML(CharSequence)}
      */
+    @Deprecated
     public static String escapeXML(String s) {
         // double quote -- quot
         // ampersand    -- amp

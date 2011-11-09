@@ -93,6 +93,7 @@ public abstract class AbstractRoundTrippingTest extends AbstractOWLAPITestCase {
 
     @Override
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        System.out.println(target.toString());
         super.handleSaved(target, format);
     }
 

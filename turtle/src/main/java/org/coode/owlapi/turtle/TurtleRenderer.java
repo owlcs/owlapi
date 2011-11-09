@@ -54,6 +54,7 @@ import org.coode.owlapi.rdf.model.RDFNode;
 import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTriple;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
+import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -249,23 +250,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
 
     private void writeStringLiteral(String literal) {
-        String escapedLiteral;
-        if (literal.indexOf("\"") != -1) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < literal.length(); i++) {
-                char ch = literal.charAt(i);
-                if (ch == '\"') {
-                    sb.append("\\\"");
-                }
-                else {
-                    sb.append(ch);
-                }
-            }
-            escapedLiteral = sb.toString();
-        }
-        else {
-            escapedLiteral = literal;
-        }
+        String escapedLiteral = EscapeUtils.escapeString(literal);
         if (escapedLiteral.indexOf('\n') != -1) {
             write("\"\"\"");
             write(escapedLiteral);

@@ -160,6 +160,10 @@ public class AbstractRenderer {
         }
     }
 
+    protected void write(char ch) {
+        write(Character.toString(ch));
+    }
+
     protected void write(String s, int lineLen) {
         StringTokenizer tokenizer = new StringTokenizer(s, " \n\t-", true);
         int currentLineLength = 0;

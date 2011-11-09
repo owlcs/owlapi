@@ -463,27 +463,19 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     private void writeLiteral(String literal) {
         write("\"");
-        if (literal.indexOf("\"") == -1 && literal.indexOf("\\") != -1) {
-            write(literal);
-        }
-        else {
-
-            literal = literal.replace("\\", "\\\\");
-            literal = literal.replace("\"", "\\\"");
-            write(literal);
+        for(int i = 0; i < literal.length(); i++) {
+            char ch = literal.charAt(i);
+            if(ch == '"') {
+                write('\\');
+            }
+            else if(ch == '\\') {
+                write('\\');
+            }
+            write(ch);
         }
         write("\"");
-//        if(literal.indexOf('\"') != -1) {
-//            write("\"\"\"");
-//            write(literal);
-//            write("\"\"\"");
-//        }
-//        else {
-//            write("\"");
-//            write(literal);
-//            write("\"");
-//        }
     }
+    
 
 
     public void visit(OWLFacetRestriction node) {

@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,44 +37,35 @@
  * limitations under the License.
  */
 
-package org.coode.owlapi.rdfxml.parser;
+package org.semanticweb.owlapi.api.test;
 
-import java.util.Set;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.*;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 /**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 02-Feb-2009
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 28/09/2011
  */
-@SuppressWarnings("javadoc")
-public class TPHasKeyHandler extends TriplePredicateHandler {
-
-    private OptimisedListTranslator<OWLPropertyExpression<?,?>> listTranslator;
-
-    public TPHasKeyHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_HAS_KEY.getIRI());
-        this.listTranslator = new OptimisedListTranslator<OWLPropertyExpression<?,?>>(getConsumer(), new HasKeyListItemTranslator(getConsumer()));
-    }
+public abstract class AbstractLiteralWithEscapeTestCase extends AbstractRoundTrippingTest {
 
     @Override
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        getConsumer().addClassExpression(subject, false);
-        return false;
+    protected OWLOntology createOntology() throws Exception {
+        OWLClass cls = Class(IRI.create("http://owlapi.sourceforge.net/ontology#A"));
+        OWLAnnotationProperty prop = AnnotationProperty(IRI.create("http://owlapi.sourceforge.net/ontology#prop"));
+        OWLLiteral lit1 = Literal(getEscape());
+        OWLLiteral lit2 = Literal("Start" + getEscape());
+        OWLLiteral lit3 = Literal(getEscape() + "End");
+        OWLLiteral lit4 = Literal("Start" + getEscape() + "End");
+        OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(prop, cls.getIRI(), lit1);
+        OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop, cls.getIRI(), lit2);
+        OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop, cls.getIRI(), lit3);
+        OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop, cls.getIRI(), lit4);
+        return Ontology(OWLManager.createOWLOntologyManager(), ax1, ax2, ax3, ax4, Declaration(cls));
     }
 
-    @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        if (getConsumer().isClassExpression(subject)) {
-            consumeTriple(subject, predicate, object);
-            OWLClassExpression ce = translateClassExpression(subject);
-
-            Set<OWLPropertyExpression<?,?>> props = listTranslator.translateToSet(object);
-            addAxiom(getDataFactory().getOWLHasKeyAxiom(ce, props, getPendingAnnotations()));
-        }
-    }
+    protected abstract String getEscape();
 }

@@ -62,5 +62,8 @@ public class TypeRDFSClassHandler extends BuiltInTypeHandler {
         // TODO: Change to rdfs:Class? (See table 5 in the spec)
         getConsumer().addClassExpression(subject, false);
         consumeTriple(subject, predicate, object);
+        if (!isStrict()) {
+            getConsumer().handle(subject, predicate, OWLRDFVocabulary.OWL_CLASS.getIRI());
+        }
     }
 }

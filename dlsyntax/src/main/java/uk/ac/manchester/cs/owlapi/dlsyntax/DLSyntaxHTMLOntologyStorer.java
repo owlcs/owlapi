@@ -43,6 +43,7 @@ import java.io.PrintWriter;
 import java.util.Set;
 
 import org.coode.string.EscapeUtils;
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -96,7 +97,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
             @Override
 			protected void write(DLSyntax keyword) {
-                super.write(EscapeUtils.escapeXML(keyword.toString()));
+                super.write(XMLUtils.escapeXML(keyword.toString()));
             }
         };
         ren.setFocusedObject(subject);

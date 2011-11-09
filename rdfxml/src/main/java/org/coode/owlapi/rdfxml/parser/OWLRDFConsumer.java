@@ -54,13 +54,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.semanticweb.owlapi.io.RDFLiteral;
-import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
-import org.semanticweb.owlapi.io.RDFParserMetaData;
-import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFResourceParseError;
-import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -261,7 +255,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      */
     private OWLOntology ontology;
 
-    private RDFXMLOntologyFormat ontologyFormat;
+    private RDFOntologyFormat ontologyFormat;
 
     private OWLDataFactory dataFactory;
 
@@ -588,12 +582,12 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    public RDFXMLOntologyFormat getOntologyFormat() {
+    public RDFOntologyFormat getOntologyFormat() {
         return ontologyFormat;
     }
 
 
-    public void setOntologyFormat(RDFXMLOntologyFormat format) {
+    public void setOntologyFormat(RDFOntologyFormat format) {
         this.ontologyFormat = format;
     }
 
@@ -1351,7 +1345,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             IRIMap.clear();
 
             tripleProcessor.fine("Total number of triples: " + count);
-            RDFXMLOntologyFormat format = ontologyFormat;
+            RDFOntologyFormat format = ontologyFormat;
 
 
             consumeSWRLRules();
@@ -1393,7 +1387,6 @@ public class OWLRDFConsumer implements RDFConsumer {
             consumeAnnotatedAxioms();
 
             final Set<RDFTriple> remainingTriples = getRemainingTriples();
-
 
             if (format != null) {
                 RDFParserMetaData metaData = new RDFParserMetaData(RDFOntologyHeaderStatus.PARSED_ONE_HEADER, count, remainingTriples);

@@ -43,6 +43,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
@@ -93,18 +94,19 @@ public class NamespaceUtil {
     }
 
     /**
-     * @param ch character to check
-     * @return true if ch is a digit, a letter or .-_
+     * @deprecated Use {@link org.semanticweb.owlapi.io.XMLUtils#isNCNameChar(int)}
      */
+    @Deprecated
     public static boolean isNCNameChar(char ch) {
         // No colon in an NCNameChar
         return isLetter(ch) || isDigit(ch) || ch == '.' || ch == '-' || ch == '_';
     }
 
+
     /**
-     * @param ch character to check
-     * @return true if ch is a letter or _
+     * @deprecated Use {@link org.semanticweb.owlapi.io.XMLUtils#isNCNameStartChar(int)}
      */
+    @Deprecated
     public static boolean isNCNameStartChar(char ch) {
         return isLetter(ch) || ch == '_';
     }
@@ -131,10 +133,10 @@ public class NamespaceUtil {
         int startIndex = s.length() - 1;
         for (int index = s.length() - 1; index > -1; index--) {
             char curChar = temp.charAt(index);
-            if (isNCNameStartChar(curChar)) {
+            if (XMLUtils.isNCNameStartChar(curChar)) {
                 startIndex = index;
             }
-            else if (!isNCNameChar(curChar)) {
+            else if (!XMLUtils.isNCNameChar(curChar)) {
                 break;
             }
         }
@@ -145,7 +147,7 @@ public class NamespaceUtil {
         else {
             split = new String [2];
         }
-        if(!isNCNameStartChar(s.charAt(startIndex))) {
+        if(!XMLUtils.isNCNameStartChar(s.charAt(startIndex))) {
             // Could not find split!
             split[0] = "";
             split[1] = "";
@@ -185,9 +187,6 @@ public class NamespaceUtil {
     }
 
 
-    /**
-     * @return namespace to prefix map
-     */
     public Map<String, String> getNamespace2PrefixMap() {
         return Collections.unmodifiableMap(namespace2PrefixMap);
     }
@@ -213,13 +212,13 @@ public class NamespaceUtil {
         int startIndex = -1;
         for (int i = namespace.length() - 1; i > -1; i--) {
             char curChar = namespace.charAt(i);
-            boolean isStartChar = isNCNameStartChar(curChar);
+            boolean isStartChar = XMLUtils.isNCNameStartChar(curChar);
             if (isStartChar || startIndex == -1) {
                 if (isStartChar) {
                     startIndex = i;
                 }
             }
-            else if (!isNCNameChar(curChar)) {
+            else if (!XMLUtils.isNCNameChar(curChar)) {
                 break;
             }
         }
@@ -232,7 +231,7 @@ public class NamespaceUtil {
             // We include any NCNameChar except a full stop (.) so
             // that if the URI looks like a file with an extension the
             // extension is removed.
-            if (isNCNameChar(curChar) && curChar != '.') {
+            if (XMLUtils.isNCNameChar(curChar) && curChar != '.') {
                 endIndex = i + 1;
             }
             else {

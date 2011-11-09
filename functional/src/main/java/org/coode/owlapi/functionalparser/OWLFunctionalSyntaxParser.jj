@@ -148,9 +148,29 @@ MORE:
 // When we encounter a double quote, we have found a string literal.  The end of the literal
 // is marked by an unescaped double quote
 //
-TOKEN: {
-    <STRINGLITERAL: "\""(("\\\"")|(~["\""]))*"\"">
+MORE:
+{
+    <STRINGLITERAL_START: "\""> : IN_STRING_LITERAL
 }
+
+<IN_STRING_LITERAL> MORE:
+{
+    <ANY_ESCAPED_CHAR: "\\"~[]>
+}
+
+<IN_STRING_LITERAL> MORE:
+{
+    <ANY_CHAR: ~["\""]>
+}
+
+<IN_STRING_LITERAL> TOKEN:
+{
+    <STRINGLITERAL: "\""> : DEFAULT
+}
+
+//TOKEN: {
+//    <STRINGLITERAL: "\""("\\"|"\\\""|~["\""])*"\"">
+//}
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2113,8 +2133,8 @@ OWLAnnotationPropertyRangeAxiom AnnotationPropertyRange() :
 OWLHasKeyAxiom HasKey() :
 {
     OWLClassExpression ce;
-    OWLPropertyExpression prop;
-    Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
+    OWLPropertyExpression<?,?> prop;
+    Set<OWLPropertyExpression<?,?>> props = new HashSet<OWLPropertyExpression<?,?>>();
     Set<OWLAnnotation> axiomAnnos;
 }
 {

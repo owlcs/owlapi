@@ -60,7 +60,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  */
 public class NNFTestCase extends TestCase {
 
-    private OWLDataFactory df = OWLDataFactoryImpl.getInstance();
+    private OWLDataFactory df = new OWLDataFactoryImpl();
 
     private OWLClass clsA = df.getOWLClass(IRI.create("A"));
 

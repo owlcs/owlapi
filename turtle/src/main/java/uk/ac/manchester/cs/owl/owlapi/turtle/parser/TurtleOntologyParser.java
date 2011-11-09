@@ -92,9 +92,10 @@ public class TurtleOntologyParser extends AbstractOWLParser {
             }
 
             OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(ontology, parser, configuration);
+            TurtleOntologyFormat format = new TurtleOntologyFormat();
+            consumer.setOntologyFormat(format);
             parser.setTripleHandler(consumer);
             parser.parseDocument();
-            TurtleOntologyFormat format = new TurtleOntologyFormat();
             DefaultPrefixManager prefixManager = parser.getPrefixManager();
             for(String prefixName : prefixManager.getPrefixNames()) {
                 format.setPrefix(prefixName, prefixManager.getPrefix(prefixName));

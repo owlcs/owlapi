@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public interface OWLMetric<M> {
 
     /**
-     * Gets the human readable name of this metic
+     * Gets the human readable name of this metric
      * @return A label which represents the human readable name of
      *         this metric.
      */

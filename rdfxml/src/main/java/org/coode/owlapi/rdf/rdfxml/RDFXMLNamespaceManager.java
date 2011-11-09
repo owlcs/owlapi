@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,44 +37,50 @@
  * limitations under the License.
  */
 
-package org.coode.owlapi.rdfxml.parser;
+package org.coode.owlapi.rdf.rdfxml;
 
+import org.coode.xml.OWLOntologyXMLNamespaceManager;
+import org.semanticweb.owlapi.model.*;
+
+import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
 /**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 02-Feb-2009
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 21/09/2011
  */
-@SuppressWarnings("javadoc")
-public class TPHasKeyHandler extends TriplePredicateHandler {
+public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
 
-    private OptimisedListTranslator<OWLPropertyExpression<?,?>> listTranslator;
+    public RDFXMLNamespaceManager(OWLOntologyManager man, OWLOntology ontology) {
+        super(man, ontology);
+    }
 
-    public TPHasKeyHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_HAS_KEY.getIRI());
-        this.listTranslator = new OptimisedListTranslator<OWLPropertyExpression<?,?>>(getConsumer(), new HasKeyListItemTranslator(getConsumer()));
+    public RDFXMLNamespaceManager(OWLOntology ontology, OWLOntologyFormat format) {
+        super(ontology, format);
     }
 
     @Override
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        getConsumer().addClassExpression(subject, false);
-        return false;
-    }
-
-    @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        if (getConsumer().isClassExpression(subject)) {
-            consumeTriple(subject, predicate, object);
-            OWLClassExpression ce = translateClassExpression(subject);
-
-            Set<OWLPropertyExpression<?,?>> props = listTranslator.translateToSet(object);
-            addAxiom(getDataFactory().getOWLHasKeyAxiom(ce, props, getPendingAnnotations()));
+    protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
+        Set<OWLEntity> entities = new HashSet<OWLEntity>();
+        for(OWLObjectPropertyAssertionAxiom ax : getOntology().getAxioms(AxiomType.OBJECT_PROPERTY_ASSERTION)) {
+            entities.addAll(ax.getProperty().getSignature());
         }
+        for(OWLDataPropertyAssertionAxiom ax : getOntology().getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
+            entities.add(ax.getProperty().asOWLDataProperty());
+        }
+        entities.addAll(getOntology().getAnnotationPropertiesInSignature());
+        return entities;
+    }
+
+    public Set<OWLEntity> getEntitiesWithInvalidQNames() {
+        Set<OWLEntity> result = new HashSet<OWLEntity>();
+        for(OWLEntity entity : getEntitiesThatRequireNamespaces()) {
+            if(getQName(entity.toStringID()).equals(entity.toStringID())) {
+                result.add(entity);
+            }
+        }
+        return result;
     }
 }

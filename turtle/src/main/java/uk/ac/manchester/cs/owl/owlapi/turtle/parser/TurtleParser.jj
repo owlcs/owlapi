@@ -151,12 +151,17 @@ SKIP:
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 MORE : {
-    "\"": IN_STRING
+    <STRING_START: "\""> : IN_STRING
 }
 
 <IN_STRING> MORE :
 {
-    <  ("\\\"")|~["\""] >
+    <ANY_ESCAPED_CHAR: "\\"~[] >
+}
+
+<IN_STRING> MORE :
+{
+    <ANY_CHAR: ~["\""]>
 }
 
 <IN_STRING> TOKEN:

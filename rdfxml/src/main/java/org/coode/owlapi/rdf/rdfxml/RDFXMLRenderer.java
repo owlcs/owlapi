@@ -55,18 +55,10 @@ import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTriple;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.string.EscapeUtils;
-import org.coode.xml.OWLOntologyXMLNamespaceManager;
+import org.coode.xml.IllegalElementNameException;
 import org.coode.xml.XMLWriterFactory;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.io.XMLUtils;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -82,6 +74,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     private Set<RDFResourceNode> pending;
 
+    private RDFXMLNamespaceManager qnameManager;
+
     //private Set<RDFResourceNode> renderedAnonymousNodes;
 
     public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w) {
@@ -94,20 +88,18 @@ public class RDFXMLRenderer extends RDFRendererBase {
         pending = new HashSet<RDFResourceNode>();
         //renderedAnonymousNodes = new HashSet<RDFResourceNode>();
 
-        OWLOntologyXMLNamespaceManager nsm = new OWLOntologyXMLNamespaceManager(
-                ontology,
-                format);
-        String defaultNamespace = nsm.getDefaultNamespace();
+        qnameManager = new RDFXMLNamespaceManager(ontology, format);
+
+
+        String defaultNamespace = qnameManager.getDefaultNamespace();
         String base;
-        if(defaultNamespace.endsWith("#")) {
+        if (defaultNamespace.endsWith("#")) {
             base = defaultNamespace.substring(0, defaultNamespace.length() - 1);
         }
         else {
             base = defaultNamespace;
         }
-        writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(w,
-                nsm,
-                base));
+        writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(w, qnameManager, base));
         prettyPrintedTypes = new HashSet<IRI>();
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_CLASS.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
@@ -124,62 +116,65 @@ public class RDFXMLRenderer extends RDFRendererBase {
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION.getIRI());
     }
 
+    public Set<OWLEntity> getUnserialisableEntities() {
+        return qnameManager.getEntitiesWithInvalidQNames();
+    }
+
 
     @Override
-	protected void beginDocument() throws IOException  {
+    protected void beginDocument() throws IOException {
         writer.startDocument();
     }
 
 
     @Override
-	protected void endDocument() throws IOException  {
+    protected void endDocument() throws IOException {
         writer.endDocument();
         writer.writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
     }
 
 
     @Override
-	protected void writeIndividualComments(OWLNamedIndividual ind) throws IOException  {
-        writer.writeComment(EscapeUtils.escapeXML(ind.getIRI().toString()));
+    protected void writeIndividualComments(OWLNamedIndividual ind) throws IOException {
+        writer.writeComment(XMLUtils.escapeXML(ind.getIRI().toString()));
     }
 
 
     @Override
-	protected void writeClassComment(OWLClass cls) throws IOException  {
-        writer.writeComment(EscapeUtils.escapeXML(cls.getIRI().toString()));
+    protected void writeClassComment(OWLClass cls) throws IOException {
+        writer.writeComment(XMLUtils.escapeXML(cls.getIRI().toString()));
     }
 
 
     @Override
-	protected void writeDataPropertyComment(OWLDataProperty prop) throws IOException  {
-        writer.writeComment(EscapeUtils.escapeXML(prop.getIRI().toString()));
+    protected void writeDataPropertyComment(OWLDataProperty prop) throws IOException {
+        writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
     }
 
 
     @Override
-	protected void writeObjectPropertyComment(OWLObjectProperty prop) throws IOException  {
-        writer.writeComment(EscapeUtils.escapeXML(prop.getIRI().toString()));
+    protected void writeObjectPropertyComment(OWLObjectProperty prop) throws IOException {
+        writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
     }
 
     @Override
-	protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) throws IOException  {
-        writer.writeComment(EscapeUtils.escapeXML(prop.getIRI().toString()));
+    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) throws IOException {
+        writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
     }
 
     @Override
-	protected void writeDatatypeComment(OWLDatatype datatype) throws IOException  {
-        writer.writeComment(EscapeUtils.escapeXML(datatype.getIRI().toString()));
+    protected void writeDatatypeComment(OWLDatatype datatype) throws IOException {
+        writer.writeComment(XMLUtils.escapeXML(datatype.getIRI().toString()));
     }
 
     @Override
-	protected void writeBanner(String name) throws IOException  {
-        writer.writeComment(
-                "\n///////////////////////////////////////////////////////////////////////////////////////\n" + "//\n" + "// " + name + "\n" + "//\n" + "///////////////////////////////////////////////////////////////////////////////////////\n");
+    protected void writeBanner(String name) throws IOException {
+        writer.writeComment("\n///////////////////////////////////////////////////////////////////////////////////////\n" + "//\n" + "// " + name + "\n" + "//\n" + "///////////////////////////////////////////////////////////////////////////////////////\n");
     }
 
 
     @Override
-	public void render(RDFResourceNode node) throws IOException {
+    public void render(RDFResourceNode node) throws IOException {
         if (pending.contains(node)) {
             // We essentially remove all structure sharing during parsing - any cycles therefore indicate a bug!
 //            throw new IllegalStateException("Rendering cycle!  This indicates structure sharing and should not happen! (Node: " + node.toString() + ")");
@@ -188,10 +183,6 @@ public class RDFXMLRenderer extends RDFRendererBase {
         pending.add(node);
         Set<RDFTriple> triples = new TreeSet<RDFTriple>(new TripleComparator());
         triples.addAll(getGraph().getTriplesForSubject(node));
-//        if (node.isAnonymous() && !renderedAnonymousNodes.contains(node)) {
-//
-//            renderedAnonymousNodes.add(node);
-//        }
         RDFTriple candidatePrettyPrintTypeTriple = null;
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getProperty().getIRI();
@@ -200,24 +191,21 @@ public class RDFXMLRenderer extends RDFRendererBase {
                     if (prettyPrintedTypes.contains(triple.getObject().getIRI())) {
                         candidatePrettyPrintTypeTriple = triple;
                     }
-                } else {
-                    candidatePrettyPrintTypeTriple = triple;
                 }
+//                else {
+//                    candidatePrettyPrintTypeTriple = triple;
+//                }
             }
         }
         if (candidatePrettyPrintTypeTriple == null) {
             writer.writeStartElement(RDF_DESCRIPTION.getIRI());
-        } else {
+        }
+        else {
             writer.writeStartElement(candidatePrettyPrintTypeTriple.getObject().getIRI());
         }
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
         }
-//        else {
-//            if (getGraph().isAnonymousNodeSharedSubject(node)) {
-//                writer.writeNodeIDAttribute(node);
-//            }
-//        }
         for (RDFTriple triple : triples) {
             if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;
@@ -235,35 +223,42 @@ public class RDFXMLRenderer extends RDFRendererBase {
                         for (RDFNode n : list) {
                             if (n.isAnonymous()) {
                                 render((RDFResourceNode) n);
-                            } else {
+                            }
+                            else {
                                 if (n.isLiteral()) {
                                     RDFLiteralNode litNode = (RDFLiteralNode) n;
                                     writer.writeStartElement(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
                                     if (litNode.getDatatype() != null) {
                                         writer.writeDatatypeAttribute(litNode.getDatatype());
-                                    } else if (litNode.getLang() != null) {
+                                    }
+                                    else if (litNode.getLang() != null) {
                                         writer.writeLangAttribute(litNode.getLang());
                                     }
                                     writer.writeTextContent((litNode.getLiteral()));
                                     writer.writeEndElement();
-                                } else {
+                                }
+                                else {
                                     writer.writeStartElement(RDF_DESCRIPTION.getIRI());
                                     writer.writeAboutAttribute(n.getIRI());
                                     writer.writeEndElement();
                                 }
                             }
                         }
-                    } else {
+                    }
+                    else {
                         render(objectRes);
                     }
-                } else {
+                }
+                else {
                     writer.writeResourceAttribute(objectRes.getIRI());
                 }
-            } else {
+            }
+            else {
                 RDFLiteralNode rdfLiteralNode = ((RDFLiteralNode) objectNode);
                 if (rdfLiteralNode.getDatatype() != null) {
                     writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
-                } else if (rdfLiteralNode.getLang() != null) {
+                }
+                else if (rdfLiteralNode.getLang() != null) {
                     writer.writeLangAttribute(rdfLiteralNode.getLang());
                 }
                 writer.writeTextContent(rdfLiteralNode.getLiteral());

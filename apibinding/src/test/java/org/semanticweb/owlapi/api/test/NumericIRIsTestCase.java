@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,65 +37,41 @@
  * limitations under the License.
  */
 
-package org.semanticweb.owlapi.metrics;
+package org.semanticweb.owlapi.api.test;
 
-import java.util.List;
-import java.util.Set;
-
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br><br>
+ * Date: 20/09/2011
  */
-public class AxiomCount extends IntegerValuedMetric {
+public class NumericIRIsTestCase extends AbstractRoundTrippingTest {
 
-    /**
-     * @param owlOntologyManager manager to use
-     */
-	public AxiomCount(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
-    }
+    private static final String DEFAULT_PREFIX = "http://owlapi.sourceforge.net/ontology/";
 
     @Override
-    protected Integer recomputeMetric() {
-        int count = 0;
-        for(OWLOntology ontology : getOntologies()) {
-            count += ontology.getAxiomCount();
-        }
-        return count;
+    protected OWLOntology createOntology() throws Exception {
+        OWLDataFactory df = getFactory();
+        DefaultPrefixManager pm = new DefaultPrefixManager(DEFAULT_PREFIX);
+        OWLClass cls123 = df.getOWLClass("123", pm);
+        OWLNamedIndividual ind = df.getOWLNamedIndividual("456", pm);
+        OWLObjectProperty prop = df.getOWLObjectProperty("789", pm);
+
+        OWLOntology ont = getManager().createOntology(IRI.create("http://www.myont.com/ont"));
+//        OWLOntology ont = getManager().loadOntology(IRI.create("http://owl.cs.manchester.ac.uk/repository/download?ontology=file:/Users/seanb/Desktop/Cercedilla2005/hands-on/people.owl&format=RDF/XML"));
+        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLDeclarationAxiom(cls123));
+        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLDeclarationAxiom(ind));
+        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLClassAssertionAxiom(cls123, ind));
+        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLClassAssertionAxiom(cls123, ind));
+        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLDeclarationAxiom(prop));
+        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLObjectPropertyAssertionAxiom(prop, ind, ind));
+        return ont;
     }
 
-    /**
-     * Determines if the specified list of changes will cause the value of this metric
-     * to be invalid.
-     * @param changes The list of changes which will be examined to determine if the
-     * metric is now invalid.
-     * @return <code>true</code> if the metric value is invalidated by the specified
-     *         list of changes, or <code>false</code> if the list of changes do not cause
-     *         the value of this metric to be invalidated.
-     */
-    @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        return true;
-    }
 
-    @Override
-    protected void disposeMetric() {
-    }
 
-    /**
-     * Gets the human readable name of this metric
-     * @return A label which represents the human readable name of
-     *         this metric.
-     */
-    public String getName() {
-        return "Axiom";
-    }
+
 }
