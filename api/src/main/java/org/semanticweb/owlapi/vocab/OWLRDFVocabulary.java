@@ -346,7 +346,7 @@ public enum OWLRDFVocabulary {
     OWL_TARGET_VALUE(Namespaces.OWL, "targetValue");
 
 
-    final URI uri;
+    //final URI uri;
 
     final IRI iri;
 
@@ -358,7 +358,7 @@ public enum OWLRDFVocabulary {
     OWLRDFVocabulary(Namespaces namespace, String shortName) {
         this.namespace = namespace;
         this.shortName = shortName;
-        this.uri = URI.create(namespace.toString() + shortName);
+        //this.uri = URI.create(namespace.toString() + shortName);
         this.iri = IRI.create(namespace.toString() + shortName);
     }
 
@@ -368,7 +368,7 @@ public enum OWLRDFVocabulary {
      */
     @Deprecated
     public URI getURI() {
-        return uri;
+        return iri.toURI();
     }
 
     public IRI getIRI() {
@@ -412,7 +412,7 @@ public enum OWLRDFVocabulary {
 
     @Override
 	public String toString() {
-        return uri.toString();
+        return iri.toString();
     }
 
 }

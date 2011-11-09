@@ -67,7 +67,8 @@ public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataHasValue(propP, literal)));
         axioms.add(getFactory().getOWLDeclarationAxiom(propP));
         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataHasValue(propP, stringLiteral)));
-        assertEquals(getOnt().getAxioms(), axioms);
+        final Set<OWLAxiom> axioms2 = getOnt().getAxioms();
+		assertEquals(axioms2, axioms);
     }
 
     @Override

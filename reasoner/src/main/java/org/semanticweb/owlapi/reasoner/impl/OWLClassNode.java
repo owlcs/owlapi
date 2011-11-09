@@ -53,11 +53,11 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  */
 public class OWLClassNode extends DefaultNode<OWLClass> {
 
-    private static final OWLClass TOP_CLASS = OWLDataFactoryImpl.getInstance().getOWLThing();
+    private static final OWLClass TOP_CLASS = new OWLDataFactoryImpl().getOWLThing();
 
     private static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
 
-    private static final OWLClass BOTTOM_CLASS = OWLDataFactoryImpl.getInstance().getOWLNothing();
+    private static final OWLClass BOTTOM_CLASS = new OWLDataFactoryImpl().getOWLNothing();
 
     private static final OWLClassNode BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
 

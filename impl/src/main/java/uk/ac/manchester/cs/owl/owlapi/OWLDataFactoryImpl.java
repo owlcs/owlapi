@@ -46,6 +46,8 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.WeakCache;
+import org.semanticweb.owlapi.util.WeakIndexCache;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -70,25 +72,33 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	private static final String VALUES2 = "values";
 	private static final String DATA_RANGES = "dataRanges";
 	private static final String DATA_RANGE = "dataRange";
-	private static final OWLDataFactory instance = new OWLDataFactoryImpl();
-	private static final OWLClass OWL_THING = new OWLClassImpl(instance,
-			OWLRDFVocabulary.OWL_THING.getIRI());
-	private static final OWLClass OWL_NOTHING = new OWLClassImpl(instance,
-			OWLRDFVocabulary.OWL_NOTHING.getIRI());
+	//private static final OWLDataFactory instance = new OWLDataFactoryImpl();
+	private static final OWLClass OWL_THING = new OWLClassImpl(new OWLDataFactoryImpl(
+			false), OWLRDFVocabulary.OWL_THING.getIRI());
+	private static final OWLClass OWL_NOTHING = new OWLClassImpl(new OWLDataFactoryImpl(
+			false), OWLRDFVocabulary.OWL_NOTHING.getIRI());
 	protected OWLDataFactoryInternals data;
 
 	@SuppressWarnings("javadoc")
 	public OWLDataFactoryImpl() {
-		data = new OWLDataFactoryInternalsImpl(this);
+		this(true);
+		//		data = new OWLDataFactoryInternalsImpl(this);
+	}
+
+	OWLDataFactoryImpl(boolean cache) {
+		if (cache) {
+			data = new OWLDataFactoryInternalsImpl(this);
+		} else {
+			data = new InternalsNoCache(this);
+		}
 	}
 
 	/**
 	 * @return singleton instance
 	 */
-	public static OWLDataFactory getInstance() {
-		return instance;
-	}
-
+	//	public static OWLDataFactory getInstance() {
+	//		return instance;
+	//	}
 	public void purge() {
 		data.purge();
 	}
@@ -292,12 +302,50 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 			if (sep != -1) {
 				String lex = lexicalValue.substring(0, sep);
 				String lang = lexicalValue.substring(sep + 1);
-				literal = new OWLLiteralImpl(this, lex, lang);
+				literal = litCache.cache(new OWLLiteralImpl(this, lex, lang));
+				//literal = new OWLLiteralImpl(this, lex, lang);
 			} else {
-				literal = new OWLLiteralImpl(this, lexicalValue, datatype);
+				literal = litCache
+						.cache(new OWLLiteralImpl(this, lexicalValue, datatype));
+				//literal = new OWLLiteralImpl(this, lexicalValue, datatype);
 			}
 		} else {
-			literal = new OWLLiteralImpl(this, lexicalValue, datatype);
+			// check the four special cases
+			try {
+				if (datatype.isBoolean()) {
+					lexicalValue = lexicalValue.trim();
+					if (lexicalValue.equals("1")) {
+						literal = getOWLLiteral(true);
+					} else if (lexicalValue.equals("0")) {
+						literal = getOWLLiteral(false);
+					} else {
+						literal = getOWLLiteral(Boolean.parseBoolean(lexicalValue));
+					}
+				} else if (datatype.isFloat()) {
+					float f;
+					try {
+						f = Float.parseFloat(lexicalValue);
+						literal = getOWLLiteral(f);
+					} catch (NumberFormatException e) {
+						literal = litCache.cache(new OWLLiteralImpl(this, lexicalValue,
+								datatype));
+						//literal = new OWLLiteralImpl(this, lexicalValue, datatype);
+					}
+				} else if (datatype.isDouble()) {
+					literal = getOWLLiteral(Double.parseDouble(lexicalValue));
+				} else if (datatype.isInteger()) {
+					literal = getOWLLiteral(Integer.parseInt(lexicalValue));
+				} else {
+					literal = litCache.cache(new OWLLiteralImpl(this, lexicalValue,
+							datatype));
+					//literal = new OWLLiteralImpl(this, lexicalValue, datatype);
+				}
+			} catch (NumberFormatException e) {
+				// some literal is malformed, i.e., wrong format
+				literal = litCache
+						.cache(new OWLLiteralImpl(this, lexicalValue, datatype));
+				//literal = new OWLLiteralImpl(this, lexicalValue, datatype);
+			}
 		}
 		return literal;
 	}
@@ -309,29 +357,46 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	}
 
 	public OWLLiteral getOWLLiteral(int value) {
-		return new OWLLiteralImpl(this, Integer.toString(value),
-				getOWLDatatype(XSDVocabulary.INTEGER.getIRI()));
+		Integer f = value;
+		return intCache.cache(f, new OWLLiteralImplInteger(this, value,
+				getIntegerOWLDatatype()));
+		//return new OWLLiteralImplInteger(this, value, getIntegerOWLDatatype());
 	}
 
 	public OWLLiteral getOWLLiteral(double value) {
-		return new OWLLiteralImpl(this, Double.toString(value),
-				getOWLDatatype(XSDVocabulary.DOUBLE.getIRI()));
+		//return new OWLLiteralImplDouble(this, value, getDoubleOWLDatatype());
+		Double f = value;
+		return doubleCache.cache(f, new OWLLiteralImplDouble(this, value,
+				getDoubleOWLDatatype()));
 	}
+
+	private OWLLiteral trueLiteral = new OWLLiteralImpl(this, Boolean.toString(true),
+			new OWLDatatypeImpl(this, XSDVocabulary.BOOLEAN.getIRI()));
+	private OWLLiteral falseLiteral = new OWLLiteralImpl(this, Boolean.toString(false),
+			new OWLDatatypeImpl(this, XSDVocabulary.BOOLEAN.getIRI()));
 
 	public OWLLiteral getOWLLiteral(boolean value) {
-		return new OWLLiteralImpl(this, Boolean.toString(value),
-				getOWLDatatype(XSDVocabulary.BOOLEAN.getIRI()));
+		return value ? trueLiteral : falseLiteral;
 	}
 
+	private WeakIndexCache<Integer, OWLLiteral> intCache = new WeakIndexCache<Integer, OWLLiteral>();
+	private WeakIndexCache<Double, OWLLiteral> doubleCache = new WeakIndexCache<Double, OWLLiteral>();
+	private WeakIndexCache<Float, OWLLiteral> floatCache = new WeakIndexCache<Float, OWLLiteral>();
+	private WeakIndexCache<String, OWLLiteral> stringCache = new WeakIndexCache<String, OWLLiteral>();
+	private WeakCache<OWLLiteral> litCache = new WeakCache<OWLLiteral>();
+
 	public OWLLiteral getOWLLiteral(float value) {
-		return new OWLLiteralImpl(this, Float.toString(value),
-				getOWLDatatype(XSDVocabulary.FLOAT.getIRI()));
+		Float f = value;
+		return floatCache.cache(f, new OWLLiteralImplFloat(this, value,
+				getFloatOWLDatatype()));
+		//return new OWLLiteralImplFloat(this, value, getFloatOWLDatatype());
 	}
 
 	public OWLLiteral getOWLLiteral(String value) {
 		checkNull(value, VALUE2);
-		return new OWLLiteralImpl(this, value,
-				getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+		return stringCache.cache(value, new OWLLiteralImpl(this, value,
+				getOWLDatatype(XSDVocabulary.STRING.getIRI())));
+		//return new OWLLiteralImpl(this, value, getOWLDatatype(XSDVocabulary.STRING.getIRI()));
 	}
 
 	public OWLLiteral getOWLLiteral(String literal, String lang) {

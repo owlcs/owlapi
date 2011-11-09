@@ -2,14 +2,12 @@ package casualtest;
 
 import java.io.File;
 
-import junit.framework.TestCase;
-
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
-public class TestTurtle extends TestCase{
+public class TestTurtle {
 	public void testturtle() throws Exception{
 		File folder=new File("/Users/ignazio/test-suite-archive/data-r2/basic");
 		OWLOntologyManager m=OWLManager.createOWLOntologyManager();

@@ -56,11 +56,11 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
 
 
-    private static final OWLObjectProperty TOP_OBJECT_PROPERTY = OWLDataFactoryImpl.getInstance().getOWLTopObjectProperty();
+    private static final OWLObjectProperty TOP_OBJECT_PROPERTY = new OWLDataFactoryImpl().getOWLTopObjectProperty();
 
     private static final OWLObjectPropertyNode TOP_NODE = new OWLObjectPropertyNode(TOP_OBJECT_PROPERTY);
 
-    private static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = OWLDataFactoryImpl.getInstance().getOWLBottomObjectProperty();
+    private static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = new OWLDataFactoryImpl().getOWLBottomObjectProperty();
 
     private static final OWLObjectPropertyNode BOTTOM_NODE = new OWLObjectPropertyNode(BOTTOM_OBJECT_PROPERTY);
 

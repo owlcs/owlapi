@@ -274,6 +274,7 @@ public enum OWLXMLVocabulary {
         return iri;
     }
 
+    @Deprecated
     public URI getURI() {
         return iri.toURI();
     }

@@ -66,7 +66,7 @@ public void testMinusInf() throws Exception{
 	OWLOntology o=m.loadOntologyFromOntologyDocument(in);
 	StringDocumentTarget t=new StringDocumentTarget();
 	m.saveOntology(o, t);
-	assertTrue(t.toString().contains("-INF"));
+	assertTrue(t.toString()+" should contain -INF", t.toString().contains("-INF"));
 	OWLOntology o1=m.loadOntologyFromOntologyDocument(new StringDocumentSource(t.toString()));
 	assertEquals("Obtologies were supposed to be the same",o.getLogicalAxioms(), o1.getLogicalAxioms());
 }

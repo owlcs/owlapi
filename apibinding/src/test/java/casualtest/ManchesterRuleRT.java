@@ -2,8 +2,6 @@ package casualtest;
 
 import java.util.Collections;
 
-import junit.framework.TestCase;
-
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -20,7 +18,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 @SuppressWarnings("javadoc")
-public class ManchesterRuleRT extends TestCase {
+public class ManchesterRuleRT  {
 	public static final String NS = "http://protege.stanford.edu/ontologies/ManchesterRule.owl";
 	public static final OWLClass A = Factory.getFactory().getOWLClass(
 			IRI.create(NS + "#A"));

@@ -36,13 +36,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -72,33 +69,45 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * <br>
  */
 public abstract class OWLObjectImpl implements OWLObject {
-	private final OWLDataFactory dataFactory;
+	//private final OWLDataFactory dataFactory;
 	private int hashCode = 0;
 	private Set<OWLEntity> signature;
+	private Set<OWLAnonymousIndividual> anons;
 
 	/**
-	 * @param dataFactory the data factory
+	 * @param dataFactory
+	 *            the data factory
 	 */
 	public OWLObjectImpl(OWLDataFactory dataFactory) {
-		this.dataFactory = dataFactory;
+		//this.dataFactory = dataFactory;
 	}
 
 	/**
 	 * @return this object's data factory
 	 */
-	public OWLDataFactory getOWLDataFactory() {
-		return dataFactory;
+	public static OWLDataFactory getOWLDataFactory() {
+		return f;
 	}
+
+	private static final OWLDataFactory f = new OWLDataFactoryImpl(false);
 
 	public Set<OWLEntity> getSignature() {
 		if (signature == null) {
 			Set<OWLEntity> sig = new HashSet<OWLEntity>();
-			List<OWLAnonymousIndividual> anons = new ArrayList<OWLAnonymousIndividual>();
+			Set<OWLAnonymousIndividual> anons = new HashSet<OWLAnonymousIndividual>();
 			OWLEntityCollector collector = new OWLEntityCollector(sig, anons);
 			accept(collector);
 			signature = sig;
+			this.anons = anons;
 		}
 		return CollectionFactory.getCopyOnRequestSet(signature);
+	}
+
+	public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+		if(signature==null) {
+			getSignature();
+		}
+		return CollectionFactory.getCopyOnRequestSet(anons);
 	}
 
 	public Set<OWLClass> getClassesInSignature() {

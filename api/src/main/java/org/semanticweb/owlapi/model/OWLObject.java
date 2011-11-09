@@ -53,10 +53,15 @@ public interface OWLObject extends Comparable<OWLObject> {
     /**
      * Gets the signature of this object
      * @return A set of entities that correspond to the
-     *         signature of this object. The set is an
-     *         unmodifiable collection.
+     *         signature of this object. The set is a copy, changes are not reflected back.
      */
     Set<OWLEntity> getSignature();
+    /**
+     * Gets the anonymous individuals occurring in this object, as collected by an
+     * OWLEntityCollector. The set is a copy, changes are not reflected back.
+     * @return A set of anonymous individuals.
+     */
+    Set<OWLAnonymousIndividual> getAnonymousIndividuals();
 
 
     /**

@@ -108,6 +108,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
 
             assertTrue(ont.getAxioms(axiomType).contains(ax));
             assertTrue(ont.getAxioms(axiomType, true).contains(ax));
+
             assertEquals(ont.getAxiomCount(axiomType), axioms.length);
             assertEquals(ont.getAxiomCount(axiomType, true), axioms.length);
 

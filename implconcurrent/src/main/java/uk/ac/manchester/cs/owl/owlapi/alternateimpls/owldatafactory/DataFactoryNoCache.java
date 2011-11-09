@@ -39,6 +39,7 @@
 
 package uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory;
 
+import uk.ac.manchester.cs.owl.owlapi.InternalsNoCache;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 /**
  * @author ignazio

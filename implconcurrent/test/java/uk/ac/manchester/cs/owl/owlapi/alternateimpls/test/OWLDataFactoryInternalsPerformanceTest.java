@@ -43,6 +43,7 @@ import junit.framework.TestCase;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
+import uk.ac.manchester.cs.owl.owlapi.InternalsNoCache;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternals;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryNoCache;
@@ -52,7 +53,6 @@ import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsFut
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsFutureSmart;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsLSR;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsLWR;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.InternalsNoCache;
 @SuppressWarnings("javadoc")
 public class OWLDataFactoryInternalsPerformanceTest extends TestCase {
 	private final static OWLDataFactory factory = new DataFactoryNoCache();

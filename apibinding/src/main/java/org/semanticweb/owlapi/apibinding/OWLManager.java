@@ -146,6 +146,6 @@ public class OWLManager implements OWLOntologyManagerFactory {
      * @return An OWLDataFactory  that can be used for creating OWL API objects.
      */
     public static OWLDataFactory getOWLDataFactory() {
-        return OWLDataFactoryImpl.getInstance();
+        return new OWLDataFactoryImpl();
     }
 }

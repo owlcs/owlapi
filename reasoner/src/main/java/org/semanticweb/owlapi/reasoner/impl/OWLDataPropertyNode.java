@@ -54,11 +54,11 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
 
 
-    private static final OWLDataProperty TOP_DATA_PROPERTY = OWLDataFactoryImpl.getInstance().getOWLTopDataProperty();
+    private static final OWLDataProperty TOP_DATA_PROPERTY = new OWLDataFactoryImpl().getOWLTopDataProperty();
 
     private static final OWLDataPropertyNode TOP_NODE = new OWLDataPropertyNode(TOP_DATA_PROPERTY);
 
-    private static final OWLDataProperty BOTTOM_DATA_PROPERTY = OWLDataFactoryImpl.getInstance().getOWLBottomDataProperty();
+    private static final OWLDataProperty BOTTOM_DATA_PROPERTY = new OWLDataFactoryImpl().getOWLBottomDataProperty();
 
     private static final OWLDataPropertyNode BOTTOM_NODE = new OWLDataPropertyNode(BOTTOM_DATA_PROPERTY);
 

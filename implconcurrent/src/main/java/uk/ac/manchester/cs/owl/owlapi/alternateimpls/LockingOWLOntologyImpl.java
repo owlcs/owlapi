@@ -39,12 +39,10 @@
 
 package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
 
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
+
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceAdder;
-import uk.ac.manchester.cs.owl.owlapi.OWLNamedObjectReferenceRemover;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
 /**
@@ -58,19 +56,6 @@ public class LockingOWLOntologyImpl extends OWLOntologyImpl {
         this.internals = new LockingOWLOntologyInternals();
     }
 
-    @Override
-	protected OWLAxiomVisitor getAxiomVisitor(boolean add) {
-		SyncChangeAxiomVisitor toReturn =new SyncChangeAxiomVisitor(internals, add, ((LockingOWLOntologyInternals)internals).getAxiomTypeLock());
-		return toReturn;
-	}
 
-    @Override
-	protected OWLNamedObjectReferenceAdder getReferenceAdder() {
-    	return new SyncOWLNamedObjectReferenceAdderImpl(internals,((LockingOWLOntologyInternals)internals).getAxiomTypeLock());
-    }
 
-    @Override
-	protected OWLNamedObjectReferenceRemover getReferenceRemover() {
-    	return new SyncOWLNamedObjectReferenceRemoverImpl(internals, ((LockingOWLOntologyInternals)internals).getAxiomTypeLock());
-    }
 }

@@ -39,7 +39,6 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;

@@ -67,7 +67,7 @@ public class BuiltInClassTestCase extends TestCase {
     @Override
 	protected void setUp() throws Exception {
         super.setUp();
-        dataFactory = OWLDataFactoryImpl.getInstance();
+        dataFactory = new OWLDataFactoryImpl();
     }
 
 

@@ -65,6 +65,6 @@ public final class DefaultBinding implements
 		}
 
 		public OWLDataFactory getOWLDataFactory() {
-			return OWLDataFactoryImpl.getInstance();
+			return new OWLDataFactoryImpl();
 		}
 	}

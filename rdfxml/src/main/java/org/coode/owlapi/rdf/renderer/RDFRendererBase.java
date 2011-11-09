@@ -321,6 +321,7 @@ public abstract class RDFRendererBase {
                 generalAxioms.add(ax);
             }
         }
+
         createGraph(generalAxioms);
 
         Set<RDFResourceNode> rootNodes = graph.getRootAnonymousNodes();
