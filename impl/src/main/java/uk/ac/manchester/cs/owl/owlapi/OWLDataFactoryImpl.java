@@ -95,10 +95,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 	/**
 	 * @return singleton instance
+	 * @deprecated Do not create data factories directly; use OWLOntologyManager::getOWLDataFactory()
 	 */
-	//	public static OWLDataFactory getInstance() {
-	//		return instance;
-	//	}
+	@Deprecated
+	public static OWLDataFactory getInstance() {
+		System.err.println("OWLDataFactoryImpl.getInstance() WARNING: you should not use the implementation directly; this static method is here for backwards compatibility only");
+		return instance;
+	}
+	private static final OWLDataFactory instance=new OWLDataFactoryImpl(false);
+
 	public void purge() {
 		data.purge();
 	}
