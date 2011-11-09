@@ -44,15 +44,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Author: Matthew Horridge<br>
@@ -91,6 +84,9 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
         head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
         head.add(df.getSWRLDifferentIndividualsAtom(indIArg, indJArg));
 
+        OWLObjectSomeValuesFrom svf = df.getOWLObjectSomeValuesFrom(getOWLObjectProperty("p"), getOWLClass("A"));
+        head.add(df.getSWRLClassAtom(svf, varX));
+
         List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
         args.add(varQ);
         args.add(varR);
@@ -98,5 +94,11 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
         head.add(df.getSWRLBuiltInAtom(IRI.create("http://www.owlapi#myBuiltIn"), args));
         axioms.add(df.getSWRLRule(body, head));
         return axioms;
+    }
+
+    @Override
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        System.out.println(target.toString());
+        super.handleSaved(target, format);
     }
 }

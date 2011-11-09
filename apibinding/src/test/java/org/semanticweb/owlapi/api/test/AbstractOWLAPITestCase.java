@@ -193,7 +193,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
             ((RDFOntologyFormat) format).setAddMissingTypes(false);
         }
         manager.saveOntology(ont, format, target);
-       // handleSaved(target, format);
+       handleSaved(target, format);
         OWLOntologyManager man = Factory.getManager();
         OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringDocumentSource(target.toString()));
         if (!ont.isAnonymous() && !ont2.isAnonymous()) {

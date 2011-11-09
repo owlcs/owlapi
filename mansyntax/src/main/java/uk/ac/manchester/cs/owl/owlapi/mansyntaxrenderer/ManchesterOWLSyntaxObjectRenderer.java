@@ -922,7 +922,13 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
 
     public void visit(SWRLClassAtom node) {
+        if(node.getPredicate().isAnonymous()) {
+            write("(");
+        }
         node.getPredicate().accept(this);
+        if(node.getPredicate().isAnonymous()) {
+            write(")");
+        }
         write("(");
         node.getArgument().accept(this);
         write(")");

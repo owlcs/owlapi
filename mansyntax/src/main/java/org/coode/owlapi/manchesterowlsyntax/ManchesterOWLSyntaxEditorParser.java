@@ -1845,6 +1845,9 @@ public class ManchesterOWLSyntaxEditorParser {
         if (isClassName(predicate)) {
             return parseClassAtom();
         }
+        else if(predicate.equals("(")) {
+            return parseClassAtom();
+        }
         else if (isObjectPropertyName(predicate)) {
             return parseObjectPropertyAtom();
         }
@@ -1900,14 +1903,15 @@ public class ManchesterOWLSyntaxEditorParser {
 
 
     public SWRLAtom parseClassAtom() throws ParserException {
-        String predicate = consumeToken();
-        if (!isClassName(predicate)) {
-            throw createException(true, false, false, false);
-        }
+        OWLClassExpression predicate = parseIntersection();
+//        String predicate = consumeToken();
+//        if (!isClassName(predicate)) {
+//            throw createException(true, false, false, false);
+//        }
         consumeToken("(");
         SWRLIArgument obj = parseIObject();
         consumeToken(")");
-        return dataFactory.getSWRLClassAtom(getOWLClass(predicate), obj);
+        return dataFactory.getSWRLClassAtom(predicate, obj);
     }
 
 
