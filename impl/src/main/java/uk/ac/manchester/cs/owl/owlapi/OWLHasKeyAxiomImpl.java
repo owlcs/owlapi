@@ -105,9 +105,11 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         return CollectionFactory.getCopyOnRequestSet(propertyExpressions);
     }
 
+    @SuppressWarnings("rawtypes")
+    // this is necessary to avoid java 6 issues
     public Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
         Set<OWLDataPropertyExpression> props = new TreeSet<OWLDataPropertyExpression>();
-        for (OWLPropertyExpression<?,?> prop : propertyExpressions) {
+        for (OWLPropertyExpression prop : propertyExpressions) {
             if (prop.isDataPropertyExpression()) {
                 props.add((OWLDataPropertyExpression) prop);
             }
@@ -115,9 +117,11 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         return props;
     }
 
+    @SuppressWarnings("rawtypes")
+    // this is necessary to avoid java 6 issues
     public Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
         Set<OWLObjectPropertyExpression> props = new TreeSet<OWLObjectPropertyExpression>();
-        for (OWLPropertyExpression<?,?> prop : propertyExpressions) {
+        for (OWLPropertyExpression prop : propertyExpressions) {
             if (prop.isObjectPropertyExpression()) {
                 props.add((OWLObjectPropertyExpression) prop);
             }

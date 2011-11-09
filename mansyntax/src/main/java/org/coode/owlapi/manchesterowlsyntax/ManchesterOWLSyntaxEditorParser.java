@@ -1401,6 +1401,8 @@ public class ManchesterOWLSyntaxEditorParser {
         return pairs;
     }
 
+    @SuppressWarnings("rawtypes")
+    // this is necessary to avoid java 6 issues
     public Set<OntologyAxiomPair> parseNaryEquivalentProperties() throws ParserException {
         String tok = consumeToken();
         if (!tok.equalsIgnoreCase(EQUIVALENT_PROPERTIES)) {
@@ -1420,7 +1422,7 @@ public class ManchesterOWLSyntaxEditorParser {
         OWLAxiom propertyAxiom;
         if (properties.iterator().next().isObjectPropertyExpression()) {
             Set<OWLObjectPropertyExpression> ope = new HashSet<OWLObjectPropertyExpression>();
-            for (OWLPropertyExpression<?,?> pe : properties) {
+            for (OWLPropertyExpression pe : properties) {
                 ope.add((OWLObjectPropertyExpression) pe);
             }
             propertyAxiom = dataFactory.getOWLEquivalentObjectPropertiesAxiom(ope, annotations);
@@ -1429,7 +1431,7 @@ public class ManchesterOWLSyntaxEditorParser {
         }
         else {
             Set<OWLDataPropertyExpression> dpe = new HashSet<OWLDataPropertyExpression>();
-            for (OWLPropertyExpression<?,?> pe : properties) {
+            for (OWLPropertyExpression pe : properties) {
                 dpe.add((OWLDataPropertyExpression) pe);
             }
             propertyAxiom = dataFactory.getOWLEquivalentDataPropertiesAxiom(dpe, annotations);
@@ -2099,7 +2101,8 @@ public class ManchesterOWLSyntaxEditorParser {
         return pairs;
     }
 
-
+    @SuppressWarnings("rawtypes")
+    // this is necessary to avoid java 6 issues
     public Set<OntologyAxiomPair> parseDisjointProperties() throws ParserException {
         String section = consumeToken();
         if (!section.equalsIgnoreCase(DISJOINT_PROPERTIES)) {
@@ -2119,14 +2122,14 @@ public class ManchesterOWLSyntaxEditorParser {
         OWLAxiom propertiesAxiom;
         if (props.iterator().next().isObjectPropertyExpression()) {
             Set<OWLObjectPropertyExpression> ope = new HashSet<OWLObjectPropertyExpression>();
-            for (OWLPropertyExpression<?,?> pe : props) {
+            for (OWLPropertyExpression pe : props) {
                 ope.add((OWLObjectPropertyExpression) pe);
             }
             propertiesAxiom = dataFactory.getOWLDisjointObjectPropertiesAxiom(ope, annotations);
         }
         else {
             Set<OWLDataPropertyExpression> dpe = new HashSet<OWLDataPropertyExpression>();
-            for (OWLPropertyExpression<?,?> pe : props) {
+            for (OWLPropertyExpression pe : props) {
                 dpe.add((OWLDataPropertyExpression) pe);
             }
             propertiesAxiom = dataFactory.getOWLDisjointDataPropertiesAxiom(dpe, annotations);
