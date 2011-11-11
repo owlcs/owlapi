@@ -38,9 +38,11 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -63,15 +65,16 @@ import org.semanticweb.owlapi.util.NNF;
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 	private OWLAxiom nnf;
 
-    private final Set<OWLAnnotation> annotations;
+    private final List<OWLAnnotation> annotations;
 
     public OWLAxiomImpl(OWLDataFactory dataFactory, Collection<? extends OWLAnnotation> annotations) {
 		super(dataFactory);
 		if (!annotations.isEmpty()) {
-            this.annotations = CollectionFactory.getCopyOnRequestSet(new TreeSet<OWLAnnotation>(annotations));
+            this.annotations = new ArrayList<OWLAnnotation>(annotations);
+            Collections.sort(this.annotations);
         }
         else {
-            this.annotations = Collections.emptySet();
+            this.annotations = Collections.emptyList();
 		}
 	}
 
@@ -81,12 +84,15 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
 	//TODO when processing annotations on OWLOntology:: add axiom, needs optimizing
 	public Set<OWLAnnotation> getAnnotations() {
-        return annotations;
+		if(annotations.isEmpty()) {
+			return Collections.emptySet();
+		}
+		return CollectionFactory.getCopyOnRequestSet(annotations);
 	}
 
 	public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
 		if (annotations.isEmpty()) {
-            return annotations;
+			return Collections.emptySet();
         }
         else {
             Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
@@ -146,7 +152,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
 	/**
 	 * A convenience method for implementation that returns a set containing the
-	 * annotations on this axiom plus the annoations in the specified set.
+	 * annotations on this axiom plus the annotations in the specified set.
 	 *
 	 * @param annos
 	 *            The annotations to add to the annotations on this axiom
@@ -154,7 +160,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 	 */
 	protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
 		Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annos);
-		merged.addAll(getAnnotations());
+		merged.addAll(annotations);
 		return merged;
 	}
 
@@ -167,7 +173,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 			return false;
 		}
 		OWLAxiom other = (OWLAxiom) obj;
-        return annotations.equals(other.getAnnotations());
+        return getAnnotations().equals(other.getAnnotations());
 		}
 
 	public OWLAxiom getNNF() {
