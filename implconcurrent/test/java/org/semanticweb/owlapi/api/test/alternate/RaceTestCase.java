@@ -44,6 +44,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import junit.framework.TestCase;
 
@@ -66,13 +67,13 @@ public class RaceTestCase extends TestCase {
 	protected RaceCallback callback;
 	private Runnable writer = new Runnable() {
 		public void run() {
-			while (!done) {
+			while (!done.get()) {
 				callback.add();
 			}
 			callback.add();
 		}
 	};
-	private volatile boolean done = false;
+	final AtomicBoolean done = new AtomicBoolean(false);
 	ExecutorService exec = Executors.newFixedThreadPool(5);
 
 	public RaceTestCase(RaceCallback c) throws OWLOntologyCreationException {
@@ -90,7 +91,7 @@ public class RaceTestCase extends TestCase {
 	public void racing() throws InterruptedException {
 		exec.submit(writer);
 		callback.race();
-		done = true;
+		done.set( true);
 		exec.shutdown();
 		exec.awaitTermination(5, TimeUnit.SECONDS);
 	}

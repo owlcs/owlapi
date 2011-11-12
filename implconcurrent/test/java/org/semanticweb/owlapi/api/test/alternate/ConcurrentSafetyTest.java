@@ -44,10 +44,6 @@ import junit.framework.TestCase;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryCSR;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryCWR;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryFuture;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryLSR;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryLWR;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.test.MultiThreadChecker;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.test.TestMultithreadCallBack;
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.test.Tester;
@@ -73,9 +69,8 @@ public class ConcurrentSafetyTest extends TestCase {
 
 	private Tester tester = new Tester();
 	private OWLDataFactory[] factories = new OWLDataFactory[] {
-			 new DataFactoryCSR(),
-			new DataFactoryCWR(), new DataFactoryFuture(),
-			new DataFactoryLSR(), new DataFactoryLWR()};//,new OWLDataFactoryImpl() };
+			 new DataFactoryCSR()
+};//,new OWLDataFactoryImpl() };
 
 	public void testSafeImplementation() {
 		for (OWLDataFactory d : factories) {

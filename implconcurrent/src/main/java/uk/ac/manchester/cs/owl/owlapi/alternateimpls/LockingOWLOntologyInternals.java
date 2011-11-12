@@ -38,389 +38,117 @@
  */
 package uk.ac.manchester.cs.owl.owlapi.alternateimpls;
 
-import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLLogicalAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.MultiMap;
 
-import uk.ac.manchester.cs.owl.owlapi.Internals;
+import uk.ac.manchester.cs.owl.owlapi.ClassAxiomByClassPointer;
 import uk.ac.manchester.cs.owl.owlapi.InternalsImpl;
-
+import uk.ac.manchester.cs.owl.owlapi.MapPointer;
 
 /**
  * @author ignazio threadsafe implementation
  */
 public class LockingOWLOntologyInternals extends InternalsImpl {
+
+
+	protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t,
+			OWLAxiomVisitorEx<?> v) {
+		return new SyncMapPointer<K, V>(t, v, true, this);
+	}
+
+
+
+	protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(AxiomType<?> t,
+			OWLAxiomVisitorEx<?> v) {
+		return new SyncMapPointer<K, V>(t, v, false, this);
+	}
+
+	protected ClassAxiomByClassPointer buildClassAxiomByClass() {
+		return new ClassAxiomByClassPointer(null, null, false, this) {
+			@Override
+			public synchronized boolean contains(OWLClass key, OWLClassAxiom value) {
+				return super.contains(key, value);
+			}
+
+			@Override
+			public synchronized boolean containsKey(OWLClass key) {
+				return super.containsKey(key);
+			}
+
+			@Override
+			public synchronized Set<OWLClassAxiom> getAllValues() {
+				return super.getAllValues();
+			}
+
+			@Override
+			public synchronized Set<OWLClassAxiom> getValues(OWLClass key) {
+				return super.getValues(key);
+			}
+
+			@Override
+			public synchronized void init() {
+				super.init();
+			}
+
+			@Override
+			public synchronized boolean isInitialized() {
+				return super.isInitialized();
+			}
+
+			@Override
+			public synchronized Set<OWLClass> keySet() {
+				return super.keySet();
+			}
+
+			@Override
+			public synchronized boolean put(OWLClass key, OWLClassAxiom value) {
+				return super.put(key, value);
+			}
+
+			@Override
+			public synchronized boolean remove(OWLClass key, OWLClassAxiom value) {
+				return super.remove(key, value);
+			}
+
+			@Override
+			public synchronized int size() {
+				return super.size();
+			}
+		};
+	}
+
+	@Override
+	protected <K> SetPointer<K> buildSet() {
+
+		return new SetPointer<K>(CollectionFactory.<K>createSet()) {
+			public synchronized boolean add(K k) {return super.add(k);}
+			public synchronized boolean contains(K k) {return super.contains(k);}
+			@Override
+			public synchronized Set<K> copy() {
+				return super.copy();
+			}
+			@Override
+			public synchronized boolean isEmpty() {
+
+				return super.isEmpty();
+			}
+			public synchronized boolean remove(K k) {return super.remove(k);}
+		};
+	}
+
 	private Map<Object, ReadWriteLock> locks;
 
 	@SuppressWarnings("javadoc")
 	public LockingOWLOntologyInternals() {
-		locks = new IdentityHashMap<Object, ReadWriteLock>();
-		importsDeclarations = CollectionFactory.createSyncSet();
-		locks.put(importsDeclarations, new ReentrantReadWriteLock());
-		ontologyAnnotations = CollectionFactory.createSyncSet();
-		locks.put(ontologyAnnotations, new ReentrantReadWriteLock());
-		locks.put(axiomsByType, new ReentrantReadWriteLock());
-		//locks.put(logicalAxiom2AnnotatedAxiomMap, new ReentrantReadWriteLock());
-		generalClassAxioms = CollectionFactory.createSyncSet();
-		locks.put(generalClassAxioms, new ReentrantReadWriteLock());
-		propertyChainSubPropertyAxioms = CollectionFactory.createSyncSet();
-		locks.put(propertyChainSubPropertyAxioms, new ReentrantReadWriteLock());
-		locks.put(owlClassReferences, new ReentrantReadWriteLock());
-		locks.put(owlObjectPropertyReferences, new ReentrantReadWriteLock());
-		locks.put(owlDataPropertyReferences, new ReentrantReadWriteLock());
-		locks.put(owlIndividualReferences, new ReentrantReadWriteLock());
-		locks.put(owlAnonymousIndividualReferences, new ReentrantReadWriteLock());
-		locks.put(owlDatatypeReferences, new ReentrantReadWriteLock());
-		locks.put(owlAnnotationPropertyReferences, new ReentrantReadWriteLock());
-		locks.put(declarationsByEntity, new ReentrantReadWriteLock());
-		locks.put(getClassAxiomsByClass(), new ReentrantReadWriteLock());
-		locks.put(getSubClassAxiomsByLHS(), new ReentrantReadWriteLock());
-		locks.put(getSubClassAxiomsByRHS(), new ReentrantReadWriteLock());
-		locks.put(getEquivalentClassesAxiomsByClass(), new ReentrantReadWriteLock());
-		locks.put(getDisjointClassesAxiomsByClass(), new ReentrantReadWriteLock());
-		locks.put(getDisjointUnionAxiomsByClass(), new ReentrantReadWriteLock());
-		locks.put(getHasKeyAxiomsByClass(), new ReentrantReadWriteLock());
-		locks.put(getObjectSubPropertyAxiomsByLHS(), new ReentrantReadWriteLock());
-		locks.put(getObjectSubPropertyAxiomsByRHS(), new ReentrantReadWriteLock());
-		locks.put(getEquivalentObjectPropertyAxiomsByProperty(),
-				new ReentrantReadWriteLock());
-		locks.put(getDisjointObjectPropertyAxiomsByProperty(),
-				new ReentrantReadWriteLock());
-		locks.put(getObjectPropertyDomainAxiomsByProperty(), new ReentrantReadWriteLock());
-		locks.put(getObjectPropertyRangeAxiomsByProperty(), new ReentrantReadWriteLock());
-		locks.put(getFunctionalObjectPropertyAxiomsByProperty(),
-				new ReentrantReadWriteLock());
-		locks.put(getInverseFunctionalPropertyAxiomsByProperty(),
-				new ReentrantReadWriteLock());
-		locks.put(getSymmetricPropertyAxiomsByProperty(), new ReentrantReadWriteLock());
-		locks.put(getAsymmetricPropertyAxiomsByProperty(), new ReentrantReadWriteLock());
-		locks.put(getReflexivePropertyAxiomsByProperty(), new ReentrantReadWriteLock());
-		locks.put(getIrreflexivePropertyAxiomsByProperty(), new ReentrantReadWriteLock());
-		locks.put(getTransitivePropertyAxiomsByProperty(), new ReentrantReadWriteLock());
-		locks.put(getInversePropertyAxiomsByProperty(), new ReentrantReadWriteLock());
-		locks.put(getDataSubPropertyAxiomsByLHS(), new ReentrantReadWriteLock());
-		locks.put(getDataSubPropertyAxiomsByRHS(), new ReentrantReadWriteLock());
-		locks.put(getEquivalentDataPropertyAxiomsByProperty(),
-				new ReentrantReadWriteLock());
-		locks.put(getDisjointDataPropertyAxiomsByProperty(), new ReentrantReadWriteLock());
-		locks.put(getDataPropertyDomainAxiomsByProperty(), new ReentrantReadWriteLock());
-		locks.put(getDataPropertyRangeAxiomsByProperty(), new ReentrantReadWriteLock());
-		locks.put(getFunctionalDataPropertyAxiomsByProperty(),
-				new ReentrantReadWriteLock());
-		locks.put(getClassAssertionAxiomsByIndividual(), new ReentrantReadWriteLock());
-		locks.put(getClassAssertionAxiomsByClass(), new ReentrantReadWriteLock());
-		locks.put(getObjectPropertyAssertionsByIndividual(), new ReentrantReadWriteLock());
-		locks.put(getDataPropertyAssertionsByIndividual(), new ReentrantReadWriteLock());
-		locks.put(getNegativeObjectPropertyAssertionAxiomsByIndividual(),
-				new ReentrantReadWriteLock());
-		locks.put(getNegativeDataPropertyAssertionAxiomsByIndividual(),
-				new ReentrantReadWriteLock());
-		locks.put(getDifferentIndividualsAxiomsByIndividual(),
-				new ReentrantReadWriteLock());
-		locks.put(getSameIndividualsAxiomsByIndividual(), new ReentrantReadWriteLock());
-		locks.put(getAnnotationAssertionAxiomsBySubject(), new ReentrantReadWriteLock());
+
 	}
 
-	@Override
-	protected <K, V> MultiMap<K, V> buildMap() {
-		return new MultiMap<K, V>(true, false);
-	}
-
-	@Override
-	public <K, V extends OWLAxiom> Set<K> getKeyset(Pointer<K, V> pointer) {
-		final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
-		if (mapPointer.getMap() == null) {
-			Lock l = locks.get(mapPointer).writeLock();
-			l.lock();
-			try {
-				mapPointer.init();
-			}
-			finally {
-				l.unlock();
-			}
-		}
-		Lock l = locks.get(mapPointer).readLock();
-		l.lock();
-		try {
-			return CollectionFactory.getCopyOnRequestSet(mapPointer.getMap().keySet());
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public <K, V extends OWLAxiom> Set<V> getValues(Pointer<K, V> pointer, K key) {
-		final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
-		if (mapPointer.getMap() == null) {
-			Lock l = locks.get(mapPointer).writeLock();
-			l.lock();
-			try {
-				mapPointer.init();
-			}
-			finally {
-				l.unlock();
-			}
-		}
-		Lock l = locks.get(mapPointer).readLock();
-		l.lock();
-		try {
-			return CollectionFactory.getCopyOnRequestSet(mapPointer.getMap().get(key));
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public <K, V extends OWLAxiom> boolean remove(Internals.Pointer<K, V> pointer, K k,
-			V v) {
-		final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
-		Lock l = locks.get(mapPointer).writeLock();
-		l.lock();
-		try {
-			return super.remove(pointer, k, v);
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public <K, V extends OWLAxiom> boolean add(Pointer<K, V> p, K k, V v) {
-		final MapPointer<K, V> mapPointer = (MapPointer<K, V>) p;
-		if (locks.get(p) == null) {
-			System.out.println("LockingOWLOntologyInternals.add()");
-		}
-		Lock l = locks.get(mapPointer).writeLock();
-		l.lock();
-		try {
-			return super.add(p, k, v);
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public Set<OWLImportsDeclaration> getImportsDeclarations() {
-		Lock l = locks.get(importsDeclarations).readLock();
-		l.lock();
-		try {
-			return super.getImportsDeclarations();
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public boolean addImportsDeclaration(OWLImportsDeclaration importDeclaration) {
-		Lock l = locks.get(importsDeclarations).writeLock();
-		l.lock();
-		try {
-			return super.addImportsDeclaration(importDeclaration);
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public boolean removeImportsDeclaration(OWLImportsDeclaration importDeclaration) {
-		Lock l = locks.get(importsDeclarations).writeLock();
-		l.lock();
-		try {
-			return super.removeImportsDeclaration(importDeclaration);
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	protected <K, V> Map<K, V> createMap() {
-		return CollectionFactory.createSyncMap();
-	}
-
-	@Override
-	public boolean isEmpty() {
-		Lock l = locks.get(axiomsByType).readLock();
-		l.lock();
-		try {
-			return super.isEmpty();
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public Set<OWLAnnotation> getOntologyAnnotations() {
-		Lock l = locks.get(ontologyAnnotations).readLock();
-		l.lock();
-		try {
-			return super.getOntologyAnnotations();
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public boolean addOntologyAnnotation(OWLAnnotation ann) {
-		Lock l = locks.get(ontologyAnnotations).writeLock();
-		l.lock();
-		try {
-			return super.addOntologyAnnotation(ann);
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public boolean removeOntologyAnnotation(OWLAnnotation ann) {
-		Lock l = locks.get(ontologyAnnotations).writeLock();
-		l.lock();
-		try {
-			return super.removeOntologyAnnotation(ann);
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public int getAxiomCount() {
-		Lock l = locks.get(axiomsByType).readLock();
-		l.lock();
-		try {
-			return super.getAxiomCount();
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public Set<OWLAxiom> getAxioms() {
-		Lock l = locks.get(axiomsByType).readLock();
-		l.lock();
-		try {
-			return super.getAxioms();
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType) {
-		Lock l = locks.get(axiomsByType).readLock();
-		l.lock();
-		try {
-			return super.getAxiomCount(axiomType);
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public Set<OWLLogicalAxiom> getLogicalAxioms() {
-		Lock l = locks.get(axiomsByType).readLock();
-		l.lock();
-		try {
-			return super.getLogicalAxioms();
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public int getLogicalAxiomCount() {
-		Lock l = locks.get(axiomsByType).readLock();
-		l.lock();
-		try {
-			return super.getLogicalAxiomCount();
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public Set<OWLClassAxiom> getGeneralClassAxioms() {
-		Lock l = locks.get(generalClassAxioms).readLock();
-		l.lock();
-		try {
-			return super.getGeneralClassAxioms();
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public void addGeneralClassAxioms(OWLClassAxiom ax) {
-		Lock l = locks.get(generalClassAxioms).writeLock();
-		l.lock();
-		try {
-			super.addGeneralClassAxioms(ax);
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public void removeGeneralClassAxioms(OWLClassAxiom ax) {
-		Lock l = locks.get(generalClassAxioms).writeLock();
-		l.lock();
-		try {
-			super.removeGeneralClassAxioms(ax);
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public void addPropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
-		Lock l = locks.get(propertyChainSubPropertyAxioms).readLock();
-		l.lock();
-		try {
-			super.addPropertyChainSubPropertyAxioms(ax);
-		}
-		finally {
-			l.unlock();
-		}
-	}
-
-	@Override
-	public void removePropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
-		Lock l = locks.get(propertyChainSubPropertyAxioms).writeLock();
-		l.lock();
-		try {
-			super.removePropertyChainSubPropertyAxioms(ax);
-		}
-		finally {
-			l.unlock();
-		}
-	}
 }

@@ -39,133 +39,50 @@
 
 package uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLAnnotationPropertyImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternals;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl;
 
 /**
  * @author ignazio
  * concurrent hash maps with strong references used for cache
  */
-public class InternalsCSR implements OWLDataFactoryInternals {
-    private final ConcurrentHashMap<IRI, OWLEntity> classesByURI;
-    private final ConcurrentHashMap<IRI, OWLEntity> objectPropertiesByURI;
-    private final ConcurrentHashMap<IRI, OWLEntity> dataPropertiesByURI;
-    private final ConcurrentHashMap<IRI, OWLEntity> datatypesByURI;
-    private final ConcurrentHashMap<IRI, OWLEntity> individualsByURI;
-    private final ConcurrentHashMap<IRI, OWLEntity> annotationPropertiesByURI;
-    private final OWLDataFactory factory;
+public class InternalsCSR extends  OWLDataFactoryInternalsImpl {
+
+	@Override
+	protected <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache(OWLDataFactory f) {
+
+		return new BuildableWeakIndexCache<V>(f) {
+			@Override
+			public synchronized V cache(IRI s, Buildable v) {
+
+
+				return super.cache(s, v);
+			}
+			public synchronized V cache(IRI s, V v) {return super.cache(s, v);}
+			@Override
+			public synchronized void clear() {
+
+				super.clear();
+			}
+			@Override
+			public synchronized String toString() {
+
+				return super.toString();
+			}
+		};
+	}
+
+
     /**
      * @param f the factory to refer to
      */
     public InternalsCSR(OWLDataFactory f) {
-        factory = f;
-        classesByURI = CollectionFactory.createSyncMap();
-        objectPropertiesByURI = CollectionFactory.createSyncMap();
-        dataPropertiesByURI = CollectionFactory.createSyncMap();
-        datatypesByURI = CollectionFactory.createSyncMap();
-        individualsByURI = CollectionFactory.createSyncMap();
-        annotationPropertiesByURI = CollectionFactory.createSyncMap();
+    	super(f);
+
     }
 
-    private OWLEntity unwrap(Map<IRI, OWLEntity> map, IRI iri, BuildableObjects type) {
-        OWLEntity toReturn = map.get(iri);
-        if (toReturn == null) {
-            toReturn = type.build(factory, iri);
-            map.put(iri, toReturn);
-        }
-        return toReturn;
-    }
 
-    private enum BuildableObjects {
-        OWLCLASS {
-            @Override
-            OWLEntity build(OWLDataFactory f, IRI iri) {
-                return new OWLClassImpl(f, iri);
-            }
-        },
-        OWLOBJECTPROPERTY {
-            @Override
-            OWLEntity build(OWLDataFactory f, IRI iri) {
-                return new OWLObjectPropertyImpl(f, iri);
-            }
-        },
-        OWLDATAPROPERTY {
-            @Override
-            OWLEntity build(OWLDataFactory f, IRI iri) {
-                return new OWLDataPropertyImpl(f, iri);
-            }
-        },
-        OWLNAMEDINDIVIDUAL {
-            @Override
-            OWLEntity build(OWLDataFactory f, IRI iri) {
-                return new OWLNamedIndividualImpl(f, iri);
-            }
-        },
-        OWLDATATYPE {
-            @Override
-            OWLEntity build(OWLDataFactory f, IRI iri) {
-                return new OWLDatatypeImpl(f, iri);
-            }
-        },
-        OWLANNOTATIONPROPERTY {
-            @Override
-            OWLEntity build(OWLDataFactory f, IRI iri) {
-                return new OWLAnnotationPropertyImpl(f, iri);
-            }
-        };
-
-        abstract OWLEntity build(OWLDataFactory f, IRI iri);
-    }
-
-    public OWLClass getOWLClass(IRI iri) {
-        return (OWLClass) unwrap(classesByURI, iri, BuildableObjects.OWLCLASS);
-    }
-
-    public void purge() {
-        classesByURI.clear();
-        objectPropertiesByURI.clear();
-        dataPropertiesByURI.clear();
-        datatypesByURI.clear();
-        individualsByURI.clear();
-        annotationPropertiesByURI.clear();
-    }
-
-    public OWLObjectProperty getOWLObjectProperty(IRI iri) {
-        return (OWLObjectProperty) unwrap(objectPropertiesByURI, iri, BuildableObjects.OWLOBJECTPROPERTY);
-    }
-
-    public OWLDataProperty getOWLDataProperty(IRI iri) {
-        return (OWLDataProperty) unwrap(dataPropertiesByURI, iri, BuildableObjects.OWLDATAPROPERTY);
-    }
-
-    public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
-        return (OWLNamedIndividual) unwrap(individualsByURI, iri, BuildableObjects.OWLNAMEDINDIVIDUAL);
-    }
-
-    public OWLDatatype getOWLDatatype(IRI iri) {
-        return (OWLDatatype) unwrap(datatypesByURI, iri, BuildableObjects.OWLDATATYPE);
-    }
-
-    public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
-        return (OWLAnnotationProperty) unwrap(annotationPropertiesByURI, iri, BuildableObjects.OWLANNOTATIONPROPERTY);
-    }
 }

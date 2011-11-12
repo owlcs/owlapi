@@ -47,6 +47,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  *Datafactory using concurrent hash maps with strong references
  */
 public class DataFactoryCSR extends OWLDataFactoryImpl {
+
     private static final DataFactoryCSR instance = new DataFactoryCSR();
 
     public static DataFactoryCSR getInstance() {
