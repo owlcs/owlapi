@@ -281,7 +281,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLDataHasValue desc) {
-            throw new RuntimeException();
+        	newClassExpression = df.getOWLNothing();
         }
 
 
@@ -343,12 +343,12 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLObjectOneOf desc) {
-            throw new RuntimeException();
+        	newClassExpression = df.getOWLNothing();
         }
 
 
         public void visit(OWLObjectHasSelf desc) {
-            throw new RuntimeException();
+        	newClassExpression = df.getOWLNothing();
         }
 
 
@@ -368,7 +368,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLObjectHasValue desc) {
-            throw new RuntimeException();
+        	newClassExpression = df.getOWLNothing();
         }
 
 

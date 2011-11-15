@@ -211,7 +211,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
 
         public void visit(OWLDatatypeDefinitionAxiom axiom) {
-            throw new RuntimeException("NOT IMPLEMENTED");
+        	isLocal = true;
         }
 
         // BUGFIX: (TS) Antisymm OP axioms are local in the *_BOTTOM case:
@@ -314,7 +314,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             Collection<OWLClassExpression> disjs = axiom.getClassExpressions();
             int size = disjs.size();
             if (size == 1) {
-                throw new RuntimeException("Unary disjoint axiom.");
+            	//XXX actually being here means the axiom is not OWL 2 conformant
+            	isLocal = true;
             }
             else {
                 boolean nonBottomEquivDescFound = false;
@@ -342,7 +343,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     Collection<OWLDataPropertyExpression> disjs = axiom.getProperties();
                     int size = disjs.size();
                     if (size == 1) {
-                        throw new RuntimeException("Unary disjoint axiom.");
+                    	//XXX actually being here means the axiom is not OWL 2 conformant
+                    	isLocal = true;
                     }
                     else {
                         boolean nonBottomEquivPropFound = false;
@@ -376,7 +378,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     Collection<OWLObjectPropertyExpression> disjs = axiom.getProperties();
                     int size = disjs.size();
                     if (size == 1) {
-                        throw new RuntimeException("Unary disjoint axiom.");
+                    	//XXX actually being here means the axiom is not OWL 2 conformant
+                    	isLocal = true;
                     }
                     else {
                         boolean nonBottomEquivPropFound = false;
@@ -770,19 +773,19 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
         public void visit(OWLHasKeyAxiom axiom) {
-            throw new OWLRuntimeException("NOT IMPLEMENTED");
+            isLocal=true;
         }
 
         public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-            throw new OWLRuntimeException("NOT IMPLEMENTED");
+            isLocal=true;
         }
 
         public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-            throw new OWLRuntimeException("NOT IMPLEMENTED");
+            isLocal=true;
         }
 
         public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-            throw new OWLRuntimeException("NOT IMPLEMENTED");
+            isLocal=true;
         }
     }
 
