@@ -1,5 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -97,11 +99,31 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
 	// Axiom Visitor stuff
 	//
 	//////////////////////////////////////////////////////////////////////////////////////////////
+	private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
+		public void visit(CollectionContainer<OWLAnnotation> c) {}
+
+		public void visitItem(OWLAnnotation c) {
+			c.accept(AbstractEntityRegistrationManager.this);
+		}
+	};
+
 	protected void processAxiomAnnotations(OWLAxiom ax) {
-		for (OWLAnnotation anno : ax.getAnnotations()) {
-			anno.accept(this);
+		// an OWLAxiomImpl will implement this interface with <OWLAnnotation > parameter; this will avoid creating a defensive copy of the annotation set
+		if (ax instanceof CollectionContainer) {
+			((CollectionContainer<OWLAnnotation>) ax).accept(annotationVisitor);
+		} else {
+			// default behavior: iterate over the annotations outside the axiom
+			for (OWLAnnotation anno : ax.getAnnotations()) {
+				anno.accept(this);
+			}
 		}
 	}
+
+//	protected void processAxiomAnnotations(OWLAxiom ax) {
+//		for (OWLAnnotation anno : ax.getAnnotations()) {
+//			anno.accept(this);
+//		}
+//	}
 
 	public void visit(OWLSubClassOfAxiom axiom) {
 		axiom.getSubClass().accept(this);
@@ -464,8 +486,11 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
 	public void visit(OWLAnnotation annotation) {
 		annotation.getProperty().accept(this);
 		annotation.getValue().accept(this);
-		for (OWLAnnotation anno : annotation.getAnnotations()) {
+		final Set<OWLAnnotation> annotations = annotation.getAnnotations();
+		if(annotations.size()>0) {
+		for (OWLAnnotation anno : annotations) {
 			anno.accept(this);
+		}
 		}
 	}
 

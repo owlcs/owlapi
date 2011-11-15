@@ -43,8 +43,6 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -54,13 +52,6 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
 
 
-    private static final OWLDataProperty TOP_DATA_PROPERTY = new OWLDataFactoryImpl().getOWLTopDataProperty();
-
-    private static final OWLDataPropertyNode TOP_NODE = new OWLDataPropertyNode(TOP_DATA_PROPERTY);
-
-    private static final OWLDataProperty BOTTOM_DATA_PROPERTY = new OWLDataFactoryImpl().getOWLBottomDataProperty();
-
-    private static final OWLDataPropertyNode BOTTOM_NODE = new OWLDataPropertyNode(BOTTOM_DATA_PROPERTY);
 
     /**
      * empty node
@@ -96,12 +87,12 @@ public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
      * @return singleton top node
      */
     public static OWLDataPropertyNode getTopNode() {
-        return TOP_NODE;
+        return TOP_DATA_NODE;
     }
     /**
      * @return singleton bottom node
      */
     public static OWLDataPropertyNode getBottomNode() {
-        return BOTTOM_NODE;
+        return BOTTOM_DATA_NODE;
     }
 }

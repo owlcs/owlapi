@@ -22,4 +22,9 @@ public class WeakCache<K> {
 		prefixCache.put(s, new WeakReference<K>(s));
 		return s;
 	}
+
+	public void clear() {
+		prefixCache.clear();
+
+	}
 }

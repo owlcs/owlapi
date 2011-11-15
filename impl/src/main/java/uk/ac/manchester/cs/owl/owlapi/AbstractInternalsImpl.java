@@ -41,9 +41,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.model.AxiomType.*;
 import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.*;
 
-import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -88,132 +86,31 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.MultiMap;
-
-import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
-import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 
 /** this class encapsulates all lazily built indexes */
 public abstract class AbstractInternalsImpl implements Internals {
 	protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t,
 			OWLAxiomVisitorEx<?> v) {
-		MapPointer<K, V> m = new MapPointer<K, V>(t, v);
-		m.map = buildMap();
-		return m;
+		return new MapPointer<K, V>(t, v, true, this);
 	}
 
 	protected <K, V extends OWLAxiom> MapPointer<K, V> build() {
-		MapPointer<K, V> m = new MapPointer<K, V>(null, null);
-		m.map = buildMap();
-		return m;
+		return build(null, null);
 	}
 
 	protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(AxiomType<?> t,
 			OWLAxiomVisitorEx<?> v) {
-		MapPointer<K, V> m = new MapPointer<K, V>(t, v);
-		return m;
+		return new MapPointer<K, V>(t, v, false, this);
 	}
 
-	protected <K, V> MultiMap<K, V> buildMap() {
-		return new MultiMap<K, V>(false, true);
+	protected ClassAxiomByClassPointer buildClassAxiomByClass() {
+		return new ClassAxiomByClassPointer(null, null, false, this);
 	}
 
-	// lazy init
-	protected class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V> {
-		protected volatile MultiMap<K, V> map;
-		final AxiomType<?> type;
-		final OWLAxiomVisitorEx<?> visitor;
 
-		public MapPointer(AxiomType<?> t, OWLAxiomVisitorEx<?> v) {
-			type = t;
-			visitor = v;
-		}
+	protected final MapPointer<OWLClass, OWLClassAxiom> classAxiomsByClass = buildClassAxiomByClass();
 
-		public MultiMap<K, V> getMap(){
-			return map;
-		}
 
-		public MapPointer(AxiomType<?> t, OWLAxiomVisitorEx<?> v, boolean threadsafe,
-				boolean useSet) {
-			this(t, v);
-			map = new MultiMap<K, V>(threadsafe, useSet);
-		}
-
-		public void init() {
-			if (type == null || map != null) {
-				return;
-			}
-			if (visitor instanceof InitVisitor) {
-				fill(this, type, (InitVisitor<K>) visitor);
-			} else {
-				fill(this, type, (InitCollectionVisitor<K>) visitor);
-			}
-		}
-	}
-
-	protected final MapPointer<OWLClass, OWLClassAxiom> classAxiomsByClass = new MapPointer<OWLClass, OWLClassAxiom>(
-			null, null) {
-		@Override
-		public void init() {
-			if (map != null) {
-				return;
-			}
-			// special case: this map needs other maps to be initialized first
-			map = buildMap();
-			for (OWLClass c : getKeyset(getEquivalentClassesAxiomsByClass())) {
-				for (OWLClassAxiom ax : getValues(getEquivalentClassesAxiomsByClass(), c)) {
-					add(this, c, ax);
-				}
-			}
-			//Maps.SubClassAxiomsByLHS.initMap(impl);
-			for (OWLClass c : getKeyset(getSubClassAxiomsByLHS())) {
-				for (OWLClassAxiom ax : getValues(getSubClassAxiomsByLHS(), c)) {
-					add(this, c, ax);
-				}
-			}
-			//Maps.DisjointClassesAxiomsByClass.initMap(impl);
-			for (OWLClass c : getKeyset(getDisjointClassesAxiomsByClass())) {
-				for (OWLClassAxiom ax : getValues(getDisjointClassesAxiomsByClass(), c)) {
-					add(this, c, ax);
-				}
-			}
-			//Maps.DisjointUnionAxiomsByClass.initMap(impl);
-			for (OWLClass c : getKeyset(getDisjointUnionAxiomsByClass())) {
-				for (OWLClassAxiom ax : getValues(getDisjointUnionAxiomsByClass(), c)) {
-					add(this, c, ax);
-				}
-			}
-		}
-	};
-
-	protected <K, V extends OWLAxiom> void fill(MapPointer<K, V> map, AxiomType<?> type,
-			InitVisitorFactory.InitVisitor<K> visitor) {
-		if (map.map != null) {
-			return;
-		}
-		map.map = buildMap();
-		for (V ax : (Set<V>) getValues(getAxiomsByType(), type)) {
-			K key = ax.accept(visitor);
-			if (key != null) {
-				map.map.put(key, ax);
-			}
-		}
-	}
-
-	// NOTE: the parameter is reassigned inside the method, the field that is passed in is not modified in the original object
-	protected <K, V extends OWLAxiom> void fill(MapPointer<K, V> map, AxiomType<?> type,
-			InitVisitorFactory.InitCollectionVisitor<K> visitor) {
-		if (map.map != null) {
-			return;
-		}
-		map.map = buildMap();
-		for (V ax : (Set<V>) getValues(getAxiomsByType(), type)) {
-			Collection<K> keys = ax.accept(visitor);
-			for (K key : keys) {
-				add(map, key, ax);
-			}
-		}
-	}
 
 	protected final MapPointer<OWLClass, OWLSubClassOfAxiom> subClassAxiomsByLHS = buildLazy(
 			SUBCLASS_OF, classsubnamed);

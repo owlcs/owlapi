@@ -53,8 +53,11 @@ public class MultiMap<Key, Value> {
 	private final Map<Key, Collection<Value>> map;
 	private int size = 0;
 	private boolean useSets = true;
-	private final boolean threadSafe;
+	private boolean threadSafe=false;
 
+	public MultiMap() {
+		this(false);
+	}
 	public MultiMap(boolean threadsafe) {
 		threadSafe = threadsafe;
 		if (threadSafe) {
@@ -221,5 +224,10 @@ public class MultiMap<Key, Value> {
 	public void clear() {
 		this.map.clear();
 		this.size = 0;
+	}
+	@Override
+	public String toString() {
+
+		return "MultiMap "+size()+"\n"+map.toString().replace(",", "\n");
 	}
 }

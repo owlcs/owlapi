@@ -44,8 +44,6 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -54,15 +52,6 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  */
 @SuppressWarnings("javadoc")
 public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
-
-
-    private static final OWLObjectProperty TOP_OBJECT_PROPERTY = new OWLDataFactoryImpl().getOWLTopObjectProperty();
-
-    private static final OWLObjectPropertyNode TOP_NODE = new OWLObjectPropertyNode(TOP_OBJECT_PROPERTY);
-
-    private static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = new OWLDataFactoryImpl().getOWLBottomObjectProperty();
-
-    private static final OWLObjectPropertyNode BOTTOM_NODE = new OWLObjectPropertyNode(BOTTOM_OBJECT_PROPERTY);
 
     public OWLObjectPropertyNode() {
     }
@@ -86,10 +75,10 @@ public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpressi
     }
 
     public static OWLObjectPropertyNode getTopNode() {
-        return TOP_NODE;
+        return TOP_OBJECT_NODE;
     }
 
     public static OWLObjectPropertyNode getBottomNode() {
-        return BOTTOM_NODE;
+        return BOTTOM_OBJECT_NODE;
     }
 }

@@ -36,8 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -46,47 +44,148 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author ignazio
- * no cache used
+ * @author ignazio no cache used
  */
 public class InternalsNoCache implements OWLDataFactoryInternals {
-    private final OWLDataFactory factory;
+	private final OWLDataFactory factory;
 
-    /**
-     * @param f the factory to refer to
-     */
-    public InternalsNoCache(OWLDataFactory f) {
-        factory = f;
-    }
+	/**
+	 * @param f
+	 *            the factory to refer to
+	 */
+	public InternalsNoCache(OWLDataFactory f) {
+		factory = f;
+	}
 
-    public void purge() {
-    }
+	public void purge() {}
 
-    public OWLClass getOWLClass(IRI iri) {
-        return new OWLClassImpl(factory, iri);
-    }
+	public OWLClass getOWLClass(IRI iri) {
+		return new OWLClassImpl(factory, iri);
+	}
 
-    public OWLObjectProperty getOWLObjectProperty(IRI iri) {
-        return new OWLObjectPropertyImpl(factory, iri);
-    }
+	public OWLObjectProperty getOWLObjectProperty(IRI iri) {
+		return new OWLObjectPropertyImpl(factory, iri);
+	}
 
-    public OWLDataProperty getOWLDataProperty(IRI iri) {
-        return new OWLDataPropertyImpl(factory, iri);
-    }
+	public OWLDataProperty getOWLDataProperty(IRI iri) {
+		return new OWLDataPropertyImpl(factory, iri);
+	}
 
-    public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
-        return new OWLNamedIndividualImpl(factory, iri);
-    }
+	public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
+		return new OWLNamedIndividualImpl(factory, iri);
+	}
 
-    public OWLDatatype getOWLDatatype(IRI iri) {
-        return new OWLDatatypeImpl(factory, iri);
-    }
+	public OWLDatatype getOWLDatatype(IRI iri) {
+		return new OWLDatatypeImpl(factory, iri);
+	}
 
-    public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
-        return new OWLAnnotationPropertyImpl(factory, iri);
-    }
+	public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
+		return new OWLAnnotationPropertyImpl(factory, iri);
+	}
+
+	public OWLLiteral getOWLLiteral(float value) {
+		return new OWLLiteralImplFloat(factory, value, getFloatOWLDatatype());
+	}
+
+	public OWLLiteral getOWLLiteral(String value) {
+		return new OWLLiteralImpl(factory, value,
+				getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+	}
+
+	public OWLLiteral getOWLLiteral(String literal, String lang) {
+		String normalisedLang;
+		if (lang == null) {
+			normalisedLang = "";
+		} else {
+			normalisedLang = lang.trim().toLowerCase();
+		}
+		return new OWLLiteralImpl(factory, literal, normalisedLang);
+	}
+
+	public OWLLiteral getOWLLiteral(int value) {
+		return new OWLLiteralImplInteger(factory, value, getIntegerOWLDatatype());
+	}
+
+	public OWLLiteral getOWLLiteral(double value) {
+		return new OWLLiteralImplDouble(factory, value, getDoubleOWLDatatype());
+	}
+
+	public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
+		OWLLiteral literal;
+		if (datatype.isRDFPlainLiteral()) {
+			int sep = lexicalValue.lastIndexOf('@');
+			if (sep != -1) {
+				String lex = lexicalValue.substring(0, sep);
+				String lang = lexicalValue.substring(sep + 1);
+				literal = new OWLLiteralImpl(factory, lex, lang);
+			} else {
+				literal = new OWLLiteralImpl(factory, lexicalValue, datatype);
+			}
+		} else {
+			// check the four special cases
+			try {
+				if (datatype.isBoolean()) {
+					lexicalValue = lexicalValue.trim();
+					if (lexicalValue.equals("1")) {
+						literal = factory.getOWLLiteral(true);
+					} else if (lexicalValue.equals("0")) {
+						literal = factory.getOWLLiteral(false);
+					} else {
+						literal = factory.getOWLLiteral(Boolean
+								.parseBoolean(lexicalValue));
+					}
+				} else if (datatype.isFloat()) {
+					float f;
+					try {
+						f = Float.parseFloat(lexicalValue);
+						literal = getOWLLiteral(f);
+					} catch (NumberFormatException e) {
+						literal = new OWLLiteralImpl(factory, lexicalValue, datatype);
+					}
+				} else if (datatype.isDouble()) {
+					literal = getOWLLiteral(Double.parseDouble(lexicalValue));
+				} else if (datatype.isInteger()) {
+					literal = getOWLLiteral(Integer.parseInt(lexicalValue));
+				} else {
+					literal = new OWLLiteralImpl(factory, lexicalValue, datatype);
+				}
+			} catch (NumberFormatException e) {
+				// some literal is malformed, i.e., wrong format
+				literal = new OWLLiteralImpl(factory, lexicalValue, datatype);
+			}
+		}
+		return literal;
+	}
+
+	public OWLDatatype getTopDatatype() {
+		return getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
+	}
+
+	public OWLDatatype getIntegerOWLDatatype() {
+		return getOWLDatatype(XSDVocabulary.INTEGER.getIRI());
+	}
+
+	public OWLDatatype getFloatOWLDatatype() {
+		return getOWLDatatype(XSDVocabulary.FLOAT.getIRI());
+	}
+
+	public OWLDatatype getDoubleOWLDatatype() {
+		return getOWLDatatype(XSDVocabulary.DOUBLE.getIRI());
+	}
+
+	public OWLDatatype getBooleanOWLDatatype() {
+		return getOWLDatatype(XSDVocabulary.BOOLEAN.getIRI());
+	}
+
+	public OWLDatatype getRDFPlainLiteral() {
+		return getOWLDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
+	}
+
 }

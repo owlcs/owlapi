@@ -43,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
@@ -100,4 +101,29 @@ public interface OWLDataFactoryInternals {
 	 *         policies
 	 */
 	OWLAnnotationProperty getOWLAnnotationProperty(IRI iri);
+
+	public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype);
+
+	public OWLLiteral getOWLLiteral(int value);
+
+	public OWLLiteral getOWLLiteral(double value);
+
+	public OWLLiteral getOWLLiteral(float value);
+
+	public OWLLiteral getOWLLiteral(String value);
+
+	public OWLLiteral getOWLLiteral(String literal, String lang);
+
+	public OWLDatatype getTopDatatype();
+
+	public OWLDatatype getIntegerOWLDatatype();
+
+	public OWLDatatype getFloatOWLDatatype();
+
+	public OWLDatatype getDoubleOWLDatatype();
+
+	public OWLDatatype getBooleanOWLDatatype();
+
+	public OWLDatatype getRDFPlainLiteral();
+
 }

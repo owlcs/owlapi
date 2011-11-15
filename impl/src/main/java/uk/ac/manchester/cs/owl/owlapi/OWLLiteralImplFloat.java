@@ -87,6 +87,10 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
 		return Float.toString(literal);
 	}
 
+	public Float getFloat() {
+		return literal;
+	}
+
 	public boolean isRDFPlainLiteral() {
 		return false;
 	}

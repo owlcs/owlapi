@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.Collection;
@@ -144,6 +143,9 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
+import uk.ac.manchester.cs.owl.owlapi.CollectionContainer;
+import uk.ac.manchester.cs.owl.owlapi.CollectionContainerVisitor;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -166,25 +168,31 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 	private boolean collectIndividuals = true;
 	private boolean collectDatatypes = true;
 
-
 	/**
-	 * @param toReturn the set that will contain the results
-	 * @param anonsToReturn the set that will contain the anon individuals
+	 * @param toReturn
+	 *            the set that will contain the results
+	 * @param anonsToReturn
+	 *            the set that will contain the anon individuals
 	 */
 	public OWLEntityCollector(Set<OWLEntity> toReturn,
 			Collection<OWLAnonymousIndividual> anonsToReturn) {
 		objects = toReturn;
 		anonymousIndividuals = anonsToReturn;
 	}
+
 	/**
-	 * @param toReturn the set that will contain the results
+	 * @param toReturn
+	 *            the set that will contain the results
 	 */
 	public OWLEntityCollector(Set<OWLEntity> toReturn) {
 		objects = toReturn;
 		anonymousIndividuals = fake;
 	}
 
-	/**Deprecated default constructor: use one of the other constructors to get more efficient set creation*/
+	/**
+	 * Deprecated default constructor: use one of the other constructors to get
+	 * more efficient set creation
+	 */
 	@Deprecated
 	public OWLEntityCollector() {
 		this(new HashSet<OWLEntity>(), new HashSet<OWLAnonymousIndividual>());
@@ -193,81 +201,112 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 	/**
 	 * Clears all objects that have accumulated during the course of visiting
 	 * axioms, class expressions etc.
-	 * @param toReturn the set that will contain the results
+	 *
+	 * @param toReturn
+	 *            the set that will contain the results
 	 */
-    //XXX not in the interface
+	//XXX not in the interface
 	public void reset(Set<OWLEntity> toReturn) {
 		objects = toReturn;
 		anonymousIndividuals.clear();
 	}
 
 	/**
-	 * @param collectClasses true to collect classes
+	 * @param collectClasses
+	 *            true to collect classes
 	 */
-    //XXX not in the interface
+	//XXX not in the interface
 	public void setCollectClasses(boolean collectClasses) {
 		this.collectClasses = collectClasses;
 	}
+
 	/**
-	 * @param collectObjectProperties true to collect object properties
+	 * @param collectObjectProperties
+	 *            true to collect object properties
 	 */
-    //XXX not in the interface
+	//XXX not in the interface
 	public void setCollectObjectProperties(boolean collectObjectProperties) {
 		this.collectObjectProperties = collectObjectProperties;
 	}
+
 	/**
-	 * @param collectDataProperties true to collect data properties
+	 * @param collectDataProperties
+	 *            true to collect data properties
 	 */
 	public void setCollectDataProperties(boolean collectDataProperties) {
 		this.collectDataProperties = collectDataProperties;
 	}
+
 	/**
-	 * @param collectIndividuals true to collect individuals
+	 * @param collectIndividuals
+	 *            true to collect individuals
 	 */
-    //XXX not in the interface
+	//XXX not in the interface
 	public void setCollectIndividuals(boolean collectIndividuals) {
 		this.collectIndividuals = collectIndividuals;
 	}
+
 	/**
-	 * @param collectDatatypes true to collect datatypes
+	 * @param collectDatatypes
+	 *            true to collect datatypes
 	 */
-    //XXX not in the interface
+	//XXX not in the interface
 	public void setCollectDatatypes(boolean collectDatatypes) {
 		this.collectDatatypes = collectDatatypes;
 	}
 
 	/**
-     * Gets the objects that are used by all axioms, class expressions etc. that this
-     * collector has visited since it was constructed or reset.
-     *
-     * Deprecated: if the non deprecated constructors are used, this method is useless and inefficient
-     *
-     * @return A set of entities.  This will be a copy.
-     */
+	 * Gets the objects that are used by all axioms, class expressions etc. that
+	 * this collector has visited since it was constructed or reset.
+	 *
+	 * Deprecated: if the non deprecated constructors are used, this method is
+	 * useless and inefficient
+	 *
+	 * @return A set of entities. This will be a copy.
+	 */
 	@Deprecated
-    public Set<OWLEntity> getObjects() {
-        return new HashSet<OWLEntity>(objects);
-    }
-    /**
-     * A convenience method.  Although anonymous individuals are not entities they are collected by this
-     * collector and stored in a separate set.  This method returns collected individuals.
-     *
-     * Deprecated: if the non deprecated constructors are used, this method is useless and inefficient
-     *
-     * @return The set of anonymous individuals that were collected by the collector
-     */
+	public Set<OWLEntity> getObjects() {
+		return new HashSet<OWLEntity>(objects);
+	}
+
+	/**
+	 * A convenience method. Although anonymous individuals are not entities
+	 * they are collected by this collector and stored in a separate set. This
+	 * method returns collected individuals.
+	 *
+	 * Deprecated: if the non deprecated constructors are used, this method is
+	 * useless and inefficient
+	 *
+	 * @return The set of anonymous individuals that were collected by the
+	 *         collector
+	 */
 	@Deprecated
-    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return new HashSet<OWLAnonymousIndividual>(anonymousIndividuals);
-    }
+	public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+		return new HashSet<OWLAnonymousIndividual>(anonymousIndividuals);
+	}
+
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	//
 	// Axiom Visitor stuff
 	//
 	//////////////////////////////////////////////////////////////////////////////////////////////
+	private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
+		public void visit(CollectionContainer<OWLAnnotation> c) {}
+
+		public void visitItem(OWLAnnotation c) {
+			c.accept(OWLEntityCollector.this);
+		}
+	};
+
 	protected void processAxiomAnnotations(OWLAxiom ax) {
-		for (OWLAnnotation anno : ax.getAnnotations()) {
-			anno.accept(this);
+		// an OWLAxiomImpl will implement this interface with <OWLAnnotation > parameter; this will avoid creating a defensive copy of the annotation set
+		if (ax instanceof CollectionContainer) {
+			((CollectionContainer<OWLAnnotation>) ax).accept(annotationVisitor);
+		} else {
+			// default behavior: iterate over the annotations outside the axiom
+			for (OWLAnnotation anno : ax.getAnnotations()) {
+				anno.accept(this);
+			}
 		}
 	}
 
@@ -472,7 +511,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 
 	public void visit(OWLHasKeyAxiom axiom) {
 		axiom.getClassExpression().accept(this);
-		for (OWLPropertyExpression<?,?> prop : axiom.getPropertyExpressions()) {
+		for (OWLPropertyExpression<?, ?> prop : axiom.getPropertyExpressions()) {
 			prop.accept(this);
 		}
 		processAxiomAnnotations(axiom);
@@ -675,9 +714,9 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 		// But store them in a set anyway for utility
 		anonymousIndividuals.add(individual);
 	}
-	  @SuppressWarnings("unused")
-	public void visit(IRI iri) {
-	}
+
+	@SuppressWarnings("unused")
+	public void visit(IRI iri) {}
 
 	//    public void visit(OWLAnnotationValue value) {
 	//        if(value.isLiteral()) {
@@ -759,9 +798,9 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 			obj.accept(this);
 		}
 	}
-    @SuppressWarnings("unused")
-	public void visit(SWRLVariable node) {
-	}
+
+	@SuppressWarnings("unused")
+	public void visit(SWRLVariable node) {}
 
 	public void visit(SWRLIndividualArgument node) {
 		node.getIndividual().accept(this);
@@ -779,7 +818,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 		node.getSecondArgument().accept(this);
 	}
 
-	private static final List<OWLAnonymousIndividual> fake=new List<OWLAnonymousIndividual>() {
+	private static final List<OWLAnonymousIndividual> fake = new List<OWLAnonymousIndividual>() {
 		public <T> T[] toArray(T[] arg0) {
 			return arg0;
 		}
@@ -787,7 +826,8 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 		public Object[] toArray() {
 			return new Object[0];
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public List<OWLAnonymousIndividual> subList(int arg0, int arg1) {
 			return null;
 		}
@@ -795,27 +835,33 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 		public int size() {
 			return 0;
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public OWLAnonymousIndividual set(int arg0, OWLAnonymousIndividual arg1) {
 			return null;
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public boolean retainAll(Collection<?> arg0) {
 			return false;
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public boolean removeAll(Collection<?> arg0) {
 			return false;
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public OWLAnonymousIndividual remove(int arg0) {
 			return null;
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public boolean remove(Object arg0) {
 			return false;
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public ListIterator<OWLAnonymousIndividual> listIterator(int arg0) {
 			return null;
 		}
@@ -823,7 +869,8 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 		public ListIterator<OWLAnonymousIndividual> listIterator() {
 			return null;
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public int lastIndexOf(Object arg0) {
 			return 0;
 		}
@@ -835,38 +882,43 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 		public boolean isEmpty() {
 			return false;
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public int indexOf(Object arg0) {
 			return 0;
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public OWLAnonymousIndividual get(int arg0) {
 			return null;
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public boolean containsAll(Collection<?> arg0) {
 			return false;
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public boolean contains(Object arg0) {
 			return false;
 		}
 
-		public void clear() {
-		}
-	    @SuppressWarnings("unused")
-		public boolean addAll(int arg0,
-				Collection<? extends OWLAnonymousIndividual> arg1) {
+		public void clear() {}
+
+		@SuppressWarnings("unused")
+		public boolean addAll(int arg0, Collection<? extends OWLAnonymousIndividual> arg1) {
 			return false;
 		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
 		public boolean addAll(Collection<? extends OWLAnonymousIndividual> arg0) {
 			return false;
 		}
-	    @SuppressWarnings("unused")
-		public void add(int arg0, OWLAnonymousIndividual arg1) {
-		}
-	    @SuppressWarnings("unused")
+
+		@SuppressWarnings("unused")
+		public void add(int arg0, OWLAnonymousIndividual arg1) {}
+
+		@SuppressWarnings("unused")
 		public boolean add(OWLAnonymousIndividual arg0) {
 			return false;
 		}

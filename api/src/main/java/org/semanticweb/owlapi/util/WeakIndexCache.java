@@ -5,7 +5,7 @@ import java.util.WeakHashMap;
 
 /** A weakly linked cache - elements in the cache can be garbage collected */
 public class WeakIndexCache<K, V> {
-	private WeakHashMap<K, WeakReference<V>> prefixCache = new WeakHashMap<K, WeakReference<V>>();
+	protected WeakHashMap<K, WeakReference<V>> prefixCache = new WeakHashMap<K, WeakReference<V>>();
 
 	public V cache(K s, V v) {
 		WeakReference<V> w = prefixCache.get(s);
@@ -21,5 +21,8 @@ public class WeakIndexCache<K, V> {
 		//miss++;
 		prefixCache.put(s, new WeakReference<V>(v));
 		return v;
+	}
+	public void clear() {
+		prefixCache.clear();
 	}
 }

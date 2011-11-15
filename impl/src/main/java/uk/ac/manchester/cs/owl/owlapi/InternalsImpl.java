@@ -108,57 +108,70 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 @SuppressWarnings("javadoc")
 public class InternalsImpl extends AbstractInternalsImpl {
-	protected Set<OWLImportsDeclaration> importsDeclarations;
-	protected Set<OWLAnnotation> ontologyAnnotations;
-	protected Set<OWLClassAxiom> generalClassAxioms;
-	protected Set<OWLSubPropertyChainOfAxiom> propertyChainSubPropertyAxioms;
+	protected class SetPointer<K> implements Internals.SimplePointer<K>{
+		private final Set<K> set;
+		public SetPointer(Set<K> s) {
+			set=s;
+		}
+public boolean isEmpty() {
+	return set.isEmpty();
+}
+public Set<K> copy(){
+	return CollectionFactory.getCopyOnRequestSet(set);
+}
 
-	protected final MapPointer<AxiomType<?>, OWLAxiom> axiomsByType;
-	protected final MapPointer<OWLClass, OWLAxiom> owlClassReferences;
-	protected final MapPointer<OWLObjectProperty, OWLAxiom> owlObjectPropertyReferences;
-	protected final MapPointer<OWLDataProperty, OWLAxiom> owlDataPropertyReferences;
-	protected final MapPointer<OWLNamedIndividual, OWLAxiom> owlIndividualReferences;
-	protected final MapPointer<OWLAnonymousIndividual, OWLAxiom> owlAnonymousIndividualReferences;
-	protected final MapPointer<OWLDatatype, OWLAxiom> owlDatatypeReferences;
-	protected final MapPointer<OWLAnnotationProperty, OWLAxiom> owlAnnotationPropertyReferences;
-	protected final MapPointer<OWLEntity, OWLDeclarationAxiom> declarationsByEntity;
+public boolean add(K k) {
+	return set.add(k);
+}
 
-	public InternalsImpl() {
-		this.importsDeclarations = createSet();
-		this.ontologyAnnotations = createSet();
-		this.axiomsByType = build();
-		//this.logicalAxiom2AnnotatedAxiomMap = build();
-		this.generalClassAxioms = createSet();
-		this.propertyChainSubPropertyAxioms = createSet();
-		this.owlClassReferences = build();
-		this.owlObjectPropertyReferences = build();
-		this.owlDataPropertyReferences = build();
-		this.owlIndividualReferences = build();
-		this.owlAnonymousIndividualReferences = build();
-		this.owlDatatypeReferences = build();
-		this.owlAnnotationPropertyReferences = build();
-		this.declarationsByEntity = build();
+public boolean contains(K k) {
+	return set.contains(k);
+}
+
+public boolean remove(K k) {
+	return set.remove(k);
+}
+
 	}
+
+	protected <K> SetPointer<K> buildSet(){
+		return new SetPointer<K>(CollectionFactory.<K>createSet());
+	}
+
+	protected final SetPointer<OWLImportsDeclaration> importsDeclarations=buildSet();
+	protected final SetPointer<OWLAnnotation> ontologyAnnotations=buildSet();
+	protected final SetPointer<OWLClassAxiom> generalClassAxioms=buildSet();
+	protected final SetPointer<OWLSubPropertyChainOfAxiom> propertyChainSubPropertyAxioms=buildSet();
+
+	protected final MapPointer<AxiomType<?>, OWLAxiom> axiomsByType=build();
+	protected final MapPointer<OWLClass, OWLAxiom> owlClassReferences=build();
+	protected final MapPointer<OWLObjectProperty, OWLAxiom> owlObjectPropertyReferences=build();
+	protected final MapPointer<OWLDataProperty, OWLAxiom> owlDataPropertyReferences=build();
+	protected final MapPointer<OWLNamedIndividual, OWLAxiom> owlIndividualReferences=build();
+	protected final MapPointer<OWLAnonymousIndividual, OWLAxiom> owlAnonymousIndividualReferences=build();
+	protected final MapPointer<OWLDatatype, OWLAxiom> owlDatatypeReferences=build();
+	protected final MapPointer<OWLAnnotationProperty, OWLAxiom> owlAnnotationPropertyReferences=build();
+	protected final MapPointer<OWLEntity, OWLDeclarationAxiom> declarationsByEntity=build();
 
 	public <K, V extends OWLAxiom> Set<K> getKeyset(Pointer<K, V> pointer) {
 		final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
 		mapPointer.init();
-		return CollectionFactory.getCopyOnRequestSet(mapPointer.map.keySet());
+		return mapPointer.keySet();
 	}
 
 	public <K, V extends OWLAxiom> Set<V> getValues(Pointer<K, V> pointer, K key) {
 		final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
 		mapPointer.init();
-		return CollectionFactory.getCopyOnRequestSet(mapPointer.map.get(key));
+		return mapPointer.getValues(key);
 	}
 
 	public <K, V extends OWLAxiom> boolean remove(Internals.Pointer<K, V> pointer, K k,
 			V v) {
 		final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
-		if (mapPointer.map == null) {
+		if (!mapPointer.isInitialized()) {
 			return false;
 		}
-		return mapPointer.map.remove(k, v);
+		return mapPointer.remove(k, v);
 	}
 
 	private final AddAxiomVisitor addChangeVisitor = new AddAxiomVisitor();
@@ -196,10 +209,6 @@ public class InternalsImpl extends AbstractInternalsImpl {
 					add(getOwlAnonymousIndividualReferences(), individual, axiom);
 				}
 			});
-			//			if (axiom.isAnnotated()) {
-			//				add(getLogicalAxiom2AnnotatedAxiomMap(),
-			//						axiom.getAxiomWithoutAnnotations(), axiom);
-			//			}
 			return true;
 		}
 		return false;
@@ -238,21 +247,17 @@ public class InternalsImpl extends AbstractInternalsImpl {
 				}
 			};
 			axiom.accept(referenceRemover);
-			//			if (axiom.isAnnotated()) {
-			//				remove(getLogicalAxiom2AnnotatedAxiomMap(),
-			//						axiom.getAxiomWithoutAnnotations(), axiom);
-			//			}
 			return true;
 		}
 		return false;
 	}
 
 	public boolean isDeclared(OWLDeclarationAxiom ax) {
-		return declarationsByEntity.map.containsKey(ax.getEntity());
+		return declarationsByEntity.containsKey(ax.getEntity());
 	}
 
 	public boolean isEmpty() {
-		return axiomsByType.map.size() == 0 && ontologyAnnotations.isEmpty();
+		return axiomsByType.size() == 0 && ontologyAnnotations.isEmpty();
 	}
 
 	public <T extends OWLAxiom, K> Set<T> filterAxioms(OWLAxiomSearchFilter<T, K> filter,
@@ -267,7 +272,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 	}
 
 	public Set<OWLImportsDeclaration> getImportsDeclarations() {
-		return CollectionFactory.getCopyOnRequestSet(this.importsDeclarations);
+		return this.importsDeclarations.copy();
 	}
 
 	public boolean addImportsDeclaration(OWLImportsDeclaration importDeclaration) {
@@ -287,7 +292,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 	}
 
 	public Set<OWLAnnotation> getOntologyAnnotations() {
-		return CollectionFactory.getCopyOnRequestSet(this.ontologyAnnotations);
+		return this.ontologyAnnotations.copy();
 	}
 
 	public boolean addOntologyAnnotation(OWLAnnotation ann) {
@@ -299,27 +304,27 @@ public class InternalsImpl extends AbstractInternalsImpl {
 	}
 
 	public <K, V extends OWLAxiom> boolean contains(Pointer<K, V> p, K k) {
-		return ((MapPointer<K, V>) p).map.containsKey(k);
+		return ((MapPointer<K, V>) p).containsKey(k);
 	}
 
 	public <K, V extends OWLAxiom> boolean contains(Pointer<K, V> p, K k, V v) {
-		return ((MapPointer<K, V>) p).map.contains(k, v);
+		return ((MapPointer<K, V>) p).contains(k, v);
 	}
 
 	public int getAxiomCount() {
-		return axiomsByType.map.size();
+		return axiomsByType.size();
 	}
 
 	public Set<OWLAxiom> getAxioms() {
-		return axiomsByType.map.getAllValues();
+		return axiomsByType.getAllValues();
 	}
 
 	public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType) {
-		if (axiomsByType.map == null) {
+		if (!axiomsByType.isInitialized()) {
 			return 0;
 		}
-		final Collection<OWLAxiom> collection = axiomsByType.map.get(axiomType);
-		if (collection == null) {
+		final Collection<OWLAxiom> collection = axiomsByType.getValues(axiomType);
+		if (collection.isEmpty()) {
 			return 0;
 		}
 		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(collection);
@@ -330,7 +335,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 		Set<OWLLogicalAxiom> axioms = createSet();
 		for (AxiomType<?> type : AXIOM_TYPES) {
 			if (type.isLogical()) {
-				Collection<OWLAxiom> axiomSet = axiomsByType.map.get(type);
+				Collection<OWLAxiom> axiomSet = axiomsByType.getValues(type);
 				if (axiomSet != null) {
 					for (OWLAxiom ax : axiomSet) {
 						axioms.add((OWLLogicalAxiom) ax);
@@ -343,31 +348,18 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
 	public int getLogicalAxiomCount() {
 		return getLogicalAxioms().size();
-		//		int count = 0;
-		//		for (AxiomType<?> type : AXIOM_TYPES) {
-		//			if (type.isLogical()) {
-		//				Collection<OWLAxiom> axiomSet = axiomsByType.map.get(type);
-		//				if (axiomSet != null) {
-		//					count += axiomSet.size();
-		//				}
-		//			}
-		//		}
-		//		return count;
 	}
 
 	public <K, V extends OWLAxiom> boolean add(Pointer<K, V> p, K k, V v) {
 		MapPointer<K, V> map = (MapPointer<K, V>) p;
-		if (map.map == null) {
+		if (!map.isInitialized()) {
 			return false;
 		}
-		return map.map.put(k, v);
+		return map.put(k, v);
 	}
 
-	//	public MapPointer<OWLAxiom, OWLAxiom> getLogicalAxiom2AnnotatedAxiomMap() {
-	//		return this.logicalAxiom2AnnotatedAxiomMap;
-	//	}
 	public Set<OWLClassAxiom> getGeneralClassAxioms() {
-		return CollectionFactory.getCopyOnRequestSet(this.generalClassAxioms);
+		return this.generalClassAxioms.copy();
 	}
 
 	public void addGeneralClassAxioms(OWLClassAxiom ax) {

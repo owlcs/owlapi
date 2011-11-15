@@ -43,8 +43,6 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -53,10 +51,6 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  */
 @SuppressWarnings("javadoc")
 public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
-
-    private static final OWLDatatype TOP_DATATYPE = new OWLDataFactoryImpl().getTopDatatype();
-
-    //private static final OWLDatatypeNode topNode = new OWLDatatypeNode(TOP_DATATYPE);
 
     public OWLDatatypeNode() {
     }

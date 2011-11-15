@@ -43,8 +43,6 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLClass;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -53,13 +51,6 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  */
 public class OWLClassNode extends DefaultNode<OWLClass> {
 
-    private static final OWLClass TOP_CLASS = new OWLDataFactoryImpl().getOWLThing();
-
-    private static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
-
-    private static final OWLClass BOTTOM_CLASS = new OWLDataFactoryImpl().getOWLNothing();
-
-    private static final OWLClassNode BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
 
     /**
      * @param entity the class to be contained

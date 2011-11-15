@@ -157,6 +157,12 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 		this.internals = new InternalsImpl();
 	}
 
+	@Override
+    public String toString() {
+
+    	return internals.toString();
+    }
+
 	public OWLOntologyManager getOWLOntologyManager() {
 		return manager;
 	}

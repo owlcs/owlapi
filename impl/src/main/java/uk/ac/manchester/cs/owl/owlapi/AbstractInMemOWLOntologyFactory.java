@@ -84,7 +84,9 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
      */
     @SuppressWarnings("unused")
     public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
+       // OWLOntology ont = new OWLOntologyLoggingWrapper(new OWLOntologyImpl(ontologyManager, ontologyID));
         OWLOntology ont = new OWLOntologyImpl(ontologyManager, ontologyID);
+
         handler.ontologyCreated(ont);
         return ont;
     }

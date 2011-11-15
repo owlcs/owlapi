@@ -46,8 +46,6 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.WeakCache;
-import org.semanticweb.owlapi.util.WeakIndexCache;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -72,11 +70,17 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	private static final String VALUES2 = "values";
 	private static final String DATA_RANGES = "dataRanges";
 	private static final String DATA_RANGE = "dataRange";
-	//private static final OWLDataFactory instance = new OWLDataFactoryImpl();
-	private static final OWLClass OWL_THING = new OWLClassImpl(new OWLDataFactoryImpl(
-			false), OWLRDFVocabulary.OWL_THING.getIRI());
-	private static final OWLClass OWL_NOTHING = new OWLClassImpl(new OWLDataFactoryImpl(
-			false), OWLRDFVocabulary.OWL_NOTHING.getIRI());
+	private static final OWLDataFactory instance = new OWLDataFactoryImpl(false);
+	private static final OWLClass OWL_THING = new OWLClassImpl(instance,
+			OWLRDFVocabulary.OWL_THING.getIRI());
+	private static final OWLClass OWL_NOTHING = new OWLClassImpl(instance,
+			OWLRDFVocabulary.OWL_NOTHING.getIRI());
+	private static OWLLiteral trueLiteral = new OWLLiteralImpl(instance,
+			Boolean.toString(true), new OWLDatatypeImpl(instance,
+					XSDVocabulary.BOOLEAN.getIRI()));
+	private static OWLLiteral falseLiteral = new OWLLiteralImpl(instance,
+			Boolean.toString(false), new OWLDatatypeImpl(instance,
+					XSDVocabulary.BOOLEAN.getIRI()));
 	protected OWLDataFactoryInternals data;
 
 	@SuppressWarnings("javadoc")
@@ -85,7 +89,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 		//		data = new OWLDataFactoryInternalsImpl(this);
 	}
 
-	OWLDataFactoryImpl(boolean cache) {
+	public OWLDataFactoryImpl(boolean cache) {
 		if (cache) {
 			data = new OWLDataFactoryInternalsImpl(this);
 		} else {
@@ -95,14 +99,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
 	/**
 	 * @return singleton instance
-	 * @deprecated Do not create data factories directly; use OWLOntologyManager::getOWLDataFactory()
+	 * @deprecated Do not create data factories directly; use
+	 *             OWLOntologyManager::getOWLDataFactory()
 	 */
 	@Deprecated
 	public static OWLDataFactory getInstance() {
-		System.err.println("OWLDataFactoryImpl.getInstance() WARNING: you should not use the implementation directly; this static method is here for backwards compatibility only");
+		System.err
+				.println("OWLDataFactoryImpl.getInstance() WARNING: you should not use the implementation directly; this static method is here for backwards compatibility only");
 		return instance;
 	}
-	private static final OWLDataFactory instance=new OWLDataFactoryImpl(false);
 
 	public void purge() {
 		data.purge();
@@ -199,7 +204,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	public OWLDatatype getOWLDatatype(String abbreviatedIRI, PrefixManager prefixManager) {
 		checkNull(abbreviatedIRI, ABBREVIATED_IRI);
 		checkNull(prefixManager, PREFIX_MANAGER);
-		return getOWLDatatype(prefixManager.getIRI(abbreviatedIRI));
+		return data.getOWLDatatype(prefixManager.getIRI(abbreviatedIRI));
 	}
 
 	public OWLClass getOWLThing() {
@@ -226,29 +231,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 		return getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI());
 	}
 
-	public OWLDatatype getTopDatatype() {
-		return getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
-	}
-
-	public OWLDatatype getIntegerOWLDatatype() {
-		return getOWLDatatype(XSDVocabulary.INTEGER.getIRI());
-	}
-
-	public OWLDatatype getFloatOWLDatatype() {
-		return getOWLDatatype(XSDVocabulary.FLOAT.getIRI());
-	}
-
-	public OWLDatatype getDoubleOWLDatatype() {
-		return getOWLDatatype(XSDVocabulary.DOUBLE.getIRI());
-	}
-
-	public OWLDatatype getBooleanOWLDatatype() {
-		return getOWLDatatype(XSDVocabulary.BOOLEAN.getIRI());
-	}
-
-	public OWLDatatype getRDFPlainLiteral() {
-		return getOWLDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
-	}
 
 	public OWLObjectProperty getOWLObjectProperty(IRI iri) {
 		checkNull(iri, IRI2);
@@ -298,121 +280,14 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 		return data.getOWLDatatype(iri);
 	}
 
-	public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
-		checkNull(lexicalValue, "lexicalValue");
-		checkNull(datatype, DATATYPE2);
-		OWLLiteral literal;
-		if (datatype.isRDFPlainLiteral()) {
-			int sep = lexicalValue.lastIndexOf('@');
-			if (sep != -1) {
-				String lex = lexicalValue.substring(0, sep);
-				String lang = lexicalValue.substring(sep + 1);
-				literal = litCache.cache(new OWLLiteralImpl(this, lex, lang));
-				//literal = new OWLLiteralImpl(this, lex, lang);
-			} else {
-				literal = litCache
-						.cache(new OWLLiteralImpl(this, lexicalValue, datatype));
-				//literal = new OWLLiteralImpl(this, lexicalValue, datatype);
-			}
-		} else {
-			// check the four special cases
-			try {
-				if (datatype.isBoolean()) {
-					lexicalValue = lexicalValue.trim();
-					if (lexicalValue.equals("1")) {
-						literal = getOWLLiteral(true);
-					} else if (lexicalValue.equals("0")) {
-						literal = getOWLLiteral(false);
-					} else {
-						literal = getOWLLiteral(Boolean.parseBoolean(lexicalValue));
-					}
-				} else if (datatype.isFloat()) {
-					float f;
-					try {
-						f = Float.parseFloat(lexicalValue);
-						literal = getOWLLiteral(f);
-					} catch (NumberFormatException e) {
-						literal = litCache.cache(new OWLLiteralImpl(this, lexicalValue,
-								datatype));
-						//literal = new OWLLiteralImpl(this, lexicalValue, datatype);
-					}
-				} else if (datatype.isDouble()) {
-					literal = getOWLLiteral(Double.parseDouble(lexicalValue));
-				} else if (datatype.isInteger()) {
-					literal = getOWLLiteral(Integer.parseInt(lexicalValue));
-				} else {
-					literal = litCache.cache(new OWLLiteralImpl(this, lexicalValue,
-							datatype));
-					//literal = new OWLLiteralImpl(this, lexicalValue, datatype);
-				}
-			} catch (NumberFormatException e) {
-				// some literal is malformed, i.e., wrong format
-				literal = litCache
-						.cache(new OWLLiteralImpl(this, lexicalValue, datatype));
-				//literal = new OWLLiteralImpl(this, lexicalValue, datatype);
-			}
-		}
-		return literal;
-	}
-
 	public OWLLiteral getOWLLiteral(String lexicalValue, OWL2Datatype datatype) {
 		checkNull(lexicalValue, "lexicalValue");
 		checkNull(datatype, DATATYPE2);
 		return getOWLLiteral(lexicalValue, getOWLDatatype(datatype.getIRI()));
 	}
 
-	public OWLLiteral getOWLLiteral(int value) {
-		Integer f = value;
-		return intCache.cache(f, new OWLLiteralImplInteger(this, value,
-				getIntegerOWLDatatype()));
-		//return new OWLLiteralImplInteger(this, value, getIntegerOWLDatatype());
-	}
-
-	public OWLLiteral getOWLLiteral(double value) {
-		//return new OWLLiteralImplDouble(this, value, getDoubleOWLDatatype());
-		Double f = value;
-		return doubleCache.cache(f, new OWLLiteralImplDouble(this, value,
-				getDoubleOWLDatatype()));
-	}
-
-	private OWLLiteral trueLiteral = new OWLLiteralImpl(this, Boolean.toString(true),
-			new OWLDatatypeImpl(this, XSDVocabulary.BOOLEAN.getIRI()));
-	private OWLLiteral falseLiteral = new OWLLiteralImpl(this, Boolean.toString(false),
-			new OWLDatatypeImpl(this, XSDVocabulary.BOOLEAN.getIRI()));
-
 	public OWLLiteral getOWLLiteral(boolean value) {
 		return value ? trueLiteral : falseLiteral;
-	}
-
-	private WeakIndexCache<Integer, OWLLiteral> intCache = new WeakIndexCache<Integer, OWLLiteral>();
-	private WeakIndexCache<Double, OWLLiteral> doubleCache = new WeakIndexCache<Double, OWLLiteral>();
-	private WeakIndexCache<Float, OWLLiteral> floatCache = new WeakIndexCache<Float, OWLLiteral>();
-	private WeakIndexCache<String, OWLLiteral> stringCache = new WeakIndexCache<String, OWLLiteral>();
-	private WeakCache<OWLLiteral> litCache = new WeakCache<OWLLiteral>();
-
-	public OWLLiteral getOWLLiteral(float value) {
-		Float f = value;
-		return floatCache.cache(f, new OWLLiteralImplFloat(this, value,
-				getFloatOWLDatatype()));
-		//return new OWLLiteralImplFloat(this, value, getFloatOWLDatatype());
-	}
-
-	public OWLLiteral getOWLLiteral(String value) {
-		checkNull(value, VALUE2);
-		return stringCache.cache(value, new OWLLiteralImpl(this, value,
-				getOWLDatatype(XSDVocabulary.STRING.getIRI())));
-		//return new OWLLiteralImpl(this, value, getOWLDatatype(XSDVocabulary.STRING.getIRI()));
-	}
-
-	public OWLLiteral getOWLLiteral(String literal, String lang) {
-		checkNull(literal, LITERAL2);
-		String normalisedLang;
-		if (lang == null) {
-			normalisedLang = "";
-		} else {
-			normalisedLang = lang.trim().toLowerCase();
-		}
-		return new OWLLiteralImpl(this, literal, normalisedLang);
 	}
 
 	@Deprecated
@@ -1761,5 +1636,57 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 		checkNull(dataRange, DATA_RANGE);
 		checkNull(annotations, "annotations");
 		return new OWLDatatypeDefinitionAxiomImpl(this, datatype, dataRange, annotations);
+	}
+
+	public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
+		checkNull(lexicalValue, "lexicalValue");
+		checkNull(datatype, DATATYPE2);
+		return data.getOWLLiteral(lexicalValue, datatype);
+	}
+
+	public OWLLiteral getOWLLiteral(int value) {
+		return data.getOWLLiteral(value);
+	}
+
+	public OWLLiteral getOWLLiteral(double value) {
+		return data.getOWLLiteral(value);
+	}
+
+	public OWLLiteral getOWLLiteral(float value) {
+		return data.getOWLLiteral(value);
+	}
+
+	public OWLLiteral getOWLLiteral(String value) {
+		checkNull(value, "value");
+		return data.getOWLLiteral(value);
+	}
+
+	public OWLLiteral getOWLLiteral(String literal, String lang) {
+		checkNull(literal, LITERAL2);
+		return data.getOWLLiteral(literal, lang);
+	}
+
+	public OWLDatatype getBooleanOWLDatatype() {
+
+		return data.getBooleanOWLDatatype();
+	}
+	public OWLDatatype getDoubleOWLDatatype() {
+		return data.getDoubleOWLDatatype();
+	}
+	public OWLDatatype getFloatOWLDatatype() {
+
+		return data.getFloatOWLDatatype();
+	}
+	public OWLDatatype getIntegerOWLDatatype() {
+
+		return data.getIntegerOWLDatatype();
+	}
+	public OWLDatatype getTopDatatype() {
+
+		return data.getTopDatatype();
+	}
+	public OWLDatatype getRDFPlainLiteral() {
+
+		return data.getRDFPlainLiteral();
 	}
 }

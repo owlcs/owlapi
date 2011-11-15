@@ -44,7 +44,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -62,19 +61,19 @@ import org.semanticweb.owlapi.util.NNF;
  * <br>
  */
 @SuppressWarnings("javadoc")
-public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
+public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
+		CollectionContainer<OWLAnnotation> {
 	private OWLAxiom nnf;
+	private final List<OWLAnnotation> annotations;
 
-    private final List<OWLAnnotation> annotations;
-
-    public OWLAxiomImpl(OWLDataFactory dataFactory, Collection<? extends OWLAnnotation> annotations) {
+	public OWLAxiomImpl(OWLDataFactory dataFactory,
+			Collection<? extends OWLAnnotation> annotations) {
 		super(dataFactory);
 		if (!annotations.isEmpty()) {
-            this.annotations = new ArrayList<OWLAnnotation>(annotations);
-            Collections.sort(this.annotations);
-        }
-        else {
-            this.annotations = Collections.emptyList();
+			this.annotations = new ArrayList<OWLAnnotation>(annotations);
+			Collections.sort(this.annotations);
+		} else {
+			this.annotations = Collections.emptyList();
 		}
 	}
 
@@ -84,19 +83,27 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
 	//TODO when processing annotations on OWLOntology:: add axiom, needs optimizing
 	public Set<OWLAnnotation> getAnnotations() {
-		if(annotations.isEmpty()) {
+		if (annotations.isEmpty()) {
 			return Collections.emptySet();
 		}
 		return CollectionFactory.getCopyOnRequestSet(annotations);
 	}
 
+	public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
+		final int size=annotations.size();
+		for(int i=0;i<size;i++) {
+
+			t.visitItem(annotations.get(i));
+		}
+	}
+
+
 	public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
 		if (annotations.isEmpty()) {
 			return Collections.emptySet();
-        }
-        else {
-            Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
-            for (OWLAnnotation anno : annotations) {
+		} else {
+			Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
+			for (OWLAnnotation anno : annotations) {
 				if (anno.getProperty().equals(annotationProperty)) {
 					result.add(anno);
 				}
@@ -116,7 +123,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 	 *         <code>false</code>.
 	 */
 	public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
-        return this.getAxiomWithoutAnnotations().equals(axiom.getAxiomWithoutAnnotations());
+		return this.getAxiomWithoutAnnotations().equals(
+				axiom.getAxiomWithoutAnnotations());
 	}
 
 	/**
@@ -173,8 +181,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 			return false;
 		}
 		OWLAxiom other = (OWLAxiom) obj;
-        return getAnnotations().equals(other.getAnnotations());
-		}
+		return getAnnotations().equals(other.getAnnotations());
+	}
 
 	public OWLAxiom getNNF() {
 		if (nnf == null) {
