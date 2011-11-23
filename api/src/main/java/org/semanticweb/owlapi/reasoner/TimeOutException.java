@@ -49,5 +49,14 @@ package org.semanticweb.owlapi.reasoner;
  */
 public class TimeOutException extends OWLReasonerRuntimeException {
 
+	public TimeOutException() {
+		this("Timeout occurred while reasoning!");
+	}
+	public TimeOutException(String message) {
+		super(message);
+	}
+	public TimeOutException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
 }
