@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -53,11 +55,12 @@ public class MultiMap<Key, Value> {
 	private final Map<Key, Collection<Value>> map;
 	private int size = 0;
 	private boolean useSets = true;
-	private boolean threadSafe=false;
+	private boolean threadSafe = false;
 
 	public MultiMap() {
 		this(false);
 	}
+
 	public MultiMap(boolean threadsafe) {
 		threadSafe = threadsafe;
 		if (threadSafe) {
@@ -111,7 +114,7 @@ public class MultiMap<Key, Value> {
 	 * @param key
 	 * @param values
 	 */
-	public void setEntry(Key key, Set<Value> values) {
+	public void setEntry(Key key, Collection<Value> values) {
 		//		if (this.map.containsKey(key)) {
 		//			this.size = this.size - this.map.get(key).size();
 		//		}
@@ -221,13 +224,59 @@ public class MultiMap<Key, Value> {
 		return this.map.containsKey(k);
 	}
 
+	/**
+	 * @param v
+	 * @return true if v is a value for a key in the map
+	 */
+	public boolean containsValue(Value v) {
+		for (Collection<Value> c : map.values()) {
+			if (c.contains(v)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void clear() {
 		this.map.clear();
 		this.size = 0;
 	}
+
 	@Override
 	public String toString() {
+		return "MultiMap " + size() + "\n" + map.toString().replace(",", "\n");
+	}
 
-		return "MultiMap "+size()+"\n"+map.toString().replace(",", "\n");
+	public void putAll(MultiMap<Key, Value> otherMap) {
+		for (Key k : otherMap.keySet()) {
+			Collection<Value> set = map.get(k);
+			if (set == null) {
+				setEntry(k, otherMap.get(k));
+			} else {
+				set.addAll(otherMap.get(k));
+			}
+		}
+	}
+
+	public void putAll(Key k, Collection<Value> v) {
+		Collection<Value> set = map.get(k);
+		if (set == null) {
+			setEntry(k, new HashSet<Value>(v));
+		} else {
+			set.addAll(v);
+		}
+	}
+
+	public boolean isValueSetsEqual() {
+		if (map.size() < 2) {
+			return true;
+		}
+		List<Collection<Value>> list = new ArrayList<Collection<Value>>();
+		for (int i = 1; i < list.size(); i++) {
+			if (!list.get(0).equals(list.get(i))) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
