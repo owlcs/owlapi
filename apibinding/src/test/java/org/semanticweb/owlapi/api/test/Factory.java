@@ -1,9 +1,9 @@
 package org.semanticweb.owlapi.api.test;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.apibinding.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 @SuppressWarnings("javadoc")
 public class Factory {
 	public static

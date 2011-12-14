@@ -54,6 +54,7 @@ import org.coode.owlapi.turtle.TurtleOntologyStorer;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;

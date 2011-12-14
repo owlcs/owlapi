@@ -94,10 +94,10 @@ import org.coode.owlapi.owlxmlparser.OWLXMLParserFactory;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
 import org.coode.owlapi.turtle.TurtleOntologyStorer;
-import org.semanticweb.owlapi.apibinding.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
 import uk.ac.manchester.cs.owl.owlapi.alternateimpls.AlternateEmptyInMemOWLOntologyFactory;
