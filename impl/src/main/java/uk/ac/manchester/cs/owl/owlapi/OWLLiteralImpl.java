@@ -41,6 +41,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
@@ -105,28 +109,59 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 			}
 		}
 
+//		byte[] compress(String s) throws IOException {
+//			ByteArrayOutputStream out = new ByteArrayOutputStream();
+//			GZIPOutputStream zipout;
+//			zipout = new GZIPOutputStream(out);
+//			zipout.write(s.getBytes("UTF-8"));
+//			zipout.finish();
+//			zipout.flush();
+//			//		compress++;
+//			return out.toByteArray();
+//		}
+//
+//		String decompress(byte[] result) throws IOException {
+//			ByteArrayInputStream in = new ByteArrayInputStream(result);
+//			GZIPInputStream zipin = new GZIPInputStream(in);
+//			StringBuilder b = new StringBuilder();
+//			int c = zipin.read();
+//			while (c > -1) {
+//				b.append((char) c);
+//				c = zipin.read();
+//			}
+//			return b.toString();
+//		}
+		
 		byte[] compress(String s) throws IOException {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			GZIPOutputStream zipout;
 			zipout = new GZIPOutputStream(out);
-			zipout.write(s.getBytes("UTF-8"));
+			Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING);
+
+			writer.write(s);
+			writer.flush();
 			zipout.finish();
 			zipout.flush();
-			//		compress++;
+			// compress++;
 			return out.toByteArray();
-		}
+			}
 
-		String decompress(byte[] result) throws IOException {
+			String decompress(byte[] result) throws IOException {
 			ByteArrayInputStream in = new ByteArrayInputStream(result);
 			GZIPInputStream zipin = new GZIPInputStream(in);
+			Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING);
 			StringBuilder b = new StringBuilder();
-			int c = zipin.read();
+			int c = reader.read();
 			while (c > -1) {
-				b.append((char) c);
-				c = zipin.read();
+			b.append((char) c);
+			c = reader.read();
 			}
 			return b.toString();
-		}
+			}
+
+
+
+			private static final String COMPRESSED_ENCODING = "UTF-16";
 
 		@Override
 		public boolean equals(Object arg0) {
