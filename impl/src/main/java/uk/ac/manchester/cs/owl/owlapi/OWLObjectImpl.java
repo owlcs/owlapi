@@ -58,7 +58,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
-import org.semanticweb.owlapi.util.OWLEntityCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -94,11 +93,10 @@ public abstract class OWLObjectImpl implements OWLObject {
 	public Set<OWLEntity> getSignature() {
 		if (signature == null) {
 			Set<OWLEntity> sig = new HashSet<OWLEntity>();
-			Set<OWLAnonymousIndividual> anons = new HashSet<OWLAnonymousIndividual>();
-			OWLEntityCollector collector = new OWLEntityCollector(sig, anons);
+			anons = new HashSet<OWLAnonymousIndividual>();
+			OWLEntityCollectionContainerCollector collector = new OWLEntityCollectionContainerCollector(sig, anons);
 			accept(collector);
 			signature = sig;
-			this.anons = anons;
 		}
 		return CollectionFactory.getCopyOnRequestSet(signature);
 	}

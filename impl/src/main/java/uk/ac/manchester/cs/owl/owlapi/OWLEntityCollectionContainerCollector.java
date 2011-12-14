@@ -36,7 +36,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.util;
+package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -143,6 +143,9 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
+import uk.ac.manchester.cs.owl.owlapi.CollectionContainer;
+import uk.ac.manchester.cs.owl.owlapi.CollectionContainerVisitor;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -156,7 +159,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
  * D.
  */
-public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
+public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 	private Collection<OWLEntity> objects;
 	private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
 	private boolean collectClasses = true;
@@ -171,7 +174,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 	 * @param anonsToReturn
 	 *            the set that will contain the anon individuals
 	 */
-	public OWLEntityCollector(Set<OWLEntity> toReturn,
+	public OWLEntityCollectionContainerCollector(Set<OWLEntity> toReturn,
 			Collection<OWLAnonymousIndividual> anonsToReturn) {
 		objects = toReturn;
 		anonymousIndividuals = anonsToReturn;
@@ -181,7 +184,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 	 * @param toReturn
 	 *            the set that will contain the results
 	 */
-	public OWLEntityCollector(Set<OWLEntity> toReturn) {
+	public OWLEntityCollectionContainerCollector(Set<OWLEntity> toReturn) {
 		objects = toReturn;
 		anonymousIndividuals = fake;
 	}
@@ -191,7 +194,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 	 * more efficient set creation
 	 */
 	@Deprecated
-	public OWLEntityCollector() {
+	public OWLEntityCollectionContainerCollector() {
 		this(new HashSet<OWLEntity>(), new HashSet<OWLAnonymousIndividual>());
 	}
 
@@ -287,11 +290,23 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
 	// Axiom Visitor stuff
 	//
 	//////////////////////////////////////////////////////////////////////////////////////////////
+	private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
+		public void visit(CollectionContainer<OWLAnnotation> c) {}
+
+		public void visitItem(OWLAnnotation c) {
+			c.accept(OWLEntityCollectionContainerCollector.this);
+		}
+	};
 
 	protected void processAxiomAnnotations(OWLAxiom ax) {
-		// default behavior: iterate over the annotations outside the axiom
-		for (OWLAnnotation anno : ax.getAnnotations()) {
-			anno.accept(this);
+		// an OWLAxiomImpl will implement this interface with <OWLAnnotation > parameter; this will avoid creating a defensive copy of the annotation set
+		if (ax instanceof CollectionContainer) {
+			((CollectionContainer<OWLAnnotation>) ax).accept(annotationVisitor);
+		} else {
+			// default behavior: iterate over the annotations outside the axiom
+			for (OWLAnnotation anno : ax.getAnnotations()) {
+				anno.accept(this);
+			}
 		}
 	}
 
