@@ -75,7 +75,7 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
                     sb.append(entity.toStringID());
                     sb.append("\n");
                 }
-                throw new OWLOntologyStorageException(sb.toString().trim());
+                throw new OWLOntologyStorageException(sb.toString().trim(), new IllegalElementNameException(sb.toString().trim()));
             }
             renderer.render();
         }
