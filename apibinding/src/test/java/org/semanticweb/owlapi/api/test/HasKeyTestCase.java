@@ -36,42 +36,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+ * Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
  * Date: 02-Feb-2009
  */
 @SuppressWarnings("javadoc")
 public class HasKeyTestCase extends AbstractFileRoundTrippingTestCase {
+	public void testCorrectAxioms() {
+		OWLClass cls = getFactory().getOWLClass(IRI.create("http://example.com/Person"));
+		OWLDataProperty propP = getFactory().getOWLDataProperty(
+				IRI.create("http://example.com/dataProperty"));
+		OWLObjectProperty propQ = getFactory().getOWLObjectProperty(
+				IRI.create("http://example.com/objectPoperty"));
+		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+		final OWLHasKeyAxiom owlHasKeyAxiom = getFactory().getOWLHasKeyAxiom(cls, propQ,
+				propP);
+		axioms.add(owlHasKeyAxiom);
+		final Set<OWLAxiom> axioms2 = getOnt().getAxioms();
+		assertTrue(axioms2.containsAll(axioms));
+	}
 
-
-    public void testCorrectAxioms() {
-        OWLClass cls = getOWLClass("A");
-        OWLDataProperty propP = getOWLDataProperty("p");
-        OWLDataProperty propQ = getOWLDataProperty("q");
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLHasKeyAxiom(cls, propP, propQ));
-        assertEquals(axioms, getOnt().getAxioms());
-    }
-
-    @Override  @SuppressWarnings("unused")
+	@Override
+	@SuppressWarnings("unused")
 	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        //System.out.println(target);
-    }
+		//System.out.println(target);
+	}
 
-    @Override
+	@Override
 	protected String getFileName() {
-        return "HasKey.rdf";
-    }
+		return "HasKey.rdf";
+	}
 }
