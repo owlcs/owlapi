@@ -38,6 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -67,7 +68,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 	 * XXX stateless, might be used through a singleton
 	 */
 	private static final class StringLengthComparator implements
-			Comparator<String> {
+			Comparator<String>, Serializable {
 		public StringLengthComparator() {
 		}
 

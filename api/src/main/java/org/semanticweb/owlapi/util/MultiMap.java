@@ -115,12 +115,8 @@ public class MultiMap<Key, Value> {
 	 * @param values
 	 */
 	public void setEntry(Key key, Collection<Value> values) {
-		//		if (this.map.containsKey(key)) {
-		//			this.size = this.size - this.map.get(key).size();
-		//		}
 		this.map.put(key, values);
 		this.size = -1;
-		// this.size + values.size();
 	}
 
 	/**
@@ -249,29 +245,25 @@ public class MultiMap<Key, Value> {
 
 	public void putAll(MultiMap<Key, Value> otherMap) {
 		for (Key k : otherMap.keySet()) {
-			Collection<Value> set = map.get(k);
-			if (set == null) {
-				setEntry(k, otherMap.get(k));
-			} else {
-				set.addAll(otherMap.get(k));
-			}
+			putAll(k, otherMap.get(k));
 		}
 	}
 
 	public void putAll(Key k, Collection<Value> v) {
 		Collection<Value> set = map.get(k);
 		if (set == null) {
-			setEntry(k, new HashSet<Value>(v));
-		} else {
-			set.addAll(v);
+			set = createCollection();
+			setEntry(k, set);
 		}
+		set.addAll(v);
+		size=-1;
 	}
 
 	public boolean isValueSetsEqual() {
 		if (map.size() < 2) {
 			return true;
 		}
-		List<Collection<Value>> list = new ArrayList<Collection<Value>>();
+		List<Collection<Value>> list = new ArrayList<Collection<Value>>(map.values());
 		for (int i = 1; i < list.size(); i++) {
 			if (!list.get(0).equals(list.get(i))) {
 				return false;

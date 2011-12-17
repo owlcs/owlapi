@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.util;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -62,7 +63,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Datatype) then by their short form (using the specified short form provider).
  */
 @SuppressWarnings("unused")
-public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor {
+public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor, Serializable {
 
     int lastValue;
 

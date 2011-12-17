@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -269,7 +270,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
      * A comparator that orders DL constucts to produce a traditional DL
      * name.
      */
-    private static class ConstructComparator implements Comparator<Construct> {
+    private static class ConstructComparator implements Comparator<Construct>, Serializable {
 
         private final List<Construct> order = new ArrayList<Construct>();
 
