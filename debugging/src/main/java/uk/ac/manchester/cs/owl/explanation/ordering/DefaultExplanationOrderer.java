@@ -39,6 +39,7 @@
 
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -372,7 +373,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
      * tree comparator
      * XXX this class is stateless, a singleton might be used to access it
      */
-    private static final class OWLAxiomTreeComparator implements Comparator<Tree<OWLAxiom>> {
+    private static final class OWLAxiomTreeComparator implements Comparator<Tree<OWLAxiom>>, Serializable {
     	public OWLAxiomTreeComparator() {
 
 		}

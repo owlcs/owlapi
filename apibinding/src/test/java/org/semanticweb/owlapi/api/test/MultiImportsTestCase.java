@@ -54,7 +54,8 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
  */
 @SuppressWarnings("javadoc")
 public class MultiImportsTestCase extends AbstractOWLAPITestCase {
-	public static File RESOURCES;static{
+	public static final File RESOURCES;
+	static{
 		File f=new File("apibinding/src/test/resources/");
 		if(f.exists()) {
 			RESOURCES=f;
@@ -63,6 +64,7 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
 			if(f.exists()) {
 				RESOURCES=f;
 				}else {
+					RESOURCES=null;
 					System.out.println("MultiImportsTestCase: NO RESOURCE FOLDER ACCESSIBLE");
 				}
 		}
@@ -73,8 +75,7 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
 			manager.addIRIMapper(new AutoIRIMapper(new File(
 					RESOURCES,"imports"), true));
 			//OWLOntology o =
-				manager.loadOntologyFromOntologyDocument(this
-					.getClass().getResourceAsStream("/imports/D.owl"));
+				manager.loadOntologyFromOntologyDocument(new File(RESOURCES, "/imports/D.owl"));
 		} catch (OWLOntologyCreationException e) {
 			//Thread.dumpStack();
 			e.printStackTrace();
@@ -88,8 +89,7 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
 			manager.addIRIMapper(new AutoIRIMapper(new File(
 					RESOURCES,"importscyclic"), true));
 			//OWLOntology o =
-				manager.loadOntologyFromOntologyDocument(this
-					.getClass().getResourceAsStream("/importscyclic/D.owl"));
+				manager.loadOntologyFromOntologyDocument(new File(RESOURCES, "/importscyclic/D.owl"));
 		} catch (OWLOntologyCreationException e) {
 			//Thread.dumpStack();
 			e.printStackTrace();
