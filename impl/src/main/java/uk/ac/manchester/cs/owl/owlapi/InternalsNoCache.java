@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Locale;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -104,7 +106,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals {
 		if (lang == null) {
 			normalisedLang = "";
 		} else {
-			normalisedLang = lang.trim().toLowerCase();
+			normalisedLang = lang.trim().toLowerCase(Locale.ENGLISH);
 		}
 		return new OWLLiteralImpl(factory, literal, normalisedLang);
 	}

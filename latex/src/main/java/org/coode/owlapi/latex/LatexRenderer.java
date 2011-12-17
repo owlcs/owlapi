@@ -40,6 +40,7 @@
 package org.coode.owlapi.latex;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -175,7 +176,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
     }
 
 
-    private static class OWLAxiomComparator implements Comparator<OWLAxiom> {
+    private static class OWLAxiomComparator implements Comparator<OWLAxiom>, Serializable {
 
         public int compare(OWLAxiom o1, OWLAxiom o2) {
             int index1 = o1.getAxiomType().getIndex();

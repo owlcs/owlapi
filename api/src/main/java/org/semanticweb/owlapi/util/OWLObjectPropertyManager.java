@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -71,7 +72,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 public class OWLObjectPropertyManager {
 
     private static final class SetSizeComparator implements
-			Comparator<Set<OWLObjectPropertyExpression>> {
+			Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
 		public int compare(Set<OWLObjectPropertyExpression> o1, Set<OWLObjectPropertyExpression> o2) {
 		    return o1.size() - o2.size();
 		}

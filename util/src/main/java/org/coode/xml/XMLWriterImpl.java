@@ -40,6 +40,7 @@
 package org.coode.xml;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.Writer;
 import java.net.URI;
 import java.util.ArrayList;
@@ -302,7 +303,7 @@ public class XMLWriterImpl implements XMLWriter {
 
 
     private static final class StringLengthOnlyComparator implements
-			Comparator<String> {
+			Comparator<String>, Serializable {
 		public int compare(String o1, String o2) {
 		    // Shortest string first
 		    return o1.length() - o2.length();

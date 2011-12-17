@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.debugging;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -521,7 +522,7 @@ public class JustificationMap {
         }
     }
     @SuppressWarnings("unused")
-    private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements Comparator<OWLAxiom> {
+    private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements Comparator<OWLAxiom>, Serializable {
 
 		public OWLAxiomComparator() {
 		}

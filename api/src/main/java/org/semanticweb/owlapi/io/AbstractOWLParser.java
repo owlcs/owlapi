@@ -43,6 +43,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
+import java.util.Locale;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -189,7 +190,7 @@ public abstract class AbstractOWLParser implements OWLParser {
     }
 
     private boolean isZipFileName(String fileName) {
-        return fileName.toLowerCase().endsWith(ZIP_FILE_EXTENSION);
+        return fileName.toLowerCase(Locale.getDefault()).endsWith(ZIP_FILE_EXTENSION);
     }
 
     protected InputSource getInputSource(OWLOntologyDocumentSource documentSource) throws IOException {

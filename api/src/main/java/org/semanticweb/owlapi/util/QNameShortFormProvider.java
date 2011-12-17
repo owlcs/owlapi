@@ -72,8 +72,8 @@ public class QNameShortFormProvider implements ShortFormProvider {
      */
     public QNameShortFormProvider(Map<String, String> prefix2NamespaceMap) {
         namespaceUtil = new NamespaceUtil();
-        for (String prefix : prefix2NamespaceMap.keySet()) {
-            namespaceUtil.setPrefix(prefix2NamespaceMap.get(prefix), prefix);
+        for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
+            namespaceUtil.setPrefix(e.getKey(), e.getValue());
         }
     }
 

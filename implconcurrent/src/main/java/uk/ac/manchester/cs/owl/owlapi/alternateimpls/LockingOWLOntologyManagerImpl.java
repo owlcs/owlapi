@@ -99,7 +99,7 @@ public class LockingOWLOntologyManagerImpl extends OWLOntologyManagerImpl implem
 	}
 
 	@Override
-	protected OWLOntology loadOntology(IRI ontologyIRI,
+	protected synchronized OWLOntology loadOntology(IRI ontologyIRI,
 			OWLOntologyDocumentSource documentSource,
 			OWLOntologyLoaderConfiguration configuration)
 			throws OWLOntologyCreationException {
@@ -110,9 +110,7 @@ public class LockingOWLOntologyManagerImpl extends OWLOntologyManagerImpl implem
 		}
 		fireStartedLoadingEvent(new OWLOntologyID(ontologyIRI),
 				documentSource.getDocumentIRI(), loadCount > 0);
-		synchronized (this) {
-			loadCount++;
-		}
+		loadCount++;
 		broadcastChanges.add(loadKey);
 		OWLOntologyCreationException ex = null;
 		OWLOntologyID idOfLoadedOntology = new OWLOntologyID();
@@ -141,9 +139,7 @@ public class LockingOWLOntologyManagerImpl extends OWLOntologyManagerImpl implem
 			throw e;
 		}
 		finally {
-			synchronized (this) {
-				loadCount--;
-			}
+			loadCount--;
 			// the current load key
 			broadcastChanges.remove(loadKey);
 			//                 Completed loading ontology and imports
@@ -235,12 +231,11 @@ public class LockingOWLOntologyManagerImpl extends OWLOntologyManagerImpl implem
 	}
 
 	@Override
-	protected OWLOntology loadImports(OWLImportsDeclaration declaration,
+	protected synchronized OWLOntology loadImports(OWLImportsDeclaration declaration,
 			OWLOntologyLoaderConfiguration configuration)
 			throws OWLOntologyCreationException {
-		synchronized (this) {
 			importsLoadCount++;
-		}
+
 		OWLOntology ont = null;
 		try {
 			ont = loadOntology(declaration.getIRI(), true, configuration);
@@ -256,9 +251,7 @@ public class LockingOWLOntologyManagerImpl extends OWLOntologyManagerImpl implem
 			}
 		}
 		finally {
-			synchronized (this) {
 				importsLoadCount--;
-			}
 		}
 		return ont;
 	}

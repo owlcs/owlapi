@@ -81,8 +81,8 @@ public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer
                 PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
                 DefaultPrefixManager man = new DefaultPrefixManager();
                 Map<String, String> map = prefixFormat.getPrefixName2PrefixMap();
-                for(String pn : map.keySet()) {
-                    man.setPrefix(pn, map.get(pn));
+                for(Map.Entry<String, String> e : map.entrySet()) {
+                    man.setPrefix(e.getKey(), e.getValue());
                 }
                 ren.setPrefixManager(man);
             }

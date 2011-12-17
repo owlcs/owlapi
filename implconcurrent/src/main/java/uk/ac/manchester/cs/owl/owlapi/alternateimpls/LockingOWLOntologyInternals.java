@@ -57,20 +57,19 @@ import uk.ac.manchester.cs.owl.owlapi.MapPointer;
  * @author ignazio threadsafe implementation
  */
 public class LockingOWLOntologyInternals extends InternalsImpl {
-
-
+	@Override
 	protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t,
 			OWLAxiomVisitorEx<?> v) {
 		return new SyncMapPointer<K, V>(t, v, true, this);
 	}
 
-
-
+	@Override
 	protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(AxiomType<?> t,
 			OWLAxiomVisitorEx<?> v) {
 		return new SyncMapPointer<K, V>(t, v, false, this);
 	}
 
+	@Override
 	protected ClassAxiomByClassPointer buildClassAxiomByClass() {
 		return new ClassAxiomByClassPointer(null, null, false, this) {
 			@Override
@@ -127,28 +126,34 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 
 	@Override
 	protected <K> SetPointer<K> buildSet() {
+		return new SetPointer<K>(CollectionFactory.<K> createSet()) {
+			@Override
+			public synchronized boolean add(K k) {
+				return super.add(k);
+			}
 
-		return new SetPointer<K>(CollectionFactory.<K>createSet()) {
-			public synchronized boolean add(K k) {return super.add(k);}
-			public synchronized boolean contains(K k) {return super.contains(k);}
+			@Override
+			public synchronized boolean contains(K k) {
+				return super.contains(k);
+			}
+
 			@Override
 			public synchronized Set<K> copy() {
 				return super.copy();
 			}
+
 			@Override
 			public synchronized boolean isEmpty() {
-
 				return super.isEmpty();
 			}
-			public synchronized boolean remove(K k) {return super.remove(k);}
+
+			@Override
+			public synchronized boolean remove(K k) {
+				return super.remove(k);
+			}
 		};
 	}
 
-	private Map<Object, ReadWriteLock> locks;
-
 	@SuppressWarnings("javadoc")
-	public LockingOWLOntologyInternals() {
-
-	}
-
+	public LockingOWLOntologyInternals() {}
 }

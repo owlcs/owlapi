@@ -87,6 +87,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             OutputStreamWriter outputStreamWriter=null;
             BufferedReader br=null;
             BufferedWriter w=null;
+            OutputStream os=null;
             try {
                 tempOutputStream = new FileOutputStream(tempFile);
                 Writer tempWriter = new BufferedWriter(new OutputStreamWriter(tempOutputStream, UTF_8));
@@ -95,7 +96,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                 tempWriter.close();
 
                 // Now copy across
-                OutputStream os;
+
                 if (documentIRI.getScheme().equals("file")) {
                     File file = new File(documentIRI.toURI());
                     // Ensure that the necessary directories exist.
@@ -130,6 +131,9 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                 }
                 if (w != null){
                     w.close();
+                }
+                if(os!=null) {
+                	os.close();
                 }
                 if (tempOutputStream != null){
                     tempOutputStream.close();

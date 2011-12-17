@@ -40,6 +40,7 @@
 package org.coode.owlapi.rdf.renderer;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -611,14 +612,14 @@ public abstract class RDFRendererBase {
     /**Comparator that uses IRI ordering to order entities.
      * XXX stateless, might be used through a singleton*/
     private static final class OWLEntityIRIComparator implements
-			Comparator<OWLEntity> {
+			Comparator<OWLEntity>, Serializable {
 		public int compare(OWLEntity o1, OWLEntity o2) {
 		    return o1.getIRI().compareTo(o2.getIRI());
 		}
 	}
 
 
-	public static class TripleComparator implements Comparator<RDFTriple> {
+	public static class TripleComparator implements Comparator<RDFTriple>, Serializable {
 
         private List<IRI> orderedURIs;
 

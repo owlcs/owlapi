@@ -41,6 +41,8 @@ package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
+import java.util.Locale;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
@@ -66,7 +68,7 @@ public class ObjectHasSelfTranslator extends AbstractClassExpressionTranslator {
     }
 
     private boolean isStrictBooleanTrueLiteral(OWLLiteral literal) {
-        return OWL2Datatype.XSD_BOOLEAN.getIRI().equals(literal.getDatatype().getIRI()) && literal.getLiteral().toLowerCase().equals("true");
+        return OWL2Datatype.XSD_BOOLEAN.getIRI().equals(literal.getDatatype().getIRI()) && literal.getLiteral().toLowerCase(Locale.ENGLISH).equals("true");
     }
 
     public boolean matchesLax(IRI mainNode) {
