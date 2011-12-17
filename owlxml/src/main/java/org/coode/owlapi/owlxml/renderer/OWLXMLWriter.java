@@ -40,6 +40,7 @@
 package org.coode.owlapi.owlxml.renderer;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.Writer;
 import java.net.URI;
 import java.util.Comparator;
@@ -78,7 +79,7 @@ public class OWLXMLWriter {
      * String comparator that takes length into account before natural ordering.
      * XXX stateless, might be used through a singleton
      */
-    private static final class StringLengthComparator implements Comparator<String> {
+    private static final class StringLengthComparator implements Comparator<String>, Serializable {
         public int compare(String o1, String o2) {
             int diff = o1.length() - o2.length();
             if (diff != 0) {

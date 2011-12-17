@@ -39,6 +39,8 @@
 
 package org.coode.owlapi.obo.parser;
 
+import java.util.Locale;
+
 import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -64,7 +66,7 @@ public class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
 
         String stripped = unescaped.replace(" ", "-");
         if (!stripped.startsWith("http:")) {
-            getConsumer().setDefaultNamespace(value.toUpperCase());
+            getConsumer().setDefaultNamespace(value.toUpperCase(Locale.getDefault()));
             IRI iri = getIdIRI(stripped);
             applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(iri)));
         }
