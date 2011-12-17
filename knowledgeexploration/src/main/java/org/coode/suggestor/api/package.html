@@ -1,0 +1,57 @@
+<html>
+<body>
+
+<p>The suggestor is a set of non-standard reasoning queries that support knowledge exploration.</p>
+
+<p>It uses a DL reasoner to present the ontology as an "existential tree".</p>
+
+<p>For example, in the following small ontology</p>
+<code><pre>
+ObjectProperty(p)
+ObjectProperty(q)
+ObjectProperty(r)
+ObjectProperty(s)
+
+SubClassOf(C, SomeValueFrom(p, F))
+SubClassOf(C, SomeValueFrom(p, F2))
+SubClassOf(C, MinCardinality(1, q, G))
+SubClassOf(C, not(SomeValueFrom(s, Thing)))
+</pre></code>
+
+<p>We could present these axioms as</p>
+<ul>
+    <li><code>C</code> has properties <code>p</code> and <code>q</code></li>
+    <li><code>C</code> has values <code>F</code> and <code>F2</code> for property <code>p</code></li>
+    <li><code>C</code> has value <code>G</code> for property <code>q</code></li>
+    <li><code>C</code> could have property <code>r</code></li>
+    <li><code>C</code> cannot have property <code>s</code></li>
+</ul>
+
+<p>All queries can be made of arbitrary class expressions. Eg</p>
+
+<ul>
+    <li><code>IntersectionOf(D, SomeValuesFrom(p, F))</code> has property <code>p</code></li>
+    <li><code>IntersectionOf(D, SomeValuesFrom(p, F))</code> could have property <code>r</code></li>
+    <li><code>IntersectionOf(D, SomeValuesFrom(p, F))</code> has value <code>F</code> for property <code>p</code></li>
+</ul>
+
+<p>We might use the suggestor for many applications. Some examples might be</p>
+<ul>
+    <li>directing user creation of class definitions, class expressions or individuals, ensuring satisfiability and reducing redundancy.</li>
+    <li>creation or display of a "frames-style" view of an ontology, treating properties as slots.</li>
+</ul>
+
+<h3>Sanctioning</h3>
+
+<p>What we can possibly say about a class is often too broad to be useful, so heuristics may be used to define subsets
+    of what is possible, those things that are more "interesting". This is known as sanctioning in this framework.</p>
+
+<p>In the suggestor, sanctioning is pluggable. This is to allow developers freedom to use various notions of "interesting"
+    when performing knowledge exploration. Sanction rules are registered with a suggestor and are queried in turn.
+    A sanction rule is a positive test.
+    The suggestor continues to process rules until it finds one that returns true (sanctioned) or until no other rules exist (not sanctioned).</p>
+<p>Several implementations of sanctioning rules exist. {@link org.coode.suggestor.api.PropertySanctionRule} and
+    {@link org.coode.suggestor.api.FillerSanctionRule} can be implemented to add further behaviours.</p>
+
+</body>
+</html>
