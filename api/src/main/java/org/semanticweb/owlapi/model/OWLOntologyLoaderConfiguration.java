@@ -67,11 +67,15 @@ public final class OWLOntologyLoaderConfiguration {
      */
     public enum MissingOntologyHeaderStrategy {
 
-        /**include triples*/
-    	INCLUDE_GRAPH,
+        /**
+         * include triples
+         */
+        INCLUDE_GRAPH,
 
-        /**keep import structure*/
-    	IMPORT_GRAPH
+        /**
+         * keep import structure
+         */
+        IMPORT_GRAPH
     }
 
 
@@ -79,6 +83,7 @@ public final class OWLOntologyLoaderConfiguration {
      * default annotation value
      */
     public static final boolean DEFAULT_LOAD_ANNOTATIONS_FLAG_VALUE = true;
+
     /**
      * default missing ontology strategy
      */
@@ -90,12 +95,12 @@ public final class OWLOntologyLoaderConfiguration {
 
     private boolean strict = false;
 
-    private boolean silentMissingImportsHandling=false;
+    private MissingImportHandlingStrategy missingImportHandlingStrategy;
 
     private final Set<IRI> ignoredImports = new HashSet<IRI>();
 
     @SuppressWarnings("javadoc")
-	public OWLOntologyLoaderConfiguration() {
+    public OWLOntologyLoaderConfiguration() {
         ignoredImports.add(IRI.create(Namespaces.OWL.toString()));
         ignoredImports.add(IRI.create(Namespaces.RDF.toString()));
         ignoredImports.add(IRI.create(Namespaces.RDFS.toString()));
@@ -104,7 +109,6 @@ public final class OWLOntologyLoaderConfiguration {
         ignoredImports.add(IRI.create(Namespaces.XML.toString()));
         ignoredImports.add(IRI.create(Namespaces.XSD.toString()));
     }
-
 
 
     /**
@@ -142,28 +146,60 @@ public final class OWLOntologyLoaderConfiguration {
      * Determines whether or not annotation axioms (instances of <code>OWLAnnotationAxiom</code>) should be loaded.
      * By default, the loading of annotation axioms is enabled.
      * @return <code>true</code> if annotation assertions will be loaded, or <code>false</code> if annotation
-     * assertions will not be loaded because they will be discarded on loading.
+     *         assertions will not be loaded because they will be discarded on loading.
      */
     public boolean isLoadAnnotationAxioms() {
-         return loadAnnotations;
-     }
+        return loadAnnotations;
+    }
 
     /**
-     * @param b new value for missing imports
-     * @return a copy of the configuration with b as value for missing imports
+     * Sets the strategy that is used for missing imports handling.  See {@link MissingImportHandlingStrategy} for the
+     * strategies and their descriptions.
+     * @param missingImportHandlingStrategy The strategy to be used.
+     * @return An <code>OWLOntologyLoaderConfiguration</code> object with the strategy set.
+     * @since 3.3
      */
-    public OWLOntologyLoaderConfiguration setSilentMissingImportsHandling(boolean b) {
-    	OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.silentMissingImportsHandling = b;
+    public OWLOntologyLoaderConfiguration setMissingImportHandlingStrategy(MissingImportHandlingStrategy missingImportHandlingStrategy) {
+        OWLOntologyLoaderConfiguration copy = copyConfiguration();
+        copy.missingImportHandlingStrategy = missingImportHandlingStrategy;
         return copy;
     }
 
     /**
-     * @return true if missing imports should be silenced
+     * Gets the strategy used for missing imports.
+     * @return The strategy.  See {@link MissingImportHandlingStrategy} for the strategies and their descriptions.
+     * @since 3.3
      */
-    public boolean isSilentMissingImportsHandling() {
-        return silentMissingImportsHandling;
+    public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
+        return missingImportHandlingStrategy;
     }
+
+    /**
+     * @param b new value for missing imports
+     * @deprecated Do not use because this method mutates the OWLOntologyLoaderConfiguration instance that it is called
+     * on.  Use {@link #setMissingImportHandlingStrategy(MissingImportHandlingStrategy)}
+     * @since 3.2.4
+     */
+    @Deprecated
+    public void setSilentMissingImportsHandling(boolean b) {
+        if(b) {
+            missingImportHandlingStrategy = MissingImportHandlingStrategy.SILENT;
+        }
+        else {
+            missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
+        }
+    }
+
+    /**
+     * @return true if a missing import does not raise an error.
+     * @deprecated Use {@link #getMissingImportHandlingStrategy()}.
+     * @since 3.2.4
+     */
+    @Deprecated
+    public boolean isSilentMissingImportsHandling() {
+        return missingImportHandlingStrategy == MissingImportHandlingStrategy.SILENT;
+    }
+
 
     /**
      * @return true if parsing should be strict
@@ -226,7 +262,7 @@ public final class OWLOntologyLoaderConfiguration {
     /**
      * Clears all ontology document IRIs from the list of ignored ontology document IRIs.
      * @return An <code>OWLOntologyLoaderConfiguration</code> with the list of ignored ontology document IRIs set to
-     * be empty.
+     *         be empty.
      */
     public OWLOntologyLoaderConfiguration clearIgnoredImports() {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
@@ -249,9 +285,6 @@ public final class OWLOntologyLoaderConfiguration {
         copy.ignoredImports.addAll(this.ignoredImports);
         return copy;
     }
-
-
-
 
 
 }
