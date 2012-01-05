@@ -409,7 +409,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was being parsed from a document and
      * the document contained syntax errors.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
-     * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
+     * for what ever reason. If the {@link MissingImportHandlingStrategy} is set to {@link MissingImportHandlingStrategy#SILENT} then this exception will
      * not be thrown.  The <code>UnloadableImportException</code> contains information about the import declaration
      * that triggered the import and the cause of this exception is an <code>OWLOntologyCreationException</code>
      * which contains information about why the import could not be loaded.
@@ -432,7 +432,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was being parsed from a document and
      * the document contained syntax errors.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
-     * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
+     * for what ever reason. If the {@link MissingImportHandlingStrategy} is set to {@link MissingImportHandlingStrategy#SILENT} then this exception will
      * not be thrown.  The <code>UnloadableImportException</code> contains information about the import declaration
      * that triggered the import and the cause of this exception is an <code>OWLOntologyCreationException</code>
      * which contains information about why the import could not be loaded.
@@ -454,7 +454,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
      * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology could not be parsed.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
-     * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
+     * for what ever reason. If the {@link MissingImportHandlingStrategy} is set to {@link MissingImportHandlingStrategy#SILENT} then this exception will
      * not be thrown.  The <code>UnloadableImportException</code> contains information about the import declaration
      * that triggered the import and the cause of this exception is an <code>OWLOntologyCreationException</code>
      * which contains information about why the import could not be loaded.
@@ -476,7 +476,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws OWLOntologyCreationException If there was a problem in creating and loading the ontology.
      * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology could not be parsed.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
-     * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
+     * for what ever reason. If the {@link MissingImportHandlingStrategy} is set to {@link MissingImportHandlingStrategy#SILENT} then this exception will
      * not be thrown.  The <code>UnloadableImportException</code> contains information about the import declaration
      * that triggered the import and the cause of this exception is an <code>OWLOntologyCreationException</code>
      * which contains information about why the import could not be loaded.
@@ -496,7 +496,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was being parsed from a document and
      * the document contained syntax errors.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
-     * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
+     * for what ever reason. If the {@link MissingImportHandlingStrategy} is set to {@link MissingImportHandlingStrategy#SILENT} then this exception will
      * not be thrown.  The <code>UnloadableImportException</code> contains information about the import declaration
      * that triggered the import and the cause of this exception is an <code>OWLOntologyCreationException</code>
      * which contains information about why the import could not be loaded.
@@ -519,7 +519,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @throws org.semanticweb.owlapi.io.UnparsableOntologyException if the ontology was being parsed from a document and
      * the document contained syntax errors.
      * @throws UnloadableImportException if the ontology imports ontologies and one of the imports could not be loaded
-     * for what ever reason. If silent missing imports handling is set to <code>true</code> then this exception will
+     * for what ever reason. If the {@link MissingImportHandlingStrategy} is set to {@link MissingImportHandlingStrategy#SILENT} then this exception will
      * not be thrown.  The <code>UnloadableImportException</code> contains information about the import declaration
      * that triggered the import and the cause of this exception is an <code>OWLOntologyCreationException</code>
      * which contains information about why the import could not be loaded.
@@ -804,7 +804,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * loading process.  If it is desired that loading continues then this option can be set with this method.
      * @param b <code>true</code> if loading should continue when an imported ontology cannot be loaded, other wise
      *          <code>false</code>.  The default value is <code>false</code>.
-     * @deprecated set it on the OWLOntologyLoaderConfiguration object instead
+     * @deprecated set it on the {@link OWLOntologyLoaderConfiguration} object instead using
+     * {@link OWLOntologyLoaderConfiguration#setMissingImportHandlingStrategy(MissingImportHandlingStrategy)}.
      */
     @Deprecated
     void setSilentMissingImportsHandling(boolean b);
@@ -813,7 +814,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /**
      * Determines if silent missing imports handling is enabled.
      * @return <code>true</code> if silent missing imports handler is enabled, otherwise <code>false</code>.
-     * @deprecated check it on the OWLOntologyLoaderConfiguration object instead
+     * @deprecated check it on the {@link OWLOntologyLoaderConfiguration} object instead using
+     * {@link org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration#getMissingImportHandlingStrategy()}
      */
     @Deprecated
     boolean isSilentMissingImportsHandling();
