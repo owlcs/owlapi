@@ -101,15 +101,26 @@ public final class OWLOntologyLoaderConfiguration {
 
     @SuppressWarnings("javadoc")
     public OWLOntologyLoaderConfiguration() {
-        ignoredImports.add(IRI.create(Namespaces.OWL.toString()));
-        ignoredImports.add(IRI.create(Namespaces.RDF.toString()));
-        ignoredImports.add(IRI.create(Namespaces.RDFS.toString()));
-        ignoredImports.add(IRI.create(Namespaces.SWRL.toString()));
-        ignoredImports.add(IRI.create(Namespaces.SWRLB.toString()));
+        ignoredImports.add(IRI.create(stripHash(Namespaces.OWL.toString())));
+        ignoredImports.add(IRI.create(stripHash(Namespaces.RDF.toString())));
+        ignoredImports.add(IRI.create(stripHash(Namespaces.RDFS.toString())));
+        ignoredImports.add(IRI.create(stripHash(Namespaces.SWRL.toString())));
+        ignoredImports.add(IRI.create(stripHash(Namespaces.SWRLB.toString())));
         ignoredImports.add(IRI.create(Namespaces.XML.toString()));
         ignoredImports.add(IRI.create(Namespaces.XSD.toString()));
     }
 
+    /**
+     * Removes a trailing # character (if one exists) from a string.
+     * @param s The string, possibly ending with a # character.
+     * @return The string s minus the # character.
+     */
+    private static String stripHash(String s) {
+        if(!s.endsWith("#")) {
+            return s;
+        }
+        return s.substring(0, s.length() - 1);
+    }
 
     /**
      * @return the ontology header strategy
