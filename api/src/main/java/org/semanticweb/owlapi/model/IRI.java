@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.File;
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -195,9 +196,14 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         return create("owlapi:ontology" + System.nanoTime());
     }
 
-    private static class IRIImpl extends IRI {
+    private static class IRIImpl extends IRI implements Serializable {
 
-        private static WeakCache<String> prefixCache = new WeakCache<String>();
+        /**
+		 *
+		 */
+		private static final long serialVersionUID = -6496701874123212758L;
+
+		private static WeakCache<String> prefixCache = new WeakCache<String>();
 
         private final String remainder;
 
@@ -234,7 +240,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
          * @return the number of <code>char</code>s in this sequence
          */
         public int length() {
-            return prefix.length() + remainder.length();
+            return prefix.length() + (remainder==null?0:remainder.length());
         }
 
         /**
