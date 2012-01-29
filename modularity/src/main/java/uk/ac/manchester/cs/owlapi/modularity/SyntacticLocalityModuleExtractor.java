@@ -44,18 +44,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.modularity.OntologySegmenter;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -216,12 +205,22 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     final OntologyAxiomSet ontologyAxiomSet;
 
-    final OWLOntology ontology;
+    final OWLOntology rootOntology, ontology;
 
     /**
      * Represents the manager for the associated ontology.
      */
     final OWLOntologyManager manager;
+
+
+    private OWLOntology createOntology(OWLOntologyManager man, OWLOntology ont, Set<OWLAxiom> axs) {
+
+        try {
+            return man.createOntology(axs);
+        } catch (OWLOntologyCreationException e) {
+            return ont;
+        }
+    }
 
 
     /**
@@ -236,8 +235,10 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         setModuleType(moduleType);
 
         manager = man;
-        ontology = ont;
+        rootOntology = ont;
         ontologyAxiomSet = new OntologyAxiomSet(axs);
+
+        ontology = createOntology(man, ont, axs);
     }
 
 
@@ -249,8 +250,20 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @param moduleType the type of module this extractor will construct
      */
     public SyntacticLocalityModuleExtractor(OWLOntologyManager man, OWLOntology ont, ModuleType moduleType) {
-        this(man, ont, ont.getAxioms(), moduleType);
+        Set<OWLAxiom> axs = new HashSet<OWLAxiom>(ont.getAxioms());
+        for (OWLOntology importedOnt : ont.getImportsClosure()) {
+            axs.addAll(importedOnt.getAxioms());
+        }
+
+        setModuleType(moduleType);
+
+        manager = man;
+        rootOntology = ont;
+        ontologyAxiomSet = new OntologyAxiomSet(axs);
+
+        ontology = createOntology(man, ont, axs);
     }
+
 
 
     /**
@@ -407,21 +420,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         Set<OWLAxiom> enrichedModule = new HashSet<OWLAxiom>(module);
 
         if (verbose) {
-            System.out.println("\nEnriching with declaration axioms ...");
+            System.out.println("\nEnriching with declaration axioms, annotation axioms, same/different individual axioms ...");
         }
-
-//        // Adding all entity declaration axioms
-//        for (int i = 0; i < ontologyAxiomSet.size(); i++) {
-//            OWLAxiom axiom = ontologyAxiomSet.getAxiom(i);
-//            if (OWLDeclarationAxiom.class.isAssignableFrom(axiom.getClass())) {
-//                if (sig.contains(((OWLDeclarationAxiom) axiom).getEntity())) {
-//                    enrichedModule.add(axiom);
-//                    if (verbose) {
-//                        System.out.println("  Added declaration axiom:   " + axiom);
-//                    }
-//                }
-//            }
-//        }
 
         // Adding all entity declaration axioms
         // Adding all entity annotation axioms
@@ -444,6 +444,32 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             }
         }
 
+        // Adding all same-individuals axioms
+        // Adding all different-individuals axioms
+        if (ontology != null) {
+            for (OWLEntity entity : sig) {
+                if (OWLNamedIndividual.class.isAssignableFrom(entity.getClass())) {
+                    OWLIndividual individual = (OWLIndividual) entity;
+
+                    Set<OWLSameIndividualAxiom> sameIndividualAxioms = ontology.getSameIndividualAxioms(individual);
+                    enrichedModule.addAll(sameIndividualAxioms);
+                    if (verbose) {
+                        for (OWLSameIndividualAxiom sameIndividualAxiom : sameIndividualAxioms) {
+                            System.out.println("  Added same individual axiom:   " + minusOntologyURI(sameIndividualAxiom.toString()));
+                        }
+                    }
+
+                    Set<OWLDifferentIndividualsAxiom> differentIndividualAxioms = ontology.getDifferentIndividualAxioms(individual);
+                    enrichedModule.addAll(differentIndividualAxioms);
+                    if (verbose) {
+                        for (OWLDifferentIndividualsAxiom differentIndividualsAxiom : differentIndividualAxioms) {
+                            System.out.println("  Added different individual axiom:   " + minusOntologyURI(differentIndividualsAxiom.toString()));
+                        }
+                    }
+                }
+            }
+        }
+
 //        boolean change = true;
 //        while (change) {
 //            int oldModuleSize = enrichedModule.size();
@@ -458,7 +484,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     String minusOntologyURI(String s) {
-        String uri = manager.getOntologyDocumentIRI(ontology).toString() + "#" ;
+        String uri = manager.getOntologyDocumentIRI(rootOntology).toString() + "#" ;
         return s.replace(uri, "").replace("<", "").replace(">", "");
     }
 

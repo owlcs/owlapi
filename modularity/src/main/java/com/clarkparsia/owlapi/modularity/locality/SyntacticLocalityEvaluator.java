@@ -289,7 +289,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
-        // BUGFIX: (TS) Individual declaration axioms are local, too.
+        // BUGFIX: (TS) Declaration axioms are local.
         //              They need to be added to the module after the locality checks have been performed.
 
         public void visit(OWLDeclarationAxiom axiom) {
@@ -407,12 +407,12 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // BUGFIX (TS): added the two cases where a disj union axiom *is* local:
         // - if LHS and all class expr on RHS are bot-equiv
         // - if LHS is top-equiv, one expr on RHS is top-equiv and the others are bot-equiv
-
         public void visit(OWLDisjointUnionAxiom axiom) {
             OWLClass lhs = axiom.getOWLClass();
             Collection<OWLClassExpression> rhs = axiom.getClassExpressions();
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
+                    // TODO (TS): "!signature.contains(lhs)" is not enough because lhs could be bot
                     if (!signature.contains(lhs)) {
                         for (OWLClassExpression desc : rhs) {
                             if (!bottomEvaluator.isBottomEquivalent(desc, signature, localityCls)) {
@@ -428,6 +428,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     break;
                 case TOP_BOTTOM:
                 case TOP_TOP:
+                    // TODO (TS): "!signature.contains(lhs)" is not enough because lhs could be top
                     if (!signature.contains(lhs)) {
                         boolean topEquivDescFound = false;
                         for (OWLClassExpression desc : rhs) {
