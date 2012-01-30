@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.util;
 
+import java.io.Serializable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
@@ -51,9 +53,12 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  * An ontology URI mapper that simply returns the ontology URI
  * without performing any mapping operation.
  */
-public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper {
+public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper, Serializable {
 
-    public IRI getDocumentIRI(IRI ontologyIRI) {
+
+	private static final long serialVersionUID = -3523104666380226094L;
+
+	public IRI getDocumentIRI(IRI ontologyIRI) {
         return ontologyIRI;
     }
 }

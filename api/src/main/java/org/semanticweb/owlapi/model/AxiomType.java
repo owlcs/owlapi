@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -58,7 +59,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * {@link org.semanticweb.owlapi.model.OWLOntology#getAxiomCount(AxiomType, boolean)}.
  */
 @SuppressWarnings("javadoc")
-public class AxiomType<C extends OWLAxiom> {
+public class AxiomType<C extends OWLAxiom> implements Serializable {
+
+
+	private static final long serialVersionUID = -8371103622896763859L;
 
     private final String name;
 

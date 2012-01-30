@@ -48,7 +48,9 @@ package org.semanticweb.owlapi.reasoner;
 public class IllegalConfigurationException extends OWLReasonerRuntimeException {
 
 
-    private final OWLReasonerConfiguration configuration;
+
+	private static final long serialVersionUID = 3821335087773461676L;
+	private final OWLReasonerConfiguration configuration;
 
     public IllegalConfigurationException(Throwable cause, OWLReasonerConfiguration configuration) {
         super(cause);

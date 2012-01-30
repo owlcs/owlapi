@@ -84,7 +84,7 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
 
-    private static final Logger log = Logger.getLogger(SemanticLocalityEvaluator.class.getName());
+    protected static final Logger log = Logger.getLogger(SemanticLocalityEvaluator.class.getName());
 
     protected final OWLDataFactory df;
 

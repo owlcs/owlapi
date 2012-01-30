@@ -47,6 +47,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  *Datafactory using no cache
  */
 public class DataFactoryNoCache extends OWLDataFactoryImpl {
+
+	private static final long serialVersionUID = 1261018869206596531L;
     private static final DataFactoryNoCache instance = new DataFactoryNoCache();
 
     public static DataFactoryNoCache getInstance() {

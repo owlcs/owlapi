@@ -46,6 +46,9 @@ package org.coode.owlapi.owlxmlparser;
  */@SuppressWarnings("javadoc")
 public class OWLXMLParserElementNotFoundException extends OWLXMLParserException {
 
+
+	private static final long serialVersionUID = 2211896483983773370L;
+
     public OWLXMLParserElementNotFoundException(int lineNumber, int columnNumber, String elementType) {
         super("Element not found: " + elementType, lineNumber, columnNumber);
     }

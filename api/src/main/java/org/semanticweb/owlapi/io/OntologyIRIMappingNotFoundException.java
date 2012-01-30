@@ -51,6 +51,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  */
 public class OntologyIRIMappingNotFoundException extends OWLOntologyCreationException {
 
+
+	private static final long serialVersionUID = 1840563065038936157L;
     private final IRI ontologyIRI;
 
     /**

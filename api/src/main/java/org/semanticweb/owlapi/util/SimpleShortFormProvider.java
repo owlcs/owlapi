@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.util;
 
+import java.io.Serializable;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 
 
@@ -60,9 +62,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * 3) If the entity URI does not have a path
  * then the full URI is returned as a string.
  */
-public class SimpleShortFormProvider implements ShortFormProvider {
+public class SimpleShortFormProvider implements ShortFormProvider, Serializable {
 
-    private final SimpleIRIShortFormProvider uriShortFormProvider = new SimpleIRIShortFormProvider();
+	private static final long serialVersionUID = 2818126707637202417L;
+	private final SimpleIRIShortFormProvider uriShortFormProvider = new SimpleIRIShortFormProvider();
 
     public String getShortForm(OWLEntity entity) {
         return uriShortFormProvider.getShortForm(entity.getIRI());

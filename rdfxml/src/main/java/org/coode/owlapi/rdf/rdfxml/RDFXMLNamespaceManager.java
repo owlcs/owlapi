@@ -39,11 +39,11 @@
 
 package org.coode.owlapi.rdf.rdfxml;
 
-import org.coode.xml.OWLOntologyXMLNamespaceManager;
-import org.semanticweb.owlapi.model.*;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import org.coode.xml.OWLOntologyXMLNamespaceManager;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Author: Matthew Horridge<br>

@@ -61,7 +61,11 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLClassExpression> implements OWLObjectPropertyRangeAxiom {
-    @SuppressWarnings("javadoc")
+
+	private static final long serialVersionUID = 900221328883758209L;
+
+
+	@SuppressWarnings("javadoc")
     public OWLObjectPropertyRangeAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLClassExpression range, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, property, range, annotations);
     }

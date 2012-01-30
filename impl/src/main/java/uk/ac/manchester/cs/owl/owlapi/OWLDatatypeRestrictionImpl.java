@@ -66,7 +66,10 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLDatatypeRestriction {
 
-    private final OWLDatatype datatype;
+
+	private static final long serialVersionUID = 2469847348102092735L;
+
+	private final OWLDatatype datatype;
 
     private final Set<OWLFacetRestriction> facetRestrictions;
 

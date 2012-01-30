@@ -55,6 +55,9 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  */
 public class OWLOntologyCreationIOException extends OWLOntologyCreationException {
 
+
+	private static final long serialVersionUID = -5515717488525490291L;
+
     /**
      * @param ioException the cause
      */

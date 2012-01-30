@@ -54,7 +54,9 @@ import org.semanticweb.owlapi.model.OWLRestriction;
 @SuppressWarnings("javadoc")
 public abstract class OWLRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F> extends OWLAnonymousClassExpressionImpl implements OWLRestriction<R, P, F> {
 
-    private final P property;
+
+	private static final long serialVersionUID = -575750955364344271L;
+	private final P property;
 
 
     public OWLRestrictionImpl(OWLDataFactory dataFactory, P property) {

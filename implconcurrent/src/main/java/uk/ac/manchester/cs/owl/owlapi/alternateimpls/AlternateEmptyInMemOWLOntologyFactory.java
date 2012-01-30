@@ -51,6 +51,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 @SuppressWarnings("javadoc")
 public class AlternateEmptyInMemOWLOntologyFactory extends AlternateAbstractInMemOWLOntologyFactory {
 
+
+	private static final long serialVersionUID = 1575345654893555681L;
+
     public AlternateEmptyInMemOWLOntologyFactory() {
 
     }

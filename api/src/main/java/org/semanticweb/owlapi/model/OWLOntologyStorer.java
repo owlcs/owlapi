@@ -40,6 +40,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 
@@ -53,7 +54,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
  * An ontology storer stores an ontology in a particular format at a location
  * specified by a particular URI.
  */
-public interface OWLOntologyStorer {
+public interface OWLOntologyStorer extends Serializable {
 
     /**
      * Determines if this storer can store an ontology in the specified ontology format.

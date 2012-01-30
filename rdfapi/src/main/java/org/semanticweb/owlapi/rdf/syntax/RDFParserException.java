@@ -55,6 +55,9 @@ import org.xml.sax.SAXException;
 @SuppressWarnings("javadoc")
 public class RDFParserException extends SAXException {
 
+
+	private static final long serialVersionUID = -1045166782194189655L;
+
     protected String m_publicId;
 
     protected String m_systemId;

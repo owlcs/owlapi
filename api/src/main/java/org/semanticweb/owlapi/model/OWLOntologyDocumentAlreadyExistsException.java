@@ -50,6 +50,8 @@ package org.semanticweb.owlapi.model;
 @SuppressWarnings("javadoc")
 public class OWLOntologyDocumentAlreadyExistsException extends OWLOntologyCreationException {
 
+
+	private static final long serialVersionUID = -426925698077484091L;
     private final IRI ontologyDocumentIRI;
 
     public OWLOntologyDocumentAlreadyExistsException(IRI ontologyDocumentIRI) {

@@ -41,6 +41,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.model.AxiomType.*;
 import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.*;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -88,7 +89,12 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** this class encapsulates all lazily built indexes */
-public abstract class AbstractInternalsImpl implements Internals {
+public abstract class AbstractInternalsImpl implements Internals, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6461033920955794650L;
+
 	protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t,
 			OWLAxiomVisitorEx<?> v) {
 		return new MapPointer<K, V>(t, v, true, this);

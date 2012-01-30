@@ -84,6 +84,9 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  */
 public class AlternateParsableOWLOntologyFactory extends AlternateAbstractInMemOWLOntologyFactory {
 
+
+	private static final long serialVersionUID = 723810240549014991L;
+
     private static final Logger logger = Logger.getLogger(AlternateParsableOWLOntologyFactory.class.getName());
 
     private final static Set<String> parsableSchemes= new HashSet<String>(Arrays.asList("http","https","file","ftp"));

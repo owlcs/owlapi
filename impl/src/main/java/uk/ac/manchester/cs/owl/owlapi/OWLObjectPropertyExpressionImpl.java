@@ -64,7 +64,10 @@ import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
  */
 public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpressionImpl<OWLClassExpression, OWLObjectPropertyExpression> implements OWLObjectPropertyExpression {
 
-    private OWLObjectPropertyExpression simplestForm;
+
+	private static final long serialVersionUID = -7678918803147331685L;
+
+	private OWLObjectPropertyExpression simplestForm;
 
     private OWLObjectPropertyExpression inverse;
     @SuppressWarnings("javadoc")

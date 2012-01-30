@@ -80,7 +80,9 @@ public class OWLXMLWriter {
      * XXX stateless, might be used through a singleton
      */
     private static final class StringLengthComparator implements Comparator<String>, Serializable {
-        public int compare(String o1, String o2) {
+        private static final long serialVersionUID = 6207412224328759300L;
+
+		public int compare(String o1, String o2) {
             int diff = o1.length() - o2.length();
             if (diff != 0) {
                 return diff;

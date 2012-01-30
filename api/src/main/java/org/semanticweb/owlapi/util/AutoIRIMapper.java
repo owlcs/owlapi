@@ -47,6 +47,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -80,7 +81,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     private final Set<String> fileExtensions;
 
-    private final File directory;
+    private transient final File directory;
 
     private boolean mapped;
 
@@ -88,13 +89,13 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     private final Map<String, OntologyRootElementHandler> handlerMap;
 
-    private File currentFile;
+    private transient File currentFile;
 
     private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap;
 
     private Map<String, IRI> oboFileMap;
 
-    private SAXParserFactory parserFactory;
+    private transient SAXParserFactory parserFactory;
 
 
     /**
@@ -339,9 +340,13 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * A handler to handle RDF/XML files.  The xml:base (if present) is taken to be
      * the ontology URI of the ontology document being parsed.
      */
-    private static class RDFXMLOntologyRootElementHandler implements OntologyRootElementHandler {
+    private static class RDFXMLOntologyRootElementHandler implements OntologyRootElementHandler, Serializable {
 
-    	public RDFXMLOntologyRootElementHandler() {
+    	/**
+		 * 
+		 */
+		private static final long serialVersionUID = 4935017093359476433L;
+		public RDFXMLOntologyRootElementHandler() {
 
 		}
         public IRI handle(Attributes attributes) {
@@ -357,9 +362,13 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     /**
      * A handler that can handle OWL/XML files.
      */
-    private static class OWLXMLOntologyRootElementHandler implements OntologyRootElementHandler {
+    private static class OWLXMLOntologyRootElementHandler implements OntologyRootElementHandler, Serializable {
 
-    	public OWLXMLOntologyRootElementHandler() {
+    	/**
+		 * 
+		 */
+		private static final long serialVersionUID = -4399198105058694367L;
+		public OWLXMLOntologyRootElementHandler() {
 
 		}
         public IRI handle(Attributes attributes) {

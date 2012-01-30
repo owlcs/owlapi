@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -48,7 +49,7 @@ import java.util.List;
  * Bio-Health Informatics Group<br>
  * Date: 20-Nov-2006<br><br>
  */
-public interface OWLOntologyChangeBroadcastStrategy {
+public interface OWLOntologyChangeBroadcastStrategy extends Serializable {
 
     /**
      * Broadcasts the list of changes to the specified listeners.

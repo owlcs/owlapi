@@ -61,7 +61,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 @SuppressWarnings("javadoc")
 public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyRangeAxiom {
 
-    private final OWLAnnotationProperty property;
+
+	private static final long serialVersionUID = -7792383427765514700L;
+
+	private final OWLAnnotationProperty property;
 
     protected final IRI range;
 

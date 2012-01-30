@@ -73,6 +73,8 @@ public class OWLObjectPropertyManager {
 
     private static final class SetSizeComparator implements
 			Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
+		private static final long serialVersionUID = 1199056291374832724L;
+
 		public int compare(Set<OWLObjectPropertyExpression> o1, Set<OWLObjectPropertyExpression> o2) {
 		    return o1.size() - o2.size();
 		}

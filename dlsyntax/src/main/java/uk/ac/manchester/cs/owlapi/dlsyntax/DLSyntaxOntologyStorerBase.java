@@ -66,7 +66,9 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 @SuppressWarnings("unused")
 public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStorer {
 
-    private OWLOntology ont;
+
+	private static final long serialVersionUID = 7356203415509177158L;
+	private OWLOntology ont;
 
     @Override
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer w, OWLOntologyFormat format) throws

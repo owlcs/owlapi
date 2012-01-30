@@ -76,7 +76,10 @@ import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
 
 
-    protected OWLIndividualImpl(OWLDataFactory dataFactory) {
+
+	private static final long serialVersionUID = 7202927319742902743L;
+
+	protected OWLIndividualImpl(OWLDataFactory dataFactory) {
         super(dataFactory);
     }
 

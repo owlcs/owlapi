@@ -178,7 +178,9 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     private static class OWLAxiomComparator implements Comparator<OWLAxiom>, Serializable {
 
-        public int compare(OWLAxiom o1, OWLAxiom o2) {
+		private static final long serialVersionUID = -8340470262511181534L;
+
+		public int compare(OWLAxiom o1, OWLAxiom o2) {
             int index1 = o1.getAxiomType().getIndex();
             int index2 = o2.getAxiomType().getIndex();
             return index1 - index2;

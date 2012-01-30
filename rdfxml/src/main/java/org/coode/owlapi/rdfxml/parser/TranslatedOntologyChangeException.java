@@ -51,7 +51,10 @@ import org.xml.sax.SAXException;
 @SuppressWarnings("javadoc")
 public class TranslatedOntologyChangeException extends SAXException {
 
-    public TranslatedOntologyChangeException(OWLOntologyChangeException e) {
+
+	private static final long serialVersionUID = -8016575338845638437L;
+
+	public TranslatedOntologyChangeException(OWLOntologyChangeException e) {
         super(e);
     }
 

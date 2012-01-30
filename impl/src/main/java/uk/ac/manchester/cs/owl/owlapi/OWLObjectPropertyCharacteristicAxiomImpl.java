@@ -56,7 +56,9 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends OWLPropertyAxiomImpl implements OWLObjectPropertyCharacteristicAxiom {
 
-    private final OWLObjectPropertyExpression property;
+
+	private static final long serialVersionUID = -6932920756015478576L;
+	private final OWLObjectPropertyExpression property;
 
     @SuppressWarnings("javadoc")
     public OWLObjectPropertyCharacteristicAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {

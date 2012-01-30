@@ -38,6 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -96,6 +97,10 @@ public class InitVisitorFactory {
 	@SuppressWarnings("unchecked")
 	public static class InitVisitor<K> extends
 			OWLAxiomVisitorExAdapter<K> {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 7629159209890326925L;
 		private final boolean sub;
 		private final boolean named;
 
@@ -236,6 +241,11 @@ public class InitVisitorFactory {
 
 	@SuppressWarnings("unchecked")
 	public static class InitIndividualVisitor<K extends OWLObject> extends InitVisitor<K> {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -7643584363460425281L;
+
 		public InitIndividualVisitor(boolean sub, boolean named) {
 			super(sub, named);
 		}
@@ -249,6 +259,10 @@ public class InitVisitorFactory {
 	@SuppressWarnings("unchecked")
 	public static class InitCollectionVisitor<K> extends
 			OWLAxiomVisitorExAdapter<Collection<K>> {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -8501203549432786654L;
 		private final boolean named;
 
 		public InitCollectionVisitor(boolean named) {
@@ -327,7 +341,12 @@ public class InitVisitorFactory {
 	}
 
 	@SuppressWarnings("unused")
-	abstract static class OWLAxiomVisitorExAdapter<K> implements OWLAxiomVisitorEx<K> {
+	abstract static class OWLAxiomVisitorExAdapter<K> implements OWLAxiomVisitorEx<K>, Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 4673905403042859613L;
+
 		public K visit(OWLSubAnnotationPropertyOfAxiom axiom) {
 			return null;
 		}

@@ -62,7 +62,10 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLDataPropertyAssertionAxiom {
-    @SuppressWarnings("javadoc")
+
+	private static final long serialVersionUID = -589726444391247611L;
+
+	@SuppressWarnings("javadoc")
     public OWLDataPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral value, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, subject, property, value, annotations);
     }

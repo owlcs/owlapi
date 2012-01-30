@@ -59,7 +59,11 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 @SuppressWarnings("javadoc")
 public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl implements OWLDataAllValuesFrom {
 
-    public OWLDataAllValuesFromImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLDataRange filler) {
+
+	private static final long serialVersionUID = 5995717075817264050L;
+
+
+	public OWLDataAllValuesFromImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLDataRange filler) {
         super(dataFactory, property, filler);
     }
 

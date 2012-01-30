@@ -50,7 +50,10 @@ package org.semanticweb.owlapi.reasoner;
 @SuppressWarnings("javadoc")
 public class InconsistentOntologyException extends OWLReasonerRuntimeException {
 
-    public InconsistentOntologyException() {
+
+	private static final long serialVersionUID = -4174826896033569260L;
+
+	public InconsistentOntologyException() {
         super("Inconsistent ontology");
     }
 }

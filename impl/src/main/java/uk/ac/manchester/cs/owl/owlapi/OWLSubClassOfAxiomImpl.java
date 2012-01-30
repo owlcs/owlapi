@@ -63,7 +63,10 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubClassOfAxiom {
 
-    private final OWLClassExpression subClass;
+
+	private static final long serialVersionUID = -8756089884377788147L;
+
+	private final OWLClassExpression subClass;
 
     private final OWLClassExpression superClass;
 

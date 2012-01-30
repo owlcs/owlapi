@@ -42,6 +42,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -74,14 +75,18 @@ import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
  * <br>
  */
 public class OWLOntologyManagerImpl implements OWLOntologyManager,
-		OWLOntologyFactory.OWLOntologyCreationHandler {
+		OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -4036053360013690609L;
 	private static final Logger logger = Logger.getLogger(OWLOntologyManagerImpl.class
 			.getName());
 	protected Map<OWLOntologyID, OWLOntology> ontologiesByID;
 	protected Map<OWLOntologyID, IRI> documentIRIsByID;
 	protected Map<OWLOntologyID, OWLOntologyFormat> ontologyFormatsByOntology;
 	protected Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration;
-	protected List<OWLOntologyIRIMapper> documentMappers;
+	protected transient List<OWLOntologyIRIMapper> documentMappers;
 	protected List<OWLOntologyFactory> ontologyFactories;
 	protected List<OWLOntologyStorer> ontologyStorers;
 	private boolean broadcastChanges;

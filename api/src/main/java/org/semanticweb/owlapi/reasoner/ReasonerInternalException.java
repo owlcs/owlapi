@@ -57,7 +57,10 @@ package org.semanticweb.owlapi.reasoner;
 @SuppressWarnings("javadoc")
 public class ReasonerInternalException extends OWLReasonerRuntimeException {
 
-    public ReasonerInternalException(Throwable cause) {
+
+	private static final long serialVersionUID = -4585927163413730131L;
+
+	public ReasonerInternalException(Throwable cause) {
         super(cause);
     }
 

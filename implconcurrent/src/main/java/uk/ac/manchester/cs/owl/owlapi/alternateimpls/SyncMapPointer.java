@@ -10,6 +10,11 @@ import uk.ac.manchester.cs.owl.owlapi.Internals;
 import uk.ac.manchester.cs.owl.owlapi.MapPointer;
 
 class SyncMapPointer<K, V extends OWLAxiom> extends MapPointer<K, V> {
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1662346304061602489L;
+
 		public SyncMapPointer(AxiomType<?> t, OWLAxiomVisitorEx<?> v,
 				boolean initialized, Internals i) {
 			super(t, v, initialized, i);

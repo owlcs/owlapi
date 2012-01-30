@@ -60,7 +60,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression<?,?>> extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
 
-    private final Set<P> properties;
+
+	private static final long serialVersionUID = 3143474518010029109L;
+	private final Set<P> properties;
 
     @SuppressWarnings("javadoc")
     public OWLNaryPropertyAxiomImpl(OWLDataFactory dataFactory, Set<? extends P> properties, Collection<? extends OWLAnnotation> annotations) {

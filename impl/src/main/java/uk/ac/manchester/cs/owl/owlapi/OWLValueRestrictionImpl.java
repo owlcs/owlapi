@@ -57,7 +57,9 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
  */
 public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject> extends OWLRestrictionImpl<R, P, P> implements OWLHasValueRestriction<R, P, V> {
 
-    private final V value;
+
+	private static final long serialVersionUID = 6053906661099724876L;
+	private final V value;
 
 
     protected OWLValueRestrictionImpl(OWLDataFactory dataFactory, P property, V value) {

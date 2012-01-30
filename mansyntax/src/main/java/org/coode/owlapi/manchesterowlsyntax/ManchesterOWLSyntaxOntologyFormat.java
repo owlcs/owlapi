@@ -50,6 +50,9 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  */
 public class ManchesterOWLSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
 
+
+	private static final long serialVersionUID = 3108697898034847903L;
+
     @Override
 	public String toString() {
         return "Manchester OWL Syntax";

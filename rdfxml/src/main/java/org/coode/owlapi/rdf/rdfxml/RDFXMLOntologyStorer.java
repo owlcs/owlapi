@@ -41,14 +41,16 @@ package org.coode.owlapi.rdf.rdfxml;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.coode.xml.IllegalElementNameException;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
-import org.semanticweb.owlapi.util.NamespaceUtil;
 
 
 /**
@@ -59,7 +61,11 @@ import org.semanticweb.owlapi.util.NamespaceUtil;
  */
 public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
 
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+
+	private static final long serialVersionUID = -8241288119291499313L;
+
+
+	public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat instanceof RDFXMLOntologyFormat;
     }
 

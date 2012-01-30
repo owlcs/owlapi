@@ -50,6 +50,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public abstract class AlternateAbstractInMemOWLOntologyFactory implements OWLOntologyFactory {
 
+
+	private static final long serialVersionUID = -1468847412445711881L;
     private OWLOntologyManager ontologyManager;
 
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {

@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.model;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 
@@ -49,7 +50,7 @@ import java.util.Set;
  * <p/>
  * A prefix manager than can provide prefixes for prefix names.
  */
-public interface PrefixManager {
+public interface PrefixManager extends Serializable {
 
     /**
      * Gets the default prefix.  The default prefix is denoted by the prefix name ":"

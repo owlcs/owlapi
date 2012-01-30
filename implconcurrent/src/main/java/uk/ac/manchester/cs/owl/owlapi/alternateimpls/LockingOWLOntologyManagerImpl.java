@@ -74,6 +74,10 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  */
 public class LockingOWLOntologyManagerImpl extends OWLOntologyManagerImpl implements
 		OWLOntologyManager, OWLOntologyFactory.OWLOntologyCreationHandler {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1920953069359718891L;
 	private final Set<Object> broadcastChanges = CollectionFactory.createSyncSet();
 	private final Lock listenerLock = new ReentrantLock();
 	private final Lock impendingLock = new ReentrantLock();

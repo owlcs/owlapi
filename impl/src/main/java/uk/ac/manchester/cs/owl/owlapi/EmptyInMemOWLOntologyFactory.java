@@ -57,7 +57,12 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
 
-    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
+
+	private static final long serialVersionUID = 1478611962213084068L;
+
+
+
+	public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
         throw new OWLRuntimeException(new UnsupportedOperationException("Cannot load OWL ontologies."));
     }
 

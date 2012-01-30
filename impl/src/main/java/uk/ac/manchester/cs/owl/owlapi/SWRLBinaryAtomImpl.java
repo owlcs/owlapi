@@ -59,7 +59,10 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 @SuppressWarnings("javadoc")
 public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtomImpl implements SWRLBinaryAtom<A, B> {
 
-    private final A arg0;
+
+	private static final long serialVersionUID = -8431578115750032679L;
+
+	private final A arg0;
 
     private final B arg1;
 

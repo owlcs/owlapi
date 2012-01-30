@@ -57,7 +57,11 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLDataMaxCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements OWLDataMaxCardinality {
-    @SuppressWarnings("javadoc")
+
+	private static final long serialVersionUID = -5518958390225145980L;
+
+
+	@SuppressWarnings("javadoc")
     public OWLDataMaxCardinalityImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
         super(dataFactory, property, cardinality, filler);
     }

@@ -51,6 +51,9 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class OBOStorageException extends OWLOntologyStorageException{
 
+
+	private static final long serialVersionUID = -7304279936910250816L;
+
     public OBOStorageException(OWLObject source, OWLObject problem, String message){
         super(source + ": " + message + " (" + problem + ")");
     }

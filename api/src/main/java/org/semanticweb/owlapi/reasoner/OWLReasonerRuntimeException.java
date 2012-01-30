@@ -48,7 +48,10 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 @SuppressWarnings("javadoc")
 public abstract class OWLReasonerRuntimeException extends OWLRuntimeException {
 
-    public OWLReasonerRuntimeException() {
+
+	private static final long serialVersionUID = 5962161263681549467L;
+
+	public OWLReasonerRuntimeException() {
     }
 
     public OWLReasonerRuntimeException(Throwable cause) {

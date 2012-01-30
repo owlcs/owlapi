@@ -39,6 +39,7 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.io.Serializable;
 import java.net.URI;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -51,9 +52,11 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-public class OWLImportsDeclarationImpl implements OWLImportsDeclaration {
+public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
 
-    private final IRI iri;
+
+	private static final long serialVersionUID = 2470913251002420141L;
+	private final IRI iri;
     @SuppressWarnings("javadoc")
     public OWLImportsDeclarationImpl(IRI iri) {
         this.iri = iri;

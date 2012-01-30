@@ -59,7 +59,10 @@ import org.semanticweb.owlapi.util.NNF;
 @SuppressWarnings("javadoc")
 public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpressionImpl implements OWLAnonymousClassExpression {
 
-    public OWLAnonymousClassExpressionImpl(OWLDataFactory dataFactory) {
+
+	private static final long serialVersionUID = -2563011035971115063L;
+
+	public OWLAnonymousClassExpressionImpl(OWLDataFactory dataFactory) {
         super(dataFactory);
     }
 

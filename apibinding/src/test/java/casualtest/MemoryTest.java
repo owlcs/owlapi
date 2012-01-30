@@ -26,17 +26,14 @@ public class MemoryTest {
 		final AtomicLong totalannotationsSize = new AtomicLong();
 		long axiomcount = 0;
 		List<File> filesToUse = new ArrayList<File>();
-		for (File f : base.listFiles()) {
-			if (f.isDirectory()) {
-				for (File onto : f.listFiles(new FilenameFilter() {
+
+				for (File onto : base.listFiles(new FilenameFilter() {
 					public boolean accept(File dir, String name) {
-						return name.endsWith(".owl.xml") || name.endsWith(".owl");
+						return name.endsWith(".zip") ;
 					}
 				})) {
 					filesToUse.add(onto);
 				}
-			}
-		}
 		Map<File, Long> averages = new HashMap<File, Long>();
 		Map<File, Long> averagetimes = new HashMap<File, Long>();
 		Map<File, String> record = new HashMap<File, String>();
@@ -62,9 +59,10 @@ public class MemoryTest {
 
 					public void visit(IRI iri) {}
 				};
+				System.out.println("MemoryTest.main() "+onto.getName());
 				long start = System.currentTimeMillis();
 				OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-				OWLOntology o = m.loadOntologyFromOntologyDocument(onto);
+				OWLOntology o = m.loadOntology(IRI.create(onto));
 				for (OWLAnnotationAssertionAxiom ax : o
 						.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
 					ax.getAnnotation().getValue().accept(visitor);

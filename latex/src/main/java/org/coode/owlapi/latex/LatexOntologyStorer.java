@@ -58,6 +58,10 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
 
 
+
+	private static final long serialVersionUID = -4613365885545391819L;
+
+
     @Override  @SuppressWarnings("unused")
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {

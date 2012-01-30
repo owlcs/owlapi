@@ -58,7 +58,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 17-Jan-2009
  */
 public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements OWLDataIntersectionOf {
-    @SuppressWarnings("javadoc")
+
+	private static final long serialVersionUID = 4685027991885787305L;
+
+	@SuppressWarnings("javadoc")
     public OWLDataIntersectionOfImpl(OWLDataFactory dataFactory, Set<? extends OWLDataRange> operands) {
         super(dataFactory, operands);
     }

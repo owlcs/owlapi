@@ -84,7 +84,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
 
-    private final IRI iri;
+
+	private static final long serialVersionUID = -7197751282672274341L;
+
+	private final IRI iri;
 
     private final boolean isThing;
 

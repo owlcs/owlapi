@@ -57,6 +57,8 @@ import org.semanticweb.owlapi.model.SWRLUnaryAtom;
 @SuppressWarnings("javadoc")
 public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl implements SWRLUnaryAtom<A> {
 
+
+	private static final long serialVersionUID = -2041524024480084652L;
     private final A arg;
 
     public SWRLUnaryAtomImpl(OWLDataFactory dataFactory, SWRLPredicate predicate, A arg) {

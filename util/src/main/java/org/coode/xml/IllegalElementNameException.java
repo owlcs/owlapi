@@ -51,7 +51,9 @@ package org.coode.xml;
 @SuppressWarnings("javadoc")
 public class IllegalElementNameException extends RuntimeException {
 
-    private String elementName;
+
+	private static final long serialVersionUID = -7169967365236696024L;
+	private String elementName;
 
     public IllegalElementNameException(String elementName) {
         super("Illegal Element Name (Element Is Not A QName): " + elementName);

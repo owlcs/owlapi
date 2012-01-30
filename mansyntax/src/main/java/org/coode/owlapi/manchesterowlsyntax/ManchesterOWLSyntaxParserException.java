@@ -51,6 +51,8 @@ import org.semanticweb.owlapi.io.OWLParserException;
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxParserException extends OWLParserException {
 
+
+	private static final long serialVersionUID = -3423673939248993415L;
     public ManchesterOWLSyntaxParserException(String message, int lineNumber, int columnNumber) {
         super(message, lineNumber, columnNumber);
     }

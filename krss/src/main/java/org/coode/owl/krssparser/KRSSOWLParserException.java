@@ -51,6 +51,10 @@ import org.semanticweb.owlapi.io.OWLParserException;
 @SuppressWarnings("javadoc")
 public class KRSSOWLParserException extends OWLParserException {
 
+
+	private static final long serialVersionUID = 2647958042419629180L;
+
+
     public KRSSOWLParserException(ParseException e) {
         super(e.getMessage(), e.currentToken.beginLine, e.currentToken.beginColumn);
     }

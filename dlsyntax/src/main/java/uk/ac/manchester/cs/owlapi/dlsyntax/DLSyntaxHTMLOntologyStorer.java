@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owlapi.dlsyntax;
 import java.io.PrintWriter;
 import java.util.Set;
 
-import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -61,7 +60,9 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 @SuppressWarnings({"unused","javadoc"})
 public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
-    private ShortFormProvider sfp;
+
+	private static final long serialVersionUID = -2976499338775049707L;
+	private ShortFormProvider sfp;
 
 
     public DLSyntaxHTMLOntologyStorer() {

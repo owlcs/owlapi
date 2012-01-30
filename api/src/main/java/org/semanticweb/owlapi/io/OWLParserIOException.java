@@ -51,6 +51,10 @@ import java.io.IOException;
  */
 public class OWLParserIOException extends OWLParserException {
 
+
+	private static final long serialVersionUID = -5238620085106543486L;
+
+
     /**
      * @param cause the cause
      */

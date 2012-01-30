@@ -51,7 +51,10 @@ import org.semanticweb.owlapi.profiles.OWLProfile;
 @SuppressWarnings("javadoc")
 public class ClassExpressionNotInProfileException extends OWLReasonerRuntimeException {
 
-    private final OWLClassExpression classExpression;
+
+	private static final long serialVersionUID = -2435277403322842099L;
+
+	private final OWLClassExpression classExpression;
 
     private final OWLProfile profile;
 

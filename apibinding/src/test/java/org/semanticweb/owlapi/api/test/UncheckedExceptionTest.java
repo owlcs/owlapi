@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
-public class TestUncheckedException extends TestCase{
+public class UncheckedExceptionTest extends TestCase{
 	public void testLoad() throws Exception{
 		try {
 		OWLOntologyManager m=Factory.getManager();

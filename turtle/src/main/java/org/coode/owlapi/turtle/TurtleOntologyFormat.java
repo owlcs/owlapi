@@ -51,7 +51,10 @@ import org.semanticweb.owlapi.io.RDFOntologyFormat;
 public class TurtleOntologyFormat extends RDFOntologyFormat {
 
 
-    @Override
+
+	private static final long serialVersionUID = 1144972399434856536L;
+
+	@Override
 	public String toString() {
         return "Turtle";
     }

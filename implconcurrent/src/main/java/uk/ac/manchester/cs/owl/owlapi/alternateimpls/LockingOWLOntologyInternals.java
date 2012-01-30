@@ -57,6 +57,8 @@ import uk.ac.manchester.cs.owl.owlapi.MapPointer;
  * @author ignazio threadsafe implementation
  */
 public class LockingOWLOntologyInternals extends InternalsImpl {
+	private static final long serialVersionUID = -6742647487412288043L;
+
 	@Override
 	protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t,
 			OWLAxiomVisitorEx<?> v) {
@@ -72,6 +74,9 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	@Override
 	protected ClassAxiomByClassPointer buildClassAxiomByClass() {
 		return new ClassAxiomByClassPointer(null, null, false, this) {
+
+			private static final long serialVersionUID = -7264777242566648150L;
+
 			@Override
 			public synchronized boolean contains(OWLClass key, OWLClassAxiom value) {
 				return super.contains(key, value);
@@ -127,6 +132,8 @@ public class LockingOWLOntologyInternals extends InternalsImpl {
 	@Override
 	protected <K> SetPointer<K> buildSet() {
 		return new SetPointer<K>(CollectionFactory.<K> createSet()) {
+			private static final long serialVersionUID = 5035692713549943611L;
+
 			@Override
 			public synchronized boolean add(K k) {
 				return super.add(k);

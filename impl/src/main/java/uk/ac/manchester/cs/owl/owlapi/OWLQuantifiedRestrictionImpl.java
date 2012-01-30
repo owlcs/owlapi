@@ -54,7 +54,9 @@ import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 @SuppressWarnings("javadoc")
 public abstract class OWLQuantifiedRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLRestrictionImpl<R, P, F> implements OWLQuantifiedRestriction<R, P, F> {
 
-    private final F filler;
+
+	private static final long serialVersionUID = -5007599870558623840L;
+	private final F filler;
 
 
     public OWLQuantifiedRestrictionImpl(OWLDataFactory dataFactory, P property, F filler) {
