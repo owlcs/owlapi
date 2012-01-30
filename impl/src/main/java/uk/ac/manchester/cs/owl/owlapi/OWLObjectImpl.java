@@ -70,7 +70,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public abstract class OWLObjectImpl implements OWLObject, Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -315085042205413768L;
 	//private final OWLDataFactory dataFactory;
@@ -93,7 +93,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 		return f;
 	}
 
-	private static final OWLDataFactory f = new OWLDataFactoryImpl(false);
+	private static final OWLDataFactory f = new OWLDataFactoryImpl(false, false);
 
 	public Set<OWLEntity> getSignature() {
 		if (signature == null) {

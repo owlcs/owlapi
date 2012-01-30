@@ -55,19 +55,19 @@ public class OWLDataFactoryInternalsPerformanceTest extends TestCase {
 	private final InternalsTester tester = new InternalsTester();
 
 	public void testBaseline() {
-		OWLDataFactoryInternals i = new InternalsNoCache(factory);
+		OWLDataFactoryInternals i = new InternalsNoCache(factory, false);
 		tester.run(i);
 	}
 
 	public void testDefault() {
-		OWLDataFactoryInternals i = new OWLDataFactoryInternalsImpl(factory);
+		OWLDataFactoryInternals i = new OWLDataFactoryInternalsImpl(factory, false);
 		tester.run(i);
 	}
 
 
 
 	public void testConcurrentHashMapsStrongRefs() {
-		OWLDataFactoryInternals i = new InternalsCSR(factory);
+		OWLDataFactoryInternals i = new InternalsCSR(factory, false);
 		tester.run(i);
 	}
 

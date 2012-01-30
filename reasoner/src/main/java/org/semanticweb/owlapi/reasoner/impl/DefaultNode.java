@@ -62,7 +62,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
-	private static final OWLDataFactory DF = new OWLDataFactoryImpl(false);
+	private static final OWLDataFactory DF = new OWLDataFactoryImpl(false, false);
 
 	protected static final OWLClass TOP_CLASS = DF.getOWLThing();
 

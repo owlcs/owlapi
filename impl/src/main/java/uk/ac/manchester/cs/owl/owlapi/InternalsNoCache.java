@@ -58,12 +58,15 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 public class InternalsNoCache implements OWLDataFactoryInternals {
 	private final OWLDataFactory factory;
 
+	private final boolean useCompression;
+
 	/**
 	 * @param f
 	 *            the factory to refer to
 	 */
-	public InternalsNoCache(OWLDataFactory f) {
+	public InternalsNoCache(OWLDataFactory f, boolean b) {
 		factory = f;
+		useCompression=b;
 	}
 
 	public void purge() {}
@@ -97,7 +100,11 @@ public class InternalsNoCache implements OWLDataFactoryInternals {
 	}
 
 	public OWLLiteral getOWLLiteral(String value) {
-		return new OWLLiteralImpl(factory, value,
+		if(useCompression) {
+		return new OWLLiteralImpl(factory, value,"",
+				getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+		}
+		return new OWLLiteralImplNoCompression(factory, value,"",
 				getOWLDatatype(XSDVocabulary.STRING.getIRI()));
 	}
 
@@ -108,7 +115,10 @@ public class InternalsNoCache implements OWLDataFactoryInternals {
 		} else {
 			normalisedLang = lang.trim().toLowerCase(Locale.ENGLISH);
 		}
-		return new OWLLiteralImpl(factory, literal, normalisedLang);
+		if(useCompression) {
+		return new OWLLiteralImpl(factory, literal, normalisedLang, null);
+		}
+		return new OWLLiteralImplNoCompression(factory, literal, normalisedLang, null);
 	}
 
 	public OWLLiteral getOWLLiteral(int value) {
@@ -126,9 +136,17 @@ public class InternalsNoCache implements OWLDataFactoryInternals {
 			if (sep != -1) {
 				String lex = lexicalValue.substring(0, sep);
 				String lang = lexicalValue.substring(sep + 1);
-				literal = new OWLLiteralImpl(factory, lex, lang);
+				if(useCompression) {
+				literal = new OWLLiteralImpl(factory, lex, lang, getRDFPlainLiteral());
+				}else {
+					literal = new OWLLiteralImplNoCompression(factory, lex, lang, getRDFPlainLiteral());
+				}
 			} else {
-				literal = new OWLLiteralImpl(factory, lexicalValue, datatype);
+				if(useCompression) {
+				literal = new OWLLiteralImpl(factory, lexicalValue, "", datatype);
+				}else {
+					literal = new OWLLiteralImplNoCompression(factory, lexicalValue, "", datatype);
+				}
 			}
 		} else {
 			// check the four special cases
@@ -149,18 +167,30 @@ public class InternalsNoCache implements OWLDataFactoryInternals {
 						f = Float.parseFloat(lexicalValue);
 						literal = getOWLLiteral(f);
 					} catch (NumberFormatException e) {
-						literal = new OWLLiteralImpl(factory, lexicalValue, datatype);
+						if(useCompression) {
+							literal = new OWLLiteralImpl(factory, lexicalValue, "", datatype);
+							}else {
+								literal = new OWLLiteralImplNoCompression(factory, lexicalValue, "", datatype);
+							}
 					}
 				} else if (datatype.isDouble()) {
 					literal = getOWLLiteral(Double.parseDouble(lexicalValue));
 				} else if (datatype.isInteger()) {
 					literal = getOWLLiteral(Integer.parseInt(lexicalValue));
 				} else {
-					literal = new OWLLiteralImpl(factory, lexicalValue, datatype);
+					if(useCompression) {
+						literal = new OWLLiteralImpl(factory, lexicalValue, "", datatype);
+						}else {
+							literal = new OWLLiteralImplNoCompression(factory, lexicalValue, "", datatype);
+						}
 				}
 			} catch (NumberFormatException e) {
 				// some literal is malformed, i.e., wrong format
-				literal = new OWLLiteralImpl(factory, lexicalValue, datatype);
+				if(useCompression) {
+					literal = new OWLLiteralImpl(factory, lexicalValue, "", datatype);
+					}else {
+						literal = new OWLLiteralImplNoCompression(factory, lexicalValue, "", datatype);
+					}
 			}
 		}
 		return literal;

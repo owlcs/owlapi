@@ -97,8 +97,8 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
 		return new BuildableWeakIndexCache<V>(f);
 	}
 
-	public OWLDataFactoryInternalsImpl(OWLDataFactory f) {
-		super(f);
+	public OWLDataFactoryInternalsImpl(OWLDataFactory f, boolean b) {
+		super(f, b);
 		classesByURI = buildCache(f);
 		objectPropertiesByURI = buildCache(f);
 		dataPropertiesByURI = buildCache(f);
