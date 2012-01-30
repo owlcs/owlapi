@@ -69,100 +69,37 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Date: 26-Oct-2006<br>
  * <br>
  */
-public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 5569750232151559959L;
-
-	private static final class LiteralWrapper implements Serializable {
-		/**
-		 *
-		 */
-		private static final long serialVersionUID = -1658780658825282402L;
-		String l;
-		byte[] bytes;
-
-		LiteralWrapper(String s) {
-			if (s.length() > 160) {
-				try {
-					bytes = compress(s);
-					l = null;
-				} catch (IOException e) {
-					// some problem happened - defaulting to no compression
-					System.out.println("OWLLiteralImpl.LiteralWrapper.LiteralWrapper() "
-							+ e.getMessage());
-					l = s;
-					bytes = null;
-				}
-			} else {
-				bytes = null;
-				l = s;
-			}
-		}
-
-		String get() {
-			if (l != null) {
-				return l;
-			}
-			try {
-				return decompress(bytes);
-			} catch (IOException e) {
-				// some problem has happened - cannot recover from this
-				e.printStackTrace();
-				return null;
-			}
-		}
-
-		byte[] compress(String s) throws IOException {
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			GZIPOutputStream zipout;
-			zipout = new GZIPOutputStream(out);
-			Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING);
-			writer.write(s);
-			writer.flush();
-			zipout.finish();
-			zipout.flush();
-			return out.toByteArray();
-		}
-
-		String decompress(byte[] result) throws IOException {
-			ByteArrayInputStream in = new ByteArrayInputStream(result);
-			GZIPInputStream zipin = new GZIPInputStream(in);
-			Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING);
-			StringBuilder b = new StringBuilder();
-			int c = reader.read();
-			while (c > -1) {
-				b.append((char) c);
-				c = reader.read();
-			}
-			return b.toString();
-		}
-
-		private static final String COMPRESSED_ENCODING = "UTF-16";
-	}
-
-	private final LiteralWrapper literal;
+public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
+	private final String literal;
 	private final OWLDatatype datatype;
 	private final String lang;
 	private final int hashcode;
 
 	/**
 	 *
-	 * @param dataFactory the datafactory
-	 * @param literal the lexical form
-	 * @param lang the language; can be null or an empty string, in which case datatype can be any datatype but not null
-	 * @param datatype the datatype; if lang is null or the empty string, it can be null or it MUST be RDFPlainLiteral
+	 * @param dataFactory
+	 *            the datafactory
+	 * @param literal
+	 *            the lexical form
+	 * @param lang
+	 *            the language; can be null or an empty string, in which case
+	 *            datatype can be any datatype but not null
+	 * @param datatype
+	 *            the datatype; if lang is null or the empty string, it can be
+	 *            null or it MUST be RDFPlainLiteral
 	 */
-	public OWLLiteralImpl(OWLDataFactory dataFactory, String literal, String lang,
-			OWLDatatype datatype) {
+	public OWLLiteralImplNoCompression(OWLDataFactory dataFactory, String literal,
+			String lang, OWLDatatype datatype) {
 		super(dataFactory);
-		this.literal = new LiteralWrapper(literal);
+		this.literal = literal;
 		if (lang == null || lang.length() == 0) {
 			this.lang = "";
-			this.datatype = datatype;
+			if (datatype == null) {
+				this.datatype = dataFactory.getRDFPlainLiteral();
+			} else {
+				this.datatype = datatype;
+			}
 		} else {
-
 			final OWLDatatype rdfPlainLiteral = dataFactory.getRDFPlainLiteral();
 			if (datatype != null && !rdfPlainLiteral.equals(datatype)) {
 				// ERROR: attempting to build a literal with a language tag and type different from plain literal
@@ -184,7 +121,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 	//		hashcode = getHashCode();
 	//	}
 	public String getLiteral() {
-		return literal.get();
+		return literal;
 	}
 
 	public boolean isRDFPlainLiteral() {
@@ -200,7 +137,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 	}
 
 	public int parseInteger() throws NumberFormatException {
-		return Integer.parseInt(literal.get());
+		return Integer.parseInt(literal);
 	}
 
 	public boolean isBoolean() {
@@ -208,16 +145,16 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 	}
 
 	public boolean parseBoolean() throws NumberFormatException {
-		if (literal.get().equals("0")) {
+		if (literal.equals("0")) {
 			return false;
 		}
-		if (literal.get().equals("1")) {
+		if (literal.equals("1")) {
 			return true;
 		}
-		if (literal.get().equals("true")) {
+		if (literal.equals("true")) {
 			return true;
 		}
-		if (literal.get().equals("false")) {
+		if (literal.equals("false")) {
 			return false;
 		}
 		return false;
@@ -228,7 +165,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 	}
 
 	public double parseDouble() throws NumberFormatException {
-		return Double.parseDouble(literal.get());
+		return Double.parseDouble(literal);
 	}
 
 	public boolean isFloat() {
@@ -236,7 +173,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 	}
 
 	public float parseFloat() throws NumberFormatException {
-		return Float.parseFloat(literal.get());
+		return Float.parseFloat(literal);
 	}
 
 	public String getLang() {
@@ -267,11 +204,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 		int hashCode = 277;
 		hashCode = hashCode * 37 + getDatatype().hashCode();
 		hashCode = hashCode * 37;
-		if (literal.l != null) {
-			hashCode += literal.l.hashCode();
-		} else {
-			hashCode += Arrays.hashCode(literal.bytes);
-		}
+		hashCode += literal.hashCode();
 		if (hasLang()) {
 			hashCode = hashCode * 37 + getLang().hashCode();
 		}
@@ -285,7 +218,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 				return false;
 			}
 			OWLLiteral other = (OWLLiteral) obj;
-			return literal.get().equals(other.getLiteral())
+			return literal.equals(other.getLiteral())
 					&& datatype.equals(other.getDatatype())
 					&& lang.equals(other.getLang());
 		}
@@ -311,7 +244,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 	@Override
 	protected int compareObjectOfSameType(OWLObject object) {
 		OWLLiteral other = (OWLLiteral) object;
-		int diff = literal.get().compareTo(other.getLiteral());
+		int diff = literal.compareTo(other.getLiteral());
 		if (diff != 0) {
 			return diff;
 		}

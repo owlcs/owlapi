@@ -79,8 +79,8 @@ public class InternalsCSR extends  OWLDataFactoryInternalsImpl {
     /**
      * @param f the factory to refer to
      */
-    public InternalsCSR(OWLDataFactory f) {
-    	super(f);
+    public InternalsCSR(OWLDataFactory f, boolean b) {
+    	super(f, b);
 
     }
 

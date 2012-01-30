@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  */
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -5131811752126578684L;
 	private static final String ABBREVIATED_IRI = "abbreviatedIRI";
@@ -75,30 +75,30 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
 	private static final String VALUES2 = "values";
 	private static final String DATA_RANGES = "dataRanges";
 	private static final String DATA_RANGE = "dataRange";
-	private static final transient OWLDataFactory instance = new OWLDataFactoryImpl(false);
+	private static final transient OWLDataFactory instance = new OWLDataFactoryImpl(false, false);
 	private static final transient OWLClass OWL_THING = new OWLClassImpl(instance,
 			OWLRDFVocabulary.OWL_THING.getIRI());
 	private static final transient OWLClass OWL_NOTHING = new OWLClassImpl(instance,
 			OWLRDFVocabulary.OWL_NOTHING.getIRI());
-	private static final transient OWLLiteral trueLiteral = new OWLLiteralImpl(instance,
-			Boolean.toString(true), new OWLDatatypeImpl(instance,
+	private static final transient OWLLiteral trueLiteral = new OWLLiteralImplNoCompression(instance,
+			Boolean.toString(true), "", new OWLDatatypeImpl(instance,
 					XSDVocabulary.BOOLEAN.getIRI()));
-	private static final transient OWLLiteral falseLiteral = new OWLLiteralImpl(instance,
-			Boolean.toString(false), new OWLDatatypeImpl(instance,
+	private static final transient OWLLiteral falseLiteral = new OWLLiteralImplNoCompression(instance,
+			Boolean.toString(false), "", new OWLDatatypeImpl(instance,
 					XSDVocabulary.BOOLEAN.getIRI()));
 	protected transient OWLDataFactoryInternals data;
 
 	@SuppressWarnings("javadoc")
 	public OWLDataFactoryImpl() {
-		this(true);
+		this(true, false);
 		//		data = new OWLDataFactoryInternalsImpl(this);
 	}
 
-	public OWLDataFactoryImpl(boolean cache) {
+	public OWLDataFactoryImpl(boolean cache, boolean useCompression) {
 		if (cache) {
-			data = new OWLDataFactoryInternalsImpl(this);
+			data = new OWLDataFactoryInternalsImpl(this, useCompression);
 		} else {
-			data = new InternalsNoCache(this);
+			data = new InternalsNoCache(this, useCompression);
 		}
 	}
 

@@ -58,7 +58,7 @@ public class DataFactoryCSR extends OWLDataFactoryImpl {
 
     @SuppressWarnings("javadoc")
 	public DataFactoryCSR() {
-        data = new InternalsCSR(this);
+        data = new InternalsCSR(this, false);
 
     }
 }
