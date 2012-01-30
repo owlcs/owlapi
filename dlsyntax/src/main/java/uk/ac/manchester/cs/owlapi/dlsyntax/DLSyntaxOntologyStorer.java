@@ -50,7 +50,10 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public class DLSyntaxOntologyStorer extends DLSyntaxOntologyStorerBase {
 
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+
+	private static final long serialVersionUID = -6365786764966304761L;
+
+	public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new DLSyntaxOntologyFormat());
     }
 }

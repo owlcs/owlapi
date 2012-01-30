@@ -38,6 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -58,7 +59,11 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * Date: 26-Oct-2006<br>
  * <br>
  */
-public class OWLDataFactoryImpl implements OWLDataFactory {
+public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5131811752126578684L;
 	private static final String ABBREVIATED_IRI = "abbreviatedIRI";
 	private static final String ID2 = "id";
 	private static final String CURI2 = "curi";
@@ -70,18 +75,18 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 	private static final String VALUES2 = "values";
 	private static final String DATA_RANGES = "dataRanges";
 	private static final String DATA_RANGE = "dataRange";
-	private static final OWLDataFactory instance = new OWLDataFactoryImpl(false);
-	private static final OWLClass OWL_THING = new OWLClassImpl(instance,
+	private static final transient OWLDataFactory instance = new OWLDataFactoryImpl(false);
+	private static final transient OWLClass OWL_THING = new OWLClassImpl(instance,
 			OWLRDFVocabulary.OWL_THING.getIRI());
-	private static final OWLClass OWL_NOTHING = new OWLClassImpl(instance,
+	private static final transient OWLClass OWL_NOTHING = new OWLClassImpl(instance,
 			OWLRDFVocabulary.OWL_NOTHING.getIRI());
-	private static OWLLiteral trueLiteral = new OWLLiteralImpl(instance,
+	private static final transient OWLLiteral trueLiteral = new OWLLiteralImpl(instance,
 			Boolean.toString(true), new OWLDatatypeImpl(instance,
 					XSDVocabulary.BOOLEAN.getIRI()));
-	private static OWLLiteral falseLiteral = new OWLLiteralImpl(instance,
+	private static final transient OWLLiteral falseLiteral = new OWLLiteralImpl(instance,
 			Boolean.toString(false), new OWLDatatypeImpl(instance,
 					XSDVocabulary.BOOLEAN.getIRI()));
-	protected OWLDataFactoryInternals data;
+	protected transient OWLDataFactoryInternals data;
 
 	@SuppressWarnings("javadoc")
 	public OWLDataFactoryImpl() {

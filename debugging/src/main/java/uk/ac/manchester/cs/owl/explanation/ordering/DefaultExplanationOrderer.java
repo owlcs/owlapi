@@ -374,7 +374,9 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
      * XXX this class is stateless, a singleton might be used to access it
      */
     private static final class OWLAxiomTreeComparator implements Comparator<Tree<OWLAxiom>>, Serializable {
-    	public OWLAxiomTreeComparator() {
+
+		private static final long serialVersionUID = -964659673213179294L;
+		public OWLAxiomTreeComparator() {
 
 		}
         public int compare(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {

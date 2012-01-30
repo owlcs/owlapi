@@ -40,6 +40,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -139,7 +140,11 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
  * Date: 26-Oct-2006<br>
  * <br>
  */
-public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology {
+public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -288631774707219024L;
 	private final OWLOntologyManager manager;
 	private OWLOntologyID ontologyID;
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -695,6 +700,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 	}
 
 	OWLAxiomSearchFilter<OWLDatatypeDefinitionAxiom, OWLDatatype> datatypeDefFilter = new OWLAxiomSearchFilter<OWLDatatypeDefinitionAxiom, OWLDatatype>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1720653941890974506L;
+
 		public boolean pass(OWLDatatypeDefinitionAxiom axiom, OWLDatatype p) {
 			return axiom.getDatatype().equals(p);
 		}
@@ -704,6 +714,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 		}
 	};
 	OWLAxiomSearchFilter<OWLSubAnnotationPropertyOfAxiom, OWLAnnotationProperty> subAnnPropertyFilter = new OWLAxiomSearchFilter<OWLSubAnnotationPropertyOfAxiom, OWLAnnotationProperty>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -8854949451154303417L;
+
 		public boolean pass(OWLSubAnnotationPropertyOfAxiom axiom, OWLAnnotationProperty p) {
 			return axiom.getSubProperty().equals(p);
 		}
@@ -713,6 +728,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 		}
 	};
 	OWLAxiomSearchFilter<OWLAnnotationPropertyRangeAxiom, OWLAnnotationProperty> apRangeFilter = new OWLAxiomSearchFilter<OWLAnnotationPropertyRangeAxiom, OWLAnnotationProperty>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -6679156856998035794L;
+
 		public boolean pass(OWLAnnotationPropertyRangeAxiom axiom, OWLAnnotationProperty p) {
 			return axiom.getProperty().equals(p);
 		}
@@ -722,6 +742,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 		}
 	};
 	OWLAxiomSearchFilter<OWLAnnotationPropertyDomainAxiom, OWLAnnotationProperty> apDomainFilter = new OWLAxiomSearchFilter<OWLAnnotationPropertyDomainAxiom, OWLAnnotationProperty>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -9005744095112234061L;
+
 		public boolean pass(OWLAnnotationPropertyDomainAxiom axiom,
 				OWLAnnotationProperty p) {
 			return axiom.getProperty().equals(p);
@@ -1481,7 +1506,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 		return appliedChanges;
 	}
 
-	protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitor {
+	protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitor, Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -574696339223585182L;
 		private final List<OWLOntologyChange> appliedChanges;
 
 		public OWLOntologyChangeFilter() {
@@ -1593,7 +1622,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 		return ontologyID.hashCode();
 	}
 
-	private class OWLEntityReferenceChecker implements OWLEntityVisitor {
+	private class OWLEntityReferenceChecker implements OWLEntityVisitor, Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -2558723488794485125L;
 		private boolean ref;
 
 		public boolean containsReference(OWLEntity entity) {

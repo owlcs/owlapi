@@ -55,7 +55,9 @@ import org.semanticweb.owlapi.profiles.OWLProfile;
 @SuppressWarnings("javadoc")
 public class ImportsClosureNotInProfileException extends OWLReasonerRuntimeException {
 
-    private final OWLProfile profile;
+
+	private static final long serialVersionUID = 5299155253601315515L;
+	private final OWLProfile profile;
 
     public ImportsClosureNotInProfileException(OWLProfile profile) {
         this.profile = profile;

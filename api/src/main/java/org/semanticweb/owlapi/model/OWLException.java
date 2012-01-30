@@ -48,6 +48,10 @@ package org.semanticweb.owlapi.model;
  */
 public abstract class OWLException extends Exception {
 
+
+	private static final long serialVersionUID = -5698490497333547461L;
+
+
     protected OWLException() {
     }
 

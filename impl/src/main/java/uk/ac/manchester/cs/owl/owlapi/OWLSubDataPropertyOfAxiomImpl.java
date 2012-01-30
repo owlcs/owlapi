@@ -60,7 +60,11 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLSubDataPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLDataPropertyExpression> implements OWLSubDataPropertyOfAxiom {
-    @SuppressWarnings("javadoc")
+
+	private static final long serialVersionUID = -7359371170400448979L;
+
+
+	@SuppressWarnings("javadoc")
     public OWLSubDataPropertyOfAxiomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression subProperty, OWLDataPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, subProperty, superProperty, annotations);
     }

@@ -47,7 +47,11 @@ package org.semanticweb.owlapi.io;
  */
 public class DefaultOntologyFormat extends RDFXMLOntologyFormat {
 
-    @Override
+
+	private static final long serialVersionUID = -4659241093179265716L;
+
+
+	@Override
 	public boolean equals(Object obj) {
         return obj instanceof RDFXMLOntologyFormat;
     }

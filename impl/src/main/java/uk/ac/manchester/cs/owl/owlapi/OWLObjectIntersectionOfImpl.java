@@ -59,7 +59,11 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionImpl implements OWLObjectIntersectionOf {
-    @SuppressWarnings("javadoc")
+
+	private static final long serialVersionUID = 5773552525500880942L;
+
+
+	@SuppressWarnings("javadoc")
     public OWLObjectIntersectionOfImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> operands) {
         super(dataFactory, operands);
     }

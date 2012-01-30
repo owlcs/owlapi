@@ -143,9 +143,6 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-import uk.ac.manchester.cs.owl.owlapi.CollectionContainer;
-import uk.ac.manchester.cs.owl.owlapi.CollectionContainerVisitor;
-
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>

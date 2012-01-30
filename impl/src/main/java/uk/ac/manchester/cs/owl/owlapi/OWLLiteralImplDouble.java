@@ -57,6 +57,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * <br>
  */
 public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7929540842690238167L;
 	private final double literal;
 	private final OWLDatatype datatype;
 

@@ -47,6 +47,9 @@ package org.semanticweb.owlapi.model;
  */
 public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationException {
 
+
+	private static final long serialVersionUID = 8631951244515672460L;
+
     private static final String ONTOLOGY_ALREADY_EXISTS = "Ontology already exists. ";
 
 	private final OWLOntologyID ontologyID;

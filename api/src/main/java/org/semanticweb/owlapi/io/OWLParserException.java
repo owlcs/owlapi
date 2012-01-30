@@ -52,6 +52,9 @@ import org.semanticweb.owlapi.model.OWLException;
  */
 public class OWLParserException extends OWLException {
 
+
+	private static final long serialVersionUID = -964331264297834315L;
+
     private final int lineNumber;
 
     private final int columnNumber;

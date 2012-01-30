@@ -39,10 +39,15 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
-
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * Author: Matthew Horridge<br>

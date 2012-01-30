@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.model;
 
+import java.io.Serializable;
+
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 18-Jan-2009
@@ -48,9 +50,12 @@ package org.semanticweb.owlapi.model;
  * identifying information of an ontology together.  If an ontology doesn't have an ontology IRI then we say that
  * it is "anonymous".
  */
-public final class OWLOntologyID implements Comparable<OWLOntologyID> {
+public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
 
-    private static int counter = 0;
+
+	private static final long serialVersionUID = -1776512899375657560L;
+
+	private static int counter = 0;
 
     private static final String ANON_PREFIX = "Anonymous-";
 

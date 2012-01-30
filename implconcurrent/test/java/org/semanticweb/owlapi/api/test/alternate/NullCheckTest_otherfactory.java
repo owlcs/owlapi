@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({"javadoc","deprecation"})
 public class NullCheckTest_otherfactory extends TestCase {
 	private static final String MESSAGE = "Exception expected!";
 	private static final OWLDataFactory f = Factory.getFactory();

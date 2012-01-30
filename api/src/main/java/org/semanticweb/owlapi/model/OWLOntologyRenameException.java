@@ -50,7 +50,9 @@ package org.semanticweb.owlapi.model;
 @SuppressWarnings("javadoc")
 public class OWLOntologyRenameException extends OWLOntologyChangeException {
 
-    private final OWLOntologyID ontologyID;
+
+	private static final long serialVersionUID = -2311571026466642785L;
+	private final OWLOntologyID ontologyID;
 
     public OWLOntologyRenameException(OWLOntologyChange change, OWLOntologyID ontologyID) {
         super(change, "Could not rename ontology. An ontology with this ID already exists: " + ontologyID);

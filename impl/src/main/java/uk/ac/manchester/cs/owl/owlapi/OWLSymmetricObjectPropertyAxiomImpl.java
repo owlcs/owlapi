@@ -62,7 +62,10 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLSymmetricObjectPropertyAxiom {
-    @SuppressWarnings("javadoc")
+
+	private static final long serialVersionUID = -8084143966259357449L;
+
+	@SuppressWarnings("javadoc")
     public OWLSymmetricObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, property, annotations);
     }

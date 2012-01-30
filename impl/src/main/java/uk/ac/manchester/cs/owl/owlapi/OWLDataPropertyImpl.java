@@ -81,7 +81,11 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange, OWLDataPropertyExpression> implements OWLDataProperty {
 
-    private final IRI iri;
+
+	private static final long serialVersionUID = 6058248913120165090L;
+
+
+	private final IRI iri;
 
 
     private final boolean builtin;

@@ -56,6 +56,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
 
+
+	private static final long serialVersionUID = 5878209925502090668L;
     private final IRI iri;
 
 

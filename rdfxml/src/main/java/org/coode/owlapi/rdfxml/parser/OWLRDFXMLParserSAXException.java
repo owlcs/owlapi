@@ -51,7 +51,10 @@ import org.xml.sax.SAXException;
 @SuppressWarnings("javadoc")
 public class OWLRDFXMLParserSAXException extends OWLRDFXMLParserException {
 
-    public OWLRDFXMLParserSAXException(SAXException cause) {
+
+	private static final long serialVersionUID = -1401743754947611861L;
+
+	public OWLRDFXMLParserSAXException(SAXException cause) {
         super(cause);
     }
 }

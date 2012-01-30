@@ -65,7 +65,10 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 @SuppressWarnings("javadoc")
 public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWLClassAssertionAxiom {
 
-    private final OWLIndividual individual;
+
+	private static final long serialVersionUID = 1631947003263619315L;
+
+	private final OWLIndividual individual;
 
     private final OWLClassExpression classExpression;
 

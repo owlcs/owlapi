@@ -47,7 +47,10 @@ package org.semanticweb.owlapi.model;
 @SuppressWarnings("javadoc")
 public class OWLOntologyStorerNotFoundException extends OWLOntologyStorageException {
 
-    public OWLOntologyStorerNotFoundException(OWLOntologyFormat format) {
+
+	private static final long serialVersionUID = -3100020178837299737L;
+
+	public OWLOntologyStorerNotFoundException(OWLOntologyFormat format) {
         super("Could not find an ontology storer which can handle the format: " + format);
     }
 }

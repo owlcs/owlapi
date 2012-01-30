@@ -50,6 +50,10 @@ package org.semanticweb.owlapi.model;
 @SuppressWarnings("javadoc")
 public class OWLOntologyCreationException extends OWLException {
 
+
+	private static final long serialVersionUID = 8869766652172210526L;
+
+
     public OWLOntologyCreationException() {
     }
 

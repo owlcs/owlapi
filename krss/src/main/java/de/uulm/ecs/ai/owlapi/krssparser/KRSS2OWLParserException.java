@@ -48,6 +48,9 @@ import org.coode.owl.krssparser.KRSSOWLParserException;
  */
 @SuppressWarnings("javadoc")
 public class KRSS2OWLParserException extends KRSSOWLParserException {
+
+	private static final long serialVersionUID = -1010331641787397944L;
+
     public KRSS2OWLParserException(org.coode.owl.krssparser.ParseException e) {
         super(e);
     }

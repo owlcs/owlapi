@@ -61,7 +61,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements OWLNaryIndividualAxiom {
 
-    private final Set<OWLIndividual> individuals;
+
+	private static final long serialVersionUID = -1687346133523438950L;
+	private final Set<OWLIndividual> individuals;
 
     @SuppressWarnings("javadoc")
     public OWLNaryIndividualAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> individuals, Collection<? extends OWLAnnotation> annotations) {

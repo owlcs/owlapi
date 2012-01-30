@@ -57,6 +57,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * <br>
  */
 public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5720466151025153570L;
 	private final float literal;
 	private final OWLDatatype datatype;
 

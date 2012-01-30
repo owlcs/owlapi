@@ -52,6 +52,9 @@ package org.semanticweb.owlapi.model;
 @SuppressWarnings("javadoc")
 public class OWLOntologyIRIMappingNotFoundException extends OWLRuntimeException {
 
+
+	private static final long serialVersionUID = 7492633515647119870L;
+
     public OWLOntologyIRIMappingNotFoundException(IRI ontologyIRI) {
         super("Could not find ontology document mapping for " + ontologyIRI.toQuotedString());
     }

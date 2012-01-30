@@ -80,7 +80,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
 
-    private final IRI iri;
+
+	private static final long serialVersionUID = -5284340036754875910L;
+
+	private final IRI iri;
 
     private final boolean top;
 

@@ -55,6 +55,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 @SuppressWarnings("javadoc")
 public class ParserException extends Exception {
 
+
+	private static final long serialVersionUID = 3422759573463634584L;
+
     private String currentToken;
 
     private int lineNumber;

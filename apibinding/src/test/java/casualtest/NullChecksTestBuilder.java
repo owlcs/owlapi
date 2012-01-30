@@ -3,6 +3,7 @@ package casualtest;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -23,7 +24,7 @@ public class NullChecksTestBuilder {
 						} else {
 							String string = genericParameterTypes[j].toString();
 							final String className = string.replace("class ", "").replace("interface ","");
-							string = className.replace("java.lang.", "").replace("org.semanticweb.owlapi.model.","").replace("org.semanticweb.owlapi.vocab.","").toLowerCase();
+							string = className.replace("java.lang.", "").replace("org.semanticweb.owlapi.model.","").replace("org.semanticweb.owlapi.vocab.","").toLowerCase(Locale.ENGLISH);
 							classnames.put(string, className);
 							System.out.print(string);
 						}

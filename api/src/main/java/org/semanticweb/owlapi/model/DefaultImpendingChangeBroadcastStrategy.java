@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -47,9 +48,12 @@ import java.util.List;
  * Bio-Health Informatics Group<br>
  * Date: 04-Jul-2010
  */
-public class DefaultImpendingChangeBroadcastStrategy implements ImpendingOWLOntologyChangeBroadcastStrategy {
+public class DefaultImpendingChangeBroadcastStrategy implements ImpendingOWLOntologyChangeBroadcastStrategy, Serializable {
 
-    public void broadcastChanges(ImpendingOWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) {
+
+	private static final long serialVersionUID = 7730286537796129084L;
+
+	public void broadcastChanges(ImpendingOWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) {
         listener.handleImpendingOntologyChanges(changes);
     }
 }

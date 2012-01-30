@@ -51,6 +51,9 @@ import java.io.IOException;
 @SuppressWarnings("javadoc")
 public class LatexRendererIOException extends LatexRendererException {
 
+
+	private static final long serialVersionUID = -8158904113870844620L;
+
     public LatexRendererIOException(IOException cause) {
         super(cause);
     }

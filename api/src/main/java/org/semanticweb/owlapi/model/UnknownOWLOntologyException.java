@@ -48,7 +48,10 @@ package org.semanticweb.owlapi.model;
 @SuppressWarnings("javadoc")
 public class UnknownOWLOntologyException extends OWLRuntimeException {
 
-    public UnknownOWLOntologyException(OWLOntologyID ontologyID) {
+
+	private static final long serialVersionUID = 3607769029203234756L;
+
+	public UnknownOWLOntologyException(OWLOntologyID ontologyID) {
         super("Unknown ontology: " + ontologyID);
     }
 }

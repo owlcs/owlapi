@@ -53,6 +53,8 @@ import org.xml.sax.SAXException;
 @SuppressWarnings("javadoc")
 public class TranslatedOWLParserException extends SAXException {
 
+
+	private static final long serialVersionUID = 4986291914365409007L;
     private OWLParserException parserException;
 
     public TranslatedOWLParserException(OWLParserException cause) {

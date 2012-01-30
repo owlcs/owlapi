@@ -61,7 +61,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 @SuppressWarnings("javadoc")
 public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyDomainAxiom {
 
-    private final OWLAnnotationProperty property;
+
+	private static final long serialVersionUID = -3466343619382364759L;
+
+	private final OWLAnnotationProperty property;
 
     private final IRI domain;
 

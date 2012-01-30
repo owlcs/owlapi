@@ -51,6 +51,10 @@ import org.semanticweb.owlapi.io.OWLParserException;
 @SuppressWarnings("javadoc")
 public class OBOParserException extends OWLParserException {
 
+
+	private static final long serialVersionUID = -1819006713923188360L;
+
+
     public OBOParserException(String message) {
         super(message);
     }

@@ -41,6 +41,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.model.AxiomType.AXIOM_TYPES;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -108,7 +109,16 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 @SuppressWarnings("javadoc")
 public class InternalsImpl extends AbstractInternalsImpl {
-	protected class SetPointer<K> implements Internals.SimplePointer<K>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4004215105988765871L;
+
+	protected class SetPointer<K> implements Internals.SimplePointer<K>, Serializable{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -3873292720116055322L;
 		private final Set<K> set;
 		public SetPointer(Set<K> s) {
 			set=s;
@@ -414,7 +424,12 @@ public boolean remove(K k) {
 		return this.axiomsByType;
 	}
 
-	class AddAxiomVisitor implements OWLAxiomVisitor {
+	class AddAxiomVisitor implements OWLAxiomVisitor, Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 6674044428069040877L;
+
 		public void visit(OWLSubClassOfAxiom axiom) {
 			if (!axiom.getSubClass().isAnonymous()) {
 				OWLClass subClass = (OWLClass) axiom.getSubClass();
@@ -620,7 +635,12 @@ public boolean remove(K k) {
 		public void visit(OWLDatatypeDefinitionAxiom axiom) {}
 	}
 
-	class RemoveAxiomVisitor implements OWLAxiomVisitor {
+	class RemoveAxiomVisitor implements OWLAxiomVisitor, Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 4802403678601719693L;
+
 		public void visit(OWLSubClassOfAxiom axiom) {
 			if (!axiom.getSubClass().isAnonymous()) {
 				OWLClass subClass = (OWLClass) axiom.getSubClass();

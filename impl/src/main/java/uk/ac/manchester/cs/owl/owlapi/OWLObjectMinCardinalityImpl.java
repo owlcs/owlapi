@@ -57,7 +57,11 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLObjectMinCardinalityImpl extends OWLObjectCardinalityRestrictionImpl implements OWLObjectMinCardinality {
-    @SuppressWarnings("javadoc")
+
+	private static final long serialVersionUID = -6498049859117307272L;
+
+
+	@SuppressWarnings("javadoc")
     public OWLObjectMinCardinalityImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, int cardinality, OWLClassExpression filler) {
         super(dataFactory, property, cardinality, filler);
     }

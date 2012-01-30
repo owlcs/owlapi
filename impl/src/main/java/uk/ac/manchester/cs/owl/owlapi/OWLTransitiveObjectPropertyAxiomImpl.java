@@ -61,7 +61,10 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLTransitiveObjectPropertyAxiom {
-    @SuppressWarnings("javadoc")
+
+	private static final long serialVersionUID = -2442655581559760029L;
+
+	@SuppressWarnings("javadoc")
     public OWLTransitiveObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
         super(dataFactory, property, annotations);
     }

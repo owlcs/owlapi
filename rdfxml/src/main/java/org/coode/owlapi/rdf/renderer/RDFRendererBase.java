@@ -613,6 +613,8 @@ public abstract class RDFRendererBase {
      * XXX stateless, might be used through a singleton*/
     private static final class OWLEntityIRIComparator implements
 			Comparator<OWLEntity>, Serializable {
+		private static final long serialVersionUID = -8147861657641772580L;
+
 		public int compare(OWLEntity o1, OWLEntity o2) {
 		    return o1.getIRI().compareTo(o2.getIRI());
 		}
@@ -621,7 +623,8 @@ public abstract class RDFRendererBase {
 
 	public static class TripleComparator implements Comparator<RDFTriple>, Serializable {
 
-        private List<IRI> orderedURIs;
+    	private static final long serialVersionUID = 9034226212063704393L;
+		private List<IRI> orderedURIs;
 
 
         public TripleComparator() {

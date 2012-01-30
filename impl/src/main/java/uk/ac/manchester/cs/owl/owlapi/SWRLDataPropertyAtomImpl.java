@@ -58,7 +58,10 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
  */
 public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLDArgument> implements SWRLDataPropertyAtom {
 
-    @SuppressWarnings("javadoc")
+
+	private static final long serialVersionUID = -7311934827850039429L;
+
+	@SuppressWarnings("javadoc")
 	public SWRLDataPropertyAtomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression predicate, SWRLIArgument arg0, SWRLDArgument arg1) {
         super(dataFactory, predicate, arg0, arg1);
     }

@@ -39,15 +39,21 @@
 
 package org.semanticweb.owlapi.model;
 
+import java.io.Serializable;
+
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 15-Jan-2009
  * <p/>
  * Represents the Node ID for anonymous individuals
  */
-public abstract class NodeID implements Comparable<NodeID> {
+public abstract class NodeID implements Comparable<NodeID>, Serializable {
 
-    /**
+
+	private static final long serialVersionUID = -1718776055071223898L;
+
+
+	/**
      * Gets the string representation of the node ID.  This will begin with _:
      * @return The string representation of the node ID.
      */
@@ -75,7 +81,12 @@ public abstract class NodeID implements Comparable<NodeID> {
 
     static class NodeIDImpl extends NodeID {
 
-        private static final String NODE_ID_PREFIX = "genid";
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = -837275014171362934L;
+
+		private static final String NODE_ID_PREFIX = "genid";
 
         private static long counter = 0;
 

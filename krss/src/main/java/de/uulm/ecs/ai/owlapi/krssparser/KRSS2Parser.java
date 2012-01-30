@@ -2390,7 +2390,12 @@ OWLObjectPropertyExpression superProp;
     throw generateParseException();
   }
 
-  static private final class LookaheadSuccess extends java.lang.Error { }
+  static private final class LookaheadSuccess extends java.lang.Error {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1563900269463302162L; }
   final private LookaheadSuccess jj_ls = new LookaheadSuccess();
   private boolean jj_scan_token(int kind) {
     if (jj_scanpos == jj_lastpos) {

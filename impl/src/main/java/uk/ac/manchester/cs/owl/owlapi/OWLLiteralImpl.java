@@ -44,6 +44,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.io.Serializable;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.zip.GZIPInputStream;
@@ -68,9 +69,16 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * <br>
  */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
-	//	private static int compress = 0;
-	//	private static int nocompress = 0;
-	private static final class LiteralWrapper {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5569750232151559959L;
+
+	private static final class LiteralWrapper implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -1658780658825282402L;
 		String l;
 		byte[] bytes;
 
@@ -87,13 +95,9 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 					bytes = null;
 				}
 			} else {
-				//	nocompress++;
 				bytes = null;
 				l = s;
 			}
-			//			if((compress+nocompress)%1000==0) {
-			//				System.out.println("OWLLiteralImpl.LiteralWrapper.LiteralWrapper() compressed: "+compress+"\tnot compressed: "+nocompress);
-			//			}
 		}
 
 		String get() {
@@ -109,65 +113,32 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 			}
 		}
 
-//		byte[] compress(String s) throws IOException {
-//			ByteArrayOutputStream out = new ByteArrayOutputStream();
-//			GZIPOutputStream zipout;
-//			zipout = new GZIPOutputStream(out);
-//			zipout.write(s.getBytes("UTF-8"));
-//			zipout.finish();
-//			zipout.flush();
-//			//		compress++;
-//			return out.toByteArray();
-//		}
-//
-//		String decompress(byte[] result) throws IOException {
-//			ByteArrayInputStream in = new ByteArrayInputStream(result);
-//			GZIPInputStream zipin = new GZIPInputStream(in);
-//			StringBuilder b = new StringBuilder();
-//			int c = zipin.read();
-//			while (c > -1) {
-//				b.append((char) c);
-//				c = zipin.read();
-//			}
-//			return b.toString();
-//		}
-		
 		byte[] compress(String s) throws IOException {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			GZIPOutputStream zipout;
 			zipout = new GZIPOutputStream(out);
 			Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING);
-
 			writer.write(s);
 			writer.flush();
 			zipout.finish();
 			zipout.flush();
-			// compress++;
 			return out.toByteArray();
-			}
+		}
 
-			String decompress(byte[] result) throws IOException {
+		String decompress(byte[] result) throws IOException {
 			ByteArrayInputStream in = new ByteArrayInputStream(result);
 			GZIPInputStream zipin = new GZIPInputStream(in);
 			Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING);
 			StringBuilder b = new StringBuilder();
 			int c = reader.read();
 			while (c > -1) {
-			b.append((char) c);
-			c = reader.read();
+				b.append((char) c);
+				c = reader.read();
 			}
 			return b.toString();
-			}
-
-
-
-			private static final String COMPRESSED_ENCODING = "UTF-16";
-
-		@Override
-		public boolean equals(Object arg0) {
-			// TODO Auto-generated method stub
-			return super.equals(arg0);
 		}
+
+		private static final String COMPRESSED_ENCODING = "UTF-16";
 	}
 
 	private final LiteralWrapper literal;

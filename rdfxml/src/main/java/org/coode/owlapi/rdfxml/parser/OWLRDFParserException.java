@@ -51,7 +51,11 @@ import org.semanticweb.owlapi.io.OWLParserException;
 @SuppressWarnings("javadoc")
 public class OWLRDFParserException extends OWLParserException {
 
-    public OWLRDFParserException() {
+
+	private static final long serialVersionUID = -2755787220686268737L;
+
+
+	public OWLRDFParserException() {
     }
 
     public OWLRDFParserException(String message) {

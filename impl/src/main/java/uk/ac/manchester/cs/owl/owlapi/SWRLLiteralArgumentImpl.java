@@ -57,6 +57,8 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
  */
 public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLiteralArgument {
 
+
+	private static final long serialVersionUID = 8048208044707927801L;
     private final OWLLiteral literal;
 
     @SuppressWarnings("javadoc")

@@ -6,6 +6,11 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 
 public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5213349786232206857L;
+
 	public ClassAxiomByClassPointer(
 			AxiomType<?> t, OWLAxiomVisitorEx<?> v, boolean initialized, Internals i) {
 		super(t, v, initialized, i);

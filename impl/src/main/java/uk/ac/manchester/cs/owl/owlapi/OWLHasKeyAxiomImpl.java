@@ -64,7 +64,10 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
 
-    private final OWLClassExpression expression;
+
+	private static final long serialVersionUID = 3947724756153251305L;
+
+	private final OWLClassExpression expression;
 
     private final Set<OWLPropertyExpression<?,?>> propertyExpressions;
     @SuppressWarnings("javadoc")

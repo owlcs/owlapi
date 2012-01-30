@@ -52,7 +52,11 @@ import org.semanticweb.owlapi.io.OWLParserException;
 public class TurtleParserException extends OWLParserException {
 
 
-    public TurtleParserException(String message) {
+
+	private static final long serialVersionUID = 7584509216733793886L;
+
+
+	public TurtleParserException(String message) {
         super(message);
     }
 

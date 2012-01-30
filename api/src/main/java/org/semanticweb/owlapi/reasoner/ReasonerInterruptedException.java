@@ -50,7 +50,10 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 @SuppressWarnings("javadoc")
 public class ReasonerInterruptedException extends OWLRuntimeException {
 
-    public ReasonerInterruptedException() {
+
+	private static final long serialVersionUID = 4978253879420393320L;
+
+	public ReasonerInterruptedException() {
     }
 
     public ReasonerInterruptedException(String message) {

@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.model;
 
+import java.io.Serializable;
+
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 
 
@@ -51,7 +53,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
  * An ontology factory is responsible from creating new ontologies and creating ontologies
  * from ontology document IRIs.
  */
-public interface OWLOntologyFactory {
+public interface OWLOntologyFactory extends Serializable {
 
     /**
      * @param owlOntologyManager the ontology manager to set. Cannot be null.

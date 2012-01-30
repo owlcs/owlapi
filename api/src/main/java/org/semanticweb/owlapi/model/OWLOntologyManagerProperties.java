@@ -39,15 +39,20 @@
 
 package org.semanticweb.owlapi.model;
 
+import java.io.Serializable;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 10-Apr-2008<br><br>
  */
-public class OWLOntologyManagerProperties {
+public class OWLOntologyManagerProperties implements Serializable {
 
-    private boolean loadAnnotationAxioms = true;
+
+	private static final long serialVersionUID = -2615169878364208458L;
+
+	private boolean loadAnnotationAxioms = true;
 
     private boolean treatDublinCoreVocabularyAsBuiltInVocabulary = true;
 

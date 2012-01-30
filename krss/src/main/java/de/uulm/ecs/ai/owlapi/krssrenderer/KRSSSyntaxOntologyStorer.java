@@ -58,6 +58,10 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 public class KRSSSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
 
 
+
+	private static final long serialVersionUID = 5859052150963944383L;
+
+
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new KRSSOntologyFormat());
     }

@@ -64,6 +64,12 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl implements OWLDifferentIndividualsAxiom {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5896125364681259570L;
+
+
 	@SuppressWarnings("javadoc")
     public OWLDifferentIndividualsAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> individuals, Set<? extends OWLAnnotation> annotations) {
         super(dataFactory, individuals, annotations);

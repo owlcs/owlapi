@@ -58,6 +58,11 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 17-Jan-2009
  */
 public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataUnionOf {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1534213324801059873L;
+
 	@SuppressWarnings("javadoc")
     public OWLDataUnionOfImpl(OWLDataFactory dataFactory, Set<? extends OWLDataRange> operands) {
         super(dataFactory, operands);

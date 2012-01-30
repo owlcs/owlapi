@@ -65,7 +65,10 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 @SuppressWarnings("javadoc")
 public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
-    private final OWLAnnotationProperty property;
+
+	private static final long serialVersionUID = 373636163260344020L;
+
+	private final OWLAnnotationProperty property;
 
     private final OWLAnnotationValue value;
 

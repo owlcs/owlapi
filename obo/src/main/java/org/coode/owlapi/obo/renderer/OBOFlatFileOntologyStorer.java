@@ -56,6 +56,10 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  */
 public class OBOFlatFileOntologyStorer extends AbstractOWLOntologyStorer {
 
+
+	private static final long serialVersionUID = -1494062936566176539L;
+
+
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new OBOOntologyFormat());
     }

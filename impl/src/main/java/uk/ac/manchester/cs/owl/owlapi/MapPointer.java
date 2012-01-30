@@ -1,5 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
@@ -12,7 +13,11 @@ import org.semanticweb.owlapi.util.MultiMap;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 
-public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V> {
+public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V>, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7844654398838073134L;
 	private final MultiMap<K, V> map;
 	private final AxiomType<?> type;
 	private final OWLAxiomVisitorEx<?> visitor;

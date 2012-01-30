@@ -61,7 +61,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 @SuppressWarnings("javadoc")
 public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWLAnonymousIndividual {
 
-    private final NodeID nodeId;
+
+	private static final long serialVersionUID = -1578517337946939604L;
+	private final NodeID nodeId;
 
     public OWLAnonymousIndividualImpl(OWLDataFactory dataFactory, NodeID nodeID) {
         super(dataFactory);

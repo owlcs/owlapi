@@ -57,7 +57,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements SWRLDifferentIndividualsAtom {
 
-    @SuppressWarnings("javadoc")
+
+	private static final long serialVersionUID = -2741581113864400526L;
+
+	@SuppressWarnings("javadoc")
 	public SWRLDifferentIndividualsAtomImpl(OWLDataFactory dataFactory, SWRLIArgument arg0, SWRLIArgument arg1) {
         super(dataFactory, dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM.getIRI()), arg0, arg1);
     }

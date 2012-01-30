@@ -50,6 +50,10 @@ package org.semanticweb.owlapi.model;
 @SuppressWarnings("javadoc")
 public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
 
+
+	private static final long serialVersionUID = -180869608577507012L;
+
+
     public OWLOntologyChangeVetoException(OWLOntologyChange change, String message) {
         super(change, message);
     }

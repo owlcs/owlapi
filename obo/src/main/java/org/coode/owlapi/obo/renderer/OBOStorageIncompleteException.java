@@ -55,6 +55,8 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 @SuppressWarnings("javadoc")
 public class OBOStorageIncompleteException extends OWLRendererException {
 
+
+	private static final long serialVersionUID = 6751200359557438199L;
     private List<OBOStorageException> exceptions;
 
 

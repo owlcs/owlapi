@@ -66,7 +66,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
-    private final Set<OWLLiteral> values;
+
+	private static final long serialVersionUID = 7387976609217937012L;
+	private final Set<OWLLiteral> values;
 
     @SuppressWarnings("javadoc")
     public OWLDataOneOfImpl(OWLDataFactory dataFactory, Set<? extends OWLLiteral> values) {

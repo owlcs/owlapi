@@ -58,7 +58,11 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
 
 
-    @Override
+
+	private static final long serialVersionUID = -660465701119339647L;
+
+
+	@Override
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
             TurtleRenderer ren = new TurtleRenderer(ontology, manager, writer, format);

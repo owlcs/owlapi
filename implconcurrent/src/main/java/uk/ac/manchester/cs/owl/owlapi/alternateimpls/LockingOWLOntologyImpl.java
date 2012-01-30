@@ -50,6 +50,9 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
  * threadsafe extension
  */
 public class LockingOWLOntologyImpl extends OWLOntologyImpl {
+
+	private static final long serialVersionUID = -1359003420840044128L;
+
     @SuppressWarnings("javadoc")
 	public LockingOWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
         super(manager, ontologyID);
