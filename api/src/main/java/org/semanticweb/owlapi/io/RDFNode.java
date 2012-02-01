@@ -48,4 +48,9 @@ package org.semanticweb.owlapi.io;
  */
 public abstract class RDFNode {
 
+    /**
+     * Determines if this node is a literal node.
+     * @return <code>true</code> if this node is a literal, otherwise <code>false</code>.
+     */
+    public abstract boolean isLiteral();
 }

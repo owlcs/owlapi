@@ -64,6 +64,15 @@ public class RDFResource extends RDFNode {
     }
 
     /**
+     * Determines if this node is a literal node.
+     * @return <code>true</code> if this node is a literal, otherwise <code>false</code>.
+     */
+    @Override
+    public boolean isLiteral() {
+        return false;
+    }
+
+    /**
      * @return the IRI
      */
     public IRI getResource() {
