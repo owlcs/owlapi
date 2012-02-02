@@ -49,7 +49,7 @@ package org.semanticweb.owlapi.io;
  * <br>
  * This class contains various methods for checking QNames, NCNames etc.
  * The implementation is based on the <a href="http://www.w3.org/TR/xml-names/">W3C namespaces in XML specification</a>.
- * @since 3.2.5
+ * @since 3.3.0
  */
 public class XMLUtils {
 
