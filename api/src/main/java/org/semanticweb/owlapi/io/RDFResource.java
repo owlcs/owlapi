@@ -64,6 +64,14 @@ public class RDFResource extends RDFNode {
     }
 
     /**
+     * Create an RDFResource that is NOT anonymous
+     * @param resource The IRI of the resource
+     */
+    public RDFResource(IRI resource) {
+        this(resource, false);
+    }
+
+    /**
      * Determines if this node is a literal node.
      * @return <code>true</code> if this node is a literal, otherwise <code>false</code>.
      */

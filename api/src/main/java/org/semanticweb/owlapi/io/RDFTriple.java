@@ -138,8 +138,11 @@ public class RDFTriple {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(subject.toString());
+        sb.append(" ");
         sb.append(predicate.toString());
+        sb.append(" ");
         sb.append(object.toString());
+        sb.append(".");
         return sb.toString();
     }
 }

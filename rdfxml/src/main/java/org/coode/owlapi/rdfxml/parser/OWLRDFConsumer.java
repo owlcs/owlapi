@@ -54,46 +54,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.semanticweb.owlapi.io.RDFLiteral;
-import org.semanticweb.owlapi.io.RDFOntologyFormat;
-import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
-import org.semanticweb.owlapi.io.RDFParserMetaData;
-import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFResourceParseError;
-import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -780,26 +742,114 @@ public class OWLRDFConsumer implements RDFConsumer {
         // NOTE:  This method only gets called when the ontology being parsed adds a direct import.  This is enough
         // for resolving the imports closure.
         // We cache IRIs of various entities here.
+        // We also mop up any triples that weren't parsed and consumed in the imports closure.
         for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
-            for (OWLAnnotationProperty prop : ont.getAnnotationPropertiesInSignature()) {
-                annotationPropertyIRIs.add(prop.getIRI());
-            }
-            for (OWLDataProperty prop : ont.getDataPropertiesInSignature()) {
-                dataPropertyExpressionIRIs.add(prop.getIRI());
-            }
-            for (OWLObjectProperty prop : ont.getObjectPropertiesInSignature()) {
-                objectPropertyExpressionIRIs.add(prop.getIRI());
-            }
-            for (OWLClass cls : ont.getClassesInSignature()) {
-                classExpressionIRIs.add(cls.getIRI());
-            }
-            for (OWLDatatype datatype : ont.getDatatypesInSignature()) {
-                dataRangeIRIs.add(datatype.getIRI());
-            }
-            for (OWLNamedIndividual ind : ont.getIndividualsInSignature()) {
-                individualIRIs.add(ind.getIRI());
+                for (OWLAnnotationProperty prop : ont.getAnnotationPropertiesInSignature()) {
+                    annotationPropertyIRIs.add(prop.getIRI());
+                }
+                for (OWLDataProperty prop : ont.getDataPropertiesInSignature()) {
+                    dataPropertyExpressionIRIs.add(prop.getIRI());
+                }
+                for (OWLObjectProperty prop : ont.getObjectPropertiesInSignature()) {
+                    objectPropertyExpressionIRIs.add(prop.getIRI());
+                }
+                for (OWLClass cls : ont.getClassesInSignature()) {
+                    classExpressionIRIs.add(cls.getIRI());
+                }
+                for (OWLDatatype datatype : ont.getDatatypesInSignature()) {
+                    dataRangeIRIs.add(datatype.getIRI());
+                }
+                for (OWLNamedIndividual ind : ont.getIndividualsInSignature()) {
+                    individualIRIs.add(ind.getIRI());
+                }
+                
+        }
+        processUnconsumedTriplesFromImportsClosure();
+    }
+
+    /**
+     * Processes triples from ontologies in the imports closure that weren't consumed when those ontologies were parsed.
+     */
+    private void processUnconsumedTriplesFromImportsClosure() {
+        Set<RDFTriple> unparsedTriples = getUnconsumedTriplesFromImportsClosure();
+        for(RDFTriple unparsedTriple : unparsedTriples) {
+            if (!isOWLImportsTriple(unparsedTriple)) {
+                try {
+                    processRDFTriple(unparsedTriple);
+                }
+                catch (UnloadableImportException e) {
+                    // This should never happen as we don't process owl:imports triples here.
+                    throw new RuntimeException(e);
+                }
             }
         }
+
+    }
+
+    /**
+     * Determines if a triple has a predicate that corresponds to owl:imports.
+     * @param triple The triple.
+     * @return <code>true</code> if the triple has a predicate equal to owl:imports
+     */
+    private boolean isOWLImportsTriple(RDFTriple triple) {
+        return triple.getPredicate().getResource().equals(OWLRDFVocabulary.OWL_IMPORTS.getIRI());
+    }
+
+    /**
+     * Processes an RDFTriple.  The triple is deconstructed and the processing is delegated to the
+     * {@link #handleStreaming(org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.OWLLiteral)}
+     * and {@link #handleStreaming(org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI)}
+     * methods.
+     * @param triple The triple to be processed.
+     * @throws UnloadableImportException in the event that the triple was an owl:imports triple and the import could
+     * not be loaded.
+     */
+    private void processRDFTriple(RDFTriple triple) throws UnloadableImportException {
+        RDFResource subject = triple.getSubject();
+        RDFResource predicate = triple.getPredicate();
+        RDFNode object = triple.getObject();
+        if(object.isLiteral()) {
+            RDFLiteral literalObject = (RDFLiteral) object;
+            handleStreaming(subject.getResource(), predicate.getResource(), literalObject.getLiteral());
+        }
+        else {
+            RDFResource resourceObject = (RDFResource) object;
+            handleStreaming(subject.getResource(), predicate.getResource(), resourceObject.getResource());
+        }
+    }
+
+    /**
+     * Retrieves the triples from the imports closure that have not been consumed during parsing of ontologies in the
+     * imports closure.
+     * @return A set of unconsumed triples.
+     */
+    private Set<RDFTriple> getUnconsumedTriplesFromImportsClosure() {
+        Set<RDFTriple> unparsedTriples = new HashSet<RDFTriple>();
+        // Don't get the REFLEXIVE transitive closure - just the transitive closure.
+        Set<OWLOntology> imports = ontology.getImports();
+        for (OWLOntology ont : imports) {
+            unparsedTriples.addAll(getUnconsumedTriples(ont));
+            
+        }
+        return unparsedTriples;
+    }
+
+    /**
+     * Gets the set of triples that weren't consumed during parsing of the specified ontology.  Note that for ontologies
+     * whose ontology documents aren't based on RDF the set will be empty.
+     * @param ont The ontology.
+     * @return The set of triples that weren't consumed when parsing the ontology document that contained ont.
+     */
+    private Set<RDFTriple> getUnconsumedTriples(OWLOntology ont) {
+        Set<RDFTriple> unparsedTriples = new HashSet<RDFTriple>();
+        OWLOntologyManager man = ont.getOWLOntologyManager();
+        OWLOntologyFormat format = man.getOntologyFormat(ont);
+        if(format instanceof RDFOntologyFormat) {
+            RDFOntologyFormat rdfFormat = (RDFOntologyFormat) format;
+            RDFParserMetaData metaData = rdfFormat.getOntologyLoaderMetaData();
+            unparsedTriples.addAll(metaData.getUnparsedTriples());
+        }
+        return unparsedTriples;
     }
 
 
@@ -1643,6 +1693,10 @@ public class OWLRDFConsumer implements RDFConsumer {
     private void handleStreaming(IRI subject, IRI predicate, String literal, String datatype, String lang) {
         // Convert all literals to OWLConstants
         OWLLiteral con = getOWLLiteral(literal, datatype, lang);
+        handleStreaming(subject, predicate, con);
+    }
+
+    private void handleStreaming(IRI subject, IRI predicate, OWLLiteral con) {
         for (AbstractLiteralTripleHandler handler : literalTripleHandlers) {
             if (handler.canHandleStreaming(subject, predicate, con)) {
                 handler.handleTriple(subject, predicate, con);
