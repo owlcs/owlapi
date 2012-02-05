@@ -29,11 +29,9 @@ public class MelanieTest_double_import {
 		makeOntologies();
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		manager.loadOntology(IRI.create(importsBothNameAndVersion));
-		System.out.println("Importing by name and version succeeded");
 		manager = OWLManager.createOWLOntologyManager();
 		manager.loadOntology(IRI.create(importsBothNameAndOther));
-		System.out.println("Importing by name and other succeeded");
-	}
+		}
 
 	public void makeOntologies() throws OWLOntologyCreationException,
 			OWLOntologyStorageException {

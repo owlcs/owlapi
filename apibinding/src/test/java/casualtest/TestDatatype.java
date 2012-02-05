@@ -42,9 +42,7 @@ public class TestDatatype extends TestCase {
 		OWLOntology o = m
 				.loadOntologyFromOntologyDocument(new StringDocumentSource(
 						premise));
-		for (OWLAxiom ax : o.getAxioms()) {
-			System.out.println(ax);
-		}
+
 		OWLDataFactory f = m.getOWLDataFactory();
 		OWLDatatypeRestriction r = f.getOWLDatatypeRestriction(
 				f.getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI()),
@@ -57,11 +55,7 @@ public class TestDatatype extends TestCase {
 		m.addAxiom(test, f.getOWLDatatypeDefinitionAxiom(type, r));
 		StringDocumentTarget t = new StringDocumentTarget();
 		m.saveOntology(test, t);
-		//System.out.println(t.toString());
 		o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(t
 				.toString()));
-//		for (OWLAxiom ax : o.getAxioms()) {
-//			System.out.println(ax);
-//		}
 	}
 }

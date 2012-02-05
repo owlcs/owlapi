@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import junit.framework.TestCase;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
@@ -35,7 +37,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-public class SerializationTest {
+public class SerializationTest extends TestCase {
 	private static final String MESSAGE = "Exception expected!";
 	private static final OWLDataFactory f = OWLManager.getOWLDataFactory();
 	OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
@@ -72,11 +74,12 @@ public class SerializationTest {
 		new SerializationTest().run();
 	}
 
-	public void run() throws Exception {
+	public void testrun() throws Exception {
 		OWLOntologyManager m = OWLManager.createOWLOntologyManager();
 		m.addIRIMapper(new AutoIRIMapper(new File("."), false));
-		OWLOntology o = m.loadOntologyFromOntologyDocument(new File("../Similarity/code/api/test/resources/pizza.owl"));
-//				.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
+		OWLOntology o = m.loadOntologyFromOntologyDocument(new File(
+				"../Similarity/code/api/test/resources/pizza.owl"));
+		//				.create("http://www.co-ode.org/ontologies/pizza/pizza.owl"));
 		m.addAxiom(o, f.getOWLDeclarationAxiom(f.getOWLClass(iri)));
 		m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLClass(string, prefixmanager)));
 		m.addAxiom(o, f.getOWLEquivalentClassesAxiom(f.getOWLClass(iri), c));
@@ -90,8 +93,7 @@ public class SerializationTest {
 		m.addAxiom(o, f.getOWLObjectPropertyDomainAxiom(op, c));
 		m.addAxiom(o, f.getOWLObjectPropertyRangeAxiom(op, c));
 		m.addAxiom(o, f.getOWLFunctionalObjectPropertyAxiom(op));
-		m.addAxiom(o, f.getOWLAnnotationAssertionAxiom(ap, as,
-				owlannotationvalue));
+		m.addAxiom(o, f.getOWLAnnotationAssertionAxiom(ap, as, owlannotationvalue));
 		m.applyChange(new AddImport(o, f.getOWLImportsDeclaration(iri)));
 		m.addAxiom(o, f.getOWLAnnotationPropertyDomainAxiom(ap, iri));
 		m.addAxiom(o, f.getOWLAnnotationPropertyRangeAxiom(ap, iri));
@@ -179,15 +181,13 @@ public class SerializationTest {
 		stream.writeObject(m);
 		stream.flush();
 		//System.out.println(out.toString());
-		ByteArrayInputStream in =new ByteArrayInputStream(out.toByteArray());
-		ObjectInputStream inStream=new ObjectInputStream(in);
-		OWLOntologyManager copy=(OWLOntologyManager) inStream.readObject();
-		for(OWLOntology onto:copy.getOntologies()) {
-			OWLOntology original=m.getOntology(onto.getOntologyID().getOntologyIRI());
-			if(!original.getAxioms().equals(onto.getAxioms())) {
-				System.out.println("SerializationTest.run() difference in ontology: "+onto.getOntologyID() );
-			}
+		ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+		ObjectInputStream inStream = new ObjectInputStream(in);
+		OWLOntologyManager copy = (OWLOntologyManager) inStream.readObject();
+		for (OWLOntology onto : copy.getOntologies()) {
+			OWLOntology original = m.getOntology(onto.getOntologyID().getOntologyIRI());
+			assertEquals("Troubles with ontology " + onto.getOntologyID(),
+					original.getAxioms(), onto.getAxioms());
 		}
-
 	}
 }
