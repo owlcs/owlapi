@@ -38,17 +38,8 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Serializable;
-import java.io.Writer;
+import java.nio.charset.Charset;
 import java.util.Arrays;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
@@ -70,7 +61,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * <br>
  */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
-	private final String literal;
+	static final Charset utf_8 = Charset.forName("UTF-8");
+
+	private final byte[] literal;
 	private final OWLDatatype datatype;
 	private final String lang;
 	private final int hashcode;
@@ -91,7 +84,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 	public OWLLiteralImplNoCompression(OWLDataFactory dataFactory, String literal,
 			String lang, OWLDatatype datatype) {
 		super(dataFactory);
-		this.literal = literal;
+
+		this.literal = literal.getBytes(utf_8);
 		if (lang == null || lang.length() == 0) {
 			this.lang = "";
 			if (datatype == null) {
@@ -121,7 +115,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 	//		hashcode = getHashCode();
 	//	}
 	public String getLiteral() {
-		return literal;
+		return new String(literal, utf_8);
 	}
 
 	public boolean isRDFPlainLiteral() {
@@ -137,7 +131,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 	}
 
 	public int parseInteger() throws NumberFormatException {
-		return Integer.parseInt(literal);
+		return Integer.parseInt(getLiteral());
 	}
 
 	public boolean isBoolean() {
@@ -145,19 +139,20 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 	}
 
 	public boolean parseBoolean() throws NumberFormatException {
-		if (literal.equals("0")) {
+		final String literal2 = getLiteral();
+		if (literal2.equals("0")) {
 			return false;
 		}
-		if (literal.equals("1")) {
+		if (literal2.equals("1")) {
 			return true;
 		}
-		if (literal.equals("true")) {
+		if (literal2.equals("true")) {
 			return true;
 		}
-		if (literal.equals("false")) {
+		if (literal2.equals("false")) {
 			return false;
 		}
-		return false;
+		return Boolean.parseBoolean(literal2);
 	}
 
 	public boolean isDouble() {
@@ -165,7 +160,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 	}
 
 	public double parseDouble() throws NumberFormatException {
-		return Double.parseDouble(literal);
+		return Double.parseDouble(getLiteral());
 	}
 
 	public boolean isFloat() {
@@ -173,7 +168,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 	}
 
 	public float parseFloat() throws NumberFormatException {
-		return Float.parseFloat(literal);
+		return Float.parseFloat(getLiteral());
 	}
 
 	public String getLang() {
@@ -204,7 +199,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 		int hashCode = 277;
 		hashCode = hashCode * 37 + getDatatype().hashCode();
 		hashCode = hashCode * 37;
-		hashCode += literal.hashCode();
+		hashCode += Arrays.hashCode(literal);
 		if (hasLang()) {
 			hashCode = hashCode * 37 + getLang().hashCode();
 		}
@@ -218,6 +213,10 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 				return false;
 			}
 			OWLLiteral other = (OWLLiteral) obj;
+			if(other instanceof OWLLiteralImplNoCompression) {
+				return Arrays.equals(literal, ((OWLLiteralImplNoCompression) other).literal) &&datatype.equals(other.getDatatype())
+						&& lang.equals(other.getLang());
+			}
 			return literal.equals(other.getLiteral())
 					&& datatype.equals(other.getDatatype())
 					&& lang.equals(other.getLang());
@@ -244,7 +243,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 	@Override
 	protected int compareObjectOfSameType(OWLObject object) {
 		OWLLiteral other = (OWLLiteral) object;
-		int diff = literal.compareTo(other.getLiteral());
+		int diff = getLiteral().compareTo(other.getLiteral());
 		if (diff != 0) {
 			return diff;
 		}
