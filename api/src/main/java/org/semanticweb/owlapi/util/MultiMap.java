@@ -38,6 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -51,7 +52,9 @@ import java.util.Set;
  * @param <Value>
  * @author ignazio palmisano
  */
-public class MultiMap<Key, Value> {
+public class MultiMap<Key, Value> implements Serializable {
+
+	private static final long serialVersionUID = 8939237917649727834L;
 	private final Map<Key, Collection<Value>> map;
 	private int size = 0;
 	private boolean useSets = true;

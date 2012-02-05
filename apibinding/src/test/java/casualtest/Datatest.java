@@ -22,7 +22,6 @@ public class Datatest extends TestCase {
 				+ "	<rdfs:domain rdf:resource=\"http://dbpedia.org/ontology/Lake\"/>\n"
 				+ "	<rdfs:range rdf:resource=\"http://dbpedia.org/datatype/squareKilometre\"/>\n"
 				+ "</owl:DatatypeProperty>\n" + "</rdf:RDF>";
-		//System.out.println(input);
 		OWLOntologyManager m = OWLManager.createOWLOntologyManager();
 		m.saveOntology(
 				m.loadOntologyFromOntologyDocument(new StringDocumentSource(input)),

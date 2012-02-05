@@ -6,7 +6,6 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -39,16 +38,13 @@ public class ManchesterRuleRT  {
 				Collections.singleton(headAtom), Collections.singleton(bodyAtom)));
 
 		PrefixOWLOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
-		// PrefixOWLOntologyFormat format = new RDFXMLOntologyFormat();
 		format.setDefaultPrefix(NS+"#");
 		StringDocumentTarget output = new StringDocumentTarget();
-		//manager.saveOntology(ontology, format, new SystemOutDocumentTarget());
 		manager.saveOntology(ontology, format, output);
-		System.out.println(output.toString());
 		ontology = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(
 				output.toString()));
-		manager.saveOntology(ontology, format, new SystemOutDocumentTarget());
-		//        displayOntology(ontology);
+		manager.saveOntology(ontology, format, new StringDocumentTarget());
+
 	}
 
 }
