@@ -217,7 +217,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 				return Arrays.equals(literal, ((OWLLiteralImplNoCompression) other).literal) &&datatype.equals(other.getDatatype())
 						&& lang.equals(other.getLang());
 			}
-			return literal.equals(other.getLiteral())
+			return getLiteral().equals(other.getLiteral())
 					&& datatype.equals(other.getDatatype())
 					&& lang.equals(other.getLang());
 		}
