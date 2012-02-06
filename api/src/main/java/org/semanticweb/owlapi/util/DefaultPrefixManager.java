@@ -89,13 +89,15 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		}
 	}
 
-	private final Map<String, String> prefix2NamespaceMap;
+	private final Map<String, String> prefix2NamespaceMap = new TreeMap<String, String>(
+			new StringLengthComparator());
+	private final Namespacer namespacer = new Namespacer(prefix2NamespaceMap);
+
 
 	/**
 	 * Creates a namespace manager that does not have a default namespace.
 	 */
 	public DefaultPrefixManager() {
-		prefix2NamespaceMap = new HashMap<String, String>();
 		setupDefaultPrefixes();
 	}
 
@@ -103,14 +105,15 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 	 * @param pm the prefix manager to copy
 	 */
 	public DefaultPrefixManager(PrefixManager pm) {
-		prefix2NamespaceMap = new HashMap<String, String>();
+		this();
 		for (String prefixName : pm.getPrefixNames()) {
 			String prefix = pm.getPrefix(prefixName);
 			if (prefix != null) {
 				prefix2NamespaceMap.put(prefixName, prefix);
 			}
 		}
-		setupDefaultPrefixes();
+		namespacer.resetCaches();
+		namespacer.addPrefixMap(prefix2NamespaceMap);
 	}
 
 	/**
@@ -120,6 +123,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 	public void clear() {
 		// Clear the default namespace and map
 		prefix2NamespaceMap.clear();
+		namespacer.resetCaches();
 	}
 
 	/**
@@ -136,12 +140,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 	 *            The namespace to be used as the default namespace.
 	 */
 	public DefaultPrefixManager(String defaultPrefix) {
-		prefix2NamespaceMap = new TreeMap<String, String>(
-				new StringLengthComparator());
+		this();
 		if (defaultPrefix != null) {
 			setDefaultPrefix(defaultPrefix);
 		}
-		setupDefaultPrefixes();
 	}
 
 	private void setupDefaultPrefixes() {
@@ -166,38 +168,12 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		setPrefix(":", defaultPrefix);
 	}
 
-	private Pattern qnamePattern = Pattern.compile("[a-zA-Z_][a-zA-Z_0-9\\._]*");
-	private transient WeakIndexCache<IRI, String> prefixedNamesCache=new WeakIndexCache<IRI, String>();
-	private transient WeakCache<IRI> unprefixable=new WeakCache<IRI>();
-
 	public String getPrefixIRI(IRI iri) {
 		// if there are no prefix names, don't bother with caches
-		if(prefix2NamespaceMap.isEmpty()) {
+		if (prefix2NamespaceMap.isEmpty()) {
 			return null;
 		}
-
-		String cached=prefixedNamesCache.get(iri);
-		if(cached!=null) {
-			return cached;
-		}
-		String iriString = iri.toString();
-
-		for (String prefixName : prefix2NamespaceMap.keySet()) {
-			String prefix = prefix2NamespaceMap.get(prefixName);
-			if (iriString.startsWith(prefix)) {
-				String localName = iriString.substring(prefix.length());
-				final Matcher matcher = qnamePattern.matcher(localName);
-				if (matcher.find() && localName.equals(matcher.group())) {
-					final String toReturn = prefixName + localName;
-					prefixedNamesCache.cache(iri, toReturn);
-					return toReturn;
-				}
-				unprefixable.cache(iri);
-				return null;
-			}
-		}
-		// if there are no prefix names, don't bother with caches
-		return null;
+		return namespacer.getQName(iri);
 	}
 
 	public String getDefaultPrefix() {
@@ -205,8 +181,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 	}
 
 	public boolean containsPrefixMapping(String prefix) {
-		return prefix2NamespaceMap.containsKey(prefix)
-				&& prefix2NamespaceMap.get(prefix) != null;
+		return prefix2NamespaceMap.get(prefix) != null;
 	}
 
 	public IRI getIRI(String curie) {
@@ -263,6 +238,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 					"Prefix names must end with a colon (:)");
 		}
 		prefix2NamespaceMap.put(prefixName, prefix);
+		namespacer.addPrefixMap(prefix2NamespaceMap);
 	}
 
 	/**
@@ -282,6 +258,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		for (String s : toRemove) {
 			prefix2NamespaceMap.remove(s);
 		}
+		namespacer.resetCaches();
+		namespacer.addPrefixMap(prefix2NamespaceMap);
 	}
 
 	public String getShortForm(IRI iri) {
