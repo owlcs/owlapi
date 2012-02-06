@@ -48,6 +48,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -164,18 +166,37 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		setPrefix(":", defaultPrefix);
 	}
 
+	private Pattern qnamePattern = Pattern.compile("[a-zA-Z_][a-zA-Z_0-9\\._]*");
+	private transient WeakIndexCache<IRI, String> prefixedNamesCache=new WeakIndexCache<IRI, String>();
+	private transient WeakCache<IRI> unprefixable=new WeakCache<IRI>();
+
 	public String getPrefixIRI(IRI iri) {
+		// if there are no prefix names, don't bother with caches
+		if(prefix2NamespaceMap.isEmpty()) {
+			return null;
+		}
+
+		String cached=prefixedNamesCache.get(iri);
+		if(cached!=null) {
+			return cached;
+		}
 		String iriString = iri.toString();
+
 		for (String prefixName : prefix2NamespaceMap.keySet()) {
 			String prefix = prefix2NamespaceMap.get(prefixName);
 			if (iriString.startsWith(prefix)) {
-				//StringBuilder sb = new StringBuilder();
-				//sb.append(prefixName);
 				String localName = iriString.substring(prefix.length());
-				//sb.append(localName);
-				return prefixName+localName;
+				final Matcher matcher = qnamePattern.matcher(localName);
+				if (matcher.find() && localName.equals(matcher.group())) {
+					final String toReturn = prefixName + localName;
+					prefixedNamesCache.cache(iri, toReturn);
+					return toReturn;
+				}
+				unprefixable.cache(iri);
+				return null;
 			}
 		}
+		// if there are no prefix names, don't bother with caches
 		return null;
 	}
 
