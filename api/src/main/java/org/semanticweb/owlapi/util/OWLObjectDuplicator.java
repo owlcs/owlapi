@@ -807,7 +807,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
             OWLEntity entity = dataFactory.getOWLEntity(entityType, iri);
             IRI replacementIRI = replacementMap.get(entity);
             if(replacementIRI != null) {
-                obj = iri;
+                obj = replacementIRI;
                 break;
             }
         }
