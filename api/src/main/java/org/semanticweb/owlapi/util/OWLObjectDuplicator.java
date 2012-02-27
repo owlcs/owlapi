@@ -802,13 +802,15 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
     public void visit(IRI iri) {
-        for(OWLEntity entity : replacementMap.keySet()) {
-            if(entity.getIRI().equals(iri)) {
-                obj = replacementMap.get(entity);
-                return;
+        obj = iri;
+        for(EntityType<?> entityType : EntityType.values()) {
+            OWLEntity entity = dataFactory.getOWLEntity(entityType, iri);
+            IRI replacementIRI = replacementMap.get(entity);
+            if(replacementIRI != null) {
+                obj = iri;
+                break;
             }
         }
-        obj = iri;
     }
 
 
