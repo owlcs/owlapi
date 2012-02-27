@@ -95,10 +95,9 @@ public class OWLEntityRenamer {
         Map<IRI, IRI> uriMap = new HashMap<IRI, IRI>();
         uriMap.put(uri, newIRI);
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        OWLObjectDuplicator dup = new OWLObjectDuplicator(owlOntologyManager.getOWLDataFactory(), uriMap);
         for (OWLOntology ont : ontologies) {
-        	//XXX move dup out of the cycle
-            OWLObjectDuplicator dup = new OWLObjectDuplicator(owlOntologyManager.getOWLDataFactory(), uriMap);
-            fillListWithTransformChanges(changes, getAxioms(ont, uri), ont, dup);
+        	fillListWithTransformChanges(changes, getAxioms(ont, uri), ont, dup);
         }
         return changes;
     }
@@ -115,10 +114,9 @@ public class OWLEntityRenamer {
         Map<OWLEntity, IRI> iriMap = new HashMap<OWLEntity, IRI>();
         iriMap.put(entity, newIRI);
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap, owlOntologyManager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
-        	//XXX move dup out of cycle
-            OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap, owlOntologyManager.getOWLDataFactory());
-            fillListWithTransformChanges(changes, getAxioms(ont, entity), ont, duplicator);
+        	fillListWithTransformChanges(changes, getAxioms(ont, entity), ont, duplicator);
         }
         return changes;
     }
@@ -129,11 +127,10 @@ public class OWLEntityRenamer {
      */
     public List<OWLOntologyChange> changeIRI(Map<OWLEntity, IRI> entity2IRIMap) {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap, owlOntologyManager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
             for (OWLEntity ent : entity2IRIMap.keySet()) {
-            	//XXX move dup out of cycle
-                OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap, owlOntologyManager.getOWLDataFactory());
-                fillListWithTransformChanges(changes, getAxioms(ont, ent), ont, duplicator);
+            	fillListWithTransformChanges(changes, getAxioms(ont, ent), ont, duplicator);
             }
         }
         return changes;
