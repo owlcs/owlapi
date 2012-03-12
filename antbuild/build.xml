@@ -11,7 +11,7 @@
           should be of the format <major>.<minor>.<revision>.  Note that the svn
             revision number will automatically be appended to this build number! -->
 
-    <property name="version" value="3.2.5"/>
+    <property name="version" value="3.3"/>
 
     <!-- The directory that contains the jar file dependencies for
          the class path and building a release -->
@@ -121,7 +121,6 @@
 	            <include name="obo/${sourcepath}"/>
 	            <include name="owlexpression/${sourcepath}"/>
 	            <include name="owlxml/${sourcepath}"/>
-	            <include name="profiles/${sourcepath}"/>
 	            <include name="rdfapi/${sourcepath}"/>
 	            <include name="rdfxml/${sourcepath}"/>
 	            <include name="reasoner/${sourcepath}"/>
