@@ -208,6 +208,9 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
 
     @Override
 	public boolean equals(Object obj) {
+    	if(obj==null) {
+    		return false;
+    	}
         if (obj == this) {
             return true;
         }
@@ -215,32 +218,32 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
             return false;
         }
         OWLOntologyID other = (OWLOntologyID) obj;
-        if (ontologyIRI != null) {
-            if (other.ontologyIRI == null) {
-                return false;
-            }
-            if (!ontologyIRI.equals(other.ontologyIRI)) {
-                return false;
-            }
+        if(this.isAnonymous() && other.isAnonymous()) {
+        	// both anonymous: check the anon version
+        	return internalID.equals(other.internalID);
+        }
+        if(this.isAnonymous()!=other.isAnonymous()) {
+        	// one anonymous, one not: equals is false
+        	return false;
+        }
+        if (!isAnonymous()) {
+        	boolean toReturn=ontologyIRI.equals(other.ontologyIRI);
+        	if(!toReturn) {
+        		return toReturn;
+        	}
+        	// if toReturn is true, compare the version iris
+
             if (versionIRI != null) {
-                if (other.versionIRI == null) {
-                    return false;
-                }
-                else {
-                    return versionIRI.equals(other.versionIRI);
-                }
+            	toReturn= versionIRI.equals(other.versionIRI);
             }
             else {
-                return other.versionIRI == null;
+                toReturn = other.versionIRI == null;
             }
+
+            return toReturn;
         }
-        else {
-            if (other.ontologyIRI != null) {
-                return false;
-            }
-            else {
-                return internalID.equals(other.internalID);
-            }
-        }
+
+        // else this is anonymous and the other cannot be anonymous, so return false
+        return false;
     }
 }

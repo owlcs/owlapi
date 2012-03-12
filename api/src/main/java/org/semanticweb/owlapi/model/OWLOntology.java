@@ -129,7 +129,7 @@ public interface OWLOntology extends OWLObject {
 
     /**
      * Gets the set of <em>loaded</em> ontologies that this ontology is related to via the
-     * <em>transitive closure</em> of the <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Imports">directlyImports relation</a>.  
+     * <em>transitive closure</em> of the <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Imports">directlyImports relation</a>.
      * <p>
      * For example, if this ontology imports ontology B, and ontology B imports ontology C, then this method will return the set consisting of
      * ontology B and ontology C.
@@ -250,10 +250,10 @@ public interface OWLOntology extends OWLObject {
      *         axioms in the ontology (and its imports closure) - it will not be updated if the ontology changes.
      */
     <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, boolean includeImportsClosure);
-    
+
     /**
      * Gets the axioms that form the TBox for this ontology, i.e., the ones whose type is in the AxiomType::TBoxAxiomTypes
-     * 
+     *
      *
      * @param includeImportsClosure if <code>true</code> then axioms of the specified type will also be retrieved from
      * the imports closure of this ontology, if <code>false</code> then axioms of the specified type will only
@@ -454,7 +454,7 @@ public interface OWLOntology extends OWLObject {
 
     /**
      * Gets the object properties that are in the signature of this ontology.
-     * @see #getSignature() 
+     * @see #getSignature()
      * @return A set of object properties which are in the signature of this ontology. The set that is returned
      *         is a copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to
      *         this ontology while iterating over this set.
@@ -593,7 +593,6 @@ public interface OWLOntology extends OWLObject {
      */
     Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity, boolean includeImportsClosure);
 
-
     /**
      * Gets the axioms that reference the specified anonymous individual
      *
@@ -601,6 +600,29 @@ public interface OWLOntology extends OWLObject {
      * @return The axioms that reference the specified anonymous individual
      */
     Set<OWLAxiom> getReferencingAxioms(OWLAnonymousIndividual individual);
+
+    /**
+     * @param individual The individual
+     * @return true if there axioms referencing individual
+     */
+    boolean hasReferencingAxioms(OWLAnonymousIndividual individual);
+
+
+    /**
+     * @param owlEntity The entity that should be directly referred to by an axiom that appears in the results set.
+     * @return true if there are axioms where the specified entity appears in the signature of the axiom.
+     */
+    boolean hasReferencingAxioms(OWLEntity owlEntity);
+
+  /**
+    * @param includeImportsClosure Specifies if the axioms returned should just be from this ontology, or from the
+     * imports closure of this ontology.  If <code>true</code> the axioms returned will be from the imports closure
+     * of this ontology, if <code>false</code> the axioms returned will just be from this ontology.
+     * @param owlEntity The entity that should be directly referred to by an axiom that appears in the results set.
+     * @return true if there are axioms where the specified entity appears in the signature of the axiom.
+     */
+    boolean hasReferencingAxioms(OWLEntity owlEntity, boolean includeImportsClosure);
+
 
     /**
      * Determines if the signature of the ontology contains the specified entity.
@@ -1143,7 +1165,7 @@ public interface OWLOntology extends OWLObject {
      * equivalent to some other object property expression(s).
      * @param property The property that the retrieved axioms make equivalent to some other property expressions. For each
      * axiom retrieved the set of properties returned by {@link OWLEquivalentObjectPropertiesAxiom#getProperties()} will
-     * contain property. 
+     * contain property.
      * @return A set of {@link org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom}s such that each axiom
      * in the set is of the form <code>EquivalentObjectProperties(pe0, ..., property, ..., pen)</code>. The set that is
      * returned is a copy - it will not be updated if the ontology changes.  It is therefore safe to
@@ -1152,13 +1174,13 @@ public interface OWLOntology extends OWLObject {
     Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(OWLObjectPropertyExpression property);
 
 
-    
+
     /**
      * Gets the {@link org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom}s that make the specified property
      * disjoint with some other object property expression(s).
      * @param property The property that the retrieved axioms makes disjoint to some other property expressions. For each
      * axiom retrieved the set of properties returned by {@link OWLDisjointObjectPropertiesAxiom#getProperties()} will
-     * contain property. 
+     * contain property.
      * @return A set of {@link org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom}s such that each axiom
      * in the set is of the form <code>DisjointObjectProperties(pe0, ..., property, ..., pen)</code>. The set that is
      * returned is a copy - it will not be updated if the ontology changes.  It is therefore safe to
@@ -1303,7 +1325,7 @@ public interface OWLOntology extends OWLObject {
      * equivalent to some other data property expression(s).
      * @param property The property that the retrieved axioms make equivalent to some other property expressions. For each
      * axiom retrieved the set of properties returned by {@link OWLEquivalentDataPropertiesAxiom#getProperties()} will
-     * contain property. 
+     * contain property.
      * @return A set of {@link org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom}s such that each axiom
      * in the set is of the form <code>EquivalentDataProperties(pe0, ..., property, ..., pen)</code>. The set that is
      * returned is a copy - it will not be updated if the ontology changes.  It is therefore safe to
@@ -1317,7 +1339,7 @@ public interface OWLOntology extends OWLObject {
      * disjoint with some other data property expression(s).
      * @param property The property that the retrieved axioms makes disjoint to some other property expressions. For each
      * axiom retrieved the set of properties returned by {@link OWLDisjointDataPropertiesAxiom#getProperties()} will
-     * contain property. 
+     * contain property.
      * @return A set of {@link org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom}s such that each axiom
      * in the set is of the form <code>DisjointDataProperties(pe0, ..., property, ..., pen)</code>. The set that is
      * returned is a copy - it will not be updated if the ontology changes.  It is therefore safe to
