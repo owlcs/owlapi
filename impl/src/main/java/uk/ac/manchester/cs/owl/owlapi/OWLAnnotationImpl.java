@@ -78,7 +78,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         super(dataFactory);
         this.property = property;
         this.value = value;
-        this.annotations = CollectionFactory.getCopyOnRequestSet(new TreeSet<OWLAnnotation>(annotations));
+        this.annotations = CollectionFactory.getCopyOnRequestSetFromMutableCollection(new TreeSet<OWLAnnotation>(annotations));
     }
 
     public Set<OWLAnnotation> getAnnotations() {

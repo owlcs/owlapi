@@ -68,7 +68,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLN
     }
 
     public Set<OWLDataRange> getOperands() {
-        return CollectionFactory.getCopyOnRequestSet(operands);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(operands);
     }
 
     public boolean isTopDatatype() {

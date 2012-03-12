@@ -105,7 +105,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     }
 
     public Set<OWLPropertyExpression<?,?>> getPropertyExpressions() {
-        return CollectionFactory.getCopyOnRequestSet(propertyExpressions);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(propertyExpressions);
     }
 
     @SuppressWarnings("rawtypes")

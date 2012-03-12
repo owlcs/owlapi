@@ -103,14 +103,14 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 			accept(collector);
 			signature = sig;
 		}
-		return CollectionFactory.getCopyOnRequestSet(signature);
+		return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(signature);
 	}
 
 	public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
 		if(signature==null) {
 			getSignature();
 		}
-		return CollectionFactory.getCopyOnRequestSet(anons);
+		return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(anons);
 	}
 
 	public Set<OWLClass> getClassesInSignature() {

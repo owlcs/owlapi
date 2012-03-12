@@ -15,7 +15,7 @@ import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 
 public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V>, Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 7844654398838073134L;
 	private final MultiMap<K, V> map;
@@ -68,11 +68,15 @@ public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V
 	}
 
 	public Set<K> keySet() {
-		return CollectionFactory.getCopyOnRequestSet(map.keySet());
+		return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map.keySet());
 	}
 
 	public Set<V> getValues(K key) {
-		return CollectionFactory.getCopyOnRequestSet(map.get(key));
+		return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map.get(key));
+	}
+
+	public boolean hasValues(K key) {
+		return map.containsKey(key);
 	}
 
 	public boolean put(K key, V value) {

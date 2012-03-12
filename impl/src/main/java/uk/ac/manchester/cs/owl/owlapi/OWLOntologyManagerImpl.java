@@ -300,7 +300,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 			importsClosureCache.put(ontology.getOntologyID(), ontologies);
 		}
 		// the returned set can be mutated, but changes will not be propagated back
-		return CollectionFactory.getCopyOnRequestSet(ontologies);
+		return CollectionFactory.getCopyOnRequestSetFromMutableCollection(ontologies);
 	}
 
 	/**

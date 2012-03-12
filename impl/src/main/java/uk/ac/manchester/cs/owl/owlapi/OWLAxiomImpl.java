@@ -64,7 +64,7 @@ import org.semanticweb.owlapi.util.NNF;
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 		CollectionContainer<OWLAnnotation> {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1301957680921377547L;
 	private OWLAxiom nnf;
@@ -90,7 +90,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 		if (annotations.isEmpty()) {
 			return Collections.emptySet();
 		}
-		return CollectionFactory.getCopyOnRequestSet(annotations);
+		return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(annotations);
 	}
 
 	public void accept(CollectionContainerVisitor<OWLAnnotation> t) {

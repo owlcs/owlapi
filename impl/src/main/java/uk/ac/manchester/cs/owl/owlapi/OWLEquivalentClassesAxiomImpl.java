@@ -131,7 +131,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
             }
             namedClasses = Collections.unmodifiableSet(clses);
         }
-        return CollectionFactory.getCopyOnRequestSet(namedClasses);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(namedClasses);
     }
 
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
