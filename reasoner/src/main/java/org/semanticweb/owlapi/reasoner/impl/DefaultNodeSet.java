@@ -88,7 +88,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     }
 
     public Set<Node<E>> getNodes() {
-        return CollectionFactory.getCopyOnRequestSet(nodes);
+        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(nodes);
     }
 
     /**

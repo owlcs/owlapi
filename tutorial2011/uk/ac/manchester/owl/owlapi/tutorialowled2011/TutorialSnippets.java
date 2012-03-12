@@ -42,6 +42,7 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 import java.io.File;
 import java.util.*;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.apibinding.configurables.OWLImplementationBinding;
 import org.semanticweb.owlapi.io.*;
@@ -82,14 +83,14 @@ public class TutorialSnippets extends TestCase {
 				"materializedOntologies"), true));
 		return m;
 	}
-
+    @Test
 	public void testOntologyLoading() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m
 				.loadOntologyFromOntologyDocument(pizza_iri);
 		assertNotNull(o);
 	}
-
+    @Test
 	public void testOntologyLoadingFromStringSource()
 			throws Exception {
 		OWLOntologyManager m = create();
@@ -104,14 +105,14 @@ public class TutorialSnippets extends TestCase {
 						target.toString()));
 		assertNotNull(o2);
 	}
-
+    @Test
 	public void testOntologyCreation()
 			throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m.createOntology(example_iri);
 		assertNotNull(o);
 	}
-
+    @Test
 	public void testShowClasses() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m
@@ -122,7 +123,7 @@ public class TutorialSnippets extends TestCase {
 			System.out.println(cls);
 		}
 	}
-
+    @Test
 	public void testSaveOntology() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m
@@ -142,7 +143,7 @@ public class TutorialSnippets extends TestCase {
 		// Remove the ontology from the manager
 		m.removeOntology(o);
 	}
-
+    @Test
 	public void testIRIMapper() throws Exception {
 		OWLOntologyManager m = OWLManager
 				.createOWLOntologyManager();
@@ -169,7 +170,7 @@ public class TutorialSnippets extends TestCase {
 		m.saveOntology(o);
 		assertNotNull(o);
 	}
-
+    @Test
 	public void testAddAxioms() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m.createOntology(pizza_iri);
@@ -190,7 +191,7 @@ public class TutorialSnippets extends TestCase {
 				axiom);
 		m.applyChange(removeAxiom);
 	}
-
+    @Test
 	public void testAssertedSuperclasses()
 			throws Exception {
 		OWLOntologyManager m = create();
@@ -206,7 +207,7 @@ public class TutorialSnippets extends TestCase {
 		assertEquals(superClasses.size(),
 				sameSuperClasses.size());
 	}
-
+    @Test
 	public void testSWRL() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m.createOntology(example_iri);
@@ -244,7 +245,7 @@ public class TutorialSnippets extends TestCase {
 				Collections.singleton(propAtom));
 		m.applyChange(new AddAxiom(o, rule2));
 	}
-
+    @Test
 	public void testIndividualAssertions()
 			throws Exception {
 		OWLOntologyManager m = create();
@@ -279,7 +280,7 @@ public class TutorialSnippets extends TestCase {
 		// Add this axiom to our ontology - with a convenience method
 		m.addAxiom(o, ax);
 	}
-
+    @Test
 	public void testDelete() throws Exception {
 		// Delete individuals representing countries
 		OWLOntologyManager m = create();
@@ -303,7 +304,7 @@ public class TutorialSnippets extends TestCase {
 		assertTrue(previousNumberOfIndividuals > o
 				.getIndividualsInSignature().size());
 	}
-
+    @Test
 	public void testAddSomeRestriction()
 			throws Exception {
 		OWLOntologyManager m = create();
@@ -331,7 +332,7 @@ public class TutorialSnippets extends TestCase {
 		AddAxiom addAx = new AddAxiom(o, ax);
 		m.applyChange(addAx);
 	}
-
+    @Test
 	public void testDatatypeRestriction()
 			throws Exception {
 		OWLOntologyManager m = create();
@@ -359,7 +360,7 @@ public class TutorialSnippets extends TestCase {
 	}
 
 	OWLReasonerFactory reasonerFactory = new JFactFactory();
-
+    @Test
 	public void testUnsatisfiableClasses()
 			throws Exception {
 		OWLOntologyManager m = create();
@@ -393,7 +394,7 @@ public class TutorialSnippets extends TestCase {
 					.println("There are no unsatisfiable classes");
 		}
 	}
-
+    @Test
 	public void testDescendants() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m
@@ -423,7 +424,7 @@ public class TutorialSnippets extends TestCase {
 			}
 		}
 	}
-
+    @Test
 	public void testPetInstances() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m
@@ -468,7 +469,7 @@ public class TutorialSnippets extends TestCase {
 			}
 		}
 	}
-
+    @Test
 	public void testLookupRestrictions()
 			throws Exception {
 		OWLOntologyManager m = create();
@@ -545,7 +546,7 @@ public class TutorialSnippets extends TestCase {
 					.getProperty());
 		}
 	}
-
+    @Test
 	public void testComment() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m
@@ -568,7 +569,7 @@ public class TutorialSnippets extends TestCase {
 		m.applyChange(new AddAxiom(o, ax));
 		// add a version info annotation to the ontology
 	}
-
+    @Test
 	public void testVersionInfo() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m
@@ -587,7 +588,7 @@ public class TutorialSnippets extends TestCase {
 		m.applyChange(new AddOntologyAnnotation(o,
 				anno));
 	}
-
+    @Test
 	public void testReadAnnotations() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m
@@ -610,7 +611,7 @@ public class TutorialSnippets extends TestCase {
 			}
 		}
 	}
-
+    @Test
 	public void testInferredOntology()
 			throws Exception {
 		OWLOntologyManager m = create();
@@ -629,7 +630,7 @@ public class TutorialSnippets extends TestCase {
 				reasoner, gens);
 		iog.fillOntology(m, infOnt);
 	}
-
+    @Test
 	public void testMergedOntology() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o1 = m.loadOntology(pizza_iri);
@@ -649,7 +650,7 @@ public class TutorialSnippets extends TestCase {
 		assertTrue(merged.getAxiomCount() > o2
 				.getAxiomCount());
 	}
-
+    @Test
 	public void testOntologyWalker() throws Exception {
 		// How to use an ontology walker to walk the asserted structure of an ontology.
 		OWLOntologyManager m = create();
@@ -677,7 +678,7 @@ public class TutorialSnippets extends TestCase {
 		// Now ask the walker to walk over the ontology structure using our visitor instance.
 		walker.walkStructure(visitor);
 	}
-
+    @Test
 	public void testMargherita() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m
@@ -737,7 +738,7 @@ public class TutorialSnippets extends TestCase {
 			}
 		}
 	}
-
+    @Test
 	public void testModularization() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m
@@ -773,7 +774,7 @@ public class TutorialSnippets extends TestCase {
 				.println("TutorialSnippets.testModularization() "
 						+ mod.size());
 	}
-
+    @Test
 	public void testIndividual() throws Exception {
 		// :Mary is an instance of the class :Person.
 		OWLOntologyManager m = create();
@@ -797,7 +798,7 @@ public class TutorialSnippets extends TestCase {
 		m.saveOntology(o,
 				new SystemOutDocumentTarget());
 	}
-
+    @Test
 	public void testDataRanges() throws Exception {
 		// Data ranges are used as the types of literals, as the ranges for data properties
 		OWLOntologyManager m = create();
@@ -847,7 +848,7 @@ public class TutorialSnippets extends TestCase {
 		m.saveOntology(o,
 				new SystemOutDocumentTarget());
 	}
-
+    @Test
 	public void testPropertyAssertions()
 			throws Exception {
 		//how to specify various property assertions for individuals
@@ -960,7 +961,7 @@ public class TutorialSnippets extends TestCase {
 			}
 		}
 	}
-
+    @Test
 	public void testHierarchy() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m
@@ -971,7 +972,7 @@ public class TutorialSnippets extends TestCase {
 		// Print the hierarchy below thing
 		printHierarchy(o, clazz);
 	}
-
+    @Test
 	public void testRendering() throws Exception {
 		//Simple Rendering Example. Reads an ontology and then renders it.
 		OWLOntologyManager m = create();
@@ -984,7 +985,7 @@ public class TutorialSnippets extends TestCase {
 				new OWLTutorialSyntaxOntologyFormat(),
 				new SystemOutDocumentTarget());
 	}
-
+    @Test
 	public void testCheckProfile() throws Exception {
 		OWLOntologyManager m = create();
 		OWLOntology o = m.createOntology(pizza_iri);

@@ -95,7 +95,7 @@ public class RDFResourceParseError {
      * @return the main node triples
      */
     public Set<RDFTriple> getMainNodeTriples() {
-        return CollectionFactory.getCopyOnRequestSet(mainNodeTriples);
+        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(mainNodeTriples);
     }
 
 }

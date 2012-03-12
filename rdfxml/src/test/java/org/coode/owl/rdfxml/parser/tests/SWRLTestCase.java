@@ -44,6 +44,7 @@ import java.net.URI;
 import junit.framework.TestCase;
 
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
+import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -76,7 +77,7 @@ public class SWRLTestCase extends TestCase {
         man.addOntologyFactory(factory);
 
     }
-
+    @Test
     public void testSWRLParser() throws Exception {
         URI uri = getClass().getResource("/owlapi/SWRLTest.owl").toURI();
         OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI.create(uri));

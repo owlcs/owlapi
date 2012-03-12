@@ -47,6 +47,7 @@ import junit.framework.TestCase;
 
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
+import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -91,6 +92,7 @@ public class TestDisjoints extends TestCase {
         man.addOntologyStorer(new RDFXMLOntologyStorer());
     }
 
+    @Test
     public void testAnonDisjoints() throws Exception {
         OWLOntology ontA = man.createOntology(TestUtils.createIRI());
         OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());

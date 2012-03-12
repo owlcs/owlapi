@@ -87,10 +87,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         this.writer = writer;
         writeEnitiesAsURIs = true;
         prefixManager = new DefaultPrefixManager();
-        if (!ontology.isAnonymous()) {
-            String defPrefix = ontology.getOntologyID().getOntologyIRI() + "#";
-            prefixManager.setDefaultPrefix(defPrefix);
-        }
+       
         OWLOntologyFormat ontologyFormat = man.getOntologyFormat(ontology);
         if(ontologyFormat instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) ontologyFormat;
@@ -99,7 +96,10 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
                 prefixManager.setPrefix(prefixName, prefix);
             }
         }
-
+        if (!ontology.isAnonymous()) {
+            String defPrefix = ontology.getOntologyID().getOntologyIRI() + "#";
+            prefixManager.setDefaultPrefix(defPrefix);
+        }
         focusedObject = man.getOWLDataFactory().getOWLThing();
     }
 

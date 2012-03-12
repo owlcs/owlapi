@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.reasoner.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.api.test.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -56,7 +57,7 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
  * Date: 07-Jul-2010
  */
 public class StructuralReasonerTestCase extends AbstractOWLAPITestCase {
-
+    @Test
     public void testClassHierarchy() {
         OWLClass clsX = getOWLClass("X");
         OWLClass clsA = getOWLClass("A");

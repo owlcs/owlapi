@@ -242,6 +242,19 @@ public class XMLUtils {
         }
     }
 
+    /**utility to get the part of a charsequence that is not the NCName fragment
+     * @param s the charsequence to split
+     * @return the prefix split at the last non-ncname character, or the whole input if no ncname is found*/
+    public static String getNCNamePrefix(CharSequence s) {
+        int localPartStartIndex = getNCNameSuffixIndex(s);
+        if(localPartStartIndex != -1) {
+            return s.toString().substring(0, localPartStartIndex);
+        }
+        else {
+            return s.toString();
+        }
+    }
+
     /**
      * Escapes a character sequence so that it is valid XML.
      * @param s The character sequence.
@@ -292,6 +305,68 @@ public class XMLUtils {
         return s == null || s.length() == 0;
     }
 
-
+//class old_namespacer{
+//	private Pattern qnamePattern = Pattern.compile("[a-zA-Z_][a-zA-Z_0-9\\.\\-_\\%]*");
+//	private transient WeakIndexCache<IRI, String> prefixedNamesCache = new WeakIndexCache<IRI, String>();
+//	private transient WeakCache<IRI> unprefixable = new WeakCache<IRI>();
+//	private Map<String, String> prefix2NamespaceMap = new HashMap<String, String>();
+//
+//	public old_namespacer(Map<String, String> prefMap) {
+//		prefix2NamespaceMap.putAll(prefMap);
+//	}
+//
+//	public void resetCaches() {
+//		unprefixable.clear();
+//		prefixedNamesCache.clear();
+//		prefix2NamespaceMap.clear();
+//	}
+//
+//	public void addPrefixMap(Map<String, String> prefixes) {
+//		prefix2NamespaceMap.putAll(prefixes);
+//	}
+//
+//	public void addPrefix(String namespace, String value) {
+//		prefix2NamespaceMap.put(namespace, value);
+//		// drop weak caches, new prefix might make them invalid
+//		unprefixable.clear();
+//		prefixedNamesCache.clear();
+//	}
+//
+//	public String getQName(IRI iri) {
+//		String cached = prefixedNamesCache.get(iri);
+//		if (cached != null) {
+//			return cached;
+//		}
+//		String iriString = iri.toString();
+//		String toReturn=getQName(iriString);
+//		if(toReturn==null) {
+//			unprefixable.cache(iri);
+//		}else {
+//			prefixedNamesCache.cache(iri, toReturn);
+//		}
+//		return toReturn;
+//	}
+//
+//	public String getQName(String s) {
+//		for (String prefixName : prefix2NamespaceMap.keySet()) {
+//			String prefix = prefix2NamespaceMap.get(prefixName);
+//			if (s.startsWith(prefix)) {
+//				String localName = s.substring(prefix.length());
+//				final Matcher matcher = qnamePattern.matcher(localName);
+//				if (matcher.find() && localName.equals(matcher.group())) {
+//					String toReturn =null;
+//					if(prefixName.endsWith(":")) {
+//					 toReturn=prefixName + localName;
+//					}else {
+//						toReturn=prefixName+":" + localName;
+//					}
+//					return toReturn;
+//				}
+//			}
+//		}
+//		return null;
+//	}
+//
+//}
 
 }

@@ -46,6 +46,7 @@ import junit.framework.TestCase;
 
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
+import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -119,6 +120,7 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
         return man.getOWLDataFactory();
     }
 
+    @Test
     public void testSaveAndReload() throws Exception {
         OWLOntology ontA = man.createOntology(IRI.create("http://rdfxmltests/ontology"));
         for (OWLAxiom ax : getAxioms()) {

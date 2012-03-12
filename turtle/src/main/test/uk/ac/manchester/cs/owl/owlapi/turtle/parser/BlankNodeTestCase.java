@@ -42,6 +42,8 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 import java.io.Reader;
 import java.io.StringReader;
 
+import org.junit.Test;
+
 import junit.framework.TestCase;
 
 /**
@@ -52,7 +54,7 @@ import junit.framework.TestCase;
  */
 @SuppressWarnings("javadoc")
 public class BlankNodeTestCase extends TestCase {
-
+    @Test
     public void testBlankNodes() throws Exception {
         try {
             Reader input = new StringReader( "_:foo <http://example.com/> _:bar ." );
