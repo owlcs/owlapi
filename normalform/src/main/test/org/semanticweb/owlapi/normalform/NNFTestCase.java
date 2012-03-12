@@ -80,6 +80,7 @@ public class NNFTestCase extends TestCase {
     }
 
 
+    @Test
     public void testNamedClass() {
         OWLClassExpression desc = clsA;
         OWLClassExpression nnf = clsA;
@@ -87,6 +88,7 @@ public class NNFTestCase extends TestCase {
         assertEquals(nnf, comp);
     }
 
+    @Test
     public void testObjectIntersectionOf() {
         OWLClassExpression desc = df.getOWLObjectIntersectionOf(clsA, clsB);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
@@ -95,6 +97,7 @@ public class NNFTestCase extends TestCase {
         assertEquals(nnf, comp);
     }
 
+    @Test
     public void testObjectUnionOf() {
         OWLClassExpression desc = df.getOWLObjectUnionOf(clsA, clsB);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
@@ -103,6 +106,7 @@ public class NNFTestCase extends TestCase {
         assertEquals(nnf, comp);
     }
 
+    @Test
     public void testDoubleNegation() {
         OWLClassExpression desc = df.getOWLObjectComplementOf(clsA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
@@ -112,6 +116,7 @@ public class NNFTestCase extends TestCase {
     }
 
 
+    @Test
     public void testTripleNegation() {
         OWLClassExpression desc = df.getOWLObjectComplementOf(df.getOWLObjectComplementOf(clsA));
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
@@ -120,6 +125,7 @@ public class NNFTestCase extends TestCase {
         assertEquals(nnf, comp);
     }
 
+    @Test
     public void testObjectSome() {
         OWLClassExpression desc = df.getOWLObjectSomeValuesFrom(propP, clsA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
@@ -128,6 +134,7 @@ public class NNFTestCase extends TestCase {
         assertEquals(nnf, comp);
     }
 
+    @Test
     public void testObjectAll() {
         OWLClassExpression desc = df.getOWLObjectAllValuesFrom(propP, clsA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
@@ -136,6 +143,7 @@ public class NNFTestCase extends TestCase {
         assertEquals(nnf, comp);
     }
 
+    @Test
     public void testObjectHasValue() {
         OWLClassExpression desc = df.getOWLObjectHasValue(propP, indA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
@@ -144,6 +152,7 @@ public class NNFTestCase extends TestCase {
         assertEquals(nnf, comp);
     }
 
+    @Test
     public void testObjectMin() {
         OWLClassExpression desc = df.getOWLObjectMinCardinality(3, propP, clsA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
@@ -152,6 +161,7 @@ public class NNFTestCase extends TestCase {
         assertEquals(nnf, comp);
     }
 
+    @Test
     public void testObjectMax() {
         OWLClassExpression desc = df.getOWLObjectMaxCardinality(3, propP, clsA);
         OWLClassExpression neg = df.getOWLObjectComplementOf(desc);
@@ -160,6 +170,7 @@ public class NNFTestCase extends TestCase {
         assertEquals(nnf, comp);
     }
 
+    @Test
     public void testNestedA() {
         OWLClassExpression fillerA = df.getOWLObjectUnionOf(clsA, clsB);
         OWLClassExpression opA = df.getOWLObjectSomeValuesFrom(propP, fillerA);
@@ -174,6 +185,7 @@ public class NNFTestCase extends TestCase {
         assertEquals(comp, nnf);
     }
 
+    @Test
     public void testNestedB() {
         OWLClassExpression desc = df.getOWLObjectIntersectionOf(df.getOWLObjectIntersectionOf(clsA, clsB),
                 df.getOWLObjectComplementOf(df.getOWLObjectUnionOf(clsC, clsD)));

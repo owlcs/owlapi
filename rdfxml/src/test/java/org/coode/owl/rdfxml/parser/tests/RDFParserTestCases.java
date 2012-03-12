@@ -45,6 +45,7 @@ import java.net.URL;
 import junit.framework.TestCase;
 
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
+import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -77,7 +78,7 @@ public class RDFParserTestCases extends TestCase {
 
     }
 
-
+    @Test
     public void testOWLAPI() throws Exception {
         parseFiles("/owlapi/");
     }
