@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -54,6 +56,7 @@ public class TestParser08TestCase extends AbstractFileRoundTrippingTestCase {
     }
 
     @Override
+    @Test
     public void testManchesterOWLSyntax() throws Exception {
         // Annotation assertion not on an entity - cannot do!
 //        super.testManchesterOWLSyntax();

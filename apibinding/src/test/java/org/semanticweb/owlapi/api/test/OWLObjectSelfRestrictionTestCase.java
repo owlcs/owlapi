@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
@@ -53,7 +54,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class OWLObjectSelfRestrictionTestCase extends AbstractOWLDataFactoryTest {
 
     @Override
-	public void testCreation() throws Exception {
+	@Test
+    public void testCreation() throws Exception {
         OWLObjectProperty prop = createOWLObjectProperty();
         OWLObjectHasSelf restA = getFactory().getOWLObjectHasSelf(prop);
         assertNotNull(restA);
@@ -61,7 +63,8 @@ public class OWLObjectSelfRestrictionTestCase extends AbstractOWLDataFactoryTest
 
 
     @Override
-	public void testEqualsPositive() throws Exception {
+	@Test
+    public void testEqualsPositive() throws Exception {
         OWLObjectProperty prop = createOWLObjectProperty();
         OWLObjectHasSelf restA = getFactory().getOWLObjectHasSelf(prop);
         OWLObjectHasSelf restB = getFactory().getOWLObjectHasSelf(prop);
@@ -70,7 +73,8 @@ public class OWLObjectSelfRestrictionTestCase extends AbstractOWLDataFactoryTest
 
 
     @Override
-	public void testEqualsNegative() throws Exception {
+	@Test
+    public void testEqualsNegative() throws Exception {
         OWLObjectHasSelf restA = getFactory().getOWLObjectHasSelf(createOWLObjectProperty());
         OWLObjectHasSelf restB = getFactory().getOWLObjectHasSelf(createOWLObjectProperty());
         assertNotEquals(restA, restB);
@@ -78,7 +82,8 @@ public class OWLObjectSelfRestrictionTestCase extends AbstractOWLDataFactoryTest
 
 
     @Override
-	public void testHashCode() throws Exception {
+	@Test
+    public void testHashCode() throws Exception {
         OWLObjectProperty prop = createOWLObjectProperty();
         OWLObjectHasSelf restA = getFactory().getOWLObjectHasSelf(prop);
         OWLObjectHasSelf restB = getFactory().getOWLObjectHasSelf(prop);

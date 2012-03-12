@@ -231,7 +231,6 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
                     sb.append("\n");
                 }
             }
-            System.out.println(sb.toString());
             fail(sb.toString());
         }
 

@@ -38,6 +38,9 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+
+import org.junit.Test;
+
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 30-Jul-2008<br><br>
@@ -57,13 +60,15 @@ public class AnonymousInversesTestCase extends AbstractFileRoundTrippingTestCase
      */
 
     @Override
-	public void testManchesterOWLSyntax() throws Exception {
+	@Test
+    public void testManchesterOWLSyntax() throws Exception {
 //        super.testManchesterOWLSyntax();
     }
 
 
     @Override
-	public void testFunctionalSyntax() throws Exception {
+	@Test
+    public void testFunctionalSyntax() throws Exception {
         super.testFunctionalSyntax();
     }
 }

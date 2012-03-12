@@ -44,6 +44,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -68,6 +69,7 @@ import org.semanticweb.owlapi.util.OWLEntityRenamer;
 @SuppressWarnings("javadoc")
 public class RenameEntityTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testRenameClass() throws Exception {
         OWLOntology ont = getOWLOntology("testont");
         OWLClass clsAIRI1 = getOWLClass("ClsA1");
@@ -113,6 +115,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         assertEquals(ont.getAxioms(), axioms1);
     }
 
+    @Test
     public void testRenameObjectProperty() throws Exception {
 
         OWLOntology ont = getOWLOntology("testont");
@@ -173,6 +176,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         assertEquals(ont.getAxioms(), axioms1);
     }
 
+    @Test
     public void testRenameDataProperty() throws Exception {
 
         OWLOntology ont = getOWLOntology("testont");
@@ -220,6 +224,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         assertEquals(ont.getAxioms(), axioms1);
     }
 
+    @Test
     public void testRenameIndividual() throws Exception {
         OWLOntology ont = getOWLOntology("testont");
         OWLClass clsA = getOWLClass("ClsA");
@@ -262,6 +267,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
 
     }
 
+    @Test
     public void testRenameDatatype() throws Exception {
         OWLOntology ont = getOWLOntology("testont");
 
@@ -307,6 +313,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     }
 
 
+    @Test
     public void testRenameAnnotationProperty() throws Exception {
 
         OWLOntology ont = getOWLOntology("testont");

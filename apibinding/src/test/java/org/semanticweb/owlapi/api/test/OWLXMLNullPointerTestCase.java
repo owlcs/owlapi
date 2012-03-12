@@ -43,6 +43,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
@@ -67,6 +68,7 @@ public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
 
     public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
 
+    @Test
     public void testRoundTrip() {
         try {
             OWLOntologyManager manager = Factory.getManager();

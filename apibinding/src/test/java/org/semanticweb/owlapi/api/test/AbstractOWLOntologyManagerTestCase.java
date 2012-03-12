@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 
@@ -69,25 +70,29 @@ public abstract class AbstractOWLOntologyManagerTestCase extends AbstractOWLData
 
 
     @Override
-	public void testCreation() throws Exception {
+	@Test
+    public void testCreation() throws Exception {
         // Ignore
     }
 
 
     @Override
-	public void testEqualsPositive() throws Exception {
+	@Test
+    public void testEqualsPositive() throws Exception {
         // Ignore
     }
 
 
     @Override
-	public void testEqualsNegative() throws Exception {
+	@Test
+    public void testEqualsNegative() throws Exception {
         // Ignore
     }
 
 
     @Override
-	public void testHashCode() throws Exception {
+	@Test
+    public void testHashCode() throws Exception {
         // Ignore
     }
 }

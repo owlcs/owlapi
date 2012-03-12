@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -55,6 +56,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 @SuppressWarnings("javadoc")
 public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testRenameToExistingOntology() throws Exception {
         try {
             OWLOntologyManager manager = getManager();
@@ -66,7 +68,7 @@ public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
             fail();
         }
         catch (OWLOntologyRenameException e) {
-            //System.out.println("Got expected rename exception: " + e.getMessage());
+        	// Expected behaviour, success
         }
     }
 

@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
@@ -60,11 +61,13 @@ public class EquivalentObjectPropertiesNaryAnnotatedTestCase extends AbstractAnn
     }
 
     @Override
+    @Test
     public void testTurtle() throws Exception {
         // Can't serialise nary equivalent properties axioms in RDF
     }
 
     @Override
+    @Test
     public void testRDFXML() throws Exception {
         // Can't serialise nary equivalent properties axioms in RDF
     }

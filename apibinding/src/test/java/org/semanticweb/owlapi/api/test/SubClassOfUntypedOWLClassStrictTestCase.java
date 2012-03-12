@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -62,6 +63,7 @@ public class SubClassOfUntypedOWLClassStrictTestCase extends AbstractFileTestCas
         return "SubClassOfUntypedOWLClass.rdf";
     }
 
+    @Test
     public void testAxioms() {
         OWLOntology ont = createOntology();
         assertTrue(ont.getAxioms(AxiomType.SUBCLASS_OF).isEmpty());

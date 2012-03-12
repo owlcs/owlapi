@@ -40,6 +40,7 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -66,7 +67,8 @@ public class AllDifferentTestCase extends TestCase {
 			+ "<rdf:Description rdf:about=\"Petre\" />"
 			+ "</owl:members></owl:AllDifferent></rdf:RDF>";
 
-	public void testDistinctMembers() throws Exception {
+	@Test
+    public void testDistinctMembers() throws Exception {
 		OWLOntologyManager m = Factory.getManager();
 		OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(
 				onto1));

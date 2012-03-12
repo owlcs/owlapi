@@ -43,6 +43,7 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -64,7 +65,8 @@ public class DisjointUnionTest extends TestCase{
 	 * @throws OWLOntologyCreationException
 	 * @throws OWLOntologyStorageException
 	 */
-	public void testDisjointUnion() throws Exception {
+	@Test
+    public void testDisjointUnion() throws Exception {
 		OWLOntologyManager manager = Factory.getManager();
 		OWLOntology ontology = manager.createOntology(IRI.create(NS));
 		Set<OWLClassExpression> disjoints = new HashSet<OWLClassExpression>();

@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.api.test;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -56,6 +57,7 @@ public class DeclarationsTestCase extends AbstractFileRoundTrippingTestCase {
 
 
 
+    @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLClass(IRI.create("http://www.semanticweb.org/ontologies/declarations#Cls"))));

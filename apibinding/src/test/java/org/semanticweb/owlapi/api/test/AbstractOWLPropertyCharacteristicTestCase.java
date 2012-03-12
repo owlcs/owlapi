@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
@@ -55,14 +56,16 @@ public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPro
 
 
     @Override
-	public void testCreation() throws Exception {
+	@Test
+    public void testCreation() throws Exception {
         OWLPropertyAxiom axiom = createOWLPropertyAxiom(createProperty());
         assertNotNull("axiom should not be null", axiom);
     }
 
 
     @Override
-	public void testEqualsPositive() throws Exception {
+	@Test
+    public void testEqualsPositive() throws Exception {
         P prop = createProperty();
         OWLPropertyAxiom axiomA = createOWLPropertyAxiom(prop);
         OWLPropertyAxiom axiomB = createOWLPropertyAxiom(prop);
@@ -71,7 +74,8 @@ public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPro
 
 
     @Override
-	public void testEqualsNegative() throws Exception {
+	@Test
+    public void testEqualsNegative() throws Exception {
         OWLPropertyAxiom axiomA = createOWLPropertyAxiom(createProperty());
         OWLPropertyAxiom axiomB = createOWLPropertyAxiom(createProperty());
         assertNotEquals(axiomA, axiomB);
@@ -83,7 +87,8 @@ public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPro
 
 
     @Override
-	public void testHashCode() throws Exception {
+	@Test
+    public void testHashCode() throws Exception {
         P prop = createProperty();
         OWLPropertyAxiom axiomA = createOWLPropertyAxiom(prop);
         OWLPropertyAxiom axiomB = createOWLPropertyAxiom(prop);

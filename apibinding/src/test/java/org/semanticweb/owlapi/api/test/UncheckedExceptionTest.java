@@ -41,12 +41,14 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class UncheckedExceptionTest extends TestCase{
-	public void testLoad() throws Exception{
+	@Test
+    public void testLoad() throws Exception{
 		try {
 		OWLOntologyManager m=Factory.getManager();
 		//OWLOntology o=

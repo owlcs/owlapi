@@ -44,6 +44,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -56,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 @SuppressWarnings("javadoc")
 public class ComplexSubPropertyAxiomTestCase extends AbstractFileRoundTrippingTestCase {
 
+    @Test
     public void testContains() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLObjectProperty propP = getOWLObjectProperty("p");

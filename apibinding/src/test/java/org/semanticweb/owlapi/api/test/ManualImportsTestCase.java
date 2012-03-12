@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.api.test;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -56,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class ManualImportsTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testManualImports() throws Exception {
         OWLOntologyManager manager = getManager();
         OWLOntology baseOnt = manager.createOntology(IRI.create("http://semanticweb.org/ontologies/base"));

@@ -41,15 +41,16 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 @SuppressWarnings("javadoc")
 public class TurtleUTF8BOMTest extends TestCase{
-	public void testLoadingUTF8BOM() {
+	@Test
+    public void testLoadingUTF8BOM() {
 		try {
 		IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl" ).toURI());
 		Factory.getManager().loadOntologyFromOntologyDocument(uri);
 		}catch (Exception e) {
-			e.printStackTrace(System.out);
 			fail(e.getMessage());
 		}
 	}

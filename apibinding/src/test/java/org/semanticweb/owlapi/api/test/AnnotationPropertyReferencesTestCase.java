@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.api.test;
 import java.util.Collections;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -60,6 +61,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 @SuppressWarnings("javadoc")
 public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testContainsReferenceForAnnotationAssertion() throws Exception {
         OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
         OWLLiteral val = getFactory().getOWLLiteral("Test", "");
@@ -72,6 +74,7 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
     }
 
 
+    @Test
     public void testContainsReferenceForAxiomAnnotation() throws Exception {
         OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
         OWLLiteral val = getFactory().getOWLLiteral("Test", "");
@@ -84,6 +87,7 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
         assertTrue(ont.getAnnotationPropertiesInSignature().contains(anno.getProperty()));
     }
 
+    @Test
     public void testContainsReferenceForOntologyAnnotation() throws Exception {
         OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
         OWLLiteral val = getFactory().getOWLLiteral("Test");

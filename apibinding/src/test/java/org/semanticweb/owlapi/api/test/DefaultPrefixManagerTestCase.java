@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -55,6 +56,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class DefaultPrefixManagerTestCase extends TestCase {
 
+    @Test
     public void testContainsDefaultPrefixNames() {
         PrefixManager pm = new DefaultPrefixManager();
         assertTrue(pm.containsPrefixMapping("owl:"));
@@ -66,12 +68,14 @@ public class DefaultPrefixManagerTestCase extends TestCase {
         assertNull(pm.getDefaultPrefix());
     }
 
+    @Test
     public void testPrefixIRIExpansion() {
         PrefixManager pm = new DefaultPrefixManager();
         IRI iri = pm.getIRI("rdfs:comment");
         assertEquals(iri, OWLRDFVocabulary.RDFS_COMMENT.getIRI());
     }
 
+    @Test
     public void testDefaultPrefixExpansion() {
         String defaultPrefix = "http://www.semanticweb.org/test/ont";
         PrefixManager pm = new DefaultPrefixManager(defaultPrefix);

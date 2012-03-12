@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import java.util.Collections;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -56,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class GetAxiomsIgnoringAnnotationsTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testGetAxiomsIgnoringAnnoations() throws Exception {
         OWLLiteral annoLiteral = getFactory().getOWLLiteral("value");
         OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");

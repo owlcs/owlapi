@@ -39,9 +39,6 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
  * Author: Matthew Horridge<br>
@@ -59,9 +56,4 @@ public class LiteralWithBackslashTestCase extends AbstractLiteralWithEscapeTestC
         return "\\";
     }
 
-    @Override
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        System.out.println(target);
-        super.handleSaved(target, format);
-    }
 }

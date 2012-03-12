@@ -40,6 +40,8 @@
 package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
+
+import org.junit.Test;
 import org.semanticweb.owlapi.io.XMLUtils;
 
 /**
@@ -61,6 +63,7 @@ public class XMLUtilsTestCase extends TestCase {
         CODE_POINT_STRING = sb.toString();
     }
 
+    @Test
     public void testIsNCName() {
         assertTrue(XMLUtils.isNCName(CODE_POINT_STRING + "abc" + CODE_POINT_STRING));
         assertTrue(XMLUtils.isNCName(CODE_POINT_STRING + "abc123" + CODE_POINT_STRING));
@@ -70,6 +73,7 @@ public class XMLUtilsTestCase extends TestCase {
         assertFalse(XMLUtils.isNCName(null));
     }
 
+    @Test
     public void testIsQName() {
         assertTrue(XMLUtils.isQName(CODE_POINT_STRING + "p1:abc" + CODE_POINT_STRING));
         assertFalse(XMLUtils.isQName(CODE_POINT_STRING + "p1:2abc" + CODE_POINT_STRING));
@@ -78,6 +82,7 @@ public class XMLUtilsTestCase extends TestCase {
     }
 
 
+    @Test
     public void testEndsWithNCName() {
         assertEquals("abc" + CODE_POINT_STRING, XMLUtils.getNCNameSuffix("1abc" + CODE_POINT_STRING));
         assertTrue(XMLUtils.hasNCNameSuffix("1abc" + CODE_POINT_STRING));

@@ -47,6 +47,7 @@ import java.io.OutputStreamWriter;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
+import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
@@ -68,6 +69,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class ExistingOutputStreamTestCase extends AbstractOWLAPITestCase {
 
 
+    @Test
     public void testOutputStreamRemainsOpen() throws Exception {
         try {
             OWLOntologyManager manager = getManager();

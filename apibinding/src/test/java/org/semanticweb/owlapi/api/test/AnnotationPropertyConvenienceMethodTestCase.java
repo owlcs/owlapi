@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import java.util.Collections;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -55,6 +56,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testGetSuperProperties() {
         OWLOntology ont = getOWLOntology("OntA");
 
@@ -78,6 +80,7 @@ public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPIT
     }
 
 
+    @Test
     public void testGetSubProperties() {
         OWLOntology ont = getOWLOntology("OntA");
 

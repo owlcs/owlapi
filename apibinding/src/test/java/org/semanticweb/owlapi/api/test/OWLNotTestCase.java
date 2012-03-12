@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
@@ -53,7 +54,8 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 
     @Override
-	public void testCreation() throws Exception {
+	@Test
+    public void testCreation() throws Exception {
         OWLClassExpression operand = getFactory().getOWLClass(createIRI());
         OWLObjectComplementOf not = getFactory().getOWLObjectComplementOf(operand);
         assertNotNull(not);
@@ -61,7 +63,8 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	public void testEqualsPositive() throws Exception {
+	@Test
+    public void testEqualsPositive() throws Exception {
         OWLClassExpression operand = getFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(operand);
         OWLObjectComplementOf notB = getFactory().getOWLObjectComplementOf(operand);
@@ -70,7 +73,8 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	public void testEqualsNegative() throws Exception {
+	@Test
+    public void testEqualsNegative() throws Exception {
         OWLClassExpression operandA = getFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(operandA);
         OWLClassExpression operandB = getFactory().getOWLClass(createIRI());
@@ -80,7 +84,8 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	public void testHashCode() throws Exception {
+	@Test
+    public void testHashCode() throws Exception {
         OWLClassExpression operand = getFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(operand);
         OWLObjectComplementOf notB = getFactory().getOWLObjectComplementOf(operand);

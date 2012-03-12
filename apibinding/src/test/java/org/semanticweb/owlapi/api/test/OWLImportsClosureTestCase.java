@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -57,6 +58,7 @@ public class OWLImportsClosureTestCase extends AbstractOWLAPITestCase {
     /**
      * Tests to see if the method which obtains the imports closure behaves correctly.
      */
+    @Test
     public void testImportsClosure() throws Exception {
         OWLOntology ontA = getManager().createOntology(TestUtils.createIRI());
         OWLOntology ontB = getManager().createOntology(TestUtils.createIRI());

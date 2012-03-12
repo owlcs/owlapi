@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.api.test;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -64,6 +65,7 @@ public class SubObjectPropertyOfInverseTestCase extends AbstractAxiomsRoundTripp
     }
 
     @Override
+    @Test
     public void testManchesterOWLSyntax() throws Exception {
         // Can't represent inverse object property frames in Manchester OWL Syntax
 //        super.testManchesterOWLSyntax();

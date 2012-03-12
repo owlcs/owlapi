@@ -45,6 +45,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
+import org.junit.Test;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.FileDocumentTarget;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
@@ -79,6 +80,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
 
 
+    @Test
     public void testIgnoreAnnotations() throws Exception {
         OWLOntologyManager man = Factory.getManager();
         OWLOntology ont = man.createOntology();

@@ -2,14 +2,15 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.util.VersionInfo;
 
 public class OWLLiteralCorruptionTest extends TestCase{
 
 
+    @Test
     public void testmain() throws Exception{
     	String TEST_STRING;
         StringBuilder sb = new StringBuilder();
@@ -21,10 +22,9 @@ public class OWLLiteralCorruptionTest extends TestCase{
         }
         TEST_STRING = sb.toString();
 
-        System.out.println("OWL api version = " + VersionInfo.getVersionInfo().getVersion());
         OWLDataFactory factory = OWLManager.getOWLDataFactory();
         OWLLiteral literal = factory.getOWLLiteral(TEST_STRING);
-        System.out.println("Out = in ? " + literal.getLiteral().equals(TEST_STRING));
-        assertEquals(literal.getLiteral(),TEST_STRING);
+
+        assertEquals("Out = in ? false", literal.getLiteral(),TEST_STRING);
     }
 }

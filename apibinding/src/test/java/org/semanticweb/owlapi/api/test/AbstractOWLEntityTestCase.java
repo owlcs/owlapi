@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -54,13 +55,15 @@ public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTe
     protected abstract OWLEntity createEntity(IRI iri) throws Exception;
 
     @Override
-	public void testCreation() throws Exception {
+	@Test
+    public void testCreation() throws Exception {
         assertNotNull("entity should not be null",createEntity(createIRI()));
     }
 
 
     @Override
-	public void testEqualsPositive() throws Exception {
+	@Test
+    public void testEqualsPositive() throws Exception {
         IRI iri = createIRI();
         OWLEntity entityA = createEntity(iri);
         OWLEntity entityB = createEntity(iri);
@@ -69,7 +72,8 @@ public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTe
 
 
     @Override
-	public void testEqualsNegative() throws Exception {
+	@Test
+    public void testEqualsNegative() throws Exception {
         OWLEntity entityA = createEntity(createIRI());
         OWLEntity entityB = createEntity(createIRI());
         assertNotEquals(entityA, entityB);
@@ -77,7 +81,8 @@ public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTe
 
 
     @Override
-	public void testHashCode() throws Exception {
+	@Test
+    public void testHashCode() throws Exception {
         IRI iri = createIRI();
         int hashCodeA = createEntity(iri).hashCode();
         int hashCodeB = createEntity(iri).hashCode();

@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
@@ -54,7 +55,8 @@ public class OWLTypedConstantTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	public void testCreation() throws Exception {
+	@Test
+    public void testCreation() throws Exception {
         OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
         OWLLiteral conA = getFactory().getOWLLiteral("3", dt);
         assertNotNull(conA);
@@ -62,7 +64,8 @@ public class OWLTypedConstantTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	public void testEqualsPositive() throws Exception {
+	@Test
+    public void testEqualsPositive() throws Exception {
         OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
         OWLLiteral conA = getFactory().getOWLLiteral("3", dt);
         OWLLiteral conB = getFactory().getOWLLiteral("3", dt);
@@ -71,7 +74,8 @@ public class OWLTypedConstantTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	public void testEqualsNegative() throws Exception {
+	@Test
+    public void testEqualsNegative() throws Exception {
         // Different datatypes - same literal
         OWLDatatype dtA = getFactory().getOWLDatatype(createIRI());
         OWLLiteral conA = getFactory().getOWLLiteral("3", dtA);
@@ -87,7 +91,8 @@ public class OWLTypedConstantTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	public void testHashCode() throws Exception {
+	@Test
+    public void testHashCode() throws Exception {
         OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
         OWLLiteral conA = getFactory().getOWLLiteral("3", dt);
         OWLLiteral conB = getFactory().getOWLLiteral("3", dt);

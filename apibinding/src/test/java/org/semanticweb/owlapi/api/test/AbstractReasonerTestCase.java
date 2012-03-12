@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -167,18 +168,22 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         reasoner.dispose();
     }
 
+    @Test
     public void testGetName() {
         assertNotNull("name should not be null", reasoner.getReasonerName());
     }
 
+    @Test
     public void testGetVersion() {
         assertNotNull("version should not be null", reasoner.getReasonerVersion());
     }
 
+    @Test
     public void testGetRootOntology() {
         assertEquals("ontology should be equal", reasoner.getRootOntology(), ont);
     }
 
+    @Test
     public void testGetTopClassNode() {
         Node<OWLClass> node = reasoner.getTopClassNode();
         assertTrue(node.isTopNode());
@@ -191,6 +196,7 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         assertTrue(node.getEntitiesMinusTop().contains(getClsG()));
     }
 
+    @Test
     public void testGetBottomClassNode() {
         Node<OWLClass> node = reasoner.getBottomClassNode();
         assertTrue(node.isBottomNode());
@@ -203,6 +209,7 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         assertTrue(node.getEntitiesMinusBottom().contains(getClsK()));
     }
 
+    @Test
     public void testGetEquivalentClasses() {
 
         Node<OWLClass> nTop = reasoner.getEquivalentClasses(getFactory().getOWLThing());
@@ -280,6 +287,7 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
 
     }
 
+    @Test
     public void testGetSuperClassesDirect() {
         NodeSet<OWLClass> nsSupTop = reasoner.getSuperClasses(getFactory().getOWLThing(), true);
         assertNotNull("object should not be null",nsSupTop);
@@ -347,6 +355,7 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
     }
 
 
+    @Test
     public void testGetSuperClasses() {
         NodeSet<OWLClass> nsSupTop = reasoner.getSuperClasses(getFactory().getOWLThing(), false);
         assertNotNull("object should not be null",nsSupTop);
@@ -431,6 +440,7 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         assertTrue(nsSupBot.containsEntity(getFactory().getOWLThing()));
     }
 
+    @Test
     public void testGetSubClassesDirect() {
         NodeSet<OWLClass> nsSubTop = reasoner.getSubClasses(getFactory().getOWLThing(), true);
         assertNotNull("object should not be null",nsSubTop);
@@ -494,6 +504,7 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
     }
 
 
+    @Test
     public void testGetSubClasses() {
         NodeSet<OWLClass> nsSubTop = reasoner.getSubClasses(getFactory().getOWLThing(), false);
         assertNotNull("object should not be null",nsSubTop);
@@ -577,6 +588,7 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
 
     }
 
+    @Test
     public void testIsSatisfiable() {
         assertTrue(reasoner.isSatisfiable(getFactory().getOWLThing()));
         assertTrue(reasoner.isSatisfiable(getClsG()));
@@ -591,24 +603,28 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
 
 
 
+    @Test
     public void testComputeClassHierarchy() {
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         assertTrue(reasoner.isPrecomputed(InferenceType.CLASS_HIERARCHY));
     }
 
 
+    @Test
     public void testGetTopObjectPropertyNode() {
         Node<OWLObjectPropertyExpression> node = reasoner.getTopObjectPropertyNode();
         assertNotNull("object should not be null",node);
         assertTrue(node.isTopNode());
     }
 
+    @Test
     public void testGetBottomObjectPropertyNode() {
         Node<OWLObjectPropertyExpression> node = reasoner.getBottomObjectPropertyNode();
         assertNotNull("object should not be null",node);
         assertTrue(node.isBottomNode());
     }
 
+    @Test
     public void testGetSubObjectPropertiesDirect() {
         NodeSet<OWLObjectPropertyExpression> nsSubTop = reasoner.getSubObjectProperties(getFactory().getOWLTopObjectProperty(), true);
         assertNotNull("object should not be null",nsSubTop);
@@ -671,6 +687,7 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
     }
 
 
+    @Test
     public void testGetSubObjectProperties() {
         NodeSet<OWLObjectPropertyExpression> nsSubTop = reasoner.getSubObjectProperties(getFactory().getOWLTopObjectProperty(), false);
         assertNotNull("object should not be null",nsSubTop);

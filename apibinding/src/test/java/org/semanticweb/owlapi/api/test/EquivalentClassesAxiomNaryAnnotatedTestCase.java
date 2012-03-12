@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
@@ -59,11 +60,13 @@ public class EquivalentClassesAxiomNaryAnnotatedTestCase extends AbstractAnnotat
     }
 
     @Override
+    @Test
     public void testRDFXML() throws Exception {
         // Not supported in RDF.  Only binary equivalent classes axioms can be saved in RDF representations
     }
 
     @Override
+    @Test
     public void testTurtle() throws Exception {
         // Not supported in RDF.  Only binary equivalent classes axioms can be saved in RDF representations
     }

@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.api.test;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
@@ -61,6 +62,7 @@ public class SymmetricObjectPropertyInverseTestCase extends AbstractAxiomsRoundT
     }
 
     @Override
+    @Test
     public void testManchesterOWLSyntax() throws Exception {
         // Can't represent inverse object property frames in Manchester OWL Syntax
 //        super.testManchesterOWLSyntax();

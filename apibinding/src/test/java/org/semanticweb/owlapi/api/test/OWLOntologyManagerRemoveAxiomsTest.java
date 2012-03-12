@@ -41,13 +41,15 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class OWLOntologyManagerRemoveAxiomsTest extends TestCase{
-	public void testRemove() throws Exception{
+	@Test
+    public void testRemove() throws Exception{
 		String premise = "Prefix(:=<http://example.org/>)\n"
 			+ "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
 			+ "Ontology(\n" + "  Declaration(NamedIndividual(:a))\n"

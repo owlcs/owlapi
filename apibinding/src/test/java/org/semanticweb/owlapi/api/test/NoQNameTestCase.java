@@ -43,6 +43,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.coode.xml.IllegalElementNameException;
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -70,6 +71,7 @@ public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
     }
 
     @Override
+    @Test
     public void testRDFXML() throws Exception {
         try {
             super.testRDFXML();

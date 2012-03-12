@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.api.test;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -56,7 +57,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 public class ObjectOneOfTestCase extends AbstractFileRoundTrippingTestCase {
 
 
-     public void testCorrectAxioms() {
+     @Test
+    public void testCorrectAxioms() {
          Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
          OWLClass clsA = getOWLClass("A");
          OWLNamedIndividual indA = getOWLIndividual("a");
