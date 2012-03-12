@@ -44,6 +44,7 @@ import java.util.Set;
 import junit.framework.TestCase;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
+import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
@@ -59,7 +60,8 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxMissingCatchTestCase extends TestCase {
-	public void testManSyntaxEditorParser() {
+	@Test
+    public void testManSyntaxEditorParser() {
 		String onto = "<?xml version=\"1.0\"?>"
 				+ "<!DOCTYPE rdf:RDF ["
 				+ "<!ENTITY vin  \"http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#\" >"

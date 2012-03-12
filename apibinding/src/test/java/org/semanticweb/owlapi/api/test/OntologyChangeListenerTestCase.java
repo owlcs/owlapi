@@ -43,6 +43,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -63,6 +64,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 @SuppressWarnings("javadoc")
 public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testOntologyChangeListener() {
         OWLOntology ont = getOWLOntology("ont");
         OWLClass clsA = getOWLClass("ClsA");

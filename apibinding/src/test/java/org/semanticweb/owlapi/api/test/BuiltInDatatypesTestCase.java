@@ -40,6 +40,7 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -53,7 +54,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 @SuppressWarnings("javadoc")
 public class BuiltInDatatypesTestCase extends TestCase {
-	public void testBuiltInDatatypes() {
+	@Test
+    public void testBuiltInDatatypes() {
 		try {
 			OWL2Datatype dt = OWL2Datatype
 					.getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
@@ -75,7 +77,8 @@ public class BuiltInDatatypesTestCase extends TestCase {
 		}
 	}
 
-	public void testFailure() {
+	@Test
+    public void testFailure() {
 		for (IRI type : OWL2Datatype.getDatatypeIRIs()) {
 			OWLDatatype datatype = Factory.getFactory()
 					.getOWLDatatype(type);

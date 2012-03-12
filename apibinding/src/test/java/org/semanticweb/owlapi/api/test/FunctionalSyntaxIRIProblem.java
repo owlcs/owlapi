@@ -1,12 +1,11 @@
 package org.semanticweb.owlapi.api.test;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import junit.framework.TestCase;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
+import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
@@ -30,7 +29,8 @@ public class FunctionalSyntaxIRIProblem extends TestCase{
 	 * @throws OWLOntologyCreationException
 	 * @throws IOException
 	 */
-	public void testmain() throws Exception {
+	@Test
+    public void testmain() throws Exception {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLDataFactory factory = manager.getOWLDataFactory();
 		OWLOntology ontology = manager.createOntology(IRI.create("urn:testontology:o1"));
@@ -79,7 +79,7 @@ public class FunctionalSyntaxIRIProblem extends TestCase{
     public static OWLOntology loadOntology(String ontologyFile) throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         StringDocumentSource s=new StringDocumentSource(ontologyFile);
-        //System.out.println("FunctionalSyntaxIRIProblem.loadOntology()\n"+ontologyFile);
+        System.out.println("FunctionalSyntaxIRIProblem.loadOntology()\n"+ontologyFile);
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(s);
         return ontology;
     }

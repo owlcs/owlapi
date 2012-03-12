@@ -45,6 +45,7 @@ import java.io.IOException;
 import junit.framework.TestCase;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
+import org.junit.Test;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -61,7 +62,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 @SuppressWarnings("javadoc")
 public class AnonymousRoundTrip2 extends TestCase{
-	public void testRoundTrip() throws Exception{
+	@Test
+    public void testRoundTrip() throws Exception{
 
 	            AnonymousRoundTrip ma = new AnonymousRoundTrip();
 	            ma.buildOntology();

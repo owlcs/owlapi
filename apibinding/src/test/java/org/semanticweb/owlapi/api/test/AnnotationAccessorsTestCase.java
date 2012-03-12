@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -69,6 +70,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
 
+    @Test
     public void testClassAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
@@ -79,6 +81,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(cls.getAnnotations(ont).contains(ax.getAnnotation()));
     }
 
+    @Test
     public void testNamedIndividualAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
@@ -89,6 +92,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(cls.getAnnotations(ont).contains(ax.getAnnotation()));
     }
 
+    @Test
     public void testObjectPropertyAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
@@ -99,6 +103,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(cls.getAnnotations(ont).contains(ax.getAnnotation()));
     }
 
+    @Test
     public void testDataPropertyAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
@@ -109,6 +114,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(cls.getAnnotations(ont).contains(ax.getAnnotation()));
     }
 
+    @Test
     public void testDatatypeAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();

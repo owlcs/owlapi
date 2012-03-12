@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -120,6 +121,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
 
+    @Test
     public void testSubClassOfAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLClass clsA = getOWLClass("A");
@@ -141,6 +143,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(clsB.getSubClasses(ont).contains(clsA));
     }
 
+    @Test
     public void testEquivalentClassesAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLClass clsA = getOWLClass("A");
@@ -163,6 +166,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getAxioms(clsC).contains(ax));
     }
 
+    @Test
     public void testDisjointClassesAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLClass clsA = getOWLClass("A");
@@ -185,6 +189,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getAxioms(clsC).contains(ax));
     }
 
+    @Test
     public void testSubObjectPropertyOfAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -201,6 +206,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getAxioms(propP).contains(ax));
     }
 
+    @Test
     public void testEquivalentObjectPropertiesAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -221,6 +227,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getAxioms(propR).contains(ax));
     }
 
+    @Test
     public void testDisjointObjectPropertiesAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -241,6 +248,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getAxioms(propR).contains(ax));
     }
 
+    @Test
     public void testObjectPropertyDomainAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -258,6 +266,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
 
     }
 
+    @Test
     public void testObjectPropertyRangeAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -274,6 +283,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(propP.getRanges(ont).contains(clsA));
     }
 
+    @Test
     public void testFunctionalObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -289,6 +299,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(propP.isFunctional(ont));
     }
 
+    @Test
     public void testInverseFunctionalObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -304,6 +315,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(propP.isInverseFunctional(ont));
     }
 
+    @Test
     public void testTransitiveObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -319,6 +331,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(propP.isTransitive(ont));
     }
 
+    @Test
     public void testSymmetricObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -334,6 +347,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(propP.isSymmetric(ont));
     }
 
+    @Test
     public void testAsymmetricObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -349,6 +363,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(propP.isAsymmetric(ont));
     }
 
+    @Test
     public void testReflexiveObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -364,6 +379,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(propP.isReflexive(ont));
     }
 
+    @Test
     public void testIrreflexiveObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -379,6 +395,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(propP.isIrreflexive(ont));
     }
 
+    @Test
     public void testSubDataPropertyOfAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty propP = getOWLDataProperty("p");
@@ -395,6 +412,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getAxioms(propP).contains(ax));
     }
 
+    @Test
     public void testEquivalentDataPropertiesAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty propP = getOWLDataProperty("p");
@@ -415,6 +433,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getAxioms(propR).contains(ax));
     }
 
+    @Test
     public void testDisjointDataPropertiesAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty propP = getOWLDataProperty("p");
@@ -435,6 +454,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getAxioms(propR).contains(ax));
     }
 
+    @Test
     public void testDataPropertyDomainAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty propP = getOWLDataProperty("p");
@@ -452,6 +472,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
 
     }
 
+    @Test
     public void testDataPropertyRangeAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty propP = getOWLDataProperty("p");
@@ -468,6 +489,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(propP.getRanges(ont).contains(dt));
     }
 
+    @Test
     public void testFunctionalDataPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty propP = getOWLDataProperty("p");
@@ -483,6 +505,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(propP.isFunctional(ont));
     }
 
+    @Test
     public void testClassAssertionAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLClass clsA = getOWLClass("clsA");
@@ -501,6 +524,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(indA.getTypes(ont).contains(clsA));
     }
 
+    @Test
     public void testObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty prop = getOWLObjectProperty("prop");
@@ -516,6 +540,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getAxioms(indA).contains(ax));
     }
 
+    @Test
     public void testNegativeObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty prop = getOWLObjectProperty("prop");
@@ -531,6 +556,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getAxioms(indA).contains(ax));
     }
 
+    @Test
     public void testDataPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty prop = getOWLDataProperty("prop");
@@ -546,6 +572,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getAxioms(indA).contains(ax));
     }
 
+    @Test
     public void testNegativeDataPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty prop = getOWLDataProperty("prop");
@@ -561,6 +588,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getAxioms(indA).contains(ax));
     }
 
+    @Test
     public void testSameIndividualAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLNamedIndividual indA = getOWLIndividual("indA");
@@ -581,6 +609,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(indA.getSameIndividuals(ont).contains(indC));
     }
 
+    @Test
     public void testDifferentIndividualsAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLNamedIndividual indA = getOWLIndividual("indA");

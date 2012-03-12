@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
@@ -73,6 +74,7 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
         manager.addIRIMapper(new NonMappingOntologyIRIMapper());
     }
 
+    @Test
     public void testContains() throws Exception {
         OWLOntology ont = manager.createOntology(TestUtils.createIRI());
         assertTrue(manager.contains(ont.getOntologyID()));
@@ -83,6 +85,7 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
         assertFalse(manager.contains(ont.getOntologyID()));
     }
 
+    @Test
     public void testImports() throws Exception {
         OWLOntology ontA = manager.createOntology(TestUtils.createIRI());
         OWLOntology ontB = manager.createOntology(TestUtils.createIRI());
@@ -93,6 +96,7 @@ public class OWLOntologyManagerImplTestCase extends TestCase {
         assertFalse(manager.getDirectImports(ontA).contains(ontB));
     }
 
+    @Test
     public void testImportsClosure() throws OWLException {
         // OntA -> OntB -> OntC (-> means imports)
         OWLOntology ontA = manager.createOntology(TestUtils.createIRI());

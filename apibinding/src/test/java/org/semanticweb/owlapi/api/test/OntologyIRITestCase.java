@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
@@ -51,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 @SuppressWarnings("javadoc")
 public class OntologyIRITestCase extends AbstractFileTestCase {
 
+    @Test
     public void testCorrectOntologyIRI() {
         OWLOntology ont = createOntology();
         OWLOntologyID id = ont.getOntologyID();

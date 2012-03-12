@@ -44,6 +44,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
@@ -59,6 +60,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 @SuppressWarnings("javadoc")
 public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testAddAxiom() throws Exception {
         OWLOntology ont = getOWLOntology("OntA");
         OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getFactory().getOWLThing());
@@ -73,6 +75,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
 
+    @Test
     public void testAddAxioms() throws Exception {
         OWLOntology ont = getOWLOntology("OntB");
         OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getFactory().getOWLThing());
@@ -87,6 +90,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
 
+    @Test
     public void testApplyChange() throws Exception {
         OWLOntology ont = getOWLOntology("OntC");
         OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getFactory().getOWLThing());
@@ -101,6 +105,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
 
+    @Test
     public void testApplyChanges() throws Exception {
         OWLOntology ont = getOWLOntology("OntD");
         OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getFactory().getOWLThing());

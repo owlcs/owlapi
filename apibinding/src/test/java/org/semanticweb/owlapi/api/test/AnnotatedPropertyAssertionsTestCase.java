@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -63,6 +64,7 @@ public class AnnotatedPropertyAssertionsTestCase extends AbstractFileTestCase {
         return "AnnotatedPropertyAssertions.rdf";
     }
 
+    @Test
     public void testCorrectAxiomAnnotated() {
         OWLOntology ontology = createOntology();
         OWLDataFactory df = getFactory();

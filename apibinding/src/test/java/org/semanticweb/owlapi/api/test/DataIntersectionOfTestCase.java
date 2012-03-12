@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.api.test;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -56,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 @SuppressWarnings("javadoc")
 public class DataIntersectionOfTestCase extends AbstractFileRoundTrippingTestCase {
 
+    @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLDataRange intdr = getFactory().getIntegerOWLDatatype();

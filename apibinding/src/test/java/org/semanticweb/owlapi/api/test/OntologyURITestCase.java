@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
@@ -54,6 +55,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 @SuppressWarnings("javadoc")
 public class OntologyURITestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testOntologyID() throws Exception {
         IRI iriA = IRI.create("http://www.another.com/ont");
         IRI iriB = IRI.create("http://www.another.com/ont/version");
@@ -67,6 +69,7 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
         assertFalse(ontIDNoneA.equals(ontIDNoneB));
     }
 
+    @Test
     public void testOntologyURI() throws Exception {
         IRI iri = IRI.create("http://www.another.com/ont");
         OWLOntology ont = getManager().createOntology(iri);
@@ -77,6 +80,7 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
         assertEquals(ont.getOntologyID(), ontID);
     }
 
+    @Test
     public void testDuplicateOntologyURI() throws Exception{
         IRI uri = IRI.create("http://www.another.com/ont");
         getManager().createOntology(uri);
@@ -95,6 +99,7 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
     }
 
 
+    @Test
     public void testSetOntologyURI() throws Exception {
         IRI iri = IRI.create("http://www.another.com/ont");
         OWLOntology ont = getManager().createOntology(iri);
@@ -106,6 +111,7 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
         assertEquals(ont.getOntologyID().getOntologyIRI(), newIRI);
     }
 
+    @Test
     public void testVersionURI() throws Exception {
         IRI ontIRI = IRI.create("http://www.another.com/ont");
         IRI verIRI = IRI.create("http://www.another.com/ont/versions/1.0.0");
@@ -114,6 +120,7 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
         assertEquals(ont.getOntologyID().getVersionIRI(), verIRI);
     }
 
+    @Test
     public void testNullVersionURI() throws Exception {
         IRI ontIRI = IRI.create("http://www.another.com/ont");
         IRI verIRI = null;

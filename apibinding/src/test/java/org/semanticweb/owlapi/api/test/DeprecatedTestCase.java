@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -53,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class DeprecatedTestCase extends AbstractFileTestCase {
 
+    @Test
     public void testAnnotationAssertionsPresent() {
         OWLOntology ont = createOntology();
         OWLClass cls = getOWLClass("http://www.semanticweb.org/owlapi/test#ClsA");

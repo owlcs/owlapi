@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -63,6 +64,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testOWLClassDeclarationAxiom() throws Exception {
         OWLClass cls = getFactory().getOWLClass(TestUtils.createIRI());
         OWLAxiom ax = getFactory().getOWLDeclarationAxiom(cls);
@@ -72,6 +74,7 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase 
         assertTrue(ont.getClassesInSignature().contains(cls));
     }
 
+    @Test
     public void testOWLObjectPropertyDeclarationAxiom() throws Exception {
         OWLObjectProperty prop = getFactory().getOWLObjectProperty(TestUtils.createIRI());
         OWLAxiom ax = getFactory().getOWLDeclarationAxiom(prop);
@@ -81,6 +84,7 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase 
         assertTrue(ont.getObjectPropertiesInSignature().contains(prop));
     }
 
+    @Test
     public void testOWLDataPropertyDeclarationAxiom() throws Exception {
         OWLDataProperty prop = getFactory().getOWLDataProperty(TestUtils.createIRI());
         OWLAxiom ax = getFactory().getOWLDeclarationAxiom(prop);
@@ -90,6 +94,7 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase 
         assertTrue(ont.getDataPropertiesInSignature().contains(prop));
     }
 
+    @Test
     public void testOWLIndividualDeclarationAxiom() throws Exception {
         OWLNamedIndividual ind = getFactory().getOWLNamedIndividual(TestUtils.createIRI());
         OWLAxiom ax = getFactory().getOWLDeclarationAxiom(ind);

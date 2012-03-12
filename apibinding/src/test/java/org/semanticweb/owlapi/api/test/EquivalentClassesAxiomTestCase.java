@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.api.test;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
@@ -56,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 @SuppressWarnings("javadoc")
 public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testContainsNamedClass() {
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
@@ -69,6 +71,7 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
     }
 
 
+    @Test
     public void testGetNamedClasses() {
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
@@ -80,6 +83,7 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
         assertTrue(clses.contains(clsA));
     }
 
+    @Test
     public void testGetNamedClassesWithNothing() {
         OWLClass clsB = getOWLClass("B");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -91,6 +95,7 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
         assertTrue(ax.containsOWLNothing());
     }
 
+    @Test
     public void testGetNamedClassesWithThing() {
         OWLClass clsB = getOWLClass("B");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -102,6 +107,7 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
         assertTrue(ax.containsOWLThing());
     }
 
+    @Test
     public void testSplit() {
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");

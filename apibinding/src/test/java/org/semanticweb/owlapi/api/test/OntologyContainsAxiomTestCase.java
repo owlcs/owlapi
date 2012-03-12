@@ -44,6 +44,7 @@ import java.io.FileOutputStream;
 import java.util.Collections;
 
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
+import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
@@ -69,6 +70,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testOntologyContainsPlainAxiom() throws Exception {
         OWLAxiom axiom = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getOWLClass("B"));
         OWLOntology ont = getOWLOntology("testont");
@@ -79,6 +81,7 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
 
 
 
+    @Test
     public void testOntologyContainsAnnotatedAxiom() throws Exception {
         OWLLiteral annoLiteral = getFactory().getOWLLiteral("value");
         OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
@@ -92,6 +95,7 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.containsAxiomIgnoreAnnotations(axiom.getAxiomWithoutAnnotations()));
     }
 
+//    @Test
 //    public void testOntologyContainsAxiomsForRDFXML1() throws Exception {
 //        RDFXMLOntologyFormat format = createRDFXMLFormat();
 //        runTestOntologyContainsAxioms1(format);
@@ -105,14 +109,17 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         return format;
     }
 
+//    @Test
 //    public void testOntologyContainsAxiomsForOWLXML1() throws Exception {
 //    	runTestOntologyContainsAxioms1(new OWLXMLOntologyFormat());
 //    }
 
+    @Test
     public void testOntologyContainsAxiomsForOWLFunctionalSyntax1() throws Exception {
     	runTestOntologyContainsAxioms1(new OWLFunctionalSyntaxOntologyFormat());
     }
 
+    @Test
     public void testOntologyContainsAxiomsForTurtleSyntax1() throws Exception {
         TurtleOntologyFormat format = createTurtleOntologyFormat();
         runTestOntologyContainsAxioms1(format);
@@ -216,18 +223,22 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont2L.containsAxiom(ax_AsubB, true));
     }
 
+    @Test
     public void testOntologyContainsAxiomsForRDFXML2() throws Exception {
     	runTestOntologyContainsAxioms2(createRDFXMLFormat());
     }
 
+    @Test
     public void testOntologyContainsAxiomsForOWLXML2() throws Exception {
     	runTestOntologyContainsAxioms2(new OWLXMLOntologyFormat());
     }
 
+    @Test
     public void testOntologyContainsAxiomsForOWLFunctionalSyntax2() throws Exception {
     	runTestOntologyContainsAxioms2(new OWLFunctionalSyntaxOntologyFormat());
     }
 
+    @Test
     public void testOntologyContainsAxiomsForTurtleSyntax2() throws Exception {
     	runTestOntologyContainsAxioms2(createTurtleOntologyFormat());
     }

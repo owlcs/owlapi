@@ -45,13 +45,15 @@ import java.util.TreeSet;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class TestBirteW3CWebOnt_oneof_004 extends TestCase {
-	public void testWebOnt() throws Exception {
+	@Test
+    public void testWebOnt() throws Exception {
 		String s = "<!DOCTYPE rdf:RDF [\n"
 				+ "   <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\">\n"
 				+ "   <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
@@ -132,12 +134,6 @@ public class TestBirteW3CWebOnt_oneof_004 extends TestCase {
 		OWLOntologyManager m = Factory.getManager();
 		OWLOntology o = m
 				.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
-//		StringDocumentTarget t=new StringDocumentTarget();
-//		m.saveOntology(o, t);
-//		System.out.println(t);
-//		for(OWLAxiom ax:o.getAxioms()) {
-//			System.out.println(ax);
-//		}
 		Set<String> result=new TreeSet<String>();
 		for (OWLAxiom ax : o.getAxioms()) {
 			result.add(ax.toString());
@@ -149,8 +145,6 @@ public class TestBirteW3CWebOnt_oneof_004 extends TestCase {
 		s1.removeAll(intersection);
 		Set<String> s2=new TreeSet<String>(expectedResult);
 		s2.removeAll(intersection);
-//		System.out.println("results:\n"+s1.toString().replace("), ", "),\n"));
-//		System.out.println("expected results:\n"+s2.toString().replace("), ", "),\n"));
 		}
 		assertEquals("Sets were supposed to be equal",result, expectedResult);
 	}

@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -67,6 +68,7 @@ public class NamedIndividualDeclarationWithAnnotationsTestCase extends AbstractA
     }
 
     @Override
+    @Test
     public void testManchesterOWLSyntax() throws Exception {
         // Can't represent annotated declarations in Manchester Syntax
 //        super.testManchesterOWLSyntax();

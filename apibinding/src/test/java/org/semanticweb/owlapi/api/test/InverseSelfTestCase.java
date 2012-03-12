@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -54,6 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class InverseSelfTestCase extends AbstractOWLAPITestCase {
 
 
+    @Test
     public void testInverse() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -65,6 +67,7 @@ public class InverseSelfTestCase extends AbstractOWLAPITestCase {
         assertFalse(propP.getInverses(ont).contains(propP));
     }
 
+    @Test
     public void testInverseSelf() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty propP = getOWLObjectProperty("p");

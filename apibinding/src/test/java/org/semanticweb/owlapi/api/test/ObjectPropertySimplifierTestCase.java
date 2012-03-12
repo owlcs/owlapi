@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -52,12 +53,14 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 @SuppressWarnings("javadoc")
 public class ObjectPropertySimplifierTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testNamedSimplification() {
         OWLObjectProperty p = getFactory().getOWLObjectProperty(IRI.create("p"));
         OWLObjectPropertyExpression exp = p.getSimplified();
         assertEquals(p, exp);
     }
 
+    @Test
     public void testInverseSimplification() {
         OWLObjectProperty p = getFactory().getOWLObjectProperty(IRI.create("p"));
         OWLObjectPropertyExpression inv = getFactory().getOWLObjectInverseOf(p);
@@ -65,6 +68,7 @@ public class ObjectPropertySimplifierTestCase extends AbstractOWLAPITestCase {
         assertEquals(inv, exp);
     }
 
+    @Test
     public void testInverseInverseSimplification() {
         OWLObjectProperty p = getFactory().getOWLObjectProperty(IRI.create("p"));
         OWLObjectPropertyExpression inv = getFactory().getOWLObjectInverseOf(p);
@@ -73,6 +77,7 @@ public class ObjectPropertySimplifierTestCase extends AbstractOWLAPITestCase {
         assertEquals(p, exp);
     }
 
+    @Test
     public void testInverseInverseInverseSimplification() {
         OWLObjectProperty p = getFactory().getOWLObjectProperty(IRI.create("p"));
         OWLObjectPropertyExpression inv = getFactory().getOWLObjectInverseOf(p);

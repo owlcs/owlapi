@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLRestriction;
 
@@ -57,6 +58,7 @@ public abstract class AbstractOWLRestrictionTestCase<P extends OWLPropertyExpres
 
     protected abstract P createProperty() throws Exception;
 
+    @Test
     public void testPropertyGetter() throws Exception {
         P prop = createProperty();
         OWLRestriction rest = createRestriction(prop);

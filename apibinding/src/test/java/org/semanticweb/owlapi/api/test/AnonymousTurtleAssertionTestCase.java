@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -52,14 +54,18 @@ public class AnonymousTurtleAssertionTestCase extends AbstractFileRoundTrippingT
 	}
 
 	@Override
-	public void testFunctionalSyntax() throws Exception {}
+	@Test
+    public void testFunctionalSyntax() throws Exception {}
 
 	@Override
-	public void testManchesterOWLSyntax() throws Exception {}
+	@Test
+    public void testManchesterOWLSyntax() throws Exception {}
 
 	@Override
-	public void testOWLXML() throws Exception {}
+	@Test
+    public void testOWLXML() throws Exception {}
 
 	@Override
-	public void testRDFXML() throws Exception {}
+	@Test
+    public void testRDFXML() throws Exception {}
 }

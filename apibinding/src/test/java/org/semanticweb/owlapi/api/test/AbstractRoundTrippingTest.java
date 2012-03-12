@@ -41,9 +41,9 @@ package org.semanticweb.owlapi.api.test;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
+import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
@@ -71,30 +71,29 @@ public abstract class AbstractRoundTrippingTest extends AbstractOWLAPITestCase {
         ont = createOntology();
     }
 
+    @Test
     public void testRDFXML() throws Exception {
         roundTripOntology(ont);
     }
 
+    @Test
     public void testOWLXML() throws Exception {
         roundTripOntology(ont, new OWLXMLOntologyFormat());
     }
 
+    @Test
     public void testFunctionalSyntax() throws Exception {
         roundTripOntology(ont, new OWLFunctionalSyntaxOntologyFormat());
     }
 
+    @Test
     public void testTurtle() throws Exception {
         roundTripOntology(ont, new TurtleOntologyFormat());
     }
 
+    @Test
     public void testManchesterOWLSyntax() throws Exception {
         roundTripOntology(ont, new ManchesterOWLSyntaxOntologyFormat());
-    }
-
-    @Override
-	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        System.out.println(target.toString());
-        super.handleSaved(target, format);
     }
 
     @Override

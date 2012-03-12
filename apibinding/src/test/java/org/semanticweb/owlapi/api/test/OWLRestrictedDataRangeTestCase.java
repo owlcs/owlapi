@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
@@ -60,7 +61,8 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	public void testCreation() throws Exception {
+	@Test
+    public void testCreation() throws Exception {
         OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
         OWLLiteral facetValue = getFactory().getOWLLiteral("3", getFactory().getOWLDatatype(createIRI()));
         Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
@@ -71,7 +73,8 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	public void testEqualsPositive() throws Exception {
+	@Test
+    public void testEqualsPositive() throws Exception {
         OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
         OWLLiteral facetValue = getFactory().getOWLLiteral("3", getFactory().getOWLDatatype(createIRI()));
         Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
@@ -83,7 +86,8 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	public void testEqualsNegative() throws Exception {
+	@Test
+    public void testEqualsNegative() throws Exception {
         OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
         OWLLiteral facetValue = getFactory().getOWLLiteral("3", getFactory().getOWLDatatype(createIRI()));
         Set<OWLFacetRestriction> restrictionsA = OWLDataUtil.getFacetRestrictionSet(getFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
@@ -96,7 +100,8 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	public void testHashCode() throws Exception {
+	@Test
+    public void testHashCode() throws Exception {
         OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
         OWLLiteral facetValue = getFactory().getOWLLiteral("3", getFactory().getOWLDatatype(createIRI()));
         Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(getFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);

@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -54,6 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class ImportsClosureTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testImportsClosureUpdate() throws Exception {
 
         OWLOntologyManager manager = getManager();

@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -74,6 +76,7 @@ public class ProfileValidationTestCase extends TestCase {
 //    private static final IRI RDF_XML_PREMISE_ONTOLOGY_IRI = IRI.create(TEST_NAMESPACE + "rdfXmlPremiseOntology");
 
 
+    @Test
     public void testProfiles() throws Exception {
 //        OWLOntologyManager man = Factory.getManager();
 //        URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");

@@ -45,6 +45,7 @@ import java.io.OutputStream;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -52,7 +53,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class TestImportByLocation extends TestCase {
-	public void testImportOntologyByLocation() {
+	@Test
+    public void testImportOntologyByLocation() {
 		File f = new File("a.owl");
 		try {
 
@@ -62,7 +64,6 @@ public class TestImportByLocation extends TestCase {
 			// have to load an ontology for it to get a document IRI
 			OWLOntology a = mngr.loadOntologyFromOntologyDocument(f);
 			IRI locA = mngr.getOntologyDocumentIRI(a);
-			//System.out.println("locA = " + locA);
 			IRI bIRI = IRI.create("http://b.com");
 			OWLOntology b = mngr.createOntology(bIRI);
 			// import from the document location of a.owl (rather than the ontology IRI)
@@ -79,7 +80,6 @@ public class TestImportByLocation extends TestCase {
 	private OWLOntology createOntologyFile(IRI iri, File f) throws Exception {
 		OWLOntologyManager mngr = Factory.getManager();
 		OWLOntology a = mngr.createOntology(iri);
-		//System.out.println("saving to " + f.getAbsolutePath());
 		OutputStream out = new FileOutputStream(f);
 		mngr.saveOntology(a, out);
 		return a;

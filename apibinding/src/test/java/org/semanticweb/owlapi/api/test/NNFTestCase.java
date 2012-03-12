@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
@@ -54,22 +55,26 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 @SuppressWarnings("javadoc")
 public class NNFTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testPosOWLClass() {
         OWLClass cls = getOWLClass("A");
         assertEquals(cls.getNNF(), cls);
     }
 
 
+    @Test
     public void testNegOWLClass() {
         OWLClassExpression cls = getFactory().getOWLObjectComplementOf(getOWLClass("A"));
         assertEquals(cls.getNNF(), cls);
     }
 
+    @Test
     public void testPosAllValuesFrom() {
         OWLClassExpression cls = getFactory().getOWLObjectAllValuesFrom(getOWLObjectProperty("p"), getOWLClass("A"));
         assertEquals(cls.getNNF(), cls);
     }
 
+    @Test
     public void testNegAllValuesFrom() {
         OWLObjectProperty property = getOWLObjectProperty("p");
         OWLClass filler = getOWLClass("A");
@@ -79,11 +84,13 @@ public class NNFTestCase extends AbstractOWLAPITestCase {
         assertEquals(cls.getNNF(), nnf);
     }
 
+    @Test
     public void testPosSomeValuesFrom() {
         OWLClassExpression cls = getFactory().getOWLObjectSomeValuesFrom(getOWLObjectProperty("p"), getOWLClass("A"));
         assertEquals(cls.getNNF(), cls);
     }
 
+    @Test
     public void testNegSomeValuesFrom() {
         OWLObjectProperty property = getOWLObjectProperty("p");
         OWLClass filler = getOWLClass("A");
@@ -93,12 +100,14 @@ public class NNFTestCase extends AbstractOWLAPITestCase {
         assertEquals(cls.getNNF(), nnf);
     }
 
+    @Test
     public void testPosObjectIntersectionOf() {
         OWLClassExpression cls = getFactory().getOWLObjectIntersectionOf(getOWLClass("A"), getOWLClass("B"), getOWLClass("C"));
         assertEquals(cls.getNNF(), cls);
     }
 
 
+    @Test
     public void testNegObjectIntersectionOf() {
         OWLClassExpression cls = getFactory().getOWLObjectComplementOf(getFactory().getOWLObjectIntersectionOf(getOWLClass("A"), getOWLClass("B"), getOWLClass("C")));
         OWLClassExpression nnf = getFactory().getOWLObjectUnionOf(getFactory().getOWLObjectComplementOf(getOWLClass("A")), getFactory().getOWLObjectComplementOf(getOWLClass("B")), getFactory().getOWLObjectComplementOf(getOWLClass("C")));
@@ -106,18 +115,21 @@ public class NNFTestCase extends AbstractOWLAPITestCase {
     }
 
 
+    @Test
     public void testPosObjectUnionOf() {
         OWLClassExpression cls = getFactory().getOWLObjectUnionOf(getOWLClass("A"), getOWLClass("B"), getOWLClass("C"));
         assertEquals(cls.getNNF(), cls);
     }
 
 
+    @Test
     public void testNegObjectUnionOf() {
         OWLClassExpression cls = getFactory().getOWLObjectComplementOf(getFactory().getOWLObjectUnionOf(getOWLClass("A"), getOWLClass("B"), getOWLClass("C")));
         OWLClassExpression nnf = getFactory().getOWLObjectIntersectionOf(getFactory().getOWLObjectComplementOf(getOWLClass("A")), getFactory().getOWLObjectComplementOf(getOWLClass("B")), getFactory().getOWLObjectComplementOf(getOWLClass("C")));
         assertEquals(cls.getNNF(), nnf);
     }
 
+    @Test
     public void testPosObjectMinCardinality() {
         OWLObjectProperty prop = getOWLObjectProperty("p");
         OWLClassExpression filler = getOWLClass("A");
@@ -125,6 +137,7 @@ public class NNFTestCase extends AbstractOWLAPITestCase {
         assertEquals(cls.getNNF(), cls);
     }
 
+    @Test
     public void testNegObjectMinCardinality() {
         OWLObjectProperty prop = getOWLObjectProperty("p");
         OWLClassExpression filler = getOWLClass("A");
@@ -133,6 +146,7 @@ public class NNFTestCase extends AbstractOWLAPITestCase {
         assertEquals(cls.getNNF(), nnf);
     }
 
+    @Test
     public void testPosObjectMaxCardinality() {
         OWLObjectProperty prop = getOWLObjectProperty("p");
         OWLClassExpression filler = getOWLClass("A");
@@ -140,6 +154,7 @@ public class NNFTestCase extends AbstractOWLAPITestCase {
         assertEquals(cls.getNNF(), cls);
     }
 
+    @Test
     public void testNegObjectMaxCardinality() {
         OWLObjectProperty prop = getOWLObjectProperty("p");
         OWLClassExpression filler = getOWLClass("A");

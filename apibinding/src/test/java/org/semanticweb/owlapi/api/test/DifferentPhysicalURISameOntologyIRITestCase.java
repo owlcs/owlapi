@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
@@ -58,6 +59,7 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends AbstractOWLAPIT
 
     private static final String ONTOLOGY_A_EMPTY = "ImportsTestOntologyAEmpty.owl";
 
+    @Test
     public void testDifferentPhysicalURISameOntologyIRI() throws Exception {
         try {
             OWLOntologyManager manager = Factory.getManager();

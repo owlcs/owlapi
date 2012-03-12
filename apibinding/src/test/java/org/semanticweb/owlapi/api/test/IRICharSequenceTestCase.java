@@ -40,6 +40,8 @@
 package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
+
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -50,6 +52,7 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class IRICharSequenceTestCase extends TestCase {
 
+    @Test
     public void testCharAt() {
         String str = "http://owlapi.sourceforge.net#ABC";
         IRI iri = IRI.create(str);
@@ -59,6 +62,7 @@ public class IRICharSequenceTestCase extends TestCase {
     }
 
 
+    @Test
     public void testCharAtNoRemainder() {
         String str = "http://owlapi.sourceforge.net";
         IRI iri = IRI.create(str);
@@ -67,6 +71,7 @@ public class IRICharSequenceTestCase extends TestCase {
         }
     }
 
+    @Test
     public void testCharAtNoPrefix() {
         String str = "#ABC";
         IRI iri = IRI.create(str);
@@ -75,6 +80,7 @@ public class IRICharSequenceTestCase extends TestCase {
         }
     }
 
+    @Test
     public void testSubSequence() {
         String str = "http://owlapi.sourceforge.net#ABC";
         IRI iri = IRI.create(str);
@@ -85,6 +91,7 @@ public class IRICharSequenceTestCase extends TestCase {
         }
     }
 
+    @Test
     public void testLength() {
         String str = "http://owlapi.sourceforge.net#ABC";
         IRI iri = IRI.create(str);
@@ -92,12 +99,14 @@ public class IRICharSequenceTestCase extends TestCase {
     }
 
 
+    @Test
     public void testLengthNoRemainder() {
         String str = "http://owlapi.sourceforge.net";
         IRI iri = IRI.create(str);
         assertEquals(str.length(), iri.length());
     }
 
+    @Test
     public void testLengthNoPrefix() {
         String str = "#ABC";
         IRI iri = IRI.create(str);

@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -53,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testTransitive() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = getOWLObjectProperty("prop");
@@ -61,7 +63,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         getManager().addAxiom(ont, ax);
         assertTrue(prop.isTransitive(ont));
     }
-    
+
+    @Test
     public void testSymmetric() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = getOWLObjectProperty("prop");
@@ -70,7 +73,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         getManager().addAxiom(ont, ax);
         assertTrue(prop.isSymmetric(ont));
     }
-    
+
+    @Test
     public void testAsymmetric() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = getOWLObjectProperty("prop");
@@ -79,7 +83,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         getManager().addAxiom(ont, ax);
         assertTrue(prop.isAsymmetric(ont));
     }
-    
+
+    @Test
     public void testReflexive() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = getOWLObjectProperty("prop");
@@ -88,7 +93,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         getManager().addAxiom(ont, ax);
         assertTrue(prop.isReflexive(ont));
     }
-    
+
+    @Test
     public void testIrreflexive() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = getOWLObjectProperty("prop");
@@ -97,7 +103,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         getManager().addAxiom(ont, ax);
         assertTrue(prop.isIrreflexive(ont));
     }
-    
+
+    @Test
     public void testFunctional() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = getOWLObjectProperty("prop");
@@ -106,7 +113,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         getManager().addAxiom(ont, ax);
         assertTrue(prop.isFunctional(ont));
     }
-    
+
+    @Test
     public void testInverseFunctional() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = getOWLObjectProperty("prop");
@@ -115,7 +123,8 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         getManager().addAxiom(ont, ax);
         assertTrue(prop.isInverseFunctional(ont));
     }
-    
+
+    @Test
     public void testFunctionalDataProperty() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLDataProperty prop = getOWLDataProperty("prop");

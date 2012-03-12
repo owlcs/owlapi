@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 
@@ -53,6 +54,7 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 @SuppressWarnings("javadoc")
 public class SimpleIRIShortFormProviderTestCase extends TestCase {
 
+    @Test
     public void testFragmentShortForm() {
         IRI iri = IRI.create("http://owl.cs.manchester.ac.uk/ontology/x#A");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
@@ -60,6 +62,7 @@ public class SimpleIRIShortFormProviderTestCase extends TestCase {
         assertEquals(shortForm, "A");
     }
 
+    @Test
     public void testLastPathShortForm() {
         IRI iri = IRI.create("http://owl.cs.manchester.ac.uk/ontology/x");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
@@ -67,6 +70,7 @@ public class SimpleIRIShortFormProviderTestCase extends TestCase {
         assertEquals(shortForm, "x");
     }
 
+    @Test
     public void testEmptyPathShortForm() {
         IRI iri = IRI.create("http://owl.cs.manchester.ac.uk/");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();

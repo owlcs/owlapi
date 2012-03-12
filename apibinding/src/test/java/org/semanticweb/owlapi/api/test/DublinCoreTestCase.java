@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 
@@ -56,6 +57,7 @@ public class DublinCoreTestCase extends AbstractFileTestCase {
         return "dublincore.rdf";
     }
 
+    @Test
     public void testAnnotationProperties() {
         OWLOntology ontology = createOntology();
 //        System.out.println("Annotation properties ----------------------------------------------------------");

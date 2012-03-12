@@ -43,6 +43,7 @@ import java.io.ByteArrayOutputStream;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -57,7 +58,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class TestPlainLiteral extends TestCase {
-	public void testPlainLiteral() {
+	@Test
+    public void testPlainLiteral() {
 		IRI iri = IRI
 				.create("http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral");
 		assertTrue(iri.isPlainLiteral());
@@ -65,7 +67,8 @@ public class TestPlainLiteral extends TestCase {
 		assertNotNull(OWL2Datatype.getDatatype(iri));
 	}
 
-	public void testPlainLiteralFromEvren() {
+	@Test
+    public void testPlainLiteralFromEvren() {
 		OWLDataFactory factory = Factory.getManager()
 				.getOWLDataFactory();
 		OWLDatatype node = factory.getRDFPlainLiteral();
@@ -73,7 +76,8 @@ public class TestPlainLiteral extends TestCase {
 		assertNotNull(node.getBuiltInDatatype());
 	}
 
-	public void testPlainLiteralSerialization() throws Exception {
+	@Test
+    public void testPlainLiteralSerialization() throws Exception {
 		OWLOntologyManager m = Factory.getManager();
 		OWLOntology o = m.createOntology();
 		OWLDataProperty p = m.getOWLDataFactory().getOWLDataProperty(
@@ -90,7 +94,8 @@ public class TestPlainLiteral extends TestCase {
 		assertTrue(out.toString().contains(expected));
 	}
 
-	public void testPlainLiteralSerializationComments() throws Exception {
+	@Test
+    public void testPlainLiteralSerializationComments() throws Exception {
 		OWLOntologyManager m = Factory.getManager();
 		OWLOntology o = m.createOntology();
 		OWLIndividual i = m.getOWLDataFactory().getOWLNamedIndividual(
@@ -109,7 +114,8 @@ public class TestPlainLiteral extends TestCase {
 		assertTrue(out.toString().contains(expected));
 	}
 
-	public void testPlainLiteralSerializationComments2() throws Exception {
+	@Test
+    public void testPlainLiteralSerializationComments2() throws Exception {
 		OWLOntologyManager m = Factory.getManager();
 		OWLOntology o = m.createOntology();
 		OWLLiteral l = m.getOWLDataFactory().getOWLLiteral("test",
@@ -120,7 +126,7 @@ public class TestPlainLiteral extends TestCase {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		m.saveOntology(o, out);
 		String expected = "<rdfs:comment>test</rdfs:comment>";
-		//System.out.println(out.toString());
+
 		assertTrue(out.toString().contains(expected));
 	}
 }

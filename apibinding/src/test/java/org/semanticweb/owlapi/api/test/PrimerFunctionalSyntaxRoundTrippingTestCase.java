@@ -38,6 +38,9 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+
+import org.junit.Test;
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -54,18 +57,22 @@ public class PrimerFunctionalSyntaxRoundTrippingTestCase extends AbstractFileRou
 
 
     @Override
+    @Test
     public void testRDFXML() throws Exception {
     }
 
     @Override
+    @Test
     public void testOWLXML() throws Exception {
     }
 
     @Override
+    @Test
     public void testTurtle() throws Exception {
     }
 
     @Override
+    @Test
     public void testManchesterOWLSyntax() throws Exception {
     }
 }

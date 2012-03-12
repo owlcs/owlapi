@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -71,6 +72,7 @@ public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
         return "SubClassOfUntypedOWLClass.rdf";
     }
 
+    @Test
     public void testParsedAxioms() {
         OWLOntology ontology = createOntology();
         Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
@@ -80,6 +82,6 @@ public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
         OWLClass supCls = getFactory().getOWLClass(SUPERCLASS_IRI);
         assertEquals(subCls, ax.getSubClass());
         assertEquals(supCls, ax.getSuperClass());
-        
+
     }
 }

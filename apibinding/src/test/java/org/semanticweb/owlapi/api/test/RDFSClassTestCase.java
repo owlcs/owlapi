@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
@@ -52,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class RDFSClassTestCase extends AbstractFileTestCase {
 
+    @Test
     public void testCorrectAxioms() {
         OWLOntology ont = createOntology();
         IRI clsIRI = IRI.create("http://owlapi.sourceforge.net/ontology#ClsA");

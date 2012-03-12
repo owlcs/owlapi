@@ -43,6 +43,7 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -58,7 +59,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class UTF8RoundTrip extends TestCase {
-	public void testRoundTrip() throws Exception {
+	@Test
+    public void testRoundTrip() throws Exception {
 		String NS = "http://protege.org/ontologies/UTF8RoundTrip.owl";
 		OWLDataFactory factory = Factory.getFactory();
 		OWLClass C = factory.getOWLClass(IRI.create(NS + "#C"));
@@ -76,16 +78,10 @@ public class UTF8RoundTrip extends TestCase {
 		String CHINESE = "Rx\u8655\u65b9";
 		System.setProperty("file.encoding", "UTF-8"); // doesn't matter
 		OWLOntology ontology = createOriginalOntology(factory, NS, C, CHINESE);
-		//			System.out
-		//					.println("Checking that the annotation value is as expected in the original ontology");
 		checkOntology(ontology, C, CHINESE);
 		OWLOntology newOntology = roundTrip(ontology, true);
-		//			System.out
-		//					.println("Repeating check after round trip loading from the file iri.");
 		checkOntology(newOntology, C, CHINESE);
 		newOntology = roundTrip(ontology, false);
-		//			System.out
-		//					.println("Repeating check after round trip loading from the file reader.");
 		checkOntology(newOntology, C, CHINESE);
 	}
 
@@ -105,7 +101,6 @@ public class UTF8RoundTrip extends TestCase {
 			String value = ((OWLLiteral) annotation.getValue()).getLiteral();
 			return CHINESE.equals(value);
 		}
-		//		System.out.println("No annotation found?");
 		return false;
 	}
 
@@ -113,7 +108,6 @@ public class UTF8RoundTrip extends TestCase {
 			throws IOException, OWLOntologyStorageException, OWLOntologyCreationException {
 		OWLOntologyManager oldManager = ontology.getOWLOntologyManager();
 		File f = File.createTempFile("Test", ".owl");
-		//	System.out.println("OWL Ontology being saved as " + f);
 		oldManager.saveOntology(ontology, new RDFXMLOntologyFormat(), IRI.create(f));
 		OWLOntologyManager newManager = Factory.getManager();
 		OWLOntology newOntology;

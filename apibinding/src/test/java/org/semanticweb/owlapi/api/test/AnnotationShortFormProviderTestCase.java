@@ -47,6 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -64,6 +65,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase {
 
 
+    @Test
     public void testLiteralWithoutLanguageValue() throws Exception {
 
         OWLOntologyManager man = Factory.getManager();
@@ -81,6 +83,7 @@ public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase 
         assertEquals(sfp.getShortForm(root), shortForm);
     }
 
+    @Test
     public void testLiteralWithLanguageValue() throws Exception {
         OWLOntologyManager man = Factory.getManager();
         PrefixManager pm = new DefaultPrefixManager("http://org.semanticweb.owlapi/ont#");
@@ -101,6 +104,7 @@ public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase 
         assertEquals(sfp2.getShortForm(root), label2);
     }
 
+    @Test
     public void testIRIValue() throws Exception {
         OWLOntologyManager man = Factory.getManager();
         PrefixManager pm = new DefaultPrefixManager("http://org.semanticweb.owlapi/ont#");

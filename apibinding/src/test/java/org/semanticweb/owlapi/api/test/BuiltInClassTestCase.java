@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -78,30 +79,35 @@ public class BuiltInClassTestCase extends TestCase {
     }
 
 
+    @Test
     public void testOWLThing() {
         OWLClass thing = dataFactory.getOWLThing();
         assertTrue(thing.isOWLThing());
         assertFalse(thing.isOWLNothing());
     }
 
+    @Test
     public void testOWLThingFromURI() {
         OWLClassExpression desc = dataFactory.getOWLClass(OWLRDFVocabulary.OWL_THING.getIRI());
         assertTrue(desc.isOWLThing());
         assertFalse(desc.isOWLNothing());
     }
 
+    @Test
     public void testOWLNothing() {
         OWLClass nothing = dataFactory.getOWLNothing();
         assertTrue(nothing.isOWLNothing());
         assertFalse(nothing.isOWLThing());
     }
 
+    @Test
     public void testOWLNothingFromURI() {
         OWLClassExpression desc = dataFactory.getOWLClass(OWLRDFVocabulary.OWL_NOTHING.getIRI());
         assertTrue(desc.isOWLNothing());
         assertFalse(desc.isOWLThing());
     }
 
+    @Test
     public void testAnonymousClass() {
         OWLClassExpression desc = dataFactory.getOWLObjectHasSelf(dataFactory.getOWLObjectProperty(TestUtils.createIRI()));
         assertFalse(desc.isOWLThing());

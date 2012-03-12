@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -55,6 +56,7 @@ import org.semanticweb.owlapi.util.OWLOntologyURIChanger;
 @SuppressWarnings("javadoc")
 public class ChangeOntologyURITestCase extends AbstractOWLAPITestCase {
 
+    @Test
     public void testChangeURI() throws Exception {
         OWLOntologyManager man = getManager();
         IRI oldIRI = IRI.create("http://www.semanticweb.org/ontologies/ontA");

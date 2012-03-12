@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.api.test;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -71,6 +72,7 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
         return axioms;
     }
 
+    @Test
     public void testHasLangMethod() {
         OWLLiteral literalWithLang = getFactory().getOWLLiteral("abc", "en");
         assertTrue(literalWithLang.hasLang());
@@ -78,6 +80,7 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
         assertFalse(literalWithoutLang.hasLang());
     }
 
+    @Test
     public void testGetLangMethod() {
         OWLLiteral literalWithLang = getFactory().getOWLLiteral("abc", "en");
         assertEquals(literalWithLang.getLang(), "en");
@@ -85,18 +88,21 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
         assertEquals(literalWithoutLang.getLang(), "");
     }
 
+    @Test
     public void testNormalisation() {
         OWLLiteral literalWithLang = getFactory().getOWLLiteral("abc", "EN");
         assertEquals(literalWithLang.getLang(), "en");
         assertTrue(literalWithLang.hasLang("EN"));
     }
 
+    @Test
     public void testPlainLiteralWithLang() {
         OWLLiteral literalWithLang = getFactory().getOWLLiteral("abc", "en");
         assertTrue(literalWithLang.getDatatype().getIRI().isPlainLiteral());
         assertTrue(literalWithLang.isRDFPlainLiteral());
     }
 
+    @Test
     public void testPlainLiteralWithEmbeddedLang() {
         OWLLiteral literal = getFactory().getOWLLiteral("abc@en", getFactory().getRDFPlainLiteral());
         assertTrue(literal.hasLang());
@@ -122,6 +128,7 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
 
 
+    @Test
     public void testBoolean() {
         OWLLiteral literal = getFactory().getOWLLiteral(true);
         assertTrue(literal.isBoolean());

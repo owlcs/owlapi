@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 
@@ -58,7 +59,8 @@ public class AsymmetricPropertyRoundTripTestCase extends AbstractRoundTrippingTe
 
 
     @Override
-	public void testFunctionalSyntax() throws Exception {
+	@Test
+    public void testFunctionalSyntax() throws Exception {
 
     }
 }

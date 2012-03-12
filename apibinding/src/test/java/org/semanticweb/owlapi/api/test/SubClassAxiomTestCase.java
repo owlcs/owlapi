@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.api.test;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -62,6 +63,7 @@ public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
     }
 
 
+    @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClass clsA = getOWLClass("A");
@@ -74,6 +76,7 @@ public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
     /**
      * Tests the isGCI method on OWLSubClassAxiom
      */
+    @Test
     public void testIsGCIMethod() {
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");

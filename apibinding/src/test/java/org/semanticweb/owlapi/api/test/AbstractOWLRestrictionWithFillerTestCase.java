@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLRestriction;
@@ -66,13 +67,15 @@ public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLProp
     protected abstract F createFiller() throws Exception;
 
     @Override
-	public void testCreation() throws Exception {
+	@Test
+    public void testCreation() throws Exception {
         assertNotNull("restriction should not be null", createRestriction(createProperty(), createFiller()));
     }
 
 
     @Override
-	public void testEqualsPositive() throws Exception {
+	@Test
+    public void testEqualsPositive() throws Exception {
         P prop = createProperty();
         F filler = createFiller();
         OWLRestriction restA = createRestriction(prop, filler);
@@ -82,7 +85,8 @@ public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLProp
 
 
     @Override
-	public void testEqualsNegative() throws Exception {
+	@Test
+    public void testEqualsNegative() throws Exception {
         // Different filler
         P prop = createProperty();
         OWLRestriction restA = createRestriction(prop, createFiller());
@@ -97,7 +101,8 @@ public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLProp
 
 
     @Override
-	public void testHashCode() throws Exception {
+	@Test
+    public void testHashCode() throws Exception {
         P prop = createProperty();
         F filler = createFiller();
         OWLRestriction restA = createRestriction(prop, filler);

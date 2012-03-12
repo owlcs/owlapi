@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import java.io.File;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -69,7 +70,8 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
 				}
 		}
 	}
-	public void testImports() throws Exception {
+	@Test
+    public void testImports() throws Exception {
 		try {
 			OWLOntologyManager manager = Factory.getManager();
 			manager.addIRIMapper(new AutoIRIMapper(new File(
@@ -83,7 +85,8 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
 		}
 	}
 
-	public void testCyclicImports() throws Exception {
+	@Test
+    public void testCyclicImports() throws Exception {
 		try {
 			OWLOntologyManager manager = Factory.getManager();
 			manager.addIRIMapper(new AutoIRIMapper(new File(
@@ -97,7 +100,8 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
 		}
 	}
 
-	public void testCyclicImports2() throws Exception {
+	@Test
+    public void testCyclicImports2() throws Exception {
 		try {
 			OWLOntologyManager manager = Factory.getManager();
 			manager.addIRIMapper(new AutoIRIMapper(new File(

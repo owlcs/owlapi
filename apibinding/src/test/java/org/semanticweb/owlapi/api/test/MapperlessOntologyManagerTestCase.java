@@ -43,6 +43,7 @@ import java.util.Collections;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -67,6 +68,7 @@ public class MapperlessOntologyManagerTestCase extends TestCase {
         return manager;
     }
 
+    @Test
     public void testCreateOntologyWithIRI() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         OWLOntology ontology = manager.createOntology(ONTOLOGY_IRI);
@@ -74,12 +76,14 @@ public class MapperlessOntologyManagerTestCase extends TestCase {
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));
     }
 
+    @Test
     public void testCreateOntologyWithAxioms() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         OWLOntology ontology = manager.createOntology(Collections.<OWLAxiom>emptySet());
         assertNotNull("ontology should not be null",manager.getOntologyDocumentIRI(ontology));
     }
 
+    @Test
     public void testCreateOntologyWithAxiomsAndIRI() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         OWLOntology ontology = manager.createOntology(Collections.<OWLAxiom>emptySet(), ONTOLOGY_IRI);
@@ -87,6 +91,7 @@ public class MapperlessOntologyManagerTestCase extends TestCase {
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));
     }
 
+    @Test
     public void testCreateOntologyWithIdWithVersionIRI() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         IRI versionIRI = IRI.create("http://version/1");
@@ -97,6 +102,7 @@ public class MapperlessOntologyManagerTestCase extends TestCase {
         assertEquals(versionIRI, manager.getOntologyDocumentIRI(ontology));
     }
 
+    @Test
     public void testCreateOntologyWithId() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         OWLOntologyID id = new OWLOntologyID(ONTOLOGY_IRI);
