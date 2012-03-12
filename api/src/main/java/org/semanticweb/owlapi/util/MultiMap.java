@@ -42,7 +42,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -243,7 +242,7 @@ public class MultiMap<Key, Value> implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MultiMap " + size() + "\n" + map.toString().replace(",", "\n");
+		return "MultiMap " + size() + "\n" + map.toString();//.replace(",", "\n");
 	}
 
 	public void putAll(MultiMap<Key, Value> otherMap) {

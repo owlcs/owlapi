@@ -169,7 +169,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
      * @return the resulting owl objects
      */
     public Set<OWLObject> getResult() {
-        return CollectionFactory.getCopyOnRequestSet(result);
+        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(result);
     }
 
     private void process(Set<? extends OWLObject> objects) {
