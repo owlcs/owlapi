@@ -74,7 +74,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
 
 
     public Set<OWLClassExpression> getClassExpressions() {
-        return CollectionFactory.getCopyOnRequestSet(classExpressions);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(classExpressions);
     }
 
     public List<OWLClassExpression> getClassExpressionsAsList() {

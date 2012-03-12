@@ -83,7 +83,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     }
 
     public Set<OWLClassExpression> getClassExpressions() {
-        return CollectionFactory.getCopyOnRequestSet(classExpressions);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(classExpressions);
     }
 
     public OWLDisjointUnionAxiom getAxiomWithoutAnnotations() {

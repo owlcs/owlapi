@@ -74,7 +74,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
     }
 
     public Set<OWLClassExpression> getOperands() {
-        return CollectionFactory.getCopyOnRequestSet(operands);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(operands);
     }
 
 

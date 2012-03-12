@@ -110,7 +110,7 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
      *         this data range
      */
     public Set<OWLFacetRestriction> getFacetRestrictions() {
-        return CollectionFactory.getCopyOnRequestSet(facetRestrictions);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(facetRestrictions);
     }
 
 

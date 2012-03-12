@@ -245,6 +245,8 @@ public interface Internals {
 
 	<K, V extends OWLAxiom> Set<V> getValues(Pointer<K, V> pointer, K key);
 
+	<K, V extends OWLAxiom> boolean hasValues(Pointer<K, V> pointer, K key);
+
 	<K, V extends OWLAxiom> Set<K> getKeyset(Pointer<K, V> pointer);
 
 	public <T extends OWLAxiom, K> Set<T> filterAxioms(OWLAxiomSearchFilter<T, K> filter,

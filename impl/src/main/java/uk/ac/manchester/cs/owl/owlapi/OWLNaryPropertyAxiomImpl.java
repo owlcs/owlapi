@@ -75,7 +75,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression<?
 
 
     public Set<P> getProperties() {
-        return CollectionFactory.getCopyOnRequestSet(properties);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(properties);
     }
 
     public Set<P> getPropertiesMinus(P property) {

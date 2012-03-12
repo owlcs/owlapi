@@ -133,7 +133,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
         }
 
         public Set<K> copy() {
-            return CollectionFactory.getCopyOnRequestSet(set);
+            return CollectionFactory.getCopyOnRequestSetFromMutableCollection(set);
         }
 
         public boolean add(K k) {
@@ -190,6 +190,11 @@ public class InternalsImpl extends AbstractInternalsImpl {
         final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
         mapPointer.init();
         return mapPointer.getValues(key);
+    }
+    public <K, V extends OWLAxiom> boolean hasValues(Pointer<K, V> pointer, K key) {
+        final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
+        mapPointer.init();
+        return mapPointer.hasValues(key);
     }
 
     public <K, V extends OWLAxiom> boolean remove(Internals.Pointer<K, V> pointer, K k, V v) {
