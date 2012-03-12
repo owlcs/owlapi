@@ -53,7 +53,6 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
