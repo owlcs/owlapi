@@ -267,10 +267,19 @@ public class CollectionFactory {
 	 *         called, e.g., add(), addAll()
 	 */
 	public static <T> Set<T> getCopyOnRequestSet(Collection<T> source) {
+		return getCopyOnRequestSetFromMutableCollection(source);
+	}
+	public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(Collection<T> source) {
 		if (source == null || source.isEmpty()) {
 			return Collections.emptySet();
 		}
-		return new ConditionalCopySet<T>(source);
+		return new ConditionalCopySet<T>(source, true);
+	}
+	public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(Collection<T> source) {
+		if (source == null || source.isEmpty()) {
+			return Collections.emptySet();
+		}
+		return new ConditionalCopySet<T>(source, false);
 	}
 
 	/**
@@ -318,8 +327,12 @@ public class CollectionFactory {
 		 * @param source
 		 *            initial elements
 		 */
-		public ConditionalCopySet(Collection<T> source) {
+		public ConditionalCopySet(Collection<T> source, boolean listCopy) {
+			if(listCopy) {
 			this.delegate = new ArrayList<T>(source);
+			}else {
+				this.delegate=source;
+			}
 		}
 
 		@Override

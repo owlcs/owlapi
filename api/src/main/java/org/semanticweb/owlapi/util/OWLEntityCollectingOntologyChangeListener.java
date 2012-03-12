@@ -93,6 +93,6 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements OWLOn
      * @return the entities which were referenced in the last change set.
      */
     public Set<OWLEntity> getEntities() {
-        return CollectionFactory.getCopyOnRequestSet(entities);
+        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(entities);
     }
 }

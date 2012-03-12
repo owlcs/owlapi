@@ -42,15 +42,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -65,20 +63,17 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		IRIShortFormProvider {
-
 	private static final long serialVersionUID = 9044507563613003630L;
 
 	/**
 	 * String comparator that takes length into account before natural ordering.
 	 * XXX stateless, might be used through a singleton
 	 */
-	private static final class StringLengthComparator implements
-			Comparator<String>, Serializable {
-
+	private static final class StringLengthComparator implements Comparator<String>,
+			Serializable {
 		private static final long serialVersionUID = -5540910633852942630L;
 
-		public StringLengthComparator() {
-		}
+		public StringLengthComparator() {}
 
 		public int compare(String o1, String o2) {
 			int diff = o1.length() - o2.length();
@@ -91,8 +86,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
 	private final Map<String, String> prefix2NamespaceMap = new TreeMap<String, String>(
 			new StringLengthComparator());
-	private final Namespacer namespacer = new Namespacer(prefix2NamespaceMap);
-
 
 	/**
 	 * Creates a namespace manager that does not have a default namespace.
@@ -102,7 +95,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 	}
 
 	/**
-	 * @param pm the prefix manager to copy
+	 * @param pm
+	 *            the prefix manager to copy
 	 */
 	public DefaultPrefixManager(PrefixManager pm) {
 		this();
@@ -112,18 +106,15 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 				prefix2NamespaceMap.put(prefixName, prefix);
 			}
 		}
-		namespacer.resetCaches();
-		namespacer.addPrefixMap(prefix2NamespaceMap);
 	}
 
 	/**
 	 * clear the map
 	 */
-    //XXX not in the interface
+	//XXX not in the interface
 	public void clear() {
 		// Clear the default namespace and map
 		prefix2NamespaceMap.clear();
-		namespacer.resetCaches();
 	}
 
 	/**
@@ -163,17 +154,23 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 	 *            the value may be <code>null</code> in order to clear the
 	 *            default namespace.
 	 */
-    //XXX not in the interface
+	//XXX not in the interface
 	public void setDefaultPrefix(String defaultPrefix) {
 		setPrefix(":", defaultPrefix);
 	}
 
 	public String getPrefixIRI(IRI iri) {
-		// if there are no prefix names, don't bother with caches
-		if (prefix2NamespaceMap.isEmpty()) {
-			return null;
+		String iriString = iri.toString();
+		String ns = XMLUtils.getNCNamePrefix(iriString);
+		for (String prefixName : prefix2NamespaceMap.keySet()) {
+			String prefix = prefix2NamespaceMap.get(prefixName);
+			if (ns.equals(prefix)) {
+				return prefixName + XMLUtils.getNCNameSuffix(iriString);
+				//				String localName = iriString.substring(prefix.length());
+				//				return prefixName+localName;
+			}
 		}
-		return namespacer.getQName(iri);
+		return null;
 	}
 
 	public String getDefaultPrefix() {
@@ -181,7 +178,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 	}
 
 	public boolean containsPrefixMapping(String prefix) {
-		return prefix2NamespaceMap.get(prefix) != null;
+		return prefix2NamespaceMap.containsKey(prefix)
+				&& prefix2NamespaceMap.get(prefix) != null;
 	}
 
 	public IRI getIRI(String curie) {
@@ -198,8 +196,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		} else {
 			String prefixName = curie.substring(0, sep + 1);
 			if (!containsPrefixMapping(prefixName)) {
-				throw new RuntimeException(
-						"Prefix not registered for prefix name: " + prefixName);
+				throw new RuntimeException("Prefix not registered for prefix name: "
+						+ prefixName);
 			}
 			String prefix = getPrefix(prefixName);
 			String localName = curie.substring(sep + 1);
@@ -223,9 +221,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 	 * @param prefix
 	 *            The prefix. Cannot be null.
 	 * @throws IllegalArgumentException
-	 *             if some parameter is null or the prefix name does not end with a colon.
+	 *             if some parameter is null or the prefix name does not end
+	 *             with a colon.
 	 */
-    //XXX not in the interface
+	//XXX not in the interface
 	public void setPrefix(String prefixName, String prefix) {
 		if (prefix == null) {
 			throw new IllegalArgumentException("prefix cannot be null");
@@ -234,11 +233,16 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 			throw new IllegalArgumentException("prefixName cannot be null");
 		}
 		if (!prefixName.endsWith(":")) {
-			throw new IllegalArgumentException(
-					"Prefix names must end with a colon (:)");
+			throw new IllegalArgumentException("Prefix names must end with a colon (:)");
 		}
+		//XXX on Java 6 all is fine, on Java 5 this code will print the results of a strange switch between default values
+//		String p = prefix2NamespaceMap.get(prefixName);
+//		if (prefixName.equals(":") && p!=null && !p.equals(prefix)) {
+//			System.out.println("DefaultPrefixManager.setPrefix() Replacing value for '"
+//					+ prefixName + "' : '" + p + "' replaced with '" + prefix + "'");
+//			new Exception().printStackTrace(System.out);
+//		}
 		prefix2NamespaceMap.put(prefixName, prefix);
-		namespacer.addPrefixMap(prefix2NamespaceMap);
 	}
 
 	/**
@@ -247,7 +251,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 	 * @param namespace
 	 *            The namespace to be removed.
 	 */
-    //XXX not in the interface
+	//XXX not in the interface
 	public void unregisterNamespace(String namespace) {
 		List<String> toRemove = new ArrayList<String>();
 		for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
@@ -258,8 +262,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		for (String s : toRemove) {
 			prefix2NamespaceMap.remove(s);
 		}
-		namespacer.resetCaches();
-		namespacer.addPrefixMap(prefix2NamespaceMap);
 	}
 
 	public String getShortForm(IRI iri) {
@@ -275,6 +277,5 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		return getShortForm(entity.getIRI());
 	}
 
-	public void dispose() {
-	}
+	public void dispose() {}
 }
