@@ -601,29 +601,6 @@ public interface OWLOntology extends OWLObject {
      */
     Set<OWLAxiom> getReferencingAxioms(OWLAnonymousIndividual individual);
 
-//    /**
-//     * @param individual The individual
-//     * @return true if there axioms referencing individual
-//     */
-//    boolean hasReferencingAxioms(OWLAnonymousIndividual individual);
-//
-//
-//    /**
-//     * @param owlEntity The entity that should be directly referred to by an axiom that appears in the results set.
-//     * @return true if there are axioms where the specified entity appears in the signature of the axiom.
-//     */
-//    boolean hasReferencingAxioms(OWLEntity owlEntity);
-//
-//  /**
-//    * @param includeImportsClosure Specifies if the axioms returned should just be from this ontology, or from the
-//     * imports closure of this ontology.  If <code>true</code> the axioms returned will be from the imports closure
-//     * of this ontology, if <code>false</code> the axioms returned will just be from this ontology.
-//     * @param owlEntity The entity that should be directly referred to by an axiom that appears in the results set.
-//     * @return true if there are axioms where the specified entity appears in the signature of the axiom.
-//     */
-//    boolean hasReferencingAxioms(OWLEntity owlEntity, boolean includeImportsClosure);
-
-
     /**
      * Determines if the signature of the ontology contains the specified entity.
      *
