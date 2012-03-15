@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-    <!--
-       The MAVEN pom file for the OWL API.
-       If you want to generate a single-jar-assembly, then execute
-         mvn package assembly:assembly
-    -->
+	<!-- The MAVEN pom file for the OWL API. -->
 
+
+	<!-- The OWL API libraries are hosted on the Sonatype OSS repository. We 
+		therfore need to refer to org.sonatype.oss.oss-parent as the parent project. -->
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
@@ -22,12 +22,6 @@
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
 
-
-    <!-- The following folders do not belong to modules:
-         'profiles' is included manually into the 'api' module
-         'distribution' contains files for a aggregated build
-         'antbuild' contains files for a build using ant.
-         -->
 	<modules>
 		<module>api</module>
 		<module>apibinding</module>
@@ -52,6 +46,8 @@
 		<module>metrics</module>
 		<module>change</module>
 		<module>owlexpression</module>
+
+		<!-- The distribution module is a single-jar build of the whole OWL API. -->
 		<module>distribution</module>
 	</modules>
 
@@ -98,8 +94,11 @@
 		<name>The University of Manchester</name>
 		<url>http://www.cs.manchester.ac.uk/</url>
 	</organization>
+
 	<build>
 		<plugins>
+
+			<!-- In the Compiler Plugin we specify the encoding and the compiler version. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -111,13 +110,36 @@
 				</configuration>
 			</plugin>
 
+			<!-- We need to configure the Source Plugin for deploying the sources. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.2</version>
+				<executions>
+					<!-- Attach sources. -->
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
+			<!-- We need to configure the Javadoc Plugin for deploying the Javadocs -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
+			<!-- The Assembly Plugin allows providing an additional single-jar build. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -129,18 +151,39 @@
 					</descriptors>
 				</configuration>
 			</plugin>
+
+			<!-- We need the GPG Plugin to self-sign the jar files. A valid signature 
+				for the jar files is a requirement for deploying to Maven Central. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- The Surefire Plugin is for error reporting. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.7.1</version>
 			</plugin>
+
 		</plugins>
 	</build>
 
+	<!-- Specify the encoding of the source files. -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<!-- Parameters for the Source Code Management system. -->
 	<scm>
 		<connection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/trunk/</connection>
 		<developerConnection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/trunk/</developerConnection>
