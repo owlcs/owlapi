@@ -870,27 +870,27 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 				individual);
 	}
 
-	public boolean hasReferencingAxioms(OWLEntity owlEntity) {
-		final ReferencedAxiomsChecker referencedAxiomsCollector = new ReferencedAxiomsChecker();
-		return owlEntity.accept(referencedAxiomsCollector);
-	}
-
-	public boolean hasReferencingAxioms(OWLEntity owlEntity, boolean includeImportsClosure) {
-		if (!includeImportsClosure) {
-			return hasReferencingAxioms(owlEntity);
-		}
-		for (OWLOntology ont : getImportsClosure()) {
-			if (ont.hasReferencingAxioms(owlEntity)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean hasReferencingAxioms(OWLAnonymousIndividual individual) {
-		return internals.hasValues(internals.getOwlAnonymousIndividualReferences(),
-				individual);
-	}
+//	public boolean hasReferencingAxioms(OWLEntity owlEntity) {
+//		final ReferencedAxiomsChecker referencedAxiomsCollector = new ReferencedAxiomsChecker();
+//		return owlEntity.accept(referencedAxiomsCollector);
+//	}
+//
+//	public boolean hasReferencingAxioms(OWLEntity owlEntity, boolean includeImportsClosure) {
+//		if (!includeImportsClosure) {
+//			return hasReferencingAxioms(owlEntity);
+//		}
+//		for (OWLOntology ont : getImportsClosure()) {
+//			if (ont.hasReferencingAxioms(owlEntity)) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+//
+//	public boolean hasReferencingAxioms(OWLAnonymousIndividual individual) {
+//		return internals.hasValues(internals.getOwlAnonymousIndividualReferences(),
+//				individual);
+//	}
 
 	public Set<OWLClassAxiom> getAxioms(final OWLClass cls) {
 		return internals.getValues(internals.getClassAxiomsByClass(), cls);
