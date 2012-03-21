@@ -72,7 +72,6 @@
             <include name="obo/${sourcepath}"/>
             <include name="owlexpression/${sourcepath}"/>
             <include name="owlxml/${sourcepath}"/>
-            <include name="profiles/${sourcepath}"/>
             <include name="rdfapi/${sourcepath}"/>
             <include name="rdfxml/${sourcepath}"/>
             <include name="reasoner/${sourcepath}"/>
@@ -157,7 +156,6 @@
             <fileset dir="../obo/src/main/java"/>
             <fileset dir="../owlexpression/src/main/java"/>
             <fileset dir="../owlxml/src/main/java"/>
-            <fileset dir="../profiles/src/main/java"/>
             <fileset dir="../rdfapi/src/main/java"/>
             <fileset dir="../rdfxml/src/main/java"/>
             <fileset dir="../reasoner/src/main/java"/>
