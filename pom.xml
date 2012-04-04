@@ -72,8 +72,7 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.8.2</version>
-			<type>jar</type>
-			<scope>compile</scope>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -95,6 +94,42 @@
 		<url>http://www.cs.manchester.ac.uk/</url>
 	</organization>
 
+	<profiles>
+
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<!-- We need the GPG Plugin to self-sign the jar files. A valid signature 
+						for the jar files is a requirement for deploying to Maven Central. -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.4</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
+
 	<build>
 		<plugins>
 
@@ -114,6 +149,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
 				<executions>
 					<!-- Attach sources. -->
 					<execution>
@@ -129,6 +165,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.8.1</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -150,22 +187,6 @@
 						<descriptor>distribution/src/assembly/bin.xml</descriptor>
 					</descriptors>
 				</configuration>
-			</plugin>
-
-			<!-- We need the GPG Plugin to self-sign the jar files. A valid signature 
-				for the jar files is a requirement for deploying to Maven Central. -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 
 			<!-- The Surefire Plugin is for error reporting. -->
