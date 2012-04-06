@@ -39,6 +39,8 @@
 
 package org.coode.owlapi.obo.parser;
 
+import org.semanticweb.owlapi.model.*;
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -53,6 +55,14 @@ public class XRefTagHandler extends AbstractTagValueHandler {
     }
 
     public void handle(String id, String value, String comment) {
+        IRI xrefValueIRI = getTagIRI(value);
+        IRI xrefAnnotationPropertyIRI = getTagIRI(id);
+        OWLClass currentClass = getCurrentClass();
+        if (currentClass != null) {
+            OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(xrefAnnotationPropertyIRI);
+            OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(property, currentClass.getIRI(), xrefValueIRI);
+            applyChange(new AddAxiom(getOntology(), ax));
+        }
     }
 
 
