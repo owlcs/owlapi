@@ -55,11 +55,10 @@ public class XRefTagHandler extends AbstractTagValueHandler {
     }
 
     public void handle(String id, String value, String comment) {
-        IRI xrefValueIRI = getTagIRI(value);
-        IRI xrefAnnotationPropertyIRI = getTagIRI(id);
+        IRI xrefValueIRI = getIdIRI(value);
         OWLClass currentClass = getCurrentClass();
         if (currentClass != null) {
-            OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(xrefAnnotationPropertyIRI);
+            OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(OBOVocabulary.XREF.getIRI());
             OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(property, currentClass.getIRI(), xrefValueIRI);
             applyChange(new AddAxiom(getOntology(), ax));
         }
