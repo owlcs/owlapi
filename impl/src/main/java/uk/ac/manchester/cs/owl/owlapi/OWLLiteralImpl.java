@@ -68,265 +68,283 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
  * <br>
+ * <p>
+ *     Implementation of {@link OWLLiteral} that uses compression of strings.  See also
+ *     {@link OWLLiteralImplNoCompression}
+ * </p>
  */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 5569750232151559959L;
 
-	private static final class LiteralWrapper implements Serializable {
-		/**
-		 *
-		 */
-		private static final long serialVersionUID = -1658780658825282402L;
-		String l;
-		byte[] bytes;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5569750232151559959L;
 
-		LiteralWrapper(String s) {
-			if (s.length() > 160) {
-				try {
-					bytes = compress(s);
-					l = null;
-				} catch (IOException e) {
-					// some problem happened - defaulting to no compression
-					System.out.println("OWLLiteralImpl.LiteralWrapper.LiteralWrapper() "
-							+ e.getMessage());
-					l = s;
-					bytes = null;
-				}
-			} else {
-				bytes = null;
-				l = s;
-			}
-		}
+    public static final int COMPRESSION_LIMIT = 160;
 
-		String get() {
-			if (l != null) {
-				return l;
-			}
-			try {
-				return decompress(bytes);
-			} catch (IOException e) {
-				// some problem has happened - cannot recover from this
-				e.printStackTrace();
-				return null;
-			}
-		}
+    private final LiteralWrapper literal;
 
-		byte[] compress(String s) throws IOException {
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			GZIPOutputStream zipout;
-			zipout = new GZIPOutputStream(out);
-			Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING);
-			writer.write(s);
-			writer.flush();
-			zipout.finish();
-			zipout.flush();
-			return out.toByteArray();
-		}
+    private final OWLDatatype datatype;
 
-		String decompress(byte[] result) throws IOException {
-			ByteArrayInputStream in = new ByteArrayInputStream(result);
-			GZIPInputStream zipin = new GZIPInputStream(in);
-			Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING);
-			StringBuilder b = new StringBuilder();
-			int c = reader.read();
-			while (c > -1) {
-				b.append((char) c);
-				c = reader.read();
-			}
-			return b.toString();
-		}
+    private final String lang;
 
-		private static final String COMPRESSED_ENCODING = "UTF-16";
-	}
+    private final int hashcode;
 
-	private final LiteralWrapper literal;
-	private final OWLDatatype datatype;
-	private final String lang;
-	private final int hashcode;
+    /**
+     * @param dataFactory the datafactory
+     * @param literal the lexical form
+     * @param lang the language; can be null or an empty string, in which case datatype can be any datatype but not null
+     * @param datatype the datatype; if lang is null or the empty string, it can be null or it MUST be RDFPlainLiteral
+     */
+    public OWLLiteralImpl(OWLDataFactory dataFactory, String literal, String lang, OWLDatatype datatype) {
+        super(dataFactory);
+        this.literal = new LiteralWrapper(literal);
+        if (lang == null || lang.length() == 0) {
+            this.lang = "";
+            this.datatype = datatype;
+        }
+        else {
 
-	/**
-	 *
-	 * @param dataFactory the datafactory
-	 * @param literal the lexical form
-	 * @param lang the language; can be null or an empty string, in which case datatype can be any datatype but not null
-	 * @param datatype the datatype; if lang is null or the empty string, it can be null or it MUST be RDFPlainLiteral
-	 */
-	public OWLLiteralImpl(OWLDataFactory dataFactory, String literal, String lang,
-			OWLDatatype datatype) {
-		super(dataFactory);
-		this.literal = new LiteralWrapper(literal);
-		if (lang == null || lang.length() == 0) {
-			this.lang = "";
-			this.datatype = datatype;
-		} else {
+            final OWLDatatype rdfPlainLiteral = dataFactory.getRDFPlainLiteral();
+            if (datatype != null && !rdfPlainLiteral.equals(datatype)) {
+                // ERROR: attempting to build a literal with a language tag and type different from plain literal
+                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
+            }
+            this.lang = lang;
+            this.datatype = rdfPlainLiteral;
+        }
+        hashcode = getHashCode();
+    }
 
-			final OWLDatatype rdfPlainLiteral = dataFactory.getRDFPlainLiteral();
-			if (datatype != null && !rdfPlainLiteral.equals(datatype)) {
-				// ERROR: attempting to build a literal with a language tag and type different from plain literal
-				throw new OWLRuntimeException("Error: cannot build a literal with type: "
-						+ datatype.getIRI() + " and language: " + lang);
-			}
-			this.lang = lang;
-			this.datatype = rdfPlainLiteral;
-		}
-		hashcode = getHashCode();
-	}
+    public String getLiteral() {
+        return literal.get();
+    }
 
-	//	@SuppressWarnings("javadoc")
-	//	public OWLLiteralImpl(OWLDataFactory dataFactory, String literal, String lang) {
-	//		super(dataFactory);
-	//		this.literal = new LiteralWrapper(literal);
-	//		this.lang = lang;
-	//		this.datatype = dataFactory.getRDFPlainLiteral();
-	//		hashcode = getHashCode();
-	//	}
-	public String getLiteral() {
-		return literal.get();
-	}
+    public boolean isRDFPlainLiteral() {
+        return datatype.equals(getOWLDataFactory().getRDFPlainLiteral());
+    }
 
-	public boolean isRDFPlainLiteral() {
-		return datatype.equals(getOWLDataFactory().getRDFPlainLiteral());
-	}
+    public boolean hasLang() {
+        return !lang.equals("");
+    }
 
-	public boolean hasLang() {
-		return !lang.equals("");
-	}
+    public boolean isInteger() {
+        return datatype.equals(getOWLDataFactory().getIntegerOWLDatatype());
+    }
 
-	public boolean isInteger() {
-		return datatype.equals(getOWLDataFactory().getIntegerOWLDatatype());
-	}
+    public int parseInteger() throws NumberFormatException {
+        return Integer.parseInt(literal.get());
+    }
 
-	public int parseInteger() throws NumberFormatException {
-		return Integer.parseInt(literal.get());
-	}
+    public boolean isBoolean() {
+        return datatype.equals(getOWLDataFactory().getBooleanOWLDatatype());
+    }
 
-	public boolean isBoolean() {
-		return datatype.equals(getOWLDataFactory().getBooleanOWLDatatype());
-	}
+    public boolean parseBoolean() throws NumberFormatException {
+        if (literal.get().equals("0")) {
+            return false;
+        }
+        if (literal.get().equals("1")) {
+            return true;
+        }
+        if (literal.get().equals("true")) {
+            return true;
+        }
+        if (literal.get().equals("false")) {
+            return false;
+        }
+        return false;
+    }
 
-	public boolean parseBoolean() throws NumberFormatException {
-		if (literal.get().equals("0")) {
-			return false;
-		}
-		if (literal.get().equals("1")) {
-			return true;
-		}
-		if (literal.get().equals("true")) {
-			return true;
-		}
-		if (literal.get().equals("false")) {
-			return false;
-		}
-		return false;
-	}
+    public boolean isDouble() {
+        return datatype.equals(getOWLDataFactory().getDoubleOWLDatatype());
+    }
 
-	public boolean isDouble() {
-		return datatype.equals(getOWLDataFactory().getDoubleOWLDatatype());
-	}
+    public double parseDouble() throws NumberFormatException {
+        return Double.parseDouble(literal.get());
+    }
 
-	public double parseDouble() throws NumberFormatException {
-		return Double.parseDouble(literal.get());
-	}
+    public boolean isFloat() {
+        return datatype.equals(getOWLDataFactory().getFloatOWLDatatype());
+    }
 
-	public boolean isFloat() {
-		return datatype.equals(getOWLDataFactory().getFloatOWLDatatype());
-	}
+    public float parseFloat() throws NumberFormatException {
+        return Float.parseFloat(literal.get());
+    }
 
-	public float parseFloat() throws NumberFormatException {
-		return Float.parseFloat(literal.get());
-	}
+    public String getLang() {
+        return lang;
+    }
 
-	public String getLang() {
-		return lang;
-	}
+    public boolean hasLang(String l) {
+        //XXX this was missing null checks: a null lang is still valid in the factory, where it becomes a ""
+        if (l == null && lang == null) {
+            return true;
+        }
+        if (l == null) {
+            l = "";
+        }
+        return this.lang != null && this.lang.equalsIgnoreCase(l.trim());
+    }
 
-	public boolean hasLang(String l) {
-		//XXX this was missing null checks: a null lang is still valid in the factory, where it becomes a ""
-		if (l == null && lang == null) {
-			return true;
-		}
-		if (l == null) {
-			l = "";
-		}
-		return this.lang != null && this.lang.equalsIgnoreCase(l.trim());
-	}
+    public OWLDatatype getDatatype() {
+        return datatype;
+    }
 
-	public OWLDatatype getDatatype() {
-		return datatype;
-	}
+    @Override
+    public int hashCode() {
+        return hashcode;
+    }
 
-	@Override
-	public int hashCode() {
-		return hashcode;
-	}
+    private int getHashCode() {
+        int hashCode = 277;
+        hashCode = hashCode * 37 + getDatatype().hashCode();
+        hashCode = hashCode * 37;
+        if (literal.l != null) {
+            hashCode += literal.l.hashCode();
+        }
+        else {
+            hashCode += Arrays.hashCode(literal.bytes);
+        }
+        if (hasLang()) {
+            hashCode = hashCode * 37 + getLang().hashCode();
+        }
+        return hashCode;
+    }
 
-	private int getHashCode() {
-		int hashCode = 277;
-		hashCode = hashCode * 37 + getDatatype().hashCode();
-		hashCode = hashCode * 37;
-		if (literal.l != null) {
-			hashCode += literal.l.hashCode();
-		} else {
-			hashCode += Arrays.hashCode(literal.bytes);
-		}
-		if (hasLang()) {
-			hashCode = hashCode * 37 + getLang().hashCode();
-		}
-		return hashCode;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            if (!(obj instanceof OWLLiteral)) {
+                return false;
+            }
+            OWLLiteral other = (OWLLiteral) obj;
+            return literal.get().equals(other.getLiteral()) && datatype.equals(other.getDatatype()) && lang.equals(other.getLang());
+        }
+        return false;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (super.equals(obj)) {
-			if (!(obj instanceof OWLLiteral)) {
-				return false;
-			}
-			OWLLiteral other = (OWLLiteral) obj;
-			return literal.get().equals(other.getLiteral())
-					&& datatype.equals(other.getDatatype())
-					&& lang.equals(other.getLang());
-		}
-		return false;
-	}
+    public void accept(OWLDataVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public void accept(OWLDataVisitor visitor) {
-		visitor.visit(this);
-	}
+    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 
-	public <O> O accept(OWLDataVisitorEx<O> visitor) {
-		return visitor.visit(this);
-	}
+    public void accept(OWLAnnotationValueVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public void accept(OWLAnnotationValueVisitor visitor) {
-		visitor.visit(this);
-	}
+    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 
-	public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
-		return visitor.visit(this);
-	}
+    @Override
+    protected int compareObjectOfSameType(OWLObject object) {
+        OWLLiteral other = (OWLLiteral) object;
+        int diff = literal.get().compareTo(other.getLiteral());
+        if (diff != 0) {
+            return diff;
+        }
+        diff = datatype.compareTo(other.getDatatype());
+        if (diff != 0) {
+            return diff;
+        }
+        return lang.compareTo(other.getLang());
+    }
 
-	@Override
-	protected int compareObjectOfSameType(OWLObject object) {
-		OWLLiteral other = (OWLLiteral) object;
-		int diff = literal.get().compareTo(other.getLiteral());
-		if (diff != 0) {
-			return diff;
-		}
-		diff = datatype.compareTo(other.getDatatype());
-		if (diff != 0) {
-			return diff;
-		}
-		return lang.compareTo(other.getLang());
-	}
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public void accept(OWLObjectVisitor visitor) {
-		visitor.visit(this);
-	}
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 
-	public <O> O accept(OWLObjectVisitorEx<O> visitor) {
-		return visitor.visit(this);
-	}
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////
+    ///////  Literal Wraper
+    ///////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private static final class LiteralWrapper implements Serializable {
+
+        /**
+         *
+         */
+        private static final long serialVersionUID = -1658780658825282402L;
+
+        String l;
+
+        byte[] bytes;
+
+        LiteralWrapper(String s) {
+            if (s.length() > COMPRESSION_LIMIT) {
+                try {
+                    bytes = compress(s);
+                    l = null;
+                }
+                catch (IOException e) {
+                    // some problem happened - defaulting to no compression
+                    System.out.println("OWLLiteralImpl.LiteralWrapper.LiteralWrapper() " + e.getMessage());
+                    l = s;
+                    bytes = null;
+                }
+            }
+            else {
+                bytes = null;
+                l = s;
+            }
+        }
+
+        String get() {
+            if (l != null) {
+                return l;
+            }
+            try {
+                return decompress(bytes);
+            }
+            catch (IOException e) {
+                // some problem has happened - cannot recover from this
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        byte[] compress(String s) throws IOException {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            GZIPOutputStream zipout;
+            zipout = new GZIPOutputStream(out);
+            Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING);
+            writer.write(s);
+            writer.flush();
+            zipout.finish();
+            zipout.flush();
+            return out.toByteArray();
+        }
+
+        String decompress(byte[] result) throws IOException {
+            ByteArrayInputStream in = new ByteArrayInputStream(result);
+            GZIPInputStream zipin = new GZIPInputStream(in);
+            Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING);
+            StringBuilder b = new StringBuilder();
+            int c = reader.read();
+            while (c > -1) {
+                b.append((char) c);
+                c = reader.read();
+            }
+            return b.toString();
+        }
+
+        private static final String COMPRESSED_ENCODING = "UTF-16";
+    }
+
+
 }

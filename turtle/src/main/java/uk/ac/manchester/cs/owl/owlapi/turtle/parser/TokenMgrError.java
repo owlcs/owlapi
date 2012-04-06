@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,6 @@
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 /** Token Manager Error. */
-@SuppressWarnings("javadoc")
 public class TokenMgrError extends Error
 {
 
@@ -143,7 +142,7 @@ public class TokenMgrError extends Error
    *    errorAfter  : prefix that was seen before this error occurred
    *    curchar     : the offending character
    * Note: You can customize the lexical error message by modifying this method.
-   */@SuppressWarnings("unused")
+   */
   protected static String LexicalError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, char curChar) {
     return("Lexical error at line " +
           errorLine + ", column " +
@@ -161,8 +160,7 @@ public class TokenMgrError extends Error
    *
    * from this method for such cases in the release version of your parser.
    */
-  @Override
-public String getMessage() {
+  public String getMessage() {
     return super.getMessage();
   }
 
