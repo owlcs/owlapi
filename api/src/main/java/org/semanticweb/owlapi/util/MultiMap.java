@@ -60,7 +60,7 @@ public class MultiMap<Key, Value> implements Serializable {
 	private boolean threadSafe = false;
 
 	public MultiMap() {
-		this(false);
+		this(true);
 	}
 
 	public MultiMap(boolean threadsafe) {

@@ -61,213 +61,201 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * <br>
  */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
-	static final String utf_8 = "UTF-8";
-	private final byte[] literal;
-	private final OWLDatatype datatype;
-	private final String lang;
-	private final int hashcode;
 
-	/**
-	 *
-	 * @param dataFactory
-	 *            the datafactory
-	 * @param literal
-	 *            the lexical form
-	 * @param lang
-	 *            the language; can be null or an empty string, in which case
-	 *            datatype can be any datatype but not null
-	 * @param datatype
-	 *            the datatype; if lang is null or the empty string, it can be
-	 *            null or it MUST be RDFPlainLiteral
-	 */
-	public OWLLiteralImplNoCompression(OWLDataFactory dataFactory, String literal,
-			String lang, OWLDatatype datatype) {
-		super(dataFactory);
-		try {
-			this.literal = literal.getBytes(utf_8);
-			if (lang == null || lang.length() == 0) {
-				this.lang = "";
-				if (datatype == null) {
-					this.datatype = dataFactory.getRDFPlainLiteral();
-				} else {
-					this.datatype = datatype;
-				}
-			} else {
-				final OWLDatatype rdfPlainLiteral = dataFactory.getRDFPlainLiteral();
-				if (datatype != null && !rdfPlainLiteral.equals(datatype)) {
-					// ERROR: attempting to build a literal with a language tag and type different from plain literal
-					throw new OWLRuntimeException(
-							"Error: cannot build a literal with type: "
-									+ datatype.getIRI() + " and language: " + lang);
-				}
-				this.lang = lang;
-				this.datatype = rdfPlainLiteral;
-			}
-			hashcode = getHashCode();
-		} catch (UnsupportedEncodingException e) {
-			throw new OWLRuntimeException("Unsupported UTF 8 encoding: broken JVM", e);
-		}
-	}
+    static final String utf_8 = "UTF-8";
 
-	//	@SuppressWarnings("javadoc")
-	//	public OWLLiteralImpl(OWLDataFactory dataFactory, String literal, String lang) {
-	//		super(dataFactory);
-	//		this.literal = new LiteralWrapper(literal);
-	//		this.lang = lang;
-	//		this.datatype = dataFactory.getRDFPlainLiteral();
-	//		hashcode = getHashCode();
-	//	}
-	public String getLiteral() {
-		try {
-			return new String(literal, utf_8);
-		} catch (UnsupportedEncodingException e) {
-			throw new OWLRuntimeException("Unsupported UTF 8 encoding: broken JVM", e);
-		}
-	}
+    private final byte[] literal;
 
-	public boolean isRDFPlainLiteral() {
-		return datatype.equals(getOWLDataFactory().getRDFPlainLiteral());
-	}
+    private final OWLDatatype datatype;
 
-	public boolean hasLang() {
-		return !lang.equals("");
-	}
+    private final String lang;
 
-	public boolean isInteger() {
-		return datatype.equals(getOWLDataFactory().getIntegerOWLDatatype());
-	}
+    private final int hashcode;
 
-	public int parseInteger() throws NumberFormatException {
-		return Integer.parseInt(getLiteral());
-	}
+    /**
+     * @param dataFactory the datafactory
+     * @param literal the lexical form
+     * @param lang the language; can be null or an empty string, in which case
+     * datatype can be any datatype but not null
+     * @param datatype the datatype; if lang is null or the empty string, it can be
+     * null or it MUST be RDFPlainLiteral
+     */
+    public OWLLiteralImplNoCompression(OWLDataFactory dataFactory, String literal, String lang, OWLDatatype datatype) {
+        super(dataFactory);
+        try {
+            this.literal = literal.getBytes(utf_8);
+            if (lang == null || lang.length() == 0) {
+                this.lang = "";
+                if (datatype == null) {
+                    this.datatype = dataFactory.getRDFPlainLiteral();
+                }
+                else {
+                    this.datatype = datatype;
+                }
+            }
+            else {
+                final OWLDatatype rdfPlainLiteral = dataFactory.getRDFPlainLiteral();
+                if (datatype != null && !rdfPlainLiteral.equals(datatype)) {
+                    // ERROR: attempting to build a literal with a language tag and type different from plain literal
+                    throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
+                }
+                this.lang = lang;
+                this.datatype = rdfPlainLiteral;
+            }
+            hashcode = getHashCode();
+        }
+        catch (UnsupportedEncodingException e) {
+            throw new OWLRuntimeException("Unsupported UTF 8 encoding: broken JVM", e);
+        }
+    }
 
-	public boolean isBoolean() {
-		return datatype.equals(getOWLDataFactory().getBooleanOWLDatatype());
-	}
+    public String getLiteral() {
+        try {
+            return new String(literal, utf_8);
+        }
+        catch (UnsupportedEncodingException e) {
+            throw new OWLRuntimeException("Unsupported UTF 8 encoding: broken JVM", e);
+        }
+    }
 
-	public boolean parseBoolean() throws NumberFormatException {
-		final String literal2 = getLiteral();
-		if (literal2.equals("0")) {
-			return false;
-		}
-		if (literal2.equals("1")) {
-			return true;
-		}
-		if (literal2.equals("true")) {
-			return true;
-		}
-		if (literal2.equals("false")) {
-			return false;
-		}
-		return Boolean.parseBoolean(literal2);
-	}
+    public boolean isRDFPlainLiteral() {
+        return datatype.equals(getOWLDataFactory().getRDFPlainLiteral());
+    }
 
-	public boolean isDouble() {
-		return datatype.equals(getOWLDataFactory().getDoubleOWLDatatype());
-	}
+    public boolean hasLang() {
+        return !lang.equals("");
+    }
 
-	public double parseDouble() throws NumberFormatException {
-		return Double.parseDouble(getLiteral());
-	}
+    public boolean isInteger() {
+        return datatype.equals(getOWLDataFactory().getIntegerOWLDatatype());
+    }
 
-	public boolean isFloat() {
-		return datatype.equals(getOWLDataFactory().getFloatOWLDatatype());
-	}
+    public int parseInteger() throws NumberFormatException {
+        return Integer.parseInt(getLiteral());
+    }
 
-	public float parseFloat() throws NumberFormatException {
-		return Float.parseFloat(getLiteral());
-	}
+    public boolean isBoolean() {
+        return datatype.equals(getOWLDataFactory().getBooleanOWLDatatype());
+    }
 
-	public String getLang() {
-		return lang;
-	}
+    public boolean parseBoolean() throws NumberFormatException {
+        final String literal2 = getLiteral();
+        if (literal2.equals("0")) {
+            return false;
+        }
+        if (literal2.equals("1")) {
+            return true;
+        }
+        if (literal2.equals("true")) {
+            return true;
+        }
+        if (literal2.equals("false")) {
+            return false;
+        }
+        return Boolean.parseBoolean(literal2);
+    }
 
-	public boolean hasLang(String l) {
-		//XXX this was missing null checks: a null lang is still valid in the factory, where it becomes a ""
-		if (l == null && lang == null) {
-			return true;
-		}
-		if (l == null) {
-			l = "";
-		}
-		return this.lang != null && this.lang.equalsIgnoreCase(l.trim());
-	}
+    public boolean isDouble() {
+        return datatype.equals(getOWLDataFactory().getDoubleOWLDatatype());
+    }
 
-	public OWLDatatype getDatatype() {
-		return datatype;
-	}
+    public double parseDouble() throws NumberFormatException {
+        return Double.parseDouble(getLiteral());
+    }
 
-	@Override
-	public int hashCode() {
-		return hashcode;
-	}
+    public boolean isFloat() {
+        return datatype.equals(getOWLDataFactory().getFloatOWLDatatype());
+    }
 
-	private int getHashCode() {
-		int hashCode = 277;
-		hashCode = hashCode * 37 + getDatatype().hashCode();
-		hashCode = hashCode * 37;
-		hashCode += Arrays.hashCode(literal);
-		if (hasLang()) {
-			hashCode = hashCode * 37 + getLang().hashCode();
-		}
-		return hashCode;
-	}
+    public float parseFloat() throws NumberFormatException {
+        return Float.parseFloat(getLiteral());
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (super.equals(obj)) {
-			if (!(obj instanceof OWLLiteral)) {
-				return false;
-			}
-			OWLLiteral other = (OWLLiteral) obj;
-			if (other instanceof OWLLiteralImplNoCompression) {
-				return Arrays.equals(literal,
-						((OWLLiteralImplNoCompression) other).literal)
-						&& datatype.equals(other.getDatatype())
-						&& lang.equals(other.getLang());
-			}
-			return getLiteral().equals(other.getLiteral())
-					&& datatype.equals(other.getDatatype())
-					&& lang.equals(other.getLang());
-		}
-		return false;
-	}
+    public String getLang() {
+        return lang;
+    }
 
-	public void accept(OWLDataVisitor visitor) {
-		visitor.visit(this);
-	}
+    public boolean hasLang(String l) {
+        //XXX this was missing null checks: a null lang is still valid in the factory, where it becomes a ""
+        if (l == null && lang == null) {
+            return true;
+        }
+        if (l == null) {
+            l = "";
+        }
+        return this.lang != null && this.lang.equalsIgnoreCase(l.trim());
+    }
 
-	public <O> O accept(OWLDataVisitorEx<O> visitor) {
-		return visitor.visit(this);
-	}
+    public OWLDatatype getDatatype() {
+        return datatype;
+    }
 
-	public void accept(OWLAnnotationValueVisitor visitor) {
-		visitor.visit(this);
-	}
+    @Override
+    public int hashCode() {
+        return hashcode;
+    }
 
-	public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
-		return visitor.visit(this);
-	}
+    private int getHashCode() {
+        int hashCode = 277;
+        hashCode = hashCode * 37 + getDatatype().hashCode();
+        hashCode = hashCode * 37;
+        hashCode += Arrays.hashCode(literal);
+        if (hasLang()) {
+            hashCode = hashCode * 37 + getLang().hashCode();
+        }
+        return hashCode;
+    }
 
-	@Override
-	protected int compareObjectOfSameType(OWLObject object) {
-		OWLLiteral other = (OWLLiteral) object;
-		int diff = getLiteral().compareTo(other.getLiteral());
-		if (diff != 0) {
-			return diff;
-		}
-		diff = datatype.compareTo(other.getDatatype());
-		if (diff != 0) {
-			return diff;
-		}
-		return lang.compareTo(other.getLang());
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            if (!(obj instanceof OWLLiteral)) {
+                return false;
+            }
+            OWLLiteral other = (OWLLiteral) obj;
+            if (other instanceof OWLLiteralImplNoCompression) {
+                return Arrays.equals(literal, ((OWLLiteralImplNoCompression) other).literal) && datatype.equals(other.getDatatype()) && lang.equals(other.getLang());
+            }
+            return getLiteral().equals(other.getLiteral()) && datatype.equals(other.getDatatype()) && lang.equals(other.getLang());
+        }
+        return false;
+    }
 
-	public void accept(OWLObjectVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(OWLDataVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public <O> O accept(OWLObjectVisitorEx<O> visitor) {
-		return visitor.visit(this);
-	}
+    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    public void accept(OWLAnnotationValueVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    protected int compareObjectOfSameType(OWLObject object) {
+        OWLLiteral other = (OWLLiteral) object;
+        int diff = getLiteral().compareTo(other.getLiteral());
+        if (diff != 0) {
+            return diff;
+        }
+        diff = datatype.compareTo(other.getDatatype());
+        if (diff != 0) {
+            return diff;
+        }
+        return lang.compareTo(other.getLang());
+    }
+
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }
