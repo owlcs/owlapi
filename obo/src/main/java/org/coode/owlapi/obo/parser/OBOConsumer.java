@@ -224,6 +224,7 @@ public class OBOConsumer implements OBOParserHandler {
         addTagHandler(new TransitiveOverHandler(this));
         addTagHandler(new DefaultNamespaceTagValueHandler(this));
         addTagHandler(new SynonymTagValueHandler(this));
+        addTagHandler(new XRefTagHandler(this));
     }
 
 
@@ -347,7 +348,6 @@ public class OBOConsumer implements OBOParserHandler {
         return getOWLOntologyManager().getOWLDataFactory();
     }
 
-
     public OWLClass getCurrentClass() {
         return getDataFactory().getOWLClass(getIRI(currentId));
     }
@@ -373,7 +373,7 @@ public class OBOConsumer implements OBOParserHandler {
             Thread.dumpStack();
             return null;
         }
-        if(identifier.indexOf(":") != -1) {
+        if(identifier.contains(":")) {
             return getIRI(identifier);
         }
         else {
