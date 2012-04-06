@@ -63,6 +63,10 @@ public class XMLUtils {
 
     public static final String APOS = "&apos;";
 
+    // For some point in the future
+    public static final String OWL_PROCESSING_INSTRUCTION_NAME = "owl";
+
+    
     /**
      * Determines if a character is an XML name start character.
      * @param codePoint The code point of the character to be tested.  For UTF-16 characters the code point corresponds
@@ -304,69 +308,4 @@ public class XMLUtils {
     private static boolean isNullOrEmpty(CharSequence s) {
         return s == null || s.length() == 0;
     }
-
-//class old_namespacer{
-//	private Pattern qnamePattern = Pattern.compile("[a-zA-Z_][a-zA-Z_0-9\\.\\-_\\%]*");
-//	private transient WeakIndexCache<IRI, String> prefixedNamesCache = new WeakIndexCache<IRI, String>();
-//	private transient WeakCache<IRI> unprefixable = new WeakCache<IRI>();
-//	private Map<String, String> prefix2NamespaceMap = new HashMap<String, String>();
-//
-//	public old_namespacer(Map<String, String> prefMap) {
-//		prefix2NamespaceMap.putAll(prefMap);
-//	}
-//
-//	public void resetCaches() {
-//		unprefixable.clear();
-//		prefixedNamesCache.clear();
-//		prefix2NamespaceMap.clear();
-//	}
-//
-//	public void addPrefixMap(Map<String, String> prefixes) {
-//		prefix2NamespaceMap.putAll(prefixes);
-//	}
-//
-//	public void addPrefix(String namespace, String value) {
-//		prefix2NamespaceMap.put(namespace, value);
-//		// drop weak caches, new prefix might make them invalid
-//		unprefixable.clear();
-//		prefixedNamesCache.clear();
-//	}
-//
-//	public String getQName(IRI iri) {
-//		String cached = prefixedNamesCache.get(iri);
-//		if (cached != null) {
-//			return cached;
-//		}
-//		String iriString = iri.toString();
-//		String toReturn=getQName(iriString);
-//		if(toReturn==null) {
-//			unprefixable.cache(iri);
-//		}else {
-//			prefixedNamesCache.cache(iri, toReturn);
-//		}
-//		return toReturn;
-//	}
-//
-//	public String getQName(String s) {
-//		for (String prefixName : prefix2NamespaceMap.keySet()) {
-//			String prefix = prefix2NamespaceMap.get(prefixName);
-//			if (s.startsWith(prefix)) {
-//				String localName = s.substring(prefix.length());
-//				final Matcher matcher = qnamePattern.matcher(localName);
-//				if (matcher.find() && localName.equals(matcher.group())) {
-//					String toReturn =null;
-//					if(prefixName.endsWith(":")) {
-//					 toReturn=prefixName + localName;
-//					}else {
-//						toReturn=prefixName+":" + localName;
-//					}
-//					return toReturn;
-//				}
-//			}
-//		}
-//		return null;
-//	}
-//
-//}
-
 }
