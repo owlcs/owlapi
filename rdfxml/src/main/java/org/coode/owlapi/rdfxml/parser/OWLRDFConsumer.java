@@ -223,6 +223,10 @@ public class OWLRDFConsumer implements RDFConsumer {
      */
     private OWLOntology ontology;
 
+    private int expectedAxioms = -1;
+    
+    private int parsedAxioms = 0;
+    
     private RDFOntologyFormat ontologyFormat;
 
     private OWLDataFactory dataFactory;
@@ -559,6 +563,10 @@ public class OWLRDFConsumer implements RDFConsumer {
         this.ontologyFormat = format;
     }
 
+    public void setExpectedAxioms(int expectedAxioms) {
+        this.expectedAxioms = expectedAxioms;
+    }
+
 
     private void addBuiltInTypeTripleHandler(BuiltInTypeHandler handler) {
         builtInTypeTripleHandlers.put(handler.getTypeIRI(), handler);
@@ -764,11 +772,11 @@ public class OWLRDFConsumer implements RDFConsumer {
                 }
                 
         }
-        processUnconsumedTriplesFromImportsClosure();
     }
 
     /**
      * Processes triples from ontologies in the imports closure that weren't consumed when those ontologies were parsed.
+     * MH: This isn't used anywhere anymore - caused weird problems in some cases.
      */
     private void processUnconsumedTriplesFromImportsClosure() {
         Set<RDFTriple> unparsedTriples = getUnconsumedTriplesFromImportsClosure();
@@ -875,7 +883,17 @@ public class OWLRDFConsumer implements RDFConsumer {
         return sharedAnonymousNodes.get(iri);
     }
 
+    private int lastPercentParsed = 0;
+    
     protected void addAxiom(OWLAxiom axiom) {
+        if (expectedAxioms > 0) {
+            parsedAxioms++;
+            int percentParsed = (int) (parsedAxioms * 100.0 / expectedAxioms);
+            if(lastPercentParsed != percentParsed) {
+                lastPercentParsed = percentParsed;
+            }
+        }
+
         boolean add = (!(axiom instanceof OWLAnnotationAxiom) || configuration.isLoadAnnotationAxioms());
         if (add) {
             owlOntologyManager.applyChange(new AddAxiom(ontology, axiom));
