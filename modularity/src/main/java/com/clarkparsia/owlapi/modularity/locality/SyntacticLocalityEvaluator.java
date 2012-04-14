@@ -214,14 +214,15 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         	isLocal = true;
         }
 
-        // BUGFIX: (TS) Antisymm OP axioms are local in the *_BOTTOM case:
-        //              The empty object property is antisymmetric!
+        // BUGFIX: (TS) Asymm OP axioms are local in the *_BOTTOM case:
+        //              The empty object property is asymmetric!
+        // BUGFIX: (DT) OP in signature makes the axiom non-local
 
         public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isLocal = true;
+                    isLocal = !signature.contains(axiom.getProperty().getNamedProperty());
                     break;
                 case TOP_TOP:
                     isLocal = false;
@@ -614,12 +615,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         // BUGFIX: (TS) Irreflexive OP axioms are local in the *_BOTTOM case:
         //              The empty object property is irreflexive!
+        // BUGFIX: (DT) OP in signature makes the axiom non-local
 
         public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isLocal = true;
+                    isLocal = !signature.contains(axiom.getProperty().getNamedProperty());
                     break;
                 case TOP_TOP:
                     isLocal = false;
