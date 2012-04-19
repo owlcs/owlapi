@@ -131,7 +131,8 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
 
 
     /**
-     * @return the ontology IRI
+     * Gets the ontology IRI.
+     * @return the ontology IRI, or <code>null</code> if there is no ontology IRI.
      */
     public IRI getOntologyIRI() {
         return ontologyIRI;
@@ -139,7 +140,8 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
 
 
     /**
-     * @return the version IRI
+     * Gets the version IRI.
+     * @return the version IRI, or <code>null</code> if there is no version IRI.
      */
     public IRI getVersionIRI() {
         return versionIRI;
