@@ -43,10 +43,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /**
  * Author: Matthew Horridge<br>
@@ -75,6 +73,16 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
 
     public void endElement() throws OWLParserException, UnloadableImportException {
         getParentHandler().handleChild(this);
+    }
+
+    @Override
+    public void attribute(String localName, String value) throws OWLParserException {
+        super.attribute(localName, value);
+        // Legacy Handling
+        if(localName.equals(OWLXMLVocabulary.ANNOTATION_URI.getShortName())) {
+            IRI iri = getIRI(value);
+            property = getOWLDataFactory().getOWLAnnotationProperty(iri);
+        }
     }
 
     @Override
