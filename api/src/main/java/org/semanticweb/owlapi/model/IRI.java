@@ -140,7 +140,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
      * @return This IRI surrounded by &lt; and &gt;
      */
     public abstract String toQuotedString();
-
+    
     /**
      * Creates an IRI from the specified String.
      * @param str The String that specifies the IRI. Cannot be null.
@@ -151,6 +151,25 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
             throw new IllegalArgumentException("String must not be null");
         }
         return new IRIImpl(str);
+    }
+
+    /**
+     * Creates an IRI by concatenating two strings.  The full IRI is an IRI that contains the characters in
+     * prefix + suffix.
+     * @param prefix The first string.  Not <code>null</code>.
+     * @param suffix The second string. Not <code>null</code>.
+     * @return An IRI whose characters consist of prefix + suffix.
+     * @throws NullPointerException if either prefix of suffix are <code>null</code>.
+     * @since 3.5
+     */
+    public static IRI create(String prefix, String suffix) {
+        if(prefix == null) {
+            throw new NullPointerException("prefix must not be null");
+        }
+        if(suffix == null) {
+            throw new NullPointerException("suffix must not be null");
+        }
+        return new IRIImpl(prefix, suffix);
     }
 
     /**
@@ -211,6 +230,16 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
         private int hashCode = 0;
 
+        /**
+         * Constructs an IRI which is built from the concatenation of the specified prefix and suffix.
+         * @param prefix The prefix.
+         * @param fragment The suffix.
+         */
+        public IRIImpl(String prefix, String fragment) {
+            this.prefix = prefixCache.cache(prefix);
+            this.remainder = fragment;
+        }
+        
         public IRIImpl(String s) {
             int fragmentSeparatorIndex = s.lastIndexOf('#');
             if (fragmentSeparatorIndex != -1 && fragmentSeparatorIndex < s.length()) {
@@ -349,12 +378,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
          */
         @Override
         public String getFragment() {
-            //if(prefix.endsWith("#")) {
             return remainder;
-            //}
-            //else {
-            //    return null;
-            //}
         }
 
         @Override
