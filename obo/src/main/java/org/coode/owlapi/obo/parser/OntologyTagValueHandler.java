@@ -57,10 +57,7 @@ public class OntologyTagValueHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value, String comment) {
-        // The ontology name appears in lower case apparently
-        IRI ontIRI = OBOVocabulary.ID2IRI(value);
-        OWLOntologyID ontId = new OWLOntologyID(ontIRI);
-        applyChange(new SetOntologyID(getOntology(), ontId));
+    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+        getConsumer().setOntologyTagValue(value);
     }
 }

@@ -39,31 +39,16 @@
 
 package org.coode.owlapi.obo.parser;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.util.*;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 
@@ -92,9 +77,9 @@ public class OBOConsumer implements OBOParserHandler {
 
     private Map<String, TagValueHandler> handlerMap;
 
-    private String defaultNamespace;
+//    private String defaultNamespace;
 
-    private String currentNamespace;
+    private String defaultNamespaceTagValue = OBOVocabulary.OBO_IRI_BASE;
 
     private String stanzaType;
 
@@ -108,24 +93,67 @@ public class OBOConsumer implements OBOParserHandler {
 
     private Set<OWLClassExpression> unionOfOperands;
 
-    private Map<String, IRI> uriCache;
+    private Map<String, IRI> uriCache = new HashMap<String, IRI>();
+
+    private Map<String, IRI> symbolicIdCache = new HashMap<String, IRI>();
+
+    private Map<String, IRI> tagIRICache = new HashMap<String, IRI>();
+
+    private IDSpaceManager idSpaceManager = new IDSpaceManager();
+
+    private String ontologyTagValue = "";
+
+    private String dataVersionTagValue = "";
 
 
     @SuppressWarnings("deprecation")
-    public OBOConsumer(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+    public OBOConsumer(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration, IRI baseIRI) {
         this.configuration = configuration;
         this.owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
-        defaultNamespace = OBOVocabulary.ONTOLOGY_URI_BASE;
         intersectionOfOperands = new HashSet<OWLClassExpression>();
         unionOfOperands = new HashSet<OWLClassExpression>();
         uriCache = new HashMap<String, IRI>();
+
+        for (OBOVocabulary v : OBOVocabulary.values()) {
+            tagIRICache.put(v.getName(), v.getIRI());
+        }
+
+        try {
+            String baseURIPath = getDefaultOntologyTagValue(baseIRI);
+            
+            this.ontologyTagValue = baseURIPath;
+            String baseURIString = URLEncoder.encode(baseIRI.toString(), "utf-8");
+            URI baseURI = new URI(baseURIString);
+
+        }
+        catch (URISyntaxException e) {
+            // Hmmmm
+        }
+        catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Broken JVM:  UTF-8 Encoding is not supported!");
+        }
+
+
         loadBuiltinURIs();
         setupTagHandlers();
     }
 
-    public OBOConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
-        this(ontology, configuration);
+    private String getDefaultOntologyTagValue(IRI baseIRI) {
+        URI baseURI = baseIRI.toURI();
+        String baseURIPath = baseURI.getPath();
+        if(baseURIPath == null) {
+            return baseIRI.toString();
+        }
+        int lastSlashIndex = baseURIPath.lastIndexOf("/");
+        if(lastSlashIndex == -1 || lastSlashIndex + 1 == baseURIPath.length()) {
+            return baseURIPath;
+        }
+        return baseURIPath.substring(lastSlashIndex + 1);
+    }
+
+    public OBOConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration, IRI baseIRI) {
+        this(ontology, configuration, baseIRI);
     }
 
 
@@ -144,25 +172,55 @@ public class OBOConsumer implements OBOParserHandler {
     }
 
 
-    public String getDefaultNamespace() {
-        return defaultNamespace;
+    /**
+     * Sets the value of the default-namespace tag for the current ontology being parsed.
+     * @param defaultNamespaceTagValue The value of the default-namespace tag.
+     */
+    public void setDefaultNamespaceTagValue(String defaultNamespaceTagValue) {
+        this.defaultNamespaceTagValue = defaultNamespaceTagValue;
+    }
+
+    /**
+     * Gets the default-namespace tag value for the current ontology.  If not default-namespace tag value has been set
+     * explicitly then this method returns the default value which is equal to {@link OBOVocabulary#OBO_IRI_BASE}.
+     * @return The default-namespace tag value.  Not <code>null</code>.
+     */
+    public String getDefaultNamespaceTagValue() {
+        return defaultNamespaceTagValue;
+    }
+
+    /**
+     * Sets the value of the ontology tag for the current ontology that is being parsed.  This is used to construct
+     * an {@link org.semanticweb.owlapi.model.OWLOntologyID} for the current ontology once the ontology header has
+     * been parsed in its entirety.
+     * @param ontologyTagValue The ontology tag value. Ultimately, this will be translated to an IRI.
+     */
+    public void setOntologyTagValue(String ontologyTagValue) {
+        this.ontologyTagValue = ontologyTagValue;
+    }
+
+    /**
+     * Sets the value of the data-version tag for the current ontology that is being parsed.  This is used to construct
+     * an {@link org.semanticweb.owlapi.model.OWLOntologyID} for the current ontology once the ontology header has
+     * been parsed in its entirety.
+     * @param dataVersionTagValue The data-version tag value.  Ultimately, this will be translated to an IRI.
+     */
+    public void setDataVersionTagValue(String dataVersionTagValue) {
+        this.dataVersionTagValue = dataVersionTagValue;
     }
 
 
-    public void setDefaultNamespace(String defaultNamespace) {
-        this.defaultNamespace = defaultNamespace;
+    public void registerIdSpace(String idSpacePrefix, String iriPrefix) {
+        idSpaceManager.setIRIPrefix(idSpacePrefix, iriPrefix);
     }
 
-
-    public String getCurrentNamespace() {
-        return currentNamespace;
+    /**
+     * Gets a COPY of the {@link IDSpaceManager} held by this OBOConsumer.
+     * @return A copy of the IDSpaceManager held by this consumer.
+     */
+    public IDSpaceManager getIdSpaceManager() {
+        return idSpaceManager;
     }
-
-
-    public void setCurrentNamespace(String currentNamespace) {
-        this.currentNamespace = currentNamespace;
-    }
-
 
     public void setCurrentId(String currentId) {
         this.currentId = currentId;
@@ -225,11 +283,16 @@ public class OBOConsumer implements OBOParserHandler {
         addTagHandler(new DefaultNamespaceTagValueHandler(this));
         addTagHandler(new SynonymTagValueHandler(this));
         addTagHandler(new XRefTagHandler(this));
+        addTagHandler(new DefTagValueHandler(this));
+        addTagHandler(new IsObsoleteTagValueHandler(this));
+        addTagHandler(new IDSpaceTagValueHandler(this));
+        addTagHandler(new DataVersionTagValueHandler(this));
+        addTagHandler(new SynonymTypeDefTagHandler(this));
     }
 
 
     private void addTagHandler(TagValueHandler handler) {
-        handlerMap.put(handler.getTag(), handler);
+        handlerMap.put(handler.getTagName(), handler);
     }
 
 
@@ -240,12 +303,28 @@ public class OBOConsumer implements OBOParserHandler {
 
     public void endHeader() {
         inHeader = false;
+        setOntologyId();
     }
 
 
-    public void startStanza(String name) {
+    /**
+     * Sets the {@link org.semanticweb.owlapi.model.OWLOntologyID} of the ontology being parsed from the tag values
+     * held by the {@link #ontologyTagValue} and {@link #dataVersionTagValue} field.  IRIs for each field are generated
+     * and used to construct the {@link org.semanticweb.owlapi.model.OWLOntologyID}.
+     */
+    private void setOntologyId() {
+        IRI ontologyIRI = IRI.create(idSpaceManager.getIRIPrefix(ontologyTagValue) + ontologyTagValue);
+        IRI versionIRI = null;
+        if (!dataVersionTagValue.isEmpty()) {
+            versionIRI = IRI.create(ontologyIRI.toString() + "/" + dataVersionTagValue);
+        }
+        OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRI, versionIRI);
+        ontology.getOWLOntologyManager().applyChange(new SetOntologyID(ontology, ontologyID));
+    }
+
+    public void startFrame(String name) {
         currentId = null;
-        currentNamespace = null;
+        defaultNamespaceTagValue = null;
         stanzaType = name;
         termType = stanzaType.equals(OBOVocabulary.TERM.getName());
         typedefType = false;
@@ -259,7 +338,7 @@ public class OBOConsumer implements OBOParserHandler {
     }
 
 
-    public void endStanza() {
+    public void endFrame() {
         if (!unionOfOperands.isEmpty()) {
             createUnionEquivalentClass();
             unionOfOperands.clear();
@@ -302,11 +381,11 @@ public class OBOConsumer implements OBOParserHandler {
     }
 
 
-    public void handleTagValue(String tag, String value, String comment) {
+    public void handleTagValue(String tag, String value, String qualifierBlock, String comment) {
         try {
             TagValueHandler handler = handlerMap.get(tag);
             if (handler != null) {
-                handler.handle(currentId, value, comment);
+                handler.handle(currentId, value, qualifierBlock, comment);
             }
             else if (inHeader) {
                 if (tag.equals(IMPORT_TAG_NAME)) {
@@ -317,8 +396,8 @@ public class OBOConsumer implements OBOParserHandler {
                 }
                 else {
                     // Ontology annotations
-                    OWLLiteral con = getDataFactory().getOWLLiteral(value);
-                    OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getIRI(tag));
+                    OWLLiteral con = getDataFactory().getOWLLiteral(unescapeTagValue(value));
+                    OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getIRIFromTagName(tag));
                     OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
                     owlOntologyManager.applyChange(new AddOntologyAnnotation(ontology, anno));
                 }
@@ -327,8 +406,9 @@ public class OBOConsumer implements OBOParserHandler {
                 // Add as annotation
                 if (configuration.isLoadAnnotationAxioms()) {
                     IRI subject = getIRI(currentId);
-                    OWLLiteral con = getDataFactory().getOWLLiteral(value, "");
-                    OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(getIRI(tag));
+                    OWLLiteral con = getDataFactory().getOWLLiteral(unescapeTagValue(value));
+                    IRI annotationPropertyIRI = getIRIFromTagName(tag);
+                    OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(annotationPropertyIRI);
                     OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
                     OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
                     owlOntologyManager.addAxiom(ontology, ax);
@@ -343,6 +423,23 @@ public class OBOConsumer implements OBOParserHandler {
         }
     }
 
+    public String unescapeTagValue(String value) {
+        String unquoted;
+        if (value.startsWith("\"") && value.endsWith("\"")) {
+            unquoted = value.substring(1, value.length() - 1);
+        }
+        else {
+            unquoted = value;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < unquoted.length(); i++) {
+            char ch = unquoted.charAt(i);
+            if (ch != '\\') {
+                sb.append(ch);
+            }
+        }
+        return sb.toString();
+    }
 
     private OWLDataFactory getDataFactory() {
         return getOWLOntologyManager().getOWLDataFactory();
@@ -357,42 +454,150 @@ public class OBOConsumer implements OBOParserHandler {
             return getCurrentClass();
         }
         else if (isTypedef()) {
-            return getDataFactory().getOWLObjectProperty(getIRI(currentId));
+            // Sometimes, we can have symbolic names e.g. has_part.  It's not really clear how to tell the difference
+            IRI propertyIRI = getRelationIRIFromSymbolicIdOrOBOId(currentId);
+            return getDataFactory().getOWLObjectProperty(propertyIRI);
         }
         else {
             return getDataFactory().getOWLNamedIndividual(getIRI(currentId));
         }
     }
 
-    public IRI getTagIRI(String tagName) {
-        return getIRI(tagName);
-    }
-
-    public IRI getIdIRI(String identifier) {
-        if(identifier == null) {
-            Thread.dumpStack();
-            return null;
+    /**
+     * Gets an IRI from a tag name.
+     * @param tagName The tag name.
+     * @return The IRI for the tag name.  For built in tags this is obtained from the {@link OBOVocabulary} enum.
+     *         Not <code>null</code>.
+     * @throws NullPointerException if tagName is null.
+     */
+    public IRI getIRIFromTagName(String tagName) {
+        if (tagName == null) {
+            throw new NullPointerException("tagName must not be null");
         }
-        if(identifier.contains(":")) {
-            return getIRI(identifier);
+        IRI tagIRI = tagIRICache.get(tagName);
+        if (tagIRI != null) {
+            return tagIRI;
         }
         else {
-            StringBuilder sb = new StringBuilder();
-            sb.append(defaultNamespace);
-            sb.append(":");
-            sb.append(identifier);
-            return getIRI(sb.toString());
+            IRI freshTagIRI = IRI.create(OBOVocabulary.OBO_IRI_BASE + tagName);
+            tagIRICache.put(tagName, freshTagIRI);
+            return freshTagIRI;
         }
     }
 
+    /**
+     * Gets an IRI from an OBO ID.  The OBO ID may be a canonical OBO ID of the form idspace:sequence or it may be
+     * a non-canonical ID.
+     * @param oboId The OBO ID
+     * @return An IRI obtained from the translation of the OBO ID.
+     */
+    public IRI getIRIFromOBOId(String oboId) {
+        if (oboId == null) {
+            throw new NullPointerException("oboId must not be null.");
+        }
+        return getIRI(oboId);
+//
+//        if (oboId.contains(":")) {
+//            return getIRI(oboId);
+//        }
+//        else {
+//            StringBuilder sb = new StringBuilder();
+//            sb.append(defaultNamespaceTagValue);
+//            sb.append(":");
+//            sb.append(oboId);
+//            return getIRI(sb.toString());
+//        }
+    }
+
+    public IRI getIRIFromSymbolicId(String symbolicId) {
+        if (symbolicId == null) {
+            throw new NullPointerException("symbolicId must not be null.");
+        }
+        IRI cachedIRI = symbolicIdCache.get(symbolicId);
+        if (cachedIRI != null) {
+            return cachedIRI;
+        }
+        IRI freshIRI = IRI.create(OBOVocabulary.OBO_IRI_BASE + symbolicId);
+        symbolicIdCache.put(symbolicId, freshIRI);
+        return freshIRI;
+    }
+
+    public IRI getRelationIRIFromSymbolicIdOrOBOId(String symbolicIdOrOBOId) {
+        OBOIdType idType = OBOIdType.getIdType(symbolicIdOrOBOId);
+        if (idType == null) {
+            throw new RuntimeException("Invalid ID: " + symbolicIdOrOBOId + " in frame " + currentId);
+        }
+        else {
+            return idType.getIRIFromOBOId(ontology.getOntologyID(), idSpaceManager, symbolicIdOrOBOId);
+        }
+//        OBOIdType type = OBOIdType.getIdType(symbolicIdOrOBOId);
+//        if(type == null || (type != OBOIdType.CANONICAL_PREFIXED_ID && type != OBOIdType.NON_CANONICAL_PREFIXED_ID)) {
+//            return getIRIFromSymbolicId(symbolicIdOrOBOId);
+//        }
+//        else {
+//            return type.getIRIFromOBOId(ontology.getOntologyID(), idSpaceManager, symbolicIdOrOBOId);
+//        }
+    }
+
+
     private IRI getIRI(String s) {
-        IRI iri = uriCache.get(s);
+        String trimmed = s.trim();
+        IRI iri = uriCache.get(trimmed);
         if (iri != null) {
             return iri;
         }
-        String escapedString = s.replace(" ", "%20");
-        iri = OBOVocabulary.ID2IRI(escapedString);
-        uriCache.put(s, iri);
-        return iri;
+        OWLOntologyID ontologyID = getOntology().getOntologyID();
+        OBOIdType type = OBOIdType.getIdType(trimmed);
+        if (type == null) {
+            throw new RuntimeException("Not a valid OBO ID: " + s);
+        }
+        IRI freshIRI = type.getIRIFromOBOId(ontologyID, idSpaceManager, trimmed);
+        uriCache.put(trimmed, freshIRI);
+        return freshIRI;
+//        String escapedString = s.replace(" ", "%20");
+//        IRI freshIRI = OBOVocabulary.ID2IRI(escapedString, idSpaceManager);
+//        uriCache.put(s, freshIRI);
+//        return freshIRI;
+    }
+
+
+    private static final Pattern XREF_PATTERN = Pattern.compile("([^\"]*)\\s*(\"((\\\"|[^\"])*)\")?");
+
+    private static final int XREF_ID_GROUP = 1;
+
+    private static final int XREF_QUOTED_STRING_GROUP = 3;
+
+    public OWLAnnotation parseXRef(String xref) {
+        Matcher matcher = XREF_PATTERN.matcher(xref);
+        if (matcher.matches()) {
+            OWLDataFactory df = getDataFactory();
+            String xrefQuotedString = matcher.group(XREF_QUOTED_STRING_GROUP);
+            // the quoted string is a description of the xref.  I can't find anywhere to put this.
+            // Just add as a comment for now
+            Set<OWLAnnotation> xrefDescriptions;
+            if (xrefQuotedString != null) {
+                xrefDescriptions = new HashSet<OWLAnnotation>();
+                xrefDescriptions.add(df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(xrefQuotedString)));
+            }
+            else {
+                xrefDescriptions = Collections.emptySet();
+            }
+            String xrefId = matcher.group(XREF_ID_GROUP).trim();
+            OBOIdType idType = OBOIdType.getIdType(xrefId);
+            OWLAnnotationValue annotationValue;
+            if (idType != null) {
+                annotationValue = getIRIFromOBOId(xrefId);
+            }
+            else {
+                annotationValue = getDataFactory().getOWLLiteral(xrefId);
+            }
+            OWLAnnotationProperty xrefProperty = df.getOWLAnnotationProperty(OBOVocabulary.XREF.getIRI());
+            return df.getOWLAnnotation(xrefProperty, annotationValue, xrefDescriptions);
+        }
+        else {
+            OWLDataFactory df = getDataFactory();
+            OWLAnnotationProperty xrefProperty = df.getOWLAnnotationProperty(OBOVocabulary.XREF.getIRI());
+            return df.getOWLAnnotation(xrefProperty, df.getOWLLiteral(xref));
+        }
     }
 }

@@ -61,12 +61,12 @@ public class PartOfTagValueHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock, String comment) {
         int index = value.indexOf(' ');
         String propLocalName = value.substring(0, index);
         String val = value.substring(index + 1, value.length());
         OWLDataFactory df = getDataFactory();
-        OWLObjectProperty prop = df.getOWLObjectProperty(getIdIRI(propLocalName));
+        OWLObjectProperty prop = df.getOWLObjectProperty(getIRIFromOBOId(propLocalName));
         OWLClass filler = getClassFromId(val);
         OWLClassExpression desc = df.getOWLObjectSomeValuesFrom(prop, filler);
         OWLAxiom ax = df.getOWLSubClassOfAxiom(getCurrentClass(), desc);

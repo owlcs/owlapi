@@ -57,8 +57,8 @@ public class InverseHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value, String comment) {
-        OWLAxiom ax = getDataFactory().getOWLInverseObjectPropertiesAxiom(getOWLObjectProperty(id),
+    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+        OWLAxiom ax = getDataFactory().getOWLInverseObjectPropertiesAxiom(getOWLObjectProperty(currentId),
                 getOWLObjectProperty(value));
         applyChange(new AddAxiom(getOntology(), ax));
     }

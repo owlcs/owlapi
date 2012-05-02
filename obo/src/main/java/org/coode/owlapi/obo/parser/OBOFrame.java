@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,28 +39,46 @@
 
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br><br>
+ * Stanford University<br>
+ * Bio-Medical Informatics Research Group<br>
+ * Date: 19/04/2012
  */
-@SuppressWarnings("javadoc")
-public class IDTagValueHandler extends AbstractTagValueHandler {
+public class OBOFrame {
 
-    public IDTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.ID.getName(), consumer);
+    private String frameType;
+    
+    private List<OBOTagValuePair> tagValuePairs;
+
+    public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
+        this.tagValuePairs = tagValuePairs;
+    }
+
+    public OBOFrame(String frameType, List<OBOTagValuePair> tagValuePairs) {
+        this.frameType = frameType;
+        this.tagValuePairs = new ArrayList<OBOTagValuePair>(tagValuePairs);
+    }
+
+    public String getFrameType() {
+        return frameType;
+    }
+
+    public List<OBOTagValuePair> getTagValuePairs() {
+        return Collections.unmodifiableList(tagValuePairs);
+    }
+    
+    public boolean isHeaderFrame() {
+        return frameType == null;
+    }
+
+    public boolean isTypeDefFrame() {
+        return OBOVocabulary.TYPEDEF.getName().equals(frameType);
     }
 
 
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        getConsumer().setCurrentId(value);
-        final OWLEntity entity = getConsumer().getCurrentEntity();
-        if (entity != null){
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLDeclarationAxiom(entity)));
-        }
-    }
 }
