@@ -118,21 +118,7 @@ public class OBOConsumer implements OBOParserHandler {
         for (OBOVocabulary v : OBOVocabulary.values()) {
             tagIRICache.put(v.getName(), v.getIRI());
         }
-
-        try {
-            String baseURIPath = getDefaultOntologyTagValue(baseIRI);
-            
-            this.ontologyTagValue = baseURIPath;
-            String baseURIString = URLEncoder.encode(baseIRI.toString(), "utf-8");
-            URI baseURI = new URI(baseURIString);
-
-        }
-        catch (URISyntaxException e) {
-            // Hmmmm
-        }
-        catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("Broken JVM:  UTF-8 Encoding is not supported!");
-        }
+        this.ontologyTagValue = getDefaultOntologyTagValue(baseIRI);
 
 
         loadBuiltinURIs();
@@ -171,6 +157,9 @@ public class OBOConsumer implements OBOParserHandler {
         return currentId;
     }
 
+    public void addSymbolicIdMapping(String symbolicName, IRI fullIRI) {
+        symbolicIdCache.put(symbolicName, fullIRI);
+    }
 
     /**
      * Sets the value of the default-namespace tag for the current ontology being parsed.
@@ -509,20 +498,25 @@ public class OBOConsumer implements OBOParserHandler {
 //        }
     }
 
-    public IRI getIRIFromSymbolicId(String symbolicId) {
-        if (symbolicId == null) {
-            throw new NullPointerException("symbolicId must not be null.");
-        }
-        IRI cachedIRI = symbolicIdCache.get(symbolicId);
-        if (cachedIRI != null) {
-            return cachedIRI;
-        }
-        IRI freshIRI = IRI.create(OBOVocabulary.OBO_IRI_BASE + symbolicId);
-        symbolicIdCache.put(symbolicId, freshIRI);
-        return freshIRI;
-    }
+//    public IRI getIRIFromSymbolicId(String symbolicId) {
+//        if (symbolicId == null) {
+//            throw new NullPointerException("symbolicId must not be null.");
+//        }
+//        IRI cachedIRI = symbolicIdCache.get(symbolicId);
+//        if (cachedIRI != null) {
+//            return cachedIRI;
+//        }
+//        IRI freshIRI = IRI.create(OBOVocabulary.OBO_IRI_BASE + symbolicId);
+//        symbolicIdCache.put(symbolicId, freshIRI);
+//        return freshIRI;
+//    }
 
     public IRI getRelationIRIFromSymbolicIdOrOBOId(String symbolicIdOrOBOId) {
+        IRI fullIRI = symbolicIdCache.get(symbolicIdOrOBOId);
+        if(fullIRI != null) {
+            return fullIRI;
+        }
+        
         OBOIdType idType = OBOIdType.getIdType(symbolicIdOrOBOId);
         if (idType == null) {
             throw new RuntimeException("Invalid ID: " + symbolicIdOrOBOId + " in frame " + currentId);
@@ -530,13 +524,6 @@ public class OBOConsumer implements OBOParserHandler {
         else {
             return idType.getIRIFromOBOId(ontology.getOntologyID(), idSpaceManager, symbolicIdOrOBOId);
         }
-//        OBOIdType type = OBOIdType.getIdType(symbolicIdOrOBOId);
-//        if(type == null || (type != OBOIdType.CANONICAL_PREFIXED_ID && type != OBOIdType.NON_CANONICAL_PREFIXED_ID)) {
-//            return getIRIFromSymbolicId(symbolicIdOrOBOId);
-//        }
-//        else {
-//            return type.getIRIFromOBOId(ontology.getOntologyID(), idSpaceManager, symbolicIdOrOBOId);
-//        }
     }
 
 
@@ -554,10 +541,6 @@ public class OBOConsumer implements OBOParserHandler {
         IRI freshIRI = type.getIRIFromOBOId(ontologyID, idSpaceManager, trimmed);
         uriCache.put(trimmed, freshIRI);
         return freshIRI;
-//        String escapedString = s.replace(" ", "%20");
-//        IRI freshIRI = OBOVocabulary.ID2IRI(escapedString, idSpaceManager);
-//        uriCache.put(s, freshIRI);
-//        return freshIRI;
     }
 
 
