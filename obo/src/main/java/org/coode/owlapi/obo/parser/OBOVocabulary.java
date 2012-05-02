@@ -46,6 +46,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 
 /**
@@ -58,46 +60,49 @@ import org.semanticweb.owlapi.model.IRI;
 public enum OBOVocabulary {
 
 
-
     DATA_VERSION("data-version"),
     VERSION("version"),
-    DATE("date"),
+    DATE("date", DublinCoreVocabulary.DATE.getIRI()),
     SAVED_BY("saved-by"),
     AUTO_GENERATED_BY("auto-generated-by"),
     ONTOLOGY("ontology"),
-    SUBSETDEF("subsetdef"),
+    SUBSETDEF("subsetdef", OBOPrefix.OBO_IN_OWL, "SubsetProperty"),
     IMPORT("import"),
-    SYNONYM_TYPE_DEF("synonymtypedef"),
-    SYNONYM_TYPE("synonymtype"),
+    SYNONYM_TYPE_DEF("synonymtypedef", OBOPrefix.OBO_IN_OWL, "SynonymTypeProperty"),
+    SYNONYM_TYPE("synonym-type", OBOPrefix.OBO_IN_OWL, "hasSynonymType"),
     ID_SPACE("id_space"),
     DEFAULT_RELATIONSHIP_ID_PREFIX("default-relationship-id-prefix"),
     ID_MAPPING("id-mapping"),
     REMARK("remark"),
     ID("id"),
-    NAME("name"),
+    NAME("name", OWLRDFVocabulary.RDFS_LABEL.getIRI()),
     FORMAT_VERSION("format-version"),
     TYPEDEF("Typedef"),
-    ALT_ID("alt_id"),
+    ALT_ID("alt_id", OBOPrefix.OBO_IN_OWL, "hasAlternativeId"),
+    SHORT_HAND("shorthand", OBOPrefix.OBO_IN_OWL, "shorthand"),
     ALT_NAME("alt_name"),
     NAMESPACE("namespace"),
     DEFAULT_NAMESPACE("default-namespace"),
     DEF("def"),
-    COMMENT("comment"),
-    SUBSET("subset"),
+    COMMENT("comment", OWLRDFVocabulary.RDFS_COMMENT.getIRI()),
+    SUBSET("subset", OBOPrefix.OBO_IN_OWL, "inSubset"),
+
     SYNONYM("synonym"),
-    RELATED_SYNONYM("related_synonym"),
-    EXACT_SYNONYM("exact_synonym"),
-    BROAD_SYNONYM("broad_synonym"),
-    NARROW_SYNONYM("narrow_synonym"),
-    XREF("xref"),
+    HAS_SCOPE("hasScope", OBOPrefix.OBO_IN_OWL),
+    RELATED_SYNONYM("relatedSynonym", OBOPrefix.OBO_IN_OWL, "hasRelatedSynonym"),
+    EXACT_SYNONYM("exactSynonym", OBOPrefix.OBO_IN_OWL, "hasExactSynonym"),
+    BROAD_SYNONYM("broadSynonym", OBOPrefix.OBO_IN_OWL, "hasBroadSynonym"),
+    NARROW_SYNONYM("narrowSynonym", OBOPrefix.OBO_IN_OWL, "hasNarrowSynonym"),
+
+    XREF("xref", OBOPrefix.OBO_IN_OWL),
     XREF_ANALOGUE("xref_analogue"),
     XREF_UNKNOWN("xref_unk"),
     IS_A("is_a"),
+    IS_OBSOLETE("is_obsolete", OWLRDFVocabulary.OWL_DEPRECATED.getIRI()),
     PART_OF("part_of"),
     RELATIONSHIP("relationship"),
-    IS_OBSOLETE("is_obsolete"),
     REPLACED_BY("replaced_by"),
-    CONSIDER("consider"),
+    CONSIDER("consider", OBOPrefix.OBO_IN_OWL, "consider"),
     USE_TERM("use_term"),
     DOMAIN("domain"),
     RANGE("range"),
@@ -122,7 +127,7 @@ public enum OBOVocabulary {
     PROPERTY_VALUE("property_value"),
     IS_ANONYMOUS("is_anonymous");
 
-/**
+    /**
      * @deprecated Use {@link #OBO_IRI_BASE}
      */
     @Deprecated
@@ -132,10 +137,10 @@ public enum OBOVocabulary {
      * @deprecated Use {@link #OBO_IRI_BASE}
      */
     @Deprecated
-    public static final String ANNOTATION_URI_BASE = "http://www.geneontology.org/formats/oboInOwl";
+    public static final String ANNOTATION_URI_BASE = OBOPrefix.OBO_IN_OWL.getPrefix();
 
 
-    public static final String OBO_IRI_BASE = "http://purl.obolibrary.org/obo/";
+    public static final String OBO_IRI_BASE = OBOPrefix.OBO.getPrefix();
 
 
     public static final String LEGACY_OBO_IRI_BASE = "http://purl.org/obo/owl/";//
@@ -146,38 +151,54 @@ public enum OBOVocabulary {
      */
     public static final Pattern OBO_ID_PATTERN = Pattern.compile("(([^:]+):)?(.+)");
 
-    private static final String bases = Pattern.quote(OBO_IRI_BASE) + "|" + Pattern.quote(ONTOLOGY_URI_BASE + "/") + "|" + Pattern.quote(LEGACY_OBO_IRI_BASE) + "|" + Pattern.quote(ANNOTATION_URI_BASE + "/");
+    private static final String bases = Pattern.quote(OBO_IRI_BASE) + "|" + Pattern.quote(ONTOLOGY_URI_BASE + "/") + "|" + Pattern.quote(LEGACY_OBO_IRI_BASE) + "|" + Pattern.quote(ANNOTATION_URI_BASE);
 
     public static final Pattern OBO_IRI_PATTERN = Pattern.compile("(" + bases + ")" + "(([^\\_]*)\\_)?([A-Za-z0-9\\_\\-]*)");
 
-
-
-
-
-    /**
-     * Converts OBO Ids to IRIs.  The conversion is defined at
-     * <a href="http://www.obofoundry.org/id-policy.shtml">http://www.obofoundry.org/id-policy.shtml</a>
-     * @param oboId The Id to convert
-     * @return The IRI of the converted Id
-     */
-    public static IRI ID2IRI(String oboId) {
-        Matcher matcher = OBO_ID_PATTERN.matcher(oboId);
-        if(matcher.matches()) {
-            String idSpace = matcher.group(2);
-            String localId = matcher.group(3);
-            StringBuilder sb = new StringBuilder();
-            sb.append(OBO_IRI_BASE);
-            if (idSpace != null) {
-                sb.append(idSpace);
-                sb.append("_");
-            }
-            sb.append(localId);
-            return IRI.create(sb.toString());
-        }
-        else {
-            return IRI.create(oboId);
-        }
-    }
+//    private static final IDSpaceManager DEFAULT_ID_SPACE_MANAGER = new IDSpaceManager() {
+//        @Override
+//        public void setIRIPrefix(String idPrefix, String iriPrefix) {
+//            throw new RuntimeException("The default id space manager must not be used for custom prefixes.");
+//        }
+//    };
+//
+//    /**
+//     * Converts OBO Ids to IRIs.  The conversion is defined at
+//     * <a href="http://www.obofoundry.org/id-policy.shtml">http://www.obofoundry.org/id-policy.shtml</a>
+//     * @param oboId The Id to convert
+//     * @return The IRI of the converted Id
+//     */
+//    public static IRI ID2IRI(String oboId) {
+//        return ID2IRI(oboId, DEFAULT_ID_SPACE_MANAGER);
+//    }
+//
+//    /**
+//     * Converts OBO Ids to IRIs.  The conversion is defined at
+//     * <a href="http://www.obofoundry.org/id-policy.shtml">http://www.obofoundry.org/id-policy.shtml</a>.
+//     * @param oboId The OBO Id to convert.
+//     * @param idSpaceManager An {@link IDSpaceManager} which can be used to customise the IRI prefixes used in the
+//     * conversion.
+//     * @return The IRI of the converted Id.
+//     */
+//    public static IRI ID2IRI(String oboId, IDSpaceManager idSpaceManager) {
+//        Matcher matcher = OBO_ID_PATTERN.matcher(oboId);
+//        if (matcher.matches()) {
+//            String idSpace = matcher.group(2);
+//            String localId = matcher.group(3);
+//            StringBuilder sb = new StringBuilder();
+//            String iriPrefix = idSpaceManager.getIRIPrefix(idSpace);
+//            sb.append(iriPrefix);
+//            if (idSpace != null) {
+//                sb.append(idSpace);
+//                sb.append("_");
+//            }
+//            sb.append(localId);
+//            return IRI.create(sb.toString());
+//        }
+//        else {
+//            return IRI.create(oboId);
+//        }
+//    }
 
 //    Format of Foundry-compliant URIs
 //
@@ -188,68 +209,66 @@ public enum OBOVocabulary {
 //
 //    LEGACY_OBO_URI ::= "http://purl.org/obo/owl/" IDSPACE "#" IDSPACE "_" LOCALID
 
-    public static String IRI2ID(IRI oboIRI) {
-        Matcher matcher = OBO_IRI_PATTERN.matcher(oboIRI.toString());
-        if(matcher.matches()) {
-            String idSpace = matcher.group(3);
-            String localId = matcher.group(4);
-            StringBuilder sb = new StringBuilder();
-            if (idSpace != null) {
-                sb.append(idSpace);
-                sb.append(":");
-            }
-            sb.append(localId);
-            return sb.toString();
-        }
-        else {
-            throw new RuntimeException("Not an OBO IRI");
-        }
-    }
+//    public static String IRI2ID(IRI oboIRI) {
+//        Matcher matcher = OBO_IRI_PATTERN.matcher(oboIRI.toString());
+//        if (matcher.matches()) {
+//            String idSpace = matcher.group(3);
+//            String localId = matcher.group(4);
+//            StringBuilder sb = new StringBuilder();
+//            if (idSpace != null) {
+//                sb.append(idSpace);
+//                sb.append(":");
+//            }
+//            sb.append(localId);
+//            return sb.toString();
+//        }
+//        else {
+//            throw new RuntimeException("Not an OBO IRI");
+//        }
+//    }
+
 
     public static boolean isOBOIRI(IRI oboIRI) {
         return OBO_ID_PATTERN.matcher(oboIRI.toString()).matches();
     }
 
 
-
-    private static final List<OBOVocabulary> headerTags =
-            Arrays.asList(FORMAT_VERSION, DATA_VERSION, DATE, SAVED_BY,
-                          AUTO_GENERATED_BY, SUBSETDEF, IMPORT, SYNONYM_TYPE_DEF,
-                          ID_SPACE, DEFAULT_RELATIONSHIP_ID_PREFIX, ID_MAPPING,
-                          REMARK);
+    private static final List<OBOVocabulary> headerTags = Arrays.asList(FORMAT_VERSION, DATA_VERSION, DATE, SAVED_BY, AUTO_GENERATED_BY, SUBSETDEF, IMPORT, SYNONYM_TYPE_DEF, ID_SPACE, DEFAULT_RELATIONSHIP_ID_PREFIX, ID_MAPPING, REMARK);
 
 
-    private static final List<OBOVocabulary> termStanzaTags =
-            Arrays.asList(ID, NAME, NAMESPACE, ALT_ID,
-                          DEF, COMMENT, SUBSET, SYNONYM, XREF,
-                          IS_A, INTERSECTION_OF, UNION_OF,
-                          DISJOINT_FROM, RELATIONSHIP,
-                          IS_OBSOLETE, REPLACED_BY, CONSIDER);
+    private static final List<OBOVocabulary> termStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF, COMMENT, SUBSET, SYNONYM, XREF, IS_A, INTERSECTION_OF, UNION_OF, DISJOINT_FROM, RELATIONSHIP, IS_OBSOLETE, REPLACED_BY, CONSIDER);
 
 
-    private static final List<OBOVocabulary> typeDefStanzaTags =
-            Arrays.asList(ID, NAME, NAMESPACE, ALT_ID,
-                          DEF, COMMENT, SUBSET, SYNONYM, XREF,
-                          DOMAIN, RANGE, IS_ASYMMETRIC,
-                          IS_CYCLIC, IS_REFLEXIVE, IS_SYMMETRIC,
-                          IS_TRANSITIVE, IS_A, INVERSE, TRANSITIVE_OVER,
-                          RELATIONSHIP, IS_METADATA_TAG,
-                          IS_OBSOLETE, REPLACED_BY, CONSIDER);
+    private static final List<OBOVocabulary> typeDefStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF, COMMENT, SUBSET, SYNONYM, XREF, DOMAIN, RANGE, IS_ASYMMETRIC, IS_CYCLIC, IS_REFLEXIVE, IS_SYMMETRIC, IS_TRANSITIVE, IS_A, INVERSE, TRANSITIVE_OVER, RELATIONSHIP, IS_METADATA_TAG, IS_OBSOLETE, REPLACED_BY, CONSIDER);
 
 
-    private static final List<OBOVocabulary> instanceStanzaTags =
-            Arrays.asList(ID, NAME, NAMESPACE, ALT_ID,
-                          DEF, COMMENT, SYNONYM, XREF,
-                          INSTANCE_OF, PROPERTY_VALUE,
-                          IS_OBSOLETE, REPLACED_BY, CONSIDER);
+    private static final List<OBOVocabulary> instanceStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF, COMMENT, SYNONYM, XREF, INSTANCE_OF, PROPERTY_VALUE, IS_OBSOLETE, REPLACED_BY, CONSIDER);
 
 
     OBOVocabulary(String name) {
         this.name = name;
+        this.iri = IRI.create(OBOPrefix.OBO.getPrefix() + name);
+    }
+
+    OBOVocabulary(String name, OBOPrefix prefix) {
+        this.name = name;
+        this.iri = IRI.create(prefix.getPrefix() + name);
+    }
+
+
+    OBOVocabulary(String name, OBOPrefix prefix, String localName) {
+        this.name = name;
+        this.iri = IRI.create(prefix.getPrefix() + localName);
+    }
+
+    OBOVocabulary(String name, IRI iri) {
+        this.name = name;
+        this.iri = iri;
     }
 
     private String name;
 
+    private IRI iri;
 
     public String getName() {
         return name;
@@ -257,12 +276,12 @@ public enum OBOVocabulary {
 
 
     public IRI getIRI() {
-        return ID2IRI(name);
+        return iri;
     }
 
 
     @Override
-	public String toString() {
+    public String toString() {
         return name;
     }
 

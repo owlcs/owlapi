@@ -54,11 +54,11 @@ public interface OBOParserHandler {
     void endHeader();
 
 
-    void startStanza(String name);
+    void startFrame(String name);
 
 
-    void endStanza();
+    void endFrame();
 
 
-    void handleTagValue(String tag, String value, String comment);
+    void handleTagValue(String tag, String value, String qualifierBlock, String comment);
 }

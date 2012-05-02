@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,30 +39,71 @@
 
 package org.coode.owlapi.obo.parser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br><br>
- */  @SuppressWarnings("unused")
-public class OBOParserHandlerAdapter implements OBOParserHandler {
+ * Stanford University<br>
+ * Bio-Medical Informatics Research Group<br>
+ * Date: 19/04/2012
+ */
+public class RawFrameHandler implements OBOParserHandler {
+
+    private String currentFrameType;
+    
+    private List<OBOTagValuePair> currentTagValuePairs = new ArrayList<OBOTagValuePair>();
+    
+    private OBOFrame headerFrame;
+    
+    
+    private List<OBOFrame> typeDefFrames = new ArrayList<OBOFrame>();
+    
+    private List<OBOFrame> nonTypeDefFrames = new ArrayList<OBOFrame>();
+    
+    public void startHeader() {
+        currentTagValuePairs.clear();
+    }
 
     public void endHeader() {
+        headerFrame = new OBOFrame(currentTagValuePairs);
     }
 
+    public void startFrame(String frameType) {
+        currentFrameType = frameType;
+        currentTagValuePairs.clear();
+    }
 
     public void endFrame() {
+        storeCurrentFrame();
     }
 
+    private OBOFrame storeCurrentFrame() {
+        OBOFrame frame = new OBOFrame(currentFrameType, currentTagValuePairs);
+        if(frame.isTypeDefFrame()) {
+            typeDefFrames.add(frame);
+        }
+        else {
+            nonTypeDefFrames.add(frame);
+        }
+        return frame;
+    }
 
     public void handleTagValue(String tag, String value, String qualifierBlock, String comment) {
+        OBOTagValuePair tvp = new OBOTagValuePair(tag, value, qualifierBlock, comment);
+        currentTagValuePairs.add(tvp);
+    }
+
+    public OBOFrame getHeaderFrame() {
+        return headerFrame;
     }
 
 
-    public void startHeader() {
+    public List<OBOFrame> getTypeDefFrames() {
+        return typeDefFrames;
     }
 
-
-    public void startFrame(String name) {
+    public List<OBOFrame> getNonTypeDefFrames() {
+        return nonTypeDefFrames;
     }
 }

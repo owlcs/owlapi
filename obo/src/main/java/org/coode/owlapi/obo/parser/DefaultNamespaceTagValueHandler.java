@@ -42,14 +42,48 @@ package org.coode.owlapi.obo.parser;
 import java.util.Locale;
 
 import org.coode.string.EscapeUtils;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.*;
 
 
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 01-Sep-2008<br><br>
+ * <p/>
+ * OBO Namespaces are NOT like XML Namespaces.  They are NOT used to form abbreviations for IRIs.  The description
+ * below, taken from the OBOEdit manual, explains their provenance.
+ * <p/>
+ * <h3>OBO Namespaces and Ontology Name (OBO Syntax and Semantics Document: Section 4.3)</h3>
+ * <p/>
+ * Note that OBO namespaces are not the same as OWL namespaces - the analog of OWL namespaces are OBO ID spaces. OBO
+ * namespaces are semantics-free properties of a frame that allow partitioning of an ontology into sub-ontologies. For
+ * example, the GO is partitioned into 3 ontologies (3 OBO namespaces, 1 OWL namespace).
+ * <p/>
+ * Every frame must have exactly one namespace. However, these do not need to be explicitly assigned. After parsing an
+ * OBO Document, any frame without a namespace is assigned the default-namespace, from the OBO Document header. If this
+ * is not specified, the Parser assigns a namespace arbitrarily. It is recommended this is equivalent to the URL or
+ * file
+ * path from which the document was retrieved.
+ * <p/>
+ * Every OBODoc should have an "ontology" tag specified in the header. If this is not specified, then the parser should
+ * supply a default value. This value should be derived from the URL of the source of the ontology (typically using
+ * http
+ * or file schemes).
+ * <p/>
+ * <p/>
+ * <p/>
+ * <p/>
+ * <h3>OBO Namespaces (From the OBOEdit Manual)</h3>
+ * <p/>
+ * Namespaces
+ * <p/>
+ * OBO files are designed to be easily merged and separated. Most tools that use OBO files can load many OBO files at
+ * once. If several ontologies have been loaded together and saved into a single file, it would be impossible to know
+ * which terms came from which file unless the origin of each term is indicated somehow. Namespaces are used to solve
+ * this problem by indicating a "logical ontology" to which every term, relation, instance OR relationship belongs,
+ * i.e., each entity is tagged with a Namespace that indicates which ontology it is part of.
+ * <p/>
+ * Namespaces are user-definable. Every ontology object belongs to a single namespace. When terms from many ontologies
+ * have been loaded together, namespaces are used to break the merged ontology back into separate files.
  */
 @SuppressWarnings("javadoc")
 public class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
@@ -60,23 +94,11 @@ public class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value, String comment) {
-        // Set the base to be the default base + default prefix
-        String unescaped = EscapeUtils.unescapeString(value);
-
-        String stripped = unescaped.replace(" ", "-");
-        if (!stripped.startsWith("http:")) {
-            getConsumer().setDefaultNamespace(value.toUpperCase(Locale.getDefault()));
-            IRI iri = getIdIRI(stripped);
-            applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(iri)));
-        }
-        else {
-            if(stripped.endsWith("/")) {
-                stripped = stripped.substring(0, stripped.length() - 1);
-            }
-            IRI iri = IRI.create(stripped);
-            applyChange(new SetOntologyID(getOntology(), new OWLOntologyID(iri)));
-        }
-
+    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+        // Just register the namespace with the consumer and add it as an annotation to the ontology
+        getConsumer().setDefaultNamespaceTagValue(value);
+        // Add an annotation to the ontology
+        OWLAnnotation annotation = getAnnotationForTagValuePair(OBOVocabulary.DEFAULT_NAMESPACE.getName(), value);
+        applyChange(new AddOntologyAnnotation(getOntology(), annotation));
     }
 }

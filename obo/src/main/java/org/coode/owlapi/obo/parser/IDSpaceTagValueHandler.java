@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,28 +39,33 @@
 
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br><br>
+ * Stanford University<br>
+ * Bio-Medical Informatics Research Group<br>
+ * Date: 18/04/2012
  */
-@SuppressWarnings("javadoc")
-public class IDTagValueHandler extends AbstractTagValueHandler {
+public class IDSpaceTagValueHandler extends AbstractTagValueHandler {
+    
+    private static final Pattern PATTERN = Pattern.compile("([^\\s]*)\\s+([^\\s]*)");
 
-    public IDTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.ID.getName(), consumer);
+    private static final int ID_PREFIX_GROUP = 1;
+    
+    private static final int IRI_PREFIX_GROUP = 2;
+    
+    public IDSpaceTagValueHandler(OBOConsumer consumer) {
+        super(OBOVocabulary.ID_SPACE.getName(), consumer);
     }
 
-
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        getConsumer().setCurrentId(value);
-        final OWLEntity entity = getConsumer().getCurrentEntity();
-        if (entity != null){
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLDeclarationAxiom(entity)));
+        Matcher matcher = PATTERN.matcher(value);
+        if(matcher.matches()) {
+            String idPrefix = matcher.group(ID_PREFIX_GROUP);
+            String iriPrefix = matcher.group(IRI_PREFIX_GROUP);
+            getConsumer().registerIdSpace(idPrefix, iriPrefix);
         }
     }
 }

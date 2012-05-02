@@ -58,13 +58,13 @@ public class ReflexiveHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock, String comment) {
         if (Boolean.parseBoolean(value)) {
-            OWLObjectProperty prop = getOWLObjectProperty(id);
+            OWLObjectProperty prop = getOWLObjectProperty(currentId);
             OWLAxiom ax = getDataFactory().getOWLReflexiveObjectPropertyAxiom(prop);
             applyChange(new AddAxiom(getOntology(), ax));
         } else {
-            addAnnotation(id, OBOVocabulary.IS_REFLEXIVE.getName(), getBooleanConstant(false));
+            addAnnotation(currentId, OBOVocabulary.IS_REFLEXIVE.getName(), getBooleanConstant(false));
         }
     }
 }

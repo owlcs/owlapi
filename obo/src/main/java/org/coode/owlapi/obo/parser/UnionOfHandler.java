@@ -53,7 +53,7 @@ public class UnionOfHandler extends AbstractTagValueHandler {
     }
 
 
-    public void handle(String id, String value, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock, String comment) {
         getConsumer().addUnionOfOperand(getOWLClassOrRestriction(value));
     }
 }

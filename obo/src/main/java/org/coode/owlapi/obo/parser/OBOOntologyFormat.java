@@ -50,6 +50,19 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public class OBOOntologyFormat extends OWLOntologyFormat {
 
+    private IDSpaceManager idSpaceManager = new IDSpaceManager();
+
+    public OBOOntologyFormat() {
+    }
+
+    /**
+     * Constructs an OBOOntologyFormat object.
+     * @param idSpaceManager An {@link IDSpaceManager} which specifies mappings between id prefixes and IRI prefixes.
+     */
+    public OBOOntologyFormat(IDSpaceManager idSpaceManager) {
+        this.idSpaceManager = idSpaceManager;
+    }
+
     /**
      * Returns a string representation of the object. In general, the
      * <code>toString</code> method returns a string that
@@ -72,6 +85,15 @@ public class OBOOntologyFormat extends OWLOntologyFormat {
      */
     @Override
 	public String toString() {
-        return "OBO 1.2 flat file";
+        return "OBO Format";
+    }
+
+    /**
+     * Gets the OBO id-space manager.  This is NOT the same as a prefix manager.
+     * @return The {@link IDSpaceManager} for this format.  For ontologies parsed from an OBO file this will contain
+     * any id prefix to IRI prefix mappings that were parsed out of the file (from id-space tags).  Not null.
+     */
+    public IDSpaceManager getIdSpaceManager() {
+        return idSpaceManager;
     }
 }

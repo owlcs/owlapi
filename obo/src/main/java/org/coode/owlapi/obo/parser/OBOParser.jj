@@ -1,7 +1,7 @@
 options {
 JAVA_UNICODE_ESCAPE=true;
     STATIC=false;
-    //DEBUG_TOKEN_MANAGER=true;
+    // DEBUG_TOKEN_MANAGER=true;
 }
 
 PARSER_BEGIN(OBOParser)
@@ -94,30 +94,64 @@ TOKEN:
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
-<IN_TAG_VALUE> TOKEN :
+
+<IN_TAG_VALUE> SKIP:
 {
-    <TAG_VALUE: (~["\n","\r","!"]|"\\"~["\n"])+>
+    <QUOTED_STRING_START: "\""> : IN_QUOTED_STRING
 }
 
-<IN_TAG_VALUE> SKIP :
+<IN_QUOTED_STRING> TOKEN :
 {
-    <TAG_VALUE_END: ("\n"|"\r")+> : DEFAULT
+    <QUOTED_STRING: ("\\\""|"\\\n"|"\\\r"|~["\"","\r","\n"])+>
 }
+
+<IN_QUOTED_STRING> SKIP :
+{
+    <QUOTED_STRING_DBL_QUOTE_TERMINATOR: (["\""])> : IN_TAG_VALUE  // To allow for malformed files - they do exist!
+}
+
+<IN_QUOTED_STRING> SKIP :
+{
+    <QUOTED_STRING_NEW_LINE_TERMINATOR: (["\n","\r"])> : DEFAULT
+}
+
+
+
 
 <IN_TAG_VALUE> TOKEN:
+{
+    <STRING: (~["\n","\r"," ","\t","!"])+>
+}
+
+
+<IN_TAG_VALUE> TOKEN :
+{
+    <TAG_VALUE_WS: (" "|"\t")+>
+}
+
+
+<IN_TAG_VALUE> SKIP:
+{
+    <TAG_END: ("\n"|"\r")> : DEFAULT
+}
+
+
+<IN_TAG_VALUE> SKIP:
 {
     <COMMENT_START: "!"> : IN_COMMENT
 }
 
-<IN_COMMENT> TOKEN :
+<IN_COMMENT> TOKEN:
 {
-    <COMMENT: (~["\r","\n"])+>
+    <COMMENT: ("\\\n"|"\\\r"|~["\n","\r"])+>
 }
 
 <IN_COMMENT> SKIP :
 {
     <COMMENT_END: ("\n"|"\r")+> : DEFAULT
 }
+
+
 
 
 TOKEN:
@@ -152,8 +186,8 @@ void Stanza() :
 {
 
 
-    (<OPEN_SQUARE_BRACKET>t=<STANZA_TYPE>{handler.startStanza(t.image);}<CLOSE_SQUARE_BRACKET> (TagValuePair())*)
-    {handler.endStanza();}
+    (<OPEN_SQUARE_BRACKET>t=<STANZA_TYPE>{handler.startFrame(t.image);}<CLOSE_SQUARE_BRACKET> (TagValuePair())*)
+    {handler.endFrame();}
 }
 
 
@@ -161,21 +195,30 @@ void TagValuePair() :
 {
     Token tagToken = null;
     Token valToken = null;
+    String qualifierBlock = "";
     String comment = "";
+    Token t;
+    StringBuilder sb = new StringBuilder();
+
 }
 {
-    tagToken=<TAG_NAME> (valToken=<TAG_VALUE>)? (comment=Comment())? {
+    tagToken=<TAG_NAME> ((t=<QUOTED_STRING>{sb.append(t.image);} | t=<STRING>{sb.append(t.image);} | t=<TAG_VALUE_WS>{sb.append(t.image);}))* (comment=Comment())? {
         String name = tagToken.image.trim();
-        String val = "";
-        if(valToken != null) {
-            val=valToken.image.trim();
+        String val = sb.toString().trim();
+        // This a real mess.  The OBO format allows qualifier blocks at the end of lines.  However, things that look
+        // like qualifier blocks can appear in the middle of values for comment tags.
+        if(val.endsWith("}")) {
+            int qualifierStart = val.lastIndexOf("{");
+            if(qualifierStart != -1) {
+                qualifierBlock = val.substring(qualifierStart);
+                val = val.substring(0, qualifierStart).trim();
+            }
         }
-        handler.handleTagValue(name, val, comment);
+        handler.handleTagValue(name, val, qualifierBlock, comment);
     }
 
 
 }
-
 
 
 String Comment() :
@@ -183,5 +226,7 @@ String Comment() :
     Token t;
 }
 {
-     <COMMENT_START> t=<COMMENT> {return t.image;}
+     t=<COMMENT> {return t.image;}
 }
+
+
