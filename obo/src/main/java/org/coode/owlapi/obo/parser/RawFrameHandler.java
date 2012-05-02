@@ -41,6 +41,7 @@ package org.coode.owlapi.obo.parser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author: Matthew Horridge<br>
@@ -55,7 +56,6 @@ public class RawFrameHandler implements OBOParserHandler {
     private List<OBOTagValuePair> currentTagValuePairs = new ArrayList<OBOTagValuePair>();
     
     private OBOFrame headerFrame;
-    
     
     private List<OBOFrame> typeDefFrames = new ArrayList<OBOFrame>();
     

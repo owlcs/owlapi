@@ -111,9 +111,9 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         return consumer.getIRIFromOBOId(id);
     }
     
-    public IRI getIRIFromSymbolicId(String symbolicId) {
-        return consumer.getIRIFromSymbolicId(symbolicId);
-    }
+//    public IRI getIRIFromSymbolicId(String symbolicId) {
+//        return consumer.getIRIFromSymbolicId(symbolicId);
+//    }
 
     
 
