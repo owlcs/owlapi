@@ -120,7 +120,7 @@ public enum OBOIdType {
             StringBuilder sb = new StringBuilder();
             sb.append(iriPrefix);
             sb.append(idspace);
-            sb.append("_#");
+            sb.append("#_");
             sb.append(localid);
             return IRI.create(sb.toString());
         }
