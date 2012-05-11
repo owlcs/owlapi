@@ -156,19 +156,12 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
     /**
      * Creates an IRI by concatenating two strings.  The full IRI is an IRI that contains the characters in
      * prefix + suffix.
-     * @param prefix The first string.  Not <code>null</code>.
-     * @param suffix The second string. Not <code>null</code>.
+     * @param prefix The first string.  May be <code>null</code>.
+     * @param suffix The second string. May be <code>null</code>.
      * @return An IRI whose characters consist of prefix + suffix.
-     * @throws NullPointerException if either prefix of suffix are <code>null</code>.
-     * @since 3.5
+     * @since 3.3
      */
     public static IRI create(String prefix, String suffix) {
-        if(prefix == null) {
-            throw new NullPointerException("prefix must not be null");
-        }
-        if(suffix == null) {
-            throw new NullPointerException("suffix must not be null");
-        }
         return new IRIImpl(prefix, suffix);
     }
 
