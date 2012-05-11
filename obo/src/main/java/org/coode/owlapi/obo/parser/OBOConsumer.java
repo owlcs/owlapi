@@ -277,6 +277,7 @@ public class OBOConsumer implements OBOParserHandler {
         addTagHandler(new IDSpaceTagValueHandler(this));
         addTagHandler(new DataVersionTagValueHandler(this));
         addTagHandler(new SynonymTypeDefTagHandler(this));
+        addTagHandler(new AltIdTagValueHandler(this));
     }
 
 
