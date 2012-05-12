@@ -1,0 +1,46 @@
+Index: JavaCharStream.java
+===================================================================
+--- JavaCharStream.java	(revision 1962)
++++ JavaCharStream.java	(working copy)
+@@ -82,6 +82,7 @@
+   protected int nextCharInd = -1;
+   protected int inBuf = 0;
+   protected int tabSize = 8;
++  private boolean beginning = true;
+
+   protected void setTabSize(int i) { tabSize = i; }
+   protected int getTabSize(int i) { return tabSize; }
+@@ -148,6 +149,11 @@
+       }
+       else
+          maxNextCharInd += i;
++      //XXX this treats the BOM problem; when the parser is regenerated, this needs to be applied again
++      if (beginning && nextCharBuf[0] == '\uFEFF') {
++        nextCharInd++;
++        beginning = false;
++      }
+       return;
+     }
+     catch(java.io.IOException e) {
+@@ -457,7 +463,9 @@
+   public JavaCharStream(java.io.InputStream dstream, String encoding, int startline,
+   int startcolumn, int buffersize) throws java.io.UnsupportedEncodingException
+   {
+-    this(encoding == null ? new java.io.InputStreamReader(dstream) : new java.io.InputStreamReader(dstream, encoding), startline, startcolumn, buffersize);
++    this(encoding == null ? new java.io.InputStreamReader(dstream, "UTF-8")
++        : new java.io.InputStreamReader(dstream, encoding), startline,
++        startcolumn, buffersize);
+   }
+
+ /** Constructor. */
+@@ -497,7 +505,9 @@
+   public void ReInit(java.io.InputStream dstream, String encoding, int startline,
+   int startcolumn, int buffersize) throws java.io.UnsupportedEncodingException
+   {
+-    ReInit(encoding == null ? new java.io.InputStreamReader(dstream) : new java.io.InputStreamReader(dstream, encoding), startline, startcolumn, buffersize);
++    ReInit(encoding == null ? new java.io.InputStreamReader(dstream, "UTF-8")
++        : new java.io.InputStreamReader(dstream, encoding), startline,
++        startcolumn, buffersize);
+   }
+
+ /** Reinitialise. */
