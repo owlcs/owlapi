@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
-public class TestPlainLiteral extends TestCase {
+public class TestPlainLiteralTestCase extends TestCase {
 	@Test
     public void testPlainLiteral() {
 		IRI iri = IRI

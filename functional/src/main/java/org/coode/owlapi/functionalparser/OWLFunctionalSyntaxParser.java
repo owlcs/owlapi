@@ -3,7 +3,6 @@ package org.coode.owlapi.functionalparser;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.*;
-import java.net.*;
 import java.util.*;
 import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;

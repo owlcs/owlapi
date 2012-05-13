@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * Date: 05/01/2011
  */
 
-public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTest {
+public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() throws Exception {

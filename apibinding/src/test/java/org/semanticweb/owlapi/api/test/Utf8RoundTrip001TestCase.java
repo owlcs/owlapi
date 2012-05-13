@@ -36,52 +36,64 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 
 import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-@SuppressWarnings("javadoc")
-public class TestImportByLocation extends TestCase {
-	@Test
-    public void testImportOntologyByLocation() {
-		File f = new File("a.owl");
-		try {
 
-			createOntologyFile(IRI.create("http://a.com"), f);
-			OWLOntologyManager mngr = Factory.getManager();
-			OWLDataFactory df = mngr.getOWLDataFactory();
-			// have to load an ontology for it to get a document IRI
-			OWLOntology a = mngr.loadOntologyFromOntologyDocument(f);
-			IRI locA = mngr.getOntologyDocumentIRI(a);
-			IRI bIRI = IRI.create("http://b.com");
-			OWLOntology b = mngr.createOntology(bIRI);
-			// import from the document location of a.owl (rather than the ontology IRI)
-			mngr.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
-			assertEquals(1, b.getImportsDeclarations().size());
-			assertEquals(1, b.getImports().size());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+@SuppressWarnings("javadoc")
+public class Utf8RoundTrip001TestCase extends TestCase {
+	@Test
+    public void testUTF8roundTrip() {
+		try {
+			OWLOntologyManager manager = Factory.getManager();
+			String onto = "Ontology(<http://protege.org/UTF8.owl>"
+					+ "Declaration(Class(<http://protege.org/UTF8.owl#A>))"
+					+ "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://protege.org/UTF8.owl#A> "
+					+ "\"Chinese=處方\"^^<http://www.w3.org/2001/XMLSchema#string>))";
+			ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes());
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			manager.saveOntology(manager.loadOntologyFromOntologyDocument(in), out);
+		} catch (Throwable t) {
+			fail(t.getMessage());
 		}
-		f.delete();
 	}
 
-	private OWLOntology createOntologyFile(IRI iri, File f) throws Exception {
-		OWLOntologyManager mngr = Factory.getManager();
-		OWLOntology a = mngr.createOntology(iri);
-		OutputStream out = new FileOutputStream(f);
-		mngr.saveOntology(a, out);
-		return a;
+	@Test
+    public void testPositiveUTF8roundTrip() {
+		try {
+			String NS = "http://protege.org/UTF8.owl";
+			OWLOntologyManager manager;
+			OWLOntology ontology;
+			manager = Factory.getManager();
+			ontology = manager.createOntology(IRI.create(NS));
+			OWLDataFactory factory = manager.getOWLDataFactory();
+			OWLClass a = factory.getOWLClass(IRI.create(NS + "#A"));
+			manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(a));
+			OWLAnnotationAssertionAxiom axiom = factory.getOWLAnnotationAssertionAxiom(
+					a.getIRI(),
+					factory.getOWLAnnotation(factory.getRDFSLabel(),
+							factory.getOWLLiteral("Chinese=處方")));
+			manager.addAxiom(ontology, axiom);
+			File ontFile = File.createTempFile("OWLApi-utf8", "owl");
+			manager.saveOntology(ontology, new OWLFunctionalSyntaxOntologyFormat(),
+					IRI.create(ontFile));
+			manager = Factory.getManager();
+			ontology = manager.loadOntologyFromOntologyDocument(ontFile);
+		} catch (Throwable t) {
+			fail(t.getMessage());
+		}
 	}
 }

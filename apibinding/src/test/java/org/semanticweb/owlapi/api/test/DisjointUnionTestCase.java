@@ -38,38 +38,44 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import java.util.HashSet;
+import java.util.Set;
 
 import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
-public class TestDubiousCaseMinusInf extends TestCase{
-@Test
-    public void testMinusInf() throws Exception{
-	String input="Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"+
-"Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"+
-"Prefix(:=<http://test.org/test#>)\n"+
-"Ontology(\nDeclaration(NamedIndividual(:a))\n" +
-"Declaration(DataProperty(:dp))\n"+
-"Declaration(Class(:A))\n" +
-"SubClassOf(:A DataAllValuesFrom(:dp owl:real))" +
-"\nSubClassOf(:A \n" +
-"DataSomeValuesFrom(:dp DataOneOf(\"-INF\"^^xsd:float \"-0\"^^xsd:integer))" +
-"\n)" +
-"\n" +
-"ClassAssertion(:A :a)" +
-"\n)";
-	StringDocumentSource in=new StringDocumentSource(input);
-	OWLOntologyManager m=Factory.getManager();
-	OWLOntology o=m.loadOntologyFromOntologyDocument(in);
-	StringDocumentTarget t=new StringDocumentTarget();
-	m.saveOntology(o, t);
-	assertTrue(t.toString()+" should contain -INF", t.toString().contains("-INF"));
-	OWLOntology o1=m.loadOntologyFromOntologyDocument(new StringDocumentSource(t.toString()));
-	assertEquals("Obtologies were supposed to be the same",o.getLogicalAxioms(), o1.getLogicalAxioms());
-}
+public class DisjointUnionTestCase extends TestCase{
+	public static final String NS = "http://protege.org/protege/DisjointUnion.owl";
+	private static OWLDataFactory factory = Factory.getFactory();
+	public static final OWLClass A = factory.getOWLClass(IRI.create(NS + "#A"));
+	public static final OWLClass B = factory.getOWLClass(IRI.create(NS + "#B"));
+	public static final OWLClass C = factory.getOWLClass(IRI.create(NS + "#C"));
+
+	/**
+	 * @param args
+	 * @throws OWLOntologyCreationException
+	 * @throws OWLOntologyStorageException
+	 */
+	@Test
+    public void testDisjointUnion() throws Exception {
+		OWLOntologyManager manager = Factory.getManager();
+		OWLOntology ontology = manager.createOntology(IRI.create(NS));
+		Set<OWLClassExpression> disjoints = new HashSet<OWLClassExpression>();
+		disjoints.add(B);
+		disjoints.add(C);
+		manager.addAxiom(ontology, factory.getOWLDisjointUnionAxiom(A, disjoints));
+		assertTrue(ontology.getDisjointUnionAxioms(A).size()==1);
+		assertTrue(ontology.getDisjointUnionAxioms(B).size()==0);
+	}
+
+
 }

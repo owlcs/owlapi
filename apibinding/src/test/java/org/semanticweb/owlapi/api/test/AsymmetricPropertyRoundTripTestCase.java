@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * 07-Sep-2008<br><br>
  */
 
-public class AsymmetricPropertyRoundTripTestCase extends AbstractRoundTrippingTest {
+public class AsymmetricPropertyRoundTripTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
 	protected OWLOntology createOntology() {

@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
-public class TestBirteW3CWebOnt_oneof_004 extends TestCase {
+public class TestBirteW3CWebOnt_oneof_004TestCase extends TestCase {
 	@Test
     public void testWebOnt() throws Exception {
 		String s = "<!DOCTYPE rdf:RDF [\n"

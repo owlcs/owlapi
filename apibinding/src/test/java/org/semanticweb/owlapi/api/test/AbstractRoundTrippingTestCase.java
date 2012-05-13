@@ -39,45 +39,65 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
+import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.junit.Test;
+import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
+import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+
 
 /**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 30-Jul-2008<br><br>
+ * Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 10-May-2008<br><br>
  */
+@SuppressWarnings("javadoc")
+public abstract class AbstractRoundTrippingTestCase extends AbstractOWLAPITestCase {
 
-public class AnonymousTurtleTestCase2 extends AbstractFileRoundTrippingTestCase {
+    private OWLOntology ont;
 
-    @Override
-	protected String getFileName() {
-        return "testBlankNodes2.ttl";
+    protected abstract OWLOntology createOntology() throws Exception;
+
+    protected OWLOntology getOnt() {
+        return ont;
     }
 
     @Override
-    @Test
-    public void testTurtle() throws Exception {
-//XXX roundtripping is broken but the results seem semantically equivalent
-//    	super.testTurtle();
+	protected void setUp() throws Exception {
+    	super.setUp();
+        ont = createOntology();
     }
 
-    @Override
-    @Test
-    public void testFunctionalSyntax() throws Exception {
-    }
-    @Override
-    @Test
-    public void testManchesterOWLSyntax() throws Exception {
-
-    }
-    @Override
-    @Test
-    public void testOWLXML() throws Exception {
-
-    }
-    @Override
     @Test
     public void testRDFXML() throws Exception {
-
+        roundTripOntology(ont);
     }
 
+    @Test
+    public void testOWLXML() throws Exception {
+        roundTripOntology(ont, new OWLXMLOntologyFormat());
+    }
+
+    @Test
+    public void testFunctionalSyntax() throws Exception {
+        roundTripOntology(ont, new OWLFunctionalSyntaxOntologyFormat());
+    }
+
+    @Test
+    public void testTurtle() throws Exception {
+        roundTripOntology(ont, new TurtleOntologyFormat());
+    }
+
+    @Test
+    public void testManchesterOWLSyntax() throws Exception {
+        roundTripOntology(ont, new ManchesterOWLSyntaxOntologyFormat());
+    }
+
+    @Override
+    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
+        return format instanceof ManchesterOWLSyntaxOntologyFormat;
+    }
 }

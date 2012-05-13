@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 23-Jul-2008<br><br>
  */
-public abstract class AbstractFileRoundTrippingTestCase extends AbstractRoundTrippingTest {
+public abstract class AbstractFileRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
 	protected OWLOntology createOntology() {

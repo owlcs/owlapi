@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Information Management Group<br>
  * Date: 28-May-2009
  */
-public abstract class AbstractAxiomsRoundTrippingTestCase extends AbstractRoundTrippingTest {
+public abstract class AbstractAxiomsRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
 
     private Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 

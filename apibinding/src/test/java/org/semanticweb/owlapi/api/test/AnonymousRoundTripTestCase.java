@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 @SuppressWarnings("javadoc")
-public class AnonymousRoundTrip2 extends TestCase{
+public class AnonymousRoundTripTestCase extends TestCase{
 	@Test
     public void testRoundTrip() throws Exception{
 

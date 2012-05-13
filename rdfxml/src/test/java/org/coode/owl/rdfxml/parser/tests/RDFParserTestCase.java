@@ -62,7 +62,7 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * Date: 16-Mar-2007<br><br>
  */
 @SuppressWarnings("javadoc")
-public class RDFParserTestCases extends TestCase {
+public class RDFParserTestCase extends TestCase {
 
     private OWLOntologyManager man;
 

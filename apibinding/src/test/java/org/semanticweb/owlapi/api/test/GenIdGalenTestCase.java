@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 @SuppressWarnings("javadoc")
-public class GenIdGalenTest extends TestCase {
+public class GenIdGalenTestCase extends TestCase {
 	@Test
     public void testGenIdGalenFragment() throws Exception {
 		String test = "<?xml version=\"1.0\"?>\n"

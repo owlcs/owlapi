@@ -7,7 +7,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-public class OWLLiteralCorruptionTest extends TestCase{
+public class OWLLiteralCorruptionTestCase extends TestCase{
 
 
     @Test

@@ -62,7 +62,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 10-May-2008<br><br>
  */
 
-public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTrippingTest {
+public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
 	protected OWLOntology createOntology() {
