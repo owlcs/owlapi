@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings({"javadoc","deprecation"})
-public class NullCheckTest extends TestCase {
+public class NullCheckTestCase extends TestCase {
 	private static final String MESSAGE = "Exception expected!";
 	private static final OWLDataFactory f = Factory.getFactory();
 	OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;

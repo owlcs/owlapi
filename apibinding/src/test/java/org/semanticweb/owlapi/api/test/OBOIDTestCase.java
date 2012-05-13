@@ -41,10 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import junit.framework.TestCase;
 
-import org.coode.owlapi.obo.parser.OBOVocabulary;
 import org.junit.Ignore;
-import org.junit.Test;
-import org.semanticweb.owlapi.model.IRI;
 
 /**
  * Author: Matthew Horridge<br>

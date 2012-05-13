@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Date: 10-May-2008<br><br>
  */
 
-public class AnonymousRootRoundTrippingTestCase extends AbstractRoundTrippingTest {
+public class AnonymousRootRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
 	protected OWLOntology createOntology() {

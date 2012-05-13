@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Bio-Health Informatics Group<br>
  * Date: 28/09/2011
  */
-public abstract class AbstractLiteralWithEscapeTestCase extends AbstractRoundTrippingTest {
+public abstract class AbstractLiteralWithEscapeTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() throws Exception {

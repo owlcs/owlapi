@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
  * Date: 24-Dec-2009
  */
 
-public class OntologyVersionIRITestCase extends AbstractRoundTrippingTest {
+public class OntologyVersionIRITestCase extends AbstractRoundTrippingTestCase {
 //
 //    @Override
 //    protected String getFileName() {

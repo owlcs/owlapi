@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * Date: 14/01/2011
  */
 
-public class AnonymousOntologyAnnotationsTestCase extends AbstractRoundTrippingTest {
+public class AnonymousOntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() {
         try {

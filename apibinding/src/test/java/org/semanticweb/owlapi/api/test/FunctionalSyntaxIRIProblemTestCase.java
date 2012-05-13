@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-public class FunctionalSyntaxIRIProblem extends TestCase{
+public class FunctionalSyntaxIRIProblemTestCase extends TestCase{
 
 	/**
 	 * @param args

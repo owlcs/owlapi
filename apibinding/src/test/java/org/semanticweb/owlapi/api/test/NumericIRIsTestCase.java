@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
  * Date: 20/09/2011
  */
 @Ignore
-public class NumericIRIsTestCase extends AbstractRoundTrippingTest {
+public class NumericIRIsTestCase extends AbstractRoundTrippingTestCase {
 
     private static final String DEFAULT_PREFIX = "http://owlapi.sourceforge.net/ontology/";
 

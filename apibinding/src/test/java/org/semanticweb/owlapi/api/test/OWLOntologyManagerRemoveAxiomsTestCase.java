@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,44 +38,33 @@
  */
 
 package org.semanticweb.owlapi.api.test;
-import java.util.HashSet;
-import java.util.Set;
 
 import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
-public class DisjointUnionTest extends TestCase{
-	public static final String NS = "http://protege.org/protege/DisjointUnion.owl";
-	private static OWLDataFactory factory = Factory.getFactory();
-	public static final OWLClass A = factory.getOWLClass(IRI.create(NS + "#A"));
-	public static final OWLClass B = factory.getOWLClass(IRI.create(NS + "#B"));
-	public static final OWLClass C = factory.getOWLClass(IRI.create(NS + "#C"));
-
-	/**
-	 * @param args
-	 * @throws OWLOntologyCreationException
-	 * @throws OWLOntologyStorageException
-	 */
+public class OWLOntologyManagerRemoveAxiomsTestCase extends TestCase{
 	@Test
-    public void testDisjointUnion() throws Exception {
-		OWLOntologyManager manager = Factory.getManager();
-		OWLOntology ontology = manager.createOntology(IRI.create(NS));
-		Set<OWLClassExpression> disjoints = new HashSet<OWLClassExpression>();
-		disjoints.add(B);
-		disjoints.add(C);
-		manager.addAxiom(ontology, factory.getOWLDisjointUnionAxiom(A, disjoints));
-		assertTrue(ontology.getDisjointUnionAxioms(A).size()==1);
-		assertTrue(ontology.getDisjointUnionAxioms(B).size()==0);
+    public void testRemove() throws Exception{
+		String premise = "Prefix(:=<http://example.org/>)\n"
+			+ "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+			+ "Ontology(\n" + "  Declaration(NamedIndividual(:a))\n"
+			+ "  Declaration(DataProperty(:dp1))\n"
+			+ "  Declaration(DataProperty(:dp2))\n"
+			+ "  Declaration(Class(:A))\n"
+			+ "  DisjointDataProperties(:dp1 :dp2) \n"
+			+ "  DataPropertyAssertion(:dp1 :a \"10\"^^xsd:integer)\n"
+			+ "  SubClassOf(:A DataSomeValuesFrom(:dp2 \n"
+			+ "    DatatypeRestriction(xsd:integer \n"
+			+ "      xsd:minInclusive \"18\"^^xsd:integer \n"
+			+ "      xsd:maxInclusive \"18\"^^xsd:integer)\n" + "    )\n"
+			+ "  )\n" + "  ClassAssertion(:A :a)\n" + ")";
+		OWLOntologyManager m=Factory.getManager();
+		OWLOntology o=m.loadOntologyFromOntologyDocument(new StringDocumentSource(premise));
+		m.removeAxioms(o, o.getAxioms(AxiomType.DECLARATION));
 	}
-
-
 }
