@@ -39,10 +39,7 @@
 
 package org.coode.owlapi.obo.parser;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;

@@ -41,7 +41,6 @@ package org.coode.owlapi.obo.parser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Author: Matthew Horridge<br>

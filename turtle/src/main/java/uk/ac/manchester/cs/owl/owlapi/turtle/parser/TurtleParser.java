@@ -4,7 +4,6 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.semanticweb.owlapi.model.*;
-import java.net.*;
 import java.util.*;
 import java.io.Reader;
 import java.io.InputStream;

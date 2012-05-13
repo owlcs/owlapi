@@ -39,10 +39,6 @@
 
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.SetOntologyID;
-
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>

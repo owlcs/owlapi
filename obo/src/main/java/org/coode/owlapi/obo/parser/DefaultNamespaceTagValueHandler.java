@@ -39,9 +39,6 @@
 
 package org.coode.owlapi.obo.parser;
 
-import java.util.Locale;
-
-import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.model.*;
 
 
