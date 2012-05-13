@@ -39,7 +39,6 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -62,8 +61,8 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLitera
     private final OWLLiteral literal;
 
     @SuppressWarnings("javadoc")
-	public SWRLLiteralArgumentImpl(OWLDataFactory dataFactory, OWLLiteral literal) {
-        super(dataFactory);
+	public SWRLLiteralArgumentImpl(OWLLiteral literal) {
+        super();
         this.literal = literal;
     }
 

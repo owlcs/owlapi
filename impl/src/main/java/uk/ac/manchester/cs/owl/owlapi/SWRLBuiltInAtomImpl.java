@@ -44,7 +44,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -70,8 +69,8 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
 
 
     @SuppressWarnings("javadoc")
-	public SWRLBuiltInAtomImpl(OWLDataFactory dataFactory, IRI predicate, List<SWRLDArgument> args) {
-        super(dataFactory, predicate);
+	public SWRLBuiltInAtomImpl(IRI predicate, List<SWRLDArgument> args) {
+        super(predicate);
         this.args = new ArrayList<SWRLDArgument>(args);
     }
 

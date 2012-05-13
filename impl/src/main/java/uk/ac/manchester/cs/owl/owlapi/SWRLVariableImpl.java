@@ -40,7 +40,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -61,8 +60,8 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
     private final IRI iri;
 
 
-    protected SWRLVariableImpl(OWLDataFactory dataFactory, IRI iri) {
-        super(dataFactory);
+    protected SWRLVariableImpl(IRI iri) {
+        super();
         this.iri = iri;
     }
 

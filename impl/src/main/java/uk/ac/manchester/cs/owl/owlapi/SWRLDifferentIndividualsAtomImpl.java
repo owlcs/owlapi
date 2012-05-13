@@ -62,7 +62,7 @@ public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIAr
 
 	@SuppressWarnings("javadoc")
 	public SWRLDifferentIndividualsAtomImpl(OWLDataFactory dataFactory, SWRLIArgument arg0, SWRLIArgument arg1) {
-        super(dataFactory, dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM.getIRI()), arg0, arg1);
+        super(dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM.getIRI()), arg0, arg1);
     }
 
 
