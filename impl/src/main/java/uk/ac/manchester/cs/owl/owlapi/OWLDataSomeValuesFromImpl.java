@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
@@ -62,8 +61,8 @@ public class OWLDataSomeValuesFromImpl extends OWLQuantifiedDataRestrictionImpl 
 
 
 	@SuppressWarnings("javadoc")
-    public OWLDataSomeValuesFromImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLDataRange filler) {
-        super(dataFactory, property, filler);
+    public OWLDataSomeValuesFromImpl(OWLDataPropertyExpression property, OWLDataRange filler) {
+        super(property, filler);
     }
 
 

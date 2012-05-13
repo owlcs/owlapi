@@ -51,7 +51,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -79,8 +78,8 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
 	private static final long serialVersionUID = 2233105253672156413L;
 	private final IRI iri;
 
-    public OWLAnnotationPropertyImpl(OWLDataFactory dataFactory, IRI i) {
-        super(dataFactory);
+    public OWLAnnotationPropertyImpl(IRI i) {
+        super();
         this.iri = i;
     }
 

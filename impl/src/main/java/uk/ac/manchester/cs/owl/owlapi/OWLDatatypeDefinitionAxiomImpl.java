@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
@@ -71,8 +70,8 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
     private final OWLDataRange dataRange;
 
     @SuppressWarnings("javadoc")
-    public OWLDatatypeDefinitionAxiomImpl(OWLDataFactory dataFactory, OWLDatatype datatype, OWLDataRange dataRange, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLDatatypeDefinitionAxiomImpl(OWLDatatype datatype, OWLDataRange dataRange, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.datatype = datatype;
         this.dataRange = dataRange;
     }

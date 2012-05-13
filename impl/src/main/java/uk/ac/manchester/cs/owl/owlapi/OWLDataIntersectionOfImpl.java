@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
@@ -62,8 +61,8 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements O
 	private static final long serialVersionUID = 4685027991885787305L;
 
 	@SuppressWarnings("javadoc")
-    public OWLDataIntersectionOfImpl(OWLDataFactory dataFactory, Set<? extends OWLDataRange> operands) {
-        super(dataFactory, operands);
+    public OWLDataIntersectionOfImpl(Set<? extends OWLDataRange> operands) {
+        super(operands);
     }
 
     public DataRangeType getDataRangeType() {

@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NNF;
 
@@ -70,9 +69,9 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 	private OWLAxiom nnf;
 	private final List<OWLAnnotation> annotations;
 
-	public OWLAxiomImpl(OWLDataFactory dataFactory,
+	public OWLAxiomImpl(
 			Collection<? extends OWLAnnotation> annotations) {
-		super(dataFactory);
+		super();
 		if (!annotations.isEmpty()) {
 			this.annotations = new ArrayList<OWLAnnotation>(annotations);
 			Collections.sort(this.annotations);

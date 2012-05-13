@@ -43,7 +43,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
@@ -74,8 +73,8 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
     private final Set<OWLFacetRestriction> facetRestrictions;
 
     @SuppressWarnings("javadoc")
-    public OWLDatatypeRestrictionImpl(OWLDataFactory dataFactory, OWLDatatype datatype, Set<OWLFacetRestriction> facetRestrictions) {
-        super(dataFactory);
+    public OWLDatatypeRestrictionImpl(OWLDatatype datatype, Set<OWLFacetRestriction> facetRestrictions) {
+        super();
         this.datatype = datatype;
         this.facetRestrictions = new HashSet<OWLFacetRestriction>(facetRestrictions);
     }

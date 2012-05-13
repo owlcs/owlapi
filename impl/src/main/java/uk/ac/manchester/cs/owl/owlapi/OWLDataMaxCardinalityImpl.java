@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -62,8 +61,8 @@ public class OWLDataMaxCardinalityImpl extends OWLDataCardinalityRestrictionImpl
 
 
 	@SuppressWarnings("javadoc")
-    public OWLDataMaxCardinalityImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
-        super(dataFactory, property, cardinality, filler);
+    public OWLDataMaxCardinalityImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
+        super(property, cardinality, filler);
     }
 
 

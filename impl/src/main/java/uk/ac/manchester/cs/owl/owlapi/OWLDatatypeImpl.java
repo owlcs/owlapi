@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
@@ -89,8 +88,8 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
 
     private final boolean builtin;
     @SuppressWarnings("javadoc")
-    public OWLDatatypeImpl(OWLDataFactory dataFactory, IRI iri) {
-        super(dataFactory);
+    public OWLDatatypeImpl( IRI iri) {
+        super();
         this.iri = iri;
         top = iri.equals(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
         builtin = top || OWL2Datatype.isBuiltIn(iri) || iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());

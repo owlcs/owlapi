@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -68,8 +67,8 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
 
     private final IRI domain;
 
-    public OWLAnnotationPropertyDomainAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, IRI domain, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLAnnotationPropertyDomainAxiomImpl(OWLAnnotationProperty property, IRI domain, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.domain = domain;
         this.property = property;
     }

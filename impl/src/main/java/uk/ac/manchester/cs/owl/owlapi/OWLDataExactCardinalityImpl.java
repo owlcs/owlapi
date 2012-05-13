@@ -44,7 +44,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -64,8 +63,8 @@ public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionIm
 	private static final long serialVersionUID = 1399122356045905034L;
 
 
-	public OWLDataExactCardinalityImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
-        super(dataFactory, property, cardinality, filler);
+	public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
+        super(property, cardinality, filler);
     }
 
 

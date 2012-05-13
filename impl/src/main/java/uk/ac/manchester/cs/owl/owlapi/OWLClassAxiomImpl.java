@@ -43,7 +43,6 @@ import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 
 
 /**
@@ -57,7 +56,7 @@ public abstract class OWLClassAxiomImpl extends OWLLogicalAxiomImpl implements O
 
 	private static final long serialVersionUID = -8930056142160518739L;
 
-	protected OWLClassAxiomImpl(OWLDataFactory dataFactory, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+	protected OWLClassAxiomImpl(Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
     }
 }

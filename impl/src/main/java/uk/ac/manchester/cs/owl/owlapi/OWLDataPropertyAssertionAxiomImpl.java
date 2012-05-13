@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -66,8 +65,8 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
 	private static final long serialVersionUID = -589726444391247611L;
 
 	@SuppressWarnings("javadoc")
-    public OWLDataPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral value, Set<? extends OWLAnnotation> annotations) {
-        super(dataFactory, subject, property, value, annotations);
+    public OWLDataPropertyAssertionAxiomImpl(OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral value, Set<? extends OWLAnnotation> annotations) {
+        super(subject, property, value, annotations);
     }
 
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {

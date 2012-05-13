@@ -106,6 +106,8 @@ public interface OWLDataFactoryInternals {
 
 	public OWLLiteral getOWLLiteral(int value);
 
+	public OWLLiteral getOWLLiteral(boolean value);
+
 	public OWLLiteral getOWLLiteral(double value);
 
 	public OWLLiteral getOWLLiteral(float value);
