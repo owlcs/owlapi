@@ -43,7 +43,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
@@ -70,10 +69,6 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 	private OWLObjectPropertyExpression simplestForm;
 
     private OWLObjectPropertyExpression inverse;
-    @SuppressWarnings("javadoc")
-    public OWLObjectPropertyExpressionImpl(OWLDataFactory dataFactory) {
-        super(dataFactory);
-    }
 
     @Override
 	protected Set<? extends OWLPropertyDomainAxiom<?>> getDomainAxioms(OWLOntology ontology) {

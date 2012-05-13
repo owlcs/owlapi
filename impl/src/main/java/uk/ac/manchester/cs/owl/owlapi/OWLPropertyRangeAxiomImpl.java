@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
@@ -63,8 +62,8 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression<
 	private final R range;
 
 
-    public OWLPropertyRangeAxiomImpl(OWLDataFactory dataFactory, P property, R range, Set<? extends OWLAnnotation> annotations) {
-        super(dataFactory, property, annotations);
+    public OWLPropertyRangeAxiomImpl(P property, R range, Set<? extends OWLAnnotation> annotations) {
+        super(property, annotations);
         this.range = range;
     }
 

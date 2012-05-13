@@ -43,7 +43,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
@@ -66,8 +65,8 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
 	private static final long serialVersionUID = -5500320699200815338L;
 
 
-	public OWLPropertyExpressionImpl(OWLDataFactory dataFactory) {
-        super(dataFactory);
+	public OWLPropertyExpressionImpl() {
+        super();
     }
 
 

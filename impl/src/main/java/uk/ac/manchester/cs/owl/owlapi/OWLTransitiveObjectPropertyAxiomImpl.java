@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -65,8 +64,8 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
 	private static final long serialVersionUID = -2442655581559760029L;
 
 	@SuppressWarnings("javadoc")
-    public OWLTransitiveObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, property, annotations);
+    public OWLTransitiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+        super(property, annotations);
     }
 
     public OWLTransitiveObjectPropertyAxiom getAxiomWithoutAnnotations() {

@@ -43,7 +43,6 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
@@ -63,8 +62,8 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
 	private final OWLClassExpression domain;
 
 
-    public OWLPropertyDomainAxiomImpl(OWLDataFactory dataFactory, P property, OWLClassExpression domain, Set<? extends OWLAnnotation> annotations) {
-        super(dataFactory, property, annotations);
+    public OWLPropertyDomainAxiomImpl(P property, OWLClassExpression domain, Set<? extends OWLAnnotation> annotations) {
+        super(property, annotations);
         this.domain = domain;
     }
 

@@ -66,8 +66,8 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
 
 
 	@SuppressWarnings("javadoc")
-    public OWLObjectPropertyDomainAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLClassExpression domain, Set<? extends OWLAnnotation> annotations) {
-        super(dataFactory, property, domain, annotations);
+    public OWLObjectPropertyDomainAxiomImpl(OWLObjectPropertyExpression property, OWLClassExpression domain, Set<? extends OWLAnnotation> annotations) {
+        super(property, domain, annotations);
     }
 
     public OWLObjectPropertyDomainAxiom getAxiomWithoutAnnotations() {

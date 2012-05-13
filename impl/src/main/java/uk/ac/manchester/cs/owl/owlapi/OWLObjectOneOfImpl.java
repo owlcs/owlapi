@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
@@ -68,8 +67,8 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
 	private final Set<OWLIndividual> values;
 
     @SuppressWarnings("javadoc")
-    public OWLObjectOneOfImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> values) {
-        super(dataFactory);
+    public OWLObjectOneOfImpl(Set<? extends OWLIndividual> values) {
+        super();
         this.values = new HashSet<OWLIndividual>(values);
     }
 

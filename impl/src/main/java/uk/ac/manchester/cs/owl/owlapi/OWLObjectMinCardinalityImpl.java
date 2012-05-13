@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -62,8 +61,8 @@ public class OWLObjectMinCardinalityImpl extends OWLObjectCardinalityRestriction
 
 
 	@SuppressWarnings("javadoc")
-    public OWLObjectMinCardinalityImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, int cardinality, OWLClassExpression filler) {
-        super(dataFactory, property, cardinality, filler);
+    public OWLObjectMinCardinalityImpl(OWLObjectPropertyExpression property, int cardinality, OWLClassExpression filler) {
+        super(property, cardinality, filler);
     }
 
 

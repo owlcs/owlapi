@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -72,11 +71,8 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
     private final OWLObjectPropertyExpression superProperty;
 
     @SuppressWarnings("javadoc")
-    public OWLSubPropertyChainAxiomImpl(OWLDataFactory dataFactory, List<? extends OWLObjectPropertyExpression> propertyChain, OWLObjectPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
-//        if(propertyChain==null||propertyChain.size()<2) {
-//        	throw new IllegalArgumentException("the propertychain must contain more than one element");
-//        }
+    public OWLSubPropertyChainAxiomImpl(List<? extends OWLObjectPropertyExpression> propertyChain, OWLObjectPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.propertyChain = new ArrayList<OWLObjectPropertyExpression>(propertyChain);
         this.superProperty = superProperty;
     }

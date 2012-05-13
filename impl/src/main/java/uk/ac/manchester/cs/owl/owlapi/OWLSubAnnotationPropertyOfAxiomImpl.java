@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -69,8 +68,8 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
     private final OWLAnnotationProperty superProperty;
 
     @SuppressWarnings("javadoc")
-    public OWLSubAnnotationPropertyOfAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationProperty subProperty, OWLAnnotationProperty superProperty, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLSubAnnotationPropertyOfAxiomImpl(OWLAnnotationProperty subProperty, OWLAnnotationProperty superProperty, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.subProperty = subProperty;
         this.superProperty = superProperty;
     }

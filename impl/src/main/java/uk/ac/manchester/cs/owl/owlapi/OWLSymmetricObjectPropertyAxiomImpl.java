@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -66,8 +65,8 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
 	private static final long serialVersionUID = -8084143966259357449L;
 
 	@SuppressWarnings("javadoc")
-    public OWLSymmetricObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, property, annotations);
+    public OWLSymmetricObjectPropertyAxiomImpl(OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+        super(property, annotations);
     }
 
 
