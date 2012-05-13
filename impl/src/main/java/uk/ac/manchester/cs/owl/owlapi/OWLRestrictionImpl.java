@@ -39,7 +39,6 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLRestriction;
@@ -59,8 +58,8 @@ public abstract class OWLRestrictionImpl<R extends OWLPropertyRange, P extends O
 	private final P property;
 
 
-    public OWLRestrictionImpl(OWLDataFactory dataFactory, P property) {
-        super(dataFactory);
+    public OWLRestrictionImpl(P property) {
+        super();
         this.property = property;
     }
 

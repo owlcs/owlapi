@@ -52,7 +52,6 @@ import java.util.zip.GZIPOutputStream;
 
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -61,6 +60,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * Author: Matthew Horridge<br>
@@ -96,22 +96,20 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
      * @param lang the language; can be null or an empty string, in which case datatype can be any datatype but not null
      * @param datatype the datatype; if lang is null or the empty string, it can be null or it MUST be RDFPlainLiteral
      */
-    public OWLLiteralImpl(OWLDataFactory dataFactory, String literal, String lang, OWLDatatype datatype) {
-        super(dataFactory);
+    public OWLLiteralImpl(String literal, String lang, OWLDatatype datatype) {
+        super();
         this.literal = new LiteralWrapper(literal);
         if (lang == null || lang.length() == 0) {
             this.lang = "";
             this.datatype = datatype;
         }
         else {
-
-            final OWLDatatype rdfPlainLiteral = dataFactory.getRDFPlainLiteral();
-            if (datatype != null && !rdfPlainLiteral.equals(datatype)) {
+            if (datatype != null && !datatype.isRDFPlainLiteral()) {
                 // ERROR: attempting to build a literal with a language tag and type different from plain literal
                 throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
             }
             this.lang = lang;
-            this.datatype = rdfPlainLiteral;
+            this.datatype = new OWLDatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
         }
         hashcode = getHashCode();
     }

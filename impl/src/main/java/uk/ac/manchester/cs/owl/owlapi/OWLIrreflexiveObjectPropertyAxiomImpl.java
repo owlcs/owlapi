@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -65,8 +64,8 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
 	private static final long serialVersionUID = -2833347992479088971L;
 
 	@SuppressWarnings("javadoc")
-    public OWLIrreflexiveObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, property, annotations);
+    public OWLIrreflexiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+        super(property, annotations);
     }
 
     public OWLIrreflexiveObjectPropertyAxiom getAxiomWithoutAnnotations() {

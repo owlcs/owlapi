@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -71,8 +70,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     private final OWLClassExpression superClass;
 
     @SuppressWarnings("javadoc")
-    public OWLSubClassOfAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression subClass, OWLClassExpression superClass, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLSubClassOfAxiomImpl(OWLClassExpression subClass, OWLClassExpression superClass, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.subClass = subClass;
         this.superClass = superClass;
     }

@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -63,8 +62,8 @@ public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl i
 	private static final long serialVersionUID = 5995717075817264050L;
 
 
-	public OWLDataAllValuesFromImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLDataRange filler) {
-        super(dataFactory, property, filler);
+	public OWLDataAllValuesFromImpl(OWLDataPropertyExpression property, OWLDataRange filler) {
+        super(property, filler);
     }
 
 

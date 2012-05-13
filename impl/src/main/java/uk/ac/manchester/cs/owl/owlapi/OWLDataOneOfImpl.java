@@ -43,7 +43,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
@@ -71,8 +70,8 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 	private final Set<OWLLiteral> values;
 
     @SuppressWarnings("javadoc")
-    public OWLDataOneOfImpl(OWLDataFactory dataFactory, Set<? extends OWLLiteral> values) {
-        super(dataFactory);
+    public OWLDataOneOfImpl(Set<? extends OWLLiteral> values) {
+        super();
         this.values = new TreeSet<OWLLiteral>(values);
     }
 

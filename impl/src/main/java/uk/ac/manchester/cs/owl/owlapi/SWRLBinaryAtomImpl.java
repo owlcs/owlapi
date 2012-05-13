@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
@@ -66,8 +65,8 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
 
     private final B arg1;
 
-    protected SWRLBinaryAtomImpl(OWLDataFactory dataFactory, SWRLPredicate predicate, A arg0, B arg1) {
-        super(dataFactory, predicate);
+    protected SWRLBinaryAtomImpl(SWRLPredicate predicate, A arg0, B arg1) {
+        super(predicate);
         this.arg0 = arg0;
         this.arg1 = arg1;
     }

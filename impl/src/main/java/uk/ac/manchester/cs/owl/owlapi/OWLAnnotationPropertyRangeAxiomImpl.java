@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -68,8 +67,8 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
 
     protected final IRI range;
 
-    public OWLAnnotationPropertyRangeAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, IRI range, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLAnnotationPropertyRangeAxiomImpl(OWLAnnotationProperty property, IRI range, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.property = property;
         this.range = range;
     }

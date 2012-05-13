@@ -51,7 +51,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -101,8 +100,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
 
     @SuppressWarnings("javadoc")
-	public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+	public SWRLRuleImpl(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.head = new TreeSet<SWRLAtom>(head);
         this.body = new TreeSet<SWRLAtom>(body);
     }
@@ -120,8 +119,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     @SuppressWarnings("javadoc")
-	public SWRLRuleImpl(OWLDataFactory dataFactory, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
-        this(dataFactory, body, head, new ArrayList<OWLAnnotation>(0));
+	public SWRLRuleImpl(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
+        this(body, head, new ArrayList<OWLAnnotation>(0));
     }
 
 

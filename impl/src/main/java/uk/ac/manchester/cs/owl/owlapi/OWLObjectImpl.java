@@ -78,14 +78,11 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 	private Set<OWLEntity> signature;
 	private Set<OWLAnonymousIndividual> anons;
 
-	/**
-	 * @param dataFactory
-	 *            the data factory
-	 */
-	public OWLObjectImpl(OWLDataFactory dataFactory) {
-		//this.dataFactory = dataFactory;
+	/** */
+	public OWLObjectImpl() {
 	}
 
+	private static final OWLDataFactory f = new OWLDataFactoryImpl(false, false);
 	/**
 	 * @return this object's data factory
 	 */
@@ -93,7 +90,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 		return f;
 	}
 
-	private static final OWLDataFactory f = new OWLDataFactoryImpl(false, false);
 
 	public Set<OWLEntity> getSignature() {
 		if (signature == null) {

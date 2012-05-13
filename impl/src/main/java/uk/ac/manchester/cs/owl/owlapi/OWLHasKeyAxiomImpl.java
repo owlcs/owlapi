@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -71,12 +70,9 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
 
     private final Set<OWLPropertyExpression<?,?>> propertyExpressions;
     @SuppressWarnings("javadoc")
-    public OWLHasKeyAxiomImpl(OWLDataFactory dataFactory, OWLClassExpression expression, Set<? extends OWLPropertyExpression<?,?>> propertyExpressions, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLHasKeyAxiomImpl(OWLClassExpression expression, Set<? extends OWLPropertyExpression<?,?>> propertyExpressions, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.expression = expression;
-//        if(propertyExpressions==null||propertyExpressions.size()<1) {
-//        	throw new IllegalArgumentException("the propertyExpressions must contain at least one element");
-//        }
         this.propertyExpressions = new TreeSet<OWLPropertyExpression<?,?>>(propertyExpressions);
     }
 

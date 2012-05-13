@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
@@ -67,8 +66,8 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
 
 
 	@SuppressWarnings("javadoc")
-    public OWLObjectPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLObjectPropertyExpression property, OWLIndividual object, Set<? extends OWLAnnotation> annotations) {
-        super(dataFactory, subject, property, object, annotations);
+    public OWLObjectPropertyAssertionAxiomImpl(OWLIndividual subject, OWLObjectPropertyExpression property, OWLIndividual object, Set<? extends OWLAnnotation> annotations) {
+        super(subject, property, object, annotations);
     }
 
     public OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {

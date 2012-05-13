@@ -40,7 +40,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
@@ -65,8 +64,8 @@ public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, 
     private final F filler;
 
 
-    protected OWLCardinalityRestrictionImpl(OWLDataFactory dataFactory, P property, int cardinality, F filler) {
-        super(dataFactory, property);
+    protected OWLCardinalityRestrictionImpl(P property, int cardinality, F filler) {
+        super(property);
         this.cardinality = cardinality;
         this.filler = filler;
     }

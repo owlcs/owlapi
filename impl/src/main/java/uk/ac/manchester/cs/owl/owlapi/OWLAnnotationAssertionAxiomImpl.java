@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -75,8 +74,8 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     private final OWLAnnotationValue value;
 
 
-	public OWLAnnotationAssertionAxiomImpl(OWLDataFactory dataFactory, OWLAnnotationSubject subject, OWLAnnotationProperty property, OWLAnnotationValue value, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+	public OWLAnnotationAssertionAxiomImpl(OWLAnnotationSubject subject, OWLAnnotationProperty property, OWLAnnotationValue value, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.subject = subject;
         this.property = property;
         this.value = value;

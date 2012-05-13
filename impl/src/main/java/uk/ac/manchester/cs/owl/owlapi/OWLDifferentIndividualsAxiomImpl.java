@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -65,14 +64,14 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl implements OWLDifferentIndividualsAxiom {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 5896125364681259570L;
 
 
 	@SuppressWarnings("javadoc")
-    public OWLDifferentIndividualsAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> individuals, Set<? extends OWLAnnotation> annotations) {
-        super(dataFactory, individuals, annotations);
+    public OWLDifferentIndividualsAxiomImpl(Set<? extends OWLIndividual> individuals, Set<? extends OWLAnnotation> annotations) {
+        super(individuals, annotations);
     }
 
     public OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations() {

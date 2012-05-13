@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -63,8 +62,8 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLClassExpre
 
 
 	@SuppressWarnings("javadoc")
-    public OWLObjectHasValueImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLIndividual value) {
-        super(dataFactory, property, value);
+    public OWLObjectHasValueImpl(OWLObjectPropertyExpression property, OWLIndividual value) {
+        super(property, value);
     }
 
     /**

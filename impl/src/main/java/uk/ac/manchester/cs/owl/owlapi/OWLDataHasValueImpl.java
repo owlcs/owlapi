@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -65,8 +64,8 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLDataRange, O
 	private static final long serialVersionUID = 4652743833678478477L;
 
 
-	public OWLDataHasValueImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLLiteral value) {
-        super(dataFactory, property, value);
+	public OWLDataHasValueImpl(OWLDataPropertyExpression property, OWLLiteral value) {
+        super(property, value);
     }
 
     /**

@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
@@ -94,8 +93,8 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
     private final boolean isNothing;
 
 
-    public OWLClassImpl(OWLDataFactory dataFactory, IRI iri) {
-        super(dataFactory);
+    public OWLClassImpl(IRI iri) {
+        super();
         this.iri = iri;
         isThing = getIRI().equals(OWLRDFVocabulary.OWL_THING.getIRI());
         isNothing = getIRI().equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());

@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNaryDataRange;
@@ -59,11 +58,8 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLN
 	private static final long serialVersionUID = -2657275474606786532L;
 	private final Set<OWLDataRange> operands;
 
-    protected OWLNaryDataRangeImpl(OWLDataFactory dataFactory, Set<? extends OWLDataRange> operands) {
-        super(dataFactory);
-//        if(operands==null || operands.size()<2) {
-//        	throw new IllegalArgumentException("the operands set must contain at least two values");
-//        }
+    protected OWLNaryDataRangeImpl(Set<? extends OWLDataRange> operands) {
+        super();
         this.operands = new TreeSet<OWLDataRange>(operands);
     }
 

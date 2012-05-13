@@ -39,7 +39,6 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -62,8 +61,8 @@ public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, 
 	private static final long serialVersionUID = -7311934827850039429L;
 
 	@SuppressWarnings("javadoc")
-	public SWRLDataPropertyAtomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression predicate, SWRLIArgument arg0, SWRLDArgument arg1) {
-        super(dataFactory, predicate, arg0, arg1);
+	public SWRLDataPropertyAtomImpl(OWLDataPropertyExpression predicate, SWRLIArgument arg0, SWRLDArgument arg1) {
+        super(predicate, arg0, arg1);
     }
 
     @Override

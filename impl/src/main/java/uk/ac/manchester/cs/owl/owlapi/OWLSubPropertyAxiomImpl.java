@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
@@ -65,8 +64,8 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression<?,
     private final P superProperty;
 
 
-    public OWLSubPropertyAxiomImpl(OWLDataFactory dataFactory, P subProperty, P superProperty, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLSubPropertyAxiomImpl(P subProperty, P superProperty, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.subProperty = subProperty;
         this.superProperty = superProperty;
     }

@@ -39,7 +39,6 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -50,8 +49,8 @@ public abstract class OWLQuantifiedDataRestrictionImpl extends OWLQuantifiedRest
 
 	private static final long serialVersionUID = -7066392035725100094L;
 
-	public OWLQuantifiedDataRestrictionImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, OWLDataRange filler) {
-        super(dataFactory, property, filler);
+	public OWLQuantifiedDataRestrictionImpl(OWLDataPropertyExpression property, OWLDataRange filler) {
+        super(property, filler);
     }
 
     @Override

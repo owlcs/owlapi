@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 
@@ -60,8 +59,8 @@ public abstract class OWLDataPropertyCharacteristicAxiomImpl extends OWLProperty
 	private final OWLDataPropertyExpression property;
 
     @SuppressWarnings("javadoc")
-    public OWLDataPropertyCharacteristicAxiomImpl(OWLDataFactory dataFactory, OWLDataPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLDataPropertyCharacteristicAxiomImpl(OWLDataPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.property = property;
     }
 

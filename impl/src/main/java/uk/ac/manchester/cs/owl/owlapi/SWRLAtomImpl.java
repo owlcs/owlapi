@@ -39,7 +39,6 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
@@ -53,13 +52,13 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -8206112011753652255L;
 	final SWRLPredicate predicate;
 
-    protected SWRLAtomImpl(OWLDataFactory dataFactory, SWRLPredicate predicate) {
-        super(dataFactory);
+    protected SWRLAtomImpl(SWRLPredicate predicate) {
+        super();
         this.predicate = predicate;
     }
 

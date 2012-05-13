@@ -41,7 +41,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
@@ -68,8 +67,8 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
 	private final OWLDataRange dataRange;
 
 
-    public OWLDataComplementOfImpl(OWLDataFactory dataFactory, OWLDataRange dataRange) {
-        super(dataFactory);
+    public OWLDataComplementOfImpl(OWLDataRange dataRange) {
+        super();
         this.dataRange = dataRange;
     }
 

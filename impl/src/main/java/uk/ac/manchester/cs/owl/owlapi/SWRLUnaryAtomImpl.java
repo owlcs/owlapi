@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLUnaryAtom;
@@ -61,8 +60,8 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtom
 	private static final long serialVersionUID = -2041524024480084652L;
     private final A arg;
 
-    public SWRLUnaryAtomImpl(OWLDataFactory dataFactory, SWRLPredicate predicate, A arg) {
-        super(dataFactory, predicate);
+    public SWRLUnaryAtomImpl(SWRLPredicate predicate, A arg) {
+        super(predicate);
         this.arg = arg;
     }
 

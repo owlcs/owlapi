@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
@@ -73,8 +72,8 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
 
     private final Set<OWLClassExpression> classExpressions;
     @SuppressWarnings("javadoc")
-    public OWLDisjointUnionAxiomImpl(OWLDataFactory dataFactory, OWLClass owlClass, Set<? extends OWLClassExpression> classExpressions, Set<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLDisjointUnionAxiomImpl(OWLClass owlClass, Set<? extends OWLClassExpression> classExpressions, Set<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.owlClass = owlClass;
 //        if(classExpressions==null || classExpressions.isEmpty()) {
 //        	throw new IllegalArgumentException("the classExpressions set must contain at least one value");

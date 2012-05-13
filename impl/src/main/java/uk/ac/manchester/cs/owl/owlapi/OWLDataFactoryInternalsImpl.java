@@ -78,7 +78,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
             // need to add the new key and return it
             //miss++;
             // cast needed for javac not to complain
-            V value = (V) v.build(f, s);
+            V value = (V) v.build(s);
             prefixCache.put(s, new WeakReference<V>(value));
             return value;
         }
@@ -165,42 +165,42 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     protected enum Buildable {
         OWLCLASS {
             @Override
-            OWLClass build(OWLDataFactory f, IRI iri) {
-                return new OWLClassImpl(f, iri);
+            OWLClass build(IRI iri) {
+                return new OWLClassImpl(iri);
             }
         },
         OWLOBJECTPROPERTY {
             @Override
-            OWLObjectProperty build(OWLDataFactory f, IRI iri) {
-                return new OWLObjectPropertyImpl(f, iri);
+            OWLObjectProperty build(IRI iri) {
+                return new OWLObjectPropertyImpl(iri);
             }
         },
         OWLDATAPROPERTY {
             @Override
-            OWLDataProperty build(OWLDataFactory f, IRI iri) {
-                return new OWLDataPropertyImpl(f, iri);
+            OWLDataProperty build(IRI iri) {
+                return new OWLDataPropertyImpl(iri);
             }
         },
         OWLNAMEDINDIVIDUAL {
             @Override
-            OWLNamedIndividual build(OWLDataFactory f, IRI iri) {
-                return new OWLNamedIndividualImpl(f, iri);
+            OWLNamedIndividual build(IRI iri) {
+                return new OWLNamedIndividualImpl(iri);
             }
         },
         OWLDATATYPE {
             @Override
-            OWLDatatype build(OWLDataFactory f, IRI iri) {
-                return new OWLDatatypeImpl(f, iri);
+            OWLDatatype build(IRI iri) {
+                return new OWLDatatypeImpl(iri);
             }
         },
         OWLANNOTATIONPROPERTY {
             @Override
-            OWLAnnotationProperty build(OWLDataFactory f, IRI iri) {
-                return new OWLAnnotationPropertyImpl(f, iri);
+            OWLAnnotationProperty build(IRI iri) {
+                return new OWLAnnotationPropertyImpl(iri);
             }
         };
 
-        abstract <K extends OWLEntity> K build(OWLDataFactory f, IRI iri);
+        abstract <K extends OWLEntity> K build(IRI iri);
     }
 
     @Override

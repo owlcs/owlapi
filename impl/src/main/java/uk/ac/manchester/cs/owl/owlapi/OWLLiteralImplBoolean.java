@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * Author: Matthew Horridge<br>
@@ -55,20 +56,19 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br>
  * <br>
  */
-public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
+public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = -5720466151025153570L;
-	private final float literal;
+	private static final long serialVersionUID = -7929540842690238167L;
+	private final boolean literal;
 	private final OWLDatatype datatype;
 
 	@SuppressWarnings("javadoc")
-	public OWLLiteralImplFloat(float literal,
-			OWLDatatype datatype) {
+	public OWLLiteralImplBoolean(boolean literal) {
 		super();
+		datatype=new OWLDatatypeImpl(OWL2Datatype.XSD_BOOLEAN.getIRI());
 		this.literal = literal;
-		this.datatype = datatype;
 		hashcode = getHashCode();
 	}
 
@@ -81,16 +81,20 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
 
 	private int getHashCode() {
 		int hashCode = 277;
+		try {
 		hashCode = hashCode * 37 + getDatatype().hashCode();
-		hashCode = hashCode * 37 + (int) (literal * 65536);
+		}catch (NullPointerException e) {
+e.printStackTrace();
+		}
+		hashCode = hashCode * 37 +  (literal?  65536:0);
 		return hashCode;
 	}
 
 	public String getLiteral() {
-		return Float.toString(literal);
+		return Boolean.toString(literal);
 	}
 
-	public Float getFloat() {
+	public Boolean getBoolean() {
 		return literal;
 	}
 
@@ -107,15 +111,15 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
 	}
 
 	public int parseInteger() throws NumberFormatException {
-		throw new NumberFormatException("this literal is not an integer but a float");
+		throw new NumberFormatException("this literal is not an integer but a boolean");
 	}
 
 	public boolean isBoolean() {
-		return false;
+		return true;
 	}
 
 	public boolean parseBoolean() throws NumberFormatException {
-		throw new NumberFormatException("this literal is not a boolean but a float");
+		return literal;
 	}
 
 	public boolean isDouble() {
@@ -123,15 +127,15 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
 	}
 
 	public double parseDouble() throws NumberFormatException {
-		throw new NumberFormatException("this literal is not a double but a float");
+		throw new NumberFormatException("this literal is not a double but a boolean");
 	}
 
 	public boolean isFloat() {
-		return true;
+		return false;
 	}
 
 	public float parseFloat() throws NumberFormatException {
-		return literal;
+		throw new NumberFormatException("this literal is not a float but a boolean");
 	}
 
 	public String getLang() {
@@ -149,8 +153,8 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
 	@Override
 	public boolean equals(Object obj) {
 		if (super.equals(obj)) {
-			if (obj instanceof OWLLiteralImplFloat) {
-				OWLLiteralImplFloat other = (OWLLiteralImplFloat) obj;
+			if (obj instanceof OWLLiteralImplBoolean) {
+				OWLLiteralImplBoolean other = (OWLLiteralImplBoolean) obj;
 				return literal == other.literal && datatype.equals(other.getDatatype());
 			}
 			if (obj instanceof OWLLiteral) {

@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -73,8 +72,8 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
     private final OWLClassExpression classExpression;
 
 
-    public OWLClassAssertionImpl(OWLDataFactory dataFactory, OWLIndividual individual, OWLClassExpression classExpression, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLClassAssertionImpl(OWLIndividual individual, OWLClassExpression classExpression, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.individual = individual;
         this.classExpression = classExpression;
     }

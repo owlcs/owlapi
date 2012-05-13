@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -64,8 +63,8 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
 
 
 	@SuppressWarnings("javadoc")
-    public OWLObjectIntersectionOfImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> operands) {
-        super(dataFactory, operands);
+    public OWLObjectIntersectionOfImpl(Set<? extends OWLClassExpression> operands) {
+        super(operands);
     }
 
     /**

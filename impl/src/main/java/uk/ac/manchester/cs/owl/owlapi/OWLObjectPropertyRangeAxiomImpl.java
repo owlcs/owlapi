@@ -66,8 +66,8 @@ public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<O
 
 
 	@SuppressWarnings("javadoc")
-    public OWLObjectPropertyRangeAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLClassExpression range, Set<? extends OWLAnnotation> annotations) {
-        super(dataFactory, property, range, annotations);
+    public OWLObjectPropertyRangeAxiomImpl(OWLObjectPropertyExpression property, OWLClassExpression range, Set<? extends OWLAnnotation> annotations) {
+        super(property, range, annotations);
     }
 
 

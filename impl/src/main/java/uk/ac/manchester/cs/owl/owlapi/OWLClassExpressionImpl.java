@@ -40,7 +40,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /**
  * Author: Matthew Horridge<br>
@@ -53,7 +52,7 @@ public abstract class OWLClassExpressionImpl extends OWLObjectImpl implements OW
 
 	private static final long serialVersionUID = 4540142163259217589L;
 
-	protected OWLClassExpressionImpl(OWLDataFactory dataFactory) {
-        super(dataFactory);
+	protected OWLClassExpressionImpl() {
+        super();
     }
 }

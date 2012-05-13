@@ -39,7 +39,6 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -62,8 +61,8 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> impl
 	private static final long serialVersionUID = 2806757226500165701L;
 
 	@SuppressWarnings("javadoc")
-	public SWRLDataRangeAtomImpl(OWLDataFactory dataFactory, OWLDataRange predicate, SWRLDArgument arg) {
-        super(dataFactory, predicate, arg);
+	public SWRLDataRangeAtomImpl(OWLDataRange predicate, SWRLDArgument arg) {
+        super(predicate, arg);
     }
 
     @Override

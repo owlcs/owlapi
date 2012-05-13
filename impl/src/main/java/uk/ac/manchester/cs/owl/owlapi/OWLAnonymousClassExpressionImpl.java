@@ -45,7 +45,6 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAnonymousClassExpression;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.NNF;
 
@@ -62,8 +61,8 @@ public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpression
 
 	private static final long serialVersionUID = -2563011035971115063L;
 
-	public OWLAnonymousClassExpressionImpl(OWLDataFactory dataFactory) {
-        super(dataFactory);
+	public OWLAnonymousClassExpressionImpl() {
+        super();
     }
 
 

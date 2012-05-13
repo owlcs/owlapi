@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -74,8 +73,8 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
     private final Set<OWLAnnotation> annotations;
 
-    public OWLAnnotationImpl(OWLDataFactory dataFactory, OWLAnnotationProperty property, OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
-        super(dataFactory);
+    public OWLAnnotationImpl(OWLAnnotationProperty property, OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
+        super();
         this.property = property;
         this.value = value;
         this.annotations = CollectionFactory.getCopyOnRequestSetFromMutableCollection(new TreeSet<OWLAnnotation>(annotations));
@@ -100,7 +99,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         }
         Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(this.annotations);
         merged.addAll(annotationsToAdd);
-        return new OWLAnnotationImpl(getOWLDataFactory(), property, value, merged);
+        return new OWLAnnotationImpl(property, value, merged);
     }
     //XXX not in the interface
     public boolean isComment() {

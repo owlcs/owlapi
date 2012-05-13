@@ -66,8 +66,8 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
 
 
 	@SuppressWarnings("javadoc")
-    public OWLFunctionalObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, property, annotations);
+    public OWLFunctionalObjectPropertyAxiomImpl(OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+        super(property, annotations);
     }
 
     public OWLFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations() {

@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -91,8 +90,8 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
     private final boolean builtin;
 
 
-    public OWLDataPropertyImpl(OWLDataFactory dataFactory, IRI iri) {
-        super(dataFactory);
+    public OWLDataPropertyImpl(IRI iri) {
+        super();
         this.iri = iri;
         this.builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }

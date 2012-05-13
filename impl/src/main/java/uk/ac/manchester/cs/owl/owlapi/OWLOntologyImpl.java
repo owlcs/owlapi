@@ -157,7 +157,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
 	@SuppressWarnings("javadoc")
 	public OWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
-		super(manager.getOWLDataFactory());
+		super();
 		this.manager = manager;
 		this.ontologyID = ontologyID;
 		this.internals = new InternalsImpl();

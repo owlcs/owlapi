@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
 
@@ -61,8 +60,8 @@ public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression<
 	private final P property;
 
 
-    public OWLUnaryPropertyAxiomImpl(OWLDataFactory dataFactory, P property, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLUnaryPropertyAxiomImpl(P property, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.property = property;
     }
 

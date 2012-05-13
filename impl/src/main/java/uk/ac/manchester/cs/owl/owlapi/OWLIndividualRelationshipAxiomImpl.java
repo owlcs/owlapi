@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
@@ -78,8 +77,8 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
      * @param object the object
      * @param annotations the annotations
      */
-    public OWLIndividualRelationshipAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, P property, O object, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLIndividualRelationshipAxiomImpl(OWLIndividual subject, P property, O object, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.subject = subject;
         this.property = property;
         this.object = object;

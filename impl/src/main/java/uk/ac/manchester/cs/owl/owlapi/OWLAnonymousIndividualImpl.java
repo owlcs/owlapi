@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationSubjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividualVisitor;
 import org.semanticweb.owlapi.model.OWLIndividualVisitorEx;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -65,8 +64,8 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
 	private static final long serialVersionUID = -1578517337946939604L;
 	private final NodeID nodeId;
 
-    public OWLAnonymousIndividualImpl(OWLDataFactory dataFactory, NodeID nodeID) {
-        super(dataFactory);
+    public OWLAnonymousIndividualImpl(NodeID nodeID) {
+        super();
         this.nodeId = nodeID;
     }
 

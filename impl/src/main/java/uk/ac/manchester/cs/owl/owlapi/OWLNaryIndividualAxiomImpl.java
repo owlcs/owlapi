@@ -46,7 +46,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -66,11 +65,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
 	private final Set<OWLIndividual> individuals;
 
     @SuppressWarnings("javadoc")
-    public OWLNaryIndividualAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLIndividual> individuals, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
-//        if(individuals==null||individuals.size()<2) {
-//        	throw new IllegalArgumentException("the individuals must contain more than one element");
-//        }
+    public OWLNaryIndividualAxiomImpl(Set<? extends OWLIndividual> individuals, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.individuals = new TreeSet<OWLIndividual>(individuals);
     }
 

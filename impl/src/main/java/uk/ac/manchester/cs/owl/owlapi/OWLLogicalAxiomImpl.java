@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 
 
@@ -57,8 +56,8 @@ public abstract class OWLLogicalAxiomImpl extends OWLAxiomImpl implements OWLLog
 
 	private static final long serialVersionUID = 1377463222922483538L;
 
-	protected OWLLogicalAxiomImpl(OWLDataFactory dataFactory, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+	protected OWLLogicalAxiomImpl(Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
     }
 
 

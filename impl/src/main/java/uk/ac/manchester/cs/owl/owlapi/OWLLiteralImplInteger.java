@@ -40,7 +40,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -58,16 +57,16 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  */
 public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -801962402430974495L;
 	private final int literal;
 	private final OWLDatatype datatype;
 
 	@SuppressWarnings("javadoc")
-	public OWLLiteralImplInteger(OWLDataFactory dataFactory, int literal,
+	public OWLLiteralImplInteger(int literal,
 			OWLDatatype datatype) {
-		super(dataFactory);
+		super();
 		this.literal = literal;
 		this.datatype = datatype;
 		hashcode = getHashCode();

@@ -39,7 +39,6 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -63,8 +62,8 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLInd
 
 
     @SuppressWarnings("javadoc")
-	public SWRLIndividualArgumentImpl(OWLDataFactory dataFactory, OWLIndividual individual) {
-        super(dataFactory);
+	public SWRLIndividualArgumentImpl(OWLIndividual individual) {
+        super();
         this.individual = individual;
     }
 
