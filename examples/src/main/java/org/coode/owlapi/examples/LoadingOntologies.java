@@ -39,17 +39,23 @@
 
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.*;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.SimpleIRIMapper;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.Map;
+
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
+import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.io.UnparsableOntologyException;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
 /**
  * Author: Matthew Horridge<br>

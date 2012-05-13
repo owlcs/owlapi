@@ -39,14 +39,16 @@
 
 package org.coode.owlapi.examples;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.AutoIRIMapper;
-import org.semanticweb.owlapi.util.CommonBaseIRIMapper;
-import org.semanticweb.owlapi.util.SimpleIRIMapper;
-import sun.java2d.pipe.SpanShapeRenderer;
-
 import java.io.File;
+
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.util.AutoIRIMapper;
+import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
 /**
  * Author: Matthew Horridge<br>
