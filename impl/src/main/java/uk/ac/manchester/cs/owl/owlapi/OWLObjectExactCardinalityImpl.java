@@ -62,8 +62,8 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
 
 
 	@SuppressWarnings("javadoc")
-    public OWLObjectExactCardinalityImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, int cardinality, OWLClassExpression filler) {
-        super(dataFactory, property, cardinality, filler);
+    public OWLObjectExactCardinalityImpl(OWLObjectPropertyExpression property, int cardinality, OWLClassExpression filler) {
+        super(property, cardinality, filler);
     }
 
 

@@ -49,7 +49,6 @@ import java.util.TreeSet;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -78,10 +77,6 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
 
 
 	private static final long serialVersionUID = 7202927319742902743L;
-
-	protected OWLIndividualImpl(OWLDataFactory dataFactory) {
-        super(dataFactory);
-    }
 
     @SuppressWarnings("javadoc")
     //XXX not in the interface

@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -62,8 +61,8 @@ public class OWLObjectAllValuesFromImpl extends OWLQuantifiedObjectRestrictionIm
 
 
 	@SuppressWarnings("javadoc")
-    public OWLObjectAllValuesFromImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, OWLClassExpression filler) {
-        super(dataFactory, property, filler);
+    public OWLObjectAllValuesFromImpl(OWLObjectPropertyExpression property, OWLClassExpression filler) {
+        super(property, filler);
     }
 
 

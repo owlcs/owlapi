@@ -45,7 +45,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -64,8 +63,8 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
 	private final Set<OWLClassExpression> operands;
 
     @SuppressWarnings("javadoc")
-    public OWLNaryBooleanClassExpressionImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> operands) {
-        super(dataFactory);
+    public OWLNaryBooleanClassExpressionImpl(Set<? extends OWLClassExpression> operands) {
+        super();
         this.operands = new TreeSet<OWLClassExpression>(operands);
     }
 

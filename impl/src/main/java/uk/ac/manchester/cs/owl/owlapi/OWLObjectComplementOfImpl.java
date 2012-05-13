@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -62,8 +61,8 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl i
 	private final OWLClassExpression operand;
 
     @SuppressWarnings("javadoc")
-    public OWLObjectComplementOfImpl(OWLDataFactory dataFactory, OWLClassExpression operand) {
-        super(dataFactory);
+    public OWLObjectComplementOfImpl(OWLClassExpression operand) {
+        super();
         this.operand = operand;
     }
 

@@ -65,8 +65,8 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
 	private static final long serialVersionUID = 4946662910155874868L;
 
 	@SuppressWarnings("javadoc")
-    public OWLNegativeObjectPropertyAssertionAxiomImpl(OWLDataFactory dataFactory, OWLIndividual subject, OWLObjectPropertyExpression property, OWLIndividual object, Set<? extends OWLAnnotation> annotations) {
-        super(dataFactory, subject, property, object, annotations);
+    public OWLNegativeObjectPropertyAssertionAxiomImpl(OWLIndividual subject, OWLObjectPropertyExpression property, OWLIndividual object, Set<? extends OWLAnnotation> annotations) {
+        super(subject, property, object, annotations);
     }
 
     public OWLNegativeObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {

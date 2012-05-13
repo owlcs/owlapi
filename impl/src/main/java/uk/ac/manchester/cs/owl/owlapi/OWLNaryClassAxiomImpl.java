@@ -48,7 +48,6 @@ import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -67,8 +66,8 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
 	private final Set<OWLClassExpression> classExpressions;
 
     @SuppressWarnings("javadoc")
-    public OWLNaryClassAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
+    public OWLNaryClassAxiomImpl(Set<? extends OWLClassExpression> classExpressions, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
     }
 

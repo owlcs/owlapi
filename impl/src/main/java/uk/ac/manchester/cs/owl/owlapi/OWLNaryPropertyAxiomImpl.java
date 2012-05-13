@@ -44,7 +44,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
@@ -65,11 +64,8 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression<?
 	private final Set<P> properties;
 
     @SuppressWarnings("javadoc")
-    public OWLNaryPropertyAxiomImpl(OWLDataFactory dataFactory, Set<? extends P> properties, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, annotations);
-//        if(properties==null||properties.size()<2) {
-//        	throw new IllegalArgumentException("the properties must contain more than one element");
-//        }
+    public OWLNaryPropertyAxiomImpl(Set<? extends P> properties, Collection<? extends OWLAnnotation> annotations) {
+        super(annotations);
         this.properties = new TreeSet<P>(properties);
     }
 

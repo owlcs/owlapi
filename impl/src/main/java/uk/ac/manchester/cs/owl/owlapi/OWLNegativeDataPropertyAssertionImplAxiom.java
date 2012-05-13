@@ -63,13 +63,13 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLNegativeDataPropertyAssertionAxiom {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -570348113229429185L;
 
 	@SuppressWarnings("javadoc")
-    public OWLNegativeDataPropertyAssertionImplAxiom(OWLDataFactory dataFactory, OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral object, Set<? extends OWLAnnotation> annotations) {
-        super(dataFactory, subject, property, object, annotations);
+    public OWLNegativeDataPropertyAssertionImplAxiom(OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral object, Set<? extends OWLAnnotation> annotations) {
+        super(subject, property, object, annotations);
     }
 
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {

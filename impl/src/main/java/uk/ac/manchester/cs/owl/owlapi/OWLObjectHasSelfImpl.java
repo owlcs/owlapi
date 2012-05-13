@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -59,13 +58,13 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  */
 public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObjectPropertyExpression> implements OWLObjectHasSelf {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -3911681052624214190L;
 
 	@SuppressWarnings("javadoc")
-    public OWLObjectHasSelfImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property) {
-        super(dataFactory, property);
+    public OWLObjectHasSelfImpl(OWLObjectPropertyExpression property) {
+        super(property);
     }
 
     /**

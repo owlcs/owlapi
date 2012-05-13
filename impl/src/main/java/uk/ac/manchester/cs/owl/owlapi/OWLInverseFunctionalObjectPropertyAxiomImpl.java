@@ -66,8 +66,8 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends OWLObjectProper
 
 
 	@SuppressWarnings("javadoc")
-    public OWLInverseFunctionalObjectPropertyAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, property, annotations);
+    public OWLInverseFunctionalObjectPropertyAxiomImpl(OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+        super(property, annotations);
     }
 
     public OWLInverseFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations() {

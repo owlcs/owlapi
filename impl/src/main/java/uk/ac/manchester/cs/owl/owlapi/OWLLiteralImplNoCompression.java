@@ -43,7 +43,6 @@ import java.util.Arrays;
 
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -52,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * Author: Matthew Horridge<br>
@@ -80,27 +80,28 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
      * @param datatype the datatype; if lang is null or the empty string, it can be
      * null or it MUST be RDFPlainLiteral
      */
-    public OWLLiteralImplNoCompression(OWLDataFactory dataFactory, String literal, String lang, OWLDatatype datatype) {
-        super(dataFactory);
+    public OWLLiteralImplNoCompression(String literal, String lang, OWLDatatype datatype) {
+        super();
         try {
             this.literal = literal.getBytes(utf_8);
+            OWLDatatypeImpl rdfplainlit=new OWLDatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
             if (lang == null || lang.length() == 0) {
                 this.lang = "";
                 if (datatype == null) {
-                    this.datatype = dataFactory.getRDFPlainLiteral();
+                    this.datatype = rdfplainlit;
                 }
                 else {
                     this.datatype = datatype;
                 }
             }
             else {
-                final OWLDatatype rdfPlainLiteral = dataFactory.getRDFPlainLiteral();
-                if (datatype != null && !rdfPlainLiteral.equals(datatype)) {
+
+                if (datatype != null && !datatype.isRDFPlainLiteral()) {
                     // ERROR: attempting to build a literal with a language tag and type different from plain literal
                     throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
                 }
                 this.lang = lang;
-                this.datatype = rdfPlainLiteral;
+                this.datatype = rdfplainlit;
             }
             hashcode = getHashCode();
         }

@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -69,8 +68,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
 
 
 	@SuppressWarnings("javadoc")
-    public OWLEquivalentObjectPropertiesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLObjectPropertyExpression> properties, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, properties, annotations);
+    public OWLEquivalentObjectPropertiesAxiomImpl(Set<? extends OWLObjectPropertyExpression> properties, Collection<? extends OWLAnnotation> annotations) {
+        super(properties, annotations);
     }
 
     public OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations() {

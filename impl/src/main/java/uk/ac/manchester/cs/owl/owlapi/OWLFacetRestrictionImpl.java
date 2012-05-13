@@ -39,7 +39,6 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
@@ -66,8 +65,8 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
     private final OWLLiteral facetValue;
 
     @SuppressWarnings("javadoc")
-    public OWLFacetRestrictionImpl(OWLDataFactory dataFactory, OWLFacet facet, OWLLiteral facetValue) {
-        super(dataFactory);
+    public OWLFacetRestrictionImpl(OWLFacet facet, OWLLiteral facetValue) {
+        super();
         this.facet = facet;
         this.facetValue = facetValue;
     }

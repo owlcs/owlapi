@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
@@ -77,8 +76,8 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
      * @param dataFactory the data factory
      * @param iri the iri
      */
-    public OWLNamedIndividualImpl(OWLDataFactory dataFactory, IRI iri) {
-        super(dataFactory);
+    public OWLNamedIndividualImpl(IRI iri) {
+        super();
         this.iri = iri;
     }
 

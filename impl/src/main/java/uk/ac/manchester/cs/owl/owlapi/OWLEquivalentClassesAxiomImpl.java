@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -70,8 +69,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
 	private static final long serialVersionUID = -7012904259532092297L;
 	private Set<OWLClass> namedClasses;
     @SuppressWarnings("javadoc")
-    public OWLEquivalentClassesAxiomImpl(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, classExpressions, annotations);
+    public OWLEquivalentClassesAxiomImpl(Set<? extends OWLClassExpression> classExpressions, Collection<? extends OWLAnnotation> annotations) {
+        super(classExpressions, annotations);
         namedClasses = null;
     }
 

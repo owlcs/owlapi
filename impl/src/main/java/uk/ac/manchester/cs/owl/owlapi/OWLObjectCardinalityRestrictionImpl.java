@@ -40,7 +40,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -56,8 +55,8 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends OWLCardinality
 
 	private static final long serialVersionUID = -2346760268503666534L;
 
-	protected OWLObjectCardinalityRestrictionImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression property, int cardinality, OWLClassExpression filler) {
-        super(dataFactory, property, cardinality, filler);
+	protected OWLObjectCardinalityRestrictionImpl(OWLObjectPropertyExpression property, int cardinality, OWLClassExpression filler) {
+        super(property, cardinality, filler);
     }
 
 

@@ -72,8 +72,8 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
 
     private final OWLObjectPropertyExpression second;
     @SuppressWarnings("javadoc")
-    public OWLInverseObjectPropertiesAxiomImpl(OWLDataFactory dataFactory, OWLObjectPropertyExpression first, OWLObjectPropertyExpression second, Collection<? extends OWLAnnotation> annotations) {
-        super(dataFactory, new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(first, second)), annotations);
+    public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first, OWLObjectPropertyExpression second, Collection<? extends OWLAnnotation> annotations) {
+        super(new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(first, second)), annotations);
         this.first = first;
         this.second = second;
     }
