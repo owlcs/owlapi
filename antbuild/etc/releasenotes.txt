@@ -1,4 +1,36 @@
 ----------------------------------------------------------------------
+Release 3.3 (15 May 2012)
+----------------------------------------------------------------------
+
+This version wraps together some minor bug fixes and some performance improvements for loading time and memory footprint for large ontologies.
+Maven support has been much improved, thanks to Thomas Scharrenbach's efforts and Peter Ansell's feedback and suggestions.
+
+Main bugs fixed:
+
+- OBO Parser updated to be more compliant with the latest draft of the OBO syntax and semantics spec.
+- OBO Parser doesn't expand XREF values  (3515525)
+- Integrating with OpenRDF  (3512217)
+- maven should use snapshot versions during development  (3511755)
+- junit should be in maven test scope  (3511754)
+- mvn clean install requires gpg key  (3511732)
+- OWLOntologyManager.contains(IRI) bug (3497086)
+- Functional and Manchester syntax writers prefix problem  (3479677)
+- SyntacticLocalityModuleExtractor and SubAnnotationPropertyOf  (3477470)
+- Ignored Imports List uses the wrong IRIs  (3472712)
+- OWLLiteralImpl corrupts non-ascii unicode (3452932)
+- OWLOntologyXMLNamespaceManager QName problem  (3449316)
+- MultiImportsTestCase assumes incorrect working directory  (3448125)
+- Mismatch between HasKeyTestCase and corresponding resource  (3447280)
+- functional Renderer: OWLObjectRenderer swaps SWRL variables (3442060)
+- maven build fails because of dependency issue  (3440757)
+- manchester owl syntax doesn't handle rules with anon classes  (3421317)
+- RDFTurtleFormatter doesn't escape '\'  (3415108)
+- RDF consumer does not check for all annotated axiom triples  (3405822)
+- mis-parsing/mis-serialization of haskey (3403359)
+- Literal not a builtin  (3305113)
+- OWL API throws NullPointerException loading ontology  (3302982)
+
+----------------------------------------------------------------------
 Release 3.2.4 (22 July 2011)
 ----------------------------------------------------------------------
 
