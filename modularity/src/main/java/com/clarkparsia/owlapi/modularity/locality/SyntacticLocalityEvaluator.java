@@ -740,8 +740,18 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
+        // BUGFIX: (DT) Bottom property is not reflexive
+
         public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-            isLocal = !signature.contains(axiom.getProperty().getNamedProperty());
+            switch (localityCls) {
+            case BOTTOM_BOTTOM:
+            case TOP_BOTTOM:
+                isLocal = false;
+                break;
+            case TOP_TOP:
+                isLocal = !signature.contains(axiom.getProperty().getNamedProperty());
+                break;
+            }
         }
 
 
