@@ -3,32 +3,23 @@
 	<artifactId>owlapi-tutorial</artifactId>
 	<packaging>jar</packaging>
 	<name>API tutorial code</name>
-
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>3.3</version>
+		<version>3.3-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
-
-
 	<dependencies>
-
-
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-apibinding</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-debugging</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
-
-
 		<dependency>
 			<groupId>urbanophile</groupId>
 			<artifactId>java-getopt</artifactId>
@@ -37,10 +28,4 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-		</plugins>
-	</build>
-
 </project>
