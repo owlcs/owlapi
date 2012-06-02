@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- The MAVEN pom file for the OWL API. -->
@@ -17,7 +16,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>3.3-SNAPSHOT</version>
+	<version>3.3</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
@@ -206,10 +205,10 @@
 
 	<!-- Parameters for the Source Code Management system. -->
 	<scm>
-		<connection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/trunk/</connection>
-		<developerConnection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/trunk/</developerConnection>
+		<connection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/tags/owlapi-parent-3.3</connection>
+		<developerConnection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/tags/owlapi-parent-3.3</developerConnection>
 		<tag>trunk</tag>
-		<url>https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/trunk/</url>
+		<url>https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/tags/owlapi-parent-3.3</url>
 	</scm>
 
 </project>
