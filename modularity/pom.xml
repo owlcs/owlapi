@@ -3,19 +3,12 @@
 	<artifactId>owlapi-modularity</artifactId>
 	<packaging>jar</packaging>
 	<name>Modularity</name>
-
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>3.3</version>
+		<version>3.3-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
-
-	<build>
-		<plugins>
-
-		</plugins>
-	</build>
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -25,5 +18,4 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
-
 </project>

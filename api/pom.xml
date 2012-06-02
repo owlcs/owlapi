@@ -3,12 +3,10 @@
 	<artifactId>owlapi-api</artifactId>
 	<packaging>jar</packaging>
 	<name>OWLAPI Model Interfaces and utilities</name>
-
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>3.3</version>
+		<version>3.3-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
-
 </project>

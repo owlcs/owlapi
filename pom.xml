@@ -6,7 +6,7 @@
 	<!-- The MAVEN pom file for the OWL API. -->
 
 
-	<!-- The OWL API libraries are hosted on the Sonatype OSS repository. We 
+	<!-- The OWL API libraries are hosted on the Sonatype OSS repository. We
 		therfore need to refer to org.sonatype.oss.oss-parent as the parent project. -->
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -17,7 +17,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>3.3</version>
+	<version>3.3-SNAPSHOT</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
@@ -107,7 +107,7 @@
 			</activation>
 			<build>
 				<plugins>
-					<!-- We need the GPG Plugin to self-sign the jar files. A valid signature 
+					<!-- We need the GPG Plugin to self-sign the jar files. A valid signature
 						for the jar files is a requirement for deploying to Maven Central. -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>

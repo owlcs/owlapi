@@ -1,31 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>owlapi-reasoner</artifactId>
-    <packaging>jar</packaging>
-    <name>Reasoner</name>
-
-    <parent>
-        <groupId>net.sourceforge.owlapi</groupId>
-        <artifactId>owlapi-parent</artifactId>
-        <version>3.3</version>
-        <relativePath>../</relativePath>
-    </parent>
-
-
-    <dependencies>
-
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>owlapi-impl</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-    </dependencies>
-
-    <build>
-        <plugins>
-
-        </plugins>
-    </build>
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>owlapi-reasoner</artifactId>
+	<packaging>jar</packaging>
+	<name>Reasoner</name>
+	<parent>
+		<groupId>net.sourceforge.owlapi</groupId>
+		<artifactId>owlapi-parent</artifactId>
+		<version>3.3-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-impl</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
 </project>
