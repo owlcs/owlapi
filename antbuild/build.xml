@@ -189,6 +189,9 @@
         <zip destfile="${builddir}/owlapi-${version}.zip">
             <fileset dir="${distdir}"/>
         </zip>
+        <delete dir="${distdir}"/>
+        <delete dir="${javadocdir}"/>
+        <delete dir="${classesdir}"/>
     </target>
 
 </project>
