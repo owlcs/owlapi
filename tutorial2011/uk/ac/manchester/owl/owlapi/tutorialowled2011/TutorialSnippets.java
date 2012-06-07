@@ -44,7 +44,6 @@ import java.util.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.apibinding.configurables.OWLImplementationBinding;
 import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 
@@ -58,10 +57,6 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import uk.ac.manchester.cs.jfact.JFactFactory;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.LockingOWLOntologyImpl;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.LockingOWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.owlapi.alternateimpls.owldatafactory.DataFactoryCSR;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
@@ -359,7 +354,7 @@ public class TutorialSnippets extends TestCase {
 		m.applyChange(new AddAxiom(o, ax));
 	}
 
-	OWLReasonerFactory reasonerFactory = new JFactFactory();
+	OWLReasonerFactory reasonerFactory=null;// = new JFactFactory();
     @Test
 	public void testUnsatisfiableClasses()
 			throws Exception {
@@ -998,17 +993,17 @@ public class TutorialSnippets extends TestCase {
 			System.out.println(v);
 		}
 	}
-	public final class ThreadSafeBinding implements OWLImplementationBinding {
-		public OWLOntologyManager getOWLOntologyManager(OWLDataFactory d) {
-			return new LockingOWLOntologyManagerImpl(d);
-		}
-
-		public OWLOntology getOWLOntology(OWLOntologyManager oom, OWLOntologyID id) {
-			return new LockingOWLOntologyImpl(oom, id);
-		}
-
-		public OWLDataFactory getOWLDataFactory() {
-			return DataFactoryCSR.getInstance();
-		}
-	}
+//	public final class ThreadSafeBinding implements OWLImplementationBinding {
+//		public OWLOntologyManager getOWLOntologyManager(OWLDataFactory d) {
+//			return new LockingOWLOntologyManagerImpl(d);
+//		}
+//
+//		public OWLOntology getOWLOntology(OWLOntologyManager oom, OWLOntologyID id) {
+//			return new LockingOWLOntologyImpl(oom, id);
+//		}
+//
+//		public OWLDataFactory getOWLDataFactory() {
+//			return DataFactoryCSR.getInstance();
+//		}
+//	}
 }
