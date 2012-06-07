@@ -40,6 +40,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
@@ -55,7 +56,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
 
 	private static final long serialVersionUID = -1776512899375657560L;
 
-	private static int counter = 0;
+	private static final AtomicInteger counter = new AtomicInteger();
 
     private static final String ANON_PREFIX = "Anonymous-";
 
@@ -100,7 +101,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
             this.versionIRI = null;
         }
         if (ontologyIRI == null) {
-            internalID = ANON_PREFIX + getNextCounter();
+            internalID = ANON_PREFIX + counter.getAndIncrement();
             hashCode += 37 * internalID.hashCode();
         }
     }
@@ -179,12 +180,6 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
     public boolean isAnonymous() {
         return ontologyIRI == null;
     }
-
-    private static int getNextCounter() {
-        counter++;
-        return counter;
-    }
-
 
     @Override
 	public String toString() {
