@@ -403,8 +403,7 @@ public class TurtleRenderer extends RDFRendererBase {
             throw new IllegalStateException("Rendering cycle!  This indicates structure sharing and should not happen!");
         }
         pending.add(node);
-        Set<RDFTriple> triples = new TreeSet<RDFTriple>(new TripleComparator());
-        triples.addAll(getGraph().getTriplesForSubject(node));
+        List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
 
         RDFResourceNode lastSubject = null;
         RDFResourceNode lastPredicate = null;
