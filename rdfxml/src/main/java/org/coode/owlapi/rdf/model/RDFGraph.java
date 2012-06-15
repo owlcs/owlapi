@@ -194,8 +194,8 @@ public class RDFGraph {
      * @throws IOException if exceptions happen
      */
     public void dumpTriples(Writer w) throws IOException {
-        for(RDFNode subj : triplesBySubject.keySet()) {
-            for(RDFTriple triple : triplesBySubject.get(subj)) {
+        for(Set<RDFTriple> set : triplesBySubject.values()) {
+            for(RDFTriple triple : set) {
                 w.write(triple.toString());
                 w.write("\n");
             }
