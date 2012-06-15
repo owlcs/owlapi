@@ -41,11 +41,15 @@ package org.coode.owlapi.rdf.model;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 
 
 /**
@@ -112,7 +116,9 @@ public class RDFGraph {
     /**
      * @param subject node to search
      * @return triples which have subject as subject
+     * @deprecated this method makes a defensive copy for each element in the map, but most uses of this only iterate over the results. Use getSortedTriplesForResult instead
      */
+    @Deprecated
     public Set<RDFTriple> getTriplesForSubject(RDFNode subject) {
         if (triplesBySubject.containsKey(subject)) {
             return new HashSet<RDFTriple>(triplesBySubject.get(subject));
@@ -120,6 +126,17 @@ public class RDFGraph {
         else {
             return Collections.emptySet();
         }
+    }
+    public List<RDFTriple> getSortedTriplesForSubject(RDFNode subject, boolean sort) {
+    	List<RDFTriple> toReturn=new ArrayList<RDFTriple>();
+    	Set<RDFTriple> set=triplesBySubject.get(subject);
+    	if(set!=null){
+    		toReturn.addAll(set);
+    	}
+    	if(sort) {
+    		Collections.sort(toReturn, RDFRendererBase.tripleComparator);
+    	}
+    	return toReturn;
     }
 
 

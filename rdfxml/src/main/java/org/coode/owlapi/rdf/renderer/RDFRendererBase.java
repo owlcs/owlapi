@@ -42,6 +42,7 @@ package org.coode.owlapi.rdf.renderer;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -88,7 +89,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 
 /**
@@ -360,16 +361,16 @@ public abstract class RDFRendererBase {
             ontologyNode = new RDFResourceNode(ontID.getOntologyIRI());
             count++;
             if (ontID.getVersionIRI() != null) {
-                graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.OWL_VERSION_IRI.getIRI()), new RDFResourceNode(ontID.getVersionIRI())));
+                graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWL_VERSION_IRI.getIRI()), new RDFResourceNode(ontID.getVersionIRI())));
                 count++;
             }
         }
         else {
             ontologyNode = new RDFResourceNode(System.identityHashCode(ontology));
         }
-        graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.RDF_TYPE.getIRI()), new RDFResourceNode(OWLRDFVocabulary.OWL_ONTOLOGY.getIRI())));
+        graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(RDF_TYPE.getIRI()), new RDFResourceNode(OWL_ONTOLOGY.getIRI())));
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
-            graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWLRDFVocabulary.OWL_IMPORTS.getIRI()), new RDFResourceNode(decl.getIRI())));
+            graph.addTriple(new RDFTriple(ontologyNode, new RDFResourceNode(OWL_IMPORTS.getIRI()), new RDFResourceNode(decl.getIRI())));
             count++;
         }
         for (OWLAnnotation anno : ontology.getAnnotations()) {
@@ -561,10 +562,10 @@ public abstract class RDFRendererBase {
 
 
     protected boolean isObjectList(RDFResourceNode node) {
-        for (RDFTriple triple : graph.getTriplesForSubject(node)) {
-            if (triple.getProperty().getIRI().equals(OWLRDFVocabulary.RDF_TYPE.getIRI())) {
+        for (RDFTriple triple : graph.getSortedTriplesForSubject(node, false)) {
+            if (triple.getProperty().getIRI().equals(RDF_TYPE.getIRI())) {
                 if (!triple.getObject().isAnonymous()) {
-                    if (triple.getObject().getIRI().equals(OWLRDFVocabulary.RDF_LIST.getIRI())) {
+                    if (triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
                         List<RDFNode> items = new ArrayList<RDFNode>();
                         toJavaList(node, items);
                         for (RDFNode n : items) {
@@ -584,15 +585,15 @@ public abstract class RDFRendererBase {
     protected void toJavaList(RDFNode n, List<RDFNode> list) {
         RDFNode currentNode = n;
         while(currentNode != null) {
-            for (RDFTriple triple : graph.getTriplesForSubject(currentNode)) {
-                if (triple.getProperty().getIRI().equals(OWLRDFVocabulary.RDF_FIRST.getIRI())) {
+            for (RDFTriple triple : graph.getSortedTriplesForSubject(currentNode, false)) {
+                if (triple.getProperty().getIRI().equals(RDF_FIRST.getIRI())) {
                     list.add(triple.getObject());
                 }
             }
-            for (RDFTriple triple : graph.getTriplesForSubject(currentNode)) {
-                if (triple.getProperty().getIRI().equals(OWLRDFVocabulary.RDF_REST.getIRI())) {
+            for (RDFTriple triple : graph.getSortedTriplesForSubject(currentNode, false)) {
+                if (triple.getProperty().getIRI().equals(RDF_REST.getIRI())) {
                     if (!triple.getObject().isAnonymous()) {
-                        if (triple.getObject().getIRI().equals(OWLRDFVocabulary.RDF_NIL.getIRI())) {
+                        if (triple.getObject().getIRI().equals(RDF_NIL.getIRI())) {
                             // End of list
                             currentNode = null;
                         }
@@ -624,20 +625,12 @@ public abstract class RDFRendererBase {
 	public static class TripleComparator implements Comparator<RDFTriple>, Serializable {
 
     	private static final long serialVersionUID = 9034226212063704393L;
-		private List<IRI> orderedURIs;
-
+		private static final List<IRI> orderedURIs = Arrays.asList(RDF_TYPE.getIRI(),
+				RDFS_LABEL.getIRI(), OWL_EQUIVALENT_CLASS.getIRI(),
+				RDFS_SUBCLASS_OF.getIRI(), OWL_DISJOINT_WITH.getIRI(),
+				OWL_ON_PROPERTY.getIRI(), OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
 
         public TripleComparator() {
-            orderedURIs = new ArrayList<IRI>();
-            orderedURIs.add(OWLRDFVocabulary.RDF_TYPE.getIRI());
-            orderedURIs.add(OWLRDFVocabulary.RDFS_LABEL.getIRI());
-            orderedURIs.add(OWLRDFVocabulary.OWL_EQUIVALENT_CLASS.getIRI());
-            orderedURIs.add(OWLRDFVocabulary.RDFS_SUBCLASS_OF.getIRI());
-            orderedURIs.add(OWLRDFVocabulary.OWL_DISJOINT_WITH.getIRI());
-
-            orderedURIs.add(OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI());
-            orderedURIs.add(OWLRDFVocabulary.OWL_DATA_RANGE.getIRI());
-            orderedURIs.add(OWLRDFVocabulary.OWL_ON_CLASS.getIRI());
         }
 
 
@@ -752,4 +745,6 @@ public abstract class RDFRendererBase {
             return diff;
         }
     }
+    public static final TripleComparator tripleComparator=new TripleComparator();
+
 }

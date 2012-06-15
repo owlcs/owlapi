@@ -189,10 +189,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
             return;
         }
         pending.add(node);
-        Set<RDFTriple> triples = new TreeSet<RDFTriple>(new TripleComparator());
-        triples.addAll(getGraph().getTriplesForSubject(node));
         RDFTriple candidatePrettyPrintTypeTriple = null;
-        for (RDFTriple triple : triples) {
+        final List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
+		for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getProperty().getIRI();
             if (propertyIRI.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()) {
                 if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())) {
