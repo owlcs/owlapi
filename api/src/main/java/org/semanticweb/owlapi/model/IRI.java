@@ -45,6 +45,8 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Set;
 
+import org.openrdf.model.impl.ValueFactoryImpl;
+
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.util.WeakCache;
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -70,6 +72,22 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         }
     }
 
+    /**
+     * Obtains this IRI as an OpenRDF URI.
+     * @return The URI
+     */
+    public org.openrdf.model.URI toOpenRDFURI() {
+        if (remainder != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(prefix);
+            sb.append(remainder);
+            return ValueFactoryImpl.getInstance().createURI(sb.toString());
+        }
+        else {
+            return ValueFactoryImpl.getInstance().createURI(prefix);
+        }
+    }
+    
     /** Determines if this IRI is absolute
      * 
      * @return {@code true} if this IRI is absolute or {@code false} if this IRI
@@ -258,11 +276,22 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /** @param uri
      *            the uri to create the IRI from. Cannot be null
      * @return the IRI wrapping the uri */
-    public static IRI create(URI uri) {
+    public static IRI create(java.net.URI uri) {
         if (uri == null) {
             throw new IllegalArgumentException("uri cannot be null");
         }
         return new IRI(uri);
+    }
+
+    /**
+     * @param uri the uri to create the IRI from. Cannot be null
+     * @return the IRI wrapping the uri
+     */
+    public static IRI create(org.openrdf.model.URI uri) {
+        if (uri == null) {
+            throw new IllegalArgumentException("uri cannot be null");
+        }
+        return new IRI(uri.stringValue());
     }
 
     /** @param url
