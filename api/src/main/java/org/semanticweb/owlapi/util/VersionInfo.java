@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import info.aduna.io.MavenUtil;
+
 /** A place holder for the current release number.
  * 
  * @author Matthew Horridge, The University Of Manchester, Information
@@ -47,12 +49,7 @@ public class VersionInfo {
     private final String version;
 
     private VersionInfo() {
-        String v = VersionInfo.class.getPackage().getImplementationVersion();
-        if (v != null) {
-            version = v;
-        } else {
-            version = "3.4.11-SNAPSHOT";
-        }
+        version = MavenUtil.loadVersion("com.github.ansell.owlapi", "owlapi-api", "[Not Released]");
     }
 
     /** @return the version info */
