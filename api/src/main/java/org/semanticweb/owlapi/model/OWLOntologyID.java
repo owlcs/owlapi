@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.openrdf.model.URI;
+
 /** An object that identifies an ontology. Since OWL 2, ontologies do not have to
  * have an ontology IRI, or if they have an ontology IRI then they can
  * optionally also have a version IRI. Instances of this OWLOntologyID class
@@ -49,14 +51,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group, Date: 18-Jan-2009 */
-public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
-    private static final long serialVersionUID = 30406L;
-    private static final AtomicInteger counter = new AtomicInteger();
+public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
+	private static final long serialVersionUID = 30406L;
+	private static final AtomicInteger counter = new AtomicInteger();
     private static final String ANON_PREFIX = "Anonymous-";
     private String internalID;
     private final IRI ontologyIRI;
     private final IRI versionIRI;
-    private int hashCode;
+    protected int hashCode;
 
     /** Constructs an ontology identifier specifying the ontology IRI.
      * 
@@ -96,11 +98,19 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
             hashCode += 37 * internalID.hashCode();
         }
     }
-
+    
+    public OWLOntologyID(URI ontologyURI) {
+        this(IRI.create(ontologyURI));
+    }
+    
+    public OWLOntologyID(URI ontologyURI, URI versionURI) {
+        this(IRI.create(ontologyURI), IRI.create(versionURI));
+    }
+    
     /** Constructs an ontology identifier specifying that the ontology IRI (and
      * hence the version IRI) is not present. */
     public OWLOntologyID() {
-        this(null, null);
+        this((IRI)null);
     }
 
     /** Determines if this is a valid OWL 2 DL ontology ID. To be a valid OWL 2
@@ -205,25 +215,22 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
             // both anonymous: check the anon version
             return internalID.equals(other.internalID);
         }
-        if (isAnonymous() != other.isAnonymous()) {
-            // one anonymous, one not: equals is false
+        else if (!this.isAnonymous() && !other.isAnonymous()) {
+        	if(!ontologyIRI.equals(other.ontologyIRI)) {
+        	    return false;
+        	}
+        	// if ontology IRIs were equal, compare the version iris
+
+            if (versionIRI != null) {
+            	return versionIRI.equals(other.versionIRI);
+            }
+            else {
+                return other.versionIRI == null;
+            }
+        }
+        else {
+            // else one was anonymous and the other was not, so return false
             return false;
         }
-        if (!isAnonymous()) {
-            boolean toReturn = ontologyIRI.equals(other.ontologyIRI);
-            if (!toReturn) {
-                return toReturn;
-            }
-            // if toReturn is true, compare the version iris
-            if (versionIRI != null) {
-                toReturn = versionIRI.equals(other.versionIRI);
-            } else {
-                toReturn = other.versionIRI == null;
-            }
-            return toReturn;
-        }
-        // else this is anonymous and the other cannot be anonymous, so return
-        // false
-        return false;
     }
 }
