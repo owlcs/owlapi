@@ -39,9 +39,13 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 
 
@@ -54,7 +58,14 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 public class OWLEquivalentClassesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLClassExpression> {
 
-
+    public void testAsSubAxioms() throws Exception {
+        Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
+        operands.add(createOperand());
+        operands.add(createOperand());
+        OWLEquivalentClassesAxiom objA = (OWLEquivalentClassesAxiom) createObject(operands);
+        assertTrue(objA.asOWLSubClassOfAxioms().size()==2);
+        
+    }
     @Override
 	protected OWLObject createObject(Set<OWLClassExpression> operands) throws Exception {
         return getFactory().getOWLEquivalentClassesAxiom(operands);

@@ -51,6 +51,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -1927,12 +1928,11 @@ public class OWLRDFConsumer implements RDFConsumer {
         return ce;
     }
 
-    private int errorCounter = 0;
+    private static final AtomicInteger errorCounter =new AtomicInteger(0);
 
 
     private <E extends OWLEntity> E getErrorEntity(EntityType<E> entityType) {
-        errorCounter++;
-        IRI iri = IRI.create("http://org.semanticweb.owlapi/error#Error" + errorCounter);
+        IRI iri = IRI.create("http://org.semanticweb.owlapi/error#Error" + errorCounter.incrementAndGet());
         return dataFactory.getOWLEntity(entityType, iri);
     }
 

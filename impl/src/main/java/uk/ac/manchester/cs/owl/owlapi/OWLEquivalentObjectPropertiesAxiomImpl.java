@@ -49,10 +49,12 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
 
@@ -109,15 +111,18 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
         return AxiomType.EQUIVALENT_OBJECT_PROPERTIES;
     }
 
-
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
-        List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>(getProperties());
-        Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<OWLSubObjectPropertyOfAxiom>();
-        for (int i = 0; i < props.size() - 1; i++) {
-            for (int j = i + 1; j < props.size(); j++) {
-                axs.add(getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(props.get(i), props.get(j)));
+        Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<OWLSubObjectPropertyOfAxiom>();
+        List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>(
+                getProperties());
+        for (int i = 0; i < props.size(); i++) {
+            for (int j = 0; j < props.size(); j++) {
+                if (i != j) {
+                    result.add(getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(
+                            props.get(i), props.get(j)));
+                }
             }
         }
-        return axs;
+        return result;
     }
 }

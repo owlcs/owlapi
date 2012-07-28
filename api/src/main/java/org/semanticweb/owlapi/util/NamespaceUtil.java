@@ -124,6 +124,7 @@ public class NamespaceUtil {
      *         and the second element corresponds to the local name.  If the string could
      *         not be split into a namespace and local name then the first element will be
      *         an empty string and the second element will an empty string
+     *         @deprecated Use {@link org.semanticweb.owlapi.io.XMLUtils#getNCNamePrefix(CharSequence)}
      */
     public String [] split(String s, String [] result) {
         // We need to deal with escape sequences.  %20 is a space
@@ -140,13 +141,35 @@ public class NamespaceUtil {
                 break;
             }
         }
-        String [] split;
-        if (result != null) {
-            split = result;
+        String [] split = new String [2];
+        if(!XMLUtils.isNCNameStartChar(s.charAt(startIndex))) {
+            // Could not find split!
+            split[0] = "";
+            split[1] = "";
         }
         else {
-            split = new String [2];
+            split[0] = s.substring(0, startIndex);
+            split[1] = s.substring(startIndex, s.length());
         }
+        return split;
+    }
+    /** @deprecated Use {@link org.semanticweb.owlapi.io.XMLUtils#getNCNamePrefix(CharSequence)} */
+    public String [] split(String s) {
+        // We need to deal with escape sequences.  %20 is a space
+        // and can be contained within a qname.
+        String temp = s;
+        temp = temp.replaceAll("\\%[0-9a-fA-F][0-9a-fA-F]", "---");
+        int startIndex = s.length() - 1;
+        for (int index = s.length() - 1; index > -1; index--) {
+            char curChar = temp.charAt(index);
+            if (XMLUtils.isNCNameStartChar(curChar)) {
+                startIndex = index;
+            }
+            else if (!XMLUtils.isNCNameChar(curChar)) {
+                break;
+            }
+        }
+        String [] split = new String [2];
         if(!XMLUtils.isNCNameStartChar(s.charAt(startIndex))) {
             // Could not find split!
             split[0] = "";

@@ -75,7 +75,7 @@ public abstract class AbstractOWLDataFactoryTest extends AbstractOWLAPITestCase 
     public abstract void testEqualsNegative() throws Exception;
 
     public abstract void testHashCode() throws Exception;
-
+    
     public static void assertNotEquals(Object objA, Object objB) {
         assertFalse("Objects should not be equal", objA.equals(objB));
     }

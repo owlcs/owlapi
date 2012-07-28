@@ -523,37 +523,61 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
 		public Object visit(OWLSubPropertyChainOfAxiom axiom) {
+            
+//          Restriction on the Property Hierarchy. A strict partial order (i.e., an irreflexive and transitive relation) < on AllOPE(Ax) exists that fulfills the following conditions:
+//
+//          OP1 < OP2 if and only if INV(OP1) < OP2 for all object properties OP1 and OP2 occurring in AllOPE(Ax).
+//          If OPE1 < OPE2 holds, then OPE2 →* OPE1 does not hold;
+//          Each axiom in Ax of the form SubObjectPropertyOf( ObjectPropertyChain( OPE1 ... OPEn ) OPE ) with n ≥ 2 fulfills the following conditions:
+//              OPE is equal to owl:topObjectProperty, or             [TOP]
+//              n = 2 and OPE1 = OPE2 = OPE, or                       [TRANSITIVE_PROP]
+//              OPEi < OPE for each 1 ≤ i ≤ n, or                     [ALL_SMALLER]
+//              OPE1 = OPE and OPEi < OPE for each 2 ≤ i ≤ n, or      [FIRST_EQUAL]
+//              OPEn = OPE and OPEi < OPE for each 1 ≤ i ≤ n-1.       [LAST_EQUAL]
 
-            if (axiom.getPropertyChain().size() > 1) {
-                OWLObjectPropertyExpression superProp = axiom.getSuperProperty();
-                if (!superProp.isOWLTopObjectProperty()) {
-                    if (!axiom.isEncodingOfTransitiveProperty()) {
-                        List<OWLObjectPropertyExpression> chain = axiom.getPropertyChain();
-                        if (chain.get(0).equals(superProp)) {
-                            for (int i = 1; i < chain.size(); i++) {
-                                if (!getPropertyManager().isLessThan(chain.get(i), superProp)) {
-                                    profileViolations.add(new UseOfPropertyInChainCausesCycle(getCurrentOntology(), axiom, chain.get(i)));
-                                }
-                            }
-                        }
-                        else if (chain.get(chain.size() - 1).equals(superProp)) {
-                            for (int i = 0; i < chain.size() - 1; i++) {
-                                if (!getPropertyManager().isLessThan(chain.get(i), superProp)) {
-                                    profileViolations.add(new UseOfPropertyInChainCausesCycle(getCurrentOntology(), axiom, chain.get(i)));
-                                }
-                            }
-                        }
-                        for (OWLObjectPropertyExpression sub : axiom.getPropertyChain()) {
-                            if (!getPropertyManager().isLessThan(sub, superProp)) {
-                                profileViolations.add(new UseOfPropertyInChainCausesCycle(getCurrentOntology(), axiom, sub));
-                            }
-                        }
-
-                    }
-                }
-            }else {
-            	profileViolations.add(new InsufficientPropertyExpressions(getCurrentOntology(), axiom));
+            if (axiom.getPropertyChain().size()<2) {
+                profileViolations.add(new InsufficientPropertyExpressions(getCurrentOntology(), axiom));
             }
+            OWLObjectPropertyExpression superProp = axiom.getSuperProperty();
+            if (superProp.isOWLTopObjectProperty() || axiom.isEncodingOfTransitiveProperty()) {
+                // TOP or TRANSITIVE_PROP: no violation can occur
+                return null;
+            }
+            List<OWLObjectPropertyExpression> chain = axiom.getPropertyChain();
+            
+            final OWLObjectPropertyExpression first = chain.get(0);
+            final OWLObjectPropertyExpression last = chain.get(chain.size() - 1);
+            // center part of the chain must be smaller in any case
+            for (int i = 1; i < chain.size()-1; i++) {
+                if (getPropertyManager().isLessThan( superProp,chain.get(i))) {
+                    profileViolations.add(new UseOfPropertyInChainCausesCycle(getCurrentOntology(), axiom, chain.get(i)));
+                }
+            }
+
+            if (first.equals(superProp)) {
+                // first equals, last must be smaller
+                if (getPropertyManager().isLessThan( superProp,last)) {
+                    profileViolations.add(new UseOfPropertyInChainCausesCycle(getCurrentOntology(), axiom, last));
+                }
+            } else {
+                // first not equal, it must be smaller
+                if (getPropertyManager().isLessThan( superProp,first)) {
+                    profileViolations.add(new UseOfPropertyInChainCausesCycle(getCurrentOntology(), axiom, first));
+                }
+            }
+            if (last.equals(superProp)) {
+                // last equals, first must be smaller
+                if (getPropertyManager().isLessThan( superProp,first)) {
+                    profileViolations.add(new UseOfPropertyInChainCausesCycle(getCurrentOntology(), axiom, first));
+                }
+            } else {
+                // last not equal, it must be smaller
+                if (getPropertyManager().isLessThan( superProp,last)) {
+                    profileViolations.add(new UseOfPropertyInChainCausesCycle(getCurrentOntology(), axiom, last));
+                }
+            }
+            
+            // neither first and last equal: they both must be smaller, checked already in the else branches
             return null;
         }
     }
