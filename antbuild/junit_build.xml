@@ -81,7 +81,7 @@
 		</javac>
 
 	</target>
-	<target name="compile-test">
+	<target name="compile-test" depends="compile">
 		<mkdir dir="${classesdir}" />
 		<antcall target="compile"/>
 		<javac srcdir="./.." destdir="${classesdir}" debug="on" target="1.5" source="1.5" compiler="javac1.5" fork="yes">
@@ -127,7 +127,6 @@
 			</batchtest>
 		</junit>
 
-		<antcall target="compile" />
 
 
 
@@ -149,41 +148,6 @@
 		</jar>
 	</target>
 
-	<!-- We just include the documentation for non-implementation stuff
-         - including documentation for the impl package wouldn't make sense
-         because end API users aren't expected to deal with this kind of thing -->
-	<target name="javadoc">
-		<mkdir dir="${javadocdir}" />
-		<javadoc destdir="${javadocdir}" verbose="no" windowtitle="The OWL API">
-			<fileset dir="./.." defaultexcludes="yes">
-				<include name="api/${sourcepath}" />
-				<include name="api/javadoc" />
-				<include name="apibinding/${sourcepath}" />
-				<include name="change/${sourcepath}" />
-				<include name="debugging/${sourcepath}" />
-				<include name="dlsyntax/${sourcepath}" />
-				<include name="functional/${sourcepath}" />
-				<include name="impl/${sourcepath}" />
-				<include name="krss/${sourcepath}" />
-				<include name="latex/${sourcepath}" />
-				<include name="mansyntax/${sourcepath}" />
-				<include name="metrics/${sourcepath}" />
-				<include name="modularity/${sourcepath}" />
-				<include name="normalform/${sourcepath}" />
-				<include name="obo/${sourcepath}" />
-				<include name="owlexpression/${sourcepath}" />
-				<include name="owlxml/${sourcepath}" />
-				<include name="rdfapi/${sourcepath}" />
-				<include name="rdfxml/${sourcepath}" />
-				<include name="reasoner/${sourcepath}" />
-				<include name="turtle/${sourcepath}" />
-				<include name="util/${sourcepath}" />
-			</fileset>
-		</javadoc>
-		<copy todir="${javadocdir}/doc-files">
-			<fileset dir="./../api/src/main/javadoc/doc-files" />
-		</copy>
-	</target>
 
 	<!-- Creates a jar containing the OWL API source code -->
 	<target name="srcjar">
@@ -221,7 +185,7 @@
          class files, a jar file containing the source, a lib directory containing
          the dependencies for the distribution.  The zip file is names
          owlapi-${version}.zip -->
-	<target name="distribution" depends="clean, binjar, srcjar, javadoc">
+	<target name="distribution" depends="clean, binjar">
 		<property name="distdir" value="${builddir}/dist" />
 		<mkdir dir="${distdir}" />
 		<copy todir="${distdir}/lib">
@@ -237,9 +201,6 @@
 			<fileset file="${builddir}/${src-name}" />
 			<fileset file="build.xml" />
 			<fileset file="${src-name}" />
-		</copy>
-		<copy todir="${distdir}/javadoc">
-			<fileset dir="${javadocdir}" />
 		</copy>
 		<zip destfile="${builddir}/owlapi-${version}.zip">
 			<fileset dir="${distdir}" />

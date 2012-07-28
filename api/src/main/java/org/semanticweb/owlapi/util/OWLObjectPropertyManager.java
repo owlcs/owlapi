@@ -401,7 +401,7 @@ public class OWLObjectPropertyManager {
             return props.contains(propB.getSimplified());
         }
     }
-
+    
     private Set<OWLObjectPropertyExpression> getReferencedProperties() {
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         for (OWLOntology ont : getOntologies()) {

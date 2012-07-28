@@ -109,4 +109,6 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
         OWLObject objB = createObject(operands);
         assertEquals(objA.hashCode(), objB.hashCode());
     }
+    
+    
 }

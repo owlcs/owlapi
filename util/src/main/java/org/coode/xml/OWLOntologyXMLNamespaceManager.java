@@ -71,13 +71,9 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 @SuppressWarnings("javadoc")
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
-    //private OWLOntologyManager man;
-
     private OWLOntology ontology;
 
     private NamespaceUtil namespaceUtil;
-
-    private static String[] splitResults = new String[2];
 
     private OWLOntologyFormat ontologyFormat;
 
@@ -153,7 +149,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     private void processIRI(IRI iri) {
         String s = iri.toString();
-        namespaceUtil.split(s, splitResults);
+        String[] splitResults=namespaceUtil.split(s);
         if (!(splitResults[0].equals("") || splitResults[1].equals(""))) {
             namespaceUtil.getPrefix(splitResults[0]);
         }
@@ -198,7 +194,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
      */
     @Override
 	public String getQName(String name) {
-        namespaceUtil.split(name, splitResults);
+        String[] splitResults = namespaceUtil.split(name);
         if (splitResults[0].equals(getDefaultNamespace())) {
             return splitResults[1];
         }

@@ -135,10 +135,12 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
 
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
-        for (OWLClassExpression descA : getClassExpressions()) {
-            for (OWLClassExpression descB : getClassExpressions()) {
-                if (!descA.equals(descB)) {
-                    result.add(getOWLDataFactory().getOWLSubClassOfAxiom(descA, descB));
+        final List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(getClassExpressions());
+        for (int i = 0; i < classExpressions.size(); i++) {
+            for (int j = 0; j < classExpressions.size(); j++) {
+                if (i != j) {
+                    result.add(getOWLDataFactory().getOWLSubClassOfAxiom(
+                            classExpressions.get(i), classExpressions.get(j)));
                 }
             }
         }

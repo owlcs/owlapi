@@ -42,6 +42,7 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 import java.io.File;
 import java.util.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.*;
@@ -62,6 +63,7 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
 import junit.framework.TestCase;
 
+@Ignore
 public class TutorialSnippets extends TestCase {
 	public static final IRI pizza_iri = IRI
 			.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
