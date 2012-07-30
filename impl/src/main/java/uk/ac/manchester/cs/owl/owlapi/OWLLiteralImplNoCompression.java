@@ -73,7 +73,6 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     private final int hashcode;
 
     /**
-     * @param dataFactory the datafactory
      * @param literal the lexical form
      * @param lang the language; can be null or an empty string, in which case
      * datatype can be any datatype but not null
