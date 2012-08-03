@@ -377,6 +377,7 @@ public class ManchesterOWLSyntaxEditorParser {
         initialiseSection(new ClassEquivalentToListItemParser(), classFrameSections);
         initialiseSection(new ClassDisjointWithListItemParser(), classFrameSections);
         initialiseSection(new ClassHasKeyListItemParser(), classFrameSections);
+        initialiseSection(new ClassDisjointUnionOfListItemParser(), classFrameSections);
         // Extensions
         initialiseSection(new ClassSuperClassOfListItemParser(), classFrameSections);
         initialiseSection(new ClassDisjointClassesListItemParser(), classFrameSections);
