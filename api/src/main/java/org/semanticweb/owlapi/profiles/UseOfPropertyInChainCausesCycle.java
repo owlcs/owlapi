@@ -66,4 +66,17 @@ public class UseOfPropertyInChainCausesCycle extends OWLProfileViolation impleme
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Use of property in chain causes cycle: ");
+        sb.append(property);
+        sb.append(" [in axiom ");
+        sb.append(getAxiom());
+        sb.append(" in ontology ");
+        sb.append(getOntologyID());
+        sb.append("]");
+        return sb.toString();
+    }
 }
