@@ -1,0 +1,355 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+   <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+   <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+   <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+   <!ENTITY family "http://www.example.org/family#">
+]>
+<rdf:RDF xmlns:rdf="&rdf;" xmlns:rdfs="&rdfs;" xmlns:owl="&owl;" xmlns:family="&family;" xml:base="&family;">
+   <owl:Ontology rdf:about="">
+      <rdfs:comment>An example to test features from OWL 1.1</rdfs:comment>
+   </owl:Ontology>
+   
+   <owl:Class rdf:about="#Person">
+      <owl:disjointUnionOf rdf:parseType="Collection">
+         <owl:Class rdf:ID="Male"/>
+         <owl:Class rdf:ID="Female"/>
+      </owl:disjointUnionOf>
+      <rdfs:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasFather"/>
+            <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+         </owl:Restriction>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasMother"/>
+            <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+         </owl:Restriction>
+      </rdfs:subClassOf>  
+      <rdfs:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasParent"/>
+            <owl:maxCardinality rdf:datatype="&xsd;int">2</owl:maxCardinality>
+         </owl:Restriction>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasAge"/>
+            <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+         </owl:Restriction>
+      </rdfs:subClassOf>    
+      <rdfs:subClassOf>
+         <owl:SelfRestriction>
+            <owl:onProperty rdf:resource="#likes"/>
+         </owl:SelfRestriction>
+      </rdfs:subClassOf>  
+      <rdfs:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#isMarriedTo"/>
+            <owl:maxCardinality rdf:datatype="&xsd;int">1</owl:maxCardinality>
+         </owl:Restriction>
+      </rdfs:subClassOf>                      
+   </owl:Class>
+   
+   <owl:Class rdf:about="#PersonWithAtLeastTwoMaleChildren">
+      <owl:equivalentClass>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasChild"/>
+            <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minCardinality>
+            <owl:onClass rdf:resource="#Male"/>
+         </owl:Restriction>
+      </owl:equivalentClass>
+   </owl:Class>
+   
+   <owl:Class rdf:about="#PersonWithAtLeastTwoFemaleChildren">
+      <owl:equivalentClass>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasChild"/>
+            <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minCardinality>
+            <owl:onClass rdf:resource="#Female"/>
+         </owl:Restriction>
+      </owl:equivalentClass>
+   </owl:Class>
+
+   <owl:Class rdf:about="#PersonWithAtLeastTwoChildren">
+      <owl:equivalentClass>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasChild"/>
+            <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minCardinality>
+         </owl:Restriction>
+      </owl:equivalentClass>
+   </owl:Class>
+   
+   <owl:Class rdf:about="#PersonWithExactlyTwoChildren">
+      <owl:equivalentClass>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasChild"/>
+            <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:cardinality>
+         </owl:Restriction>
+      </owl:equivalentClass>
+   </owl:Class>
+   
+   <owl:Class rdf:about="#PersonWithAtLeastFourChildren">
+      <owl:equivalentClass>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasChild"/>
+            <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">4</owl:minCardinality>
+         </owl:Restriction>
+      </owl:equivalentClass>
+   </owl:Class>
+ 
+   <owl:Class rdf:about="#Male">
+      <rdfs:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#isMarriedTo"/>
+           <owl:allValuesFrom rdf:resource="#Female"/>
+         </owl:Restriction>
+      </rdfs:subClassOf>
+   </owl:Class>
+
+   <owl:Class rdf:about="#Female">
+      <rdfs:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#isMarriedTo"/>
+           <owl:allValuesFrom rdf:resource="#Male"/>
+         </owl:Restriction>
+      </rdfs:subClassOf>
+   </owl:Class>
+    
+   <owl:ObjectProperty rdf:about="#hasAncestor">
+      <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+      <rdf:type rdf:resource="&owl;AntisymmetricProperty"/>
+      <rdfs:domain rdf:resource="#Person"/>
+      <rdfs:range rdf:resource="#Person"/>
+   </owl:ObjectProperty>
+   
+   <rdf:List>
+      <rdf:first rdf:resource="#hasAncestor"/>
+      <rdf:rest rdf:parseType="Collection">
+         <owl:ObjectProperty rdf:about="#hasAncestor"/>
+      </rdf:rest>
+      <rdfs:subPropertyOf rdf:resource="#hasAncestor"/>
+   </rdf:List>
+      
+   <owl:ObjectProperty rdf:about="#hasDescendant">
+      <owl:inverseOf rdf:resource="#hasAncestor"/>
+   </owl:ObjectProperty>
+   
+   <owl:ObjectProperty rdf:about="#hasParent">
+      <rdfs:subPropertyOf rdf:resource="#hasAncestor"/>
+   </owl:ObjectProperty>
+   
+   <owl:ObjectProperty rdf:about="#hasFather">
+      <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+      <rdfs:subPropertyOf rdf:resource="#hasParent"/>
+      <rdfs:range rdf:resource="#Male"/>
+   </owl:ObjectProperty>
+   
+   <owl:ObjectProperty rdf:about="#hasMother">
+      <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+      <rdfs:subPropertyOf rdf:resource="#hasParent"/>
+      <rdfs:range rdf:resource="#Female"/>
+   </owl:ObjectProperty>
+   
+   <owl:ObjectProperty rdf:about="#hasSon">
+      <rdfs:subPropertyOf rdf:resource="#hasChild"/>
+      <rdfs:range rdf:resource="#Male"/>
+   </owl:ObjectProperty>
+   
+   <owl:ObjectProperty rdf:about="#hasDaughter">
+      <rdfs:subPropertyOf rdf:resource="#hasChild"/>
+      <rdfs:range rdf:resource="#Female"/>
+   </owl:ObjectProperty>
+   
+   <owl:ObjectProperty rdf:about="#hasSibling">
+      <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+      <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+      <rdfs:range rdf:resource="#Person"/>
+   </owl:ObjectProperty>
+      
+   <owl:ObjectProperty rdf:about="#hasBrother">
+      <rdfs:subPropertyOf rdf:resource="#hasSibling"/>
+      <rdfs:range rdf:resource="#Male"/>
+   </owl:ObjectProperty>
+   
+   <owl:ObjectProperty rdf:about="#hasSister">
+      <rdfs:subPropertyOf rdf:resource="#hasSibling"/>
+      <rdfs:range rdf:resource="#Female"/>
+   </owl:ObjectProperty>
+   
+   <owl:ObjectProperty rdf:about="#hasChild">
+      <owl:inverseOf rdf:resource="#hasParent"/>
+   </owl:ObjectProperty>
+   
+   <owl:ObjectProperty rdf:about="#isMarriedTo">
+      <rdfs:range rdf:resource="#Person"/>
+      <rdfs:domain rdf:resource="#Person"/>
+      <owl:inverseOf rdf:resource="#isMarriedTo"/>
+      <owl:disjointObjectProperties rdf:resource="#hasAncestor"/>
+      <owl:disjointObjectProperties rdf:resource="#hasDescendant"/>
+   </owl:ObjectProperty>
+   
+   <owl:ObjectProperty rdf:about="#likes">
+      <owl:disjointObjectProperties>
+         <owl:ObjectProperty rdf:about="#dislikes"/>
+      </owl:disjointObjectProperties>      
+   </owl:ObjectProperty>
+         
+   <rdf:List>
+      <rdf:first rdf:resource="#isMarriedTo"/>
+      <rdf:rest rdf:parseType="Collection">
+         <owl:ObjectProperty rdf:about="#dislikes"/>
+      </rdf:rest>
+      <rdfs:subPropertyOf rdf:resource="#dislikes"/>
+   </rdf:List>
+   
+   <owl:DatatypeProperty rdf:about="#hasAge">
+      <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+      <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+   </owl:DatatypeProperty>
+   
+   <owl:DataRange rdf:about="#LessThan10">
+      <owl:onDataRange rdf:resource="&xsd;nonNegativeInteger"/>
+      <owl:maxExclusive>10</owl:maxExclusive>
+   </owl:DataRange>
+   
+   <owl:DataRange rdf:about="#Between10and20">
+      <owl:onDataRange>
+         <owl:DataRange>
+            <owl:onDataRange rdf:resource="&xsd;nonNegativeInteger"/>
+            <owl:minInclusive>10</owl:minInclusive>
+         </owl:DataRange>      
+      </owl:onDataRange>
+      <owl:maxExclusive>20</owl:maxExclusive>
+   </owl:DataRange>
+   
+   <owl:DataRange rdf:about="#GreaterThan65">
+      <owl:onDataRange rdf:resource="&xsd;nonNegativeInteger"/>
+      <owl:minExclusive>65</owl:minExclusive>
+   </owl:DataRange>
+   
+   <owl:Class rdf:about="#Child">
+      <owl:intersectionOf rdf:parseType="Collection">
+         <owl:Class rdf:about="#Person"/>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasAge"/>
+            <owl:allValuesFrom rdf:resource="#LessThan10"/>
+         </owl:Restriction>
+      </owl:intersectionOf>
+   </owl:Class>
+   
+   <owl:Class rdf:about="#Teenager">
+      <owl:intersectionOf rdf:parseType="Collection">
+         <owl:Class rdf:about="#Person"/>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasAge"/>
+            <owl:allValuesFrom rdf:resource="#Between10and20"/>
+         </owl:Restriction>
+      </owl:intersectionOf>
+   </owl:Class>
+   
+   <owl:Class rdf:about="#Teen">
+      <owl:intersectionOf rdf:parseType="Collection">
+         <owl:Class rdf:about="#Person"/>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasAge"/>
+            <owl:allValuesFrom>
+               <owl:DataRange>
+                  <owl:dataComplementOf rdf:resource="#LessThan10"/>
+               </owl:DataRange>
+            </owl:allValuesFrom>
+         </owl:Restriction>
+         <owl:Class>
+            <owl:complementOf rdf:resource="#Adult"/>
+         </owl:Class>         
+      </owl:intersectionOf>
+   </owl:Class>
+   
+   <owl:Class rdf:about="#Adult">
+      <owl:intersectionOf rdf:parseType="Collection">
+         <owl:Class rdf:about="#Person"/>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasAge"/>
+            <owl:allValuesFrom>
+               <owl:DataRange>
+                  <owl:onDataRange rdf:resource="&xsd;nonNegativeInteger"/>
+                  <owl:minInclusive>20</owl:minInclusive>
+               </owl:DataRange>
+            </owl:allValuesFrom>
+         </owl:Restriction>
+      </owl:intersectionOf>
+   </owl:Class>
+   
+   <owl:Class rdf:about="#Senior">
+      <owl:intersectionOf rdf:parseType="Collection">
+         <owl:Class rdf:about="#Person"/>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasAge"/>
+            <owl:allValuesFrom rdf:resource="#GreaterThan65"/>
+         </owl:Restriction>
+      </owl:intersectionOf>
+   </owl:Class>
+   
+   <owl:Class rdf:about="#FamilyMembers">
+      <owl:oneOf rdf:parseType="Collection">
+         <family:Person rdf:about="#grandfather"/>
+         <family:Person rdf:about="#grandmother"/>
+         <family:Person rdf:about="#uncle"/>
+         <family:Person rdf:about="#father"/>
+         <family:Person rdf:about="#mother"/>
+         <family:Person rdf:about="#son"/>
+         <family:Person rdf:about="#daughter"/>
+      </owl:oneOf>
+   </owl:Class>  
+         
+   <family:Person rdf:about="#grandfather">
+      <family:hasAge rdf:datatype="&xsd;int">66</family:hasAge>
+      <family:hasSon rdf:resource="#father"/>
+      <family:hasChild rdf:resource="#uncle"/>
+   </family:Person>
+
+   <family:Person rdf:about="#grandmother">
+      <family:hasAge rdf:datatype="&xsd;int">66</family:hasAge>
+      <family:isMarriedTo rdf:resource="#grandfather"/>
+   </family:Person>
+      
+   <family:Person rdf:about="#father">
+      <family:hasAge rdf:datatype="&xsd;int">38</family:hasAge>
+      <family:hasMother rdf:resource="#grandmother"/>
+      <family:hasSon rdf:resource="#son"/>
+      <family:hasBrother rdf:resource="#uncle"/>
+      <family:likes rdf:resource="#personX"/>
+      <family:dislikes rdf:resource="#personY"/>
+      <family:dislikes rdf:resource="#personZ"/>      
+      <rdf:type>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="#hasChild"/>
+            <owl:allValuesFrom rdf:resource="#FamilyMembers"/>
+         </owl:Restriction>
+      </rdf:type>
+   </family:Person>
+   
+   <family:Male rdf:about="#uncle"/>
+   
+   <family:Female rdf:about="#mother">
+      <family:hasChild rdf:resource="#daughter"/>
+   </family:Female>
+   
+   <family:Person rdf:about="#son">
+      <family:hasAge rdf:datatype="&xsd;int">17</family:hasAge>
+      <family:hasSister rdf:resource="#daughter"/>
+   </family:Person>
+   
+   <family:Person rdf:about="#daughter">
+      <family:hasAge rdf:datatype="&xsd;int">9</family:hasAge>
+      <family:hasParent rdf:resource="#father"/>
+   </family:Person>
+   
+   <family:Person rdf:about="#personX"/>
+   <family:Person rdf:about="#personY">
+      <family:isMarriedTo rdf:resource="#personZ"/>
+   </family:Person>
+   <family:Person rdf:about="#personZ"/>   
+</rdf:RDF>

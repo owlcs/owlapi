@@ -79,7 +79,6 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestCase{
     public static OWLOntology loadOntology(String ontologyFile) throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         StringDocumentSource s=new StringDocumentSource(ontologyFile);
-        System.out.println("FunctionalSyntaxIRIProblem.loadOntology()\n"+ontologyFile);
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(s);
         return ontology;
     }

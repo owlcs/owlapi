@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+        <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+        <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+        <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+        <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+        <!ENTITY sgd "urn:lsid:sgd:#" >
+        <!ENTITY dip "urn:lsid:dip:#" >
+        ]>
+
+
+<rdf:RDF xmlns="http://ontology.dumontierlab.com/test2#"
+         xml:base="http://ontology.dumontierlab.com/test2"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:sgd="urn:lsid:sgd:#"
+         xmlns:dip="urn:lsid:dip:#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="">
+        <rdfs:comment rdf:datatype="&xsd;string"
+                >Testing LSIDs.
+        </rdfs:comment>
+    </owl:Ontology>
+
+    <owl:Thing rdf:about="&dip;867">
+
+        <owl:sameAs rdf:resource="&sgd;S000002538"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;876">
+
+        <owl:sameAs rdf:resource="&sgd;S000004647"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1265">
+
+        <owl:sameAs rdf:resource="&sgd;S000005305"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1317">
+
+        <owl:sameAs rdf:resource="&sgd;S000002806"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1383">
+
+        <owl:sameAs rdf:resource="&sgd;S000001500"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1391">
+
+        <owl:sameAs rdf:resource="&sgd;S000004315"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1437">
+
+        <owl:sameAs rdf:resource="&sgd;S000001625"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1580">
+
+        <owl:sameAs rdf:resource="&sgd;S000002586"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1629">
+
+        <owl:sameAs rdf:resource="&sgd;S000004087"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1630">
+
+        <owl:sameAs rdf:resource="&sgd;S000004214"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1797">
+
+        <owl:sameAs rdf:resource="&sgd;S000002234"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1801">
+
+        <owl:sameAs rdf:resource="&sgd;S000002268"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1810">
+
+        <owl:sameAs rdf:resource="&sgd;S000004627"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1847">
+
+        <owl:sameAs rdf:resource="&sgd;S000002890"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1869">
+
+        <owl:sameAs rdf:resource="&sgd;S000003510"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1971">
+
+        <owl:sameAs rdf:resource="&sgd;S000005255"/>
+    </owl:Thing>
+    <owl:Thing rdf:about="&dip;1982">
+
+        <owl:sameAs rdf:resource="&sgd;S000005471"/>
+    </owl:Thing>
+
+
+</rdf:RDF>

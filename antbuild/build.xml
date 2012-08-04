@@ -1,10 +1,8 @@
 <project default="distribution">
 
-    <!-- A very, very simple Ant script which will build an OWL API release
-         as one jar file containing the binary code, one jar file containing
-         the source code, a directory containing the javadoc and a zip file
-         containing these build products.  This is a simpler and more lightweight
-         alternative to building the API with MAVEN -->
+    <!-- This script will build an OWL API release as one jar file containing the binary code,
+    one jar file containing the source code, a directory containing the javadoc and a zip file
+         containing these build products. -->
 
     <!-- The version of the API being built - this is used to name
           the zip file produced by the build.  For release builds this
@@ -58,25 +56,10 @@
             <classpath refid="classpath"/>
             <include name="api/${sourcepath}"/>
             <include name="apibinding/${sourcepath}"/>
-            <include name="change/${sourcepath}"/>
-            <include name="debugging/${sourcepath}"/>
-            <include name="dlsyntax/${sourcepath}"/>
-            <include name="functional/${sourcepath}"/>
+            <include name="misc/${sourcepath}"/>
+            <include name="parsers/${sourcepath}"/>
+            <include name="tutorial2012/${sourcepath}"/>
             <include name="impl/${sourcepath}"/>
-            <include name="krss/${sourcepath}"/>
-            <include name="latex/${sourcepath}"/>
-            <include name="mansyntax/${sourcepath}"/>
-            <include name="metrics/${sourcepath}"/>
-            <include name="modularity/${sourcepath}"/>
-            <include name="normalform/${sourcepath}"/>
-            <include name="obo/${sourcepath}"/>
-            <include name="owlexpression/${sourcepath}"/>
-            <include name="owlxml/${sourcepath}"/>
-            <include name="rdfapi/${sourcepath}"/>
-            <include name="rdfxml/${sourcepath}"/>
-            <include name="reasoner/${sourcepath}"/>
-            <include name="turtle/${sourcepath}"/>
-            <include name="util/${sourcepath}"/>
         </javac>
     </target>
 
@@ -106,25 +89,10 @@
             	<include name="api/${sourcepath}"/>
                 <include name="api/javadoc"/>
 	            <include name="apibinding/${sourcepath}"/>
-	            <include name="change/${sourcepath}"/>
-	            <include name="debugging/${sourcepath}"/>
-	            <include name="dlsyntax/${sourcepath}"/>
-	            <include name="functional/${sourcepath}"/>
+	            <include name="misc/${sourcepath}"/>
+	            <include name="parsers/${sourcepath}"/>
+	            <include name="tutorial2012/${sourcepath}"/>
 	            <include name="impl/${sourcepath}"/>
-	            <include name="krss/${sourcepath}"/>
-	            <include name="latex/${sourcepath}"/>
-	            <include name="mansyntax/${sourcepath}"/>
-	            <include name="metrics/${sourcepath}"/>
-	            <include name="modularity/${sourcepath}"/>
-	            <include name="normalform/${sourcepath}"/>
-	            <include name="obo/${sourcepath}"/>
-	            <include name="owlexpression/${sourcepath}"/>
-	            <include name="owlxml/${sourcepath}"/>
-	            <include name="rdfapi/${sourcepath}"/>
-	            <include name="rdfxml/${sourcepath}"/>
-	            <include name="reasoner/${sourcepath}"/>
-	            <include name="turtle/${sourcepath}"/>
-	            <include name="util/${sourcepath}"/>
             </fileset>
         </javadoc>
         <copy todir="${javadocdir}/doc-files">
@@ -142,25 +110,12 @@
             </manifest>
             <fileset dir="../api/src/main/java"/>
             <fileset dir="../apibinding/src/main/java"/>
-            <fileset dir="../change/src/main/java"/>
-            <fileset dir="../debugging/src/main/java"/>
-            <fileset dir="../dlsyntax/src/main/java"/>
-            <fileset dir="../functional/src/main/java"/>
+            <fileset dir="../misc/src/main/java"/>
+            <fileset dir="../parsers/src/main/java"/>
+            <fileset dir="../tutorial2012/src/main/java"/>
             <fileset dir="../impl/src/main/java"/>
-            <fileset dir="../krss/src/main/java"/>
-            <fileset dir="../latex/src/main/java"/>
-            <fileset dir="../mansyntax/src/main/java"/>
-            <fileset dir="../metrics/src/main/java"/>
-            <fileset dir="../modularity/src/main/java"/>
-            <fileset dir="../normalform/src/main/java"/>
-            <fileset dir="../obo/src/main/java"/>
-            <fileset dir="../owlexpression/src/main/java"/>
-            <fileset dir="../owlxml/src/main/java"/>
-            <fileset dir="../rdfapi/src/main/java"/>
-            <fileset dir="../rdfxml/src/main/java"/>
-            <fileset dir="../reasoner/src/main/java"/>
-            <fileset dir="../turtle/src/main/java"/>
-            <fileset dir="../util/src/main/java"/>
+            <fileset dir="../apibinding/src/test/java"/>
+            <fileset dir="../apibinding/src/test/resources"/>
         </jar>
     </target>
 
