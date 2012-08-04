@@ -1,4 +1,21 @@
 ----------------------------------------------------------------------
+Release 3.4
+----------------------------------------------------------------------
+
+This version restructures the Maven modules into six modules: api, impl, parsers, misc, apibinding and tutorial2012. Code is unchanged, only its organization in the SVN is changed.
+
+Main bugs fixed:
+
+ 3554073 	Manchester Syntax Parser won't parse DisjointUnionOf
+ 3552028 	DataFactory returns integer instead of double restrictions
+ 3550607 	property cycle detection does not work
+ 3545194 	OWLEquivalentObjectProperties as SubObjectPropertyOfAxioms
+ 3541476 	OWLRDFConsumer.getErrorEntity counter is not thread safe
+ 3541475 	Remove shared static in OWLOntologyXMLNamespaceManager
+ 3535046 	Use ArrayList instead of TreeSet in TurtleRenderer
+ 3532600 	Use AtomicInteger in OWLOntologyID for counter
+
+----------------------------------------------------------------------
 Release 3.3 (15 May 2012)
 ----------------------------------------------------------------------
 
