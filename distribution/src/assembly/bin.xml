@@ -17,27 +17,10 @@
 			<includes>
 				<!-- <include>net.sourceforge.owlapi:owlapi-api</include> -->
 				<include>net.sourceforge.owlapi:owlapi-apibinding</include>
-				<include>net.sourceforge.owlapi:owlapi-change</include>
-				<include>net.sourceforge.owlapi:owlapi-debugging</include>
-				<include>net.sourceforge.owlapi:owlapi-dlsyntax</include>
-				<!-- <include>net.sourceforge.owlapi:owlapi-examples</include> -->
-				<include>net.sourceforge.owlapi:owlapi-functional</include>
+				<include>net.sourceforge.owlapi:owlapi-tools</include>
+				<include>net.sourceforge.owlapi:owlapi-parsers</include>
+				<include>net.sourceforge.owlapi:owlapi-contract</include>
 				<include>net.sourceforge.owlapi:owlapi-impl</include>
-				<include>net.sourceforge.owlapi:owlapi-krss</include>
-				<include>net.sourceforge.owlapi:owlapi-latex</include>
-				<include>net.sourceforge.owlapi:owlapi-mansyntax</include>
-				<include>net.sourceforge.owlapi:owlapi-metrics</include>
-				<include>net.sourceforge.owlapi:owlapi-modularity</include>
-				<include>net.sourceforge.owlapi:owlapi-normalform</include>
-				<include>net.sourceforge.owlapi:owlapi-obo</include>
-				<include>net.sourceforge.owlapi:owlapi-owlexpression</include>
-				<include>net.sourceforge.owlapi:owlapi-owlxml</include>
-				<include>net.sourceforge.owlapi:owlapi-rdfapi</include>
-				<include>net.sourceforge.owlapi:owlapi-rdfxml</include>
-				<include>net.sourceforge.owlapi:owlapi-reasoner</include>
-				<!-- <include>net.sourceforge.owlapi:owlapi-tutorial</include> -->
-				<include>net.sourceforge.owlapi:owlapi-turtle</include>
-				<include>net.sourceforge.owlapi:owlapi-util</include>
 			</includes>
 			<binaries>
 				<outputDirectory>.</outputDirectory>
@@ -60,6 +43,7 @@
             <include>README*</include>
             <include>LICENSE*</include>
             <include>NOTICE*</include>
+            <include>releasenotes*</include>
           </includes>
         <useDefaultExcludes>false</useDefaultExcludes>
       </fileSet>

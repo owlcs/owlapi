@@ -16,7 +16,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>3.3.1-SNAPSHOT</version>
+	<version>3.4-SNAPSHOT</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
@@ -24,28 +24,10 @@
 	<modules>
 		<module>api</module>
 		<module>apibinding</module>
-		<module>debugging</module>
-		<module>dlsyntax</module>
-		<module>examples</module>
-		<module>functional</module>
+		<module>tools</module>
+		<module>parsers</module>
+		<module>contract</module>
 		<module>impl</module>
-		<module>krss</module>
-		<module>latex</module>
-		<module>mansyntax</module>
-		<module>modularity</module>
-		<module>normalform</module>
-		<module>obo</module>
-		<module>owlxml</module>
-		<module>rdfapi</module>
-		<module>rdfxml</module>
-		<module>reasoner</module>
-		<module>util</module>
-		<module>tutorial</module>
-		<module>turtle</module>
-		<module>metrics</module>
-		<module>change</module>
-		<module>owlexpression</module>
-
 		<!-- The distribution module is a single-jar build of the whole OWL API. -->
 		<module>distribution</module>
 	</modules>
@@ -63,6 +45,11 @@
 			<url>http://www.apache.org/licenses/</url>
 			<distribution>repo</distribution>
 		</license>
+		<license>
+			<name>GNU LGPL Version 3.0</name>
+			<url>http://www.gnu.org/licenses/lgpl.txt</url>
+			<distribution>repo</distribution>
+		</license>
 	</licenses>
 
 
@@ -70,11 +57,25 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+	<groupId>org.mockito</groupId>
+	<artifactId>mockito-all</artifactId>
+	<version>1.9.5-rc1</version>
+				<scope>test</scope>
+	
+</dependency>
 	</dependencies>
 
+<developers>
+    <developer>
+      <id>ignazio1977</id>
+      <name>Ignazio Palmisano</name>
+      <email>ignazio1977@users.sourceforge.net</email>
+    </developer>
+  </developers>
 
 	<mailingLists>
 		<mailingList>

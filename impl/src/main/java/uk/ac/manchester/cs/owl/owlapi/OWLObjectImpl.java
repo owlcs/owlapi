@@ -61,191 +61,189 @@ import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 25-Oct-2006<br>
- * <br>
- */
+ * <br> */
 public abstract class OWLObjectImpl implements OWLObject, Serializable {
-	/**
+    /**
 	 *
 	 */
-	private static final long serialVersionUID = -315085042205413768L;
-	//private final OWLDataFactory dataFactory;
-	private int hashCode = 0;
-	private Set<OWLEntity> signature;
-	private Set<OWLAnonymousIndividual> anons;
+    private static final long serialVersionUID = -315085042205413768L;
+    // private final OWLDataFactory dataFactory;
+    private int hashCode = 0;
+    private Set<OWLEntity> signature;
+    private Set<OWLAnonymousIndividual> anons;
 
-	/** */
-	public OWLObjectImpl() {
-	}
+    /** */
+    public OWLObjectImpl() {}
 
-	private static final OWLDataFactory f = new OWLDataFactoryImpl(false, false);
-	/**
-	 * @return this object's data factory
-	 */
-	public static OWLDataFactory getOWLDataFactory() {
-		return f;
-	}
+    private static OWLDataFactory f = new OWLDataFactoryImpl(false, false);
 
+    /** @return this object's data factory */
+    public static OWLDataFactory getOWLDataFactory() {
+        return f;
+    }
 
-	public Set<OWLEntity> getSignature() {
-		if (signature == null) {
-			Set<OWLEntity> sig = new HashSet<OWLEntity>();
-			anons = new HashSet<OWLAnonymousIndividual>();
-			OWLEntityCollectionContainerCollector collector = new OWLEntityCollectionContainerCollector(sig, anons);
-			accept(collector);
-			signature = sig;
-		}
-		return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(signature);
-	}
+    public static void setOWLDataFactory(OWLDataFactory factory) {
+        f = factory;
+    }
 
-	public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-		if(signature==null) {
-			getSignature();
-		}
-		return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(anons);
-	}
+    public Set<OWLEntity> getSignature() {
+        if (signature == null) {
+            Set<OWLEntity> sig = new HashSet<OWLEntity>();
+            anons = new HashSet<OWLAnonymousIndividual>();
+            OWLEntityCollectionContainerCollector collector = new OWLEntityCollectionContainerCollector(
+                    sig, anons);
+            accept(collector);
+            signature = sig;
+        }
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(signature);
+    }
 
-	public Set<OWLClass> getClassesInSignature() {
-		Set<OWLClass> result = new HashSet<OWLClass>();
-		for (OWLEntity ent : getSignature()) {
-			if (ent.isOWLClass()) {
-				result.add(ent.asOWLClass());
-			}
-		}
-		return result;
-	}
+    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+        if (signature == null) {
+            getSignature();
+        }
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(anons);
+    }
 
-	public Set<OWLDataProperty> getDataPropertiesInSignature() {
-		Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
-		for (OWLEntity ent : getSignature()) {
-			if (ent.isOWLDataProperty()) {
-				result.add(ent.asOWLDataProperty());
-			}
-		}
-		return result;
-	}
+    public Set<OWLClass> getClassesInSignature() {
+        Set<OWLClass> result = new HashSet<OWLClass>();
+        for (OWLEntity ent : getSignature()) {
+            if (ent.isOWLClass()) {
+                result.add(ent.asOWLClass());
+            }
+        }
+        return result;
+    }
 
-	public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-		Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
-		for (OWLEntity ent : getSignature()) {
-			if (ent.isOWLObjectProperty()) {
-				result.add(ent.asOWLObjectProperty());
-			}
-		}
-		return result;
-	}
+    public Set<OWLDataProperty> getDataPropertiesInSignature() {
+        Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
+        for (OWLEntity ent : getSignature()) {
+            if (ent.isOWLDataProperty()) {
+                result.add(ent.asOWLDataProperty());
+            }
+        }
+        return result;
+    }
 
-	public Set<OWLNamedIndividual> getIndividualsInSignature() {
-		Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
-		for (OWLEntity ent : getSignature()) {
-			if (ent.isOWLNamedIndividual()) {
-				result.add(ent.asOWLNamedIndividual());
-			}
-		}
-		return result;
-	}
+    public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
+        Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
+        for (OWLEntity ent : getSignature()) {
+            if (ent.isOWLObjectProperty()) {
+                result.add(ent.asOWLObjectProperty());
+            }
+        }
+        return result;
+    }
 
-	/**
-	 * A convenience method that obtains the datatypes that are in the signature
-	 * of this object
-	 *
-	 * @return A set containing the datatypes that are in the signature of this
-	 *         object.
-	 */
-	public Set<OWLDatatype> getDatatypesInSignature() {
-		Set<OWLDatatype> result = new HashSet<OWLDatatype>();
-		for (OWLEntity ent : getSignature()) {
-			if (ent.isOWLDatatype()) {
-				result.add(ent.asOWLDatatype());
-			}
-		}
-		return result;
-	}
+    public Set<OWLNamedIndividual> getIndividualsInSignature() {
+        Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
+        for (OWLEntity ent : getSignature()) {
+            if (ent.isOWLNamedIndividual()) {
+                result.add(ent.asOWLNamedIndividual());
+            }
+        }
+        return result;
+    }
 
-	public Set<OWLClassExpression> getNestedClassExpressions() {
-		OWLClassExpressionCollector collector = new OWLClassExpressionCollector();
-		return this.accept(collector);
-	}
+    /** A convenience method that obtains the datatypes that are in the signature
+     * of this object
+     * 
+     * @return A set containing the datatypes that are in the signature of this
+     *         object. */
+    public Set<OWLDatatype> getDatatypesInSignature() {
+        Set<OWLDatatype> result = new HashSet<OWLDatatype>();
+        for (OWLEntity ent : getSignature()) {
+            if (ent.isOWLDatatype()) {
+                result.add(ent.asOWLDatatype());
+            }
+        }
+        return result;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		return obj == this || obj != null && obj instanceof OWLObject;
-	}
+    public Set<OWLClassExpression> getNestedClassExpressions() {
+        OWLClassExpressionCollector collector = new OWLClassExpressionCollector();
+        return this.accept(collector);
+    }
 
-	@Override
-	public int hashCode() {
-		if (hashCode == 0) {
-			hashCode = HashCode.hashCode(this);
-		}
-		return hashCode;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        return obj == this || obj != null && obj instanceof OWLObject;
+    }
 
-	final public int compareTo(OWLObject o) {
-		//        if (o instanceof OWLAxiom && this instanceof OWLAxiom) {
-		//            OWLObject thisSubj = subjectProvider.getSubject((OWLAxiom) this);
-		//            OWLObject otherSubj = subjectProvider.getSubject((OWLAxiom) o);
-		//            int axDiff = thisSubj.compareTo(otherSubj);
-		//            if (axDiff != 0) {
-		//                return axDiff;
-		//            }
-		//        }
-		OWLObjectTypeIndexProvider typeIndexProvider = new OWLObjectTypeIndexProvider();
-		int thisTypeIndex = typeIndexProvider.getTypeIndex(this);
-		int otherTypeIndex = typeIndexProvider.getTypeIndex(o);
-		int diff = thisTypeIndex - otherTypeIndex;
-		if (diff == 0) {
-			// Objects are the same type
-			return compareObjectOfSameType(o);
-		} else {
-			return diff;
-		}
-	}
+    @Override
+    public int hashCode() {
+        if (hashCode == 0) {
+            hashCode = HashCode.hashCode(this);
+        }
+        return hashCode;
+    }
 
-	protected abstract int compareObjectOfSameType(OWLObject object);
+    final public int compareTo(OWLObject o) {
+        // if (o instanceof OWLAxiom && this instanceof OWLAxiom) {
+        // OWLObject thisSubj = subjectProvider.getSubject((OWLAxiom) this);
+        // OWLObject otherSubj = subjectProvider.getSubject((OWLAxiom) o);
+        // int axDiff = thisSubj.compareTo(otherSubj);
+        // if (axDiff != 0) {
+        // return axDiff;
+        // }
+        // }
+        OWLObjectTypeIndexProvider typeIndexProvider = new OWLObjectTypeIndexProvider();
+        int thisTypeIndex = typeIndexProvider.getTypeIndex(this);
+        int otherTypeIndex = typeIndexProvider.getTypeIndex(o);
+        int diff = thisTypeIndex - otherTypeIndex;
+        if (diff == 0) {
+            // Objects are the same type
+            return compareObjectOfSameType(o);
+        } else {
+            return diff;
+        }
+    }
 
-	@Override
-	public String toString() {
-		return ToStringRenderer.getInstance().getRendering(this);
-	}
+    protected abstract int compareObjectOfSameType(OWLObject object);
 
-	public boolean isTopEntity() {
-		return false;
-	}
+    @Override
+    public String toString() {
+        return ToStringRenderer.getInstance().getRendering(this);
+    }
 
-	public boolean isBottomEntity() {
-		return false;
-	}
+    public boolean isTopEntity() {
+        return false;
+    }
 
-	protected static int compareSets(Set<? extends OWLObject> set1,
-			Set<? extends OWLObject> set2) {
-		SortedSet<? extends OWLObject> ss1;
-		if (set1 instanceof SortedSet) {
-			ss1 = (SortedSet<? extends OWLObject>) set1;
-		} else {
-			ss1 = new TreeSet<OWLObject>(set1);
-		}
-		SortedSet<? extends OWLObject> ss2;
-		if (set2 instanceof SortedSet) {
-			ss2 = (SortedSet<? extends OWLObject>) set2;
-		} else {
-			ss2 = new TreeSet<OWLObject>(set2);
-		}
-		int i = 0;
-		Iterator<? extends OWLObject> thisIt = ss1.iterator();
-		Iterator<? extends OWLObject> otherIt = ss2.iterator();
-		while (i < ss1.size() && i < ss2.size()) {
-			OWLObject o1 = thisIt.next();
-			OWLObject o2 = otherIt.next();
-			int diff = o1.compareTo(o2);
-			if (diff != 0) {
-				return diff;
-			}
-			i++;
-		}
-		return ss1.size() - ss2.size();
-	}
+    public boolean isBottomEntity() {
+        return false;
+    }
+
+    protected static int compareSets(Set<? extends OWLObject> set1,
+            Set<? extends OWLObject> set2) {
+        SortedSet<? extends OWLObject> ss1;
+        if (set1 instanceof SortedSet) {
+            ss1 = (SortedSet<? extends OWLObject>) set1;
+        } else {
+            ss1 = new TreeSet<OWLObject>(set1);
+        }
+        SortedSet<? extends OWLObject> ss2;
+        if (set2 instanceof SortedSet) {
+            ss2 = (SortedSet<? extends OWLObject>) set2;
+        } else {
+            ss2 = new TreeSet<OWLObject>(set2);
+        }
+        int i = 0;
+        Iterator<? extends OWLObject> thisIt = ss1.iterator();
+        Iterator<? extends OWLObject> otherIt = ss2.iterator();
+        while (i < ss1.size() && i < ss2.size()) {
+            OWLObject o1 = thisIt.next();
+            OWLObject o2 = otherIt.next();
+            int diff = o1.compareTo(o2);
+            if (diff != 0) {
+                return diff;
+            }
+            i++;
+        }
+        return ss1.size() - ss2.size();
+    }
 }
