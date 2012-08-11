@@ -1,0 +1,886 @@
+/*
+ * This file is part of the OWL API.
+ *
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ *
+ * Copyright (C) 2011, The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
+ * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ *
+ * Copyright 2011, University of Manchester
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package uk.ac.manchester.owl.owlapi.tutorialowled2011;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLPropertyRange;
+import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
+import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.util.QNameShortFormProvider;
+import org.semanticweb.owlapi.util.ShortFormProvider;
+
+/** <p>
+ * A renderer that provides an HTML version of the ontology.
+ * </p>
+ * <p/>
+ * Author: Sean Bechhofer<br>
+ * The University Of Manchester<br>
+ * Information Management Group<br>
+ * Date: 24-April-2007<br>
+ * <br> */
+@SuppressWarnings("unused")
+public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
+    private final OWLOntology ontology;
+    private final ShortFormProvider shortForms;
+    private final Writer writer;
+    private int pos;
+    int lastNewLinePos;
+    private final boolean tables = true;
+    private static int TABLE_COLUMNS = 3;
+
+    public String labelFor(final OWLEntity entity) {
+        return shortForms.getShortForm(entity);
+    }
+
+    public OWLTutorialSyntaxObjectRenderer(final OWLOntology ontology, final Writer writer) {
+        this.ontology = ontology;
+        this.writer = writer;
+        shortForms = new QNameShortFormProvider();
+    }
+
+    private void write(final String s) {
+        try {
+            int newLineIndex = s.indexOf('\n');
+            if (newLineIndex != -1) {
+                lastNewLinePos = pos + newLineIndex;
+            }
+            pos += s.length();
+            writer.write(s);
+        } catch (IOException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    private void write(final IRI iri) {
+        write("<");
+        write(iri.toQuotedString());
+        write(">");
+    }
+
+    public void header() {
+        write("<html>\n");
+        write("<head>\n");
+        write("<style>\n");
+        write("body { font-family: sans-serif; }\n");
+        write(".key { color: grey; font-size: 75%; }\n");
+        write(".op { color: grey; }\n");
+        write(".cl { color: #800; }\n");
+        write(".pr { color: #080; }\n");
+        write(".in { color: #008; }\n");
+        write(".box { border: solid 1px grey; padding: 10px; margin: 10px; }\n");
+        int width = 100 / TABLE_COLUMNS;
+        write("table { width: 100%; }\n");
+        write("td { padding-left: 10px; padding-right: 10px; width: " + width + "%;}\n");
+        write("</style>\n");
+        write("<body>\n");
+    }
+
+    public void footer() {
+        write("</body>\n");
+        write("</html>\n");
+    }
+
+    private void writeCollection(final Collection<? extends OWLObject> objects) {
+        if (tables) {
+            writeTable(objects);
+        } else {
+            writeList(objects);
+        }
+    }
+
+    private void writeTable(final Collection<? extends OWLObject> objects) {
+        writeTableStart();
+        int count = 0;
+        for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
+            if (count % TABLE_COLUMNS == 0) {
+                if (count > 0) {
+                    writeTableRowEnd();
+                }
+                writeTableRowStart();
+            }
+            writeTableCellStart();
+            it.next().accept(this);
+            writeTableCellEnd();
+            count++;
+        }
+        writeTableRowEnd();
+        writeTableEnd();
+    }
+
+    private void writeList(final Collection<? extends OWLObject> objects) {
+        writeListStart();
+        for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
+            writeListItemStart();
+            it.next().accept(this);
+            writeListItemEnd();
+        }
+        writeListEnd();
+    }
+
+    public void visit(final OWLOntology ontology) {
+        header();
+        write("<h1>");
+        write(ontology.getOntologyID().toString());
+        write("</h1>\n");
+        write("<div>");
+        write("<div class='box'>\n");
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(ontology.getAxioms());
+        axioms.removeAll(ontology.getImportsDeclarations());
+        for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
+            write("Imports: ");
+            write(decl.getURI().toString());
+            write("\n");
+        }
+        write("<h2>Classes</h2>\n");
+        writeCollection(ontology.getClassesInSignature());
+        write("</div>\n");
+        write("<div class='box'>\n");
+        write("<h2>Properties</h2>\n");
+        writeCollection(ontology.getObjectPropertiesInSignature());
+        writeCollection(ontology.getDataPropertiesInSignature());
+        write("</div>\n");
+        write("<div class='box'>\n");
+        write("<h2>Individuals</h2>\n");
+        writeCollection(ontology.getIndividualsInSignature());
+        write("</div>");
+        write("<div>");
+        write("<div class='box'>");
+        write("<h2>Axioms</h2>\n");
+        writeListStart();
+        for (OWLAxiom ax : ontology.getAxioms()) {
+            writeListItemStart();
+            ax.accept(this);
+            writeListEnd();
+        }
+        writeListEnd();
+        write("</div>");
+        footer();
+    }
+
+    public void write(final String str, final OWLObject o) {
+        write(str);
+        write("(");
+        o.accept(this);
+        write(")");
+    }
+
+    private void write(final Collection<? extends OWLObject> objects,
+            final String separator) {
+        // int indent = getIndent();
+        for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
+            it.next().accept(this);
+            if (it.hasNext()) {
+                writeSpace();
+                write(separator);
+                writeSpace();
+                // writeIndent(indent);
+            }
+        }
+    }
+
+    private void write(final Collection<? extends OWLObject> objects) {
+        write(objects, "");
+    }
+
+    public void writeOpenBracket() {
+        write("(");
+    }
+
+    public void writeCloseBracket() {
+        write(")");
+    }
+
+    public void writeSpace() {
+        write(" ");
+    }
+
+    public void writeAnnotations(final OWLAxiom ax) {
+        // TODO: IMPLEMENT
+    }
+
+    // public void visit(OWLConstantAnnotation annotation) {
+    // if (annotation.isLabel()) {
+    // write("label");
+    // writeOpenBracket();
+    // annotation.getValue().accept(this);
+    // writeCloseBracket();
+    // } else if (annotation.isComment()) {
+    // write("comment");
+    // writeOpenBracket();
+    // annotation.getValue().accept(this);
+    // writeCloseBracket();
+    // } else {
+    // write("annotation");
+    // writeOpenBracket();
+    // write(annotation.getProperty().getIRI());
+    // writeSpace();
+    // annotation.getValue().accept(this);
+    // writeCloseBracket();
+    // }
+    // }
+    //
+    // public void visit(OWLObjectAnnotation annotation) {
+    // write("annotation");
+    // writeOpenBracket();
+    // write(annotation.getProperty().getIRI());
+    // writeSpace();
+    // annotation.getValue().accept(this);
+    // writeCloseBracket();
+    // }
+    public void writeListStart() {
+        write("<ul>\n");
+    }
+
+    public void writeListEnd() {
+        write("</ul>\n");
+    }
+
+    public void writeTableStart() {
+        write("<table>\n");
+    }
+
+    public void writeTableEnd() {
+        write("</table>\n");
+    }
+
+    public void writeTableRowStart() {
+        write("<tr>\n");
+    }
+
+    public void writeTableRowEnd() {
+        write("</tr>\n");
+    }
+
+    public void writeTableCellStart() {
+        write("<td>\n");
+    }
+
+    public void writeTableCellEnd() {
+        write("</td>\n");
+    }
+
+    public void writeListItemStart() {
+        write("<li>\n");
+    }
+
+    public void writeListItemEnd() {
+        write("</li>\n");
+    }
+
+    public void writePropertyCharacteristic(final String str, final OWLAxiom ax,
+            final OWLPropertyExpression prop) throws OWLRuntimeException {
+        write(keyword(str));
+        writeSpace();
+        prop.accept(this);
+    }
+
+    public void visit(final OWLAsymmetricObjectPropertyAxiom axiom) {
+        writePropertyCharacteristic("asymmetric", axiom, axiom.getProperty());
+    }
+
+    public void visit(final OWLClassAssertionAxiom axiom) {
+        axiom.getIndividual().accept(this);
+        write(keyword(":"));
+        writeSpace();
+        axiom.getClassExpression().accept(this);
+    }
+
+    public void visit(final OWLDataPropertyAssertionAxiom axiom) {
+        axiom.getSubject().accept(this);
+        writeSpace();
+        axiom.getProperty().accept(this);
+        writeSpace();
+        axiom.getObject().accept(this);
+    }
+
+    public void visit(final OWLDataPropertyDomainAxiom axiom) {
+        axiom.getProperty().accept(this);
+        writeSpace();
+        write(keyword("domain"));
+        writeSpace();
+        axiom.getDomain().accept(this);
+    }
+
+    public void visit(final OWLDataPropertyRangeAxiom axiom) {
+        axiom.getProperty().accept(this);
+        writeSpace();
+        write(keyword("range"));
+        writeSpace();
+        axiom.getRange().accept(this);
+    }
+
+    public void visit(final OWLSubDataPropertyOfAxiom axiom) {
+        axiom.getSubProperty().accept(this);
+        writeSpace();
+        write(keyword("subProperty"));
+        writeSpace();
+        axiom.getSuperProperty().accept(this);
+    }
+
+    public void visit(final OWLDeclarationAxiom axiom) {}
+
+    public void visit(final OWLDifferentIndividualsAxiom axiom) {
+        write(axiom.getIndividuals(), keyword("!="));
+    }
+
+    public void visit(final OWLDisjointClassesAxiom axiom) {
+        write(axiom.getClassExpressions(), keyword("|"));
+    }
+
+    public void visit(final OWLDisjointDataPropertiesAxiom axiom) {
+        write(axiom.getProperties(), keyword("|"));
+    }
+
+    public void visit(final OWLDisjointObjectPropertiesAxiom axiom) {
+        write(keyword("disjoint"));
+        write(axiom.getProperties(), keyword("|"));
+    }
+
+    public void visit(final OWLDisjointUnionAxiom axiom) {
+        axiom.getOWLClass().accept(this);
+        writeSpace();
+        write(keyword("=="));
+        writeSpace();
+        write(axiom.getClassExpressions(), keyword("|"));
+    }
+
+    public void visit(final OWLAnnotationAssertionAxiom axiom) {
+        // Ignored
+    }
+
+    public void visit(final OWLEquivalentClassesAxiom axiom) {
+        write(axiom.getClassExpressions(), keyword("=="));
+    }
+
+    public void visit(final OWLEquivalentDataPropertiesAxiom axiom) {
+        write(axiom.getProperties(), keyword("=="));
+    }
+
+    public void visit(final OWLEquivalentObjectPropertiesAxiom axiom) {
+        write(axiom.getProperties(), keyword("=="));
+    }
+
+    public void visit(final OWLFunctionalDataPropertyAxiom axiom) {
+        writePropertyCharacteristic("functional", axiom, axiom.getProperty());
+    }
+
+    public void visit(final OWLFunctionalObjectPropertyAxiom axiom) {
+        writePropertyCharacteristic("functional", axiom, axiom.getProperty());
+    }
+
+    public void visit(final OWLImportsDeclaration axiom) {
+        write(keyword("imports"));
+        write(axiom.getIRI());
+    }
+
+    public void visit(final OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        writePropertyCharacteristic("inversefunctional", axiom, axiom.getProperty());
+    }
+
+    public void visit(final OWLInverseObjectPropertiesAxiom axiom) {
+        axiom.getFirstProperty().accept(this);
+        writeSpace();
+        write(keyword("inverse"));
+        writeSpace();
+        axiom.getSecondProperty().accept(this);
+    }
+
+    public void visit(final OWLIrreflexiveObjectPropertyAxiom axiom) {
+        writePropertyCharacteristic("Irreflexive", axiom, axiom.getProperty());
+    }
+
+    public void visit(final OWLNegativeDataPropertyAssertionAxiom axiom) {
+        axiom.getSubject().accept(this);
+        writeSpace();
+        write(keyword("notvalue"));
+        axiom.getProperty().accept(this);
+        writeSpace();
+        axiom.getObject().accept(this);
+    }
+
+    public void visit(final OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        axiom.getSubject().accept(this);
+        writeSpace();
+        write(keyword("notvalue"));
+        axiom.getProperty().accept(this);
+        writeSpace();
+        axiom.getObject().accept(this);
+    }
+
+    public void visit(final OWLObjectPropertyAssertionAxiom axiom) {
+        axiom.getSubject().accept(this);
+        writeSpace();
+        axiom.getProperty().accept(this);
+        writeSpace();
+        axiom.getObject().accept(this);
+    }
+
+    public void visit(final OWLSubPropertyChainOfAxiom axiom) {
+        write("chain");
+        writeOpenBracket();
+        write(axiom.getPropertyChain());
+        writeCloseBracket();
+        writeSpace();
+        write(keyword("subProperty"));
+        writeSpace();
+        axiom.getSuperProperty().accept(this);
+    }
+
+    public void visit(final OWLObjectPropertyDomainAxiom axiom) {
+        axiom.getProperty().accept(this);
+        writeSpace();
+        write(keyword("domain"));
+        writeSpace();
+        axiom.getDomain().accept(this);
+    }
+
+    public void visit(final OWLObjectPropertyRangeAxiom axiom) {
+        axiom.getProperty().accept(this);
+        writeSpace();
+        write(keyword("range"));
+        writeSpace();
+        axiom.getRange().accept(this);
+    }
+
+    public void visit(final OWLSubObjectPropertyOfAxiom axiom) {
+        axiom.getSubProperty().accept(this);
+        writeSpace();
+        write(keyword("subProperty"));
+        writeSpace();
+        axiom.getSuperProperty().accept(this);
+    }
+
+    public void visit(final OWLReflexiveObjectPropertyAxiom axiom) {
+        writePropertyCharacteristic("reflexive", axiom, axiom.getProperty());
+    }
+
+    public void visit(final OWLSameIndividualAxiom axiom) {
+        write(axiom.getIndividuals(), keyword("="));
+    }
+
+    public void visit(final OWLSubClassOfAxiom axiom) {
+        axiom.getSubClass().accept(this);
+        writeSpace();
+        write(keyword("subClass"));
+        writeSpace();
+        axiom.getSuperClass().accept(this);
+    }
+
+    public void visit(final OWLSymmetricObjectPropertyAxiom axiom) {
+        writePropertyCharacteristic("symmetric", axiom, axiom.getProperty());
+    }
+
+    public void visit(final OWLTransitiveObjectPropertyAxiom axiom) {
+        writePropertyCharacteristic("transitive", axiom, axiom.getProperty());
+    }
+
+    public void visit(final OWLClass desc) {
+        write("<span class='cl'>" + labelFor(desc) + "</span>");
+    }
+
+    private
+            <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
+            void writeRestriction(final String str,
+                    final OWLCardinalityRestriction<R, P, F> restriction) {
+        write(str);
+        writeOpenBracket();
+        write(Integer.toString(restriction.getCardinality()));
+        writeSpace();
+        restriction.getProperty().accept(this);
+        if (restriction.isQualified()) {
+            writeSpace();
+            restriction.getFiller().accept(this);
+        }
+        writeCloseBracket();
+    }
+
+    private void writeRestriction(final String str,
+            final OWLQuantifiedDataRestriction restriction) {
+        writeRestriction(str, restriction.getProperty(), restriction.getFiller());
+    }
+
+    private void writeRestriction(final String str,
+            final OWLQuantifiedObjectRestriction restriction) {
+        writeRestriction(str, restriction.getProperty(), restriction.getFiller());
+    }
+
+    private void writeRestriction(final String str, final OWLPropertyExpression prop,
+            final OWLObject filler) throws OWLRuntimeException {
+        write(str);
+        writeOpenBracket();
+        prop.accept(this);
+        writeSpace();
+        filler.accept(this);
+        writeCloseBracket();
+    }
+
+    public void visit(final OWLDataAllValuesFrom desc) {
+        writeRestriction(operator("only"), desc);
+    }
+
+    public void visit(final OWLDataExactCardinality desc) {
+        writeRestriction("exact", desc);
+    }
+
+    public void visit(final OWLDataMaxCardinality desc) {
+        writeRestriction("atmost", desc);
+    }
+
+    public void visit(final OWLDataMinCardinality desc) {
+        writeRestriction("atleast", desc);
+    }
+
+    public void visit(final OWLDataSomeValuesFrom desc) {
+        writeRestriction(operator("some"), desc);
+    }
+
+    public void visit(final OWLDataHasValue desc) {
+        writeRestriction("has-value", desc.getProperty(), desc.getValue());
+    }
+
+    public void visit(final OWLObjectAllValuesFrom desc) {
+        writeRestriction(operator("only"), desc);
+    }
+
+    public void visit(final OWLObjectComplementOf desc) {
+        write(operator("not"), desc.getOperand());
+    }
+
+    public void visit(final OWLObjectExactCardinality desc) {
+        writeRestriction("exact", desc);
+    }
+
+    public void visit(final OWLObjectIntersectionOf desc) {
+        writeOpenBracket();
+        write(desc.getOperands(), keyword("and"));
+        writeCloseBracket();
+    }
+
+    public void visit(final OWLObjectMaxCardinality desc) {
+        writeRestriction("atmost", desc);
+    }
+
+    public void visit(final OWLObjectMinCardinality desc) {
+        writeRestriction("atleast", desc);
+    }
+
+    public void visit(final OWLObjectOneOf desc) {
+        write(operator("one-of"));
+        writeOpenBracket();
+        write(desc.getIndividuals());
+        writeCloseBracket();
+    }
+
+    public void visit(final OWLObjectHasSelf desc) {
+        write("self", desc.getProperty());
+    }
+
+    public void visit(final OWLObjectSomeValuesFrom desc) {
+        writeRestriction(operator("some"), desc);
+    }
+
+    public void visit(final OWLObjectUnionOf desc) {
+        writeOpenBracket();
+        write(desc.getOperands(), " or ");
+        writeCloseBracket();
+    }
+
+    public void visit(final OWLObjectHasValue desc) {
+        writeRestriction("hasValue", desc.getProperty(), desc.getValue());
+    }
+
+    public void visit(final OWLDataComplementOf node) {
+        write(operator("not"), node.getDataRange());
+    }
+
+    public void visit(final OWLDataOneOf node) {
+        write(operator("one-of"));
+        write("(");
+        write(node.getValues());
+        write(")");
+    }
+
+    public void visit(final OWLDatatype node) {
+        write("Datatype");
+        writeOpenBracket();
+        write(node.getIRI());
+        writeCloseBracket();
+    }
+
+    public void visit(final OWLDatatypeRestriction node) {
+        write("DatatypeRestriction");
+        writeOpenBracket();
+        node.getDatatype().accept(this);
+        for (OWLFacetRestriction restriction : node.getFacetRestrictions()) {
+            writeSpace();
+            restriction.accept(this);
+        }
+        writeCloseBracket();
+    }
+
+    public void visit(final OWLFacetRestriction node) {
+        write(node.getFacet().getIRI());
+        writeSpace();
+        node.getFacetValue().accept(this);
+    }
+
+    public void visit(final OWLLiteral node) {
+        write("\"");
+        write(node.getLiteral());
+        write("\"");
+        if (node.hasLang()) {
+            write("@");
+            write(node.getLang());
+        } else {
+            write("^^");
+            write(node.getDatatype().getIRI());
+        }
+    }
+
+    public void visit(final OWLDataProperty property) {
+        write("<span class='pr'>" + labelFor(property) + "</span>");
+    }
+
+    public void visit(final OWLObjectProperty property) {
+        write("<span class='pr'>" + labelFor(property) + "</span>");
+    }
+
+    public void visit(final OWLObjectInverseOf property) {
+        write("inv");
+        writeOpenBracket();
+        property.getInverse().accept(this);
+        writeCloseBracket();
+    }
+
+    public void visit(final OWLNamedIndividual individual) {
+        write("<span class='in'>" + labelFor(individual) + "</span>");
+    }
+
+    public void visit(final SWRLRule rule) {}
+
+    public void visit(final SWRLIndividualArgument node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final SWRLClassAtom node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final SWRLDataRangeAtom node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final SWRLObjectPropertyAtom node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final SWRLDataPropertyAtom node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final SWRLBuiltInAtom node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final SWRLVariable node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final SWRLLiteralArgument node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final SWRLDifferentIndividualsAtom node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final SWRLSameIndividualAtom node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final OWLHasKeyAxiom axiom) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final OWLAnnotationPropertyDomainAxiom axiom) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final OWLAnnotationPropertyRangeAxiom axiom) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final OWLSubAnnotationPropertyOfAxiom axiom) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final OWLDataIntersectionOf node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final OWLDataUnionOf node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final OWLAnnotationProperty property) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final OWLAnonymousIndividual individual) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final IRI iri) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final OWLAnnotation node) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED!");
+    }
+
+    public void visit(final OWLDatatypeDefinitionAxiom axiom) {
+        throw new OWLRuntimeException("NOT IMPLEMENTED");
+    }
+
+    public String keyword(final String str) {
+        return "<span class='key'>" + str + "</span>";
+    }
+
+    public String operator(final String str) {
+        return "<span class='op'>" + str + "</span>";
+    }
+}

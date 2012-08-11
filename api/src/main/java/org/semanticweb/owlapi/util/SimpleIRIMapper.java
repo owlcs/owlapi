@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.net.URI;
@@ -44,42 +43,37 @@ import java.net.URI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
- */
+ * Date: 12-Dec-2006<br>
+ * <br> */
 public class SimpleIRIMapper implements OWLOntologyIRIMapper {
-
     private final IRI ontologyIRI;
-
     private final IRI documentIRI;
 
-    /**
-     * @param ontologyIRI ontology IRI
-     * @param documentIRI document IRI
-     */
-    public SimpleIRIMapper(IRI ontologyIRI, IRI documentIRI) {
+    /** @param ontologyIRI
+     *            ontology IRI
+     * @param documentIRI
+     *            document IRI */
+    public SimpleIRIMapper(final IRI ontologyIRI, final IRI documentIRI) {
         this.ontologyIRI = ontologyIRI;
         this.documentIRI = documentIRI;
     }
 
-    /**
-     * @param ontologyURI ontology IRI
-     * @param documentIRI document IRI
-     */
-    public SimpleIRIMapper(URI ontologyURI, IRI documentIRI) {
+    /** @param ontologyURI
+     *            ontology IRI
+     * @param documentIRI
+     *            document IRI */
+    @Deprecated
+    public SimpleIRIMapper(final URI ontologyURI, final IRI documentIRI) {
         this(IRI.create(ontologyURI), documentIRI);
     }
 
-
-    public IRI getDocumentIRI(IRI iri) {
-        if(this.ontologyIRI.equals(iri)) {
+    public IRI getDocumentIRI(final IRI iri) {
+        if (ontologyIRI.equals(iri)) {
             return documentIRI;
-        }
-        else {
+        } else {
             return null;
         }
     }
