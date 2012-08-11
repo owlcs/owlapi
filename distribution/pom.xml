@@ -18,7 +18,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-apibinding</artifactId>
+			<artifactId>owlapi-contract</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

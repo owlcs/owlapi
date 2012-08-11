@@ -24,9 +24,9 @@
 	<modules>
 		<module>api</module>
 		<module>apibinding</module>
-		<module>misc</module>
+		<module>tools</module>
 		<module>parsers</module>
-		<module>tutorial2012</module>
+		<module>contract</module>
 		<module>impl</module>
 		<!-- The distribution module is a single-jar build of the whole OWL API. -->
 		<module>distribution</module>

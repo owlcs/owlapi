@@ -28,7 +28,7 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-misc</artifactId>
+			<artifactId>owlapi-tools</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

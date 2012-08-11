@@ -2,7 +2,14 @@
 Release 3.4
 ----------------------------------------------------------------------
 
-This version restructures the Maven modules into six modules: api, impl, parsers, misc, apibinding and tutorial2012. Code is unchanged, only its organization in the SVN is changed.
+This version restructures the Maven modules into six modules: api, impl, parsers, 
+tools, apibinding and contract. Code is unchanged, only its organization in 
+the SVN is changed.
+
+To split the dependencies accordingly, DefaultExplanationOrderer is in 
+contract and is only a shell for ExplanationOrdererImpl, which does not 
+depend on OWLManager directly. This enables the tools module to be 
+used with a different apibinfing without recompilation.
 
 Main bugs fixed:
 
