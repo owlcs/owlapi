@@ -16,7 +16,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>3.4</version>
+	<version>3.4.1</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
@@ -206,9 +206,9 @@
 
 	<!-- Parameters for the Source Code Management system. -->
 	<scm>
-		<connection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/tags/owlapi-parent-3.4</connection>
-		<developerConnection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/tags/owlapi-parent-3.4</developerConnection>
-		<url>https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/tags/owlapi-parent-3.4</url>
+		<connection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/trunk/</connection>
+		<developerConnection>scm:svn:https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/trunk/</developerConnection>
+		<url>https://owlapi.svn.sourceforge.net/svnroot/owlapi/v3/trunk/</url>
 	</scm>
 
 </project>
