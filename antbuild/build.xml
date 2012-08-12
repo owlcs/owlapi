@@ -56,9 +56,9 @@
             <classpath refid="classpath"/>
             <include name="api/${sourcepath}"/>
             <include name="apibinding/${sourcepath}"/>
-            <include name="misc/${sourcepath}"/>
+            <include name="tools/${sourcepath}"/>
             <include name="parsers/${sourcepath}"/>
-            <include name="tutorial2012/${sourcepath}"/>
+            <include name="contract/${sourcepath}"/>
             <include name="impl/${sourcepath}"/>
         </javac>
     </target>
@@ -89,9 +89,9 @@
             	<include name="api/${sourcepath}"/>
                 <include name="api/javadoc"/>
 	            <include name="apibinding/${sourcepath}"/>
-	            <include name="misc/${sourcepath}"/>
+	            <include name="tools/${sourcepath}"/>
 	            <include name="parsers/${sourcepath}"/>
-	            <include name="tutorial2012/${sourcepath}"/>
+	            <include name="contract/${sourcepath}"/>
 	            <include name="impl/${sourcepath}"/>
             </fileset>
         </javadoc>
@@ -110,12 +110,10 @@
             </manifest>
             <fileset dir="../api/src/main/java"/>
             <fileset dir="../apibinding/src/main/java"/>
-            <fileset dir="../misc/src/main/java"/>
+            <fileset dir="../tools/src/main/java"/>
             <fileset dir="../parsers/src/main/java"/>
-            <fileset dir="../tutorial2012/src/main/java"/>
+            <fileset dir="../contract/src/main/java"/>
             <fileset dir="../impl/src/main/java"/>
-            <fileset dir="../apibinding/src/test/java"/>
-            <fileset dir="../apibinding/src/test/resources"/>
         </jar>
     </target>
 
