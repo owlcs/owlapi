@@ -125,7 +125,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         	}
         	if (!annotations.isEmpty()) {
         		OWLAxiom ax = getConsumer().getLastAddedAxiom();
-        		getConsumer().applyChange(new RemoveAxiom(getConsumer().getOntology(), ax.getAxiomWithoutAnnotations()));
+        		getConsumer().removeAxiom(ax.getAxiomWithoutAnnotations());
         	}
         }
     }

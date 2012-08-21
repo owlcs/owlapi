@@ -65,10 +65,6 @@ import org.xml.sax.SAXException;
  */
 public class RDFXMLParser extends AbstractOWLParser {
 
-//    private OWLOntologyManager owlOntologyManager;
-
-    private OWLRDFConsumer consumer;
-
 
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
@@ -90,10 +86,6 @@ public class RDFXMLParser extends AbstractOWLParser {
                 @Override
 				public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
                     super.startElement(namespaceIRI, localName, qName, atts);
-                    String value = atts.getValue(XMLNS, "base");
-                    if (value != null) {
-//                        consumer.setXMLBase(value);
-                    }
                 }
             };
             IRIProvider prov = new IRIProvider() {
@@ -101,7 +93,7 @@ public class RDFXMLParser extends AbstractOWLParser {
                     return parser.getIRI(s);
                 }
             };
-            consumer = new OWLRDFConsumer(ontology, new AnonymousNodeChecker() {
+            OWLRDFConsumer consumer = new OWLRDFConsumer(ontology, new AnonymousNodeChecker() {
                 public boolean isAnonymousNode(IRI IRI) {
                     return parser.isAnonymousNodeIRI(IRI.getFragment());
                 }
