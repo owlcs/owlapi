@@ -43,14 +43,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,11 +52,7 @@ import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.vocab.Namespaces;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
-import org.semanticweb.owlapi.vocab.OWLFacet;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.vocab.XSDVocabulary;
+import org.semanticweb.owlapi.vocab.*;
 import org.xml.sax.SAXException;
 
 
@@ -96,8 +85,6 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private OWLOntologyLoaderConfiguration configuration;
 
-    //private Graph graph;
-
     private OWLOntologyManager owlOntologyManager;
 
 
@@ -118,7 +105,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     private Set<IRI> dataPropertyExpressionIRIs;
 
     // Same as classExpressionIRIs but for rdf properties
-    // Same as classExpressionIRIs but for rdf properties
     // things neither typed as a data or object property - bad!
     private Set<IRI> propertyIRIs;
 
@@ -133,9 +119,6 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private Set<IRI> annotationIRIs;
 
-//    private Map<IRI, OWLAnnotation> annotationIRI2Annotation;
-
-
     // IRIs that had a type triple to rdfs:Datatange
     private Set<IRI> dataRangeIRIs;
 
@@ -148,9 +131,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     // IRIs that had a type triple to owl:Restriction
     private Set<IRI> restrictionIRIs;
 
-//    IRIs that had a type triple to rdf:List
-//    private Set<IRI> listIRIs;
-
     // Maps rdf:next triple subjects to objects
     private Map<IRI, IRI> listRestTripleMap;
 
@@ -158,11 +138,8 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private Map<IRI, OWLLiteral> listFirstLiteralTripleMap;
 
-//    private Map<IRI, OWLAxiom> reifiedAxiomsMap;
 
     private Set<IRI> axioms = new HashSet<IRI>();
-
-//    private Map<IRI, Set<OWLAnnotation>> annotationsBySubject;
 
     private Map<IRI, Object> sharedAnonymousNodes = new HashMap<IRI, Object>();
 
@@ -274,6 +251,13 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 //    private GTPObjectPropertyAssertionHandler objectPropertyAssertionHandler;
 
+    /**
+     * A cache of annotation axioms to be added at the end - saves some peek memory doing this
+     */
+    private Collection<OWLAnnotationAxiom> parsedAnnotationAxioms = new ArrayList<OWLAnnotationAxiom>();
+
+    private Collection<OWLAxiom> axiomsToBeRemoved = new ArrayList<OWLAxiom>();
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private boolean parsedAllTriples = false;
@@ -325,8 +309,6 @@ public class OWLRDFConsumer implements RDFConsumer {
             annotationPropertyIRIs.add(iri);
         }
         annotationIRIs = new HashSet<IRI>();
-//        annotationIRI2Annotation = new HashMap<IRI, OWLAnnotation>();
-//        annotationsBySubject = new HashMap<IRI, Set<OWLAnnotation>>();
 
         dataRangeIRIs = CollectionFactory.createSet();
         propertyIRIs = CollectionFactory.createSet();
@@ -895,12 +877,26 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
         }
 
-        boolean add = (!(axiom instanceof OWLAnnotationAxiom) || configuration.isLoadAnnotationAxioms());
-        if (add) {
-            owlOntologyManager.applyChange(new AddAxiom(ontology, axiom));
+        if(axiom.isAnnotationAxiom()) {
+            if(configuration.isLoadAnnotationAxioms()) {
+                parsedAnnotationAxioms.add((OWLAnnotationAxiom) axiom);
+            }
+        }
+        else {
+            owlOntologyManager.addAxiom(ontology, axiom);
         }
         lastAddedAxiom = axiom;
     }
+
+    /**
+     * Marks an axioms for removal at the end of parsing.  This is usually used for annotated axioms, since the
+     * RDF serialization spec mandates that a "base" triple must be included on serialization.
+     * @param axiom The axiom to be removed.
+     */
+    protected void removeAxiom(OWLAxiom axiom) {
+        axiomsToBeRemoved.add(axiom);
+    }
+
 
     protected void checkForAndProcessAnnotatedDeclaration(IRI mainNode) throws UnloadableImportException {
         IRI annotatedPropertyObject = getResourceObject(mainNode, OWL_ANNOTATED_PROPERTY, false);
@@ -1483,9 +1479,23 @@ public class OWLRDFConsumer implements RDFConsumer {
 
             dumpRemainingTriples();
             cleanup();
+            addAnnotationAxioms();
+            removeAxiomsScheduledForRemoval();
         }
         catch (UnloadableImportException e) {
             throw new TranslatedUnloadedImportException(e);
+        }
+    }
+    
+    private void addAnnotationAxioms() {
+        for(OWLAxiom axiom : parsedAnnotationAxioms) {
+            owlOntologyManager.addAxiom(ontology, axiom);
+        }
+    }
+
+    private void removeAxiomsScheduledForRemoval() {
+        for(OWLAxiom axiom : axiomsToBeRemoved) {
+            owlOntologyManager.removeAxiom(ontology, axiom);
         }
     }
 
@@ -1700,6 +1710,15 @@ public class OWLRDFConsumer implements RDFConsumer {
                 if (handler.canHandleStreaming(subject, predicate, object)) {
                     handler.handleTriple(subject, predicate, object);
                     consumed = true;
+                }
+            }
+            else {
+                for (AbstractResourceTripleHandler resHandler : resourceTripleHandlers) {
+                    if (resHandler.canHandleStreaming(subject, predicate, object)) {
+                        resHandler.handleTriple(subject, predicate, object);
+                        consumed = true;
+                        break;
+                    }
                 }
             }
         }
@@ -2053,26 +2072,8 @@ public class OWLRDFConsumer implements RDFConsumer {
         return getResourceObject(subject, predicate.getIRI(), consume);
     }
 
-//    private IRI cachedSubject = null;
-//    private IRI cachedPredicate = null;
-//    private IRI cachedObject = null;
-
-//    private static int cacheHit = 0;
 
     public IRI getResourceObject(IRI subject, IRI predicate, boolean consume) {
-//        if (!consume) {
-//            if (cachedSubject != null && cachedPredicate != null) {
-//                if (cachedSubject.equals(subject) && cachedPredicate.equals(predicate)) {
-//                    cacheHit++;
-//                    System.out.println("CACHE HITS: " + cacheHit);
-//                    return cachedObject;
-//                }
-//            }
-//        }
-//        else {
-//            cachedSubject = null;
-//            cachedObject = null;
-//        }
 
         Map<IRI, IRI> subjPredMap = singleValuedResTriplesByPredicate.get(predicate);
         if (subjPredMap != null) {
@@ -2080,11 +2081,6 @@ public class OWLRDFConsumer implements RDFConsumer {
             if (consume) {
                 subjPredMap.remove(subject);
             }
-//            else {
-//                cachedSubject = subject;
-//                cachedPredicate = predicate;
-//                cachedObject = obj;
-//            }
             return obj;
         }
         Map<IRI, Collection<IRI>> predObjMap = resTriplesBySubject.get(subject);
@@ -2102,23 +2098,11 @@ public class OWLRDFConsumer implements RDFConsumer {
                             resTriplesBySubject.remove(subject);
                         }
                     }
-//                    if(!consume) {
-//                        cachedSubject = subject;
-//                                            cachedPredicate = predicate;
-//                                            cachedObject = object;
-//
-//                    }
                     return object;
                 }
             }
         }
-//        if(!consume) {
-//            cachedSubject = subject;
-//                    cachedPredicate = predicate;
-//                    cachedObject = null;
-//
-//        }
-        return null;//searchGeneralResourceTriples(subject, predicate, null, consume);
+        return null;
     }
 
     public Set<IRI> getResourceObjects(IRI subject, IRI predicate) {
@@ -2223,20 +2207,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         return false;// searchGeneralResourceTriples(subject, predicate, object, consume) != null;
     }
 
-//    private IRI searchGeneralResourceTriples(IRI subject, IRI predicate, IRI object, boolean consume) {
-//        if(isGeneralPredicate(predicate)) {
-//            for(Iterator<ResourceTriple> it = resourceTriples.iterator(); it.hasNext(); ) {
-//                ResourceTriple triple = it.next();
-//                if(triple.getSubject().equals(subject) && triple.getPredicate().equals(predicate) && (object == null || triple.getObject().equals(object))) {
-//                    if (consume) {
-//                        it.remove();
-//                    }
-//                    return triple.getObject();
-//                }
-//            }
-//        }
-//        return null;
-//    }
 
     private boolean isGeneralPredicate(IRI predicate) {
         return !predicate.isReservedVocabulary() || OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS.contains(predicate) || predicate.getStart().indexOf(Namespaces.SWRL.toString()) != -1 || predicate.getStart().indexOf(Namespaces.SWRLB.toString()) != -1;
@@ -2295,7 +2265,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         if (litPredObjMap != null) {
             return litPredObjMap.containsKey(predicate);
         }
-        return false;//searchGeneralResourceTriples(subject, predicate, null, false) != null;
+        return false;
     }
 
 
@@ -2413,9 +2383,6 @@ public class OWLRDFConsumer implements RDFConsumer {
                 }
             }
         }
-//        for(ResourceTriple triple : new ArrayList<ResourceTriple>(resourceTriples)) {
-//            iterator.handleResourceTriple(triple.getSubject(), triple.getPredicate(), triple.getObject());
-//        }
     }
 
     public <E extends Throwable> void iterateLiteralTriples(LiteralTripleIterator<E> iterator) throws E {
@@ -2455,12 +2422,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     // Predicate, subject, object
     private Map<IRI, Map<IRI, OWLLiteral>> singleValuedLitTriplesByPredicate = CollectionFactory.createMap();
 
-//    private List<ResourceTriple> resourceTriples = new ArrayList<ResourceTriple>();
-
     public void addTriple(IRI subject, IRI predicate, IRI object) {
-//        if(isGeneralPredicate(predicate)) {
-//            resourceTriples.add(new ResourceTriple(subject, predicate, object));
-//        }
         Map<IRI, IRI> subjObjMap = singleValuedResTriplesByPredicate.get(predicate);
         if (subjObjMap != null) {
             subjObjMap.put(subject, object);
