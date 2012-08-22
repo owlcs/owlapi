@@ -62,8 +62,6 @@ public class RDFGraph {
 
     private Map<RDFResourceNode, Set<RDFTriple>> triplesBySubject;
 
-//    private Map<RDFNode, Set<RDFTriple>> triplesByObject;
-
     private Set<RDFResourceNode> rootAnonymousNodes;
 
     private Set<RDFTriple> triples;
@@ -73,10 +71,17 @@ public class RDFGraph {
 	public RDFGraph() {
         triples = new HashSet<RDFTriple>();
         triplesBySubject = new HashMap<RDFResourceNode, Set<RDFTriple>>();
-//        triplesByObject = new HashMap<RDFNode, Set<RDFTriple>>();
         rootAnonymousNodes = null;
     }
 
+    /**
+     * Determines if this graph is empty (i.e. whether or not it contains any triples).
+     * @return <code>true</code> if the graph contains triples, otherwise <code>false</code>
+     * @since 3.5
+     */
+    public boolean isEmpty() {
+        return triples.isEmpty();
+    }
 
     /**
      * @param triple triple to add
@@ -91,25 +96,6 @@ public class RDFGraph {
             triplesBySubject.put(triple.getSubject(), tripleSet);
         }
         tripleSet.add(triple);
-//
-//        Set<RDFTriple> triples2 = triplesByObject.get(triple.getResourceObject());
-//        if(triples2 == null) {
-//            triples2 = new HashSet<RDFTriple>();
-//            triplesByObject.put(triple.getResourceObject(), triples2);
-//        }
-//        triples2.add(triple);
-//
-//
-//            if(triple.getSubject().isAnonymous()) {
-//                // Might be a root - i.e. no incoming edges
-//                if(!triplesByObject.keySet().contains(triple.getSubject())) {
-//                    rootAnonymousNodes.add(triple.getSubject());
-//                }
-//            }
-//            if(triple.getResourceObject().isAnonymous()) {
-//                // Incoming edge for the anon obj
-//                rootAnonymousNodes.remove(triple.getResourceObject());
-//            }
     }
 
 
