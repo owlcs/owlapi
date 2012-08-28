@@ -210,15 +210,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private List<OWLEntity> getRHSEntitiesSorted(OWLAxiom ax) {
         Collection<OWLEntity> entities = getRHSEntities(ax);
         List<OWLEntity> sortedEntities = new ArrayList<OWLEntity>(entities);
-        Collections.sort(sortedEntities, new Comparator<OWLObject>() {
-            public int compare(OWLObject o1, OWLObject o2) {
-                if (o1 instanceof OWLProperty) {
-                    return -1;
-                } else {
-                    return 1;
-                }
-            }
-        });
+        Collections.sort(sortedEntities, propertiesFirstComparator);
         return sortedEntities;
     }
 
@@ -256,8 +248,9 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         sortChildrenAxioms(tree);
     }
 
+    private static Comparator<Tree<OWLAxiom>> comparator = new OWLAxiomTreeComparator();
+
     private void sortChildrenAxioms(ExplanationTree tree) {
-        Comparator<Tree<OWLAxiom>> comparator = new OWLAxiomTreeComparator();
         tree.sortChildren(comparator);
     }
 
@@ -325,6 +318,21 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     protected void indexAxiomsByRHSEntities(OWLObject rhs, OWLAxiom axiom) {
         getIndexedSet(axiom, entitiesByAxiomRHS, true).addAll(rhs.getSignature());
     }
+
+    private static final class PropertiesFirstComparator implements Comparator<OWLObject> {
+        public int compare(OWLObject o1, OWLObject o2) {
+            if (o1 instanceof OWLProperty) {
+                return -1;
+            } else {
+                if (o1.equals(o2)) {
+                    return 0;
+                }
+                return 1;
+            }
+        }
+    }
+
+    private static PropertiesFirstComparator propertiesFirstComparator = new PropertiesFirstComparator();
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////

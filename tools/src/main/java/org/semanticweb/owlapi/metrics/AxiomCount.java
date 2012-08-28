@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.metrics;
 
 import java.util.List;
@@ -45,54 +44,36 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br><br>
- */
+ * Date: 27-Jul-2007<br>
+ * <br> */
 public class AxiomCount extends IntegerValuedMetric {
-
-    /**
-     * @param owlOntologyManager manager to use
-     */
-	public AxiomCount(OWLOntologyManager owlOntologyManager) {
+    /** @param owlOntologyManager
+     *            manager to use */
+    public AxiomCount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
 
     @Override
     protected Integer recomputeMetric() {
         int count = 0;
-        for(OWLOntology ontology : getOntologies()) {
+        for (OWLOntology ontology : getOntologies()) {
             count += ontology.getAxiomCount();
         }
         return count;
     }
 
-    /**
-     * Determines if the specified list of changes will cause the value of this metric
-     * to be invalid.
-     * @param changes The list of changes which will be examined to determine if the
-     * metric is now invalid.
-     * @return <code>true</code> if the metric value is invalidated by the specified
-     *         list of changes, or <code>false</code> if the list of changes do not cause
-     *         the value of this metric to be invalidated.
-     */
+    @SuppressWarnings("unused")
     @Override
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         return true;
     }
 
     @Override
-    protected void disposeMetric() {
-    }
+    protected void disposeMetric() {}
 
-    /**
-     * Gets the human readable name of this metric
-     * @return A label which represents the human readable name of
-     *         this metric.
-     */
     public String getName() {
         return "Axiom";
     }
