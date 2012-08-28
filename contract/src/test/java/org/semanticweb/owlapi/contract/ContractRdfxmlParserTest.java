@@ -105,7 +105,6 @@ public class ContractRdfxmlParserTest {
         String result3 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestAbstractNamedEquivalentClassAxiomHandler() throws Exception {
         AbstractNamedEquivalentClassAxiomHandler testSubject0 = new AbstractNamedEquivalentClassAxiomHandler(
                 Utils.mockOWLRDFConsumer(), IRI.create("urn:aFake")) {
@@ -355,7 +354,6 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestGTPAnnotationLiteralHandler() throws Exception {
         GTPAnnotationLiteralHandler testSubject0 = new GTPAnnotationLiteralHandler(
                 Utils.mockOWLRDFConsumer());
@@ -369,7 +367,6 @@ public class ContractRdfxmlParserTest {
         String result3 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestGTPAnnotationResourceTripleHandler() throws Exception {
         GTPAnnotationResourceTripleHandler testSubject0 = new GTPAnnotationResourceTripleHandler(
                 Utils.mockOWLRDFConsumer());
@@ -384,7 +381,6 @@ public class ContractRdfxmlParserTest {
         String result3 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestGTPDataPropertyAssertionHandler() throws Exception {
         GTPDataPropertyAssertionHandler testSubject0 = new GTPDataPropertyAssertionHandler(
                 Utils.mockOWLRDFConsumer());
@@ -652,9 +648,9 @@ public class ContractRdfxmlParserTest {
     public void shouldTestOptimisedListTranslator() throws Exception {
         OptimisedListTranslator<OWLObject> testSubject0 = new OptimisedListTranslator<OWLObject>(
                 Utils.mockOWLRDFConsumer(), mock(ListItemTranslator.class)) {};
-        List<OWLObject> result0 = testSubject0.translateList(IRI.create("urn:aFake"));
-        Set<OWLObject> result1 = testSubject0.translateToSet(IRI.create("urn:aFake"));
-        String result2 = testSubject0.toString();
+                List<OWLObject> result0 = testSubject0.translateList(IRI.create("urn:aFake"));
+                Set<OWLObject> result1 = testSubject0.translateToSet(IRI.create("urn:aFake"));
+                String result2 = testSubject0.toString();
     }
 
     @Test
@@ -852,7 +848,6 @@ public class ContractRdfxmlParserTest {
         String result1 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestSKOSClassTripleHandler() throws Exception {
         SKOSClassTripleHandler testSubject0 = new SKOSClassTripleHandler(
                 Utils.mockOWLRDFConsumer(), SKOSVocabulary.ALTLABEL);
@@ -869,7 +864,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestSWRLRuleTranslator() throws Exception {
         SWRLRuleTranslator testSubject0 = new SWRLRuleTranslator(
                 Utils.mockOWLRDFConsumer());
@@ -941,7 +935,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPComplementOfHandler() throws Exception {
         TPComplementOfHandler testSubject0 = new TPComplementOfHandler(
                 Utils.mockOWLRDFConsumer());
@@ -989,7 +982,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPDifferentFromHandler() throws Exception {
         TPDifferentFromHandler testSubject0 = new TPDifferentFromHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1005,7 +997,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPDisjointUnionHandler() throws Exception {
         TPDisjointUnionHandler testSubject0 = new TPDisjointUnionHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1021,7 +1012,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPDisjointWithHandler() throws Exception {
         TPDisjointWithHandler testSubject0 = new TPDisjointWithHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1037,7 +1027,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPDistinctMembersHandler() throws Exception {
         TPDistinctMembersHandler testSubject0 = new TPDistinctMembersHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1160,7 +1149,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPIntersectionOfHandler() throws Exception {
         TPIntersectionOfHandler testSubject0 = new TPIntersectionOfHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1225,7 +1213,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPOneOfHandler() throws Exception {
         TPOneOfHandler testSubject0 = new TPOneOfHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI.create("urn:aFake"), IRI.create("urn:aFake"),
@@ -1256,7 +1243,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPPropertyChainAxiomHandler() throws Exception {
         TPPropertyChainAxiomHandler testSubject0 = new TPPropertyChainAxiomHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1288,7 +1274,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPPropertyDomainHandler() throws Exception {
         TPPropertyDomainHandler testSubject0 = new TPPropertyDomainHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1304,7 +1289,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPPropertyRangeHandler() throws Exception {
         TPPropertyRangeHandler testSubject0 = new TPPropertyRangeHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1335,7 +1319,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPSameAsHandler() throws Exception {
         TPSameAsHandler testSubject0 = new TPSameAsHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI.create("urn:aFake"), IRI.create("urn:aFake"),
@@ -1382,7 +1365,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPSubPropertyOfHandler() throws Exception {
         TPSubPropertyOfHandler testSubject0 = new TPSubPropertyOfHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1398,7 +1380,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPTypeHandler() throws Exception {
         TPTypeHandler testSubject0 = new TPTypeHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI.create("urn:aFake"), IRI.create("urn:aFake"),
@@ -1413,7 +1394,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTPUnionOfHandler() throws Exception {
         TPUnionOfHandler testSubject0 = new TPUnionOfHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI.create("urn:aFake"), IRI.create("urn:aFake"),
@@ -1553,7 +1533,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeAnnotationPropertyHandler() throws Exception {
         TypeAnnotationPropertyHandler testSubject0 = new TypeAnnotationPropertyHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1605,7 +1584,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeClassHandler() throws Exception {
         TypeClassHandler testSubject0 = new TypeClassHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI.create("urn:aFake"), IRI.create("urn:aFake"),
@@ -1621,7 +1599,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeDataPropertyHandler() throws Exception {
         TypeDataPropertyHandler testSubject0 = new TypeDataPropertyHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1655,7 +1632,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeDatatypeHandler() throws Exception {
         TypeDatatypeHandler testSubject0 = new TypeDatatypeHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1682,7 +1658,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeDeprecatedClassHandler() throws Exception {
         TypeDeprecatedClassHandler testSubject0 = new TypeDeprecatedClassHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1699,7 +1674,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeDeprecatedPropertyHandler() throws Exception {
         TypeDeprecatedPropertyHandler testSubject0 = new TypeDeprecatedPropertyHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1733,7 +1707,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeInverseFunctionalPropertyHandler() throws Exception {
         TypeInverseFunctionalPropertyHandler testSubject0 = new TypeInverseFunctionalPropertyHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1783,7 +1756,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeNamedIndividualHandler() throws Exception {
         TypeNamedIndividualHandler testSubject0 = new TypeNamedIndividualHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1800,7 +1772,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeNegativeDataPropertyAssertionHandler() throws Exception {
         TypeNegativeDataPropertyAssertionHandler testSubject0 = new TypeNegativeDataPropertyAssertionHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1834,7 +1805,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeObjectPropertyHandler() throws Exception {
         TypeObjectPropertyHandler testSubject0 = new TypeObjectPropertyHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1868,7 +1838,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeOntologyPropertyHandler() throws Exception {
         TypeOntologyPropertyHandler testSubject0 = new TypeOntologyPropertyHandler(
                 Utils.mockOWLRDFConsumer());
@@ -1902,7 +1871,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeRDFSClassHandler() throws Exception {
         TypeRDFSClassHandler testSubject0 = new TypeRDFSClassHandler(
                 Utils.mockOWLRDFConsumer());
@@ -2157,7 +2125,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeSymmetricPropertyHandler() throws Exception {
         TypeSymmetricPropertyHandler testSubject0 = new TypeSymmetricPropertyHandler(
                 Utils.mockOWLRDFConsumer());
@@ -2174,7 +2141,6 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestTypeTransitivePropertyHandler() throws Exception {
         TypeTransitivePropertyHandler testSubject0 = new TypeTransitivePropertyHandler(
                 Utils.mockOWLRDFConsumer());

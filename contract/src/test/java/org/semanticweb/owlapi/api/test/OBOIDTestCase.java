@@ -49,7 +49,6 @@ import org.junit.Ignore;
  * Bio-Health Informatics Group<br>
  * Date: 03/02/2011
  */
-@SuppressWarnings("javadoc")
 @Ignore
 public class OBOIDTestCase extends TestCase {
 
