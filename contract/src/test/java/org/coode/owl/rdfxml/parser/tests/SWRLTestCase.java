@@ -40,15 +40,12 @@
 package org.coode.owl.rdfxml.parser.tests;
 
 import java.io.ByteArrayInputStream;
-import java.io.StringReader;
-import java.net.URI;
 
 import junit.framework.TestCase;
 
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
