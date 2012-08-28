@@ -199,14 +199,9 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             owlOntologyManager.applyChanges(Arrays.asList(new RemoveAxiom(getOWLOntology(), ax)));
         }
         debuggingAxioms.removeAll(temporaryAxioms);
-        ontologyCounter = 0;
         return new HashSet<OWLAxiom>(debuggingAxioms);
     }
 
-
-//    private static List<OWLAxiom> toList(Set<OWLAxiom> axioms) {
-//        return new ArrayList<OWLAxiom>(axioms);
-//    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -225,7 +220,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         int axiomsAdded = 0;
 
         int remainingSpace = expansionLimit;
-//        System.out.println("Expansion limit: " + expansionLimit);
         for (OWLAxiom ax : new ArrayList<OWLAxiom>(debuggingAxioms)) {
             if (expandedWithDefiningAxioms.contains(ax)) {
                 // Skip if already done
@@ -362,23 +356,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         if (logger.isLoggable(Level.INFO)) {
             logger.info("Fast pruning: ");
         }
-//        if (performRepeatedFastPruning) {
-//            int desiredWindowSize = debuggingAxioms.size() / 30;
-//
-//            if(desiredWindowSize == fastPruningWindowSize) {
-//                fastPruningWindowSize = desiredWindowSize / 3;
-//
-//            }
-//            else {
-//                fastPruningWindowSize = desiredWindowSize;
-//            }
-//            if(fastPruningWindowSize < 1) {
-//                fastPruningWindowSize = 1;
-//            }
-//        }
-//        else {
-//            fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
-//        }
         if (logger.isLoggable(Level.INFO)) {
             logger.info("     - Window size: " + fastPruningWindowSize);
         }
@@ -446,10 +423,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      */
     private boolean isSatisfiable() throws OWLException {
         createDebuggingOntology();
-//        RDFXMLRenderer ren = new RDFXMLRenderer();
-//        ren.setOWLOntologyManager(owlOntologyManager);
-//        ren.render(debuggingOntology, IRI.create("file:/Users/matthewhorridge/Desktop/DebuggingOntology" + ontologyCounter + ".owlapi"));
-        ontologyCounter++;
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(debuggingOntology);
         satTestCount++;
         boolean sat = reasoner.isSatisfiable(currentClass);
@@ -457,12 +430,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         return sat;
     }
 
-
-    private int ontologyCounter = 0;
-
-
     private void createDebuggingOntology() throws OWLException {
-        //System.out.println("Debugging ontology: " + ontologyCounter);
         if (debuggingOntology != null) {
             owlOntologyManager.removeOntology(debuggingOntology);
         }
@@ -543,7 +511,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             logger.info("Fast pruning...");
         }
 
-//        fastPruningWindowSize = 0;
         if (performRepeatedFastPruning) {
             // Base the initial fast pruning window size on the number of axioms
             fastPruningWindowSize = debuggingAxioms.size() / 10;

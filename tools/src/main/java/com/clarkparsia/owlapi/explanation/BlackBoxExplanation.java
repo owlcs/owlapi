@@ -166,14 +166,13 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
             if (isFirstExplanation()) {
                 if (getReasoner().isSatisfiable(unsatClass)) {
-                	return Collections.emptySet();
+                    return Collections.emptySet();
                 }
             }
             reset();
             expandUntilUnsatisfiable(unsatClass);
             pruneUntilMinimal(unsatClass);
             removeDeclarations();
-            ontologyCounter = 0;
 
             return new HashSet<OWLAxiom>(debuggingAxioms);
         }
@@ -191,11 +190,11 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
     private int expandAxioms() {
         /*
-           * We expand the axiom set using axioms that define entities that are
-           * already referenced in the existing set of axioms. If this fails to
-           * expand the axiom set we expand using axioms that reference the
-           * entities in the axioms that have already been expanded.
-           */
+         * We expand the axiom set using axioms that define entities that are
+         * already referenced in the existing set of axioms. If this fails to
+         * expand the axiom set we expand using axioms that reference the
+         * entities in the axioms that have already been expanded.
+         */
 
         // Keep track of the number of axioms that have been added
         int axiomsAdded = 0;
@@ -341,22 +340,22 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         if (log.isLoggable(Level.FINE)) {
             log.info("Fast pruning: ");
         }
-//        if (performRepeatedFastPruning) {
-//            int desiredWindowSize = debuggingAxioms.size() / 6;
-//
-//            if (desiredWindowSize == fastPruningWindowSize) {
-//                fastPruningWindowSize = desiredWindowSize / 3;
-//            }
-//            else {
-//                fastPruningWindowSize = desiredWindowSize;
-//            }
-//            if (fastPruningWindowSize < 1) {
-//                fastPruningWindowSize = 1;
-//            }
-//        }
-//        else {
-//            fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
-//        }
+        //        if (performRepeatedFastPruning) {
+        //            int desiredWindowSize = debuggingAxioms.size() / 6;
+        //
+        //            if (desiredWindowSize == fastPruningWindowSize) {
+        //                fastPruningWindowSize = desiredWindowSize / 3;
+        //            }
+        //            else {
+        //                fastPruningWindowSize = desiredWindowSize;
+        //            }
+        //            if (fastPruningWindowSize < 1) {
+        //                fastPruningWindowSize = 1;
+        //            }
+        //        }
+        //        else {
+        //            fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
+        //        }
         if (log.isLoggable(Level.FINE)) {
             log.fine("     - Window size: " + fastPruningWindowSize);
         }
@@ -424,12 +423,11 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
      */
     private boolean isSatisfiable(OWLClassExpression unsatClass) throws OWLException {
         createDebuggingOntology();
-        ontologyCounter++;
 
         OWLReasoner reasoner = getReasonerFactory().createNonBufferingReasoner(debuggingOntology);
 
         if (OntologyUtils.containsUnreferencedEntity(debuggingOntology, unsatClass)) {
-        	reasoner.dispose();
+            reasoner.dispose();
             return true;
         }
         satTestCount++;
@@ -437,10 +435,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         reasoner.dispose();
         return sat;
     }
-
-
-    private int ontologyCounter = 0;
-
 
     private void createDebuggingOntology() throws OWLException {
         if (debuggingOntology != null) {
@@ -583,7 +577,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     private void removeDeclarations() {
         OWLAxiomVisitor declarationRemover = new OWLAxiomVisitorAdapter() {
             @Override
-			public void visit(OWLDeclarationAxiom axiom) {
+            public void visit(OWLDeclarationAxiom axiom) {
                 debuggingAxioms.remove(axiom);
             }
         };
@@ -592,13 +586,13 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         }
     }
 
-//    private static URI createURI() {
-//        return URI.create("http://debugging.blackbox#" + System.nanoTime());
-//    }
+    //    private static URI createURI() {
+    //        return URI.create("http://debugging.blackbox#" + System.nanoTime());
+    //    }
 
 
     @Override
-	public String toString() {
+    public String toString() {
         return "BlackBox";
     }
 }
