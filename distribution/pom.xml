@@ -1,24 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-distribution</artifactId>
-	<packaging>bundle</packaging>
-	<name>OWLAPI Distribution</name>
+	<packaging>jar</packaging>
+	<name>OWLAPI :: Binary Distribution</name>
 
 	<parent>
-		<groupId>net.sourceforge.owlapi</groupId>
+		<groupId>com.github.ansell.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>3.4.11-SNAPSHOT</version>
+		<version>3.4.11.1-ansell-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
 
 	<!-- NOTE: These dependency declarations are only required to sort this 
 		project to the end of the line in the multimodule build. -->
 	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-apibinding</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-api</artifactId>
@@ -36,6 +31,11 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-contract</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-parsers</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -46,13 +46,14 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-contract</artifactId>
+			<artifactId>owlapi-rio</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+<<<<<<< HEAD
 			<!-- Creates binary distribution. -->
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -82,9 +83,10 @@
 					</executions>
 				</configuration>
 			</plugin>
+=======
+>>>>>>> e5578b5... GITHUB : bump to version 3.4.9.3-ansell-SNAPSHOT
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.8.1</version>
 				<executions>
 					<execution>
 						<id>attach-javadoc</id>
@@ -94,6 +96,7 @@
 						<configuration>
 							<includeDependencySources>true</includeDependencySources>
 							<dependencySourceIncludes>
+<<<<<<< HEAD
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-api</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-apibinding</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-parsers</dependencySourceInclude>
@@ -101,28 +104,12 @@
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboparser</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-contract</dependencySourceInclude>
+=======
+								<!-- include ONLY owlapi artifacts -->
+								<dependencySourceInclude>com.github.ansell.owlapi:owlapi-*</dependencySourceInclude>
+>>>>>>> e5578b5... GITHUB : bump to version 3.4.9.3-ansell-SNAPSHOT
 							</dependencySourceIncludes>
 						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<attach>true</attach>
-					<descriptors>
-						<descriptor>src/assembly/sources.xml</descriptor>
-					</descriptors>
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
 					</execution>
 				</executions>
 			</plugin>
