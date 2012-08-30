@@ -36,40 +36,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 18-Apr-2007<br><br>
- * A short form provider which creates QNames for entities
- */
+ * Date: 18-Apr-2007<br>
+ * <br>
+ * A short form provider which creates QNames for entities */
 public class QNameShortFormProvider implements ShortFormProvider {
-
     private final NamespaceUtil namespaceUtil;
 
-    /**
-     * Creates a QNameShortFormProvider where namespace prefix mappings
-     * will automatically be generated.
-     */
+    /** Creates a QNameShortFormProvider where namespace prefix mappings will
+     * automatically be generated. */
     public QNameShortFormProvider() {
         this(new HashMap<String, String>());
     }
 
-
-    /**
-     * Creates a QNameShortFormProvider where the specified map overrides
-     * any auto-generated prefix namespace mappings.
-     * @param prefix2NamespaceMap The map which contains a prefix -> namespace
-     * mapping.
-     */
+    /** Creates a QNameShortFormProvider where the specified map overrides any
+     * auto-generated prefix namespace mappings.
+     * 
+     * @param prefix2NamespaceMap
+     *            The map which contains a prefix -> namespace mapping. */
     public QNameShortFormProvider(Map<String, String> prefix2NamespaceMap) {
         namespaceUtil = new NamespaceUtil();
         for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
@@ -77,18 +71,14 @@ public class QNameShortFormProvider implements ShortFormProvider {
         }
     }
 
-
     public String getShortForm(OWLEntity entity) {
-    	String[] result = new String[2];
-        String uriString = entity.getIRI().toString();
-        namespaceUtil.split(uriString, result);
-        String namespace = result[0];
-        String localName = result[1];
+        String iri = entity.getIRI().toString();
+        String namespace = XMLUtils.getNCNamePrefix(iri);
+        String localName = XMLUtils.getNCNameSuffix(iri);
         String prefix = namespaceUtil.getPrefix(namespace);
-        return prefix + ":" + localName;
+        String toReturn = prefix + ":" + localName;
+        return toReturn;
     }
 
-
-    public void dispose() {
-    }
+    public void dispose() {}
 }
