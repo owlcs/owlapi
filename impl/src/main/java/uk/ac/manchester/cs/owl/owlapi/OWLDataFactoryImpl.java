@@ -1214,6 +1214,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
      */
     @Deprecated
     public SWRLRule getSWRLRule(IRI iri, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
+        checkNull(iri, "iri");
+        checkNull(body, "body");
+        checkNull(head, "head");
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(2);
         annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/owlapi#iri")), getOWLLiteral(iri.toQuotedString())));
         return new SWRLRuleImpl(body, head, annos);
@@ -1230,6 +1233,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
      */
     @Deprecated
     public SWRLRule getSWRLRule(NodeID nodeID, Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
+        checkNull(head, "head");
+        checkNull(body, "body");
+        checkNull(nodeID, "nodeID");
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(2);
         annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/owlapi#nodeID")), getOWLLiteral(nodeID.toString())));
         return new SWRLRuleImpl(body, head, annos);
@@ -1243,6 +1249,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
      * @return An anonymous rule with the specified body and head
      */
     public SWRLRule getSWRLRule(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Set<OWLAnnotation> annotations) {
+        checkNull(body, "body");
+        checkNull(head, "head");
+        checkNull(annotations, "annotations");
         return new SWRLRuleImpl(body, head, annotations);
     }
 
@@ -1252,6 +1261,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
      * @param consequent The atoms that make up the consequent
      */
     public SWRLRule getSWRLRule(Set<? extends SWRLAtom> antecedent, Set<? extends SWRLAtom> consequent) {
+        checkNull(antecedent, "antecedent");
+        checkNull(consequent, "consequent");
         return new SWRLRuleImpl(antecedent, consequent);
     }
 
@@ -1262,6 +1273,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
      * @param arg The argument (x)
      */
     public SWRLClassAtom getSWRLClassAtom(OWLClassExpression predicate, SWRLIArgument arg) {
+        checkNull(predicate, "predicate");
+        checkNull(arg, "arg");
         return new SWRLClassAtomImpl(predicate, arg);
     }
 
@@ -1272,6 +1285,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
      * @param arg The argument (x)
      */
     public SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange predicate, SWRLDArgument arg) {
+        checkNull(predicate, "predicate");
+        checkNull(arg, "arg");
         return new SWRLDataRangeAtomImpl(predicate, arg);
     }
 
@@ -1284,6 +1299,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
      * @param arg1 The second argument (y)
      */
     public SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, SWRLIArgument arg0, SWRLIArgument arg1) {
+        checkNull(property, "property");
+        checkNull(arg0, "arg0");
+        checkNull(arg1, "arg1");
         return new SWRLObjectPropertyAtomImpl(property, arg0, arg1);
     }
 
@@ -1296,6 +1314,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
      * @param arg1 The second argument (y)
      */
     public SWRLDataPropertyAtom getSWRLDataPropertyAtom(OWLDataPropertyExpression property, SWRLIArgument arg0, SWRLDArgument arg1) {
+        checkNull(property, "property");
+        checkNull(arg0, "arg0");
+        checkNull(arg1, "arg1");
         return new SWRLDataPropertyAtomImpl(property, arg0, arg1);
     }
 
@@ -1305,6 +1326,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
      * @param args A non-empty set of SWRL D-Objects
      */
     public SWRLBuiltInAtom getSWRLBuiltInAtom(IRI builtInIRI, List<SWRLDArgument> args) {
+        checkNull(builtInIRI, "builtInIRI");
+        checkNull(args, "args");
         return new SWRLBuiltInAtomImpl(builtInIRI, args);
     }
 
@@ -1314,6 +1337,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
      * @return A SWRLVariable that has the name specified by the IRI
      */
     public SWRLVariable getSWRLVariable(IRI var) {
+        checkNull(var, "var");
         return new SWRLVariableImpl(var);
     }
 
@@ -1322,6 +1346,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
      * @param individual The individual that is the object argument
      */
     public SWRLIndividualArgument getSWRLIndividualArgument(OWLIndividual individual) {
+        checkNull(individual, "individual");
         return new SWRLIndividualArgumentImpl(individual);
     }
 
@@ -1330,14 +1355,19 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
      * @param literal The constant that is the object argument
      */
     public SWRLLiteralArgument getSWRLLiteralArgument(OWLLiteral literal) {
+        checkNull(literal, "literal");
         return new SWRLLiteralArgumentImpl(literal);
     }
 
     public SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(SWRLIArgument arg0, SWRLIArgument arg1) {
+        checkNull(arg0, "arg0");
+        checkNull(arg1, "arg1");
         return new SWRLDifferentIndividualsAtomImpl(this, arg0, arg1);
     }
 
     public SWRLSameIndividualAtom getSWRLSameIndividualAtom(SWRLIArgument arg0, SWRLIArgument arg1) {
+        checkNull(arg0, "arg0");
+        checkNull(arg1, "arg1");
         return new SWRLSameIndividualAtomImpl(this, arg0, arg1);
     }
 
