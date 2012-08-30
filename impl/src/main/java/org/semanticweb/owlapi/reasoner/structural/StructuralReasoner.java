@@ -153,7 +153,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
 
     @Override
-	public FreshEntityPolicy getFreshEntityPolicy() {
+    public FreshEntityPolicy getFreshEntityPolicy() {
         return FreshEntityPolicy.ALLOW;
     }
 
@@ -162,7 +162,7 @@ public class StructuralReasoner extends OWLReasonerBase {
      * @return The policy.
      */
     @Override
-	public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
+    public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
         return IndividualNodeSetPolicy.BY_NAME;
     }
 
@@ -175,7 +175,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     @Override
-	protected void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms) {
+    protected void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms) {
         handleChanges(addAxioms, removeAxioms, classHierarchyInfo);
         handleChanges(addAxioms, removeAxioms, objectPropertyHierarchyInfo);
         handleChanges(addAxioms, removeAxioms, dataPropertyHierarchyInfo);
@@ -208,13 +208,13 @@ public class StructuralReasoner extends OWLReasonerBase {
         dataPropertyHierarchyInfo.computeHierarchy();
         prepared = true;
     }
-@SuppressWarnings("unused")
+    @SuppressWarnings("unused")
     public void precomputeInferences(InferenceType... inferenceTypes) throws ReasonerInterruptedException, TimeOutException, InconsistentOntologyException {
         prepareReasoner();
     }
 
     @SuppressWarnings("unused")
-	public boolean isPrecomputed(InferenceType inferenceType) {
+    public boolean isPrecomputed(InferenceType inferenceType) {
         return true;
     }
 
@@ -258,6 +258,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         return true;
     }
 
+    @SuppressWarnings("unused")
     public boolean isEntailmentCheckingSupported(AxiomType<?> axiomType) {
         return false;
     }
@@ -340,11 +341,11 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     public Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
-      //  OWLObjectPropertyNode nd = new OWLObjectPropertyNode();
         ensurePrepared();
         return objectPropertyHierarchyInfo.getEquivalents(pe);
     }
 
+    @SuppressWarnings("unused")
     public NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(OWLObjectPropertyExpression pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
         return new OWLObjectPropertyNodeSet();
     }
@@ -600,6 +601,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         return new OWLNamedIndividualNode(inds);
     }
 
+    @SuppressWarnings("unused")
     public NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
         return new OWLNamedIndividualNodeSet();
     }
@@ -1044,13 +1046,6 @@ public class StructuralReasoner extends OWLReasonerBase {
             return result;
         }
 
-//        public Set<T> getTopEntities() {
-//            return topNode.getEntities();
-//        }
-//
-//        public Set<T> getBottomEntities() {
-//            return bottomNode.getEntities();
-//        }
 
         public Node<T> getNode(T containing) {
             Node<T> parentNode = map.get(containing);
@@ -1074,13 +1069,6 @@ public class StructuralReasoner extends OWLReasonerBase {
             return bottomNode;
         }
 
-//        public void setTopNode(Node<T> topNode) {
-//            this.topNode = topNode;
-//        }
-//
-//        public void setBottomNode(Node<T> bottomNode) {
-//            this.bottomNode = bottomNode;
-//        }
 
         public void clearTopNode() {
             removeNode(hierarchyInfo.topEntity);
