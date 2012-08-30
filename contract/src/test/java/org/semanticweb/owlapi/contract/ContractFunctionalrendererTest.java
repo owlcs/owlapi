@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractFunctionalrendererTest {
     public void shouldTestOWLFunctionalSyntaxOntologyStorer() throws Exception {
         OWLFunctionalSyntaxOntologyStorer testSubject0 = new OWLFunctionalSyntaxOntologyStorer();

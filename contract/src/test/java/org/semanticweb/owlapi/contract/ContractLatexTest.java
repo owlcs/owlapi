@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractLatexTest {
     public void shouldTestLatexAxiomsListOntologyFormat() throws Exception {
         LatexAxiomsListOntologyFormat testSubject0 = new LatexAxiomsListOntologyFormat();
@@ -101,21 +101,21 @@ public class ContractLatexTest {
         LatexRendererException testSubject0 = new LatexRendererException(
                 new RuntimeException()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 697341703777397585L;
         };
         LatexRendererException testSubject1 = new LatexRendererException("") {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -32592562792748349L;
         };
         LatexRendererException testSubject2 = new LatexRendererException("",
                 new RuntimeException()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 1917432784930770245L;
         };
         Throwable result1 = testSubject0.getCause();

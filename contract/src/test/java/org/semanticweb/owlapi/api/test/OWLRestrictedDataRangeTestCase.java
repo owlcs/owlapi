@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+
 import java.util.Set;
 
 import org.junit.Test;
@@ -61,7 +63,7 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	@Test
+    @Test
     public void testCreation() throws Exception {
         OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
         OWLLiteral facetValue = getFactory().getOWLLiteral("3", getFactory().getOWLDatatype(createIRI()));
@@ -73,7 +75,7 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	@Test
+    @Test
     public void testEqualsPositive() throws Exception {
         OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
         OWLLiteral facetValue = getFactory().getOWLLiteral("3", getFactory().getOWLDatatype(createIRI()));
@@ -86,7 +88,7 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	@Test
+    @Test
     public void testEqualsNegative() throws Exception {
         OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
         OWLLiteral facetValue = getFactory().getOWLLiteral("3", getFactory().getOWLDatatype(createIRI()));
@@ -100,7 +102,7 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	@Test
+    @Test
     public void testHashCode() throws Exception {
         OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
         OWLLiteral facetValue = getFactory().getOWLLiteral("3", getFactory().getOWLDatatype(createIRI()));

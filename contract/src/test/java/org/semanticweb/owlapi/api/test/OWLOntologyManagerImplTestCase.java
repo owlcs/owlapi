@@ -39,8 +39,9 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLException;
@@ -61,14 +62,13 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  * Date: 02-Jan-2007<br><br>
  */
 @SuppressWarnings("javadoc")
-public class OWLOntologyManagerImplTestCase extends TestCase {
+public class OWLOntologyManagerImplTestCase {
 
     private OWLOntologyManager manager;
 
 
-    @Override
-	protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         manager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         manager.addIRIMapper(new NonMappingOntologyIRIMapper());

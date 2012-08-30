@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -61,20 +63,20 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
 
 
     @SuppressWarnings("rawtypes")
-	@Override
-	protected OWLRestriction createRestriction(OWLDataProperty prop) throws Exception {
+    @Override
+    protected OWLRestriction createRestriction(OWLDataProperty prop) throws Exception {
         return createRestriction(prop, 3);
     }
 
 
     @Override
-	protected OWLDataProperty createProperty() throws OWLException {
+    protected OWLDataProperty createProperty() throws OWLException {
         return createOWLDataProperty();
     }
 
 
     @Override
-	@Test
+    @Test
     public void testCreation() throws Exception {
         OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
         int cardinality = 3;
@@ -87,7 +89,7 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
 
 
     @Override
-	@Test
+    @Test
     public void testEqualsPositive() throws Exception {
         OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
         int cardinality = 3;
@@ -102,7 +104,7 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
 
 
     @Override
-	@Test
+    @Test
     public void testEqualsNegative() throws Exception {
         OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
         // Different cardinality
@@ -121,7 +123,7 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
 
 
     @Override
-	@Test
+    @Test
     public void testHashCode() throws Exception {
         OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
         int cardinality = 3;

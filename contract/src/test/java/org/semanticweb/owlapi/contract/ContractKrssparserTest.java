@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractKrssparserTest {
     public void shouldTestJavaCharStream() throws Exception {
         JavaCharStream testSubject0 = new JavaCharStream(mock(InputStream.class), "", 0,

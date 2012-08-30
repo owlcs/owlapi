@@ -44,7 +44,6 @@ import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /** Author: Matthew Horridge<br>
@@ -52,16 +51,20 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * Bio-Health Informatics Group<br>
  * Date: 13-May-2010 */
 public class DLQueryPrinter {
-    private OWLReasoner reasoner;
     private DLQueryEngine dlQueryEngine;
     private ShortFormProvider shortFormProvider;
 
-    public DLQueryPrinter(OWLReasoner reasoner, ShortFormProvider shortFormProvider) {
-        this.reasoner = reasoner;
+    /** @param engine
+     *            the engine
+     * @param shortFormProvider
+     *            the short form provider */
+    public DLQueryPrinter(DLQueryEngine engine, ShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
-        dlQueryEngine = new DLQueryEngine(reasoner, shortFormProvider);
+        dlQueryEngine = engine;
     }
 
+    /** @param classExpression
+     *            the class expression to use for interrogation */
     public void askQuery(String classExpression) {
         if (classExpression.length() == 0) {
             System.out.println("No class expression specified");

@@ -42,9 +42,8 @@ package org.coode.owl.rdfxml.parser.tests;
 import java.io.File;
 import java.net.URL;
 
-import junit.framework.TestCase;
-
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -62,14 +61,13 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * Date: 16-Mar-2007<br><br>
  */
 @SuppressWarnings("javadoc")
-public class RDFParserTestCase extends TestCase {
+public class RDFParserTestCase {
 
     private OWLOntologyManager man;
 
 
-    @Override
-	protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         // Use the reference implementation
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());

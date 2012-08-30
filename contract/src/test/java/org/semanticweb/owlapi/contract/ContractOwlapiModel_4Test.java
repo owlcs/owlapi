@@ -108,7 +108,7 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiModel_4Test {
     @Test
     public void shouldTestOWLOntologyStorageException() throws Exception {

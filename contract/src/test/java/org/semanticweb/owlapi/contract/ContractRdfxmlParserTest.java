@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 import org.xml.sax.SAXException;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractRdfxmlParserTest {
     @Test
     public void shouldTestAbstractClassExpressionTranslator() throws Exception {

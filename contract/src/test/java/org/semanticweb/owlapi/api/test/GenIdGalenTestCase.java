@@ -38,8 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
-
-import junit.framework.TestCase;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -48,116 +47,32 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 @SuppressWarnings("javadoc")
-public class GenIdGalenTestCase extends TestCase {
-	@Test
+public class GenIdGalenTestCase {
+    @Test
     public void testGenIdGalenFragment() throws Exception {
-		String test = "<?xml version=\"1.0\"?>\n"
-				+ "	<rdf:RDF \n"
-				+ "	     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-				+ "	     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-				+ "	     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-				+ "	     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-				+ "	    <owl:Ontology rdf:about=\"http://www.co-ode.org/ontologies/galen\"/>\n"
-				+ "<owl:ObjectProperty rdf:about=\"http://www.co-ode.org/ontologies/galen#hasQuantity\"/>\n"
-				+ "<owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#test\">\n"
-				+ "<rdfs:subClassOf><owl:Restriction>\n"
-				+ "<owl:onProperty rdf:resource=\"http://www.co-ode.org/ontologies/galen#hasQuantity\"/>\n"
-				+ "<owl:someValuesFrom>\n"
-				+ "<owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#anotherTest\"/>"
-				+ "</owl:someValuesFrom>\n"
-				+ "</owl:Restriction></rdfs:subClassOf></owl:Class>"
-				+ "	</rdf:RDF>";
-		String input = "<?xml version=\"1.0\"?>\n"
-				+ "	<rdf:RDF xmlns=\"http://www.co-ode.org/ontologies/galen#\"\n"
-				+ "	     xml:base=\"http://www.co-ode.org/ontologies/galen\"\n"
-				+ "	     xmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n"
-				+ "	     xmlns:galen=\"http://www.co-ode.org/ontologies/galen#\"\n"
-				+ "	     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-				+ "	     xmlns:owl2xml=\"http://www.w3.org/2006/12/owl2-xml#\"\n"
-				+ "	     xmlns:jms=\"http://jena.hpl.hp.com/2003/08/jms#\"\n"
-				+ "	     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-				+ "	     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-				+ "	     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
-				+ "	     xmlns:rss=\"http://purl.org/rss/1.0/\"\n"
-				+ "	     xmlns:daml=\"http://www.daml.org/2001/03/daml+oil#\"\n"
-				+ "	     xmlns:vcard=\"http://www.w3.org/2001/vcard-rdf/3.0#\">\n"
-				+ "	    <owl:Ontology rdf:about=\"http://www.co-ode.org/ontologies/galen\"/>\n"
-				+ "	    <owl:ObjectProperty rdf:about=\"http://www.co-ode.org/ontologies/galen#actsSpecificallyOn\"/>\n"
-				+ "	    <owl:ObjectProperty rdf:about=\"http://www.co-ode.org/ontologies/galen#hasMass\"/>\n"
-				+ "	    <owl:ObjectProperty rdf:about=\"http://www.co-ode.org/ontologies/galen#hasQuantity\"/>\n"
-				+ "	    <owl:ObjectProperty rdf:about=\"http://www.co-ode.org/ontologies/galen#isEnactmentOf\"/>\n"
-				+ "	    <owl:ObjectProperty rdf:about=\"http://www.co-ode.org/ontologies/galen#isWithReferenceTo\"/>\n"
-				+ "	    <owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#DietarySalt\"/>\n"
-				+ "	    <owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#HighSodiumDiet\"/>\n"
-				+ "	    <owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#Mass\"/>\n"
-				+ "	    <owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#Protocol\"/>\n"
-				+ "	    <owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#VoluntaryEating\"/>\n"
-				+ "	    <owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#genid22\"/>\n"
-				+ "	    <owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#performance\"/>\n"
-				+ "	<owl:Class>\n"
-				+ "	        <rdfs:subClassOf rdf:resource=\"http://www.co-ode.org/ontologies/galen#HighSodiumDiet\"/>\n"
-				+ "	        <owl:intersectionOf rdf:parseType=\"Collection\">\n"
-				+ "	            <rdf:Description rdf:about=\"http://www.co-ode.org/ontologies/galen#Protocol\"/>\n"
-				+ "	            <owl:Restriction>\n"
-				+ "	                <owl:onProperty rdf:resource=\"http://www.co-ode.org/ontologies/galen#isWithReferenceTo\"/>\n"
-				+ "	                <owl:someValuesFrom>\n"
-				+ "	                    <owl:Class>\n"
-				+ "	                        <owl:intersectionOf rdf:parseType=\"Collection\">\n"
-				+ "	                            <rdf:Description rdf:about=\"http://www.co-ode.org/ontologies/galen#performance\"/>\n"
-				+ "	                            <owl:Restriction>\n"
-				+ "	                                <owl:onProperty rdf:resource=\"http://www.co-ode.org/ontologies/galen#isEnactmentOf\"/>\n"
-				+ "	                                <owl:someValuesFrom>\n"
-				+ "	                                    <owl:Class>\n"
-				+ "	                                        <owl:intersectionOf rdf:parseType=\"Collection\">\n"
-				+ "	                                            <rdf:Description rdf:about=\"http://www.co-ode.org/ontologies/galen#VoluntaryEating\"/>\n"
-				+ "	                                            <owl:Restriction>\n"
-				+ "	                                                <owl:onProperty rdf:resource=\"http://www.co-ode.org/ontologies/galen#actsSpecificallyOn\"/>\n"
-				+ "	                                                <owl:someValuesFrom>\n"
-				+ "	                                                    <owl:Class>\n"
-				+ "	                                                        <owl:intersectionOf rdf:parseType=\"Collection\">\n"
-				+ "	                                                            <rdf:Description rdf:about=\"http://www.co-ode.org/ontologies/galen#DietarySalt\"/>\n"
-				+ "	                                                            <owl:Restriction>\n"
-				+ "	                                                                <owl:onProperty rdf:resource=\"http://www.co-ode.org/ontologies/galen#hasMass\"/>\n"
-				+ "	                                                                <owl:someValuesFrom>\n"
-				+ "	                                                                    <owl:Class>\n"
-				+ "	                                                                        <owl:intersectionOf rdf:parseType=\"Collection\">\n"
-				+ "	                                                                            <rdf:Description rdf:about=\"http://www.co-ode.org/ontologies/galen#Mass\"/>\n"
-				+ "	                                                                            <owl:Restriction>\n"
-				+ "	                                                                                <owl:onProperty rdf:resource=\"http://www.co-ode.org/ontologies/galen#hasQuantity\"/>\n"
-				+ "	                                                                                <owl:someValuesFrom rdf:parseType=\"Collection\">\n"
-				+ "	                                                                                    <owl:Restriction>\n"
-				+ "	                                                                                        <owl:onProperty rdf:resource=\"http://www.co-ode.org/ontologies/galen#isSpecificStructuralComponentOf\"/>\n"
-				+ "	                                                                                        <owl:someValuesFrom rdf:resource=\"http://www.co-ode.org/ontologies/galen#GreatToe\"/>\n"
-				+ "	                                                                                    </owl:Restriction>\n"
-				+ "	                                                                                </owl:someValuesFrom>\n"
-				+ "	                                                                            </owl:Restriction>\n"
-				+ "	</owl:intersectionOf>\n"
-				+ "	                                                                    </owl:Class>\n"
-				+ "	                                                                </owl:someValuesFrom>\n"
-				+ "	                                                            </owl:Restriction>\n"
-				+ "	                                                        </owl:intersectionOf>\n"
-				+ "	                                                    </owl:Class>\n"
-				+ "	                                                </owl:someValuesFrom>\n"
-				+ "	                                            </owl:Restriction>\n"
-				+ "	                                        </owl:intersectionOf>\n"
-				+ "	                                    </owl:Class>\n"
-				+ "	                                </owl:someValuesFrom>\n"
-				+ "	                            </owl:Restriction>\n"
-				+ "	                        </owl:intersectionOf>\n"
-				+ "	                    </owl:Class>\n"
-				+ "	                </owl:someValuesFrom>\n"
-				+ "	            </owl:Restriction>\n"
-				+ "	        </owl:intersectionOf>\n" + "	    </owl:Class>\n"
-				+ "	</rdf:RDF>";
-		OWLOntologyManager m = Factory.getManager();
-		OWLOntology o = m
-				.loadOntologyFromOntologyDocument(new StringDocumentSource(test));
-//		for(OWLAxiom ax:o.getAxioms()) {
-//			System.out.println(ax);
-//		}
-		OWL2DLProfile profile = new OWL2DLProfile();
-		OWLProfileReport report = profile.checkOntology(o);
-//		System.out.println("GenIdGalenTest.testGenIdGalenFragment() \n"
-//				+ report);
-	}
+        String test = "<?xml version=\"1.0\"?>\n"
+                + "	<rdf:RDF \n"
+                + "	     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+                + "	     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+                + "	     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+                + "	     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
+                + "	    <owl:Ontology rdf:about=\"http://www.co-ode.org/ontologies/galen\"/>\n"
+                + "<owl:ObjectProperty rdf:about=\"http://www.co-ode.org/ontologies/galen#hasQuantity\"/>\n"
+                + "<owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#test\">\n"
+                + "<rdfs:subClassOf><owl:Restriction>\n"
+                + "<owl:onProperty rdf:resource=\"http://www.co-ode.org/ontologies/galen#hasQuantity\"/>\n"
+                + "<owl:someValuesFrom>\n"
+                + "<owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#anotherTest\"/>"
+                + "</owl:someValuesFrom>\n"
+                + "</owl:Restriction></rdfs:subClassOf></owl:Class>"
+                + "	</rdf:RDF>";
+        OWLOntologyManager m = Factory.getManager();
+        OWLOntology o = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(test));
+
+        OWL2DLProfile profile = new OWL2DLProfile();
+        OWLProfileReport report = profile.checkOntology(o);
+        assertTrue(report.isInProfile());
+
+    }
 }

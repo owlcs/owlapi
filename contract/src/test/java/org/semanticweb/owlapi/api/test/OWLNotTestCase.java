@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
@@ -54,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 
     @Override
-	@Test
+    @Test
     public void testCreation() throws Exception {
         OWLClassExpression operand = getFactory().getOWLClass(createIRI());
         OWLObjectComplementOf not = getFactory().getOWLObjectComplementOf(operand);
@@ -63,7 +65,7 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	@Test
+    @Test
     public void testEqualsPositive() throws Exception {
         OWLClassExpression operand = getFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(operand);
@@ -73,7 +75,7 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	@Test
+    @Test
     public void testEqualsNegative() throws Exception {
         OWLClassExpression operandA = getFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(operandA);
@@ -84,7 +86,7 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
 
 
     @Override
-	@Test
+    @Test
     public void testHashCode() throws Exception {
         OWLClassExpression operand = getFactory().getOWLClass(createIRI());
         OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(operand);

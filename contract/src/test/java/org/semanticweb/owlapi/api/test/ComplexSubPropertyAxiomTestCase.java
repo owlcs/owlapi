@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -72,12 +73,12 @@ public class ComplexSubPropertyAxiomTestCase extends AbstractFileRoundTrippingTe
 
     @Override
     @SuppressWarnings("unused")
-	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-       // System.out.println(target);
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        // System.out.println(target);
     }
 
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "ComplexSubProperty.rdf";
     }
 }

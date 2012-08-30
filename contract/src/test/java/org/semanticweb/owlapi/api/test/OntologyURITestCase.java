@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -89,12 +91,12 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
             getManager().createOntology(uri);
         } catch (OWLOntologyAlreadyExistsException e) {
             // as expected
-        	rightException=true;
-        	//e.printStackTrace();
+            rightException=true;
+            //e.printStackTrace();
         } catch (OWLOntologyCreationException e) {
 
-			e.printStackTrace();
-		}
+            e.printStackTrace();
+        }
         assertTrue("an OntologyAlreadyExistsException has not been thrown",rightException);
     }
 

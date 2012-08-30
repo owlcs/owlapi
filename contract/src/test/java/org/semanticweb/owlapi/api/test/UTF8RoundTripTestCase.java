@@ -41,8 +41,6 @@ package org.semanticweb.owlapi.api.test;
 import java.io.File;
 import java.io.IOException;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.IRI;
@@ -58,64 +56,64 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-public class UTF8RoundTripTestCase extends TestCase {
-	@Test
+public class UTF8RoundTripTestCase {
+    @Test
     public void testRoundTrip() throws Exception {
-		String NS = "http://protege.org/ontologies/UTF8RoundTrip.owl";
-		OWLDataFactory factory = Factory.getFactory();
-		OWLClass C = factory.getOWLClass(IRI.create(NS + "#C"));
-		/*
-		 * The two unicode characters entered here are valid and can be found in
-		 * the code chart http://www.unicode.org/charts/PDF/U4E00.pdf. It has
-		 * been said that they are chinese and they do look the part. In UTF-8
-		 * these characters are encoded as
-		 *
-		 * \u8655 --> \350\231\225 \u65b9 --> \346\226\271
-		 *
-		 * where the right hand side is in octal. (I chose octal because this is
-		 * how emacs represents it with find-file-literally).
-		 */
-		String CHINESE = "Rx\u8655\u65b9";
-		System.setProperty("file.encoding", "UTF-8"); // doesn't matter
-		OWLOntology ontology = createOriginalOntology(factory, NS, C, CHINESE);
-		checkOntology(ontology, C, CHINESE);
-		OWLOntology newOntology = roundTrip(ontology, true);
-		checkOntology(newOntology, C, CHINESE);
-		newOntology = roundTrip(ontology, false);
-		checkOntology(newOntology, C, CHINESE);
-	}
+        String NS = "http://protege.org/ontologies/UTF8RoundTrip.owl";
+        OWLDataFactory factory = Factory.getFactory();
+        OWLClass C = factory.getOWLClass(IRI.create(NS + "#C"));
+        /*
+         * The two unicode characters entered here are valid and can be found in
+         * the code chart http://www.unicode.org/charts/PDF/U4E00.pdf. It has
+         * been said that they are chinese and they do look the part. In UTF-8
+         * these characters are encoded as
+         *
+         * \u8655 --> \350\231\225 \u65b9 --> \346\226\271
+         *
+         * where the right hand side is in octal. (I chose octal because this is
+         * how emacs represents it with find-file-literally).
+         */
+        String CHINESE = "Rx\u8655\u65b9";
+        System.setProperty("file.encoding", "UTF-8"); // doesn't matter
+        OWLOntology ontology = createOriginalOntology(factory, NS, C, CHINESE);
+        checkOntology(ontology, C, CHINESE);
+        OWLOntology newOntology = roundTrip(ontology, true);
+        checkOntology(newOntology, C, CHINESE);
+        newOntology = roundTrip(ontology, false);
+        checkOntology(newOntology, C, CHINESE);
+    }
 
-	private static OWLOntology createOriginalOntology(OWLDataFactory factory, String NS,
-			OWLClass C, String CHINESE) throws OWLOntologyCreationException {
-		OWLOntologyManager manager = Factory.getManager();
-		OWLOntology ontology = manager.createOntology(IRI.create(NS));
-		OWLAnnotationProperty label = factory.getRDFSLabel();
-		OWLAxiom annotationAxiom = factory.getOWLAnnotationAssertionAxiom(C.getIRI(),
-				factory.getOWLAnnotation(label, factory.getOWLLiteral(CHINESE)));
-		manager.addAxiom(ontology, annotationAxiom);
-		return ontology;
-	}
+    private static OWLOntology createOriginalOntology(OWLDataFactory factory, String NS,
+            OWLClass C, String CHINESE) throws OWLOntologyCreationException {
+        OWLOntologyManager manager = Factory.getManager();
+        OWLOntology ontology = manager.createOntology(IRI.create(NS));
+        OWLAnnotationProperty label = factory.getRDFSLabel();
+        OWLAxiom annotationAxiom = factory.getOWLAnnotationAssertionAxiom(C.getIRI(),
+                factory.getOWLAnnotation(label, factory.getOWLLiteral(CHINESE)));
+        manager.addAxiom(ontology, annotationAxiom);
+        return ontology;
+    }
 
-	private static boolean checkOntology(OWLOntology ontology, OWLClass C, String CHINESE) {
-		for (OWLAnnotation annotation : C.getAnnotations(ontology)) {
-			String value = ((OWLLiteral) annotation.getValue()).getLiteral();
-			return CHINESE.equals(value);
-		}
-		return false;
-	}
+    private static boolean checkOntology(OWLOntology ontology, OWLClass C, String CHINESE) {
+        for (OWLAnnotation annotation : C.getAnnotations(ontology)) {
+            String value = ((OWLLiteral) annotation.getValue()).getLiteral();
+            return CHINESE.equals(value);
+        }
+        return false;
+    }
 
-	private static OWLOntology roundTrip(OWLOntology ontology, boolean useIRI)
-			throws IOException, OWLOntologyStorageException, OWLOntologyCreationException {
-		OWLOntologyManager oldManager = ontology.getOWLOntologyManager();
-		File f = File.createTempFile("Test", ".owl");
-		oldManager.saveOntology(ontology, new RDFXMLOntologyFormat(), IRI.create(f));
-		OWLOntologyManager newManager = Factory.getManager();
-		OWLOntology newOntology;
-		if (useIRI) {
-			newOntology = newManager.loadOntologyFromOntologyDocument(IRI.create(f));
-		} else {
-			newOntology = newManager.loadOntologyFromOntologyDocument(f);
-		}
-		return newOntology;
-	}
+    private static OWLOntology roundTrip(OWLOntology ontology, boolean useIRI)
+            throws IOException, OWLOntologyStorageException, OWLOntologyCreationException {
+        OWLOntologyManager oldManager = ontology.getOWLOntologyManager();
+        File f = File.createTempFile("Test", ".owl");
+        oldManager.saveOntology(ontology, new RDFXMLOntologyFormat(), IRI.create(f));
+        OWLOntologyManager newManager = Factory.getManager();
+        OWLOntology newOntology;
+        if (useIRI) {
+            newOntology = newManager.loadOntologyFromOntologyDocument(IRI.create(f));
+        } else {
+            newOntology = newManager.loadOntologyFromOntologyDocument(f);
+        }
+        return newOntology;
+    }
 }

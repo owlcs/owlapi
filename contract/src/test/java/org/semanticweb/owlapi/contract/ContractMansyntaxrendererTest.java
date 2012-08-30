@@ -43,7 +43,7 @@ import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.RendererListener;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.RenderingDirector;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.SectionMap;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractMansyntaxrendererTest {
     @Test
     public void shouldTestAbstractRenderer() throws Exception {

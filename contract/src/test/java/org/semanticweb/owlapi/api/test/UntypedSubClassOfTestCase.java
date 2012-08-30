@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -65,7 +66,7 @@ public class UntypedSubClassOfTestCase extends AbstractFileRoundTrippingTestCase
 
 
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "UntypedSubClassOf.rdf";
     }
 }

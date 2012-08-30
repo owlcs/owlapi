@@ -39,7 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 02-Jun-2009
  */
 @SuppressWarnings("javadoc")
-public class DefaultPrefixManagerTestCase extends TestCase {
+public class DefaultPrefixManagerTestCase {
 
     @Test
     public void testContainsDefaultPrefixNames() {

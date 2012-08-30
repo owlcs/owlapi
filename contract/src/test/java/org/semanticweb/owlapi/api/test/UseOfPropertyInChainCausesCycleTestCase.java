@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.util.Arrays;
@@ -18,6 +18,7 @@ import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 
+@SuppressWarnings("javadoc")
 public class UseOfPropertyInChainCausesCycleTestCase {
     @Test
     public void shouldCauseViolations() throws OWLOntologyCreationException {

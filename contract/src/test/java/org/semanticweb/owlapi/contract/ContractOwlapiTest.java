@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiTest {
     @Test
     public void shouldTestAbstractCompositeOntologyChange() throws Exception {

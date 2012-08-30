@@ -94,7 +94,7 @@ import com.clarkparsia.owlapi.modularity.locality.LocalityEvaluator;
 import com.clarkparsia.owlapi.modularity.locality.SemanticLocalityEvaluator;
 import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractSmallsTest {
     @Test
     public void shouldTestInterfaceRDFConstants() throws Exception {
@@ -282,8 +282,8 @@ public class ContractSmallsTest {
 
             @Override
             protected void
-                    writeAnnotationPropertyComment(final OWLAnnotationProperty prop)
-                            throws IOException {}
+            writeAnnotationPropertyComment(final OWLAnnotationProperty prop)
+                    throws IOException {}
 
             @Override
             protected void writeBanner(final String name) throws IOException {}

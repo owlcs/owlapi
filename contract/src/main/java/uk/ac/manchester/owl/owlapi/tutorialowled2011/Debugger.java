@@ -72,61 +72,62 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
  * Information Management Group<br>
  * Date: 24-April-2007<br>
  * <br> */
-public class Debugger {
-    private OWLOntology ontology;
-    private OWLDebugger debugger;
-    private OWLReasoner checker;
-    private OWLClass bottom;
+@SuppressWarnings({ "javadoc" })
+ public class Debugger {
+     private OWLOntology ontology;
+     private OWLDebugger debugger;
+     private OWLReasoner checker;
+     private OWLClass bottom;
 
-    public Debugger(OWLOntologyManager manager, OWLOntology ontology,
-            OWLReasonerFactory reasonerFactory) throws OWLException {
-        this.ontology = ontology;
-        this.checker = reasonerFactory.createNonBufferingReasoner(ontology);
-        /* Create a new debugger */
-        this.debugger = new BlackBoxOWLDebugger(manager, ontology, reasonerFactory);
-        /* Get bottom */
-        bottom = manager.getOWLDataFactory().getOWLNothing();
-    }
+     public Debugger(OWLOntologyManager manager, OWLOntology ontology,
+             OWLReasonerFactory reasonerFactory) throws OWLException {
+         this.ontology = ontology;
+         checker = reasonerFactory.createNonBufferingReasoner(ontology);
+         /* Create a new debugger */
+         debugger = new BlackBoxOWLDebugger(manager, ontology, reasonerFactory);
+         /* Get bottom */
+         bottom = manager.getOWLDataFactory().getOWLNothing();
+     }
 
-    public void report(PrintWriter writer) throws OWLException {
-        OWLTutorialSyntaxObjectRenderer renderer = new OWLTutorialSyntaxObjectRenderer(
-                ontology, writer);
-        /* Write a header */
-        renderer.header();
-        Set<OWLClass> unsatisfiables = new HashSet<OWLClass>();
-        for (OWLClass clazz : ontology.getClassesInSignature()) {
-            /* Collect the unsatisfiable classes that aren't bottom. */
-            if (!checker.isSatisfiable(clazz) && !clazz.equals(bottom)) {
-                unsatisfiables.add(clazz);
-            }
-        }
-        writer.println("<h1>Ontology Debugging Report</h1>");
-        writer.println("<p>Ontology: " + ontology.getOntologyID() + "</p>");
-        if (unsatisfiables.isEmpty()) {
-            writer.println("<p>No Unsatisfiable Classes found</p>");
-        } else {
-            for (OWLClass unsatisfiable : unsatisfiables) {
-                writer.println("<div class='box'>\n");
-                writer.println("<h2 class='cl'>");
-                unsatisfiable.accept(renderer);
-                writer.println("</h2>");
-                writer.println("<p>Axioms causing inconsistency:</p>");
-                writer.println("<ul>");
-                /*
-                 * Find the set of support for the inconsistency. This will
-                 * return us a collection of axioms
-                 */
-                Set<OWLAxiom> sos = debugger.getSOSForIncosistentClass(unsatisfiable);
-                /* Print the axioms. */
-                for (OWLAxiom axiom : sos) {
-                    writer.println("<li>");
-                    axiom.accept(renderer);
-                    writer.println("</li>");
-                }
-                writer.println("</ul>");
-                writer.println("</div>\n");
-            }
-        }
-        renderer.footer();
-    }
-}
+     public void report(PrintWriter writer) throws OWLException {
+         OWLTutorialSyntaxObjectRenderer renderer = new OWLTutorialSyntaxObjectRenderer(
+                 ontology, writer);
+         /* Write a header */
+         renderer.header();
+         Set<OWLClass> unsatisfiables = new HashSet<OWLClass>();
+         for (OWLClass clazz : ontology.getClassesInSignature()) {
+             /* Collect the unsatisfiable classes that aren't bottom. */
+             if (!checker.isSatisfiable(clazz) && !clazz.equals(bottom)) {
+                 unsatisfiables.add(clazz);
+             }
+         }
+         writer.println("<h1>Ontology Debugging Report</h1>");
+         writer.println("<p>Ontology: " + ontology.getOntologyID() + "</p>");
+         if (unsatisfiables.isEmpty()) {
+             writer.println("<p>No Unsatisfiable Classes found</p>");
+         } else {
+             for (OWLClass unsatisfiable : unsatisfiables) {
+                 writer.println("<div class='box'>\n");
+                 writer.println("<h2 class='cl'>");
+                 unsatisfiable.accept(renderer);
+                 writer.println("</h2>");
+                 writer.println("<p>Axioms causing inconsistency:</p>");
+                 writer.println("<ul>");
+                 /*
+                  * Find the set of support for the inconsistency. This will
+                  * return us a collection of axioms
+                  */
+                 Set<OWLAxiom> sos = debugger.getSOSForIncosistentClass(unsatisfiable);
+                 /* Print the axioms. */
+                 for (OWLAxiom axiom : sos) {
+                     writer.println("<li>");
+                     axiom.accept(renderer);
+                     writer.println("</li>");
+                 }
+                 writer.println("</ul>");
+                 writer.println("</div>\n");
+             }
+         }
+         renderer.footer();
+     }
+ }

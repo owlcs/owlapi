@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,7 +63,7 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
 
 
     @Override
-	@Test
+    @Test
     public void testCreation() throws Exception {
         Set<O> operands = new HashSet<O>();
         operands.add(createOperand());
@@ -73,7 +75,7 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
 
 
     @Override
-	@Test
+    @Test
     public void testEqualsPositive() throws Exception {
         Set<O> operands = new HashSet<O>();
         operands.add(createOperand());
@@ -86,7 +88,7 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
 
 
     @Override
-	@Test
+    @Test
     public void testEqualsNegative() throws Exception {
         Set<O> operands = new HashSet<O>();
         operands.add(createOperand());
@@ -99,7 +101,7 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
 
 
     @Override
-	@Test
+    @Test
     public void testHashCode() throws Exception {
         Set<O> operands = new HashSet<O>();
         operands.add(createOperand());
@@ -109,6 +111,6 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
         OWLObject objB = createObject(operands);
         assertEquals(objA.hashCode(), objB.hashCode());
     }
-    
-    
+
+
 }

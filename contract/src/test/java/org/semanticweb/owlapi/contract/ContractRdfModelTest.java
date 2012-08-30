@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractRdfModelTest {
     @Test
     public void shouldTestAbstractTranslator() throws Exception {

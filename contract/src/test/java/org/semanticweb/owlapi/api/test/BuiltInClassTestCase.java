@@ -39,8 +39,10 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -60,21 +62,19 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * return correct values.
  */
 @SuppressWarnings("javadoc")
-public class BuiltInClassTestCase extends TestCase {
+public class BuiltInClassTestCase {
 
     private OWLDataFactory dataFactory;
 
 
-    @Override
-	protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         dataFactory = new OWLDataFactoryImpl();
     }
 
 
-    @Override
-	protected void tearDown() throws Exception {
-        super.tearDown();
+    @After
+    public void tearDown() throws Exception {
         dataFactory = null;
     }
 

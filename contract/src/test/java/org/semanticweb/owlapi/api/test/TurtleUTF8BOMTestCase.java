@@ -39,20 +39,17 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import junit.framework.TestCase;
+import java.net.URISyntaxException;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
-public class TurtleUTF8BOMTestCase extends TestCase{
-	@Test
-    public void testLoadingUTF8BOM() {
-		try {
-		IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl" ).toURI());
-		Factory.getManager().loadOntologyFromOntologyDocument(uri);
-		}catch (Exception e) {
-			fail(e.getMessage());
-		}
-	}
-
+public class TurtleUTF8BOMTestCase {
+    @Test
+    public void testLoadingUTF8BOM() throws URISyntaxException,
+            OWLOntologyCreationException {
+        IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl" ).toURI());
+        Factory.getManager().loadOntologyFromOntologyDocument(uri);
+    }
 }

@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;

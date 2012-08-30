@@ -38,8 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
-
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
@@ -52,7 +51,7 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
  * Date: 01-Jul-2010
  */
 @SuppressWarnings("javadoc")
-public class SimpleIRIShortFormProviderTestCase extends TestCase {
+public class SimpleIRIShortFormProviderTestCase {
 
     @Test
     public void testFragmentShortForm() {

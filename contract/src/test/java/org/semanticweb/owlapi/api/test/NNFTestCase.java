@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
@@ -165,8 +166,8 @@ public class NNFTestCase extends AbstractOWLAPITestCase {
         OWLClassExpression nnf = getFactory().getOWLObjectMinCardinality(4, prop, filler);
         assertEquals(cls.getNNF(), nnf);
     }
-    
-   
+
+
     private OWLClass clsA = getFactory().getOWLClass(IRI.create("A"));
 
     private OWLClass clsB = getFactory().getOWLClass(IRI.create("B"));

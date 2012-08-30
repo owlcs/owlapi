@@ -88,7 +88,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractApibindingTest {
     public void shouldTestOWLFunctionalSyntaxFactory() throws Exception {
         OWLFunctionalSyntaxFactory testSubject0 = new OWLFunctionalSyntaxFactory();

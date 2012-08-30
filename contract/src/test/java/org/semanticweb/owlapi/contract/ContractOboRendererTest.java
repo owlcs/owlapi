@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOboRendererTest {
     @Test
     public void shouldTestInterfaceOBOExceptionHandler() throws Exception {

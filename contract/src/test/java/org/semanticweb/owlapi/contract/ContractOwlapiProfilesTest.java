@@ -104,7 +104,7 @@ import org.semanticweb.owlapi.profiles.UseOfUndeclaredObjectProperty;
 import org.semanticweb.owlapi.profiles.UseOfUnknownDatatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestCycleInDatatypeDefinition() throws Exception {
@@ -266,11 +266,11 @@ public class ContractOwlapiProfilesTest {
     public void shouldTestInterfaceOWL2DLProfileViolationVisitor() throws Exception {
         OWL2DLProfileViolationVisitor testSubject0 = mock(OWL2DLProfileViolationVisitor.class);
         testSubject0
-                .visit(mock(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom.class));
+        .visit(mock(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom.class));
         testSubject0
-                .visit(mock(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom.class));
+        .visit(mock(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom.class));
         testSubject0
-                .visit(mock(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom.class));
+        .visit(mock(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom.class));
     }
 
     @Test

@@ -1,18 +1,18 @@
 package org.semanticweb.owlapi.api.test;
-
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-public class OWLLiteralCorruptionTestCase extends TestCase{
+@SuppressWarnings("javadoc")
+public class OWLLiteralCorruptionTestCase {
 
 
     @Test
     public void testmain() throws Exception{
-    	String TEST_STRING;
+        String TEST_STRING;
         StringBuilder sb = new StringBuilder();
         int count = 17;
         while (count-- > 0) {

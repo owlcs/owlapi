@@ -62,6 +62,7 @@ public class ClassDeclarationWithAnnotationsTestCase extends AbstractAnnotatedAx
         return getFactory().getOWLDeclarationAxiom(ent, annos);
     }
 
+    @SuppressWarnings("unused")
     @Override
     protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
         return false;
@@ -71,6 +72,6 @@ public class ClassDeclarationWithAnnotationsTestCase extends AbstractAnnotatedAx
     @Test
     public void testManchesterOWLSyntax() throws Exception {
         // Can't represent annotated declarations in Manchester Syntax
-//        super.testManchesterOWLSyntax();
+        //        super.testManchesterOWLSyntax();
     }
 }

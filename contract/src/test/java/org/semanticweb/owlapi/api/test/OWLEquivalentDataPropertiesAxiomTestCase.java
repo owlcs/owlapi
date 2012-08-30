@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -53,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
  */
-
+@SuppressWarnings("javadoc")
 public class OWLEquivalentDataPropertiesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLDataProperty> {
 
     public void testAsSubAxioms() throws Exception {
@@ -62,17 +63,17 @@ public class OWLEquivalentDataPropertiesAxiomTestCase extends AbstractOWLNaryOpe
         operands.add(createOperand());
         OWLEquivalentDataPropertiesAxiom objA = (OWLEquivalentDataPropertiesAxiom) createObject(operands);
         assertTrue(objA.asSubDataPropertyOfAxioms().size()==2);
-        
+
     }
 
     @Override
-	protected OWLObject createObject(Set<OWLDataProperty> operands) throws Exception {
+    protected OWLObject createObject(Set<OWLDataProperty> operands) throws Exception {
         return getFactory().getOWLEquivalentDataPropertiesAxiom(operands);
     }
 
 
     @Override
-	protected OWLDataProperty createOperand() throws Exception {
+    protected OWLDataProperty createOperand() throws Exception {
         return createOWLDataProperty();
     }
 }

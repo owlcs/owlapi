@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -58,23 +59,23 @@ public class ObjectSomeValuesFromTestCase extends AbstractFileRoundTrippingTestC
 
     @Test
     public void testCorrectAxioms() {
-         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-         OWLClass clsA = getOWLClass("A");
-         OWLClass clsB = getOWLClass("B");
-         OWLObjectProperty propP = getOWLObjectProperty("p");
-         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectSomeValuesFrom(propP, clsB)));
-         axioms.add(getFactory().getOWLDeclarationAxiom(clsB));
-         axioms.add(getFactory().getOWLDeclarationAxiom(propP));
-         assertEquals(getOnt().getAxioms(), axioms);
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLClass clsA = getOWLClass("A");
+        OWLClass clsB = getOWLClass("B");
+        OWLObjectProperty propP = getOWLObjectProperty("p");
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectSomeValuesFrom(propP, clsB)));
+        axioms.add(getFactory().getOWLDeclarationAxiom(clsB));
+        axioms.add(getFactory().getOWLDeclarationAxiom(propP));
+        assertEquals(getOnt().getAxioms(), axioms);
     }
 
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "ObjectSomeValuesFrom.rdf";
     }
 
     @Override  @SuppressWarnings("unused")
-	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         //System.out.println(target);
     }
 }

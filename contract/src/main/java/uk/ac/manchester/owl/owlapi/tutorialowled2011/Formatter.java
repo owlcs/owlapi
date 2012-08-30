@@ -48,9 +48,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@SuppressWarnings({ "javadoc" })
 public class Formatter {
     public static void main(String[] args) throws Exception {
-        System.out.println("Formatter.main() " + (Long.MAX_VALUE / (1000 * 86000 * 365)));
+        System.out.println("Formatter.main() " + Long.MAX_VALUE / (1000 * 86000 * 365));
         Map<String, String> specials = new HashMap<String, String>();
         specials.put("public void test", "\\begin{beamerboxesrounded}{");
         specials.put("() throws Exception \\{", "}\n\\scriptsize");
@@ -99,5 +100,6 @@ public class Formatter {
             }
             line = r.readLine();
         }
+        r.close();
     }
 }

@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Collections;
@@ -95,11 +97,11 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.containsAxiomIgnoreAnnotations(axiom.getAxiomWithoutAnnotations()));
     }
 
-//    @Test
-//    public void testOntologyContainsAxiomsForRDFXML1() throws Exception {
-//        RDFXMLOntologyFormat format = createRDFXMLFormat();
-//        runTestOntologyContainsAxioms1(format);
-//    }
+    //    @Test
+    //    public void testOntologyContainsAxiomsForRDFXML1() throws Exception {
+    //        RDFXMLOntologyFormat format = createRDFXMLFormat();
+    //        runTestOntologyContainsAxioms1(format);
+    //    }
 
     private RDFXMLOntologyFormat createRDFXMLFormat() {
         RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
@@ -109,14 +111,14 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         return format;
     }
 
-//    @Test
-//    public void testOntologyContainsAxiomsForOWLXML1() throws Exception {
-//    	runTestOntologyContainsAxioms1(new OWLXMLOntologyFormat());
-//    }
+    //    @Test
+    //    public void testOntologyContainsAxiomsForOWLXML1() throws Exception {
+    //    	runTestOntologyContainsAxioms1(new OWLXMLOntologyFormat());
+    //    }
 
     @Test
     public void testOntologyContainsAxiomsForOWLFunctionalSyntax1() throws Exception {
-    	runTestOntologyContainsAxioms1(new OWLFunctionalSyntaxOntologyFormat());
+        runTestOntologyContainsAxioms1(new OWLFunctionalSyntaxOntologyFormat());
     }
 
     @Test
@@ -133,23 +135,23 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
 
     private void runTestOntologyContainsAxioms1(OWLOntologyFormat format) throws Exception {
 
-    	OWLOntology ont1 = getOWLOntology("testont1A");
-    	IRI ont1_iri = ont1.getOntologyID().getOntologyIRI();
+        OWLOntology ont1 = getOWLOntology("testont1A");
+        IRI ont1_iri = ont1.getOntologyID().getOntologyIRI();
 
-    	OWLOntology ont2 = getOWLOntology("testont2A");
-    	IRI ont2_iri = ont2.getOntologyID().getOntologyIRI();
+        OWLOntology ont2 = getOWLOntology("testont2A");
+        IRI ont2_iri = ont2.getOntologyID().getOntologyIRI();
 
-    	OWLImportsDeclaration ont2_import = getFactory().getOWLImportsDeclaration(ont1_iri);
-    	getManager().applyChange(new AddImport(ont2, ont2_import));
+        OWLImportsDeclaration ont2_import = getFactory().getOWLImportsDeclaration(ont1_iri);
+        getManager().applyChange(new AddImport(ont2, ont2_import));
 
-    	OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
-    	OWLAxiom ax_annoProp_decl = getFactory().getOWLDeclarationAxiom(annoProp);
-    	getManager().addAxiom(ont1, ax_annoProp_decl);
+        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
+        OWLAxiom ax_annoProp_decl = getFactory().getOWLDeclarationAxiom(annoProp);
+        getManager().addAxiom(ont1, ax_annoProp_decl);
 
-    	OWLAnnotation in_ont1_anno = getFactory().getOWLAnnotation(annoProp, ont1_iri);
-    	OWLAnnotation in_ont2_anno = getFactory().getOWLAnnotation(annoProp, ont2_iri);
+        OWLAnnotation in_ont1_anno = getFactory().getOWLAnnotation(annoProp, ont1_iri);
+        OWLAnnotation in_ont2_anno = getFactory().getOWLAnnotation(annoProp, ont2_iri);
 
-    	OWLClass A = getOWLClass("A");
+        OWLClass A = getOWLClass("A");
         OWLAxiom ax_A_decl = getFactory().getOWLDeclarationAxiom(A, Collections.singleton(in_ont1_anno));
         getManager().addAxiom(ont1, ax_A_decl);
 
@@ -177,7 +179,7 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         assertFalse(ont1.containsAxiom(ax_B_decl, true));
         assertTrue(ont2.containsAxiom(ax_B_decl, false));
         assertTrue(ont2.containsAxiom(ax_B_decl, true));
-     	// A is a subclass of B is in only in ont2
+        // A is a subclass of B is in only in ont2
         //
         assertFalse(ont1.containsAxiom(ax_AsubB, true));
         assertTrue(ont2.containsAxiom(ax_AsubB, false));
@@ -216,7 +218,7 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         assertFalse(ont1L.containsAxiom(ax_B_decl, true));
         assertTrue(ont2L.containsAxiom(ax_B_decl, false));
         assertTrue(ont2L.containsAxiom(ax_B_decl, true));
-     	// A is a subclass of B is in only in ont2
+        // A is a subclass of B is in only in ont2
         //
         assertFalse(ont1L.containsAxiom(ax_AsubB, true));
         assertTrue(ont2L.containsAxiom(ax_AsubB, false));
@@ -225,43 +227,43 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
 
     @Test
     public void testOntologyContainsAxiomsForRDFXML2() throws Exception {
-    	runTestOntologyContainsAxioms2(createRDFXMLFormat());
+        runTestOntologyContainsAxioms2(createRDFXMLFormat());
     }
 
     @Test
     public void testOntologyContainsAxiomsForOWLXML2() throws Exception {
-    	runTestOntologyContainsAxioms2(new OWLXMLOntologyFormat());
+        runTestOntologyContainsAxioms2(new OWLXMLOntologyFormat());
     }
 
     @Test
     public void testOntologyContainsAxiomsForOWLFunctionalSyntax2() throws Exception {
-    	runTestOntologyContainsAxioms2(new OWLFunctionalSyntaxOntologyFormat());
+        runTestOntologyContainsAxioms2(new OWLFunctionalSyntaxOntologyFormat());
     }
 
     @Test
     public void testOntologyContainsAxiomsForTurtleSyntax2() throws Exception {
-    	runTestOntologyContainsAxioms2(createTurtleOntologyFormat());
+        runTestOntologyContainsAxioms2(createTurtleOntologyFormat());
     }
 
     private void runTestOntologyContainsAxioms2(OWLOntologyFormat format) throws Exception {
 
-    	OWLOntology ont1 = getOWLOntology("testont1B");
-    	IRI ont1_iri = ont1.getOntologyID().getOntologyIRI();
+        OWLOntology ont1 = getOWLOntology("testont1B");
+        IRI ont1_iri = ont1.getOntologyID().getOntologyIRI();
 
-    	OWLOntology ont2 = getOWLOntology("testont2B");
-    	IRI ont2_iri = ont2.getOntologyID().getOntologyIRI();
+        OWLOntology ont2 = getOWLOntology("testont2B");
+        IRI ont2_iri = ont2.getOntologyID().getOntologyIRI();
 
-    	OWLImportsDeclaration ont2_import = getFactory().getOWLImportsDeclaration(ont1_iri);
-    	getManager().applyChange(new AddImport(ont2, ont2_import));
+        OWLImportsDeclaration ont2_import = getFactory().getOWLImportsDeclaration(ont1_iri);
+        getManager().applyChange(new AddImport(ont2, ont2_import));
 
-    	OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
-    	OWLAxiom ax_annoProp_decl = getFactory().getOWLDeclarationAxiom(annoProp);
-    	getManager().addAxiom(ont1, ax_annoProp_decl);
+        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
+        OWLAxiom ax_annoProp_decl = getFactory().getOWLDeclarationAxiom(annoProp);
+        getManager().addAxiom(ont1, ax_annoProp_decl);
 
-    	OWLAnnotation in_ont1_anno = getFactory().getOWLAnnotation(annoProp, ont1_iri);
-    	OWLAnnotation in_ont2_anno = getFactory().getOWLAnnotation(annoProp, ont2_iri);
+        OWLAnnotation in_ont1_anno = getFactory().getOWLAnnotation(annoProp, ont1_iri);
+        OWLAnnotation in_ont2_anno = getFactory().getOWLAnnotation(annoProp, ont2_iri);
 
-    	OWLClass A = getOWLClass("A");
+        OWLClass A = getOWLClass("A");
         OWLAxiom ax_A_decl = getFactory().getOWLDeclarationAxiom(A, Collections.singleton(in_ont1_anno));
         getManager().addAxiom(ont1, ax_A_decl);
 
@@ -289,7 +291,7 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         assertFalse(ont1.containsAxiom(ax_B_decl, true));
         assertTrue(ont2.containsAxiom(ax_B_decl, false));
         assertTrue(ont2.containsAxiom(ax_B_decl, true));
-     	// A is a subclass of B is in only in ont2
+        // A is a subclass of B is in only in ont2
         //
         assertFalse(ont1.containsAxiom(ax_AsubB, true));
         assertTrue(ont2.containsAxiom(ax_AsubB, false));
@@ -309,14 +311,14 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         OWLOntologyManager man = Factory.getManager();
 
         @SuppressWarnings("unused")
-		OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
+        OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
         OWLOntology ont2L = man.loadOntologyFromOntologyDocument(savedLocation2);
 
         for (OWLOntology importedOntology : ont2L.getImports()) {
-        	for (OWLAxiom importedAxiom : importedOntology.getAxioms()) {
-        		assertTrue(importedOntology.containsAxiom(importedAxiom, false));
-        		assertFalse(ont2L.containsAxiom(importedAxiom, false));
-        	}
+            for (OWLAxiom importedAxiom : importedOntology.getAxioms()) {
+                assertTrue(importedOntology.containsAxiom(importedAxiom, false));
+                assertFalse(ont2L.containsAxiom(importedAxiom, false));
+            }
         }
 
     }

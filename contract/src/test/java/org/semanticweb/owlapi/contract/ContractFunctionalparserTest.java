@@ -70,7 +70,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractFunctionalparserTest {
     public void shouldTestJavaCharStream() throws Exception {
         JavaCharStream testSubject0 = new JavaCharStream(mock(InputStream.class), "", 0,

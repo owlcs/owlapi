@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -57,23 +58,23 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 public class ObjectOneOfTestCase extends AbstractFileRoundTrippingTestCase {
 
 
-     @Test
+    @Test
     public void testCorrectAxioms() {
-         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-         OWLClass clsA = getOWLClass("A");
-         OWLNamedIndividual indA = getOWLIndividual("a");
-         OWLNamedIndividual indB = getOWLIndividual("b");
-         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectOneOf(indA, indB)));
-         assertEquals(getOnt().getAxioms(), axioms);
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLClass clsA = getOWLClass("A");
+        OWLNamedIndividual indA = getOWLIndividual("a");
+        OWLNamedIndividual indB = getOWLIndividual("b");
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectOneOf(indA, indB)));
+        assertEquals(getOnt().getAxioms(), axioms);
     }
 
     @Override  @SuppressWarnings("unused")
-	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         //System.out.println(target);
     }
 
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "ObjectOneOf.rdf";
     }
 }

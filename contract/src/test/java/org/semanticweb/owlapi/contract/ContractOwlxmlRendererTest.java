@@ -10,10 +10,9 @@ import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorageException;
 import org.coode.owlapi.owlxml.renderer.OWLXMLRenderer;
 import org.coode.owlapi.owlxml.renderer.OWLXMLWriter;
 import org.junit.Test;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlxmlRendererTest {
     @Test
     public void shouldTestOWLXMLObjectRenderer() throws Exception {

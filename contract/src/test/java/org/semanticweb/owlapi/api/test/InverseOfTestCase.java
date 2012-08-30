@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -66,12 +67,12 @@ public class InverseOfTestCase extends AbstractFileRoundTrippingTestCase {
     }
 
     @Override  @SuppressWarnings("unused")
-	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         //System.out.println(target);
     }
 
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "InverseOf.rdf";
     }
 }

@@ -39,13 +39,14 @@
 
 package org.coode.owl.rdf;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.util.Set;
 
-import junit.framework.TestCase;
-
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -74,14 +75,13 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * Date: 09-May-2007<br><br>
  */
 @SuppressWarnings("javadoc")
-public abstract class AbstractRendererAndParserTestCase extends TestCase {
+public abstract class AbstractRendererAndParserTestCase {
 
     private OWLOntologyManager man;
 
 
-    @Override
-	protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
         man.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
@@ -126,8 +126,8 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
         for (OWLAxiom ax : getAxioms()) {
             man.applyChange(new AddAxiom(ontA, ax));
         }
-//        OWLOntologyAnnotationAxiom anno = getDataFactory().getOWLOntologyAnnotationAxiom(ontA, getDataFactory().getCommentAnnotation(getClassExpression()));
-//        man.applyChange(new AddAxiom(ontA, anno));
+        //        OWLOntologyAnnotationAxiom anno = getDataFactory().getOWLOntologyAnnotationAxiom(ontA, getDataFactory().getCommentAnnotation(getClassExpression()));
+        //        man.applyChange(new AddAxiom(ontA, anno));
         File tempFile = File.createTempFile("Ontology", ".owlapi");
         man.saveOntology(ontA, IRI.create(tempFile.toURI()));
         man.removeOntology(ontA);
@@ -141,18 +141,18 @@ public abstract class AbstractRendererAndParserTestCase extends TestCase {
 
         StringBuilder msg = new StringBuilder();
         if (AminusB.isEmpty() && BminusA.isEmpty()) {
-			msg.append("Ontology save/load roundtripp OK.\n");
-		} else {
-			msg.append("Ontology save/load roundtripping error.\n");
-			msg.append("=> " + AminusB.size() + " axioms lost in roundtripping.\n");
-			for (OWLAxiom axiom : AminusB) {
-				msg.append(axiom.toString() + "\n");
-			}
-			msg.append("=> " + BminusA.size() + " axioms added after roundtripping.\n");
-			for (OWLAxiom axiom : BminusA) {
-				msg.append(axiom.toString() + "\n");
-			}
-		}
+            msg.append("Ontology save/load roundtripp OK.\n");
+        } else {
+            msg.append("Ontology save/load roundtripping error.\n");
+            msg.append("=> " + AminusB.size() + " axioms lost in roundtripping.\n");
+            for (OWLAxiom axiom : AminusB) {
+                msg.append(axiom.toString() + "\n");
+            }
+            msg.append("=> " + BminusA.size() + " axioms added after roundtripping.\n");
+            for (OWLAxiom axiom : BminusA) {
+                msg.append(axiom.toString() + "\n");
+            }
+        }
         assertTrue(msg.toString(), AminusB.isEmpty() && BminusA.isEmpty());
     }
 

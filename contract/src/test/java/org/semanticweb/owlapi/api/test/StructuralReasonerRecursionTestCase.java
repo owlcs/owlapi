@@ -64,17 +64,12 @@ public class StructuralReasonerRecursionTestCase extends AbstractFileTestCase {
 
     @Test
     public void testRecusion() {
-        try {
-            OWLOntology ontology = createOntology();
-            String ontName = ontology.getOntologyID().getOntologyIRI().toString();
-            OWLDataFactory factory = getFactory();
-            StructuralReasoner reasoner = new StructuralReasoner(ontology, new SimpleConfiguration(), BufferingMode.BUFFERING);
-            OWLClass cls = factory.getOWLClass(IRI.create(ontName + "#Koala"));
-            reasoner.getSubClasses(cls, false);
-            reasoner.getSuperClasses(cls, false);
-        }
-        catch (RuntimeException e) {
-            fail(e.getMessage());
-        }
+        OWLOntology ontology = createOntology();
+        String ontName = ontology.getOntologyID().getOntologyIRI().toString();
+        OWLDataFactory factory = getFactory();
+        StructuralReasoner reasoner = new StructuralReasoner(ontology, new SimpleConfiguration(), BufferingMode.BUFFERING);
+        OWLClass cls = factory.getOWLClass(IRI.create(ontName + "#Koala"));
+        reasoner.getSubClasses(cls, false);
+        reasoner.getSuperClasses(cls, false);
     }
 }

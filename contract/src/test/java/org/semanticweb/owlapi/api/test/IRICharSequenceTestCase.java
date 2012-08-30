@@ -38,19 +38,17 @@
  */
 
 package org.semanticweb.owlapi.api.test;
-
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 09/11/2011
- */
-public class IRICharSequenceTestCase extends TestCase {
+ * Date: 09/11/2011 */
+@SuppressWarnings("javadoc")
+public class IRICharSequenceTestCase {
 
     @Test
     public void testCharAt() {

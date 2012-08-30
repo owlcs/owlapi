@@ -19,7 +19,7 @@ import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxOntologyFormat;
 import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxOntologyStorer;
 import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxOntologyStorerBase;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractDlsyntaxTest {
     @Test
     public void shouldTestDLSyntax() throws Exception {

@@ -66,7 +66,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractManchesterowlsyntaxTest {
     @Test
     public void shouldTestManchesterOWLSyntax() throws Exception {

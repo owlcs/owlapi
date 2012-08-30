@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -59,22 +60,22 @@ public class ObjectHasValueTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
-         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-         OWLClass clsA = getOWLClass("A");
-         OWLIndividual ind = getOWLIndividual("a");
-         OWLObjectProperty propP = getOWLObjectProperty("p");
-         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectHasValue(propP, ind)));
-         axioms.add(getFactory().getOWLDeclarationAxiom(propP));
-         assertEquals(getOnt().getAxioms(), axioms);
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLClass clsA = getOWLClass("A");
+        OWLIndividual ind = getOWLIndividual("a");
+        OWLObjectProperty propP = getOWLObjectProperty("p");
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectHasValue(propP, ind)));
+        axioms.add(getFactory().getOWLDeclarationAxiom(propP));
+        assertEquals(getOnt().getAxioms(), axioms);
     }
 
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "ObjectHasValue.rdf";
     }
 
     @Override  @SuppressWarnings("unused")
-	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         //System.out.println(target);
     }
 }

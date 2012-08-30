@@ -121,7 +121,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplInteger;
 import uk.ac.manchester.cs.owl.owlapi.OWLLogicalAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapi_2Test {
     @Test
     public void shouldTestInterfaceOWLDataFactoryInternals() throws Exception {
@@ -408,8 +408,8 @@ public class ContractOwlapi_2Test {
                 mock(OWLDataPropertyExpression.class),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 5417138841336344445L;
 
             @Override
@@ -1432,8 +1432,8 @@ public class ContractOwlapi_2Test {
         OWLIndividualAxiomImpl testSubject0 = new OWLIndividualAxiomImpl(
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -4964282025754072695L;
 
             @Override
@@ -1635,8 +1635,8 @@ public class ContractOwlapi_2Test {
                 mock(OWLPropertyAssertionObject.class),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 6174419754392462421L;
 
             @Override
@@ -1911,8 +1911,8 @@ public class ContractOwlapi_2Test {
         OWLLogicalAxiomImpl testSubject0 = new OWLLogicalAxiomImpl(
                 new ArrayList<OWLAnnotation>()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -7779327315156869578L;
 
             @Override

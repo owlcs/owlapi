@@ -139,7 +139,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternals;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapi_1Test {
     @Test
     public void shouldTestAbstractInMemOWLOntologyFactory() throws Exception {
@@ -153,7 +153,7 @@ public class ContractOwlapi_1Test {
             public OWLOntology loadOWLOntology(
                     final OWLOntologyDocumentSource documentSource,
                     final OWLOntologyCreationHandler handler)
-                    throws OWLOntologyCreationException {
+                            throws OWLOntologyCreationException {
                 return null;
             }
 
@@ -162,7 +162,7 @@ public class ContractOwlapi_1Test {
                     final OWLOntologyDocumentSource documentSource,
                     final OWLOntologyCreationHandler handler,
                     final OWLOntologyLoaderConfiguration configuration)
-                    throws OWLOntologyCreationException {
+                            throws OWLOntologyCreationException {
                 return null;
             }
 
@@ -283,13 +283,13 @@ public class ContractOwlapi_1Test {
 
             @Override
             public Pointer<OWLAnnotationProperty, OWLAxiom>
-                    getOwlAnnotationPropertyReferences() {
+            getOwlAnnotationPropertyReferences() {
                 return null;
             }
 
             @Override
             public Pointer<OWLAnonymousIndividual, OWLAxiom>
-                    getOwlAnonymousIndividualReferences() {
+            getOwlAnonymousIndividualReferences() {
                 return null;
             }
 
@@ -487,7 +487,7 @@ public class ContractOwlapi_1Test {
                 .addImportsDeclaration(mock(OWLImportsDeclaration.class));
         boolean result93 = testSubject0.addOntologyAnnotation(mock(OWLAnnotation.class));
         testSubject0
-                .addPropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
+        .addPropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
         Pointer<OWLEntity, OWLDeclarationAxiom> result94 = testSubject0
                 .getDeclarationsByEntity();
         Set<OWLAnnotation> result95 = testSubject0.getOntologyAnnotations();
@@ -515,7 +515,7 @@ public class ContractOwlapi_1Test {
         boolean result107 = testSubject0
                 .removeOntologyAnnotation(mock(OWLAnnotation.class));
         testSubject0
-                .removePropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
+        .removePropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
     }
 
     @Test
@@ -684,7 +684,7 @@ public class ContractOwlapi_1Test {
                 .addImportsDeclaration(mock(OWLImportsDeclaration.class));
         boolean result55 = testSubject0.addOntologyAnnotation(mock(OWLAnnotation.class));
         testSubject0
-                .addPropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
+        .addPropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
         Pointer<OWLEntity, OWLDeclarationAxiom> result56 = testSubject0
                 .getDeclarationsByEntity();
         Set<OWLAnnotation> result57 = testSubject0.getOntologyAnnotations();
@@ -711,7 +711,7 @@ public class ContractOwlapi_1Test {
         boolean result69 = testSubject0
                 .removeOntologyAnnotation(mock(OWLAnnotation.class));
         testSubject0
-                .removePropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
+        .removePropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
     }
 
     @Test
@@ -817,7 +817,7 @@ public class ContractOwlapi_1Test {
                 .addImportsDeclaration(mock(OWLImportsDeclaration.class));
         boolean result55 = testSubject0.addOntologyAnnotation(mock(OWLAnnotation.class));
         testSubject0
-                .addPropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
+        .addPropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
         Pointer<OWLEntity, OWLDeclarationAxiom> result56 = testSubject0
                 .getDeclarationsByEntity();
         Set<OWLAnnotation> result57 = testSubject0.getOntologyAnnotations();
@@ -844,7 +844,7 @@ public class ContractOwlapi_1Test {
         boolean result69 = testSubject0
                 .removeOntologyAnnotation(mock(OWLAnnotation.class));
         testSubject0
-                .removePropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
+        .removePropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
         String result116 = testSubject0.toString();
     }
 
@@ -1323,8 +1323,8 @@ public class ContractOwlapi_1Test {
         OWLAxiomImpl testSubject0 = new OWLAxiomImpl(
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 4783220915975842863L;
 
             @Override
@@ -1409,8 +1409,8 @@ public class ContractOwlapi_1Test {
         OWLCardinalityRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> testSubject0 = new OWLCardinalityRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression>(
                 Utils.mockObjectProperty(), 0, Utils.mockAnonClass()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 6741199150785573236L;
 
             @Override
@@ -1531,8 +1531,8 @@ public class ContractOwlapi_1Test {
         OWLClassAxiomImpl testSubject0 = new OWLClassAxiomImpl(
                 new ArrayList<OWLAnnotation>()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -6051165909402816837L;
 
             @Override
@@ -1866,8 +1866,8 @@ public class ContractOwlapi_1Test {
         OWLDataCardinalityRestrictionImpl testSubject0 = new OWLDataCardinalityRestrictionImpl(
                 mock(OWLDataPropertyExpression.class), 0, mock(OWLDataRange.class)) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 4410198838650555745L;
 
             @Override

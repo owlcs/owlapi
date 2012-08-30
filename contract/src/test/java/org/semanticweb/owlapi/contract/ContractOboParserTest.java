@@ -74,7 +74,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOboParserTest {
     public void shouldTestAbstractTagValueHandler() throws Exception {
         AbstractTagValueHandler testSubject0 = new AbstractTagValueHandler("",
