@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,21 +61,21 @@ public class DataMaxCardinalityTestCase extends AbstractFileRoundTrippingTestCas
 
     @Test
     public void testCorrectAxioms() {
-         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-         OWLClass clsA = getOWLClass("A");
-         OWLDataProperty prop = getOWLDataProperty("p");
-         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataMaxCardinality(3, prop)));
-         axioms.add(getFactory().getOWLDeclarationAxiom(prop));
-         assertEquals(getOnt().getAxioms(), axioms);
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLClass clsA = getOWLClass("A");
+        OWLDataProperty prop = getOWLDataProperty("p");
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataMaxCardinality(3, prop)));
+        axioms.add(getFactory().getOWLDeclarationAxiom(prop));
+        assertEquals(getOnt().getAxioms(), axioms);
     }
 
     @Override  @SuppressWarnings("unused")
-	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-      //  System.out.println(target);
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        //  System.out.println(target);
     }
 
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "DataMaxCardinality.rdf";
     }
 }

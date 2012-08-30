@@ -36,12 +36,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test;
+
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import junit.framework.TestCase;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
@@ -52,30 +52,27 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+
 @SuppressWarnings("javadoc")
-public class DisjointUnionTestCase extends TestCase{
-	public static final String NS = "http://protege.org/protege/DisjointUnion.owl";
-	private static OWLDataFactory factory = Factory.getFactory();
-	public static final OWLClass A = factory.getOWLClass(IRI.create(NS + "#A"));
-	public static final OWLClass B = factory.getOWLClass(IRI.create(NS + "#B"));
-	public static final OWLClass C = factory.getOWLClass(IRI.create(NS + "#C"));
+public class DisjointUnionTestCase {
+    public static final String NS = "http://protege.org/protege/DisjointUnion.owl";
+    private static OWLDataFactory factory = Factory.getFactory();
+    public static final OWLClass A = factory.getOWLClass(IRI.create(NS + "#A"));
+    public static final OWLClass B = factory.getOWLClass(IRI.create(NS + "#B"));
+    public static final OWLClass C = factory.getOWLClass(IRI.create(NS + "#C"));
 
-	/**
-	 * @param args
-	 * @throws OWLOntologyCreationException
-	 * @throws OWLOntologyStorageException
-	 */
-	@Test
+    /** @param args
+     * @throws OWLOntologyCreationException
+     * @throws OWLOntologyStorageException */
+    @Test
     public void testDisjointUnion() throws Exception {
-		OWLOntologyManager manager = Factory.getManager();
-		OWLOntology ontology = manager.createOntology(IRI.create(NS));
-		Set<OWLClassExpression> disjoints = new HashSet<OWLClassExpression>();
-		disjoints.add(B);
-		disjoints.add(C);
-		manager.addAxiom(ontology, factory.getOWLDisjointUnionAxiom(A, disjoints));
-		assertTrue(ontology.getDisjointUnionAxioms(A).size()==1);
-		assertTrue(ontology.getDisjointUnionAxioms(B).size()==0);
-	}
-
-
+        OWLOntologyManager manager = Factory.getManager();
+        OWLOntology ontology = manager.createOntology(IRI.create(NS));
+        Set<OWLClassExpression> disjoints = new HashSet<OWLClassExpression>();
+        disjoints.add(B);
+        disjoints.add(C);
+        manager.addAxiom(ontology, factory.getOWLDisjointUnionAxiom(A, disjoints));
+        assertTrue(ontology.getDisjointUnionAxioms(A).size() == 1);
+        assertTrue(ontology.getDisjointUnionAxioms(B).size() == 0);
+    }
 }

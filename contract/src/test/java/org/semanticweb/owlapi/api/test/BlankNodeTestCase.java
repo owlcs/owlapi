@@ -44,18 +44,15 @@ import java.io.StringReader;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.ConsoleTripleHandler;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParser;
-
-import junit.framework.TestCase;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 18-Jan-2010 */
 @SuppressWarnings("javadoc")
-public class BlankNodeTestCase extends TestCase {
+public class BlankNodeTestCase {
     @Test
     public void testBlankNodes() throws Exception {
         Reader input = new StringReader("_:foo <http://example.com/> _:bar .");

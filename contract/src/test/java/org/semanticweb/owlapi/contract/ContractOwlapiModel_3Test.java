@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFactory.OWLOntologyCreationHandle
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration.MissingOntologyHeaderStrategy;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiModel_3Test {
     @Test
     public void shouldTestInterfaceOWLNegativeObjectPropertyAssertionAxiom()
@@ -1253,22 +1253,22 @@ public class ContractOwlapiModel_3Test {
         OWLOntologyChangeException testSubject0 = new OWLOntologyChangeException(
                 mock(OWLOntologyChange.class), "") {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -7199665129147531727L;
         };
         OWLOntologyChangeException testSubject1 = new OWLOntologyChangeException(
                 mock(OWLOntologyChange.class), "", new RuntimeException()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -539277955275495220L;
         };
         OWLOntologyChangeException testSubject2 = new OWLOntologyChangeException(
                 mock(OWLOntologyChange.class), new RuntimeException()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 4275084314638699495L;
         };
         OWLOntologyChange result0 = testSubject0.getChange();
@@ -1536,15 +1536,15 @@ public class ContractOwlapiModel_3Test {
         testSubject0.addOntologyChangeListener(mock(OWLOntologyChangeListener.class),
                 mock(OWLOntologyChangeBroadcastStrategy.class));
         testSubject0
-                .addImpendingOntologyChangeListener(mock(ImpendingOWLOntologyChangeListener.class));
+        .addImpendingOntologyChangeListener(mock(ImpendingOWLOntologyChangeListener.class));
         testSubject0
-                .removeImpendingOntologyChangeListener(mock(ImpendingOWLOntologyChangeListener.class));
+        .removeImpendingOntologyChangeListener(mock(ImpendingOWLOntologyChangeListener.class));
         testSubject0
-                .addOntologyChangesVetoedListener(mock(OWLOntologyChangesVetoedListener.class));
+        .addOntologyChangesVetoedListener(mock(OWLOntologyChangesVetoedListener.class));
         testSubject0
-                .removeOntologyChangesVetoedListener(mock(OWLOntologyChangesVetoedListener.class));
+        .removeOntologyChangesVetoedListener(mock(OWLOntologyChangesVetoedListener.class));
         testSubject0
-                .setDefaultChangeBroadcastStrategy(mock(OWLOntologyChangeBroadcastStrategy.class));
+        .setDefaultChangeBroadcastStrategy(mock(OWLOntologyChangeBroadcastStrategy.class));
         testSubject0.removeOntologyChangeListener(mock(OWLOntologyChangeListener.class));
         testSubject0.makeLoadImportRequest(mock(OWLImportsDeclaration.class));
         testSubject0.makeLoadImportRequest(mock(OWLImportsDeclaration.class),
@@ -1556,9 +1556,9 @@ public class ContractOwlapiModel_3Test {
         testSubject0.addOntologyLoaderListener(mock(OWLOntologyLoaderListener.class));
         testSubject0.removeOntologyLoaderListener(mock(OWLOntologyLoaderListener.class));
         testSubject0
-                .addOntologyChangeProgessListener(mock(OWLOntologyChangeProgressListener.class));
+        .addOntologyChangeProgessListener(mock(OWLOntologyChangeProgressListener.class));
         testSubject0
-                .removeOntologyChangeProgessListener(mock(OWLOntologyChangeProgressListener.class));
+        .removeOntologyChangeProgessListener(mock(OWLOntologyChangeProgressListener.class));
     }
 
     @Test

@@ -68,14 +68,14 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLSameIndividualAtomImpl;
 import uk.ac.manchester.cs.owl.owlapi.SWRLUnaryAtomImpl;
 import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapi_4Test {
     public void shouldTestOWLValueRestrictionImpl() throws Exception {
         OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObject> testSubject0 = new OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObject>(
                 Utils.mockObjectProperty(), mock(OWLObject.class)) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -2765733202791498596L;
 
             @Override
@@ -224,8 +224,8 @@ public class ContractOwlapi_4Test {
                 mock(SWRLPredicate.class), mock(SWRLArgument.class),
                 mock(SWRLArgument.class)) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -243474381647036545L;
 
             @Override
@@ -522,8 +522,8 @@ public class ContractOwlapi_4Test {
         SWRLUnaryAtomImpl<SWRLArgument> testSubject0 = new SWRLUnaryAtomImpl<SWRLArgument>(
                 mock(SWRLPredicate.class), mock(SWRLArgument.class)) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -5557114586280984491L;
 
             @Override

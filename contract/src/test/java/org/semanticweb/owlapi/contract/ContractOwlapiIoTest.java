@@ -77,7 +77,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.xml.sax.SAXException;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiIoTest {
     @Test
     public void shouldTestAbstractOWLParser() throws Exception {
@@ -95,8 +95,8 @@ public class ContractOwlapiIoTest {
                     final OWLOntologyDocumentSource documentSource,
                     final OWLOntology ontology,
                     final OWLOntologyLoaderConfiguration configuration)
-                    throws OWLParserException, IOException, OWLOntologyChangeException,
-                    UnloadableImportException {
+                            throws OWLParserException, IOException, OWLOntologyChangeException,
+                            UnloadableImportException {
                 return null;
             }
         };
@@ -647,6 +647,7 @@ public class ContractOwlapiIoTest {
         boolean result5 = testSubject0.isOutputStreamAvailable();
         boolean result6 = testSubject0.isDocumentIRIAvailable();
     }
+
 
     public void shouldTestSystemOutDocumentTarget() throws Exception {
         SystemOutDocumentTarget testSubject0 = new SystemOutDocumentTarget();

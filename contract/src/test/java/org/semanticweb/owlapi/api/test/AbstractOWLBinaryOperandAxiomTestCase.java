@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -71,7 +73,7 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
 
     @Override
     @Test
-	public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() throws Exception {
         L leftOp = createLeftOperand();
         R rightOp = createRightOperand();
         OWLAxiom axiomA = createAxiom(leftOp, rightOp);
@@ -82,7 +84,7 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
 
     @Override
     @Test
-	public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() throws Exception {
         L leftOp = createLeftOperand();
         R rightOp = createRightOperand();
         // Different left operand
@@ -98,7 +100,7 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
 
     @Override
     @Test
-	public void testHashCode() throws Exception {
+    public void testHashCode() throws Exception {
         L leftOperand = createLeftOperand();
         R rightOperand = createRightOperand();
         int hashCodeA = createAxiom(leftOperand, rightOperand).hashCode();

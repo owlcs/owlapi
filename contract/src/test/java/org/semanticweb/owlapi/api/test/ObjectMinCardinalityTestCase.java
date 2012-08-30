@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -58,22 +59,22 @@ public class ObjectMinCardinalityTestCase extends AbstractFileRoundTrippingTestC
 
     @Test
     public void testCorrectAxioms() {
-         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-         OWLClass clsA = getOWLClass("A");
-         //OWLClass clsB = getOWLClass("B");
-         OWLObjectProperty prop = getOWLObjectProperty("p");
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        OWLClass clsA = getOWLClass("A");
+        //OWLClass clsB = getOWLClass("B");
+        OWLObjectProperty prop = getOWLObjectProperty("p");
         axioms.add(getFactory().getOWLDeclarationAxiom(prop));
-         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectMinCardinality(3, prop)));
-         assertEquals(getOnt().getAxioms(), axioms);
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectMinCardinality(3, prop)));
+        assertEquals(getOnt().getAxioms(), axioms);
     }
 
     @Override  @SuppressWarnings("unused")
-	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         //System.out.println(target);
     }
 
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "ObjectMinCardinality.rdf";
     }
 }

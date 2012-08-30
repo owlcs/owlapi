@@ -56,20 +56,14 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 @SuppressWarnings("javadoc")
 public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
 
-    @Test
+    @Test(expected = OWLOntologyRenameException.class)
     public void testRenameToExistingOntology() throws Exception {
-        try {
-            OWLOntologyManager manager = getManager();
-            IRI ontologyAIRI = IRI.create("http://www.semanticweb.org/ontologies/ontologyA");
-            manager.createOntology(ontologyAIRI);
-            IRI ontologyBIRI = IRI.create("http://www.semanticweb.org/ontologies/ontologyB");
-            OWLOntology ontologyB = manager.createOntology(ontologyBIRI);
-            manager.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(ontologyAIRI)));
-            fail();
-        }
-        catch (OWLOntologyRenameException e) {
-        	// Expected behaviour, success
-        }
+        OWLOntologyManager manager = getManager();
+        IRI ontologyAIRI = IRI.create("http://www.semanticweb.org/ontologies/ontologyA");
+        manager.createOntology(ontologyAIRI);
+        IRI ontologyBIRI = IRI.create("http://www.semanticweb.org/ontologies/ontologyB");
+        OWLOntology ontologyB = manager.createOntology(ontologyBIRI);
+        manager.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(ontologyAIRI)));
     }
 
 }

@@ -80,6 +80,7 @@ public class AnonymousIndividualsTestCase2 extends AbstractAxiomsRoundTrippingTe
     }
 
     @Override
+    @SuppressWarnings("unused")
     protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
     }
 }

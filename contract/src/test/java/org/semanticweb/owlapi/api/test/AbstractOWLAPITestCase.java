@@ -39,12 +39,13 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Set;
 
-import junit.framework.TestCase;
-
+import org.junit.Before;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -73,7 +74,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * 10-May-2008<br><br>
  */
 @SuppressWarnings("javadoc")
-public abstract class AbstractOWLAPITestCase extends TestCase {
+public abstract class AbstractOWLAPITestCase {
 
     private OWLOntologyManager manager;
 
@@ -86,8 +87,8 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
     }
 
 
-    @Override
-	protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         manager = Factory.getManager();
     }
 
@@ -180,7 +181,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
      * @param format The format to use when doing the round trip.
      */
     public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormat format) throws Exception {
-//        try {
+        //        try {
         UnparsableOntologyException.setIncludeStackTraceInMessage(true);
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyFormat fromFormat = manager.getOntologyFormat(ont);
@@ -193,7 +194,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
             ((RDFOntologyFormat) format).setAddMissingTypes(false);
         }
         manager.saveOntology(ont, format, target);
-       handleSaved(target, format);
+        handleSaved(target, format);
         OWLOntologyManager man = Factory.getManager();
         OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringDocumentSource(target.toString()));
         if (!ont.isAnonymous() && !ont2.isAnonymous()) {
@@ -216,7 +217,7 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
         AnonymousIndividualsNormaliser normaliser2 = new AnonymousIndividualsNormaliser(manager.getOWLDataFactory());
         axioms2 = normaliser2.getNormalisedAxioms(axioms2);
         if (!axioms1.equals(axioms2)) {
-        	StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             for (OWLAxiom ax : axioms1) {
                 if (!axioms2.contains(ax)) {
                     sb.append("Rem axiom: ");
@@ -239,14 +240,14 @@ public abstract class AbstractOWLAPITestCase extends TestCase {
     }
 
     @SuppressWarnings("unused")
-	protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
+    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
         return true;
     }
 
     @SuppressWarnings("unused")
-	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-//        System.out.println("Saved: ");
-//        System.out.println(target.toString());
-//        System.out.println("------------------------------------------------------------");
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        //        System.out.println("Saved: ");
+        //        System.out.println(target.toString());
+        //        System.out.println("------------------------------------------------------------");
     }
 }

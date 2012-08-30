@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
@@ -69,6 +70,7 @@ public class DLQueryExample {
     private static final IRI ONTOLOGY_IRI = IRI
             .create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
 
+    @SuppressWarnings("javadoc")
     public static void main(String[] args) {
         try {
             // Load an example ontology. In this case, we'll just load the pizza
@@ -88,8 +90,8 @@ public class DLQueryExample {
             ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
             // Create the DLQueryPrinter helper class. This will manage the
             // parsing of input and printing of results
-            DLQueryPrinter dlQueryPrinter = new DLQueryPrinter(reasoner,
-                    shortFormProvider);
+            DLQueryPrinter dlQueryPrinter = new DLQueryPrinter(new DLQueryEngine(
+                    reasoner, shortFormProvider), shortFormProvider);
             // Enter the query loop. A user is expected to enter class
             // expression on the command line.
             doQueryLoop(dlQueryPrinter);
@@ -104,7 +106,7 @@ public class DLQueryExample {
         while (true) {
             // Prompt the user to enter a class expression
             System.out
-                    .println("Please type a class expression in Manchester Syntax and press Enter (or press x to exit):");
+            .println("Please type a class expression in Manchester Syntax and press Enter (or press x to exit):");
             System.out.println("");
             String classExpression = readInput();
             // Check for exit condition
@@ -127,29 +129,11 @@ public class DLQueryExample {
 
     private static OWLReasoner createReasoner(OWLOntology rootOntology) {
         // We need to create an instance of OWLReasoner. An OWLReasoner provides
-        // the basic
-        // query functionality that we need, for example the ability obtain the
-        // subclasses
-        // of a class etc. To do this we use a reasoner factory.
-        // Create a reasoner factory. In this case, we will use HermiT, but we
-        // could also
-        // use FaCT++ (http://code.google.com/p/factplusplus/) or
-        // Pellet(http://clarkparsia.com/pellet)
-        // Note that (as of 03 Feb 2010) FaCT++ and Pellet OWL API 3.0.0
-        // compatible libraries are
-        // expected to be available in the near future).
-        // For now, we'll use HermiT
-        // HermiT can be downloaded from http://hermit-reasoner.com
-        // Make sure you get the HermiT library and add it to your class path.
-        // You can then
-        // instantiate the HermiT reasoner factory:
-        // Comment out the first line below and uncomment the second line below
-        // to instantiate
-        // the HermiT reasoner factory. You'll also need to import the
-        // org.semanticweb.HermiT.Reasoner
-        // package.
-        OWLReasonerFactory reasonerFactory = null;
-        // OWLReasonerFactory reasonerFactory = new Reasoner.ReasonerFactory();
+        // the basic query functionality that we need, for example the ability
+        // obtain the subclasses of a class etc. To do this we use a reasoner
+        // factory.
+        // Create a reasoner factory.
+        OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
         return reasonerFactory.createReasoner(rootOntology);
     }
 }

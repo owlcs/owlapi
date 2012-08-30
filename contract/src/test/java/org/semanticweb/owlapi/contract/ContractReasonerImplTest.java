@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.reasoner.impl.OWLObjectPropertyNodeSet;
 import org.semanticweb.owlapi.reasoner.impl.OWLReasonerBase;
 import org.semanticweb.owlapi.util.Version;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractReasonerImplTest {
     @Test
     public void shouldTestDefaultNode() throws Exception {
@@ -466,7 +466,7 @@ public class ContractReasonerImplTest {
 
             @Override
             public boolean isConsistent() throws ReasonerInterruptedException,
-                    TimeOutException {
+            TimeOutException {
                 return false;
             }
 
@@ -562,56 +562,56 @@ public class ContractReasonerImplTest {
             @Override
             public NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(
                     final OWLObjectPropertyExpression pe, final boolean direct)
-                    throws InconsistentOntologyException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+                            throws InconsistentOntologyException, FreshEntitiesException,
+                            ReasonerInterruptedException, TimeOutException {
                 return null;
             }
 
             @Override
             public NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(
                     final OWLObjectPropertyExpression pe, final boolean direct)
-                    throws InconsistentOntologyException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+                            throws InconsistentOntologyException, FreshEntitiesException,
+                            ReasonerInterruptedException, TimeOutException {
                 return null;
             }
 
             @Override
             public Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(
                     final OWLObjectPropertyExpression pe)
-                    throws InconsistentOntologyException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+                            throws InconsistentOntologyException, FreshEntitiesException,
+                            ReasonerInterruptedException, TimeOutException {
                 return null;
             }
 
             @Override
             public NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(
                     final OWLObjectPropertyExpression pe)
-                    throws InconsistentOntologyException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+                            throws InconsistentOntologyException, FreshEntitiesException,
+                            ReasonerInterruptedException, TimeOutException {
                 return null;
             }
 
             @Override
             public Node<OWLObjectPropertyExpression> getInverseObjectProperties(
                     final OWLObjectPropertyExpression pe)
-                    throws InconsistentOntologyException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+                            throws InconsistentOntologyException, FreshEntitiesException,
+                            ReasonerInterruptedException, TimeOutException {
                 return null;
             }
 
             @Override
             public NodeSet<OWLClass> getObjectPropertyDomains(
                     final OWLObjectPropertyExpression pe, final boolean direct)
-                    throws InconsistentOntologyException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+                            throws InconsistentOntologyException, FreshEntitiesException,
+                            ReasonerInterruptedException, TimeOutException {
                 return null;
             }
 
             @Override
             public NodeSet<OWLClass> getObjectPropertyRanges(
                     final OWLObjectPropertyExpression pe, final boolean direct)
-                    throws InconsistentOntologyException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+                            throws InconsistentOntologyException, FreshEntitiesException,
+                            ReasonerInterruptedException, TimeOutException {
                 return null;
             }
 
@@ -628,16 +628,16 @@ public class ContractReasonerImplTest {
             @Override
             public NodeSet<OWLDataProperty> getSubDataProperties(
                     final OWLDataProperty pe, final boolean direct)
-                    throws InconsistentOntologyException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+                            throws InconsistentOntologyException, FreshEntitiesException,
+                            ReasonerInterruptedException, TimeOutException {
                 return null;
             }
 
             @Override
             public NodeSet<OWLDataProperty> getSuperDataProperties(
                     final OWLDataProperty pe, final boolean direct)
-                    throws InconsistentOntologyException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+                            throws InconsistentOntologyException, FreshEntitiesException,
+                            ReasonerInterruptedException, TimeOutException {
                 return null;
             }
 
@@ -652,8 +652,8 @@ public class ContractReasonerImplTest {
             @Override
             public NodeSet<OWLDataProperty> getDisjointDataProperties(
                     final OWLDataPropertyExpression pe)
-                    throws InconsistentOntologyException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+                            throws InconsistentOntologyException, FreshEntitiesException,
+                            ReasonerInterruptedException, TimeOutException {
                 return null;
             }
 
@@ -684,8 +684,8 @@ public class ContractReasonerImplTest {
             @Override
             public NodeSet<OWLNamedIndividual> getObjectPropertyValues(
                     final OWLNamedIndividual ind, final OWLObjectPropertyExpression pe)
-                    throws InconsistentOntologyException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+                            throws InconsistentOntologyException, FreshEntitiesException,
+                            ReasonerInterruptedException, TimeOutException {
                 return null;
             }
 

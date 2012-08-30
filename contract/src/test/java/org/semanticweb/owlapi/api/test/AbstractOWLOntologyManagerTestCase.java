@@ -36,62 +36,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16-Mar-2007<br><br>
- */
-@SuppressWarnings("javadoc")
-public abstract class AbstractOWLOntologyManagerTestCase extends AbstractOWLDataFactoryTest {
-
-
-
-    private OWLOntologyManager manager;
-
+ * Date: 16-Mar-2007<br>
+ * <br> */
+public abstract class AbstractOWLOntologyManagerTestCase extends
+AbstractOWLDataFactoryTest {
     @Override
-	protected void setUp() throws Exception {
-        super.setUp();
-
-        manager = Factory.getManager();
-    }
-
-
-    public OWLOntologyManager getOWLOntologyManager() {
-        return manager;
-    }
-
-
-    @Override
-	@Test
+    @Test
     public void testCreation() throws Exception {
         // Ignore
     }
 
-
     @Override
-	@Test
+    @Test
     public void testEqualsPositive() throws Exception {
         // Ignore
     }
 
-
     @Override
-	@Test
+    @Test
     public void testEqualsNegative() throws Exception {
         // Ignore
     }
 
-
     @Override
-	@Test
+    @Test
     public void testHashCode() throws Exception {
         // Ignore
     }

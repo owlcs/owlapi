@@ -39,7 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
  * Date: 22-Dec-2009
  */
 @SuppressWarnings("javadoc")
-public class OWLOntologyManagerTestCase extends TestCase {
+public class OWLOntologyManagerTestCase {
 
     @Test
     public void testCreateAnonymousOntology() throws Exception {
@@ -142,7 +142,7 @@ public class OWLOntologyManagerTestCase extends TestCase {
         }
         catch (OWLOntologyAlreadyExistsException e) {
             //System.out.println("Caught OWLOntologyAlreadyExistsException: " + e.getMessage());
-        	// Expected behaviour, success
+            // Expected behaviour, success
 
         }
     }
@@ -159,7 +159,7 @@ public class OWLOntologyManagerTestCase extends TestCase {
         }
         catch (OWLOntologyAlreadyExistsException e) {
             //System.out.println("Caught OWLOntologyAlreadyExistsException: " + e.getMessage());
-        	// Expected behaviour, success
+            // Expected behaviour, success
         }
     }
 
@@ -178,7 +178,7 @@ public class OWLOntologyManagerTestCase extends TestCase {
         }
         catch (OWLOntologyDocumentAlreadyExistsException e) {
             //System.out.println("Caught OWLOntologyDocumentAlreadyExistsException: " + e.getMessage());
-        	// Expected behaviour, success
+            // Expected behaviour, success
         }
     }
 }

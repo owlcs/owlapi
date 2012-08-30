@@ -38,7 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
-
+import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Arrays;
@@ -76,7 +76,7 @@ public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase 
         Ontology(
                 man,
                 AnnotationAssertion(prop, root.getIRI(), Literal(shortForm))
-        );
+                );
         List<OWLAnnotationProperty> props = Arrays.asList(prop);
         Map<OWLAnnotationProperty, List<String>> langMap = Collections.emptyMap();
         AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(props, langMap, man);
@@ -113,7 +113,7 @@ public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase 
         Ontology(
                 man,
                 AnnotationAssertion(prop, root.getIRI(), IRI("http://org.semanticweb.owlapi/ont#myIRI"))
-        );
+                );
         List<OWLAnnotationProperty> props = Arrays.asList(prop);
         Map<OWLAnnotationProperty, List<String>> langMap = Collections.emptyMap();
         AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(props, langMap, man);

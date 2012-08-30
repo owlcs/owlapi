@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiModel_2Test {
     @Test
     public void shouldTestInterfaceOWLDataProperty() throws Exception {
@@ -1005,8 +1005,8 @@ public class ContractOwlapiModel_2Test {
         };
         OWLException testSubject1 = new OWLException("", new RuntimeException()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -6185118099399884751L;
         };
         OWLException testSubject2 = new OWLException(new RuntimeException()) {

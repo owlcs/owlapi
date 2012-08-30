@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -65,7 +66,7 @@ public class DatatypeRestrictionTestCase extends AbstractFileRoundTrippingTestCa
                 getFactory().getIntegerOWLDatatype(),
                 getFactory().getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, 18),
                 getFactory().getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, 30)
-        );
+                );
         OWLDataProperty p = getOWLDataProperty("p");
         OWLDataPropertyRangeAxiom ax = getFactory().getOWLDataPropertyRangeAxiom(p, dr);
         axioms.add(ax);
@@ -73,10 +74,13 @@ public class DatatypeRestrictionTestCase extends AbstractFileRoundTrippingTestCa
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
+    @SuppressWarnings("unused")
+    @Override
     protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         //System.out.println(target);
     }
 
+    @Override
     protected String getFileName() {
         return "DatatypeRestriction.rdf";
     }

@@ -39,9 +39,9 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import java.util.Collections;
+import static org.junit.Assert.*;
 
-import junit.framework.TestCase;
+import java.util.Collections;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 17/02/2011
  */
 @SuppressWarnings("javadoc")
-public class MapperlessOntologyManagerTestCase extends TestCase {
+public class MapperlessOntologyManagerTestCase {
 
     private static final IRI ONTOLOGY_IRI = IRI.create("http://test.com/ont");
 

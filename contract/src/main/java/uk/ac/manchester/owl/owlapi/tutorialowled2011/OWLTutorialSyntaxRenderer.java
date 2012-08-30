@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 24-April-2007<br>
  * <br> */
 public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
+    @SuppressWarnings("javadoc")
     public OWLTutorialSyntaxRenderer(OWLOntologyManager manager) {
         super(manager);
     }

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
@@ -46,47 +46,34 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 21/12/2010
- */
+ * Date: 21/12/2010 */
 @SuppressWarnings("javadoc")
-public class BuiltInDatatypesTestCase extends TestCase {
-	@Test
+public class BuiltInDatatypesTestCase {
+    @Test
     public void testBuiltInDatatypes() {
-		try {
-			OWL2Datatype dt = OWL2Datatype
-					.getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
-			assertNotNull("object should not be null",dt);
-			dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL
-					.getIRI());
-			assertNotNull("object should not be null",dt);
-			OWLDatatype datatype = Factory.getFactory()
-					.getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
-			assertNotNull("object should not be null",datatype);
-			OWL2Datatype test = datatype.getBuiltInDatatype();
-			assertEquals(test, dt);
-//			if (datatype.isBuiltIn()) {
-//				System.out.println("[builtin"
-//						+ datatype.getBuiltInDatatype().getShortName() + "]");
-//			}
-		} catch (RuntimeException e) {
-			fail(e.getMessage());
-		}
-	}
+        OWL2Datatype dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL
+                .getIRI());
+        assertNotNull("object should not be null", dt);
+        dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
+        assertNotNull("object should not be null", dt);
+        OWLDatatype datatype = Factory.getFactory().getOWLDatatype(
+                OWLRDFVocabulary.RDFS_LITERAL.getIRI());
+        assertNotNull("object should not be null", datatype);
+        OWL2Datatype test = datatype.getBuiltInDatatype();
+        assertEquals(test, dt);
+    }
 
-	@Test
+    @Test
     public void testFailure() {
-		for (IRI type : OWL2Datatype.getDatatypeIRIs()) {
-			OWLDatatype datatype = Factory.getFactory()
-					.getOWLDatatype(type);
-
-			if (datatype.isBuiltIn()) {
-				OWL2Datatype builtInDatatype = datatype.getBuiltInDatatype();
-				assertNotNull("object should not be null",builtInDatatype);
-			}
-		}
-	}
+        for (IRI type : OWL2Datatype.getDatatypeIRIs()) {
+            OWLDatatype datatype = Factory.getFactory().getOWLDatatype(type);
+            if (datatype.isBuiltIn()) {
+                OWL2Datatype builtInDatatype = datatype.getBuiltInDatatype();
+                assertNotNull("object should not be null", builtInDatatype);
+            }
+        }
+    }
 }

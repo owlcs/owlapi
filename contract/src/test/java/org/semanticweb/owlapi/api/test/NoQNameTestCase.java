@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.fail;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -79,8 +80,7 @@ public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
         }
         catch (OWLOntologyStorageException e) {
             if (e.getCause() instanceof IllegalElementNameException) {
-                //System.out.println("Caught IllegalElementNameException as expected: " + e.getMessage());
-            	//nothing to do
+                //nothing to do
             }
             else {
                 throw e;

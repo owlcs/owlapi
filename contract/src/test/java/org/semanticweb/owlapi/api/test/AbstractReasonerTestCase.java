@@ -36,9 +36,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -51,23 +54,19 @@ import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Jul-2010
  * <p>
- * This test case creates a small ontology and tests the getters in the reasoner interface.  The test ontology
- * isn't designed to test the correctness of reasoning results, rather it is designed to test the reasoner returns
- * the results in the form required by the OWL API reasoner interface.
- */
+ * This test case creates a small ontology and tests the getters in the reasoner
+ * interface. The test ontology isn't designed to test the correctness of
+ * reasoning results, rather it is designed to test the reasoner returns the
+ * results in the form required by the OWL API reasoner interface. */
 @SuppressWarnings("javadoc")
 public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
-
     private OWLReasonerFactory reasonerFactory;
-
     private OWLOntology ont;
-
     private OWLReasoner reasoner;
 
     public AbstractReasonerTestCase(OWLReasonerFactory reasonerFactory) {
@@ -84,10 +83,11 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         OWLClass clsF = getClsF();
         OWLClass clsG = getClsG();
         OWLClass clsK = getClsK();
-
         OWLOntologyManager man = ont.getOWLOntologyManager();
-        man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsG, getFactory().getOWLThing()));
-        man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(getFactory().getOWLThing(), clsG));
+        man.addAxiom(ont,
+                getFactory().getOWLSubClassOfAxiom(clsG, getFactory().getOWLThing()));
+        man.addAxiom(ont,
+                getFactory().getOWLSubClassOfAxiom(getFactory().getOWLThing(), clsG));
         man.addAxiom(ont, getFactory().getOWLEquivalentClassesAxiom(clsA, clsB));
         man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsC, clsB));
         man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsD, clsA));
@@ -95,14 +95,16 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsF, clsD));
         man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsE, clsC));
         man.addAxiom(ont, getFactory().getOWLSubClassOfAxiom(clsK, clsD));
-        man.addAxiom(ont, getFactory().getOWLEquivalentClassesAxiom(clsK, getFactory().getOWLNothing()));
-
+        man.addAxiom(
+                ont,
+                getFactory().getOWLEquivalentClassesAxiom(clsK,
+                        getFactory().getOWLNothing()));
         OWLObjectPropertyExpression propP = getPropP();
         OWLObjectPropertyExpression propQ = getPropQ();
         OWLObjectPropertyExpression propR = getPropR();
         OWLObjectPropertyExpression propS = getPropS();
-
-        man.addAxiom(ont, getFactory().getOWLEquivalentObjectPropertiesAxiom(propP, propQ));
+        man.addAxiom(ont, getFactory()
+                .getOWLEquivalentObjectPropertiesAxiom(propP, propQ));
         man.addAxiom(ont, getFactory().getOWLSubObjectPropertyOfAxiom(propP, propR));
         man.addAxiom(ont, getFactory().getOWLInverseObjectPropertiesAxiom(propR, propS));
     }
@@ -155,16 +157,16 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         return getOWLClass("A");
     }
 
+    @Before
     @Override
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
         createOntology();
         reasoner = reasonerFactory.createReasoner(ont);
     }
 
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    @After
+    public void tearDown() throws Exception {
         reasoner.dispose();
     }
 
@@ -211,212 +213,171 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
 
     @Test
     public void testGetEquivalentClasses() {
-
         Node<OWLClass> nTop = reasoner.getEquivalentClasses(getFactory().getOWLThing());
-        assertNotNull("object should not be null",nTop);
+        assertNotNull("object should not be null", nTop);
         assertTrue(nTop.getSize() == 2);
         assertTrue(nTop.contains(getFactory().getOWLThing()));
         assertTrue(nTop.contains(getClsG()));
-
         Node<OWLClass> nG = reasoner.getEquivalentClasses(getClsG());
-        assertNotNull("object should not be null",nG);
+        assertNotNull("object should not be null", nG);
         assertTrue(nG.getSize() == 2);
         assertTrue(nG.contains(getFactory().getOWLThing()));
         assertTrue(nG.contains(getClsG()));
-
         assertEquals(nTop, nG);
-
-
         Node<OWLClass> nA = reasoner.getEquivalentClasses(getClsA());
-        assertNotNull("object should not be null",nA);
+        assertNotNull("object should not be null", nA);
         assertTrue(nA.getSize() == 2);
         assertTrue(nA.contains(getClsA()));
         assertTrue(nA.contains(getClsB()));
-
         Node<OWLClass> nB = reasoner.getEquivalentClasses(getClsB());
-        assertNotNull("object should not be null",nB);
+        assertNotNull("object should not be null", nB);
         assertTrue(nB.getSize() == 2);
         assertTrue(nB.contains(getClsA()));
         assertTrue(nB.contains(getClsB()));
-
-        assertEquals("object should not be null",nA, nB);
-
+        assertEquals("object should not be null", nA, nB);
         Node<OWLClass> nC = reasoner.getEquivalentClasses(getClsC());
-        assertNotNull("object should not be null",nC);
+        assertNotNull("object should not be null", nC);
         assertTrue(nC.getSize() == 1);
         assertTrue(nC.contains(getClsC()));
         assertTrue(nC.getRepresentativeElement().equals(getClsC()));
-
         Node<OWLClass> nE = reasoner.getEquivalentClasses(getClsE());
-        assertNotNull("object should not be null",nE);
+        assertNotNull("object should not be null", nE);
         assertTrue(nE.getSize() == 1);
         assertTrue(nE.contains(getClsE()));
         assertTrue(nE.getRepresentativeElement().equals(getClsE()));
-
-
         Node<OWLClass> nD = reasoner.getEquivalentClasses(getClsD());
-        assertNotNull("object should not be null",nD);
+        assertNotNull("object should not be null", nD);
         assertTrue(nD.getSize() == 2);
         assertTrue(nD.contains(getClsD()));
         assertTrue(nD.contains(getClsF()));
-
         Node<OWLClass> nF = reasoner.getEquivalentClasses(getClsF());
-        assertNotNull("object should not be null",nF);
+        assertNotNull("object should not be null", nF);
         assertTrue(nF.getSize() == 2);
         assertTrue(nF.contains(getClsD()));
         assertTrue(nF.contains(getClsF()));
-
         assertEquals(nD, nF);
-
-
         Node<OWLClass> nBot = reasoner.getEquivalentClasses(getFactory().getOWLNothing());
-        assertNotNull("object should not be null",nBot);
+        assertNotNull("object should not be null", nBot);
         assertTrue(nBot.getSize() == 2);
         assertTrue(nBot.contains(getFactory().getOWLNothing()));
         assertTrue(nBot.contains(getClsK()));
-
         Node<OWLClass> nK = reasoner.getEquivalentClasses(getClsK());
-        assertNotNull("object should not be null",nK);
+        assertNotNull("object should not be null", nK);
         assertTrue(nK.getSize() == 2);
         assertTrue(nBot.contains(getFactory().getOWLNothing()));
         assertTrue(nBot.contains(getClsK()));
-
         assertEquals(nBot, nK);
-
-
-
     }
 
     @Test
     public void testGetSuperClassesDirect() {
-        NodeSet<OWLClass> nsSupTop = reasoner.getSuperClasses(getFactory().getOWLThing(), true);
-        assertNotNull("object should not be null",nsSupTop);
+        NodeSet<OWLClass> nsSupTop = reasoner.getSuperClasses(getFactory().getOWLThing(),
+                true);
+        assertNotNull("object should not be null", nsSupTop);
         assertTrue(nsSupTop.isEmpty());
-
         NodeSet<OWLClass> nsSupG = reasoner.getSuperClasses(getClsG(), true);
-        assertNotNull("object should not be null",nsSupG);
+        assertNotNull("object should not be null", nsSupG);
         assertTrue(nsSupG.isEmpty());
-
         NodeSet<OWLClass> nsSupA = reasoner.getSuperClasses(getClsA(), true);
-        assertNotNull("object should not be null",nsSupA);
+        assertNotNull("object should not be null", nsSupA);
         assertFalse(nsSupA.isEmpty());
         assertTrue(nsSupA.getNodes().size() == 1);
         assertTrue(nsSupA.containsEntity(getFactory().getOWLThing()));
         assertTrue(nsSupA.containsEntity(getClsG()));
         assertTrue(nsSupA.isTopSingleton());
-
-
         NodeSet<OWLClass> nsSupB = reasoner.getSuperClasses(getClsB(), true);
-        assertNotNull("object should not be null",nsSupB);
+        assertNotNull("object should not be null", nsSupB);
         assertTrue(nsSupB.getNodes().size() == 1);
         assertTrue(nsSupB.containsEntity(getFactory().getOWLThing()));
         assertTrue(nsSupB.containsEntity(getClsG()));
         assertTrue(nsSupB.isTopSingleton());
-
         NodeSet<OWLClass> nsSupC = reasoner.getSuperClasses(getClsC(), true);
-        assertNotNull("object should not be null",nsSupC);
+        assertNotNull("object should not be null", nsSupC);
         assertTrue(nsSupC.getNodes().size() == 1);
         assertTrue(nsSupC.containsEntity(getClsA()));
         assertTrue(nsSupC.containsEntity(getClsB()));
-
         NodeSet<OWLClass> nsSupE = reasoner.getSuperClasses(getClsE(), true);
-        assertNotNull("object should not be null",nsSupE);
+        assertNotNull("object should not be null", nsSupE);
         assertTrue(nsSupE.getNodes().size() == 1);
         assertTrue(nsSupE.containsEntity(getClsC()));
-
-
         NodeSet<OWLClass> nsSupD = reasoner.getSuperClasses(getClsD(), true);
-        assertNotNull("object should not be null",nsSupD);
+        assertNotNull("object should not be null", nsSupD);
         assertTrue(nsSupD.getNodes().size() == 1);
         assertTrue(nsSupD.containsEntity(getClsA()));
         assertTrue(nsSupD.containsEntity(getClsB()));
-
         NodeSet<OWLClass> nsSupF = reasoner.getSuperClasses(getClsF(), true);
-        assertNotNull("object should not be null",nsSupF);
+        assertNotNull("object should not be null", nsSupF);
         assertTrue(nsSupF.getNodes().size() == 1);
         assertTrue(nsSupF.containsEntity(getClsA()));
         assertTrue(nsSupF.containsEntity(getClsB()));
-
         NodeSet<OWLClass> nsSupK = reasoner.getSuperClasses(getClsK(), true);
-        assertNotNull("object should not be null",nsSupK);
+        assertNotNull("object should not be null", nsSupK);
         assertTrue(nsSupK.getNodes().size() == 2);
         assertTrue(nsSupK.containsEntity(getClsE()));
         assertTrue(nsSupK.containsEntity(getClsD()));
         assertTrue(nsSupK.containsEntity(getClsF()));
-
-        NodeSet<OWLClass> nsSupBot = reasoner.getSuperClasses(getFactory().getOWLNothing(), true);
-        assertNotNull("object should not be null",nsSupBot);
+        NodeSet<OWLClass> nsSupBot = reasoner.getSuperClasses(getFactory()
+                .getOWLNothing(), true);
+        assertNotNull("object should not be null", nsSupBot);
         assertTrue(nsSupBot.getNodes().size() == 2);
         assertTrue(nsSupBot.containsEntity(getClsE()));
         assertTrue(nsSupBot.containsEntity(getClsD()));
         assertTrue(nsSupBot.containsEntity(getClsF()));
-
-
     }
-
 
     @Test
     public void testGetSuperClasses() {
-        NodeSet<OWLClass> nsSupTop = reasoner.getSuperClasses(getFactory().getOWLThing(), false);
-        assertNotNull("object should not be null",nsSupTop);
+        NodeSet<OWLClass> nsSupTop = reasoner.getSuperClasses(getFactory().getOWLThing(),
+                false);
+        assertNotNull("object should not be null", nsSupTop);
         assertTrue(nsSupTop.isEmpty());
-
         NodeSet<OWLClass> nsSupG = reasoner.getSuperClasses(getClsG(), false);
-        assertNotNull("object should not be null",nsSupG);
+        assertNotNull("object should not be null", nsSupG);
         assertTrue(nsSupG.isEmpty());
-
         NodeSet<OWLClass> nsSupA = reasoner.getSuperClasses(getClsA(), false);
-        assertNotNull("object should not be null",nsSupA);
+        assertNotNull("object should not be null", nsSupA);
         assertFalse(nsSupA.isEmpty());
         assertTrue(nsSupA.getNodes().size() == 1);
         assertTrue(nsSupA.containsEntity(getFactory().getOWLThing()));
         assertTrue(nsSupA.containsEntity(getClsG()));
         assertTrue(nsSupA.isTopSingleton());
-
-
         NodeSet<OWLClass> nsSupB = reasoner.getSuperClasses(getClsB(), false);
-        assertNotNull("object should not be null",nsSupB);
+        assertNotNull("object should not be null", nsSupB);
         assertTrue(nsSupB.getNodes().size() == 1);
         assertTrue(nsSupB.containsEntity(getFactory().getOWLThing()));
         assertTrue(nsSupB.containsEntity(getClsG()));
         assertTrue(nsSupB.isTopSingleton());
-
         NodeSet<OWLClass> nsSupC = reasoner.getSuperClasses(getClsC(), false);
-        assertNotNull("object should not be null",nsSupC);
+        assertNotNull("object should not be null", nsSupC);
         assertTrue(nsSupC.getNodes().size() == 2);
         assertTrue(nsSupC.containsEntity(getFactory().getOWLThing()));
         assertTrue(nsSupC.containsEntity(getClsG()));
         assertTrue(nsSupC.containsEntity(getClsA()));
         assertTrue(nsSupC.containsEntity(getClsB()));
-
         NodeSet<OWLClass> nsSupE = reasoner.getSuperClasses(getClsE(), false);
-        assertNotNull("object should not be null",nsSupE);
+        assertNotNull("object should not be null", nsSupE);
         assertTrue(nsSupE.getNodes().size() == 3);
         assertTrue(nsSupE.containsEntity(getClsC()));
         assertTrue(nsSupE.containsEntity(getClsA()));
         assertTrue(nsSupE.containsEntity(getClsB()));
         assertTrue(nsSupE.containsEntity(getClsG()));
         assertTrue(nsSupE.containsEntity(getFactory().getOWLThing()));
-
-
         NodeSet<OWLClass> nsSupD = reasoner.getSuperClasses(getClsD(), false);
-        assertNotNull("object should not be null",nsSupD);
+        assertNotNull("object should not be null", nsSupD);
         assertTrue(nsSupD.getNodes().size() == 2);
         assertTrue(nsSupD.containsEntity(getClsA()));
         assertTrue(nsSupD.containsEntity(getClsB()));
         assertTrue(nsSupD.containsEntity(getClsG()));
         assertTrue(nsSupD.containsEntity(getFactory().getOWLThing()));
-
         NodeSet<OWLClass> nsSupF = reasoner.getSuperClasses(getClsF(), false);
-        assertNotNull("object should not be null",nsSupF);
+        assertNotNull("object should not be null", nsSupF);
         assertTrue(nsSupF.getNodes().size() == 2);
         assertTrue(nsSupF.containsEntity(getClsA()));
         assertTrue(nsSupF.containsEntity(getClsB()));
         assertTrue(nsSupF.containsEntity(getClsG()));
         assertTrue(nsSupF.containsEntity(getFactory().getOWLThing()));
-
         NodeSet<OWLClass> nsSupK = reasoner.getSuperClasses(getClsK(), false);
-        assertNotNull("object should not be null",nsSupK);
+        assertNotNull("object should not be null", nsSupK);
         assertTrue(nsSupK.getNodes().size() == 5);
         assertTrue(nsSupK.containsEntity(getClsE()));
         assertTrue(nsSupK.containsEntity(getClsD()));
@@ -426,9 +387,9 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         assertTrue(nsSupK.containsEntity(getClsB()));
         assertTrue(nsSupK.containsEntity(getClsG()));
         assertTrue(nsSupK.containsEntity(getFactory().getOWLThing()));
-
-        NodeSet<OWLClass> nsSupBot = reasoner.getSuperClasses(getFactory().getOWLNothing(), false);
-        assertNotNull("object should not be null",nsSupBot);
+        NodeSet<OWLClass> nsSupBot = reasoner.getSuperClasses(getFactory()
+                .getOWLNothing(), false);
+        assertNotNull("object should not be null", nsSupBot);
         assertTrue(nsSupBot.getNodes().size() == 5);
         assertTrue(nsSupBot.containsEntity(getClsE()));
         assertTrue(nsSupBot.containsEntity(getClsD()));
@@ -442,72 +403,63 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
 
     @Test
     public void testGetSubClassesDirect() {
-        NodeSet<OWLClass> nsSubTop = reasoner.getSubClasses(getFactory().getOWLThing(), true);
-        assertNotNull("object should not be null",nsSubTop);
+        NodeSet<OWLClass> nsSubTop = reasoner.getSubClasses(getFactory().getOWLThing(),
+                true);
+        assertNotNull("object should not be null", nsSubTop);
         assertTrue(nsSubTop.getNodes().size() == 1);
         assertTrue(nsSubTop.containsEntity(getClsA()));
         assertTrue(nsSubTop.containsEntity(getClsB()));
-
         NodeSet<OWLClass> nsSubG = reasoner.getSubClasses(getClsG(), true);
-        assertNotNull("object should not be null",nsSubG);
+        assertNotNull("object should not be null", nsSubG);
         assertTrue(nsSubG.getNodes().size() == 1);
         assertTrue(nsSubG.containsEntity(getClsA()));
         assertTrue(nsSubG.containsEntity(getClsB()));
-
         NodeSet<OWLClass> nsSubA = reasoner.getSubClasses(getClsA(), true);
-        assertNotNull("object should not be null",nsSubA);
+        assertNotNull("object should not be null", nsSubA);
         assertFalse(nsSubG.isEmpty());
         assertTrue(nsSubA.getNodes().size() == 2);
         assertTrue(nsSubA.containsEntity(getClsC()));
         assertTrue(nsSubA.containsEntity(getClsD()));
         assertTrue(nsSubA.containsEntity(getClsF()));
-
-
         NodeSet<OWLClass> nsSubB = reasoner.getSubClasses(getClsB(), true);
-        assertNotNull("object should not be null",nsSubB);
+        assertNotNull("object should not be null", nsSubB);
         assertTrue(nsSubB.getNodes().size() == 2);
         assertTrue(nsSubB.containsEntity(getClsC()));
         assertTrue(nsSubB.containsEntity(getClsD()));
         assertTrue(nsSubB.containsEntity(getClsF()));
-
         NodeSet<OWLClass> nsSubC = reasoner.getSubClasses(getClsC(), true);
-        assertNotNull("object should not be null",nsSubC);
+        assertNotNull("object should not be null", nsSubC);
         assertTrue(nsSubC.getNodes().size() == 1);
         assertTrue(nsSubC.containsEntity(getClsE()));
-
         NodeSet<OWLClass> nsSubE = reasoner.getSubClasses(getClsE(), true);
-        assertNotNull("object should not be null",nsSubE);
+        assertNotNull("object should not be null", nsSubE);
         assertTrue(nsSubE.getNodes().size() == 1);
         assertTrue(nsSubE.containsEntity(getClsK()));
         assertTrue(nsSubE.containsEntity(getFactory().getOWLNothing()));
-
-
         NodeSet<OWLClass> nsSubD = reasoner.getSubClasses(getClsD(), true);
-        assertNotNull("object should not be null",nsSubD);
+        assertNotNull("object should not be null", nsSubD);
         assertTrue(nsSubD.getNodes().size() == 1);
         assertTrue(nsSubD.containsEntity(getClsK()));
         assertTrue(nsSubD.containsEntity(getFactory().getOWLNothing()));
-
         NodeSet<OWLClass> nsSubF = reasoner.getSubClasses(getClsF(), true);
-        assertNotNull("object should not be null",nsSubF);
+        assertNotNull("object should not be null", nsSubF);
         assertTrue(nsSubF.getNodes().size() == 1);
         assertTrue(nsSubF.containsEntity(getClsK()));
         assertTrue(nsSubF.containsEntity(getFactory().getOWLNothing()));
-
         NodeSet<OWLClass> nsSubK = reasoner.getSubClasses(getClsK(), true);
-        assertNotNull("object should not be null",nsSubK);
+        assertNotNull("object should not be null", nsSubK);
         assertTrue(nsSubK.isEmpty());
-
-        NodeSet<OWLClass> nsSubBot = reasoner.getSubClasses(getFactory().getOWLNothing(), true);
-        assertNotNull("object should not be null",nsSubBot);
+        NodeSet<OWLClass> nsSubBot = reasoner.getSubClasses(getFactory().getOWLNothing(),
+                true);
+        assertNotNull("object should not be null", nsSubBot);
         assertTrue(nsSubBot.isEmpty());
     }
 
-
     @Test
     public void testGetSubClasses() {
-        NodeSet<OWLClass> nsSubTop = reasoner.getSubClasses(getFactory().getOWLThing(), false);
-        assertNotNull("object should not be null",nsSubTop);
+        NodeSet<OWLClass> nsSubTop = reasoner.getSubClasses(getFactory().getOWLThing(),
+                false);
+        assertNotNull("object should not be null", nsSubTop);
         assertTrue(nsSubTop.getNodes().size() == 5);
         assertTrue(nsSubTop.containsEntity(getClsA()));
         assertTrue(nsSubTop.containsEntity(getClsB()));
@@ -517,9 +469,8 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         assertTrue(nsSubTop.containsEntity(getClsE()));
         assertTrue(nsSubTop.containsEntity(getClsK()));
         assertTrue(nsSubTop.containsEntity(getFactory().getOWLNothing()));
-
         NodeSet<OWLClass> nsSubG = reasoner.getSubClasses(getClsG(), false);
-        assertNotNull("object should not be null",nsSubG);
+        assertNotNull("object should not be null", nsSubG);
         assertTrue(nsSubG.getNodes().size() == 5);
         assertTrue(nsSubG.containsEntity(getClsA()));
         assertTrue(nsSubG.containsEntity(getClsB()));
@@ -529,9 +480,8 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         assertTrue(nsSubG.containsEntity(getClsE()));
         assertTrue(nsSubG.containsEntity(getClsK()));
         assertTrue(nsSubG.containsEntity(getFactory().getOWLNothing()));
-
         NodeSet<OWLClass> nsSubA = reasoner.getSubClasses(getClsA(), false);
-        assertNotNull("object should not be null",nsSubA);
+        assertNotNull("object should not be null", nsSubA);
         assertFalse(nsSubG.isEmpty());
         assertTrue(nsSubA.getNodes().size() == 4);
         assertTrue(nsSubA.containsEntity(getClsC()));
@@ -540,10 +490,8 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         assertTrue(nsSubA.containsEntity(getClsE()));
         assertTrue(nsSubA.containsEntity(getClsK()));
         assertTrue(nsSubA.containsEntity(getFactory().getOWLNothing()));
-
-
         NodeSet<OWLClass> nsSubB = reasoner.getSubClasses(getClsB(), false);
-        assertNotNull("object should not be null",nsSubB);
+        assertNotNull("object should not be null", nsSubB);
         assertTrue(nsSubB.getNodes().size() == 4);
         assertTrue(nsSubB.containsEntity(getClsC()));
         assertTrue(nsSubB.containsEntity(getClsD()));
@@ -551,41 +499,34 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         assertTrue(nsSubB.containsEntity(getClsE()));
         assertTrue(nsSubB.containsEntity(getClsK()));
         assertTrue(nsSubB.containsEntity(getFactory().getOWLNothing()));
-
         NodeSet<OWLClass> nsSubC = reasoner.getSubClasses(getClsC(), false);
-        assertNotNull("object should not be null",nsSubC);
+        assertNotNull("object should not be null", nsSubC);
         assertTrue(nsSubC.getNodes().size() == 2);
         assertTrue(nsSubC.containsEntity(getClsE()));
         assertTrue(nsSubC.containsEntity(getClsK()));
         assertTrue(nsSubC.containsEntity(getFactory().getOWLNothing()));
-
         NodeSet<OWLClass> nsSubE = reasoner.getSubClasses(getClsE(), false);
-        assertNotNull("object should not be null",nsSubE);
+        assertNotNull("object should not be null", nsSubE);
         assertTrue(nsSubE.getNodes().size() == 1);
         assertTrue(nsSubE.containsEntity(getClsK()));
         assertTrue(nsSubE.containsEntity(getFactory().getOWLNothing()));
-
-
         NodeSet<OWLClass> nsSubD = reasoner.getSubClasses(getClsD(), false);
-        assertNotNull("object should not be null",nsSubD);
+        assertNotNull("object should not be null", nsSubD);
         assertTrue(nsSubD.getNodes().size() == 1);
         assertTrue(nsSubD.containsEntity(getClsK()));
         assertTrue(nsSubD.containsEntity(getFactory().getOWLNothing()));
-
         NodeSet<OWLClass> nsSubF = reasoner.getSubClasses(getClsF(), false);
-        assertNotNull("object should not be null",nsSubF);
+        assertNotNull("object should not be null", nsSubF);
         assertTrue(nsSubF.getNodes().size() == 1);
         assertTrue(nsSubF.containsEntity(getClsK()));
         assertTrue(nsSubF.containsEntity(getFactory().getOWLNothing()));
-
         NodeSet<OWLClass> nsSubK = reasoner.getSubClasses(getClsK(), false);
-        assertNotNull("object should not be null",nsSubK);
+        assertNotNull("object should not be null", nsSubK);
         assertTrue(nsSubK.isEmpty());
-
-        NodeSet<OWLClass> nsSubBot = reasoner.getSubClasses(getFactory().getOWLNothing(), false);
-        assertNotNull("object should not be null",nsSubBot);
+        NodeSet<OWLClass> nsSubBot = reasoner.getSubClasses(getFactory().getOWLNothing(),
+                false);
+        assertNotNull("object should not be null", nsSubBot);
         assertTrue(nsSubBot.isEmpty());
-
     }
 
     @Test
@@ -601,96 +542,87 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         assertFalse(reasoner.isSatisfiable(getClsK()));
     }
 
-
-
     @Test
     public void testComputeClassHierarchy() {
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         assertTrue(reasoner.isPrecomputed(InferenceType.CLASS_HIERARCHY));
     }
 
-
     @Test
     public void testGetTopObjectPropertyNode() {
         Node<OWLObjectPropertyExpression> node = reasoner.getTopObjectPropertyNode();
-        assertNotNull("object should not be null",node);
+        assertNotNull("object should not be null", node);
         assertTrue(node.isTopNode());
     }
 
     @Test
     public void testGetBottomObjectPropertyNode() {
         Node<OWLObjectPropertyExpression> node = reasoner.getBottomObjectPropertyNode();
-        assertNotNull("object should not be null",node);
+        assertNotNull("object should not be null", node);
         assertTrue(node.isBottomNode());
     }
 
     @Test
     public void testGetSubObjectPropertiesDirect() {
-        NodeSet<OWLObjectPropertyExpression> nsSubTop = reasoner.getSubObjectProperties(getFactory().getOWLTopObjectProperty(), true);
-        assertNotNull("object should not be null",nsSubTop);
+        NodeSet<OWLObjectPropertyExpression> nsSubTop = reasoner.getSubObjectProperties(
+                getFactory().getOWLTopObjectProperty(), true);
+        assertNotNull("object should not be null", nsSubTop);
         assertTrue(nsSubTop.getNodes().size() == 2);
         assertTrue(nsSubTop.containsEntity(getPropR()));
         assertTrue(nsSubTop.containsEntity(getPropS()));
         assertTrue(nsSubTop.containsEntity(getPropR().getInverseProperty()));
         assertTrue(nsSubTop.containsEntity(getPropS().getInverseProperty()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubR = reasoner.getSubObjectProperties(getPropR(), true);
-        assertNotNull("object should not be null",nsSubR);
+        NodeSet<OWLObjectPropertyExpression> nsSubR = reasoner.getSubObjectProperties(
+                getPropR(), true);
+        assertNotNull("object should not be null", nsSubR);
         assertTrue(nsSubR.getNodes().size() == 1);
         assertTrue(nsSubR.containsEntity(getPropP()));
         assertTrue(nsSubR.containsEntity(getPropQ()));
-
-        NodeSet<OWLObjectPropertyExpression> nsSubRMinus = reasoner.getSubObjectProperties(getPropR().getInverseProperty(), true);
-        assertNotNull("object should not be null",nsSubRMinus);
+        NodeSet<OWLObjectPropertyExpression> nsSubRMinus = reasoner
+                .getSubObjectProperties(getPropR().getInverseProperty(), true);
+        assertNotNull("object should not be null", nsSubRMinus);
         assertTrue(nsSubRMinus.getNodes().size() == 1);
         assertTrue(nsSubRMinus.containsEntity(getPropP().getInverseProperty()));
         assertTrue(nsSubRMinus.containsEntity(getPropQ().getInverseProperty()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubSMinus = reasoner.getSubObjectProperties(getPropS().getInverseProperty(), true);
-        assertNotNull("object should not be null",nsSubSMinus);
+        NodeSet<OWLObjectPropertyExpression> nsSubSMinus = reasoner
+                .getSubObjectProperties(getPropS().getInverseProperty(), true);
+        assertNotNull("object should not be null", nsSubSMinus);
         assertTrue(nsSubSMinus.getNodes().size() == 1);
         assertTrue(nsSubSMinus.containsEntity(getPropP()));
         assertTrue(nsSubSMinus.containsEntity(getPropQ()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubS = reasoner.getSubObjectProperties(getPropS(), true);
-        assertNotNull("object should not be null",nsSubS);
+        NodeSet<OWLObjectPropertyExpression> nsSubS = reasoner.getSubObjectProperties(
+                getPropS(), true);
+        assertNotNull("object should not be null", nsSubS);
         assertTrue(nsSubS.getNodes().size() == 1);
         assertTrue(nsSubS.containsEntity(getPropP().getInverseProperty()));
         assertTrue(nsSubS.containsEntity(getPropQ().getInverseProperty()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubP = reasoner.getSubObjectProperties(getPropP(), true);
-        assertNotNull("object should not be null",nsSubP);
+        NodeSet<OWLObjectPropertyExpression> nsSubP = reasoner.getSubObjectProperties(
+                getPropP(), true);
+        assertNotNull("object should not be null", nsSubP);
         assertTrue(nsSubP.getNodes().size() == 1);
         assertTrue(nsSubP.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubQ = reasoner.getSubObjectProperties(getPropQ(), true);
-        assertNotNull("object should not be null",nsSubQ);
+        NodeSet<OWLObjectPropertyExpression> nsSubQ = reasoner.getSubObjectProperties(
+                getPropQ(), true);
+        assertNotNull("object should not be null", nsSubQ);
         assertTrue(nsSubQ.getNodes().size() == 1);
         assertTrue(nsSubQ.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubPMinus = reasoner.getSubObjectProperties(getPropP().getInverseProperty(), true);
-        assertNotNull("object should not be null",nsSubPMinus);
+        NodeSet<OWLObjectPropertyExpression> nsSubPMinus = reasoner
+                .getSubObjectProperties(getPropP().getInverseProperty(), true);
+        assertNotNull("object should not be null", nsSubPMinus);
         assertTrue(nsSubPMinus.getNodes().size() == 1);
         assertTrue(nsSubPMinus.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
-        NodeSet<OWLObjectPropertyExpression> nsSubQMinus = reasoner.getSubObjectProperties(getPropQ().getInverseProperty(), true);
-        assertNotNull("object should not be null",nsSubQMinus);
+        NodeSet<OWLObjectPropertyExpression> nsSubQMinus = reasoner
+                .getSubObjectProperties(getPropQ().getInverseProperty(), true);
+        assertNotNull("object should not be null", nsSubQMinus);
         assertTrue(nsSubQMinus.getNodes().size() == 1);
         assertTrue(nsSubQMinus.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
     }
-
 
     @Test
     public void testGetSubObjectProperties() {
-        NodeSet<OWLObjectPropertyExpression> nsSubTop = reasoner.getSubObjectProperties(getFactory().getOWLTopObjectProperty(), false);
-        assertNotNull("object should not be null",nsSubTop);
+        NodeSet<OWLObjectPropertyExpression> nsSubTop = reasoner.getSubObjectProperties(
+                getFactory().getOWLTopObjectProperty(), false);
+        assertNotNull("object should not be null", nsSubTop);
         assertTrue(nsSubTop.getNodes().size() == 5);
         assertTrue(nsSubTop.containsEntity(getPropR()));
         assertTrue(nsSubTop.containsEntity(getPropS()));
@@ -701,61 +633,53 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         assertTrue(nsSubTop.containsEntity(getPropP().getInverseProperty()));
         assertTrue(nsSubTop.containsEntity(getPropQ().getInverseProperty()));
         assertTrue(nsSubTop.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubR = reasoner.getSubObjectProperties(getPropR(), false);
-        assertNotNull("object should not be null",nsSubR);
+        NodeSet<OWLObjectPropertyExpression> nsSubR = reasoner.getSubObjectProperties(
+                getPropR(), false);
+        assertNotNull("object should not be null", nsSubR);
         assertTrue(nsSubR.getNodes().size() == 2);
         assertTrue(nsSubR.containsEntity(getPropP()));
         assertTrue(nsSubR.containsEntity(getPropQ()));
         assertTrue(nsSubR.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubRMinus = reasoner.getSubObjectProperties(getPropR().getInverseProperty(), false);
-        assertNotNull("object should not be null",nsSubRMinus);
+        NodeSet<OWLObjectPropertyExpression> nsSubRMinus = reasoner
+                .getSubObjectProperties(getPropR().getInverseProperty(), false);
+        assertNotNull("object should not be null", nsSubRMinus);
         assertTrue(nsSubRMinus.getNodes().size() == 2);
         assertTrue(nsSubRMinus.containsEntity(getPropP().getInverseProperty()));
         assertTrue(nsSubRMinus.containsEntity(getPropQ().getInverseProperty()));
         assertTrue(nsSubRMinus.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubSMinus = reasoner.getSubObjectProperties(getPropS().getInverseProperty(), false);
-        assertNotNull("object should not be null",nsSubSMinus);
+        NodeSet<OWLObjectPropertyExpression> nsSubSMinus = reasoner
+                .getSubObjectProperties(getPropS().getInverseProperty(), false);
+        assertNotNull("object should not be null", nsSubSMinus);
         assertTrue(nsSubSMinus.getNodes().size() == 2);
         assertTrue(nsSubRMinus.containsEntity(getPropP().getInverseProperty()));
         assertTrue(nsSubRMinus.containsEntity(getPropQ().getInverseProperty()));
         assertTrue(nsSubRMinus.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubS = reasoner.getSubObjectProperties(getPropS(), false);
-        assertNotNull("object should not be null",nsSubS);
+        NodeSet<OWLObjectPropertyExpression> nsSubS = reasoner.getSubObjectProperties(
+                getPropS(), false);
+        assertNotNull("object should not be null", nsSubS);
         assertTrue(nsSubS.getNodes().size() == 2);
         assertTrue(nsSubS.containsEntity(getPropP().getInverseProperty()));
         assertTrue(nsSubS.containsEntity(getPropQ().getInverseProperty()));
         assertTrue(nsSubS.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubP = reasoner.getSubObjectProperties(getPropP(), false);
-        assertNotNull("object should not be null",nsSubP);
+        NodeSet<OWLObjectPropertyExpression> nsSubP = reasoner.getSubObjectProperties(
+                getPropP(), false);
+        assertNotNull("object should not be null", nsSubP);
         assertTrue(nsSubP.getNodes().size() == 1);
         assertTrue(nsSubP.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubQ = reasoner.getSubObjectProperties(getPropQ(), false);
-        assertNotNull("object should not be null",nsSubQ);
+        NodeSet<OWLObjectPropertyExpression> nsSubQ = reasoner.getSubObjectProperties(
+                getPropQ(), false);
+        assertNotNull("object should not be null", nsSubQ);
         assertTrue(nsSubQ.getNodes().size() == 1);
         assertTrue(nsSubQ.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
-
-        NodeSet<OWLObjectPropertyExpression> nsSubPMinus = reasoner.getSubObjectProperties(getPropP().getInverseProperty(), false);
-        assertNotNull("object should not be null",nsSubPMinus);
+        NodeSet<OWLObjectPropertyExpression> nsSubPMinus = reasoner
+                .getSubObjectProperties(getPropP().getInverseProperty(), false);
+        assertNotNull("object should not be null", nsSubPMinus);
         assertTrue(nsSubPMinus.getNodes().size() == 1);
         assertTrue(nsSubPMinus.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
-        NodeSet<OWLObjectPropertyExpression> nsSubQMinus = reasoner.getSubObjectProperties(getPropQ().getInverseProperty(), false);
-        assertNotNull("object should not be null",nsSubQMinus);
+        NodeSet<OWLObjectPropertyExpression> nsSubQMinus = reasoner
+                .getSubObjectProperties(getPropQ().getInverseProperty(), false);
+        assertNotNull("object should not be null", nsSubQMinus);
         assertTrue(nsSubQMinus.getNodes().size() == 1);
         assertTrue(nsSubQMinus.containsEntity(getFactory().getOWLBottomObjectProperty()));
-
     }
 }

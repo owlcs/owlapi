@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlxmlparserTest {
     @Test
     public void shouldTestAbbreviatedIRIElementHandler() throws Exception {
@@ -4189,36 +4189,36 @@ public class ContractOwlxmlparserTest {
     public void shouldTestSWRLAtomListElementHandler() throws Exception {
         SWRLAtomListElementHandler testSubject0 = new SWRLAtomListElementHandler(
                 Utils.mockHandler()) {};
-        testSubject0.setParentHandler(Utils.mockElementHandler());
-        testSubject0.endElement();
-        List<SWRLAtom> result0 = testSubject0.getOWLObject();
-        Object result1 = testSubject0.getOWLObject();
-        testSubject0.handleChild(Utils.mockSWRLAtomHandler());
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
-        testSubject0.startElement("");
-        boolean result3 = testSubject0.isTextContentPossible();
-        String result4 = testSubject0.getText();
-        testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
-        testSubject0.handleChild(Utils.mockAbstractIRIHandler());
-        testSubject0.handleChild(Utils.mockSWRLVariableHandler());
-        testSubject0.handleChild(Utils.mockSWRLAtomListHandler());
-        testSubject0.handleChild(Utils.mockAxiomHandler());
-        testSubject0.handleChild(Utils.mockClassHandler());
-        testSubject0.handleChild(Utils.mockDataRangeHandler());
-        testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.handleChild(Utils.mockDataPropertyHandler());
-        testSubject0.handleChild(Utils.mockIndividualHandler());
-        testSubject0.handleChild(Utils.mockLiteralHandler());
-        testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
-        testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
-        testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
-        testSubject0.setParentHandler(Utils.mockElementHandler());
-        testSubject0.attribute("IRI", "");
-        testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+                testSubject0.setParentHandler(Utils.mockElementHandler());
+                testSubject0.endElement();
+                List<SWRLAtom> result0 = testSubject0.getOWLObject();
+                Object result1 = testSubject0.getOWLObject();
+                testSubject0.handleChild(Utils.mockSWRLAtomHandler());
+                OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+                testSubject0.startElement("");
+                boolean result3 = testSubject0.isTextContentPossible();
+                String result4 = testSubject0.getText();
+                testSubject0.handleChild(Utils.mockAnnotationHandler());
+                testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
+                testSubject0.handleChild(Utils.mockAbstractIRIHandler());
+                testSubject0.handleChild(Utils.mockSWRLVariableHandler());
+                testSubject0.handleChild(Utils.mockSWRLAtomListHandler());
+                testSubject0.handleChild(Utils.mockAxiomHandler());
+                testSubject0.handleChild(Utils.mockClassHandler());
+                testSubject0.handleChild(Utils.mockDataRangeHandler());
+                testSubject0.handleChild(Utils.mockObjectPropertyHandler());
+                testSubject0.handleChild(Utils.mockDataPropertyHandler());
+                testSubject0.handleChild(Utils.mockIndividualHandler());
+                testSubject0.handleChild(Utils.mockLiteralHandler());
+                testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
+                testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
+                testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
+                IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
+                IRI result6 = testSubject0.getIRIFromElement("IRI", "");
+                testSubject0.setParentHandler(Utils.mockElementHandler());
+                testSubject0.attribute("IRI", "");
+                testSubject0.handleChars(new char[5], 0, 0);
+                String result7 = testSubject0.toString();
     }
 
     @Test
@@ -4485,36 +4485,36 @@ public class ContractOwlxmlparserTest {
     public void shouldTestSWRLVariableElementHandler() throws Exception {
         SWRLVariableElementHandler testSubject0 = new SWRLVariableElementHandler(
                 Utils.mockHandler()) {};
-        testSubject0.setParentHandler(Utils.mockElementHandler());
-        testSubject0.endElement();
-        SWRLVariable result0 = testSubject0.getOWLObject();
-        Object result1 = testSubject0.getOWLObject();
-        testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
-        testSubject0.startElement("");
-        boolean result3 = testSubject0.isTextContentPossible();
-        String result4 = testSubject0.getText();
-        testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
-        testSubject0.handleChild(Utils.mockAbstractIRIHandler());
-        testSubject0.handleChild(Utils.mockSWRLVariableHandler());
-        testSubject0.handleChild(Utils.mockSWRLAtomHandler());
-        testSubject0.handleChild(Utils.mockSWRLAtomListHandler());
-        testSubject0.handleChild(Utils.mockAxiomHandler());
-        testSubject0.handleChild(Utils.mockClassHandler());
-        testSubject0.handleChild(Utils.mockDataRangeHandler());
-        testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.handleChild(Utils.mockDataPropertyHandler());
-        testSubject0.handleChild(Utils.mockIndividualHandler());
-        testSubject0.handleChild(Utils.mockLiteralHandler());
-        testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
-        testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
-        testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
-        testSubject0.setParentHandler(Utils.mockElementHandler());
-        testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+                testSubject0.setParentHandler(Utils.mockElementHandler());
+                testSubject0.endElement();
+                SWRLVariable result0 = testSubject0.getOWLObject();
+                Object result1 = testSubject0.getOWLObject();
+                testSubject0.attribute("IRI", "");
+                OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+                testSubject0.startElement("");
+                boolean result3 = testSubject0.isTextContentPossible();
+                String result4 = testSubject0.getText();
+                testSubject0.handleChild(Utils.mockAnnotationHandler());
+                testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
+                testSubject0.handleChild(Utils.mockAbstractIRIHandler());
+                testSubject0.handleChild(Utils.mockSWRLVariableHandler());
+                testSubject0.handleChild(Utils.mockSWRLAtomHandler());
+                testSubject0.handleChild(Utils.mockSWRLAtomListHandler());
+                testSubject0.handleChild(Utils.mockAxiomHandler());
+                testSubject0.handleChild(Utils.mockClassHandler());
+                testSubject0.handleChild(Utils.mockDataRangeHandler());
+                testSubject0.handleChild(Utils.mockObjectPropertyHandler());
+                testSubject0.handleChild(Utils.mockDataPropertyHandler());
+                testSubject0.handleChild(Utils.mockIndividualHandler());
+                testSubject0.handleChild(Utils.mockLiteralHandler());
+                testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
+                testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
+                testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
+                IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
+                IRI result6 = testSubject0.getIRIFromElement("IRI", "");
+                testSubject0.setParentHandler(Utils.mockElementHandler());
+                testSubject0.handleChars(new char[5], 0, 0);
+                String result7 = testSubject0.toString();
     }
 
     @Test

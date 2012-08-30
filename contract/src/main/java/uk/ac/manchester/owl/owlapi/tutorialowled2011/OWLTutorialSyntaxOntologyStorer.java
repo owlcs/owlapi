@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  * Information Management Group<br>
  * Date: 24-April-2007<br>
  * <br> */
+@SuppressWarnings("unused")
 public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     /**
      * 

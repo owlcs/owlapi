@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,7 +60,7 @@ public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
 
 
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "SubClassOf.rdf";
     }
 

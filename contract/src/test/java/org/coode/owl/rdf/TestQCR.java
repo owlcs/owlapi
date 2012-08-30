@@ -39,6 +39,8 @@
 
 package org.coode.owl.rdf;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.Collections;
 import java.util.Set;
 
@@ -60,7 +62,7 @@ public class TestQCR extends AbstractRendererAndParserTestCase {
 
 
     @Override
-	protected Set<OWLAxiom> getAxioms() {
+    protected Set<OWLAxiom> getAxioms() {
         OWLClass clsA = getDataFactory().getOWLClass(TestUtils.createIRI());
         OWLClass clsB = getDataFactory().getOWLClass(TestUtils.createIRI());
         OWLClass clsC = getDataFactory().getOWLClass(TestUtils.createIRI());
@@ -75,7 +77,7 @@ public class TestQCR extends AbstractRendererAndParserTestCase {
 
 
     @Override
-	protected String getClassExpression() {
+    protected String getClassExpression() {
         return "Qualified Cardinality";
     }
 }

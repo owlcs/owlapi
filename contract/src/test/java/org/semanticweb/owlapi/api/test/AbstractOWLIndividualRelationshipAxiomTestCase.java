@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -63,14 +65,14 @@ public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends O
     protected abstract OWLIndividualAxiom createAxiom(OWLIndividual subject, P property, O object) throws OWLException;
 
     @Override
-	@Test
+    @Test
     public void testCreation() throws Exception {
         assertNotNull("axiom should not be null", createAxiom(createOWLIndividual(), createProperty(), createObject()));
     }
 
 
     @Override
-	@Test
+    @Test
     public void testEqualsPositive() throws Exception {
         OWLIndividual subject = createOWLIndividual();
         P property = createProperty();
@@ -82,7 +84,7 @@ public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends O
 
 
     @Override
-	@Test
+    @Test
     public void testEqualsNegative() throws Exception {
         // Different subject
         P property = createProperty();
@@ -103,7 +105,7 @@ public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends O
 
 
     @Override
-	@Test
+    @Test
     public void testHashCode() throws Exception {
         OWLIndividual subject = createOWLIndividual();
         P property = createProperty();

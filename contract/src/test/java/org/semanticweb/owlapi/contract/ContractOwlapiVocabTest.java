@@ -17,7 +17,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.BuiltInVocabulary;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
@@ -33,7 +32,7 @@ import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiVocabTest {
     @Test
     public void shouldTestBuiltInVocabulary() throws Exception {

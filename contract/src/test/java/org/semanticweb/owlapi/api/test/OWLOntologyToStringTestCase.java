@@ -39,7 +39,7 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -47,13 +47,12 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 01/02/2012
- */
-public class OWLOntologyToStringTestCase extends TestCase {
+ * Date: 01/02/2012 */
+@SuppressWarnings("javadoc")
+public class OWLOntologyToStringTestCase {
 
     @Test
     public void testNamedOntologyToString() throws Exception {
@@ -61,13 +60,9 @@ public class OWLOntologyToStringTestCase extends TestCase {
         IRI ontIRI = IRI.create("http://owlapi.sourceforge.net/ont");
         OWLOntology ont = man.createOntology(ontIRI);
         String s = ont.toString();
-        assertEquals("Ontology(" + ont.getOntologyID().toString() + ") " + getAxiomsMetricsString(ont) , s);
+        String expected = "Ontology(" + ont.getOntologyID().toString() + ") [Axioms: "
+                + ont.getAxiomCount() + " Logical Axioms: " + ont.getLogicalAxiomCount()
+                + "]";
+        assertEquals(expected, s);
     }
-
-    private static String getAxiomsMetricsString(OWLOntology ont) {
-        return "[Axioms: " + ont.getAxiomCount() + " Logical Axioms: " + ont.getLogicalAxiomCount() + "]";
-    }
-
-
-
 }

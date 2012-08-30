@@ -37,6 +37,7 @@
  * limitations under the License.
  */
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -59,29 +60,29 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 @SuppressWarnings("javadoc")
 public class HasKeyTestCase extends AbstractFileRoundTrippingTestCase {
-	@Test
+    @Test
     public void testCorrectAxioms() {
-		OWLClass cls = getFactory().getOWLClass(IRI.create("http://example.com/Person"));
-		OWLDataProperty propP = getFactory().getOWLDataProperty(
-				IRI.create("http://example.com/dataProperty"));
-		OWLObjectProperty propQ = getFactory().getOWLObjectProperty(
-				IRI.create("http://example.com/objectPoperty"));
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-		final OWLHasKeyAxiom owlHasKeyAxiom = getFactory().getOWLHasKeyAxiom(cls, propQ,
-				propP);
-		axioms.add(owlHasKeyAxiom);
-		final Set<OWLAxiom> axioms2 = getOnt().getAxioms();
-		assertTrue(axioms2.containsAll(axioms));
-	}
+        OWLClass cls = getFactory().getOWLClass(IRI.create("http://example.com/Person"));
+        OWLDataProperty propP = getFactory().getOWLDataProperty(
+                IRI.create("http://example.com/dataProperty"));
+        OWLObjectProperty propQ = getFactory().getOWLObjectProperty(
+                IRI.create("http://example.com/objectPoperty"));
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        final OWLHasKeyAxiom owlHasKeyAxiom = getFactory().getOWLHasKeyAxiom(cls, propQ,
+                propP);
+        axioms.add(owlHasKeyAxiom);
+        final Set<OWLAxiom> axioms2 = getOnt().getAxioms();
+        assertTrue(axioms2.containsAll(axioms));
+    }
 
-	@Override
-	@SuppressWarnings("unused")
-	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-		//System.out.println(target);
-	}
+    @Override
+    @SuppressWarnings("unused")
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        //System.out.println(target);
+    }
 
-	@Override
-	protected String getFileName() {
-		return "HasKey.rdf";
-	}
+    @Override
+    protected String getFileName() {
+        return "HasKey.rdf";
+    }
 }

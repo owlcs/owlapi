@@ -39,18 +39,17 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.io.XMLUtils;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 23/09/2011
- */
-public class XMLUtilsTestCase extends TestCase {
+ * Date: 23/09/2011 */
+@SuppressWarnings("javadoc")
+public class XMLUtilsTestCase {
 
 
     private static final int CODE_POINT = 0xEFFFF;

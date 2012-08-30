@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.AddAxiom;

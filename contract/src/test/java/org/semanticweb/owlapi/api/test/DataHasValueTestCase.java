@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -70,16 +71,16 @@ public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
         axioms.add(getFactory().getOWLDeclarationAxiom(propP));
         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataHasValue(propP, stringLiteral)));
         final Set<OWLAxiom> axioms2 = getOnt().getAxioms();
-		assertEquals(axioms2, axioms);
+        assertEquals(axioms2, axioms);
     }
 
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "DataHasValue.rdf";
     }
 
     @Override  @SuppressWarnings("unused")
-	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-      //  System.out.println(target);
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        //  System.out.println(target);
     }
 }

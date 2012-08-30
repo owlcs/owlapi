@@ -31,6 +31,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
+@SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxParserTestCase {
     public static final String NS = "http://protege.org/ontologies/Test.owl";
     OWLClass a;

@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
@@ -45,12 +46,11 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 21/09/2011
- */
+ * Date: 21/09/2011 */
+@SuppressWarnings("javadoc")
 public class RDFSClassTestCase extends AbstractFileTestCase {
 
     @Test

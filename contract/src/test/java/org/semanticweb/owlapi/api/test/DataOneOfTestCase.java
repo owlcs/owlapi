@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -63,7 +64,7 @@ public class DataOneOfTestCase extends AbstractFileRoundTrippingTestCase {
         OWLDataRange oneOf = getFactory().getOWLDataOneOf(
                 getFactory().getOWLLiteral(30),
                 getFactory().getOWLLiteral(31f)
-        );
+                );
         OWLDataProperty p = getOWLDataProperty("p");
         OWLDataPropertyRangeAxiom ax = getFactory().getOWLDataPropertyRangeAxiom(p, oneOf);
         axioms.add(ax);
@@ -72,12 +73,12 @@ public class DataOneOfTestCase extends AbstractFileRoundTrippingTestCase {
     }
 
     @Override  @SuppressWarnings("unused")
-	protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         //System.out.println(target);
     }
 
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "DataOneOf.rdf";
     }
 }

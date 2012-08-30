@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.api.test;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -68,7 +69,7 @@ public class DeprecatedTestCase extends AbstractFileTestCase {
     }
 
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "Deprecated.rdf";
     }
 }

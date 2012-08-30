@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -72,8 +74,8 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends AbstractOWLAPIT
             fail("Expected an exception to say that the ontology already exists");
         }
         catch (OWLOntologyAlreadyExistsException e) {
-        	//System.out.println("Caught expected ontology already exists exception: " + e);
-        	//success
+            //System.out.println("Caught expected ontology already exists exception: " + e);
+            //success
         }
 
     }

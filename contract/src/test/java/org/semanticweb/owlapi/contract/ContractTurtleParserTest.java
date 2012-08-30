@@ -34,7 +34,7 @@ import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParserFactory;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParserConstants;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParserException;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractTurtleParserTest {
     public void shouldTestConsoleTripleHandler() throws Exception {
         ConsoleTripleHandler testSubject0 = new ConsoleTripleHandler();

@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.reasoner.test;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.AbstractOWLAPITestCase;
@@ -115,9 +116,9 @@ public class StructuralReasonerTestCase extends AbstractOWLAPITestCase {
         assertTrue(supersOfA.getNodes().size() == 1);
         assertTrue(supersOfA.containsEntity(getFactory().getOWLThing()));
 
-//        NodeSet<OWLClass> supersOfBottom = reasoner.getSuperClasses(getFactory().getOWLNothing(), true);
-//        assertTrue(supersOfBottom.getNodes().size() == 1);
-//        assertTrue(supersOfBottom.containsEntity(clsB));
+        //        NodeSet<OWLClass> supersOfBottom = reasoner.getSuperClasses(getFactory().getOWLNothing(), true);
+        //        assertTrue(supersOfBottom.getNodes().size() == 1);
+        //        assertTrue(supersOfBottom.containsEntity(clsB));
 
         Node<OWLClass> equivsOfTop = reasoner.getEquivalentClasses(getFactory().getOWLThing());
         assertTrue(equivsOfTop.getEntities().size() == 2);

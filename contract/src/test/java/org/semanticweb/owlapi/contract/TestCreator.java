@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+@SuppressWarnings("javadoc")
 public class TestCreator {
     public static void _main(final String[] args) throws Exception {
         Map<String, PrintStream> streams = new HashMap<String, PrintStream>();

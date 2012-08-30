@@ -123,7 +123,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLSymmetricObjectPropertyAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLTransitiveObjectPropertyAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLUnaryPropertyAxiomImpl;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapi_3Test {
     @BeforeClass
     public static void setupClass() {
@@ -135,8 +135,8 @@ public class ContractOwlapi_3Test {
         OWLNaryBooleanClassExpressionImpl testSubject0 = new OWLNaryBooleanClassExpressionImpl(
                 Utils.mockSet(Utils.mockAnonClass())) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 8793607926247561247L;
 
             @Override
@@ -198,8 +198,8 @@ public class ContractOwlapi_3Test {
                 Utils.mockSet(Utils.mockAnonClass()),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 6324384261068538864L;
 
             @Override
@@ -285,8 +285,8 @@ public class ContractOwlapi_3Test {
         OWLNaryDataRangeImpl testSubject0 = new OWLNaryDataRangeImpl(
                 new HashSet<OWLDataRange>()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 1407415551213466817L;
 
             @Override
@@ -354,8 +354,8 @@ public class ContractOwlapi_3Test {
                 Utils.mockSet(mock(OWLIndividual.class)),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 6290053534949043967L;
 
             @Override
@@ -439,8 +439,8 @@ public class ContractOwlapi_3Test {
                 Utils.mockSet(Utils.mockObjectProperty()),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 7147363027606323642L;
 
             @Override
@@ -638,8 +638,8 @@ public class ContractOwlapi_3Test {
         OWLObjectCardinalityRestrictionImpl testSubject0 = new OWLObjectCardinalityRestrictionImpl(
                 Utils.mockObjectProperty(), 0, Utils.mockAnonClass()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 2377728871285879867L;
 
             @Override
@@ -1149,8 +1149,8 @@ public class ContractOwlapi_3Test {
                 Utils.mockObjectProperty(),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 68465576555306337L;
 
             @Override
@@ -1309,7 +1309,7 @@ public class ContractOwlapi_3Test {
 
             @Override
             protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>>
-                    getSubPropertyAxiomsForRHS(final OWLOntology ont) {
+            getSubPropertyAxiomsForRHS(final OWLOntology ont) {
                 return null;
             }
 
@@ -1670,8 +1670,8 @@ public class ContractOwlapi_3Test {
         OWLPropertyAxiomImpl testSubject0 = new OWLPropertyAxiomImpl(
                 new ArrayList<OWLAnnotation>()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -7369477561556982558L;
 
             @Override
@@ -1744,8 +1744,8 @@ public class ContractOwlapi_3Test {
                 Utils.mockObjectProperty(), Utils.mockAnonClass(),
                 Utils.mockSet(mock(OWLAnnotation.class))) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 7218313160987527948L;
 
             @Override
@@ -1886,7 +1886,7 @@ public class ContractOwlapi_3Test {
 
             @Override
             protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>>
-                    getSubPropertyAxiomsForRHS(final OWLOntology ont) {
+            getSubPropertyAxiomsForRHS(final OWLOntology ont) {
                 return null;
             }
 
@@ -1898,26 +1898,26 @@ public class ContractOwlapi_3Test {
 
             @Override
             protected
-                    Set<? extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>>
-                    getRangeAxioms(final OWLOntology ontology) {
+            Set<? extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>>
+            getRangeAxioms(final OWLOntology ontology) {
                 return null;
             }
 
             @Override
             protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>>
-                    getSubPropertyAxioms(final OWLOntology ontology) {
+            getSubPropertyAxioms(final OWLOntology ontology) {
                 return null;
             }
 
             @Override
             protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>>
-                    getEquivalentPropertiesAxioms(final OWLOntology ontology) {
+            getEquivalentPropertiesAxioms(final OWLOntology ontology) {
                 return null;
             }
 
             @Override
             protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>>
-                    getDisjointPropertiesAxioms(final OWLOntology ontology) {
+            getDisjointPropertiesAxioms(final OWLOntology ontology) {
                 return null;
             }
 
@@ -1959,6 +1959,8 @@ public class ContractOwlapi_3Test {
         OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLPropertyRange> testSubject0 = new OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLPropertyRange>(
                 Utils.mockObjectProperty(), mock(OWLPropertyRange.class),
                 Utils.mockSet(mock(OWLAnnotation.class))) {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void accept(final OWLAxiomVisitor visitor) {}
 
@@ -2028,8 +2030,8 @@ public class ContractOwlapi_3Test {
         OWLQuantifiedDataRestrictionImpl testSubject0 = new OWLQuantifiedDataRestrictionImpl(
                 mock(OWLDataPropertyExpression.class), mock(OWLDataRange.class)) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 997674531551963349L;
 
             @Override
@@ -2100,8 +2102,8 @@ public class ContractOwlapi_3Test {
         OWLQuantifiedObjectRestrictionImpl testSubject0 = new OWLQuantifiedObjectRestrictionImpl(
                 Utils.mockObjectProperty(), Utils.mockAnonClass()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -1982957757072399355L;
 
             @Override
@@ -2172,8 +2174,8 @@ public class ContractOwlapi_3Test {
         OWLQuantifiedRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> testSubject0 = new OWLQuantifiedRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression>(
                 Utils.mockObjectProperty(), Utils.mockAnonClass()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 8335470675106166757L;
 
             @Override
@@ -2289,8 +2291,8 @@ public class ContractOwlapi_3Test {
         OWLRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObject> testSubject0 = new OWLRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObject>(
                 Utils.mockObjectProperty()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 1147684159061077419L;
 
             @Override
@@ -2379,8 +2381,6 @@ public class ContractOwlapi_3Test {
         boolean result7 = testSubject0.containsAnonymousIndividuals();
         Set<OWLSameIndividualAxiom> result8 = testSubject0.asPairwiseAxioms();
         Set<OWLSubClassOfAxiom> result9 = testSubject0.asOWLSubClassOfAxioms();
-        Set<OWLSameIndividualAxiom> result10 = testSubject0
-                .asPairwiseSameIndividualAxioms();
         Set<OWLIndividual> result11 = testSubject0.getIndividuals();
         List<OWLIndividual> result12 = testSubject0.getIndividualsAsList();
         boolean result13 = testSubject0.isLogicalAxiom();
@@ -2568,8 +2568,8 @@ public class ContractOwlapi_3Test {
                 Utils.mockObjectProperty(), Utils.mockObjectProperty(),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 4051986573112291354L;
 
             @Override
@@ -2750,8 +2750,8 @@ public class ContractOwlapi_3Test {
                 Utils.mockObjectProperty(),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 4635458058788061551L;
 
             @Override

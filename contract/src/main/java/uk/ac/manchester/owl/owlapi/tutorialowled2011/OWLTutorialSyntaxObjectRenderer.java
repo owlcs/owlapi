@@ -152,7 +152,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * Information Management Group<br>
  * Date: 24-April-2007<br>
  * <br> */
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     private final OWLOntology ontology;
     private final ShortFormProvider shortForms;
@@ -251,37 +251,36 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         writeListEnd();
     }
 
-    public void visit(final OWLOntology ontology) {
+    public void visit(final OWLOntology ontology1) {
         header();
         write("<h1>");
-        write(ontology.getOntologyID().toString());
+        write(ontology1.getOntologyID().toString());
         write("</h1>\n");
         write("<div>");
         write("<div class='box'>\n");
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(ontology.getAxioms());
-        axioms.removeAll(ontology.getImportsDeclarations());
-        for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(ontology1.getAxioms());
+        for (OWLImportsDeclaration decl : ontology1.getImportsDeclarations()) {
             write("Imports: ");
             write(decl.getURI().toString());
             write("\n");
         }
         write("<h2>Classes</h2>\n");
-        writeCollection(ontology.getClassesInSignature());
+        writeCollection(ontology1.getClassesInSignature());
         write("</div>\n");
         write("<div class='box'>\n");
         write("<h2>Properties</h2>\n");
-        writeCollection(ontology.getObjectPropertiesInSignature());
-        writeCollection(ontology.getDataPropertiesInSignature());
+        writeCollection(ontology1.getObjectPropertiesInSignature());
+        writeCollection(ontology1.getDataPropertiesInSignature());
         write("</div>\n");
         write("<div class='box'>\n");
         write("<h2>Individuals</h2>\n");
-        writeCollection(ontology.getIndividualsInSignature());
+        writeCollection(ontology1.getIndividualsInSignature());
         write("</div>");
         write("<div>");
         write("<div class='box'>");
         write("<h2>Axioms</h2>\n");
         writeListStart();
-        for (OWLAxiom ax : ontology.getAxioms()) {
+        for (OWLAxiom ax : ontology1.getAxioms()) {
             writeListItemStart();
             ax.accept(this);
             writeListEnd();
@@ -402,7 +401,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public void writePropertyCharacteristic(final String str, final OWLAxiom ax,
-            final OWLPropertyExpression prop) throws OWLRuntimeException {
+            final OWLPropertyExpression<?, ?> prop) throws OWLRuntimeException {
         write(keyword(str));
         writeSpace();
         prop.accept(this);
@@ -613,9 +612,9 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private
-            <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
-            void writeRestriction(final String str,
-                    final OWLCardinalityRestriction<R, P, F> restriction) {
+    <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
+    void writeRestriction(final String str,
+            final OWLCardinalityRestriction<R, P, F> restriction) {
         write(str);
         writeOpenBracket();
         write(Integer.toString(restriction.getCardinality()));
@@ -638,7 +637,8 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         writeRestriction(str, restriction.getProperty(), restriction.getFiller());
     }
 
-    private void writeRestriction(final String str, final OWLPropertyExpression prop,
+    private void writeRestriction(final String str,
+            final OWLPropertyExpression<?, ?> prop,
             final OWLObject filler) throws OWLRuntimeException {
         write(str);
         writeOpenBracket();

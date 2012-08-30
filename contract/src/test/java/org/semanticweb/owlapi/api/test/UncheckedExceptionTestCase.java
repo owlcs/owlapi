@@ -36,29 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test;
-
-import junit.framework.TestCase;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-@SuppressWarnings("javadoc")
-public class UncheckedExceptionTestCase extends TestCase{
-	@Test
-    public void testLoad() throws Exception{
-		try {
-		OWLOntologyManager m=Factory.getManager();
-		//OWLOntology o=
-			m.loadOntology(IRI.create("http://rest.bioontology.org/bioportal/virtual/download/1005"));
-		}catch (OWLOntologyCreationException e) {
-// expected
 
-		}catch (RuntimeException e) {
-			e.printStackTrace();
-			fail(e.getMessage());
-		}
-	}
+@SuppressWarnings("javadoc")
+public class UncheckedExceptionTestCase {
+    @Test(expected = OWLOntologyCreationException.class)
+    public void testLoad() throws Exception {
+        OWLOntologyManager m = Factory.getManager();
+        m.loadOntology(IRI
+                .create("http://rest.bioontology.org/bioportal/virtual/download/1005"));
+    }
 }

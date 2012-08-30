@@ -79,7 +79,7 @@ import org.semanticweb.owlapi.util.DLExpressivityChecker.Construct;
 import org.semanticweb.owlapi.util.ImportsStructureObjectSorter.ObjectSelector;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestAbstractOWLOntologyStorer() throws Exception {

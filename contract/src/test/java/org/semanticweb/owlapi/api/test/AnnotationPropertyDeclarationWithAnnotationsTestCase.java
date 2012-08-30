@@ -63,6 +63,7 @@ public class AnnotationPropertyDeclarationWithAnnotationsTestCase extends Abstra
         return getFactory().getOWLDeclarationAxiom(ent, annos);
     }
 
+    @SuppressWarnings("unused")
     @Override
     protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
         return false;
@@ -72,6 +73,6 @@ public class AnnotationPropertyDeclarationWithAnnotationsTestCase extends Abstra
     @Test
     public void testManchesterOWLSyntax() throws Exception {
         // Can't represent this in Manchester Syntax
-//        super.testManchesterOWLSyntax();
+        //        super.testManchesterOWLSyntax();
     }
 }

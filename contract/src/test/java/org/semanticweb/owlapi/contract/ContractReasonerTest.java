@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.reasoner.TimeOutException;
 import org.semanticweb.owlapi.reasoner.TimedConsoleProgressMonitor;
 import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "javadoc" })
 public class ContractReasonerTest {
     @Test
     public void shouldTestAxiomNotInProfileException() throws Exception {
@@ -228,21 +228,21 @@ public class ContractReasonerTest {
         OWLReasonerRuntimeException testSubject1 = new OWLReasonerRuntimeException(
                 new RuntimeException()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = -6573627502866716674L;
         };
         OWLReasonerRuntimeException testSubject2 = new OWLReasonerRuntimeException("") {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 7608639286254018990L;
         };
         OWLReasonerRuntimeException testSubject3 = new OWLReasonerRuntimeException("",
                 new RuntimeException()) {
             /**
-                     * 
-                     */
+             * 
+             */
             private static final long serialVersionUID = 4062841579361322628L;
         };
         Throwable result1 = testSubject0.getCause();

@@ -42,7 +42,6 @@ import java.io.File;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 
@@ -70,47 +69,24 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
 
     @Test
     public void testImports() throws Exception {
-        try {
-            OWLOntologyManager manager = Factory.getManager();
-            manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "imports"), true));
-            // OWLOntology o =
-            manager.loadOntologyFromOntologyDocument(new File(RESOURCES, "/imports/D.owl"));
-        } catch (OWLOntologyCreationException e) {
-            // Thread.dumpStack();
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
+        OWLOntologyManager manager = Factory.getManager();
+        manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "imports"), true));
+        manager.loadOntologyFromOntologyDocument(new File(RESOURCES, "/imports/D.owl"));
     }
 
     @Test
     public void testCyclicImports() throws Exception {
-        try {
-            OWLOntologyManager manager = Factory.getManager();
-            manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "importscyclic"),
-                    true));
-            // OWLOntology o =
-            manager.loadOntologyFromOntologyDocument(new File(RESOURCES,
-                    "/importscyclic/D.owl"));
-        } catch (OWLOntologyCreationException e) {
-            // Thread.dumpStack();
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
+        OWLOntologyManager manager = Factory.getManager();
+        manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
+        manager.loadOntologyFromOntologyDocument(new File(RESOURCES,
+                "/importscyclic/D.owl"));
     }
 
     @Test
     public void testCyclicImports2() throws Exception {
-        try {
-            OWLOntologyManager manager = Factory.getManager();
-            manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "importscyclic"),
-                    true));
-            // OWLOntology o =
-            manager.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES,
-                    "importscyclic/D.owl")));
-        } catch (OWLOntologyCreationException e) {
-            // Thread.dumpStack();
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
+        OWLOntologyManager manager = Factory.getManager();
+        manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
+        manager.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES,
+                "importscyclic/D.owl")));
     }
 }
