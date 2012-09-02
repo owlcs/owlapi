@@ -311,14 +311,14 @@ public class OWLObjectWalker<O extends OWLObject> {
             process(iri);
         }
 
-        public void visit(OWLOntology ontology) {
-            OWLObjectWalker.this.ontology = ontology;
+        public void visit(OWLOntology ontologyToVisit) {
+            OWLObjectWalker.this.ontology = ontologyToVisit;
             OWLObjectWalker.this.ax = null;
-            process(ontology);
-            for(OWLAnnotation anno : ontology.getAnnotations()) {
+            process(ontologyToVisit);
+            for (OWLAnnotation anno : ontologyToVisit.getAnnotations()) {
                 anno.accept(this);
             }
-            for (OWLAxiom a : ontology.getAxioms()) {
+            for (OWLAxiom a : ontologyToVisit.getAxioms()) {
                 a.accept(this);
             }
         }

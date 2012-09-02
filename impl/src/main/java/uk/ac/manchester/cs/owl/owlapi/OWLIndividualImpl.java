@@ -76,7 +76,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
 
 
 
-	private static final long serialVersionUID = 7202927319742902743L;
+	private static final long serialVersionUID = 30402L;
 
     @SuppressWarnings("javadoc")
     //XXX not in the interface

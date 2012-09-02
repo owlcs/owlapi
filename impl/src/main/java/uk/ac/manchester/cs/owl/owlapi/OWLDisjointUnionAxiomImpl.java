@@ -66,7 +66,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLDisjointUnionAxiom {
 
 
-	private static final long serialVersionUID = 887883986546377928L;
+	private static final long serialVersionUID = 30402L;
 
 	private final OWLClass owlClass;
 

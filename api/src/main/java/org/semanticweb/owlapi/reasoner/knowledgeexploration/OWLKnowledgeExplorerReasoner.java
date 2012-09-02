@@ -48,69 +48,70 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+@SuppressWarnings("javadoc")
 public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
-	public interface RootNode{
-		public <T> T getNode();
-	}
-	/**
-	 * @param expression
-	 *            the expression of which the completion tree is to be computed
-	 * @return compute and return the root node of the completion tree for the
-	 *         expression
-	 */
-	RootNode getRoot(OWLClassExpression expression);
+    public interface RootNode{
+        public <T> T getNode();
+    }
+    /**
+     * @param expression
+     *            the expression of which the completion tree is to be computed
+     * @return compute and return the root node of the completion tree for the
+     *         expression
+     */
+    RootNode getRoot(OWLClassExpression expression);
 
-	/**
-	 * @param node
-	 *            a node, as returned by either getRoot() or
-	 *            getObjectNeighbours()
-	 * @param deterministicOnly
-	 *            true if only deterministic results should be returned
-	 * */
-	Node<? extends OWLObjectPropertyExpression> getObjectNeighbours(RootNode node,
-			boolean deterministicOnly);
+    /**
+     * @param node
+     *            a node, as returned by either getRoot() or
+     *            getObjectNeighbours()
+     * @param deterministicOnly
+     *            true if only deterministic results should be returned
+     * */
+    Node<? extends OWLObjectPropertyExpression> getObjectNeighbours(RootNode node,
+            boolean deterministicOnly);
 
-	/**
-	 * @param node
-	 *            a node, as returned by either getRoot() or
-	 *            getObjectNeighbours()
-	 * @param deterministicOnly
-	 *            true if only deterministic results should be returned
-	 * */
-	Node<OWLDataProperty> getDataNeighbours(RootNode node, boolean deterministicOnly);
+    /**
+     * @param node
+     *            a node, as returned by either getRoot() or
+     *            getObjectNeighbours()
+     * @param deterministicOnly
+     *            true if only deterministic results should be returned
+     * */
+    Node<OWLDataProperty> getDataNeighbours(RootNode node, boolean deterministicOnly);
 
-	/**
-	 * @param node
-	 *            a node, as returned by either getRoot() or
-	 *            getObjectNeighbours()
-	 * @param property
-	 *            the property being followed
-	 * */
-	Collection<RootNode> getObjectNeighbours(RootNode node, OWLObjectProperty property);
+    /**
+     * @param node
+     *            a node, as returned by either getRoot() or
+     *            getObjectNeighbours()
+     * @param property
+     *            the property being followed
+     * */
+    Collection<RootNode> getObjectNeighbours(RootNode node, OWLObjectProperty property);
 
-	/**
-	 * @param node
-	 *            a node, as returned by either getRoot() or
-	 *            getObjectNeighbours()
-	 * @param property
-	 *            the property being followed
-	 * */
-	Collection<RootNode> getDataNeighbours(RootNode node, OWLDataProperty property);
+    /**
+     * @param node
+     *            a node, as returned by either getRoot() or
+     *            getObjectNeighbours()
+     * @param property
+     *            the property being followed
+     * */
+    Collection<RootNode> getDataNeighbours(RootNode node, OWLDataProperty property);
 
-	/**
-	 * @param node
-	 *            a node, as returned by either getRoot() or
-	 *            getObjectNeighbours()
-	 * @param deterministicOnly
-	 *            true if only deterministic results should be returned
-	 * */
-	Node<? extends OWLClassExpression> getObjectLabel(RootNode node, boolean deterministicOnly);
+    /**
+     * @param node
+     *            a node, as returned by either getRoot() or
+     *            getObjectNeighbours()
+     * @param deterministicOnly
+     *            true if only deterministic results should be returned
+     * */
+    Node<? extends OWLClassExpression> getObjectLabel(RootNode node, boolean deterministicOnly);
 
-	/**
-	 * @param node
-	 *            a node, as returned by getDataNeighbours()
-	 * @param deterministicOnly
-	 *            true if only deterministic results should be returned
-	 * */
-	Node<? extends OWLDataRange> getDataLabel(RootNode node, boolean deterministicOnly);
+    /**
+     * @param node
+     *            a node, as returned by getDataNeighbours()
+     * @param deterministicOnly
+     *            true if only deterministic results should be returned
+     * */
+    Node<? extends OWLDataRange> getDataLabel(RootNode node, boolean deterministicOnly);
 }

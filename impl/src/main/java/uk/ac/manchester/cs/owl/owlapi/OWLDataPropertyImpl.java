@@ -81,7 +81,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange, OWLDataPropertyExpression> implements OWLDataProperty {
 
 
-	private static final long serialVersionUID = 6058248913120165090L;
+	private static final long serialVersionUID = 30402L;
 
 
 	private final IRI iri;

@@ -59,7 +59,7 @@ public class KRSSSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
 
 
 
-	private static final long serialVersionUID = 5859052150963944383L;
+	private static final long serialVersionUID = 30402L;
 
 
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {

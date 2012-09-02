@@ -49,7 +49,7 @@ public class IllegalConfigurationException extends OWLReasonerRuntimeException {
 
 
 
-	private static final long serialVersionUID = 3821335087773461676L;
+	private static final long serialVersionUID = 30402L;
 	private final OWLReasonerConfiguration configuration;
 
     public IllegalConfigurationException(Throwable cause, OWLReasonerConfiguration configuration) {

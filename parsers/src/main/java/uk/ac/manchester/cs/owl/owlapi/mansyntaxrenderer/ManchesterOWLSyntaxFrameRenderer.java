@@ -135,7 +135,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     private List<RendererListener> listeners = new ArrayList<RendererListener>();
 
     private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
-    	@SuppressWarnings("unused")
+        @SuppressWarnings("unused")
         public boolean passes(OWLAxiom axiom) {
             return true;
         }
@@ -349,18 +349,18 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         write(">");
     }
 
-//    protected void write(IRI uri) {
-//        String qname = null;
-//        ShortFormProvider shortFormProvider = getShortFormProvider();
-//        if(pm != null) {
-//            qname = getPrefixManager().getPrefixIRI(uri);
-//        }
-//        if (qname != null) {
-//            super.write(qname);
-//        } else {
-//            writeFullURI(uri.toString());
-//        }
-//    }
+    //    protected void write(IRI uri) {
+    //        String qname = null;
+    //        ShortFormProvider shortFormProvider = getShortFormProvider();
+    //        if(pm != null) {
+    //            qname = getPrefixManager().getPrefixIRI(uri);
+    //        }
+    //        if (qname != null) {
+    //            super.write(qname);
+    //        } else {
+    //            writeFullURI(uri.toString());
+    //        }
+    //    }
 
     public boolean isFiltered(AxiomType<?> axiomType) {
         return filteredAxiomTypes.contains(axiomType);
@@ -1059,12 +1059,14 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
 
-    public void writeSection(ManchesterOWLSyntax keyword, SectionMap content, String delimeter, boolean newline, OWLOntology... ontologies) {
+    public void writeSection(ManchesterOWLSyntax keyword, SectionMap content,
+            String delimeter, boolean newline, OWLOntology... ontologiesList) {
         String sec = keyword.toString();
-        if (!content.isEmpty() || renderingDirector.renderEmptyFrameSection(keyword, ontologies)) {
+        if (!content.isEmpty()
+                || renderingDirector.renderEmptyFrameSection(keyword, ontologiesList)) {
             fireSectionRenderingPrepared(sec);
             writeSection(keyword);
-            writeOntologiesList(ontologies);
+            writeOntologiesList(ontologiesList);
             incrementTab(4);
             writeNewLine();
             fireSectionRenderingStarted(sec);
@@ -1140,13 +1142,15 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
-    public void writeSection(ManchesterOWLSyntax keyword, Collection<?> content, String delimeter, boolean newline, OWLOntology... ontologies) {
+    public void writeSection(ManchesterOWLSyntax keyword, Collection<?> content,
+            String delimeter, boolean newline, OWLOntology... ontologiesList) {
 
         String sec = keyword.toString();
-        if (!content.isEmpty() || renderingDirector.renderEmptyFrameSection(keyword, ontologies)) {
+        if (!content.isEmpty()
+                || renderingDirector.renderEmptyFrameSection(keyword, ontologiesList)) {
             fireSectionRenderingPrepared(sec);
             writeSection(keyword);
-            writeOntologiesList(ontologies);
+            writeOntologiesList(ontologiesList);
             incrementTab(4);
             writeNewLine();
             fireSectionRenderingStarted(sec);
@@ -1191,23 +1195,23 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         writeNewLine();
     }
 
-    private void writeOntologiesList(OWLOntology... ontologies) {
+    private void writeOntologiesList(OWLOntology... ontologiesList) {
         if (!renderExtensions) {
             return;
         }
-        if (ontologies.length == 0) {
+        if (ontologiesList.length == 0) {
             return;
         }
-//        if (ontologies.length == 1) {
-//            if (defaultOntology != null) {
-//            }
-//        }
+        //        if (ontologies.length == 1) {
+        //            if (defaultOntology != null) {
+        //            }
+        //        }
         write("[in ");
         int count = 0;
-        for (OWLOntology ont : ontologies) {
+        for (OWLOntology ont : ontologiesList) {
             write(shortFormProvider.getShortForm(ont));
             count++;
-            if (count < ontologies.length) {
+            if (count < ontologiesList.length) {
                 write(", ");
             }
         }
@@ -1291,9 +1295,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
 
     private static class DefaultRenderingDirector implements RenderingDirector {
-    	public DefaultRenderingDirector() {
+        public DefaultRenderingDirector() {
 
-		}
+        }
         @SuppressWarnings("unused")
         public boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword, OWLOntology... ontologies) {
             return false;

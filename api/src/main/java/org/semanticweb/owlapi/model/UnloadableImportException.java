@@ -49,7 +49,7 @@ package org.semanticweb.owlapi.model;
 public class UnloadableImportException extends OWLOntologyCreationException {
 
 
-	private static final long serialVersionUID = -8457421046500263763L;
+	private static final long serialVersionUID = 30402L;
 
 	private final OWLImportsDeclaration importsDeclaration;
 

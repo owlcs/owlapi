@@ -58,7 +58,7 @@ package org.semanticweb.owlapi.model;
 public class OWLOntologyResourceAccessException extends OWLRuntimeException {
 
 
-	private static final long serialVersionUID = 8997459658167004382L;
+	private static final long serialVersionUID = 30402L;
 
 
 	public OWLOntologyResourceAccessException(String message) {

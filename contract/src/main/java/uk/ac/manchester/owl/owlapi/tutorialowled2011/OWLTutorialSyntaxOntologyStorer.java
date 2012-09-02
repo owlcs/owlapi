@@ -58,7 +58,7 @@ public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     /**
      * 
      */
-    private static final long serialVersionUID = -877371923873453650L;
+    private static final long serialVersionUID = 30402L;
 
     /** Determines if this storer can store an ontology in the specified ontology
      * format.

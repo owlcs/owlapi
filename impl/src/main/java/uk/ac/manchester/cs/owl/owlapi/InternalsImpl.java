@@ -110,18 +110,11 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 @SuppressWarnings("javadoc")
 public class InternalsImpl extends AbstractInternalsImpl {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -4004215105988765871L;
+    private static final long serialVersionUID = 30402L;
 
     protected class SetPointer<K> implements Internals.SimplePointer<K>, Serializable {
 
-        /**
-         *
-         */
-        private static final long serialVersionUID = -3873292720116055322L;
-
+        private static final long serialVersionUID = 30402L;
         private final Set<K> set;
 
         public SetPointer(Set<K> s) {
@@ -147,37 +140,24 @@ public class InternalsImpl extends AbstractInternalsImpl {
         public boolean remove(K k) {
             return set.remove(k);
         }
-
     }
 
     protected <K> SetPointer<K> buildSet() {
-        return new SetPointer<K>(CollectionFactory.<K>createSet());
+        return new SetPointer<K>(CollectionFactory.<K> createSet());
     }
 
     protected final SetPointer<OWLImportsDeclaration> importsDeclarations = buildSet();
-
     protected final SetPointer<OWLAnnotation> ontologyAnnotations = buildSet();
-
     protected final SetPointer<OWLClassAxiom> generalClassAxioms = buildSet();
-
     protected final SetPointer<OWLSubPropertyChainOfAxiom> propertyChainSubPropertyAxioms = buildSet();
-
     protected final MapPointer<AxiomType<?>, OWLAxiom> axiomsByType = build();
-
     protected final MapPointer<OWLClass, OWLAxiom> owlClassReferences = build();
-
     protected final MapPointer<OWLObjectProperty, OWLAxiom> owlObjectPropertyReferences = build();
-
     protected final MapPointer<OWLDataProperty, OWLAxiom> owlDataPropertyReferences = build();
-
     protected final MapPointer<OWLNamedIndividual, OWLAxiom> owlIndividualReferences = build();
-
     protected final MapPointer<OWLAnonymousIndividual, OWLAxiom> owlAnonymousIndividualReferences = build();
-
     protected final MapPointer<OWLDatatype, OWLAxiom> owlDatatypeReferences = build();
-
     protected final MapPointer<OWLAnnotationProperty, OWLAxiom> owlAnnotationPropertyReferences = build();
-
     protected final MapPointer<OWLEntity, OWLDeclarationAxiom> declarationsByEntity = build();
 
     public <K, V extends OWLAxiom> Set<K> getKeyset(Pointer<K, V> pointer) {
@@ -191,13 +171,15 @@ public class InternalsImpl extends AbstractInternalsImpl {
         mapPointer.init();
         return mapPointer.getValues(key);
     }
+
     public <K, V extends OWLAxiom> boolean hasValues(Pointer<K, V> pointer, K key) {
         final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
         mapPointer.init();
         return mapPointer.hasValues(key);
     }
 
-    public <K, V extends OWLAxiom> boolean remove(Internals.Pointer<K, V> pointer, K k, V v) {
+    public <K, V extends OWLAxiom> boolean remove(Internals.Pointer<K, V> pointer, K k,
+            V v) {
         final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
         if (!mapPointer.isInitialized()) {
             return false;
@@ -206,7 +188,6 @@ public class InternalsImpl extends AbstractInternalsImpl {
     }
 
     private final AddAxiomVisitor addChangeVisitor = new AddAxiomVisitor();
-
     private final RemoveAxiomVisitor removeChangeVisitor = new RemoveAxiomVisitor();
 
     public boolean addAxiom(final OWLAxiom axiom) {
@@ -292,7 +273,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         return axiomsByType.size() == 0 && ontologyAnnotations.isEmpty();
     }
 
-    public <T extends OWLAxiom, K> Set<T> filterAxioms(OWLAxiomSearchFilter<T, K> filter, K key) {
+    public <T extends OWLAxiom, K> Set<T> filterAxioms(OWLAxiomSearchFilter<T, K> filter,
+            K key) {
         Set<T> toReturn = createSet();
         for (T t : (Set<T>) getValues(getAxiomsByType(), filter.getAxiomType())) {
             if (filter.pass(t, key)) {
@@ -303,27 +285,27 @@ public class InternalsImpl extends AbstractInternalsImpl {
     }
 
     public Set<OWLImportsDeclaration> getImportsDeclarations() {
-        return this.importsDeclarations.copy();
+        return importsDeclarations.copy();
     }
 
     public boolean addImportsDeclaration(OWLImportsDeclaration importDeclaration) {
-        if (this.importsDeclarations.contains(importDeclaration)) {
+        if (importsDeclarations.contains(importDeclaration)) {
             return false;
         }
-        this.importsDeclarations.add(importDeclaration);
+        importsDeclarations.add(importDeclaration);
         return true;
     }
 
     public boolean removeImportsDeclaration(OWLImportsDeclaration importDeclaration) {
-        if (!this.importsDeclarations.contains(importDeclaration)) {
+        if (!importsDeclarations.contains(importDeclaration)) {
             return false;
         }
-        this.importsDeclarations.remove(importDeclaration);
+        importsDeclarations.remove(importDeclaration);
         return true;
     }
 
     public Set<OWLAnnotation> getOntologyAnnotations() {
-        return this.ontologyAnnotations.copy();
+        return ontologyAnnotations.copy();
     }
 
     public boolean addOntologyAnnotation(OWLAnnotation ann) {
@@ -390,75 +372,73 @@ public class InternalsImpl extends AbstractInternalsImpl {
     }
 
     public Set<OWLClassAxiom> getGeneralClassAxioms() {
-        return this.generalClassAxioms.copy();
+        return generalClassAxioms.copy();
     }
 
     public void addGeneralClassAxioms(OWLClassAxiom ax) {
-        this.generalClassAxioms.add(ax);
+        generalClassAxioms.add(ax);
     }
 
     public void removeGeneralClassAxioms(OWLClassAxiom ax) {
-        this.generalClassAxioms.remove(ax);
+        generalClassAxioms.remove(ax);
     }
 
     public void addPropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
-        this.propertyChainSubPropertyAxioms.add(ax);
+        propertyChainSubPropertyAxioms.add(ax);
     }
 
     public void removePropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
-        this.propertyChainSubPropertyAxioms.remove(ax);
+        propertyChainSubPropertyAxioms.remove(ax);
     }
 
     public MapPointer<OWLClass, OWLAxiom> getOwlClassReferences() {
-        return this.owlClassReferences;
+        return owlClassReferences;
     }
 
     public MapPointer<OWLObjectProperty, OWLAxiom> getOwlObjectPropertyReferences() {
-        return this.owlObjectPropertyReferences;
+        return owlObjectPropertyReferences;
     }
 
     public MapPointer<OWLDataProperty, OWLAxiom> getOwlDataPropertyReferences() {
-        return this.owlDataPropertyReferences;
+        return owlDataPropertyReferences;
     }
 
     public MapPointer<OWLNamedIndividual, OWLAxiom> getOwlIndividualReferences() {
-        return this.owlIndividualReferences;
+        return owlIndividualReferences;
     }
 
-    public MapPointer<OWLAnonymousIndividual, OWLAxiom> getOwlAnonymousIndividualReferences() {
-        return this.owlAnonymousIndividualReferences;
+    public MapPointer<OWLAnonymousIndividual, OWLAxiom>
+    getOwlAnonymousIndividualReferences() {
+        return owlAnonymousIndividualReferences;
     }
 
     public MapPointer<OWLDatatype, OWLAxiom> getOwlDatatypeReferences() {
-        return this.owlDatatypeReferences;
+        return owlDatatypeReferences;
     }
 
-    public MapPointer<OWLAnnotationProperty, OWLAxiom> getOwlAnnotationPropertyReferences() {
-        return this.owlAnnotationPropertyReferences;
+    public MapPointer<OWLAnnotationProperty, OWLAxiom>
+    getOwlAnnotationPropertyReferences() {
+        return owlAnnotationPropertyReferences;
     }
 
     public MapPointer<OWLEntity, OWLDeclarationAxiom> getDeclarationsByEntity() {
-        return this.declarationsByEntity;
+        return declarationsByEntity;
     }
 
     public MapPointer<AxiomType<?>, OWLAxiom> getAxiomsByType() {
-        return this.axiomsByType;
+        return axiomsByType;
     }
 
+    @SuppressWarnings("unused")
     class AddAxiomVisitor implements OWLAxiomVisitor, Serializable {
-
-        /**
-         *
-         */
-        private static final long serialVersionUID = 6674044428069040877L;
+        private static final long serialVersionUID = 30402L;
 
         public void visit(OWLSubClassOfAxiom axiom) {
             if (!axiom.getSubClass().isAnonymous()) {
                 OWLClass subClass = (OWLClass) axiom.getSubClass();
                 add(getSubClassAxiomsByLHS(), subClass, axiom);
                 add(getClassAxiomsByClass(), subClass, axiom);
-            }
-            else {
+            } else {
                 addGeneralClassAxioms(axiom);
             }
             if (!axiom.getSuperClass().isAnonymous()) {
@@ -467,7 +447,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         }
 
         public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-            add(getNegativeObjectPropertyAssertionAxiomsByIndividual(), axiom.getSubject(), axiom);
+            add(getNegativeObjectPropertyAssertionAxiomsByIndividual(),
+                    axiom.getSubject(), axiom);
         }
 
         public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
@@ -516,7 +497,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         }
 
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-            add(getNegativeDataPropertyAssertionAxiomsByIndividual(), axiom.getSubject(), axiom);
+            add(getNegativeDataPropertyAssertionAxiomsByIndividual(), axiom.getSubject(),
+                    axiom);
         }
 
         public void visit(OWLDifferentIndividualsAxiom axiom) {
@@ -567,18 +549,16 @@ public class InternalsImpl extends AbstractInternalsImpl {
             add(getAnnotationAssertionAxiomsBySubject(), axiom.getSubject(), axiom);
         }
 
-        public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        }
+        public void visit(OWLAnnotationPropertyDomainAxiom axiom) {}
 
-        public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        }
+        public void visit(OWLAnnotationPropertyRangeAxiom axiom) {}
 
-        public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        }
+        public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {}
 
         public void visit(OWLHasKeyAxiom axiom) {
             if (!axiom.getClassExpression().isAnonymous()) {
-                add(getHasKeyAxiomsByClass(), axiom.getClassExpression().asOWLClass(), axiom);
+                add(getHasKeyAxiomsByClass(), axiom.getClassExpression().asOWLClass(),
+                        axiom);
             }
         }
 
@@ -639,7 +619,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         }
 
         public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-            add(getInverseFunctionalPropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            add(getInverseFunctionalPropertyAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         public void visit(OWLSameIndividualAxiom axiom) {
@@ -652,36 +633,32 @@ public class InternalsImpl extends AbstractInternalsImpl {
             addPropertyChainSubPropertyAxioms(axiom);
         }
 
-        public void visit(SWRLRule rule) {
-        }
+        public void visit(SWRLRule rule) {}
 
-        public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        }
+        public void visit(OWLDatatypeDefinitionAxiom axiom) {}
     }
 
+    @SuppressWarnings("unused")
     class RemoveAxiomVisitor implements OWLAxiomVisitor, Serializable {
-
-        /**
-         *
-         */
-        private static final long serialVersionUID = 4802403678601719693L;
+        private static final long serialVersionUID = 30402L;
 
         public void visit(OWLSubClassOfAxiom axiom) {
             if (!axiom.getSubClass().isAnonymous()) {
                 OWLClass subClass = (OWLClass) axiom.getSubClass();
                 remove(getSubClassAxiomsByLHS(), subClass, axiom);
                 remove(getClassAxiomsByClass(), subClass, axiom);
-            }
-            else {
+            } else {
                 removeGeneralClassAxioms(axiom);
             }
             if (!axiom.getSuperClass().isAnonymous()) {
-                remove(getSubClassAxiomsByRHS(), axiom.getSuperClass().asOWLClass(), axiom);
+                remove(getSubClassAxiomsByRHS(), axiom.getSuperClass().asOWLClass(),
+                        axiom);
             }
         }
 
         public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-            remove(getNegativeObjectPropertyAssertionAxiomsByIndividual(), axiom.getSubject(), axiom);
+            remove(getNegativeObjectPropertyAssertionAxiomsByIndividual(),
+                    axiom.getSubject(), axiom);
         }
 
         public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
@@ -713,7 +690,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
             if (axiom.getProperty() instanceof OWLObjectProperty) {
-                remove(getObjectPropertyDomainAxiomsByProperty(), axiom.getProperty(), axiom);
+                remove(getObjectPropertyDomainAxiomsByProperty(), axiom.getProperty(),
+                        axiom);
             }
         }
 
@@ -729,7 +707,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         }
 
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-            remove(getNegativeDataPropertyAssertionAxiomsByIndividual(), axiom.getSubject(), axiom);
+            remove(getNegativeDataPropertyAssertionAxiomsByIndividual(),
+                    axiom.getSubject(), axiom);
         }
 
         public void visit(OWLDifferentIndividualsAxiom axiom) {
@@ -759,7 +738,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         }
 
         public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-            remove(getFunctionalObjectPropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            remove(getFunctionalObjectPropertyAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         public void visit(OWLSubObjectPropertyOfAxiom axiom) {
@@ -780,18 +760,16 @@ public class InternalsImpl extends AbstractInternalsImpl {
             remove(getAnnotationAssertionAxiomsBySubject(), axiom.getSubject(), axiom);
         }
 
-        public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        }
+        public void visit(OWLAnnotationPropertyDomainAxiom axiom) {}
 
-        public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        }
+        public void visit(OWLAnnotationPropertyRangeAxiom axiom) {}
 
-        public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        }
+        public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {}
 
         public void visit(OWLHasKeyAxiom axiom) {
             if (!axiom.getClassExpression().isAnonymous()) {
-                remove(getHasKeyAxiomsByClass(), axiom.getClassExpression().asOWLClass(), axiom);
+                remove(getHasKeyAxiomsByClass(), axiom.getClassExpression().asOWLClass(),
+                        axiom);
             }
         }
 
@@ -804,7 +782,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         }
 
         public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-            remove(getFunctionalDataPropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            remove(getFunctionalDataPropertyAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
@@ -816,7 +795,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         public void visit(OWLClassAssertionAxiom axiom) {
             remove(getClassAssertionAxiomsByIndividual(), axiom.getIndividual(), axiom);
             if (!axiom.getClassExpression().isAnonymous()) {
-                remove(getClassAssertionAxiomsByClass(), axiom.getClassExpression(), axiom);
+                remove(getClassAssertionAxiomsByClass(), axiom.getClassExpression(),
+                        axiom);
             }
         }
 
@@ -852,7 +832,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         }
 
         public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-            remove(getInverseFunctionalPropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            remove(getInverseFunctionalPropertyAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         public void visit(OWLSameIndividualAxiom axiom) {
@@ -865,12 +846,13 @@ public class InternalsImpl extends AbstractInternalsImpl {
             removePropertyChainSubPropertyAxioms(axiom);
         }
 
-        public void visit(SWRLRule rule) {
-        }
+        public void visit(SWRLRule rule) {}
 
         public void visit(OWLDatatypeDefinitionAxiom axiom) {
-            // Just use general indexing (on the assumption that there won't be many
-            // datatype definitions).  This could always be optimised at a later stage.
+            // Just use general indexing (on the assumption that there won't be
+            // many
+            // datatype definitions). This could always be optimised at a later
+            // stage.
         }
     }
 }

@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFactory {
 
 
-	private static final long serialVersionUID = -8645618757562431627L;
+	private static final long serialVersionUID = 30402L;
 	private OWLOntologyManager ontologyManager;
 
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {

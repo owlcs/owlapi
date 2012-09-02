@@ -64,7 +64,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implements OWLSubPropertyChainOfAxiom {
 
 
-	private static final long serialVersionUID = 7027767192767377695L;
+	private static final long serialVersionUID = 30402L;
 
 	private final List<OWLObjectPropertyExpression> propertyChain;
 

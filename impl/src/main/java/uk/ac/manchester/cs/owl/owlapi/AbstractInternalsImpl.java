@@ -90,256 +90,254 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** this class encapsulates all lazily built indexes */
 public abstract class AbstractInternalsImpl implements Internals, Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6461033920955794650L;
 
-	protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t,
-			OWLAxiomVisitorEx<?> v) {
-		return new MapPointer<K, V>(t, v, true, this);
-	}
+    private static final long serialVersionUID = 30402L;
 
-	protected <K, V extends OWLAxiom> MapPointer<K, V> build() {
-		return build(null, null);
-	}
+    protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t,
+            OWLAxiomVisitorEx<?> v) {
+        return new MapPointer<K, V>(t, v, true, this);
+    }
 
-	protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(AxiomType<?> t,
-			OWLAxiomVisitorEx<?> v) {
-		return new MapPointer<K, V>(t, v, false, this);
-	}
+    protected <K, V extends OWLAxiom> MapPointer<K, V> build() {
+        return build(null, null);
+    }
 
-	protected ClassAxiomByClassPointer buildClassAxiomByClass() {
-		return new ClassAxiomByClassPointer(null, null, false, this);
-	}
+    protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(AxiomType<?> t,
+            OWLAxiomVisitorEx<?> v) {
+        return new MapPointer<K, V>(t, v, false, this);
+    }
+
+    protected ClassAxiomByClassPointer buildClassAxiomByClass() {
+        return new ClassAxiomByClassPointer(null, null, false, this);
+    }
 
 
-	protected final MapPointer<OWLClass, OWLClassAxiom> classAxiomsByClass = buildClassAxiomByClass();
+    protected final MapPointer<OWLClass, OWLClassAxiom> classAxiomsByClass = buildClassAxiomByClass();
 
 
 
-	protected final MapPointer<OWLClass, OWLSubClassOfAxiom> subClassAxiomsByLHS = buildLazy(
-			SUBCLASS_OF, classsubnamed);
-	protected final MapPointer<OWLClass, OWLSubClassOfAxiom> subClassAxiomsByRHS = buildLazy(
-			SUBCLASS_OF, classsupernamed);
-	protected final MapPointer<OWLClass, OWLEquivalentClassesAxiom> equivalentClassesAxiomsByClass = buildLazy(
-			EQUIVALENT_CLASSES, classcollections);
-	protected final MapPointer<OWLClass, OWLDisjointClassesAxiom> disjointClassesAxiomsByClass = buildLazy(
-			DISJOINT_CLASSES, classcollections);
-	protected final MapPointer<OWLClass, OWLDisjointUnionAxiom> disjointUnionAxiomsByClass = buildLazy(
-			DISJOINT_UNION, classcollections);
-	protected final MapPointer<OWLClass, OWLHasKeyAxiom> hasKeyAxiomsByClass = buildLazy(
-			HAS_KEY, classsupernamed);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom> objectSubPropertyAxiomsByLHS = buildLazy(
-			SUB_OBJECT_PROPERTY, opsubnamed);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom> objectSubPropertyAxiomsByRHS = buildLazy(
-			SUB_OBJECT_PROPERTY, opsupernamed);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLEquivalentObjectPropertiesAxiom> equivalentObjectPropertyAxiomsByProperty = buildLazy(
-			EQUIVALENT_OBJECT_PROPERTIES, opcollections);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLDisjointObjectPropertiesAxiom> disjointObjectPropertyAxiomsByProperty = buildLazy(
-			DISJOINT_OBJECT_PROPERTIES, opcollections);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLObjectPropertyDomainAxiom> objectPropertyDomainAxiomsByProperty = buildLazy(
-			OBJECT_PROPERTY_DOMAIN, opsubnamed);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLObjectPropertyRangeAxiom> objectPropertyRangeAxiomsByProperty = buildLazy(
-			OBJECT_PROPERTY_RANGE, opsubnamed);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLFunctionalObjectPropertyAxiom> functionalObjectPropertyAxiomsByProperty = buildLazy(
-			FUNCTIONAL_OBJECT_PROPERTY, opsubnamed);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLInverseFunctionalObjectPropertyAxiom> inverseFunctionalPropertyAxiomsByProperty = buildLazy(
-			INVERSE_FUNCTIONAL_OBJECT_PROPERTY, opsubnamed);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLSymmetricObjectPropertyAxiom> symmetricPropertyAxiomsByProperty = buildLazy(
-			SYMMETRIC_OBJECT_PROPERTY, opsubnamed);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLAsymmetricObjectPropertyAxiom> asymmetricPropertyAxiomsByProperty = buildLazy(
-			ASYMMETRIC_OBJECT_PROPERTY, opsubnamed);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLReflexiveObjectPropertyAxiom> reflexivePropertyAxiomsByProperty = buildLazy(
-			REFLEXIVE_OBJECT_PROPERTY, opsubnamed);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLIrreflexiveObjectPropertyAxiom> irreflexivePropertyAxiomsByProperty = buildLazy(
-			IRREFLEXIVE_OBJECT_PROPERTY, opsubnamed);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLTransitiveObjectPropertyAxiom> transitivePropertyAxiomsByProperty = buildLazy(
-			TRANSITIVE_OBJECT_PROPERTY, opsubnamed);
-	protected final MapPointer<OWLObjectPropertyExpression, OWLInverseObjectPropertiesAxiom> inversePropertyAxiomsByProperty = buildLazy(
-			INVERSE_OBJECT_PROPERTIES, opcollections);
-	protected final MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsByLHS = buildLazy(
-			SUB_DATA_PROPERTY, dpsubnamed);
-	protected final MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsByRHS = buildLazy(
-			SUB_DATA_PROPERTY, dpsupernamed);
-	protected final MapPointer<OWLDataPropertyExpression, OWLEquivalentDataPropertiesAxiom> equivalentDataPropertyAxiomsByProperty = buildLazy(
-			EQUIVALENT_DATA_PROPERTIES, dpcollections);
-	protected final MapPointer<OWLDataPropertyExpression, OWLDisjointDataPropertiesAxiom> disjointDataPropertyAxiomsByProperty = buildLazy(
-			DISJOINT_DATA_PROPERTIES, dpcollections);
-	protected final MapPointer<OWLDataPropertyExpression, OWLDataPropertyDomainAxiom> dataPropertyDomainAxiomsByProperty = buildLazy(
-			DATA_PROPERTY_DOMAIN, dpsubnamed);
-	protected final MapPointer<OWLDataPropertyExpression, OWLDataPropertyRangeAxiom> dataPropertyRangeAxiomsByProperty = buildLazy(
-			DATA_PROPERTY_RANGE, dpsubnamed);
-	protected final MapPointer<OWLDataPropertyExpression, OWLFunctionalDataPropertyAxiom> functionalDataPropertyAxiomsByProperty = buildLazy(
-			FUNCTIONAL_DATA_PROPERTY, dpsubnamed);
-	protected final MapPointer<OWLIndividual, OWLClassAssertionAxiom> classAssertionAxiomsByIndividual = buildLazy(
-			CLASS_ASSERTION, individualsubnamed);
-	protected final MapPointer<OWLClassExpression, OWLClassAssertionAxiom> classAssertionAxiomsByClass = buildLazy(
-			CLASS_ASSERTION, classexpressions);
-	protected final MapPointer<OWLIndividual, OWLObjectPropertyAssertionAxiom> objectPropertyAssertionsByIndividual = buildLazy(
-			OBJECT_PROPERTY_ASSERTION, individualsubnamed);
-	protected final MapPointer<OWLIndividual, OWLDataPropertyAssertionAxiom> dataPropertyAssertionsByIndividual = buildLazy(
-			DATA_PROPERTY_ASSERTION, individualsubnamed);
-	protected final MapPointer<OWLIndividual, OWLNegativeObjectPropertyAssertionAxiom> negativeObjectPropertyAssertionAxiomsByIndividual = buildLazy(
-			NEGATIVE_OBJECT_PROPERTY_ASSERTION, individualsubnamed);
-	protected final MapPointer<OWLIndividual, OWLNegativeDataPropertyAssertionAxiom> negativeDataPropertyAssertionAxiomsByIndividual = buildLazy(
-			NEGATIVE_DATA_PROPERTY_ASSERTION, individualsubnamed);
-	protected final MapPointer<OWLIndividual, OWLDifferentIndividualsAxiom> differentIndividualsAxiomsByIndividual = buildLazy(
-			DIFFERENT_INDIVIDUALS, icollections);
-	protected final MapPointer<OWLIndividual, OWLSameIndividualAxiom> sameIndividualsAxiomsByIndividual = buildLazy(
-			SAME_INDIVIDUAL, icollections);
-	protected final MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom> annotationAssertionAxiomsBySubject = buildLazy(
-			ANNOTATION_ASSERTION, annotsupernamed);
+    protected final MapPointer<OWLClass, OWLSubClassOfAxiom> subClassAxiomsByLHS = buildLazy(
+            SUBCLASS_OF, classsubnamed);
+    protected final MapPointer<OWLClass, OWLSubClassOfAxiom> subClassAxiomsByRHS = buildLazy(
+            SUBCLASS_OF, classsupernamed);
+    protected final MapPointer<OWLClass, OWLEquivalentClassesAxiom> equivalentClassesAxiomsByClass = buildLazy(
+            EQUIVALENT_CLASSES, classcollections);
+    protected final MapPointer<OWLClass, OWLDisjointClassesAxiom> disjointClassesAxiomsByClass = buildLazy(
+            DISJOINT_CLASSES, classcollections);
+    protected final MapPointer<OWLClass, OWLDisjointUnionAxiom> disjointUnionAxiomsByClass = buildLazy(
+            DISJOINT_UNION, classcollections);
+    protected final MapPointer<OWLClass, OWLHasKeyAxiom> hasKeyAxiomsByClass = buildLazy(
+            HAS_KEY, classsupernamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom> objectSubPropertyAxiomsByLHS = buildLazy(
+            SUB_OBJECT_PROPERTY, opsubnamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom> objectSubPropertyAxiomsByRHS = buildLazy(
+            SUB_OBJECT_PROPERTY, opsupernamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLEquivalentObjectPropertiesAxiom> equivalentObjectPropertyAxiomsByProperty = buildLazy(
+            EQUIVALENT_OBJECT_PROPERTIES, opcollections);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLDisjointObjectPropertiesAxiom> disjointObjectPropertyAxiomsByProperty = buildLazy(
+            DISJOINT_OBJECT_PROPERTIES, opcollections);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLObjectPropertyDomainAxiom> objectPropertyDomainAxiomsByProperty = buildLazy(
+            OBJECT_PROPERTY_DOMAIN, opsubnamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLObjectPropertyRangeAxiom> objectPropertyRangeAxiomsByProperty = buildLazy(
+            OBJECT_PROPERTY_RANGE, opsubnamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLFunctionalObjectPropertyAxiom> functionalObjectPropertyAxiomsByProperty = buildLazy(
+            FUNCTIONAL_OBJECT_PROPERTY, opsubnamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLInverseFunctionalObjectPropertyAxiom> inverseFunctionalPropertyAxiomsByProperty = buildLazy(
+            INVERSE_FUNCTIONAL_OBJECT_PROPERTY, opsubnamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLSymmetricObjectPropertyAxiom> symmetricPropertyAxiomsByProperty = buildLazy(
+            SYMMETRIC_OBJECT_PROPERTY, opsubnamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLAsymmetricObjectPropertyAxiom> asymmetricPropertyAxiomsByProperty = buildLazy(
+            ASYMMETRIC_OBJECT_PROPERTY, opsubnamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLReflexiveObjectPropertyAxiom> reflexivePropertyAxiomsByProperty = buildLazy(
+            REFLEXIVE_OBJECT_PROPERTY, opsubnamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLIrreflexiveObjectPropertyAxiom> irreflexivePropertyAxiomsByProperty = buildLazy(
+            IRREFLEXIVE_OBJECT_PROPERTY, opsubnamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLTransitiveObjectPropertyAxiom> transitivePropertyAxiomsByProperty = buildLazy(
+            TRANSITIVE_OBJECT_PROPERTY, opsubnamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLInverseObjectPropertiesAxiom> inversePropertyAxiomsByProperty = buildLazy(
+            INVERSE_OBJECT_PROPERTIES, opcollections);
+    protected final MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsByLHS = buildLazy(
+            SUB_DATA_PROPERTY, dpsubnamed);
+    protected final MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsByRHS = buildLazy(
+            SUB_DATA_PROPERTY, dpsupernamed);
+    protected final MapPointer<OWLDataPropertyExpression, OWLEquivalentDataPropertiesAxiom> equivalentDataPropertyAxiomsByProperty = buildLazy(
+            EQUIVALENT_DATA_PROPERTIES, dpcollections);
+    protected final MapPointer<OWLDataPropertyExpression, OWLDisjointDataPropertiesAxiom> disjointDataPropertyAxiomsByProperty = buildLazy(
+            DISJOINT_DATA_PROPERTIES, dpcollections);
+    protected final MapPointer<OWLDataPropertyExpression, OWLDataPropertyDomainAxiom> dataPropertyDomainAxiomsByProperty = buildLazy(
+            DATA_PROPERTY_DOMAIN, dpsubnamed);
+    protected final MapPointer<OWLDataPropertyExpression, OWLDataPropertyRangeAxiom> dataPropertyRangeAxiomsByProperty = buildLazy(
+            DATA_PROPERTY_RANGE, dpsubnamed);
+    protected final MapPointer<OWLDataPropertyExpression, OWLFunctionalDataPropertyAxiom> functionalDataPropertyAxiomsByProperty = buildLazy(
+            FUNCTIONAL_DATA_PROPERTY, dpsubnamed);
+    protected final MapPointer<OWLIndividual, OWLClassAssertionAxiom> classAssertionAxiomsByIndividual = buildLazy(
+            CLASS_ASSERTION, individualsubnamed);
+    protected final MapPointer<OWLClassExpression, OWLClassAssertionAxiom> classAssertionAxiomsByClass = buildLazy(
+            CLASS_ASSERTION, classexpressions);
+    protected final MapPointer<OWLIndividual, OWLObjectPropertyAssertionAxiom> objectPropertyAssertionsByIndividual = buildLazy(
+            OBJECT_PROPERTY_ASSERTION, individualsubnamed);
+    protected final MapPointer<OWLIndividual, OWLDataPropertyAssertionAxiom> dataPropertyAssertionsByIndividual = buildLazy(
+            DATA_PROPERTY_ASSERTION, individualsubnamed);
+    protected final MapPointer<OWLIndividual, OWLNegativeObjectPropertyAssertionAxiom> negativeObjectPropertyAssertionAxiomsByIndividual = buildLazy(
+            NEGATIVE_OBJECT_PROPERTY_ASSERTION, individualsubnamed);
+    protected final MapPointer<OWLIndividual, OWLNegativeDataPropertyAssertionAxiom> negativeDataPropertyAssertionAxiomsByIndividual = buildLazy(
+            NEGATIVE_DATA_PROPERTY_ASSERTION, individualsubnamed);
+    protected final MapPointer<OWLIndividual, OWLDifferentIndividualsAxiom> differentIndividualsAxiomsByIndividual = buildLazy(
+            DIFFERENT_INDIVIDUALS, icollections);
+    protected final MapPointer<OWLIndividual, OWLSameIndividualAxiom> sameIndividualsAxiomsByIndividual = buildLazy(
+            SAME_INDIVIDUAL, icollections);
+    protected final MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom> annotationAssertionAxiomsBySubject = buildLazy(
+            ANNOTATION_ASSERTION, annotsupernamed);
 
-	protected <K, V> Map<K, V> createMap() {
-		return CollectionFactory.createMap();
-	}
+    protected <K, V> Map<K, V> createMap() {
+        return CollectionFactory.createMap();
+    }
 
-	public MapPointer<OWLClass, OWLClassAxiom> getClassAxiomsByClass() {
-		return this.classAxiomsByClass;
-	}
+    public MapPointer<OWLClass, OWLClassAxiom> getClassAxiomsByClass() {
+        return classAxiomsByClass;
+    }
 
-	public MapPointer<OWLClass, OWLSubClassOfAxiom> getSubClassAxiomsByLHS() {
-		return this.subClassAxiomsByLHS;
-	}
+    public MapPointer<OWLClass, OWLSubClassOfAxiom> getSubClassAxiomsByLHS() {
+        return subClassAxiomsByLHS;
+    }
 
-	public MapPointer<OWLClass, OWLSubClassOfAxiom> getSubClassAxiomsByRHS() {
-		return this.subClassAxiomsByRHS;
-	}
+    public MapPointer<OWLClass, OWLSubClassOfAxiom> getSubClassAxiomsByRHS() {
+        return subClassAxiomsByRHS;
+    }
 
-	public MapPointer<OWLClass, OWLEquivalentClassesAxiom> getEquivalentClassesAxiomsByClass() {
-		return this.equivalentClassesAxiomsByClass;
-	}
+    public MapPointer<OWLClass, OWLEquivalentClassesAxiom> getEquivalentClassesAxiomsByClass() {
+        return equivalentClassesAxiomsByClass;
+    }
 
-	public MapPointer<OWLClass, OWLDisjointClassesAxiom> getDisjointClassesAxiomsByClass() {
-		return this.disjointClassesAxiomsByClass;
-	}
+    public MapPointer<OWLClass, OWLDisjointClassesAxiom> getDisjointClassesAxiomsByClass() {
+        return disjointClassesAxiomsByClass;
+    }
 
-	public MapPointer<OWLClass, OWLDisjointUnionAxiom> getDisjointUnionAxiomsByClass() {
-		return this.disjointUnionAxiomsByClass;
-	}
+    public MapPointer<OWLClass, OWLDisjointUnionAxiom> getDisjointUnionAxiomsByClass() {
+        return disjointUnionAxiomsByClass;
+    }
 
-	public MapPointer<OWLClass, OWLHasKeyAxiom> getHasKeyAxiomsByClass() {
-		return this.hasKeyAxiomsByClass;
-	}
+    public MapPointer<OWLClass, OWLHasKeyAxiom> getHasKeyAxiomsByClass() {
+        return hasKeyAxiomsByClass;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsByLHS() {
-		return this.objectSubPropertyAxiomsByLHS;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsByLHS() {
+        return objectSubPropertyAxiomsByLHS;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsByRHS() {
-		return this.objectSubPropertyAxiomsByRHS;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsByRHS() {
+        return objectSubPropertyAxiomsByRHS;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertyAxiomsByProperty() {
-		return this.equivalentObjectPropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertyAxiomsByProperty() {
+        return equivalentObjectPropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertyAxiomsByProperty() {
-		return this.disjointObjectPropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertyAxiomsByProperty() {
+        return disjointObjectPropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxiomsByProperty() {
-		return this.objectPropertyDomainAxiomsByProperty;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxiomsByProperty() {
+        return objectPropertyDomainAxiomsByProperty;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxiomsByProperty() {
-		return this.objectPropertyRangeAxiomsByProperty;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxiomsByProperty() {
+        return objectPropertyRangeAxiomsByProperty;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxiomsByProperty() {
-		return this.functionalObjectPropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxiomsByProperty() {
+        return functionalObjectPropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalPropertyAxiomsByProperty() {
-		return this.inverseFunctionalPropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalPropertyAxiomsByProperty() {
+        return inverseFunctionalPropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLSymmetricObjectPropertyAxiom> getSymmetricPropertyAxiomsByProperty() {
-		return this.symmetricPropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLSymmetricObjectPropertyAxiom> getSymmetricPropertyAxiomsByProperty() {
+        return symmetricPropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLAsymmetricObjectPropertyAxiom> getAsymmetricPropertyAxiomsByProperty() {
-		return this.asymmetricPropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLAsymmetricObjectPropertyAxiom> getAsymmetricPropertyAxiomsByProperty() {
+        return asymmetricPropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLReflexiveObjectPropertyAxiom> getReflexivePropertyAxiomsByProperty() {
-		return this.reflexivePropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLReflexiveObjectPropertyAxiom> getReflexivePropertyAxiomsByProperty() {
+        return reflexivePropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLIrreflexiveObjectPropertyAxiom> getIrreflexivePropertyAxiomsByProperty() {
-		return this.irreflexivePropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLIrreflexiveObjectPropertyAxiom> getIrreflexivePropertyAxiomsByProperty() {
+        return irreflexivePropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLTransitiveObjectPropertyAxiom> getTransitivePropertyAxiomsByProperty() {
-		return this.transitivePropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLTransitiveObjectPropertyAxiom> getTransitivePropertyAxiomsByProperty() {
+        return transitivePropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLObjectPropertyExpression, OWLInverseObjectPropertiesAxiom> getInversePropertyAxiomsByProperty() {
-		return this.inversePropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLObjectPropertyExpression, OWLInverseObjectPropertiesAxiom> getInversePropertyAxiomsByProperty() {
+        return inversePropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsByLHS() {
-		return this.dataSubPropertyAxiomsByLHS;
-	}
+    public MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsByLHS() {
+        return dataSubPropertyAxiomsByLHS;
+    }
 
-	public MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsByRHS() {
-		return this.dataSubPropertyAxiomsByRHS;
-	}
+    public MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsByRHS() {
+        return dataSubPropertyAxiomsByRHS;
+    }
 
-	public MapPointer<OWLDataPropertyExpression, OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertyAxiomsByProperty() {
-		return this.equivalentDataPropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLDataPropertyExpression, OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertyAxiomsByProperty() {
+        return equivalentDataPropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLDataPropertyExpression, OWLDisjointDataPropertiesAxiom> getDisjointDataPropertyAxiomsByProperty() {
-		return this.disjointDataPropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLDataPropertyExpression, OWLDisjointDataPropertiesAxiom> getDisjointDataPropertyAxiomsByProperty() {
+        return disjointDataPropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLDataPropertyExpression, OWLDataPropertyDomainAxiom> getDataPropertyDomainAxiomsByProperty() {
-		return this.dataPropertyDomainAxiomsByProperty;
-	}
+    public MapPointer<OWLDataPropertyExpression, OWLDataPropertyDomainAxiom> getDataPropertyDomainAxiomsByProperty() {
+        return dataPropertyDomainAxiomsByProperty;
+    }
 
-	public MapPointer<OWLDataPropertyExpression, OWLDataPropertyRangeAxiom> getDataPropertyRangeAxiomsByProperty() {
-		return this.dataPropertyRangeAxiomsByProperty;
-	}
+    public MapPointer<OWLDataPropertyExpression, OWLDataPropertyRangeAxiom> getDataPropertyRangeAxiomsByProperty() {
+        return dataPropertyRangeAxiomsByProperty;
+    }
 
-	public MapPointer<OWLDataPropertyExpression, OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxiomsByProperty() {
-		return this.functionalDataPropertyAxiomsByProperty;
-	}
+    public MapPointer<OWLDataPropertyExpression, OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxiomsByProperty() {
+        return functionalDataPropertyAxiomsByProperty;
+    }
 
-	public MapPointer<OWLIndividual, OWLClassAssertionAxiom> getClassAssertionAxiomsByIndividual() {
-		return this.classAssertionAxiomsByIndividual;
-	}
+    public MapPointer<OWLIndividual, OWLClassAssertionAxiom> getClassAssertionAxiomsByIndividual() {
+        return classAssertionAxiomsByIndividual;
+    }
 
-	public MapPointer<OWLClassExpression, OWLClassAssertionAxiom> getClassAssertionAxiomsByClass() {
-		return this.classAssertionAxiomsByClass;
-	}
+    public MapPointer<OWLClassExpression, OWLClassAssertionAxiom> getClassAssertionAxiomsByClass() {
+        return classAssertionAxiomsByClass;
+    }
 
-	public MapPointer<OWLIndividual, OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionsByIndividual() {
-		return this.objectPropertyAssertionsByIndividual;
-	}
+    public MapPointer<OWLIndividual, OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionsByIndividual() {
+        return objectPropertyAssertionsByIndividual;
+    }
 
-	public MapPointer<OWLIndividual, OWLDataPropertyAssertionAxiom> getDataPropertyAssertionsByIndividual() {
-		return this.dataPropertyAssertionsByIndividual;
-	}
+    public MapPointer<OWLIndividual, OWLDataPropertyAssertionAxiom> getDataPropertyAssertionsByIndividual() {
+        return dataPropertyAssertionsByIndividual;
+    }
 
-	public MapPointer<OWLIndividual, OWLNegativeObjectPropertyAssertionAxiom> getNegativeObjectPropertyAssertionAxiomsByIndividual() {
-		return this.negativeObjectPropertyAssertionAxiomsByIndividual;
-	}
+    public MapPointer<OWLIndividual, OWLNegativeObjectPropertyAssertionAxiom> getNegativeObjectPropertyAssertionAxiomsByIndividual() {
+        return negativeObjectPropertyAssertionAxiomsByIndividual;
+    }
 
-	public MapPointer<OWLIndividual, OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxiomsByIndividual() {
-		return this.negativeDataPropertyAssertionAxiomsByIndividual;
-	}
+    public MapPointer<OWLIndividual, OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxiomsByIndividual() {
+        return negativeDataPropertyAssertionAxiomsByIndividual;
+    }
 
-	public MapPointer<OWLIndividual, OWLDifferentIndividualsAxiom> getDifferentIndividualsAxiomsByIndividual() {
-		return this.differentIndividualsAxiomsByIndividual;
-	}
+    public MapPointer<OWLIndividual, OWLDifferentIndividualsAxiom> getDifferentIndividualsAxiomsByIndividual() {
+        return differentIndividualsAxiomsByIndividual;
+    }
 
-	public MapPointer<OWLIndividual, OWLSameIndividualAxiom> getSameIndividualsAxiomsByIndividual() {
-		return this.sameIndividualsAxiomsByIndividual;
-	}
+    public MapPointer<OWLIndividual, OWLSameIndividualAxiom> getSameIndividualsAxiomsByIndividual() {
+        return sameIndividualsAxiomsByIndividual;
+    }
 
-	public MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom> getAnnotationAssertionAxiomsBySubject() {
-		return this.annotationAssertionAxiomsBySubject;
-	}
+    public MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom> getAnnotationAssertionAxiomsBySubject() {
+        return annotationAssertionAxiomsBySubject;
+    }
 }

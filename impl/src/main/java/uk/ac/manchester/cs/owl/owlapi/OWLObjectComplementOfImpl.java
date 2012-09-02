@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectComplementOf {
 
 
-	private static final long serialVersionUID = 1161985791655021928L;
+	private static final long serialVersionUID = 30402L;
 	private final OWLClassExpression operand;
 
     @SuppressWarnings("javadoc")

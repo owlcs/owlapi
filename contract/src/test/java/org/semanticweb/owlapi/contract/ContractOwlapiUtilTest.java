@@ -79,7 +79,7 @@ import org.semanticweb.owlapi.util.DLExpressivityChecker.Construct;
 import org.semanticweb.owlapi.util.ImportsStructureObjectSorter.ObjectSelector;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestAbstractOWLOntologyStorer() throws Exception {
@@ -87,7 +87,7 @@ public class ContractOwlapiUtilTest {
             /**
              * 
              */
-            private static final long serialVersionUID = 3462326597627389528L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public boolean canStoreOntology(final OWLOntologyFormat ontologyFormat) {
@@ -741,10 +741,7 @@ public class ContractOwlapiUtilTest {
                 Utils.mockCollection(mock(OWLAnonymousIndividual.class)));
         OWLEntityCollector testSubject1 = new OWLEntityCollector(Utils.mockSet(Utils
                 .mockOWLEntity()));
-        OWLEntityCollector testSubject2 = new OWLEntityCollector();
         testSubject0.reset(Utils.mockSet(Utils.mockOWLEntity()));
-        Set<OWLAnonymousIndividual> result0 = testSubject0.getAnonymousIndividuals();
-        Set<OWLEntity> result1 = testSubject0.getObjects();
         testSubject0.setCollectClasses(false);
         testSubject0.setCollectObjectProperties(false);
         testSubject0.setCollectDataProperties(false);

@@ -38,27 +38,27 @@
  */
 
 package org.semanticweb.owlapi;/*
-* Copyright (C) 2007, University of Manchester
-*
-* Modifications to the initial code base are copyright of their
-* respective authors, or their employers as appropriate.  Authorship
-* of the modifications may be determined from the ChangeLog placed at
-* the end of this file.
-*
-* This library is free software; you can redistribute it and/or
-* modify it under the terms of the GNU Lesser General Public
-* License as published by the Free Software Foundation; either
-* version 2.1 of the License, or (at your option) any later version.
+ * Copyright (C) 2007, University of Manchester
+ *
+ * Modifications to the initial code base are copyright of their
+ * respective authors, or their employers as appropriate.  Authorship
+ * of the modifications may be determined from the ChangeLog placed at
+ * the end of this file.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
 
-* This library is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* Lesser General Public License for more details.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
 
-* You should have received a copy of the GNU Lesser General Public
-* License along with this library; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
 
 
 import java.util.ArrayList;
@@ -115,7 +115,7 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
      * @param splitIntersections whether or not intersections should be split
      */
     public ConvertEquivalentClassesToSuperClasses(OWLDataFactory dataFactory, OWLClass cls, Set<OWLOntology> ontologies,
-                                                  OWLOntology targetOntology, boolean splitIntersections) {
+            OWLOntology targetOntology, boolean splitIntersections) {
         super(dataFactory);
         this.targetOntology = targetOntology;
         this.cls = cls;
@@ -149,8 +149,8 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
             desc.accept(new OWLClassExpressionVisitorAdapter() {
 
                 @Override
-				public void visit(OWLObjectIntersectionOf desc) {
-                    for (OWLClassExpression op : desc.getOperands()) {
+                public void visit(OWLObjectIntersectionOf intersection) {
+                    for (OWLClassExpression op : intersection.getOperands()) {
                         result.add(op);
                     }
                 }

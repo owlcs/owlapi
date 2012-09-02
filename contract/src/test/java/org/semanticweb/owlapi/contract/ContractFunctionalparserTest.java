@@ -54,7 +54,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.SWRLAtom;
@@ -82,8 +81,6 @@ public class ContractFunctionalparserTest {
         char result0 = testSubject0.readChar();
         testSubject0.backup(0);
         char result1 = testSubject0.BeginToken();
-        int result2 = testSubject0.getColumn();
-        int result3 = testSubject0.getLine();
         int result4 = testSubject0.getEndColumn();
         int result5 = testSubject0.getEndLine();
         int result6 = testSubject0.getBeginColumn();
@@ -136,8 +133,6 @@ public class ContractFunctionalparserTest {
                 new OWLOntologyLoaderConfiguration());
         OWLOntologyFormat result2 = testSubject0.parse(IRI.create("urn:aFake"),
                 Utils.getMockOntology());
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
-        OWLOntologyManager result3 = testSubject0.getOWLOntologyManager();
         String result4 = testSubject0.toString();
     }
 
@@ -244,8 +239,6 @@ public class ContractFunctionalparserTest {
         testSubject0.disable_tracing();
         testSubject0.setIgnoreAnnotationsAndDeclarations(false);
         testSubject0.setUp(Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
-        testSubject0.setUp(Utils.getMockManager(), Utils.getMockOntology(),
-                new OWLOntologyLoaderConfiguration());
         testSubject0.setPrefixes(new DefaultPrefixManager());
         OWLImportsDeclaration result83 = testSubject0.ImportsDeclaration();
         String result84 = testSubject0.PrefixName();

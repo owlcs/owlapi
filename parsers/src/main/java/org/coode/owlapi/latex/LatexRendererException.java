@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 public abstract class LatexRendererException extends OWLRendererException {
 
 
-	private static final long serialVersionUID = -8083424924099657787L;
+	private static final long serialVersionUID = 30402L;
 
 
     public LatexRendererException(Throwable cause) {

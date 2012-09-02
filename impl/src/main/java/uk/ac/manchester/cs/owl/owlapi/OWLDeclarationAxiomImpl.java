@@ -62,7 +62,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarationAxiom {
 
 
-	private static final long serialVersionUID = 943264379844451043L;
+	private static final long serialVersionUID = 30402L;
 	private final OWLEntity entity;
 
     @SuppressWarnings("javadoc")

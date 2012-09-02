@@ -63,13 +63,13 @@ public abstract class AbstractNaryBooleanClassExpressionElementHandler extends A
 
 
     @Override
-	public void handleChild(AbstractClassExpressionElementHandler handler) {
+    public void handleChild(AbstractClassExpressionElementHandler handler) {
         operands.add(handler.getOWLObject());
     }
 
 
     @Override
-	protected void endClassExpressionElement() throws OWLXMLParserException {
+    protected void endClassExpressionElement() throws OWLXMLParserException {
         if (operands.size() >= 2) {
             setClassExpression(createClassExpression(operands));
         }
@@ -81,6 +81,7 @@ public abstract class AbstractNaryBooleanClassExpressionElementHandler extends A
         }
     }
 
-    protected abstract OWLClassExpression createClassExpression(Set<OWLClassExpression> operands);
+    protected abstract OWLClassExpression createClassExpression(
+            Set<OWLClassExpression> expressions);
 
 }

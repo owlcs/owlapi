@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.reasoner.impl.OWLObjectPropertyNodeSet;
 import org.semanticweb.owlapi.reasoner.impl.OWLReasonerBase;
 import org.semanticweb.owlapi.util.Version;
 
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractReasonerImplTest {
     @Test
     public void shouldTestDefaultNode() throws Exception {

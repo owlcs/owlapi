@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements PrefixManager {
 
 
-	private static final long serialVersionUID = 7062874526250338713L;
+	private static final long serialVersionUID = 30402L;
 	private final DefaultPrefixManager nsm;
 
 

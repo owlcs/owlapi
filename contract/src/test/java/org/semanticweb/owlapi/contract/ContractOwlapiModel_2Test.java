@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractOwlapiModel_2Test {
     @Test
     public void shouldTestInterfaceOWLDataProperty() throws Exception {
@@ -1001,19 +1001,19 @@ public class ContractOwlapiModel_2Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 3687391532493070685L;
+            private static final long serialVersionUID = 30402L;
         };
         OWLException testSubject1 = new OWLException("", new RuntimeException()) {
             /**
              * 
              */
-            private static final long serialVersionUID = -6185118099399884751L;
+            private static final long serialVersionUID = 30402L;
         };
         OWLException testSubject2 = new OWLException(new RuntimeException()) {
             /**
              * 
              */
-            private static final long serialVersionUID = -2660505068711371285L;
+            private static final long serialVersionUID = 30402L;
         };
         Throwable result1 = testSubject0.getCause();
         String result3 = testSubject0.toString();
@@ -1884,7 +1884,7 @@ public class ContractOwlapiModel_2Test {
 
     @Test
     public void shouldTestInterfaceOWLNamedObjectVisitorEx() throws Exception {
-        OWLNamedObjectVisitorEx testSubject0 = Utils.mockNamedObject();
+        OWLNamedObjectVisitorEx<OWLObject> testSubject0 = Utils.mockNamedObject();
 
 
 
@@ -2056,10 +2056,10 @@ public class ContractOwlapiModel_2Test {
 
     @Test
     public void shouldTestInterfaceOWLNaryPropertyAxiom() throws Exception {
-        OWLNaryPropertyAxiom testSubject0 = mock(OWLNaryPropertyAxiom.class);
-        Set<OWLAxiom> result0 = testSubject0.getProperties();
-        Set<OWLAxiom> result1 = testSubject0
-                .getPropertiesMinus(mock(OWLPropertyExpression.class));
+        OWLNaryPropertyAxiom<OWLObjectProperty> testSubject0 = mock(OWLNaryPropertyAxiom.class);
+        Set<OWLObjectProperty> result0 = testSubject0.getProperties();
+        Set<OWLObjectProperty> result1 = testSubject0
+                .getPropertiesMinus(mock(OWLObjectProperty.class));
         Set<OWLAnnotation> result2 = testSubject0.getAnnotations();
         Set<OWLAnnotation> result3 = testSubject0
                 .getAnnotations(mock(OWLAnnotationProperty.class));

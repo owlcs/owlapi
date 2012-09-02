@@ -59,7 +59,7 @@ public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
 
 
 
-	private static final long serialVersionUID = -4613365885545391819L;
+	private static final long serialVersionUID = 30402L;
 
 
     @Override  @SuppressWarnings("unused")

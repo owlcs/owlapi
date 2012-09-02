@@ -49,7 +49,7 @@ package org.semanticweb.owlapi.model;
 public class OWLOntologyFactoryNotFoundException extends OWLRuntimeException {
 
 
-	private static final long serialVersionUID = 1407048326414144298L;
+	private static final long serialVersionUID = 30402L;
 
     public OWLOntologyFactoryNotFoundException(IRI documentIRI) {
         super("Could not find an appropriate factory to load ontology from ontology document: " + documentIRI.toQuotedString());

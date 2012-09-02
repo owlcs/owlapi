@@ -94,508 +94,502 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 
 abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SWRLObjectVisitor {
 
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	//
-	// Axiom Visitor stuff
-	//
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
-		public void visit(CollectionContainer<OWLAnnotation> c) {}
-
-		public void visitItem(OWLAnnotation c) {
-			c.accept(AbstractEntityRegistrationManager.this);
-		}
-	};
-
-	protected void processAxiomAnnotations(OWLAxiom ax) {
-		// an OWLAxiomImpl will implement this interface with <OWLAnnotation > parameter; this will avoid creating a defensive copy of the annotation set
-		if (ax instanceof CollectionContainer) {
-			((CollectionContainer<OWLAnnotation>) ax).accept(annotationVisitor);
-		} else {
-			// default behavior: iterate over the annotations outside the axiom
-			for (OWLAnnotation anno : ax.getAnnotations()) {
-				anno.accept(this);
-			}
-		}
-	}
-
-//	protected void processAxiomAnnotations(OWLAxiom ax) {
-//		for (OWLAnnotation anno : ax.getAnnotations()) {
-//			anno.accept(this);
-//		}
-//	}
-
-	public void visit(OWLSubClassOfAxiom axiom) {
-		axiom.getSubClass().accept(this);
-		axiom.getSuperClass().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-		axiom.getSubject().accept(this);
-		axiom.getProperty().accept(this);
-		axiom.getObject().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLDisjointClassesAxiom axiom) {
-		for (OWLClassExpression desc : axiom.getClassExpressions()) {
-			desc.accept(this);
-		}
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLDataPropertyDomainAxiom axiom) {
-		axiom.getDomain().accept(this);
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLObjectPropertyDomainAxiom axiom) {
-		axiom.getDomain().accept(this);
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-		for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-			prop.accept(this);
-		}
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-		axiom.getSubject().accept(this);
-		axiom.getProperty().accept(this);
-		axiom.getObject().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLDifferentIndividualsAxiom axiom) {
-		for (OWLIndividual ind : axiom.getIndividuals()) {
-			ind.accept(this);
-		}
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-		for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-			prop.accept(this);
-		}
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-		for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-			prop.accept(this);
-		}
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLObjectPropertyRangeAxiom axiom) {
-		axiom.getRange().accept(this);
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-		axiom.getSubject().accept(this);
-		axiom.getProperty().accept(this);
-		axiom.getObject().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-		axiom.getSubProperty().accept(this);
-		axiom.getSuperProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLDisjointUnionAxiom axiom) {
-		axiom.getOWLClass().accept((OWLEntityVisitor) this);
-		for (OWLClassExpression desc : axiom.getClassExpressions()) {
-			desc.accept(this);
-		}
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLDeclarationAxiom axiom) {
-		axiom.getEntity().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLDataPropertyRangeAxiom axiom) {
-		axiom.getProperty().accept(this);
-		axiom.getRange().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-		for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-			prop.accept(this);
-		}
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLClassAssertionAxiom axiom) {
-		axiom.getClassExpression().accept(this);
-		axiom.getIndividual().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLEquivalentClassesAxiom axiom) {
-		for (OWLClassExpression desc : axiom.getClassExpressions()) {
-			desc.accept(this);
-		}
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLDataPropertyAssertionAxiom axiom) {
-		axiom.getSubject().accept(this);
-		axiom.getProperty().accept(this);
-		axiom.getObject().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLSubDataPropertyOfAxiom axiom) {
-		axiom.getSubProperty().accept(this);
-		axiom.getSuperProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLSameIndividualAxiom axiom) {
-		for (OWLIndividual ind : axiom.getIndividuals()) {
-			ind.accept(this);
-		}
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLSubPropertyChainOfAxiom axiom) {
-		for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
-			prop.accept(this);
-		}
-		axiom.getSuperProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-		axiom.getFirstProperty().accept(this);
-		axiom.getSecondProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLHasKeyAxiom axiom) {
-		axiom.getClassExpression().accept(this);
-		for (OWLPropertyExpression<?, ?> prop : axiom.getPropertyExpressions()) {
-			prop.accept(this);
-		}
-		processAxiomAnnotations(axiom);
-	}
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//
-	// OWLClassExpressionVisitor
-	//
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-	public void visit(OWLObjectIntersectionOf desc) {
-		for (OWLClassExpression operand : desc.getOperands()) {
-			operand.accept(this);
-		}
-	}
-
-	public void visit(OWLObjectUnionOf desc) {
-		for (OWLClassExpression operand : desc.getOperands()) {
-			operand.accept(this);
-		}
-	}
-
-	public void visit(OWLObjectComplementOf desc) {
-		desc.getOperand().accept(this);
-	}
-
-	public void visit(OWLObjectSomeValuesFrom desc) {
-		desc.getProperty().accept(this);
-		desc.getFiller().accept(this);
-	}
-
-	public void visit(OWLObjectAllValuesFrom desc) {
-		desc.getProperty().accept(this);
-		desc.getFiller().accept(this);
-	}
-
-	public void visit(OWLObjectHasValue desc) {
-		desc.getProperty().accept(this);
-		desc.getValue().accept(this);
-	}
-
-	public void visit(OWLObjectMinCardinality desc) {
-		desc.getProperty().accept(this);
-		desc.getFiller().accept(this);
-	}
-
-	public void visit(OWLObjectExactCardinality desc) {
-		desc.getProperty().accept(this);
-		desc.getFiller().accept(this);
-	}
-
-	public void visit(OWLObjectMaxCardinality desc) {
-		desc.getProperty().accept(this);
-		desc.getFiller().accept(this);
-	}
-
-	public void visit(OWLObjectHasSelf desc) {
-		desc.getProperty().accept(this);
-	}
-
-	public void visit(OWLObjectOneOf desc) {
-		for (OWLIndividual ind : desc.getIndividuals()) {
-			ind.accept(this);
-		}
-	}
-
-	public void visit(OWLDataSomeValuesFrom desc) {
-		desc.getProperty().accept(this);
-		desc.getFiller().accept(this);
-	}
-
-	public void visit(OWLDataAllValuesFrom desc) {
-		desc.getProperty().accept(this);
-		desc.getFiller().accept(this);
-	}
-
-	public void visit(OWLDataHasValue desc) {
-		desc.getProperty().accept(this);
-		desc.getValue().accept(this);
-	}
-
-	public void visit(OWLDataMinCardinality desc) {
-		desc.getProperty().accept(this);
-		desc.getFiller().accept(this);
-	}
-
-	public void visit(OWLDataExactCardinality desc) {
-		desc.getProperty().accept(this);
-		desc.getFiller().accept(this);
-	}
-
-	public void visit(OWLDataMaxCardinality desc) {
-		desc.getProperty().accept(this);
-		desc.getFiller().accept(this);
-	}
-
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//
-	// Data visitor
-	//
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void visit(OWLDataComplementOf node) {
-		node.getDataRange().accept(this);
-	}
-
-	public void visit(OWLDataOneOf node) {
-		for (OWLLiteral val : node.getValues()) {
-			val.accept(this);
-		}
-	}
-
-	public void visit(OWLDataIntersectionOf node) {
-		for (OWLDataRange dr : node.getOperands()) {
-			dr.accept(this);
-		}
-	}
-
-	public void visit(OWLDataUnionOf node) {
-		for (OWLDataRange dr : node.getOperands()) {
-			dr.accept(this);
-		}
-	}
-
-	public void visit(OWLDatatypeRestriction node) {
-		node.getDatatype().accept(this);
-		for (OWLFacetRestriction facetRestriction : node.getFacetRestrictions()) {
-			facetRestriction.accept(this);
-		}
-	}
-
-	public void visit(OWLFacetRestriction node) {
-		node.getFacetValue().accept(this);
-	}
-
-	public void visit(OWLLiteral node) {
-		node.getDatatype().accept(this);
-	}
-
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//
-	// Property expression visitor
-	//
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void visit(OWLObjectInverseOf expression) {
-		expression.getInverse().accept(this);
-	}
-
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//
-	// Entity  visitor
-	//
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-	public void visit(OWLAnnotation annotation) {
-		annotation.getProperty().accept(this);
-		annotation.getValue().accept(this);
-		final Set<OWLAnnotation> annotations = annotation.getAnnotations();
-		if(annotations.size()>0) {
-		for (OWLAnnotation anno : annotations) {
-			anno.accept(this);
-		}
-		}
-	}
-
-	public void visit(OWLAnnotationAssertionAxiom axiom) {
-		axiom.getSubject().accept(this);
-		axiom.getProperty().accept(this);
-		axiom.getValue().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-
-	@SuppressWarnings("unused")
-	public void visit(IRI iri) {}
-
-	//    public void visit(OWLAnnotationValue value) {
-	//        if(value.isLiteral()) {
-	//            value.asLiteral().accept(this);
-	//        }
-	//        else if(value.isAnonymousIndividual()) {
-	//            value.asOWLAnonymousIndividual().accept(this);
-	//        }
-	//    }
-	public void visit(OWLOntology ontology) {}
-
-	public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-		axiom.getProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-		axiom.getSubProperty().accept(this);
-		axiom.getSuperProperty().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	public void visit(OWLDatatypeDefinitionAxiom axiom) {
-		axiom.getDatatype().accept(this);
-		axiom.getDataRange().accept(this);
-		processAxiomAnnotations(axiom);
-	}
-
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//
-	// SWRL Object Visitor
-	//
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void visit(SWRLRule rule) {
-		for (SWRLAtom atom : rule.getBody()) {
-			atom.accept(this);
-		}
-		for (SWRLAtom atom : rule.getHead()) {
-			atom.accept(this);
-		}
-		processAxiomAnnotations(rule);
-	}
-
-	public void visit(SWRLClassAtom node) {
-		node.getArgument().accept(this);
-		node.getPredicate().accept(this);
-	}
-
-	public void visit(SWRLDataRangeAtom node) {
-		node.getArgument().accept(this);
-		node.getPredicate().accept(this);
-	}
-
-	public void visit(SWRLObjectPropertyAtom node) {
-		node.getPredicate().accept(this);
-		node.getFirstArgument().accept(this);
-		node.getSecondArgument().accept(this);
-	}
-
-	public void visit(SWRLDataPropertyAtom node) {
-		node.getPredicate().accept(this);
-		node.getFirstArgument().accept(this);
-		node.getSecondArgument().accept(this);
-	}
-
-	public void visit(SWRLBuiltInAtom node) {
-		for (SWRLArgument obj : node.getAllArguments()) {
-			obj.accept(this);
-		}
-	}
-
-	@SuppressWarnings("unused")
-	public void visit(SWRLVariable node) {}
-
-	public void visit(SWRLIndividualArgument node) {
-		node.getIndividual().accept(this);
-	}
-
-	public void visit(SWRLLiteralArgument node) {
-		node.getLiteral().accept(this);
-	}
-
-	public void visit(SWRLDifferentIndividualsAtom node) {
-		node.getFirstArgument().accept(this);
-	}
-
-	public void visit(SWRLSameIndividualAtom node) {
-		node.getSecondArgument().accept(this);
-	}
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Axiom Visitor stuff
+    //
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
+        @SuppressWarnings("unused")
+        public void visit(CollectionContainer<OWLAnnotation> c) {}
+
+        public void visitItem(OWLAnnotation c) {
+            c.accept(AbstractEntityRegistrationManager.this);
+        }
+    };
+
+    protected void processAxiomAnnotations(OWLAxiom ax) {
+        // an OWLAxiomImpl will implement this interface with <OWLAnnotation > parameter; this will avoid creating a defensive copy of the annotation set
+        if (ax instanceof CollectionContainer) {
+            ((CollectionContainer<OWLAnnotation>) ax).accept(annotationVisitor);
+        } else {
+            // default behavior: iterate over the annotations outside the axiom
+            for (OWLAnnotation anno : ax.getAnnotations()) {
+                anno.accept(this);
+            }
+        }
+    }
+
+    //	protected void processAxiomAnnotations(OWLAxiom ax) {
+    //		for (OWLAnnotation anno : ax.getAnnotations()) {
+    //			anno.accept(this);
+    //		}
+    //	}
+
+    public void visit(OWLSubClassOfAxiom axiom) {
+        axiom.getSubClass().accept(this);
+        axiom.getSuperClass().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        axiom.getSubject().accept(this);
+        axiom.getProperty().accept(this);
+        axiom.getObject().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLDisjointClassesAxiom axiom) {
+        for (OWLClassExpression desc : axiom.getClassExpressions()) {
+            desc.accept(this);
+        }
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLDataPropertyDomainAxiom axiom) {
+        axiom.getDomain().accept(this);
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLObjectPropertyDomainAxiom axiom) {
+        axiom.getDomain().accept(this);
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
+            prop.accept(this);
+        }
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        axiom.getSubject().accept(this);
+        axiom.getProperty().accept(this);
+        axiom.getObject().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLDifferentIndividualsAxiom axiom) {
+        for (OWLIndividual ind : axiom.getIndividuals()) {
+            ind.accept(this);
+        }
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+        for (OWLDataPropertyExpression prop : axiom.getProperties()) {
+            prop.accept(this);
+        }
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
+            prop.accept(this);
+        }
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLObjectPropertyRangeAxiom axiom) {
+        axiom.getRange().accept(this);
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+        axiom.getSubject().accept(this);
+        axiom.getProperty().accept(this);
+        axiom.getObject().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+        axiom.getSubProperty().accept(this);
+        axiom.getSuperProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLDisjointUnionAxiom axiom) {
+        axiom.getOWLClass().accept((OWLEntityVisitor) this);
+        for (OWLClassExpression desc : axiom.getClassExpressions()) {
+            desc.accept(this);
+        }
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLDeclarationAxiom axiom) {
+        axiom.getEntity().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLDataPropertyRangeAxiom axiom) {
+        axiom.getProperty().accept(this);
+        axiom.getRange().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        for (OWLDataPropertyExpression prop : axiom.getProperties()) {
+            prop.accept(this);
+        }
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLClassAssertionAxiom axiom) {
+        axiom.getClassExpression().accept(this);
+        axiom.getIndividual().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLEquivalentClassesAxiom axiom) {
+        for (OWLClassExpression desc : axiom.getClassExpressions()) {
+            desc.accept(this);
+        }
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        axiom.getSubject().accept(this);
+        axiom.getProperty().accept(this);
+        axiom.getObject().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
+        axiom.getSubProperty().accept(this);
+        axiom.getSuperProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLSameIndividualAxiom axiom) {
+        for (OWLIndividual ind : axiom.getIndividuals()) {
+            ind.accept(this);
+        }
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
+        for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
+            prop.accept(this);
+        }
+        axiom.getSuperProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+        axiom.getFirstProperty().accept(this);
+        axiom.getSecondProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLHasKeyAxiom axiom) {
+        axiom.getClassExpression().accept(this);
+        for (OWLPropertyExpression<?, ?> prop : axiom.getPropertyExpressions()) {
+            prop.accept(this);
+        }
+        processAxiomAnnotations(axiom);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // OWLClassExpressionVisitor
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public void visit(OWLObjectIntersectionOf desc) {
+        for (OWLClassExpression operand : desc.getOperands()) {
+            operand.accept(this);
+        }
+    }
+
+    public void visit(OWLObjectUnionOf desc) {
+        for (OWLClassExpression operand : desc.getOperands()) {
+            operand.accept(this);
+        }
+    }
+
+    public void visit(OWLObjectComplementOf desc) {
+        desc.getOperand().accept(this);
+    }
+
+    public void visit(OWLObjectSomeValuesFrom desc) {
+        desc.getProperty().accept(this);
+        desc.getFiller().accept(this);
+    }
+
+    public void visit(OWLObjectAllValuesFrom desc) {
+        desc.getProperty().accept(this);
+        desc.getFiller().accept(this);
+    }
+
+    public void visit(OWLObjectHasValue desc) {
+        desc.getProperty().accept(this);
+        desc.getValue().accept(this);
+    }
+
+    public void visit(OWLObjectMinCardinality desc) {
+        desc.getProperty().accept(this);
+        desc.getFiller().accept(this);
+    }
+
+    public void visit(OWLObjectExactCardinality desc) {
+        desc.getProperty().accept(this);
+        desc.getFiller().accept(this);
+    }
+
+    public void visit(OWLObjectMaxCardinality desc) {
+        desc.getProperty().accept(this);
+        desc.getFiller().accept(this);
+    }
+
+    public void visit(OWLObjectHasSelf desc) {
+        desc.getProperty().accept(this);
+    }
+
+    public void visit(OWLObjectOneOf desc) {
+        for (OWLIndividual ind : desc.getIndividuals()) {
+            ind.accept(this);
+        }
+    }
+
+    public void visit(OWLDataSomeValuesFrom desc) {
+        desc.getProperty().accept(this);
+        desc.getFiller().accept(this);
+    }
+
+    public void visit(OWLDataAllValuesFrom desc) {
+        desc.getProperty().accept(this);
+        desc.getFiller().accept(this);
+    }
+
+    public void visit(OWLDataHasValue desc) {
+        desc.getProperty().accept(this);
+        desc.getValue().accept(this);
+    }
+
+    public void visit(OWLDataMinCardinality desc) {
+        desc.getProperty().accept(this);
+        desc.getFiller().accept(this);
+    }
+
+    public void visit(OWLDataExactCardinality desc) {
+        desc.getProperty().accept(this);
+        desc.getFiller().accept(this);
+    }
+
+    public void visit(OWLDataMaxCardinality desc) {
+        desc.getProperty().accept(this);
+        desc.getFiller().accept(this);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data visitor
+    //
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void visit(OWLDataComplementOf node) {
+        node.getDataRange().accept(this);
+    }
+
+    public void visit(OWLDataOneOf node) {
+        for (OWLLiteral val : node.getValues()) {
+            val.accept(this);
+        }
+    }
+
+    public void visit(OWLDataIntersectionOf node) {
+        for (OWLDataRange dr : node.getOperands()) {
+            dr.accept(this);
+        }
+    }
+
+    public void visit(OWLDataUnionOf node) {
+        for (OWLDataRange dr : node.getOperands()) {
+            dr.accept(this);
+        }
+    }
+
+    public void visit(OWLDatatypeRestriction node) {
+        node.getDatatype().accept(this);
+        for (OWLFacetRestriction facetRestriction : node.getFacetRestrictions()) {
+            facetRestriction.accept(this);
+        }
+    }
+
+    public void visit(OWLFacetRestriction node) {
+        node.getFacetValue().accept(this);
+    }
+
+    public void visit(OWLLiteral node) {
+        node.getDatatype().accept(this);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Property expression visitor
+    //
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void visit(OWLObjectInverseOf expression) {
+        expression.getInverse().accept(this);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Entity  visitor
+    //
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public void visit(OWLAnnotation annotation) {
+        annotation.getProperty().accept(this);
+        annotation.getValue().accept(this);
+        final Set<OWLAnnotation> annotations = annotation.getAnnotations();
+        if(annotations.size()>0) {
+            for (OWLAnnotation anno : annotations) {
+                anno.accept(this);
+            }
+        }
+    }
+
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
+        axiom.getSubject().accept(this);
+        axiom.getProperty().accept(this);
+        axiom.getValue().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+
+    @SuppressWarnings("unused")
+    public void visit(IRI iri) {}
+
+    @SuppressWarnings("unused")
+    public void visit(OWLOntology ontology) {}
+
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
+        axiom.getProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+        axiom.getSubProperty().accept(this);
+        axiom.getSuperProperty().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
+        axiom.getDatatype().accept(this);
+        axiom.getDataRange().accept(this);
+        processAxiomAnnotations(axiom);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // SWRL Object Visitor
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void visit(SWRLRule rule) {
+        for (SWRLAtom atom : rule.getBody()) {
+            atom.accept(this);
+        }
+        for (SWRLAtom atom : rule.getHead()) {
+            atom.accept(this);
+        }
+        processAxiomAnnotations(rule);
+    }
+
+    public void visit(SWRLClassAtom node) {
+        node.getArgument().accept(this);
+        node.getPredicate().accept(this);
+    }
+
+    public void visit(SWRLDataRangeAtom node) {
+        node.getArgument().accept(this);
+        node.getPredicate().accept(this);
+    }
+
+    public void visit(SWRLObjectPropertyAtom node) {
+        node.getPredicate().accept(this);
+        node.getFirstArgument().accept(this);
+        node.getSecondArgument().accept(this);
+    }
+
+    public void visit(SWRLDataPropertyAtom node) {
+        node.getPredicate().accept(this);
+        node.getFirstArgument().accept(this);
+        node.getSecondArgument().accept(this);
+    }
+
+    public void visit(SWRLBuiltInAtom node) {
+        for (SWRLArgument obj : node.getAllArguments()) {
+            obj.accept(this);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public void visit(SWRLVariable node) {}
+
+    public void visit(SWRLIndividualArgument node) {
+        node.getIndividual().accept(this);
+    }
+
+    public void visit(SWRLLiteralArgument node) {
+        node.getLiteral().accept(this);
+    }
+
+    public void visit(SWRLDifferentIndividualsAtom node) {
+        node.getFirstArgument().accept(this);
+    }
+
+    public void visit(SWRLSameIndividualAtom node) {
+        node.getSecondArgument().accept(this);
+    }
 }

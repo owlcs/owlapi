@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 public class ManchesterOWLSyntaxParserException extends OWLParserException {
 
 
-	private static final long serialVersionUID = -3423673939248993415L;
+	private static final long serialVersionUID = 30402L;
     public ManchesterOWLSyntaxParserException(String message, int lineNumber, int columnNumber) {
         super(message, lineNumber, columnNumber);
     }

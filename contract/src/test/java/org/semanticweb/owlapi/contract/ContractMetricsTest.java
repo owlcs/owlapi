@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractMetricsTest {
     @Test
     public void shouldTestAbstractOWLMetric() throws Exception {

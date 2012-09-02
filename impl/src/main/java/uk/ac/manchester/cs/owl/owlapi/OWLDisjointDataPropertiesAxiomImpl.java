@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  */
 public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements OWLDisjointDataPropertiesAxiom {
 
-	private static final long serialVersionUID = 1931291921649656192L;
+	private static final long serialVersionUID = 30402L;
 
 	@SuppressWarnings("javadoc")
     public OWLDisjointDataPropertiesAxiomImpl(Set<? extends OWLDataPropertyExpression> properties, Collection<? extends OWLAnnotation> annotations) {

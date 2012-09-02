@@ -57,12 +57,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br><br>
  */
 public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObjectPropertyExpression> implements OWLObjectHasSelf {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -3911681052624214190L;
 
-	@SuppressWarnings("javadoc")
+    private static final long serialVersionUID = 30402L;
+
+    @SuppressWarnings("javadoc")
     public OWLObjectHasSelfImpl(OWLObjectPropertyExpression property) {
         super(property);
     }
@@ -84,7 +82,7 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLClassExpression,
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectHasSelf;
         }
@@ -109,7 +107,7 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLClassExpression,
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         return getProperty().compareTo(((OWLObjectHasSelf) object).getProperty());
     }
 }

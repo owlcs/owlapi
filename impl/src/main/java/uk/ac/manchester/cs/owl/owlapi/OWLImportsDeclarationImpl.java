@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
 
 
-	private static final long serialVersionUID = 2470913251002420141L;
+	private static final long serialVersionUID = 30402L;
 	private final IRI iri;
     @SuppressWarnings("javadoc")
     public OWLImportsDeclarationImpl(IRI iri) {

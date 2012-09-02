@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public class ContractRdfModelTest {
     @Test
     public void shouldTestAbstractTranslator() throws Exception {
+        @SuppressWarnings("rawtypes")
         AbstractTranslator testSubject0 = new AbstractTranslator(Utils.getMockManager(),
                 Utils.getMockOntology(), false) {
             @Override
@@ -53,7 +54,6 @@ public class ContractRdfModelTest {
     public void shouldTestRDFGraph() throws Exception {
         RDFGraph testSubject0 = new RDFGraph();
         testSubject0.addTriple(mock(RDFTriple.class));
-        Set<RDFTriple> result0 = testSubject0.getTriplesForSubject(mock(RDFNode.class));
         List<RDFTriple> result1 = testSubject0.getSortedTriplesForSubject(
                 mock(RDFNode.class), false);
         boolean result2 = testSubject0

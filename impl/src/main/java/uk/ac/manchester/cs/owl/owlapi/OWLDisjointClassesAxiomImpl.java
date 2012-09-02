@@ -62,7 +62,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implements OWLDisjointClassesAxiom {
 
-	private static final long serialVersionUID = -8366398507934642972L;
+	private static final long serialVersionUID = 30402L;
 
 	@SuppressWarnings("javadoc")
     public OWLDisjointClassesAxiomImpl(Set<? extends OWLClassExpression> classExpressions, Set<? extends OWLAnnotation> annotations) {

@@ -47,20 +47,18 @@ package org.semanticweb.owlapi.reasoner;
  * Date: 24-Sep-2009
  * Thrown when the current reasoner operation has been interrupted due to a satisfiability check timeout.
  */
+@SuppressWarnings("javadoc")
 public class TimeOutException extends OWLReasonerRuntimeException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3426877820488891034L;
-	public TimeOutException() {
-		this("Timeout occurred while reasoning!");
-	}
-	public TimeOutException(String message) {
-		super(message);
-	}
-	public TimeOutException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    private static final long serialVersionUID = 30402L;
+    public TimeOutException() {
+        this("Timeout occurred while reasoning!");
+    }
+    public TimeOutException(String message) {
+        super(message);
+    }
+    public TimeOutException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
 }

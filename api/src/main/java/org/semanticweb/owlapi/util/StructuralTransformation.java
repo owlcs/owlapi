@@ -120,7 +120,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
  */
 public class StructuralTransformation {
 
-	protected final OWLDataFactory df;
+    protected final OWLDataFactory df;
 
     private int nameCounter = 0;
 
@@ -130,7 +130,7 @@ public class StructuralTransformation {
      * @param dataFactory factory to use
      */
     public StructuralTransformation(OWLDataFactory dataFactory) {
-        this.df = dataFactory;
+        df = dataFactory;
         signature = new HashSet<OWLEntity>();
     }
 
@@ -180,17 +180,13 @@ public class StructuralTransformation {
 
         private final OWLClassExpression rhs;
 
-//        private OWLClass lefthandSide;
-
-
         public AxiomFlattener(OWLDataFactory df, OWLClassExpression rhs) {
-            this.ldf = df;
-//            this.lefthandSide = lhs;
+            ldf = df;
             this.rhs = rhs;
         }
 
-        private OWLSubClassOfAxiom getSCA(OWLClass lhs, OWLClassExpression rhs) {
-            return ldf.getOWLSubClassOfAxiom(lhs, rhs);
+        private OWLSubClassOfAxiom getSCA(OWLClass lhs, OWLClassExpression ce) {
+            return ldf.getOWLSubClassOfAxiom(lhs, ce);
         }
 
         public Set<OWLAxiom> getAxioms() {
@@ -327,7 +323,7 @@ public class StructuralTransformation {
         public OWLClassExpression visit(OWLObjectUnionOf desc) {
             Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
             for (OWLClassExpression op : desc.getOperands()) {
-//                if(!op.isClassExpressionLiteral()) {
+                //                if(!op.isClassExpressionLiteral()) {
                 OWLClassExpression flatOp = op.accept(this);
                 if (flatOp.isAnonymous() || signature.contains(flatOp.asOWLClass())) {
                     OWLClass name = createNewName();
@@ -336,12 +332,12 @@ public class StructuralTransformation {
                 } else {
                     descs.add(flatOp);
                 }
-//                }
-//                else {
-//                    OWLClass name = createNewName();
-//                    descs.add(name);
-//                    axioms.add(df.getOWLSubClassOfAxiom(name, op));
-//                }
+                //                }
+                //                else {
+                //                    OWLClass name = createNewName();
+                //                    descs.add(name);
+                //                    axioms.add(df.getOWLSubClassOfAxiom(name, op));
+                //                }
             }
             return ldf.getOWLObjectUnionOf(descs);
         }

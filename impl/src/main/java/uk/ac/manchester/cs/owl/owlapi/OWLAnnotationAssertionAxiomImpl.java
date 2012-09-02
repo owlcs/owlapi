@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWLAnnotationAssertionAxiom {
 
 
-	private static final long serialVersionUID = 8168574499619822997L;
+	private static final long serialVersionUID = 30402L;
 
 	private final OWLAnnotationSubject subject;
 

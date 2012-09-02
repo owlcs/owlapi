@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 public class OWLRDFXMLParserException extends OWLParserException {
 
 
-	private static final long serialVersionUID = -8400617997118362840L;
+	private static final long serialVersionUID = 30402L;
 
 
 	public OWLRDFXMLParserException(String message) {

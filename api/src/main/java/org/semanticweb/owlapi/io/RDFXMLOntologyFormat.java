@@ -48,7 +48,7 @@ package org.semanticweb.owlapi.io;
 public class RDFXMLOntologyFormat extends RDFOntologyFormat {
 
 
-	private static final long serialVersionUID = -8571676217798258962L;
+	private static final long serialVersionUID = 30402L;
 
     @Override
 	public String toString() {

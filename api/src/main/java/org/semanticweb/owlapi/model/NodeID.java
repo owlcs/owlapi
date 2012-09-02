@@ -50,10 +50,10 @@ import java.io.Serializable;
 public abstract class NodeID implements Comparable<NodeID>, Serializable {
 
 
-	private static final long serialVersionUID = -1718776055071223898L;
+    private static final long serialVersionUID = 30402L;
 
 
-	/**
+    /**
      * Gets the string representation of the node ID.  This will begin with _:
      * @return The string representation of the node ID.
      */
@@ -81,12 +81,9 @@ public abstract class NodeID implements Comparable<NodeID>, Serializable {
 
     static class NodeIDImpl extends NodeID {
 
-        /**
-		 * 
-		 */
-		private static final long serialVersionUID = -837275014171362934L;
+        private static final long serialVersionUID = 30402L;
 
-		private static final String NODE_ID_PREFIX = "genid";
+        private static final String NODE_ID_PREFIX = "genid";
 
         private static long counter = 0;
 
@@ -106,7 +103,7 @@ public abstract class NodeID implements Comparable<NodeID>, Serializable {
         }
 
         @Override
-		public String toString() {
+        public String toString() {
             return id;
         }
 
@@ -115,7 +112,7 @@ public abstract class NodeID implements Comparable<NodeID>, Serializable {
         }
 
         @Override
-		public boolean equals(Object obj) {
+        public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
             }
@@ -127,7 +124,7 @@ public abstract class NodeID implements Comparable<NodeID>, Serializable {
         }
 
         @Override
-		public int hashCode() {
+        public int hashCode() {
             return id.hashCode();
         }
 
@@ -136,7 +133,7 @@ public abstract class NodeID implements Comparable<NodeID>, Serializable {
          * @return The string representation of the node ID.
          */
         @Override
-		public String getID() {
+        public String getID() {
             return id;
         }
     }

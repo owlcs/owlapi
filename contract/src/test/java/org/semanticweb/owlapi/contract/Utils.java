@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import uk.ac.manchester.cs.owl.owlapi.CollectionContainer;
 import uk.ac.manchester.cs.owl.owlapi.CollectionContainerVisitor;
 
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class Utils {
     public static AxiomType<OWLAnnotationAssertionAxiom> mockAxiomType() {
         return AxiomType.ANNOTATION_ASSERTION;
@@ -1114,7 +1114,9 @@ public class Utils {
                 return false;
             }
         }, new OWLOntologyLoaderConfiguration());
-        c.setOntologyFormat(new RDFOntologyFormat() {});
+        c.setOntologyFormat(new RDFOntologyFormat() {
+            private static final long serialVersionUID = 30402L;
+        });
         return c;
     }
 

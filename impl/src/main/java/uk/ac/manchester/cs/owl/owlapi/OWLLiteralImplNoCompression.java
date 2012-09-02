@@ -62,6 +62,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
 
+    private static final long serialVersionUID = 30402L;
     static final String utf_8 = "UTF-8";
 
     private final byte[] literal;
@@ -183,7 +184,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         if (l == null) {
             l = "";
         }
-        return this.lang != null && this.lang.equalsIgnoreCase(l.trim());
+        return lang != null && lang.equalsIgnoreCase(l.trim());
     }
 
     public OWLDatatype getDatatype() {

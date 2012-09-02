@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.profiles.OWLProfile;
 public class ClassExpressionNotInProfileException extends OWLReasonerRuntimeException {
 
 
-	private static final long serialVersionUID = -2435277403322842099L;
+	private static final long serialVersionUID = 30402L;
 
 	private final OWLClassExpression classExpression;
 

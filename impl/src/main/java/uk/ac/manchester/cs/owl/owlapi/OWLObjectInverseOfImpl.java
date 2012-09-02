@@ -63,7 +63,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl implements OWLObjectInverseOf {
 
 
-	private static final long serialVersionUID = 1235194733495487418L;
+	private static final long serialVersionUID = 30402L;
 	private final OWLObjectPropertyExpression inverseProperty;
 
     @SuppressWarnings("javadoc")

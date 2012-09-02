@@ -52,7 +52,7 @@ package org.coode.xml;
 public class IllegalElementNameException extends RuntimeException {
 
 
-	private static final long serialVersionUID = -7169967365236696024L;
+	private static final long serialVersionUID = 30402L;
 	private String elementName;
 
     public IllegalElementNameException(String elementName) {

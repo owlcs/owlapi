@@ -53,12 +53,9 @@ import org.xml.sax.SAXException;
  */
 public class OWLParserSAXException extends OWLParserException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5597940582585508830L;
+    private static final long serialVersionUID = 30402L;
 
-	/**
+    /**
      * @param cause the cause
      */
     public OWLParserSAXException(SAXException cause) {
@@ -66,7 +63,7 @@ public class OWLParserSAXException extends OWLParserException {
     }
 
     @Override
-    public SAXException getCause() {
+    public synchronized SAXException getCause() {
         return (SAXException) super.getCause();
     }
 }

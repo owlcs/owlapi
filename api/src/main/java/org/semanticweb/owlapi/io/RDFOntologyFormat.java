@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
 
 
-	private static final long serialVersionUID = -4626051787321747120L;
+	private static final long serialVersionUID = 30402L;
 
     private boolean addMissingTypes = true;
 

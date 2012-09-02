@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 public abstract class OWLClassExpressionImpl extends OWLObjectImpl implements OWLClassExpression {
 
 
-	private static final long serialVersionUID = 4540142163259217589L;
+	private static final long serialVersionUID = 30402L;
 
 	protected OWLClassExpressionImpl() {
         super();

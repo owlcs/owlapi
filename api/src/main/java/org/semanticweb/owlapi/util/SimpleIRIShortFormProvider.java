@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.util;
 
+import java.io.Serializable;
+
 import org.semanticweb.owlapi.model.IRI;
 
 
@@ -52,8 +54,9 @@ import org.semanticweb.owlapi.model.IRI;
  * the URI fragment if there is one, followed by the URI last
  * path component if there is one.
  */
-public class SimpleIRIShortFormProvider implements IRIShortFormProvider {
+public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Serializable {
 
+    private static final long serialVersionUID = 30402L;
 
     public String getShortForm(IRI iri) {
         String rendering = iri.getFragment();

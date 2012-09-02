@@ -56,142 +56,141 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * <br>
  */
 public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -5720466151025153570L;
-	private final float literal;
-	private final OWLDatatype datatype;
 
-	@SuppressWarnings("javadoc")
-	public OWLLiteralImplFloat(float literal,
-			OWLDatatype datatype) {
-		super();
-		this.literal = literal;
-		this.datatype = datatype;
-		hashcode = getHashCode();
-	}
+    private static final long serialVersionUID = 30402L;
+    private final float literal;
+    private final OWLDatatype datatype;
 
-	private final int hashcode;
+    @SuppressWarnings("javadoc")
+    public OWLLiteralImplFloat(float literal,
+            OWLDatatype datatype) {
+        super();
+        this.literal = literal;
+        this.datatype = datatype;
+        hashcode = getHashCode();
+    }
 
-	@Override
-	public int hashCode() {
-		return hashcode;
-	}
+    private final int hashcode;
 
-	private int getHashCode() {
-		int hashCode = 277;
-		hashCode = hashCode * 37 + getDatatype().hashCode();
-		hashCode = hashCode * 37 + (int) (literal * 65536);
-		return hashCode;
-	}
+    @Override
+    public int hashCode() {
+        return hashcode;
+    }
 
-	public String getLiteral() {
-		return Float.toString(literal);
-	}
+    private int getHashCode() {
+        int hashCode = 277;
+        hashCode = hashCode * 37 + getDatatype().hashCode();
+        hashCode = hashCode * 37 + (int) (literal * 65536);
+        return hashCode;
+    }
 
-	public Float getFloat() {
-		return literal;
-	}
+    public String getLiteral() {
+        return Float.toString(literal);
+    }
 
-	public boolean isRDFPlainLiteral() {
-		return false;
-	}
+    public Float getFloat() {
+        return literal;
+    }
 
-	public boolean hasLang() {
-		return false;
-	}
+    public boolean isRDFPlainLiteral() {
+        return false;
+    }
 
-	public boolean isInteger() {
-		return false;
-	}
+    public boolean hasLang() {
+        return false;
+    }
 
-	public int parseInteger() throws NumberFormatException {
-		throw new NumberFormatException("this literal is not an integer but a float");
-	}
+    public boolean isInteger() {
+        return false;
+    }
 
-	public boolean isBoolean() {
-		return false;
-	}
+    public int parseInteger() throws NumberFormatException {
+        throw new NumberFormatException("this literal is not an integer but a float");
+    }
 
-	public boolean parseBoolean() throws NumberFormatException {
-		throw new NumberFormatException("this literal is not a boolean but a float");
-	}
+    public boolean isBoolean() {
+        return false;
+    }
 
-	public boolean isDouble() {
-		return false;
-	}
+    public boolean parseBoolean() throws NumberFormatException {
+        throw new NumberFormatException("this literal is not a boolean but a float");
+    }
 
-	public double parseDouble() throws NumberFormatException {
-		throw new NumberFormatException("this literal is not a double but a float");
-	}
+    public boolean isDouble() {
+        return false;
+    }
 
-	public boolean isFloat() {
-		return true;
-	}
+    public double parseDouble() throws NumberFormatException {
+        throw new NumberFormatException("this literal is not a double but a float");
+    }
 
-	public float parseFloat() throws NumberFormatException {
-		return literal;
-	}
+    public boolean isFloat() {
+        return true;
+    }
 
-	public String getLang() {
-		return "";
-	}
+    public float parseFloat() throws NumberFormatException {
+        return literal;
+    }
 
-	public boolean hasLang(String l) {
-		return false;
-	}
+    public String getLang() {
+        return "";
+    }
 
-	public OWLDatatype getDatatype() {
-		return datatype;
-	}
+    @SuppressWarnings("unused")
+    public boolean hasLang(String l) {
+        return false;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (super.equals(obj)) {
-			if (obj instanceof OWLLiteralImplFloat) {
-				OWLLiteralImplFloat other = (OWLLiteralImplFloat) obj;
-				return literal == other.literal && datatype.equals(other.getDatatype());
-			}
-			if (obj instanceof OWLLiteral) {
-				return datatype.equals(((OWLLiteral) obj).getDatatype())
-						&& getLiteral().equals(((OWLLiteral) obj).getLiteral());
-			}
-		}
-		return false;
-	}
+    public OWLDatatype getDatatype() {
+        return datatype;
+    }
 
-	public void accept(OWLDataVisitor visitor) {
-		visitor.visit(this);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            if (obj instanceof OWLLiteralImplFloat) {
+                OWLLiteralImplFloat other = (OWLLiteralImplFloat) obj;
+                return literal == other.literal && datatype.equals(other.getDatatype());
+            }
+            if (obj instanceof OWLLiteral) {
+                return datatype.equals(((OWLLiteral) obj).getDatatype())
+                        && getLiteral().equals(((OWLLiteral) obj).getLiteral());
+            }
+        }
+        return false;
+    }
 
-	public <O> O accept(OWLDataVisitorEx<O> visitor) {
-		return visitor.visit(this);
-	}
+    public void accept(OWLDataVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public void accept(OWLAnnotationValueVisitor visitor) {
-		visitor.visit(this);
-	}
+    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 
-	public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
-		return visitor.visit(this);
-	}
+    public void accept(OWLAnnotationValueVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	@Override
-	protected int compareObjectOfSameType(OWLObject object) {
-		OWLLiteral other = (OWLLiteral) object;
-		int diff = getLiteral().compareTo(other.getLiteral());
-		if (diff != 0) {
-			return diff;
-		}
-		return datatype.compareTo(other.getDatatype());
-	}
+    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 
-	public void accept(OWLObjectVisitor visitor) {
-		visitor.visit(this);
-	}
+    @Override
+    protected int compareObjectOfSameType(OWLObject object) {
+        OWLLiteral other = (OWLLiteral) object;
+        int diff = getLiteral().compareTo(other.getLiteral());
+        if (diff != 0) {
+            return diff;
+        }
+        return datatype.compareTo(other.getDatatype());
+    }
 
-	public <O> O accept(OWLObjectVisitorEx<O> visitor) {
-		return visitor.visit(this);
-	}
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }
