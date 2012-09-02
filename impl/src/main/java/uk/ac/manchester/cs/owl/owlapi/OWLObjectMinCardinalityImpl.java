@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  */
 public class OWLObjectMinCardinalityImpl extends OWLObjectCardinalityRestrictionImpl implements OWLObjectMinCardinality {
 
-	private static final long serialVersionUID = -6498049859117307272L;
+	private static final long serialVersionUID = 30402L;
 
 
 	@SuppressWarnings("javadoc")

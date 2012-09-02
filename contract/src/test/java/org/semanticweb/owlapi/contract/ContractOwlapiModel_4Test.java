@@ -13,7 +13,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -108,7 +107,7 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractOwlapiModel_4Test {
     @Test
     public void shouldTestOWLOntologyStorageException() throws Exception {
@@ -1130,7 +1129,7 @@ public class ContractOwlapiModel_4Test {
 
     @Test
     public void shouldTestInterfaceSWRLBinaryAtom() throws Exception {
-        SWRLBinaryAtom testSubject0 = mock(SWRLBinaryAtom.class);
+        SWRLBinaryAtom<SWRLArgument, SWRLArgument> testSubject0 = mock(SWRLBinaryAtom.class);
         SWRLArgument result0 = testSubject0.getFirstArgument();
         SWRLArgument result1 = testSubject0.getSecondArgument();
         SWRLPredicate result2 = testSubject0.getPredicate();
@@ -1216,10 +1215,6 @@ public class ContractOwlapiModel_4Test {
     @Test
     public void shouldTestInterfaceSWRLDataFactory() throws Exception {
         SWRLDataFactory testSubject0 = mock(SWRLDataFactory.class);
-        SWRLRule result0 = testSubject0.getSWRLRule(IRI.create("urn:aFake"),
-                Utils.mockSet(mock(SWRLAtom.class)), Utils.mockSet(mock(SWRLAtom.class)));
-        SWRLRule result1 = testSubject0.getSWRLRule(mock(NodeID.class),
-                Utils.mockSet(mock(SWRLAtom.class)), Utils.mockSet(mock(SWRLAtom.class)));
         SWRLRule result2 = testSubject0.getSWRLRule(Utils.mockSet(mock(SWRLAtom.class)),
                 Utils.mockSet(mock(SWRLAtom.class)));
         SWRLRule result3 = testSubject0.getSWRLRule(Utils.mockSet(mock(SWRLAtom.class)),

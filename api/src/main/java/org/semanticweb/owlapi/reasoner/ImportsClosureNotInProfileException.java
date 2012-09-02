@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.profiles.OWLProfile;
 public class ImportsClosureNotInProfileException extends OWLReasonerRuntimeException {
 
 
-	private static final long serialVersionUID = 5299155253601315515L;
+	private static final long serialVersionUID = 30402L;
 	private final OWLProfile profile;
 
     public ImportsClosureNotInProfileException(OWLProfile profile) {

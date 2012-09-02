@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.UnloadableImportException;
@@ -4098,8 +4097,6 @@ public class ContractOwlxmlparserTest {
         OWLXMLParser testSubject0 = new OWLXMLParser();
         OWLOntologyFormat result1 = testSubject0.parse(new StringDocumentSource(""),
                 Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
-        OWLOntologyManager result3 = testSubject0.getOWLOntologyManager();
         String result4 = testSubject0.toString();
     }
 

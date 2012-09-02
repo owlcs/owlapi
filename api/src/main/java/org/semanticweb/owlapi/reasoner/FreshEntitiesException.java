@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 public class FreshEntitiesException extends OWLReasonerRuntimeException {
 
 
-	private static final long serialVersionUID = -6475810412085748930L;
+	private static final long serialVersionUID = 30402L;
 	private final List<OWLEntity> entities;
 
     public FreshEntitiesException(Set<OWLEntity> entities) {

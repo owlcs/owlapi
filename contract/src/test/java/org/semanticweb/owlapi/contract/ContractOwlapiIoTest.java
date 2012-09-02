@@ -70,7 +70,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -102,8 +101,6 @@ public class ContractOwlapiIoTest {
         };
         OWLOntologyFormat result0 = testSubject0.parse(IRI.create("urn:aFake"),
                 Utils.getMockOntology());
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
-        OWLOntologyManager result1 = testSubject0.getOWLOntologyManager();
         String result2 = testSubject0.toString();
         OWLOntologyFormat result3 = testSubject0.parse(
                 mock(OWLOntologyDocumentSource.class), Utils.getMockOntology());
@@ -313,7 +310,6 @@ public class ContractOwlapiIoTest {
         OWLOntologyFormat result2 = testSubject0.parse(
                 mock(OWLOntologyDocumentSource.class), Utils.getMockOntology(),
                 new OWLOntologyLoaderConfiguration());
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
     }
 
     @Test
@@ -471,7 +467,7 @@ public class ContractOwlapiIoTest {
             /**
              * 
              */
-            private static final long serialVersionUID = 4404175011568643939L;
+            private static final long serialVersionUID = 30402L;
         };
         RDFParserMetaData result0 = testSubject0.getOntologyLoaderMetaData();
         OWLOntologyLoaderMetaData result1 = testSubject0.getOntologyLoaderMetaData();
@@ -664,7 +660,6 @@ public class ContractOwlapiIoTest {
         ToStringRenderer testSubject0 = ToStringRenderer.getInstance();
         ToStringRenderer result0 = ToStringRenderer.getInstance();
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
-        OWLObjectRenderer result1 = testSubject0.getRenderer();
         testSubject0.setRenderer(mock(OWLObjectRenderer.class));
         String result2 = testSubject0.getRendering(mock(OWLObject.class));
         String result3 = testSubject0.toString();

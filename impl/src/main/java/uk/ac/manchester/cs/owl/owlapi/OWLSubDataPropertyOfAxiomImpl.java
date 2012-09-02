@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
  */
 public class OWLSubDataPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLDataPropertyExpression> implements OWLSubDataPropertyOfAxiom {
 
-	private static final long serialVersionUID = -7359371170400448979L;
+	private static final long serialVersionUID = 30402L;
 
 
 	@SuppressWarnings("javadoc")

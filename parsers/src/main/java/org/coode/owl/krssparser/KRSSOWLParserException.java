@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 public class KRSSOWLParserException extends OWLParserException {
 
 
-	private static final long serialVersionUID = 2647958042419629180L;
+	private static final long serialVersionUID = 30402L;
 
 
     public KRSSOWLParserException(ParseException e) {

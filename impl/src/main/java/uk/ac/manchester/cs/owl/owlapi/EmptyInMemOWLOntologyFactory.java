@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.io.DefaultOntologyFormat;
@@ -48,36 +47,35 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Nov-2006<br><br>
- */
+ * Date: 15-Nov-2006<br>
+ * <br> */
+@SuppressWarnings("unused")
 public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 1478611962213084068L;
-
-
-
-	public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
-        throw new OWLRuntimeException(new UnsupportedOperationException("Cannot load OWL ontologies."));
+    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
+            OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
+        throw new OWLRuntimeException(new UnsupportedOperationException(
+                "Cannot load OWL ontologies."));
     }
 
-    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler handler, OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
+    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
+            OWLOntologyCreationHandler handler,
+            OWLOntologyLoaderConfiguration configuration)
+                    throws OWLOntologyCreationException {
         return loadOWLOntology(documentSource, handler);
     }
 
     @Override
-	public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
+    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI,
+            OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
         OWLOntology ont = super.createOWLOntology(ontologyID, documentIRI, handler);
         handler.setOntologyFormat(ont, new DefaultOntologyFormat());
         return ont;
     }
-
-
 
     public boolean canLoad(OWLOntologyDocumentSource documentSource) {
         return false;

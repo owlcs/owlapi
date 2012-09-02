@@ -61,137 +61,135 @@ import org.semanticweb.owlapi.util.NNF;
  */
 @SuppressWarnings("javadoc")
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
-		CollectionContainer<OWLAnnotation> {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1301957680921377547L;
-	private OWLAxiom nnf;
-	private final List<OWLAnnotation> annotations;
+CollectionContainer<OWLAnnotation> {
 
-	public OWLAxiomImpl(
-			Collection<? extends OWLAnnotation> annotations) {
-		super();
-		if (!annotations.isEmpty()) {
-			this.annotations = new ArrayList<OWLAnnotation>(annotations);
-			Collections.sort(this.annotations);
-		} else {
-			this.annotations = Collections.emptyList();
-		}
-	}
+    private static final long serialVersionUID = 30402L;
+    private OWLAxiom nnf;
+    private final List<OWLAnnotation> annotations;
 
-	public boolean isAnnotated() {
-		return !annotations.isEmpty();
-	}
+    public OWLAxiomImpl(
+            Collection<? extends OWLAnnotation> annotations) {
+        super();
+        if (!annotations.isEmpty()) {
+            this.annotations = new ArrayList<OWLAnnotation>(annotations);
+            Collections.sort(this.annotations);
+        } else {
+            this.annotations = Collections.emptyList();
+        }
+    }
 
-	//TODO when processing annotations on OWLOntology:: add axiom, needs optimizing
-	public Set<OWLAnnotation> getAnnotations() {
-		if (annotations.isEmpty()) {
-			return Collections.emptySet();
-		}
-		return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(annotations);
-	}
+    public boolean isAnnotated() {
+        return !annotations.isEmpty();
+    }
 
-	public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
-		final int size=annotations.size();
-		for(int i=0;i<size;i++) {
+    //TODO when processing annotations on OWLOntology:: add axiom, needs optimizing
+    public Set<OWLAnnotation> getAnnotations() {
+        if (annotations.isEmpty()) {
+            return Collections.emptySet();
+        }
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(annotations);
+    }
 
-			t.visitItem(annotations.get(i));
-		}
-	}
+    public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
+        final int size=annotations.size();
+        for(int i=0;i<size;i++) {
+
+            t.visitItem(annotations.get(i));
+        }
+    }
 
 
-	public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
-		if (annotations.isEmpty()) {
-			return Collections.emptySet();
-		} else {
-			Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
-			for (OWLAnnotation anno : annotations) {
-				if (anno.getProperty().equals(annotationProperty)) {
-					result.add(anno);
-				}
-			}
-			return result;
-		}
-	}
+    public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
+        if (annotations.isEmpty()) {
+            return Collections.emptySet();
+        } else {
+            Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
+            for (OWLAnnotation anno : annotations) {
+                if (anno.getProperty().equals(annotationProperty)) {
+                    result.add(anno);
+                }
+            }
+            return result;
+        }
+    }
 
-	/**
-	 * Determines if another axiom is equal to this axiom not taking into
-	 * consideration the annotations on the axiom
-	 *
-	 * @param axiom
-	 *            The axiom to test if equal
-	 * @return <code>true</code> if <code>axiom</code> without annotations is
-	 *         equal to this axiom without annotations otherwise
-	 *         <code>false</code>.
-	 */
-	public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
-		return this.getAxiomWithoutAnnotations().equals(
-				axiom.getAxiomWithoutAnnotations());
-	}
+    /**
+     * Determines if another axiom is equal to this axiom not taking into
+     * consideration the annotations on the axiom
+     *
+     * @param axiom
+     *            The axiom to test if equal
+     * @return <code>true</code> if <code>axiom</code> without annotations is
+     *         equal to this axiom without annotations otherwise
+     *         <code>false</code>.
+     */
+    public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
+        return getAxiomWithoutAnnotations().equals(
+                axiom.getAxiomWithoutAnnotations());
+    }
 
-	/**
-	 * Determines if this axiom is one of the specified types
-	 *
-	 * @param axiomTypes
-	 *            The axiom types to check for
-	 * @return <code>true</code> if this axiom is one of the specified types,
-	 *         otherwise <code>false</code>
-	 * @since 3.0
-	 */
-	public boolean isOfType(AxiomType<?>... axiomTypes) {
-		for (AxiomType<?> type : axiomTypes) {
-			if (getAxiomType().equals(type)) {
-				return true;
-			}
-		}
-		return false;
-	}
+    /**
+     * Determines if this axiom is one of the specified types
+     *
+     * @param axiomTypes
+     *            The axiom types to check for
+     * @return <code>true</code> if this axiom is one of the specified types,
+     *         otherwise <code>false</code>
+     * @since 3.0
+     */
+    public boolean isOfType(AxiomType<?>... axiomTypes) {
+        for (AxiomType<?> type : axiomTypes) {
+            if (getAxiomType().equals(type)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	/**
-	 * Determines if this axiom is one of the specified types
-	 *
-	 * @param types
-	 *            The axiom types to check for
-	 * @return <code>true</code> if this axioms is one of the specified types,
-	 *         otherwise <code>false</code>
-	 * @since 3.0
-	 */
-	public boolean isOfType(Set<AxiomType<?>> types) {
-		return types.contains(getAxiomType());
-	}
+    /**
+     * Determines if this axiom is one of the specified types
+     *
+     * @param types
+     *            The axiom types to check for
+     * @return <code>true</code> if this axioms is one of the specified types,
+     *         otherwise <code>false</code>
+     * @since 3.0
+     */
+    public boolean isOfType(Set<AxiomType<?>> types) {
+        return types.contains(getAxiomType());
+    }
 
-	/**
-	 * A convenience method for implementation that returns a set containing the
-	 * annotations on this axiom plus the annotations in the specified set.
-	 *
-	 * @param annos
-	 *            The annotations to add to the annotations on this axiom
-	 * @return The annotations
-	 */
-	protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
-		Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annos);
-		merged.addAll(annotations);
-		return merged;
-	}
+    /**
+     * A convenience method for implementation that returns a set containing the
+     * annotations on this axiom plus the annotations in the specified set.
+     *
+     * @param annos
+     *            The annotations to add to the annotations on this axiom
+     * @return The annotations
+     */
+    protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
+        Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annos);
+        merged.addAll(annotations);
+        return merged;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (!super.equals(obj)) {
-			return false;
-		}
-		if (!(obj instanceof OWLAxiom)) {
-			return false;
-		}
-		OWLAxiom other = (OWLAxiom) obj;
-		return getAnnotations().equals(other.getAnnotations());
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLAxiom)) {
+            return false;
+        }
+        OWLAxiom other = (OWLAxiom) obj;
+        return getAnnotations().equals(other.getAnnotations());
+    }
 
-	public OWLAxiom getNNF() {
-		if (nnf == null) {
-			NNF con = new NNF(getOWLDataFactory());
-			nnf = accept(con);
-		}
-		return nnf;
-	}
+    public OWLAxiom getNNF() {
+        if (nnf == null) {
+            NNF con = new NNF(getOWLDataFactory());
+            nnf = accept(con);
+        }
+        return nnf;
+    }
 }

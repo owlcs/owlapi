@@ -60,10 +60,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -5131811752126578684L;
+
+    private static final long serialVersionUID = 30402L;
 
     private static final String ABBREVIATED_IRI = "abbreviatedIRI";
 
@@ -87,20 +85,22 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
 
     private static final String DATA_RANGE = "dataRange";
 
-    private static final transient OWLDataFactory instance = new OWLDataFactoryImpl(false, false);
+    private static final OWLDataFactory instance = new OWLDataFactoryImpl(false, false);
 
-    private static final transient OWLClass OWL_THING = new OWLClassImpl(OWLRDFVocabulary.OWL_THING.getIRI());
+    private static final OWLClass OWL_THING = new OWLClassImpl(
+            OWLRDFVocabulary.OWL_THING.getIRI());
 
-    private static final transient OWLClass OWL_NOTHING = new OWLClassImpl(OWLRDFVocabulary.OWL_NOTHING.getIRI());
+    private static final OWLClass OWL_NOTHING = new OWLClassImpl(
+            OWLRDFVocabulary.OWL_NOTHING.getIRI());
 
-    protected transient OWLDataFactoryInternals data;
+    protected OWLDataFactoryInternals data;
 
     @SuppressWarnings("javadoc")
     public OWLDataFactoryImpl() {
         this(true, false);
-        //		data = new OWLDataFactoryInternalsImpl(this);
     }
 
+    @SuppressWarnings("javadoc")
     public OWLDataFactoryImpl(boolean cache, boolean useCompression) {
         if (cache) {
             data = new OWLDataFactoryInternalsImpl(this, useCompression);

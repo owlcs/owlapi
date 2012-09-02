@@ -51,7 +51,7 @@ package org.semanticweb.owlapi.model;
 public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
 
 
-	private static final long serialVersionUID = -180869608577507012L;
+	private static final long serialVersionUID = 30402L;
 
 
     public OWLOntologyChangeVetoException(OWLOntologyChange change, String message) {

@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression<?,?>> extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P> {
 
 
-	private static final long serialVersionUID = -3493282947062973848L;
+	private static final long serialVersionUID = 30402L;
 	private final OWLClassExpression domain;
 
 

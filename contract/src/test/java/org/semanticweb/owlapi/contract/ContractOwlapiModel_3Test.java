@@ -973,7 +973,7 @@ public class ContractOwlapiModel_3Test {
 
     @Test
     public void shouldTestInterfaceOWLObjectVisitorEx() throws Exception {
-        OWLObjectVisitorEx testSubject0 = Utils.mockObject();
+        OWLObjectVisitorEx<OWLObject> testSubject0 = Utils.mockObject();
         Object result1 = testSubject0
                 .visit(mock(OWLNegativeObjectPropertyAssertionAxiom.class));
         Object result7 = testSubject0
@@ -1255,21 +1255,21 @@ public class ContractOwlapiModel_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = -7199665129147531727L;
+            private static final long serialVersionUID = 30402L;
         };
         OWLOntologyChangeException testSubject1 = new OWLOntologyChangeException(
                 mock(OWLOntologyChange.class), "", new RuntimeException()) {
             /**
              * 
              */
-            private static final long serialVersionUID = -539277955275495220L;
+            private static final long serialVersionUID = 30402L;
         };
         OWLOntologyChangeException testSubject2 = new OWLOntologyChangeException(
                 mock(OWLOntologyChange.class), new RuntimeException()) {
             /**
              * 
              */
-            private static final long serialVersionUID = 4275084314638699495L;
+            private static final long serialVersionUID = 30402L;
         };
         OWLOntologyChange result0 = testSubject0.getChange();
         Throwable result2 = testSubject0.getCause();
@@ -1321,7 +1321,7 @@ public class ContractOwlapiModel_3Test {
 
     @Test
     public void shouldTestInterfaceOWLOntologyChangeVisitorEx() throws Exception {
-        OWLOntologyChangeVisitorEx testSubject0 = Utils.mockOntologyChange();
+        OWLOntologyChangeVisitorEx<OWLObject> testSubject0 = Utils.mockOntologyChange();
     }
 
     @Test
@@ -1422,8 +1422,6 @@ public class ContractOwlapiModel_3Test {
     public void shouldTestOWLOntologyLoaderConfiguration() throws Exception {
         OWLOntologyLoaderConfiguration testSubject0 = new OWLOntologyLoaderConfiguration();
         boolean result0 = testSubject0.isStrict();
-        testSubject0.setSilentMissingImportsHandling(false);
-        boolean result1 = testSubject0.isSilentMissingImportsHandling();
         MissingOntologyHeaderStrategy result2 = testSubject0
                 .getMissingOntologyHeaderStrategy();
         OWLOntologyLoaderConfiguration result3 = testSubject0
@@ -1546,11 +1544,8 @@ public class ContractOwlapiModel_3Test {
         testSubject0
         .setDefaultChangeBroadcastStrategy(mock(OWLOntologyChangeBroadcastStrategy.class));
         testSubject0.removeOntologyChangeListener(mock(OWLOntologyChangeListener.class));
-        testSubject0.makeLoadImportRequest(mock(OWLImportsDeclaration.class));
         testSubject0.makeLoadImportRequest(mock(OWLImportsDeclaration.class),
                 new OWLOntologyLoaderConfiguration());
-        testSubject0.setSilentMissingImportsHandling(false);
-        boolean result35 = testSubject0.isSilentMissingImportsHandling();
         testSubject0.addMissingImportListener(mock(MissingImportListener.class));
         testSubject0.removeMissingImportListener(mock(MissingImportListener.class));
         testSubject0.addOntologyLoaderListener(mock(OWLOntologyLoaderListener.class));

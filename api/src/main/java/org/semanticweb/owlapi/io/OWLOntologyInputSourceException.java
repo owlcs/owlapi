@@ -52,7 +52,7 @@ public class OWLOntologyInputSourceException extends OWLRuntimeException {
 
 
 
-	private static final long serialVersionUID = 9175173635822738064L;
+	private static final long serialVersionUID = 30402L;
 
     @SuppressWarnings("javadoc")
 	public OWLOntologyInputSourceException() {

@@ -51,6 +51,7 @@ package org.semanticweb.owlapi.io;
  * The implementation is based on the <a href="http://www.w3.org/TR/xml-names/">W3C namespaces in XML specification</a>.
  * @since 3.3.0
  */
+@SuppressWarnings("javadoc")
 public class XMLUtils {
 
     public static final String LT = "&lt;";
@@ -66,7 +67,7 @@ public class XMLUtils {
     // For some point in the future
     public static final String OWL_PROCESSING_INSTRUCTION_NAME = "owl";
 
-    
+
     /**
      * Determines if a character is an XML name start character.
      * @param codePoint The code point of the character to be tested.  For UTF-16 characters the code point corresponds
@@ -75,21 +76,21 @@ public class XMLUtils {
      */
     public static boolean isXMLNameStartCharacter(int codePoint) {
         return codePoint == ':'
-                || (codePoint >= 'A' && codePoint <= 'Z')
+                || codePoint >= 'A' && codePoint <= 'Z'
                 || codePoint == '_'
-                || (codePoint >= 'a' && codePoint <= 'z')
-                || (codePoint >= 0xC0 && codePoint <= 0xD6)
-                || (codePoint >= 0xD8 && codePoint <= 0xF6)
-                || (codePoint >= 0xF8 && codePoint <= 0x2FF)
-                || (codePoint >= 0x370 && codePoint <= 0x37D)
-                || (codePoint >= 0x37F && codePoint <= 0x1FFF)
-                || (codePoint >= 0x200C && codePoint <= 0x200D)
-                || (codePoint >= 0x2070 && codePoint <= 0x218F)
-                || (codePoint >= 0x2C00 && codePoint <= 0x2FEF)
-                || (codePoint >= 0x3001 && codePoint <= 0xD7FF)
-                || (codePoint >= 0xF900 && codePoint <= 0xFDCF)
-                || (codePoint >= 0xFDF0 && codePoint <= 0xFFFD)
-                || (codePoint >= 0x10000 && codePoint <= 0xEFFFF);
+                || codePoint >= 'a' && codePoint <= 'z'
+                || codePoint >= 0xC0 && codePoint <= 0xD6
+                || codePoint >= 0xD8 && codePoint <= 0xF6
+                || codePoint >= 0xF8 && codePoint <= 0x2FF
+                || codePoint >= 0x370 && codePoint <= 0x37D
+                || codePoint >= 0x37F && codePoint <= 0x1FFF
+                || codePoint >= 0x200C && codePoint <= 0x200D
+                || codePoint >= 0x2070 && codePoint <= 0x218F
+                || codePoint >= 0x2C00 && codePoint <= 0x2FEF
+                || codePoint >= 0x3001 && codePoint <= 0xD7FF
+                || codePoint >= 0xF900 && codePoint <= 0xFDCF
+                || codePoint >= 0xFDF0 && codePoint <= 0xFFFD
+                || codePoint >= 0x10000 && codePoint <= 0xEFFFF;
 
     }
 

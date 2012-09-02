@@ -55,8 +55,11 @@ import org.semanticweb.owlapi.util.WeakIndexCache;
 
 @SuppressWarnings("javadoc")
 public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
+    private static final long serialVersionUID = 30402L;
 
-    protected class BuildableWeakIndexCache<V extends OWLEntity> extends WeakIndexCache<IRI, V> {
+    protected class BuildableWeakIndexCache<V extends OWLEntity> extends
+    WeakIndexCache<IRI, V> {
+        private static final long serialVersionUID = 30402L;
 
         protected final OWLDataFactory f;
 
@@ -78,6 +81,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
             // need to add the new key and return it
             //miss++;
             // cast needed for javac not to complain
+            @SuppressWarnings("unchecked")
             V value = (V) v.build(s);
             prefixCache.put(s, new WeakReference<V>(value));
             return value;
@@ -162,6 +166,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         return litCache.cache(literal);
     }
 
+    @SuppressWarnings("unchecked")
     protected enum Buildable {
         OWLCLASS {
             @Override

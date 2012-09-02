@@ -53,7 +53,7 @@ public class TurtleParserException extends OWLParserException {
 
 
 
-	private static final long serialVersionUID = 7584509216733793886L;
+	private static final long serialVersionUID = 30402L;
 
 
 	public TurtleParserException(String message) {

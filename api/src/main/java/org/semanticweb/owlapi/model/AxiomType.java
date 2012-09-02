@@ -62,7 +62,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AxiomType<C extends OWLAxiom> implements Serializable {
 
 
-	private static final long serialVersionUID = -8371103622896763859L;
+	private static final long serialVersionUID = 30402L;
 
     private final String name;
 

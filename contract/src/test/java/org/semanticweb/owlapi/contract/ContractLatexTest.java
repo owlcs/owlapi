@@ -103,20 +103,20 @@ public class ContractLatexTest {
             /**
              * 
              */
-            private static final long serialVersionUID = 697341703777397585L;
+            private static final long serialVersionUID = 30402L;
         };
         LatexRendererException testSubject1 = new LatexRendererException("") {
             /**
              * 
              */
-            private static final long serialVersionUID = -32592562792748349L;
+            private static final long serialVersionUID = 30402L;
         };
         LatexRendererException testSubject2 = new LatexRendererException("",
                 new RuntimeException()) {
             /**
              * 
              */
-            private static final long serialVersionUID = 1917432784930770245L;
+            private static final long serialVersionUID = 30402L;
         };
         Throwable result1 = testSubject0.getCause();
         String result3 = testSubject0.toString();

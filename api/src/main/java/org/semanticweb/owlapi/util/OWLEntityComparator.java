@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 @SuppressWarnings("unused")
 public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor, Serializable {
 
-	private static final long serialVersionUID = 5594436482401977958L;
+	private static final long serialVersionUID = 30402L;
 
 	int lastValue;
 

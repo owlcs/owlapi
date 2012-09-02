@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  */
 public class OWLObjectSomeValuesFromImpl extends OWLQuantifiedObjectRestrictionImpl implements OWLObjectSomeValuesFrom {
 
-	private static final long serialVersionUID = -9086771529636078317L;
+	private static final long serialVersionUID = 30402L;
 
 
 	@SuppressWarnings("javadoc")

@@ -71,7 +71,9 @@ public class NullCheckTestCase {
     Set<OWLClassExpression> nullsetowlclassexpression = getNullSet();
     Set<OWLFacetRestriction> setowlfacetrestriction = new HashSet<OWLFacetRestriction>();
     Set<OWLFacetRestriction> nullsetowlfacetrestriction = getNullSet();
+    @SuppressWarnings("rawtypes")
     OWLPropertyExpression[] owlpropertyexpression = new OWLPropertyExpression[] {};
+    @SuppressWarnings("rawtypes")
     OWLPropertyExpression[] nullowlpropertyexpression = new OWLPropertyExpression[] { null };
 
     @Test(expected = IllegalArgumentException.class)
@@ -1465,6 +1467,7 @@ public class NullCheckTestCase {
         f.getOWLHasKeyAxiom(null, setowlpropertyexpression);
     }
 
+    @SuppressWarnings("rawtypes")
     @Test(expected = IllegalArgumentException.class)
     public void testgetOWLHasKeyAxiom1_2_0() {
         f.getOWLHasKeyAxiom(ce, (OWLPropertyExpression) null);

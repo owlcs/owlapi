@@ -69,7 +69,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
  */
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
-	private static final long serialVersionUID = -313872953872828481L;
+	private static final long serialVersionUID = 30402L;
 	private static final String UTF_8 = "UTF-8";
 
 	public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology, IRI documentIRI, OWLOntologyFormat ontologyFormat) throws

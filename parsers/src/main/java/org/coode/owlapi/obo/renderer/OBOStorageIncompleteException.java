@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 public class OBOStorageIncompleteException extends OWLRendererException {
 
 
-	private static final long serialVersionUID = 6751200359557438199L;
+	private static final long serialVersionUID = 30402L;
     private List<OBOStorageException> exceptions;
 
 

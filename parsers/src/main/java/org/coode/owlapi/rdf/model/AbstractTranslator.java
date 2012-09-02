@@ -185,7 +185,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     private void addObjectCardinalityRestrictionTriples(OWLCardinalityRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> ce, OWLRDFVocabulary cardiPredicate) {
-    	addRestrictionCommonTriplePropertyRange(ce);
+        addRestrictionCommonTriplePropertyRange(ce);
         addTriple(ce, cardiPredicate.getIRI(), toTypedConstant(ce.getCardinality()));
         if (ce.isQualified()) {
             if (ce.isObjectRestriction()) {
@@ -198,7 +198,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     private void addDataCardinalityRestrictionTriples(OWLCardinalityRestriction<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> ce, OWLRDFVocabulary cardiPredicate) {
-    	addRestrictionCommonTriplePropertyRange(ce);
+        addRestrictionCommonTriplePropertyRange(ce);
         addTriple(ce, cardiPredicate.getIRI(), toTypedConstant(ce.getCardinality()));
         if (ce.isQualified()) {
             if (ce.isObjectRestriction()) {
@@ -214,19 +214,19 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     //////////////////////////////////////////////////////////////////////////////////////
 
     public void visit(OWLObjectSomeValuesFrom desc) {
-    	addRestrictionCommonTriplePropertyRange(desc);
+        addRestrictionCommonTriplePropertyRange(desc);
         addTriple(desc, OWL_SOME_VALUES_FROM.getIRI(), desc.getFiller());
     }
 
 
     public void visit(OWLObjectAllValuesFrom desc) {
-    	addRestrictionCommonTriplePropertyRange(desc);
+        addRestrictionCommonTriplePropertyRange(desc);
         addTriple(desc, OWL_ALL_VALUES_FROM.getIRI(), desc.getFiller());
     }
 
 
     public void visit(OWLObjectHasValue desc) {
-    	addRestrictionCommonTriplePropertyExpression(desc);
+        addRestrictionCommonTriplePropertyExpression(desc);
         addTriple(desc, OWL_HAS_VALUE.getIRI(), desc.getValue());
         processIfAnonymous(desc.getValue(), null);
     }
@@ -244,26 +244,26 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
             addObjectCardinalityRestrictionTriples(desc, OWL_MIN_QUALIFIED_CARDINALITY);
         }
         else {
-        	addObjectCardinalityRestrictionTriples(desc, OWL_MIN_CARDINALITY);
+            addObjectCardinalityRestrictionTriples(desc, OWL_MIN_CARDINALITY);
         }
     }
 
 
     public void visit(OWLObjectMaxCardinality desc) {
         if (desc.isQualified()) {
-        	addObjectCardinalityRestrictionTriples(desc, OWL_MAX_QUALIFIED_CARDINALITY);
+            addObjectCardinalityRestrictionTriples(desc, OWL_MAX_QUALIFIED_CARDINALITY);
         }
         else {
-        	addObjectCardinalityRestrictionTriples(desc, OWL_MAX_CARDINALITY);
+            addObjectCardinalityRestrictionTriples(desc, OWL_MAX_CARDINALITY);
         }
     }
 
     public void visit(OWLObjectExactCardinality desc) {
         if (desc.isQualified()) {
-        	addObjectCardinalityRestrictionTriples(desc, OWL_QUALIFIED_CARDINALITY);
+            addObjectCardinalityRestrictionTriples(desc, OWL_QUALIFIED_CARDINALITY);
         }
         else {
-        	addObjectCardinalityRestrictionTriples(desc, OWL_CARDINALITY);
+            addObjectCardinalityRestrictionTriples(desc, OWL_CARDINALITY);
         }
     }
 
@@ -285,29 +285,29 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     public void visit(OWLDataMinCardinality desc) {
         if (desc.isQualified()) {
-        	addDataCardinalityRestrictionTriples(desc, OWL_MIN_QUALIFIED_CARDINALITY);
+            addDataCardinalityRestrictionTriples(desc, OWL_MIN_QUALIFIED_CARDINALITY);
         }
         else {
-        	addDataCardinalityRestrictionTriples(desc, OWL_MIN_CARDINALITY);
+            addDataCardinalityRestrictionTriples(desc, OWL_MIN_CARDINALITY);
         }
     }
 
     public void visit(OWLDataMaxCardinality desc) {
         if (desc.isQualified()) {
-        	addDataCardinalityRestrictionTriples(desc, OWL_MAX_QUALIFIED_CARDINALITY);
+            addDataCardinalityRestrictionTriples(desc, OWL_MAX_QUALIFIED_CARDINALITY);
         }
         else {
-        	addDataCardinalityRestrictionTriples(desc, OWL_MAX_CARDINALITY);
+            addDataCardinalityRestrictionTriples(desc, OWL_MAX_CARDINALITY);
         }
 
     }
 
     public void visit(OWLDataExactCardinality desc) {
         if (desc.isQualified()) {
-        	addDataCardinalityRestrictionTriples(desc, OWL_QUALIFIED_CARDINALITY);
+            addDataCardinalityRestrictionTriples(desc, OWL_QUALIFIED_CARDINALITY);
         }
         else {
-        	addDataCardinalityRestrictionTriples(desc, OWL_CARDINALITY);
+            addDataCardinalityRestrictionTriples(desc, OWL_CARDINALITY);
         }
     }
 
@@ -625,28 +625,29 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         translateAnonymousNode(individual);
     }
 
-    public void visit(OWLOntology ontology) {
-        if (ontology.isAnonymous()) {
-            translateAnonymousNode(ontology);
+    public void visit(OWLOntology ontologyToVisit) {
+        if (ontologyToVisit.isAnonymous()) {
+            translateAnonymousNode(ontologyToVisit);
         }
         else {
-            if (!nodeMap.containsKey(ontology)) {
-                nodeMap.put(ontology, getResourceNode(ontology.getOntologyID().getOntologyIRI()));
+            if (!nodeMap.containsKey(ontologyToVisit)) {
+                nodeMap.put(ontologyToVisit, getResourceNode(ontologyToVisit
+                        .getOntologyID().getOntologyIRI()));
             }
         }
-        addTriple(ontology, RDF_TYPE.getIRI(), OWL_ONTOLOGY.getIRI());
+        addTriple(ontologyToVisit, RDF_TYPE.getIRI(), OWL_ONTOLOGY.getIRI());
     }
 
 
     public void visit(SWRLRule rule) {
-//        if (!rule.isAnonymous()) {
-//            if (!nodeMap.containsKey(rule)) {
-//                nodeMap.put(rule, getResourceNode(rule.getIRI()));
-//            }
-//        }
-//        else {
+        //        if (!rule.isAnonymous()) {
+        //            if (!nodeMap.containsKey(rule)) {
+        //                nodeMap.put(rule, getResourceNode(rule.getIRI()));
+        //            }
+        //        }
+        //        else {
         translateAnonymousNode(rule);
-//        }
+        //        }
         addTriple(rule, RDF_TYPE.getIRI(), IMP.getIRI());
 
         Set<SWRLAtom> antecedent = rule.getBody();
@@ -749,14 +750,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
 
-//    private void processAnonymousIndividual(OWLIndividual ind) {
-//        if (!ind.isAnonymous()) {
-//            return;
-//        }
-//        for (OWLAxiom ax : ontology.getAxioms(ind)) {
-//            ax.accept(this);
-//        }
-//    }
+    //    private void processAnonymousIndividual(OWLIndividual ind) {
+    //        if (!ind.isAnonymous()) {
+    //            return;
+    //        }
+    //        for (OWLAxiom ax : ontology.getAxioms(ind)) {
+    //            ax.accept(this);
+    //        }
+    //    }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -879,16 +880,16 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     protected abstract LITERAL getLiteralNode(OWLLiteral literal);
-//    /**
-//     * Gets a literal node that represents a typed literal.
-//     * @param literal The literal
-//     * @param datatype The datatype that types the literal
-//     * @return The literal
-//     */
-//    protected abstract LITERAL getLiteralNode(String literal, IRI datatype);
-//
-//
-//    protected abstract LITERAL getLiteralNode(String literal, String lang);
+    //    /**
+    //     * Gets a literal node that represents a typed literal.
+    //     * @param literal The literal
+    //     * @param datatype The datatype that types the literal
+    //     * @return The literal
+    //     */
+    //    protected abstract LITERAL getLiteralNode(String literal, IRI datatype);
+    //
+    //
+    //    protected abstract LITERAL getLiteralNode(String literal, String lang);
 
 
     protected abstract void addTriple(RESOURCE subject, PREDICATE pred, NODE object);
@@ -1000,9 +1001,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         }
     }
 
-//    private boolean isAnonymous(OWLObject object) {
-//        return !(object instanceof OWLEntity || object instanceof IRI);
-//    }
+    //    private boolean isAnonymous(OWLObject object) {
+    //        return !(object instanceof OWLEntity || object instanceof IRI);
+    //    }
 
     private void addPairwise(OWLAxiom axiom, Collection<? extends OWLObject> objects, IRI IRI) {
         List<? extends OWLObject> objectList = new ArrayList<OWLObject>(objects);

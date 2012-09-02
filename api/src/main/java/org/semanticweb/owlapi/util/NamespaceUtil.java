@@ -66,7 +66,7 @@ public class NamespaceUtil {
     private int candidateIndex = 1;
 
     @SuppressWarnings("javadoc")
-	public NamespaceUtil() {
+    public NamespaceUtil() {
         standardNamespacePrefixMappings = new HashMap<String, String>();
         standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE, "dc");
         standardNamespacePrefixMappings.put(Namespaces.SKOS.toString(), "skos");
@@ -126,6 +126,7 @@ public class NamespaceUtil {
      *         an empty string and the second element will an empty string
      *         @deprecated Use {@link org.semanticweb.owlapi.io.XMLUtils#getNCNamePrefix(CharSequence)}
      */
+    @Deprecated
     public String [] split(String s, String [] result) {
         // We need to deal with escape sequences.  %20 is a space
         // and can be contained within a qname.
@@ -154,6 +155,7 @@ public class NamespaceUtil {
         return split;
     }
     /** @deprecated Use {@link org.semanticweb.owlapi.io.XMLUtils#getNCNamePrefix(CharSequence)} */
+    @Deprecated
     public String [] split(String s) {
         // We need to deal with escape sequences.  %20 is a space
         // and can be contained within a qname.
@@ -265,7 +267,7 @@ public class NamespaceUtil {
         String candidatePrefix = computedPrefix;
         int index = 2;
         while (namespace2PrefixMap.containsValue(candidatePrefix) ||
-               standardNamespacePrefixMappings.containsValue(candidatePrefix)) {
+                standardNamespacePrefixMappings.containsValue(candidatePrefix)) {
             candidatePrefix = computedPrefix + index;
             index++;
         }

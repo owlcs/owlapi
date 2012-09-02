@@ -50,7 +50,7 @@ package org.semanticweb.owlapi.model;
 public abstract class OWLOntologyChangeException extends OWLRuntimeException {
 
 
-	private static final long serialVersionUID = -8387092458740821562L;
+	private static final long serialVersionUID = 30402L;
 	private final OWLOntologyChange change;
 
     public OWLOntologyChangeException(OWLOntologyChange change, String message) {

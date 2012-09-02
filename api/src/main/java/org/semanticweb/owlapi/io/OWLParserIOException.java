@@ -52,7 +52,7 @@ import java.io.IOException;
 public class OWLParserIOException extends OWLParserException {
 
 
-	private static final long serialVersionUID = -5238620085106543486L;
+    private static final long serialVersionUID = 30402L;
 
 
     /**
@@ -68,13 +68,13 @@ public class OWLParserIOException extends OWLParserException {
      * an <code>IOException</code>
      */
     @Override
-	public IOException getCause() {
+    public synchronized IOException getCause() {
         return (IOException) super.getCause();
     }
 
 
     @Override
-	public String getMessage() {
+    public String getMessage() {
         return getCause().getMessage();
     }
 }

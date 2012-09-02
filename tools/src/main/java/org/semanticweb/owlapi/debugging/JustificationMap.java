@@ -524,7 +524,7 @@ public class JustificationMap {
     @SuppressWarnings("unused")
     private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements Comparator<OWLAxiom>, Serializable {
 
-		private static final long serialVersionUID = 2807761757919019811L;
+		private static final long serialVersionUID = 30402L;
 
 		public OWLAxiomComparator() {
 		}

@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  */
 public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
 
-	private static final long serialVersionUID = -6553129801778622656L;
+	private static final long serialVersionUID = 30402L;
 
 	/**
      * Determines if this storer can store an ontology in the specified ontology format.

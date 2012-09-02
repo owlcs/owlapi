@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWLClassAssertionAxiom {
 
 
-	private static final long serialVersionUID = 1631947003263619315L;
+	private static final long serialVersionUID = 30402L;
 
 	private final OWLIndividual individual;
 

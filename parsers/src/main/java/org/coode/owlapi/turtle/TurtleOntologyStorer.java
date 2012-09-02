@@ -59,7 +59,7 @@ public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
 
 
 
-	private static final long serialVersionUID = -660465701119339647L;
+	private static final long serialVersionUID = 30402L;
 
 
 	@Override

@@ -303,7 +303,7 @@ public class XMLWriterImpl implements XMLWriter {
 
     private static final class StringLengthOnlyComparator implements
 			Comparator<String>, Serializable {
-		private static final long serialVersionUID = 2709458057226627047L;
+		private static final long serialVersionUID = 30402L;
 
 		public int compare(String o1, String o2) {
 		    // Shortest string first

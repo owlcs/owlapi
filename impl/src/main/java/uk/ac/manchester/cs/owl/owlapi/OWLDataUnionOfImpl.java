@@ -57,12 +57,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 17-Jan-2009
  */
 public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataUnionOf {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1534213324801059873L;
 
-	@SuppressWarnings("javadoc")
+    private static final long serialVersionUID = 30402L;
+
+    @SuppressWarnings("javadoc")
     public OWLDataUnionOfImpl(Set<? extends OWLDataRange> operands) {
         super(operands);
     }
@@ -72,13 +70,13 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLDataUnionOf other = (OWLDataUnionOf) object;
         return compareSets(getOperands(), other.getOperands());
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -86,7 +84,7 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
             return false;
         }
         OWLDataUnionOf other = (OWLDataUnionOf) obj;
-        return this.getOperands().equals(other.getOperands());
+        return getOperands().equals(other.getOperands());
     }
 
     public void accept(OWLObjectVisitor visitor) {

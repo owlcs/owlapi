@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public class OWLXMLOntologyFormat extends PrefixOWLOntologyFormat {
 
 
-	private static final long serialVersionUID = 2456909495347393113L;
+	private static final long serialVersionUID = 30402L;
 
     @Override
 	public String toString() {

@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.SWRLAtom;
@@ -156,7 +155,6 @@ public class ContractManchesterowlsyntaxTest {
         Set<OWLClassExpression> result39 = testSubject0.parseClassExpressionList("", "");
         Set<OWLClassExpression> result40 = testSubject0.parseClassExpressionList(false);
         OWLDataRange result41 = testSubject0.parseDataRange();
-        OWLLiteral result42 = testSubject0.parseConstant();
         OWLFacet result43 = testSubject0.parseFacet();
         OWLDatatype result44 = testSubject0.parseDatatype();
         OWLDataRange result45 = testSubject0.parseDataIntersectionOf();
@@ -230,8 +228,7 @@ public class ContractManchesterowlsyntaxTest {
         OWLImportsDeclaration result102 = testSubject0.parseImportsDeclaration(Utils
                 .getMockOntology());
         Set<IRI> result103 = testSubject0.parseNameList();
-        ManchesterOWLSyntaxOntologyFormat result104 = testSubject0.parseOntology(
-                Utils.getMockManager(), Utils.getMockOntology());
+
         ManchesterOWLSyntaxOntologyFormat result105 = testSubject0.parseOntology(Utils
                 .getMockOntology());
         ManchesterOWLSyntaxOntologyHeader result106 = testSubject0
@@ -321,8 +318,6 @@ public class ContractManchesterowlsyntaxTest {
                 mock(OWLOntologyDocumentSource.class), Utils.getMockOntology());
         OWLOntologyFormat result2 = testSubject0.parse(IRI.create("urn:aFake"),
                 Utils.getMockOntology());
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
-        OWLOntologyManager result3 = testSubject0.getOWLOntologyManager();
         String result4 = testSubject0.toString();
     }
 

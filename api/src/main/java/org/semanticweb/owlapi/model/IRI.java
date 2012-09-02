@@ -140,7 +140,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
      * @return This IRI surrounded by &lt; and &gt;
      */
     public abstract String toQuotedString();
-    
+
     /**
      * Creates an IRI from the specified String.
      * @param str The String that specifies the IRI. Cannot be null.
@@ -210,12 +210,9 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
     private static class IRIImpl extends IRI implements Serializable {
 
-        /**
-		 *
-		 */
-		private static final long serialVersionUID = -6496701874123212758L;
+        private static final long serialVersionUID = 30402L;
 
-		private static WeakCache<String> prefixCache = new WeakCache<String>();
+        private static WeakCache<String> prefixCache = new WeakCache<String>();
 
         private final String remainder;
 
@@ -230,9 +227,9 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
          */
         public IRIImpl(String prefix, String fragment) {
             this.prefix = prefixCache.cache(prefix);
-            this.remainder = fragment;
+            remainder = fragment;
         }
-        
+
         public IRIImpl(String s) {
             int fragmentSeparatorIndex = s.lastIndexOf('#');
             if (fragmentSeparatorIndex != -1 && fragmentSeparatorIndex < s.length()) {
@@ -381,7 +378,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
 
         @Override
         public boolean isNothing() {
-            return this.equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
+            return equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
         }
 
         @Override
@@ -544,7 +541,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
                 return otherRemainder == null && prefix.equals(other.prefix);
             }
             else {
-                return otherRemainder != null && remainder.equals(otherRemainder) && other.prefix.equals(this.prefix);
+                return otherRemainder != null && remainder.equals(otherRemainder) && other.prefix.equals(prefix);
             }
         }
     }

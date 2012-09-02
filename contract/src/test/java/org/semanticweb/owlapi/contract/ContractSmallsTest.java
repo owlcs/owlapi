@@ -94,7 +94,7 @@ import com.clarkparsia.owlapi.modularity.locality.LocalityEvaluator;
 import com.clarkparsia.owlapi.modularity.locality.SemanticLocalityEvaluator;
 import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
 
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractSmallsTest {
     @Test
     public void shouldTestInterfaceRDFConstants() throws Exception {
@@ -104,7 +104,6 @@ public class ContractSmallsTest {
     @Test
     public void shouldTestEscapeUtils() throws Exception {
         EscapeUtils testSubject0 = new EscapeUtils();
-        String result0 = EscapeUtils.escapeXML("");
         String result1 = EscapeUtils.escapeString("");
         String result2 = EscapeUtils.unescapeString("");
         String result3 = testSubject0.toString();

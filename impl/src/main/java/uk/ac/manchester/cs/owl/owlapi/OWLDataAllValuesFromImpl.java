@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl implements OWLDataAllValuesFrom {
 
 
-	private static final long serialVersionUID = 5995717075817264050L;
+	private static final long serialVersionUID = 30402L;
 
 
 	public OWLDataAllValuesFromImpl(OWLDataPropertyExpression property, OWLDataRange filler) {

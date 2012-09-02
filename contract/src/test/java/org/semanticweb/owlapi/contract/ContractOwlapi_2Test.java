@@ -410,7 +410,7 @@ public class ContractOwlapi_2Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 5417138841336344445L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public void accept(final OWLAxiomVisitor visitor) {}
@@ -1119,10 +1119,7 @@ public class ContractOwlapi_2Test {
                 Utils.mockCollection(mock(OWLAnonymousIndividual.class)));
         OWLEntityCollectionContainerCollector testSubject1 = new OWLEntityCollectionContainerCollector(
                 Utils.mockSet(Utils.mockOWLEntity()));
-        OWLEntityCollectionContainerCollector testSubject2 = new OWLEntityCollectionContainerCollector();
         testSubject0.reset(Utils.mockSet(Utils.mockOWLEntity()));
-        Set<OWLAnonymousIndividual> result0 = testSubject0.getAnonymousIndividuals();
-        Set<OWLEntity> result1 = testSubject0.getObjects();
         testSubject0.setCollectClasses(false);
         testSubject0.setCollectObjectProperties(false);
         testSubject0.setCollectDataProperties(false);
@@ -1434,7 +1431,7 @@ public class ContractOwlapi_2Test {
             /**
              * 
              */
-            private static final long serialVersionUID = -4964282025754072695L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public void accept(final OWLAxiomVisitor visitor) {}
@@ -1508,7 +1505,7 @@ public class ContractOwlapi_2Test {
             /**
              * 
              */
-            private static final long serialVersionUID = -8389424619885904364L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public boolean isNamed() {
@@ -1637,7 +1634,7 @@ public class ContractOwlapi_2Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 6174419754392462421L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public void accept(final OWLAxiomVisitor visitor) {}
@@ -1913,7 +1910,7 @@ public class ContractOwlapi_2Test {
             /**
              * 
              */
-            private static final long serialVersionUID = -7779327315156869578L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public void accept(final OWLAxiomVisitor visitor) {}

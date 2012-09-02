@@ -139,7 +139,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternals;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl;
 
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractOwlapi_1Test {
     @Test
     public void shouldTestAbstractInMemOWLOntologyFactory() throws Exception {
@@ -147,7 +147,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 2163150322956404160L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public OWLOntology loadOWLOntology(
@@ -193,7 +193,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = -8572795905303006611L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public Pointer<AxiomType<?>, OWLAxiom> getAxiomsByType() {
@@ -541,13 +541,13 @@ public class ContractOwlapi_1Test {
 
     @Test
     public void shouldTestInterfaceCollectionContainer() throws Exception {
-        CollectionContainer testSubject0 = mock(CollectionContainer.class);
+        CollectionContainer<Object> testSubject0 = mock(CollectionContainer.class);
         testSubject0.accept(Utils.mockCollContainer());
     }
 
     @Test
     public void shouldTestInterfaceCollectionContainerVisitor() throws Exception {
-        CollectionContainerVisitor testSubject0 = Utils.mockCollContainer();
+        CollectionContainerVisitor<Object> testSubject0 = Utils.mockCollContainer();
     }
 
     @Test
@@ -1133,7 +1133,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 5977907762380084883L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public ClassExpressionType getClassExpressionType() {
@@ -1325,7 +1325,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 4783220915975842863L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public void accept(final OWLAxiomVisitor visitor) {}
@@ -1411,7 +1411,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 6741199150785573236L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public boolean isQualified() {
@@ -1533,7 +1533,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = -6051165909402816837L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public void accept(final OWLAxiomVisitor visitor) {}
@@ -1607,7 +1607,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = -1945822365466210567L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public ClassExpressionType getClassExpressionType() {
@@ -1868,7 +1868,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 4410198838650555745L;
+            private static final long serialVersionUID = 30402L;
 
             @Override
             public ClassExpressionType getClassExpressionType() {
@@ -2075,17 +2075,6 @@ public class ContractOwlapi_1Test {
         OWLLiteral result50 = testSubject0.getOWLLiteral("", "en");
         OWLLiteral result51 = testSubject0.getOWLLiteral(0D);
         OWLLiteral result52 = testSubject0.getOWLLiteral(0F);
-        OWLLiteral result53 = testSubject0.getOWLTypedLiteral(0);
-        OWLLiteral result54 = testSubject0.getOWLTypedLiteral("");
-        OWLLiteral result55 = testSubject0.getOWLTypedLiteral(0F);
-        OWLLiteral result56 = testSubject0.getOWLTypedLiteral(false);
-        OWLLiteral result57 = testSubject0
-                .getOWLTypedLiteral("", mock(OWLDatatype.class));
-        OWLLiteral result58 = testSubject0
-                .getOWLTypedLiteral("", OWL2Datatype.XSD_STRING);
-        OWLLiteral result59 = testSubject0.getOWLTypedLiteral(0D);
-        OWLLiteral result60 = testSubject0.getOWLStringLiteral("", "en");
-        OWLLiteral result61 = testSubject0.getOWLStringLiteral("");
         OWLDataOneOf result62 = testSubject0.getOWLDataOneOf(Utils.mockLiteral());
         OWLDataOneOf result63 = testSubject0.getOWLDataOneOf(Utils
                 .mockSet(mock(OWLLiteral.class)));

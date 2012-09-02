@@ -62,7 +62,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>> extends OWLObjectImpl implements OWLPropertyExpression<R, P> {
 
 
-	private static final long serialVersionUID = -5500320699200815338L;
+	private static final long serialVersionUID = 30402L;
 
 
 	public OWLPropertyExpressionImpl() {
@@ -183,9 +183,9 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
 
     protected abstract Set<? extends OWLNaryPropertyAxiom<P>> getDisjointPropertiesAxioms(OWLOntology ontology);
 
-    private <P extends OWLPropertyExpression<?,?>> Set<P> getProperties(Set<? extends OWLNaryPropertyAxiom<P>> axioms) {
-        Set<P> result = new TreeSet<P>();
-        for (OWLNaryPropertyAxiom<P> axiom : axioms) {
+    private <Prop extends OWLPropertyExpression<?,?>> Set<Prop> getProperties(Set<? extends OWLNaryPropertyAxiom<Prop>> axioms) {
+        Set<Prop> result = new TreeSet<Prop>();
+        for (OWLNaryPropertyAxiom<Prop> axiom : axioms) {
             result.addAll(axiom.getProperties());
         }
         result.remove(this);

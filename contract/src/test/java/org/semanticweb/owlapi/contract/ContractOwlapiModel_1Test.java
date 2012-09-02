@@ -17,7 +17,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractOwlapiModel_1Test {
     @Test
     public void shouldTestAddAxiom() throws Exception {
@@ -1315,17 +1315,6 @@ public class ContractOwlapiModel_1Test {
         OWLLiteral result49 = testSubject0.getOWLLiteral("", "en");
         OWLLiteral result50 = testSubject0.getOWLLiteral("", OWL2Datatype.XSD_STRING);
         OWLLiteral result51 = testSubject0.getOWLLiteral("", mock(OWLDatatype.class));
-        OWLLiteral result52 = testSubject0
-                .getOWLTypedLiteral("", OWL2Datatype.XSD_STRING);
-        OWLLiteral result53 = testSubject0.getOWLTypedLiteral("");
-        OWLLiteral result54 = testSubject0.getOWLTypedLiteral(0);
-        OWLLiteral result55 = testSubject0.getOWLTypedLiteral(0D);
-        OWLLiteral result56 = testSubject0
-                .getOWLTypedLiteral("", mock(OWLDatatype.class));
-        OWLLiteral result57 = testSubject0.getOWLTypedLiteral(0F);
-        OWLLiteral result58 = testSubject0.getOWLTypedLiteral(false);
-        OWLLiteral result59 = testSubject0.getOWLStringLiteral("", "en");
-        OWLLiteral result60 = testSubject0.getOWLStringLiteral("");
         OWLDataOneOf result61 = testSubject0.getOWLDataOneOf(Utils
                 .mockSet(mock(OWLLiteral.class)));
         OWLDataOneOf result62 = testSubject0.getOWLDataOneOf(mock(OWLLiteral[].class));
@@ -1709,10 +1698,6 @@ public class ContractOwlapiModel_1Test {
                         mock(OWLAnnotationProperty.class),
                         Utils.mockSet(mock(OWLAnnotation.class)));
         testSubject0.purge();
-        SWRLRule result207 = testSubject0.getSWRLRule(IRI.create("urn:aFake"),
-                Utils.mockSet(mock(SWRLAtom.class)), Utils.mockSet(mock(SWRLAtom.class)));
-        SWRLRule result208 = testSubject0.getSWRLRule(mock(NodeID.class),
-                Utils.mockSet(mock(SWRLAtom.class)), Utils.mockSet(mock(SWRLAtom.class)));
         SWRLRule result209 = testSubject0.getSWRLRule(
                 Utils.mockSet(mock(SWRLAtom.class)), Utils.mockSet(mock(SWRLAtom.class)));
         SWRLRule result210 = testSubject0.getSWRLRule(

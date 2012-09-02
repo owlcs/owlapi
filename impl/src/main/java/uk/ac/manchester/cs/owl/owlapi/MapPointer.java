@@ -13,93 +13,92 @@ import org.semanticweb.owlapi.util.MultiMap;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 
+@SuppressWarnings("javadoc")
 public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V>, Serializable {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 7844654398838073134L;
-	private final MultiMap<K, V> map;
-	private final AxiomType<?> type;
-	private final OWLAxiomVisitorEx<?> visitor;
-	private boolean initialized;
-	protected final Internals i;
 
-	public MapPointer(AxiomType<?> t, OWLAxiomVisitorEx<?> v, boolean initialized,
-			Internals i) {
-		type = t;
-		visitor = v;
-		map = new MultiMap<K, V>();
-		this.initialized = initialized;
-		this.i = i;
-	}
+    private static final long serialVersionUID = 30402L;
+    private final MultiMap<K, V> map;
+    private final AxiomType<?> type;
+    private final OWLAxiomVisitorEx<?> visitor;
+    private boolean initialized;
+    protected final Internals i;
 
-	public boolean isInitialized() {
-		return initialized;
-	}
+    public MapPointer(AxiomType<?> t, OWLAxiomVisitorEx<?> v, boolean initialized,
+            Internals i) {
+        type = t;
+        visitor = v;
+        map = new MultiMap<K, V>();
+        this.initialized = initialized;
+        this.i = i;
+    }
 
-	public void init() {
-		if (initialized) {
-			return;
-		}
-		initialized = true;
-		if (visitor == null) {
-			return;
-		}
-		if (visitor instanceof InitVisitor) {
-			for (V ax : (Set<V>) i.getValues(i.getAxiomsByType(), type)) {
-				K key = ax.accept((InitVisitor<K>) visitor);
-				if (key != null) {
-					map.put(key, ax);
-				}
-			}
-		} else {
-			for (V ax : (Set<V>) i.getValues(i.getAxiomsByType(), type)) {
-				Collection<K> keys = ax.accept((InitCollectionVisitor<K>) visitor);
-				for (K key : keys) {
-					map.put(key, ax);
-				}
-			}
-		}
-	}
+    public boolean isInitialized() {
+        return initialized;
+    }
 
-	@Override
-	public String toString() {
-		return initialized + map.toString();
-	}
+    public void init() {
+        if (initialized) {
+            return;
+        }
+        initialized = true;
+        if (visitor == null) {
+            return;
+        }
+        if (visitor instanceof InitVisitor) {
+            for (V ax : (Set<V>) i.getValues(i.getAxiomsByType(), type)) {
+                K key = ax.accept((InitVisitor<K>) visitor);
+                if (key != null) {
+                    map.put(key, ax);
+                }
+            }
+        } else {
+            for (V ax : (Set<V>) i.getValues(i.getAxiomsByType(), type)) {
+                Collection<K> keys = ax.accept((InitCollectionVisitor<K>) visitor);
+                for (K key : keys) {
+                    map.put(key, ax);
+                }
+            }
+        }
+    }
 
-	public Set<K> keySet() {
-		return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map.keySet());
-	}
+    @Override
+    public String toString() {
+        return initialized + map.toString();
+    }
 
-	public Set<V> getValues(K key) {
-		return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map.get(key));
-	}
+    public Set<K> keySet() {
+        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map.keySet());
+    }
 
-	public boolean hasValues(K key) {
-		return map.containsKey(key);
-	}
+    public Set<V> getValues(K key) {
+        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map.get(key));
+    }
 
-	public boolean put(K key, V value) {
-		return map.put(key, value);
-	}
+    public boolean hasValues(K key) {
+        return map.containsKey(key);
+    }
 
-	public boolean remove(K key, V value) {
-		return map.remove(key, value);
-	}
+    public boolean put(K key, V value) {
+        return map.put(key, value);
+    }
 
-	public boolean containsKey(K key) {
-		return map.containsKey(key);
-	}
+    public boolean remove(K key, V value) {
+        return map.remove(key, value);
+    }
 
-	public boolean contains(K key, V value) {
-		return map.contains(key, value);
-	}
+    public boolean containsKey(K key) {
+        return map.containsKey(key);
+    }
 
-	public Set<V> getAllValues() {
-		return map.getAllValues();
-	}
+    public boolean contains(K key, V value) {
+        return map.contains(key, value);
+    }
 
-	public int size() {
-		return map.size();
-	}
+    public Set<V> getAllValues() {
+        return map.getAllValues();
+    }
+
+    public int size() {
+        return map.size();
+    }
 }

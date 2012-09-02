@@ -63,7 +63,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLDatatypeDefinitionAxiom {
 
 
-	private static final long serialVersionUID = 4854618069358602510L;
+	private static final long serialVersionUID = 30402L;
 
 	private final OWLDatatype datatype;
 

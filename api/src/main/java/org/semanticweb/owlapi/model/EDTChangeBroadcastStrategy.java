@@ -51,10 +51,9 @@ import javax.swing.SwingUtilities;
  */
 public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
 
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 4038111018424104994L;
-
-	public void broadcastChanges(final OWLOntologyChangeListener listener, final List<? extends OWLOntologyChange> changes) throws OWLException {
+    public void broadcastChanges(final OWLOntologyChangeListener listener, final List<? extends OWLOntologyChange> changes) throws OWLException {
         if (SwingUtilities.isEventDispatchThread()) {
             listener.ontologiesChanged(changes);
         }
@@ -71,26 +70,19 @@ public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStr
                 };
                 SwingUtilities.invokeLater(r);
             } catch (BroadcastException e) {
-                throw e.getCause();
+                throw (OWLException) e.getCause();
             }
         }
     }
 
+    /** bit of a roundabout way to wrap an exception as a runtime exception, for
+     * unwrapping later on */
     private static class BroadcastException extends RuntimeException {
 
-        /**
-		 * 
-		 */
-		private static final long serialVersionUID = 643952273359420411L;
+        private static final long serialVersionUID = 30402L;
 
-		BroadcastException(OWLException cause) {
+        BroadcastException(OWLException cause) {
             super(cause);
         }
-
-        @Override
-		public OWLException getCause() {
-            return (OWLException) super.getCause();
-        }
     }
-
 }

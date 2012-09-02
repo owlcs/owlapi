@@ -62,7 +62,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
 
 
-	private static final long serialVersionUID = -8241288119291499313L;
+	private static final long serialVersionUID = 30402L;
 
 
 	public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {

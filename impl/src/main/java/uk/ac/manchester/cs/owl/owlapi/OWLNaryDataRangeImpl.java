@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLNaryDataRange {
 
 
-	private static final long serialVersionUID = -2657275474606786532L;
+	private static final long serialVersionUID = 30402L;
 	private final Set<OWLDataRange> operands;
 
     protected OWLNaryDataRangeImpl(Set<? extends OWLDataRange> operands) {

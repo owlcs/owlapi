@@ -49,12 +49,9 @@ import java.net.URISyntaxException;
  */
 public class OWLParserURISyntaxException extends OWLParserException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -517705178561517526L;
+    private static final long serialVersionUID = 30402L;
 
-	/**
+    /**
      * @param cause the cause
      * @param lineNumber the line number
      * @param columnNumber the column number
@@ -64,7 +61,7 @@ public class OWLParserURISyntaxException extends OWLParserException {
     }
 
     @Override
-    public URISyntaxException getCause() {
+    public synchronized URISyntaxException getCause() {
         return (URISyntaxException) super.getCause();
     }
 }

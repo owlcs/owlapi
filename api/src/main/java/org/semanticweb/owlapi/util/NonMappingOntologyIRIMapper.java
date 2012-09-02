@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper, Serializable {
 
 
-	private static final long serialVersionUID = -3523104666380226094L;
+	private static final long serialVersionUID = 30402L;
 
 	public IRI getDocumentIRI(IRI ontologyIRI) {
         return ontologyIRI;

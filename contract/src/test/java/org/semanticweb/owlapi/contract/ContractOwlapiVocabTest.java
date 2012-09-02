@@ -111,7 +111,6 @@ public class ContractOwlapiVocabTest {
         String result0 = testSubject0.toString();
         OWLRDFVocabulary[] result1 = OWLRDFVocabulary.values();
         IRI result3 = testSubject0.getIRI();
-        URI result4 = testSubject0.getURI();
         Namespaces result5 = testSubject0.getNamespace();
         String result6 = testSubject0.getShortName();
         String result7 = testSubject0.name();
@@ -124,7 +123,6 @@ public class ContractOwlapiVocabTest {
         String result0 = testSubject0.toString();
         OWLXMLVocabulary[] result1 = OWLXMLVocabulary.values();
         IRI result3 = testSubject0.getIRI();
-        URI result4 = testSubject0.getURI();
         String result5 = testSubject0.getShortName();
         String result6 = testSubject0.name();
         int result11 = testSubject0.ordinal();
@@ -184,7 +182,6 @@ public class ContractOwlapiVocabTest {
         String result4 = testSubject0.getShortName();
         int result5 = testSubject0.getMinArity();
         int result6 = testSubject0.getMaxArity();
-        int result7 = testSubject0.getArity();
         SWRLBuiltInsVocabulary result8 = SWRLBuiltInsVocabulary.getBuiltIn(IRI
                 .create("urn:aFake"));
         String result10 = testSubject0.name();

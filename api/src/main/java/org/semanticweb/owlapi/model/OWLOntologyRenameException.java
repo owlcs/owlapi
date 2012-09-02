@@ -51,7 +51,7 @@ package org.semanticweb.owlapi.model;
 public class OWLOntologyRenameException extends OWLOntologyChangeException {
 
 
-	private static final long serialVersionUID = -2311571026466642785L;
+	private static final long serialVersionUID = 30402L;
 	private final OWLOntologyID ontologyID;
 
     public OWLOntologyRenameException(OWLOntologyChange change, OWLOntologyID ontologyID) {

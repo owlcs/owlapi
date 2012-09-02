@@ -1079,7 +1079,7 @@ public class KRSSParser implements KRSSParserConstants {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7262121177964593306L; }
+	private static final long serialVersionUID = 30402L; }
   final private LookaheadSuccess jj_ls = new LookaheadSuccess();
   private boolean jj_scan_token(int kind) {
     if (jj_scanpos == jj_lastpos) {

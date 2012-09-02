@@ -54,7 +54,7 @@ import org.xml.sax.SAXException;
 public class TranslatedOWLParserException extends SAXException {
 
 
-	private static final long serialVersionUID = 4986291914365409007L;
+	private static final long serialVersionUID = 30402L;
     private OWLParserException parserException;
 
     public TranslatedOWLParserException(OWLParserException cause) {
