@@ -681,9 +681,6 @@ public class ContractRdfxmlParserTest {
     public void shouldTestOWLRDFConsumer() throws Exception {
         OWLRDFConsumer testSubject0 = new OWLRDFConsumer(Utils.getMockOntology(),
                 mock(AnonymousNodeChecker.class), new OWLOntologyLoaderConfiguration());
-        OWLRDFConsumer testSubject1 = new OWLRDFConsumer(Utils.getMockManager(),
-                Utils.getMockOntology(), mock(AnonymousNodeChecker.class),
-                new OWLOntologyLoaderConfiguration());
         testSubject0.handle(IRI.create("urn:aFake"), IRI.create("urn:aFake"),
                 IRI.create("urn:aFake"));
         testSubject0.handle(IRI.create("urn:aFake"), IRI.create("urn:aFake"),

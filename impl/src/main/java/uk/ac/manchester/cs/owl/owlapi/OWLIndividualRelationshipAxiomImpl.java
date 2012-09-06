@@ -71,7 +71,6 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
 
 
     /**
-     * @param dataFactory the data factory
      * @param subject the subject
      * @param property the property
      * @param object the object

@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
  * Date: 07-Jul-2010
  */
 public class StructuralReasonerTestCase extends AbstractOWLAPITestCase {
+    @SuppressWarnings("javadoc")
     @Test
     public void testClassHierarchy() {
         OWLClass clsX = getOWLClass("X");

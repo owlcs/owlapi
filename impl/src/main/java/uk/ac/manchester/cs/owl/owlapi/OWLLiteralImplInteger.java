@@ -88,10 +88,6 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
         return Integer.toString(literal);
     }
 
-    public Integer getInteger() {
-        return literal;
-    }
-
     public boolean isRDFPlainLiteral() {
         return false;
     }

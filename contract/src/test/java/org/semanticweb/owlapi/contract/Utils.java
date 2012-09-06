@@ -83,67 +83,56 @@ public class Utils {
         return new SWRLObjectVisitorEx<OWLObject>() {
             @Override
             public OWLObject visit(final SWRLRule node) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public OWLObject visit(final SWRLClassAtom node) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public OWLObject visit(final SWRLDataRangeAtom node) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public OWLObject visit(final SWRLObjectPropertyAtom node) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public OWLObject visit(final SWRLDataPropertyAtom node) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public OWLObject visit(final SWRLBuiltInAtom node) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public OWLObject visit(final SWRLVariable node) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public OWLObject visit(final SWRLIndividualArgument node) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public OWLObject visit(final SWRLLiteralArgument node) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public OWLObject visit(final SWRLSameIndividualAtom node) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public OWLObject visit(final SWRLDifferentIndividualsAtom node) {
-                // TODO Auto-generated method stub
                 return null;
             }
         };
@@ -152,14 +141,10 @@ public class Utils {
     public static <T> CollectionContainerVisitor<T> mockCollContainer() {
         return new CollectionContainerVisitor<T>() {
             @Override
-            public void visitItem(final T c) {
-                // TODO Auto-generated method stub
-            }
+            public void visitItem(final T c) {}
 
             @Override
-            public void visit(final CollectionContainer<T> c) {
-                // TODO Auto-generated method stub
-            }
+            public void visit(final CollectionContainer<T> c) {}
         };
     }
 
@@ -173,8 +158,9 @@ public class Utils {
         return mock;
     }
 
-    public static OWLElementHandler mockElementHandler() throws OWLXMLParserException {
-        final OWLElementHandler mock = mock(OWLElementHandler.class);
+    public static OWLElementHandler<OWLObject> mockElementHandler()
+            throws OWLXMLParserException {
+        final OWLElementHandler<OWLObject> mock = mock(OWLElementHandler.class);
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLThing());
         return mock;
@@ -1098,19 +1084,16 @@ public class Utils {
         OWLRDFConsumer c = new OWLRDFConsumer(mockOntology, new AnonymousNodeChecker() {
             @Override
             public boolean isAnonymousSharedNode(final String iri) {
-                // TODO Auto-generated method stub
                 return false;
             }
 
             @Override
             public boolean isAnonymousNode(final String iri) {
-                // TODO Auto-generated method stub
                 return false;
             }
 
             @Override
             public boolean isAnonymousNode(final IRI iri) {
-                // TODO Auto-generated method stub
                 return false;
             }
         }, new OWLOntologyLoaderConfiguration());

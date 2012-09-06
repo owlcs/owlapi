@@ -146,7 +146,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
 
     @SuppressWarnings("javadoc")
-	public OWLObjectComponentCollector() {
+    public OWLObjectComponentCollector() {
         result = new HashSet<OWLObject>();
     }
 
@@ -648,6 +648,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
         handleObject(iri);
     }
 
+    @SuppressWarnings("unused")
     public void visit(OWLAnnotation node) {
     }
 

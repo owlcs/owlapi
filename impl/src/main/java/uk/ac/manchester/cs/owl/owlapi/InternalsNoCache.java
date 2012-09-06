@@ -63,10 +63,10 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     private final OWLLiteral falseLiteral;
     private final boolean useCompression;
 
-    /**
-     * @param f
+    /** @param f
      *            the factory to refer to
-     */
+     * @param useCompression
+     *            true if compression of literals should be used */
     public InternalsNoCache(OWLDataFactory f, boolean useCompression) {
         factory = f;
         trueLiteral = new OWLLiteralImplBoolean(true);

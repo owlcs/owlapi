@@ -72,16 +72,16 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 public class OWLObjectPropertyManager {
 
     private static final class SetSizeComparator implements
-			Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
-		private static final long serialVersionUID = 30402L;
+    Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
+        private static final long serialVersionUID = 30402L;
 
-		public int compare(Set<OWLObjectPropertyExpression> o1, Set<OWLObjectPropertyExpression> o2) {
-		    return o1.size() - o2.size();
-		}
-	}
+        public int compare(Set<OWLObjectPropertyExpression> o1, Set<OWLObjectPropertyExpression> o2) {
+            return o1.size() - o2.size();
+        }
+    }
 
 
-	private final OWLOntologyManager man;
+    private final OWLOntologyManager man;
 
     private OWLOntology ontology;
 
@@ -113,12 +113,12 @@ public class OWLObjectPropertyManager {
      * @param ont the ontology to use
      */
     public OWLObjectPropertyManager(OWLOntologyManager manager, OWLOntology ont) {
-        this.man = manager;
-        this.hierarchy = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
-        this.reflexiveTransitiveClosure = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
-        this.compositeProperties = new HashSet<OWLObjectPropertyExpression>();
-        this.nonSimpleProperties = new HashSet<OWLObjectPropertyExpression>();
-        this.partialOrdering = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
+        man = manager;
+        hierarchy = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
+        reflexiveTransitiveClosure = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
+        compositeProperties = new HashSet<OWLObjectPropertyExpression>();
+        nonSimpleProperties = new HashSet<OWLObjectPropertyExpression>();
+        partialOrdering = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
         setOntology(ont);
     }
 
@@ -401,7 +401,7 @@ public class OWLObjectPropertyManager {
             return props.contains(propB.getSimplified());
         }
     }
-    
+
     private Set<OWLObjectPropertyExpression> getReferencedProperties() {
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         for (OWLOntology ont : getOntologies()) {
@@ -448,17 +448,18 @@ public class OWLObjectPropertyManager {
             Set<OWLObjectPropertyExpression> first = equivs.get(i);
             for (int j = i; j < equivs.size(); j++) {
                 Set<OWLObjectPropertyExpression> second = equivs.get(j);
-				if (second.size() > first.size() && second.containsAll(first)) {
-					equivs.remove(i);
-					break;
+                if (second.size() > first.size() && second.containsAll(first)) {
+                    equivs.remove(i);
+                    break;
                 }
             }
         }
-        for (OWLOntology ont : ontologies) {
-            for (OWLEquivalentObjectPropertiesAxiom ax : ont.getAxioms(AxiomType.EQUIVALENT_OBJECT_PROPERTIES)) {
-// XXX should anything be done about this?
-            }
-        }
+        // for (OWLOntology ont : ontologies) {
+        // for (OWLEquivalentObjectPropertiesAxiom ax :
+        // ont.getAxioms(AxiomType.EQUIVALENT_OBJECT_PROPERTIES)) {
+        // // XXX should anything be done about this?
+        // }
+        // }
         return equivs;
     }
 
@@ -471,23 +472,23 @@ public class OWLObjectPropertyManager {
 
 
     /**
-* @param ontologies The ontologies
+     * @param ontologies The ontologies
      * @param prop the property
-         * @param index index
-         * @param stack stack
-         * @param indexMap index map
-         * @param lowlinkMap low link map
-         * @param result result
-         * @param processed processed
-         * @param stackProps stack entities
+     * @param index index
+     * @param stack stack
+     * @param indexMap index map
+     * @param lowlinkMap low link map
+     * @param result result
+     * @param processed processed
+     * @param stackProps stack entities
      */
     public static void tarjan(Set<OWLOntology> ontologies, OWLObjectPropertyExpression prop, int index,
-                              Stack<OWLObjectPropertyExpression> stack,
-                              Map<OWLObjectPropertyExpression, Integer> indexMap,
-                              Map<OWLObjectPropertyExpression, Integer> lowlinkMap,
-                              Set<Set<OWLObjectPropertyExpression>> result,
-                              Set<OWLObjectPropertyExpression> processed,
-                              Set<OWLObjectPropertyExpression> stackProps) {
+            Stack<OWLObjectPropertyExpression> stack,
+            Map<OWLObjectPropertyExpression, Integer> indexMap,
+            Map<OWLObjectPropertyExpression, Integer> lowlinkMap,
+            Set<Set<OWLObjectPropertyExpression>> result,
+            Set<OWLObjectPropertyExpression> processed,
+            Set<OWLObjectPropertyExpression> stackProps) {
         processed.add(prop);
         indexMap.put(prop, index);
         lowlinkMap.put(prop, index);
@@ -532,9 +533,9 @@ public class OWLObjectPropertyManager {
 
 
     private static void getReflexiveTransitiveClosure(OWLObjectPropertyExpression prop,
-                                                      Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
-                                                      Set<OWLObjectPropertyExpression> rtc,
-                                                      Set<OWLObjectPropertyExpression> processed) {
+            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
+            Set<OWLObjectPropertyExpression> rtc,
+            Set<OWLObjectPropertyExpression> processed) {
         if (processed.contains(prop)) {
             return;
         }
@@ -551,7 +552,7 @@ public class OWLObjectPropertyManager {
 
 
     private static Set<OWLObjectPropertyExpression> getKeyValue(OWLObjectPropertyExpression key,
-                                                                Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map) {
+            Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map) {
         Set<OWLObjectPropertyExpression> vals = map.get(key);
         if (vals == null) {
             vals = new HashSet<OWLObjectPropertyExpression>(4);

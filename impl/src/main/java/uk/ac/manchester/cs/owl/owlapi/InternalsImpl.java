@@ -273,6 +273,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
         return axiomsByType.size() == 0 && ontologyAnnotations.isEmpty();
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom, K> Set<T> filterAxioms(OWLAxiomSearchFilter<T, K> filter,
             K key) {
         Set<T> toReturn = createSet();

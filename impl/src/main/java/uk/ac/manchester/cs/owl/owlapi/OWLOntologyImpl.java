@@ -236,6 +236,7 @@ Serializable {
         return internals.getAxioms();
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
         return (Set<T>) internals.getValues(internals.getAxiomsByType(), axiomType);
     }

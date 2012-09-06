@@ -54,6 +54,7 @@ import java.util.Set;
 import org.coode.owlapi.obo.parser.OBOVocabulary;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -138,22 +139,22 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
 
     @Override
-	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         exceptions.clear();
 
         IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
-		if (ontologyIRI != null) {
-			final String ontURIStr = ontologyIRI.toString();
-			if (ontURIStr.endsWith("/")) {
-				defaultNamespace = ontURIStr;
-			} else {
-				defaultNamespace = ontURIStr + "#";
-			}
-		} else {
-			defaultNamespace = "urn:defaultOBONamespace:ontology"
-					+ System.currentTimeMillis() + "#";
-			System.err.println("WARNING: anonymous ontology saved in OBO format. Default namespace created for it.");
-		}
+        if (ontologyIRI != null) {
+            final String ontURIStr = ontologyIRI.toString();
+            if (ontURIStr.endsWith("/")) {
+                defaultNamespace = ontURIStr;
+            } else {
+                defaultNamespace = ontURIStr + "#";
+            }
+        } else {
+            defaultNamespace = "urn:defaultOBONamespace:ontology"
+                    + System.currentTimeMillis() + "#";
+            System.err.println("WARNING: anonymous ontology saved in OBO format. Default namespace created for it.");
+        }
 
         nsUtil = new NamespaceUtil();
         defaultPrefix = nsUtil.getPrefix(defaultNamespace);
@@ -213,9 +214,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
     private Map<String, String> loadUsedNamespaces(OWLOntology ontology) {
         for (OWLEntity entity : ontology.getSignature()) {
-            String[] pair = new String[2];
-            nsUtil.split(entity.getIRI().toString(), pair);
-            final IRI base = IRI.create(pair[0]);
+            final IRI base = IRI.create(XMLUtils.getNCNamePrefix(entity.getIRI()
+                    .toString()));
             nsUtil.getPrefix(base.toString());
         }
         return nsUtil.getNamespace2PrefixMap();
@@ -622,9 +622,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
         final String uri = entity.getIRI().toString();
         if (!uri.startsWith(defaultNamespace)) {
-            String[] pair = new String[2];
-            nsUtil.split(uri, pair);
-            final IRI base = IRI.create(pair[0]);
+            final IRI base = IRI.create(XMLUtils.getNCNamePrefix(uri));
             String prefix = nsUtil.getPrefix(base.toString());
             tvpList.setDefault(OBOVocabulary.NAMESPACE, prefix);
         }

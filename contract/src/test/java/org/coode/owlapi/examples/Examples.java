@@ -197,7 +197,11 @@ public class Examples {
     }
 
     /** This example shows how an ontology can be saved in various formats to
-     * various locations and streams */
+     * various locations and streams
+     * 
+     * @throws OWLOntologyStorageException
+     * @throws OWLOntologyCreationException
+     * @throws IOException */
     @Test
     public void shouldSaveOntologies() throws OWLOntologyStorageException,
     OWLOntologyCreationException, IOException {
@@ -243,7 +247,9 @@ public class Examples {
         file.delete();
     }
 
-    /** This example shows how to get access to objects that represent entities. */
+    /** This example shows how to get access to objects that represent entities.
+     * 
+     * @throws OWLOntologyCreationException */
     @Test
     public void shouldAccessEntities() throws OWLOntologyCreationException {
         // In order to get access to objects that represent entities we need a
@@ -293,7 +299,10 @@ public class Examples {
         // saved version of the ontology.
     }
 
-    /** This example shows how to create dataranges */
+    /** This example shows how to create dataranges
+     * 
+     * @throws OWLOntologyCreationException
+     * @throws OWLOntologyStorageException */
     @SuppressWarnings("unused")
     @Test
     public void shouldBuildDataRanges() throws OWLOntologyCreationException,
@@ -424,6 +433,10 @@ public class Examples {
         man.applyChange(new AddAxiom(ont, ax));
     }
 
+    /**
+     * 
+     */
+    @SuppressWarnings("unused")
     @Test
     public void shouldInstantiateLiterals() {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -447,6 +460,9 @@ public class Examples {
         OWLLiteral literal6 = factory.getOWLLiteral(true);
     }
 
+    /** @throws OWLOntologyCreationException
+     * @throws OWLOntologyStorageException
+     * @throws IOException */
     @Test
     public void shouldLoadAndSave() throws OWLOntologyCreationException,
     OWLOntologyStorageException, IOException {
@@ -477,6 +493,8 @@ public class Examples {
         f.delete();
     }
 
+    /** @throws OWLOntologyCreationException
+     * @throws OWLOntologyStorageException */
     @Test
     public void shouldAddAxiom() throws OWLOntologyCreationException,
     OWLOntologyStorageException {
@@ -541,7 +559,9 @@ public class Examples {
         manager.saveOntology(ontology);
     }
 
-    /** These examples show how to create new ontologies */
+    /** These examples show how to create new ontologies
+     * 
+     * @throws OWLOntologyCreationException */
     @Test
     public void shouldCreateOntology() throws OWLOntologyCreationException {
         // We first need to create an OWLOntologyManager, which will provide a
@@ -610,7 +630,10 @@ public class Examples {
     }
 
     /** This example shows how to specify various property assertions for
-     * individuals. */
+     * individuals.
+     * 
+     * @throws OWLOntologyStorageException
+     * @throws OWLOntologyCreationException */
     @Test
     public void shouldCreatePropertyAssertions() throws OWLOntologyStorageException,
     OWLOntologyCreationException {
@@ -656,6 +679,8 @@ public class Examples {
                 new ByteArrayOutputStream()));
     }
 
+    /** @throws OWLOntologyCreationException
+     * @throws OWLOntologyStorageException */
     @Test
     public void shouldAddClassAssertion() throws OWLOntologyCreationException,
     OWLOntologyStorageException {
@@ -691,6 +716,8 @@ public class Examples {
                 new ByteArrayOutputStream()));
     }
 
+    /** @throws OWLOntologyCreationException
+     * @throws OWLOntologyStorageException */
     @Test
     public void shouldCreateAndSaveOntology() throws OWLOntologyCreationException,
     OWLOntologyStorageException {
@@ -1071,10 +1098,10 @@ public class Examples {
         }
     }
 
-    private static DefaultPrefixManager pm = new DefaultPrefixManager(
-            "http://owl.man.ac.uk/2005/07/sssw/people#");
 
     private static void printNode(Node<OWLClass> node) {
+        DefaultPrefixManager pm = new DefaultPrefixManager(
+                "http://owl.man.ac.uk/2005/07/sssw/people#");
         // Print out a node as a list of class names in curly brackets
         System.out.print("{");
         for (Iterator<OWLClass> it = node.getEntities().iterator(); it.hasNext();) {
@@ -1088,8 +1115,6 @@ public class Examples {
         System.out.println("}");
     }
 
-    public static final String DOCUMENT_IRI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owl";
-
     /** This example shows how to examine the restrictions on a class.
      * 
      * @throws OWLOntologyCreationException */
@@ -1099,7 +1124,7 @@ public class Examples {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         // Load the pizza ontology
         OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI
-                .create(DOCUMENT_IRI));
+                .create(PIZZA_IRI));
         System.out.println("Loaded: " + ont.getOntologyID());
         // We want to examine the restrictions on margherita pizza. To do this,
         // we need to obtain a reference to the margherita pizza class. In this
@@ -1189,7 +1214,7 @@ public class Examples {
         // Create our manager
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         // Load the pizza ontology
-        OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI.create(DOCUMENT_IRI));
+        OWLOntology ont = man.loadOntologyFromOntologyDocument(IRI.create(PIZZA_IRI));
         System.out.println("Loaded: " + ont.getOntologyID());
         // We want to add a comment to the pizza class. First, we need to obtain
         // a reference to the pizza class
@@ -1323,6 +1348,7 @@ public class Examples {
                 IRI.create("file:/tmp/mergedont.owlapi"));
     }
 
+    /** @throws OWLOntologyCreationException */
     @Test
     public void shouldWalkOntology() throws OWLOntologyCreationException {
         // This example shows how to use an ontology walker to walk the asserted
@@ -1362,6 +1388,7 @@ public class Examples {
         walker.walkStructure(visitor);
     }
 
+    /** @throws OWLOntologyCreationException */
     @Test
     public void shouldQueryWithReasoner() throws OWLOntologyCreationException {
         // We will load the pizza ontology and query it using a reasoner

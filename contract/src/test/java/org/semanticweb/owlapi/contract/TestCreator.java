@@ -13,7 +13,7 @@ import java.util.Set;
 
 @SuppressWarnings("javadoc")
 public class TestCreator {
-    public static void _main(final String[] args) throws Exception {
+    public static void _main() throws Exception {
         Map<String, PrintStream> streams = new HashMap<String, PrintStream>();
         File[] roots = new File[] { new File("api/src/main/java"),
                 new File("apibinding/src/main/java"), new File("impl/src/main/java"),
