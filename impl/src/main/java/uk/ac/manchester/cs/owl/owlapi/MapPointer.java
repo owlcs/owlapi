@@ -36,6 +36,7 @@ public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V
         return initialized;
     }
 
+    @SuppressWarnings("unchecked")
     public void init() {
         if (initialized) {
             return;

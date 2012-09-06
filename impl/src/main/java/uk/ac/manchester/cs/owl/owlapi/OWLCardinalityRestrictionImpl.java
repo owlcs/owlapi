@@ -57,9 +57,9 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLRestrictionImpl<R, P, F> implements OWLCardinalityRestriction<R, P, F> {
 
 
-	private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30402L;
 
-	private final int cardinality;
+    private final int cardinality;
 
     private final F filler;
 
@@ -81,22 +81,24 @@ public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, 
     }
 
 
+    @SuppressWarnings("unchecked")
     @Override
-	public boolean equals(Object obj) {
-            if(super.equals(obj)) {
-                if(!(obj instanceof OWLCardinalityRestriction)) {
-                    return false;
-                }
-                OWLCardinalityRestriction<R, P, F> other = (OWLCardinalityRestriction<R, P, F>) obj;
-                return other.getCardinality() == cardinality &&
-                        other.getFiller().equals(filler);
+    public boolean equals(Object obj) {
+        if(super.equals(obj)) {
+            if(!(obj instanceof OWLCardinalityRestriction)) {
+                return false;
             }
+            OWLCardinalityRestriction<R, P, F> other = (OWLCardinalityRestriction<R, P, F>) obj;
+            return other.getCardinality() == cardinality &&
+                    other.getFiller().equals(filler);
+        }
         return false;
     }
 
 
+    @SuppressWarnings("unchecked")
     @Override
-	final protected int compareObjectOfSameType(OWLObject object) {
+    final protected int compareObjectOfSameType(OWLObject object) {
         OWLCardinalityRestriction<R, P, F> other = (OWLCardinalityRestriction<R, P, F>) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {

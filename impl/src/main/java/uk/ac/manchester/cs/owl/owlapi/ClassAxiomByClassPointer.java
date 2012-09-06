@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 
+@SuppressWarnings("javadoc")
 public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom> {
 
     private static final long serialVersionUID = 30402L;

@@ -43,6 +43,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -106,9 +107,9 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             PrefixOWLOntologyFormat namespaceFormat = (PrefixOWLOntologyFormat) ontologyFormat;
             Map<String, String> namespacesByPrefix = namespaceFormat.getPrefixName2PrefixMap();
             for (String prefixName : namespacesByPrefix.keySet()) {
-                    String xmlnsPrefixName = prefixName.substring(0, prefixName.length() - 1);
-                    String xmlnsPrefix = namespacesByPrefix.get(prefixName);
-                    namespaceUtil.setPrefix(xmlnsPrefix, xmlnsPrefixName);
+                String xmlnsPrefixName = prefixName.substring(0, prefixName.length() - 1);
+                String xmlnsPrefix = namespacesByPrefix.get(prefixName);
+                namespaceUtil.setPrefix(xmlnsPrefix, xmlnsPrefixName);
             }
         }
         if (ontology.getAxiomCount(AxiomType.SWRL_RULE) != 0) {
@@ -149,9 +150,9 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     private void processIRI(IRI iri) {
         String s = iri.toString();
-        String[] splitResults=namespaceUtil.split(s);
-        if (!(splitResults[0].equals("") || splitResults[1].equals(""))) {
-            namespaceUtil.getPrefix(splitResults[0]);
+        final String ns = XMLUtils.getNCNamePrefix(s);
+        if (!(ns.equals("") || XMLUtils.getNCNameSuffix(s) == null)) {
+            namespaceUtil.getPrefix(ns);
         }
     }
 
@@ -193,25 +194,26 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
      * @return The QName representation or <code>null</code> if a QName could not be generated.
      */
     @Override
-	public String getQName(String name) {
-        String[] splitResults = namespaceUtil.split(name);
-        if (splitResults[0].equals(getDefaultNamespace())) {
-            return splitResults[1];
+    public String getQName(String name) {
+        final String ns = XMLUtils.getNCNamePrefix(name);
+        final String fragment = XMLUtils.getNCNameSuffix(name);
+        if (ns.equals(getDefaultNamespace())) {
+            return fragment;
         }
         if (name.startsWith("xmlns") || name.startsWith("xml:")) {
             return name;
         }
-        if (splitResults[0].equals("") && splitResults[1].equals("")) {
+        if (ns.equals("") || fragment == null) {
             // Couldn't split
             return name;
         }
-        String prefix = getPrefixForNamespace(splitResults[0]);
+        String prefix = getPrefixForNamespace(ns);
         if (prefix != null) {
             if (prefix.length() > 0) {
-                return prefix + ":" + splitResults[1];
+                return prefix + ":" + fragment;
             }
             else {
-                return splitResults[1];
+                return fragment;
             }
         }
         else {

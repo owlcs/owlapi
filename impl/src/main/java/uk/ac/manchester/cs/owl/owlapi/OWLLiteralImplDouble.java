@@ -88,10 +88,6 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
         return Double.toString(literal);
     }
 
-    public Double getDouble() {
-        return literal;
-    }
-
     public boolean isRDFPlainLiteral() {
         return false;
     }

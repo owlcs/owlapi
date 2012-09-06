@@ -134,6 +134,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
 
+        @SuppressWarnings("unused")
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
             //XXX this seems wrong, doesn't use the input and isLocal can only possibly be set to true

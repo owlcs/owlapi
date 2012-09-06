@@ -235,6 +235,7 @@ public class CollectionFactory {
             return backingMap.keySet().toArray(a);
         }
 
+        @SuppressWarnings("rawtypes")
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -269,12 +270,18 @@ public class CollectionFactory {
     public static <T> Set<T> getCopyOnRequestSet(Collection<T> source) {
         return getCopyOnRequestSetFromMutableCollection(source);
     }
+
+    /** @param source
+     * @return copy on request that builds a list from the input set */
     public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(Collection<T> source) {
         if (source == null || source.isEmpty()) {
             return Collections.emptySet();
         }
         return new ConditionalCopySet<T>(source, true);
     }
+
+    /** @param source
+     * @return copy on request that does not build a list immediately */
     public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(Collection<T> source) {
         if (source == null || source.isEmpty()) {
             return Collections.emptySet();
@@ -323,10 +330,10 @@ public class CollectionFactory {
         private final static int maxContains = 10;
         private int containsCounter = 0;
 
-        /**
-         * @param source
+        /** @param source
          *            initial elements
-         */
+         * @param listCopy
+         *            true if a copy must be made */
         public ConditionalCopySet(Collection<T> source, boolean listCopy) {
             if(listCopy) {
                 this.delegate = new ArrayList<T>(source);
@@ -335,6 +342,7 @@ public class CollectionFactory {
             }
         }
 
+        @SuppressWarnings("rawtypes")
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {

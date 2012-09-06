@@ -152,13 +152,16 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
             return literal;
         }
         if (literal instanceof OWLLiteralImplFloat) {
-            return floatCache.cache(((OWLLiteralImplFloat) literal).getFloat(), literal);
+            return floatCache
+                    .cache(((OWLLiteralImplFloat) literal).parseFloat(), literal);
         }
         if (literal instanceof OWLLiteralImplDouble) {
-            return doubleCache.cache(((OWLLiteralImplDouble) literal).getDouble(), literal);
+            return doubleCache.cache(((OWLLiteralImplDouble) literal).parseDouble(),
+                    literal);
         }
         if (literal instanceof OWLLiteralImplInteger) {
-            return intCache.cache(((OWLLiteralImplInteger) literal).getInteger(), literal);
+            return intCache.cache(((OWLLiteralImplInteger) literal).parseInteger(),
+                    literal);
         }
         if (datatype.isString()) {
             return stringCache.cache(literal.getLiteral(), literal);

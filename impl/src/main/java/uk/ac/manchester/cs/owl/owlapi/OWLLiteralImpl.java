@@ -78,7 +78,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     private static final long serialVersionUID = 30402L;
 
-    public static final int COMPRESSION_LIMIT = 160;
+    private static final int COMPRESSION_LIMIT = 160;
 
     private final LiteralWrapper literal;
 
@@ -89,7 +89,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private final int hashcode;
 
     /**
-     * @param dataFactory the datafactory
      * @param literal the lexical form
      * @param lang the language; can be null or an empty string, in which case datatype can be any datatype but not null
      * @param datatype the datatype; if lang is null or the empty string, it can be null or it MUST be RDFPlainLiteral

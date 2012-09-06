@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * A utility class which can generate namespaces, local names and
  * namespace prefixes in accordance with the XML spec.
  */
+@SuppressWarnings("javadoc")
 public class NamespaceUtil {
 
     private final Map<String, String> namespace2PrefixMap;
@@ -65,7 +66,6 @@ public class NamespaceUtil {
 
     private int candidateIndex = 1;
 
-    @SuppressWarnings("javadoc")
     public NamespaceUtil() {
         standardNamespacePrefixMappings = new HashMap<String, String>();
         standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE, "dc");
@@ -127,7 +127,7 @@ public class NamespaceUtil {
      *         @deprecated Use {@link org.semanticweb.owlapi.io.XMLUtils#getNCNamePrefix(CharSequence)}
      */
     @Deprecated
-    public String [] split(String s, String [] result) {
+    public String[] split(String s, @SuppressWarnings("unused") String[] result) {
         // We need to deal with escape sequences.  %20 is a space
         // and can be contained within a qname.
         String temp = s;

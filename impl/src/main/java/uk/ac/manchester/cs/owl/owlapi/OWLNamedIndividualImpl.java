@@ -73,7 +73,6 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
 	private final IRI iri;
 
     /**
-     * @param dataFactory the data factory
      * @param iri the iri
      */
     public OWLNamedIndividualImpl(IRI iri) {
@@ -156,7 +155,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
                 return false;
             }
             IRI otherIRI = ((OWLNamedIndividual) obj).getIRI();
-            return otherIRI.equals(this.iri);
+            return otherIRI.equals(iri);
         }
         return false;
     }

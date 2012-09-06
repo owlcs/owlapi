@@ -84,6 +84,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return f;
     }
 
+    @SuppressWarnings("javadoc")
     public static void setOWLDataFactory(OWLDataFactory factory) {
         f = factory;
     }

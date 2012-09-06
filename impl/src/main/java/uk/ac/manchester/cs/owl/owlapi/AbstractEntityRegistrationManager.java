@@ -108,6 +108,7 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         }
     };
 
+    @SuppressWarnings("unchecked")
     protected void processAxiomAnnotations(OWLAxiom ax) {
         // an OWLAxiomImpl will implement this interface with <OWLAnnotation > parameter; this will avoid creating a defensive copy of the annotation set
         if (ax instanceof CollectionContainer) {

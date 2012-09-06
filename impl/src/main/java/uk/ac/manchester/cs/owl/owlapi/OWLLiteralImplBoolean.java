@@ -92,10 +92,6 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
         return Boolean.toString(literal);
     }
 
-    public Boolean getBoolean() {
-        return literal;
-    }
-
     public boolean isRDFPlainLiteral() {
         return false;
     }

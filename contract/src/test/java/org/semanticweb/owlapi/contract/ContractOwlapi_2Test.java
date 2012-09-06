@@ -1848,7 +1848,6 @@ public class ContractOwlapi_2Test {
 
     public void shouldTestOWLLiteralImplBoolean() throws Exception {
         OWLLiteralImplBoolean testSubject0 = new OWLLiteralImplBoolean(false);
-        Boolean result0 = testSubject0.getBoolean();
         boolean result1 = testSubject0.parseBoolean();
         float result2 = testSubject0.parseFloat();
         double result3 = testSubject0.parseDouble();
@@ -1891,7 +1890,6 @@ public class ContractOwlapi_2Test {
     public void shouldTestOWLLiteralImplFloat() throws Exception {
         OWLLiteralImplFloat testSubject0 = new OWLLiteralImplFloat(0F,
                 mock(OWLDatatype.class));
-        Float result0 = testSubject0.getFloat();
         float result2 = testSubject0.parseFloat();
     }
 
@@ -1899,7 +1897,6 @@ public class ContractOwlapi_2Test {
     public void shouldTestOWLLiteralImplInteger() throws Exception {
         OWLLiteralImplInteger testSubject0 = new OWLLiteralImplInteger(0,
                 mock(OWLDatatype.class));
-        Integer result3 = testSubject0.getInteger();
         boolean result13 = testSubject0.isInteger();
     }
 
