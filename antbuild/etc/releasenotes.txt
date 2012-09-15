@@ -1,3 +1,17 @@
+3.4.1-SNAPSHOT 15 Sep 2012
+
+Bugs closed:
+
+3562296    Switch version 3.4.1 to 3.4.1-SNAPSHOT
+3560287    Is QNameShortFormProvider deprecated?
+3566820    Missing Imports are not reported
+3306980    file in Manchester OWL Syntax with BOM doesn't parse
+3559116    Wrong VersionInfo in OWL-API 3.4 release
+2887890    Parsing hasValue restrictions with punned properties fails
+3178902    RDF/XML round trip problem with 3-way equivalent classes
+3174734    ManSyntax fails to read ontology with single data property
+3440117    Turtle parser doesn't handle qnames with empty name part
+
 ----------------------------------------------------------------------
 Release 3.4
 ----------------------------------------------------------------------
