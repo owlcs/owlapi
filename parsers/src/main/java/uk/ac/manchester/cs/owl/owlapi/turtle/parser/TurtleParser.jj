@@ -109,26 +109,10 @@ public class TurtleParser implements AnonymousNodeChecker {
          if(s.charAt(0) == '<') {
             s = s.substring(1, s.length() - 1);
         }
-
         IRI iri = string2IRI.get(s);
         if(iri == null) {
-                iri = IRI.create(s);
-          //      if(!iri.isAbsolute()) {
-          //          String iriString = iri.toString();
-          //          if(iri.getFragment() != null) {
-          //              iri = new IRI(base + iriString);
-          //          }
-          //          else {
-          //              if(base.endsWith("/")) {
-          //                  iri = new IRI(base + iriString);
-          //              }
-          //              else {
-          //                  iri = new IRI(base + "#" + iriString);
-          //              }
-          //          }
-          //
-          //      }
-                string2IRI.put(s, iri);
+            iri = IRI.create(s);
+            string2IRI.put(s, iri);
         }
         return iri;
     }
@@ -469,6 +453,16 @@ IRI parseSubject() :
     }
 }
 
+IRI parseLoneNS() :
+{
+    IRI iri;
+    Token t;
+}
+{
+    t=<PNAME_NS> {
+        return getIRIFromQName(t.image);
+    }
+}
 IRI parseAbbreviatedIRI() :
 {
     IRI iri;
@@ -550,7 +544,7 @@ IRI parseResource() :
     IRI iri;
 }
 {
-    (iri=parseIRI() | iri=parseAbbreviatedIRI()) {
+    (iri=parseIRI() | LOOKAHEAD(2)iri=parseAbbreviatedIRI()| LOOKAHEAD(2)iri=parseLoneNS()) {
         return iri;
     }
 }
