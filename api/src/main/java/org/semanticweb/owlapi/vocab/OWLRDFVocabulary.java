@@ -169,181 +169,182 @@ public enum OWLRDFVocabulary {
     OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION(
             Namespaces.OWL, "NegativeObjectPropertyAssertion"),
 
-    @Deprecated
-    OWL_NEGATIVE_DATA_PROPERTY_ASSERTION(
-            Namespaces.OWL, "NegativeDataPropertyAssertion"),
+            @Deprecated
+            OWL_NEGATIVE_DATA_PROPERTY_ASSERTION(
+                    Namespaces.OWL, "NegativeDataPropertyAssertion"),
 
 
-    OWL_NEGATIVE_PROPERTY_ASSERTION(Namespaces.OWL, "NegativePropertyAssertion"),
+                    OWL_NEGATIVE_PROPERTY_ASSERTION(Namespaces.OWL, "NegativePropertyAssertion"),
 
-    RDFS_LABEL(Namespaces.RDFS, "label"),
+                    RDFS_LABEL(Namespaces.RDFS, "label"),
 
-    RDFS_COMMENT(Namespaces.RDFS, "comment"),
+                    RDFS_COMMENT(Namespaces.RDFS, "comment"),
 
-    RDFS_SEE_ALSO(Namespaces.RDFS, "seeAlso"),
+                    RDFS_SEE_ALSO(Namespaces.RDFS, "seeAlso"),
 
-    RDFS_IS_DEFINED_BY(Namespaces.RDFS, "isDefinedBy"),
+                    RDFS_IS_DEFINED_BY(Namespaces.RDFS, "isDefinedBy"),
 
-    RDFS_RESOURCE(Namespaces.RDFS, "Resource"),
+                    RDFS_RESOURCE(Namespaces.RDFS, "Resource"),
 
-    RDFS_LITERAL(Namespaces.RDFS, "Literal"),
+                    RDFS_LITERAL(Namespaces.RDFS, "Literal"),
 
-    RDF_PLAIN_LITERAL(Namespaces.RDF, "PlainLiteral"),
+                    RDF_PLAIN_LITERAL(Namespaces.RDF, "PlainLiteral"),
 
-    RDFS_DATATYPE(Namespaces.RDFS, "Datatype"),
+                    RDFS_DATATYPE(Namespaces.RDFS, "Datatype"),
 
-    OWL_TRANSITIVE_PROPERTY(Namespaces.OWL, "TransitiveProperty"),
+                    OWL_TRANSITIVE_PROPERTY(Namespaces.OWL, "TransitiveProperty"),
 
-    OWL_REFLEXIVE_PROPERTY(Namespaces.OWL, "ReflexiveProperty"),
+                    OWL_REFLEXIVE_PROPERTY(Namespaces.OWL, "ReflexiveProperty"),
 
-    OWL_IRREFLEXIVE_PROPERTY(Namespaces.OWL, "IrreflexiveProperty"),
+                    OWL_IRREFLEXIVE_PROPERTY(Namespaces.OWL, "IrreflexiveProperty"),
 
-    OWL_INVERSE_OF(Namespaces.OWL, "inverseOf"),
+                    OWL_INVERSE_OF(Namespaces.OWL, "inverseOf"),
 
-    OWL_COMPLEMENT_OF(Namespaces.OWL, "complementOf"),
+                    OWL_COMPLEMENT_OF(Namespaces.OWL, "complementOf"),
 
-    OWL_DATATYPE_COMPLEMENT_OF(Namespaces.OWL, "datatypeComplementOf"),
+                    OWL_DATATYPE_COMPLEMENT_OF(Namespaces.OWL, "datatypeComplementOf"),
 
-    OWL_ALL_DIFFERENT(Namespaces.OWL, "AllDifferent"),
+                    OWL_ALL_DIFFERENT(Namespaces.OWL, "AllDifferent"),
 
-    OWL_DISTINCT_MEMBERS(Namespaces.OWL, "distinctMembers"),
+                    OWL_DISTINCT_MEMBERS(Namespaces.OWL, "distinctMembers"),
 
-    OWL_SAME_AS(Namespaces.OWL, "sameAs"),
+                    OWL_SAME_AS(Namespaces.OWL, "sameAs"),
 
-    OWL_DIFFERENT_FROM(Namespaces.OWL, "differentFrom"),
+                    OWL_DIFFERENT_FROM(Namespaces.OWL, "differentFrom"),
 
-    OWL_DEPRECATED_PROPERTY(Namespaces.OWL, "DeprecatedProperty"),
+                    OWL_DEPRECATED_PROPERTY(Namespaces.OWL, "DeprecatedProperty"),
 
-    OWL_EQUIVALENT_PROPERTY(Namespaces.OWL, "equivalentProperty"),
+                    OWL_EQUIVALENT_PROPERTY(Namespaces.OWL, "equivalentProperty"),
 
-    OWL_DEPRECATED_CLASS(Namespaces.OWL, "DeprecatedClass"),
+                    OWL_DEPRECATED_CLASS(Namespaces.OWL, "DeprecatedClass"),
 
-    OWL_DATA_RANGE(Namespaces.OWL, "DataRange"),
+                    OWL_DATA_RANGE(Namespaces.OWL, "DataRange"),
 
-    RDFS_DOMAIN(Namespaces.RDFS, "domain"),
+                    RDFS_DOMAIN(Namespaces.RDFS, "domain"),
 
-    RDFS_RANGE(Namespaces.RDFS, "range"),
+                    RDFS_RANGE(Namespaces.RDFS, "range"),
 
-    RDFS_CLASS(Namespaces.RDFS, "Class"),
+                    RDFS_CLASS(Namespaces.RDFS, "Class"),
 
-    RDF_PROPERTY(Namespaces.RDF, "Property"),
+                    RDF_PROPERTY(Namespaces.RDF, "Property"),
 
-    @Deprecated
-    RDF_SUBJECT(Namespaces.RDF, "subject"),
+                    @Deprecated
+                    RDF_SUBJECT(Namespaces.RDF, "subject"),
 
-    @Deprecated
-    RDF_PREDICATE(Namespaces.RDF, "predicate"),
+                    @Deprecated
+                    RDF_PREDICATE(Namespaces.RDF, "predicate"),
 
-    @Deprecated
-    RDF_OBJECT(Namespaces.RDF, "object"),
+                    @Deprecated
+                    RDF_OBJECT(Namespaces.RDF, "object"),
 
-    @Deprecated
-    OWL_SUBJECT(Namespaces.OWL, "subject"),
+                    @Deprecated
+                    OWL_SUBJECT(Namespaces.OWL, "subject"),
 
-    @Deprecated
-    OWL_PREDICATE(Namespaces.OWL, "predicate"),
+                    @Deprecated
+                    OWL_PREDICATE(Namespaces.OWL, "predicate"),
 
-    @Deprecated
-    OWL_OBJECT(Namespaces.OWL, "object"),
+                    @Deprecated
+                    OWL_OBJECT(Namespaces.OWL, "object"),
 
-    RDF_DESCRIPTION(Namespaces.RDF, "Description"),
+                    RDF_DESCRIPTION(Namespaces.RDF, "Description"),
 
-    RDF_XML_LITERAL(Namespaces.RDF, "XMLLiteral"),
+                    RDF_XML_LITERAL(Namespaces.RDF, "XMLLiteral"),
 
-    OWL_PRIOR_VERSION(Namespaces.OWL, "priorVersion"),
+                    OWL_PRIOR_VERSION(Namespaces.OWL, "priorVersion"),
 
-    OWL_DEPRECATED(Namespaces.OWL, "deprecated"),
+                    OWL_DEPRECATED(Namespaces.OWL, "deprecated"),
 
-    OWL_BACKWARD_COMPATIBLE_WITH(Namespaces.OWL, "backwardCompatibleWith"),
+                    OWL_BACKWARD_COMPATIBLE_WITH(Namespaces.OWL, "backwardCompatibleWith"),
 
-    OWL_INCOMPATIBLE_WITH(Namespaces.OWL, "incompatibleWith"),
+                    OWL_INCOMPATIBLE_WITH(Namespaces.OWL, "incompatibleWith"),
+                    
+                    @Deprecated
+                    OWL_OBJECT_PROPERTY_DOMAIN(Namespaces.OWL, "objectPropertyDomain"),
 
-    OWL_OBJECT_PROPERTY_DOMAIN(Namespaces.OWL, "objectPropertyDomain"),
+                    @Deprecated
+                    OWL_DATA_PROPERTY_DOMAIN(Namespaces.OWL, "dataPropertyDomain"),
 
-    @Deprecated
-    OWL_DATA_PROPERTY_DOMAIN(Namespaces.OWL, "dataPropertyDomain"),
+                    @Deprecated
+                    OWL_DATA_PROPERTY_RANGE(Namespaces.OWL, "dataPropertyRange"),
 
-    @Deprecated
-    OWL_DATA_PROPERTY_RANGE(Namespaces.OWL, "dataPropertyRange"),
+                    @Deprecated
+                    OWL_OBJECT_PROPERTY_RANGE(Namespaces.OWL, "objectPropertyRange"),
 
-    @Deprecated
-    OWL_OBJECT_PROPERTY_RANGE(Namespaces.OWL, "objectPropertyRange"),
+                    @Deprecated
+                    OWL_SUB_OBJECT_PROPERTY_OF(Namespaces.OWL, "subObjectPropertyOf"),
 
-    @Deprecated
-    OWL_SUB_OBJECT_PROPERTY_OF(Namespaces.OWL, "subObjectPropertyOf"),
+                    @Deprecated
+                    OWL_SUB_DATA_PROPERTY_OF(Namespaces.OWL, "subDataPropertyOf"),
 
-    @Deprecated
-    OWL_SUB_DATA_PROPERTY_OF(Namespaces.OWL, "subDataPropertyOf"),
+                    @Deprecated
+                    OWL_DISJOINT_DATA_PROPERTIES(Namespaces.OWL, "disjointDataProperties"),
 
-    @Deprecated
-    OWL_DISJOINT_DATA_PROPERTIES(Namespaces.OWL, "disjointDataProperties"),
+                    @Deprecated
+                    OWL_DISJOINT_OBJECT_PROPERTIES(Namespaces.OWL, "disjointObjectProperties"),
 
-    @Deprecated
-    OWL_DISJOINT_OBJECT_PROPERTIES(Namespaces.OWL, "disjointObjectProperties"),
+                    OWL_PROPERTY_DISJOINT_WITH(Namespaces.OWL, "propertyDisjointWith"),
 
-    OWL_PROPERTY_DISJOINT_WITH(Namespaces.OWL, "propertyDisjointWith"),
+                    @Deprecated
+                    OWL_EQUIVALENT_DATA_PROPERTIES(Namespaces.OWL, "equivalentDataProperty"),
 
-    @Deprecated
-    OWL_EQUIVALENT_DATA_PROPERTIES(Namespaces.OWL, "equivalentDataProperty"),
+                    @Deprecated
+                    OWL_EQUIVALENT_OBJECT_PROPERTIES(Namespaces.OWL, "equivalentObjectProperty"),
 
-    @Deprecated
-    OWL_EQUIVALENT_OBJECT_PROPERTIES(Namespaces.OWL, "equivalentObjectProperty"),
+                    @Deprecated
+                    OWL_FUNCTIONAL_DATA_PROPERTY(Namespaces.OWL, "FunctionalDataProperty"),
 
-    @Deprecated
-    OWL_FUNCTIONAL_DATA_PROPERTY(Namespaces.OWL, "FunctionalDataProperty"),
+                    @Deprecated
+                    OWL_FUNCTIONAL_OBJECT_PROPERTY(Namespaces.OWL, "FunctionalObjectProperty"),
 
-    @Deprecated
-    OWL_FUNCTIONAL_OBJECT_PROPERTY(Namespaces.OWL, "FunctionalObjectProperty"),
+                    OWL_ON_CLASS(Namespaces.OWL, "onClass"),
 
-    OWL_ON_CLASS(Namespaces.OWL, "onClass"),
+                    OWL_ON_DATA_RANGE(Namespaces.OWL, "onDataRange"),
 
-    OWL_ON_DATA_RANGE(Namespaces.OWL, "onDataRange"),
+                    OWL_ON_DATA_TYPE(Namespaces.OWL, "onDatatype"),
 
-    OWL_ON_DATA_TYPE(Namespaces.OWL, "onDatatype"),
+                    OWL_WITH_RESTRICTIONS(Namespaces.OWL, "withRestrictions"),
 
-    OWL_WITH_RESTRICTIONS(Namespaces.OWL, "withRestrictions"),
+                    OWL_INVERSE_OBJECT_PROPERTY_EXPRESSION(Namespaces.OWL, "inverseObjectPropertyExpression"),
 
-    OWL_INVERSE_OBJECT_PROPERTY_EXPRESSION(Namespaces.OWL, "inverseObjectPropertyExpression"),
+                    OWL_AXIOM(Namespaces.OWL, "Axiom"),
 
-    OWL_AXIOM(Namespaces.OWL, "Axiom"),
+                    /**
+                     * @deprecated
+                     */
+                    @Deprecated
+                    OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain"),
 
-    /**
-     * @deprecated
-     */
-    @Deprecated
-    OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain"),
+                    OWL_PROPERTY_CHAIN_AXIOM(Namespaces.OWL, "propertyChainAxiom"),
 
-    OWL_PROPERTY_CHAIN_AXIOM(Namespaces.OWL, "propertyChainAxiom"),
+                    OWL_ALL_DISJOINT_CLASSES(Namespaces.OWL, "AllDisjointClasses"),
 
-    OWL_ALL_DISJOINT_CLASSES(Namespaces.OWL, "AllDisjointClasses"),
+                    OWL_MEMBERS(Namespaces.OWL, "members"),
 
-    OWL_MEMBERS(Namespaces.OWL, "members"),
+                    OWL_ALL_DISJOINT_PROPERTIES(Namespaces.OWL, "AllDisjointProperties"),
 
-    OWL_ALL_DISJOINT_PROPERTIES(Namespaces.OWL, "AllDisjointProperties"),
+                    OWL_TOP_OBJECT_PROPERTY(Namespaces.OWL, "topObjectProperty"),
 
-    OWL_TOP_OBJECT_PROPERTY(Namespaces.OWL, "topObjectProperty"),
+                    OWL_BOTTOM_OBJECT_PROPERTY(Namespaces.OWL, "bottomObjectProperty"),
 
-    OWL_BOTTOM_OBJECT_PROPERTY(Namespaces.OWL, "bottomObjectProperty"),
+                    OWL_TOP_DATA_PROPERTY(Namespaces.OWL, "topDataProperty"),
 
-    OWL_TOP_DATA_PROPERTY(Namespaces.OWL, "topDataProperty"),
+                    OWL_BOTTOM_DATA_PROPERTY(Namespaces.OWL, "bottomDataProperty"),
 
-    OWL_BOTTOM_DATA_PROPERTY(Namespaces.OWL, "bottomDataProperty"),
+                    OWL_HAS_KEY(Namespaces.OWL, "hasKey"),
 
-    OWL_HAS_KEY(Namespaces.OWL, "hasKey"),
+                    OWL_ANNOTATED_SOURCE(Namespaces.OWL, "annotatedSource"),
 
-    OWL_ANNOTATED_SOURCE(Namespaces.OWL, "annotatedSource"),
+                    OWL_ANNOTATED_PROPERTY(Namespaces.OWL, "annotatedProperty"),
 
-    OWL_ANNOTATED_PROPERTY(Namespaces.OWL, "annotatedProperty"),
+                    OWL_ANNOTATED_TARGET(Namespaces.OWL, "annotatedTarget"),
 
-    OWL_ANNOTATED_TARGET(Namespaces.OWL, "annotatedTarget"),
+                    OWL_SOURCE_INDIVIDUAL(Namespaces.OWL, "sourceIndividual"),
 
-    OWL_SOURCE_INDIVIDUAL(Namespaces.OWL, "sourceIndividual"),
+                    OWL_ASSERTION_PROPERTY(Namespaces.OWL, "assertionProperty"),
 
-    OWL_ASSERTION_PROPERTY(Namespaces.OWL, "assertionProperty"),
+                    OWL_TARGET_INDIVIDUAL(Namespaces.OWL, "targetIndividual"),
 
-    OWL_TARGET_INDIVIDUAL(Namespaces.OWL, "targetIndividual"),
-
-    OWL_TARGET_VALUE(Namespaces.OWL, "targetValue");
+                    OWL_TARGET_VALUE(Namespaces.OWL, "targetValue");
 
 
     //final URI uri;
@@ -359,7 +360,7 @@ public enum OWLRDFVocabulary {
         this.namespace = namespace;
         this.shortName = shortName;
         //this.uri = URI.create(namespace.toString() + shortName);
-        this.iri = IRI.create(namespace.toString() + shortName);
+        iri = IRI.create(namespace.toString() + shortName);
     }
 
     /**
@@ -411,7 +412,7 @@ public enum OWLRDFVocabulary {
 
 
     @Override
-	public String toString() {
+    public String toString() {
         return iri.toString();
     }
 
