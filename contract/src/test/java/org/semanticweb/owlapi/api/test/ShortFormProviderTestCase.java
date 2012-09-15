@@ -21,4 +21,13 @@ public class ShortFormProviderTestCase {
         String shortform = shortener.getShortForm(c);
         assertEquals("test:TEST_00001", shortform);
     }
+
+    @Test
+    public void shouldFindShortFormForWoman() {
+        OWLClass c = OWLManager.getOWLDataFactory().getOWLClass(
+                IRI.create("http://www.example.org/#Woman"));
+        QNameShortFormProvider shortener = new QNameShortFormProvider();
+        String shortform = shortener.getShortForm(c);
+        assertEquals("www:Woman", shortform);
+    }
 }
