@@ -64,6 +64,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import uk.ac.manchester.cs.JavaCharStream;
+
 // Suppress warnings in auto-generated code
 @SuppressWarnings({ "unused", "javadoc" })
 public class KRSS2Parser implements KRSS2ParserConstants {

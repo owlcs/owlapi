@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.coode.owlapi.functionalparser.JJTOWLFunctionalSyntaxParserState;
-import org.coode.owlapi.functionalparser.JavaCharStream;
 import org.coode.owlapi.functionalparser.Node;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxOWLParser;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParser;
@@ -71,30 +70,34 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractFunctionalparserTest {
-    public void shouldTestJavaCharStream() throws Exception {
-        JavaCharStream testSubject0 = new JavaCharStream(mock(InputStream.class), "", 0,
-                0, 0);
-        JavaCharStream testSubject1 = new JavaCharStream(mock(InputStream.class), "", 0,
-                0);
-        JavaCharStream testSubject2 = new JavaCharStream(mock(Reader.class), 0, 0, 0);
-        JavaCharStream testSubject3 = new JavaCharStream(mock(Reader.class), 0, 0);
-        char result0 = testSubject0.readChar();
-        testSubject0.backup(0);
-        char result1 = testSubject0.BeginToken();
-        int result4 = testSubject0.getEndColumn();
-        int result5 = testSubject0.getEndLine();
-        int result6 = testSubject0.getBeginColumn();
-        int result7 = testSubject0.getBeginLine();
-        testSubject0.ReInit(mock(Reader.class), 0, 0, 0);
-        testSubject0.ReInit(mock(InputStream.class), "", 0, 0, 0);
-        testSubject0.ReInit(mock(InputStream.class), "", 0, 0);
-        testSubject0.ReInit(mock(Reader.class), 0, 0);
-        String result8 = testSubject0.GetImage();
-        char[] result9 = testSubject0.GetSuffix(0);
-        testSubject0.Done();
-        testSubject0.adjustBeginLineColumn(0, 0);
-        String result10 = testSubject0.toString();
-    }
+    // public void shouldTestJavaCharStream() throws Exception {
+    // JavaCharStream testSubject0 = new JavaCharStream(mock(InputStream.class),
+    // "", 0,
+    // 0, 0);
+    // JavaCharStream testSubject1 = new JavaCharStream(mock(InputStream.class),
+    // "", 0,
+    // 0);
+    // JavaCharStream testSubject2 = new JavaCharStream(mock(Reader.class), 0,
+    // 0, 0);
+    // JavaCharStream testSubject3 = new JavaCharStream(mock(Reader.class), 0,
+    // 0);
+    // char result0 = testSubject0.readChar();
+    // testSubject0.backup(0);
+    // char result1 = testSubject0.BeginToken();
+    // int result4 = testSubject0.getEndColumn();
+    // int result5 = testSubject0.getEndLine();
+    // int result6 = testSubject0.getBeginColumn();
+    // int result7 = testSubject0.getBeginLine();
+    // testSubject0.ReInit(mock(Reader.class), 0, 0, 0);
+    // testSubject0.ReInit(mock(InputStream.class), "", 0, 0, 0);
+    // testSubject0.ReInit(mock(InputStream.class), "", 0, 0);
+    // testSubject0.ReInit(mock(Reader.class), 0, 0);
+    // String result8 = testSubject0.GetImage();
+    // char[] result9 = testSubject0.GetSuffix(0);
+    // testSubject0.Done();
+    // testSubject0.adjustBeginLineColumn(0, 0);
+    // String result10 = testSubject0.toString();
+    // }
 
     public void shouldTestJJTOWLFunctionalSyntaxParserState() throws Exception {
         JJTOWLFunctionalSyntaxParserState testSubject0 = new JJTOWLFunctionalSyntaxParserState();

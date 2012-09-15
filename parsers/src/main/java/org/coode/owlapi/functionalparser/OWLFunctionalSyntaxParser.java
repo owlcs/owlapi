@@ -73,6 +73,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
+import uk.ac.manchester.cs.JavaCharStream;
+
 @SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
 
