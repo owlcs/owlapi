@@ -95,7 +95,7 @@ public final class OWLOntologyLoaderConfiguration {
 
     private boolean strict = false;
 
-    private MissingImportHandlingStrategy missingImportHandlingStrategy;
+    private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
 
     private final Set<IRI> ignoredImports = new HashSet<IRI>();
 
@@ -291,9 +291,9 @@ public final class OWLOntologyLoaderConfiguration {
      */
     private OWLOntologyLoaderConfiguration copyConfiguration() {
         OWLOntologyLoaderConfiguration copy = new OWLOntologyLoaderConfiguration();
-        copy.loadAnnotations = this.loadAnnotations;
+        copy.loadAnnotations = loadAnnotations;
         copy.ignoredImports.clear();
-        copy.ignoredImports.addAll(this.ignoredImports);
+        copy.ignoredImports.addAll(ignoredImports);
         return copy;
     }
 
