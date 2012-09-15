@@ -45,6 +45,7 @@
 							<!-- <finalName>owlapi-${project.version}</finalName> -->
 							<archive>
 								<addMavenDescriptor>false</addMavenDescriptor>
+								<manifestFile>../antbuild/build/owlapi-bin/META-INF/MANIFEST.MF</manifestFile>
 							</archive>
 						</configuration>
 					</execution>
@@ -52,6 +53,7 @@
 				<configuration>
 					<archive>
 						<addMavenDescriptor>false</addMavenDescriptor>
+						<manifestFile>../antbuild/build/owlapi-bin/META-INF/MANIFEST.MF</manifestFile>
 					</archive>
 				</configuration>
 			</plugin>
