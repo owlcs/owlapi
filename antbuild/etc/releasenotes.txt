@@ -1,7 +1,9 @@
-3.4.1-SNAPSHOT 15 Sep 2012
+3.4.1-SNAPSHOT 16 Sep 2012
 
 Bugs closed:
 
+3186250    annotation assertion lost when annotation prop undeclared
+3309666    [Turtle] Parsing turtle files containing relative IRIs
 3562296    Switch version 3.4.1 to 3.4.1-SNAPSHOT
 3560287    Is QNameShortFormProvider deprecated?
 3566820    Missing Imports are not reported
