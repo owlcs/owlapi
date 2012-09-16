@@ -210,17 +210,17 @@ public class OWLObjectPropertyManager {
     }
 
 
-    /**
-     * The object property hierarchy relation → is the smallest relation on object property expressions
-     * for which the following conditions hold (A → B means that → holds for A and B):
-     * if Ax contains an axiom SubObjectPropertyOf(PE1 PE2), then PE1 → PE2 holds; and
-     * if Ax contains an axiom EquivalentObjectProperties(PE1 PE2), then PE1 → PE2 and PE2 → PE1 hold; and
-     * if Ax contains an axiom InverseObjectProperties(PE1 PE2), then PE1 → INV(PE2) and INV(PE2) → PE1 hold; and
-     * if Ax contains an axiom SymmetricObjectProperty(PE), then PE → INV(PE) holds; and
-     * if PE1 → PE2 holds, then INV(PE1) → INV(PE2) holds as well.
-     *
-     * @return A Map that maps sub properties to sets of super properties.
-     */
+    /** The object property hierarchy relation -> is the smallest relation on
+     * object property expressions for which the following conditions hold (A ->
+     * B means that -> holds for A and B): if Ax contains an axiom
+     * SubObjectPropertyOf(PE1 PE2), then PE1 -> PE2 holds; and if Ax contains
+     * an axiom EquivalentObjectProperties(PE1 PE2), then PE1 -> PE2 and PE2 ->
+     * PE1 hold; and if Ax contains an axiom InverseObjectProperties(PE1 PE2),
+     * then PE1 -> INV(PE2) and INV(PE2) -> PE1 hold; and if Ax contains an
+     * axiom SymmetricObjectProperty(PE), then PE -> INV(PE) holds; and if PE1
+     * -> PE2 holds, then INV(PE1) -> INV(PE2) holds as well.
+     * 
+     * @return A Map that maps sub properties to sets of super properties. */
     public Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> getPropertyHierarchy() {
         if (hierarchyDirty) {
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
@@ -312,14 +312,14 @@ public class OWLObjectPropertyManager {
     }
 
 
-    /**
-     * The relation →* is the reflexive-transitive closure of →.
-     * An object property expression PE is simple in Ax if,
-     * for each object property expression PE' such that PE' →* PE holds, PE' is not composite.
-     *
-     * @param expression The expression to be tested.
-     * @return <code>true</code> if the object property expression is simple, otherwise false.
-     */
+    /** The relation ->* is the reflexive-transitive closure of ->. An object
+     * property expression PE is simple in Ax if, for each object property
+     * expression PE' such that PE' ->* PE holds, PE' is not composite.
+     * 
+     * @param expression
+     *            The expression to be tested.
+     * @return <code>true</code> if the object property expression is simple,
+     *         otherwise false. */
     public boolean isNonSimple(OWLObjectPropertyExpression expression) {
         return getNonSimpleProperties().contains(expression.getSimplified());
     }
