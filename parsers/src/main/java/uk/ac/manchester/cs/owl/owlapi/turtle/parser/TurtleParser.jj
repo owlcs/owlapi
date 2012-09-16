@@ -112,6 +112,9 @@ public class TurtleParser implements AnonymousNodeChecker {
         IRI iri = string2IRI.get(s);
         if(iri == null) {
             iri = IRI.create(s);
+            if (!iri.isAbsolute()) {
+                iri = IRI.create(base + s);
+            }
             string2IRI.put(s, iri);
         }
         return iri;

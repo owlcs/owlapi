@@ -510,7 +510,7 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestUseOfNonAbsoluteIRI() throws Exception {
         UseOfNonAbsoluteIRI testSubject0 = new UseOfNonAbsoluteIRI(
-                Utils.getMockOntology(), mock(OWLAxiom.class));
+                Utils.getMockOntology(), mock(OWLAxiom.class), IRI.create("test"));
         testSubject0.accept(mock(OWL2ProfileViolationVisitor.class));
         IRI result0 = testSubject0.getDocumentIRI(new OWLOntologyID());
         OWLOntologyID result1 = testSubject0.getOntologyID();
