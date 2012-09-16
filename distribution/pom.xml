@@ -42,22 +42,24 @@
 							<descriptors>
 								<descriptor>src/assembly/bin.xml</descriptor>
 							</descriptors>
-							<!-- <finalName>owlapi-${project.version}</finalName> -->
 							<archive>
+								<manifest>
+									<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								</manifest>
 								<addMavenDescriptor>false</addMavenDescriptor>
-								<manifestFile>../antbuild/build/owlapi-bin/META-INF/MANIFEST.MF</manifestFile>
 							</archive>
 						</configuration>
 					</execution>
 				</executions>
 				<configuration>
 					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
 						<addMavenDescriptor>false</addMavenDescriptor>
-						<manifestFile>../antbuild/build/owlapi-bin/META-INF/MANIFEST.MF</manifestFile>
 					</archive>
 				</configuration>
 			</plugin>
-
 			<!-- Javadocs -->
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
