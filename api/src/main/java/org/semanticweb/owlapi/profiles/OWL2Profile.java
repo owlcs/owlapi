@@ -102,7 +102,7 @@ public class OWL2Profile implements OWLProfile {
         }
 
         @Override
-		public Object visit(OWLOntology ont) {
+        public Object visit(OWLOntology ont) {
             // The ontology IRI and version IRI must be absolute and must not be from the reserved vocab
             OWLOntologyID id = ont.getOntologyID();
             if (!id.isAnonymous()) {
@@ -121,15 +121,16 @@ public class OWL2Profile implements OWLProfile {
         }
 
         @Override
-		public Object visit(IRI iri) {
+        public Object visit(IRI iri) {
             if(!iri.isAbsolute()) {
-                profileViolations.add(new UseOfNonAbsoluteIRI(getCurrentOntology(), getCurrentAxiom()));
+                profileViolations.add(new UseOfNonAbsoluteIRI(getCurrentOntology(),
+                        getCurrentAxiom(), iri));
             }
             return null;
         }
 
         @Override
-		public Object visit(OWLLiteral node) {
+        public Object visit(OWLLiteral node) {
             // Check that the lexical value of the literal is in the lexical space of the
             // literal datatype
             if (node.getDatatype().isBuiltIn()) {
@@ -142,7 +143,7 @@ public class OWL2Profile implements OWLProfile {
         }
 
         @Override
-		public Object visit(OWLDatatypeRestriction node) {
+        public Object visit(OWLDatatypeRestriction node) {
             // The datatype should not be defined with a datatype definition axiom
             for(OWLOntology ont : man.getImportsClosure(getCurrentOntology())) {
                 for(OWLDatatypeDefinitionAxiom ax : ont.getAxioms(AxiomType.DATATYPE_DEFINITION)) {
@@ -163,7 +164,7 @@ public class OWL2Profile implements OWLProfile {
         }
 
         @Override
-		public Object visit(OWLDatatypeDefinitionAxiom axiom) {
+        public Object visit(OWLDatatypeDefinitionAxiom axiom) {
             // The datatype MUST be declared
             if (!getCurrentOntology().isDeclared(axiom.getDatatype(), true)) {
                 profileViolations.add(new UseOfUndeclaredDatatype(getCurrentOntology(), axiom, axiom.getDatatype()));

@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.profiles;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -51,11 +52,27 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class UseOfNonAbsoluteIRI extends OWLProfileViolation implements OWL2ProfileViolation {
 
-    public UseOfNonAbsoluteIRI(OWLOntology ontology, OWLAxiom axiom) {
+    private final IRI iri;
+
+    public UseOfNonAbsoluteIRI(OWLOntology ontology, OWLAxiom axiom, IRI iri) {
         super(ontology, axiom);
+        this.iri = iri;
     }
 
     public void accept(OWL2ProfileViolationVisitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("IRI is relative: ");
+        sb.append(iri);
+        sb.append(" in [");
+        sb.append(getAxiom());
+        sb.append(" in ");
+        sb.append(getOntologyID());
+        sb.append("]");
+        return sb.toString();
     }
 }
