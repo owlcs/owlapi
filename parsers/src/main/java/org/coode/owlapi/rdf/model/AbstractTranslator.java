@@ -647,6 +647,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         //        }
         //        else {
         translateAnonymousNode(rule);
+        translateAnnotations(rule);
         //        }
         addTriple(rule, RDF_TYPE.getIRI(), IMP.getIRI());
 
