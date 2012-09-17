@@ -40,9 +40,13 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
@@ -69,7 +73,22 @@ public class SWRLRuleTranslator {
 
 
     public void translateRule(IRI mainNode) {
+        Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
+        Set<IRI> predicates = consumer.getPredicatesBySubject(mainNode);
+        for (IRI i : predicates) {
+            if (consumer.isAnnotationProperty(i)) {
+                OWLAnnotationProperty p = consumer.getDataFactory()
+                        .getOWLAnnotationProperty(i);
+                OWLLiteral literal = consumer.getLiteralObject(mainNode, i, true);
+                while (literal != null) {
+                    annotations.add(consumer.getDataFactory()
+                            .getOWLAnnotation(p, literal));
+                    literal = consumer.getLiteralObject(mainNode, i, true);
+                }
+            }
+        }
         Set<SWRLAtom> consequent = Collections.emptySet();
+        // XXX annotations on rules are not parsed correctly
         IRI ruleHeadIRI = consumer.getResourceObject(mainNode, SWRLVocabulary.HEAD.getIRI(), true);
         if (ruleHeadIRI != null) {
             consequent = listTranslator.translateToSet(ruleHeadIRI);
@@ -82,10 +101,12 @@ public class SWRLRuleTranslator {
         }
         SWRLRule rule = null;
         if (!consumer.isAnonymousNode(mainNode)) {
-            rule = consumer.getDataFactory().getSWRLRule(antecedent, consequent);
+            rule = consumer.getDataFactory().getSWRLRule(antecedent, consequent,
+                    annotations);
         }
         else {
-            rule = consumer.getDataFactory().getSWRLRule(antecedent, consequent);
+            rule = consumer.getDataFactory().getSWRLRule(antecedent, consequent,
+                    annotations);
         }
         consumer.addAxiom(rule);
     }
