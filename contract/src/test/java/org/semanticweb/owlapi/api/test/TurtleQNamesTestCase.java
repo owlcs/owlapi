@@ -60,8 +60,8 @@ public class TurtleQNamesTestCase {
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(input));
         // then
         String axioms = o.getAxioms().toString();
-        assertTrue(axioms.contains("http://test.org/path#a1"));
-        assertTrue(axioms.contains("http://test.org/path#b1"));
-        assertTrue(axioms.contains("http://test.org/path#c1"));
+        assertTrue(axioms.contains("http://test.org/a1"));
+        assertTrue(axioms.contains("http://test.org/b1"));
+        assertTrue(axioms.contains("http://test.org/c1"));
     }
 }
