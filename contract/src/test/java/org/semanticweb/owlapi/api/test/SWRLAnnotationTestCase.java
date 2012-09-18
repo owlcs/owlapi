@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
+@SuppressWarnings("javadoc")
 public class SWRLAnnotationTestCase {
     String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
 

@@ -124,15 +124,16 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
 
     @Override
-	public void setDocumentLocator(Locator locator) {
+    public void setDocumentLocator(Locator locator) {
         super.setDocumentLocator(locator);
         this.locator = locator;
 
         URI base = null;
         try {
             String systemId = locator.getSystemId();
-            if (systemId != null)
+            if (systemId != null) {
                 base = new URI(systemId);
+            }
         }
         catch (URISyntaxException e) {
         }
@@ -150,7 +151,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         this(ontology, topHandler, new OWLOntologyLoaderConfiguration());
     }
 
-     /**
+    /**
      * Creates an OWLXML handler with the specified top level handler.  This allows OWL/XML
      * representations of axioms to be embedded in abitrary XML documents e.g. DIG 2.0 documents.
      * (The default handler behaviour expects the top level element to be an Ontology
@@ -159,9 +160,9 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * @param ontology The ontology object that the XML representation should be parsed into.
      */
     public OWLXMLParserHandler(OWLOntology ontology, OWLElementHandler<?> topHandler, OWLOntologyLoaderConfiguration configuration) {
-        this.owlOntologyManager = ontology.getOWLOntologyManager();
+        owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
-        this.bases = new Stack<URI>();
+        bases = new Stack<URI>();
         this.configuration = configuration;
         handlerStack = new ArrayList<OWLElementHandler<?>>();
         prefixName2PrefixMap = new HashMap<String, String>();
@@ -699,6 +700,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 return new SWRLDataPropertyAtomElementHandler(handler);
             }
         });
+        addFactory(new AbstractElementHandlerFactory(DATA_RANGE_ATOM) {
+            public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) {
+                return new SWRLDataRangeAtomElementHandler(handler);
+            }
+        });
 
         addFactory(new AbstractElementHandlerFactory(BUILT_IN_ATOM) {
             public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) {
@@ -774,9 +780,10 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 URI uri = new URI(iriStr);
                 if (!uri.isAbsolute()) {
                     URI base = getBase();
-                    if (base == null)
+                    if (base == null) {
                         throw new OWLXMLParserException("Unable to resolve relative URI", getLineNumber(), getColumnNumber());
-//                    iri = IRI.create(getBase().resolve(uri));
+                    }
+                    //                    iri = IRI.create(getBase().resolve(uri));
                     iri = IRI.create(base + iriStr);
                 }
                 else {
@@ -840,19 +847,19 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
 
     @Override
-	public void startDocument() throws SAXException {
+    public void startDocument() throws SAXException {
 
     }
 
 
     @Override
-	public void endDocument() throws SAXException {
+    public void endDocument() throws SAXException {
 
     }
 
 
     @Override
-	public void characters(char ch[], int start, int length) throws SAXException {
+    public void characters(char ch[], int start, int length) throws SAXException {
         if (!handlerStack.isEmpty()) {
             try {
                 OWLElementHandler<?> handler = handlerStack.get(0);
@@ -868,7 +875,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
 
     @Override
-	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         try {
             processXMLBase(attributes);
             if (localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
@@ -925,7 +932,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
 
     @Override
-	public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) throws SAXException {
         try {
             if (localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
                 return;
@@ -948,13 +955,13 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
 
     @Override
-	public void startPrefixMapping(String prefix, String uri) throws SAXException {
+    public void startPrefixMapping(String prefix, String uri) throws SAXException {
         prefixName2PrefixMap.put(prefix, uri);
     }
 
 
     @Override
-	public InputSource resolveEntity(String publicId, String systemId) throws IOException, SAXException {
+    public InputSource resolveEntity(String publicId, String systemId) throws IOException, SAXException {
         return super.resolveEntity(publicId, systemId);
     }
 
