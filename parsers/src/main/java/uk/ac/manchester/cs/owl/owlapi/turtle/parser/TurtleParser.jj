@@ -21,13 +21,10 @@ import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
+@SuppressWarnings("javadoc")
 public class TurtleParser implements AnonymousNodeChecker {
 
-    private OWLDataFactory dataFactory;
-
     private Map<String, IRI> string2IRI;
-
-    private boolean ignoreAnnotationsAndDeclarations = false;
 
     private String base;
 
@@ -118,10 +115,6 @@ public class TurtleParser implements AnonymousNodeChecker {
             string2IRI.put(s, iri);
         }
         return iri;
-    }
-
-    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
-        ignoreAnnotationsAndDeclarations = b;
     }
 
 }

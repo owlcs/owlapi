@@ -47,7 +47,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
-import java.util.TreeSet;
 
 import org.coode.owlapi.rdf.model.RDFLiteralNode;
 import org.coode.owlapi.rdf.model.RDFNode;
@@ -160,11 +159,11 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
 
-//    private void writeIndent(int indent) {
-//        for (int i = 1; i < indent; i++) {
-//            write(" ");
-//        }
-//    }
+    //    private void writeIndent(int indent) {
+    //        for (int i = 1; i < indent; i++) {
+    //            write(" ");
+    //        }
+    //    }
 
 
     private void writeAsURI(String s) {
@@ -298,7 +297,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
 
     @Override
-	protected void beginDocument() {
+    protected void beginDocument() {
         // Namespaces
         writeNamespaces();
         write("@base ");
@@ -317,7 +316,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
 
     @Override
-	protected void endDocument() {
+    protected void endDocument() {
         writer.flush();
         writer.println();
         writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
@@ -326,35 +325,35 @@ public class TurtleRenderer extends RDFRendererBase {
 
 
     @Override
-	protected void writeClassComment(OWLClass cls) {
+    protected void writeClassComment(OWLClass cls) {
         writeComment(cls.getIRI().toString());
     }
 
 
     @Override
-	protected void writeObjectPropertyComment(OWLObjectProperty prop) {
+    protected void writeObjectPropertyComment(OWLObjectProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
 
     @Override
-	protected void writeDataPropertyComment(OWLDataProperty prop) {
+    protected void writeDataPropertyComment(OWLDataProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
 
     @Override
-	protected void writeIndividualComments(OWLNamedIndividual ind) {
+    protected void writeIndividualComments(OWLNamedIndividual ind) {
         writeComment(ind.getIRI().toString());
     }
 
     @Override
-	protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
+    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
     @Override
-	protected void writeDatatypeComment(OWLDatatype datatype) {
+    protected void writeDatatypeComment(OWLDatatype datatype) {
         writeComment(datatype.getIRI().toString());
     }
 
@@ -367,7 +366,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
 
     @Override
-	protected void endObject() {
+    protected void endObject() {
         writeNewLine();
         writeNewLine();
         writeNewLine();
@@ -375,7 +374,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
 
     @Override
-	protected void writeBanner(String name) {
+    protected void writeBanner(String name) {
         writeNewLine();
         writeNewLine();
         writer.println("#################################################################");
@@ -396,14 +395,16 @@ public class TurtleRenderer extends RDFRendererBase {
      * @param node The node
      */
     @Override
-	public void render(RDFResourceNode node) {
+    public void render(RDFResourceNode node) {
         level++;
+        List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
         if (pending.contains(node)) {
             // We essentially remove all structure sharing during parsing - any cycles therefore indicate a bug!
-            throw new IllegalStateException("Rendering cycle!  This indicates structure sharing and should not happen!");
+            // throw new
+            // IllegalStateException("Rendering cycle!  This indicates structure sharing and should not happen!");
+            triples = new ArrayList<RDFTriple>();
         }
         pending.add(node);
-        List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
 
         RDFResourceNode lastSubject = null;
         RDFResourceNode lastPredicate = null;

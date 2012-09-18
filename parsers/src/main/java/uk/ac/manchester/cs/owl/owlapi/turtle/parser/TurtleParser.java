@@ -8,20 +8,16 @@ import java.util.Map;
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import uk.ac.manchester.cs.JavaCharStream;
 
+@SuppressWarnings("javadoc")
 public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants {
 
-    private OWLDataFactory dataFactory;
-
     private Map<String, IRI> string2IRI;
-
-    private boolean ignoreAnnotationsAndDeclarations = false;
 
     private String base;
 
@@ -112,10 +108,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
             string2IRI.put(s, iri);
         }
         return iri;
-    }
-
-    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
-        ignoreAnnotationsAndDeclarations = b;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
