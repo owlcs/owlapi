@@ -1,10 +1,12 @@
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -63,5 +65,29 @@ public class TurtleQNamesTestCase {
         assertTrue(axioms.contains("http://test.org/a1"));
         assertTrue(axioms.contains("http://test.org/b1"));
         assertTrue(axioms.contains("http://test.org/c1"));
+    }
+
+    // test for 3543488
+    @Test
+    public void shouldRoundTripTurtleWithsharedBnodes()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input = "@prefix ex: <http://example.com/test> .\n"
+                + "ex:ex1 a ex:Something ; ex:prop1 _:a .\n"
+                + "_:a a ex:Something1 ; ex:prop2 _:b .\n"
+                + "_:b a ex:Something ; ex:prop3 _:a .";
+        OWLOntology ontology = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        StringDocumentTarget t = new StringDocumentTarget();
+        TurtleOntologyFormat format = new TurtleOntologyFormat();
+        // format.setPrefix(":", NS);
+        ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
+        String onto1 = t.toString();
+        ontology = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(t.toString()));
+        t = new StringDocumentTarget();
+        format = new TurtleOntologyFormat();
+        ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
+        String onto2 = t.toString();
+        assertEquals(onto1, onto2);
     }
 }
