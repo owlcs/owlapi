@@ -113,7 +113,7 @@ public class TurtleParser implements AnonymousNodeChecker {
         if(iri == null) {
             iri = IRI.create(s);
             if (!iri.isAbsolute()) {
-                iri = IRI.create(base + s);
+                iri = IRI.create(base.substring(0, base.lastIndexOf('/') + 1) + s);
             }
             string2IRI.put(s, iri);
         }
