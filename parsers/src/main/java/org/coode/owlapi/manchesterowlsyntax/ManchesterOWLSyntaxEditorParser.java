@@ -337,6 +337,8 @@ public class ManchesterOWLSyntaxEditorParser {
 
 
         for (XSDVocabulary v : XSDVocabulary.values()) {
+            dataTypeNames.add(v.getIRI().toString());
+            dataTypeNames.add(v.getIRI().toQuotedString());
             dataTypeNames.add(v.getIRI().getFragment());
             dataTypeNames.add("xsd:" + v.getIRI().getFragment());
         }
@@ -1857,6 +1859,8 @@ public class ManchesterOWLSyntaxEditorParser {
         }
         else if (isDataPropertyName(predicate)) {
             return parseDataPropertyAtom();
+        } else if (isDatatypeName(predicate)) {
+            return parseDataRangeAtom();
         }
         else if (predicate.equals(ManchesterOWLSyntax.DIFFERENT_FROM.toString())) {
             return parseDifferentFromAtom();
@@ -1889,6 +1893,14 @@ public class ManchesterOWLSyntaxEditorParser {
         SWRLDArgument obj2 = parseDObject();
         consumeToken(")");
         return dataFactory.getSWRLDataPropertyAtom(getOWLDataProperty(predicate), obj1, obj2);
+    }
+
+    public SWRLAtom parseDataRangeAtom() throws ParserException {
+        OWLDataRange range = parseDataRange();
+        consumeToken("(");
+        SWRLVariable obj1 = parseDVariable();
+        consumeToken(")");
+        return dataFactory.getSWRLDataRangeAtom(range, obj1);
     }
 
 
