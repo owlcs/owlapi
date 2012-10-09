@@ -1,7 +1,8 @@
 3.4.1-SNAPSHOT 16 Sep 2012
 
 Bugs closed:
-
+3536150    TypeOntologyHandler/TPVersionIRIHandler overwrite ontologyID
+3314432    Manchester OWL parser does not handle data ranges in rules
 3186250    annotation assertion lost when annotation prop undeclared
 3309666    [Turtle] Parsing turtle files containing relative IRIs
 3562296    Switch version 3.4.1 to 3.4.1-SNAPSHOT
