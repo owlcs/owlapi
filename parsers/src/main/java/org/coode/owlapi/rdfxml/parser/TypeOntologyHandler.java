@@ -61,12 +61,17 @@ public class TypeOntologyHandler extends BuiltInTypeHandler {
 
 
     @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
         if(!isAnonymous(subject) && getConsumer().getOntologies().isEmpty()) {
-            // Set IRI?
-            OWLOntologyID id = new OWLOntologyID(subject);
-            getConsumer().applyChange(new SetOntologyID(getConsumer().getOntology(), id));
+            // Set IRI if it is not null before this point, and make sure to
+            // preserve the version IRI if it also existed before this point
+            if (getConsumer().getOntology().getOntologyID().getOntologyIRI() == null) {
+                OWLOntologyID id = new OWLOntologyID(subject, getConsumer().getOntology()
+                        .getOntologyID().getVersionIRI());
+                getConsumer().applyChange(
+                        new SetOntologyID(getConsumer().getOntology(), id));
+            }
         }
         getConsumer().addOntology(subject);
     }

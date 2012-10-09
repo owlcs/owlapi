@@ -60,21 +60,33 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
 
 
     @Override
-	public void handleTriple(IRI subject,
-                             IRI predicate,
-                             IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject,
+            IRI predicate,
+            IRI object) throws UnloadableImportException {
         OWLOntology ontology = getConsumer().getOntology();
-        OWLOntologyID ontologyID = new OWLOntologyID(ontology.getOntologyID().getOntologyIRI(), object);
-        getConsumer().setOntologyID(ontologyID);
+        // only setup the versionIRI if it is null before this point
+        if (ontology != null && ontology.getOntologyID().getVersionIRI() == null) {
+            IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
+            IRI versionIRI = object;
+            // If there was no ontologyIRI before this point and the subject of
+            // this statement was not anonymous,
+            // then use the subject IRI as the ontology IRI, else we keep the
+            // previous definition for the ontology IRI
+            if (ontologyIRI == null && !isAnonymous(subject)) {
+                ontologyIRI = subject;
+            }
+            OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRI, versionIRI);
+            getConsumer().setOntologyID(ontologyID);
+        }
         consumeTriple(subject, predicate, object);
     }
 
 
     @Override
     @SuppressWarnings("unused")
-	public boolean canHandleStreaming(IRI subject,
-                                      IRI predicate,
-                                      IRI object) {
+    public boolean canHandleStreaming(IRI subject,
+            IRI predicate,
+            IRI object) {
         // Always apply at the end
         return false;
     }
@@ -82,9 +94,9 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
 
     @Override
     @SuppressWarnings("unused")
-	public boolean canHandle(IRI subject,
-                             IRI predicate,
-                             IRI object) {
+    public boolean canHandle(IRI subject,
+            IRI predicate,
+            IRI object) {
         return subject.equals(getConsumer().getOntology().getOntologyID().getOntologyIRI());
     }
 }
