@@ -339,14 +339,14 @@ public class ManchesterOWLSyntaxEditorParser {
         for (XSDVocabulary v : XSDVocabulary.values()) {
             dataTypeNames.add(v.getIRI().toString());
             dataTypeNames.add(v.getIRI().toQuotedString());
-            dataTypeNames.add(v.getIRI().getFragment());
+            // dataTypeNames.add(v.getIRI().getFragment());
             dataTypeNames.add("xsd:" + v.getIRI().getFragment());
         }
+        dataTypeNames.add("rdfs:" + OWLRDFVocabulary.RDFS_LITERAL.getIRI().getFragment());
         dataTypeNames.add(OWLRDFVocabulary.RDF_XML_LITERAL.getIRI().getFragment());
         dataTypeNames.add("rdf:" + OWLRDFVocabulary.RDF_XML_LITERAL.getIRI().getFragment());
 
-        dataTypeNames.add(dataFactory.getTopDatatype().getIRI().getFragment());
-
+        // dataTypeNames.add(dataFactory.getTopDatatype().getIRI().getFragment());
         for (IRI iri : OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS) {
             final String string = iri.toString();
             String ns = XMLUtils.getNCNamePrefix(string);
@@ -510,6 +510,8 @@ public class ManchesterOWLSyntaxEditorParser {
 
 
     public boolean isDatatypeName(String name) {
+        System.out.println("ManchesterOWLSyntaxEditorParser.isDatatypeName() "
+                + dataTypeNames);
         return dataTypeNames.contains(name) || owlEntityChecker != null && owlEntityChecker.getOWLDatatype(name) != null;
     }
 
