@@ -525,11 +525,11 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
                     .getNewOntologyID());
             if (existingOntology != null
                     && !change.getOntology().equals(existingOntology)) {
-                //XXX bug still not solved: what to do with multiple imports of the same ontology from different locations
-                //System.out.println("OWLOntologyManagerImpl.checkForOntologyIDChange() existing:\n"+existingOntology);
-                //System.out.println("OWLOntologyManagerImpl.checkForOntologyIDChange() new:\n"+change.getOntology());
-                throw new OWLOntologyRenameException(change,
-                        ((SetOntologyID) change).getNewOntologyID());
+                if (!change.getOntology().getAxioms()
+                        .equals(existingOntology.getAxioms())) {
+                    throw new OWLOntologyRenameException(change,
+                            ((SetOntologyID) change).getNewOntologyID());
+                }
             }
             renameOntology(setID.getOriginalOntologyID(), setID.getNewOntologyID());
             resetImportsClosureCache();
