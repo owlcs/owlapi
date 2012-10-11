@@ -58,6 +58,8 @@ import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
 import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.AddImport;
@@ -911,13 +913,19 @@ public class OWLRDFConsumer implements RDFConsumer {
     private void processRDFTriple(RDFTriple triple)
             throws UnloadableImportException {
         RDFResource subject = triple.getSubject();
-        RDFResource predicate = triple.getPredicate();
+        RDFResourceIRI predicate = triple.getPredicate();
         RDFNode object = triple.getObject();
         if (object.isLiteral()) {
             RDFLiteral literalObject = (RDFLiteral) object;
-            handleStreaming(subject.getResource(), predicate.getResource(),
-                    literalObject.getLiteral());
-        } else {
+            if(literalObject.hasLang()) {
+                handleStreaming(subject.getResource(), predicate.getResource(), getDataFactory().getOWLLiteral(literalObject.getLiteral(), literalObject.getLang()));
+            } else if(literalObject.hasDatatype()) {
+                handleStreaming(subject.getResource(), predicate.getResource(), getDataFactory().getOWLLiteral(literalObject.getLiteral(), getDataFactory().getOWLDatatype(literalObject.getDatatype())));
+            } else {
+                handleStreaming(subject.getResource(), predicate.getResource(), getDataFactory().getOWLLiteral(literalObject.getLiteral()));
+            }
+        }
+        else {
             RDFResource resourceObject = (RDFResource) object;
             handleStreaming(subject.getResource(), predicate.getResource(),
                     resourceObject.getResource());
@@ -2470,7 +2478,11 @@ public class OWLRDFConsumer implements RDFConsumer {
      *            the iri
      * @return the rDF resource */
     private RDFResource getRDFResource(IRI iri) {
-        return new RDFResource(iri, isAnonymousNode(iri));
+        if(isAnonymousNode(iri)) {            
+            return new RDFResourceBlankNode(iri);
+        } else {
+            return new RDFResourceIRI(iri);
+        }
     }
 
     /** Gets the rDF triple.
@@ -2483,34 +2495,15 @@ public class OWLRDFConsumer implements RDFConsumer {
      *            the object
      * @return the rDF triple */
     private RDFTriple getRDFTriple(IRI subject, IRI predicate, IRI object) {
-        return new RDFTriple(getRDFResource(subject),
-                getRDFResource(predicate), getRDFResource(object));
+        return new RDFTriple(getRDFResource(subject), new RDFResourceIRI(predicate), getRDFResource(object));
     }
 
-    /** Gets the rDF triple.
-     * 
-     * @param subject
-     *            the subject
-     * @param predicate
-     *            the predicate
-     * @param object
-     *            the object
-     * @return the rDF triple */
-    private RDFTriple
-            getRDFTriple(IRI subject, IRI predicate, OWLLiteral object) {
-        return new RDFTriple(getRDFResource(subject),
-                getRDFResource(predicate), new RDFLiteral(object));
+
+    private RDFTriple getRDFTriple(IRI subject, IRI predicate, OWLLiteral object) {
+        return new RDFTriple(getRDFResource(subject), new RDFResourceIRI(predicate), new RDFLiteral(object));
     }
 
-    /** Gets the triples for main node.
-     * 
-     * @param mainNode
-     *            the main node
-     * @param augmentingTypes
-     *            the augmenting types
-     * @return the triples for main node */
-    private Set<RDFTriple> getTriplesForMainNode(IRI mainNode,
-            IRI... augmentingTypes) {
+    private Set<RDFTriple> getTriplesForMainNode(IRI mainNode, IRI... augmentingTypes) {
         Set<RDFTriple> triples = new HashSet<RDFTriple>();
         for (IRI predicate : getPredicatesBySubject(mainNode)) {
             for (IRI object : getResourceObjects(mainNode, predicate)) {

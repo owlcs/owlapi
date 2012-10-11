@@ -38,12 +38,32 @@
  */
 package org.semanticweb.owlapi.io;
 
+import java.io.Serializable;
+
+import org.semanticweb.owlapi.model.IRI;
+
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 21/12/2010
  * @since 3.2 */
-public abstract class RDFNode {
+public abstract class RDFNode implements Comparable<RDFNode>, Serializable {
     /** Determines if this node is a literal node.
      * 
      * @return {@code true} if this node is a literal, otherwise {@code false}. */
     public abstract boolean isLiteral();
+    
+    /**
+     * Gets the URI of the resource.
+     * @return The URI or <code>null</code> if this is an anonymous resource.
+     */
+    public abstract IRI getIRI();
+
+
+    /**
+     * Determines if this node is a resource and is anonymous.
+     * @return <code>true</code> if this is a resource node (i.e.
+     * <code>isLiteral</code> returns <code>false</code>) and the
+     * node is anonymous, or <code>false</code> if this is a
+     * resource node and is not anonymous.
+     */
+    public abstract boolean isAnonymous();
 }

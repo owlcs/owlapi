@@ -48,21 +48,29 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.coode.owlapi.rdf.renderer.RDFRendererBase;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 06-Dec-2006 */
 public class RDFGraph {
-    private static final Logger logger = Logger.getLogger(RDFGraph.class.getName());
-    private Map<RDFResourceNode, Set<RDFTriple>> triplesBySubject;
-    private Set<RDFResourceNode> rootAnonymousNodes;
+    private static final Logger logger = LoggerFactory.getLogger(RDFGraph.class);
+    private Map<RDFResource, Set<RDFTriple>> triplesBySubject;
+
+    private Set<RDFResourceBlankNode> rootAnonymousNodes;
+
     private Set<RDFTriple> triples;
 
     /** default constructor */
     public RDFGraph() {
         triples = new HashSet<RDFTriple>();
-        triplesBySubject = new HashMap<RDFResourceNode, Set<RDFTriple>>();
+        triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
         rootAnonymousNodes = null;
     }
 
@@ -97,7 +105,7 @@ public class RDFGraph {
      *             map, but most uses of this only iterate over the results. Use
      *             getSortedTriplesForResult instead */
     @Deprecated
-    public Set<RDFTriple> getTriplesForSubject(RDFNode subject) {
+    public Set<RDFTriple> getTriplesForSubject(RDFResource subject) {
         if (triplesBySubject.containsKey(subject)) {
             return new HashSet<RDFTriple>(triplesBySubject.get(subject));
         } else {
@@ -128,9 +136,9 @@ public class RDFGraph {
                     throw e;
                 }
                 // otherwise print a warning and leave the list unsorted
-                logger.log(Level.WARNING,
-                        "Misbehaving triple comparator, leaving triples unsorted: "
-                                + toReturn, e);
+                logger.warn(
+                        "Misbehaving triple comparator, leaving triples unsorted: {}",
+                                toReturn, e);
             }
         }
         return toReturn;
@@ -166,18 +174,19 @@ public class RDFGraph {
         return toReturn;
     }
 
-    /** @param node
-     *            node to search
-     * @return true if the anon node is shared */
-    public boolean isAnonymousNodeSharedSubject(RDFResourceNode node) {
-        if (!node.isAnonymous()) {
+    /**
+     * @param node node to search
+     * @return true if the anon node is shared
+     */
+    public boolean isAnonymousNodeSharedSubject(RDFResourceBlankNode node) {
+        if(!node.isAnonymous()) {
             return false;
         }
         int count = 0;
-        for (RDFTriple triple : triples) {
-            if (!triple.getObject().isLiteral()) {
-                RDFResourceNode object = (RDFResourceNode) triple.getObject();
-                if (object.equals(node)) {
+        for(RDFTriple triple : triples) {
+            if(triple.getObject() instanceof RDFResourceBlankNode) {
+                RDFResourceBlankNode object = (RDFResourceBlankNode) triple.getObject();
+                if(object.equals(node)) {
                     count++;
                     if (count > 1) {
                         return true;
@@ -188,8 +197,8 @@ public class RDFGraph {
         return false;
     }
 
-    /** @return root anonymous nodes */
-    public Set<RDFResourceNode> getRootAnonymousNodes() {
+/** @return root anonymous nodes */
+    public Set<RDFResourceBlankNode> getRootAnonymousNodes() {
         if (rootAnonymousNodes == null) {
             rebuildAnonRoots();
         }
@@ -197,9 +206,11 @@ public class RDFGraph {
     }
 
     private void rebuildAnonRoots() {
-        rootAnonymousNodes = new HashSet<RDFResourceNode>();
+        rootAnonymousNodes = new HashSet<RDFResourceBlankNode>();
         for (RDFTriple triple : triples) {
-            rootAnonymousNodes.add(triple.getSubject());
+            if(triple.getSubject() instanceof RDFResourceBlankNode) {
+                rootAnonymousNodes.add((RDFResourceBlankNode)triple.getSubject());
+            }
         }
         for (RDFTriple triple : triples) {
             if (!triple.getObject().isLiteral()) {
