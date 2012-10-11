@@ -43,6 +43,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.kohsuke.MetaInfServices;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
@@ -91,6 +92,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 02-Aug-2009 */
+@MetaInfServices(org.semanticweb.owlapi.profiles.OWLProfile.class)
 public class OWL2DLProfile implements OWLProfile {
     @Override
     public String getName() {

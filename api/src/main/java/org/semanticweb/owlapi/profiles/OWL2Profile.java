@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.profiles;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.kohsuke.MetaInfServices;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
@@ -60,6 +61,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * 
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group, Date: 21-Jun-2008 */
+@MetaInfServices(org.semanticweb.owlapi.profiles.OWLProfile.class)
 public class OWL2Profile implements OWLProfile {
     @Override
     public String getName() {
