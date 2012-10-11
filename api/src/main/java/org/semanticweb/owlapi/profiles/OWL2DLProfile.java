@@ -104,6 +104,11 @@ public class OWL2DLProfile implements OWLProfile {
     }
 
     @Override
+    public IRI getIRI() {
+        return OWL2_DL;
+    }
+
+    @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWL2Profile owl2Profile = new OWL2Profile();
         OWLProfileReport report = owl2Profile.checkOntology(ontology);
