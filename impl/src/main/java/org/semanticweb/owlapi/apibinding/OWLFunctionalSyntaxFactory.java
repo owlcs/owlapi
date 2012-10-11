@@ -120,6 +120,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyManagerFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
@@ -135,18 +136,18 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** A utility class whose methods may be statically imported so that OWL API
- * objects can be constructed by writing code that looks like the OWL 2
- * Functional Syntax. <br>
- * Note that this class is primarily intended for developers who need to write
- * test cases. Normal client code should probably use an
- * {@link org.semanticweb.owlapi.model.OWLDataFactory} for creating objects.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 17-Jan-2010 */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 17-Jan-2010 <p> A utility class whose methods may be statically
+ * imported so that OWL API objects can be constructed by writing code that
+ * looks like the OWL 2 Functional Syntax. </p> Note that this class is
+ * primarily intended for developers who need to write test cases. Normal client
+ * code should probably use an
+ * {@link org.semanticweb.owlapi.model.OWLDataFactory} for creating objects. */
 @SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxFactory {
-    private static final OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
+    private static final OWLDataFactory dataFactory = OWLOntologyManagerFactoryRegistry.getOWLDataFactory();
 
     public static OWLImportsDeclaration ImportsDeclaration(IRI i) {
         return dataFactory.getOWLImportsDeclaration(i);
