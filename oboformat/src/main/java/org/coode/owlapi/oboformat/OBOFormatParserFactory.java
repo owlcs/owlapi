@@ -38,15 +38,27 @@
  */
 package org.coode.owlapi.oboformat;
 
+import java.util.Collections;
+import java.util.Set;
+
+import org.kohsuke.MetaInfServices;
+import org.semanticweb.owlapi.formats.OBOOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 10-Jan-2007 */
+@MetaInfServices(org.semanticweb.owlapi.io.OWLParserFactory.class)
 public class OBOFormatParserFactory implements OWLParserFactory {
     @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new OBOFormatOWLAPIParser(owlOntologyManager);
+    }
+
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        return Collections.<OWLOntologyFormatFactory>singleton(new OBOOntologyFormatFactory());
     }
 }

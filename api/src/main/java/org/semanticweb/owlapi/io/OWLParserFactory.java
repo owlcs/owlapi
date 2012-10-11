@@ -38,6 +38,9 @@
  */
 package org.semanticweb.owlapi.io;
 
+import java.util.Set;
+
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** An object that can create an {@code OWLParser}.
@@ -52,4 +55,10 @@ public interface OWLParserFactory {
      *            should not use it.
      * @return The parser created by this parser factory. */
     OWLParser createParser(OWLOntologyManager owlOntologyManager);
+    
+    /**
+     * 
+     * @return The ontology format parsed by this OWLParserFactory
+     */
+    Set<OWLOntologyFormatFactory> getSupportedFormats();
 }

@@ -39,7 +39,11 @@
 package org.coode.owlapi.rdfxml.parser;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RDFXMLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -129,5 +133,12 @@ public class RDFXMLParser extends AbstractOWLParser {
                 is.getCharacterStream().close();
             }
         }
+    }
+
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        Set<OWLOntologyFormatFactory> result = new HashSet<OWLOntologyFormatFactory>();
+        result.add(new RDFXMLOntologyFormatFactory());
+        return result;
     }
 }

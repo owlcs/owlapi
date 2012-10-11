@@ -38,6 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
+import java.util.Collections;
+import java.util.Set;
+
+import org.kohsuke.MetaInfServices;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.TurtleOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -46,9 +52,15 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 24-Feb-2008 */
+@MetaInfServices(org.semanticweb.owlapi.io.OWLParserFactory.class)
 public class TurtleOntologyParserFactory implements OWLParserFactory {
     @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new TurtleOntologyParser();
+    }
+
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        return Collections.<OWLOntologyFormatFactory>singleton(new TurtleOntologyFormatFactory());
     }
 }

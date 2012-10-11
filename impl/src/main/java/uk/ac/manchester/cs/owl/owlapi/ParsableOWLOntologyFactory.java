@@ -45,12 +45,12 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -61,12 +61,15 @@ import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** An ontology factory that creates ontologies by parsing documents containing
  * concrete representations of ontologies. This ontology factory will claim that
@@ -79,12 +82,21 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  *         Informatics Group, Date: 14-Nov-2006 */
 public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
     private static final long serialVersionUID = 30406L;
-    private static final Logger logger = Logger
-            .getLogger(ParsableOWLOntologyFactory.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(ParsableOWLOntologyFactory.class);
+
     private final Set<String> parsableSchemes;
 
-    /** Creates an ontology factory. */
+    private OWLParserFactoryRegistry parserRegistry;
+
+    /**
+     * Creates an ontology factory.
+     */
     public ParsableOWLOntologyFactory() {
+        this(OWLParserFactoryRegistry.getInstance());
+    }
+    
+    public ParsableOWLOntologyFactory(OWLParserFactoryRegistry nextParserRegistry) {
+        parserRegistry = nextParserRegistry;
         parsableSchemes = new HashSet<String>();
         parsableSchemes.add("http");
         parsableSchemes.add("https");
@@ -99,14 +111,45 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
             public
             List<OWLParser> getParsers() {
         List<OWLParser> parsers = new ArrayList<OWLParser>();
-        List<OWLParserFactory> factories = OWLParserFactoryRegistry.getInstance()
-                .getParserFactories();
+        List<OWLParserFactory> factories = this.parserRegistry.getParserFactories();
         for (OWLParserFactory factory : factories) {
             OWLParser parser = factory.createParser(getOWLOntologyManager());
             parser.setOWLOntologyManager(getOWLOntologyManager());
             parsers.add(parser);
         }
-        return new ArrayList<OWLParser>(parsers);
+        return parsers;
+    }
+
+    
+    private List<OWLParser> getParsers(OWLOntologyDocumentSource documentSource)
+    {
+        List<OWLParserFactory> factories;
+        
+        if(documentSource.isFormatKnown())
+        {
+            OWLParserFactory parserFactory = this.parserRegistry.getParserFactory(documentSource.getFormatFactory());
+            
+            if(parserFactory == null)
+            {
+                factories = this.parserRegistry.getParserFactories();
+            }
+            else
+            {
+                factories = Arrays.asList(parserFactory);
+            }
+        }
+        else
+        {
+            factories = this.parserRegistry.getParserFactories();
+        }
+        
+        List<OWLParser> parsers = new ArrayList<OWLParser>(factories.size());
+        for (int i = 0; i < factories.size(); i++) {
+            OWLParser parser = factories.get(i).createParser(getOWLOntologyManager());
+            parser.setOWLOntologyManager(getOWLOntologyManager());
+            parsers.add(i, parser);
+        }
+        return parsers;
     }
 
     /** Overriden - We don't create new empty ontologies - this isn't our
@@ -193,7 +236,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         OWLOntology ont = super.createOWLOntology(ontologyID,
                 documentSource.getDocumentIRI(), mediator);
         // Now parse the input into the empty ontology that we created
-        for (final OWLParser parser : getParsers()) {
+        for (final OWLParser parser : getParsers(documentSource)) {
             try {
                 if (existingOntology == null && !ont.isEmpty()) {
                     // Junk from a previous parse. We should clear the ont
@@ -204,6 +247,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 OWLOntologyFormat format = parser.parse(documentSource, ont,
                         configuration);
                 mediator.setOntologyFormat(ont, format);
+                
+                logger.debug("successfully loaded ontology using parser: {}", parser.toString());
                 return ont;
             } catch (IOException e) {
                 // No hope of any parsers working?
@@ -215,12 +260,39 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 getOWLOntologyManager().removeOntology(ont);
                 throw e;
             } catch (OWLParserException e) {
+                logger.trace("found exception parsing ontology using parser "+parser.toString(), e);
                 // Record this attempts and continue trying to parse.
                 exceptions.put(parser, e);
-            } catch (RuntimeException e) {
-                // Clean up and rethrow
+            } catch (OWLOntologyChangeException e) {
                 getOWLOntologyManager().removeOntology(ont);
                 throw e;
+            } catch (RuntimeException e) {
+                if(parser.getClass().getName().startsWith("org.coode.owl.krssparser"))
+                {
+                    // Record this attempts and continue trying to parse.
+                    // This can be generated by the KRSS parser (See KRSSParserTokenManager around line 1554 throw new TokenMgrError
+                    logger.trace("found error parsing ontology using krss parser "+parser.toString(), e);
+                    exceptions.put(parser, new OWLParserException(e));
+                }
+                else
+                {
+                    getOWLOntologyManager().removeOntology(ont);
+                    throw new OWLOntologyCreationException(e);
+                }
+            }
+            catch (Error e) {
+                if(parser.getClass().getName().startsWith("org.coode.owl.krssparser"))
+                {
+                    // Record this attempts and continue trying to parse.
+                    // This can be generated by the KRSS parser (See KRSSParserTokenManager around line 1554 throw new TokenMgrError
+                    logger.trace("found error parsing ontology using krss parser "+parser.toString(), e);
+                    exceptions.put(parser, new OWLParserException(e));
+                }
+                else
+                {
+                    getOWLOntologyManager().removeOntology(ont);
+                    throw new OWLOntologyCreationException(e);
+                }
             }
         }
         if (existingOntology == null) {

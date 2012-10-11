@@ -39,7 +39,9 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
+import java.util.Set;
 
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
@@ -153,4 +155,13 @@ public interface OWLParser {
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
             throws OWLParserException, IOException, OWLOntologyChangeException,
             UnloadableImportException;
+
+    /**
+     * 
+     * This method must return a set of OWLOntologyFormatFactory objects that define the supported
+     * formats for this OWLParser.
+     * 
+     * @return A distinct set of OWLOntologyFormatFactory objects relevant to this OWLParser.
+     */
+    Set<OWLOntologyFormatFactory> getSupportedFormats();
 }

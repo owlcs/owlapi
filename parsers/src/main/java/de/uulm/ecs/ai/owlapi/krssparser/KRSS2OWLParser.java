@@ -1,3 +1,4 @@
+
 /*
  * This file is part of the OWL API.
  *
@@ -41,7 +42,11 @@ package de.uulm.ecs.ai.owlapi.krssparser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.HashSet;
+import java.util.Set;
 
+import org.semanticweb.owlapi.formats.KRSS2OntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -294,4 +299,12 @@ public class KRSS2OWLParser extends AbstractOWLParser {
             }
         }
     }
+
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        Set<OWLOntologyFormatFactory> result = new HashSet<OWLOntologyFormatFactory>();
+        result.add(new KRSS2OntologyFormatFactory());
+        return result;
+    }
 }
+
