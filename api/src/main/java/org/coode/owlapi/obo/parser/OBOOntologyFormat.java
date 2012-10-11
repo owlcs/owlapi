@@ -36,19 +36,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.io;
+package org.coode.owlapi.obo.parser;
 
-import org.openrdf.rio.RDFFormat;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 02-Jan-2007 */
-public class RDFXMLOntologyFormat extends org.semanticweb.owlapi.formats.RioRDFOntologyFormat {
+ *         Group, Date: 10-Jan-2007 */
+public class OBOOntologyFormat extends org.semanticweb.owlapi.formats.OWLOntologyFormat {
     private static final long serialVersionUID = 30406L;
+    private IDSpaceManager idSpaceManager;
 
-    /**
-     * RDF format for {@link RDFFormat#RDFXML} documents.
-     */
-    public RDFXMLOntologyFormat() {
-        super(RDFFormat.RDFXML);
+    public OBOOntologyFormat() {
+        idSpaceManager = new IDSpaceManager();
+    }
+
+    public OBOOntologyFormat(IDSpaceManager idSpaceManager2) {
+        idSpaceManager = idSpaceManager2;
+    }
+
+    @Override
+    public String toString() {
+        return "OBO Format";
+    }
+
+    /** @param m
+     *            An {@link IDSpaceManager} which specifies mappings between id
+     *            prefixes and IRI prefixes. */
+    public void setIDSpaceManager(IDSpaceManager m) {
+        idSpaceManager = m;
+    }
+
+    /** Gets the OBO id-space manager. This is NOT the same as a prefix manager.
+     * 
+     * @return The {@link IDSpaceManager} for this format. For ontologies parsed
+     *         from an OBO file this will contain any id prefix to IRI prefix
+     *         mappings that were parsed out of the file (from id-space tags).
+     *         Not null. */
+    public IDSpaceManager getIdSpaceManager() {
+        return idSpaceManager;
+    }
+
+    @Override
+    public String getKey() {
+        return toString();
     }
 }

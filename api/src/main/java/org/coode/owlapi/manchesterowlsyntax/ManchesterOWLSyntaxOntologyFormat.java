@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, The University of Manchester
+ * Copyright 2011, University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,17 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.manchester.cs.owlapi.dlsyntax;
+package org.coode.owlapi.manchesterowlsyntax;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Feb-2008 */
-public class DLSyntaxOntologyFormat extends OWLOntologyFormat {
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 10-May-2007 */
+public class ManchesterOWLSyntaxOntologyFormat extends org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat {
     private static final long serialVersionUID = 30406L;
 
     @Override
     public String toString() {
-        return "DL Syntax";
+        return "Manchester OWL Syntax";
+    }
+
+    @Override
+    public String getKey() {
+        return toString();
     }
 }

@@ -36,19 +36,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.io;
 
-import org.openrdf.rio.RDFFormat;
+package org.semanticweb.owlapi.formats;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 02-Jan-2007 */
-public class RDFXMLOntologyFormat extends org.semanticweb.owlapi.formats.RioRDFOntologyFormat {
-    private static final long serialVersionUID = 30406L;
-
-    /**
-     * RDF format for {@link RDFFormat#RDFXML} documents.
-     */
-    public RDFXMLOntologyFormat() {
-        super(RDFFormat.RDFXML);
-    }
+/**
+ * Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 02-Jan-2007<br><br>
+ */
+public class RDFXMLOntologyFormat extends org.semanticweb.owlapi.io.RDFXMLOntologyFormat {
+    
+    private static final long serialVersionUID = -585049128763071389L;
 }

@@ -36,19 +36,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.io;
 
+package org.coode.owlapi.turtle;
+
+import org.kohsuke.MetaInfServices;
 import org.openrdf.rio.RDFFormat;
+import org.semanticweb.owlapi.formats.OWLOntologyFormat;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 02-Jan-2007 */
-public class RDFXMLOntologyFormat extends org.semanticweb.owlapi.formats.RioRDFOntologyFormat {
-    private static final long serialVersionUID = 30406L;
+/**
+ * Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 26-Jan-2008<br><br>
+ */
+@MetaInfServices(OWLOntologyFormat.class)
+public class TurtleOntologyFormat extends org.semanticweb.owlapi.formats.RioRDFOntologyFormat {
 
+    private static final long serialVersionUID = -5780245294872788586L;
+    
     /**
-     * RDF format for {@link RDFFormat#RDFXML} documents.
+     * RDF format for {@link RDFFormat#TURTLE} documents.
      */
-    public RDFXMLOntologyFormat() {
-        super(RDFFormat.RDFXML);
+    public TurtleOntologyFormat()
+    {
+        super(RDFFormat.TURTLE);
     }
 }

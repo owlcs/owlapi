@@ -43,12 +43,12 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 28-Jun-2009 */
-public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
+public abstract class RDFOntologyFormat extends org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat {
     private static final long serialVersionUID = 30406L;
+
     private boolean addMissingTypes = true;
     private final Set<RDFResourceParseError> errors = new HashSet<RDFResourceParseError>();
 
@@ -123,5 +123,12 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
      *            error to add to the error set */
     public void addError(RDFResourceParseError error) {
         errors.add(error);
+    }
+
+    /**
+     * @return the errors
+     */
+    public Set<RDFResourceParseError> getErrors() {
+        return errors;
     }
 }

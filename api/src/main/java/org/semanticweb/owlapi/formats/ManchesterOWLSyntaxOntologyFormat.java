@@ -36,17 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.latex;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+package org.semanticweb.owlapi.formats;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 03-Aug-2008 */
-public class LatexAxiomsListOntologyFormat extends OWLOntologyFormat {
-    private static final long serialVersionUID = 30406L;
+import org.kohsuke.MetaInfServices;
 
-    @Override
-    public String toString() {
-        return "Latex Axiom List";
-    }
+
+
+/**
+ * Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 10-May-2007<br><br>
+ */
+@MetaInfServices(OWLOntologyFormat.class)
+public class ManchesterOWLSyntaxOntologyFormat extends org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat {
+
+    private static final long serialVersionUID = 3108697898034847903L;
+
 }

@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,17 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.turtle;
 
-import org.semanticweb.owlapi.io.RDFOntologyFormat;
+package org.semanticweb.owlapi.formats;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Jan-2008 */
-public class TurtleOntologyFormat extends RDFOntologyFormat {
-    private static final long serialVersionUID = 30406L;
+import org.kohsuke.MetaInfServices;
 
-    @Override
-    public String toString() {
-        return "Turtle";
-    }
+
+
+/**
+ * Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 10-Feb-2008<br><br>
+ */
+@MetaInfServices(OWLOntologyFormat.class)
+public class DLSyntaxHTMLOntologyFormat extends uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxHTMLOntologyFormat {
+
 }

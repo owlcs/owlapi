@@ -3,7 +3,7 @@
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
- * Copyright (C) 2011, Ulm University
+ * Copyright (C) 2011, The University of Manchester
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, Ulm University
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,29 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.uulm.ecs.ai.owlapi.krssparser;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+package org.semanticweb.owlapi.formats;
 
-/** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
-public class KRSS2OntologyFormat extends OWLOntologyFormat {
-    private static final long serialVersionUID = 30406L;
-    /** ignore ontology iri parameter */
-    public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
+import org.kohsuke.MetaInfServices;
 
-    @Override
-    public String toString() {
-        return "KRSS2 Syntax";
-    }
 
-    /** @return true if ontology iri is ignored */
-    public boolean isIgnoreOntologyURI() {
-        return (Boolean) getParameter(IGNORE_ONTOLOGYURI, false);
-    }
 
-    /** @param ignore
-     *            ignore ontology iri */
-    public void setIgnoreOntologyURI(boolean ignore) {
-        setParameter(IGNORE_ONTOLOGYURI, ignore);
-    }
+/**
+ * Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 02-Jan-2007<br><br>
+ */
+@MetaInfServices(OWLOntologyFormat.class)
+public class KRSSOntologyFormat extends org.coode.owl.krssparser.KRSSOntologyFormat {
+
 }

@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, The University of Manchester
+ * Copyright 2011, University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,17 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owl.krssparser;
+package org.coode.owlapi.latex;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 02-Jan-2007 */
-public class KRSSOntologyFormat extends OWLOntologyFormat {
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 03-Aug-2008 */
+public class LatexAxiomsListOntologyFormat extends org.semanticweb.owlapi.formats.OWLOntologyFormat {
     private static final long serialVersionUID = 30406L;
-
+    
     @Override
     public String toString() {
-        return "KRSS Syntax";
+        return "Latex Axiom List";
+    }
+
+    @Override
+    public String getKey() {
+        return toString();
     }
 }

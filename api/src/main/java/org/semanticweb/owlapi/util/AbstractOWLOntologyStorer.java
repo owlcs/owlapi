@@ -52,7 +52,7 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.logging.Logger;
+import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
@@ -61,14 +61,15 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 04-Dec-2007 */
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     private static final long serialVersionUID = 30406L;
     private static final String UTF_8 = "UTF-8";
-    protected static final Logger LOGGER = Logger.getLogger(OWLOntologyStorer.class
-            .getName());
+    protected final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
@@ -141,7 +142,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                     outputStreamWriter.close();
                 }
                 if (tempFile != null && !tempFile.delete()) {
-                    LOGGER.warning("Temporary file " + tempFile.getAbsolutePath()
+                    LOGGER.warn("Temporary file " + tempFile.getAbsolutePath()
                             + " cannot be deleted.");
                 }
             }
@@ -213,6 +214,33 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
         }
     }
 
+    /**
+     * Default implementation is to delegate to the writer method if format.isTextual(), 
+     * otherwise throw an exception indicating that the given format cannot be stored by this OWLOntologyStorer.
+     * 
+     * NOTE: Subclasses must override this to provide support for non-textual output formats.
+     * 
+     * @param manager The manager for the ontology
+     * @param ontology The ontology
+     * @param outputStream The output stream for the ontology
+     * @param format The format to store the ontology in
+     * @throws OWLOntologyStorageException If there is a problem storing the ontology
+     */
+    @Deprecated
+    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OutputStream outputStream, OWLOntologyFormat format) throws OWLOntologyStorageException {
+        this.storeOntology(ontology, outputStream, format);
+    }
+    
+    protected void storeOntology(OWLOntology ontology, OutputStream outputStream,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
+        if(format.isTextual()) {
+            storeOntology(ontology, new OutputStreamWriter(outputStream, Charset.forName(UTF_8)), format);
+        } else {
+            throw new OWLOntologyStorageException("Could not store this non-textual format to the given OutputStream as support has not yet been implemented by this OWLOntologyStorer. format="+format.toString());
+        }
+    }
+    
+    
     @Deprecated
     protected abstract void storeOntology(OWLOntologyManager manager,
             OWLOntology ontology, Writer writer, OWLOntologyFormat format)

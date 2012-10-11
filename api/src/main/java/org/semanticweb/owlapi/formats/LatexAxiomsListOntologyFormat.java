@@ -36,19 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.io;
 
-import org.openrdf.rio.RDFFormat;
+package org.semanticweb.owlapi.formats;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 02-Jan-2007 */
-public class RDFXMLOntologyFormat extends org.semanticweb.owlapi.formats.RioRDFOntologyFormat {
-    private static final long serialVersionUID = 30406L;
+import org.kohsuke.MetaInfServices;
 
-    /**
-     * RDF format for {@link RDFFormat#RDFXML} documents.
-     */
-    public RDFXMLOntologyFormat() {
-        super(RDFFormat.RDFXML);
-    }
+
+
+/**
+ * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
+ * 03-Aug-2008<br><br>
+ */
+@MetaInfServices(OWLOntologyFormat.class)
+public class LatexAxiomsListOntologyFormat extends org.coode.owlapi.latex.LatexAxiomsListOntologyFormat {
+
 }

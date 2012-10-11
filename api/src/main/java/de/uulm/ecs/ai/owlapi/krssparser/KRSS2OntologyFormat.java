@@ -3,7 +3,7 @@
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
- * Copyright (C) 2011, The University of Manchester
+ * Copyright (C) 2011, Ulm University
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, The University of Manchester
+ * Copyright 2011, Ulm University
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,17 +36,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.manchester.cs.owlapi.dlsyntax;
+package de.uulm.ecs.ai.owlapi.krssparser;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Feb-2008 */
-public class DLSyntaxHTMLOntologyFormat extends OWLOntologyFormat {
+/** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
+public class KRSS2OntologyFormat extends org.semanticweb.owlapi.formats.OWLOntologyFormat {
     private static final long serialVersionUID = 30406L;
+    /** ignore ontology iri parameter */
+    public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
 
     @Override
     public String toString() {
-        return "DL Syntax - HTML Format";
+        return "KRSS2 Syntax";
+    }
+
+    /** @return true if ontology iri is ignored */
+    public boolean isIgnoreOntologyURI() {
+        return (Boolean) getParameter(IGNORE_ONTOLOGYURI, false);
+    }
+
+    /** @param ignore
+     *            ignore ontology iri */
+    public void setIgnoreOntologyURI(boolean ignore) {
+        setParameter(IGNORE_ONTOLOGYURI, ignore);
+    }
+
+    @Override
+    public String getKey() {
+        return toString();
     }
 }

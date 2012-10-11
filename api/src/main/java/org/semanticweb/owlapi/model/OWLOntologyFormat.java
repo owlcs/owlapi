@@ -51,11 +51,16 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 02-Jan-2007 */
-public abstract class OWLOntologyFormat implements Serializable {
+public abstract class OWLOntologyFormat implements Comparable<OWLOntologyFormat>, Serializable {
     private static final long serialVersionUID = 30406L;
     /** if set to "true", an intermediate file will be used for output, even for
      * remote URIs. */
     public static String USE_INTERMEDIATE_OUTPUT_FILE = "USE_INTERMEDIATE_OUTPUT_FILE";
+
+    private static final int BEFORE = -1;
+    private static final int EQUALS = 0;
+    private static final int AFTER = 1;
+
     private Map<Object, Object> paramaterMap;
     private OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
 
@@ -134,14 +139,62 @@ public abstract class OWLOntologyFormat implements Serializable {
         this.loaderMetaData = loaderMetaData;
     }
 
+    /**
+     * 
+     * @return A unique key for this format.
+     */
+    public abstract String getKey();
+    
+    /**
+     * Determines whether this format contains textual output, as opposed to binary output.
+     * 
+     * @return True if this format represents a textual format, as opposed to a binary format. Defaults to true if not overridden.
+     */
+    public boolean isTextual() {
+        return true;
+    }
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return this.getKey().hashCode();
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
-        return obj != null && (obj == this || obj.getClass().equals(getClass()));
+        if(obj == null) {
+            return false;
+        }
+        
+        if(this == obj) {
+            return true;
+        }
+        
+        if(!(obj instanceof OWLOntologyFormat)) {
+            return false;
+        }
+        OWLOntologyFormat other = (OWLOntologyFormat)obj;
+        return this.getKey().equals(other.getKey());
     }
 
     @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public int compareTo(OWLOntologyFormat other) {
+        if(other == null) {
+            return AFTER;
+        } else if(this.getKey() == null) {
+            if(other.getKey() == null) {
+                return EQUALS;
+            } else {
+                return BEFORE;
+            }
+        } else {
+            return this.getKey().compareTo(other.getKey());
+        }
     }
 
     private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData,
