@@ -38,7 +38,12 @@
  */
 package org.semanticweb.owlapi.reasoner.structural;
 
+import java.util.Collections;
+import java.util.Set;
+
+import org.kohsuke.MetaInfServices;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.IllegalConfigurationException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -48,6 +53,7 @@ import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 25-Jan-2010 */
+@MetaInfServices(org.semanticweb.owlapi.reasoner.OWLReasonerFactory.class)
 public class StructuralReasonerFactory implements OWLReasonerFactory {
     @Override
     public String getReasonerName() {
@@ -74,5 +80,11 @@ public class StructuralReasonerFactory implements OWLReasonerFactory {
     public OWLReasoner createReasoner(OWLOntology ontology,
             OWLReasonerConfiguration config) throws IllegalConfigurationException {
         return new StructuralReasoner(ontology, config, BufferingMode.BUFFERING);
+    }
+
+    @Override
+    public Set<OWLProfile> getSupportedProfiles() {
+        // The StructuralReasoner does not support any profiles. It is not an inferencing reasoner
+        return Collections.emptySet();
     }
 }

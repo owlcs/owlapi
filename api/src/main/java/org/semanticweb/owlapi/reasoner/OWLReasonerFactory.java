@@ -38,7 +38,10 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.profiles.OWLProfile;
 
 /** An OWLReasonerFactory is a point for creating instances of
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner} objects. A reasoner
@@ -148,4 +151,11 @@ public interface OWLReasonerFactory {
      *             are {@code null}. */
     OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config)
             throws IllegalConfigurationException;
+    
+    /**
+     * Returns a set of supported profiles for the {@link OWLReasoner} objects created by this factory.
+     * 
+     * @return A set of supported profiles for the OWLReasoner objects created by this factory.
+     */
+    Set<OWLProfile> getSupportedProfiles();
 }
