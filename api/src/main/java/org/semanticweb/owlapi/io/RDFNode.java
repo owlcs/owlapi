@@ -38,7 +38,10 @@
  */
 package org.semanticweb.owlapi.io;
 
-/** Author: Matthew Horridge<br>
+import org.semanticweb.owlapi.model.IRI;
+
+/**
+ * Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 21/12/2010
@@ -50,4 +53,19 @@ public abstract class RDFNode {
      * @return <code>true</code> if this node is a literal, otherwise
      *         <code>false</code>. */
     public abstract boolean isLiteral();
+    
+    /** Gets the IRI of the resource.
+     * 
+     * @return The IRI or <code>null</code> if this is an anonymous resource. */
+    public abstract IRI getIRI();
+
+
+    /**
+     * Determines if this node is a resource and is anonymous.
+     * @return <code>true</code> if this is a resource node (i.e.
+     * <code>isLiteral</code> returns <code>false</code>) and the
+     * node is anonymous, or <code>false</code> if this is a
+     * resource node and is not anonymous.
+     */
+    public abstract boolean isAnonymous();
 }

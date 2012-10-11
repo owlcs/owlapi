@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -19,15 +18,10 @@ import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorageException;
 import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
 import org.coode.owlapi.owlxml.renderer.OWLXMLRenderer;
 import org.coode.owlapi.owlxml.renderer.OWLXMLWriter;
-import org.coode.owlapi.rdf.model.RDFGraph;
-import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLNamespaceManager;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
-import org.coode.owlapi.rdf.rdfxml.RDFXMLRenderer;
-import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.coode.owlapi.turtle.TurtleOntologyStorer;
-import org.coode.owlapi.turtle.TurtleRenderer;
 import org.coode.xml.XMLWriterNamespaceManager;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -43,17 +37,12 @@ import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -253,51 +242,6 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestRDFRendererBase() throws Exception {
-        RDFRendererBase testSubject0 = new RDFRendererBase(Utils.getMockOntology()) {
-            @Override
-            protected void beginDocument() throws IOException {}
-
-            @Override
-            protected void endDocument() throws IOException {}
-
-            @Override
-            protected void writeIndividualComments(OWLNamedIndividual ind)
-                    throws IOException {}
-
-            @Override
-            protected void writeClassComment(OWLClass cls) throws IOException {}
-
-            @Override
-            protected void writeDataPropertyComment(OWLDataProperty prop)
-                    throws IOException {}
-
-            @Override
-            protected void writeObjectPropertyComment(OWLObjectProperty prop)
-                    throws IOException {}
-
-            @Override
-            protected void writeDatatypeComment(OWLDatatype datatype) throws IOException {}
-
-            @Override
-            protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop)
-                    throws IOException {}
-
-            @Override
-            protected void writeBanner(String name) throws IOException {}
-
-            @Override
-            public void render(RDFResourceNode node) throws IOException {}
-        };
-        OWLOntology result0 = testSubject0.getOntology();
-        testSubject0.render(mock(RDFResourceNode.class));
-        testSubject0.render();
-        RDFGraph result1 = testSubject0.getGraph();
-        testSubject0.renderAnonRoots();
-        String result2 = testSubject0.toString();
-    }
-
-    @Test
     public void shouldTestRDFXMLNamespaceManager() throws Exception {
         RDFXMLNamespaceManager testSubject0 = new RDFXMLNamespaceManager(
                 Utils.getMockManager(), Utils.getMockOntology());
@@ -329,22 +273,6 @@ public class ContractSmallsTest {
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestRDFXMLRenderer() throws Exception {
-        RDFXMLRenderer testSubject0 = new RDFXMLRenderer(Utils.getMockOntology(),
-                mock(Writer.class));
-        RDFXMLRenderer testSubject1 = new RDFXMLRenderer(Utils.getMockOntology(),
-                mock(Writer.class), mock(OWLOntologyFormat.class));
-        testSubject0.render(mock(RDFResourceNode.class));
-        Set<OWLEntity> result0 = testSubject0.getUnserialisableEntities();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.render();
-        RDFGraph result2 = testSubject0.getGraph();
-        testSubject0.renderAnonRoots();
-        String result3 = testSubject0.toString();
     }
 
     @Ignore
@@ -468,21 +396,6 @@ public class ContractSmallsTest {
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestTurtleRenderer() throws Exception {
-        TurtleRenderer testSubject0 = new TurtleRenderer(Utils.getMockOntology(),
-                mock(Writer.class), mock(OWLOntologyFormat.class));
-        testSubject0.render(mock(RDFResourceNode.class));
-        testSubject0.pushTab();
-        testSubject0.popTab();
-        OWLOntology result0 = testSubject0.getOntology();
-        testSubject0.render();
-        RDFGraph result1 = testSubject0.getGraph();
-        testSubject0.renderAnonRoots();
-        String result2 = testSubject0.toString();
     }
 
     @Test

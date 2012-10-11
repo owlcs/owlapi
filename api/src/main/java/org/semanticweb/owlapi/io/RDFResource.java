@@ -44,67 +44,11 @@ import org.semanticweb.owlapi.model.IRI;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 21/12/2010
- * 
- * @since 3.2 */
-public class RDFResource extends RDFNode {
-    private final IRI resource;
-    private final boolean anonymous;
-
-    /** @param resource
-     *            the resource
-     * @param anonymous
-     *            true if the resource is anonymous */
-    public RDFResource(IRI resource, boolean anonymous) {
-        this.resource = resource;
-        this.anonymous = anonymous;
-    }
-
-    /** Create an RDFResource that is NOT anonymous
-     * 
-     * @param resource
-     *            The IRI of the resource */
-    public RDFResource(IRI resource) {
-        this(resource, false);
-    }
-
-    @Override
-    public boolean isLiteral() {
-        return false;
-    }
-
-    /** @return the IRI */
-    public IRI getResource() {
-        return resource;
-    }
-
-    /** @return true if resource is anonymous */
-    public boolean isAnonymous() {
-        return anonymous;
-    }
-
-    @Override
-    public int hashCode() {
-        return resource.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof RDFResource)) {
-            return false;
-        }
-        RDFResource other = (RDFResource) o;
-        return resource.equals(other.resource) && anonymous == other.anonymous;
-    }
-
-    @Override
-    public String toString() {
-        if (!anonymous) {
-            return resource.toQuotedString();
-        } else {
-            return "_:" + resource;
-        }
-    }
+ * @since 3.2
+ */
+public abstract class RDFResource extends RDFNode {
+    
+    /** @return the resource IRI */
+    public abstract IRI getResource();
+    
 }

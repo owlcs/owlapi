@@ -60,6 +60,12 @@ public abstract class NodeID implements Comparable<NodeID>, Serializable {
         return NodeID.NODE_ID_PREFIX + Integer.toString(id);
     }
 
+    /** @param id
+     * @return IRI with full node id */
+    public static IRI nodeId(int id) {
+        return IRI.create(PREFIX + NodeID.NODE_ID_PREFIX + Integer.toString(id));
+    }
+
     /** Returns an absolute IRI from a nodeID attribute.
      * 
      * @param nodeID

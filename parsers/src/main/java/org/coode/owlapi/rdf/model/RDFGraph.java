@@ -49,6 +49,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFTriple;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -56,14 +60,14 @@ import org.coode.owlapi.rdf.renderer.RDFRendererBase;
  * Date: 06-Dec-2006<br>
  * <br> */
 public class RDFGraph {
-    private Map<RDFResourceNode, Set<RDFTriple>> triplesBySubject;
-    private Set<RDFResourceNode> rootAnonymousNodes;
+    private Map<RDFResource, Set<RDFTriple>> triplesBySubject;
+    private Set<RDFResourceBlankNode> rootAnonymousNodes;
     private Set<RDFTriple> triples;
 
     @SuppressWarnings("javadoc")
     public RDFGraph() {
         triples = new HashSet<RDFTriple>();
-        triplesBySubject = new HashMap<RDFResourceNode, Set<RDFTriple>>();
+        triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
         rootAnonymousNodes = null;
     }
 
@@ -106,30 +110,8 @@ public class RDFGraph {
         return toReturn;
     }
 
-    /** @param node
-     *            node to search
-     * @return true if the anon node is shared */
-    public boolean isAnonymousNodeSharedSubject(RDFResourceNode node) {
-        if (!node.isAnonymous()) {
-            return false;
-        }
-        int count = 0;
-        for (RDFTriple triple : triples) {
-            if (!triple.getObject().isLiteral()) {
-                RDFResourceNode object = (RDFResourceNode) triple.getObject();
-                if (object.equals(node)) {
-                    count++;
-                    if (count > 1) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
     /** @return root anonymous nodes */
-    public Set<RDFResourceNode> getRootAnonymousNodes() {
+    public Set<RDFResourceBlankNode> getRootAnonymousNodes() {
         if (rootAnonymousNodes == null) {
             rebuildAnonRoots();
         }
@@ -137,9 +119,11 @@ public class RDFGraph {
     }
 
     private void rebuildAnonRoots() {
-        rootAnonymousNodes = new HashSet<RDFResourceNode>();
+        rootAnonymousNodes = new HashSet<RDFResourceBlankNode>();
         for (RDFTriple triple : triples) {
-            rootAnonymousNodes.add(triple.getSubject());
+            if (triple.getSubject() instanceof RDFResourceBlankNode) {
+                rootAnonymousNodes.add((RDFResourceBlankNode) triple.getSubject());
+            }
         }
         for (RDFTriple triple : triples) {
             if (!triple.getObject().isLiteral()) {

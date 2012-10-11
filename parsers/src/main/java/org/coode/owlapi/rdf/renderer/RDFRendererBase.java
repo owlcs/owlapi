@@ -51,12 +51,14 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.coode.owlapi.rdf.model.RDFGraph;
-import org.coode.owlapi.rdf.model.RDFLiteralNode;
-import org.coode.owlapi.rdf.model.RDFNode;
-import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTranslator;
-import org.coode.owlapi.rdf.model.RDFTriple;
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -106,11 +108,19 @@ public abstract class RDFRendererBase {
     private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
     public static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
     public static final String RULES_BANNER_TEXT = "Rules";
-    private static final OWLEntityIRIComparator entityComparator = new OWLEntityIRIComparator();
     protected OWLOntology ontology;
     private RDFGraph graph;
-    protected Set<IRI> prettyPrintedTypes;
+    protected Set<IRI> prettyPrintedTypes = initPrettyTypes();
     private OWLOntologyFormat format;
+
+    protected Set<IRI> initPrettyTypes() {
+        return new HashSet<IRI>(Arrays.asList(OWL_CLASS.getIRI(),
+                OWL_OBJECT_PROPERTY.getIRI(), OWL_DATA_PROPERTY.getIRI(),
+                OWL_ANNOTATION_PROPERTY.getIRI(), OWL_RESTRICTION.getIRI(),
+                OWL_THING.getIRI(), OWL_NOTHING.getIRI(), OWL_ONTOLOGY.getIRI(),
+                OWL_ANNOTATION_PROPERTY.getIRI(), OWL_NAMED_INDIVIDUAL.getIRI(),
+                RDFS_DATATYPE.getIRI(), OWL_AXIOM.getIRI(), OWL_ANNOTATION.getIRI()));
+    }
 
     public RDFRendererBase(OWLOntology ontology) {
         this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
@@ -129,15 +139,7 @@ public abstract class RDFRendererBase {
         return ontology;
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // /////
-    // ///// Hooks for subclasses
-    // /////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /** Hooks for subclasses */
     /** Called before the ontology document is rendered.
      * 
      * @throws IOException
@@ -228,15 +230,7 @@ public abstract class RDFRendererBase {
         endDocument();
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // /////
-    // ///// Rendering implementation
-    // /////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /** Rendering implementation */
     private void renderOntologyComponents() throws IOException {
         renderInOntologySignatureEntities();
         renderAnonymousIndividuals();
@@ -315,7 +309,7 @@ public abstract class RDFRendererBase {
     private void renderEntity(OWLEntity entity) throws IOException {
         beginObject();
         writeEntityComment(entity);
-        render(new RDFResourceNode(entity.getIRI()));
+        render(new RDFResourceIRI(entity.getIRI()));
         renderAnonRoots();
         endObject();
     }
@@ -359,7 +353,7 @@ public abstract class RDFRendererBase {
             for (IRI iri : annotatedIRIs) {
                 beginObject();
                 createGraph(ontology.getAnnotationAssertionAxioms(iri));
-                render(new RDFResourceNode(iri));
+                render(new RDFResourceIRI(iri));
                 renderAnonRoots();
                 endObject();
             }
@@ -400,7 +394,7 @@ public abstract class RDFRendererBase {
                 rule.accept(variableExtractor);
             }
             for (SWRLVariable var : variableExtractor.getVariables()) {
-                render(new RDFResourceNode(var.getIRI()));
+                render(new RDFResourceIRI(var.getIRI()));
             }
             renderAnonRoots();
         }
@@ -409,7 +403,7 @@ public abstract class RDFRendererBase {
     private void renderGeneralAxioms() throws IOException {
         Set<OWLAxiom> generalAxioms = getGeneralAxioms();
         createGraph(generalAxioms);
-        Set<RDFResourceNode> rootNodes = graph.getRootAnonymousNodes();
+        Set<RDFResourceBlankNode> rootNodes = graph.getRootAnonymousNodes();
         if (!rootNodes.isEmpty()) {
             writeBanner(GENERAL_AXIOMS_BANNER_TEXT);
             beginObject();
@@ -458,65 +452,61 @@ public abstract class RDFRendererBase {
     private void renderOntologyHeader() throws IOException {
         graph = new RDFGraph();
         OWLOntologyID ontID = ontology.getOntologyID();
-        RDFResourceNode ontologyHeaderNode = createOntologyHeaderNode();
+        RDFResource ontologyHeaderNode = createOntologyHeaderNode();
         addVersionIRIToOntologyHeader(ontologyHeaderNode);
         addImportsDeclarationsToOntologyHeader(ontologyHeaderNode);
         addAnnotationsToOntologyHeader(ontologyHeaderNode);
-        if (!ontID.isAnonymous() || !graph.isEmpty()) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceNode(
-                    RDF_TYPE.getIRI()), new RDFResourceNode(OWL_ONTOLOGY.getIRI())));
+        if(!ontID.isAnonymous() || !graph.isEmpty()) {
+            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(RDF_TYPE.getIRI()), new RDFResourceIRI(OWL_ONTOLOGY.getIRI())));
         }
         if (!graph.isEmpty()) {
             render(ontologyHeaderNode);
         }
     }
 
-    private RDFResourceNode createOntologyHeaderNode() {
+    private RDFResource createOntologyHeaderNode() {
         OWLOntologyID ontID = ontology.getOntologyID();
-        if (ontID.isAnonymous()) {
-            return new RDFResourceNode(System.identityHashCode(ontology));
-        } else {
-            return new RDFResourceNode(ontID.getOntologyIRI());
+        if(ontID.isAnonymous()) {
+            return new RDFResourceBlankNode(System.identityHashCode(ontology));
+        }
+        else {
+            return new RDFResourceIRI(ontID.getOntologyIRI());
         }
     }
 
-    private void addVersionIRIToOntologyHeader(RDFResourceNode ontologyHeaderNode) {
+    private void addVersionIRIToOntologyHeader(RDFResource ontologyHeaderNode) {
         OWLOntologyID ontID = ontology.getOntologyID();
         if (ontID.getVersionIRI() != null) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceNode(
-                    OWL_VERSION_IRI.getIRI()), new RDFResourceNode(ontID.getVersionIRI())));
+            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(OWL_VERSION_IRI.getIRI()), new RDFResourceIRI(ontID.getVersionIRI())));
         }
     }
 
-    private void
-            addImportsDeclarationsToOntologyHeader(RDFResourceNode ontologyHeaderNode) {
+    private void addImportsDeclarationsToOntologyHeader(RDFResource ontologyHeaderNode) {
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceNode(
-                    OWL_IMPORTS.getIRI()), new RDFResourceNode(decl.getIRI())));
+            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(OWL_IMPORTS.getIRI()), new RDFResourceIRI(decl.getIRI())));
         }
     }
 
-    private void addAnnotationsToOntologyHeader(RDFResourceNode ontologyHeaderNode) {
+    private void addAnnotationsToOntologyHeader(RDFResource ontologyHeaderNode) {
         for (OWLAnnotation anno : ontology.getAnnotations()) {
             OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
                 @Override
                 public RDFNode visit(IRI iri) {
-                    return new RDFResourceNode(iri);
+                    return new RDFResourceIRI(iri);
                 }
 
                 @Override
                 public RDFNode visit(OWLAnonymousIndividual individual) {
-                    return new RDFResourceNode(System.identityHashCode(individual));
+                    return new RDFResourceBlankNode(System.identityHashCode(individual));
                 }
 
                 @Override
                 public RDFNode visit(OWLLiteral literal) {
-                    return RDFTranslator.translateLiteralNode(literal);
+                    return new RDFLiteral(literal);
                 }
             };
             RDFNode node = anno.getValue().accept(valVisitor);
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceNode(anno
-                    .getProperty().getIRI()), node));
+            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(anno.getProperty().getIRI()), node));
         }
     }
 
@@ -638,23 +628,22 @@ public abstract class RDFRendererBase {
     }
 
     public void renderAnonRoots() throws IOException {
-        for (RDFResourceNode node : graph.getRootAnonymousNodes()) {
+        for (RDFResourceBlankNode node : graph.getRootAnonymousNodes()) {
             render(node);
         }
     }
 
-    /** Renders the triples in the current graph into a concrete format.
-     * Subclasses of this class decide upon how the triples get rendered.
-     * 
-     * @param node
-     *            The main node to be rendered
-     * @throws IOException
-     *             If there was a problem rendering the triples. */
-    public abstract void render(RDFResourceNode node) throws IOException;
+    /**
+     * Renders the triples in the current graph into a concrete format.  Subclasses of this class decide upon
+     * how the triples get rendered.
+     * @param node The main node to be rendered
+     * @throws IOException If there was a problem rendering the triples.
+     */
+    public abstract void render(RDFResource node) throws IOException;
 
-    protected boolean isObjectList(RDFResourceNode node) {
+    protected boolean isObjectList(RDFResource node) {
         for (RDFTriple triple : graph.getSortedTriplesForSubject(node, false)) {
-            if (triple.getProperty().getIRI().equals(RDF_TYPE.getIRI())) {
+            if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI())) {
                 if (!triple.getObject().isAnonymous()) {
                     if (triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
                         List<RDFNode> items = new ArrayList<RDFNode>();
@@ -676,20 +665,24 @@ public abstract class RDFRendererBase {
         RDFNode currentNode = n;
         while (currentNode != null) {
             for (RDFTriple triple : graph.getSortedTriplesForSubject(currentNode, false)) {
-                if (triple.getProperty().getIRI().equals(RDF_FIRST.getIRI())) {
+                if (triple.getPredicate().getIRI().equals(RDF_FIRST.getIRI())) {
                     list.add(triple.getObject());
                 }
             }
             for (RDFTriple triple : graph.getSortedTriplesForSubject(currentNode, false)) {
-                if (triple.getProperty().getIRI().equals(RDF_REST.getIRI())) {
+                if (triple.getPredicate().getIRI().equals(RDF_REST.getIRI())) {
                     if (!triple.getObject().isAnonymous()) {
                         if (triple.getObject().getIRI().equals(RDF_NIL.getIRI())) {
                             // End of list
                             currentNode = null;
                         }
-                    } else {
-                        // Should be another list
-                        currentNode = triple.getObject();
+                    }
+                    else {
+                        if(triple.getObject() instanceof RDFResource) {
+                            // Should be another list
+                            currentNode = triple.getObject();
+//                        toJavaList(triple.getObject(), list);
+                        }
                     }
                 }
             }
@@ -729,8 +722,8 @@ public abstract class RDFRendererBase {
 
         @Override
         public int compare(RDFTriple o1, RDFTriple o2) {
-            int diff = getIndex(o1.getProperty().getIRI())
-                    - getIndex(o2.getProperty().getIRI());
+            int diff = getIndex(o1.getPredicate().getIRI())
+                    - getIndex(o2.getPredicate().getIRI());
             if (diff == 0) {
                 // Compare by subject, then predicate, then object
                 if (!o1.getSubject().isAnonymous()) {
@@ -748,7 +741,8 @@ public abstract class RDFRendererBase {
                     }
                 }
                 if (diff == 0) {
-                    diff = o2.getProperty().getIRI().compareTo(o2.getProperty().getIRI());
+                    diff = o2.getPredicate().getIRI()
+                            .compareTo(o2.getPredicate().getIRI());
                     if (diff == 0) {
                         if (!o1.getObject().isLiteral()) {
                             // Resource
@@ -780,12 +774,12 @@ public abstract class RDFRendererBase {
                                 diff = -1;
                             } else {
                                 // Literal
-                                RDFLiteralNode lit1 = (RDFLiteralNode) o1.getObject();
-                                RDFLiteralNode lit2 = (RDFLiteralNode) o2.getObject();
-                                if (lit1.isTyped()) {
-                                    if (lit2.isTyped()) {
-                                        diff = lit1.getLiteral().compareTo(
-                                                lit2.getLiteral());
+                                RDFLiteral lit1 = (RDFLiteral) o1.getObject();
+                                RDFLiteral lit2 = (RDFLiteral) o2.getObject();
+                                if (!lit1.isPlainLiteral()) {
+                                    if (!lit2.isPlainLiteral()) {
+                                        diff = lit1.getLexicalValue().compareTo(
+                                                lit2.getLexicalValue());
                                         if (diff == 0) {
                                             diff = lit1.getDatatype().compareTo(
                                                     lit2.getDatatype());
@@ -794,11 +788,11 @@ public abstract class RDFRendererBase {
                                         diff = -1;
                                     }
                                 } else {
-                                    if (lit2.isTyped()) {
+                                    if (!lit2.isPlainLiteral()) {
                                         diff = 1;
                                     } else {
-                                        if (lit1.getLang() != null) {
-                                            if (lit2.getLang() != null) {
+                                        if (lit1.hasLang()) {
+                                            if (lit2.hasLang()) {
                                                 diff = lit1.getLang().compareTo(
                                                         lit2.getLang());
                                             }
@@ -806,8 +800,8 @@ public abstract class RDFRendererBase {
                                             diff = -1;
                                         }
                                         if (diff == 0) {
-                                            diff = lit1.getLiteral().compareTo(
-                                                    lit2.getLiteral());
+                                            diff = lit1.getLexicalValue().compareTo(
+                                                    lit2.getLexicalValue());
                                         }
                                     }
                                 }

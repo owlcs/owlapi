@@ -40,8 +40,8 @@ package org.coode.owlapi.rdf.rdfxml;
 
 import java.io.IOException;
 
-import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.xml.XMLWriter;
+import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -88,7 +88,7 @@ public class RDFXMLWriter {
         writeAttribute(Namespaces.RDF + "about", value);
     }
 
-    public void writeNodeIDAttribute(RDFResourceNode node) throws IOException {
+    public void writeNodeIDAttribute(RDFResource node) throws IOException  {
         writer.writeAttribute(Namespaces.RDF + "nodeID", node.toString());
     }
 

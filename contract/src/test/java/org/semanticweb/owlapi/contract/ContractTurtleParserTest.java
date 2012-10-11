@@ -6,7 +6,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import java.util.List;
 import java.util.Set;
 
-import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.owlapi.rdfxml.parser.IRIProvider;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -69,10 +68,10 @@ public class ContractTurtleParserTest {
     @Test
     public void shouldTestOWLRDFConsumerAdapter() throws Exception {
         OWLRDFConsumerAdapter testSubject0 = new OWLRDFConsumerAdapter(
-                Utils.getMockManager(), Utils.getMockOntology(),
-                mock(AnonymousNodeChecker.class), new OWLOntologyLoaderConfiguration());
+                Utils.getMockOntology(),
+                new OWLOntologyLoaderConfiguration());
         OWLRDFConsumerAdapter testSubject1 = new OWLRDFConsumerAdapter(
-                Utils.getMockOntology(), mock(AnonymousNodeChecker.class),
+                Utils.getMockOntology(),
                 new OWLOntologyLoaderConfiguration());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "");
@@ -133,7 +132,6 @@ public class ContractTurtleParserTest {
         OWLClassExpression result21 = testSubject0
                 .translateClassExpression(IRI("urn:aFake"));
         testSubject0.startModel("");
-        testSubject0.endModel();
         testSubject0.addModelAttribte("", "");
         testSubject0.includeModel("", "");
         testSubject0.logicalURI("");

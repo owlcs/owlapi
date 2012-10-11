@@ -38,7 +38,9 @@
  */
 package org.semanticweb.owlapi.io;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -47,17 +49,29 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * 
  * @since 3.2 */
 public class RDFLiteral extends RDFNode {
-    private final OWLLiteral literal;
+    private final String lexicalValue;
+    private final String lang;
+    private final IRI datatype;
+    private int hashCode;
+
+    /** Constructor for plain literal wrappers
+     * 
+     * @param literal
+     *            lexical form
+     * @param lang
+     *            language tag
+     * @param datatype
+     *            datatype IRI */
+    public RDFLiteral(String literal, String lang, IRI datatype) {
+        lexicalValue = literal;
+        this.lang = lang == null ? "" : lang.trim();
+        this.datatype = datatype;
+    }
 
     /** @param literal
      *            the wrapped literal */
     public RDFLiteral(OWLLiteral literal) {
-        this.literal = literal;
-    }
-
-    /** @return the OWLLiteral */
-    public OWLLiteral getLiteral() {
-        return literal;
+        this(literal.getLiteral(), literal.getLang(), literal.getDatatype().getIRI());
     }
 
     @Override
@@ -67,7 +81,13 @@ public class RDFLiteral extends RDFNode {
 
     @Override
     public int hashCode() {
-        return literal.hashCode();
+        if (hashCode == 0) {
+            hashCode = 37;
+            hashCode = hashCode * 37 + lexicalValue.hashCode();
+            hashCode = hashCode * 37 + lang.hashCode();
+            hashCode = hashCode * 37 + datatype.hashCode();
+        }
+        return hashCode;
     }
 
     @Override
@@ -75,15 +95,56 @@ public class RDFLiteral extends RDFNode {
         if (o == this) {
             return true;
         }
-        if (!(o instanceof RDFLiteral)) {
+        if (o == null || !(o instanceof RDFLiteral)) {
             return false;
         }
         RDFLiteral other = (RDFLiteral) o;
-        return literal.equals(other.literal);
+        if (!lexicalValue.equals(other.lexicalValue)) {
+            return false;
+        }
+        if (!lang.equals(other.lang)) {
+            return false;
+        }
+        return datatype.equals(other.datatype);
     }
 
     @Override
     public String toString() {
-        return literal.toString();
+        return lexicalValue;
+    }
+
+    @Override
+    public IRI getIRI() {
+        return null;
+    }
+
+    @Override
+    public boolean isAnonymous() {
+        return false;
+    }
+
+    /** @return the lexical form for this literal */
+    public String getLexicalValue() {
+        return lexicalValue;
+    }
+
+    /** @return the lang tag for this literal */
+    public String getLang() {
+        return lang;
+    }
+
+    /** @return the datatype for this literal */
+    public IRI getDatatype() {
+        return datatype;
+    }
+
+    /** @return true if this literal has a non empty lang tag */
+    public boolean hasLang() {
+        return !lang.isEmpty();
+    }
+
+    /** @return true if the datatype of this literal is plain literal */
+    public boolean isPlainLiteral() {
+        return OWL2Datatype.RDF_PLAIN_LITERAL.getIRI().equals(datatype);
     }
 }

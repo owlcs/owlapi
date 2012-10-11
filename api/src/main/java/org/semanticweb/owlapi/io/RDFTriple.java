@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * @since 3.2 */
 public class RDFTriple {
     private final RDFResource subject;
-    private final RDFResource predicate;
+    private final RDFResourceIRI predicate;
     private final RDFNode object;
 
     /** @param subject
@@ -58,7 +58,10 @@ public class RDFTriple {
      *            the predicate
      * @param object
      *            the object */
-    public RDFTriple(RDFResource subject, RDFResource predicate, RDFNode object) {
+    public RDFTriple(RDFResource subject, RDFResourceIRI predicate, RDFNode object) {
+        if (subject == null || predicate == null || object == null) {
+            throw new IllegalArgumentException("RDF Triple must contain three elements");
+        }
         this.subject = subject;
         this.predicate = predicate;
         this.object = object;
@@ -70,17 +73,22 @@ public class RDFTriple {
      *            whether the subject is anonymous
      * @param predicate
      *            the predicate
-     * @param predicateAnon
-     *            whether the predicate is anon
      * @param object
      *            the object
      * @param objectAnon
      *            whether the object is anonymous */
-    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate,
-            boolean predicateAnon, IRI object, boolean objectAnon) {
-        this.subject = new RDFResource(subject, subjectAnon);
-        this.predicate = new RDFResource(predicate, predicateAnon);
-        this.object = new RDFResource(object, objectAnon);
+    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, IRI object,
+            boolean objectAnon) {
+        this(getResource(subject, subjectAnon),
+        // Predicate is not allowed to be anonymous
+                new RDFResourceIRI(predicate), getResource(object, objectAnon));
+    }
+
+    private static RDFResource getResource(IRI iri, boolean anon) {
+        if (anon) {
+            return new RDFResourceBlankNode(iri);
+        }
+        return new RDFResourceIRI(iri);
     }
 
     /** @param subject
@@ -89,14 +97,15 @@ public class RDFTriple {
      *            whether the subject is anonymous
      * @param predicate
      *            the predicate
-     * @param predicateAnon
-     *            whether the predicate is anon
      * @param object
      *            the object */
-    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate,
-            boolean predicateAnon, OWLLiteral object) {
-        this.subject = new RDFResource(subject, subjectAnon);
-        this.predicate = new RDFResource(predicate, predicateAnon);
+    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, OWLLiteral object) {
+        if (subject == null || predicate == null || object == null) {
+            throw new IllegalArgumentException("RDF Triple must contain three elements");
+        }
+        this.subject = getResource(subject, subjectAnon);
+        // Predicate is not allowed to be anonymous
+        this.predicate = new RDFResourceIRI(predicate);
         this.object = new RDFLiteral(object);
     }
 
@@ -106,7 +115,7 @@ public class RDFTriple {
     }
 
     /** @return the predicate */
-    public RDFResource getPredicate() {
+    public RDFResourceIRI getPredicate() {
         return predicate;
     }
 
@@ -125,7 +134,7 @@ public class RDFTriple {
         if (o == this) {
             return true;
         }
-        if (!(o instanceof RDFTriple)) {
+        if (o == null || !(o instanceof RDFTriple)) {
             return false;
         }
         RDFTriple other = (RDFTriple) o;

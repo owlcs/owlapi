@@ -29,7 +29,6 @@ import org.coode.owlapi.owlxmlparser.OWLXMLParserHandler;
 import org.coode.owlapi.owlxmlparser.SWRLAtomElementHandler;
 import org.coode.owlapi.owlxmlparser.SWRLAtomListElementHandler;
 import org.coode.owlapi.owlxmlparser.SWRLVariableElementHandler;
-import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.owlapi.rdfxml.parser.OWLRDFConsumer;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -1085,22 +1084,7 @@ public class Utils {
             OWLOntology mockOntology = man.createOntology(new OWLOntologyID(IRI
                     .create("urn:test:test"), IRI.create("urn:test:othertest")));
             OWLRDFConsumer c = new OWLRDFConsumer(mockOntology,
-                    new AnonymousNodeChecker() {
-                        @Override
-                        public boolean isAnonymousSharedNode(String iri) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean isAnonymousNode(String iri) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean isAnonymousNode(IRI iri) {
-                            return false;
-                        }
-                    }, new OWLOntologyLoaderConfiguration());
+                    new OWLOntologyLoaderConfiguration());
             c.setOntologyFormat(new RDFOntologyFormat() {
                 private static final long serialVersionUID = 40000L;
             });

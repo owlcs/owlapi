@@ -6,7 +6,6 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -16,7 +15,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings("javadoc")
-public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants {
+public class TurtleParser implements TurtleParserConstants {
     private Map<String, IRI> string2IRI;
     private String base;
     private TripleHandler handler;
@@ -44,21 +43,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
     public void setTripleHandler(TripleHandler handler) {
         this.handler = handler;
-    }
-
-    @Override
-    public boolean isAnonymousNode(String iri) {
-        return NodeID.isAnonymousNodeIRI(iri);
-    }
-
-    @Override
-    public boolean isAnonymousNode(IRI iri) {
-        return NodeID.isAnonymousNodeIRI(iri);
-    }
-
-    @Override
-    public boolean isAnonymousSharedNode(String iri) {
-        return NodeID.isAnonymousNodeID(iri);
     }
 
     protected IRI getNextBlankNode(String id) {

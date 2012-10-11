@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.rdf.rdfxml;
 
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -47,12 +47,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.coode.owlapi.rdf.model.RDFLiteralNode;
-import org.coode.owlapi.rdf.model.RDFNode;
-import org.coode.owlapi.rdf.model.RDFResourceNode;
-import org.coode.owlapi.rdf.model.RDFTriple;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.xml.XMLWriterFactory;
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -65,7 +66,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.util.VersionInfo;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -75,7 +75,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLWriter writer;
-    private Set<RDFResourceNode> pending;
+    private Set<RDFResource> pending;
     private RDFXMLNamespaceManager qnameManager;
 
     public RDFXMLRenderer(OWLOntology ontology, Writer w) {
@@ -84,7 +84,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     public RDFXMLRenderer(OWLOntology ontology, Writer w, OWLOntologyFormat format) {
         super(ontology, format);
-        pending = new HashSet<RDFResourceNode>();
+        pending = new HashSet<RDFResource>();
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base;
@@ -95,20 +95,6 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(w,
                 qnameManager, base));
-        prettyPrintedTypes = new HashSet<IRI>();
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_CLASS.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_RESTRICTION.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_THING.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NOTHING.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ONTOLOGY.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.RDFS_DATATYPE.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_AXIOM.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION.getIRI());
     }
 
     public Set<OWLEntity> getUnserialisableEntities() {
@@ -159,17 +145,13 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     @Override
     protected void writeBanner(String name) throws IOException {
-        writer.writeComment("\n///////////////////////////////////////////////////////////////////////////////////////\n"
-                + "//\n"
-                + "// "
+        writer.writeComment("\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
                 + name
-                + "\n"
-                + "//\n"
-                + "///////////////////////////////////////////////////////////////////////////////////////\n");
+                + "\n//\n///////////////////////////////////////////////////////////////////////////////////////\n");
     }
 
     @Override
-    public void render(RDFResourceNode node) throws IOException {
+    public void render(RDFResource node) throws IOException {
         if (pending.contains(node)) {
             return;
         }
@@ -177,11 +159,10 @@ public class RDFXMLRenderer extends RDFRendererBase {
         RDFTriple candidatePrettyPrintTypeTriple = null;
         final List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
         for (RDFTriple triple : triples) {
-            IRI propertyIRI = triple.getProperty().getIRI();
-            if (propertyIRI.equals(OWLRDFVocabulary.RDF_TYPE.getIRI())
+            IRI propertyIRI = triple.getPredicate().getIRI();
+            if (propertyIRI.equals(RDF_TYPE.getIRI())
                     && !triple.getObject().isAnonymous()) {
-                if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject()
-                        .getIRI())) {
+                if (BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())) {
                     if (prettyPrintedTypes.contains(triple.getObject().getIRI())) {
                         candidatePrettyPrintTypeTriple = triple;
                     }
@@ -206,10 +187,10 @@ public class RDFXMLRenderer extends RDFRendererBase {
                     && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;
             }
-            writer.writeStartElement(triple.getProperty().getIRI());
+            writer.writeStartElement(triple.getPredicate().getIRI());
             RDFNode objectNode = triple.getObject();
             if (!objectNode.isLiteral()) {
-                RDFResourceNode objectRes = (RDFResourceNode) objectNode;
+                RDFResource objectRes = (RDFResource) objectNode;
                 if (objectRes.isAnonymous()) {
                     // Special rendering for lists
                     if (isObjectList(objectRes)) {
@@ -218,19 +199,18 @@ public class RDFXMLRenderer extends RDFRendererBase {
                         toJavaList(objectRes, list);
                         for (RDFNode n : list) {
                             if (n.isAnonymous()) {
-                                render((RDFResourceNode) n);
+                                render((RDFResourceBlankNode) n);
                             } else {
                                 if (n.isLiteral()) {
-                                    RDFLiteralNode litNode = (RDFLiteralNode) n;
-                                    writer.writeStartElement(OWLRDFVocabulary.RDFS_LITERAL
-                                            .getIRI());
-                                    if (litNode.getDatatype() != null) {
+                                    RDFLiteral litNode = (RDFLiteral) n;
+                                    writer.writeStartElement(RDFS_LITERAL.getIRI());
+                                    if (!litNode.isPlainLiteral()) {
                                         writer.writeDatatypeAttribute(litNode
                                                 .getDatatype());
-                                    } else if (litNode.getLang() != null) {
+                                    } else if (litNode.hasLang()) {
                                         writer.writeLangAttribute(litNode.getLang());
                                     }
-                                    writer.writeTextContent(litNode.getLiteral());
+                                    writer.writeTextContent(litNode.getLexicalValue());
                                     writer.writeEndElement();
                                 } else {
                                     writer.writeStartElement(RDF_DESCRIPTION.getIRI());
@@ -246,13 +226,13 @@ public class RDFXMLRenderer extends RDFRendererBase {
                     writer.writeResourceAttribute(objectRes.getIRI());
                 }
             } else {
-                RDFLiteralNode rdfLiteralNode = (RDFLiteralNode) objectNode;
-                if (rdfLiteralNode.getDatatype() != null) {
+                RDFLiteral rdfLiteralNode = (RDFLiteral) objectNode;
+                if (!rdfLiteralNode.isPlainLiteral()) {
                     writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
-                } else if (rdfLiteralNode.getLang() != null) {
+                } else if (rdfLiteralNode.hasLang()) {
                     writer.writeLangAttribute(rdfLiteralNode.getLang());
                 }
-                writer.writeTextContent(rdfLiteralNode.getLiteral());
+                writer.writeTextContent(rdfLiteralNode.getLexicalValue());
             }
             writer.writeEndElement();
         }

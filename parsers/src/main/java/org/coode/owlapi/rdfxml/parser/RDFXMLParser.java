@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -97,23 +96,7 @@ public class RDFXMLParser extends AbstractOWLParser {
                     return parser.getIRI(s);
                 }
             };
-            OWLRDFConsumer consumer = new OWLRDFConsumer(ontology,
-                    new AnonymousNodeChecker() {
-                        @Override
-                        public boolean isAnonymousNode(IRI iri) {
-                            return NodeID.isAnonymousNodeIRI(iri);
-                        }
-
-                        @Override
-                        public boolean isAnonymousSharedNode(String iri) {
-                            return NodeID.isAnonymousNodeID(iri);
-                        }
-
-                        @Override
-                        public boolean isAnonymousNode(String iri) {
-                            return NodeID.isAnonymousNodeIRI(iri);
-                        }
-                    }, configuration);
+            OWLRDFConsumer consumer = new OWLRDFConsumer(ontology, configuration);
             consumer.setIRIProvider(prov);
             consumer.setOntologyFormat(format);
             is = getInputSource(documentSource, configuration);

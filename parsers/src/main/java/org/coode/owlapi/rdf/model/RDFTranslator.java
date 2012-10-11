@@ -38,6 +38,12 @@
  */
 package org.coode.owlapi.rdf.model;
 
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -50,8 +56,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 06-Dec-2006<br>
  * <br> */
 public class RDFTranslator extends
-        AbstractTranslator<RDFNode, RDFResourceNode, RDFResourceNode, RDFLiteralNode> {
-    private RDFGraph graph;
+        AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
+    private RDFGraph graph = new RDFGraph();
 
     /** @param manager
      *            the manager
@@ -62,7 +68,6 @@ public class RDFTranslator extends
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology,
             boolean useStrongTyping) {
         super(manager, ontology, useStrongTyping);
-        graph = new RDFGraph();
     }
 
     /** @return the graph */
@@ -71,50 +76,35 @@ public class RDFTranslator extends
     }
 
     @Override
-    protected void
-            addTriple(RDFResourceNode subject, RDFResourceNode pred, RDFNode object) {
+    protected void addTriple(RDFResource subject, RDFResourceIRI pred, RDFNode object) {
         graph.addTriple(new RDFTriple(subject, pred, object));
     }
 
     @Override
-    protected RDFResourceNode getAnonymousNode(Object key) {
+    protected RDFResourceBlankNode getAnonymousNode(Object key) {
         if (key instanceof OWLAnonymousIndividual) {
-            RDFResourceNode toReturn = new RDFResourceNode(((OWLAnonymousIndividual) key)
-                    .getID().getID().hashCode());
-            // System.out.println("RDFTranslator.getAnonymousNodeTricked() "+key.getClass().getSimpleName()+"\t"+key+"\t"+toReturn);
+            RDFResourceBlankNode toReturn = new RDFResourceBlankNode(
+                    ((OWLAnonymousIndividual) key).getID().getID().hashCode());
             return toReturn;
         }
-        RDFResourceNode toReturn = new RDFResourceNode(System.identityHashCode(key));
-        // System.out.println("RDFTranslator.getAnonymousNode() "+key.getClass().getSimpleName()+"\t"+key+"\t"+toReturn);
+        RDFResourceBlankNode toReturn = new RDFResourceBlankNode(
+                System.identityHashCode(key));
         return toReturn;
     }
 
     @Override
-    protected RDFLiteralNode getLiteralNode(OWLLiteral literal) {
-        return translateLiteralNode(literal);
-    }
-
-    /** @param literal
-     *            literal to translate
-     * @return translated literal */
-    public static RDFLiteralNode translateLiteralNode(OWLLiteral literal) {
-        if (!literal.isRDFPlainLiteral()) {
-            return new RDFLiteralNode(literal.getLiteral(), literal.getDatatype()
-                    .getIRI());
-        } else {
-            return new RDFLiteralNode(literal.getLiteral(),
-                    literal.hasLang() ? literal.getLang() : null);
-        }
+    protected RDFLiteral getLiteralNode(OWLLiteral literal) {
+        return new RDFLiteral(literal);
     }
 
     @Override
-    protected RDFResourceNode getPredicateNode(IRI uri) {
-        return new RDFResourceNode(uri);
+    protected RDFResourceIRI getPredicateNode(IRI uri) {
+        return new RDFResourceIRI(uri);
     }
 
     @Override
-    protected RDFResourceNode getResourceNode(IRI uri) {
-        return new RDFResourceNode(uri);
+    protected RDFResourceIRI getResourceNode(IRI uri) {
+        return new RDFResourceIRI(uri);
     }
 
     /** clear the graph */

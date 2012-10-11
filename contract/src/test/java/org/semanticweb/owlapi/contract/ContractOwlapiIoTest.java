@@ -44,12 +44,10 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
-import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
 import org.semanticweb.owlapi.io.RDFParserMetaData;
-import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
@@ -66,7 +64,6 @@ import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.io.ZipDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
@@ -456,26 +453,6 @@ public class ContractOwlapiIoTest {
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
-    @Test
-    public void shouldTestRDFLiteral() throws Exception {
-        RDFLiteral testSubject0 = new RDFLiteral(mock(OWLLiteral.class));
-        String result0 = testSubject0.toString();
-        OWLLiteral result1 = testSubject0.getLiteral();
-        boolean result2 = testSubject0.isLiteral();
-    }
-
-    @Test
-    public void shouldTestRDFNode() throws Exception {
-        RDFNode testSubject0 = new RDFNode() {
-            @Override
-            public boolean isLiteral() {
-                return false;
-            }
-        };
-        boolean result0 = testSubject0.isLiteral();
-        String result1 = testSubject0.toString();
-    }
-
     @Ignore
     @Test
     public void shouldTestRDFOntologyFormat() throws Exception {
@@ -530,15 +507,6 @@ public class ContractOwlapiIoTest {
         String result3 = testSubject0.toString();
     }
 
-    @Test
-    public void shouldTestRDFResource() throws Exception {
-        RDFResource testSubject0 = new RDFResource(IRI("urn:aFake"));
-        RDFResource testSubject1 = new RDFResource(IRI("urn:aFake"), false);
-        String result0 = testSubject0.toString();
-        IRI result1 = testSubject0.getResource();
-        boolean result2 = testSubject0.isAnonymous();
-        boolean result3 = testSubject0.isLiteral();
-    }
 
     @Test
     public void shouldTestRDFResourceParseError() throws Exception {
@@ -549,20 +517,6 @@ public class ContractOwlapiIoTest {
         RDFNode result1 = testSubject0.getMainNode();
         Set<RDFTriple> result2 = testSubject0.getMainNodeTriples();
         String result3 = testSubject0.toString();
-    }
-
-    @Test
-    public void shouldTestRDFTriple() throws Exception {
-        RDFTriple testSubject0 = new RDFTriple(IRI("urn:aFake"), false, IRI("urn:aFake"),
-                false, IRI("urn:aFake"), false);
-        RDFTriple testSubject1 = new RDFTriple(IRI("urn:aFake"), false, IRI("urn:aFake"),
-                false, mock(OWLLiteral.class));
-        RDFTriple testSubject2 = new RDFTriple(mock(RDFResource.class),
-                mock(RDFResource.class), mock(RDFNode.class));
-        String result0 = testSubject0.toString();
-        RDFNode result1 = testSubject0.getObject();
-        RDFResource result2 = testSubject0.getSubject();
-        RDFResource result3 = testSubject0.getPredicate();
     }
 
     @Ignore

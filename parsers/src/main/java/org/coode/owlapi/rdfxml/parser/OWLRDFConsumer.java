@@ -53,17 +53,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.io.RDFLiteral;
-import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
 import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -86,7 +88,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -126,9 +127,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     private static final Logger tripleProcessor = Logger.getLogger("Triple processor");
     private OWLOntologyLoaderConfiguration configuration;
     private OWLOntologyManager owlOntologyManager;
-    // A call back interface, which is used to check whether a node
-    // is anonymous or not.
-    private AnonymousNodeChecker anonymousNodeChecker;
     // The set of IRIs that are either explicitly typed
     // an an owl:Class, or are inferred to be an owl:Class
     // because they are used in some triple whose predicate
@@ -231,12 +229,11 @@ public class OWLRDFConsumer implements RDFConsumer {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////
     private boolean parsedAllTriples = false;
 
-    public OWLRDFConsumer(OWLOntology ontology, AnonymousNodeChecker checker,
+    public OWLRDFConsumer(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         dataFactory = owlOntologyManager.getOWLDataFactory();
-        anonymousNodeChecker = checker;
         this.configuration = configuration;
         classExpressionTranslators.add(new NamedClassTranslator(this));
         classExpressionTranslators.add(new ObjectIntersectionOfTranslator(this));
@@ -447,7 +444,6 @@ public class OWLRDFConsumer implements RDFConsumer {
                 IRI.create("http://www.daml.org/2001/03/daml+oil#DatatypeProperty"),
                 OWL_DATA_PROPERTY.getIRI());
     }
-
 
     /** There may be some ontologies floating about that use early versions of
      * the OWL 1.1 vocabulary. We can map early versions of the vocabulary to
@@ -728,79 +724,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-    /** Determines if a triple has a predicate that corresponds to owl:imports.
-     * 
-     * @param triple
-     *            The triple.
-     * @return <code>true</code> if the triple has a predicate equal to
-     *         owl:imports */
-    private boolean isOWLImportsTriple(RDFTriple triple) {
-        return triple.getPredicate().getResource()
-                .equals(OWLRDFVocabulary.OWL_IMPORTS.getIRI());
-    }
-
-    /** Processes an RDFTriple. The triple is deconstructed and the processing is
-     * delegated to the
-     * {@link #handleStreaming(org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.OWLLiteral)}
-     * and
-     * {@link #handleStreaming(org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI)}
-     * methods.
-     * 
-     * @param triple
-     *            The triple to be processed.
-     * @throws UnloadableImportException
-     *             in the event that the triple was an owl:imports triple and
-     *             the import could not be loaded. */
-    private void processRDFTriple(RDFTriple triple) throws UnloadableImportException {
-        RDFResource subject = triple.getSubject();
-        RDFResource predicate = triple.getPredicate();
-        RDFNode object = triple.getObject();
-        if (object.isLiteral()) {
-            RDFLiteral literalObject = (RDFLiteral) object;
-            handleStreaming(subject.getResource(), predicate.getResource(),
-                    literalObject.getLiteral());
-        } else {
-            RDFResource resourceObject = (RDFResource) object;
-            handleStreaming(subject.getResource(), predicate.getResource(),
-                    resourceObject.getResource());
-        }
-    }
-
-    /** Retrieves the triples from the imports closure that have not been
-     * consumed during parsing of ontologies in the imports closure.
-     * 
-     * @return A set of unconsumed triples. */
-    private Set<RDFTriple> getUnconsumedTriplesFromImportsClosure() {
-        Set<RDFTriple> unparsedTriples = new HashSet<RDFTriple>();
-        // Don't get the REFLEXIVE transitive closure - just the transitive
-        // closure.
-        Set<OWLOntology> imports = ontology.getImports();
-        for (OWLOntology ont : imports) {
-            unparsedTriples.addAll(getUnconsumedTriples(ont));
-        }
-        return unparsedTriples;
-    }
-
-    /** Gets the set of triples that weren't consumed during parsing of the
-     * specified ontology. Note that for ontologies whose ontology documents
-     * aren't based on RDF the set will be empty.
-     * 
-     * @param ont
-     *            The ontology.
-     * @return The set of triples that weren't consumed when parsing the
-     *         ontology document that contained ont. */
-    private Set<RDFTriple> getUnconsumedTriples(OWLOntology ont) {
-        Set<RDFTriple> unparsedTriples = new HashSet<RDFTriple>();
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLOntologyFormat format = man.getOntologyFormat(ont);
-        if (format instanceof RDFOntologyFormat) {
-            RDFOntologyFormat rdfFormat = (RDFOntologyFormat) format;
-            RDFParserMetaData metaData = rdfFormat.getOntologyLoaderMetaData();
-            unparsedTriples.addAll(metaData.getUnparsedTriples());
-        }
-        return unparsedTriples;
-    }
-
     /** Checks whether a node is anonymous.
      * 
      * @param iri
@@ -808,11 +731,11 @@ public class OWLRDFConsumer implements RDFConsumer {
      * @return <code>true</code> if the node is anonymous, or <code>false</code>
      *         if the node is not anonymous. */
     protected boolean isAnonymousNode(IRI iri) {
-        return anonymousNodeChecker.isAnonymousNode(iri);
+        return NodeID.isAnonymousNodeIRI(iri);
     }
 
     protected boolean isSharedAnonymousNode(IRI iri) {
-        return anonymousNodeChecker.isAnonymousSharedNode(iri.toString());
+        return NodeID.isAnonymousNodeID(iri.toString());
     }
 
     protected void addSharedAnonymousNode(IRI iri, Object translation) {
@@ -1432,8 +1355,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             @Override
             public void handleResourceTriple(IRI subject, IRI predicate, IRI object) {
                 remainingTriples.add(new RDFTriple(subject, isAnonymousNode(subject),
-                        predicate, isAnonymousNode(predicate), object,
-                        isAnonymousNode(object)));
+                        predicate, object, isAnonymousNode(object)));
             }
         });
         iterateLiteralTriples(new LiteralTripleIterator<RuntimeException>() {
@@ -1441,7 +1363,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             public void
                     handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object) {
                 remainingTriples.add(new RDFTriple(subject, isAnonymousNode(subject),
-                        predicate, isAnonymousNode(predicate), object));
+                        predicate, object));
             }
         });
         return remainingTriples;
@@ -1894,16 +1816,20 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
     private RDFResource getRDFResource(IRI iri) {
-        return new RDFResource(iri, isAnonymousNode(iri));
+        if (isAnonymousNode(iri)) {
+            return new RDFResourceBlankNode(iri);
+        } else {
+            return new RDFResourceIRI(iri);
+        }
     }
 
     private RDFTriple getRDFTriple(IRI subject, IRI predicate, IRI object) {
-        return new RDFTriple(getRDFResource(subject), getRDFResource(predicate),
+        return new RDFTriple(getRDFResource(subject), new RDFResourceIRI(predicate),
                 getRDFResource(object));
     }
 
     private RDFTriple getRDFTriple(IRI subject, IRI predicate, OWLLiteral object) {
-        return new RDFTriple(getRDFResource(subject), getRDFResource(predicate),
+        return new RDFTriple(getRDFResource(subject), new RDFResourceIRI(predicate),
                 new RDFLiteral(object));
     }
 

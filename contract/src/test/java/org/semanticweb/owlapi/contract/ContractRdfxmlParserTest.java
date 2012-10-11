@@ -162,14 +162,6 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestInterfaceAnonymousNodeChecker() throws Exception {
-        AnonymousNodeChecker testSubject0 = mock(AnonymousNodeChecker.class);
-        boolean result0 = testSubject0.isAnonymousNode(IRI("urn:aFake"));
-        boolean result1 = testSubject0.isAnonymousNode("");
-        boolean result2 = testSubject0.isAnonymousSharedNode("");
-    }
-
-    @Test
     public void shouldTestBuiltInTypeHandler() throws Exception {
         BuiltInTypeHandler testSubject0 = new BuiltInTypeHandler(
                 Utils.mockOWLRDFConsumer(), IRI("urn:aFake")) {
@@ -687,7 +679,7 @@ public class ContractRdfxmlParserTest {
     @Test
     public void shouldTestOWLRDFConsumer() throws Exception {
         OWLRDFConsumer testSubject0 = new OWLRDFConsumer(Utils.getMockOntology(),
-                mock(AnonymousNodeChecker.class), new OWLOntologyLoaderConfiguration());
+                new OWLOntologyLoaderConfiguration());
         testSubject0.handle(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         testSubject0.handle(IRI("urn:aFake"), IRI("urn:aFake"), mock(OWLLiteral.class));
         testSubject0.addFirst(IRI("urn:aFake"), IRI("urn:aFake"));

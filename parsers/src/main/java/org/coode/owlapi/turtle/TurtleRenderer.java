@@ -47,11 +47,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import org.coode.owlapi.rdf.model.RDFLiteralNode;
-import org.coode.owlapi.rdf.model.RDFNode;
-import org.coode.owlapi.rdf.model.RDFResourceNode;
-import org.coode.owlapi.rdf.model.RDFTriple;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -77,14 +78,14 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 @SuppressWarnings("javadoc")
 public class TurtleRenderer extends RDFRendererBase {
     private PrintWriter writer;
-    private Set<RDFResourceNode> pending;
     private PrefixManager pm;
+    private Set<RDFResource> pending;
     private String base;
 
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLOntologyFormat format) {
         super(ontology, format);
         this.writer = new PrintWriter(writer);
-        pending = new HashSet<RDFResourceNode>();
+        pending = new HashSet<RDFResource>();
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
             pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI() + "#");
@@ -183,26 +184,27 @@ public class TurtleRenderer extends RDFRendererBase {
 
     private void write(RDFNode node) {
         if (node.isLiteral()) {
-            write((RDFLiteralNode) node);
-        } else {
-            write((RDFResourceNode) node);
+            write((RDFLiteral) node);
+        }
+        else {
+            write((RDFResource) node);
         }
     }
 
-    private void write(RDFLiteralNode node) {
-        if (node.getDatatype() != null) {
+    private void write(RDFLiteral node) {
+        if (!node.isPlainLiteral()) {
             if (node.getDatatype().equals(XSDVocabulary.INTEGER.getIRI())) {
-                write(node.getLiteral());
+                write(node.getLexicalValue());
             } else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getIRI())) {
-                write(node.getLiteral());
+                write(node.getLexicalValue());
             } else {
-                writeStringLiteral(node.getLiteral());
+                writeStringLiteral(node.getLexicalValue());
                 write("^^");
                 write(node.getDatatype());
             }
         } else {
-            writeStringLiteral(node.getLiteral());
-            if (node.getLang() != null) {
+            writeStringLiteral(node.getLexicalValue());
+            if (node.hasLang()) {
                 write("@");
                 write(node.getLang());
             }
@@ -222,7 +224,7 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-    private void write(RDFResourceNode node) {
+    private void write(RDFResource node) {
         if (!node.isAnonymous()) {
             write(node.getIRI());
         } else {
@@ -338,7 +340,7 @@ public class TurtleRenderer extends RDFRendererBase {
     int level = 0;
 
     @Override
-    public void render(RDFResourceNode node) {
+    public void render(RDFResource node) {
         level++;
         List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
         if (pending.contains(node)) {
@@ -347,12 +349,12 @@ public class TurtleRenderer extends RDFRendererBase {
             triples = new ArrayList<RDFTriple>();
         }
         pending.add(node);
-        RDFResourceNode lastSubject = null;
-        RDFResourceNode lastPredicate = null;
+        RDFResource lastSubject = null;
+        RDFResourceIRI lastPredicate = null;
         boolean first = true;
         for (RDFTriple triple : triples) {
-            RDFResourceNode subj = triple.getSubject();
-            RDFResourceNode pred = triple.getProperty();
+            RDFResource subj = triple.getSubject();
+            RDFResourceIRI pred = triple.getPredicate();
             if (lastSubject != null && (subj.equals(lastSubject) || subj.isAnonymous())) {
                 if (lastPredicate != null && pred.equals(lastPredicate)) {
                     // Only the object differs from previous triple
@@ -369,7 +371,7 @@ public class TurtleRenderer extends RDFRendererBase {
                         writeNewLine();
                     }
                     writeNewLine();
-                    write(triple.getProperty());
+                    write(triple.getPredicate());
                     write(" ");
                     pushTab();
                     write(triple.getObject());
@@ -390,7 +392,7 @@ public class TurtleRenderer extends RDFRendererBase {
                     write(" ");
                 }
                 pushTab();
-                write(triple.getProperty());
+                write(triple.getPredicate());
                 write(" ");
                 pushTab();
                 write(triple.getObject());

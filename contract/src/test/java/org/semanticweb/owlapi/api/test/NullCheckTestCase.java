@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings({ "javadoc", "deprecation" })
+@SuppressWarnings("javadoc")
 public class NullCheckTestCase {
     private static final OWLDataFactory f = Factory.getFactory();
     OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;

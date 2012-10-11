@@ -3,16 +3,10 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.io.Writer;
-import java.util.List;
-import java.util.Set;
-
 import org.coode.owlapi.rdf.model.AbstractTranslator;
-import org.coode.owlapi.rdf.model.RDFGraph;
 import org.coode.owlapi.rdf.model.RDFLiteralNode;
 import org.coode.owlapi.rdf.model.RDFNode;
 import org.coode.owlapi.rdf.model.RDFResourceNode;
-import org.coode.owlapi.rdf.model.RDFTranslator;
 import org.coode.owlapi.rdf.model.RDFTriple;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
@@ -49,18 +43,6 @@ public class ContractRdfModelTest {
             protected void addTriple(Object subject, Object pred, Object object) {}
         };
         String result0 = testSubject0.toString();
-    }
-
-    public void shouldTestRDFGraph() throws Exception {
-        RDFGraph testSubject0 = new RDFGraph();
-        testSubject0.addTriple(mock(RDFTriple.class));
-        List<RDFTriple> result1 = testSubject0.getSortedTriplesForSubject(
-                mock(RDFNode.class), false);
-        boolean result2 = testSubject0
-                .isAnonymousNodeSharedSubject(mock(RDFResourceNode.class));
-        Set<RDFResourceNode> result3 = testSubject0.getRootAnonymousNodes();
-        testSubject0.dumpTriples(mock(Writer.class));
-        String result4 = testSubject0.toString();
     }
 
     @Test
@@ -109,16 +91,6 @@ public class ContractRdfModelTest {
         boolean result1 = testSubject0.isAnonymous();
         IRI result2 = testSubject0.getIRI();
         boolean result3 = testSubject0.isLiteral();
-    }
-
-    public void shouldTestRDFTranslator() throws Exception {
-        RDFTranslator testSubject0 = new RDFTranslator(Utils.getMockManager(),
-                Utils.getMockOntology(), false);
-        testSubject0.reset();
-        RDFGraph result0 = testSubject0.getGraph();
-        RDFLiteralNode result1 = RDFTranslator
-                .translateLiteralNode(mock(OWLLiteral.class));
-        String result2 = testSubject0.toString();
     }
 
     @Test

@@ -20,7 +20,7 @@ import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.semanticweb.owlapi.util.EscapeUtils;
 
 @SuppressWarnings("javadoc")
-public class TurtleParser implements AnonymousNodeChecker {
+public class TurtleParser {
 
     private Map<String, IRI> string2IRI;
 
@@ -55,21 +55,6 @@ public class TurtleParser implements AnonymousNodeChecker {
 
     public void setTripleHandler(TripleHandler handler) {
         this.handler = handler;
-    }
-
-    @Override
-    public boolean isAnonymousNode(String iri) {
-        return NodeID.isAnonymousNodeIRI(iri);
-    }
-
-    @Override
-    public boolean isAnonymousNode(IRI iri) {
-        return NodeID.isAnonymousNodeIRI(iri);
-    }
-
-    @Override
-    public boolean isAnonymousSharedNode(String iri) {
-        return NodeID.isAnonymousNodeID(iri);
     }
 
     protected IRI getNextBlankNode(String id) {
