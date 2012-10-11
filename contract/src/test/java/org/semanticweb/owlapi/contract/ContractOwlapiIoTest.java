@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
 import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
@@ -440,7 +441,6 @@ public class ContractOwlapiIoTest {
     public void shouldTestRDFLiteral() throws Exception {
         RDFLiteral testSubject0 = new RDFLiteral(mock(OWLLiteral.class));
         String result0 = testSubject0.toString();
-        OWLLiteral result1 = testSubject0.getLiteral();
         boolean result2 = testSubject0.isLiteral();
     }
 
@@ -449,6 +449,16 @@ public class ContractOwlapiIoTest {
         RDFNode testSubject0 = new RDFNode() {
             @Override
             public boolean isLiteral() {
+                return false;
+            }
+
+            @Override
+            public IRI getIRI() {
+                return null;
+            }
+
+            @Override
+            public boolean isAnonymous() {
                 return false;
             }
         };
@@ -512,8 +522,7 @@ public class ContractOwlapiIoTest {
 
     @Test
     public void shouldTestRDFResource() throws Exception {
-        RDFResource testSubject0 = new RDFResource(IRI("urn:aFake"));
-        RDFResource testSubject1 = new RDFResource(IRI("urn:aFake"), false);
+        RDFResource testSubject0 = new RDFResourceIRI(IRI("urn:aFake"));
         String result0 = testSubject0.toString();
         IRI result1 = testSubject0.getResource();
         boolean result2 = testSubject0.isAnonymous();
@@ -538,7 +547,7 @@ public class ContractOwlapiIoTest {
         RDFTriple testSubject1 = new RDFTriple(IRI("urn:aFake"), false, IRI("urn:aFake"),
                 false, mock(OWLLiteral.class));
         RDFTriple testSubject2 = new RDFTriple(mock(RDFResource.class),
-                mock(RDFResource.class), mock(RDFNode.class));
+                mock(RDFResourceIRI.class), mock(RDFNode.class));
         String result0 = testSubject0.toString();
         RDFNode result1 = testSubject0.getObject();
         RDFResource result2 = testSubject0.getSubject();

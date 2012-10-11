@@ -8,10 +8,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.coode.owlapi.rdf.model.RDFNode;
-import org.coode.owlapi.rdf.model.RDFResourceNode;
-import org.coode.owlapi.rdf.model.RDFTriple;
 import org.junit.Test;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -19,9 +20,9 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class TripleComparatorTestCase {
     String ns = "urn:";
-    RDFResourceNode g = r(Class(IRI(ns + "g")));
-    RDFResourceNode d = r(ObjectProperty(IRI("urn:d")));
-    RDFResourceNode subtype = r(IRI("urn:r"));
+    RDFResourceIRI g = r(Class(IRI(ns + "g")));
+    RDFResourceIRI d = r(ObjectProperty(IRI("urn:d")));
+    RDFResourceIRI subtype = r(IRI("urn:r"));
 
     @Test
     public void shouldSort() {
@@ -110,15 +111,15 @@ public class TripleComparatorTestCase {
         return new RDFTriple(g, subtype, r(n));
     }
 
-    private RDFResourceNode r(OWLEntity e) {
-        return new RDFResourceNode(e.getIRI());
+    private RDFResourceIRI r(OWLEntity e) {
+        return r(e.getIRI());
     }
 
-    private RDFResourceNode r(IRI e) {
-        return new RDFResourceNode(e);
+    private RDFResourceIRI r(IRI e) {
+        return new RDFResourceIRI(e);
     }
 
     private RDFNode r(int s) {
-        return new RDFResourceNode(s);
+        return new RDFResourceBlankNode(s);
     }
 }
