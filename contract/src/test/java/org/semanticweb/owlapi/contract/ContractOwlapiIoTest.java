@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
@@ -437,6 +438,7 @@ public class ContractOwlapiIoTest {
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
+    @Ignore
     @Test
     public void shouldTestRDFLiteral() throws Exception {
         RDFLiteral testSubject0 = new RDFLiteral(mock(OWLLiteral.class));
@@ -540,6 +542,7 @@ public class ContractOwlapiIoTest {
         String result3 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestRDFTriple() throws Exception {
         RDFTriple testSubject0 = new RDFTriple(IRI("urn:aFake"), false, IRI("urn:aFake"),

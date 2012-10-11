@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.owlapi.rdfxml.parser.IRIProvider;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
@@ -66,6 +67,7 @@ public class ContractTurtleParserTest {
         String result0 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestOWLRDFConsumerAdapter() throws Exception {
         OWLRDFConsumerAdapter testSubject0 = new OWLRDFConsumerAdapter(
