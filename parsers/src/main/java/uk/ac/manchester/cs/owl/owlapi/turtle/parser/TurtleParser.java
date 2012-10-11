@@ -80,7 +80,7 @@ public class TurtleParser implements AnonymousNodeChecker,
 
     @Override
     public boolean isAnonymousNode(IRI iri) {
-        return NodeID.isAnonymousNodeIRI(iri);
+        return isAnonymousNode(iri.toString());
     }
 
     @Override
