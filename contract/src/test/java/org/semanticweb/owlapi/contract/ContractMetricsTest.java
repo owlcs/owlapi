@@ -41,23 +41,19 @@ public class ContractMetricsTest {
     public void shouldTestAbstractOWLMetric() throws Exception {
         AbstractOWLMetric<Object> testSubject0 = new AbstractOWLMetric<Object>(
                 Utils.getMockManager()) {
-            @Override
             public String getName() {
                 return null;
             }
 
-            @Override
             protected Object recomputeMetric() {
                 return null;
             }
 
-            @Override
             protected boolean isMetricInvalidated(
                     final List<? extends OWLOntologyChange> changes) {
                 return false;
             }
 
-            @Override
             protected void disposeMetric() {}
         };
         String result0 = testSubject0.toString();
@@ -108,12 +104,10 @@ public class ContractMetricsTest {
 
     public void shouldTestAxiomCountMetric() throws Exception {
         AxiomCountMetric testSubject0 = new AxiomCountMetric(Utils.getMockManager()) {
-            @Override
             protected String getObjectTypeName() {
                 return null;
             }
 
-            @Override
             protected Set<? extends OWLAxiom> getObjects(final OWLOntology ont) {
                 return null;
             }
@@ -182,23 +176,19 @@ public class ContractMetricsTest {
     @Test
     public void shouldTestDoubleValuedMetric() throws Exception {
         DoubleValuedMetric testSubject0 = new DoubleValuedMetric(Utils.getMockManager()) {
-            @Override
             public String getName() {
                 return null;
             }
 
-            @Override
             protected Double recomputeMetric() {
                 return null;
             }
 
-            @Override
             protected boolean isMetricInvalidated(
                     final List<? extends OWLOntologyChange> changes) {
                 return false;
             }
 
-            @Override
             protected void disposeMetric() {}
         };
         String result0 = testSubject0.toString();
@@ -265,23 +255,19 @@ public class ContractMetricsTest {
     @Test
     public void shouldTestIntegerValuedMetric() throws Exception {
         IntegerValuedMetric testSubject0 = new IntegerValuedMetric(Utils.getMockManager()) {
-            @Override
             public String getName() {
                 return null;
             }
 
-            @Override
             protected Integer recomputeMetric() {
                 return null;
             }
 
-            @Override
             protected boolean isMetricInvalidated(
                     final List<? extends OWLOntologyChange> changes) {
                 return false;
             }
 
-            @Override
             protected void disposeMetric() {}
         };
         String result0 = testSubject0.toString();
@@ -354,12 +340,10 @@ public class ContractMetricsTest {
     public void shouldTestObjectCountMetric() throws Exception {
         ObjectCountMetric<Object> testSubject0 = new ObjectCountMetric<Object>(
                 Utils.getMockManager()) {
-            @Override
             protected String getObjectTypeName() {
                 return null;
             }
 
-            @Override
             protected Set<Object> getObjects(final OWLOntology ont) {
                 return null;
             }

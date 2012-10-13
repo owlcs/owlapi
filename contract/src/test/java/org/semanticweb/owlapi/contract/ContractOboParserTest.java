@@ -78,7 +78,6 @@ public class ContractOboParserTest {
     public void shouldTestAbstractTagValueHandler() throws Exception {
         AbstractTagValueHandler testSubject0 = new AbstractTagValueHandler("",
                 mock(OBOConsumer.class)) {
-            @Override
             public void handle(final String currentId, final String value,
                     final String qualifierBlock, final String comment) {}
         };

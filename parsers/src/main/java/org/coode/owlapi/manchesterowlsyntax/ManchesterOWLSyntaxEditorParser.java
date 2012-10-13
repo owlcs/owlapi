@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -76,7 +77,9 @@ import org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -510,8 +513,6 @@ public class ManchesterOWLSyntaxEditorParser {
 
 
     public boolean isDatatypeName(String name) {
-        System.out.println("ManchesterOWLSyntaxEditorParser.isDatatypeName() "
-                + dataTypeNames);
         return dataTypeNames.contains(name) || owlEntityChecker != null && owlEntityChecker.getOWLDatatype(name) != null;
     }
 
@@ -2795,6 +2796,34 @@ public class ManchesterOWLSyntaxEditorParser {
         }
     }
 
+    private void processDeclaredEntities(OWLDeclarationAxiom ax) {
+        ax.getEntity().accept(new OWLEntityVisitor() {
+            public void visit(OWLAnnotationProperty property) {
+                annotationPropertyNames.add(pm.getShortForm(property.getIRI()));
+            }
+
+            public void visit(OWLDatatype datatype) {
+                dataTypeNames.add(pm.getShortForm(datatype.getIRI()));
+            }
+
+            public void visit(OWLNamedIndividual individual) {
+                individualNames.add(pm.getShortForm(individual.getIRI()));
+            }
+
+            public void visit(OWLDataProperty property) {
+                dataPropertyNames.add(pm.getShortForm(property.getIRI()));
+            }
+
+            public void visit(OWLObjectProperty property) {
+                objectPropertyNames.add(pm.getShortForm(property.getIRI()));
+            }
+
+            public void visit(OWLClass cls) {
+                classNames.add(pm.getShortForm(cls.getIRI()));
+            }
+        });
+    }
+
 
     private static void addNamesToSet(String buffer, String sectionName, Set<String> names) {
         Pattern p = Pattern.compile("(" + sectionName + "\\s*)(\\S*)");
@@ -2821,8 +2850,15 @@ public class ManchesterOWLSyntaxEditorParser {
             if (section.equals(ONTOLOGY)) {
                 ManchesterOWLSyntaxOntologyHeader header = parseOntologyHeader(false);
                 for (OWLImportsDeclaration decl : header.getImportsDeclarations()) {
-                    ont.getOWLOntologyManager().makeLoadImportRequest(decl, configuration);
                     imports.add(new AddImport(ont, decl));
+                    ont.getOWLOntologyManager().makeLoadImportRequest(decl, configuration);
+                    OWLOntology imported = ont.getOWLOntologyManager().getOntology(
+                            decl.getIRI());
+                    Set<OWLAxiom> importedaxioms = imported.getAxioms();
+                    for (OWLDeclarationAxiom declaration : imported
+                            .getAxioms(AxiomType.DECLARATION)) {
+                        processDeclaredEntities(declaration);
+                    }
                 }
                 for (OWLAnnotation anno : header.getAnnotations()) {
                     ontologyAnnotations.add(new AddOntologyAnnotation(ont, anno));
@@ -2852,8 +2888,15 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             else if (section.equalsIgnoreCase(IMPORT)) {
                 OWLImportsDeclaration decl = parseImportsDeclaration(ont);
-                imports.add(new AddImport(ont, decl));
                 ont.getOWLOntologyManager().makeLoadImportRequest(decl, configuration);
+                imports.add(new AddImport(ont, decl));
+                OWLOntology imported = ont.getOWLOntologyManager().getOntology(
+                        decl.getIRI());
+                Set<OWLAxiom> importedaxioms = imported.getAxioms();
+                for (OWLDeclarationAxiom declaration : imported
+                        .getAxioms(AxiomType.DECLARATION)) {
+                    processDeclaredEntities(declaration);
+                }
             }
             else if (section.equalsIgnoreCase(PREFIX)) {
                 Map<String, IRI> nsMap = parsePrefixDeclaration();

@@ -1,6 +1,8 @@
 3.4.1 16 Sep 2012
 
 Bugs closed:
+3576182    Bump minimum java version to 1.6 (Fixed the bugs, moved the request to feature requests)
+3497161    Manchester syntax imports
 3403855    Imports of multiple ont docs containing the same ont fails
 3491516    unhelpful Manchester parse exception
 3536150    TypeOntologyHandler/TPVersionIRIHandler overwrite ontologyID

@@ -57,15 +57,8 @@ public class EntailedAxiomTree extends ExplanationTree {
         super(userObject);
     }
 
-
     @Override
-	public boolean isEntailed() {
+    public boolean isEntailed() {
         return true;
     }
-
-
-//    @Override
-//	public String toString() {
-//        return super.toString();
-//    }
 }

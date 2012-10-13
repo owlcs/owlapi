@@ -58,28 +58,20 @@ public class BlankNodeTestCase {
         Reader input = new StringReader("_:foo <http://example.com/> _:bar .");
         @SuppressWarnings("unused")
         TripleHandler handler = new TripleHandler() {
-            @Override
             public void handleTriple(IRI s, IRI p, String o, IRI d) {}
 
-            @Override
             public void handleTriple(IRI s, IRI p, String o, String lang) {}
 
-            @Override
             public void handleTriple(IRI s, IRI p, String o) {}
 
-            @Override
             public void handleTriple(IRI s, IRI p, IRI o) {}
 
-            @Override
             public void handlePrefixDirective(String pn, String p) {}
 
-            @Override
             public void handleEnd() {}
 
-            @Override
             public void handleComment(String comment) {}
 
-            @Override
             public void handleBaseDirective(String base) {}
         };
         TurtleParser parser = new TurtleParser(input, handler, "");

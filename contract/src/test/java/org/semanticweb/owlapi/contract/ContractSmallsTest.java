@@ -603,16 +603,13 @@ public class ContractSmallsTest {
     public void shouldTestAbstractOWLDebugger() throws Exception {
         AbstractOWLDebugger testSubject0 = new AbstractOWLDebugger(
                 Utils.getRealMockManager(), Utils.getMockOntology()) {
-            @Override
             public Set<OWLAxiom> getSOSForIncosistentClass(final OWLClassExpression cls)
                     throws OWLException {
                 return Collections.emptySet();
             }
 
-            @Override
             public void dispose() {}
 
-            @Override
             protected OWLClassExpression getCurrentClass() throws OWLException {
                 return null;
             }

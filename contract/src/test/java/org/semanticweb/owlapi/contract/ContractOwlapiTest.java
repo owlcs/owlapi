@@ -32,7 +32,6 @@ public class ContractOwlapiTest {
     public void shouldTestAbstractCompositeOntologyChange() throws Exception {
         AbstractCompositeOntologyChange testSubject0 = new AbstractCompositeOntologyChange(
                 mock(OWLDataFactory.class)) {
-            @Override
             public List<OWLOntologyChange> getChanges() {
                 return null;
             }
