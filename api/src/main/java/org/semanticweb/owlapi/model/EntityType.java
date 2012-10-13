@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -54,7 +55,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Represents the different types of OWL 2 Entities.
  */
 @SuppressWarnings("javadoc")
-public final class EntityType<E extends OWLEntity> {
+public final class EntityType<E extends OWLEntity> implements Serializable {
 
     public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class", OWLRDFVocabulary.OWL_CLASS);
 
