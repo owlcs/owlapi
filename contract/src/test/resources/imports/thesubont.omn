@@ -1,0 +1,7 @@
+Prefix: : <http://owlapitestontologies.com/thesubont#>
+Prefix: su: <http://owlapitestontologies.com/thesuperont#>
+Ontology: <http://owlapitestontologies.com/thesubont>
+Import: <http://owlapitestontologies.com/thesuperont>
+
+Class: Thesubclass
+	SubClassOf: su:Thesuperclass

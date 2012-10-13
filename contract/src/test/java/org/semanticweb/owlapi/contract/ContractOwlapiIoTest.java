@@ -81,7 +81,6 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestAbstractOWLParser() throws Exception {
         AbstractOWLParser testSubject0 = new AbstractOWLParser() {
-            @Override
             public OWLOntologyFormat parse(
                     final OWLOntologyDocumentSource documentSource,
                     final OWLOntology ontology) throws OWLParserException, IOException,
@@ -89,7 +88,6 @@ public class ContractOwlapiIoTest {
                 return null;
             }
 
-            @Override
             public OWLOntologyFormat parse(
                     final OWLOntologyDocumentSource documentSource,
                     final OWLOntology ontology,
@@ -112,7 +110,6 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestAbstractOWLRenderer() throws Exception {
         AbstractOWLRenderer testSubject0 = new AbstractOWLRenderer(Utils.getMockManager()) {
-            @Override
             public void render(final OWLOntology ontology, final Writer writer)
                     throws OWLRendererException {}
         };
@@ -453,7 +450,6 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestRDFNode() throws Exception {
         RDFNode testSubject0 = new RDFNode() {
-            @Override
             public boolean isLiteral() {
                 return false;
             }

@@ -52,17 +52,14 @@ public class ContractRdfxmlParserTest {
     public void shouldTestAbstractClassExpressionTranslator() throws Exception {
         AbstractClassExpressionTranslator testSubject0 = new AbstractClassExpressionTranslator(
                 Utils.mockOWLRDFConsumer()) {
-            @Override
             public boolean matchesStrict(final IRI mainNode) {
                 return false;
             }
 
-            @Override
             public boolean matchesLax(final IRI mainNode) {
                 return false;
             }
 
-            @Override
             public OWLClassExpression translate(final IRI mainNode) {
                 return null;
             }
@@ -79,17 +76,14 @@ public class ContractRdfxmlParserTest {
     public void shouldTestAbstractLiteralTripleHandler() throws Exception {
         AbstractLiteralTripleHandler testSubject0 = new AbstractLiteralTripleHandler(
                 Utils.mockOWLRDFConsumer()) {
-            @Override
             public void handleTriple(final IRI subject, final IRI predicate,
                     final OWLLiteral object) {}
 
-            @Override
             public boolean canHandle(final IRI subject, final IRI predicate,
                     final OWLLiteral object) {
                 return false;
             }
 
-            @Override
             public boolean canHandleStreaming(final IRI subject, final IRI predicate,
                     final OWLLiteral object) {
                 return false;
@@ -108,7 +102,6 @@ public class ContractRdfxmlParserTest {
     public void shouldTestAbstractNamedEquivalentClassAxiomHandler() throws Exception {
         AbstractNamedEquivalentClassAxiomHandler testSubject0 = new AbstractNamedEquivalentClassAxiomHandler(
                 Utils.mockOWLRDFConsumer(), IRI.create("urn:aFake")) {
-            @Override
             protected OWLClassExpression translateEquivalentClass(final IRI mainNode) {
                 return null;
             }
@@ -129,17 +122,14 @@ public class ContractRdfxmlParserTest {
     public void shouldTestAbstractResourceTripleHandler() throws Exception {
         AbstractResourceTripleHandler testSubject0 = new AbstractResourceTripleHandler(
                 Utils.mockOWLRDFConsumer()) {
-            @Override
             public void handleTriple(final IRI subject, final IRI predicate,
                     final IRI object) throws UnloadableImportException {}
 
-            @Override
             public boolean canHandleStreaming(final IRI subject, final IRI predicate,
                     final IRI object) throws UnloadableImportException {
                 return false;
             }
 
-            @Override
             public boolean canHandle(final IRI subject, final IRI predicate,
                     final IRI object) {
                 return false;
@@ -176,7 +166,6 @@ public class ContractRdfxmlParserTest {
     public void shouldTestBuiltInTypeHandler() throws Exception {
         BuiltInTypeHandler testSubject0 = new BuiltInTypeHandler(
                 Utils.mockOWLRDFConsumer(), IRI.create("urn:aFake")) {
-            @Override
             public void handleTriple(final IRI subject, final IRI predicate,
                     final IRI object) throws UnloadableImportException {}
         };
@@ -1457,11 +1446,9 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTriplePredicateHandler() throws Exception {
         TriplePredicateHandler testSubject0 = new TriplePredicateHandler(
                 Utils.mockOWLRDFConsumer(), IRI.create("urn:aFake")) {
-            @Override
             public void handleTriple(final IRI subject, final IRI predicate,
                     final IRI object) throws UnloadableImportException {}
 
-            @Override
             public boolean canHandleStreaming(final IRI subject, final IRI predicate,
                     final IRI object) throws UnloadableImportException {
                 return false;

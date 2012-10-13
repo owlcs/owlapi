@@ -48,16 +48,10 @@ public class ManchesterOWLSyntaxSWRLDataRangeTestCase {
         StringDocumentTarget t = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
-        System.out
-                .println("ManchesterOWLSyntaxSWRLDataRangeTestCase.shouldParseRule1()\n"
-                        + t.toString());
         OWLOntology o1 = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(t.toString()));
         o1.getOWLOntologyManager().saveOntology(o1,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
-        System.out
-                .println("ManchesterOWLSyntaxSWRLDataRangeTestCase.shouldParseRule2()\n"
-                        + t.toString());
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 }
