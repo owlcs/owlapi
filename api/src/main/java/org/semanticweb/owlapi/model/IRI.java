@@ -39,7 +39,6 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.File;
-import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -56,38 +55,75 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 14-Jan-2009 Represents International Resource Identifiers
  */
-public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence {
+public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence {
 
     /**
      * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
      * so there is no loss during this translation.
      * @return The URI
      */
-    public abstract URI toURI();
+    public URI toURI() {
+        if (remainder != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(prefix);
+            sb.append(remainder);
+            return URI.create(sb.toString());
+        }
+        else {
+            return URI.create(prefix);
+        }
+    }
 
     /**
      * Determines if this IRI is absolute
      * @return <code>true</code> if this IRI is absolute or <code>false</code>
      *         if this IRI is not absolute
      */
-    public abstract boolean isAbsolute();
+    public boolean isAbsolute() {
+        int colonIndex = prefix.indexOf(':');
+        if (colonIndex == -1) {
+            return false;
+        }
+        for (int i = 0; i < colonIndex; i++) {
+            char ch = prefix.charAt(i);
+            if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+' && ch != '-') {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * @return the IRI scheme, e.g., http, urn... can be null
      */
-    public abstract String getScheme();
+    public String getScheme() {
+        int colonIndex = prefix.indexOf(':');
+        if (colonIndex == -1) {
+            return null;
+        }
+        return prefix.substring(0, colonIndex);
+    }
 
     /**
      * @return the prefix. Can be null.
      */
-    public abstract String getStart();
+    public String getStart() {
+        return prefix;
+    }
 
     /**
      * @param s the IRI stirng to be resolved
      * @return s resolved against this IRI (with the URI::resolve() method,
      *         unless this IRI is opaque)
      */
-    public abstract IRI resolve(String s);
+    public IRI resolve(String s) {
+        // shortcut: checking absolute and opaque here saves the creation of an extra URI object
+        URI uri = URI.create(s);
+        if (uri.isAbsolute() || uri.isOpaque()) {
+            return IRI.create(uri.toString());
+        }
+        return IRI.create(toURI().resolve(uri).toString());
+    }
 
     /**
      * Determines if this IRI is in the reserved vocabulary. An IRI is in the
@@ -99,7 +135,9 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
      * @return <code>true</code> if the IRI is in the reserved vocabulary,
      *         otherwise <code>false</code>.
      */
-    public abstract boolean isReservedVocabulary();
+    public boolean isReservedVocabulary() {
+        return prefix.startsWith(Namespaces.OWL.toString()) || prefix.startsWith(Namespaces.RDF.toString()) || prefix.startsWith(Namespaces.RDFS.toString()) || prefix.startsWith(Namespaces.XSD.toString());
+    }
 
     /**
      * Determines if this IRI is equal to the IRI that <code>owl:Thing</code> is
@@ -108,7 +146,9 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
      *         &lt;http://www.w3.org/2002/07/owl#Thing&gt; and otherwise
      *         <code>false</code>
      */
-    public abstract boolean isThing();
+    public boolean isThing() {
+        return remainder != null && remainder.equals("Thing") && prefix.equals(Namespaces.OWL.toString());
+    }
 
     /**
      * Determines if this IRI is equal to the IRI that <code>owl:Nothing</code>
@@ -117,7 +157,9 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
      *         &lt;http://www.w3.org/2002/07/owl#Nothing&gt; and otherwise
      *         <code>false</code>
      */
-    public abstract boolean isNothing();
+    public boolean isNothing() {
+        return equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
+    }
 
     /**
      * Determines if this IRI is equal to the IRI that is named
@@ -126,20 +168,33 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
      *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
      *         otherwise <code>false</code>
      */
-    public abstract boolean isPlainLiteral();
+    public boolean isPlainLiteral() {
+        return remainder != null && remainder.equals("PlainLiteral") && prefix.equals(Namespaces.RDF.toString());
+    }
 
     /**
      * Gets the fragment of the IRI.
      * @return The IRI fragment, or <code>null</code> if the IRI does not have a
      *         fragment
      */
-    public abstract String getFragment();
+    public String getFragment() {
+        return remainder;
+    }
 
     /**
      * Obtained this IRI surrounded by angled brackets
      * @return This IRI surrounded by &lt; and &gt;
      */
-    public abstract String toQuotedString();
+    public String toQuotedString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<");
+        sb.append(prefix);
+        if (remainder != null) {
+            sb.append(remainder);
+        }
+        sb.append(">");
+        return sb.toString();
+    }
 
     /**
      * Creates an IRI from the specified String.
@@ -150,7 +205,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         if (str == null) {
             throw new IllegalArgumentException("String must not be null");
         }
-        return new IRIImpl(str);
+        return new IRI(str);
     }
 
     /**
@@ -162,7 +217,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
      * @since 3.3
      */
     public static IRI create(String prefix, String suffix) {
-        return new IRIImpl(prefix, suffix);
+        return new IRI(prefix, suffix);
     }
 
     /**
@@ -173,7 +228,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         if (file == null) {
             throw new IllegalArgumentException("file cannot be null");
         }
-        return new IRIImpl(file.toURI());
+        return new IRI(file.toURI());
     }
 
     /**
@@ -184,7 +239,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         if (uri == null) {
             throw new IllegalArgumentException("uri cannot be null");
         }
-        return new IRIImpl(uri);
+        return new IRI(uri);
     }
 
     /**
@@ -196,7 +251,7 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         if (url == null) {
             throw new IllegalArgumentException("url cannot be null");
         }
-        return new IRIImpl(url.toURI());
+        return new IRI(url.toURI());
     }
 
     /**
@@ -208,341 +263,252 @@ public abstract class IRI implements OWLAnnotationSubject, OWLAnnotationValue, S
         return create("owlapi:ontology" + System.nanoTime());
     }
 
-    private static class IRIImpl extends IRI implements Serializable {
 
-        private static final long serialVersionUID = 30402L;
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////
+    //// Impl - All constructors are private - factory methods are used for public creation
+    ////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private static WeakCache<String> prefixCache = new WeakCache<String>();
 
-        private final String remainder;
 
-        private final String prefix;
+    private static final long serialVersionUID = 30402L;
 
-        private int hashCode = 0;
+    private static WeakCache<String> prefixCache = new WeakCache<String>();
 
-        /**
-         * Constructs an IRI which is built from the concatenation of the specified prefix and suffix.
-         * @param prefix The prefix.
-         * @param fragment The suffix.
-         */
-        public IRIImpl(String prefix, String fragment) {
-            this.prefix = prefixCache.cache(prefix);
-            remainder = fragment;
+    private final String remainder;
+
+    private final String prefix;
+
+    private int hashCode = 0;
+
+    /**
+     * Constructs an IRI which is built from the concatenation of the specified prefix and suffix.
+     * @param prefix The prefix.
+     * @param fragment The suffix.
+     */
+    private IRI(String prefix, String fragment) {
+        this.prefix = prefixCache.cache(prefix);
+        remainder = fragment;
+    }
+
+    private IRI(String s) {
+        int fragmentSeparatorIndex = s.lastIndexOf('#');
+        if (fragmentSeparatorIndex != -1 && fragmentSeparatorIndex < s.length()) {
+            remainder = s.substring(fragmentSeparatorIndex + 1);
+            prefix = prefixCache.cache(s.substring(0, fragmentSeparatorIndex + 1));
         }
-
-        public IRIImpl(String s) {
-            int fragmentSeparatorIndex = s.lastIndexOf('#');
-            if (fragmentSeparatorIndex != -1 && fragmentSeparatorIndex < s.length()) {
-                remainder = s.substring(fragmentSeparatorIndex + 1);
-                prefix = prefixCache.cache(s.substring(0, fragmentSeparatorIndex + 1));
+        else {
+            int pathSeparatorIndex = s.lastIndexOf('/');
+            if (pathSeparatorIndex != -1 && pathSeparatorIndex < s.length()) {
+                remainder = s.substring(pathSeparatorIndex + 1);
+                prefix = prefixCache.cache(s.substring(0, pathSeparatorIndex + 1));
             }
             else {
-                int pathSeparatorIndex = s.lastIndexOf('/');
-                if (pathSeparatorIndex != -1 && pathSeparatorIndex < s.length()) {
-                    remainder = s.substring(pathSeparatorIndex + 1);
-                    prefix = prefixCache.cache(s.substring(0, pathSeparatorIndex + 1));
-                }
-                else {
-                    remainder = null;
-                    prefix = prefixCache.cache(s);
-                }
+                remainder = null;
+                prefix = prefixCache.cache(s);
             }
         }
+    }
 
-        public IRIImpl(URI uri) {
-            this(uri.toString());
+    private IRI(URI uri) {
+        this(uri.toString());
+    }
+
+    /**
+     * Returns the length of this character sequence.  The length is the number
+     * of 16-bit <code>char</code>s in the sequence.</p>
+     * @return the number of <code>char</code>s in this sequence
+     */
+    public int length() {
+        return prefix.length() + (remainder == null ? 0 : remainder.length());
+    }
+
+    /**
+     * Returns the <code>char</code> value at the specified index.  An index ranges from zero
+     * to <tt>length() - 1</tt>.  The first <code>char</code> value of the sequence is at
+     * index zero, the next at index one, and so on, as for array
+     * indexing. </p>
+     * <p>If the <code>char</code> value specified by the index is a
+     * <a href="Character.html#unicode">surrogate</a>, the surrogate
+     * value is returned.
+     * @param index the index of the <code>char</code> value to be returned
+     * @return the specified <code>char</code> value
+     * @throws IndexOutOfBoundsException if the <tt>index</tt> argument is negative or not less than
+     *                                   <tt>length()</tt>
+     */
+    public char charAt(int index) {
+        if (index < 0) {
+            throw new IndexOutOfBoundsException(Integer.toString(index));
         }
-
-        /**
-         * Returns the length of this character sequence.  The length is the number
-         * of 16-bit <code>char</code>s in the sequence.</p>
-         * @return the number of <code>char</code>s in this sequence
-         */
-        public int length() {
-            return prefix.length() + (remainder==null?0:remainder.length());
+        if (index >= length()) {
+            throw new IndexOutOfBoundsException(Integer.toString(index));
         }
-
-        /**
-         * Returns the <code>char</code> value at the specified index.  An index ranges from zero
-         * to <tt>length() - 1</tt>.  The first <code>char</code> value of the sequence is at
-         * index zero, the next at index one, and so on, as for array
-         * indexing. </p>
-         * <p>If the <code>char</code> value specified by the index is a
-         * <a href="Character.html#unicode">surrogate</a>, the surrogate
-         * value is returned.
-         * @param index the index of the <code>char</code> value to be returned
-         * @return the specified <code>char</code> value
-         * @throws IndexOutOfBoundsException if the <tt>index</tt> argument is negative or not less than
-         *                                   <tt>length()</tt>
-         */
-        public char charAt(int index) {
-            if(index < 0) {
-                throw new IndexOutOfBoundsException(Integer.toString(index));
-            }
-            if(index >= length()) {
-                throw new IndexOutOfBoundsException(Integer.toString(index));
-            }
-            if(index < prefix.length()) {
-                return prefix.charAt(index);
-            }
-            return remainder.charAt(index - prefix.length());
+        if (index < prefix.length()) {
+            return prefix.charAt(index);
         }
+        return remainder.charAt(index - prefix.length());
+    }
 
-        /**
-         * Returns a new <code>CharSequence</code> that is a subsequence of this sequence.
-         * The subsequence starts with the <code>char</code> value at the specified index and
-         * ends with the <code>char</code> value at index <tt>end - 1</tt>.  The length
-         * (in <code>char</code>s) of the
-         * returned sequence is <tt>end - start</tt>, so if <tt>start == end</tt>
-         * then an empty sequence is returned. </p>
-         * @param start the start index, inclusive
-         * @param end the end index, exclusive
-         * @return the specified subsequence
-         * @throws IndexOutOfBoundsException if <tt>start</tt> or <tt>end</tt> are negative,
-         *                                   if <tt>end</tt> is greater than <tt>length()</tt>,
-         *                                   or if <tt>start</tt> is greater than <tt>end</tt>
-         */
-        public CharSequence subSequence(int start, int end) {
+    /**
+     * Returns a new <code>CharSequence</code> that is a subsequence of this sequence.
+     * The subsequence starts with the <code>char</code> value at the specified index and
+     * ends with the <code>char</code> value at index <tt>end - 1</tt>.  The length
+     * (in <code>char</code>s) of the
+     * returned sequence is <tt>end - start</tt>, so if <tt>start == end</tt>
+     * then an empty sequence is returned. </p>
+     * @param start the start index, inclusive
+     * @param end the end index, exclusive
+     * @return the specified subsequence
+     * @throws IndexOutOfBoundsException if <tt>start</tt> or <tt>end</tt> are negative,
+     *                                   if <tt>end</tt> is greater than <tt>length()</tt>,
+     *                                   or if <tt>start</tt> is greater than <tt>end</tt>
+     */
+    public CharSequence subSequence(int start, int end) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(prefix);
+        sb.append(remainder);
+        return sb.subSequence(start, end);
+    }
+
+
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    public void accept(OWLAnnotationSubjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
+        return visitor.visit(this);
+    }
+
+    public Set<OWLClass> getClassesInSignature() {
+        return Collections.emptySet();
+    }
+
+    public Set<OWLDataProperty> getDataPropertiesInSignature() {
+        return Collections.emptySet();
+    }
+
+    public Set<OWLNamedIndividual> getIndividualsInSignature() {
+        return Collections.emptySet();
+    }
+
+    public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
+        return Collections.emptySet();
+    }
+
+    public Set<OWLEntity> getSignature() {
+        return Collections.emptySet();
+    }
+
+    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+        return Collections.emptySet();
+    }
+
+    public Set<OWLDatatype> getDatatypesInSignature() {
+        return Collections.emptySet();
+    }
+
+    public Set<OWLClassExpression> getNestedClassExpressions() {
+        return Collections.emptySet();
+    }
+
+    public int compareTo(OWLObject o) {
+        if (o == this) {
+            return 0;
+        }
+        if (!(o instanceof IRI)) {
+            return -1;
+        }
+        IRI other = (IRI) o;
+        int diff = prefix.compareTo(other.prefix);
+        if (diff != 0) {
+            return diff;
+        }
+        String otherRemainder = other.remainder;
+        if (remainder == null) {
+            if (otherRemainder == null) {
+                return 0;
+            }
+            else {
+                return -1;
+            }
+        }
+        else {
+            if (otherRemainder == null) {
+                return 1;
+            }
+            else {
+                return remainder.compareTo(otherRemainder);
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        if (remainder != null) {
             StringBuilder sb = new StringBuilder();
             sb.append(prefix);
             sb.append(remainder);
-            return sb.subSequence(start, end);
-        }
-
-        @Override
-        public URI toURI() {
-            if (remainder != null) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(prefix);
-                sb.append(remainder);
-                return URI.create(sb.toString());
-            }
-            else {
-                return URI.create(prefix);
-            }
-        }
-
-        @Override
-        public IRI resolve(String s) {
-            // shortcut: checking absolute and opaque here saves the creation of an extra URI object
-            URI uri = URI.create(s);
-            if (uri.isAbsolute() || uri.isOpaque()) {
-                return IRI.create(uri.toString());
-            }
-            return IRI.create(toURI().resolve(uri).toString());
-        }
-
-        @Override
-        public String getScheme() {
-            int colonIndex = prefix.indexOf(':');
-            if (colonIndex == -1) {
-                return null;
-            }
-            return prefix.substring(0, colonIndex);
-        }
-
-        /**
-         * Determines if this IRI is absolute
-         * @return <code>true</code> if this IRI is absolute or
-         *         <code>false</code> if this IRI is not absolute
-         */
-        @Override
-        public boolean isAbsolute() {
-            int colonIndex = prefix.indexOf(':');
-            if (colonIndex == -1) {
-                return false;
-            }
-            for (int i = 0; i < colonIndex; i++) {
-                char ch = prefix.charAt(i);
-                if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+' && ch != '-') {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        /**
-         * Gets the fragment of the IRI.
-         * @return The IRI fragment, or <code>null</code> if the IRI does not
-         *         have a fragment
-         */
-        @Override
-        public String getFragment() {
-            return remainder;
-        }
-
-        @Override
-        public String getStart() {
-            return prefix;
-        }
-
-        @Override
-        public boolean isNothing() {
-            return equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
-        }
-
-        @Override
-        public boolean isReservedVocabulary() {
-            return prefix.startsWith(Namespaces.OWL.toString()) || prefix.startsWith(Namespaces.RDF.toString()) || prefix.startsWith(Namespaces.RDFS.toString()) || prefix.startsWith(Namespaces.XSD.toString());
-        }
-
-        @Override
-        public boolean isThing() {
-            return remainder != null && remainder.equals("Thing") && prefix.equals(Namespaces.OWL.toString());
-        }
-
-        @Override
-        public boolean isPlainLiteral() {
-            return remainder != null && remainder.equals("PlainLiteral") && prefix.equals(Namespaces.RDF.toString());
-        }
-
-        public void accept(OWLObjectVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        public <O> O accept(OWLObjectVisitorEx<O> visitor) {
-            return visitor.visit(this);
-        }
-
-        public void accept(OWLAnnotationSubjectVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        public <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
-            return visitor.visit(this);
-        }
-
-        public Set<OWLClass> getClassesInSignature() {
-            return Collections.emptySet();
-        }
-
-        public Set<OWLDataProperty> getDataPropertiesInSignature() {
-            return Collections.emptySet();
-        }
-
-        public Set<OWLNamedIndividual> getIndividualsInSignature() {
-            return Collections.emptySet();
-        }
-
-        public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-            return Collections.emptySet();
-        }
-
-        public Set<OWLEntity> getSignature() {
-            return Collections.emptySet();
-        }
-
-        public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-            return Collections.emptySet();
-        }
-
-        public Set<OWLDatatype> getDatatypesInSignature() {
-            return Collections.emptySet();
-        }
-
-        public Set<OWLClassExpression> getNestedClassExpressions() {
-            return Collections.emptySet();
-        }
-
-        public int compareTo(OWLObject o) {
-            if (o == this) {
-                return 0;
-            }
-            if (!(o instanceof IRIImpl)) {
-                return -1;
-            }
-            IRIImpl other = (IRIImpl) o;
-            int diff = prefix.compareTo(other.prefix);
-            if (diff != 0) {
-                return diff;
-            }
-            String otherRemainder = other.remainder;
-            if (remainder == null) {
-                if (otherRemainder == null) {
-                    return 0;
-                }
-                else {
-                    return -1;
-                }
-            }
-            else {
-                if (otherRemainder == null) {
-                    return 1;
-                }
-                else {
-                    return remainder.compareTo(otherRemainder);
-                }
-            }
-        }
-
-        @Override
-        public String toString() {
-            if (remainder != null) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(prefix);
-                sb.append(remainder);
-                return sb.toString();
-            }
-            else {
-                return prefix;
-            }
-        }
-
-        @Override
-        public String toQuotedString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append("<");
-            sb.append(prefix);
-            if (remainder != null) {
-                sb.append(remainder);
-            }
-            sb.append(">");
             return sb.toString();
         }
-
-        @Override
-        public int hashCode() {
-            if (hashCode == 0) {
-                hashCode = prefix.hashCode() + (remainder != null ? remainder.hashCode() : 0);
-            }
-            return hashCode;
+        else {
+            return prefix;
         }
+    }
 
-        public void accept(OWLAnnotationValueVisitor visitor) {
-            visitor.visit(this);
+
+    @Override
+    public int hashCode() {
+        if (hashCode == 0) {
+            hashCode = prefix.hashCode() + (remainder != null ? remainder.hashCode() : 0);
         }
+        return hashCode;
+    }
 
-        public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
-            return visitor.visit(this);
-        }
+    public void accept(OWLAnnotationValueVisitor visitor) {
+        visitor.visit(this);
+    }
 
-        public boolean isTopEntity() {
+    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    public boolean isTopEntity() {
+        return false;
+    }
+
+    public boolean isBottomEntity() {
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-
-        public boolean isBottomEntity() {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof IRI)) {
             return false;
         }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == null) {
-                return false;
-            }
-            if (obj == this) {
-                return true;
-            }
-            if (!(obj instanceof IRIImpl)) {
-                return false;
-            }
-            IRIImpl other = (IRIImpl) obj;
-            String otherRemainder = other.remainder;
-            if (remainder == null) {
-                return otherRemainder == null && prefix.equals(other.prefix);
-            }
-            else {
-                return otherRemainder != null && remainder.equals(otherRemainder) && other.prefix.equals(prefix);
-            }
+        IRI other = (IRI) obj;
+        String otherRemainder = other.remainder;
+        if (remainder == null) {
+            return otherRemainder == null && prefix.equals(other.prefix);
+        }
+        else {
+            return otherRemainder != null && remainder.equals(otherRemainder) && other.prefix.equals(prefix);
         }
     }
 }
