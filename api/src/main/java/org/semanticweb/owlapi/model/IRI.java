@@ -289,12 +289,12 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @param prefix The prefix.
      * @param fragment The suffix.
      */
-    private IRI(String prefix, String fragment) {
+    protected IRI(String prefix, String fragment) {
         this.prefix = prefixCache.cache(prefix);
         remainder = fragment;
     }
 
-    private IRI(String s) {
+    protected IRI(String s) {
         int fragmentSeparatorIndex = s.lastIndexOf('#');
         if (fragmentSeparatorIndex != -1 && fragmentSeparatorIndex < s.length()) {
             remainder = s.substring(fragmentSeparatorIndex + 1);
@@ -313,7 +313,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         }
     }
 
-    private IRI(URI uri) {
+    protected IRI(URI uri) {
         this(uri.toString());
     }
 
