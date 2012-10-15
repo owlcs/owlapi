@@ -42,7 +42,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactoryRegistry;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -51,9 +54,11 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 17-Nov-2007 */
 public class ReaderDocumentSource implements OWLOntologyDocumentSource {
-    private static int counter = 0;
+    private static final AtomicInteger counter = new AtomicInteger(0);
+
     private final IRI documentIRI;
     private String buffer;
+    private OWLOntologyFormatFactory format;
 
     /** Constructs and ontology input source which will read an ontology from a
      * reader.
@@ -64,10 +69,31 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
         this(reader, getNextDocumentIRI());
     }
 
-    /** @return a fresh IRI */
-    public static synchronized IRI getNextDocumentIRI() {
-        counter = counter + 1;
-        return IRI.create("reader:ontology" + counter);
+    /**
+     * Constructs and ontology input source which will read an ontology
+     * from a reader.
+     * @param reader The reader that will be used to read an ontology.
+     * @param format An {@link OWLOntologyFormatFactory} that matches this file, or null if it is not known. 
+     */
+    public ReaderDocumentSource(Reader reader, OWLOntologyFormatFactory format) {
+        this(reader, getNextDocumentIRI(), format);
+    }
+
+    /**
+     * Constructs and ontology input source which will read an ontology
+     * from a reader.
+     * @param reader The reader that will be used to read an ontology.
+     * @param mimeType The MIME type to use when finding a format
+     */
+    public ReaderDocumentSource(Reader reader, String mimeType) {
+        this(reader, getNextDocumentIRI(), mimeType);
+    }
+
+    /**
+     * @return a fresh IRI
+     */
+    public static IRI getNextDocumentIRI() {
+        return IRI.create("reader:ontology" + counter.incrementAndGet());
     }
 
     /** Constructs and ontology input source which will read an ontology from a
@@ -81,6 +107,37 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
     public ReaderDocumentSource(Reader reader, IRI documentIRI) {
         this.documentIRI = documentIRI;
         fillBuffer(reader);
+    }
+
+
+    /**
+     * Constructs and ontology input source which will read an ontology
+     * from a reader.
+     * @param reader The reader that will be used to read an ontology.
+     * @param documentIRI The ontology document IRI which will be used as the base
+     * of the document if needed.
+     * @param format An {@link OWLOntologyFormatFactory} that matches this file, or null if it is not known. 
+     */
+    public ReaderDocumentSource(Reader reader, IRI documentIRI, OWLOntologyFormatFactory format) {
+        this(reader, documentIRI);
+        this.format = format;
+    }
+
+    /**
+     * Constructs and ontology input source which will read an ontology
+     * from a reader.
+     * @param reader The reader that will be used to read an ontology.
+     * @param documentIRI The ontology document IRI which will be used as the base
+     * of the document if needed.
+     * @param mimeType The MIME type to use when finding a format
+     */
+    public ReaderDocumentSource(Reader reader, IRI documentIRI, String mimeType) {
+        this(reader, documentIRI);
+        OWLOntologyFormatFactory formatFactory = OWLOntologyFormatFactoryRegistry.getInstance().getByMIMEType(mimeType);
+        
+        if(formatFactory != null) {
+            this.format = formatFactory;
+        }
     }
 
     private void fillBuffer(Reader reader) {
@@ -125,5 +182,16 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
     public InputStream getInputStream() {
         throw new OWLRuntimeException(
                 "InputStream not available.  Check with ReaderDocumentSource.isReaderAvailable() first!");
+    }
+
+    @Override
+    public OWLOntologyFormatFactory getFormatFactory() {
+        return this.format;
+    }
+
+
+    @Override
+    public boolean isFormatKnown() {
+        return this.format != null;
     }
 }

@@ -41,7 +41,10 @@ package org.semanticweb.owlapi.io;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactoryRegistry;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -50,21 +53,38 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 24-Apr-2007 */
 public class StringDocumentSource implements OWLOntologyDocumentSource {
-    private static int counter = 0;
+    private static final AtomicInteger counter = new AtomicInteger(0);
+
     private final IRI documentIRI;
     private final String string;
+    private OWLOntologyFormatFactory format;
 
     /** @param string
      *            the source string */
     public StringDocumentSource(String string) {
-        this.string = string;
-        documentIRI = getNextDocumentIRI();
+        this(string, getNextDocumentIRI());
     }
-
+    
+    /**
+     * @param string the source string
+     * @param format An {@link OWLOntologyFormatFactory} that matches this file, or null if it is not known. 
+     */
+    public StringDocumentSource(String string, OWLOntologyFormatFactory format) {
+        this(string, getNextDocumentIRI(), format);
+    }
+    
+    /**
+     * @param string the source string
+     * @param mimeType The MIME type to use when finding a format
+     */
+    public StringDocumentSource(String string, String mimeType) {
+        this(string, getNextDocumentIRI(), mimeType);
+    }
+    
+    
     /** @return a fresh IRI */
-    public static synchronized IRI getNextDocumentIRI() {
-        counter = counter + 1;
-        return IRI.create("string:ontology" + counter);
+    public static IRI getNextDocumentIRI() {
+        return IRI.create( "string:ontology" + counter.incrementAndGet());
     }
 
     /** Specifies a string as an ontology document.
@@ -76,6 +96,33 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
     public StringDocumentSource(String string, IRI documentIRI) {
         this.string = string;
         this.documentIRI = documentIRI;
+    }
+
+    /**
+     * Specifies a string as an ontology document.
+     * @param string The string
+     * @param documentIRI The document IRI
+     * @param format An {@link OWLOntologyFormatFactory} that matches this file, or null if it is not known. 
+     */
+    public StringDocumentSource(String string, IRI documentIRI, OWLOntologyFormatFactory format) {
+        this(string, documentIRI);
+        this.format = format;
+    }
+
+
+    /**
+     * Specifies a string as an ontology document.
+     * @param string The string
+     * @param documentIRI The document IRI
+     * @param mimeType The MIME type to use when finding a format
+     */
+    public StringDocumentSource(String string, IRI documentIRI, String mimeType) {
+        this(string, documentIRI);
+        OWLOntologyFormatFactory formatFactory = OWLOntologyFormatFactoryRegistry.getInstance().getByMIMEType(mimeType);
+        
+        if(formatFactory != null) {
+            this.format = formatFactory;
+        }
     }
 
     @Override
@@ -102,5 +149,15 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public IRI getDocumentIRI() {
         return documentIRI;
+    }
+
+    @Override
+    public OWLOntologyFormatFactory getFormatFactory() {
+        return this.format;
+    }
+
+    @Override
+    public boolean isFormatKnown() {
+        return this.format != null;
     }
 }

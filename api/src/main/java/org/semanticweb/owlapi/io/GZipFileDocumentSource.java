@@ -46,8 +46,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.GZIPInputStream;
 
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -56,9 +58,10 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @author ignazio
  * @since 3.4.8 */
 public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
-    private static int counter = 0;
+    private static final AtomicInteger counter = new AtomicInteger();
     private final IRI documentIRI;
     private final File file;
+    private final OWLOntologyFormatFactory format;
 
     /** Constructs an input source which will read an ontology from a
      * representation from the specified file.
@@ -69,10 +72,20 @@ public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
         this(is, getNextDocumentIRI());
     }
 
+    /** Constructs an input source which will read an ontology from a
+     * representation from the specified file.
+     * 
+     * @param is
+     *            The file that the ontology representation will be read from. 
+     * @param format An {@link OWLOntologyFormatFactory} that matches this file, or null if it is not known. 
+     */
+    public GZipFileDocumentSource(File is, OWLOntologyFormatFactory format) {
+        this(is, getNextDocumentIRI(), format);
+    }
+
     /** @return a fresh IRI */
-    public static synchronized IRI getNextDocumentIRI() {
-        counter = counter + 1;
-        return IRI.create("file:ontology" + counter);
+    public static IRI getNextDocumentIRI() {
+        return IRI.create("gzipfile:ontology" + counter.incrementAndGet());
     }
 
     /** Constructs an input source which will read an ontology from a
@@ -83,8 +96,22 @@ public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
      * @param documentIRI
      *            The document IRI */
     public GZipFileDocumentSource(File stream, IRI documentIRI) {
+        this(stream, documentIRI, null);
+    }
+
+    /** Constructs an input source which will read an ontology from a
+     * representation from the specified file.
+     * 
+     * @param stream
+     *            The file that the ontology representation will be read from.
+     * @param documentIRI
+     *            The document IRI 
+     * @param format An {@link OWLOntologyFormatFactory} that matches this file, or null if it is not known. 
+     */
+    public GZipFileDocumentSource(File stream, IRI documentIRI, OWLOntologyFormatFactory format) {
         this.documentIRI = documentIRI;
-        file = stream;
+        this.file = stream;
+        this.format = format;
     }
 
     @Override
@@ -122,5 +149,15 @@ public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public boolean isReaderAvailable() {
         return file.exists();
+    }
+    
+    @Override
+    public OWLOntologyFormatFactory getFormatFactory() {
+        return this.format;
+    }
+
+    @Override
+    public boolean isFormatKnown() {
+        return this.format != null;
     }
 }

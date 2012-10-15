@@ -45,8 +45,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.GZIPInputStream;
 
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -55,9 +57,15 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @author ignazio
  * @since 3.4.8 */
 public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
-    private static int counter = 0;
+    private static final AtomicInteger counter = new AtomicInteger();
     private final IRI documentIRI;
     private byte[] buffer;
+    private final OWLOntologyFormatFactory format;
+
+    /** @return a fresh IRI */
+    public static IRI getNextDocumentIRI() {
+        return IRI.create("gzipinputstream:ontology" + counter.incrementAndGet());
+    }
 
     /** Constructs an input source which will read an ontology from a
      * representation from the specified file.
@@ -65,13 +73,18 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
      * @param is
      *            The stream that the ontology representation will be read from. */
     public GZipStreamDocumentSource(InputStream is) {
-        this(is, getNextDocumentIRI());
+        this(is, getNextDocumentIRI(), null);
     }
 
-    /** @return a fresh IRI */
-    public static synchronized IRI getNextDocumentIRI() {
-        counter = counter + 1;
-        return IRI.create("gzipinputstream:ontology" + counter);
+    /** Constructs an input source which will read an ontology from a
+     * representation from the specified stream.
+     * 
+     * @param is
+     *            The stream that the ontology representation will be read from. 
+     * @param format An {@link OWLOntologyFormatFactory} that matches this file, or null if it is not known. 
+     */
+    public GZipStreamDocumentSource(InputStream is, OWLOntologyFormatFactory format) {
+        this(is, getNextDocumentIRI(), format);
     }
 
     /** Constructs an input source which will read an ontology from a
@@ -82,26 +95,22 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
      * @param documentIRI
      *            The document IRI */
     public GZipStreamDocumentSource(InputStream stream, IRI documentIRI) {
-        this.documentIRI = documentIRI;
-        readIntoBuffer(stream);
+        this(stream, documentIRI, null);
     }
 
-    private void readIntoBuffer(InputStream reader) {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            final int length = 100000;
-            byte[] tempBuffer = new byte[length];
-            int read = 0;
-            do {
-                read = reader.read(tempBuffer, 0, length);
-                if (read > 0) {
-                    bos.write(tempBuffer, 0, read);
-                }
-            } while (read > 0);
-            buffer = bos.toByteArray();
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
+    /** Constructs an input source which will read an ontology from a
+     * representation from the specified stream.
+     * 
+     * @param stream
+     *            The stream that the ontology representation will be read from.
+     * @param documentIRI
+     *            The document IRI 
+     * @param format An {@link OWLOntologyFormatFactory} that matches this file, or null if it is not known. 
+     */
+    public GZipStreamDocumentSource(InputStream stream, IRI documentIRI, OWLOntologyFormatFactory format) {
+        this.documentIRI = documentIRI;
+        readIntoBuffer(stream);
+        this.format = format;
     }
 
     @Override
@@ -140,5 +149,33 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public boolean isReaderAvailable() {
         return isInputStreamAvailable();
+    }
+
+    private void readIntoBuffer(InputStream reader) {
+        try {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            final int length = 100000;
+            byte[] tempBuffer = new byte[length];
+            int read = 0;
+            do {
+                read = reader.read(tempBuffer, 0, length);
+                if (read > 0) {
+                    bos.write(tempBuffer, 0, read);
+                }
+            } while (read > 0);
+            buffer = bos.toByteArray();
+        } catch (IOException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    @Override
+    public OWLOntologyFormatFactory getFormatFactory() {
+        return this.format;
+    }
+
+    @Override
+    public boolean isFormatKnown() {
+        return this.format != null;
     }
 }

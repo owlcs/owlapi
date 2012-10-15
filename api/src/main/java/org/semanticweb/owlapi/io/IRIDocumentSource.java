@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.io;
 import java.io.InputStream;
 import java.io.Reader;
 
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -85,5 +86,17 @@ public class IRIDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public String toString() {
         return documentIRI.toString();
+    }
+
+
+    @Override
+    public OWLOntologyFormatFactory getFormatFactory() {
+        return null;
+    }
+
+
+    @Override
+    public boolean isFormatKnown() {
+        return false;
     }
 }
