@@ -1377,8 +1377,13 @@ public class ContractOwlapiModel_3Test {
     }
 
     public void shouldTestOWLOntologyFormat() throws Exception {
-        @SuppressWarnings("serial")
-        OWLOntologyFormat testSubject0 = new OWLOntologyFormat() {};
+        OWLOntologyFormat testSubject0 = new PrefixOWLOntologyFormat() {
+            private static final long serialVersionUID = 30406L;
+
+            @Override
+            public String getKey() {
+                return "Test Only OWL Ontology Format";
+            }};
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result0 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));

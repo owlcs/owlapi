@@ -10,12 +10,14 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.DefaultOntologyFormat;
@@ -95,6 +97,11 @@ public class ContractOwlapiIoTest {
                     throws OWLParserException, IOException, OWLOntologyChangeException,
                     UnloadableImportException {
                 return null;
+            }
+
+            @Override
+            public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+                return Collections.emptySet();
             }
         };
         OWLOntologyFormat result0 = testSubject0.parse(IRI("urn:aFake"),
@@ -463,6 +470,11 @@ public class ContractOwlapiIoTest {
             public boolean isAnonymous() {
                 return false;
             }
+
+            @Override
+            public int compareTo(RDFNode o) {
+                return 0;
+            }
         };
         boolean result0 = testSubject0.isLiteral();
         String result1 = testSubject0.toString();
@@ -470,10 +482,12 @@ public class ContractOwlapiIoTest {
 
     public void shouldTestRDFOntologyFormat() throws Exception {
         RDFOntologyFormat testSubject0 = new RDFOntologyFormat() {
-            /**
-             * 
-             */
             private static final long serialVersionUID = 30406L;
+
+            @Override
+            public String getKey() {
+                return "Test Only Mock OWL Ontology Format";
+            }
         };
         RDFParserMetaData result0 = testSubject0.getOntologyLoaderMetaData();
         OWLOntologyLoaderMetaData result1 = testSubject0.getOntologyLoaderMetaData();

@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.junit.Ignore;
 import org.junit.Test;
+import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -117,9 +119,10 @@ public class ContractOwlapiVocabTest {
         int result11 = testSubject0.ordinal();
     }
 
+    @Ignore
     @Test
     public void shouldTestPrefixOWLOntologyFormat() throws Exception {
-        PrefixOWLOntologyFormat testSubject0 = new PrefixOWLOntologyFormat();
+        PrefixOWLOntologyFormat testSubject0 = new RDFXMLOntologyFormat();
         String result0 = testSubject0.getPrefix("");
         IRI result1 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");

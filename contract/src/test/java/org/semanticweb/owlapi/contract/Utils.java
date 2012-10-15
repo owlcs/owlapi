@@ -1097,6 +1097,11 @@ public class Utils {
         }, new OWLOntologyLoaderConfiguration());
         c.setOntologyFormat(new RDFOntologyFormat() {
             private static final long serialVersionUID = 30406L;
+
+            @Override
+            public String getKey() {
+                return "Test-Only Mock RDF Ontology Format";
+            }
         });
         return c;
     }
