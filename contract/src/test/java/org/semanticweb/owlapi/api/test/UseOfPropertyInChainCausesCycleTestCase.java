@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -22,8 +21,8 @@ import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 public class UseOfPropertyInChainCausesCycleTestCase {
     @Test
     public void shouldCauseViolations() throws OWLOntologyCreationException {
-        OWLOntology o = OWLManager.createOWLOntologyManager().createOntology();
-        OWLDataFactory f = OWLManager.getOWLDataFactory();
+        OWLOntology o = Factory.getManager().createOntology();
+        OWLDataFactory f = Factory.getFactory();
         // SubObjectPropertyOf( ObjectPropertyChain( a:hasFather a:hasBrother )
         // a:hasUncle ) The brother of someone's father is that person's uncle.
         // SubObjectPropertyOf( ObjectPropertyChain( a:hasChild a:hasUncle )
@@ -64,8 +63,8 @@ public class UseOfPropertyInChainCausesCycleTestCase {
 
     @Test
     public void shouldNotCauseViolations() throws OWLOntologyCreationException {
-        OWLOntology o = OWLManager.createOWLOntologyManager().createOntology();
-        OWLDataFactory f = OWLManager.getOWLDataFactory();
+        OWLOntology o = Factory.getManager().createOntology();
+        OWLDataFactory f = Factory.getFactory();
         final OWLObjectProperty father = f.getOWLObjectProperty(IRI
                 .create("urn:test:hasFather"));
         final OWLObjectProperty brother = f.getOWLObjectProperty(IRI
@@ -408,7 +407,7 @@ public class UseOfPropertyInChainCausesCycleTestCase {
 
     @Test
     public void shouldNotCauseViolationsInput1() throws OWLOntologyCreationException {
-        OWLOntology o = OWLManager.createOWLOntologyManager()
+        OWLOntology o = Factory.getManager()
                 .loadOntologyFromOntologyDocument(
                         new ByteArrayInputStream(input1.getBytes()));
         OWL2DLProfile profile = new OWL2DLProfile();
@@ -422,7 +421,7 @@ public class UseOfPropertyInChainCausesCycleTestCase {
 
     @Test
     public void shouldNotCauseViolationsInput2() throws OWLOntologyCreationException {
-        OWLOntology o = OWLManager.createOWLOntologyManager()
+        OWLOntology o = Factory.getManager()
                 .loadOntologyFromOntologyDocument(
                         new ByteArrayInputStream(input2.getBytes()));
         OWL2DLProfile profile = new OWL2DLProfile();

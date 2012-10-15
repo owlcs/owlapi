@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
@@ -19,7 +18,7 @@ public class MissingImportTestCase {
                 + "    <owl:Ontology rdf:about=\"http://www.semanticweb.org/fake/ontologies/2012/8/1\">\n"
                 + "        <owl:imports rdf:resource=\"http://www.a.org/\"/>\n"
                 + "    </owl:Ontology>\n" + "</rdf:RDF>";
-        OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(
+        Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input));
     }
 }

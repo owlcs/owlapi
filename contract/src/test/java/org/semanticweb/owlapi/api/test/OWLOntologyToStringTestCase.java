@@ -42,7 +42,6 @@ package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -56,7 +55,7 @@ public class OWLOntologyToStringTestCase {
 
     @Test
     public void testNamedOntologyToString() throws Exception {
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager man = Factory.getManager();
         IRI ontIRI = IRI.create("http://owlapi.sourceforge.net/ont");
         OWLOntology ont = man.createOntology(ontIRI);
         String s = ont.toString();

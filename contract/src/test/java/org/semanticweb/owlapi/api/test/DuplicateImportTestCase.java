@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -28,7 +27,7 @@ public class DuplicateImportTestCase {
         ontologyByName = File.createTempFile("temp", "main.owl");
         ontologyByVersion = File.createTempFile("temp", "version.owl");
         ontologyByOtherPath = File.createTempFile("temp", "other.owl");
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager.createOntology(new OWLOntologyID(IRI
                 .create(ontologyByName), IRI.create(ontologyByVersion)));
         manager.saveOntology(ontology, IRI.create(ontologyByName));
@@ -37,7 +36,7 @@ public class DuplicateImportTestCase {
         importsBothNameAndVersion = File.createTempFile("temp",
                 "importsNameAndVersion.owl");
         importsBothNameAndOther = File.createTempFile("temp", "importsNameAndOther.owl");
-        manager = OWLManager.createOWLOntologyManager();
+        manager = Factory.getManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
         OWLOntology ontology1 = manager.createOntology(IRI
                 .create(importsBothNameAndVersion));
@@ -56,9 +55,9 @@ public class DuplicateImportTestCase {
         manager.saveOntology(ontology1, IRI.create(importsBothNameAndVersion));
         manager.saveOntology(ontology2, IRI.create(importsBothNameAndOther));
         // when
-        manager = OWLManager.createOWLOntologyManager();
+        manager = Factory.getManager();
         OWLOntology o1 = manager.loadOntology(IRI.create(importsBothNameAndVersion));
-        manager = OWLManager.createOWLOntologyManager();
+        manager = Factory.getManager();
         OWLOntology o2 = manager.loadOntology(IRI.create(importsBothNameAndOther));
         // then
         assertNotNull(o1);

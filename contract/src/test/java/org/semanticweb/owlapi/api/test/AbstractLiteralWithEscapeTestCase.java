@@ -41,7 +41,6 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -69,7 +68,7 @@ public abstract class AbstractLiteralWithEscapeTestCase extends AbstractRoundTri
         OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop, cls.getIRI(), lit2);
         OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop, cls.getIRI(), lit3);
         OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop, cls.getIRI(), lit4);
-        return Ontology(OWLManager.createOWLOntologyManager(), ax1, ax2, ax3, ax4, Declaration(cls));
+        return Ontology(Factory.getManager(), ax1, ax2, ax3, ax4, Declaration(cls));
     }
 
     protected abstract String getEscape();

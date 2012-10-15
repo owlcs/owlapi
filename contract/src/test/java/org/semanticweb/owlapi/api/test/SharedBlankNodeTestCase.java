@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.api.test;
 import java.io.IOException;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -33,7 +32,7 @@ public class SharedBlankNodeTestCase {
     public void verify() throws OWLOntologyCreationException {
         String input = "Ontology:\n" + "    \n" + "    DataProperty: xsd:a\n"
                 + "        Range: {1.2}";
-        for (OWLAxiom ax : OWLManager.createOWLOntologyManager()
+        for (OWLAxiom ax : Factory.getManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(input))
                 .getAxioms()) {
             // System.out.println("HasKeyTestCase.verify() " + ax);
@@ -68,15 +67,16 @@ public class SharedBlankNodeTestCase {
 
     public static OWLOntology createOntology() throws OWLOntologyCreationException {
         String NS = "http://protege.org/more/anonymous/junk";
-        OWLDataProperty P = OWLManager.getOWLDataFactory().getOWLDataProperty(
+        OWLDataProperty P = Factory.getFactory()
+                .getOWLDataProperty(
                 IRI.create(NS + "#p"));
-        OWLObjectProperty P1 = OWLManager.getOWLDataFactory().getOWLObjectProperty(
+        OWLObjectProperty P1 = Factory.getFactory().getOWLObjectProperty(
                 IRI.create(NS + "#p1"));
-        OWLObjectProperty P2 = OWLManager.getOWLDataFactory().getOWLObjectProperty(
+        OWLObjectProperty P2 = Factory.getFactory().getOWLObjectProperty(
                 IRI.create(NS + "#p2"));
-        OWLAnnotationProperty ann = OWLManager.getOWLDataFactory()
+        OWLAnnotationProperty ann = Factory.getFactory()
                 .getOWLAnnotationProperty(IRI.create(NS + "#ann"));
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = Factory.getManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
         OWLOntology ontology = manager.createOntology(IRI.create(NS));
         OWLAnonymousIndividual i = factory.getOWLAnonymousIndividual();
@@ -108,7 +108,7 @@ public class SharedBlankNodeTestCase {
 
     public static OWLOntology loadOntology(String ontology)
             throws OWLOntologyCreationException {
-        return OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(
+        return Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(ontology));
     }
 

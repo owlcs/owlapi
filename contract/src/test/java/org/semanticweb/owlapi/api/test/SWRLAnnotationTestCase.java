@@ -9,7 +9,6 @@ import java.util.TreeSet;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -35,7 +34,7 @@ public class SWRLAnnotationTestCase {
 
     @Before
     public void setUp() {
-        OWLDataFactory factory = OWLManager.getOWLDataFactory();
+        OWLDataFactory factory = Factory.getFactory();
         A = factory.getOWLClass(IRI.create(NS + "#A"));
         SWRLVariable x = factory.getSWRLVariable(IRI.create(NS + "#x"));
         SWRLAtom atom = factory.getSWRLClassAtom(A, x);
@@ -59,7 +58,7 @@ public class SWRLAnnotationTestCase {
     }
 
     public OWLOntology createOntology() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager.createOntology(IRI.create(NS));
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         changes.add(new AddAxiom(ontology, AXIOM));
@@ -79,7 +78,7 @@ public class SWRLAnnotationTestCase {
 
     public OWLOntology loadOntology(String ontologyFile)
             throws OWLOntologyCreationException {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = Factory.getManager();
         return manager.loadOntologyFromOntologyDocument(new StringDocumentSource(
                 ontologyFile));
     }

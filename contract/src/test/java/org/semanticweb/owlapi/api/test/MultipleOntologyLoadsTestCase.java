@@ -8,7 +8,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.ReaderDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
@@ -34,7 +33,7 @@ public class MultipleOntologyLoadsTestCase {
     /** @throws java.lang.Exception */
     @Before
     public void setUp() throws Exception {
-        manager = OWLManager.createOWLOntologyManager();
+        manager = Factory.getManager();
     }
 
     /** @throws java.lang.Exception */

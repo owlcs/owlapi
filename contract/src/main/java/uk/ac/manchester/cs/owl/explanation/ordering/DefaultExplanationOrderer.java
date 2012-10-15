@@ -55,7 +55,11 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * <br>
  * <p/>
  * Provides ordering and indenting of explanations based on various ordering
- * heuristics. */
+ * heuristics.
+ * 
+ * @deprecated use ExplanationOrdererImpl instead - this class depends on
+ *             OWLManager, while ExplanationOrdererImpl does not. */
+@Deprecated
 public class DefaultExplanationOrderer implements ExplanationOrderer {
     private ExplanationOrdererImpl delegate;
 
@@ -71,7 +75,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
     }
 
     public ExplanationTree
-            getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
+    getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
         return delegate.getOrderedExplanation(entailment, axioms);
     }
 
