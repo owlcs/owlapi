@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
@@ -22,15 +21,15 @@ public class ManchesterDataPropertyRTTestCase {
     public void shouldRoundTrip() throws OWLOntologyCreationException,
     OWLOntologyStorageException, IOException {
         // given
-        OWLDataFactory factory = OWLManager.getOWLDataFactory();
+        OWLDataFactory factory = Factory.getFactory();
         String NS = "http://protege.org/ontologies";
         OWLDataProperty p = factory.getOWLDataProperty(IRI.create(NS + "#p"));
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager.createOntology(IRI.create(NS));
         manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(p));
         String saved = saveOntology(ontology);
         // when
-        ontology = OWLManager.createOWLOntologyManager()
+        ontology = Factory.getManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(saved));
         // then
         assertTrue(ontology.containsDataPropertyInSignature(p.getIRI()));

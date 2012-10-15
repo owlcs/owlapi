@@ -66,36 +66,37 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
     }
 
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
-		Reader reader = null;
-		InputStream is = null;
-   	try {
+        Reader reader = null;
+        InputStream is = null;
+        try {
             OWLFunctionalSyntaxParser parser;
             if(documentSource.isReaderAvailable()) {
                 //parser = new OWLFunctionalSyntaxParser(documentSource.getReader());
-            	reader = documentSource.getReader();
-            	            	parser = new OWLFunctionalSyntaxParser(reader);
+                reader = documentSource.getReader();
+                parser = new OWLFunctionalSyntaxParser(reader);
             }
             else if(documentSource.isInputStreamAvailable()) {
                 //parser = new OWLFunctionalSyntaxParser(documentSource.getInputStream());
-            	is = documentSource.getInputStream();
-            	            	parser = new OWLFunctionalSyntaxParser(is);
+                is = documentSource.getInputStream();
+                parser = new OWLFunctionalSyntaxParser(is);
             }
             else {
                 //parser = new OWLFunctionalSyntaxParser(getInputStream(documentSource.getDocumentIRI()));
-            	is = getInputStream(documentSource.getDocumentIRI());
-            	            	parser = new OWLFunctionalSyntaxParser(is);
+                is = getInputStream(documentSource.getDocumentIRI());
+                parser = new OWLFunctionalSyntaxParser(is);
             }
             parser.setUp(ontology, configuration);
             return parser.parse();
         }
         catch (ParseException e) {
-            throw new OWLParserException(e.getMessage(), e.currentToken.beginLine, e.currentToken.beginColumn);
-		} finally {
-			if (is != null) {
-				is.close();
-			} else if (reader != null) {
-				reader.close();
-			}
-		}
+            throw new OWLParserException(e.getMessage(), e, e.currentToken.beginLine,
+                    e.currentToken.beginColumn);
+        } finally {
+            if (is != null) {
+                is.close();
+            } else if (reader != null) {
+                reader.close();
+            }
+        }
     }
 }

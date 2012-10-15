@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
@@ -22,7 +21,7 @@ public class OWLLiteralCorruptionTestCase {
         }
         TEST_STRING = sb.toString();
 
-        OWLDataFactory factory = OWLManager.getOWLDataFactory();
+        OWLDataFactory factory = Factory.getFactory();
         OWLLiteral literal = factory.getOWLLiteral(TEST_STRING);
 
         assertEquals("Out = in ? false", literal.getLiteral(),TEST_STRING);

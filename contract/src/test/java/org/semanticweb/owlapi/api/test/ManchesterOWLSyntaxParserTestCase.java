@@ -9,7 +9,6 @@ import java.util.List;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.model.IRI;
@@ -41,7 +40,7 @@ public class ManchesterOWLSyntaxParserTestCase {
 
     @Before
     public void setUp() {
-        factory = OWLManager.getOWLDataFactory();
+        factory = Factory.getFactory();
         a = factory.getOWLClass(IRI.create(NS + "#A"));
         p = factory.getOWLDataProperty(IRI.create(NS + "#p"));
         date_time = factory.getOWLDatatype(XSDVocabulary.DATE_TIME.getIRI());
@@ -57,7 +56,7 @@ public class ManchesterOWLSyntaxParserTestCase {
                         OWLFacet.MAX_EXCLUSIVE,
                         factory.getOWLLiteral("2009-01-01T00:00:00+00:00", date_time))));
         // ontology creation including labels - this is the input ontology
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = Factory.getManager();
         OWLOntology o = manager.createOntology();
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(a));
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(p));

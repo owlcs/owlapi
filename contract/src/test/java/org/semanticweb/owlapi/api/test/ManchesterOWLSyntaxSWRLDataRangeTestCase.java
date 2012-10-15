@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -41,14 +40,14 @@ public class ManchesterOWLSyntaxSWRLDataRangeTestCase {
 
     @Test
     public void shouldParseRuleInManSyntax() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
-        OWLOntology o = OWLManager.createOWLOntologyManager()
+    OWLOntologyStorageException {
+        OWLOntology o = Factory.getManager()
                 .loadOntologyFromOntologyDocument(
                         new StringDocumentSource(inputManSyntax));
         StringDocumentTarget t = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
-        OWLOntology o1 = OWLManager.createOWLOntologyManager()
+        OWLOntology o1 = Factory.getManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(t.toString()));
         o1.getOWLOntologyManager().saveOntology(o1,
                 new ManchesterOWLSyntaxOntologyFormat(), t);

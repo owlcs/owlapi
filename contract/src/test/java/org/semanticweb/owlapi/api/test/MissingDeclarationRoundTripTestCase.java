@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -32,7 +31,7 @@ public class MissingDeclarationRoundTripTestCase {
 
     @Before
     public void setUp() {
-        factory = OWLManager.getOWLDataFactory();
+        factory = Factory.getFactory();
         NS = "http://test.org/MissingDeclaration.owl";
         A = factory.getOWLClass(IRI.create(NS + "#A"));
         P = factory.getOWLAnnotationProperty(IRI.create(NS + "#p"));
@@ -51,7 +50,7 @@ public class MissingDeclarationRoundTripTestCase {
     }
 
     private OWLOntology createOntology() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager.createOntology(IRI.create(NS));
         OWLAnnotation annotation = factory.getOWLAnnotation(P, factory.getOWLLiteral("Hello"));
         OWLAnnotationAssertionAxiom axiom = factory.getOWLAnnotationAssertionAxiom(A.getIRI(), annotation);
@@ -71,7 +70,7 @@ public class MissingDeclarationRoundTripTestCase {
     }
 
     public OWLOntology loadOntology(String o) throws OWLOntologyCreationException {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = Factory.getManager();
         OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
         config.setStrict(true);
         return manager.loadOntologyFromOntologyDocument(new StringDocumentSource(o),

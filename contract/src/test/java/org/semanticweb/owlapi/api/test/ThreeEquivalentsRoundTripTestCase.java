@@ -8,7 +8,6 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
@@ -35,7 +34,7 @@ public class ThreeEquivalentsRoundTripTestCase {
 
     @Before
     public void setUp() {
-        factory = OWLManager.getOWLDataFactory();
+        factory = Factory.getFactory();
         A = factory.getOWLClass(IRI.create(NS + "#A"));
         B = factory.getOWLClass(IRI.create(NS + "#B"));
         C = factory.getOWLClass(IRI.create(NS + "#C"));
@@ -52,11 +51,11 @@ public class ThreeEquivalentsRoundTripTestCase {
     public void shouldRoundTrip() throws OWLOntologyCreationException,
     OWLOntologyStorageException, IOException {
         // given
-        OWLOntology ontology = OWLManager.createOWLOntologyManager().createOntology();
+        OWLOntology ontology = Factory.getManager().createOntology();
         ontology.getOWLOntologyManager().addAxiom(ontology, axiomToAdd);
         String saved = saveOntology(ontology);
         // when
-        ontology = OWLManager.createOWLOntologyManager()
+        ontology = Factory.getManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(saved));
         // then
         saved = saveOntology(ontology);

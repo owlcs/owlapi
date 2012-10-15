@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.model.IRI;
@@ -31,7 +30,7 @@ public class ManchesterParseError {
     }
 
     private static OWLClassExpression parse(String text) throws ParserException {
-        OWLDataFactory factory = OWLManager.getOWLDataFactory();
+        OWLDataFactory factory = Factory.getFactory();
         StupidEntityChecker checker = new StupidEntityChecker(factory);
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(factory, text);
         parser.setOWLEntityChecker(checker);

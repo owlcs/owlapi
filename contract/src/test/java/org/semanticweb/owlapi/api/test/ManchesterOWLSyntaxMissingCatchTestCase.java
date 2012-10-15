@@ -43,7 +43,6 @@ import java.util.Set;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -60,7 +59,7 @@ import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxPrefi
 public class ManchesterOWLSyntaxMissingCatchTestCase {
     @Test(expected = UnparsableOntologyException.class)
     public void testManSyntaxEditorParser() throws OWLOntologyCreationException,
-            ParserException {
+    ParserException {
         String onto = "<?xml version=\"1.0\"?>"
                 + "<!DOCTYPE rdf:RDF ["
                 + "<!ENTITY vin  \"http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#\" >"
@@ -84,8 +83,7 @@ public class ManchesterOWLSyntaxMissingCatchTestCase {
                 + "</owl:DatatypeProperty></rdf:RDF>";
 
         String expression = "yearValue some ";
-        final OWLOntologyManager mngr = OWLManager
-                .createOWLOntologyManager();
+        final OWLOntologyManager mngr = Factory.getManager();
         final OWLOntology wine = mngr
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(
                         onto));

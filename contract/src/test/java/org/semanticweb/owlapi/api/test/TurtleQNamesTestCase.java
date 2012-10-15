@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
@@ -24,12 +23,12 @@ public class TurtleQNamesTestCase {
         String working = "@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .\n"
                 + "@prefix foaf:    <http://xmlns.com/foaf/0.1/> .\n"
                 + "foaf:fundedBy rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .";
-        OWLDataFactory df = OWLManager.getOWLDataFactory();
+        OWLDataFactory df = Factory.getFactory();
         OWLAxiom expected = df.getOWLAnnotationAssertionAxiom(df.getRDFSIsDefinedBy(),
                 IRI.create("http://xmlns.com/foaf/0.1/fundedBy"),
                 IRI.create("http://xmlns.com/foaf/0.1/"));
         // when
-        OWLOntology o = OWLManager.createOWLOntologyManager()
+        OWLOntology o = Factory.getManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(working));
         // then
         assertTrue(o.getAxioms().contains(expected));
@@ -40,12 +39,12 @@ public class TurtleQNamesTestCase {
     OWLOntologyStorageException {
         // given
         String input = "@prefix f:    <urn:test/> . f:r f:p f: .";
-        OWLDataFactory df = OWLManager.getOWLDataFactory();
+        OWLDataFactory df = Factory.getFactory();
         OWLAxiom expected = df.getOWLAnnotationAssertionAxiom(
                 df.getOWLAnnotationProperty(IRI.create("urn:test/p")),
                 IRI.create("urn:test/r"), IRI.create("urn:test/"));
         // when
-        OWLOntology o = OWLManager.createOWLOntologyManager()
+        OWLOntology o = Factory.getManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(input));
         // then
         assertTrue(o.getAxioms().contains(expected));
@@ -58,7 +57,7 @@ public class TurtleQNamesTestCase {
         // given
         String input = "@base <http://test.org/path#> .\n" + "<a1> <b1> <c1> .";
         // when
-        OWLOntology o = OWLManager.createOWLOntologyManager()
+        OWLOntology o = Factory.getManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(input));
         // then
         String axioms = o.getAxioms().toString();
@@ -75,14 +74,14 @@ public class TurtleQNamesTestCase {
                 + "ex:ex1 a ex:Something ; ex:prop1 _:a .\n"
                 + "_:a a ex:Something1 ; ex:prop2 _:b .\n"
                 + "_:b a ex:Something ; ex:prop3 _:a .";
-        OWLOntology ontology = OWLManager.createOWLOntologyManager()
+        OWLOntology ontology = Factory.getManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(input));
         StringDocumentTarget t = new StringDocumentTarget();
         TurtleOntologyFormat format = new TurtleOntologyFormat();
         // format.setPrefix(":", NS);
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto1 = t.toString();
-        ontology = OWLManager.createOWLOntologyManager()
+        ontology = Factory.getManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(t.toString()));
         t = new StringDocumentTarget();
         format = new TurtleOntologyFormat();
