@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.io;
 import java.io.InputStream;
 import java.io.Reader;
 
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.IRI;
 
 /** A document source provides a point for loading an ontology. A document source
@@ -97,4 +98,17 @@ public interface OWLOntologyDocumentSource {
      * @return An IRI which represents the ontology document IRI - this will
      *         never be {@code null}. */
     IRI getDocumentIRI();
+
+    /**
+     * 
+     * @return True if getFormat() returns a non-null value and false if getFormat() returns null.
+     */
+    boolean isFormatKnown();
+    
+    /**
+     * 
+     * @return An OWLOntologyFormatFactory that can produce OWLOntologyFormat instances which match
+     *         this document source, or null if the format is unknown.
+     */
+    OWLOntologyFormatFactory getFormatFactory();
 }
