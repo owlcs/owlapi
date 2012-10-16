@@ -60,6 +60,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.rdf.util.RDFConstants;
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
@@ -162,11 +163,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         String systemID = source.getSystemId();
         try {
             m_documentLocator = s_nullDocumentLocator;
-            if (systemID != null)
+            if (systemID != null) {
                 m_baseIRI = IRI.create(new URI(source.getSystemId()));
-            else
+            } else {
                 throw new SAXException(
                         "Supplied InputSource object myst have systemId property set, which is needed for IRI resolution.");
+            }
             m_consumer = consumer;
             m_consumer.startModel(m_baseIRI.toString());
             SAXParser parser = s_parserFactory.newSAXParser();
@@ -193,7 +195,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param locator the document locator
      */
     @Override
-	public void setDocumentLocator(Locator locator) {
+    public void setDocumentLocator(Locator locator) {
         m_documentLocator = locator;
     }
 
@@ -212,11 +214,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param e the exception
      */
     @Override
-	public void warning(SAXParseException e) throws SAXException {
-        if (m_errorHandler == null)
+    public void warning(SAXParseException e) throws SAXException {
+        if (m_errorHandler == null) {
             super.warning(e);
-        else
+        } else {
             m_errorHandler.warning(e);
+        }
     }
 
 
@@ -225,11 +228,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param e the exception
      */
     @Override
-	public void error(SAXParseException e) throws SAXException {
-        if (m_errorHandler == null)
+    public void error(SAXParseException e) throws SAXException {
+        if (m_errorHandler == null) {
             super.error(e);
-        else
+        } else {
             m_errorHandler.error(e);
+        }
     }
 
 
@@ -238,11 +242,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param e the exception
      */
     @Override
-	public void fatalError(SAXParseException e) throws SAXException {
-        if (m_errorHandler == null)
+    public void fatalError(SAXParseException e) throws SAXException {
+        if (m_errorHandler == null) {
             super.fatalError(e);
-        else
+        } else {
             m_errorHandler.fatalError(e);
+        }
     }
 
 
@@ -250,7 +255,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * Called when document parsing is started.
      */
     @Override
-	public void startDocument() {
+    public void startDocument() {
         m_generatedIRIIndex = 0;
         m_states.clear();
         pushState(new StartRDF());
@@ -261,9 +266,10 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * Called when document parsing is ended.
      */
     @Override
-	public void endDocument() throws SAXException {
-        if (m_state != null)
+    public void endDocument() throws SAXException {
+        if (m_state != null) {
             throw new RDFParserException("RDF content not finished.", m_documentLocator);
+        }
     }
 
 
@@ -275,7 +281,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param atts         the attributes
      */
     @Override
-	public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
+    public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
         processXMLBase(atts);
         processXMLLanguage(atts);
         m_state.startElement(namespaceIRI, localName, qName, atts);
@@ -289,7 +295,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param qName        the Q-name of the element
      */
     @Override
-	public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+    public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
         m_state.endElement(namespaceIRI, localName, qName);
         m_baseIRI = m_baseIRIs.remove(0);
         m_language = m_languages.remove(0);
@@ -303,7 +309,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param length the length of the character text
      */
     @Override
-	public void characters(char[] data, int start, int length) throws SAXException {
+    public void characters(char[] data, int start, int length) throws SAXException {
         m_state.characters(data, start, length);
     }
 
@@ -314,32 +320,37 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param data   the argument to the processing instruction
      */
     @Override
-	public void processingInstruction(String target, String data) throws SAXException {
+    public void processingInstruction(String target, String data) throws SAXException {
         if ("include-rdf".equals(target)) {
             Map<String, String> arguments = parseStringArguments(data);
-            if (arguments.size() > 2)
+            if (arguments.size() > 2) {
                 throw new RDFParserException("Incorrect number of arguments for 'include-rdf' processing instruction.",
-                                             m_documentLocator);
+                        m_documentLocator);
+            }
             String logicalIRI = arguments.get("logicalIRI");
             String physicalIRI = arguments.get("physicalIRI");
-            if (physicalIRI != null)
+            if (physicalIRI != null) {
                 physicalIRI = resolveIRI(physicalIRI);
+            }
             m_consumer.includeModel(logicalIRI, physicalIRI);
         }
         else if ("model-attribute".equals(target)) {
             Map<String, String> arguments = parseStringArguments(data);
-            if (arguments.size() != 2)
+            if (arguments.size() != 2) {
                 throw new RDFParserException(
                         "Incorrect number of arguments for 'model-attribute' processing instruction.",
                         m_documentLocator);
+            }
             String key = arguments.get("key");
-            if (key == null)
+            if (key == null) {
                 throw new RDFParserException("Mising the 'key' argument for 'model-attribute' processing instruction.",
-                                             m_documentLocator);
+                        m_documentLocator);
+            }
             String value = arguments.get("value");
-            if (value == null)
+            if (value == null) {
                 throw new RDFParserException("Mising the 'value' argument for 'model-attribute' processing instruction.",
-                                             m_documentLocator);
+                        m_documentLocator);
+            }
             m_consumer.addModelAttribte(key, value);
         }
     }
@@ -360,12 +371,14 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     protected void popState() throws SAXException {
         int size = m_states.size();
-        if (size == 0)
+        if (size == 0) {
             throw new RDFParserException("Internal exception: state stack is empty.", m_documentLocator);
-        if (size == 1)
+        }
+        if (size == 1) {
             m_state = null;
-        else
+        } else {
             m_state = m_states.get(size - 2);
+        }
         m_states.remove(size - 1);
     }
 
@@ -375,22 +388,24 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param atts the attributes
      */
     protected void checkUnsupportedAttributes(Attributes atts) throws SAXException {
-        if (atts.getIndex(RDFNS, ATTR_ABOUT_EACH) != -1)
+        if (atts.getIndex(RDFNS, ATTR_ABOUT_EACH) != -1) {
             throw new RDFParserException("rdf:aboutEach attribute is not supported.", m_documentLocator);
-        if (atts.getIndex(RDFNS, ATTR_ABOUT_EACH_PREFIX) != -1)
+        }
+        if (atts.getIndex(RDFNS, ATTR_ABOUT_EACH_PREFIX) != -1) {
             throw new RDFParserException("rdf:aboutEachPrefix attribute is not supported.", m_documentLocator);
+        }
     }
 
 
     private IRI resolveFromDelegate(IRI iri, String value) {
-    	// cache the delegate URI if not there already
-    	if(!m_baseURICache.containsKey(m_baseIRI)) {
-        	m_baseURICache.put(m_baseIRI, m_baseIRI.toURI());
+        // cache the delegate URI if not there already
+        if(!m_baseURICache.containsKey(m_baseIRI)) {
+            m_baseURICache.put(m_baseIRI, m_baseIRI.toURI());
         }
-    	// get hold of the delegate URI
-    	URI delegateURI=m_baseURICache.get(m_baseIRI);
-    	//TODO 28% object creation here
-    	// resolve against delegate
+        // get hold of the delegate URI
+        URI delegateURI=m_baseURICache.get(m_baseIRI);
+        //TODO 28% object creation here
+        // resolve against delegate
         return IRI.create(delegateURI.resolve(value));
     }
 
@@ -408,7 +423,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             }
             catch (IllegalArgumentException e) {
                 RDFParserException exception = new RDFParserException("New base IRI '" + value + "' cannot be resolved against curent base IRI " + m_baseIRI.toString(),
-                                                                      m_documentLocator);
+                        m_documentLocator);
                 exception.initCause(e);
                 throw exception;
             }
@@ -423,8 +438,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     protected void processXMLLanguage(Attributes atts) {
         m_languages.add(0, m_language);
         String value = atts.getValue(XMLLANG);
-        if (value != null)
+        if (value != null) {
             m_language = value;
+        }
     }
 
     private int cacheHits = 0;
@@ -450,10 +466,10 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             try {
                 String resolved = resolvedIRIs.get(uri);
                 if(resolved != null) {
-//                    cacheHits++;
-//                    if((cacheHits % 10000) == 0) {
-//                        System.out.println(cacheHits + " cache hits");
-//                    }
+                    //                    cacheHits++;
+                    //                    if((cacheHits % 10000) == 0) {
+                    //                        System.out.println(cacheHits + " cache hits");
+                    //                    }
                     return resolved;
                 }
                 else {
@@ -466,7 +482,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             }
             catch (IllegalArgumentException e) {
                 RDFParserException exception = new RDFParserException("IRI '" + uri + "' cannot be resolved against curent base IRI " + m_baseIRI.toString(),
-                                                                      m_documentLocator);
+                        m_documentLocator);
                 exception.initCause(e);
                 throw exception;
             }
@@ -494,7 +510,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * Returns an abolute IRI from a nodeID attribute.
      */
     protected String getIRIFromNodeID(String nodeID) throws SAXException {
-//        return nodeID;
+        //        return nodeID;
         return resolveIRI("#genid-nodeid-" + nodeID);
     }
 
@@ -513,7 +529,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     //XXX according to the specs this is not necessarily an IRI, i.e., it needs o look like _:<characters excluding : and />
     // The reason we get an IRI that involves the base is to ensure that blank nodes from separate documents aren't equal.
     protected String nextAnonymousIRI() throws SAXException {
-        return getIRIFromID("genid" + (++m_generatedIRIIndex));
+        return getIRIFromID(NodeID.NODE_ID_PREFIX + ++m_generatedIRIIndex);
         // return "_:genid-nodeid-" + (++m_generatedIRIIndex);
     }
 
@@ -525,25 +541,29 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     protected String getIDNodeIDAboutResourceIRI(Attributes atts) throws SAXException {
         String result = null;
         String value = atts.getValue(RDFNS, ATTR_ID);
-        if (value != null)
+        if (value != null) {
             result = getIRIFromID(value);
+        }
         value = atts.getValue(RDFNS, ATTR_ABOUT);
         if (value != null) {
-            if (result != null)
+            if (result != null) {
                 throw new RDFParserException("Element cannot specify both rdf:ID and rdf:about attributes.",
-                                             m_documentLocator);
+                        m_documentLocator);
+            }
             result = getIRIFromAbout(value);
         }
         value = atts.getValue(RDFNS, ATTR_NODE_ID);
         if (value != null) {
-            if (result != null)
+            if (result != null) {
                 throw new RDFParserException(
                         "Element cannot specify both rdf:nodeID and rdf:ID or rdf:about attributes.",
                         m_documentLocator);
+            }
             result = getIRIFromNodeID(value);
         }
-        if (result == null)
+        if (result == null) {
             result = nextAnonymousIRI();
+        }
         return result;
     }
 
@@ -555,14 +575,15 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     protected String getNodeIDResourceResourceIRI(Attributes atts) throws SAXException {
         String value = atts.getValue(RDFNS, ATTR_RESOURCE);
-        if (value != null)
+        if (value != null) {
             return getIRIFromResource(value);
-        else {
+        } else {
             value = atts.getValue(RDFNS, ATTR_NODE_ID);
-            if (value != null)
+            if (value != null) {
                 return getIRIFromNodeID(value);
-            else
+            } else {
                 return null;
+            }
         }
     }
 
@@ -575,7 +596,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param reificationID if not <code>null</code>, contains IRI of the resource that will wold the reified statement
      */
     protected void statementWithResourceValue(String subject, String predicate, String object,
-                                              String reificationID) throws SAXException {
+            String reificationID) throws SAXException {
         m_consumer.statementWithResourceValue(subject, predicate, object);
         if (reificationID != null) {
             m_consumer.statementWithResourceValue(reificationID, RDF_TYPE, RDF_STATEMENT);
@@ -595,7 +616,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param reificationID if not <code>null</code>, contains IRI of the resource that will wold the reified statement
      */
     protected void statementWithLiteralValue(String subject, String predicate, String object, String dataType,
-                                             String reificationID) throws SAXException {
+            String reificationID) throws SAXException {
         m_consumer.statementWithLiteralValue(subject, predicate, object, m_language, dataType);
         if (reificationID != null) {
             m_consumer.statementWithResourceValue(reificationID, RDF_TYPE, RDF_STATEMENT);
@@ -613,15 +634,15 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param reificationManager the reification manager
      */
     protected void propertyAttributes(String subjectIRI, Attributes atts, ReificationManager reificationManager) throws
-                                                                                                                 SAXException {
+    SAXException {
         int length = atts.getLength();
         for (int i = 0; i < length; i++) {
             String nsIRI = atts.getURI(i);
             String localName = atts.getLocalName(i);
             if (!XMLNS.equals(nsIRI) && !XMLLANG.equals(localName) && !(RDFNS.equals(nsIRI) && (ATTR_ID.equals(localName) || ATTR_NODE_ID.equals(
                     localName) || ATTR_ABOUT.equals(localName) || ELT_TYPE.equals(localName) || ATTR_RESOURCE.equals(
-                    localName) || ATTR_PARSE_TYPE.equals(localName) || ATTR_ABOUT_EACH.equals(localName) || ATTR_ABOUT_EACH_PREFIX.equals(
-                    localName) || ATTR_BAG_ID.equals(localName)))) {
+                            localName) || ATTR_PARSE_TYPE.equals(localName) || ATTR_ABOUT_EACH.equals(localName) || ATTR_ABOUT_EACH_PREFIX.equals(
+                                    localName) || ATTR_BAG_ID.equals(localName)))) {
                 String value = atts.getValue(i);
                 String reificationID = reificationManager.getReificationID(null);
                 statementWithLiteralValue(subjectIRI, nsIRI + localName, value, null, reificationID);
@@ -646,8 +667,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         int end = start + length;
         for (int i = start; i < end; i++) {
             char c = data[i];
-            if (c != '\n' && c != '\r' && c != '\t' && c != ' ')
+            if (c != '\n' && c != '\r' && c != '\t' && c != ' ') {
                 return false;
+            }
         }
         return true;
     }
@@ -662,8 +684,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     protected boolean isWhitespaceOnly(StringBuilder buffer) {
         for (int i = 0; i < buffer.length(); i++) {
             char c = buffer.charAt(i);
-            if (c != '\n' && c != '\r' && c != '\t' && c != ' ')
+            if (c != '\n' && c != '\r' && c != '\t' && c != ' ') {
                 return false;
+            }
         }
         return true;
     }
@@ -676,9 +699,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     protected ReificationManager getReificationManager(Attributes atts) throws SAXException {
         String bagIDAttr = atts.getValue(RDFNS, ATTR_BAG_ID);
-        if (bagIDAttr == null)
+        if (bagIDAttr == null) {
             return ReificationManager.INSTANCE;
-        else {
+        } else {
             String bagID = getIRIFromID(bagIDAttr);
             return new ReifiedStatementBag(bagID);
         }
@@ -697,14 +720,17 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             Map<String, String> result = new HashMap<String, String>();
             tokenizer.nextToken();
             while (tokenizer.ttype != StreamTokenizer.TT_EOF) {
-                if (tokenizer.ttype != StreamTokenizer.TT_WORD)
+                if (tokenizer.ttype != StreamTokenizer.TT_WORD) {
                     throw new RDFParserException("Invalid processing instruction argument.", m_documentLocator);
+                }
                 String name = tokenizer.sval;
-                if ('=' != tokenizer.nextToken())
+                if ('=' != tokenizer.nextToken()) {
                     throw new RDFParserException("Expecting token =", m_documentLocator);
+                }
                 tokenizer.nextToken();
-                if (tokenizer.ttype != '\"' && tokenizer.ttype != '\'')
+                if (tokenizer.ttype != '\"' && tokenizer.ttype != '\'') {
                     throw new RDFParserException("Invalid processing instruction argument.", m_documentLocator);
+                }
                 String value = tokenizer.sval;
                 result.put(name, value);
                 tokenizer.nextToken();
@@ -725,7 +751,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @return <code>true</code> if the IRI was generated by this parser to label an anonymous node
      */
     public boolean isAnonymousNodeIRI(String uri) {
-        return uri != null && uri.indexOf("genid") != -1;
+        return uri != null && uri.indexOf(NodeID.NODE_ID_PREFIX) != -1;
     }
 
     public boolean isAnonymousNodeID(String iri) {
@@ -734,7 +760,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     public IRI getIRI(String s) {
         return uriCache.get(s);
-//        throw new RuntimeException("DISABLED");
+        //        throw new RuntimeException("DISABLED");
     }
 
 
@@ -744,7 +770,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     protected static class State {
 
         public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
-                                                                                                       SAXException {
+        SAXException {
         }
 
 
@@ -763,10 +789,11 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     protected class StartRDF extends State {
 
         @Override
-		public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
-                                                                                                       SAXException {
-            if (!RDFNS.equals(namespaceIRI) || !ELT_RDF.equals(localName))
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
+        SAXException {
+            if (!RDFNS.equals(namespaceIRI) || !ELT_RDF.equals(localName)) {
                 throw new RDFParserException("Expecting rdf:RDF element.", m_documentLocator);
+            }
             // the logical IRI is the current IRI that we have as the base IRI at this point
             m_consumer.logicalURI(m_baseIRI.toString());
             pushState(new NodeElementList());
@@ -774,16 +801,17 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             popState();
         }
 
 
         @Override
-		public void characters(char[] data, int start, int length) throws SAXException {
-            if (!isWhitespaceOnly(data, start, length))
+        public void characters(char[] data, int start, int length) throws SAXException {
+            if (!isWhitespaceOnly(data, start, length)) {
                 throw new RDFParserException("Expecting rdf:rdf element instead of character content.",
-                                             m_documentLocator);
+                        m_documentLocator);
+            }
         }
     }
 
@@ -794,25 +822,26 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     protected class NodeElementList extends State {
 
         @Override
-		public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
-                                                                                                       SAXException {
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
+        SAXException {
             pushState(new NodeElement());
             m_state.startElement(namespaceIRI, localName, qName, atts);
         }
 
 
         @Override
-		public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             popState();
             m_state.endElement(namespaceIRI, localName, qName);
         }
 
 
         @Override
-		public void characters(char[] data, int start, int length) throws SAXException {
-            if (!isWhitespaceOnly(data, start, length))
+        public void characters(char[] data, int start, int length) throws SAXException {
+            if (!isWhitespaceOnly(data, start, length)) {
                 throw new RDFParserException("Expecting an object element instead of character content.",
-                                             m_documentLocator);
+                        m_documentLocator);
+            }
         }
     }
 
@@ -842,36 +871,39 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
         public String getReificationID(Attributes atts) throws SAXException {
             String rdfID = atts.getValue(RDFNS, ATTR_ID);
-            if (rdfID != null)
+            if (rdfID != null) {
                 rdfID = getIRIFromID(rdfID);
+            }
             return m_reificationManager.getReificationID(rdfID);
         }
 
 
         public String getNextLi() {
-            return RDFNS + "_" + (m_nextLi++);
+            return RDFNS + "_" + m_nextLi++;
         }
 
 
         public String getPropertyIRI(String uri) {
-            if (RDF_LI.equals(uri))
+            if (RDF_LI.equals(uri)) {
                 return getNextLi();
-            else
+            } else {
                 return uri;
+            }
         }
 
 
         @Override
-		public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
-                                                                                                       SAXException {
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
+        SAXException {
             m_subjectIRI = getIDNodeIDAboutResourceIRI(atts);
             boolean isRDFNS = RDFNS.equals(namespaceIRI);
             m_reificationManager = getReificationManager(atts);
-            if (!isRDFNS || !ELT_DESCRIPTION.equals(localName))
+            if (!isRDFNS || !ELT_DESCRIPTION.equals(localName)) {
                 statementWithResourceValue(m_subjectIRI,
-                                           RDF_TYPE,
-                                           namespaceIRI + localName,
-                                           m_reificationManager.getReificationID(null));
+                        RDF_TYPE,
+                        namespaceIRI + localName,
+                        m_reificationManager.getReificationID(null));
+            }
             checkUnsupportedAttributes(atts);
             propertyAttributes(m_subjectIRI, atts, m_reificationManager);
             pushState(new PropertyElementList(this));
@@ -879,15 +911,16 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             popState();
         }
 
 
         @Override
-		public void characters(char[] data, int start, int length) throws SAXException {
-            if (!isWhitespaceOnly(data, start, length))
+        public void characters(char[] data, int start, int length) throws SAXException {
+            if (!isWhitespaceOnly(data, start, length)) {
                 throw new RDFParserException("Cannot answer characters when node is excepted.", m_documentLocator);
+            }
         }
     }
 
@@ -906,40 +939,42 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
-                                                                                                       SAXException {
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
+        SAXException {
             String parseType = atts.getValue(RDFNS, ATTR_PARSE_TYPE);
-            if (PARSE_TYPE_LITERAL.equals(parseType))
+            if (PARSE_TYPE_LITERAL.equals(parseType)) {
                 pushState(new ParseTypeLiteralPropertyElement(m_nodeElement));
-            else if (PARSE_TYPE_RESOURCE.equals(parseType))
+            } else if (PARSE_TYPE_RESOURCE.equals(parseType)) {
                 pushState(new ParseTypeResourcePropertyElement(m_nodeElement));
-            else if (PARSE_TYPE_COLLECTION.equals(parseType))
+            } else if (PARSE_TYPE_COLLECTION.equals(parseType)) {
                 pushState(new ParseTypeCollectionPropertyElement(m_nodeElement));
-            else if (parseType != null)
+            } else if (parseType != null) {
                 pushState(new ParseTypeLiteralPropertyElement(m_nodeElement));
-            else {
+            } else {
                 String objectIRI = getNodeIDResourceResourceIRI(atts);
-                if (objectIRI != null)
+                if (objectIRI != null) {
                     pushState(new EmptyPropertyElement(m_nodeElement));
-                else
+                } else {
                     pushState(new ResourceOrLiteralPropertyElement(m_nodeElement));
+                }
             }
             m_state.startElement(namespaceIRI, localName, qName, atts);
         }
 
 
         @Override
-		public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             popState();
             m_state.endElement(namespaceIRI, localName, qName);
         }
 
 
         @Override
-		public void characters(char[] data, int start, int length) throws SAXException {
-            if (!isWhitespaceOnly(data, start, length))
+        public void characters(char[] data, int start, int length) throws SAXException {
+            if (!isWhitespaceOnly(data, start, length)) {
                 throw new RDFParserException("Cannot answer characters when object properties are excepted.",
-                                             m_documentLocator);
+                        m_documentLocator);
+            }
         }
     }
 
@@ -969,8 +1004,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
-                                                                                                       SAXException {
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
+        SAXException {
             if (m_text == null) {
                 // this is the invocation on the outer element
                 m_propertyIRI = m_nodeElement.getPropertyIRI(namespaceIRI + localName);
@@ -979,11 +1014,13 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
                 m_text = new StringBuilder();
             }
             else {
-                if (!isWhitespaceOnly(m_text))
+                if (!isWhitespaceOnly(m_text)) {
                     throw new RDFParserException("Text was seen and new node is started.", m_documentLocator);
-                if (m_datatype != null)
+                }
+                if (m_datatype != null) {
                     throw new RDFParserException("rdf:datatype specified on a node with resource value.",
-                                                 m_documentLocator);
+                            m_documentLocator);
+                }
                 m_innerNode = new NodeElement();
                 pushState(m_innerNode);
                 m_state.startElement(namespaceIRI, localName, qName, atts);
@@ -992,32 +1029,34 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
-            if (m_innerNode != null)
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+            if (m_innerNode != null) {
                 statementWithResourceValue(m_nodeElement.getSubjectIRI(),
-                                           m_propertyIRI,
-                                           m_innerNode.getSubjectIRI(),
-                                           m_reificationID);
-            else
+                        m_propertyIRI,
+                        m_innerNode.getSubjectIRI(),
+                        m_reificationID);
+            } else {
                 statementWithLiteralValue(m_nodeElement.getSubjectIRI(),
-                                          m_propertyIRI,
-                                          //TODO 33% of object creations here
-                                          m_text.toString(),
-                                          m_datatype,
-                                          m_reificationID);
+                        m_propertyIRI,
+                        //TODO 33% of object creations here
+                        m_text.toString(),
+                        m_datatype,
+                        m_reificationID);
+            }
             popState();
         }
 
 
         @Override
-		public void characters(char[] data, int start, int length) throws SAXException {
+        public void characters(char[] data, int start, int length) throws SAXException {
             if (m_innerNode != null) {
-                if (!isWhitespaceOnly(data, start, length))
+                if (!isWhitespaceOnly(data, start, length)) {
                     throw new RDFParserException("Cannot answer characters when object properties are excepted.",
-                                                 m_documentLocator);
-            }
-            else
+                            m_documentLocator);
+                }
+            } else {
                 m_text.append(data, start, length);
+            }
         }
     }
 
@@ -1038,32 +1077,33 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
-                                                                                                       SAXException {
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
+        SAXException {
             if (m_propertyIRI == null) {
                 // this is the invocation on the outer element
                 m_propertyIRI = m_nodeElement.getPropertyIRI(namespaceIRI + localName);
                 String reificationID = m_nodeElement.getReificationID(atts);
                 String objectIRI = getNodeIDResourceResourceIRI(atts);
-                if (objectIRI == null)
+                if (objectIRI == null) {
                     objectIRI = nextAnonymousIRI();
+                }
                 statementWithResourceValue(m_nodeElement.getSubjectIRI(), m_propertyIRI, objectIRI, reificationID);
                 ReificationManager reificationManager = getReificationManager(atts);
                 propertyAttributes(objectIRI, atts, reificationManager);
-            }
-            else
+            } else {
                 throw new RDFParserException("incorrect element start encountered.", m_documentLocator);
+            }
         }
 
 
         @Override
-		public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             popState();
         }
 
 
         @Override
-		public void characters(char[] data, int start, int length) throws SAXException {
+        public void characters(char[] data, int start, int length) throws SAXException {
             throw new RDFParserException("Characters were not excepted.", m_documentLocator);
         }
     }
@@ -1089,8 +1129,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
-                                                                                                       SAXException {
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
+        SAXException {
             if (m_propertyIRI == null) {
                 m_propertyIRI = m_nodeElement.getPropertyIRI(namespaceIRI + localName);
                 m_reificationID = m_nodeElement.getReificationID(atts);
@@ -1100,13 +1140,14 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
                 pushState(collectionNode);
                 m_state.startElement(namespaceIRI, localName, qName, atts);
                 String newListCellIRI = listCell(collectionNode.getSubjectIRI());
-                if (m_lastCellIRI == null)
+                if (m_lastCellIRI == null) {
                     statementWithResourceValue(m_nodeElement.getSubjectIRI(),
-                                               m_propertyIRI,
-                                               newListCellIRI,
-                                               m_reificationID);
-                else
+                            m_propertyIRI,
+                            newListCellIRI,
+                            m_reificationID);
+                } else {
                     statementWithResourceValue(m_lastCellIRI, RDF_REST, newListCellIRI, null);
+                }
                 m_lastCellIRI = newListCellIRI;
             }
         }
@@ -1121,20 +1162,22 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
-            if (m_lastCellIRI == null)
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+            if (m_lastCellIRI == null) {
                 statementWithResourceValue(m_nodeElement.getSubjectIRI(), m_propertyIRI, RDF_NIL, m_reificationID);
-            else
+            } else {
                 statementWithResourceValue(m_lastCellIRI, RDF_REST, RDF_NIL, null);
+            }
             popState();
         }
 
 
         @Override
-		public void characters(char[] data, int start, int length) throws SAXException {
-            if (!isWhitespaceOnly(data, start, length))
+        public void characters(char[] data, int start, int length) throws SAXException {
+            if (!isWhitespaceOnly(data, start, length)) {
                 throw new RDFParserException("Expecting an object element instead of character content.",
-                                             m_documentLocator);
+                        m_documentLocator);
+            }
         }
     }
 
@@ -1161,8 +1204,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
-                                                                                                       SAXException {
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
+        SAXException {
             if (m_depth == 0) {
                 m_propertyIRI = m_nodeElement.getPropertyIRI(namespaceIRI + localName);
                 m_reificationID = m_nodeElement.getReificationID(atts);
@@ -1186,13 +1229,13 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             if (m_depth == 1) {
                 statementWithLiteralValue(m_nodeElement.getSubjectIRI(),
-                                          m_propertyIRI,
-                                          m_content.toString(),
-                                          RDF_XMLLITERAL,
-                                          m_reificationID);
+                        m_propertyIRI,
+                        m_content.toString(),
+                        RDF_XMLLITERAL,
+                        m_reificationID);
                 popState();
             }
             else {
@@ -1205,7 +1248,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public void characters(char[] data, int start, int length) {
+        public void characters(char[] data, int start, int length) {
             m_content.append(data, start, length);
         }
     }
@@ -1229,31 +1272,32 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
-                                                                                                       SAXException {
+        public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws
+        SAXException {
             m_propertyIRI = m_nodeElement.getPropertyIRI(namespaceIRI + localName);
             m_reificationID = m_nodeElement.getReificationID(atts);
             NodeElement anonymousNodeElement = new NodeElement();
             anonymousNodeElement.startDummyElement(atts);
             statementWithResourceValue(m_nodeElement.getSubjectIRI(),
-                                       m_propertyIRI,
-                                       anonymousNodeElement.getSubjectIRI(),
-                                       m_reificationID);
+                    m_propertyIRI,
+                    anonymousNodeElement.getSubjectIRI(),
+                    m_reificationID);
             pushState(new PropertyElementList(anonymousNodeElement));
         }
 
 
         @Override
-		public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+        public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
             popState();
         }
 
 
         @Override
-		public void characters(char[] data, int start, int length) throws SAXException {
-            if (!isWhitespaceOnly(data, start, length))
+        public void characters(char[] data, int start, int length) throws SAXException {
+            if (!isWhitespaceOnly(data, start, length)) {
                 throw new RDFParserException("Cannot answer characters when object properties are excepted.",
-                                             m_documentLocator);
+                        m_documentLocator);
+            }
         }
     }
 
@@ -1284,13 +1328,14 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
 
         @Override
-		public String getReificationID(String reificationID) throws SAXException {
+        public String getReificationID(String reificationID) throws SAXException {
             String resultIRI;
-            if (reificationID == null)
+            if (reificationID == null) {
                 resultIRI = nextAnonymousIRI();
-            else
+            } else {
                 resultIRI = reificationID;
-            statementWithResourceValue(m_uri, RDFNS + "_" + (++m_elements), resultIRI, null);
+            }
+            statementWithResourceValue(m_uri, RDFNS + "_" + ++m_elements, resultIRI, null);
             return resultIRI;
         }
     }
