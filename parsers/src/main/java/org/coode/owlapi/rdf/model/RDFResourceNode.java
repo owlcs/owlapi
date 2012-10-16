@@ -40,6 +40,7 @@
 package org.coode.owlapi.rdf.model;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 
 
 /**
@@ -75,25 +76,25 @@ public class RDFResourceNode extends RDFNode {
 
 
     @Override
-	public IRI getIRI() {
+    public IRI getIRI() {
         return iri;
     }
 
 
     @Override
-	public boolean isLiteral() {
+    public boolean isLiteral() {
         return false;
     }
 
 
     @Override
-	public boolean isAnonymous() {
+    public boolean isAnonymous() {
         return iri == null;
     }
 
 
     @Override
-	public int hashCode() {
+    public int hashCode() {
         int hashCode = 17;
         hashCode = hashCode * 37 + (iri == null ? anonId : iri.hashCode());
         return hashCode;
@@ -101,7 +102,7 @@ public class RDFResourceNode extends RDFNode {
 
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (!(obj instanceof RDFResourceNode)) {
             return false;
         }
@@ -121,7 +122,8 @@ public class RDFResourceNode extends RDFNode {
 
 
     @Override
-	public String toString() {
-        return (iri != null ? "<" + iri.toString() + ">" : "genid" + Integer.toString(anonId));
+    public String toString() {
+        return iri != null ? "<" + iri.toString() + ">" : NodeID.NODE_ID_PREFIX
+                + Integer.toString(anonId);
     }
 }

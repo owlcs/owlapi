@@ -49,9 +49,8 @@ import java.io.Serializable;
  */
 public abstract class NodeID implements Comparable<NodeID>, Serializable {
 
-
     private static final long serialVersionUID = 30402L;
-
+    public static final String NODE_ID_PREFIX = "genid";
 
     /**
      * Gets the string representation of the node ID.  This will begin with _:
@@ -83,7 +82,6 @@ public abstract class NodeID implements Comparable<NodeID>, Serializable {
 
         private static final long serialVersionUID = 30402L;
 
-        private static final String NODE_ID_PREFIX = "genid";
 
         private static long counter = 0;
 
