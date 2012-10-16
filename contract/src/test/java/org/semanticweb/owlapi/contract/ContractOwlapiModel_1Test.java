@@ -245,10 +245,10 @@ public class ContractOwlapiModel_1Test {
 
     @Test
     public void shouldTestNodeID() throws Exception {
-        NodeID testSubject0 = NodeID.getNodeID();
+        NodeID testSubject0 = NodeID.getNodeID("_:test1");
         String result0 = testSubject0.getID();
         NodeID result1 = NodeID.getNodeID("");
-        NodeID result2 = NodeID.getNodeID();
+        NodeID result2 = NodeID.getNodeID(null);
         String result3 = testSubject0.toString();
     }
 
