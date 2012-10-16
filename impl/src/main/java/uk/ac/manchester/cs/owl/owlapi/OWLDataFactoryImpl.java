@@ -285,7 +285,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     }
 
     public OWLAnonymousIndividual getOWLAnonymousIndividual() {
-        return new OWLAnonymousIndividualImpl(NodeID.getNodeID());
+        return new OWLAnonymousIndividualImpl(NodeID.getNodeID(null));
     }
 
     public OWLDatatype getOWLDatatype(IRI iri) {

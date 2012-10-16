@@ -133,11 +133,6 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     protected List<State> m_states;
 
     /**
-     * Number of the last generated IRI.
-     */
-    protected int m_generatedIRIIndex;
-
-    /**
      * Document locator.
      */
     protected Locator m_documentLocator;
@@ -256,7 +251,6 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      */
     @Override
     public void startDocument() {
-        m_generatedIRIIndex = 0;
         m_states.clear();
         pushState(new StartRDF());
     }
@@ -529,7 +523,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     //XXX according to the specs this is not necessarily an IRI, i.e., it needs o look like _:<characters excluding : and />
     // The reason we get an IRI that involves the base is to ensure that blank nodes from separate documents aren't equal.
     protected String nextAnonymousIRI() throws SAXException {
-        return getIRIFromID(NodeID.NODE_ID_PREFIX + ++m_generatedIRIIndex);
+        return getIRIFromID(NodeID.NODE_ID_PREFIX + NodeID.nextIndex());
         // return "_:genid-nodeid-" + (++m_generatedIRIIndex);
     }
 
