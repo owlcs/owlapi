@@ -82,12 +82,16 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     private void writeEntitySection(OWLEntity entity, LatexWriter w) {
         w.write("\\subsubsection*{");
-        w.write(shortFormProvider.getShortForm(entity));
+        w.write(escapeName(shortFormProvider.getShortForm(entity)));
         w.write("}\n\n");
     }
 
+    private String escapeName(String name) {
+        return name.replace("_", "\\_");
+    }
+
     @Override
-	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         try {
 
 
@@ -147,13 +151,13 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
             w.write("\\section*{Datatypes}");
             for(OWLDatatype type:sortEntities(ontology.getDatatypesInSignature())) {
-            	writeEntitySection(type, w);
-            	for(OWLAxiom ax:sortAxioms(ontology.getAxioms(type))) {
-            		ax.accept(renderer);
-            		w.write("\n\n");
-            	}
+                writeEntitySection(type, w);
+                for(OWLAxiom ax:sortAxioms(ontology.getAxioms(type))) {
+                    ax.accept(renderer);
+                    w.write("\n\n");
+                }
             }
-//            writer.write(w.toString());
+            //            writer.write(w.toString());
             writer.write("\\end{document}\n");
             writer.flush();
         }
@@ -178,9 +182,9 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     private static class OWLAxiomComparator implements Comparator<OWLAxiom>, Serializable {
 
-		private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30402L;
 
-		public int compare(OWLAxiom o1, OWLAxiom o2) {
+        public int compare(OWLAxiom o1, OWLAxiom o2) {
             int index1 = o1.getAxiomType().getIndex();
             int index2 = o2.getAxiomType().getIndex();
             return index1 - index2;
