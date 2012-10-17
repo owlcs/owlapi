@@ -71,20 +71,20 @@ public class RDFXMLParser extends AbstractOWLParser {
     }
 
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
-    	InputSource is = null;
-    	try {
+        InputSource is = null;
+        try {
 
             final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
             final RDFParser parser = new RDFParser() {
                 @Override
-				public void startPrefixMapping(String prefix, String IRI) throws SAXException {
+                public void startPrefixMapping(String prefix, String IRI) throws SAXException {
                     super.startPrefixMapping(prefix, IRI);
                     format.setPrefix(prefix, IRI);
                 }
 
 
                 @Override
-				public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
+                public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
                     super.startElement(namespaceIRI, localName, qName, atts);
                 }
             };
@@ -94,16 +94,16 @@ public class RDFXMLParser extends AbstractOWLParser {
                 }
             };
             OWLRDFConsumer consumer = new OWLRDFConsumer(ontology, new AnonymousNodeChecker() {
-                public boolean isAnonymousNode(IRI IRI) {
-                    return parser.isAnonymousNodeIRI(IRI.getFragment());
+                        public boolean isAnonymousNode(IRI iri) {
+                            return parser.isAnonymousNodeIRI(iri.toString());
                 }
 
                 public boolean isAnonymousSharedNode(String iri) {
                     return parser.isAnonymousNodeID(iri);
                 }
 
-                public boolean isAnonymousNode(String IRI) {
-                    return parser.isAnonymousNodeIRI(IRI);
+                        public boolean isAnonymousNode(String iri) {
+                            return parser.isAnonymousNodeIRI(iri);
                 }
             }, configuration);
             consumer.setIRIProvider(prov);
@@ -120,12 +120,12 @@ public class RDFXMLParser extends AbstractOWLParser {
         }
         catch (SAXException e) {
             throw new OWLRDFXMLParserSAXException(e);
-		} finally {
-			if (is != null && is.getByteStream() != null) {
-				is.getByteStream().close();
-			} else if (is != null && is.getCharacterStream() != null) {
-				is.getCharacterStream().close();
-			}
-		}
-	}
+        } finally {
+            if (is != null && is.getByteStream() != null) {
+                is.getByteStream().close();
+            } else if (is != null && is.getCharacterStream() != null) {
+                is.getCharacterStream().close();
+            }
+        }
+    }
 }
