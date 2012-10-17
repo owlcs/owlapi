@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.api.test;
 
 import java.io.IOException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
@@ -27,18 +28,18 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 /** test for 3294629 - currently disabled. Not clear whether structure sharing is
  * allowed or disallowed. Data is equivalent, ontology annotations are not */
 @SuppressWarnings("javadoc")
+@Ignore
 public class SharedBlankNodeTestCase {
-    // @Test
+    @Test
     public void verify() throws OWLOntologyCreationException {
         String input = "Ontology:\n" + "    \n" + "    DataProperty: xsd:a\n"
                 + "        Range: {1.2}";
         for (OWLAxiom ax : Factory.getManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(input))
                 .getAxioms()) {
-            // System.out.println("HasKeyTestCase.verify() " + ax);
+            System.out.println("HasKeyTestCase.verify() " + ax);
         }
     }
-
     @Test
     public void shouldSaveOneIndividual() throws Exception {
         OWLOntology ontology = createOntology();
@@ -53,6 +54,7 @@ public class SharedBlankNodeTestCase {
         testAnnotation(ontology);
         // displayOntology(ontology);
         String s = saveOntology(ontology);
+        System.out.println(s);
         ontology = loadOntology(s);
         // for (OWLProfileViolation v :
         // profile.checkOntology(ontology).getViolations()) {
@@ -69,7 +71,7 @@ public class SharedBlankNodeTestCase {
         String NS = "http://protege.org/more/anonymous/junk";
         OWLDataProperty P = Factory.getFactory()
                 .getOWLDataProperty(
-                IRI.create(NS + "#p"));
+                        IRI.create(NS + "#p"));
         OWLObjectProperty P1 = Factory.getFactory().getOWLObjectProperty(
                 IRI.create(NS + "#p1"));
         OWLObjectProperty P2 = Factory.getFactory().getOWLObjectProperty(
@@ -124,9 +126,8 @@ public class SharedBlankNodeTestCase {
     public static void testAnnotation(OWLOntology ontology) {
         for (OWLAnnotation annotation : ontology.getAnnotations()) {
             OWLIndividual i = (OWLIndividual) annotation.getValue();
-            // System.out.println("Found individual " + i);
-            // System.out.println("Property values = " +
-            // i.getDataPropertyValues(P, ontology));
+            System.out.println("Found individual " + i);
+            System.out.println("Property values = " + i.getDataPropertyValues(ontology));
         }
     }
 }

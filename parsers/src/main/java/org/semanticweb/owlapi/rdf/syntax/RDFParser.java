@@ -504,8 +504,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * Returns an abolute IRI from a nodeID attribute.
      */
     protected String getIRIFromNodeID(String nodeID) throws SAXException {
-        //        return nodeID;
-        return resolveIRI("#genid-nodeid-" + nodeID);
+        return "_:" + NodeID.SHARED_NODE_ID_PREFIX + nodeID;
     }
 
 
@@ -520,11 +519,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     /**
      * Generates next anonymous IRI.
      */
-    //XXX according to the specs this is not necessarily an IRI, i.e., it needs o look like _:<characters excluding : and />
-    // The reason we get an IRI that involves the base is to ensure that blank nodes from separate documents aren't equal.
     protected String nextAnonymousIRI() throws SAXException {
-        return getIRIFromID(NodeID.NODE_ID_PREFIX + NodeID.nextIndex());
-        // return "_:genid-nodeid-" + (++m_generatedIRIIndex);
+        return NodeID.PREFIX + NodeID.NODE_ID_PREFIX + NodeID.nextIndex();
     }
 
 
@@ -749,12 +745,11 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     }
 
     public boolean isAnonymousNodeID(String iri) {
-        return iri != null && iri.indexOf("genid-nodeid") != -1;
+        return iri != null && iri.indexOf(NodeID.SHARED_NODE_ID_PREFIX) > -1;
     }
 
     public IRI getIRI(String s) {
         return uriCache.get(s);
-        //        throw new RuntimeException("DISABLED");
     }
 
 
@@ -767,10 +762,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         SAXException {
         }
 
-
         public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
         }
-
 
         public void characters(char[] data, int start, int length) throws SAXException {
         }
