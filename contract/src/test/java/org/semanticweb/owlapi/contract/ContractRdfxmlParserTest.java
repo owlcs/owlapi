@@ -674,7 +674,7 @@ public class ContractRdfxmlParserTest {
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
         Set<IRI> result1 = testSubject0.getOntologies();
         OWLOntology result2 = testSubject0.getOntology();
-        testSubject0.addAxiom(IRI("urn:aFake"));
+        testSubject0.addAxiom(IRI.create("urn:aFake"));
         RDFOntologyFormat result3 = testSubject0.getOntologyFormat();
         testSubject0.setOntologyFormat(mock(RDFOntologyFormat.class));
         OWLOntologyLoaderConfiguration result4 = testSubject0.getConfiguration();
@@ -754,7 +754,7 @@ public class ContractRdfxmlParserTest {
         IRI result38 = testSubject0.getFirstResource(IRI("urn:aFake"), false);
         OWLLiteral result39 = testSubject0.getFirstLiteral(IRI("urn:aFake"));
         IRI result40 = testSubject0.getRest(IRI("urn:aFake"), false);
-        boolean result41 = testSubject0.isAxiom(IRI("urn:aFake"));
+        boolean result41 = testSubject0.isAxiom(IRI.create("urn:aFake"));
         String result42 = testSubject0.toString();
     }
 
