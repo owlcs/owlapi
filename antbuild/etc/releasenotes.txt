@@ -1,6 +1,8 @@
 3.4.1 16 Sep 2012
 
 Bugs closed:
+3463200    rdf/functional round trip problem (anonymous individuals)
+3341637    round trip problem with owl functional or rdf/xml syntax
 3576182    Bump minimum java version to 1.6 (Fixed the bugs, moved the request to feature requests)
 3497161    Manchester syntax imports
 3403855    Imports of multiple ont docs containing the same ont fails
