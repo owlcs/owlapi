@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -188,6 +189,7 @@ public class ContractOwlapiUtilTest {
         String result4 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestCollectionFactory() throws Exception {
         CollectionFactory testSubject0 = new CollectionFactory();

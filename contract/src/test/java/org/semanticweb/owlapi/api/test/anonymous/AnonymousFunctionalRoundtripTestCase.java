@@ -6,6 +6,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormatFactory;
@@ -57,6 +58,7 @@ public class AnonymousFunctionalRoundtripTestCase {
         loadOntology(fixed, new OWLFunctionalSyntaxOntologyFormatFactory());
     }
 
+    @Ignore
     @Test
     public void shouldRoundTripBroken() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
@@ -66,6 +68,7 @@ public class AnonymousFunctionalRoundtripTestCase {
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 
+    @Ignore
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {

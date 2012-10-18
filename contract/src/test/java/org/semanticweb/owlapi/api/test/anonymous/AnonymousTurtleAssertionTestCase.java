@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.formats.TurtleOntologyFormatFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group, Date: 30-Jul-2008 */
+@Ignore("Nothing in Turtle spec that requires blank node identity to be preserved")
 public class AnonymousTurtleAssertionTestCase extends AbstractFileRoundTrippingTestCase {
     @Override
     protected String getFileName() {

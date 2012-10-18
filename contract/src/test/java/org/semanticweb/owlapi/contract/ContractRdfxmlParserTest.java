@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.coode.owlapi.rdfxml.parser.*;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
@@ -208,6 +209,7 @@ public class ContractRdfxmlParserTest {
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
     }
 
+    @Ignore
     @Test
     public void shouldTestDataAllValuesFromTranslator() throws Exception {
         DataAllValuesFromTranslator testSubject0 = new DataAllValuesFromTranslator(
@@ -260,6 +262,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestDataMaxQualifiedCardinalityTranslator() throws Exception {
         DataMaxQualifiedCardinalityTranslator testSubject0 = new DataMaxQualifiedCardinalityTranslator(
@@ -286,6 +289,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestDataMinQualifiedCardinalityTranslator() throws Exception {
         DataMinQualifiedCardinalityTranslator testSubject0 = new DataMinQualifiedCardinalityTranslator(
@@ -311,6 +315,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestDataQualifiedCardinalityTranslator() throws Exception {
         DataQualifiedCardinalityTranslator testSubject0 = new DataQualifiedCardinalityTranslator(
@@ -335,6 +340,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestDataSomeValuesFromTranslator() throws Exception {
         DataSomeValuesFromTranslator testSubject0 = new DataSomeValuesFromTranslator(
@@ -1834,6 +1840,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestTypeSelfRestrictionHandler() throws Exception {
         TypeSelfRestrictionHandler testSubject0 = new TypeSelfRestrictionHandler(

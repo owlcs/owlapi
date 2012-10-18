@@ -261,7 +261,7 @@ public class RioRendererTest
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
                 result.length() > 24000);
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-                result.length() < 26000);
+                result.length() < 27000);
         
         RDFParser parser = Rio.createParser(RDFFormat.RDFXML, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
