@@ -38,6 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.syntax;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
@@ -50,18 +51,23 @@ public class PrimerFunctionalSyntaxRoundTrippingTestCase extends
         return "primer.functionalsyntax.txt";
     }
 
+
+    @Ignore
     @Override
     @Test
     public void testRDFXML() throws Exception {}
 
+    @Ignore
     @Override
     @Test
     public void testOWLXML() throws Exception {}
 
+    @Ignore
     @Override
     @Test
     public void testTurtle() throws Exception {}
 
+    @Ignore
     @Override
     @Test
     public void testManchesterOWLSyntax() throws Exception {}

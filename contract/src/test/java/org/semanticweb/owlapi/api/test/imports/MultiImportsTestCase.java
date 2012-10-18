@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.imports;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 
 import org.junit.Test;

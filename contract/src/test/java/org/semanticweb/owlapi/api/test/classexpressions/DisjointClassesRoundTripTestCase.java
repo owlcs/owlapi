@@ -7,6 +7,7 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormatFactory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -82,7 +83,7 @@ public class DisjointClassesRoundTripTestCase {
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = manager
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(ontologyFile));
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(ontologyFile, new ManchesterOWLSyntaxOntologyFormatFactory()));
         return ontology;
     }
 }

@@ -8,6 +8,9 @@ import java.util.List;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RDFXMLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -51,15 +54,15 @@ public class AnonymousFunctionalRoundtripTestCase {
 
     @Test
     public void shouldRoundTripFixed() throws OWLOntologyCreationException {
-        loadOntology(fixed);
+        loadOntology(fixed, new OWLFunctionalSyntaxOntologyFormatFactory());
     }
 
     @Test
     public void shouldRoundTripBroken() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
-        OWLOntology o = loadOntology(broken);
+        OWLOntology o = loadOntology(broken, new RDFXMLOntologyFormatFactory());
         String s = saveOntology(o, new OWLFunctionalSyntaxOntologyFormat());
-        OWLOntology o1 = loadOntology(s);
+        OWLOntology o1 = loadOntology(s, new OWLFunctionalSyntaxOntologyFormatFactory());
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 
@@ -79,9 +82,9 @@ public class AnonymousFunctionalRoundtripTestCase {
         changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i, Literal("hello"))));
         manager.applyChanges(changes);
         String saved = saveOntology(ontology, new RDFXMLOntologyFormat());
-        ontology = loadOntology(saved);
+        ontology = loadOntology(saved, new RDFXMLOntologyFormatFactory());
         saved = saveOntology(ontology, new OWLFunctionalSyntaxOntologyFormat());
-        ontology = loadOntology(saved);
+        ontology = loadOntology(saved, new OWLFunctionalSyntaxOntologyFormatFactory());
     }
 
     String saveOntology(OWLOntology ontology, PrefixOWLOntologyFormat format)
@@ -93,10 +96,10 @@ public class AnonymousFunctionalRoundtripTestCase {
         return target.toString();
     }
 
-    OWLOntology loadOntology(String ontologyFile) throws OWLOntologyCreationException {
+    OWLOntology loadOntology(String ontologyFile, OWLOntologyFormatFactory format) throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(ontologyFile));
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(ontologyFile, format));
         return ontology;
     }
 }

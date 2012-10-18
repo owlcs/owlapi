@@ -50,6 +50,11 @@ import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLXMLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RDFXMLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.TurtleOntologyFormatFactory;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.FileDocumentTarget;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
@@ -101,13 +106,13 @@ public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
         OWLSubAnnotationPropertyOfAxiom annoAx4 = df.getOWLSubAnnotationPropertyOfAxiom(
                 myComment, rdfsComment);
         man.addAxiom(ont, annoAx4);
-        reload(ont, new RDFXMLOntologyFormat());
-        reload(ont, new OWLXMLOntologyFormat());
-        reload(ont, new TurtleOntologyFormat());
-        reload(ont, new OWLFunctionalSyntaxOntologyFormat());
+        reload(ont, new RDFXMLOntologyFormatFactory());
+        reload(ont, new OWLXMLOntologyFormatFactory());
+        reload(ont, new TurtleOntologyFormatFactory());
+        reload(ont, new OWLFunctionalSyntaxOntologyFormatFactory());
     }
 
-    private void reload(OWLOntology ontology, OWLOntologyFormat format) throws Exception {
+    private void reload(OWLOntology ontology, OWLOntologyFormatFactory format) throws Exception {
         Set<OWLAxiom> annotationAxioms = new HashSet<OWLAxiom>();
         for (OWLAxiom ax : ontology.getAxioms()) {
             if (ax.isAnnotationAxiom()) {
@@ -129,15 +134,17 @@ public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
         assertEquals(axiomsMinusAnnotationAxioms, reloadedWithoutAnnoAxioms.getAxioms());
     }
 
-    private OWLOntology reload(OWLOntology ontology, OWLOntologyFormat format,
-            OWLOntologyLoaderConfiguration configuration) throws IOException,
-            OWLOntologyStorageException, OWLOntologyCreationException {
+private OWLOntology reload(OWLOntology ontology, OWLOntologyFormatFactory formatFactory,
+        OWLOntologyLoaderConfiguration configuration) throws IOException,
+        OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntologyManager man = ontology.getOWLOntologyManager();
-        File tempFile = File.createTempFile("Ontology", ".owl");
-        man.saveOntology(ontology, format, new FileDocumentTarget(tempFile));
+        File tempFile = File.createTempFile("Ontology", ".owl", testDataFolder);
+
+        man.saveOntology(ontology, formatFactory.getNewFormat(), new FileDocumentTarget(tempFile));
+
         OWLOntologyManager man2 = Factory.getManager();
         OWLOntology reloaded = man2.loadOntologyFromOntologyDocument(
-                new FileDocumentSource(tempFile), configuration);
+                new FileDocumentSource(tempFile, formatFactory), configuration);
         man2.removeAxioms(reloaded,
                 new HashSet<OWLAxiom>(reloaded.getAxioms(AxiomType.DECLARATION)));
         return reloaded;

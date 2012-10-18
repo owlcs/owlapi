@@ -62,9 +62,11 @@ public class RDFParserTestCase {
     public void setUp() {
         // Use the reference implementation
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        OWLParserFactoryRegistry.getInstance().registerParserFactory(
-                new RDFXMLParserFactory());
-        ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory();
+        OWLParserFactoryRegistry testRegistry = new OWLParserFactoryRegistry();
+        // clear the automatically included parser factories out
+        testRegistry.clear();
+        testRegistry.registerParserFactory(new RDFXMLParserFactory());
+        ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory(testRegistry);
         man.addOntologyFactory(factory);
     }
 

@@ -40,12 +40,12 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyManagerFactoryRegistry;
 
 import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
 
@@ -78,7 +78,7 @@ public class ClosureAxiomsExample {
             throw new IllegalArgumentException("arguments cannot be null");
         }
         /* Create and Ontology Manager */
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = OWLOntologyManagerFactoryRegistry.createOWLOntologyManager();
         IRI documentIRI = IRI.create(inputOntology);
         IRI classIRI = IRI.create(classToClose);
         IRI outputDocumentIRI = IRI.create(outputOntology);

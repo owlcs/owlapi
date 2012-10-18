@@ -36,50 +36,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.api.test.syntax;
+package org.semanticweb.owlapi.api.test.baseclasses;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
-import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormatFactory;
+import org.junit.Before;
+import org.semanticweb.owlapi.api.test.TestUtils;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 07-Aug-2009 */
-public class PrimerOWLXMLRoundTrippingTestCase extends AbstractFileRoundTrippingTestCase {
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group Date: 25-Oct-2006
+ * <p/>
+ * The base for test cases that need a data factory. */
+@SuppressWarnings("javadoc")
+public abstract class AbstractOWLDataFactoryTest extends AbstractOWLAPITestCase {
+
+    @Before
     @Override
-    protected String getFileName() {
-        return "primer.owlxml.xml";
+    public void setUp() throws Exception {
+        super.setUp();
     }
 
-    @Ignore
-    @Override
-    @Test
-    public void testRDFXML() throws Exception {}
-
-    @Override
-    @Test
-    public void testOWLXML() throws Exception {
-        super.testOWLXML();
+    public static IRI createIRI() {
+        return TestUtils.createIRI();
     }
 
-    @Ignore
-    @Override
-    @Test
-    public void testFunctionalSyntax() throws Exception {}
+    public abstract void testCreation() throws Exception;
 
-    @Ignore
-    @Override
-    @Test
-    public void testTurtle() throws Exception {}
+    public abstract void testEqualsPositive() throws Exception;
 
-    @Ignore
-    @Override
-    @Test
-    public void testManchesterOWLSyntax() throws Exception {}
-    
-    @Override
-    protected OWLOntologyFormatFactory getFileFormat() {
-        return new OWLXMLOntologyFormatFactory();
-    }
+    public abstract void testEqualsNegative() throws Exception;
+
+    public abstract void testHashCode() throws Exception;
 }

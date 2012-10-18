@@ -41,17 +41,27 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.io.IOUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
+import org.junit.Rule;
+import org.junit.rules.TemporaryFolder;
+import org.junit.rules.Timeout;
+import org.semanticweb.owlapi.formats.DefaultOntologyFormat;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RDFXMLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
-import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
@@ -71,6 +81,36 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  *         Group, Date: 10-May-2008 */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLAPITestCase {
+    /**
+     * Timeout tests after 60 seconds.
+     */
+    @Rule
+    public Timeout timeout = new Timeout(60000);
+
+    @Rule
+    public TemporaryFolder junitTempFolder = new TemporaryFolder();
+
+    protected File testDataFolder;
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
+    protected String copyResourceToFile(File testDir, String resource) throws Exception {
+        String filename = resource.substring(resource.lastIndexOf('/'));
+        String directory = resource.substring(0, resource.lastIndexOf('/'));
+        File nextDirectory = new File(testDir, directory);
+        nextDirectory.mkdirs();
+        File nextFile = new File(nextDirectory, filename);
+        nextFile.createNewFile();
+        
+        InputStream inputStream = this.getClass().getResourceAsStream(resource);
+        assertNotNull("Missing test resource: "+resource, inputStream);
+        
+        IOUtils.copy(inputStream, new FileOutputStream(nextFile));
+        return nextFile.getAbsolutePath();
+    }
+    
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
         if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
             assertEquals("Ontologies supposed to be the same",
@@ -80,10 +120,16 @@ public abstract class AbstractOWLAPITestCase {
                 ont1.getAnnotations(), ont2.getAnnotations());
         Set<OWLAxiom> axioms1 = ont1.getAxioms();
         Set<OWLAxiom> axioms2 = ont2.getAxioms();
+        
         // This isn't great - we normalise axioms by changing the ids of
         // individuals. This relies on the fact that
         // we iterate over objects in the same order for the same set of axioms!
         OWLDataFactory df = ont1.getOWLOntologyManager().getOWLDataFactory();
+        
+        return equal(axioms1, axioms2, df);
+    }
+    
+    public boolean equal(Set<OWLAxiom> axioms1, Set<OWLAxiom> axioms2, OWLDataFactory df) {
         AnonymousIndividualsNormaliser normaliser1 = new AnonymousIndividualsNormaliser(
                 df);
         axioms1 = normaliser1.getNormalisedAxioms(axioms1);
@@ -191,8 +237,9 @@ public abstract class AbstractOWLAPITestCase {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         manager = Factory.getManager();
+        testDataFolder = junitTempFolder.newFolder(this.getClass().getName());
     }
 
     public OWLOntologyManager getManager() {
@@ -237,7 +284,7 @@ public abstract class AbstractOWLAPITestCase {
     }
 
     public void roundTripOntology(OWLOntology ont) throws Exception {
-        roundTripOntology(ont, new RDFXMLOntologyFormat());
+        roundTripOntology(ont, new RDFXMLOntologyFormatFactory());
     }
 
     /** Saves the specified ontology in the specified format and reloads it.
@@ -248,29 +295,29 @@ public abstract class AbstractOWLAPITestCase {
      * 
      * @param ont
      *            The ontology to be round tripped.
-     * @param format
+     * @param formatFactory
      *            The format to use when doing the round trip. */
     public OWLOntology roundTripOntology(OWLOntology ont,
-            OWLOntologyFormat format) throws Exception {
+            OWLOntologyFormatFactory formatFactory) throws Exception {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyFormat fromFormat = manager.getOntologyFormat(ont);
+        OWLOntologyFormat toFormat = formatFactory.getNewFormat();
         if (fromFormat instanceof PrefixOWLOntologyFormat
-                && format instanceof PrefixOWLOntologyFormat) {
+                && toFormat instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat fromPrefixFormat = (PrefixOWLOntologyFormat) fromFormat;
-            PrefixOWLOntologyFormat toPrefixFormat = (PrefixOWLOntologyFormat) format;
+            PrefixOWLOntologyFormat toPrefixFormat = (PrefixOWLOntologyFormat) toFormat;
             toPrefixFormat.copyPrefixesFrom(fromPrefixFormat);
         }
-        if (format instanceof RDFOntologyFormat) {
-            ((RDFOntologyFormat) format).setAddMissingTypes(false);
+        if(toFormat instanceof RDFOntologyFormat) {
+            ((RDFOntologyFormat) toFormat).setAddMissingTypes(false);
         }
-        manager.saveOntology(ont, format, target);
-        handleSaved(target, format);
+        manager.saveOntology(ont, toFormat, target);
+        handleSaved(target, toFormat);
         OWLOntologyManager man = Factory.getManager();
         try {
-            OWLOntology ont2 = man.loadOntologyFromOntologyDocument(
-                    new StringDocumentSource(target.toString()),
-                    new OWLOntologyLoaderConfiguration()
-                            .setReportStackTraces(true));
+            OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
+                    target.toString(), formatFactory), new OWLOntologyLoaderConfiguration()
+                    .setReportStackTraces(true));
             equal(ont, ont2);
             return ont2;
         } catch (UnparsableOntologyException e) {
@@ -291,4 +338,5 @@ public abstract class AbstractOWLAPITestCase {
             OWLOntologyFormat format) {
         // System.out.println(target.toString());
     }
+
 }

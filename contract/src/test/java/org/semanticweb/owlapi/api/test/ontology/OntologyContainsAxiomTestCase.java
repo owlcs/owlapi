@@ -49,8 +49,15 @@ import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLXMLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RDFXMLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.TurtleOntologyFormatFactory;
+import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.AddImport;
@@ -95,44 +102,40 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
 
     @Test
     public void testOntologyContainsAxiomsForRDFXML1() throws Exception {
-        RDFXMLOntologyFormat format = createRDFXMLFormat();
-        runTestOntologyContainsAxioms1(format);
+        RDFXMLOntologyFormatFactory format = createRDFXMLFormat();
+        runTestOntologyContainsAxioms1(format, false);
     }
 
-    private RDFXMLOntologyFormat createRDFXMLFormat() {
-        RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
-        // This test case relies on certain declarations being in certain
-        // ontologies. The default
-        // behaviour is to add missing declarations. Therefore, this needs to be
-        // turned off.
-        format.setAddMissingTypes(false);
+    private RDFXMLOntologyFormatFactory createRDFXMLFormat() {
+        RDFXMLOntologyFormatFactory format = new RDFXMLOntologyFormatFactory();
+        // This test case relies on certain declarations being in certain ontologies.  The default
+        // behaviour is to add missing declarations.  Therefore, this needs to be turned off.
         return format;
     }
 
     @Test
     public void testOntologyContainsAxiomsForOWLXML1() throws Exception {
-        runTestOntologyContainsAxioms1(new OWLXMLOntologyFormat());
+        runTestOntologyContainsAxioms1(new OWLXMLOntologyFormatFactory(), true);
     }
 
     @Test
     public void testOntologyContainsAxiomsForOWLFunctionalSyntax1() throws Exception {
-        runTestOntologyContainsAxioms1(new OWLFunctionalSyntaxOntologyFormat());
+        runTestOntologyContainsAxioms1(new OWLFunctionalSyntaxOntologyFormatFactory(), true);
     }
 
     @Test
     public void testOntologyContainsAxiomsForTurtleSyntax1() throws Exception {
-        TurtleOntologyFormat format = createTurtleOntologyFormat();
-        runTestOntologyContainsAxioms1(format);
+        TurtleOntologyFormatFactory format = createTurtleOntologyFormat();
+        runTestOntologyContainsAxioms1(format, false);
     }
 
-    private TurtleOntologyFormat createTurtleOntologyFormat() {
-        TurtleOntologyFormat format = new TurtleOntologyFormat();
-        format.setAddMissingTypes(false);
+    private TurtleOntologyFormatFactory createTurtleOntologyFormat() {
+        TurtleOntologyFormatFactory format = new TurtleOntologyFormatFactory();
         return format;
     }
 
-    private void runTestOntologyContainsAxioms1(OWLOntologyFormat format)
-            throws Exception {
+    private void runTestOntologyContainsAxioms1(OWLOntologyFormatFactory formatFactory, boolean addMissingTypes) throws Exception {
+
         OWLOntology ont1 = getOWLOntology("testont1A");
         IRI ont1_iri = ont1.getOntologyID().getOntologyIRI();
         OWLOntology ont2 = getOWLOntology("testont2A");
@@ -169,17 +172,31 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         assertFalse(ont1.containsAxiom(ax_AsubB, true));
         assertTrue(ont2.containsAxiom(ax_AsubB, false));
         assertTrue(ont2.containsAxiom(ax_AsubB, true));
-        File savedLocation1 = File.createTempFile("testont1A", ".owl");
+        File savedLocation1 = File.createTempFile("testont1A", ".owl", testDataFolder);
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
         StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
+        OWLOntologyFormat format = formatFactory.getNewFormat();
+        if(format instanceof RDFOntologyFormat)
+        {
+            ((RDFOntologyFormat)format).setAddMissingTypes(addMissingTypes);
+        }
         getManager().saveOntology(ont1, format, writer1);
-        File savedLocation2 = File.createTempFile("testont2A.owl", ".owl");
+        File savedLocation2 = File.createTempFile("testont2A.owl", ".owl", testDataFolder);
         FileOutputStream out2 = new FileOutputStream(savedLocation2);
         StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
-        getManager().saveOntology(ont2, format, writer2);
+        OWLOntologyFormat format2 = formatFactory.getNewFormat();
+        if(format2 instanceof RDFOntologyFormat)
+        {
+            ((RDFOntologyFormat)format2).setAddMissingTypes(addMissingTypes);
+        }
+        getManager().saveOntology(ont2, format2, writer2);
+
+
         OWLOntologyManager man = Factory.getManager();
-        OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
-        OWLOntology ont2L = man.loadOntologyFromOntologyDocument(savedLocation2);
+
+        OWLOntology ont1L = man.loadOntologyFromOntologyDocument(new FileDocumentSource(savedLocation1, formatFactory));
+        OWLOntology ont2L = man.loadOntologyFromOntologyDocument(new FileDocumentSource(savedLocation2, formatFactory));
+
         // annoProp is in ont1 and in the import closure of ont2
         assertTrue(ont1L.containsAxiom(ax_annoProp_decl, false));
         assertFalse(ont2L.containsAxiom(ax_annoProp_decl, false));
@@ -200,26 +217,26 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
 
     @Test
     public void testOntologyContainsAxiomsForRDFXML2() throws Exception {
-        runTestOntologyContainsAxioms2(createRDFXMLFormat());
+        runTestOntologyContainsAxioms2(createRDFXMLFormat(), false);
     }
 
     @Test
     public void testOntologyContainsAxiomsForOWLXML2() throws Exception {
-        runTestOntologyContainsAxioms2(new OWLXMLOntologyFormat());
+        runTestOntologyContainsAxioms2(new OWLXMLOntologyFormatFactory(), true);
     }
 
     @Test
     public void testOntologyContainsAxiomsForOWLFunctionalSyntax2() throws Exception {
-        runTestOntologyContainsAxioms2(new OWLFunctionalSyntaxOntologyFormat());
+        runTestOntologyContainsAxioms2(new OWLFunctionalSyntaxOntologyFormatFactory(), true);
     }
 
     @Test
     public void testOntologyContainsAxiomsForTurtleSyntax2() throws Exception {
-        runTestOntologyContainsAxioms2(createTurtleOntologyFormat());
+        runTestOntologyContainsAxioms2(createTurtleOntologyFormat(), false);
     }
 
-    private void runTestOntologyContainsAxioms2(OWLOntologyFormat format)
-            throws Exception {
+    private void runTestOntologyContainsAxioms2(OWLOntologyFormatFactory formatFactory, boolean addMissingTypes) throws Exception {
+
         OWLOntology ont1 = getOWLOntology("testont1B");
         IRI ont1_iri = ont1.getOntologyID().getOntologyIRI();
         OWLOntology ont2 = getOWLOntology("testont2B");
@@ -256,18 +273,31 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         assertFalse(ont1.containsAxiom(ax_AsubB, true));
         assertTrue(ont2.containsAxiom(ax_AsubB, false));
         assertTrue(ont2.containsAxiom(ax_AsubB, true));
-        File savedLocation1 = File.createTempFile("testont1B", ".owl");
+        File savedLocation1 = File.createTempFile("testont1B", ".owl", testDataFolder);
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
         StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
+        OWLOntologyFormat format = formatFactory.getNewFormat();
+        if(format instanceof RDFOntologyFormat)
+        {
+            ((RDFOntologyFormat)format).setAddMissingTypes(addMissingTypes);
+        }
         getManager().saveOntology(ont1, format, writer1);
-        File savedLocation2 = File.createTempFile("testont2B", ".owl");
+        File savedLocation2 = File.createTempFile("testont2B", ".owl", testDataFolder);
         FileOutputStream out2 = new FileOutputStream(savedLocation2);
         StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
-        getManager().saveOntology(ont2, format, writer2);
+        OWLOntologyFormat format2 = formatFactory.getNewFormat();
+        if(format2 instanceof RDFOntologyFormat)
+        {
+            ((RDFOntologyFormat)format2).setAddMissingTypes(addMissingTypes);
+        }
+        getManager().saveOntology(ont2, format2, writer2);
+
+
         OWLOntologyManager man = Factory.getManager();
         @SuppressWarnings("unused")
-        OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
-        OWLOntology ont2L = man.loadOntologyFromOntologyDocument(savedLocation2);
+        OWLOntology ont1L = man.loadOntologyFromOntologyDocument(new FileDocumentSource(savedLocation1, formatFactory));
+        OWLOntology ont2L = man.loadOntologyFromOntologyDocument(new FileDocumentSource(savedLocation2, formatFactory));
+
         for (OWLOntology importedOntology : ont2L.getImports()) {
             for (OWLAxiom importedAxiom : importedOntology.getAxioms()) {
                 assertTrue(importedOntology.containsAxiom(importedAxiom, false));

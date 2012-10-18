@@ -42,6 +42,10 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLXMLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.TurtleOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -60,7 +64,9 @@ public abstract class AbstractRoundTrippingTestCase extends AbstractOWLAPITestCa
     }
 
     @Before
-    public void setUpOntology() throws Exception {
+    @Override
+    public void setUp() throws Exception {
+    	super.setUp();
         ont = createOntology();
     }
 
@@ -71,22 +77,22 @@ public abstract class AbstractRoundTrippingTestCase extends AbstractOWLAPITestCa
 
     @Test
     public void testOWLXML() throws Exception {
-        roundTripOntology(ont, new OWLXMLOntologyFormat());
+        roundTripOntology(ont, new OWLXMLOntologyFormatFactory());
     }
 
     @Test
     public void testFunctionalSyntax() throws Exception {
-        roundTripOntology(ont, new OWLFunctionalSyntaxOntologyFormat());
+        roundTripOntology(ont, new OWLFunctionalSyntaxOntologyFormatFactory());
     }
 
     @Test
     public void testTurtle() throws Exception {
-        roundTripOntology(ont, new TurtleOntologyFormat());
+        roundTripOntology(ont, new TurtleOntologyFormatFactory());
     }
 
     @Test
     public void testManchesterOWLSyntax() throws Exception {
-        roundTripOntology(ont, new ManchesterOWLSyntaxOntologyFormat());
+        roundTripOntology(ont, new ManchesterOWLSyntaxOntologyFormatFactory());
     }
 
     @Override
