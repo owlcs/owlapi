@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 24-Feb-2008 */
-@MetaInfServices(org.semanticweb.owlapi.io.OWLParserFactory.class)
+//Hide this in favour of the Sesame Rio Turtle Parser
+//@MetaInfServices(org.semanticweb.owlapi.io.OWLParserFactory.class)
 public class TurtleOntologyParserFactory implements OWLParserFactory {
     @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {

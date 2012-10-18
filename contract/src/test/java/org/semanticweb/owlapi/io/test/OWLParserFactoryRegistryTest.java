@@ -26,7 +26,7 @@ import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParserFactory;
  */
 public class OWLParserFactoryRegistryTest
 {
-    public static final int EXPECTED_PARSERS = 8;
+    public static final int EXPECTED_PARSERS = 15;
     
     private OWLParserFactoryRegistry testRegistry;
     

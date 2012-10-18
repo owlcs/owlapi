@@ -55,6 +55,7 @@ public class TypeInverseFunctionalPropertyHandler extends BuiltInTypeHandler {
     @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
+        // FIXME: Why is .handle being called from inside canHandleStreaming?
         getConsumer().handle(subject, predicate,
                 OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
         return !isAnonymous(subject);

@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
  * @author Peter Ansell p_ansell@yahoo.com
  *
  */
-@MetaInfServices(org.semanticweb.owlapi.model.OWLOntologyStorerFactory.class)
+//@MetaInfServices(org.semanticweb.owlapi.model.OWLOntologyStorerFactory.class)
 public class RDFXMLOntologyStorerFactory implements OWLOntologyStorerFactory
 {
     

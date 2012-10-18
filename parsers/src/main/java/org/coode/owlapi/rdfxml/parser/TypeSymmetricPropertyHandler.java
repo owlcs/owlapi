@@ -55,6 +55,7 @@ public class TypeSymmetricPropertyHandler extends BuiltInTypeHandler {
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
         if (!isAnonymous(subject)) {
+            // FIXME: Why is .handle being called from inside canHandleStreaming?
             getConsumer().handle(subject, predicate,
                     OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
         }

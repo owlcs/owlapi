@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorerFactoryRegistry;
  */
 public class OWLOntologyStorerFactoryRegistryTest
 {
-    public static final int EXPECTED_STORERS = 12;
+    public static final int EXPECTED_STORERS = 19;
     private OWLOntologyStorerFactoryRegistry testRegistry;
     
     /**

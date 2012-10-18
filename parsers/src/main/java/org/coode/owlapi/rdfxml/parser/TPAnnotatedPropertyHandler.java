@@ -55,6 +55,7 @@ public class TPAnnotatedPropertyHandler extends TriplePredicateHandler {
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
         getConsumer().addAnnotatedSource(object, subject);
+        // FIXME: This calls .handle from inside canHandleStreaming?
         getConsumer().checkForAndProcessAnnotatedDeclaration(subject);
         return false;
     }

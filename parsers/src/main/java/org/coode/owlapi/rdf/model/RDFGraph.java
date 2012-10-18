@@ -167,9 +167,7 @@ public class RDFGraph {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            logger.log(Level.WARNING,
-                    "Misbehaving triple comparator, leaving triples unsorted: "
-                            + toReturn, e);
+            logger.warn("Misbehaving triple comparator, leaving triples unsorted:", e);
         }
         return toReturn;
     }
@@ -234,5 +232,10 @@ public class RDFGraph {
             }
         }
         w.flush();
+    }
+    
+    public Set<RDFTriple> getAllTriples()
+    {
+        return Collections.unmodifiableSet(triples);
     }
 }

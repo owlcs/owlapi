@@ -49,11 +49,15 @@
 			<artifactId>owlapi-rio</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-rio</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-<<<<<<< HEAD
 			<!-- Creates binary distribution. -->
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -83,8 +87,6 @@
 					</executions>
 				</configuration>
 			</plugin>
-=======
->>>>>>> e5578b5... GITHUB : bump to version 3.4.9.3-ansell-SNAPSHOT
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<executions>
@@ -96,18 +98,15 @@
 						<configuration>
 							<includeDependencySources>true</includeDependencySources>
 							<dependencySourceIncludes>
-<<<<<<< HEAD
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-api</dependencySourceInclude>
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-apibinding</dependencySourceInclude>
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-parsers</dependencySourceInclude>
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-tools</dependencySourceInclude>
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboparser</dependencySourceInclude>
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-contract</dependencySourceInclude>
-=======
 								<!-- include ONLY owlapi artifacts -->
-								<dependencySourceInclude>com.github.ansell.owlapi:owlapi-*</dependencySourceInclude>
->>>>>>> e5578b5... GITHUB : bump to version 3.4.9.3-ansell-SNAPSHOT
+								<dependencySourceInclude>com.github.ansell.owlapi:owlapi-api</dependencySourceInclude>
+								<dependencySourceInclude>com.github.ansell.owlapi:owlapi-apibinding</dependencySourceInclude>
+								<dependencySourceInclude>com.github.ansell.owlapi:owlapi-parsers</dependencySourceInclude>
+								<dependencySourceInclude>com.github.ansell.owlapi:owlapi-tools</dependencySourceInclude>
+								<dependencySourceInclude>com.github.ansell.owlapi:owlapi-impl</dependencySourceInclude>
+								<dependencySourceInclude>com.github.ansell.owlapi:owlapi-oboformat</dependencySourceInclude>
+								<dependencySourceInclude>com.github.ansell.owlapi:owlapi-contract</dependencySourceInclude>
+								<dependencySourceInclude>com.github.ansell.owlapi:owlapi-rio</dependencySourceInclude>
 							</dependencySourceIncludes>
 						</configuration>
 					</execution>

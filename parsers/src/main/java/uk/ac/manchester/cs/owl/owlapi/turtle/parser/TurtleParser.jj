@@ -14,6 +14,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.semanticweb.owlapi.model.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.io.Reader;
 import java.io.InputStream;
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
@@ -27,7 +28,7 @@ public class TurtleParser implements AnonymousNodeChecker {
 
     private String base;
 
-    private int blankNodeId;
+    private AtomicInteger blankNodeId;
 
     private TripleHandler handler;
 
@@ -39,7 +40,7 @@ public class TurtleParser implements AnonymousNodeChecker {
         this.handler = handler;
         this.base = base;
         string2IRI = new HashMap<String, IRI>();
-        blankNodeId = 0;
+        blankNodeId = new AtomicInteger(0);
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
@@ -48,7 +49,7 @@ public class TurtleParser implements AnonymousNodeChecker {
         this.handler = handler;
         this.base = base;
         string2IRI = new HashMap<String, IRI>();
-        blankNodeId = 0;
+        blankNodeId = new AtomicInteger(0);
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
@@ -76,8 +77,7 @@ public class TurtleParser implements AnonymousNodeChecker {
     protected IRI getNextBlankNode(String id) {
         IRI iri;
         if(id == null) {
-            iri = getIRI("genid" + blankNodeId);
-            blankNodeId++;
+            iri = getIRI("genid" + blankNodeId.getAndIncrement());
         }
         else {
             iri = getIRI("genid-nodeid-" + id);

@@ -565,6 +565,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                     && !change.getOntology().equals(existingOntology)) {
                 if (!change.getOntology().getAxioms()
                         .equals(existingOntology.getAxioms())) {
+                    logger.error("OWLOntologyManagerImpl.checkForOntologyIDChange() existing:\n"+existingOntology);
+                    logger.error("OWLOntologyManagerImpl.checkForOntologyIDChange() new:\n"+change.getOntology());
                     throw new OWLOntologyRenameException(change,
                             ((SetOntologyID) change).getNewOntologyID());
                 }

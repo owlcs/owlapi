@@ -44,6 +44,7 @@ import java.util.Map;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.rio.RioParser;
 
 /** A class that describes how ontology parsing failed. This class collects parse
  * errors and the parsers that generated the errors.
@@ -88,6 +89,11 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
             msg.append(counter);
             msg.append(") ");
             msg.append(parser.getClass().getSimpleName());
+            if(parser instanceof RioParser)
+            {
+                msg.append(" ");
+                msg.append(((RioParser)parser).getParserFormat());
+            }
             msg.append("\n");
             counter++;
         }
@@ -97,6 +103,11 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
             msg.append("--------------------------------------------------------------------------------\n");
             msg.append("Parser: ");
             msg.append(parser.getClass().getSimpleName());
+            if(parser instanceof RioParser)
+            {
+                msg.append(" ");
+                msg.append(((RioParser)parser).getParserFormat());
+            }
             msg.append("\n");
             if (!includeStackTraceInMessage) {
                 msg.append(exception.getMessage());

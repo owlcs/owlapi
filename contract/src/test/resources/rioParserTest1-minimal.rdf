@@ -1,0 +1,50 @@
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY otherOnt "http://example.org/otherOntologies/families/" >
+]>
+
+ <rdf:RDF xml:base="http://example.com/owl/families/"
+   xmlns="http://example.com/owl/families/"
+   xmlns:otherOnt="http://example.org/otherOntologies/families/"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+
+   <owl:Ontology rdf:about="http://example.com/owl/families">
+     <!-- owl:imports rdf:resource="http://example.org/otherOntologies/families.owl" / -->
+   </owl:Ontology>
+   
+  <rdf:Description rdf:about="personAge">
+     <rdf:type rdf:resource="&rdfs;Datatype" />
+     <owl:equivalentClass>
+       <rdfs:Datatype>
+         <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+         <owl:withRestrictions rdf:parseType="Collection">
+           <rdf:Description>
+             <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</xsd:minInclusive>
+           </rdf:Description>
+           <rdf:Description>
+             <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">150</xsd:maxInclusive>
+           </rdf:Description>
+         </owl:withRestrictions>
+       </rdfs:Datatype>
+     </owl:equivalentClass>
+   </rdf:Description>
+   
+   <rdf:Description rdf:about="majorAge">
+     <rdf:type rdf:resource="&rdfs;Datatype" />
+     <owl:equivalentClass>
+       <rdfs:Datatype>
+         <owl:intersectionOf rdf:parseType="Collection">
+           <rdf:Description rdf:about="personAge"/>
+           <rdfs:Datatype>
+             <owl:datatypeComplementOf rdf:resource="minorAge"/>
+           </rdfs:Datatype>
+         </owl:intersectionOf>
+       </rdfs:Datatype>
+     </owl:equivalentClass>
+   </rdf:Description>
+</rdf:RDF>
