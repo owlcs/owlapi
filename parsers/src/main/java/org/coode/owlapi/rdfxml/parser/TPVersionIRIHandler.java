@@ -94,9 +94,7 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
 
     @Override
     @SuppressWarnings("unused")
-    public boolean canHandle(IRI subject,
-            IRI predicate,
-            IRI object) {
-        return subject.equals(getConsumer().getOntology().getOntologyID().getOntologyIRI());
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        return predicate.equals(OWLRDFVocabulary.OWL_VERSION_IRI.getIRI());
     }
 }

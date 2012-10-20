@@ -43,16 +43,66 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.semanticweb.owlapi.io.*;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFOntologyFormat;
+import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
+import org.semanticweb.owlapi.io.RDFParserMetaData;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceParseError;
+import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.vocab.*;
+import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLFacet;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.xml.sax.SAXException;
 
 
@@ -202,17 +252,17 @@ public class OWLRDFConsumer implements RDFConsumer {
     private OWLOntology ontology;
 
     private int expectedAxioms = -1;
-    
+
     private int parsedAxioms = 0;
-    
+
     private RDFOntologyFormat ontologyFormat;
 
     private OWLDataFactory dataFactory;
 
 
-//    private List<ClassExpressionTranslator> objectRestrictionTranslators = new ArrayList<ClassExpressionTranslator>();
-//
-//    private List<ClassExpressionTranslator> dataRestrictionTranslators = new ArrayList<ClassExpressionTranslator>();
+    //    private List<ClassExpressionTranslator> objectRestrictionTranslators = new ArrayList<ClassExpressionTranslator>();
+    //
+    //    private List<ClassExpressionTranslator> dataRestrictionTranslators = new ArrayList<ClassExpressionTranslator>();
 
     private List<ClassExpressionTranslator> classExpressionTranslators = new ArrayList<ClassExpressionTranslator>();
 
@@ -249,7 +299,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private TPTypeHandler nonBuiltInTypeHandler;
 
-//    private GTPObjectPropertyAssertionHandler objectPropertyAssertionHandler;
+    //    private GTPObjectPropertyAssertionHandler objectPropertyAssertionHandler;
 
     /**
      * A cache of annotation axioms to be added at the end - saves some peek memory doing this
@@ -263,10 +313,10 @@ public class OWLRDFConsumer implements RDFConsumer {
     private boolean parsedAllTriples = false;
 
     public OWLRDFConsumer(OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
-        this.owlOntologyManager = ontology.getOWLOntologyManager();
+        owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
-        this.dataFactory = owlOntologyManager.getOWLDataFactory();
-        this.anonymousNodeChecker = checker;
+        dataFactory = owlOntologyManager.getOWLDataFactory();
+        anonymousNodeChecker = checker;
         this.configuration = configuration;
 
         classExpressionTranslators.add(new NamedClassTranslator(this));
@@ -389,6 +439,9 @@ public class OWLRDFConsumer implements RDFConsumer {
 
         // Cache anything in the existing imports closure
         importsClosureChanged();
+        if (this.ontology.getOntologyID().getOntologyIRI() != null) {
+            addOntology(this.ontology.getOntologyID().getOntologyIRI());
+        }
     }
 
     @Deprecated
@@ -543,7 +596,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     public void setOntologyFormat(RDFOntologyFormat format) {
-        this.ontologyFormat = format;
+        ontologyFormat = format;
     }
 
     public void setExpectedAxioms(int expectedAxioms) {
@@ -620,7 +673,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addAxiomTypeTripleHandler(new TypeAllDifferentHandler(this));
         addAxiomTypeTripleHandler(new TypeAllDisjointClassesHandler(this));
         addAxiomTypeTripleHandler(new TypeAllDisjointPropertiesHandler(this));
-       // addAxiomTypeTripleHandler(new TypeAllDifferentHandler(this));
+        // addAxiomTypeTripleHandler(new TypeAllDifferentHandler(this));
         addAxiomTypeTripleHandler(new TypeNegativePropertyAssertionHandler(this));
     }
 
@@ -645,7 +698,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         nonBuiltInTypeHandler = new TPTypeHandler(this);
         addPredicateHandler(nonBuiltInTypeHandler);
         addPredicateHandler(new TPDistinctMembersHandler(this));
-      //  addPredicateHandler(new TPDistinctMembersHandlerAlternateForm(this));
+        //  addPredicateHandler(new TPDistinctMembersHandlerAlternateForm(this));
         addPredicateHandler(new TPImportsHandler(this));
         addPredicateHandler(new TPIntersectionOfHandler(this));
         addPredicateHandler(new TPUnionOfHandler(this));
@@ -735,25 +788,25 @@ public class OWLRDFConsumer implements RDFConsumer {
         // We cache IRIs of various entities here.
         // We also mop up any triples that weren't parsed and consumed in the imports closure.
         for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
-                for (OWLAnnotationProperty prop : ont.getAnnotationPropertiesInSignature()) {
-                    annotationPropertyIRIs.add(prop.getIRI());
-                }
-                for (OWLDataProperty prop : ont.getDataPropertiesInSignature()) {
-                    dataPropertyExpressionIRIs.add(prop.getIRI());
-                }
-                for (OWLObjectProperty prop : ont.getObjectPropertiesInSignature()) {
-                    objectPropertyExpressionIRIs.add(prop.getIRI());
-                }
-                for (OWLClass cls : ont.getClassesInSignature()) {
-                    classExpressionIRIs.add(cls.getIRI());
-                }
-                for (OWLDatatype datatype : ont.getDatatypesInSignature()) {
-                    dataRangeIRIs.add(datatype.getIRI());
-                }
-                for (OWLNamedIndividual ind : ont.getIndividualsInSignature()) {
-                    individualIRIs.add(ind.getIRI());
-                }
-                
+            for (OWLAnnotationProperty prop : ont.getAnnotationPropertiesInSignature()) {
+                annotationPropertyIRIs.add(prop.getIRI());
+            }
+            for (OWLDataProperty prop : ont.getDataPropertiesInSignature()) {
+                dataPropertyExpressionIRIs.add(prop.getIRI());
+            }
+            for (OWLObjectProperty prop : ont.getObjectPropertiesInSignature()) {
+                objectPropertyExpressionIRIs.add(prop.getIRI());
+            }
+            for (OWLClass cls : ont.getClassesInSignature()) {
+                classExpressionIRIs.add(cls.getIRI());
+            }
+            for (OWLDatatype datatype : ont.getDatatypesInSignature()) {
+                dataRangeIRIs.add(datatype.getIRI());
+            }
+            for (OWLNamedIndividual ind : ont.getIndividualsInSignature()) {
+                individualIRIs.add(ind.getIRI());
+            }
+
         }
     }
 
@@ -820,7 +873,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         Set<OWLOntology> imports = ontology.getImports();
         for (OWLOntology ont : imports) {
             unparsedTriples.addAll(getUnconsumedTriples(ont));
-            
+
         }
         return unparsedTriples;
     }
@@ -867,7 +920,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
     private int lastPercentParsed = 0;
-    
+
     protected void addAxiom(OWLAxiom axiom) {
         if (expectedAxioms > 0) {
             parsedAxioms++;
@@ -1330,9 +1383,9 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     protected void dumpRemainingTriples() {
-//        if (!logger.isLoggable(Level.FINE)) {
-//            return;
-//        }
+        //        if (!logger.isLoggable(Level.FINE)) {
+        //            return;
+        //        }
         StringWriter sw = new StringWriter();
         PrintWriter w = new PrintWriter(sw);
 
@@ -1410,8 +1463,8 @@ public class OWLRDFConsumer implements RDFConsumer {
 
             // We are now left with triples that could not be consumed during streaming parsing
 
-//            classExpressionIRIs.removeAll(restrictionIRIs);
-//            classExpressionIRIs.removeAll(dataRangeIRIs);
+            //            classExpressionIRIs.removeAll(restrictionIRIs);
+            //            classExpressionIRIs.removeAll(dataRangeIRIs);
 
             IRIMap.clear();
 
@@ -1486,7 +1539,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             throw new TranslatedUnloadedImportException(e);
         }
     }
-    
+
     private void addAnnotationAxioms() {
         for(OWLAxiom axiom : parsedAnnotationAxioms) {
             owlOntologyManager.addAxiom(ontology, axiom);
@@ -1671,7 +1724,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-//    private int addCount = 0;
+    //    private int addCount = 0;
 
 
     /**
@@ -2405,7 +2458,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         LiteralTriple - this was used to store triples.  However, with very large ontologies this
         proved to be inefficient in terms of memory usage.  Now we just store raw subjects, predicates and
         object directly in varous maps.
-    */
+     */
 
     // Resource triples
 

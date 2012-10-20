@@ -106,12 +106,34 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     boolean contains(OWLOntologyID id);
 
-    /**
-     * Gets a previously loaded/created ontology that has the specified ontology IRI and no version IRI.
-     * @param ontologyIRI The IRI of the ontology to be retrieved.
-     * @return The ontology that has the specified IRI and no version IRI, or <code>null</code> if this manager does
-     * not manage an ontology with the specified IRI and no version IRI.
-     */
+    /** Determines if there is an ontology with the specified version IRI, that
+     * is managed by this manager.
+     * 
+     * @param ontologyVersionIRI
+     *            The version IRI of the ontology to test for (the ontology IRI
+     *            may be anything)
+     * @return <code>true</code> if there is an ontology with the specified
+     *         version IRI, that is managed by this manager, otherwise
+     *         <code>false</code>. */
+    // TODO to be added
+    // boolean containsVersion(IRI ontologyVersionIRI);
+    /** Gets a set of OWLOntologyIDs representing ontologies that are managed by
+     * this manager.
+     * 
+     * @param ontologyVersionIRI
+     *            The version IRI to match against all of the known ontologies.
+     * @return A set of OWLOntologyIDs where the version matches the given
+     *         version or the empty set if none match. */
+    // TODO to be added
+    // Set<OWLOntologyID> getOntologyIDsByVersion(IRI ontologyVersionIRI);
+    /** Gets a previously loaded/created ontology that has the specified ontology
+     * IRI and no version IRI.
+     * 
+     * @param ontologyIRI
+     *            The IRI of the ontology to be retrieved.
+     * @return The ontology that has the specified IRI and no version IRI, or
+     *         <code>null</code> if this manager does not manage an ontology
+     *         with the specified IRI and no version IRI. */
     OWLOntology getOntology(IRI ontologyIRI);
 
     /**
@@ -468,7 +490,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     OWLOntology loadOntologyFromOntologyDocument(File file) throws OWLOntologyCreationException;
 
-     /**
+    /**
      * Loads an ontology from an ontology document obtained from an input stream.  The loaded ontology will be assigned
      * an auto-generated document IRI with "inputstream" as its scheme.
      * @param inputStream The input stream that can be used to obtain a representation of an ontology
@@ -484,7 +506,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * when trying to load the ontology.
      * @throws OWLOntologyAlreadyExistsException if the manager already contains an ontology whose ontology IRI and
      * version IRI is the same as the ontology IRI and version IRI of the ontology obtained from parsing the content
-      * of the input stream.
+     * of the input stream.
      */
     OWLOntology loadOntologyFromOntologyDocument(InputStream inputStream) throws OWLOntologyCreationException;
 

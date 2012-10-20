@@ -53,6 +53,7 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.io.FileDocumentSource;
@@ -198,11 +199,57 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
     }
 
     public boolean contains(IRI ontologyIRI) {
-        return contains(new OWLOntologyID(ontologyIRI));
+        if (ontologyIRI == null) {
+            throw new IllegalArgumentException("Ontology IRI cannot be null");
+        }
+        for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
+            if (ontologyIRI.equals(nextOntologyID.getOntologyIRI())) {
+                return true;
+            }
+        }
+        for (OWLOntologyID ont : ontologiesByID.keySet()) {
+            if (ontologyIRI.equals(ont.getVersionIRI())) {
+                return true;
+            }
+        }
+        // FIXME: ParsableOWLOntologyFactory seems to call this method with a
+        // document/physical IRI,
+        // but this method fails the general case where the ontology was loaded
+        // from the given IRI directly, but was then renamed
+        return false;
     }
 
     public boolean contains(OWLOntologyID id) {
-        return ontologiesByID.containsKey(id);
+        if (ontologiesByID.containsKey(id)) {
+            return true;
+        }
+        for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
+            if (id.getOntologyIRI().equals(nextOntologyID.getOntologyIRI())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // TODO add to interface
+    public boolean containsVersion(IRI ontologyVersionIRI) {
+        for (OWLOntologyID ont : ontologiesByID.keySet()) {
+            if (ontologyVersionIRI.equals(ont.getVersionIRI())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // TODO add to interface
+    public Set<OWLOntologyID> getOntologyIDsByVersion(IRI ontologyVersionIRI) {
+        Set<OWLOntologyID> result = new TreeSet<OWLOntologyID>();
+        for (OWLOntologyID ont : ontologiesByID.keySet()) {
+            if (ontologyVersionIRI.equals(ont.getVersionIRI())) {
+                result.add(ont);
+            }
+        }
+        return result;
     }
 
     /**
@@ -217,7 +264,39 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
      */
     public OWLOntology getOntology(IRI ontologyIRI) {
         OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRI);
-        return getOntology(ontologyID);
+        // return getOntology(ontologyID);
+        OWLOntology result = ontologiesByID.get(ontologyID);
+        if (result == null) {
+            for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
+                if (ontologyIRI.equals(nextOntologyID.getVersionIRI())) {
+                    result = ontologiesByID.get(nextOntologyID);
+                }
+            }
+        }
+        // HACK: This extra clause is necessary to make getOntology match the
+        // behaviour of createOntology
+        // in cases where a documentIRI has been recorded, based on the mappers,
+        // but an ontology has not
+        // been stored in ontologiesByID
+        if (result == null) {
+            IRI documentIRI = getDocumentIRIFromMappers(ontologyID, true);
+            if (documentIRI == null) {
+                if (!ontologyID.isAnonymous()) {
+                    documentIRI = ontologyID.getDefaultDocumentIRI();
+                } else {
+                    documentIRI = IRI.generateDocumentIRI();
+                }
+                Collection<IRI> existingDocumentIRIs = documentIRIsByID.values();
+                while (existingDocumentIRIs.contains(documentIRI)) {
+                    documentIRI = IRI.generateDocumentIRI();
+                }
+            }
+            if (documentIRIsByID.values().contains(documentIRI)) {
+                throw new RuntimeException(new OWLOntologyDocumentAlreadyExistsException(
+                        documentIRI));
+            }
+        }
+        return result;
     }
 
     /**
@@ -231,7 +310,38 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
      *         ontology ID.
      */
     public OWLOntology getOntology(OWLOntologyID ontologyID) {
-        return ontologiesByID.get(ontologyID);
+        OWLOntology result = ontologiesByID.get(ontologyID);
+        if (result == null) {
+            for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
+                if (ontologyID.getOntologyIRI().equals(nextOntologyID.getOntologyIRI())) {
+                    result = ontologiesByID.get(nextOntologyID);
+                }
+            }
+        }
+        // HACK: This extra clause is necessary to make getOntology match the
+        // behaviour of createOntology
+        // in cases where a documentIRI has been recorded, based on the mappers,
+        // but an ontology has not
+        // been stored in ontologiesByID
+        if (result == null) {
+            IRI documentIRI = getDocumentIRIFromMappers(ontologyID, true);
+            if (documentIRI == null) {
+                if (!ontologyID.isAnonymous()) {
+                    documentIRI = ontologyID.getDefaultDocumentIRI();
+                } else {
+                    documentIRI = IRI.generateDocumentIRI();
+                }
+                Collection<IRI> existingDocumentIRIs = documentIRIsByID.values();
+                while (existingDocumentIRIs.contains(documentIRI)) {
+                    documentIRI = IRI.generateDocumentIRI();
+                }
+            }
+            if (documentIRIsByID.values().contains(documentIRI)) {
+                throw new RuntimeException(new OWLOntologyDocumentAlreadyExistsException(
+                        documentIRI));
+            }
+        }
+        return result;
     }
 
     public Set<OWLOntology> getVersions(IRI ontology) {
@@ -487,7 +597,8 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
                 IRI iri = addImportDeclaration.getIRI();
                 for (OWLOntologyID id : ontologiesByID.keySet()) {
                     if (iri.equals(id.getDefaultDocumentIRI())
-                            || iri.equals(id.getOntologyIRI())) {
+                            || iri.equals(id.getOntologyIRI())
+                            || iri.equals(id.getVersionIRI())) {
                         found = true;
                         ontologyIDsByImportsDeclaration.put(addImportDeclaration, id);
                     }
@@ -662,11 +773,26 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
     protected OWLOntology loadOntology(IRI ontologyIRI, boolean allowExists,
             OWLOntologyLoaderConfiguration configuration)
                     throws OWLOntologyCreationException {
-        OWLOntologyID id = new OWLOntologyID(ontologyIRI);
-        OWLOntology ontByID = ontologiesByID.get(id);
+        OWLOntology ontByID = null;
+        // Check for matches on the ontology IRI first
+        for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
+            if (ontologyIRI.equals(nextOntologyID.getOntologyIRI())) {
+                ontByID = ontologiesByID.get(nextOntologyID);
+            }
+        }
+        // This method may be called using a version IRI, so also check the
+        // version IRI if necessary
+        if (ontByID == null) {
+            for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
+                if (ontologyIRI.equals(nextOntologyID.getVersionIRI())) {
+                    ontByID = ontologiesByID.get(nextOntologyID);
+                }
+            }
+        }
         if (ontByID != null) {
             return ontByID;
         }
+        OWLOntologyID id = new OWLOntologyID(ontologyIRI);
         IRI documentIRI = getDocumentIRIFromMappers(id, true);
         if (documentIRI != null) {
             if (documentIRIsByID.values().contains(documentIRI) && !allowExists) {

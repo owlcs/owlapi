@@ -1,5 +1,9 @@
 3.4.1 16 Sep 2012
 
+Features implemented:
+3578004    OWLRDFVocabulary Javadoc
+3575834    Improvements to OWLOntologyManager and related contrib
+
 Bugs closed:
 3463200    rdf/functional round trip problem (anonymous individuals)
 3341637    round trip problem with owl functional or rdf/xml syntax

@@ -52,8 +52,8 @@ public class AnonymousTestCase {
         // + saved);
         OWLOntology ontologyReloaded = loadOntology(saved);
         saved = saveOntology(ontologyReloaded);
-        System.out.println("AnonymousFunctionalRoundtripTestCase.shouldRoundTrip() "
-                + saved);
+        // System.out.println("AnonymousFunctionalRoundtripTestCase.shouldRoundTrip() "
+        // + saved);
         assertEquals(asString(ontology), asString(ontologyReloaded));
     }
 
@@ -62,8 +62,8 @@ public class AnonymousTestCase {
         for (OWLAxiom ax : o.getLogicalAxioms()) {
             set.add(ax.toString().replaceAll("\\_\\:genid[0-9]+", "genid"));
         }
-        System.out.println("AnonymousTestCase.asString() "
-                + set.toString().replace(",", "\n"));
+        // System.out.println("AnonymousTestCase.asString() "
+        // + set.toString().replace(",", "\n"));
         return set;
     }
 
