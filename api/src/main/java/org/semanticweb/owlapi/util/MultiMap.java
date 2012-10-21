@@ -95,7 +95,7 @@ public class MultiMap<Key, Value> implements Serializable {
         return toReturn;
     }
 
-    private Collection<Value> createCollection() {
+    protected Collection<Value> createCollection() {
         Collection<Value> toReturn;
         if (useSets) {
             if (threadSafe) {
