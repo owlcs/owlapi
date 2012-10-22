@@ -78,7 +78,7 @@ public class SetOntologyID extends OWLOntologyChange {
      */
     @Override
     public SetOntologyIDData getChangeData() {
-        return new SetOntologyIDData(ontologyID);
+        return new SetOntologyIDData(newOntologyID);
     }
 
     /**

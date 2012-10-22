@@ -120,7 +120,7 @@ public final class OWLOntologyChangeRecord implements Serializable {
             throw new NullPointerException("ontologyID must not be null");
         }
         if (data == null) {
-            throw new NullPointerException("recordInfo must not be null");
+            throw new NullPointerException("data must not be null");
         }
         this.ontologyID = ontologyID;
         this.data = data;
