@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -166,6 +167,10 @@ public class ContractOwlapiModel_1Test {
             @Override
             public <O> O accept(final OWLOntologyChangeVisitorEx<O> visitor) {
                 return null;
+            }
+            @Override
+            public OWLOntologyChangeData getChangeData() {
+                return mock(OWLOntologyChangeData.class);
             }
         };
         boolean result1 = testSubject0.isAxiomChange();
@@ -752,6 +757,11 @@ public class ContractOwlapiModel_1Test {
             @Override
             protected boolean isAdd() {
                 return false;
+            }
+            
+            @Override
+            public OWLOntologyChangeData getChangeData() {
+                return mock(OWLOntologyChangeData.class);
             }
 
             @Override

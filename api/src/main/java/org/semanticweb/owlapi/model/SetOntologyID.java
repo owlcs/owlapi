@@ -39,6 +39,11 @@
 
 package org.semanticweb.owlapi.model;
 
+import org.semanticweb.owlapi.change.SetOntologyIDData;
+
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -65,6 +70,26 @@ public class SetOntologyID extends OWLOntologyChange {
         this.newOntologyID = ontologyID;
     }
 
+    /**
+     * Gets the data (independent of the ontology) associated with this specific change.
+     *
+     * @return The {@link org.semanticweb.owlapi.change.OWLOntologyChangeData} associated with this {@link
+     *         org.semanticweb.owlapi.model.OWLOntologyChange}.  Not {@code null}.
+     */
+    @Override
+    public SetOntologyIDData getChangeData() {
+        return new SetOntologyIDData(ontologyID);
+    }
+
+    /**
+     * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
+     * @return A set of entities that correspond to the
+     *         signature of this object. The set is a copy, changes are not reflected back.
+     */
+    @Override
+    public Set<OWLEntity> getSignature() {
+        return Collections.emptySet();
+    }
 
     /**
      * Determines if this change is an import change
@@ -74,26 +99,6 @@ public class SetOntologyID extends OWLOntologyChange {
 	public boolean isImportChange() {
         return false;
     }
-
-
-    @Override
-	public int hashCode() {
-        return 57 + ontologyID.hashCode() + newOntologyID.hashCode() * 3;
-    }
-
-
-    @Override
-	public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof SetOntologyID)) {
-            return false;
-        }
-        SetOntologyID change = (SetOntologyID) obj;
-        return change.getOriginalOntologyID().equals(ontologyID) && change.getNewOntologyID().equals(this.getNewOntologyID());
-    }
-
 
     @Override
 	public boolean isAxiomChange() {
@@ -146,8 +151,32 @@ public class SetOntologyID extends OWLOntologyChange {
     @Override
 	public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("SET ONTOLOGY ID: ");
+        sb.append("SetOntologyID(");
         sb.append(getNewOntologyID().toString());
+        sb.append(" OntologyID(");
+        sb.append(getOntology().getOntologyID());
+        sb.append(")");
+        sb.append(")");
         return sb.toString();
     }
+
+
+    @Override
+    public int hashCode() {
+        return 57 + ontologyID.hashCode() + newOntologyID.hashCode() * 3;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof SetOntologyID)) {
+            return false;
+        }
+        SetOntologyID change = (SetOntologyID) obj;
+        return change.getOriginalOntologyID().equals(ontologyID) && change.getNewOntologyID().equals(this.getNewOntologyID());
+    }
+
 }

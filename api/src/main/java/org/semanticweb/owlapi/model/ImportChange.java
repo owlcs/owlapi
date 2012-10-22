@@ -38,6 +38,10 @@
  */
 
 package org.semanticweb.owlapi.model;
+
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -66,6 +70,15 @@ public abstract class ImportChange extends OWLOntologyChange {
         return declaration;
     }
 
+    /**
+     * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
+     * @return A set of entities that correspond to the
+     *         signature of this object. The set is a copy, changes are not reflected back.
+     */
+    @Override
+    public Set<OWLEntity> getSignature() {
+        return Collections.emptySet();
+    }
 
     /**
      * Determines if this change is an import change

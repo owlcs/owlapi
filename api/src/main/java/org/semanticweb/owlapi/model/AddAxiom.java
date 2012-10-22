@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.model;
 
+import org.semanticweb.owlapi.change.AddAxiomData;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -59,6 +61,16 @@ public class AddAxiom extends OWLAxiomChange {
         super(ont, axiom);
     }
 
+    /**
+     * Gets the data (independent of the ontology) associated with this specific change.
+     *
+     * @return The {@link org.semanticweb.owlapi.change.OWLOntologyChangeData} associated with this {@link
+     *         org.semanticweb.owlapi.model.OWLOntologyChange}.  Not {@code null}.
+     */
+    @Override
+    public AddAxiomData getChangeData() {
+        return new AddAxiomData(getAxiom());
+    }
 
     @Override
 	protected boolean isAdd() {
@@ -99,8 +111,12 @@ public class AddAxiom extends OWLAxiomChange {
     @Override
 	public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("ADD AXIOM: ");
+        sb.append("AddAxiom(");
         sb.append(getAxiom().toString());
+        sb.append(" OntologyID(");
+        sb.append(getOntology().getOntologyID());
+        sb.append(")");
+        sb.append(")");
         return sb.toString();
     }
 }

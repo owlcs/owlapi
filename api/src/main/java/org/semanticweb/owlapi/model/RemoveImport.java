@@ -38,6 +38,13 @@
  */
 
 package org.semanticweb.owlapi.model;
+
+import org.semanticweb.owlapi.change.RemoveImportData;
+import org.semanticweb.owlapi.util.CollectionFactory;
+
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -53,6 +60,27 @@ public class RemoveImport extends ImportChange {
     public RemoveImport(OWLOntology ont,
                         OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);
+    }
+
+    /**
+     * Gets the {@link RemoveImportData} (independent of the ontology) associated with this specific change.
+     *
+     * @return The {@link org.semanticweb.owlapi.change.OWLOntologyChangeData} associated with this {@link
+     *         org.semanticweb.owlapi.model.OWLOntologyChange}.  Not {@code null}.
+     */
+    @Override
+    public RemoveImportData getChangeData() {
+        return new RemoveImportData(getImportDeclaration());
+    }
+
+    /**
+     * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
+     * @return A set of entities that correspond to the
+     *         signature of this object. The set is a copy, changes are not reflected back.
+     */
+    @Override
+    public Set<OWLEntity> getSignature() {
+        return Collections.emptySet();
     }
 
     @Override
@@ -77,8 +105,9 @@ public class RemoveImport extends ImportChange {
     @Override
 	public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("REMOVE IMPORT: ");
+        sb.append("RemoveImport(");
         sb.append(getImportDeclaration().toString());
+        sb.append(")");
         return sb.toString();
     }
 
