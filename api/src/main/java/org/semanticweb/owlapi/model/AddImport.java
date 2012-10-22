@@ -38,6 +38,9 @@
  */
 
 package org.semanticweb.owlapi.model;
+
+import org.semanticweb.owlapi.change.AddImportData;
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -56,7 +59,16 @@ public class AddImport extends ImportChange {
         super(ont, importDeclaration);
     }
 
-
+    /**
+     * Gets the data (independent of the ontology) associated with this specific change.
+     *
+     * @return The {@link org.semanticweb.owlapi.change.OWLOntologyChangeData} associated with this {@link
+     *         org.semanticweb.owlapi.model.OWLOntologyChange}.  Not {@code null}.
+     */
+    @Override
+    public AddImportData getChangeData() {
+        return new AddImportData(getImportDeclaration());
+    }
 
     @Override
 	public int hashCode() {
@@ -80,8 +92,12 @@ public class AddImport extends ImportChange {
     @Override
 	public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("ADD IMPORT: ");
+        sb.append("AddImport(");
         sb.append(getImportDeclaration().toString());
+        sb.append(" OntologyID(");
+        sb.append(getOntology().getOntologyID());
+        sb.append(")");
+        sb.append(")");
         return sb.toString();
     }
 

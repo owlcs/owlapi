@@ -38,6 +38,12 @@
  */
 
 package org.semanticweb.owlapi.model;
+
+import org.semanticweb.owlapi.change.RemoveAxiomData;
+
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -60,6 +66,17 @@ public class RemoveAxiom extends OWLAxiomChange {
     @Override
 	protected boolean isAdd() {
         return false;
+    }
+
+    /**
+     * Gets the data (independent of the ontology) associated with this specific change.
+     *
+     * @return The {@link org.semanticweb.owlapi.change.RemoveAxiomData} associated with this {@link
+     *         org.semanticweb.owlapi.model.OWLOntologyChange}.  Not {@code null}.
+     */
+    @Override
+    public RemoveAxiomData getChangeData() {
+        return new RemoveAxiomData(getAxiom());
     }
 
 
@@ -98,8 +115,12 @@ public class RemoveAxiom extends OWLAxiomChange {
     @Override
 	public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("REMOVE AXIOM: ");
+        sb.append("RemoveAxiom(");
         sb.append(getAxiom().toString());
+        sb.append(" OntologyID(");
+        sb.append(getOntology().getOntologyID());
+        sb.append(")");
+        sb.append(")");
         return sb.toString();
     }
 }

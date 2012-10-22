@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
@@ -1212,6 +1213,21 @@ public class ContractOwlapiModel_3Test {
             @Override
             public boolean isAxiomChange() {
                 return false;
+            }
+
+            /**
+             * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
+             * @return A set of entities that correspond to the
+             *         signature of this object. The set is a copy, changes are not reflected back.
+             */
+            @Override
+            public Set<OWLEntity> getSignature() {
+                return null;
+            }
+
+            @Override
+            public OWLOntologyChangeData getChangeData() {
+                return null;
             }
 
             @Override

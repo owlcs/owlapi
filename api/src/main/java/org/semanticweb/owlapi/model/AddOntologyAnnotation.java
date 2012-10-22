@@ -38,6 +38,11 @@
  */
 
 package org.semanticweb.owlapi.model;
+
+import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
+
+import java.util.Set;
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -59,6 +64,15 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
         this.annotation = annotation;
     }
 
+    /**
+     * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
+     * @return A set of entities that correspond to the
+     *         signature of this object. The set is a copy, changes are not reflected back.
+     */
+    @Override
+    public Set<OWLEntity> getSignature() {
+        return annotation.getSignature();
+    }
 
     @Override
 	public boolean isAxiomChange() {
@@ -74,6 +88,16 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
         return annotation;
     }
 
+    /**
+     * Gets the data (independent of the ontology) associated with this specific change.
+     *
+     * @return The {@link org.semanticweb.owlapi.change.OWLOntologyChangeData} associated with this {@link
+     *         org.semanticweb.owlapi.model.OWLOntologyChange}.  Not {@code null}.
+     */
+    @Override
+    public AddOntologyAnnotationData getChangeData() {
+        return new AddOntologyAnnotationData(annotation);
+    }
 
     @Override
 	public OWLAxiom getAxiom() {
@@ -119,8 +143,12 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
     @Override
 	public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("ADD ONTOLOGY ANNOTATION: ");
+        sb.append("AddOntologyAnnotation(");
         sb.append(getAnnotation().toString());
+        sb.append(" OntologyID(");
+        sb.append(getOntology().getOntologyID());
+        sb.append(")");
+        sb.append(")");
         return sb.toString();
     }
 }

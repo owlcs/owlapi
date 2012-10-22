@@ -38,6 +38,12 @@
  */
 
 package org.semanticweb.owlapi.model;
+
+import org.semanticweb.owlapi.change.OWLOntologyChangeData;
+import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
+
+import java.util.Set;
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -66,6 +72,20 @@ public class RemoveOntologyAnnotation extends OWLOntologyChange {
         return annotation;
     }
 
+    /**
+     * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
+     * @return A set of entities that correspond to the
+     *         signature of this object. The set is a copy, changes are not reflected back.
+     */
+    @Override
+    public Set<OWLEntity> getSignature() {
+        return annotation.getSignature();
+    }
+
+    @Override
+    public OWLOntologyChangeData getChangeData() {
+        return new RemoveOntologyAnnotationData(annotation);
+    }
 
     @Override
 	public boolean isAxiomChange() {
@@ -117,8 +137,12 @@ public class RemoveOntologyAnnotation extends OWLOntologyChange {
     @Override
 	public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("REMOVE ONTOLOGY ANNOTATION: ");
+        sb.append("RemoveOntologyAnnotation(");
         sb.append(getAnnotation().toString());
+        sb.append(" OntologyID(");
+        sb.append(getOntology().getOntologyID());
+        sb.append(")");
+        sb.append(")");
         return sb.toString();
     }
 }

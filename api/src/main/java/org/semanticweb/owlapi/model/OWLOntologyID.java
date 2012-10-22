@@ -183,16 +183,21 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
 
     @Override
 	public String toString() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("OntologyID(");
         if (ontologyIRI != null) {
+            sb.append("OntologyIRI(");
             sb.append(ontologyIRI.toQuotedString());
+            sb.append(")");
             if (versionIRI != null) {
+                sb.append(" VersionIRI(");
                 sb.append(versionIRI.toQuotedString());
+                sb.append(")");
             }
         }
         else {
             sb.append(internalID);
         }
+        sb.append(")");
         return sb.toString();
     }
 
