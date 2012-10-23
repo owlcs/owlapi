@@ -52,7 +52,7 @@
          the build directory -->
     <target name="compile">
         <mkdir dir="${classesdir}"/>
-        <javac srcdir="./.." destdir="${classesdir}" debug="on" target="1.5" source="1.5" compiler="javac1.5" fork="yes" >
+        <javac srcdir="./.." destdir="${classesdir}" debug="on" target="1.6" source="1.6" fork="yes" >
             <classpath refid="classpath"/>
             <include name="api/${sourcepath}"/>
             <include name="apibinding/${sourcepath}"/>
