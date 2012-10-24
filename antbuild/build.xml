@@ -9,7 +9,7 @@
           should be of the format <major>.<minor>.<revision>.  Note that the svn
             revision number will automatically be appended to this build number! -->
 
-    <property name="version" value="3.4.1"/>
+    <property name="version" value="3.4.2"/>
 
     <!-- The directory that contains the jar file dependencies for
          the class path and building a release -->
@@ -52,7 +52,7 @@
          the build directory -->
     <target name="compile">
         <mkdir dir="${classesdir}"/>
-        <javac srcdir="./.." destdir="${classesdir}" debug="on" target="1.5" source="1.5" compiler="javac1.5" fork="yes" >
+        <javac srcdir="./.." destdir="${classesdir}" debug="on" target="1.6" source="1.6" fork="yes" >
             <classpath refid="classpath"/>
             <include name="api/${sourcepath}"/>
             <include name="apibinding/${sourcepath}"/>
