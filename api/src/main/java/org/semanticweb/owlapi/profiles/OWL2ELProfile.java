@@ -103,6 +103,7 @@ public class OWL2ELProfile implements OWLProfile {
     @SuppressWarnings("javadoc")
 	public OWL2ELProfile() {
         allowedDatatypes = new HashSet<IRI>();
+        allowedDatatypes.add(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
         allowedDatatypes.add(OWLRDFVocabulary.RDF_XML_LITERAL.getIRI());
         allowedDatatypes.add(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
         allowedDatatypes.add(OWL2Datatype.OWL_RATIONAL.getIRI());
