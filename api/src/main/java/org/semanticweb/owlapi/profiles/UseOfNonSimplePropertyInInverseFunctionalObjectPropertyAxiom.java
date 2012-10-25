@@ -55,6 +55,7 @@ public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom extend
         super(ontology, axiom);
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

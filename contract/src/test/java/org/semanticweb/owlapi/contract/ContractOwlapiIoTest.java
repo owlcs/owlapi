@@ -76,11 +76,12 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.xml.sax.SAXException;
 
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({ "unused", "javadoc", "resource" })
 public class ContractOwlapiIoTest {
     @Test
     public void shouldTestAbstractOWLParser() throws Exception {
         AbstractOWLParser testSubject0 = new AbstractOWLParser() {
+            @Override
             public OWLOntologyFormat parse(
                     final OWLOntologyDocumentSource documentSource,
                     final OWLOntology ontology) throws OWLParserException, IOException,
@@ -88,12 +89,13 @@ public class ContractOwlapiIoTest {
                 return null;
             }
 
+            @Override
             public OWLOntologyFormat parse(
                     final OWLOntologyDocumentSource documentSource,
                     final OWLOntology ontology,
                     final OWLOntologyLoaderConfiguration configuration)
-                            throws OWLParserException, IOException, OWLOntologyChangeException,
-                            UnloadableImportException {
+                    throws OWLParserException, IOException, OWLOntologyChangeException,
+                    UnloadableImportException {
                 return null;
             }
         };
@@ -110,6 +112,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestAbstractOWLRenderer() throws Exception {
         AbstractOWLRenderer testSubject0 = new AbstractOWLRenderer(Utils.getMockManager()) {
+            @Override
             public void render(final OWLOntology ontology, final Writer writer)
                     throws OWLRendererException {}
         };
@@ -450,6 +453,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestRDFNode() throws Exception {
         RDFNode testSubject0 = new RDFNode() {
+            @Override
             public boolean isLiteral() {
                 return false;
             }
@@ -639,7 +643,6 @@ public class ContractOwlapiIoTest {
         boolean result5 = testSubject0.isOutputStreamAvailable();
         boolean result6 = testSubject0.isDocumentIRIAvailable();
     }
-
 
     public void shouldTestSystemOutDocumentTarget() throws Exception {
         SystemOutDocumentTarget testSubject0 = new SystemOutDocumentTarget();

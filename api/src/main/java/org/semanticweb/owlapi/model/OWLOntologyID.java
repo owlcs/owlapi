@@ -126,6 +126,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
     }
 
 
+    @Override
     public int compareTo(OWLOntologyID o) {
         return toString().compareTo(o.toString());
     }

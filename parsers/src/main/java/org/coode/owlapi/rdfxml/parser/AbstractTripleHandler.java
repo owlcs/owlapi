@@ -349,6 +349,7 @@ public class AbstractTripleHandler {
 
 		}
 
+        @Override
         public boolean isTypeStrict(IRI node) {
             return isClassExpressionStrict(node);
         }
@@ -359,6 +360,7 @@ public class AbstractTripleHandler {
 
 		}
 
+        @Override
         public boolean isTypeStrict(IRI node) {
             return isDataRangeStrict(node);
         }
@@ -369,6 +371,7 @@ public class AbstractTripleHandler {
 
 		}
 
+        @Override
         public boolean isTypeStrict(IRI node) {
             return true;
         }

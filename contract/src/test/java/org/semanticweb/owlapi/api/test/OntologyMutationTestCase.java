@@ -62,11 +62,12 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
 
     @Test
-    public void testAddAxiom() throws Exception {
+    public void testAddAxiom() {
         OWLOntology ont = getOWLOntology("OntA");
         OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getFactory().getOWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();
         getManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
+            @Override
             public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
                 chgs.addAll(changes);
             }
@@ -77,11 +78,12 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testAddAxioms() throws Exception {
+    public void testAddAxioms() {
         OWLOntology ont = getOWLOntology("OntB");
         OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getFactory().getOWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();
         getManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
+            @Override
             public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
                 chgs.addAll(changes);
             }
@@ -97,6 +99,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
         OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getFactory().getOWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();
         getManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
+            @Override
             public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
                 chgs.addAll(changes);
             }
@@ -112,6 +115,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
         OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getFactory().getOWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();
         getManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
+            @Override
             public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
                 chgs.addAll(changes);
             }

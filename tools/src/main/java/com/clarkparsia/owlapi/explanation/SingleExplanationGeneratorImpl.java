@@ -70,10 +70,12 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
     }
 
 
+    @Override
     public OWLOntologyManager getOntologyManager() {
         return owlOntologyManager;
     }
 
+    @Override
     public OWLReasoner getReasoner() {
         return reasoner;
     }
@@ -85,10 +87,12 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
     /**
      * {@inheritDoc}
      */
+    @Override
     public OWLOntology getOntology() {
         return ontology;
     }
 
+    @Override
     public OWLReasonerFactory getReasonerFactory() {
         return reasonerFactory;
     }
@@ -97,6 +101,7 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
     	return !inTransaction;
     }
 
+    @Override
     public void beginTransaction() {
 		if (inTransaction)
 			throw new RuntimeException( "Already in transaction" );
@@ -104,7 +109,8 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
 		inTransaction = true;
 	}
 
-	public void endTransaction() {
+	@Override
+    public void endTransaction() {
 		if (!inTransaction)
 			throw new RuntimeException( "Cannot end transaction" );
 

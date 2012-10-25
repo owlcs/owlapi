@@ -66,11 +66,12 @@ public class OWLObjectPropertyExpressionListItemTranslator implements ListItemTr
     }
 
 
+    @Override
     public OWLObjectPropertyExpression translate(IRI IRI) {
         return consumer.translateObjectPropertyExpression(IRI);
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public OWLObjectPropertyExpression translate(OWLLiteral firstObject) {
         logger.info("Cannot translate list item as an object property, because rdf:first triple is a literal triple");
         return null;

@@ -62,6 +62,7 @@ public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWL
     }
 
 
+    @Override
     public OWLDataPropertyExpression getOWLObject() {
         return prop;
     }
@@ -71,6 +72,7 @@ public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWL
         iri = getIRIFromAttribute(localName, value);
     }
 
+    @Override
     final public void endElement() throws OWLParserException, UnloadableImportException {
         prop = getOWLDataFactory().getOWLDataProperty(iri);
         getParentHandler().handleChild(this);

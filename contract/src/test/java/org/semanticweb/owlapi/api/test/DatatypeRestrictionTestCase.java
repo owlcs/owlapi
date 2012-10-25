@@ -74,7 +74,6 @@ public class DatatypeRestrictionTestCase extends AbstractFileRoundTrippingTestCa
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
-    @SuppressWarnings("unused")
     @Override
     protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         //System.out.println(target);

@@ -97,7 +97,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class OWL2RLProfile implements OWLProfile {
 
-    private final Set<IRI> allowedDatatypes = new HashSet<IRI>();
+    final Set<IRI> allowedDatatypes = new HashSet<IRI>();
 
     public OWL2RLProfile() {
         allowedDatatypes.add(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
@@ -137,6 +137,7 @@ public class OWL2RLProfile implements OWLProfile {
      *
      * @return A string that represents the name of the profile
      */
+    @Override
     public String getName() {
         return "OWL 2 RL";
     }
@@ -149,6 +150,7 @@ public class OWL2RLProfile implements OWLProfile {
      * @return An <code>OWLProfileReport</code> that describes whether or not the
      *         ontology is within this profile.
      */
+    @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWL2DLProfile profile = new OWL2DLProfile();
         OWLProfileReport report = profile.checkOntology(ontology);
@@ -230,7 +232,6 @@ public class OWL2RLProfile implements OWLProfile {
         }
 
         @Override
-        @SuppressWarnings("unused")
 		public Object visit(OWLFunctionalDataPropertyAxiom axiom) {
             return null;
         }
@@ -314,100 +315,116 @@ public class OWL2RLProfile implements OWLProfile {
         }
 
         @Override
-        @SuppressWarnings("unused")
 		public Object visit(OWLDatatypeDefinitionAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), getCurrentAxiom()));
             return null;
         }
     }
 
-    @SuppressWarnings("unused")
     private class OWL2RLSubClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
         public OWL2RLSubClassExpressionChecker() {
-			// TODO Auto-generated constructor stub
 		}
 
-		public Boolean visit(OWLClass desc) {
-            return !desc.isOWLThing();
+        @Override
+        public Boolean visit(OWLClass desc) {
+            return Boolean.valueOf(!desc.isOWLThing());
         }
 
+        @Override
         public Boolean visit(OWLObjectIntersectionOf desc) {
             for (OWLClassExpression op : desc.getOperands()) {
                 if (!isOWL2RLSubClassExpression(op)) {
-                    return false;
+                    return Boolean.FALSE;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLObjectUnionOf desc) {
             for (OWLClassExpression op : desc.getOperands()) {
                 if (!isOWL2RLSubClassExpression(op)) {
-                    return false;
+                    return Boolean.FALSE;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLObjectComplementOf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectSomeValuesFrom desc) {
-            return desc.getFiller().isOWLThing() || isOWL2RLSubClassExpression(desc.getFiller());
+            return Boolean.valueOf(desc.getFiller().isOWLThing()
+                    || isOWL2RLSubClassExpression(desc.getFiller()));
         }
 
+        @Override
         public Boolean visit(OWLObjectAllValuesFrom desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectHasValue desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLObjectMinCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectExactCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectMaxCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectHasSelf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectOneOf desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLDataSomeValuesFrom desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLDataAllValuesFrom desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataHasValue desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLDataMinCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataExactCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataMaxCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
     }
 
@@ -415,188 +432,226 @@ public class OWL2RLProfile implements OWLProfile {
     private final OWL2RLSubClassExpressionChecker subClassExpressionChecker = new OWL2RLSubClassExpressionChecker();
 
     protected boolean isOWL2RLSubClassExpression(OWLClassExpression ce) {
-        return ce.accept(subClassExpressionChecker);
+        return ce.accept(subClassExpressionChecker).booleanValue();
     }
-    @SuppressWarnings("unused")
+
     private class OWL2RLSuperClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
         public OWL2RLSuperClassExpressionChecker() {
-			// TODO Auto-generated constructor stub
 		}
 
-		public Boolean visit(OWLClass desc) {
-            return !desc.isOWLThing();
+        @Override
+        public Boolean visit(OWLClass desc) {
+            return Boolean.valueOf(!desc.isOWLThing());
         }
 
+        @Override
         public Boolean visit(OWLObjectIntersectionOf desc) {
             for (OWLClassExpression ce : desc.getOperands()) {
-                if (!ce.accept(this)) {
-                    return false;
+                if (!ce.accept(this).booleanValue()) {
+                    return Boolean.FALSE;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLObjectUnionOf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectComplementOf desc) {
-            return isOWL2RLSubClassExpression(desc.getOperand());
+            return Boolean.valueOf(isOWL2RLSubClassExpression(desc.getOperand()));
         }
 
+        @Override
         public Boolean visit(OWLObjectSomeValuesFrom desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectAllValuesFrom desc) {
             return desc.getFiller().accept(this);
         }
 
+        @Override
         public Boolean visit(OWLObjectHasValue desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLObjectMinCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectExactCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectMaxCardinality desc) {
-            return (desc.getCardinality() == 0 || desc.getCardinality() == 1) && (desc.getFiller().isOWLThing() ||
-                    isOWL2RLSubClassExpression(desc.getFiller()));
+            return Boolean
+                    .valueOf((desc.getCardinality() == 0 || desc.getCardinality() == 1)
+                            && (desc.getFiller().isOWLThing() || isOWL2RLSubClassExpression(desc
+                                    .getFiller())));
         }
 
+        @Override
         public Boolean visit(OWLObjectHasSelf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectOneOf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataSomeValuesFrom desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataAllValuesFrom desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLDataHasValue desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLDataMinCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataExactCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataMaxCardinality desc) {
-            return (desc.getCardinality() == 0 || desc.getCardinality() == 1);
+            return Boolean.valueOf(desc.getCardinality() == 0
+                    || desc.getCardinality() == 1);
         }
     }
 
     private final OWL2RLSuperClassExpressionChecker superClassExpressionChecker = new OWL2RLSuperClassExpressionChecker();
 
     public boolean isOWL2RLSuperClassExpression(OWLClassExpression ce) {
-        return ce.accept(superClassExpressionChecker);
+        return ce.accept(superClassExpressionChecker).booleanValue();
     }
 
-    @SuppressWarnings("unused")
     private static class OWL2RLEquivalentClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
     	public OWL2RLEquivalentClassExpressionChecker() {
 
 		}
+
+        @Override
         public Boolean visit(OWLClass desc) {
-            return !desc.isOWLThing();
+            return Boolean.valueOf(!desc.isOWLThing());
         }
 
+        @Override
         public Boolean visit(OWLObjectIntersectionOf desc) {
             for (OWLClassExpression ce : desc.getOperands()) {
-                if (!ce.accept(this)) {
-                    return false;
+                if (!ce.accept(this).booleanValue()) {
+                    return Boolean.FALSE;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLObjectUnionOf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectComplementOf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectSomeValuesFrom desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectAllValuesFrom desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectHasValue desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLObjectMinCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectExactCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectMaxCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectHasSelf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectOneOf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataSomeValuesFrom desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataAllValuesFrom desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataHasValue desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLDataMinCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataExactCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataMaxCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
     }
 
     private final OWL2RLEquivalentClassExpressionChecker equivalentClassExpressionChecker = new OWL2RLEquivalentClassExpressionChecker();
 
     public boolean isOWL2RLEquivalentClassExpression(OWLClassExpression ce) {
-        return ce.accept(equivalentClassExpressionChecker);
+        return ce.accept(equivalentClassExpressionChecker).booleanValue();
     }
 
 

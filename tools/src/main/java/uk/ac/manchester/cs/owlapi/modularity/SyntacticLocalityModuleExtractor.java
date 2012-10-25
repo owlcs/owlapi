@@ -575,6 +575,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @param sig the seed signature (set of entities) for the module
      * @return the module
      */
+    @Override
     public Set<OWLAxiom> extract(Set<OWLEntity> sig) {
         return extract(sig, 0, 0, null, false);
     }
@@ -605,6 +606,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @param reasoner the reasoner to determine super-/subclasses. This can be an arbitrary reasoner, including a ToldClassHierarchyReasoner. It must have loaded the ontology.
      * @return the module
      */
+    @Override
     public Set<OWLAxiom> extract(Set<OWLEntity> sig, int superClassLevel, int subClassLevel, OWLReasoner reasoner) {
         return extract(sig, superClassLevel, subClassLevel, reasoner, false);
     }
@@ -683,6 +685,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @throws OWLOntologyChangeException   if adding axioms to the module fails
      * @throws OWLOntologyCreationException if the module cannot be created
      */
+    @Override
     public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri) throws OWLOntologyCreationException {
         return extractAsOntology(signature, iri, 0, 0, null, false);
     }
@@ -716,6 +719,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @throws OWLOntologyChangeException   if adding axioms to the module fails
      * @throws OWLOntologyCreationException if the module cannot be created
      */
+    @Override
     public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri, int superClassLevel, int subClassLevel, OWLReasoner reasoner) throws OWLOntologyCreationException {
         return extractAsOntology(signature, iri, superClassLevel, subClassLevel, reasoner, false);
     }

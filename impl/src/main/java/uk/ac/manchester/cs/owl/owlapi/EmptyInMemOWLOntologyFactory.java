@@ -52,16 +52,18 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Bio-Health Informatics Group<br>
  * Date: 15-Nov-2006<br>
  * <br> */
-@SuppressWarnings("unused")
+
 public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
     private static final long serialVersionUID = 30402L;
 
+    @Override
     public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
             OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
         throw new OWLRuntimeException(new UnsupportedOperationException(
                 "Cannot load OWL ontologies."));
     }
 
+    @Override
     public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
             OWLOntologyCreationHandler handler,
             OWLOntologyLoaderConfiguration configuration)
@@ -77,6 +79,7 @@ public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactor
         return ont;
     }
 
+    @Override
     public boolean canLoad(OWLOntologyDocumentSource documentSource) {
         return false;
     }

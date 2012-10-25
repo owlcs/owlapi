@@ -78,6 +78,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
         this.second = second;
     }
 
+    @Override
     public OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -85,34 +86,41 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
         return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(getFirstProperty(), getSecondProperty());
     }
 
+    @Override
     public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(getFirstProperty(), getSecondProperty(), mergeAnnos(annotations));
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public OWLObjectPropertyExpression getFirstProperty() {
         return first;
     }
 
 
+    @Override
     public OWLObjectPropertyExpression getSecondProperty() {
         return second;
     }
@@ -124,11 +132,13 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
     }
 
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.INVERSE_OBJECT_PROPERTIES;
     }
 
 
+    @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<OWLSubObjectPropertyOfAxiom>();
         OWLDataFactory df = getOWLDataFactory();

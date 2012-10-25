@@ -83,15 +83,18 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     }
 
 
+    @Override
     public void setProgressMonitor(ExplanationProgressMonitor progressMonitor) {
         this.progressMonitor = progressMonitor;
     }
 
 
+    @Override
     public OWLOntologyManager getOntologyManager() {
         return singleExplanationGenerator.getOntologyManager();
     }
 
+    @Override
     public OWLOntology getOntology() {
         return singleExplanationGenerator.getOntology();
     }
@@ -110,6 +113,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
 //
 
+    @Override
     public OWLReasoner getReasoner() {
         return singleExplanationGenerator.getReasoner();
     }
@@ -121,6 +125,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 //
 //
 
+    @Override
     public OWLReasonerFactory getReasonerFactory() {
         return singleExplanationGenerator.getReasonerFactory();
     }
@@ -139,19 +144,23 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     }
 
 
+    @Override
     public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
         return singleExplanationGenerator.getExplanation(unsatClass);
     }
 
 
+    @Override
     public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass) {
         return getExplanations(unsatClass, 0);
     }
 
 
+    @Override
     public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass, int maxExplanations) {
-        if (maxExplanations < 0)
+        if (maxExplanations < 0) {
             throw new IllegalArgumentException();
+        }
 
         if (log.isLoggable(Level.CONFIG)) {
             log.config("Get " + (maxExplanations == 0 ? "all" : maxExplanations) + " explanation(s) for: " + unsatClass);
@@ -196,6 +205,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      */
     private static List<OWLAxiom> getOrderedMUPS(List<OWLAxiom> mups, final Set<Set<OWLAxiom>> allMups) {
         Comparator<OWLAxiom> mupsComparator = new Comparator<OWLAxiom>() {
+            @Override
             public int compare(OWLAxiom o1, OWLAxiom o2) {
                 // The axiom that appears in most MUPS has the lowest index
                 // in the list
@@ -209,13 +219,14 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     }
 
 
-    /**
-     * Given an axiom and a set of axioms this method determines how many sets
+    /** Given an axiom and a set of axioms this method determines how many sets
      * contain the axiom.
-     * @param ax The axiom that will be counted.
-     * @param axiomSets The sets to count from
-     */
-    private static int getOccurrences(OWLAxiom ax, Set<Set<OWLAxiom>> axiomSets) {
+     * 
+     * @param ax
+     *            The axiom that will be counted.
+     * @param axiomSets
+     *            The sets to count from */
+    protected static int getOccurrences(OWLAxiom ax, Set<Set<OWLAxiom>> axiomSets) {
         int count = 0;
         for (Set<OWLAxiom> axioms : axiomSets) {
             if (axioms.contains(ax)) {
@@ -294,7 +305,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                 for (Iterator<OWLOntology> i = ontologies.iterator(); !referenced && i.hasNext();) {
                     for (Iterator<OWLAxiom> j = i.next().getReferencingAxioms(e).iterator(); !referenced && j.hasNext();) {
                         OWLAxiom a = j.next();
-                        referenced = a.isLogicalAxiom() || (a instanceof OWLDeclarationAxiom);
+                        referenced = a.isLogicalAxiom() || a instanceof OWLDeclarationAxiom;
                     }
                 }
                 if (!referenced) {
@@ -314,8 +325,9 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             for (Set<OWLAxiom> satPath : satPaths) {
                 if (currentPathContents.containsAll(satPath)) {
                     earlyTermination = true;
-                    if (log.isLoggable(Level.FINE))
+                    if (log.isLoggable(Level.FINE)) {
                         log.fine("Stop - satisfiable (early termination)");
+                    }
                     break;
                 }
             }
@@ -353,8 +365,9 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                     orderedMups = getOrderedMUPS(orderedMups, allMups);
                 }
                 else {
-                    if (log.isLoggable(Level.FINE))
+                    if (log.isLoggable(Level.FINE)) {
                         log.fine("Stop - satisfiable");
+                    }
 
                     // End of current path - add it to the list of paths
                     satPaths.add(new HashSet<OWLAxiom>(currentPathContents));
@@ -364,8 +377,9 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             // Back track - go one level up the tree and run for the next axiom
             currentPathContents.remove(axiom);
 
-            if (log.isLoggable(Level.FINE))
+            if (log.isLoggable(Level.FINE)) {
                 log.fine("Restoring axiom: " + axiom);
+            }
 
             // Remove any temporary declarations
             for (OWLDeclarationAxiom decl : temporaryDeclarations) {

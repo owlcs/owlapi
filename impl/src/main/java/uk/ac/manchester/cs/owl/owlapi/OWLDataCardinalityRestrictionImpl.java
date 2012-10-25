@@ -60,14 +60,17 @@ public abstract class OWLDataCardinalityRestrictionImpl extends OWLCardinalityRe
     }
 
 
+    @Override
     public boolean isQualified() {
         return !getFiller().equals(getOWLDataFactory().getTopDatatype());
     }
 
+    @Override
     public boolean isObjectRestriction() {
         return false;
     }
 
+    @Override
     public boolean isDataRestriction() {
         return true;
     }

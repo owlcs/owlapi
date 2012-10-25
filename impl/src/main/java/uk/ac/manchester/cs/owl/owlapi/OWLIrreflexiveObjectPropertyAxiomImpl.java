@@ -68,6 +68,7 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
         super(property, annotations);
     }
 
+    @Override
     public OWLIrreflexiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -75,10 +76,12 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
         return getOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(getProperty());
     }
 
+    @Override
     public OWLIrreflexiveObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
     }
 
+    @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLThing(), getOWLDataFactory().getOWLObjectComplementOf(getOWLDataFactory().getOWLObjectHasSelf(getProperty())));
     }
@@ -88,24 +91,29 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
         return super.equals(obj) && obj instanceof OWLIrreflexiveObjectPropertyAxiom;
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.IRREFLEXIVE_OBJECT_PROPERTY;
     }

@@ -68,6 +68,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
     }
 
 
+    @Override
     public String getName() {
         return "Number of classes with asserted multiple inheritance";
     }

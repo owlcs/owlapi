@@ -58,14 +58,15 @@ public class TPDeclaredAsHandler extends TriplePredicateHandler {
     }
 
 
-    @Override@SuppressWarnings("unused")
+    @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return true;
     }
 
 
-    @Override@SuppressWarnings("unused")
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    @Override
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         if (object.equals(OWLRDFVocabulary.OWL_CLASS.getIRI())) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLClass(subject), getPendingAnnotations()));
         }

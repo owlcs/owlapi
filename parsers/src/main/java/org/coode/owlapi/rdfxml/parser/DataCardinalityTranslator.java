@@ -59,14 +59,17 @@ public class DataCardinalityTranslator extends AbstractClassExpressionTranslator
         super(consumer);
     }
 
+    @Override
     public boolean matchesStrict(IRI mainNode) {
         return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_CARDINALITY) && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY);
     }
 
+    @Override
     public boolean matchesLax(IRI mainNode) {
         return isNonNegativeIntegerLax(mainNode, OWL_CARDINALITY) && isDataPropertyLax(mainNode, OWL_ON_PROPERTY);
     }
 
+    @Override
     public OWLDataExactCardinality translate(IRI mainNode) {
         getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         int cardi = translateInteger(mainNode, OWL_CARDINALITY);

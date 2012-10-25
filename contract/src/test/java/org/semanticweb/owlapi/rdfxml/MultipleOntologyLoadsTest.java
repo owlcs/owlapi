@@ -38,7 +38,7 @@ public class MultipleOntologyLoadsTest {
     private OWLOntologyManager manager;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         manager = Factory.getManager();
     }
 

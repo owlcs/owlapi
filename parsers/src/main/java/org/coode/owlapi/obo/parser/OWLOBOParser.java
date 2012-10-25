@@ -63,10 +63,12 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  */
 public class OWLOBOParser extends AbstractOWLParser {
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         OBOParser parser;
         Reader reader = null;

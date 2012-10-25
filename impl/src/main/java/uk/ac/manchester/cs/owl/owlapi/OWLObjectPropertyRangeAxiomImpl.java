@@ -76,6 +76,7 @@ public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<O
         return super.equals(obj) && obj instanceof OWLObjectPropertyRangeAxiom;
     }
 
+    @Override
     public OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -83,32 +84,39 @@ public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<O
         return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(getProperty(), getRange());
     }
 
+    @Override
     public OWLObjectPropertyRangeAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(getProperty(), getRange(), mergeAnnos(annotations));
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.OBJECT_PROPERTY_RANGE;
     }
 
 
+    @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
         OWLClassExpression sup = df.getOWLObjectAllValuesFrom(getProperty(), getRange());

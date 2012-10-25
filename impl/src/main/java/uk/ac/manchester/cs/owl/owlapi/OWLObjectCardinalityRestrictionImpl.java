@@ -60,14 +60,17 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends OWLCardinality
     }
 
 
+    @Override
     public boolean isQualified() {
         return getFiller().isAnonymous() || !getFiller().isOWLThing();
     }
 
+    @Override
     public boolean isObjectRestriction() {
         return true;
     }
 
+    @Override
     public boolean isDataRestriction() {
         return false;
     }

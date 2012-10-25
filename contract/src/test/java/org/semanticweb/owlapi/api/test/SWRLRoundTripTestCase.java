@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -29,7 +28,7 @@ public class SWRLRoundTripTestCase {
     // test for 3562978
     @Test
     public void shouldDoCompleteRoundtrip() throws OWLOntologyCreationException,
-    OWLOntologyStorageException, IOException {
+            OWLOntologyStorageException {
         String NS = "urn:test";
 
         OWLDataFactory factory = Factory.getFactory();
@@ -65,7 +64,7 @@ public class SWRLRoundTripTestCase {
     @Ignore
     @Test
     public void shouldDoCompleteRoundtripManchesterOWLSyntax()
-            throws OWLOntologyCreationException, OWLOntologyStorageException, IOException {
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         String NS = "urn:test";
         OWLDataFactory factory = Factory.getFactory();
         OWLClass A = factory.getOWLClass(IRI.create(NS + "#A"));

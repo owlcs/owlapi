@@ -71,6 +71,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         super(individuals, annotations);
     }
 
+    @Override
     public OWLSameIndividualAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -78,10 +79,12 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         return getOWLDataFactory().getOWLSameIndividualAxiom(getIndividuals());
     }
 
+    @Override
     public OWLSameIndividualAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLSameIndividualAxiom(getIndividuals(), mergeAnnos(annotations));
     }
 
+    @Override
     public Set<OWLSameIndividualAxiom> asPairwiseAxioms() {
         List<OWLIndividual> inds = getIndividualsAsList();
         Set<OWLSameIndividualAxiom> result = new HashSet<OWLSameIndividualAxiom>();
@@ -98,6 +101,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
      * same individuals axioms.
      * @return <code>true</code> if this axioms contains anonymous individual axioms
      */
+    @Override
     public boolean containsAnonymousIndividuals() {
         for (OWLIndividual ind : getIndividuals()) {
             if (ind.isAnonymous()) {
@@ -107,6 +111,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         return false;
     }
 
+    @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<OWLClassExpression>();
         for (OWLIndividual individual : getIndividuals()) {
@@ -133,23 +138,28 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         return super.equals(obj) && obj instanceof OWLSameIndividualAxiom;
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.SAME_INDIVIDUAL;
     }

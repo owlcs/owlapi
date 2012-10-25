@@ -69,6 +69,7 @@ public class OWLDataMinCardinalityImpl extends OWLDataCardinalityRestrictionImpl
      * Gets the class expression type for this class expression
      * @return The class expression type
      */
+    @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.DATA_MIN_CARDINALITY;
     }
@@ -81,19 +82,23 @@ public class OWLDataMinCardinalityImpl extends OWLDataCardinalityRestrictionImpl
         return false;
     }
 
+    @Override
     public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

@@ -66,11 +66,12 @@ public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
      *            The desired ontology format.
      * @return <code>true</code> if this storer can store an ontology in the
      *         desired format. */
+    @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new OWLTutorialSyntaxOntologyFormat());
     }
 
-    @SuppressWarnings("unused")
+
     @Override
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
             Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {

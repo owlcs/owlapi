@@ -69,6 +69,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         super(classExpressions, annotations);
     }
 
+    @Override
     public OWLDisjointClassesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -76,6 +77,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions());
     }
 
+    @Override
     public OWLDisjointClassesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions(), mergeAnnos(annotations));
     }
@@ -85,27 +87,33 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         return super.equals(obj) && obj instanceof OWLDisjointClassesAxiom;
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.DISJOINT_CLASSES;
     }
 
+    @Override
     public Set<OWLDisjointClassesAxiom> asPairwiseAxioms() {
         Set<OWLDisjointClassesAxiom> result = new HashSet<OWLDisjointClassesAxiom>();
         List<OWLClassExpression> list = getClassExpressionsAsList();
@@ -117,6 +125,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         return result;
     }
 
+    @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
         List<OWLClassExpression> list = getClassExpressionsAsList();

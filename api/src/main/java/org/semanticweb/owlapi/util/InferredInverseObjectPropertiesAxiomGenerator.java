@@ -65,6 +65,7 @@ public class InferredInverseObjectPropertiesAxiomGenerator extends InferredObjec
     }
 
 
+    @Override
     public String getLabel() {
         return "Inverse object properties";
     }

@@ -67,25 +67,30 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLitera
     }
 
 
+    @Override
     public OWLLiteral getLiteral() {
         return literal;
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

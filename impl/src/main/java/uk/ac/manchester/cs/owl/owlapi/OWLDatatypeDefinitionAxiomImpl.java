@@ -76,6 +76,7 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
         this.dataRange = dataRange;
     }
 
+    @Override
     public OWLAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -83,48 +84,58 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
         return getOWLDataFactory().getOWLDatatypeDefinitionAxiom(getDatatype(), getDataRange());
     }
 
+    @Override
     public OWLDatatypeDefinitionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLDatatypeDefinitionAxiom(getDatatype(), getDataRange(), mergeAnnos(annotations));
     }
 
+    @Override
     public OWLDatatype getDatatype() {
         return datatype;
     }
 
 
+    @Override
     public OWLDataRange getDataRange() {
         return dataRange;
     }
 
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public boolean isLogicalAxiom() {
         return true;
     }
 
+    @Override
     public boolean isAnnotationAxiom() {
         return false;
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.DATATYPE_DEFINITION;
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

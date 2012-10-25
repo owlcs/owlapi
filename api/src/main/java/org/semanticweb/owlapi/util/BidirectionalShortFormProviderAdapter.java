@@ -72,6 +72,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
 
     private final OWLOntologyChangeListener changeListener = new OWLOntologyChangeListener() {
 
+        @Override
         public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
             handleChanges(changes);
         }
@@ -137,7 +138,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
         }
     }
 
-    private void handleChanges(List<? extends OWLOntologyChange> changes) {
+    void handleChanges(List<? extends OWLOntologyChange> changes) {
     	if(ontologies==null) {
     		return;
     	}

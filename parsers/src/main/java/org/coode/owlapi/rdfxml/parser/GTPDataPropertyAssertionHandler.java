@@ -57,7 +57,7 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
     }
 
 
-    @Override  @SuppressWarnings("unused")
+    @Override
 	public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
         if (isStrict()) {
             return isDataPropertyStrict(predicate);
@@ -69,7 +69,7 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
     }
 
 
-    @Override  @SuppressWarnings("unused")
+    @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
         return false;
     }

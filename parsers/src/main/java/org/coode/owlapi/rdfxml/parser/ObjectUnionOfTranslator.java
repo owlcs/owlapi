@@ -62,15 +62,18 @@ public class ObjectUnionOfTranslator extends AbstractClassExpressionTranslator {
         super(consumer);
     }
 
+    @Override
     public boolean matchesStrict(IRI mainNode) {
         IRI listNode = getConsumer().getResourceObject(mainNode, OWL_UNION_OF, false);
         return isClassExpressionStrict(mainNode) && isClassExpressionListStrict(listNode, 2);
     }
 
+    @Override
     public boolean matchesLax(IRI mainNode) {
         return isResourcePresent(mainNode, OWL_UNION_OF);
     }
 
+    @Override
     public OWLObjectUnionOf translate(IRI mainNode) {
         IRI listNode = getConsumer().getResourceObject(mainNode, OWL_UNION_OF, true);
         Set<OWLClassExpression> classExpressions = getConsumer().translateToClassExpressionSet(listNode);

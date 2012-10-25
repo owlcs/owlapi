@@ -52,7 +52,9 @@ import java.util.Set;
  */
 public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
 
+    @Override
     Set<OWLDisjointClassesAxiom> asPairwiseAxioms();
 
+    @Override
     OWLDisjointClassesAxiom getAxiomWithoutAnnotations();
 }

@@ -120,6 +120,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     }
 
 
+    @Override
     public String getShortForm(OWLEntity entity) {
         int lastURIMatchIndex = Integer.MAX_VALUE;
         int lastLangMatchIndex = Integer.MAX_VALUE;
@@ -219,6 +220,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     }
 
 
+    @Override
     public void dispose() {
     }
 }

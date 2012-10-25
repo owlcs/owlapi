@@ -70,6 +70,7 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
         super(property, domain, annotations);
     }
 
+    @Override
     public OWLObjectPropertyDomainAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -77,6 +78,7 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
         return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(getProperty(), getDomain());
     }
 
+    @Override
     public OWLObjectPropertyDomainAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(getProperty(), getDomain(), mergeAnnos(annotations));
     }
@@ -86,28 +88,34 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
         return super.equals(obj) && obj instanceof OWLObjectPropertyDomainAxiom;
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.OBJECT_PROPERTY_DOMAIN;
     }
 
 
+    @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
         OWLClassExpression sub = df.getOWLObjectSomeValuesFrom(getProperty(), df.getOWLThing());

@@ -76,6 +76,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         this.propertyExpressions = new TreeSet<OWLPropertyExpression<?,?>>(propertyExpressions);
     }
 
+    @Override
     public OWLHasKeyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -83,10 +84,12 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         return getOWLDataFactory().getOWLHasKeyAxiom(getClassExpression(), getPropertyExpressions());
     }
 
+    @Override
     public OWLHasKeyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLHasKeyAxiom(getClassExpression(), getPropertyExpressions(), mergeAnnos(annotations));
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.HAS_KEY;
     }
@@ -96,14 +99,17 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         return true;
     }
 
+    @Override
     public OWLClassExpression getClassExpression() {
         return expression;
     }
 
+    @Override
     public Set<OWLPropertyExpression<?,?>> getPropertyExpressions() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(propertyExpressions);
     }
 
+    @Override
     @SuppressWarnings("rawtypes")
     // this is necessary to avoid java 6 issues
     public Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
@@ -116,6 +122,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         return props;
     }
 
+    @Override
     @SuppressWarnings("rawtypes")
     // this is necessary to avoid java 6 issues
     public Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
@@ -138,18 +145,22 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         return compareSets(propertyExpressions, other.getPropertyExpressions());
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

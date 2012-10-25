@@ -68,25 +68,30 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLInd
     }
 
 
+    @Override
     public OWLIndividual getIndividual() {
         return individual;
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

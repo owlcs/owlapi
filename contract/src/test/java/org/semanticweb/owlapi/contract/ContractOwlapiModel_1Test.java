@@ -168,6 +168,7 @@ public class ContractOwlapiModel_1Test {
             public <O> O accept(final OWLOntologyChangeVisitorEx<O> visitor) {
                 return null;
             }
+
             @Override
             public OWLOntologyChangeData getChangeData() {
                 return mock(OWLOntologyChangeData.class);
@@ -758,7 +759,7 @@ public class ContractOwlapiModel_1Test {
             protected boolean isAdd() {
                 return false;
             }
-            
+
             @Override
             public OWLOntologyChangeData getChangeData() {
                 return mock(OWLOntologyChangeData.class);

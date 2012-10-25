@@ -65,7 +65,9 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
     }
 
 
+    @Override
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
+        // XXX should get it through the ontology
         this.owlOntologyManager = owlOntologyManager;
     }
 
@@ -75,6 +77,7 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
     }
 
 
+    @Override
     public void render(OWLOntology ontology, OutputStream os) throws OWLRendererException {
         try {
             Writer writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));

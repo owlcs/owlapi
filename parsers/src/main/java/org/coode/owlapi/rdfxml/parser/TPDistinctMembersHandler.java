@@ -61,8 +61,8 @@ public class TPDistinctMembersHandler extends TriplePredicateHandler {
     }
 
 
-    @Override@SuppressWarnings("unused")
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    @Override
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         // We need all of the list triples to be loaded :(
         return false;
     }

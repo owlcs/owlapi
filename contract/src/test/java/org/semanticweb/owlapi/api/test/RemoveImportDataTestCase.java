@@ -1,22 +1,20 @@
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.change.RemoveImportData;
-import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.RemoveImport;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 22/10/2012
- */
+ * Date: 22/10/2012 */
+@SuppressWarnings("javadoc")
 public class RemoveImportDataTestCase {
 
     private OWLImportsDeclaration mockDeclaration;

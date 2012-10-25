@@ -112,9 +112,10 @@ public class EscapeUtils {
     }
 
 
-    /**
-     * @deprecated Use {@link org.semanticweb.owlapi.io.XMLUtils#escapeXML(CharSequence)}
-     */
+    /** @param s
+     * @return escaped string
+     * @deprecated Use
+     *             {@link org.semanticweb.owlapi.io.XMLUtils#escapeXML(CharSequence)} */
     @Deprecated
     public static String escapeXML(String s) {
         // double quote -- quot

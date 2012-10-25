@@ -100,9 +100,11 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
     //
     //////////////////////////////////////////////////////////////////////////////////////////////
     private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
-        @SuppressWarnings("unused")
+        @Override
+
         public void visit(CollectionContainer<OWLAnnotation> c) {}
 
+        @Override
         public void visitItem(OWLAnnotation c) {
             c.accept(AbstractEntityRegistrationManager.this);
         }
@@ -127,12 +129,14 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
     //		}
     //	}
 
+    @Override
     public void visit(OWLSubClassOfAxiom axiom) {
         axiom.getSubClass().accept(this);
         axiom.getSuperClass().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
@@ -140,16 +144,19 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
@@ -157,18 +164,21 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
@@ -176,6 +186,7 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
@@ -183,6 +194,7 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         for (OWLIndividual ind : axiom.getIndividuals()) {
             ind.accept(this);
@@ -190,6 +202,7 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
@@ -197,6 +210,7 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
@@ -204,12 +218,14 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         axiom.getRange().accept(this);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
@@ -217,17 +233,20 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept((OWLEntityVisitor) this);
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
@@ -236,27 +255,32 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLDeclarationAxiom axiom) {
         axiom.getEntity().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
@@ -264,12 +288,14 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLClassAssertionAxiom axiom) {
         axiom.getClassExpression().accept(this);
         axiom.getIndividual().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
@@ -277,6 +303,7 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
@@ -284,27 +311,32 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         for (OWLIndividual ind : axiom.getIndividuals()) {
             ind.accept(this);
@@ -312,6 +344,7 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             prop.accept(this);
@@ -320,12 +353,14 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         axiom.getFirstProperty().accept(this);
         axiom.getSecondProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLHasKeyAxiom axiom) {
         axiom.getClassExpression().accept(this);
         for (OWLPropertyExpression<?, ?> prop : axiom.getPropertyExpressions()) {
@@ -341,87 +376,104 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+    @Override
     public void visit(OWLObjectIntersectionOf desc) {
         for (OWLClassExpression operand : desc.getOperands()) {
             operand.accept(this);
         }
     }
 
+    @Override
     public void visit(OWLObjectUnionOf desc) {
         for (OWLClassExpression operand : desc.getOperands()) {
             operand.accept(this);
         }
     }
 
+    @Override
     public void visit(OWLObjectComplementOf desc) {
         desc.getOperand().accept(this);
     }
 
+    @Override
     public void visit(OWLObjectSomeValuesFrom desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }
 
+    @Override
     public void visit(OWLObjectAllValuesFrom desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }
 
+    @Override
     public void visit(OWLObjectHasValue desc) {
         desc.getProperty().accept(this);
         desc.getValue().accept(this);
     }
 
+    @Override
     public void visit(OWLObjectMinCardinality desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }
 
+    @Override
     public void visit(OWLObjectExactCardinality desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }
 
+    @Override
     public void visit(OWLObjectMaxCardinality desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }
 
+    @Override
     public void visit(OWLObjectHasSelf desc) {
         desc.getProperty().accept(this);
     }
 
+    @Override
     public void visit(OWLObjectOneOf desc) {
         for (OWLIndividual ind : desc.getIndividuals()) {
             ind.accept(this);
         }
     }
 
+    @Override
     public void visit(OWLDataSomeValuesFrom desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }
 
+    @Override
     public void visit(OWLDataAllValuesFrom desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }
 
+    @Override
     public void visit(OWLDataHasValue desc) {
         desc.getProperty().accept(this);
         desc.getValue().accept(this);
     }
 
+    @Override
     public void visit(OWLDataMinCardinality desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }
 
+    @Override
     public void visit(OWLDataExactCardinality desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }
 
+    @Override
     public void visit(OWLDataMaxCardinality desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
@@ -432,28 +484,33 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
     // Data visitor
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
     public void visit(OWLDataComplementOf node) {
         node.getDataRange().accept(this);
     }
 
+    @Override
     public void visit(OWLDataOneOf node) {
         for (OWLLiteral val : node.getValues()) {
             val.accept(this);
         }
     }
 
+    @Override
     public void visit(OWLDataIntersectionOf node) {
         for (OWLDataRange dr : node.getOperands()) {
             dr.accept(this);
         }
     }
 
+    @Override
     public void visit(OWLDataUnionOf node) {
         for (OWLDataRange dr : node.getOperands()) {
             dr.accept(this);
         }
     }
 
+    @Override
     public void visit(OWLDatatypeRestriction node) {
         node.getDatatype().accept(this);
         for (OWLFacetRestriction facetRestriction : node.getFacetRestrictions()) {
@@ -461,10 +518,12 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         }
     }
 
+    @Override
     public void visit(OWLFacetRestriction node) {
         node.getFacetValue().accept(this);
     }
 
+    @Override
     public void visit(OWLLiteral node) {
         node.getDatatype().accept(this);
     }
@@ -474,6 +533,7 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
     // Property expression visitor
     //
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
     public void visit(OWLObjectInverseOf expression) {
         expression.getInverse().accept(this);
     }
@@ -485,6 +545,7 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+    @Override
     public void visit(OWLAnnotation annotation) {
         annotation.getProperty().accept(this);
         annotation.getValue().accept(this);
@@ -496,6 +557,7 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         }
     }
 
+    @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
@@ -504,28 +566,34 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
     }
 
 
-    @SuppressWarnings("unused")
+    @Override
+
     public void visit(IRI iri) {}
 
-    @SuppressWarnings("unused")
+    @Override
+
     public void visit(OWLOntology ontology) {}
 
+    @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
+    @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
         axiom.getDatatype().accept(this);
         axiom.getDataRange().accept(this);
@@ -537,6 +605,7 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
     // SWRL Object Visitor
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
     public void visit(SWRLRule rule) {
         for (SWRLAtom atom : rule.getBody()) {
             atom.accept(this);
@@ -547,49 +616,59 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         processAxiomAnnotations(rule);
     }
 
+    @Override
     public void visit(SWRLClassAtom node) {
         node.getArgument().accept(this);
         node.getPredicate().accept(this);
     }
 
+    @Override
     public void visit(SWRLDataRangeAtom node) {
         node.getArgument().accept(this);
         node.getPredicate().accept(this);
     }
 
+    @Override
     public void visit(SWRLObjectPropertyAtom node) {
         node.getPredicate().accept(this);
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
+    @Override
     public void visit(SWRLDataPropertyAtom node) {
         node.getPredicate().accept(this);
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
+    @Override
     public void visit(SWRLBuiltInAtom node) {
         for (SWRLArgument obj : node.getAllArguments()) {
             obj.accept(this);
         }
     }
 
-    @SuppressWarnings("unused")
+    @Override
+
     public void visit(SWRLVariable node) {}
 
+    @Override
     public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
     }
 
+    @Override
     public void visit(SWRLLiteralArgument node) {
         node.getLiteral().accept(this);
     }
 
+    @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
         node.getFirstArgument().accept(this);
     }
 
+    @Override
     public void visit(SWRLSameIndividualAtom node) {
         node.getSecondArgument().accept(this);
     }

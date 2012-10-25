@@ -126,6 +126,7 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOn
     }
 
 
+    @Override
     public List<OWLOntologyChange> getChanges() {
         return changes;
     }

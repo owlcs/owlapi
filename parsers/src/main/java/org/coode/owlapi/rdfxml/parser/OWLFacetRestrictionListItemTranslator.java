@@ -56,11 +56,12 @@ public class OWLFacetRestrictionListItemTranslator implements ListItemTranslator
     public OWLFacetRestrictionListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
-    @SuppressWarnings("unused")
+    @Override
     public OWLFacetRestriction translate(OWLLiteral firstObject) {
         return null;
     }
 
+    @Override
     public OWLFacetRestriction translate(IRI firstObject) {
         for(OWLFacet facet : OWLFacet.values()) {
             OWLLiteral lit = consumer.getLiteralObject(firstObject, facet.getIRI(), true);

@@ -80,19 +80,23 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         this.annotations = CollectionFactory.getCopyOnRequestSetFromMutableCollection(new TreeSet<OWLAnnotation>(annotations));
     }
 
+    @Override
     public Set<OWLAnnotation> getAnnotations() {
         return annotations;
     }
 
+    @Override
     public OWLAnnotationProperty getProperty() {
         return property;
     }
 
 
+    @Override
     public OWLAnnotationValue getValue() {
         return value;
     }
 
+    @Override
     public OWLAnnotation getAnnotatedAnnotation(Set<OWLAnnotation> annotationsToAdd) {
         if(annotationsToAdd.isEmpty()) {
             return this;
@@ -117,6 +121,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
      * @return <code>true</code> if this annotation is an annotation that can be used to deprecate an IRI, otherwise
      *         <code>false</code>.
      */
+    @Override
     public boolean isDeprecatedIRIAnnotation() {
         return property.isDeprecated() && value instanceof OWLLiteral && ((OWLLiteral) value).isBoolean() && ((OWLLiteral) value).parseBoolean();
     }
@@ -143,18 +148,22 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         }
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLAnnotationObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

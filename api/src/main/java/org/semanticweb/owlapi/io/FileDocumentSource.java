@@ -73,15 +73,18 @@ public class FileDocumentSource implements OWLOntologyDocumentSource {
 		this.file = file;
 	}
 
-	public IRI getDocumentIRI() {
+    @Override
+    public IRI getDocumentIRI() {
 		return IRI.create(file);
 	}
 
-	public boolean isInputStreamAvailable() {
+    @Override
+    public boolean isInputStreamAvailable() {
 		return true;
 	}
 
-	public InputStream getInputStream() {
+    @Override
+    public InputStream getInputStream() {
 		try {
 			return new BufferedInputStream(new FileInputStream(file));
 		} catch (FileNotFoundException e) {
@@ -89,11 +92,13 @@ public class FileDocumentSource implements OWLOntologyDocumentSource {
 		}
 	}
 
-	public boolean isReaderAvailable() {
+    @Override
+    public boolean isReaderAvailable() {
 		return true;
 	}
 
-	public Reader getReader() {
+    @Override
+    public Reader getReader() {
 		try {
 			return new InputStreamReader(getInputStream(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {

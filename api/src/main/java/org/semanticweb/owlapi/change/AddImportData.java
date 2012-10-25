@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @since 3.5
  */
 public final class AddImportData extends ImportChangeData {
+    private static final long serialVersionUID = 30402L;
 
     /**
      * Constructs an {@link AddImportData} object that describes an {@link AddImport} change for the
@@ -103,7 +104,7 @@ public final class AddImportData extends ImportChangeData {
             return false;
         }
         AddImportData other = (AddImportData) obj;
-        return this.getDeclaration().equals(other.getDeclaration());
+        return getDeclaration().equals(other.getDeclaration());
     }
 
     @Override

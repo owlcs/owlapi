@@ -70,6 +70,7 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         super(property, annotations);
     }
 
+    @Override
     public OWLFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -82,32 +83,39 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         return super.equals(obj) && obj instanceof OWLFunctionalObjectPropertyAxiom;
     }
 
+    @Override
     public OWLFunctionalObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.FUNCTIONAL_OBJECT_PROPERTY;
     }
 
 
+    @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
         return df.getOWLSubClassOfAxiom(df.getOWLThing(), df.getOWLObjectMaxCardinality(1, getProperty()));

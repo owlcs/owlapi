@@ -39,10 +39,16 @@
 
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.*;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
  * Author: Matthew Horridge<br>
@@ -52,18 +58,21 @@ import java.util.regex.Pattern;
  */
 public class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
 
-    public static final Pattern PATTERN = Pattern.compile("([^\\s]*)\\s+\"([^\"]*)\"(\\s*([^\\s]*)\\s*)?");
+    private static final Pattern PATTERN = Pattern
+            .compile("([^\\s]*)\\s+\"([^\"]*)\"(\\s*([^\\s]*)\\s*)?");
     
     private static final int ID_GROUP = 1;
     
     private static final int NAME_GROUP = 2;
     
-    private static final int SCOPE_GROUP = 4;
+    // private static final int SCOPE_GROUP = 4;
     
+    /** @param consumer */
     public SynonymTypeDefTagHandler(OBOConsumer consumer) {
         super(OBOVocabulary.SYNONYM_TYPE_DEF.getName(), consumer);
     }
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         Matcher matcher = PATTERN.matcher(value);
         if(matcher.matches()) {

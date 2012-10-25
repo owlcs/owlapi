@@ -39,20 +39,23 @@
 
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 10/05/2012
- */
+ * Date: 10/05/2012 */
+@SuppressWarnings("javadoc")
 public class AltIdTagValueHandler extends AbstractTagValueHandler {
 
     public AltIdTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ALT_ID.getName(), consumer);
     }
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         IRI subject = getConsumer().getCurrentEntity().getIRI();
         IRI annotationPropertyIRI = OBOVocabulary.ALT_ID.getIRI();

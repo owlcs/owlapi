@@ -124,30 +124,36 @@ public class OWLEntityRemover implements OWLEntityVisitor {
         }
     }
 
+    @Override
     public void visit(OWLClass cls) {
         generateChanges(cls);
     }
 
 
+    @Override
     public void visit(OWLDatatype datatype) {
         generateChanges(datatype);
     }
 
 
+    @Override
     public void visit(OWLNamedIndividual individual) {
         generateChanges(individual);
     }
 
 
+    @Override
     public void visit(OWLDataProperty property) {
         generateChanges(property);
     }
 
 
+    @Override
     public void visit(OWLObjectProperty property) {
         generateChanges(property);
     }
 
+    @Override
     public void visit(OWLAnnotationProperty property) {
         generateChanges(property);
     }

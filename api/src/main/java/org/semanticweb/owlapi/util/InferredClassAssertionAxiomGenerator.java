@@ -67,6 +67,7 @@ public class InferredClassAssertionAxiomGenerator extends InferredIndividualAxio
     }
 
 
+    @Override
     public String getLabel() {
         return "Class assertions (individual types)";
     }

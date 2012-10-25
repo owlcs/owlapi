@@ -59,6 +59,7 @@ public class SWRLVariableElementHandler extends AbstractOWLElementHandler<SWRLVa
     private IRI iri;
 
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
         getParentHandler().handleChild(this);
     }
@@ -68,6 +69,7 @@ public class SWRLVariableElementHandler extends AbstractOWLElementHandler<SWRLVa
         iri = getIRIFromAttribute(localName, value);
     }
 
+    @Override
     public SWRLVariable getOWLObject() throws OWLXMLParserException {
         if (iri != null) {
             return getOWLDataFactory().getSWRLVariable(iri);

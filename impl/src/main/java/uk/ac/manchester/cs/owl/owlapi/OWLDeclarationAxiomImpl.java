@@ -72,14 +72,17 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
     }
 
 
+    @Override
     public boolean isLogicalAxiom() {
         return false;
     }
 
+    @Override
     public boolean isAnnotationAxiom() {
         return false;
     }
 
+    @Override
     public OWLDeclarationAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -87,10 +90,12 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
         return getOWLDataFactory().getOWLDeclarationAxiom(getEntity());
     }
 
+    @Override
     public OWLDeclarationAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLDeclarationAxiom(getEntity(), mergeAnnos(annotations));
     }
 
+    @Override
     public OWLEntity getEntity() {
         return entity;
     }
@@ -107,24 +112,29 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
     }
 
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.DECLARATION;
     }

@@ -59,14 +59,17 @@ public class ObjectMinQualifiedCardinalityTranslator extends AbstractClassExpres
         super(consumer);
     }
 
+    @Override
     public boolean matchesStrict(IRI mainNode) {
         return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MIN_QUALIFIED_CARDINALITY) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY) && isClassExpressionStrict(mainNode, OWL_ON_CLASS);
     }
 
+    @Override
     public boolean matchesLax(IRI mainNode) {
         return isNonNegativeIntegerLax(mainNode, OWL_MIN_QUALIFIED_CARDINALITY) && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY) && isClassExpressionLax(mainNode, OWL_ON_CLASS);
     }
 
+    @Override
     public OWLObjectMinCardinality translate(IRI mainNode) {
         int cardi = translateInteger(mainNode, OWL_MIN_QUALIFIED_CARDINALITY);
         IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);

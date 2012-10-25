@@ -101,184 +101,222 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
 /**returns true if the visited axioms are an ontology in Horn-SHIQ form*/
-@SuppressWarnings("unused")
 public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 	final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
 	final NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
 
-	public Boolean visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    @Override
+    public Boolean visit(OWLSubAnnotationPropertyOfAxiom axiom) {
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLAnnotationPropertyDomainAxiom axiom) {
+    @Override
+    public Boolean visit(OWLAnnotationPropertyDomainAxiom axiom) {
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLAnnotationPropertyRangeAxiom axiom) {
+    @Override
+    public Boolean visit(OWLAnnotationPropertyRangeAxiom axiom) {
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLSubClassOfAxiom axiom) {
-		return axiom.getSubClass().accept(negative)
-				&& axiom.getSuperClass().accept(positive);
+    @Override
+    public Boolean visit(OWLSubClassOfAxiom axiom) {
+        return Boolean.valueOf(axiom.getSubClass().accept(negative).booleanValue()
+                && axiom.getSuperClass().accept(positive).booleanValue());
 	}
 
-	public Boolean visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+    @Override
+    public Boolean visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+    @Override
+    public Boolean visit(OWLAsymmetricObjectPropertyAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLReflexiveObjectPropertyAxiom axiom) {
+    @Override
+    public Boolean visit(OWLReflexiveObjectPropertyAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLDisjointClassesAxiom axiom) {
+    @Override
+    public Boolean visit(OWLDisjointClassesAxiom axiom) {
 		for (OWLClassExpression c : axiom.getClassExpressions()) {
-			if (!c.accept(negative)) {
+            if (!c.accept(negative).booleanValue()) {
 				return Boolean.FALSE;
 			}
 		}
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLDataPropertyDomainAxiom axiom) {
+    @Override
+    public Boolean visit(OWLDataPropertyDomainAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLObjectPropertyDomainAxiom axiom) {
+    @Override
+    public Boolean visit(OWLObjectPropertyDomainAxiom axiom) {
 		return axiom.getDomain().accept(positive);
 	}
 
-	public Boolean visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    @Override
+    public Boolean visit(OWLEquivalentObjectPropertiesAxiom axiom) {
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+    @Override
+    public Boolean visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLDifferentIndividualsAxiom axiom) {
+    @Override
+    public Boolean visit(OWLDifferentIndividualsAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLDisjointDataPropertiesAxiom axiom) {
+    @Override
+    public Boolean visit(OWLDisjointDataPropertiesAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLDisjointObjectPropertiesAxiom axiom) {
+    @Override
+    public Boolean visit(OWLDisjointObjectPropertiesAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLObjectPropertyRangeAxiom axiom) {
+    @Override
+    public Boolean visit(OWLObjectPropertyRangeAxiom axiom) {
 		return axiom.getRange().accept(positive);
 	}
 
-	public Boolean visit(OWLObjectPropertyAssertionAxiom axiom) {
+    @Override
+    public Boolean visit(OWLObjectPropertyAssertionAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLFunctionalObjectPropertyAxiom axiom) {
+    @Override
+    public Boolean visit(OWLFunctionalObjectPropertyAxiom axiom) {
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLSubObjectPropertyOfAxiom axiom) {
+    @Override
+    public Boolean visit(OWLSubObjectPropertyOfAxiom axiom) {
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLDisjointUnionAxiom axiom) {
+    @Override
+    public Boolean visit(OWLDisjointUnionAxiom axiom) {
 		OWLClassExpression c1 = axiom.getOWLClass();
-		if (!c1.accept(positive) || !c1.accept(negative)) {
+        if (!c1.accept(positive).booleanValue() || !c1.accept(negative).booleanValue()) {
 			return Boolean.FALSE;
 		}
 		for (OWLClassExpression c : axiom.getClassExpressions()) {
-			if (!c.accept(positive) || !c.accept(negative)) {
+            if (!c.accept(positive).booleanValue() || !c.accept(negative).booleanValue()) {
 				return Boolean.FALSE;
 			}
 		}
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLDeclarationAxiom axiom) {
+    @Override
+    public Boolean visit(OWLDeclarationAxiom axiom) {
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLAnnotationAssertionAxiom axiom) {
+    @Override
+    public Boolean visit(OWLAnnotationAssertionAxiom axiom) {
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLSymmetricObjectPropertyAxiom axiom) {
+    @Override
+    public Boolean visit(OWLSymmetricObjectPropertyAxiom axiom) {
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLDataPropertyRangeAxiom axiom) {
+    @Override
+    public Boolean visit(OWLDataPropertyRangeAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLFunctionalDataPropertyAxiom axiom) {
+    @Override
+    public Boolean visit(OWLFunctionalDataPropertyAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLEquivalentDataPropertiesAxiom axiom) {
+    @Override
+    public Boolean visit(OWLEquivalentDataPropertiesAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLClassAssertionAxiom axiom) {
+    @Override
+    public Boolean visit(OWLClassAssertionAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLEquivalentClassesAxiom axiom) {
+    @Override
+    public Boolean visit(OWLEquivalentClassesAxiom axiom) {
 		for (OWLClassExpression c : axiom.getClassExpressions()) {
-			if (!c.accept(positive) || !c.accept(negative)) {
+            if (!c.accept(positive).booleanValue() || !c.accept(negative).booleanValue()) {
 				return Boolean.FALSE;
 			}
 		}
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLDataPropertyAssertionAxiom axiom) {
+    @Override
+    public Boolean visit(OWLDataPropertyAssertionAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLTransitiveObjectPropertyAxiom axiom) {
+    @Override
+    public Boolean visit(OWLTransitiveObjectPropertyAxiom axiom) {
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+    @Override
+    public Boolean visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLSubDataPropertyOfAxiom axiom) {
+    @Override
+    public Boolean visit(OWLSubDataPropertyOfAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    @Override
+    public Boolean visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLSameIndividualAxiom axiom) {
+    @Override
+    public Boolean visit(OWLSameIndividualAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLSubPropertyChainOfAxiom axiom) {
+    @Override
+    public Boolean visit(OWLSubPropertyChainOfAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLInverseObjectPropertiesAxiom axiom) {
+    @Override
+    public Boolean visit(OWLInverseObjectPropertiesAxiom axiom) {
 		return Boolean.TRUE;
 	}
 
-	public Boolean visit(OWLHasKeyAxiom axiom) {
+    @Override
+    public Boolean visit(OWLHasKeyAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(OWLDatatypeDefinitionAxiom axiom) {
+    @Override
+    public Boolean visit(OWLDatatypeDefinitionAxiom axiom) {
 		return Boolean.FALSE;
 	}
 
-	public Boolean visit(SWRLRule rule) {
+    @Override
+    public Boolean visit(SWRLRule rule) {
 		return Boolean.FALSE;
 	}
 
@@ -287,81 +325,101 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 		public PositiveAppearanceVisitorEx() {
 		}
 
-		public Boolean visit(OWLClass ce) {
-			return true;
+        @Override
+        public Boolean visit(OWLClass ce) {
+            return Boolean.TRUE;
 		}
 
-		public Boolean visit(OWLObjectIntersectionOf ce) {
+        @Override
+        public Boolean visit(OWLObjectIntersectionOf ce) {
 			for (OWLClassExpression c : ce.getOperands()) {
 				if (c.accept(this) == Boolean.FALSE) {
-					return false;
+                    return Boolean.FALSE;
 				}
 			}
-			return true;
+            return Boolean.TRUE;
 		}
 
-		public Boolean visit(OWLObjectUnionOf ce) {
+        @Override
+        public Boolean visit(OWLObjectUnionOf ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLObjectComplementOf ce) {
+        @Override
+        public Boolean visit(OWLObjectComplementOf ce) {
 			return ce.getOperand().accept(negative);
 		}
 
-		public Boolean visit(OWLObjectSomeValuesFrom ce) {
+        @Override
+        public Boolean visit(OWLObjectSomeValuesFrom ce) {
 			return ce.getFiller().accept(this);
 		}
 
-		public Boolean visit(OWLObjectAllValuesFrom ce) {
+        @Override
+        public Boolean visit(OWLObjectAllValuesFrom ce) {
 			return ce.getFiller().accept(this);
 		}
 
-		public Boolean visit(OWLObjectHasValue ce) {
+        @Override
+        public Boolean visit(OWLObjectHasValue ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLObjectMinCardinality ce) {
+        @Override
+        public Boolean visit(OWLObjectMinCardinality ce) {
 			return ce.getFiller().accept(this);
 		}
 
-		public Boolean visit(OWLObjectExactCardinality ce) {
-			return ce.getCardinality()<=1 && ce.getFiller().accept(this)
-					&& ce.getFiller().accept(negative);
+        @Override
+        public Boolean visit(OWLObjectExactCardinality ce) {
+            return Boolean.valueOf(ce.getCardinality() <= 1
+                    && ce.getFiller().accept(this).booleanValue()
+                    && ce.getFiller().accept(negative).booleanValue());
 		}
 
-		public Boolean visit(OWLObjectMaxCardinality ce) {
-			return ce.getCardinality()<=1 && ce.getFiller().accept(negative);
+        @Override
+        public Boolean visit(OWLObjectMaxCardinality ce) {
+            return Boolean.valueOf(ce.getCardinality() <= 1
+                    && ce.getFiller().accept(negative).booleanValue());
 		}
 
-		public Boolean visit(OWLObjectHasSelf ce) {
+        @Override
+        public Boolean visit(OWLObjectHasSelf ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLObjectOneOf ce) {
+        @Override
+        public Boolean visit(OWLObjectOneOf ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLDataSomeValuesFrom ce) {
+        @Override
+        public Boolean visit(OWLDataSomeValuesFrom ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLDataAllValuesFrom ce) {
+        @Override
+        public Boolean visit(OWLDataAllValuesFrom ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLDataHasValue ce) {
+        @Override
+        public Boolean visit(OWLDataHasValue ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLDataMinCardinality ce) {
+        @Override
+        public Boolean visit(OWLDataMinCardinality ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLDataExactCardinality ce) {
+        @Override
+        public Boolean visit(OWLDataExactCardinality ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLDataMaxCardinality ce) {
+        @Override
+        public Boolean visit(OWLDataMaxCardinality ce) {
 			return Boolean.FALSE;
 		}
 	}
@@ -371,85 +429,104 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 		public NegativeAppearanceVisitorEx() {
 		}
 
-		public Boolean visit(OWLClass ce) {
+        @Override
+        public Boolean visit(OWLClass ce) {
 			return Boolean.TRUE;
 		}
 
-		public Boolean visit(OWLObjectIntersectionOf ce) {
+        @Override
+        public Boolean visit(OWLObjectIntersectionOf ce) {
 			for (OWLClassExpression c : ce.getOperands()) {
 				if (c.accept(this) == Boolean.FALSE) {
-					return false;
+                    return Boolean.FALSE;
 				}
 			}
-			return true;
+            return Boolean.TRUE;
 		}
 
-		public Boolean visit(OWLObjectUnionOf ce) {
+        @Override
+        public Boolean visit(OWLObjectUnionOf ce) {
 			for (OWLClassExpression c : ce.getOperands()) {
 				if (c.accept(this) == Boolean.FALSE) {
-					return false;
+                    return Boolean.FALSE;
 				}
 			}
-			return true;
+            return Boolean.TRUE;
 		}
 
-		public Boolean visit(OWLObjectComplementOf ce) {
+        @Override
+        public Boolean visit(OWLObjectComplementOf ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLObjectSomeValuesFrom ce) {
+        @Override
+        public Boolean visit(OWLObjectSomeValuesFrom ce) {
 			return ce.getFiller().accept(this);
 		}
 
-		public Boolean visit(OWLObjectAllValuesFrom ce) {
+        @Override
+        public Boolean visit(OWLObjectAllValuesFrom ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLObjectHasValue ce) {
-			return false;
+        @Override
+        public Boolean visit(OWLObjectHasValue ce) {
+            return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLObjectMinCardinality ce) {
-			return ce.getCardinality()<=1 && ce.getFiller().accept(this);
+        @Override
+        public Boolean visit(OWLObjectMinCardinality ce) {
+            return Boolean.valueOf(ce.getCardinality() <= 1
+                    && ce.getFiller().accept(this).booleanValue());
 		}
 
-		public Boolean visit(OWLObjectExactCardinality ce) {
+        @Override
+        public Boolean visit(OWLObjectExactCardinality ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLObjectMaxCardinality ce) {
+        @Override
+        public Boolean visit(OWLObjectMaxCardinality ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLObjectHasSelf ce) {
+        @Override
+        public Boolean visit(OWLObjectHasSelf ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLObjectOneOf ce) {
+        @Override
+        public Boolean visit(OWLObjectOneOf ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLDataSomeValuesFrom ce) {
+        @Override
+        public Boolean visit(OWLDataSomeValuesFrom ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLDataAllValuesFrom ce) {
+        @Override
+        public Boolean visit(OWLDataAllValuesFrom ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLDataHasValue ce) {
+        @Override
+        public Boolean visit(OWLDataHasValue ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLDataMinCardinality ce) {
+        @Override
+        public Boolean visit(OWLDataMinCardinality ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLDataExactCardinality ce) {
+        @Override
+        public Boolean visit(OWLDataExactCardinality ce) {
 			return Boolean.FALSE;
 		}
 
-		public Boolean visit(OWLDataMaxCardinality ce) {
+        @Override
+        public Boolean visit(OWLDataMaxCardinality ce) {
 			return Boolean.FALSE;
 		}
 	}

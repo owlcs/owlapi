@@ -64,6 +64,7 @@ public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
     }
 
 
+    @Override
     public IRI getDocumentIRI(IRI ontologyIRI) {
         IRI iri = iriMap.get(ontologyIRI);
         if (iri != null) {

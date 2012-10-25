@@ -54,6 +54,7 @@ public class XRefTagHandler extends AbstractTagValueHandler {
         super(OBOVocabulary.XREF.getName(), consumer);
     }
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         if (currentId == null) {
             return;

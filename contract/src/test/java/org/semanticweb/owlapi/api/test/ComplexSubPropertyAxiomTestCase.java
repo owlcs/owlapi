@@ -72,7 +72,6 @@ public class ComplexSubPropertyAxiomTestCase extends AbstractFileRoundTrippingTe
     }
 
     @Override
-    @SuppressWarnings("unused")
     protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         // System.out.println(target);
     }

@@ -292,6 +292,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         }
 
 
+        @Override
         public int compare(Construct o1, Construct o2) {
             return order.indexOf(o1) - order.indexOf(o2);
         }
@@ -312,15 +313,18 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+    @Override
     public void visit(OWLObjectProperty property) {
     }
 
 
+    @Override
     public void visit(OWLObjectInverseOf property) {
         constructs.add(I);
     }
 
 
+    @Override
     public void visit(OWLDataProperty property) {
         constructs.add(D);
     }
@@ -332,29 +336,35 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+    @Override
     public void visit(OWLDatatype node) {
     }
 
 
+    @Override
     public void visit(OWLDataComplementOf node) {
         constructs.add(D);
     }
 
 
+    @Override
     public void visit(OWLDataOneOf node) {
         constructs.add(D);
     }
 
 
+    @Override
     public void visit(OWLDatatypeRestriction node) {
         constructs.add(D);
     }
 
 
+    @Override
     public void visit(OWLLiteral node) {
         constructs.add(D);
     }
 
+    @Override
     public void visit(OWLFacetRestriction node) {
         constructs.add(D);
     }
@@ -366,10 +376,12 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+    @Override
     public void visit(OWLClass desc) {
     }
 
 
+    @Override
     public void visit(OWLObjectIntersectionOf desc) {
         constructs.add(AL);
         for (OWLClassExpression operands : desc.getOperands()) {
@@ -378,6 +390,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectUnionOf desc) {
         constructs.add(U);
         for (OWLClassExpression operands : desc.getOperands()) {
@@ -396,7 +409,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
             return false;
         } else {
             for (OWLOntology ont : ontologies) {
-                if (!ont.getAxioms(((OWLClass) classExpression)).isEmpty()) {
+                if (!ont.getAxioms((OWLClass) classExpression).isEmpty()) {
                     return false;
                 }
             }
@@ -405,6 +418,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectComplementOf desc) {
         if (isAtomic(desc)) {
             constructs.add(AL);
@@ -415,6 +429,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectSomeValuesFrom desc) {
         if (isTop(desc.getFiller())) {
             constructs.add(AL);
@@ -426,6 +441,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectAllValuesFrom desc) {
         if (isTop(desc.getFiller())) {
             constructs.add(AL);
@@ -438,6 +454,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectHasValue desc) {
         constructs.add(O);
         constructs.add(E);
@@ -465,33 +482,39 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         restriction.getProperty().accept(this);
     }
 
+    @Override
     public void visit(OWLObjectMinCardinality desc) {
         checkCardinality(desc);
     }
 
 
+    @Override
     public void visit(OWLObjectExactCardinality desc) {
         checkCardinality(desc);
     }
 
 
+    @Override
     public void visit(OWLObjectMaxCardinality desc) {
         checkCardinality(desc);
     }
 
 
+    @Override
     public void visit(OWLObjectHasSelf desc) {
         desc.getProperty().accept(this);
         constructs.add(R);
     }
 
 
+    @Override
     public void visit(OWLObjectOneOf desc) {
         constructs.add(U);
         constructs.add(O);
     }
 
 
+    @Override
     public void visit(OWLDataSomeValuesFrom desc) {
         constructs.add(E);
         desc.getFiller().accept(this);
@@ -499,28 +522,33 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLDataAllValuesFrom desc) {
         desc.getFiller().accept(this);
         desc.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDataHasValue desc) {
         constructs.add(D);
         desc.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDataMinCardinality desc) {
         checkCardinality(desc);
     }
 
 
+    @Override
     public void visit(OWLDataExactCardinality desc) {
         checkCardinality(desc);
     }
 
 
+    @Override
     public void visit(OWLDataMaxCardinality desc) {
         checkCardinality(desc);
     }
@@ -532,29 +560,34 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+    @Override
     public void visit(OWLSubClassOfAxiom axiom) {
         axiom.getSubClass().accept(this);
         axiom.getSuperClass().accept(this);
     }
 
 
+    @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         constructs.add(R);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         constructs.add(R);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         constructs.add(C);
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
@@ -563,6 +596,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         axiom.getDomain().accept(this);
         constructs.add(AL);
@@ -576,6 +610,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         constructs.add(AL);
         axiom.getDomain().accept(this);
@@ -583,6 +618,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         constructs.add(H);
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
@@ -591,11 +627,13 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         constructs.add(U);
         constructs.add(O);
@@ -603,6 +641,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         constructs.add(D);
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
@@ -611,6 +650,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         constructs.add(R);
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
@@ -619,6 +659,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         constructs.add(AL);
         axiom.getRange().accept(this);
@@ -626,17 +667,20 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         constructs.add(F);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         constructs.add(H);
         axiom.getSubProperty().accept(this);
@@ -644,6 +688,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         constructs.add(U);
         constructs.add(C);
@@ -653,21 +698,25 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLDeclarationAxiom axiom) {
 
     }
 
 
+    @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
     }
 
 
+    @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         constructs.add(I);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         constructs.add(AL);
         constructs.add(D);
@@ -675,6 +724,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         constructs.add(F);
         constructs.add(D);
@@ -682,6 +732,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         constructs.add(H);
         constructs.add(D);
@@ -691,11 +742,13 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLClassAssertionAxiom axiom) {
         axiom.getClassExpression().accept(this);
     }
 
 
+    @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
@@ -703,30 +756,35 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         constructs.add(D);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         constructs.add(TRAN);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         constructs.add(R);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         constructs.add(H);
         constructs.add(D);
     }
 
 
+    @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         constructs.add(I);
         constructs.add(F);
@@ -734,11 +792,13 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         constructs.add(O);
     }
 
 
+    @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         constructs.add(R);
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
@@ -748,103 +808,128 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         constructs.add(I);
     }
 
 
+    @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
         // TODO
     }
 
 
+    @Override
     public void visit(OWLHasKeyAxiom axiom) {
         // TODO:
     }
 
+    @Override
     public void visit(OWLDataIntersectionOf node) {
         // TODO:
     }
 
+    @Override
     public void visit(OWLDataUnionOf node) {
         // TODO:
     }
 
+    @Override
     public void visit(OWLNamedIndividual individual) {
         // TODO:
     }
 
+    @Override
     public void visit(OWLAnnotationProperty property) {
         // TODO:
     }
 
+    @Override
     public void visit(OWLAnnotation annotation) {
         // TODO:
     }
 
+    @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         // TODO:
     }
 
+    @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         // TODO:
     }
 
+    @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         // TODO:
     }
 
+    @Override
     public void visit(OWLAnonymousIndividual individual) {
         // TODO:
     }
 
+    @Override
     public void visit(IRI iri) {
         // TODO:
     }
 
 
+    @Override
     public void visit(SWRLRule rule) {
     }
 
+    @Override
     public void visit(SWRLVariable node) {
     }
 
+    @Override
     public void visit(OWLOntology ontology) {
     }
 
 
+    @Override
     public void visit(SWRLClassAtom node) {
     }
 
 
+    @Override
     public void visit(SWRLDataRangeAtom node) {
     }
 
 
+    @Override
     public void visit(SWRLObjectPropertyAtom node) {
     }
 
 
+    @Override
     public void visit(SWRLDataPropertyAtom node) {
     }
 
 
+    @Override
     public void visit(SWRLBuiltInAtom node) {
     }
 
 
+    @Override
     public void visit(SWRLIndividualArgument node) {
     }
 
 
+    @Override
     public void visit(SWRLLiteralArgument node) {
     }
 
 
+    @Override
     public void visit(SWRLSameIndividualAtom node) {
     }
 
 
+    @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
     }
 }

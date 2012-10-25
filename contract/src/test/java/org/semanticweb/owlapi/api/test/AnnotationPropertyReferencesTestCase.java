@@ -63,7 +63,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase {
 
     @Test
-    public void testContainsReferenceForAnnotationAssertion() throws Exception {
+    public void testContainsReferenceForAnnotationAssertion() {
         OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
         OWLLiteral val = getFactory().getOWLLiteral("Test", "");
         OWLAnnotationSubject subject = getOWLClass("A").getIRI();
@@ -76,7 +76,7 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
 
 
     @Test
-    public void testContainsReferenceForAxiomAnnotation() throws Exception {
+    public void testContainsReferenceForAxiomAnnotation() {
         OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
         OWLLiteral val = getFactory().getOWLLiteral("Test", "");
         OWLAnnotation anno = getFactory().getOWLAnnotation(ap, val);

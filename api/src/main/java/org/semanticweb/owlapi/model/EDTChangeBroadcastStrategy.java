@@ -53,6 +53,7 @@ public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStr
 
     private static final long serialVersionUID = 30402L;
 
+    @Override
     public void broadcastChanges(final OWLOntologyChangeListener listener, final List<? extends OWLOntologyChange> changes) throws OWLException {
         if (SwingUtilities.isEventDispatchThread()) {
             listener.ontologiesChanged(changes);
@@ -60,6 +61,7 @@ public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStr
         else {
             try {
                 Runnable r = new Runnable() {
+                    @Override
                     public void run() {
                         try {
                             listener.ontologiesChanged(changes);

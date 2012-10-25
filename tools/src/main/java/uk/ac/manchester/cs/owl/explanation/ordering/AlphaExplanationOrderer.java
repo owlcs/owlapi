@@ -69,11 +69,13 @@ public final class AlphaExplanationOrderer implements ExplanationOrderer {
         this.renderer = renderer;
     }
 
+    @Override
     public ExplanationTree getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
         EntailedAxiomTree root = new EntailedAxiomTree(entailment);
         List<OWLAxiom> sortedAxioms = new ArrayList<OWLAxiom>(axioms);
         Collections.sort(sortedAxioms, new Comparator<OWLAxiom>() {
 
+            @Override
             public int compare(OWLAxiom o1, OWLAxiom o2) {
                 return renderer.render(o1).compareTo(renderer.render(o2));
             }

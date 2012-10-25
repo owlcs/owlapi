@@ -63,18 +63,22 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLN
         this.operands = new TreeSet<OWLDataRange>(operands);
     }
 
+    @Override
     public Set<OWLDataRange> getOperands() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(operands);
     }
 
+    @Override
     public boolean isTopDatatype() {
         return false;
     }
 
+    @Override
     public boolean isDatatype() {
         return false;
     }
 
+    @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a datatype");
     }

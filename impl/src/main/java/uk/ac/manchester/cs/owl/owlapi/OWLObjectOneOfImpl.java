@@ -77,21 +77,25 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
      * Gets the class expression type for this class expression
      * @return The class expression type
      */
+    @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_ONE_OF;
     }
 
 
+    @Override
     public Set<OWLIndividual> getIndividuals() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(values);
     }
 
 
+    @Override
     public boolean isClassExpressionLiteral() {
         return false;
     }
 
 
+    @Override
     public OWLClassExpression asObjectUnionOf() {
         if (values.size() == 1) {
             return this;
@@ -118,20 +122,24 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     }
 
 
+    @Override
     public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

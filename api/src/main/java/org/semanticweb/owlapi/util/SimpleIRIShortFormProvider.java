@@ -58,6 +58,7 @@ public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Seriali
 
     private static final long serialVersionUID = 30402L;
 
+    @Override
     public String getShortForm(IRI iri) {
         String rendering = iri.getFragment();
         if (rendering != null && rendering.length()>0) {

@@ -63,6 +63,7 @@ public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends OWLProfileV
         return prop;
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

@@ -83,7 +83,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
     private OWLOntology debuggingOntology;
 
-    private final Set<OWLAxiom> debuggingAxioms;
+    protected final Set<OWLAxiom> debuggingAxioms;
 
     private final Set<OWLEntity> objectsExpandedWithDefiningAxioms;
 
@@ -156,6 +156,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
 
+    @Override
     public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
 
         if (!getDefinitionTracker().isDefined(unsatClass)) {

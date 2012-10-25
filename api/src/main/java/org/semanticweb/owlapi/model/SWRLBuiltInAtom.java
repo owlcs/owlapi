@@ -56,6 +56,7 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
      * Gets the predicate of this atom
      * @return The atom predicate
      */
+    @Override
     IRI getPredicate();
 
     /**

@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +64,7 @@ public class AnonymousFunctionalRoundtripTestCase {
 
     @Test
     public void shouldRoundTripBroken() throws OWLOntologyCreationException,
-    OWLOntologyStorageException, IOException {
+            OWLOntologyStorageException {
         OWLOntology o = loadOntology(broken);
         String s = saveOntology(o, new OWLFunctionalSyntaxOntologyFormat());
         OWLOntology o1 = loadOntology(s);
@@ -74,7 +73,7 @@ public class AnonymousFunctionalRoundtripTestCase {
 
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
-    OWLOntologyStorageException, IOException {
+            OWLOntologyStorageException {
         OWLDataFactory df = Factory.getFactory();
         OWLClass C = df.getOWLClass(IRI.create(NS + "#C"));
         OWLClass D = df.getOWLClass(IRI.create(NS + "#D"));
@@ -98,7 +97,7 @@ public class AnonymousFunctionalRoundtripTestCase {
     }
 
     String saveOntology(OWLOntology ontology, PrefixOWLOntologyFormat format)
-            throws IOException, OWLOntologyStorageException {
+            throws OWLOntologyStorageException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         format.setDefaultPrefix(NS + "#");
         StringDocumentTarget target = new StringDocumentTarget();

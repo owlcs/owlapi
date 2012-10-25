@@ -66,11 +66,13 @@ public class ManchesterOWLSyntaxInlineAxiomParser implements OWLExpressionParser
     }
 
 
+    @Override
     public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
         this.checker = entityChecker;
     }
 
 
+    @Override
     public OWLAxiom parse(String expression) throws ParserException {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);

@@ -2,8 +2,6 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
@@ -39,7 +37,7 @@ public class MissingDeclarationRoundTripTestCase {
 
     @Test
     public void shouldFindOneAxiom() throws OWLOntologyCreationException,
-    OWLOntologyStorageException, IOException {
+            OWLOntologyStorageException {
         OWLOntology ontology = createOntology();
         assertTrue(ontology.containsAnnotationPropertyInSignature(P.getIRI()));
         assertEquals(1, ontology.getAxiomCount());
@@ -59,7 +57,7 @@ public class MissingDeclarationRoundTripTestCase {
     }
 
 
-    public String saveOntology(OWLOntology ontology) throws IOException,
+    public String saveOntology(OWLOntology ontology) throws
     OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();

@@ -1,6 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 /** Token Manager Error. */
+@SuppressWarnings("javadoc")
 public class TokenMgrError extends Error
 {
 
@@ -122,6 +123,7 @@ public class TokenMgrError extends Error
      *
      * from this method for such cases in the release version of your parser.
      */
+    @Override
     public String getMessage() {
         return super.getMessage();
     }

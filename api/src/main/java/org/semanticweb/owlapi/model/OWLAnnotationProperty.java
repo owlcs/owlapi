@@ -88,6 +88,7 @@ public interface OWLAnnotationProperty extends OWLEntity {
      * </ul>
      * @return <code>true</code> if the property is a built in annotation property, otherwise <code>false</code>
      */
+    @Override
     boolean isBuiltIn();
 
     /**

@@ -89,6 +89,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
         return obj instanceof OWLIndividual;
     }
 
+    @Override
     public Set<OWLClassExpression> getTypes(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLClassAssertionAxiom axiom : ontology.getClassAssertionAxioms(this)) {
@@ -98,6 +99,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
 
+    @Override
     public Set<OWLClassExpression> getTypes(Set<OWLOntology> ontologies) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
@@ -126,6 +128,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
      * @return The set of individuals that are the values of this property.  More precisely, the set of individuals
      *         such that for each individual i in the set, is in a property assertion axiom property(this, i) is in the specified ontology.
      */
+    @Override
     public Set<OWLIndividual> getObjectPropertyValues(OWLObjectPropertyExpression property, OWLOntology ontology) {
         Map<OWLObjectPropertyExpression, Set<OWLIndividual>> map = getObjectPropertyValues(ontology);
         Set<OWLIndividual> vals = map.get(property);
@@ -157,6 +160,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
      *         the set of values such that each value LV in the set is in an axiom of the form
      *         DataPropertyAssertion(property, thisIndividual, LV) in the ontology specified by the ontology parameter.
      */
+    @Override
     public Set<OWLLiteral> getDataPropertyValues(OWLDataPropertyExpression property, OWLOntology ontology) {
         Set<OWLLiteral> result = new HashSet<OWLLiteral>();
         for (OWLDataPropertyAssertionAxiom ax : ontology.getDataPropertyAssertionAxioms(this)) {
@@ -176,6 +180,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
      *         if the specified ontology contains an object property assertion ObjectPropertyAssertion(property, this, individual),
      *         otherwise <code>false</code>
      */
+    @Override
     public boolean hasObjectPropertyValue(OWLObjectPropertyExpression property, OWLIndividual individual, OWLOntology ontology) {
         for (OWLObjectPropertyAssertionAxiom ax : ontology.getObjectPropertyAssertionAxioms(this)) {
             if (ax.getProperty().equals(property) && ax.getObject().equals(individual)) {
@@ -185,6 +190,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
         return false;
     }
 
+    @Override
     public Map<OWLObjectPropertyExpression, Set<OWLIndividual>> getObjectPropertyValues(OWLOntology ontology) {
         Map<OWLObjectPropertyExpression, Set<OWLIndividual>> result = new HashMap<OWLObjectPropertyExpression, Set<OWLIndividual>>();
         for (OWLObjectPropertyAssertionAxiom ax : ontology.getObjectPropertyAssertionAxioms(this)) {
@@ -199,6 +205,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
 
+    @Override
     public Map<OWLObjectPropertyExpression, Set<OWLIndividual>> getNegativeObjectPropertyValues(OWLOntology ontology) {
         Map<OWLObjectPropertyExpression, Set<OWLIndividual>> result = new HashMap<OWLObjectPropertyExpression, Set<OWLIndividual>>();
         for (OWLNegativeObjectPropertyAssertionAxiom ax : ontology.getNegativeObjectPropertyAssertionAxioms(this)) {
@@ -221,6 +228,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
      *         <code>true</code> if the specified ontology contains a negative object property assertion
      *         NegativeObjectPropertyAssertion(property, this, individual), otherwise <code>false</code>
      */
+    @Override
     public boolean hasNegativeObjectPropertyValue(OWLObjectPropertyExpression property, OWLIndividual individual, OWLOntology ontology) {
         for (OWLNegativeObjectPropertyAssertionAxiom ax : ontology.getNegativeObjectPropertyAssertionAxioms(this)) {
             if (ax.getProperty().equals(property) && ax.getObject().equals(individual)) {
@@ -230,6 +238,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
         return false;
     }
 
+    @Override
     public Map<OWLDataPropertyExpression, Set<OWLLiteral>> getDataPropertyValues(OWLOntology ontology) {
         Map<OWLDataPropertyExpression, Set<OWLLiteral>> result = new HashMap<OWLDataPropertyExpression, Set<OWLLiteral>>();
         for (OWLDataPropertyAssertionAxiom ax : ontology.getDataPropertyAssertionAxioms(this)) {
@@ -244,6 +253,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
 
+    @Override
     public Map<OWLDataPropertyExpression, Set<OWLLiteral>> getNegativeDataPropertyValues(OWLOntology ontology) {
         Map<OWLDataPropertyExpression, Set<OWLLiteral>> result = new HashMap<OWLDataPropertyExpression, Set<OWLLiteral>>();
         for (OWLNegativeDataPropertyAssertionAxiom ax : ontology.getNegativeDataPropertyAssertionAxioms(this)) {
@@ -266,6 +276,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
      *         <code>true</code> if the specified ontology contains a negative data property assertion
      *         NegativeDataPropertyAssertion(property, this, literal), otherwise <code>false</code>
      */
+    @Override
     public boolean hasNegativeDataPropertyValue(OWLDataPropertyExpression property, OWLLiteral literal, OWLOntology ontology) {
         for (OWLNegativeDataPropertyAssertionAxiom ax : ontology.getNegativeDataPropertyAssertionAxioms(this)) {
             if (ax.getProperty().equals(property) && ax.getObject().equals(literal)) {
@@ -291,6 +302,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
 //    }
 
 
+    @Override
     public Set<OWLIndividual> getSameIndividuals(OWLOntology ontology) {
         Set<OWLIndividual> result = new TreeSet<OWLIndividual>();
         for (OWLSameIndividualAxiom ax : ontology.getSameIndividualAxioms(this)) {
@@ -301,6 +313,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
 
+    @Override
     public Set<OWLIndividual> getDifferentIndividuals(OWLOntology ontology) {
         Set<OWLIndividual> result = new TreeSet<OWLIndividual>();
         for (OWLDifferentIndividualsAxiom ax : ontology.getDifferentIndividualAxioms(this)) {

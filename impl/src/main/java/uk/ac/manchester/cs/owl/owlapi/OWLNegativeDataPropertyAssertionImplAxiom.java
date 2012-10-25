@@ -70,11 +70,13 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRela
         super(subject, property, object, annotations);
     }
 
+    @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
         return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getSubject()), df.getOWLObjectComplementOf(df.getOWLDataHasValue(getProperty(), getObject())));
     }
 
+    @Override
     public OWLNegativeDataPropertyAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -82,6 +84,7 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRela
         return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
     }
 
+    @Override
     public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
     }
@@ -91,6 +94,7 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRela
      * negative data property assertion axioms.
      * @return <code>true</code> if this axioms contains anonymous individual axioms
      */
+    @Override
     public boolean containsAnonymousIndividuals() {
         return getSubject().isAnonymous();
     }
@@ -100,23 +104,28 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRela
         return super.equals(obj) && obj instanceof OWLNegativeDataPropertyAssertionAxiom;
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.NEGATIVE_DATA_PROPERTY_ASSERTION;
     }

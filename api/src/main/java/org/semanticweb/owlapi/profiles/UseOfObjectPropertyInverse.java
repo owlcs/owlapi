@@ -59,6 +59,7 @@ public class UseOfObjectPropertyInverse extends OWLProfileViolation implements  
         this.propertyExpression = propertyExpression;
     }
 
+    @Override
     public void accept(OWL2ELProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

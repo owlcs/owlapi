@@ -170,6 +170,7 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
     }
 
 
+    @Override
     public List<OWLOntologyChange> getChanges() {
         return changes;
     }

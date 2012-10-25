@@ -61,6 +61,7 @@ public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer
 	private static final long serialVersionUID = 30402L;
 
 
+    @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new ManchesterOWLSyntaxOntologyFormat());
     }

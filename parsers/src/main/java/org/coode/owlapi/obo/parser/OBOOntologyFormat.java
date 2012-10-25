@@ -52,6 +52,9 @@ public class OBOOntologyFormat extends OWLOntologyFormat {
 
     private IDSpaceManager idSpaceManager = new IDSpaceManager();
 
+    /**
+     * 
+     */
     public OBOOntologyFormat() {
     }
 

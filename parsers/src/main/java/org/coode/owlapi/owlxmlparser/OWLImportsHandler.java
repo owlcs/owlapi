@@ -60,6 +60,7 @@ public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
         IRI ontIRI = getIRI(getText().trim());
         OWLImportsDeclaration decl = getOWLDataFactory().getOWLImportsDeclaration(ontIRI);
@@ -68,6 +69,7 @@ public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
 
+    @Override
     public OWLOntology getOWLObject() {
         return null;
     }

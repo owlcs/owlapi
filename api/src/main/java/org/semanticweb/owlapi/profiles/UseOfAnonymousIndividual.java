@@ -59,10 +59,12 @@ public class UseOfAnonymousIndividual extends OWLProfileViolation implements OWL
         this.individual = individual;
     }
 
+    @Override
     public void accept(OWL2ELProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWL2QLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

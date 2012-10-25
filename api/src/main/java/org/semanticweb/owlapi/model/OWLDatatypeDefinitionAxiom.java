@@ -61,7 +61,9 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
      */
     OWLDataRange getDataRange();
 
+    @Override
     void accept(OWLAxiomVisitor visitor);
 
+    @Override
     <O> O accept(OWLAxiomVisitorEx<O> visitor);
 }

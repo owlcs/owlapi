@@ -56,6 +56,7 @@ public class IDTagValueHandler extends AbstractTagValueHandler {
     }
 
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         getConsumer().setCurrentId(value);
         final OWLEntity entity = getConsumer().getCurrentEntity();

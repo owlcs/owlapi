@@ -87,7 +87,7 @@ class AnonymousRoundTrip {
 
     private File savedLocation;
 
-    public AnonymousRoundTrip() throws OWLOntologyCreationException {
+    public AnonymousRoundTrip() {
         OWLDataFactory factory = new OWLDataFactoryImpl();
         a = factory.getOWLClass(IRI.create(NS + "#A"));
         p = factory.getOWLAnnotationProperty(IRI.create(NS + "#p"));

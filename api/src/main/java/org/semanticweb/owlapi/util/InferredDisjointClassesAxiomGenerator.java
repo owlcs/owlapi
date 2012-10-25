@@ -71,6 +71,7 @@ public class InferredDisjointClassesAxiomGenerator extends InferredClassAxiomGen
     }
 
 
+    @Override
     public String getLabel() {
         return "Disjoint classes";
     }

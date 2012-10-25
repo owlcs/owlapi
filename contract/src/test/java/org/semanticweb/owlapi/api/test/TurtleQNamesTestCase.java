@@ -17,8 +17,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class TurtleQNamesTestCase {
     @Test
-    public void shouldParseOntologyThatworked() throws OWLOntologyCreationException,
-    OWLOntologyStorageException {
+    public void shouldParseOntologyThatworked() throws OWLOntologyCreationException {
         // given
         String working = "@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .\n"
                 + "@prefix foaf:    <http://xmlns.com/foaf/0.1/> .\n"
@@ -35,8 +34,7 @@ public class TurtleQNamesTestCase {
     }
 
     @Test
-    public void shouldParseOntologyThatBroke() throws OWLOntologyCreationException,
-    OWLOntologyStorageException {
+    public void shouldParseOntologyThatBroke() throws OWLOntologyCreationException {
         // given
         String input = "@prefix f:    <urn:test/> . f:r f:p f: .";
         OWLDataFactory df = Factory.getFactory();
@@ -52,8 +50,7 @@ public class TurtleQNamesTestCase {
 
     // test for 3309666
     @Test
-    public void shouldResolveAgainstBase() throws OWLOntologyCreationException,
-    OWLOntologyStorageException {
+    public void shouldResolveAgainstBase() throws OWLOntologyCreationException {
         // given
         String input = "@base <http://test.org/path#> .\n" + "<a1> <b1> <c1> .";
         // when

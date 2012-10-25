@@ -630,7 +630,7 @@ public class TutorialSnippets {
         OWLOntologyWalkerVisitor<Object> visitor = new OWLOntologyWalkerVisitor<Object>(
                 walker) {
             @Override
-            @SuppressWarnings("unused")
+
             public Object visit(OWLObjectSomeValuesFrom desc) {
                 // Print out the restriction
                 // System.out.println(desc);

@@ -60,6 +60,7 @@ public abstract class AbstractOWLObjectPropertyElementHandler extends AbstractOW
     }
 
 
+    @Override
     final public void endElement() throws OWLParserException, UnloadableImportException {
         endObjectPropertyElement();
         getParentHandler().handleChild(this);
@@ -70,6 +71,7 @@ public abstract class AbstractOWLObjectPropertyElementHandler extends AbstractOW
     }
 
 
+    @Override
     public OWLObjectPropertyExpression getOWLObject() {
         return property;
     }

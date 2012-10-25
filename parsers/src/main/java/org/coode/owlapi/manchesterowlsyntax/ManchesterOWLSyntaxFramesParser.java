@@ -72,6 +72,7 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
     }
 
 
+    @Override
     public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
         this.checker = entityChecker;
     }
@@ -90,6 +91,7 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
         this.defaultOntology = ontology;
     }
 
+    @Override
     public Set<OntologyAxiomPair> parse(String expression) throws ParserException {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);

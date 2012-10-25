@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @since 3.5
  */
 public final class AddOntologyAnnotationData extends OWLOntologyChangeData {
+    private static final long serialVersionUID = 30402L;
 
     private final OWLAnnotation annotation;
 
@@ -105,7 +106,7 @@ public final class AddOntologyAnnotationData extends OWLOntologyChangeData {
             return false;
         }
         AddOntologyAnnotationData other = (AddOntologyAnnotationData) obj;
-        return this.annotation.equals(other.annotation);
+        return annotation.equals(other.annotation);
     }
 
 

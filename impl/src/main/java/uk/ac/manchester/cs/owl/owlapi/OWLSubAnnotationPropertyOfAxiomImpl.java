@@ -74,10 +74,12 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
         this.superProperty = superProperty;
     }
 
+    @Override
     public OWLSubAnnotationPropertyOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLSubAnnotationPropertyOfAxiom(getSubProperty(), getSuperProperty(), mergeAnnos(annotations));
     }
 
+    @Override
     public OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -85,44 +87,53 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
         return getOWLDataFactory().getOWLSubAnnotationPropertyOfAxiom(getSubProperty(), getSuperProperty());
     }
 
+    @Override
     public OWLAnnotationProperty getSubProperty() {
         return subProperty;
     }
 
 
+    @Override
     public OWLAnnotationProperty getSuperProperty() {
         return superProperty;
     }
 
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public boolean isLogicalAxiom() {
         return false;
     }
 
+    @Override
     public boolean isAnnotationAxiom() {
         return true;
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.SUB_ANNOTATION_PROPERTY_OF;
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

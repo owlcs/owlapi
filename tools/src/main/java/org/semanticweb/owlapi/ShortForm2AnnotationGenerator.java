@@ -104,6 +104,7 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
     }
 
 
+    @Override
     public List<OWLOntologyChange> getChanges() {
         ImportsStructureEntitySorter sorter = new ImportsStructureEntitySorter(ontology, ontologyManager);
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();

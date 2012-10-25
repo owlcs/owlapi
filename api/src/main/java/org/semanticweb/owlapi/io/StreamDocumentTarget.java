@@ -65,31 +65,37 @@ public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
     }
 
 
+    @Override
     public boolean isWriterAvailable() {
         return false;
     }
 
 
+    @Override
     public Writer getWriter() {
         throw new OWLRuntimeException("Writer not available.  getWriter() should not be called if isWriterAvailable() returns false.");
     }
 
 
+    @Override
     public boolean isOutputStreamAvailable() {
         return true;
     }
 
 
+    @Override
     public OutputStream getOutputStream() {
         return os;
     }
 
 
+    @Override
     public boolean isDocumentIRIAvailable() {
         return false;
     }
 
 
+    @Override
     public IRI getDocumentIRI() {
         throw new OWLRuntimeException("IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }

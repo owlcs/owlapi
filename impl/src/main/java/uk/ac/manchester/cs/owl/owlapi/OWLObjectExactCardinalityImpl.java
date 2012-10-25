@@ -71,6 +71,7 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
      * Gets the class expression type for this class expression
      * @return The class expression type
      */
+    @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_EXACT_CARDINALITY;
     }
@@ -84,25 +85,30 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
     }
 
 
+    @Override
     public OWLClassExpression asIntersectionOfMinMax() {
         OWLDataFactory df = getOWLDataFactory();
         return df.getOWLObjectIntersectionOf(df.getOWLObjectMinCardinality(getCardinality(), getProperty(), getFiller()), df.getOWLObjectMaxCardinality(getCardinality(), getProperty(), getFiller()));
     }
 
 
+    @Override
     public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

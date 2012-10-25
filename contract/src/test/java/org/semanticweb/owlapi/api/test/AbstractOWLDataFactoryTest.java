@@ -44,7 +44,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -78,27 +77,27 @@ public abstract class AbstractOWLDataFactoryTest extends AbstractOWLAPITestCase 
         assertFalse("Objects should not be equal", objA.equals(objB));
     }
 
-    protected OWLObjectProperty createOWLObjectProperty() throws Exception {
+    protected OWLObjectProperty createOWLObjectProperty() {
         return getFactory().getOWLObjectProperty(createIRI());
     }
 
-    protected OWLClass createOWLClass() throws Exception {
+    protected OWLClass createOWLClass() {
         return getFactory().getOWLClass(createIRI());
     }
 
-    protected OWLIndividual createOWLIndividual() throws Exception {
+    protected OWLIndividual createOWLIndividual() {
         return getFactory().getOWLNamedIndividual(createIRI());
     }
 
-    protected OWLDataProperty createOWLDataProperty() throws OWLException {
+    protected OWLDataProperty createOWLDataProperty() {
         return getFactory().getOWLDataProperty(createIRI());
     }
 
-    protected OWLDatatype createOWLDatatype() throws OWLException {
+    protected OWLDatatype createOWLDatatype() {
         return getFactory().getOWLDatatype(createIRI());
     }
 
-    protected OWLLiteral createOWLLiteral() throws OWLException {
+    protected OWLLiteral createOWLLiteral() {
         return getFactory().getOWLLiteral("Test" + System.currentTimeMillis(), createOWLDatatype());
     }
 

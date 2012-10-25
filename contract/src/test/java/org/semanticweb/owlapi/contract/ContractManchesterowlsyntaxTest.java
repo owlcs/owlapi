@@ -228,7 +228,6 @@ public class ContractManchesterowlsyntaxTest {
         OWLImportsDeclaration result102 = testSubject0.parseImportsDeclaration(Utils
                 .getMockOntology());
         Set<IRI> result103 = testSubject0.parseNameList();
-
         ManchesterOWLSyntaxOntologyFormat result105 = testSubject0.parseOntology(Utils
                 .getMockOntology());
         ManchesterOWLSyntaxOntologyHeader result106 = testSubject0

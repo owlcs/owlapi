@@ -71,10 +71,11 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  */
 public class OWLObjectPropertyManager {
 
-    private static final class SetSizeComparator implements
+    static final class SetSizeComparator implements
     Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
         private static final long serialVersionUID = 30402L;
 
+        @Override
         public int compare(Set<OWLObjectPropertyExpression> o1, Set<OWLObjectPropertyExpression> o2) {
             return o1.size() - o2.size();
         }
@@ -482,6 +483,7 @@ public class OWLObjectPropertyManager {
      * @param processed processed
      * @param stackProps stack entities
      */
+    @SuppressWarnings("boxing")
     public static void tarjan(Set<OWLOntology> ontologies, OWLObjectPropertyExpression prop, int index,
             Stack<OWLObjectPropertyExpression> stack,
             Map<OWLObjectPropertyExpression, Integer> indexMap,

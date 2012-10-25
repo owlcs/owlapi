@@ -58,6 +58,7 @@ public class OWLAnonymousIndividualElementHandler extends AbstractOWLElementHand
         super(handler);
     }
 
+    @Override
     public OWLAnonymousIndividual getOWLObject() throws OWLXMLParserException {
         return ind;
     }
@@ -72,6 +73,7 @@ public class OWLAnonymousIndividualElementHandler extends AbstractOWLElementHand
         }
     }
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
         getParentHandler().handleChild(this);
     }

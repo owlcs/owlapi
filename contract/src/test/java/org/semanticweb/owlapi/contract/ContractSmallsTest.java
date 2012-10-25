@@ -281,8 +281,8 @@ public class ContractSmallsTest {
 
             @Override
             protected void
-            writeAnnotationPropertyComment(final OWLAnnotationProperty prop)
-                    throws IOException {}
+                    writeAnnotationPropertyComment(final OWLAnnotationProperty prop)
+                            throws IOException {}
 
             @Override
             protected void writeBanner(final String name) throws IOException {}
@@ -507,8 +507,8 @@ public class ContractSmallsTest {
         testSubject0.characters(new char[5], 0, 0);
         testSubject0.processingInstruction("", "");
         testSubject0.setErrorHandler(mock(ErrorHandler.class));
-        boolean result1 = testSubject0.isAnonymousNodeIRI("");
-        boolean result2 = testSubject0.isAnonymousNodeID("");
+        boolean result1 = NodeID.isAnonymousNodeIRI("");
+        boolean result2 = NodeID.isAnonymousNodeID("");
         InputSource result3 = testSubject0.resolveEntity("", "");
         testSubject0.notationDecl("", "", "");
         testSubject0.unparsedEntityDecl("", "", "", "");
@@ -603,13 +603,16 @@ public class ContractSmallsTest {
     public void shouldTestAbstractOWLDebugger() throws Exception {
         AbstractOWLDebugger testSubject0 = new AbstractOWLDebugger(
                 Utils.getRealMockManager(), Utils.getMockOntology()) {
+            @Override
             public Set<OWLAxiom> getSOSForIncosistentClass(final OWLClassExpression cls)
                     throws OWLException {
                 return Collections.emptySet();
             }
 
+            @Override
             public void dispose() {}
 
+            @Override
             protected OWLClassExpression getCurrentClass() throws OWLException {
                 return null;
             }

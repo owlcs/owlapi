@@ -66,77 +66,94 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * Bio-Health Informatics Group<br>
  * Date: 22-Nov-2006<br><br>
  */
-@SuppressWarnings("unused")
 public class OWLClassExpressionVisitorAdapter implements OWLClassExpressionVisitor {
 
+    @Override
     public void visit(OWLClass desc) {
     }
 
 
+    @Override
     public void visit(OWLObjectIntersectionOf desc) {
     }
 
 
+    @Override
     public void visit(OWLObjectUnionOf desc) {
     }
 
 
+    @Override
     public void visit(OWLObjectComplementOf desc) {
     }
 
 
+    @Override
     public void visit(OWLObjectSomeValuesFrom desc) {
     }
 
 
+    @Override
     public void visit(OWLObjectAllValuesFrom desc) {
     }
 
 
+    @Override
     public void visit(OWLObjectHasValue desc) {
     }
 
 
+    @Override
     public void visit(OWLObjectMinCardinality desc) {
     }
 
 
+    @Override
     public void visit(OWLObjectExactCardinality desc) {
     }
 
 
+    @Override
     public void visit(OWLObjectMaxCardinality desc) {
     }
 
 
+    @Override
     public void visit(OWLObjectHasSelf desc) {
     }
 
 
+    @Override
     public void visit(OWLObjectOneOf desc) {
     }
 
 
+    @Override
     public void visit(OWLDataSomeValuesFrom desc) {
     }
 
 
+    @Override
     public void visit(OWLDataAllValuesFrom desc) {
     }
 
 
+    @Override
     public void visit(OWLDataHasValue desc) {
     }
 
 
+    @Override
     public void visit(OWLDataMinCardinality desc) {
     }
 
 
+    @Override
     public void visit(OWLDataExactCardinality desc) {
     }
 
 
+    @Override
     public void visit(OWLDataMaxCardinality desc) {
     }
 }

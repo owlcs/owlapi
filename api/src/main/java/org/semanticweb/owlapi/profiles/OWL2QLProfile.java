@@ -103,7 +103,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class OWL2QLProfile implements OWLProfile {
 
-    private final Set<IRI> allowedDatatypes = new HashSet<IRI>();
+    final Set<IRI> allowedDatatypes = new HashSet<IRI>();
 
     public OWL2QLProfile() {
         allowedDatatypes.add(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
@@ -131,6 +131,7 @@ public class OWL2QLProfile implements OWLProfile {
      * Gets the name of the profile.
      * @return A string that represents the name of the profile
      */
+    @Override
     public String getName() {
         return "OWL 2 QL";
     }
@@ -142,6 +143,7 @@ public class OWL2QLProfile implements OWLProfile {
      * @return An <code>OWLProfileReport</code> that describes whether or not the
      *         ontology is within this profile.
      */
+    @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWL2DLProfile profile = new OWL2DLProfile();
         OWLProfileReport report = profile.checkOntology(ontology);
@@ -341,82 +343,100 @@ public class OWL2QLProfile implements OWLProfile {
         }
     }
 
-    @SuppressWarnings("unused")
     private static class OWL2QLSubClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
     	public OWL2QLSubClassExpressionChecker() {
 
 		}
+
+        @Override
         public Boolean visit(OWLClass desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLObjectIntersectionOf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectUnionOf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectComplementOf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectSomeValuesFrom desc) {
-            return desc.getFiller().isOWLThing();
+            return Boolean.valueOf(desc.getFiller().isOWLThing());
         }
 
+        @Override
         public Boolean visit(OWLObjectAllValuesFrom desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectHasValue desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectMinCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectExactCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectMaxCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectHasSelf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectOneOf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataSomeValuesFrom desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLDataAllValuesFrom desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataHasValue desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataMinCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataExactCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataMaxCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
     }
 
@@ -424,96 +444,115 @@ public class OWL2QLProfile implements OWLProfile {
     private final OWL2QLSubClassExpressionChecker subClassExpressionChecker = new OWL2QLSubClassExpressionChecker();
 
     protected boolean isOWL2QLSubClassExpression(OWLClassExpression ce) {
-            return ce.accept(subClassExpressionChecker);
+        return ce.accept(subClassExpressionChecker).booleanValue();
     }
-    @SuppressWarnings("unused")
+
     private class OWL2QLSuperClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
     	public OWL2QLSuperClassExpressionChecker() {
 
 		}
+
+        @Override
         public Boolean visit(OWLClass desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLObjectIntersectionOf desc) {
             for(OWLClassExpression ce : desc.getOperands()) {
-                if(!ce.accept(this)) {
-                    return false;
+                if (!ce.accept(this).booleanValue()) {
+                    return Boolean.FALSE;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLObjectUnionOf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectComplementOf desc) {
-            return isOWL2QLSubClassExpression(desc.getOperand());
+            return Boolean.valueOf(isOWL2QLSubClassExpression(desc.getOperand()));
         }
 
+        @Override
         public Boolean visit(OWLObjectSomeValuesFrom desc) {
-            return !desc.getFiller().isAnonymous();
+            return Boolean.valueOf(!desc.getFiller().isAnonymous());
         }
 
+        @Override
         public Boolean visit(OWLObjectAllValuesFrom desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectHasValue desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectMinCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectExactCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectMaxCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectHasSelf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLObjectOneOf desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataSomeValuesFrom desc) {
-            return true;
+            return Boolean.TRUE;
         }
 
+        @Override
         public Boolean visit(OWLDataAllValuesFrom desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataHasValue desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataMinCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataExactCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
 
+        @Override
         public Boolean visit(OWLDataMaxCardinality desc) {
-            return false;
+            return Boolean.FALSE;
         }
     }
 
     private final OWL2QLSuperClassExpressionChecker superClassExpressionChecker = new OWL2QLSuperClassExpressionChecker();
 
     public boolean isOWL2QLSuperClassExpression(OWLClassExpression ce) {
-        return ce.accept(superClassExpressionChecker);
+        return ce.accept(superClassExpressionChecker).booleanValue();
     }
 
 }

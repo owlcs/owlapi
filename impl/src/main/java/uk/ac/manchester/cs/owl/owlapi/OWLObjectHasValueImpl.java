@@ -70,6 +70,7 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLClassExpre
      * Gets the class expression type for this class expression
      * @return The class expression type
      */
+    @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_HAS_VALUE;
     }
@@ -82,32 +83,39 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLClassExpre
         return false;
     }
 
+    @Override
     public boolean isObjectRestriction() {
         return true;
     }
 
+    @Override
     public boolean isDataRestriction() {
         return false;
     }
 
+    @Override
     public OWLClassExpression asSomeValuesFrom() {
         return getOWLDataFactory().getOWLObjectSomeValuesFrom(getProperty(), getOWLDataFactory().getOWLObjectOneOf(getValue()));
     }
 
 
+    @Override
     public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

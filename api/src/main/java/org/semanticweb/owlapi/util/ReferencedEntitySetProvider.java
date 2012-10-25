@@ -65,6 +65,7 @@ public class ReferencedEntitySetProvider implements OWLEntitySetProvider<OWLEnti
     }
 
 
+    @Override
     public Set<OWLEntity> getEntities() {
         Set<OWLEntity> entities = new HashSet<OWLEntity>();
         for(OWLOntology ont : ontologies) {

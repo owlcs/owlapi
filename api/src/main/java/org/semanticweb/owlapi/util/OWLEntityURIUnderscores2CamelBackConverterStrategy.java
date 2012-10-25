@@ -68,6 +68,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEn
     }
 
 
+    @Override
     public IRI getConvertedIRI(OWLEntity entity) {
         IRI convIRI = iriMap.get(entity.getIRI());
         if(convIRI == null) {

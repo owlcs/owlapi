@@ -66,22 +66,24 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
         super(ontology, checker, configuration);
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void handlePrefixDirective(String prefixName, String prefix) {
 
     }
 
 
+    @Override
     public void handleBaseDirective(String base) {
 //        setXMLBase(base);
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void handleComment(String comment) {
 
     }
 
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
         try {
             statementWithResourceValue(subject.toString(), predicate.toString(), object.toString());
@@ -92,6 +94,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     }
 
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, String object) {
         try {
             statementWithLiteralValue(subject.toString(), predicate.toString(), object, null, null);
@@ -102,6 +105,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     }
 
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
         try {
             statementWithLiteralValue(subject.toString(), predicate.toString(), object, lang, null);
@@ -112,6 +116,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     }
 
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
         try {
             statementWithLiteralValue(subject.toString(), predicate.toString(), object, null, datatype.toString());
@@ -122,6 +127,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     }
 
 
+    @Override
     public void handleEnd() {
         try {
             endModel();

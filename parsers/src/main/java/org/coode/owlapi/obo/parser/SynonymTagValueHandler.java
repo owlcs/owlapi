@@ -46,7 +46,14 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
  * Author: Matthew Horridge<br>
@@ -78,6 +85,7 @@ public class SynonymTagValueHandler extends AbstractTagValueHandler {
         super(TAG_NAME, consumer);
     }
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         Matcher matcher = valuePattern.matcher(value);
         if(matcher.matches()) {
@@ -86,7 +94,7 @@ public class SynonymTagValueHandler extends AbstractTagValueHandler {
 
             Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
             annotations.addAll(getSynonymTypeAnnotations(matcher));
-            annotations.addAll(getXRefAnnotations(matcher, df));
+            annotations.addAll(getXRefAnnotations(matcher));
 
             OWLEntity subject = getConsumer().getCurrentEntity();
             String synonym = matcher.group(VALUE_GROUP);
@@ -106,7 +114,7 @@ public class SynonymTagValueHandler extends AbstractTagValueHandler {
         }
     }
 
-    private Set<OWLAnnotation> getXRefAnnotations(Matcher matcher, OWLDataFactory df) {
+    private Set<OWLAnnotation> getXRefAnnotations(Matcher matcher) {
         Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
         String xrefs = matcher.group(XREF_GROUP);
         if (xrefs != null) {

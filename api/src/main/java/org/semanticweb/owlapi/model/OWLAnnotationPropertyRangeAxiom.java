@@ -60,5 +60,6 @@ public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom {
      */
     IRI getRange();
 
+    @Override
     OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations();
 }

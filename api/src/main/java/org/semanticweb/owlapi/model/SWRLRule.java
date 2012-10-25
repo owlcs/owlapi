@@ -103,5 +103,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      */
     Set<OWLClassExpression> getClassAtomPredicates();
 
+    @Override
     SWRLRule getAxiomWithoutAnnotations();
 }

@@ -55,6 +55,7 @@ public class CycleInDatatypeDefinition extends OWLProfileViolation implements OW
         super(ontology, axiom);
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

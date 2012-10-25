@@ -41,9 +41,6 @@ package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.change.RemoveAxiomData;
 
-import java.util.Collections;
-import java.util.Set;
-
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -97,7 +94,7 @@ public class RemoveAxiom extends OWLAxiomChange {
         }
 
         RemoveAxiom other = (RemoveAxiom) obj;
-        return other.getOntology().equals(this.getOntology()) && other.getAxiom().equals(this.getAxiom());
+        return other.getOntology().equals(getOntology()) && other.getAxiom().equals(getAxiom());
     }
 
 

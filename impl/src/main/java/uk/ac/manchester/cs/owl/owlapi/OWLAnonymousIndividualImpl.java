@@ -69,6 +69,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
         this.nodeId = nodeID;
     }
 
+    @Override
     public NodeID getID() {
         return nodeId;
     }
@@ -78,22 +79,27 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
      * representation of the node ID of this individual
      * @return A string representing the toString of the node ID of this entity.
      */
+    @Override
     public String toStringID() {
         return nodeId.getID();
     }
 
+    @Override
     public boolean isNamed() {
         return false;
     }
 
+    @Override
     public boolean isAnonymous() {
         return true;
     }
 
+    @Override
     public OWLAnonymousIndividual asOWLAnonymousIndividual() {
         return this;
     }
 
+    @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException("Not a named individual! This method should only be called on named individuals");
     }
@@ -104,36 +110,44 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
         return nodeId.compareTo(other.getID());
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLIndividualVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLIndividualVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLAnnotationSubjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
         return visitor.visit(this);
     }

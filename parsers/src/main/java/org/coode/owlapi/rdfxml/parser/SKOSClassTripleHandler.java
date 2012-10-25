@@ -59,7 +59,7 @@ public class SKOSClassTripleHandler extends BuiltInTypeHandler {
     }
 
 
-    @Override  @SuppressWarnings("unused")
+    @Override
 	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
         OWLIndividual ind = getDataFactory().getOWLNamedIndividual(subject);
         OWLClass skosConcept = getDataFactory().getOWLClass(object);

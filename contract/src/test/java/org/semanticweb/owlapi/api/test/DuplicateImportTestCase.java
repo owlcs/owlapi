@@ -15,6 +15,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
+@SuppressWarnings("javadoc")
 public class DuplicateImportTestCase {
 
     @Test

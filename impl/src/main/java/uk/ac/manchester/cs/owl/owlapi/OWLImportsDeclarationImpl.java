@@ -69,11 +69,13 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Seriali
     }
 
 
+    @Override
     public IRI getIRI() {
         return iri;
     }
 
 
+    @Override
     public URI getURI() {
         return iri.toURI();
     }
@@ -98,6 +100,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Seriali
     }
 
 
+    @Override
     public int compareTo(OWLImportsDeclaration o) {
         return iri.compareTo(o.getIRI());
     }

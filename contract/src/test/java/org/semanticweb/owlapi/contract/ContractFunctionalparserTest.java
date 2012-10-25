@@ -98,7 +98,6 @@ public class ContractFunctionalparserTest {
     // testSubject0.adjustBeginLineColumn(0, 0);
     // String result10 = testSubject0.toString();
     // }
-
     public void shouldTestJJTOWLFunctionalSyntaxParserState() throws Exception {
         JJTOWLFunctionalSyntaxParserState testSubject0 = new JJTOWLFunctionalSyntaxParserState();
         testSubject0.reset();

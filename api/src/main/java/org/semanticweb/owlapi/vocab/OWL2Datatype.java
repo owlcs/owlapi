@@ -199,21 +199,21 @@ public enum OWL2Datatype {
     private Pattern pattern;
 
     OWL2Datatype(Namespaces namespace, String shortName, Category category, boolean finite, String regEx) {
-        this.iri = IRI.create(namespace + shortName);
+        iri = IRI.create(namespace + shortName);
         this.shortName = shortName;
         this.category = category;
         this.finite = finite;
         if (regEx != null) {
-            this.pattern = Pattern.compile(regEx, Pattern.DOTALL);
+            pattern = Pattern.compile(regEx, Pattern.DOTALL);
         }
     }
 
     OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite, String regEx) {
-        this.iri = xsd.getIRI();
-        this.shortName = xsd.getShortName();
+        iri = xsd.getIRI();
+        shortName = xsd.getShortName();
         this.category = category;
         this.finite = finite;
-        this.pattern = Pattern.compile(regEx, Pattern.DOTALL);
+        pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
 
@@ -358,6 +358,7 @@ public enum OWL2Datatype {
                     return s.replaceAll("\\t|\\n|\\r", " ");
                 case COLLAPSE:
                     return REPLACE.getNormalisedString(s).replaceAll("\\s+", " ").trim();
+                case PRESERVE:
                 default:
                     return s;
             }

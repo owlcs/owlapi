@@ -64,6 +64,7 @@ public abstract class OWLQuantifiedRestrictionImpl<R extends OWLPropertyRange, P
     }
 
 
+    @Override
     public F getFiller() {
         return filler;
     }

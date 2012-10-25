@@ -55,11 +55,12 @@ public class HasKeyListItemTranslator implements ListItemTranslator<OWLPropertyE
     public HasKeyListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
-    @SuppressWarnings("unused")
+    @Override
     public OWLPropertyExpression<?,?> translate(OWLLiteral firstObject) {
         return null;
     }
 
+    @Override
     public OWLPropertyExpression<?,?> translate(IRI firstObject) {
         if (consumer.isObjectPropertyOnly(firstObject)) {
             return consumer.getDataFactory().getOWLObjectProperty(firstObject);

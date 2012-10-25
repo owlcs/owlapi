@@ -36,36 +36,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Apr-2008<br><br>
- */
+ * Date: 15-Apr-2008<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public class DataPropertyListItemTranslator implements ListItemTranslator<OWLDataPropertyExpression> {
-
+public class DataPropertyListItemTranslator implements
+        ListItemTranslator<OWLDataPropertyExpression> {
     private OWLRDFConsumer consumer;
-
 
     public DataPropertyListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
 
-
+    @Override
     public OWLDataPropertyExpression translate(IRI firstObject) {
         consumer.addDataProperty(firstObject, false);
         return consumer.getOWLDataProperty(firstObject);
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public OWLDataPropertyExpression translate(OWLLiteral firstObject) {
         return null;
     }

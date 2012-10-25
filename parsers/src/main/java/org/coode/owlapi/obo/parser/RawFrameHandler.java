@@ -60,19 +60,23 @@ public class RawFrameHandler implements OBOParserHandler {
     
     private List<OBOFrame> nonTypeDefFrames = new ArrayList<OBOFrame>();
     
+    @Override
     public void startHeader() {
         currentTagValuePairs.clear();
     }
 
+    @Override
     public void endHeader() {
         headerFrame = new OBOFrame(currentTagValuePairs);
     }
 
+    @Override
     public void startFrame(String frameType) {
         currentFrameType = frameType;
         currentTagValuePairs.clear();
     }
 
+    @Override
     public void endFrame() {
         storeCurrentFrame();
     }
@@ -88,20 +92,24 @@ public class RawFrameHandler implements OBOParserHandler {
         return frame;
     }
 
+    @Override
     public void handleTagValue(String tag, String value, String qualifierBlock, String comment) {
         OBOTagValuePair tvp = new OBOTagValuePair(tag, value, qualifierBlock, comment);
         currentTagValuePairs.add(tvp);
     }
 
+    /** @return the header frame */
     public OBOFrame getHeaderFrame() {
         return headerFrame;
     }
 
 
+    /** @return the typedef frames */
     public List<OBOFrame> getTypeDefFrames() {
         return typeDefFrames;
     }
 
+    /** @return the non typedef frames */
     public List<OBOFrame> getNonTypeDefFrames() {
         return nonTypeDefFrames;
     }

@@ -75,7 +75,7 @@ public class ProfileValidationTestCase {
 
 
     @Test
-    public void testProfiles() throws Exception {
+    public void testProfiles() {
         //        OWLOntologyManager man = Factory.getManager();
         //        URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");
         //        URI allTestURI = resourceURL.toURI();

@@ -74,6 +74,7 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
         this.consumer = consumer;
     }
 
+    @Override
     public boolean matches(IRI mainNode, Mode mode) {
         if(mode.equals(Mode.LAX)) {
             return matchesLax(mainNode);
@@ -281,6 +282,7 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
 
     	}
 
+        @Override
         public boolean isTypeStrict(IRI node) {
             return isClassExpressionStrict(node);
         }
@@ -292,6 +294,7 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
 
 		}
 
+        @Override
         public boolean isTypeStrict(IRI node) {
             return isDataRangeStrict(node);
         }
@@ -302,6 +305,7 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
 
 		}
 
+        @Override
         public boolean isTypeStrict(IRI node) {
             return true;
         }

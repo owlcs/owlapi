@@ -123,7 +123,6 @@ public class RDFResourceNode extends RDFNode {
 
     @Override
     public String toString() {
-        return iri != null ? "<" + iri.toString() + ">" : NodeID.NODE_ID_PREFIX
-                + Integer.toString(anonId);
+        return iri != null ? "<" + iri.toString() + ">" : NodeID.nodeString(anonId);
     }
 }

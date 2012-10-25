@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -45,24 +44,19 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 23-Apr-2009
- */
+ * Date: 23-Apr-2009 */
 @SuppressWarnings("javadoc")
 public class TPVersionIRIHandler extends TriplePredicateHandler {
-
     public TPVersionIRIHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_VERSION_IRI.getIRI());
     }
 
-
     @Override
-    public void handleTriple(IRI subject,
-            IRI predicate,
-            IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         OWLOntology ontology = getConsumer().getOntology();
         // only setup the versionIRI if it is null before this point
         if (ontology != null && ontology.getOntologyID().getVersionIRI() == null) {
@@ -81,19 +75,13 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
         consumeTriple(subject, predicate, object);
     }
 
-
     @Override
-    @SuppressWarnings("unused")
-    public boolean canHandleStreaming(IRI subject,
-            IRI predicate,
-            IRI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         // Always apply at the end
         return false;
     }
 
-
     @Override
-    @SuppressWarnings("unused")
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         return predicate.equals(OWLRDFVocabulary.OWL_VERSION_IRI.getIRI());
     }

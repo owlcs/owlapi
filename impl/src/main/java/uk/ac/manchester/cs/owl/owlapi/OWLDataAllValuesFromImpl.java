@@ -71,6 +71,7 @@ public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl i
      * Gets the class expression type for this class expression
      * @return The class expression type
      */
+    @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.DATA_ALL_VALUES_FROM;
     }
@@ -83,27 +84,33 @@ public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl i
         return false;
     }
 
+    @Override
     public boolean isObjectRestriction() {
         return false;
     }
 
+    @Override
     public boolean isDataRestriction() {
         return true;
     }
 
+    @Override
     public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

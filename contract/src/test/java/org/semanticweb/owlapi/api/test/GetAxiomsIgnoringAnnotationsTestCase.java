@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class GetAxiomsIgnoringAnnotationsTestCase extends AbstractOWLAPITestCase {
 
     @Test
-    public void testGetAxiomsIgnoringAnnoations() throws Exception {
+    public void testGetAxiomsIgnoringAnnoations() {
         OWLLiteral annoLiteral = getFactory().getOWLLiteral("value");
         OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
         OWLAnnotation anno = getFactory().getOWLAnnotation(annoProp, annoLiteral);

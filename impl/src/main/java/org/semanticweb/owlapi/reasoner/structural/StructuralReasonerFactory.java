@@ -55,22 +55,27 @@ import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
  */
 public class StructuralReasonerFactory implements OWLReasonerFactory {
 
+    @Override
     public String getReasonerName() {
         return "Structural Reasoner";
     }
 
+    @Override
     public OWLReasoner createNonBufferingReasoner(OWLOntology ontology) {
         return createNonBufferingReasoner(ontology, new SimpleConfiguration());
     }
 
+    @Override
     public OWLReasoner createReasoner(OWLOntology ontology) {
         return createReasoner(ontology, new SimpleConfiguration());
     }
 
+    @Override
     public OWLReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
         return new StructuralReasoner(ontology, config, BufferingMode.NON_BUFFERING);
     }
 
+    @Override
     public OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
         return new StructuralReasoner(ontology, config, BufferingMode.BUFFERING);
     }

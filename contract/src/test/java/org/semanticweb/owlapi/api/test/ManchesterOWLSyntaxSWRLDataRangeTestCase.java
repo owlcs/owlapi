@@ -10,6 +10,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
+@SuppressWarnings("javadoc")
+
 public class ManchesterOWLSyntaxSWRLDataRangeTestCase {
 
     private String inputManSyntax = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"

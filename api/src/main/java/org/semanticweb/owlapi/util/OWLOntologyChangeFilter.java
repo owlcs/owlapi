@@ -89,11 +89,11 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements OWLAxiomVisitor {
 
-    private boolean add;
+    protected boolean add;
 
-    private OWLOntology ontology;
+    protected OWLOntology ontology;
 
-    private final OWLOntologyChangeVisitor changeVisitor;
+    protected final OWLOntologyChangeVisitor changeVisitor;
 
 
     @SuppressWarnings("javadoc")
@@ -125,7 +125,7 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements O
     }
 
 
-    private void processChange(OWLAxiomChange change) {
+    protected void processChange(OWLAxiomChange change) {
         ontology = change.getOntology();
         change.getAxiom().accept(this);
         ontology = null;

@@ -61,6 +61,7 @@ public class PartOfTagValueHandler extends AbstractTagValueHandler {
     }
 
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         int index = value.indexOf(' ');
         String propLocalName = value.substring(0, index);

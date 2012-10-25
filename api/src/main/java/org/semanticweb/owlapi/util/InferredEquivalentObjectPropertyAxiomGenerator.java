@@ -66,6 +66,7 @@ public class InferredEquivalentObjectPropertyAxiomGenerator extends InferredObje
     }
 
 
+    @Override
     public String getLabel() {
         return "Equivalent object properties";
     }

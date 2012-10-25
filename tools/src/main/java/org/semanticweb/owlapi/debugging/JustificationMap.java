@@ -120,7 +120,7 @@ public class JustificationMap {
     public JustificationMap(OWLClassExpression desc, Set<OWLAxiom> axioms) {
         this.axioms = axioms;
         this.desc = desc;
-        this.rootAxioms = new HashSet<OWLAxiom>();
+        rootAxioms = new HashSet<OWLAxiom>();
         map = new HashMap<OWLAxiom, Set<OWLAxiom>>();
         usedAxioms = new HashSet<OWLAxiom>();
         axiomsByRHS = new HashMap<OWLEntity, Set<OWLAxiom>>();
@@ -517,12 +517,12 @@ public class JustificationMap {
 
 
         @Override
-        @SuppressWarnings("unused")
-		public void visit(SWRLRule rule) {
+        public void visit(SWRLRule rule) {
         }
     }
-    @SuppressWarnings("unused")
-    private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements Comparator<OWLAxiom>, Serializable {
+
+    private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements
+            Comparator<OWLAxiom>, Serializable {
 
 		private static final long serialVersionUID = 30402L;
 
@@ -547,6 +547,7 @@ public class JustificationMap {
 
         private int result;
 
+        @Override
         public int compare(OWLAxiom o1, OWLAxiom o2) {
             result = 0;
             o1.accept(this);

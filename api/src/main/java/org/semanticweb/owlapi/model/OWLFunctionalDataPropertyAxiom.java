@@ -48,5 +48,6 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLFunctionalDataPropertyAxiom extends OWLDataPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
+    @Override
     OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations();
 }

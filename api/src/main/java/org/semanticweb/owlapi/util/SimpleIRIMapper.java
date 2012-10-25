@@ -70,6 +70,7 @@ public class SimpleIRIMapper implements OWLOntologyIRIMapper {
         this(IRI.create(ontologyURI), documentIRI);
     }
 
+    @Override
     public IRI getDocumentIRI(final IRI iri) {
         if (ontologyIRI.equals(iri)) {
             return documentIRI;

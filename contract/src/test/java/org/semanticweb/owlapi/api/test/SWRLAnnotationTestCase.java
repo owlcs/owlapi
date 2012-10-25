@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -49,7 +48,7 @@ public class SWRLAnnotationTestCase {
 
     @Test
     public void shouldRoundTripAnnotation() throws OWLOntologyCreationException,
-    OWLOntologyStorageException, IOException {
+            OWLOntologyStorageException {
         OWLOntology ontology = createOntology();
         assertTrue(ontology.containsAxiom(AXIOM));
         String saved = saveOntology(ontology);
@@ -68,7 +67,7 @@ public class SWRLAnnotationTestCase {
 
 
 
-    public String saveOntology(OWLOntology ontology) throws IOException,
+    public String saveOntology(OWLOntology ontology) throws
     OWLOntologyStorageException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         StringDocumentTarget target = new StringDocumentTarget();

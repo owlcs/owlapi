@@ -66,26 +66,31 @@ public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpression
     }
 
 
+    @Override
     public boolean isAnonymous() {
         return true;
     }
 
 
+    @Override
     public boolean isOWLThing() {
         return false;
     }
 
 
+    @Override
     public boolean isOWLNothing() {
         return false;
     }
 
 
+    @Override
     public OWLClassExpression getNNF() {
         NNF nnf = new NNF(getOWLDataFactory());
         return accept(nnf);
     }
 
+    @Override
     public OWLClassExpression getComplementNNF() {
         NNF nnf = new NNF(getOWLDataFactory());
         return getOWLDataFactory().getOWLObjectComplementOf(this).accept(nnf);
@@ -95,23 +100,28 @@ public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpression
      * Gets the object complement of this class expression.
      * @return A class expression that is the complement of this class expression.
      */
+    @Override
     public OWLClassExpression getObjectComplementOf() {
         return getOWLDataFactory().getOWLObjectComplementOf(this);
     }
 
+    @Override
     public OWLClass asOWLClass() {
         throw new OWLRuntimeException("Not an OWLClass.  This method should only be called if the isAnonymous method returns false!");
     }
 
 
+    @Override
     public Set<OWLClassExpression> asConjunctSet() {
         return Collections.singleton((OWLClassExpression) this);
     }
 
+    @Override
     public boolean containsConjunct(OWLClassExpression ce) {
         return ce.equals(this);
     }
 
+    @Override
     public Set<OWLClassExpression> asDisjunctSet() {
         return Collections.singleton((OWLClassExpression) this);
     }

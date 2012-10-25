@@ -80,7 +80,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
      private OWLClass bottom;
 
      public Debugger(OWLOntologyManager manager, OWLOntology ontology,
-             OWLReasonerFactory reasonerFactory) throws OWLException {
+            OWLReasonerFactory reasonerFactory) {
          this.ontology = ontology;
          checker = reasonerFactory.createNonBufferingReasoner(ontology);
          /* Create a new debugger */

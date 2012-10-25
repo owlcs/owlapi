@@ -184,6 +184,9 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
         private static final long serialVersionUID = 30402L;
 
+        public OWLAxiomComparator() {}
+
+        @Override
         public int compare(OWLAxiom o1, OWLAxiom o2) {
             int index1 = o1.getAxiomType().getIndex();
             int index2 = o2.getAxiomType().getIndex();

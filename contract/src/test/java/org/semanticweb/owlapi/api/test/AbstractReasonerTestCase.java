@@ -158,15 +158,13 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
     }
 
     @Before
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
+    public void setUpOntoAndReasoner() {
         createOntology();
         reasoner = reasonerFactory.createReasoner(ont);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         reasoner.dispose();
     }
 

@@ -79,10 +79,12 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
 
     }
 
+    @Override
     public void visit(OWLObjectIntersectionOf node) {
         requiresBracket = true;
     }
 
+    @Override
     public void visit(OWLDataAllValuesFrom node) {
         requiresBracket = true;
     }
@@ -91,14 +93,17 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
         requiresBracket = true;
     }
 
+    @Override
     public void visit(OWLDataSomeValuesFrom node) {
         requiresBracket = true;
     }
 
+    @Override
     public void visit(OWLDataHasValue node) {
         requiresBracket = true;
     }
 
+    @Override
     public void visit(OWLObjectAllValuesFrom node) {
         requiresBracket = true;
     }
@@ -107,61 +112,74 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
         requiresBracket = true;
     }
 
+    @Override
     public void visit(OWLObjectSomeValuesFrom node) {
         requiresBracket = true;
     }
 
+    @Override
     public void visit(OWLObjectHasValue node) {
         requiresBracket = true;
     }
 
+    @Override
     public void visit(OWLObjectComplementOf node) {
         requiresBracket = false;
     }
 
+    @Override
     public void visit(OWLObjectUnionOf node) {
         requiresBracket = true;
     }
 
+    @Override
     public void visit(OWLClass node) {
         requiresBracket = false;
     }
 
+    @Override
     public void visit(OWLObjectOneOf node) {
         requiresBracket = true;
     }
 
 
+    @Override
     public void visit(OWLDataExactCardinality desc) {
         requiresBracket = true;
     }
 
 
+    @Override
     public void visit(OWLDataMaxCardinality desc) {
         requiresBracket = true;
     }
 
 
+    @Override
     public void visit(OWLDataMinCardinality desc) {
         requiresBracket = true;
     }
 
 
+    @Override
     public void visit(OWLObjectExactCardinality desc) {
         requiresBracket = true;
     }
 
 
+    @Override
     public void visit(OWLObjectMaxCardinality desc) {
         requiresBracket = true;
     }
 
 
+    @Override
     public void visit(OWLObjectMinCardinality desc) {
         requiresBracket = true;
     }
 
 
+    @Override
     public void visit(OWLObjectHasSelf owlHasSelf) {
         requiresBracket = true;
     }

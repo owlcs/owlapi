@@ -69,6 +69,7 @@ public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer
      * @return <code>true</code> if this storer can store an ontology in the desired
      *         format.
      */
+    @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new OWLFunctionalSyntaxOntologyFormat());
     }

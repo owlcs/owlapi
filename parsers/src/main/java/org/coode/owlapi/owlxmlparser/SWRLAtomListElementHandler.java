@@ -65,10 +65,12 @@ public class SWRLAtomListElementHandler extends AbstractOWLElementHandler<List<S
         atoms.add(handler.getOWLObject());
     }
 
+    @Override
     public List<SWRLAtom> getOWLObject() throws OWLXMLParserException {
         return atoms;
     }
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
         getParentHandler().handleChild(this);
     }

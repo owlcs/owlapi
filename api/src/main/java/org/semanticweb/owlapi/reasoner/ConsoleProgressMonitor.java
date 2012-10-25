@@ -48,16 +48,19 @@ public class ConsoleProgressMonitor implements ReasonerProgressMonitor {
 
     private int lastPercentage = 0;
 
+    @Override
     public void reasonerTaskStarted(String taskName) {
         System.out.print(taskName);
         System.out.println(" ...");
     }
 
+    @Override
     public void reasonerTaskStopped() {
         System.out.println("    ... finished");
         lastPercentage = 0;
     }
 
+    @Override
     public void reasonerTaskProgressChanged(int value, int max) {
         if (max > 0) {
             int percent = (value * 100) / max;
@@ -70,6 +73,7 @@ public class ConsoleProgressMonitor implements ReasonerProgressMonitor {
         }
     }
 
+    @Override
     public void reasonerTaskBusy() {
         System.out.println("    busy ...");
     }

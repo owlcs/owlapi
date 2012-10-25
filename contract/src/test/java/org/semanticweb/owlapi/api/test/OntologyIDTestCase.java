@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
+@SuppressWarnings("javadoc")
+
 public class OntologyIDTestCase {
     @Test
     public void shouldFindSameHashCode() {

@@ -158,6 +158,7 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
     }
 
 
+    @Override
     public List<OWLOntologyChange> getChanges() {
         return changes;
     }

@@ -294,10 +294,12 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 public class KRSS2OWLParser extends AbstractOWLParser {
 
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
     	 Reader reader = null;
     		        InputStream is = null;

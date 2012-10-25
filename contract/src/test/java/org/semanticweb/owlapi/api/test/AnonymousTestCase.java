@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,12 +24,14 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
+@SuppressWarnings("javadoc")
+
 public class AnonymousTestCase {
 
 
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
-    OWLOntologyStorageException, IOException {
+            OWLOntologyStorageException {
         OWLDataFactory df = Factory.getFactory();
         OWLClass C = df.getOWLClass(IRI.create("urn:test#C"));
         OWLClass D = df.getOWLClass(IRI.create("urn:test#D"));
@@ -68,7 +69,7 @@ public class AnonymousTestCase {
     }
 
     String saveOntology(OWLOntology ontology)
-            throws IOException, OWLOntologyStorageException {
+ throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         ontology.getOWLOntologyManager().saveOntology(ontology, target);
         return target.toString();

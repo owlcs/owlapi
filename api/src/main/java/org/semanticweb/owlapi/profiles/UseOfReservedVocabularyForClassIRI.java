@@ -63,6 +63,7 @@ public class UseOfReservedVocabularyForClassIRI extends OWLProfileViolation impl
         return cls;
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

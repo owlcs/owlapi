@@ -71,10 +71,12 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
     }
 
 
+    @Override
     public Set<OWLIndividual> getIndividuals() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(individuals);
     }
 
+    @Override
     public List<OWLIndividual> getIndividualsAsList() {
         return new ArrayList<OWLIndividual>(individuals);
     }

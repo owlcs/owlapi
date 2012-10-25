@@ -62,6 +62,7 @@ public class UseOfUndeclaredDatatype extends OWLProfileViolation implements OWL2
         this.datatype = datatype;
     }
 
+    @Override
     public void accept(OWL2ProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

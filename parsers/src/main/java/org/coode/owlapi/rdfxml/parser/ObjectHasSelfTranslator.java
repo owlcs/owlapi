@@ -62,6 +62,7 @@ public class ObjectHasSelfTranslator extends AbstractClassExpressionTranslator {
         super(consumer);
     }
 
+    @Override
     public boolean matchesStrict(IRI mainNode) {
         OWLLiteral literal = getConsumer().getLiteralObject(mainNode, OWL_HAS_SELF.getIRI(), false);
         return literal != null && isStrictBooleanTrueLiteral(literal) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
@@ -71,10 +72,12 @@ public class ObjectHasSelfTranslator extends AbstractClassExpressionTranslator {
         return OWL2Datatype.XSD_BOOLEAN.getIRI().equals(literal.getDatatype().getIRI()) && literal.getLiteral().toLowerCase(Locale.ENGLISH).equals("true");
     }
 
+    @Override
     public boolean matchesLax(IRI mainNode) {
         return isResourcePresent(mainNode, OWL_ON_PROPERTY) && isLiteralPresent(mainNode, OWL_HAS_SELF);
     }
 
+    @Override
     public OWLObjectHasSelf translate(IRI mainNode) {
         getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         getConsumer().getLiteralObject(mainNode, OWL_HAS_SELF, true);

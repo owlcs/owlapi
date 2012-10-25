@@ -88,169 +88,208 @@ import org.semanticweb.owlapi.model.SWRLRule;
  * Information Management Group<br>
  * Date: 01-Aug-2009
  */
-@SuppressWarnings({"unused","javadoc"})
+@SuppressWarnings("javadoc")
 public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpression> {
 
     private final OWLDataFactory df;
 
 
     public SatisfiabilityReducer(OWLDataFactory dataFactory) {
-        this.df = dataFactory;
+        df = dataFactory;
     }
 
+    @Override
     public OWLClassExpression visit(OWLSubClassOfAxiom axiom) {
         return df.getOWLObjectIntersectionOf(axiom.getSubClass(), df.getOWLObjectComplementOf(axiom.getSuperClass()));
     }
 
+    @Override
     public OWLClassExpression visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLReflexiveObjectPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLDisjointClassesAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLDataPropertyDomainAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLObjectPropertyDomainAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLDifferentIndividualsAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLDisjointDataPropertiesAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLDisjointObjectPropertiesAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLObjectPropertyRangeAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLObjectPropertyAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLFunctionalObjectPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLSubObjectPropertyOfAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLDisjointUnionAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLDeclarationAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLSymmetricObjectPropertyAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLDataPropertyRangeAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLFunctionalDataPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLEquivalentDataPropertiesAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLClassAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLEquivalentClassesAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLDataPropertyAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLTransitiveObjectPropertyAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLSubDataPropertyOfAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Override
     public OWLClassExpression visit(OWLSameIndividualAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLSubPropertyChainOfAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLInverseObjectPropertiesAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLHasKeyAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLDatatypeDefinitionAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(SWRLRule rule) {
         return null;
     }
 
 
+    @Override
     public OWLClassExpression visit(OWLAnnotationAssertionAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLAnnotationPropertyDomainAxiom axiom) {
         return null;
     }
 
+    @Override
     public OWLClassExpression visit(OWLAnnotationPropertyRangeAxiom axiom) {
         return null;
     }

@@ -217,7 +217,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) ontologyFormat;
         for (String prefixName : prefixFormat.getPrefixName2PrefixMap().keySet()) {
             String prefix = prefixFormat.getPrefixName2PrefixMap().get(prefixName);
-            this.setPrefix(prefixName, prefix);
+            setPrefix(prefixName, prefix);
         }
     }
 
@@ -237,6 +237,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      * Override the short form provider that is used to generate abreviated names for entities
      * @param shortFormProvider The short form provider to use
      */
+    @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
     }
@@ -253,6 +254,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         return iriShortFormProvider.getShortForm(iri);
     }
 
+    @Override
     public String render(OWLObject object) {
         reset();
         object.accept(this);
@@ -268,6 +270,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         }
     }
 
+    @Override
     public void visit(OWLOntology ontology) {
         sb.append("Ontology(" + ontology.getOntologyID() + " [Axioms: " + ontology.getAxiomCount() + "] [Logical axioms: " + ontology.getLogicalAxiomCount() + "])");
     }
@@ -299,6 +302,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLSubClassOfAxiom axiom) {
         sb.append("SubClassOf(");
         writeAnnotations(axiom);
@@ -309,6 +313,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         sb.append("NegativeObjectPropertyAssertion(");
         writeAnnotations(axiom);
@@ -321,6 +326,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         sb.append("AsymmetricObjectProperty(");
         writeAnnotations(axiom);
@@ -329,6 +335,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         sb.append("ReflexiveObjectProperty(");
         writeAnnotations(axiom);
@@ -337,6 +344,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         sb.append("DisjointClasses(");
         writeAnnotations(axiom);
@@ -345,6 +353,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         sb.append("DataPropertyDomain(");
         writeAnnotations(axiom);
@@ -355,6 +364,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         sb.append("ObjectPropertyDomain(");
         writeAnnotations(axiom);
@@ -365,6 +375,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         sb.append("EquivalentObjectProperties(");
         writeAnnotations(axiom);
@@ -373,6 +384,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         sb.append("NegativeDataPropertyAssertion(");
         writeAnnotations(axiom);
@@ -385,6 +397,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         sb.append("DifferentIndividuals(");
         writeAnnotations(axiom);
@@ -393,6 +406,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         sb.append("DisjointDataProperties(");
         writeAnnotations(axiom);
@@ -401,6 +415,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         sb.append("DisjointObjectProperties(");
         writeAnnotations(axiom);
@@ -409,6 +424,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         sb.append("ObjectPropertyRange(");
         writeAnnotations(axiom);
@@ -419,6 +435,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         sb.append("ObjectPropertyAssertion(");
         writeAnnotations(axiom);
@@ -431,6 +448,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         sb.append("FunctionalObjectProperty(");
         writeAnnotations(axiom);
@@ -439,6 +457,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         sb.append("SubObjectPropertyOf(");
         writeAnnotations(axiom);
@@ -449,6 +468,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         sb.append("DisjointUnion(");
         writeAnnotations(axiom);
@@ -459,6 +479,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDeclarationAxiom axiom) {
         sb.append("Declaration(");
         writeAnnotations(axiom);
@@ -486,6 +507,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
         sb.append("AnnotationAssertion(");
         writeAnnotations(axiom);
@@ -499,6 +521,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         sb.append("SymmetricObjectProperty(");
         writeAnnotations(axiom);
@@ -507,6 +530,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         sb.append("DataPropertyRange(");
         writeAnnotations(axiom);
@@ -517,6 +541,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         sb.append("FunctionalDataProperty(");
         writeAnnotations(axiom);
@@ -525,6 +550,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         sb.append("EquivalentDataProperties(");
         writeAnnotations(axiom);
@@ -533,6 +559,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLClassAssertionAxiom axiom) {
         sb.append("ClassAssertion(");
         writeAnnotations(axiom);
@@ -543,6 +570,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         sb.append("EquivalentClasses(");
         writeAnnotations(axiom);
@@ -551,6 +579,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         sb.append("DataPropertyAssertion(");
         writeAnnotations(axiom);
@@ -563,6 +592,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         sb.append("TransitiveObjectProperty(");
         writeAnnotations(axiom);
@@ -571,6 +601,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         sb.append("IrreflexiveObjectProperty(");
         writeAnnotations(axiom);
@@ -579,6 +610,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         sb.append("SubDataProperty(");
         writeAnnotations(axiom);
@@ -589,6 +621,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         sb.append("InverseFunctionalObjectProperty(");
         writeAnnotations(axiom);
@@ -597,6 +630,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         sb.append("SameIndividual(");
         writeAnnotations(axiom);
@@ -605,6 +639,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         sb.append("SubObjectPropertyOf(");
         writeAnnotations(axiom);
@@ -620,11 +655,13 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLClass desc) {
         sb.append(shortFormProvider.getShortForm(desc));
     }
 
 
+    @Override
     public void visit(OWLObjectIntersectionOf desc) {
         sb.append("ObjectIntersectionOf(");
         render(desc.getOperands());
@@ -632,6 +669,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectUnionOf desc) {
         sb.append("ObjectUnionOf(");
         render(desc.getOperands());
@@ -639,6 +677,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectComplementOf desc) {
         sb.append("ObjectComplementOf(");
         desc.getOperand().accept(this);
@@ -646,6 +685,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectSomeValuesFrom desc) {
         sb.append("ObjectSomeValuesFrom(");
         desc.getProperty().accept(this);
@@ -655,6 +695,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectAllValuesFrom desc) {
         sb.append("ObjectAllValuesFrom(");
         desc.getProperty().accept(this);
@@ -664,6 +705,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectHasValue desc) {
         sb.append("ObjectHasValue(");
         desc.getProperty().accept(this);
@@ -673,6 +715,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectMinCardinality desc) {
         sb.append("ObjectMinCardinality(");
         sb.append(desc.getCardinality());
@@ -684,6 +727,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectExactCardinality desc) {
         sb.append("ObjectExactCardinality(");
         sb.append(desc.getCardinality());
@@ -695,6 +739,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectMaxCardinality desc) {
         sb.append("ObjectMaxCardinality(");
         sb.append(desc.getCardinality());
@@ -706,6 +751,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectHasSelf desc) {
         sb.append("ObjectHasSelf(");
         desc.getProperty().accept(this);
@@ -713,6 +759,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectOneOf desc) {
         sb.append("ObjectOneOf(");
         render(desc.getIndividuals());
@@ -720,6 +767,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDataSomeValuesFrom desc) {
         sb.append("DataSomeValuesFrom(");
         desc.getProperty().accept(this);
@@ -729,6 +777,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDataAllValuesFrom desc) {
         sb.append("DataAllValuesFrom(");
         desc.getProperty().accept(this);
@@ -738,6 +787,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDataHasValue desc) {
         sb.append("DataHasValue(");
         desc.getProperty().accept(this);
@@ -747,6 +797,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDataMinCardinality desc) {
         sb.append("DataMinCardinality(");
         sb.append(desc.getCardinality());
@@ -758,6 +809,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDataExactCardinality desc) {
         sb.append("DataExactCardinality(");
         sb.append(desc.getCardinality());
@@ -769,6 +821,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDataMaxCardinality desc) {
         sb.append("DataMaxCardinality(");
         sb.append(desc.getCardinality());
@@ -780,11 +833,13 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDatatype node) {
         sb.append(shortFormProvider.getShortForm(node));
     }
 
 
+    @Override
     public void visit(OWLDataComplementOf node) {
         sb.append("DataComplementOf(");
         node.getDataRange().accept(this);
@@ -792,6 +847,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDataOneOf node) {
         sb.append("DataOneOf(");
         render(node.getValues());
@@ -799,6 +855,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDatatypeRestriction node) {
         sb.append("DataRangeRestriction(");
         node.getDatatype().accept(this);
@@ -810,6 +867,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLFacetRestriction node) {
         sb.append("facetRestriction(");
         sb.append(node.getFacet());
@@ -818,6 +876,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(")");
     }
 
+    @Override
     public void visit(OWLLiteral node) {
         if(node.isRDFPlainLiteral()) {
             // We can use a syntactic shortcut
@@ -838,11 +897,13 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLObjectProperty property) {
         sb.append(shortFormProvider.getShortForm(property));
     }
 
 
+    @Override
     public void visit(OWLObjectInverseOf property) {
         sb.append("InverseOf(");
         property.getInverse().accept(this);
@@ -850,16 +911,19 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDataProperty property) {
         sb.append(shortFormProvider.getShortForm(property));
     }
 
 
+    @Override
     public void visit(OWLNamedIndividual individual) {
         sb.append(shortFormProvider.getShortForm(individual));
     }
 
 
+    @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         sb.append("InverseObjectProperties(");
         axiom.getFirstProperty().accept(this);
@@ -868,6 +932,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(")");
     }
 
+    @Override
     public void visit(OWLHasKeyAxiom axiom) {
         sb.append("HasKey(");
         axiom.getClassExpression().accept(this);
@@ -885,6 +950,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(")");
     }
 
+    @Override
     public void visit(OWLDataIntersectionOf node) {
         sb.append("DataIntersectionOf(");
         for (OWLDataRange rng : node.getOperands()) {
@@ -894,6 +960,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(")");
     }
 
+    @Override
     public void visit(OWLDataUnionOf node) {
         sb.append("DataUnionOf(");
         for (OWLDataRange rng : node.getOperands()) {
@@ -903,10 +970,12 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(")");
     }
 
+    @Override
     public void visit(OWLAnnotationProperty property) {
         sb.append(shortFormProvider.getShortForm(property));
     }
 
+    @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         sb.append("AnnotationPropertyDomain(");
         axiom.getProperty().accept(this);
@@ -915,6 +984,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(")");
     }
 
+    @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         sb.append("AnnotationPropertyRange(");
         axiom.getProperty().accept(this);
@@ -923,6 +993,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(")");
     }
 
+    @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         sb.append("SubAnnotationPropertyOf(");
         axiom.getSubProperty().accept(this);
@@ -931,16 +1002,19 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(")");
     }
 
+    @Override
     public void visit(OWLAnonymousIndividual individual) {
         sb.append(individual.getID().toString());
     }
 
+    @Override
     public void visit(IRI iri) {
         sb.append("<");
         sb.append(iri);
         sb.append(">");
     }
 
+    @Override
     public void visit(OWLAnnotation node) {
         sb.append("Annotation(");
         Set<OWLAnnotation> annos = node.getAnnotations();
@@ -954,6 +1028,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(")");
     }
 
+    @Override
     public void visit(SWRLRule rule) {
         sb.append("DLSafeRule(");
         sb.append(" Body(");
@@ -966,6 +1041,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(SWRLClassAtom node) {
         sb.append("ClassAtom(");
         node.getPredicate().accept(this);
@@ -975,6 +1051,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(SWRLDataRangeAtom node) {
         sb.append("DataRangeAtom(");
         node.getPredicate().accept(this);
@@ -984,6 +1061,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
         sb.append("DifferentFromAtom(");
         node.getFirstArgument().accept(this);
@@ -993,6 +1071,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(SWRLSameIndividualAtom node) {
         sb.append("SameAsAtom(");
         node.getFirstArgument().accept(this);
@@ -1002,6 +1081,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(SWRLObjectPropertyAtom node) {
         sb.append("ObjectPropertyAtom(");
         node.getPredicate().accept(this);
@@ -1013,6 +1093,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(SWRLDataPropertyAtom node) {
         sb.append("DataPropertyAtom(");
         node.getPredicate().accept(this);
@@ -1024,6 +1105,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(SWRLBuiltInAtom node) {
         sb.append("BuiltInAtom(");
         sb.append(getShortForm(node.getPredicate()));
@@ -1036,6 +1118,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
         sb.append("DatatypeDefinition(");
         axiom.getDatatype().accept(this);
@@ -1045,6 +1128,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(SWRLVariable node) {
         sb.append("Variable(");
         sb.append(getShortForm(node.getIRI()));
@@ -1052,11 +1136,13 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
 
+    @Override
     public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
     }
 
 
+    @Override
     public void visit(SWRLLiteralArgument node) {
         node.getLiteral().accept(this);
     }

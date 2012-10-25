@@ -81,10 +81,12 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
         this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
     }
 
+    @Override
     public Set<OWLClassExpression> getClassExpressions() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(classExpressions);
     }
 
+    @Override
     public OWLDisjointUnionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -92,10 +94,12 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
         return getOWLDataFactory().getOWLDisjointUnionAxiom(getOWLClass(), getClassExpressions());
     }
 
+    @Override
     public OWLDisjointUnionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLDisjointUnionAxiom(getOWLClass(), getClassExpressions(), mergeAnnos(annotations));
     }
 
+    @Override
     public OWLClass getOWLClass() {
         return owlClass;
     }
@@ -114,32 +118,39 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     }
 
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.DISJOINT_UNION;
     }
 
+    @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
         return getOWLDataFactory().getOWLEquivalentClassesAxiom(owlClass, getOWLDataFactory().getOWLObjectUnionOf(getClassExpressions()));
     }
 
+    @Override
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom() {
         return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions());
     }

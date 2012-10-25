@@ -1570,6 +1570,8 @@ public class KRSSParserTokenManager implements KRSSParserConstants
                                 jjmatchedKind = 14;
                             }
                             break;
+                    default:
+                        break;
                     }
                     if (jjmatchedKind != 0x7fffffff)
                     {

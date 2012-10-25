@@ -67,6 +67,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         }
     }
 
+    @Override
     public String getShortForm(IRI iri) {
         String shortForm = iri.toString();
         URI uri = iri.toURI();

@@ -73,6 +73,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
         this.shortFormProvider = shortFormProvider;
     }
 
+    @Override
     public OWLClass getOWLClass(String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(name)) {
             if (ent.isOWLClass()) {
@@ -83,6 +84,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
 
+    @Override
     public OWLDataProperty getOWLDataProperty(String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(name)) {
             if (ent.isOWLDataProperty()) {
@@ -93,6 +95,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
 
+    @Override
     public OWLDatatype getOWLDatatype(String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(name)) {
             if (ent.isOWLDatatype()) {
@@ -103,6 +106,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
 
+    @Override
     public OWLNamedIndividual getOWLIndividual(String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(name)) {
             if (ent.isOWLNamedIndividual()) {
@@ -113,6 +117,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
 
+    @Override
     public OWLObjectProperty getOWLObjectProperty(String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(name)) {
             if (ent.isOWLObjectProperty()) {
@@ -122,6 +127,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
         return null;
     }
 
+    @Override
     public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
         for(OWLEntity ent : shortFormProvider.getEntities(name)) {
             if(ent.isOWLAnnotationProperty()) {

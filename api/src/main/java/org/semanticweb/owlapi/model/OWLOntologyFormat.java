@@ -143,7 +143,7 @@ public abstract class OWLOntologyFormat {
     }
 
     private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData {
-
+        public NullLoaderMetaData() {}
     }
 }
 

@@ -64,10 +64,12 @@ public class AbbreviatedIRIElementHandler extends AbstractIRIElementHandler {
     }
 
 
+    @Override
     public IRI getOWLObject() throws OWLXMLParserException {
         return iri;
     }
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
         String iriText = getText().trim();
         iri = getAbbreviatedIRI(iriText);

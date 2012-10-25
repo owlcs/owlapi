@@ -78,6 +78,7 @@ public class ContractOboParserTest {
     public void shouldTestAbstractTagValueHandler() throws Exception {
         AbstractTagValueHandler testSubject0 = new AbstractTagValueHandler("",
                 mock(OBOConsumer.class)) {
+            @Override
             public void handle(final String currentId, final String value,
                     final String qualifierBlock, final String comment) {}
         };
@@ -346,7 +347,6 @@ public class ContractOboParserTest {
         OWLClass result10 = testSubject0.getClassFromId("");
         String result11 = testSubject0.toString();
     }
-
 
     public void shouldTestModifiers() throws Exception {
         Modifiers testSubject0 = new Modifiers();

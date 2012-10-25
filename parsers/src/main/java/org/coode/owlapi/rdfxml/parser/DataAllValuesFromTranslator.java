@@ -59,14 +59,17 @@ public class DataAllValuesFromTranslator extends AbstractClassExpressionTranslat
         super(consumer);
     }
 
+    @Override
     public boolean matchesStrict(IRI mainNode) {
         return isRestrictionStrict(mainNode) && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY) && isDataRangeStrict(mainNode, OWL_ALL_VALUES_FROM);
     }
 
+    @Override
     public boolean matchesLax(IRI mainNode) {
         return  (isDataRangeLax(mainNode, OWL_ALL_VALUES_FROM) && isResourcePresent(mainNode, OWL_ON_PROPERTY)) || (isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode, OWL_ALL_VALUES_FROM));
     }
 
+    @Override
     public OWLDataAllValuesFrom translate(IRI mainNode) {
         getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);

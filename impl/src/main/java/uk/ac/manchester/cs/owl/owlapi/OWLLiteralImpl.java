@@ -111,30 +111,37 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         hashcode = getHashCode();
     }
 
+    @Override
     public String getLiteral() {
         return literal.get();
     }
 
+    @Override
     public boolean isRDFPlainLiteral() {
         return datatype.equals(getOWLDataFactory().getRDFPlainLiteral());
     }
 
+    @Override
     public boolean hasLang() {
         return !lang.equals("");
     }
 
+    @Override
     public boolean isInteger() {
         return datatype.equals(getOWLDataFactory().getIntegerOWLDatatype());
     }
 
+    @Override
     public int parseInteger() throws NumberFormatException {
         return Integer.parseInt(literal.get());
     }
 
+    @Override
     public boolean isBoolean() {
         return datatype.equals(getOWLDataFactory().getBooleanOWLDatatype());
     }
 
+    @Override
     public boolean parseBoolean() throws NumberFormatException {
         if (literal.get().equals("0")) {
             return false;
@@ -151,26 +158,32 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return false;
     }
 
+    @Override
     public boolean isDouble() {
         return datatype.equals(getOWLDataFactory().getDoubleOWLDatatype());
     }
 
+    @Override
     public double parseDouble() throws NumberFormatException {
         return Double.parseDouble(literal.get());
     }
 
+    @Override
     public boolean isFloat() {
         return datatype.equals(getOWLDataFactory().getFloatOWLDatatype());
     }
 
+    @Override
     public float parseFloat() throws NumberFormatException {
         return Float.parseFloat(literal.get());
     }
 
+    @Override
     public String getLang() {
         return lang;
     }
 
+    @Override
     public boolean hasLang(String l) {
         //XXX this was missing null checks: a null lang is still valid in the factory, where it becomes a ""
         if (l == null && lang == null) {
@@ -182,6 +195,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return lang != null && lang.equalsIgnoreCase(l.trim());
     }
 
+    @Override
     public OWLDatatype getDatatype() {
         return datatype;
     }
@@ -219,18 +233,22 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return false;
     }
 
+    @Override
     public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
@@ -249,10 +267,12 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return lang.compareTo(other.getLang());
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

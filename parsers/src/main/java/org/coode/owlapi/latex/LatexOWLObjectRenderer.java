@@ -65,16 +65,18 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
     }
 
 
+    @Override
     public String render(OWLObject object) {
         StringWriter writer = new StringWriter();
         LatexWriter latexWriter = new LatexWriter(writer);
         LatexObjectVisitor visitor = new LatexObjectVisitor(latexWriter, dataFactory);
-
+        visitor.setShortFormProvider(shortFormProvider);
         object.accept(visitor);
         return writer.getBuffer().toString();
     }
 
 
+    @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
     }

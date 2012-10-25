@@ -84,16 +84,19 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
     }
 
 
+    @Override
     public OWLIndividual getSubject() {
         return subject;
     }
 
 
+    @Override
     public P getProperty() {
         return property;
     }
 
 
+    @Override
     public O getObject() {
         return object;
     }

@@ -68,6 +68,7 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         super(property, annotations);
     }
 
+    @Override
     public OWLAsymmetricObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -75,6 +76,7 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(getProperty());
     }
 
+    @Override
     public OWLAsymmetricObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
     }
@@ -84,23 +86,28 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         return super.equals(obj) && obj instanceof OWLAsymmetricObjectPropertyAxiom;
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.ASYMMETRIC_OBJECT_PROPERTY;
     }

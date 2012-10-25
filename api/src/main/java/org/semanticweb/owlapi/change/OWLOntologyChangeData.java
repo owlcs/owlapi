@@ -39,10 +39,10 @@
 
 package org.semanticweb.owlapi.change;
 
+import java.io.Serializable;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-
-import java.io.Serializable;
 
 /**
  * Author: Matthew Horridge<br>
@@ -61,6 +61,7 @@ import java.io.Serializable;
  * @since 3.5
  */
 public abstract class OWLOntologyChangeData implements Serializable {
+    private static final long serialVersionUID = 30402L;
 
     /**
      * Default constructor for serialization purposes.

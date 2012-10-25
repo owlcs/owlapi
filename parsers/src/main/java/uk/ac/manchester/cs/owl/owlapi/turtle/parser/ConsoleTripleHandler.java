@@ -50,41 +50,49 @@ import org.semanticweb.owlapi.model.IRI;
 public class ConsoleTripleHandler implements TripleHandler {
 
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
         System.out.println(subject + " --> " + predicate + " --> " + object);
     }
 
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, String object) {
         System.out.println(subject + " --> " + predicate + " --> " + object);
     }
 
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
         System.out.println(subject + " --> " + predicate + " --> " + object + "@" + lang);
     }
 
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
         System.out.println(subject + " --> " + predicate + " --> " + object + "^^" + datatype);
     }
 
 
+    @Override
     public void handlePrefixDirective(String prefixName, String prefix) {
         System.out.println("PREFIX: " + prefixName + " -> " + prefix);
     }
 
 
+    @Override
     public void handleBaseDirective(String base) {
         System.out.println("BASE: " + base);
     }
 
 
+    @Override
     public void handleComment(String comment) {
         System.out.println("COMMENT: " + comment);
     }
 
 
+    @Override
     public void handleEnd() {
         System.out.println("END");
     }

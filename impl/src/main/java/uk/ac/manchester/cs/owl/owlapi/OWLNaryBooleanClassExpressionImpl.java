@@ -68,15 +68,18 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
         this.operands = new TreeSet<OWLClassExpression>(operands);
     }
 
+    @Override
     public List<OWLClassExpression> getOperandsAsList() {
         return new ArrayList<OWLClassExpression>(operands);
     }
 
+    @Override
     public Set<OWLClassExpression> getOperands() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(operands);
     }
 
 
+    @Override
     public boolean isClassExpressionLiteral() {
         return false;
     }

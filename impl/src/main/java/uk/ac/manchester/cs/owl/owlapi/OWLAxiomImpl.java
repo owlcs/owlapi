@@ -78,11 +78,13 @@ CollectionContainer<OWLAnnotation> {
         }
     }
 
+    @Override
     public boolean isAnnotated() {
         return !annotations.isEmpty();
     }
 
     //TODO when processing annotations on OWLOntology:: add axiom, needs optimizing
+    @Override
     public Set<OWLAnnotation> getAnnotations() {
         if (annotations.isEmpty()) {
             return Collections.emptySet();
@@ -90,6 +92,7 @@ CollectionContainer<OWLAnnotation> {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(annotations);
     }
 
+    @Override
     public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
         final int size=annotations.size();
         for(int i=0;i<size;i++) {
@@ -99,6 +102,7 @@ CollectionContainer<OWLAnnotation> {
     }
 
 
+    @Override
     public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
         if (annotations.isEmpty()) {
             return Collections.emptySet();
@@ -123,6 +127,7 @@ CollectionContainer<OWLAnnotation> {
      *         equal to this axiom without annotations otherwise
      *         <code>false</code>.
      */
+    @Override
     public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
         return getAxiomWithoutAnnotations().equals(
                 axiom.getAxiomWithoutAnnotations());
@@ -137,6 +142,7 @@ CollectionContainer<OWLAnnotation> {
      *         otherwise <code>false</code>
      * @since 3.0
      */
+    @Override
     public boolean isOfType(AxiomType<?>... axiomTypes) {
         for (AxiomType<?> type : axiomTypes) {
             if (getAxiomType().equals(type)) {
@@ -155,6 +161,7 @@ CollectionContainer<OWLAnnotation> {
      *         otherwise <code>false</code>
      * @since 3.0
      */
+    @Override
     public boolean isOfType(Set<AxiomType<?>> types) {
         return types.contains(getAxiomType());
     }
@@ -185,6 +192,7 @@ CollectionContainer<OWLAnnotation> {
         return getAnnotations().equals(other.getAnnotations());
     }
 
+    @Override
     public OWLAxiom getNNF() {
         if (nnf == null) {
             NNF con = new NNF(getOWLDataFactory());

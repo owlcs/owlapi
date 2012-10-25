@@ -68,13 +68,13 @@ public class BuiltInClassTestCase {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         dataFactory = new OWLDataFactoryImpl();
     }
 
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         dataFactory = null;
     }
 

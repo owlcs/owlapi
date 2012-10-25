@@ -59,14 +59,17 @@ public class ObjectMaxCardinalityTranslator extends AbstractClassExpressionTrans
         super(consumer);
     }
 
+    @Override
     public boolean matchesStrict(IRI mainNode) {
         return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MAX_CARDINALITY) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
     }
 
+    @Override
     public boolean matchesLax(IRI mainNode) {
         return isNonNegativeIntegerLax(mainNode, OWL_MAX_CARDINALITY) && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY);
     }
 
+    @Override
     public OWLObjectMaxCardinality translate(IRI mainNode) {
         getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         int cardi = translateInteger(mainNode, OWL_MAX_CARDINALITY);

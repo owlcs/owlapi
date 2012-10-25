@@ -81,7 +81,7 @@ import org.semanticweb.owlapi.util.OWLObjectDuplicator;
  */
 public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntologyChange {
 
-    private final Map<OWLDataPropertyExpression, OWLDatatype> map;
+    protected final Map<OWLDataPropertyExpression, OWLDatatype> map;
 
     private final List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
 
@@ -112,6 +112,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
     }
 
 
+    @Override
     public List<OWLOntologyChange> getChanges() {
         return changes;
     }

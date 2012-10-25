@@ -66,11 +66,13 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtom
     }
 
 
+    @Override
     public A getArgument() {
         return arg;
     }
 
 
+    @Override
     public Collection<SWRLArgument> getAllArguments() {
         return Collections.singleton((SWRLArgument) arg);
     }

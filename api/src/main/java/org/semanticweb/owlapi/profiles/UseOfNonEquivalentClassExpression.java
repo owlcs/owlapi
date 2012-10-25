@@ -63,6 +63,7 @@ public class UseOfNonEquivalentClassExpression extends OWLProfileViolation imple
         return classExpression;
     }
 
+    @Override
     public void accept(OWL2RLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

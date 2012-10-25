@@ -67,6 +67,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
     public DefaultExplanationOrderer() {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         man.addIRIMapper(new OWLOntologyIRIMapper() {
+            @Override
             public IRI getDocumentIRI(IRI ontologyIRI) {
                 return ontologyIRI;
             }
@@ -74,6 +75,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
         delegate = new ExplanationOrdererImpl(man);
     }
 
+    @Override
     public ExplanationTree
     getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
         return delegate.getOrderedExplanation(entailment, axioms);

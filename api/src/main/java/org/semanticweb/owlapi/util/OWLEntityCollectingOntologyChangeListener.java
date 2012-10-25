@@ -70,6 +70,7 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements OWLOn
     }
 
 
+    @Override
     public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
         entities.clear();
         for (OWLOntologyChange change : changes) {

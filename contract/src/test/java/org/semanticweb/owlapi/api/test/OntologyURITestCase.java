@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 public class OntologyURITestCase extends AbstractOWLAPITestCase {
 
     @Test
-    public void testOntologyID() throws Exception {
+    public void testOntologyID() {
         IRI iriA = IRI.create("http://www.another.com/ont");
         IRI iriB = IRI.create("http://www.another.com/ont/version");
         OWLOntologyID ontIDBoth = new OWLOntologyID(iriA, iriB);

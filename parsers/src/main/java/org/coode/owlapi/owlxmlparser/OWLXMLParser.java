@@ -70,10 +70,12 @@ import org.xml.sax.SAXException;
 public class OWLXMLParser extends AbstractOWLParser {
 
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
     	InputSource isrc = null;
     	try {

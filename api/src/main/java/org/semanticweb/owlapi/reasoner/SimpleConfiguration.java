@@ -106,18 +106,22 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
         this.timeOut = timeOut;
     }
 
+    @Override
     public ReasonerProgressMonitor getProgressMonitor() {
         return progressMonitor;
     }
 
+    @Override
     public long getTimeOut() {
         return timeOut;
     }
 
+    @Override
     public FreshEntityPolicy getFreshEntityPolicy() {
         return freshEntityPolicy;
     }
 
+    @Override
     public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
         return individualNodeSetPolicy;
     }

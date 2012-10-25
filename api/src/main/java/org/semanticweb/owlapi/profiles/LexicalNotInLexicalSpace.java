@@ -59,6 +59,7 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation implements OWL
         this.literal = literal;
     }
 
+    @Override
     public void accept(OWL2ProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

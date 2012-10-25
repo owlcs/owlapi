@@ -78,7 +78,7 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
 
     private final OWLClass cls;
 
-    private final OWLObjectPropertyExpression property;
+    protected final OWLObjectPropertyExpression property;
 
     private final Set<OWLOntology> ontologies;
 
@@ -130,6 +130,7 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
     }
 
 
+    @Override
     public List<OWLOntologyChange> getChanges() {
         return changes;
     }

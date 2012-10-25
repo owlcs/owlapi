@@ -59,6 +59,7 @@ public class UseOfUndeclaredDataProperty extends OWLProfileViolation implements 
         this.property = prop;
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

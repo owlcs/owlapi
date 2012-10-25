@@ -71,11 +71,13 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression<?,
     }
 
 
+    @Override
     public P getSubProperty() {
         return subProperty;
     }
 
 
+    @Override
     public P getSuperProperty() {
         return superProperty;
     }

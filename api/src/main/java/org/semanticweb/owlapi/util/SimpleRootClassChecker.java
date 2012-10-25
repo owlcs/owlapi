@@ -112,6 +112,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
      * @return <code>true</code> if the class is a direct syntactic root class of
      *         owl:Thing, otherwise <code>false</code>.
      */
+    @Override
     public boolean isRootClass(OWLClass cls) {
 
         for (OWLOntology ont : ontologies) {
@@ -128,14 +129,15 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
     private static class NamedSuperChecker extends OWLClassExpressionVisitorAdapter {
 
-        private boolean namedSuper;
+        protected boolean namedSuper;
+
+        public NamedSuperChecker() {}
 
         public void reset() {
             namedSuper = false;
         }
 
         @Override
-        @SuppressWarnings("unused")
 		public void visit(OWLClass desc) {
             namedSuper = true;
         }
@@ -163,7 +165,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
         private OWLClass cls;
 
-
+        public RootClassCheckerHelper() {}
         public void setOWLClass(OWLClass cls) {
             // Start off with the assumption that the class is
             // a root class.  This means if the class isn't referenced

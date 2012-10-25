@@ -48,5 +48,6 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
+    @Override
     OWLAsymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 }

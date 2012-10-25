@@ -59,14 +59,17 @@ public class DataHasValueTranslator extends AbstractClassExpressionTranslator {
         super(consumer);
     }
 
+    @Override
     public boolean matchesStrict(IRI mainNode) {
         return isRestrictionStrict(mainNode) && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY) && isLiteralPresent(mainNode, OWL_HAS_VALUE);
     }
 
+    @Override
     public boolean matchesLax(IRI mainNode) {
         return isLiteralPresent(mainNode, OWL_HAS_VALUE);
     }
 
+    @Override
     public OWLDataHasValue translate(IRI mainNode) {
         getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         OWLLiteral lit = getConsumer().getLiteralObject(mainNode, OWL_HAS_VALUE, true);

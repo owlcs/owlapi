@@ -74,6 +74,7 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
     }
 
 
+    @Override
     public String getName() {
         return "DL expressivity";
     }

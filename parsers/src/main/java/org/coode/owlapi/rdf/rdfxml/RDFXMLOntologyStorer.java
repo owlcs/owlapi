@@ -65,7 +65,8 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
 	private static final long serialVersionUID = 30402L;
 
 
-	public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+	@Override
+    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat instanceof RDFXMLOntologyFormat;
     }
 

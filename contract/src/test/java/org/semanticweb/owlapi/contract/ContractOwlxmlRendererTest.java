@@ -18,7 +18,6 @@ public class ContractOwlxmlRendererTest {
     public void shouldTestOWLXMLObjectRenderer() throws Exception {
         OWLXMLObjectRenderer testSubject0 = new OWLXMLObjectRenderer(
                 mock(OWLXMLWriter.class));
-
         String result0 = testSubject0.toString();
     }
 

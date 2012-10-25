@@ -63,6 +63,7 @@ public class UseOfReservedVocabularyForObjectPropertyIRI extends OWLProfileViola
         return property;
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

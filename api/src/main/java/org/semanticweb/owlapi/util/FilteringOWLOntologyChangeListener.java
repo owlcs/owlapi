@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
  */
 public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter implements OWLOntologyChangeListener {
 
+    @Override
     final public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
         processChanges(changes);
     }

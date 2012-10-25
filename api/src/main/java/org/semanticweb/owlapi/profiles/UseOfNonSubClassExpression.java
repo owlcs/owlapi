@@ -59,10 +59,12 @@ public class UseOfNonSubClassExpression extends OWLProfileViolation implements O
         this.classExpression = classExpression;
     }
 
+    @Override
     public void accept(OWL2QLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWL2RLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

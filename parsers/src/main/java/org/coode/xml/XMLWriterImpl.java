@@ -96,7 +96,7 @@ public class XMLWriterImpl implements XMLWriter {
         this.writer = writer;
         this.xmlWriterNamespaceManager = xmlWriterNamespaceManager;
         this.xmlBase = xmlBase;
-        this.xmlBaseURI = URI.create(xmlBase);
+        xmlBaseURI = URI.create(xmlBase);
         // no need to set it to UTF-8: it's supposed to be the default encoding for XML.
         //Must be set correctly for the Writer anyway, or bugs will ensue.
         //this.encoding = "UTF-8";
@@ -125,7 +125,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
 
-    private String swapForEntity(String value) {
+    protected String swapForEntity(String value) {
         for (String curEntity : entities.keySet()) {
             String entityVal = entities.get(curEntity);
             if (value.length() > curEntity.length()) {
@@ -144,6 +144,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
 
+    @Override
     public String getXMLBase() {
         return xmlBase;
     }
@@ -152,11 +153,13 @@ public class XMLWriterImpl implements XMLWriter {
         return xmlBaseURI;
     }
 
+    @Override
     public XMLWriterNamespaceManager getNamespacePrefixes() {
         return xmlWriterNamespaceManager;
     }
 
 
+    @Override
     public void setEncoding(String encoding) {
         this.encoding = encoding;
     }
@@ -180,6 +183,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
 
+    @Override
     public void setWrapAttributes(boolean b) {
         if (!elementStack.isEmpty()) {
             XMLElement element = elementStack.peek();
@@ -188,6 +192,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
 
+    @Override
     public void writeStartElement(String name) throws IOException {
         String qName = xmlWriterNamespaceManager.getQName(name);
         if ( qName == null || qName.equals(name)) {
@@ -209,6 +214,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
 
+    @Override
     public void writeEndElement() throws IOException {
         // Pop the element off the stack and write it out
         if (!elementStack.isEmpty()) {
@@ -218,18 +224,21 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
 
+    @Override
     public void writeAttribute(String attr, String val) {
         XMLElement element = elementStack.peek();
         element.setAttribute(xmlWriterNamespaceManager.getQName(attr), val);
     }
 
 
+    @Override
     public void writeTextContent(String text) {
         XMLElement element = elementStack.peek();
         element.setText(text);
     }
 
 
+    @Override
     public void writeComment(String commentText) throws IOException {
         XMLElement element = new XMLElement(null, elementStack.size());
         element.setText("<!-- " + commentText.replaceAll("--","&#45;&#45;") + " -->");
@@ -265,6 +274,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
 
+    @Override
     public void startDocument(String rootElementName) throws IOException {
         String encodingString = "";
         if (encoding.length() > 0) {
@@ -292,6 +302,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
 
+    @Override
     public void endDocument() throws IOException {
         // Pop of each element
         while (!elementStack.isEmpty()) {
@@ -305,7 +316,9 @@ public class XMLWriterImpl implements XMLWriter {
 			Comparator<String>, Serializable {
 		private static final long serialVersionUID = 30402L;
 
-		public int compare(String o1, String o2) {
+        public StringLengthOnlyComparator() {}
+        @Override
+        public int compare(String o1, String o2) {
 		    // Shortest string first
 		    return o1.length() - o2.length();
 		}

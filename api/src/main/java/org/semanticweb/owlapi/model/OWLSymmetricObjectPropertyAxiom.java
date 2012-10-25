@@ -57,5 +57,6 @@ public interface OWLSymmetricObjectPropertyAxiom extends OWLObjectPropertyCharac
      */
     Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms();
 
+    @Override
     OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 }

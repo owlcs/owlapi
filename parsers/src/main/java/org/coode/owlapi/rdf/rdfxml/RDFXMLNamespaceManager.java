@@ -43,7 +43,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.coode.xml.OWLOntologyXMLNamespaceManager;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
  * Author: Matthew Horridge<br>
@@ -53,10 +59,14 @@ import org.semanticweb.owlapi.model.*;
  */
 public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
 
+    /** @param man
+     * @param ontology */
     public RDFXMLNamespaceManager(OWLOntologyManager man, OWLOntology ontology) {
         super(man, ontology);
     }
 
+    /** @param ontology
+     * @param format */
     public RDFXMLNamespaceManager(OWLOntology ontology, OWLOntologyFormat format) {
         super(ontology, format);
     }
@@ -74,6 +84,7 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
         return entities;
     }
 
+    /** @return entities with invalid qnames */
     public Set<OWLEntity> getEntitiesWithInvalidQNames() {
         Set<OWLEntity> result = new HashSet<OWLEntity>();
         for(OWLEntity entity : getEntitiesThatRequireNamespaces()) {

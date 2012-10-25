@@ -58,6 +58,7 @@ public class ReflexiveHandler extends AbstractTagValueHandler {
     }
 
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         if (Boolean.parseBoolean(value)) {
             OWLObjectProperty prop = getOWLObjectProperty(currentId);

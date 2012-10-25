@@ -69,7 +69,7 @@ public class DataMaxCardinalityTestCase extends AbstractFileRoundTrippingTestCas
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
-    @Override  @SuppressWarnings("unused")
+    @Override
     protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         //  System.out.println(target);
     }

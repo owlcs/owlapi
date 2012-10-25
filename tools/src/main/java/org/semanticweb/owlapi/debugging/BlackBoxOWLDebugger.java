@@ -147,6 +147,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
 
+    @Override
     public void dispose() {
         reset();
 //        reasoner.dispose();
@@ -191,6 +192,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
 
+    @Override
     public Set<OWLAxiom> getSOSForIncosistentClass(OWLClassExpression cls) throws OWLException {
         reset();
         currentClass = setupDebuggingClass(cls);

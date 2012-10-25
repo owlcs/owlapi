@@ -73,6 +73,7 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
         this.property = property;
     }
 
+    @Override
     public OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -80,26 +81,32 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
         return getOWLDataFactory().getOWLAnnotationPropertyDomainAxiom(getProperty(), getDomain());
     }
 
+    @Override
     public OWLAnnotationPropertyDomainAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLAnnotationPropertyDomainAxiom(getProperty(), getDomain(), mergeAnnos(annotations));
     }
 
+    @Override
     public IRI getDomain() {
         return domain;
     }
 
+    @Override
     public OWLAnnotationProperty getProperty() {
         return property;
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.ANNOTATION_PROPERTY_DOMAIN;
     }
 
+    @Override
     public boolean isLogicalAxiom() {
         return false;
     }
 
+    @Override
     public boolean isAnnotationAxiom() {
         return true;
     }
@@ -114,18 +121,22 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
         return domain.compareTo(other.getDomain());
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

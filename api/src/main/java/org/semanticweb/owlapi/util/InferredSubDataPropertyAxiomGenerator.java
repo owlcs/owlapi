@@ -64,6 +64,7 @@ public class InferredSubDataPropertyAxiomGenerator extends InferredDataPropertyA
     }
 
 
+    @Override
     public String getLabel() {
         return "Sub data properties";
     }

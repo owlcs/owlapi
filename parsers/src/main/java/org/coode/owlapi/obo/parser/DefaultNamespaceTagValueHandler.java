@@ -91,6 +91,7 @@ public class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
     }
 
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         // Just register the namespace with the consumer and add it as an annotation to the ontology
         getConsumer().setDefaultNamespaceTagValue(value);

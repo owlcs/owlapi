@@ -72,7 +72,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 	private static final long serialVersionUID = 30402L;
 	private static final String UTF_8 = "UTF-8";
 
-	public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology, IRI documentIRI, OWLOntologyFormat ontologyFormat) throws
+	@Override
+    public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology, IRI documentIRI, OWLOntologyFormat ontologyFormat) throws
             OWLOntologyStorageException {
         try {
             if (!documentIRI.isAbsolute()) {
@@ -156,6 +157,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     }
 
 
+    @Override
     public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyDocumentTarget target,
                                     OWLOntologyFormat format) throws OWLOntologyStorageException {
         if (target.isWriterAvailable()) {

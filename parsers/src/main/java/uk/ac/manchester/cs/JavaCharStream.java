@@ -90,6 +90,8 @@ public class JavaCharStream {
             case 'f':
             case 'F':
                 return 15;
+            default:
+                break;
         }
         throw new IOException(); // Should never come here
     }

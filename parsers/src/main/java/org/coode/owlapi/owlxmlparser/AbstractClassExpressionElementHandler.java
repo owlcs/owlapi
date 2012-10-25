@@ -56,6 +56,7 @@ public abstract class AbstractClassExpressionElementHandler extends
         super(handler);
     }
 
+    @Override
     final public void endElement() throws OWLParserException, UnloadableImportException {
         endClassExpressionElement();
         getParentHandler().handleChild(this);
@@ -67,6 +68,7 @@ public abstract class AbstractClassExpressionElementHandler extends
         this.desc = desc;
     }
 
+    @Override
     public OWLClassExpression getOWLObject() {
         return desc;
     }

@@ -57,5 +57,6 @@ public interface OWLEquivalentObjectPropertiesAxiom extends OWLNaryPropertyAxiom
      */
     Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
 
+    @Override
     OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations();
 }

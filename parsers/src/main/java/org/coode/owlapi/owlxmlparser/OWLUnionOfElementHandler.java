@@ -64,10 +64,12 @@ public class OWLUnionOfElementHandler extends AbstractOWLElementHandler<OWLClass
         getParentHandler().handleChild(handler);
     }
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
     }
 
 
+    @Override
     public OWLClassExpression getOWLObject() {
         throw new OWLRuntimeException("getOWLObject should not be called on OWLUnionOfElementHandler");
     }

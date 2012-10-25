@@ -59,6 +59,7 @@ public class UseOfNonAbsoluteIRI extends OWLProfileViolation implements OWL2Prof
         this.iri = iri;
     }
 
+    @Override
     public void accept(OWL2ProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

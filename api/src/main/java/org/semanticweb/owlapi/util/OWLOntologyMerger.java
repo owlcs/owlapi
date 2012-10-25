@@ -74,7 +74,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      */
     public OWLOntologyMerger(OWLOntologySetProvider setProvider) {
         this.setProvider = setProvider;
-        this.axiomFilter = this;
+        axiomFilter = this;
         mergeOnlyLogicalAxioms = false;
     }
 
@@ -86,7 +86,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
     public OWLOntologyMerger(OWLOntologySetProvider setProvider, boolean mergeOnlyLogicalAxioms) {
         this.setProvider = setProvider;
         this.mergeOnlyLogicalAxioms = mergeOnlyLogicalAxioms;
-        this.axiomFilter = this;
+        axiomFilter = this;
     }
 
     /**
@@ -138,7 +138,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
         }
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public boolean passes(OWLAxiom axiom) {
         return true;
     }

@@ -40,12 +40,37 @@
 package org.coode.owlapi.obo.parser;
 
 import java.net.URI;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 
@@ -103,10 +128,9 @@ public class OBOConsumer implements OBOParserHandler {
     private String dataVersionTagValue = "";
 
 
-    @SuppressWarnings("deprecation")
     public OBOConsumer(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration, IRI baseIRI) {
         this.configuration = configuration;
-        this.owlOntologyManager = ontology.getOWLOntologyManager();
+        owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         intersectionOfOperands = new HashSet<OWLClassExpression>();
         unionOfOperands = new HashSet<OWLClassExpression>();
@@ -115,7 +139,7 @@ public class OBOConsumer implements OBOParserHandler {
         for (OBOVocabulary v : OBOVocabulary.values()) {
             tagIRICache.put(v.getName(), v.getIRI());
         }
-        this.ontologyTagValue = getDefaultOntologyTagValue(baseIRI);
+        ontologyTagValue = getDefaultOntologyTagValue(baseIRI);
 
 
         loadBuiltinURIs();
@@ -283,11 +307,13 @@ public class OBOConsumer implements OBOParserHandler {
     }
 
 
+    @Override
     public void startHeader() {
         inHeader = true;
     }
 
 
+    @Override
     public void endHeader() {
         inHeader = false;
         setOntologyId();
@@ -309,6 +335,7 @@ public class OBOConsumer implements OBOParserHandler {
         ontology.getOWLOntologyManager().applyChange(new SetOntologyID(ontology, ontologyID));
     }
 
+    @Override
     public void startFrame(String name) {
         currentId = null;
         defaultNamespaceTagValue = null;
@@ -325,6 +352,7 @@ public class OBOConsumer implements OBOParserHandler {
     }
 
 
+    @Override
     public void endFrame() {
         if (!unionOfOperands.isEmpty()) {
             createUnionEquivalentClass();
@@ -368,6 +396,7 @@ public class OBOConsumer implements OBOParserHandler {
     }
 
 
+    @Override
     public void handleTagValue(String tag, String value, String qualifierBlock, String comment) {
         try {
             TagValueHandler handler = handlerMap.get(tag);

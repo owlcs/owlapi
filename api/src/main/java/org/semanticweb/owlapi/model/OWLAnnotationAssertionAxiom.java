@@ -86,5 +86,6 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom {
      */
     boolean isDeprecatedIRIAssertion();
 
+    @Override
     OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
 }

@@ -66,6 +66,7 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends OWLProper
     }
 
 
+    @Override
     public OWLObjectPropertyExpression getProperty() {
         return property;
     }

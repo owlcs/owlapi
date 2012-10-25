@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 public class NegativeDataPropertyAssertionAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
-    @Override@SuppressWarnings("unused")
+    @Override
 	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return getFactory().getOWLNegativeDataPropertyAssertionAxiom(getOWLDataProperty("p"), getOWLIndividual("i"), getFactory().getOWLLiteral("xyz"));
     }

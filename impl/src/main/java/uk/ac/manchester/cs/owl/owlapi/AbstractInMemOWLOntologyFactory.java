@@ -59,19 +59,22 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
 	private static final long serialVersionUID = 30402L;
 	private OWLOntologyManager ontologyManager;
 
+    @Override
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
     	if (owlOntologyManager == null) {
             throw new IllegalArgumentException("ontologyManager cannot be null");
         }
-        this.ontologyManager = owlOntologyManager;
+        ontologyManager = owlOntologyManager;
     }
 
 
+    @Override
     public OWLOntologyManager getOWLOntologyManager() {
         return ontologyManager;
     }
 
-    @SuppressWarnings("unused")
+
+    @Override
     public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return true;
     }
@@ -84,7 +87,8 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
      * @param ontologyID the ontology id
      * @param handler the creation handler
      */
-    @SuppressWarnings("unused")
+
+    @Override
     public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
        // OWLOntology ont = new OWLOntologyLoggingWrapper(new OWLOntologyImpl(ontologyManager, ontologyID));
         OWLOntology ont = new OWLOntologyImpl(ontologyManager, ontologyID);

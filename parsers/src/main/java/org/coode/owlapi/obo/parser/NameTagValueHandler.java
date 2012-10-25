@@ -60,6 +60,7 @@ public class NameTagValueHandler extends AbstractTagValueHandler {
     }
 
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         // This is an annotation - but add as a label
         OWLEntity ent;

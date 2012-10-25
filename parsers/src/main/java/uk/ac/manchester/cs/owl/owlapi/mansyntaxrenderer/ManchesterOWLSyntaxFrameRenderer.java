@@ -135,7 +135,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     private List<RendererListener> listeners = new ArrayList<RendererListener>();
 
     private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
-        @SuppressWarnings("unused")
+        @Override
         public boolean passes(OWLAxiom axiom) {
             return true;
         }
@@ -146,8 +146,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, Writer writer, ShortFormProvider entityShortFormProvider) {
         this(owlOntologyManager, Collections.singleton(ontology), ontology, writer, entityShortFormProvider);
     }
-    @SuppressWarnings("unused")
-    public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager, Set<OWLOntology> ontologies, OWLOntology defaultOntology, Writer writer, ShortFormProvider entityShortFormProvider) {
+
+    public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager,
+            Set<OWLOntology> ontologies, OWLOntology defaultOntology, Writer writer,
+            ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
         this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
         //this.defaultOntology = defaultOntology;
@@ -1298,7 +1300,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         public DefaultRenderingDirector() {
 
         }
-        @SuppressWarnings("unused")
+        @Override
         public boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword, OWLOntology... ontologies) {
             return false;
         }

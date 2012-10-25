@@ -73,6 +73,7 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
         this.range = range;
     }
 
+    @Override
     public OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -80,26 +81,32 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
         return getOWLDataFactory().getOWLAnnotationPropertyRangeAxiom(getProperty(), getRange());
     }
 
+    @Override
     public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLAnnotationPropertyRangeAxiom(getProperty(), getRange(), mergeAnnos(annotations));
     }
 
+    @Override
     public OWLAnnotationProperty getProperty() {
         return property;
     }
 
+    @Override
     public IRI getRange() {
         return range;
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.ANNOTATION_PROPERTY_RANGE;
     }
 
+    @Override
     public boolean isLogicalAxiom() {
         return false;
     }
 
+    @Override
     public boolean isAnnotationAxiom() {
         return true;
     }
@@ -114,18 +121,22 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
         return range.compareTo(other.getRange());
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

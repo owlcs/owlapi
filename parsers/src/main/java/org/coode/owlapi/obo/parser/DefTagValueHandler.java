@@ -39,8 +39,6 @@
 
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.*;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -48,12 +46,20 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Author: Matthew Horridge<br>
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 18/04/2012
- */
+ * Date: 18/04/2012 */
+@SuppressWarnings("javadoc")
 public class DefTagValueHandler extends AbstractTagValueHandler {
     
     private static final Pattern PATTERN = Pattern.compile("\"([^\"]*)\"\\s*(\\[([^\\]]*)\\])?\\s*");
@@ -66,6 +72,7 @@ public class DefTagValueHandler extends AbstractTagValueHandler {
         super(OBOVocabulary.DEF.getName(), consumer);
     }
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         Matcher matcher = PATTERN.matcher(value);
 
@@ -76,7 +83,7 @@ public class DefTagValueHandler extends AbstractTagValueHandler {
         Set<OWLAnnotation> xrefAnnotations = Collections.emptySet();
         if(matcher.matches()) {
             annotationValue = matcher.group(QUOTED_STRING_CONTENT_GROUP);
-            xrefAnnotations = getXRefAnnotations(matcher, df);
+            xrefAnnotations = getXRefAnnotations(matcher);
         }
         else {
             annotationValue = getUnquotedString(value);
@@ -91,7 +98,7 @@ public class DefTagValueHandler extends AbstractTagValueHandler {
         
     }
 
-    private Set<OWLAnnotation> getXRefAnnotations(Matcher matcher, OWLDataFactory df) {
+    private Set<OWLAnnotation> getXRefAnnotations(Matcher matcher) {
         Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
         String xrefs = matcher.group(XREF_GROUP);
         if (xrefs != null) {

@@ -67,11 +67,13 @@ public class SimpleShortFormProvider implements ShortFormProvider, Serializable 
 	private static final long serialVersionUID = 30402L;
 	private final SimpleIRIShortFormProvider uriShortFormProvider = new SimpleIRIShortFormProvider();
 
+    @Override
     public String getShortForm(OWLEntity entity) {
         return uriShortFormProvider.getShortForm(entity.getIRI());
     }
 
 
+    @Override
     public void dispose() {
         // Nothing to do here
     }

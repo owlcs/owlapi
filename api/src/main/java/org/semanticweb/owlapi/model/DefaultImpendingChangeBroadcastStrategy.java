@@ -53,7 +53,8 @@ public class DefaultImpendingChangeBroadcastStrategy implements ImpendingOWLOnto
 
 	private static final long serialVersionUID = 30402L;
 
-	public void broadcastChanges(ImpendingOWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) {
+	@Override
+    public void broadcastChanges(ImpendingOWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) {
         listener.handleImpendingOntologyChanges(changes);
     }
 }

@@ -39,7 +39,12 @@
 
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
  * Author: Matthew Horridge<br>
@@ -49,10 +54,12 @@ import org.semanticweb.owlapi.model.*;
  */
 public class IsObsoleteTagValueHandler extends AbstractTagValueHandler {
 
+    /** @param consumer */
     public IsObsoleteTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_OBSOLETE.getName(), consumer);
     }
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         OWLDataFactory df = getDataFactory();
         OWLAnnotationProperty deprecatedProperty = df.getOWLDeprecated();

@@ -56,10 +56,12 @@ public class NamedClassTranslator extends AbstractClassExpressionTranslator {
         super(consumer);
     }
 
+    @Override
     public boolean matchesStrict(IRI mainNode) {
         return !isAnonymous(mainNode) && isClassExpressionStrict(mainNode);
     }
 
+    @Override
     public boolean matchesLax(IRI mainNode) {
         return !isAnonymous(mainNode);
     }
@@ -71,6 +73,7 @@ public class NamedClassTranslator extends AbstractClassExpressionTranslator {
      *                 class expression.
      * @return The class expression that represents the translation.
      */
+    @Override
     public OWLClass translate(IRI mainNode) {
         return getConsumer().getOWLClass(mainNode);
     }

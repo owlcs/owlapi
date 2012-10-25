@@ -83,6 +83,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         this.iri = i;
     }
 
+    @Override
     public IRI getIRI() {
         return iri;
     }
@@ -91,6 +92,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
      * Gets the entity type for this entity
      * @return The entity type
      */
+    @Override
     public EntityType<?> getEntityType() {
         return EntityType.ANNOTATION_PROPERTY;
     }
@@ -100,6 +102,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
      * @param entityType The type of the entity to obtain.  This entity is not affected in any way.
      * @return An entity that has the same IRI as this entity and is of the specified type
      */
+    @Override
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
         return getOWLDataFactory().getOWLEntity(entityType, getIRI());
     }
@@ -109,6 +112,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
      * @param entityType The entity type
      * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
      */
+    @Override
     public boolean isType(EntityType<?> entityType) {
         return getEntityType().equals(entityType);
     }
@@ -118,10 +122,12 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
      * representation of the IRI
      * @return A string representing the toString of the IRI of this entity.
      */
+    @Override
     public String toStringID() {
         return iri.toString();
     }
 
+    @Override
     public boolean isDeprecated() {
         return iri.equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
     }
@@ -131,111 +137,138 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         return iri.compareTo(((OWLAnnotationProperty) object).getIRI());
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public boolean isComment() {
         return iri.equals(OWLRDFVocabulary.RDFS_COMMENT.getIRI());
     }
 
+    @Override
     public boolean isLabel() {
         return iri.equals(OWLRDFVocabulary.RDFS_LABEL.getIRI());
     }
 
 
+    @Override
     public void accept(OWLEntityVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public OWLClass asOWLClass() {
         throw new OWLRuntimeException("Not OWLClass");
     }
 
+    @Override
     public OWLDataProperty asOWLDataProperty() {
         throw new OWLRuntimeException("Not OWLDataProperty");
     }
 
+    @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not OWLDatatype");
     }
 
+    @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException("Not OWLIndividual");
     }
 
+    @Override
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException("Not OWLObjectProperty");
     }
 
+    @Override
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLOntology ontology) {
         return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
     }
 
+    @Override
     public Set<OWLAnnotation> getAnnotations(OWLOntology ontology) {
         return ImplUtils.getAnnotations(this, Collections.singleton(ontology));
     }
 
+    @Override
     public Set<OWLAnnotation> getAnnotations(OWLOntology ontology, OWLAnnotationProperty annotationProperty) {
         return ImplUtils.getAnnotations(this, annotationProperty, Collections.singleton(ontology));
     }
 
+    @Override
     public boolean isBuiltIn() {
         return OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS.contains(getIRI());
     }
 
+    @Override
     public boolean isOWLClass() {
         return false;
     }
 
+    @Override
     public boolean isOWLDataProperty() {
         return false;
     }
 
+    @Override
     public boolean isOWLDatatype() {
         return false;
     }
 
+    @Override
     public boolean isOWLNamedIndividual() {
         return false;
     }
 
+    @Override
     public boolean isOWLObjectProperty() {
         return false;
     }
 
+    @Override
     public OWLAnnotationProperty asOWLAnnotationProperty() {
         return this;
     }
 
+    @Override
     public boolean isOWLAnnotationProperty() {
         return true;
     }
 
+    @Override
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
         return ontology.getReferencingAxioms(this);
     }
 
+    @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
         return ontology.getReferencingAxioms(this, includeImports);
     }
 
+    @Override
     public Set<OWLAnnotationProperty> getSubProperties(OWLOntology ontology) {
         return getSubProperties(Collections.singleton(ontology));
     }
 
+    @Override
     public Set<OWLAnnotationProperty> getSubProperties(OWLOntology ontology, boolean includeImportsClosure) {
         if (includeImportsClosure) {
             return getSubProperties(ontology.getImportsClosure());
@@ -245,6 +278,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         }
     }
 
+    @Override
     public Set<OWLAnnotationProperty> getSubProperties(Set<OWLOntology> ontologies) {
         Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
         for(OWLOntology ont : ontologies) {
@@ -258,10 +292,12 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
     }
 
 
+    @Override
     public Set<OWLAnnotationProperty> getSuperProperties(OWLOntology ontology) {
         return getSuperProperties(Collections.singleton(ontology));
     }
 
+    @Override
     public Set<OWLAnnotationProperty> getSuperProperties(OWLOntology ontology, boolean includeImportsClosure) {
         if (includeImportsClosure) {
             return getSuperProperties(ontology.getImportsClosure());
@@ -271,6 +307,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
         }
     }
 
+    @Override
     public Set<OWLAnnotationProperty> getSuperProperties(Set<OWLOntology> ontologies) {
         Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
         for(OWLOntology ont : ontologies) {

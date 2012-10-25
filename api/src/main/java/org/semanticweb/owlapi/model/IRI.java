@@ -322,6 +322,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * of 16-bit <code>char</code>s in the sequence.</p>
      * @return the number of <code>char</code>s in this sequence
      */
+    @Override
     public int length() {
         return prefix.length() + (remainder == null ? 0 : remainder.length());
     }
@@ -339,6 +340,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @throws IndexOutOfBoundsException if the <tt>index</tt> argument is negative or not less than
      *                                   <tt>length()</tt>
      */
+    @Override
     public char charAt(int index) {
         if (index < 0) {
             throw new IndexOutOfBoundsException(Integer.toString(index));
@@ -366,6 +368,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *                                   if <tt>end</tt> is greater than <tt>length()</tt>,
      *                                   or if <tt>start</tt> is greater than <tt>end</tt>
      */
+    @Override
     public CharSequence subSequence(int start, int end) {
         StringBuilder sb = new StringBuilder();
         sb.append(prefix);
@@ -374,54 +377,67 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLAnnotationSubjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public Set<OWLClass> getClassesInSignature() {
         return Collections.emptySet();
     }
 
+    @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         return Collections.emptySet();
     }
 
+    @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         return Collections.emptySet();
     }
 
+    @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         return Collections.emptySet();
     }
 
+    @Override
     public Set<OWLEntity> getSignature() {
         return Collections.emptySet();
     }
 
+    @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return Collections.emptySet();
     }
 
+    @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
         return Collections.emptySet();
     }
 
+    @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
         return Collections.emptySet();
     }
 
+    @Override
     public int compareTo(OWLObject o) {
         if (o == this) {
             return 0;
@@ -475,18 +491,22 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         return hashCode;
     }
 
+    @Override
     public void accept(OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public boolean isTopEntity() {
         return false;
     }
 
+    @Override
     public boolean isBottomEntity() {
         return false;
     }

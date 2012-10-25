@@ -56,14 +56,17 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
 
+    @Override
     public IRI getDocumentIRI() {
         throw new OWLRuntimeException("IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }
 
+    @Override
     public boolean isDocumentIRIAvailable() {
         return false;
     }
 
+    @Override
     public OutputStream getOutputStream() throws IOException {
         return new OutputStream() {
             @Override
@@ -78,14 +81,17 @@ public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
         };
     }
 
+    @Override
     public boolean isOutputStreamAvailable() {
         return true;
     }
 
+    @Override
     public Writer getWriter() throws IOException {
         throw new OWLRuntimeException("Writer not available.  getWriter() should not be called if isWriterAvailable() returns false.");
     }
 
+    @Override
     public boolean isWriterAvailable() {
         return false;
     }

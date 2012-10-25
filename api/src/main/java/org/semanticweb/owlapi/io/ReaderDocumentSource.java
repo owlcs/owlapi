@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
@@ -47,49 +46,40 @@ import java.io.StringReader;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 17-Nov-2007<br><br>
- *
- * An ontology document source which reads an ontology from a reader.
- */
+ * Date: 17-Nov-2007<br>
+ * <br>
+ * An ontology document source which reads an ontology from a reader. */
 public class ReaderDocumentSource implements OWLOntologyDocumentSource {
-
     private static int counter = 0;
-
     private final IRI documentIRI;
-
     private String buffer;
 
-
-    /**
-     * Constructs and ontology input source which will read an ontology
-     * from a reader.
-     * @param reader The reader that will be used to read an ontology.
-     */
+    /** Constructs and ontology input source which will read an ontology from a
+     * reader.
+     * 
+     * @param reader
+     *            The reader that will be used to read an ontology. */
     public ReaderDocumentSource(Reader reader) {
         this(reader, getNextDocumentIRI());
     }
 
-    /**
-     * @return a fresh IRI
-     */
+    /** @return a fresh IRI */
     public static synchronized IRI getNextDocumentIRI() {
         counter = counter + 1;
         return IRI.create("reader:ontology" + counter);
     }
 
-
-    /**
-     * Constructs and ontology input source which will read an ontology
-     * from a reader.
-     * @param reader The reader that will be used to read an ontology.
-     * @param documentIRI The ontology document IRI which will be used as the base
-     * of the document if needed.
-     */
+    /** Constructs and ontology input source which will read an ontology from a
+     * reader.
+     * 
+     * @param reader
+     *            The reader that will be used to read an ontology.
+     * @param documentIRI
+     *            The ontology document IRI which will be used as the base of
+     *            the document if needed. */
     public ReaderDocumentSource(Reader reader, IRI documentIRI) {
         this.documentIRI = documentIRI;
         fillBuffer(reader);
@@ -99,43 +89,43 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
         try {
             StringBuilder builder = new StringBuilder();
             final int length = 100000;
-			char [] tempBuffer = new char [length];
-			int read=0;
-			do {
-				read=reader.read(tempBuffer, 0, length);
-				if(read>0) {
-					builder.append(tempBuffer, 0, read);
-				}
-			} while(read>0);
+            char[] tempBuffer = new char[length];
+            int read = 0;
+            do {
+                read = reader.read(tempBuffer, 0, length);
+                if (read > 0) {
+                    builder.append(tempBuffer, 0, read);
+                }
+            } while (read > 0);
             buffer = builder.toString();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
+    @Override
     public IRI getDocumentIRI() {
         return documentIRI;
     }
 
+    @Override
     public Reader getReader() {
-
         return new StringReader(buffer);
     }
 
-
+    @Override
     public boolean isReaderAvailable() {
         return true;
     }
 
-
+    @Override
     public boolean isInputStreamAvailable() {
         return false;
     }
 
-
+    @Override
     public InputStream getInputStream() {
-        throw new OWLRuntimeException("InputStream not available.  Check with ReaderDocumentSource.isReaderAvailable() first!");
+        throw new OWLRuntimeException(
+                "InputStream not available.  Check with ReaderDocumentSource.isReaderAvailable() first!");
     }
 }
-

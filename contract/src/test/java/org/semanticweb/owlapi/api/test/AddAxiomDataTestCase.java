@@ -1,5 +1,8 @@
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.change.AddAxiomData;
@@ -7,15 +10,13 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-
 /**
  * Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 22/10/2012
  */
+@SuppressWarnings("javadoc")
 public class AddAxiomDataTestCase {
 
     private OWLAxiom mockAxiom;
@@ -23,7 +24,7 @@ public class AddAxiomDataTestCase {
     private OWLOntology mockOntology;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mockAxiom = mock(OWLAxiom.class);
         mockOntology = mock(OWLOntology.class);
     }
@@ -35,14 +36,14 @@ public class AddAxiomDataTestCase {
 
 
     @Test
-    public void testEquals() throws Exception {
+    public void testEquals() {
         AddAxiomData data1 = new AddAxiomData(mockAxiom);
         AddAxiomData data2 = new AddAxiomData(mockAxiom);
         assertEquals(data1, data2);
     }
 
     @Test
-    public void testOntologyChange() throws Exception {
+    public void testOntologyChange() {
         AddAxiomData data = new AddAxiomData(mockAxiom);
         AddAxiom change = data.createOntologyChange(mockOntology);
         assertEquals(change.getOntology(), mockOntology);

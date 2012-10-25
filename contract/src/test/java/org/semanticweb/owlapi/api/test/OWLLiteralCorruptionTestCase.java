@@ -10,7 +10,7 @@ public class OWLLiteralCorruptionTestCase {
 
 
     @Test
-    public void testmain() throws Exception{
+    public void testmain() {
         String TEST_STRING;
         StringBuilder sb = new StringBuilder();
         int count = 17;

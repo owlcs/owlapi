@@ -75,6 +75,7 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
     /**
      * Gets the restricting facet for this facet restriction
      */
+    @Override
     public OWLFacet getFacet() {
         return facet;
     }
@@ -83,23 +84,28 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
     /**
      * Gets the corresponding facet value for this facet restriction
      */
+    @Override
     public OWLLiteral getFacetValue() {
         return facetValue;
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

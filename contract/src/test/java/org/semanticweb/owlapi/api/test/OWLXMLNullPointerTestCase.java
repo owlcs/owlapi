@@ -39,12 +39,10 @@
 
 package org.semanticweb.owlapi.api.test;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StreamDocumentTarget;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -78,11 +76,12 @@ public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
         manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(factory.getOWLClass(IRI.create(NS + "#CheeseTopping")), j));
         manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(factory.getOWLObjectProperty(IRI.create(NS + "#hasTopping")), i, j));
 
-        File tmpFile = File.createTempFile("Test", ".owl");
-        manager.saveOntology(ontology, new OWLXMLOntologyFormat(), new StreamDocumentTarget(new FileOutputStream(tmpFile)));
+        StringDocumentTarget target = new StringDocumentTarget();
+        manager.saveOntology(ontology, new OWLXMLOntologyFormat(), target);
 
         OWLOntologyManager manager2 = Factory.getManager();
-        manager2.loadOntologyFromOntologyDocument(tmpFile);
+        manager2.loadOntologyFromOntologyDocument(new StringDocumentSource(target
+                .toString()));
 
     }
 

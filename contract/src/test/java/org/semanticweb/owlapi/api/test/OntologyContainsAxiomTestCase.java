@@ -73,7 +73,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
 
     @Test
-    public void testOntologyContainsPlainAxiom() throws Exception {
+    public void testOntologyContainsPlainAxiom() {
         OWLAxiom axiom = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getOWLClass("B"));
         OWLOntology ont = getOWLOntology("testont");
         getManager().addAxiom(ont, axiom);
@@ -84,7 +84,7 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
 
 
     @Test
-    public void testOntologyContainsAnnotatedAxiom() throws Exception {
+    public void testOntologyContainsAnnotatedAxiom() {
         OWLLiteral annoLiteral = getFactory().getOWLLiteral("value");
         OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
         OWLAnnotation anno = getFactory().getOWLAnnotation(annoProp, annoLiteral);

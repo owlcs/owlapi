@@ -62,14 +62,14 @@ public class KRSS2SyntaxOntologyStorer extends AbstractOWLOntologyStorer {
 
 	private static final long serialVersionUID = 30402L;
 
+    @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new KRSS2OntologyFormat());
     }
 
     // I changed this class to extend AbstractOWLOntologyStorer - Matthew Horridge
-
-    @Override  @SuppressWarnings("unused")
-	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
+	@Override
+    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
             OWLOntologyStorageException {
         KRSS2SyntaxRenderer renderer = new KRSS2SyntaxRenderer(manager);
         renderer.render(ontology, writer);

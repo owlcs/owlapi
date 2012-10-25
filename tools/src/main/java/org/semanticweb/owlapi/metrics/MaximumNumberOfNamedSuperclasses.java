@@ -67,6 +67,7 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     }
 
 
+    @Override
     public String getName() {
         return "Maximum number of asserted named superclasses";
     }

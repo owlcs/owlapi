@@ -124,7 +124,6 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *            ignored
      * @return never returns */
     @Override
-    @SuppressWarnings("unused")
     public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return false;
     }
@@ -145,6 +144,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 "Cannot create new empty ontologies!"));
     }
 
+    @Override
     public boolean canLoad(OWLOntologyDocumentSource documentSource) {
         if (documentSource.isReaderAvailable()) {
             return true;
@@ -174,6 +174,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         return false;
     }
 
+    @Override
     public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
             OWLOntologyCreationHandler mediator,
             OWLOntologyLoaderConfiguration configuration)
@@ -240,6 +241,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         throw new UnparsableOntologyException(documentSource.getDocumentIRI(), exceptions);
     }
 
+    @Override
     public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
             final OWLOntologyCreationHandler mediator)
             throws OWLOntologyCreationException {

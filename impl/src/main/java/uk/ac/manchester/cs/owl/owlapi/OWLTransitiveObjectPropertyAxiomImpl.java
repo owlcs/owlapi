@@ -68,6 +68,7 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         super(property, annotations);
     }
 
+    @Override
     public OWLTransitiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -75,6 +76,7 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(getProperty());
     }
 
+    @Override
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
     }
@@ -84,23 +86,28 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         return super.equals(obj) && obj instanceof OWLTransitiveObjectPropertyAxiom;
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.TRANSITIVE_OBJECT_PROPERTY;
     }

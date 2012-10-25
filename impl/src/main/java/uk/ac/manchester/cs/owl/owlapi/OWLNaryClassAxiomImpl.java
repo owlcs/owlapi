@@ -72,19 +72,23 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     }
 
 
+    @Override
     public Set<OWLClassExpression> getClassExpressions() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(classExpressions);
     }
 
+    @Override
     public List<OWLClassExpression> getClassExpressionsAsList() {
         return new ArrayList<OWLClassExpression>(classExpressions);
     }
 
+    @Override
     public boolean contains(OWLClassExpression ce) {
         return classExpressions.contains(ce);
     }
 
 
+    @Override
     public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... descs) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>(classExpressions);
         for (OWLClassExpression desc : descs) {

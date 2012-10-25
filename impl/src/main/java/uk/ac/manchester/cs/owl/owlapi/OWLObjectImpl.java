@@ -89,6 +89,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         f = factory;
     }
 
+    @Override
     public Set<OWLEntity> getSignature() {
         if (signature == null) {
             Set<OWLEntity> sig = new HashSet<OWLEntity>();
@@ -101,6 +102,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(signature);
     }
 
+    @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         if (signature == null) {
             getSignature();
@@ -108,6 +110,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(anons);
     }
 
+    @Override
     public Set<OWLClass> getClassesInSignature() {
         Set<OWLClass> result = new HashSet<OWLClass>();
         for (OWLEntity ent : getSignature()) {
@@ -118,6 +121,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
         for (OWLEntity ent : getSignature()) {
@@ -128,6 +132,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
         for (OWLEntity ent : getSignature()) {
@@ -138,6 +143,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
         for (OWLEntity ent : getSignature()) {
@@ -153,6 +159,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
      * 
      * @return A set containing the datatypes that are in the signature of this
      *         object. */
+    @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
         Set<OWLDatatype> result = new HashSet<OWLDatatype>();
         for (OWLEntity ent : getSignature()) {
@@ -163,6 +170,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
         OWLClassExpressionCollector collector = new OWLClassExpressionCollector();
         return this.accept(collector);
@@ -181,6 +189,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return hashCode;
     }
 
+    @Override
     final public int compareTo(OWLObject o) {
         // if (o instanceof OWLAxiom && this instanceof OWLAxiom) {
         // OWLObject thisSubj = subjectProvider.getSubject((OWLAxiom) this);
@@ -209,10 +218,12 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return ToStringRenderer.getInstance().getRendering(this);
     }
 
+    @Override
     public boolean isTopEntity() {
         return false;
     }
 
+    @Override
     public boolean isBottomEntity() {
         return false;
     }
