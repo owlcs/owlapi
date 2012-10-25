@@ -1,13 +1,38 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.HashCode;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Set;
+
+import org.semanticweb.owlapi.model.DataRangeType;
+import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
+import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
+import org.semanticweb.owlapi.model.OWLDataVisitor;
+import org.semanticweb.owlapi.model.OWLDataVisitorEx;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEntityVisitor;
+import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.util.HashCode;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * Author: Matthew Horridge<br>
@@ -64,6 +89,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @throws org.semanticweb.owlapi.model.OWLRuntimeException
      *          if this datatype is not a built in datatype.
      */
+    @Override
     public OWL2Datatype getBuiltInDatatype() {
         return owl2Datatype;
     }
@@ -72,6 +98,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * Determines if this datatype has the IRI <code>xsd:string</code>
      * @return <code>true</code> if this datatype has the IRI <code>xsd:string</code>, otherwise <code>false</code>.
      */
+    @Override
     public boolean isString() {
         return owl2Datatype == OWL2Datatype.XSD_STRING;
     }
@@ -80,6 +107,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * Determines if this datatype has the IRI <code>xsd:integer</code>
      * @return <code>true</code> if this datatype has the IRI <code>xsd:integer</code>, otherwise <code>false</code>.
      */
+    @Override
     public boolean isInteger() {
         return owl2Datatype == OWL2Datatype.XSD_INTEGER;
     }
@@ -88,6 +116,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * Determines if this datatype has the IRI <code>xsd:float</code>
      * @return <code>true</code> if this datatype has the IRI <code>xsd:float</code>, otherwise <code>false</code>.
      */
+    @Override
     public boolean isFloat() {
         return owl2Datatype == OWL2Datatype.XSD_FLOAT;
     }
@@ -96,6 +125,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * Determines if this datatype has the IRI <code>xsd:double</code>
      * @return <code>true</code> if this datatype has the IRI <code>xsd:double</code>, otherwise <code>false</code>.
      */
+    @Override
     public boolean isDouble() {
         return owl2Datatype == OWL2Datatype.XSD_DOUBLE;
     }
@@ -104,6 +134,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * Determines if this datatype has the IRI <code>xsd:boolean</code>
      * @return <code>true</code> if this datatype has the IRI <code>xsd:boolean</code>, otherwise <code>false</code>.
      */
+    @Override
     public boolean isBoolean() {
         return owl2Datatype == OWL2Datatype.XSD_BOOLEAN;
     }
@@ -113,6 +144,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @return <code>true</code> if this datatype has the IRI <code>rdf:PlainLiteral</code> otherwise
      *         <code>false</code>
      */
+    @Override
     public boolean isRDFPlainLiteral() {
         return owl2Datatype == OWL2Datatype.RDF_PLAIN_LITERAL;
     }
@@ -124,6 +156,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      *         data range such as a data range restriction, data oneOf or
      *         data complementOf.
      */
+    @Override
     public boolean isDatatype() {
         return true;
     }
@@ -133,6 +166,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @return <code>true</code> if this data range is the top datatype otherwise
      *         <code>false</code>
      */
+    @Override
     public boolean isTopDatatype() {
         return owl2Datatype == OWL2Datatype.RDFS_LITERAL;
     }
@@ -142,6 +176,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * using an explicit cast).
      * @return This data range as an {@link org.semanticweb.owlapi.model.OWLDatatype}
      */
+    @Override
     public OWLDatatype asOWLDatatype() {
         return this;
     }
@@ -150,22 +185,27 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * Gets the type of this data range
      * @return The data range type
      */
+    @Override
     public DataRangeType getDataRangeType() {
         return DataRangeType.DATATYPE;
     }
 
+    @Override
     public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLDataRangeVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
@@ -174,6 +214,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * Gets the entity type for this entity
      * @return The entity type
      */
+    @Override
     public EntityType<?> getEntityType() {
         return EntityType.DATATYPE;
     }
@@ -183,6 +224,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @param entityType The type of the entity to obtain.  This entity is not affected in any way.
      * @return An entity that has the same IRI as this entity and is of the specified type
      */
+    @Override
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
         return OWLObjectImpl.getOWLDataFactory().getOWLEntity(entityType, OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
     }
@@ -192,6 +234,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @param entityType The entity type
      * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
      */
+    @Override
     public boolean isType(EntityType<?> entityType) {
         return entityType == EntityType.DATATYPE;
     }
@@ -203,6 +246,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @return The annotations that participate directly in an annotation assertion whose subject is an
      *         IRI corresponding to the IRI of this entity.
      */
+    @Override
     public Set<OWLAnnotation> getAnnotations(OWLOntology ontology) {
         return ImplUtils.getAnnotations(this, Collections.singleton(ontology));
     }
@@ -215,6 +259,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @return A set of <code>OWLAnnotation</code> objects that have the specified
      *         URI.
      */
+    @Override
     public Set<OWLAnnotation> getAnnotations(OWLOntology ontology, OWLAnnotationProperty annotationProperty) {
         return ImplUtils.getAnnotations(this, annotationProperty, Collections.singleton(ontology));
     }
@@ -223,6 +268,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @param ontology the ontology to use
      * @return the annotation assertion axioms about this entity in the provided ontology
      */
+    @Override
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLOntology ontology) {
         return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
     }
@@ -239,6 +285,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @return <code>true</code> if this entity is a built in entity, or <code>false</code>
      *         if this entity is not a builtin entity.
      */
+    @Override
     public boolean isBuiltIn() {
         return true;
     }
@@ -247,6 +294,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * A convenience method that determines if this entity is an OWLClass
      * @return <code>true</code> if this entity is an OWLClass, otherwise <code>false</code>
      */
+    @Override
     public boolean isOWLClass() {
         return false;
     }
@@ -259,6 +307,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      *          if this entity is not an OWLClass (check with the
      *          isOWLClass method first).
      */
+    @Override
     public OWLClass asOWLClass() {
         throw new RuntimeException("Not an OWLClass");
     }
@@ -267,6 +316,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * A convenience method that determines if this entity is an OWLObjectProperty
      * @return <code>true</code> if this entity is an OWLObjectProperty, otherwise <code>false</code>
      */
+    @Override
     public boolean isOWLObjectProperty() {
         return false;
     }
@@ -279,6 +329,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      *          if this entity is not an OWLObjectProperty (check with the
      *          isOWLObjectProperty method first).
      */
+    @Override
     public OWLObjectProperty asOWLObjectProperty() {
         throw new RuntimeException("Not an OWLClass");
     }
@@ -287,6 +338,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * A convenience method that determines if this entity is an OWLDataProperty
      * @return <code>true</code> if this entity is an OWLDataProperty, otherwise <code>false</code>
      */
+    @Override
     public boolean isOWLDataProperty() {
         return false;
     }
@@ -299,6 +351,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      *          if this entity is not an OWLDataProperty (check with the
      *          isOWLDataProperty method first).
      */
+    @Override
     public OWLDataProperty asOWLDataProperty() {
         throw new RuntimeException("Not an OWLDataProperty");
     }
@@ -307,6 +360,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * A convenience method that determines if this entity is an OWLNamedIndividual
      * @return <code>true</code> if this entity is an OWLNamedIndividual, otherwise <code>false</code>
      */
+    @Override
     public boolean isOWLNamedIndividual() {
         return false;
     }
@@ -319,6 +373,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      *          if this entity is not an OWLIndividual (check with the
      *          isOWLIndividual method first).
      */
+    @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
         throw new RuntimeException("Not an OWLNamedIndividual");
     }
@@ -327,6 +382,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * A convenience method that determines if this entity is an OWLDatatype
      * @return <code>true</code> if this entity is an OWLDatatype, otherwise <code>false</code>
      */
+    @Override
     public boolean isOWLDatatype() {
         return true;
     }
@@ -335,6 +391,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * A convenience method that determines if this entity is an OWLAnnotationProperty
      * @return <code>true</code> if this entity is an OWLAnnotationProperty, otherwise <code>false</code>
      */
+    @Override
     public boolean isOWLAnnotationProperty() {
         return false;
     }
@@ -346,6 +403,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @throws org.semanticweb.owlapi.model.OWLRuntimeException
      *          if this entity is not an OWLAnnotationProperty
      */
+    @Override
     public OWLAnnotationProperty asOWLAnnotationProperty() {
         throw new RuntimeException("Not an OWLAnnotationProperty");
     }
@@ -355,6 +413,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * representation of the IRI
      * @return A string representing the toString of the IRI of this entity.
      */
+    @Override
     public String toStringID() {
         return owl2Datatype.getIRI().toString();
     }
@@ -364,6 +423,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @param ontology The ontology that will be searched for axioms
      * @return The axioms in the specified ontology whose signature contains this entity.
      */
+    @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
         return ontology.getReferencingAxioms(this);
     }
@@ -376,14 +436,17 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * <code>false</code> then only the axioms in the specified ontology will be returned.
      * @return The axioms in the specified ontology whose signature contains this entity.
      */
+    @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
         return ontology.getReferencingAxioms(this, true);
     }
 
+    @Override
     public void accept(OWLEntityVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
@@ -392,18 +455,22 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * Gets the IRI of this object
      * @return The IRI of this object
      */
+    @Override
     public IRI getIRI() {
         return owl2Datatype.getIRI();
     }
 
+    @Override
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
@@ -425,6 +492,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @return A set of entities that correspond to the
      *         signature of this object. The set is a copy, changes are not reflected back.
      */
+    @Override
     public Set<OWLEntity> getSignature() {
         return Collections.<OWLEntity>singleton(this);
     }
@@ -434,6 +502,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * OWLEntityCollector. The set is a copy, changes are not reflected back.
      * @return A set of anonymous individuals.
      */
+    @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return Collections.emptySet();
     }
@@ -446,6 +515,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      *         is not backed by the signature; it is a modifiable collection
      *         and changes are not reflected by the signature.
      */
+    @Override
     public Set<OWLClass> getClassesInSignature() {
         return Collections.emptySet();
     }
@@ -458,6 +528,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      *         is not backed by the signature; it is a modifiable collection
      *         and changes are not reflected by the signature.
      */
+    @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         return Collections.emptySet();
     }
@@ -470,6 +541,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      *         is not backed by the signature; it is a modifiable collection
      *         and changes are not reflected by the signature.
      */
+    @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         return Collections.emptySet();
     }
@@ -482,6 +554,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      *         is not backed by the signature; it is a modifiable collection
      *         and changes are not reflected by the signature.
      */
+    @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         return Collections.emptySet();
     }
@@ -494,6 +567,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      *         is not backed by the signature; it is a modifiable collection
      *         and changes are not reflected by the signature.
      */
+    @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
         return Collections.emptySet();
     }
@@ -503,6 +577,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s that represent the nested class
      *         expressions used in this object.
      */
+    @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
         return Collections.emptySet();
     }
@@ -512,6 +587,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * , owl:topDataProperty (the top data property) or rdfs:Literal (the top datatype).
      * @return <code>true</code> if this object corresponds to one of the above entities.
      */
+    @Override
     public boolean isTopEntity() {
         return owl2Datatype == OWL2Datatype.RDF_PLAIN_LITERAL;
     }
@@ -522,6 +598,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * , owl:bottomDataProperty (the bottom data property).
      * @return <code>true</code> if this object corresponds to one of the above entities.
      */
+    @Override
     public boolean isBottomEntity() {
         return false;
     }
@@ -562,13 +639,14 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @throws ClassCastException if the specified object's type prevents it
      *                            from being compared to this object.
      */
+    @Override
     public int compareTo(OWLObject o) {
         if(!(o instanceof OWLDatatype)) {
             OWLObjectTypeIndexProvider provider = new OWLObjectTypeIndexProvider();
             return provider.getTypeIndex(o);
         }
         OWLDatatype other = (OWLDatatype) o;
-        return this.getIRI().compareTo(other.getIRI());
+        return getIRI().compareTo(other.getIRI());
     }
 
     @Override

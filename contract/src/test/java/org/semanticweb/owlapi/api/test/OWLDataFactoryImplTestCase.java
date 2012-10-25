@@ -1,15 +1,20 @@
 package org.semanticweb.owlapi.api.test;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.semanticweb.owlapi.model.*;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+import static junit.framework.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import static junit.framework.Assert.assertTrue;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
  * Author: Matthew Horridge<br>
@@ -21,6 +26,7 @@ import static junit.framework.Assert.assertTrue;
  * for distinguished values (e.g. owl:Thing, rdfs:Literal etc.)
  */
 @RunWith(value = Parameterized.class)
+@SuppressWarnings("javadoc")
 public class OWLDataFactoryImplTestCase {
 
 
