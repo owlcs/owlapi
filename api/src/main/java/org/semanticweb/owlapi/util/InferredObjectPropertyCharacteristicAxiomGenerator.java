@@ -73,6 +73,7 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator extends Inferred
         }
     }
 
+    @Override
     public String getLabel() {
         return "Object property characteristics";
     }

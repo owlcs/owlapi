@@ -78,6 +78,7 @@ public class InferredPropertyAssertionGenerator extends InferredIndividualAxiomG
     }
 
 
+    @Override
     public String getLabel() {
         return "Property assertions (property values)";
     }

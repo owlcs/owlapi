@@ -67,6 +67,7 @@ public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P exte
     }
 
 
+    @Override
     public V getValue() {
         return value;
     }

@@ -13,6 +13,8 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
+@SuppressWarnings("javadoc")
+
 public class ManchesterParseError {
 
     @Test(expected = ParserException.class)
@@ -45,21 +47,24 @@ public class ManchesterParseError {
      * @author tredmond
      *
      */
-    public static class StupidEntityChecker implements OWLEntityChecker {
+    private static class StupidEntityChecker implements OWLEntityChecker {
         private OWLDataFactory factory;
 
         public StupidEntityChecker(OWLDataFactory factory) {
             this.factory = factory;
         }
 
+        @Override
         public OWLClass getOWLClass(String name) {
             return null;
         }
 
+        @Override
         public OWLObjectProperty getOWLObjectProperty(String name) {
             return null;
         }
 
+        @Override
         public OWLDataProperty getOWLDataProperty(String name) {
             if (name != null && name.equals("p")) {
                 return factory.getOWLDataProperty(IRI.create("http://protege.org/Test.owl#p"));
@@ -69,14 +74,17 @@ public class ManchesterParseError {
             }
         }
 
+        @Override
         public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
             return null;
         }
 
+        @Override
         public OWLNamedIndividual getOWLIndividual(String name) {
             return null;
         }
 
+        @Override
         public OWLDatatype getOWLDatatype(String name) {
             if (name != null && name.equals("rdfs:Literal")) {
                 return factory.getTopDatatype();

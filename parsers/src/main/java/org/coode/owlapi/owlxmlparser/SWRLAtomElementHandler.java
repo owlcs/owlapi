@@ -60,6 +60,7 @@ public abstract class SWRLAtomElementHandler extends AbstractOWLElementHandler<S
         this.atom = atom;
     }
 
+    @Override
     public SWRLAtom getOWLObject() throws OWLXMLParserException {
         return atom;
     }

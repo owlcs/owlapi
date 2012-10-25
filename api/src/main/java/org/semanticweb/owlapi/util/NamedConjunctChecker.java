@@ -58,13 +58,13 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
  */
 public class NamedConjunctChecker {
 
-    private OWLClass conjunct;
+    OWLClass conjunct;
 
-    private boolean found;
+    boolean found;
 
-    private boolean collect;
+    boolean collect;
 
-    private final Set<OWLClass> conjuncts;
+    final Set<OWLClass> conjuncts;
 
     private final NamedConjunctCheckerVisitor visitor;
 
@@ -85,7 +85,7 @@ public class NamedConjunctChecker {
      */
     public boolean isNamedConjunct(OWLClass conj, OWLClassExpression classExpression) {
         reset();
-        this.conjunct = conj;
+        conjunct = conj;
         classExpression.accept(visitor);
         return found;
     }

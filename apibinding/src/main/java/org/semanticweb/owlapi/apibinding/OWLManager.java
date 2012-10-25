@@ -90,15 +90,19 @@ public class OWLManager implements OWLOntologyManagerFactory {
 
     }
 
+    @Override
     public OWLOntologyManager buildOWLOntologyManager() {
 
     	return createOWLOntologyManager();
     }
+
+    @Override
     public OWLOntologyManager buildOWLOntologyManager(OWLDataFactory f) {
 
     	return createOWLOntologyManager(f);
     }
 
+    @Override
     public OWLDataFactory getFactory() {
 
     	return getOWLDataFactory();

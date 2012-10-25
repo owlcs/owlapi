@@ -68,6 +68,7 @@ public class InferredDataPropertyCharacteristicAxiomGenerator extends InferredDa
     }
 
 
+    @Override
     public String getLabel() {
         return "Data property characteristics";
     }

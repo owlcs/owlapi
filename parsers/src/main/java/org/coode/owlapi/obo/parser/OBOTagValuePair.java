@@ -55,6 +55,10 @@ public class OBOTagValuePair {
     
     private String comment;
 
+    /** @param tagName
+     * @param value
+     * @param qualifier
+     * @param comment */
     public OBOTagValuePair(String tagName, String value, String qualifier, String comment) {
         this.tagName = tagName;
         this.value = value;
@@ -62,18 +66,22 @@ public class OBOTagValuePair {
         this.comment = comment;
     }
 
+    /** @return the tag name */
     public String getTagName() {
         return tagName;
     }
 
+    /** @return the value */
     public String getValue() {
         return value;
     }
 
+    /** @return the qualifier */
     public String getQualifier() {
         return qualifier;
     }
 
+    /** @return the comment */
     public String getComment() {
         return comment;
     }

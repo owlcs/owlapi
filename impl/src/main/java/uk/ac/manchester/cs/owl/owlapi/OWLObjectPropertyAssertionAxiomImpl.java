@@ -70,6 +70,7 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         super(subject, property, object, annotations);
     }
 
+    @Override
     public OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -77,10 +78,12 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
     }
 
+    @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLObjectOneOf(getSubject()), getOWLDataFactory().getOWLObjectHasValue(getProperty(), getObject()));
     }
 
+    @Override
     public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
     }
@@ -90,6 +93,7 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         return super.equals(obj) && obj instanceof OWLObjectPropertyAssertionAxiom;
     }
 
+    @Override
     public OWLObjectPropertyAssertionAxiom getSimplified() {
         if (!getProperty().isAnonymous()) {
             return this;
@@ -101,30 +105,36 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         }
     }
 
+    @Override
     public boolean isInSimplifiedForm() {
         return !getProperty().isAnonymous();
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.OBJECT_PROPERTY_ASSERTION;
     }

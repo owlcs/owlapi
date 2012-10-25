@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Institute of Artificial Intelligence<br>
  */
 public class KRSS2OWLParserFactory implements OWLParserFactory {
-	  @SuppressWarnings("unused")
+	  @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new KRSS2OWLParser();
     }

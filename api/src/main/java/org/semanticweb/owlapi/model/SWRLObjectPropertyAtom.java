@@ -54,6 +54,7 @@ public interface SWRLObjectPropertyAtom extends SWRLBinaryAtom<SWRLIArgument, SW
      * Gets the predicate of this atom
      * @return The atom predicate
      */
+    @Override
     OWLObjectPropertyExpression getPredicate();
 
     /**

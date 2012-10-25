@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public class RDFXMLParserFactory implements OWLParserFactory {
 
+    @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new RDFXMLParser();
     }

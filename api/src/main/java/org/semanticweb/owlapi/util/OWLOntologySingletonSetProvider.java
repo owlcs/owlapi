@@ -71,6 +71,7 @@ public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
     }
 
 
+    @Override
     public Set<OWLOntology> getOntologies() {
         return ontologySingletonSet;
     }

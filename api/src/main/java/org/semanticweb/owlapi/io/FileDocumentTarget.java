@@ -71,26 +71,32 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
         this.file = file;
     }
 
+    @Override
     public boolean isWriterAvailable() {
         return true;
     }
 
+    @Override
     public Writer getWriter() throws IOException {
         return new BufferedWriter(new FileWriter(file));
     }
 
+    @Override
     public boolean isOutputStreamAvailable() {
         return true;
     }
 
+    @Override
     public OutputStream getOutputStream() throws IOException {
         return new BufferedOutputStream(new FileOutputStream(file));
     }
 
+    @Override
     public boolean isDocumentIRIAvailable() {
         return true;
     }
 
+    @Override
     public IRI getDocumentIRI() {
         return IRI.create(file);
     }

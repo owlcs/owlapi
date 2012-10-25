@@ -84,59 +84,72 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
         return hashCode;
     }
 
+    @Override
     public String getLiteral() {
         return Float.toString(literal);
     }
 
+    @Override
     public boolean isRDFPlainLiteral() {
         return false;
     }
 
+    @Override
     public boolean hasLang() {
         return false;
     }
 
+    @Override
     public boolean isInteger() {
         return false;
     }
 
+    @Override
     public int parseInteger() throws NumberFormatException {
         throw new NumberFormatException("this literal is not an integer but a float");
     }
 
+    @Override
     public boolean isBoolean() {
         return false;
     }
 
+    @Override
     public boolean parseBoolean() throws NumberFormatException {
         throw new NumberFormatException("this literal is not a boolean but a float");
     }
 
+    @Override
     public boolean isDouble() {
         return false;
     }
 
+    @Override
     public double parseDouble() throws NumberFormatException {
         throw new NumberFormatException("this literal is not a double but a float");
     }
 
+    @Override
     public boolean isFloat() {
         return true;
     }
 
+    @Override
     public float parseFloat() throws NumberFormatException {
         return literal;
     }
 
+    @Override
     public String getLang() {
         return "";
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public boolean hasLang(String l) {
         return false;
     }
 
+    @Override
     public OWLDatatype getDatatype() {
         return datatype;
     }
@@ -156,18 +169,22 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
         return false;
     }
 
+    @Override
     public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
@@ -182,10 +199,12 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
         return datatype.compareTo(other.getDatatype());
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

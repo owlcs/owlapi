@@ -89,10 +89,12 @@ public class ContractOwlapiUtilTest {
              */
             private static final long serialVersionUID = 30402L;
 
+            @Override
             public boolean canStoreOntology(final OWLOntologyFormat ontologyFormat) {
                 return false;
             }
 
+            @Override
             protected void storeOntology(final OWLOntologyManager manager,
                     final OWLOntology ontology, final Writer writer,
                     final OWLOntologyFormat format) throws OWLOntologyStorageException {}
@@ -170,6 +172,7 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestCachingBidirectionalShortFormProvider() throws Exception {
         CachingBidirectionalShortFormProvider testSubject0 = new CachingBidirectionalShortFormProvider() {
+            @Override
             protected String generateShortForm(final OWLEntity entity) {
                 return null;
             }
@@ -346,10 +349,12 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestInferredClassAxiomGenerator() throws Exception {
         InferredClassAxiomGenerator<OWLClassAxiom> testSubject0 = new InferredClassAxiomGenerator<OWLClassAxiom>() {
+            @Override
             public String getLabel() {
                 return null;
             }
 
+            @Override
             protected void addAxioms(final OWLClass entity, final OWLReasoner reasoner,
                     final OWLDataFactory dataFactory, final Set<OWLClassAxiom> result) {}
         };
@@ -362,10 +367,12 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestInferredDataPropertyAxiomGenerator() throws Exception {
         InferredDataPropertyAxiomGenerator<OWLDataPropertyAxiom> testSubject0 = new InferredDataPropertyAxiomGenerator<OWLDataPropertyAxiom>() {
+            @Override
             public String getLabel() {
                 return null;
             }
 
+            @Override
             protected void addAxioms(final OWLDataProperty entity,
                     final OWLReasoner reasoner, final OWLDataFactory dataFactory,
                     final Set<OWLDataPropertyAxiom> result) {}
@@ -427,10 +434,12 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestInferredIndividualAxiomGenerator() throws Exception {
         InferredIndividualAxiomGenerator<OWLIndividualAxiom> testSubject0 = new InferredIndividualAxiomGenerator<OWLIndividualAxiom>() {
+            @Override
             public String getLabel() {
                 return null;
             }
 
+            @Override
             protected void addAxioms(final OWLNamedIndividual entity,
                     final OWLReasoner reasoner, final OWLDataFactory dataFactory,
                     final Set<OWLIndividualAxiom> result) {}
@@ -454,10 +463,12 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestInferredObjectPropertyAxiomGenerator() throws Exception {
         InferredObjectPropertyAxiomGenerator<OWLObjectPropertyAxiom> testSubject0 = new InferredObjectPropertyAxiomGenerator<OWLObjectPropertyAxiom>() {
+            @Override
             public String getLabel() {
                 return null;
             }
 
+            @Override
             protected void addAxioms(final OWLObjectProperty entity,
                     final OWLReasoner reasoner, final OWLDataFactory dataFactory,
                     final Set<OWLObjectPropertyAxiom> result) {}
@@ -634,8 +645,10 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestOWLAxiomTypeProcessor() throws Exception {
         OWLAxiomTypeProcessor testSubject0 = new OWLAxiomTypeProcessor() {
+            @Override
             public void visit(final OWLDatatypeDefinitionAxiom axiom) {}
 
+            @Override
             protected void process(final OWLAxiom axiom, final AxiomType<?> type) {}
         };
         String result0 = testSubject0.toString();
@@ -712,6 +725,7 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestOWLEntityCollectingOntologyChangeListener() throws Exception {
         OWLEntityCollectingOntologyChangeListener testSubject0 = new OWLEntityCollectingOntologyChangeListener() {
+            @Override
             public void ontologiesChanged() throws OWLException {}
         };
         Set<OWLEntity> result0 = testSubject0.getEntities();

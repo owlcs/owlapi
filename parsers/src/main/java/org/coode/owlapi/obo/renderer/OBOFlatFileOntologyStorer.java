@@ -60,12 +60,13 @@ public class OBOFlatFileOntologyStorer extends AbstractOWLOntologyStorer {
 	private static final long serialVersionUID = 30402L;
 
 
+    @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new OBOOntologyFormat());
     }
 
 
-    @Override  @SuppressWarnings("unused")
+    @Override
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
             OWLOntologyStorageException {
         OBOFlatFileRenderer renderer = new OBOFlatFileRenderer(manager);

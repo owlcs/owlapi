@@ -66,11 +66,12 @@ public class IndividualListItemTranslator implements ListItemTranslator<OWLIndiv
     }
 
 
+    @Override
     public OWLIndividual translate(IRI IRI) {
         return consumer.translateIndividual(IRI);
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public OWLIndividual translate(OWLLiteral firstObject) {
         logger.info("Cannot translate list item to individual, because rdf:first triple is a literal triple");
         return null;

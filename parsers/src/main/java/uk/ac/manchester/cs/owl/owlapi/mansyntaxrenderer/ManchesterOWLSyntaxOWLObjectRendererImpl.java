@@ -72,6 +72,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
     }
 
 
+    @Override
     public synchronized String render(OWLObject object) {
         writerDelegate.reset();
         object.accept(ren);
@@ -79,6 +80,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
     }
 
 
+    @Override
     public synchronized void setShortFormProvider(ShortFormProvider shortFormProvider) {
         ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate, shortFormProvider);
     }
@@ -92,7 +94,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
 		}
 
 
-		private void reset() {
+        protected void reset() {
             delegate = new StringWriter();
         }
 

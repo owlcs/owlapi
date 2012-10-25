@@ -61,15 +61,18 @@ public class ObjectComplementOfTranslator extends AbstractClassExpressionTransla
         super(consumer);
     }
 
+    @Override
     public boolean matchesStrict(IRI mainNode) {
         IRI complementOfIRI = getConsumer().getResourceObject(mainNode, OWL_COMPLEMENT_OF, false);
         return isClassExpressionStrict(mainNode) && isClassExpressionStrict(complementOfIRI);
     }
 
+    @Override
     public boolean matchesLax(IRI mainNode) {
         return isResourcePresent(mainNode, OWL_COMPLEMENT_OF) && isClassExpressionLax(mainNode);
     }
 
+    @Override
     public OWLObjectComplementOf translate(IRI mainNode) {
         IRI complementOfObject = getConsumer().getResourceObject(mainNode, OWL_COMPLEMENT_OF, true);
         OWLClassExpression operand = getConsumer().translateClassExpression(complementOfObject);

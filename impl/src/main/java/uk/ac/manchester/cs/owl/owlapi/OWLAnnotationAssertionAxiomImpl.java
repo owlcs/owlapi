@@ -81,6 +81,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         this.value = value;
     }
 
+    @Override
     public OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -94,34 +95,42 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
      *         <code>false</code>.
      * @see{@link org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()}
      */
+    @Override
     public boolean isDeprecatedIRIAssertion() {
         return property.isDeprecated() && getAnnotation().isDeprecatedIRIAnnotation();
     }
 
+    @Override
     public OWLAnnotationAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLAnnotationAssertionAxiom(getProperty(), getSubject(), getValue(), mergeAnnos(annotations));
     }
 
+    @Override
     public OWLAnnotationValue getValue() {
         return value;
     }
 
+    @Override
     public OWLAnnotationSubject getSubject() {
         return subject;
     }
 
+    @Override
     public OWLAnnotationProperty getProperty() {
         return property;
     }
 
+    @Override
     public OWLAnnotation getAnnotation() {
         return getOWLDataFactory().getOWLAnnotation(property, value);
     }
 
+    @Override
     public boolean isLogicalAxiom() {
         return false;
     }
 
+    @Override
     public boolean isAnnotationAxiom() {
         return true;
     }
@@ -141,24 +150,29 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         return value.compareTo(other.getValue());
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.ANNOTATION_ASSERTION;
     }

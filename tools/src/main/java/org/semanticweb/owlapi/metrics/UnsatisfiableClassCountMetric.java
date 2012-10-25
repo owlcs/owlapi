@@ -65,6 +65,7 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
     }
 
 
+    @Override
     public String getName() {
         return "Unsatisfiable class count";
     }
@@ -77,8 +78,7 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
 
 
     @Override
-    @SuppressWarnings("unused")
-	protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         return false;
     }
 

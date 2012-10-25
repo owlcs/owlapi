@@ -67,6 +67,7 @@ public abstract class AbstractOWLAxiomElementHandler extends AbstractOWLElementH
     }
 
 
+    @Override
     public OWLAxiom getOWLObject() {
         return axiom;
     }
@@ -94,6 +95,7 @@ public abstract class AbstractOWLAxiomElementHandler extends AbstractOWLElementH
     }
 
 
+    @Override
     final public void endElement() throws OWLParserException, UnloadableImportException {
         setAxiom(createAxiom());
         getParentHandler().handleChild(this);

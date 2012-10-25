@@ -54,5 +54,6 @@ public interface SWRLClassAtom extends SWRLUnaryAtom<SWRLIArgument> {
      * Gets the predicate of this atom
      * @return The atom predicate
      */
+    @Override
     OWLClassExpression getPredicate();
 }

@@ -39,9 +39,13 @@
 
 package org.semanticweb.owlapi.change;
 
-import org.semanticweb.owlapi.model.*;
-
 import java.io.Serializable;
+
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
 /**
  * Author: Matthew Horridge<br>
@@ -81,6 +85,7 @@ import java.io.Serializable;
  * @since 3.5
  */
 public final class OWLOntologyChangeRecord implements Serializable {
+    private static final long serialVersionUID = 30402L;
 
     private final OWLOntologyID ontologyID;
 
@@ -126,14 +131,14 @@ public final class OWLOntologyChangeRecord implements Serializable {
         this.data = data;
     }
 
-    /**
-     * A convenience method that creates an {@link OWLOntologyChangeRecord} by deriving data from an
-     * {@link OWLOntologyChange} object.
-     *
-     * @param change The {@link OWLOntologyChange} object.  Not {@code null}.
-     *
-     * @throws NullPointerException if {@code change} is {@code null}.
-     */
+    /** A convenience method that creates an {@link OWLOntologyChangeRecord} by
+     * deriving data from an {@link OWLOntologyChange} object.
+     * 
+     * @param change
+     *            The {@link OWLOntologyChange} object. Not {@code null}.
+     * @return instance of OntologychangeRecord
+     * @throws NullPointerException
+     *             if {@code change} is {@code null}. */
     public static OWLOntologyChangeRecord createFromOWLOntologyChange(OWLOntologyChange change) {
         if (change == null) {
             throw new NullPointerException("change must not be null");
@@ -222,7 +227,7 @@ public final class OWLOntologyChangeRecord implements Serializable {
             return false;
         }
         OWLOntologyChangeRecord other = (OWLOntologyChangeRecord) obj;
-        return this.ontologyID.equals(other.ontologyID) && this.data.equals(other.data);
+        return ontologyID.equals(other.ontologyID) && data.equals(other.data);
     }
 
     @Override

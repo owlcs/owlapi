@@ -59,14 +59,17 @@ public class ObjectHasValueTranslator extends AbstractClassExpressionTranslator 
         super(consumer);
     }
 
+    @Override
     public boolean matchesStrict(IRI mainNode) {
         return isRestrictionStrict(mainNode) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode, OWL_HAS_VALUE);
     }
 
+    @Override
     public boolean matchesLax(IRI mainNode) {
         return isResourcePresent(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode, OWL_HAS_VALUE);
     }
 
+    @Override
     public OWLObjectHasValue translate(IRI mainNode) {
         IRI value = getConsumer().getResourceObject(mainNode, OWL_HAS_VALUE, true);
         OWLIndividual individual = getConsumer().translateIndividual(value);

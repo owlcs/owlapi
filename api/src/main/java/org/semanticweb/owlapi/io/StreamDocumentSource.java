@@ -136,26 +136,31 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
         }
     }
 
+    @Override
     public boolean isInputStreamAvailable() {
         return true;
     }
 
 
+    @Override
     public InputStream getInputStream() {
         return new ByteArrayInputStream(buffer);
     }
 
 
+    @Override
     public IRI getDocumentIRI() {
         return documentIRI;
     }
 
 
+    @Override
     public Reader getReader() {
         throw new OWLRuntimeException("Reader not available.  Check with StreamDocumentSource.isReaderAvailable() first!");
     }
 
 
+    @Override
     public boolean isReaderAvailable() {
         return false;
     }

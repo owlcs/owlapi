@@ -68,7 +68,7 @@ public class OWLOntologyManagerImplTestCase {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         manager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         manager.addIRIMapper(new NonMappingOntologyIRIMapper());

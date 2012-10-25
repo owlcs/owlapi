@@ -63,6 +63,7 @@ public class UseOfPropertyInChainCausesCycle extends OWLProfileViolation impleme
         return property;
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

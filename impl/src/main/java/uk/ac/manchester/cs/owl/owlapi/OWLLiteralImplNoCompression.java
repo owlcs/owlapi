@@ -123,6 +123,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         }
     }
 
+    @Override
     public String getLiteral() {
         try {
             return new String(literal, utf_8);
@@ -132,26 +133,32 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         }
     }
 
+    @Override
     public boolean isRDFPlainLiteral() {
         return datatype.equals(getOWLDataFactory().getRDFPlainLiteral());
     }
 
+    @Override
     public boolean hasLang() {
         return !lang.equals("");
     }
 
+    @Override
     public boolean isInteger() {
         return datatype.equals(getOWLDataFactory().getIntegerOWLDatatype());
     }
 
+    @Override
     public int parseInteger() throws NumberFormatException {
         return Integer.parseInt(getLiteral());
     }
 
+    @Override
     public boolean isBoolean() {
         return datatype.equals(getOWLDataFactory().getBooleanOWLDatatype());
     }
 
+    @Override
     public boolean parseBoolean() throws NumberFormatException {
         final String literal2 = getLiteral();
         if (literal2.equals("0")) {
@@ -169,26 +176,32 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         return Boolean.parseBoolean(literal2);
     }
 
+    @Override
     public boolean isDouble() {
         return datatype.equals(getOWLDataFactory().getDoubleOWLDatatype());
     }
 
+    @Override
     public double parseDouble() throws NumberFormatException {
         return Double.parseDouble(getLiteral());
     }
 
+    @Override
     public boolean isFloat() {
         return datatype.equals(getOWLDataFactory().getFloatOWLDatatype());
     }
 
+    @Override
     public float parseFloat() throws NumberFormatException {
         return Float.parseFloat(getLiteral());
     }
 
+    @Override
     public String getLang() {
         return lang;
     }
 
+    @Override
     public boolean hasLang(String l) {
         //XXX this was missing null checks: a null lang is still valid in the factory, where it becomes a ""
         if (l == null && lang == null) {
@@ -200,6 +213,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         return lang != null && lang.equalsIgnoreCase(l.trim());
     }
 
+    @Override
     public OWLDatatype getDatatype() {
         return datatype;
     }
@@ -235,18 +249,22 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         return false;
     }
 
+    @Override
     public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
@@ -265,10 +283,12 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         return lang.compareTo(other.getLang());
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

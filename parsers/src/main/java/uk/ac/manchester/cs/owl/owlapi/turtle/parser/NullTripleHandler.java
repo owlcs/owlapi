@@ -47,38 +47,45 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 17-Apr-2008<br><br>
  */
-@SuppressWarnings("unused")
 public class NullTripleHandler implements TripleHandler {
 
 
+    @Override
     public void handlePrefixDirective(String prefixName, String prefix) {
     }
 
 
+    @Override
     public void handleBaseDirective(String base) {
     }
 
 
+    @Override
     public void handleComment(String comment) {
     }
 
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
     }
 
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, String object) {
     }
 
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
     }
 
 
+    @Override
     public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
     }
 
 
+    @Override
     public void handleEnd() {
     }
 }

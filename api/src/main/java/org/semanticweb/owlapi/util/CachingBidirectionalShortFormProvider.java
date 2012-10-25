@@ -88,6 +88,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
      * provider.
      * @return A set of strings that represent all of the cached short forms.
      */
+    @Override
     public Set<String> getShortForms() {
        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(shortForm2EntityMap.keySet());
     }
@@ -154,6 +155,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
     }
 
 
+    @Override
     public Set<OWLEntity> getEntities(String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
         if (entities != null) {
@@ -165,6 +167,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
     }
 
 
+    @Override
     public OWLEntity getEntity(String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
         if (entities != null) {
@@ -181,6 +184,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
     }
 
 
+    @Override
     public String getShortForm(OWLEntity entity) {
         String sf = entity2ShortFormMap.get(entity);
         if(sf != null) {
@@ -192,6 +196,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
     }
 
 
+    @Override
     public void dispose() {
         shortForm2EntityMap.clear();
         entity2ShortFormMap.clear();

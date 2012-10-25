@@ -91,26 +91,31 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
     }
 
 
+    @Override
     public boolean isReaderAvailable() {
         return true;
     }
 
 
+    @Override
     public Reader getReader() {
         return new StringReader(string);
     }
 
 
+    @Override
     public boolean isInputStreamAvailable() {
         return false;
     }
 
 
+    @Override
     public InputStream getInputStream() {
         throw new OWLRuntimeException("InputStream not available.  Check with StringDocumentSource.isInputStreamAvailable() first!");
     }
 
 
+    @Override
     public IRI getDocumentIRI() {
         return documentIRI;
     }

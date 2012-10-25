@@ -126,11 +126,13 @@ public class OWL2ELProfile implements OWLProfile {
     }
 
 
+    @Override
     public String getName() {
         return "OWL 2 EL";
     }
 
 
+    @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         //this.ont = ontology;
         OWL2DLProfile profile = new OWL2DLProfile();
@@ -352,7 +354,7 @@ public class OWL2ELProfile implements OWLProfile {
 		public Object visit(OWLSubPropertyChainOfAxiom axiom) {
             Set<OWLObjectPropertyRangeAxiom> rangeAxioms = getCurrentOntology().getAxioms(AxiomType.OBJECT_PROPERTY_RANGE, true);
             if (rangeAxioms.isEmpty()) {
-                return false;
+                return Boolean.FALSE;
             }
 
             // Do we have a range restriction imposed on our super property?
@@ -386,7 +388,6 @@ public class OWL2ELProfile implements OWLProfile {
         }
 
         @Override
-        @SuppressWarnings("unused")
 		public Object visit(OWLOntology ontology) {
             propertyManager = null;
             return null;

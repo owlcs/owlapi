@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.api.test;
 
-import java.io.IOException;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
@@ -100,7 +98,8 @@ public class SharedBlankNodeTestCase {
         return ontology;
     }
 
-    public static String saveOntology(OWLOntology ontology) throws IOException,
+    public static String saveOntology(OWLOntology ontology)
+            throws
     OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         ontology.getOWLOntologyManager().saveOntology(ontology,

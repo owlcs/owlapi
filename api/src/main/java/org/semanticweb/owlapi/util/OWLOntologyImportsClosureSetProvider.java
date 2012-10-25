@@ -76,6 +76,7 @@ public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvi
     }
 
 
+    @Override
     public Set<OWLOntology> getOntologies() {
         return manager.getImportsClosure(rootOntology);
     }

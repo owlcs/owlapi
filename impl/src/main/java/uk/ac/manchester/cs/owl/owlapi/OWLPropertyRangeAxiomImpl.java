@@ -68,6 +68,7 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression<
     }
 
 
+    @Override
     public R getRange() {
         return range;
     }

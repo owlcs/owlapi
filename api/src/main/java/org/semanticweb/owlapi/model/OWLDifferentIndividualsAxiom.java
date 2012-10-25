@@ -52,6 +52,7 @@ import java.util.Set;
  */
 public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
 
+    @Override
     OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
 
 
@@ -62,5 +63,6 @@ public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
      */
     boolean containsAnonymousIndividuals();
 
+    @Override
     Set<OWLDifferentIndividualsAxiom> asPairwiseAxioms();
 }

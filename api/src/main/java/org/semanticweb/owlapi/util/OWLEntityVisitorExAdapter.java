@@ -81,26 +81,32 @@ public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
         this.defaultReturnValue = defaultReturnValue;
     }
 
+    @Override
     public O visit(OWLClass desc) {
         return getDefaultReturnValue(desc);
     }
 
+    @Override
     public O visit(OWLDatatype node) {
         return getDefaultReturnValue(node);
     }
 
+    @Override
     public O visit(OWLDataProperty property) {
         return getDefaultReturnValue(property);
     }
 
+    @Override
     public O visit(OWLObjectProperty property) {
         return getDefaultReturnValue(property);
     }
 
+    @Override
     public O visit(OWLNamedIndividual individual) {
         return getDefaultReturnValue(individual);
     }
 
+    @Override
     public O visit(OWLAnnotationProperty property) {
         return getDefaultReturnValue(property);
     }

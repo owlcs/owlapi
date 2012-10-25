@@ -70,7 +70,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
 
     private OWLRDFConsumer consumer;
 
-    private OWLDataFactory dataFactory;
+    protected OWLDataFactory dataFactory;
 
 
     public SWRLAtomListItemTranslator(OWLRDFConsumer consumer) {
@@ -79,6 +79,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
     }
 
 
+    @Override
     public SWRLAtom translate(IRI firstObject) {
         if (consumer.isSWRLBuiltInAtom(firstObject)) {
             IRI builtInIRI = consumer.getResourceObject(firstObject, BUILT_IN.getIRI(), true);
@@ -131,6 +132,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
     }
 
 
+    @Override
     public SWRLAtom translate(OWLLiteral firstObject) {
         throw new RuntimeException("Unexpected literal in atom list: " + firstObject);
     }
@@ -173,12 +175,14 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
 
 
     private class SWRLAtomDObjectListItemTranslator implements ListItemTranslator<SWRLDArgument> {
-
+        public SWRLAtomDObjectListItemTranslator() {}
+        @Override
         public SWRLDArgument translate(IRI firstObject) {
             return dataFactory.getSWRLVariable(firstObject);
         }
 
 
+        @Override
         public SWRLDArgument translate(OWLLiteral firstObject) {
             return dataFactory.getSWRLLiteralArgument(firstObject);
         }

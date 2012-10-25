@@ -65,10 +65,12 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
  */
 public class TurtleOntologyParser extends AbstractOWLParser {
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, UnloadableImportException, IOException {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         Reader reader = null;
         InputStream is = null;

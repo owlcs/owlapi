@@ -82,7 +82,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
      }
 
 
-     public void endElement() throws OWLParserException, UnloadableImportException {
+     @Override
+    public void endElement() throws OWLParserException, UnloadableImportException {
          setAtom(getOWLDataFactory().getSWRLDataRangeAtom(prop, arg1));
          getParentHandler().handleChild(this);
      }

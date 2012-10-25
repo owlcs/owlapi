@@ -84,6 +84,7 @@ public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
     }
 
 
+    @Override
     public List<OWLOntologyChange> getChanges() {
         return changes;
     }

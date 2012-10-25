@@ -63,6 +63,7 @@ public class UseOfNonAtomicClassExpression extends OWLProfileViolation implement
         return classExpression;
     }
 
+    @Override
     public void accept(OWL2QLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

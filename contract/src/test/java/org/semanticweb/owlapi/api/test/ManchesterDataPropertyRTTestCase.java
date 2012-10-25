@@ -2,8 +2,6 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -19,7 +17,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class ManchesterDataPropertyRTTestCase {
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
-    OWLOntologyStorageException, IOException {
+            OWLOntologyStorageException {
         // given
         OWLDataFactory factory = Factory.getFactory();
         String NS = "http://protege.org/ontologies";
@@ -35,7 +33,7 @@ public class ManchesterDataPropertyRTTestCase {
         assertTrue(ontology.containsDataPropertyInSignature(p.getIRI()));
     }
 
-    private String saveOntology(OWLOntology o) throws IOException,
+    private String saveOntology(OWLOntology o) throws
     OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o, target);

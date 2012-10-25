@@ -60,15 +60,18 @@ public class ObjectOneOfTranslator extends AbstractClassExpressionTranslator {
         super(consumer);
     }
 
+    @Override
     public boolean matchesStrict(IRI mainNode) {
         IRI listNode = getConsumer().getResourceObject(mainNode, OWL_ONE_OF, false);
         return isIndividualListStrict(listNode, 1);
     }
 
+    @Override
     public boolean matchesLax(IRI mainNode) {
         return isResourcePresent(mainNode, OWL_ONE_OF);
     }
 
+    @Override
     public OWLObjectOneOf translate(IRI mainNode) {
         IRI oneOfObject = getConsumer().getResourceObject(mainNode, OWL_ONE_OF, true);
         Set<OWLIndividual> individuals = getConsumer().translateToIndividualSet(oneOfObject);

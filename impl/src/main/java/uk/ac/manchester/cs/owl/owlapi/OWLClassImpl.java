@@ -108,6 +108,7 @@ Serializable {
     /** Gets the class expression type for this class expression
      * 
      * @return The class expression type */
+    @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OWL_CLASS;
     }
@@ -116,6 +117,7 @@ Serializable {
      * 
      * @return A class expression that is the complement of this class
      *         expression. */
+    @Override
     public OWLClassExpression getObjectComplementOf() {
         return getOWLDataFactory().getOWLObjectComplementOf(this);
     }
@@ -123,6 +125,7 @@ Serializable {
     /** Gets the entity type for this entity
      * 
      * @return The entity type */
+    @Override
     public EntityType<?> getEntityType() {
         return EntityType.CLASS;
     }
@@ -135,6 +138,7 @@ Serializable {
      *            in any way.
      * @return An entity that has the same IRI as this entity and is of the
      *         specified type */
+    @Override
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
         return getOWLDataFactory().getOWLEntity(entityType, getIRI());
     }
@@ -145,6 +149,7 @@ Serializable {
      *            The entity type
      * @return <code>true</code> if this entity is of the specified type,
      *         otherwise <code>false</code>. */
+    @Override
     public boolean isType(EntityType<?> entityType) {
         return getEntityType().equals(entityType);
     }
@@ -153,63 +158,78 @@ Serializable {
      * entity. This is the toString representation of the IRI
      * 
      * @return A string representing the toString of the IRI of this entity. */
+    @Override
     public String toStringID() {
         return iri.toString();
     }
 
+    @Override
     public IRI getIRI() {
         return iri;
     }
 
+    @Override
     public boolean isBuiltIn() {
         return isOWLThing() || isOWLNothing();
     }
 
+    @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
         return ontology.getReferencingAxioms(this);
     }
 
+    @Override
     public Set<OWLAxiom>
     getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
         return ontology.getReferencingAxioms(this, includeImports);
     }
 
+    @Override
     public boolean isAnonymous() {
         return false;
     }
 
+    @Override
     public boolean isClassExpressionLiteral() {
         return true;
     }
 
+    @Override
     public OWLClass asOWLClass() {
         return this;
     }
 
+    @Override
     public boolean isOWLThing() {
         return isThing;
     }
 
+    @Override
     public boolean isOWLNothing() {
         return isNothing;
     }
 
+    @Override
     public OWLClassExpression getNNF() {
         return this;
     }
 
+    @Override
     public Set<OWLClassExpression> asConjunctSet() {
         return Collections.singleton((OWLClassExpression) this);
     }
 
+    @Override
     public boolean containsConjunct(OWLClassExpression ce) {
         return ce.equals(this);
     }
 
+    @Override
     public Set<OWLClassExpression> asDisjunctSet() {
         return Collections.singleton((OWLClassExpression) this);
     }
 
+    @Override
     public OWLClassExpression getComplementNNF() {
         return getOWLDataFactory().getOWLObjectComplementOf(this);
     }
@@ -235,6 +255,7 @@ Serializable {
         return ontology.getDisjointUnionAxioms(this);
     }
 
+    @Override
     public Set<OWLClassExpression> getSuperClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLSubClassOfAxiom axiom : getSubClassAxioms(ontology)) {
@@ -243,6 +264,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLClassExpression> getSuperClasses(Set<OWLOntology> ontologies) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
@@ -251,6 +273,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLClassExpression> getSubClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLSubClassOfAxiom axiom : ontology.getSubClassAxiomsForSuperClass(this)) {
@@ -259,6 +282,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLClassExpression> getSubClasses(Set<OWLOntology> ontologies) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
@@ -267,6 +291,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLClassExpression> getEquivalentClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLEquivalentClassesAxiom axiom : getEquivalentClassesAxioms(ontology)) {
@@ -277,6 +302,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLClassExpression> getEquivalentClasses(Set<OWLOntology> ontologies) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
@@ -285,6 +311,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLClassExpression> getDisjointClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLDisjointClassesAxiom axiom : getDisjointClassesAxioms(ontology)) {
@@ -295,6 +322,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLClassExpression> getDisjointClasses(Set<OWLOntology> ontologies) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
@@ -303,6 +331,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLIndividual> getIndividuals(OWLOntology ontology) {
         Set<OWLIndividual> result = new TreeSet<OWLIndividual>();
         for (OWLClassAssertionAxiom ax : ontology.getClassAssertionAxioms(this)) {
@@ -311,6 +340,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLIndividual> getIndividuals(Set<OWLOntology> ontologies) {
         Set<OWLIndividual> result = new TreeSet<OWLIndividual>();
         for (OWLOntology ont : ontologies) {
@@ -319,15 +349,18 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLAnnotation> getAnnotations(OWLOntology ontology) {
         return ImplUtils.getAnnotations(this, Collections.singleton(ontology));
     }
 
+    @Override
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
             OWLOntology ontology) {
         return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
     }
 
+    @Override
     public Set<OWLAnnotation> getAnnotations(OWLOntology ontology,
             OWLAnnotationProperty annotationProperty) {
         return ImplUtils.getAnnotations(this, annotationProperty,
@@ -339,10 +372,12 @@ Serializable {
      * 
      * @param ontology
      *            The ontology to examine for axioms. */
+    @Override
     public boolean isDefined(OWLOntology ontology) {
         return !ontology.getEquivalentClassesAxioms(this).isEmpty();
     }
 
+    @Override
     public boolean isDefined(Set<OWLOntology> ontologies) {
         for (OWLOntology ont : ontologies) {
             if (isDefined(ont)) {
@@ -352,46 +387,57 @@ Serializable {
         return false;
     }
 
+    @Override
     public OWLDataProperty asOWLDataProperty() {
         throw new OWLRuntimeException("Not a data property!");
     }
 
+    @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
     }
 
+    @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException("Not an individual!");
     }
 
+    @Override
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException("Not an object property");
     }
 
+    @Override
     public boolean isOWLClass() {
         return true;
     }
 
+    @Override
     public boolean isOWLDataProperty() {
         return false;
     }
 
+    @Override
     public boolean isOWLDatatype() {
         return false;
     }
 
+    @Override
     public boolean isOWLNamedIndividual() {
         return false;
     }
 
+    @Override
     public boolean isOWLObjectProperty() {
         return false;
     }
 
+    @Override
     public OWLAnnotationProperty asOWLAnnotationProperty() {
         throw new OWLRuntimeException("Not an annotation property");
     }
 
+    @Override
     public boolean isOWLAnnotationProperty() {
         return false;
     }
@@ -408,30 +454,37 @@ Serializable {
         return false;
     }
 
+    @Override
     public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLEntityVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

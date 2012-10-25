@@ -55,11 +55,12 @@ public class DataRangeListItemTranslator implements ListItemTranslator<OWLDataRa
     public DataRangeListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
-    @SuppressWarnings("unused")
+    @Override
     public OWLDataRange translate(OWLLiteral firstObject) {
         return null;
     }
 
+    @Override
     public OWLDataRange translate(IRI firstObject) {
         return consumer.translateDataRange(firstObject);
     }

@@ -52,16 +52,18 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class SilentExplanationProgressMonitor implements ExplanationProgressMonitor {
 
-	@SuppressWarnings("unused")
+	@Override
     public void foundExplanation(Set<OWLAxiom> axioms) {
     }
 
 
+    @Override
     public boolean isCancelled() {
         return false;
     }
 
 
+    @Override
     public void foundAllExplanations() {
     }
 }

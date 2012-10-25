@@ -39,11 +39,11 @@
 
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 
 /**
  * Author: Matthew Horridge<br>
@@ -61,6 +61,7 @@ public enum OBOIdType {
      * Any string with an http: or https: prefix.
      */
     URL_AS_ID(Pattern.compile("(http:|https:)[^\\s]*"), new OBOIIdTranslator() {
+        @Override
         public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager, String id) {
             return IRI.create(id);
         }
@@ -70,6 +71,7 @@ public enum OBOIdType {
      * Any unprefixed ID.  Does not contain a colon character.  The spec implies the empty string matches this ID.
      */
     UNPREFIXED_ID(Pattern.compile("[^\\s:]*"), new OBOIIdTranslator() {
+        @Override
         public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager, String id) {
             StringBuilder sb = new StringBuilder();
             if (!ontologyID.isAnonymous()) {
@@ -89,6 +91,7 @@ public enum OBOIdType {
      * underscore.  The local id must only consist of digits (possibly none).
      */
     CANONICAL_PREFIXED_ID(Pattern.compile("([A-Za-z][A-Za-z_]*):([0-9]*)"), new OBOIIdTranslator() {
+        @Override
         public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager, String id) {
             Matcher matcher = CANONICAL_PREFIXED_ID.getPattern().matcher(id);
             matcher.matches();
@@ -110,6 +113,7 @@ public enum OBOIdType {
      * contain a colon character.
      */
     NON_CANONICAL_PREFIXED_ID(Pattern.compile("([^\\s:]*):([^\\s]*)"), new OBOIIdTranslator() {
+        @Override
         public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager, String id) {
             Matcher matcher = NON_CANONICAL_PREFIXED_ID.getPattern().matcher(id);
             matcher.matches();
@@ -137,12 +141,17 @@ public enum OBOIdType {
     }
 
 
+    /** @return the pattern */
     public Pattern getPattern() {
         return pattern;
     }
 
     
     
+    /** @param ontologyID
+     * @param idSpaceManager
+     * @param oboId
+     * @return the translated iri */
     public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager, String oboId) {
         return translator.getIRIFromOBOId(ontologyID, idSpaceManager, oboId);
     }

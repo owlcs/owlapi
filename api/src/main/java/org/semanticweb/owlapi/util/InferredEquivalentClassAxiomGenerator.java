@@ -70,6 +70,7 @@ public class InferredEquivalentClassAxiomGenerator extends InferredClassAxiomGen
     }
 
 
+    @Override
     public String getLabel() {
         return "Equivalent classes";
     }

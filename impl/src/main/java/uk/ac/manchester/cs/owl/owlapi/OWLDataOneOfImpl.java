@@ -75,25 +75,30 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
         this.values = new TreeSet<OWLLiteral>(values);
     }
 
+    @Override
     public DataRangeType getDataRangeType() {
         return DataRangeType.DATA_ONE_OF;
     }
 
+    @Override
     public Set<OWLLiteral> getValues() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(values);
     }
 
 
+    @Override
     public boolean isDatatype() {
         return false;
     }
 
 
+    @Override
     public boolean isTopDatatype() {
         return false;
     }
 
 
+    @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
     }
@@ -111,28 +116,34 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     }
 
 
+    @Override
     public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLDataRangeVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

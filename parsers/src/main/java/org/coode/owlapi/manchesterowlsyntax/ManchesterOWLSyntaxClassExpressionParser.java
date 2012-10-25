@@ -67,6 +67,7 @@ public class ManchesterOWLSyntaxClassExpressionParser implements OWLExpressionPa
     }
 
 
+    @Override
     public OWLClassExpression parse(String expression) throws ParserException {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);
@@ -74,6 +75,7 @@ public class ManchesterOWLSyntaxClassExpressionParser implements OWLExpressionPa
     }
 
 
+    @Override
     public void setOWLEntityChecker(OWLEntityChecker checker) {
         this.checker = checker;
     }

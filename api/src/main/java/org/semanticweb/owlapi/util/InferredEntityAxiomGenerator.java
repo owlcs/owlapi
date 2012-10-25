@@ -62,6 +62,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extends OWLAxiom> implements InferredAxiomGenerator<A> {
 
 
+    @Override
     public Set<A> createAxioms(OWLOntologyManager manager, OWLReasoner reasoner) {
         Set<E> processedEntities = new HashSet<E>();
         Set<A> result = new HashSet<A>();

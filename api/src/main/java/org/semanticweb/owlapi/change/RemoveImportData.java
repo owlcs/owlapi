@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.model.RemoveImport;
  * @since 3.5
  */
 public final class RemoveImportData extends ImportChangeData {
+    private static final long serialVersionUID = 30402L;
 
     /**
      * Constructs a {@link RemoveImportData} object that describes a {@link org.semanticweb.owlapi.model.RemoveImport}
@@ -102,7 +103,7 @@ public final class RemoveImportData extends ImportChangeData {
             return false;
         }
         RemoveImportData other = (RemoveImportData) obj;
-        return this.getDeclaration().equals(other.getDeclaration());
+        return getDeclaration().equals(other.getDeclaration());
     }
 
     @Override

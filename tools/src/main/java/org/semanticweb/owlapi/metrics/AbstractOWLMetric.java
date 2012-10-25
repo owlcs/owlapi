@@ -78,10 +78,12 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>, OWLOntologyC
         dirty=true;
     }
 
+    @Override
     public OWLOntology getOntology() {
         return ontology;
     }
 
+    @Override
     final public void setOntology(OWLOntology ontology) {
         this.ontology = ontology;
         setDirty(true);
@@ -89,6 +91,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>, OWLOntologyC
 
     protected abstract M recomputeMetric();
 
+    @Override
     final public M getValue() {
         if(dirty) {
             value = recomputeMetric();
@@ -114,17 +117,20 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>, OWLOntologyC
         }
     }
 
+    @Override
     public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
         if(isMetricInvalidated(changes)) {
             setDirty(true);
         }
     }
 
+    @Override
     public OWLOntologyManager getManager() {
         return owlOntologyManager;
     }
 
 
+    @Override
     public void dispose() {
         owlOntologyManager.removeOntologyChangeListener(this);
         disposeMetric();
@@ -133,11 +139,13 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>, OWLOntologyC
 
 
 
+    @Override
     final public boolean isImportsClosureUsed() {
         return importsClosureUsed;
     }
 
 
+    @Override
     public void setImportsClosureUsed(boolean b) {
         importsClosureUsed = b;
         if(ontology!= null) {

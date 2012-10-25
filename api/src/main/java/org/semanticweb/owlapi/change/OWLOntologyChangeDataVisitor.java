@@ -39,25 +39,54 @@
 
 package org.semanticweb.owlapi.change;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 08/05/2012
- */
+ * 
+ * @param <R>
+ * @param <E> */
 public interface OWLOntologyChangeDataVisitor<R, E extends Exception> {
 
+    /** @param data
+     *            object to visit
+     * @return result of visit
+     * @throws E */
     R visit(AddAxiomData data) throws E;
 
+    /** @param data
+     *            object to visit
+     * @return result of visit
+     * @throws E */
     R visit(RemoveAxiomData data) throws E;
 
+    /** @param data
+     *            object to visit
+     * @return result of visit
+     * @throws E */
     R visit(AddOntologyAnnotationData data) throws E;
 
+    /** @param data
+     *            object to visit
+     * @return result of visit
+     * @throws E */
     R visit(RemoveOntologyAnnotationData data) throws E;
 
+    /** @param data
+     *            object to visit
+     * @return result of visit
+     * @throws E */
     R visit(SetOntologyIDData data) throws E;
 
+    /** @param data
+     *            object to visit
+     * @return result of visit
+     * @throws E */
     R visit(AddImportData data) throws E;
 
+    /** @param data
+     *            object to visit
+     * @return result of visit
+     * @throws E */
     R visit(RemoveImportData data) throws E;
 }

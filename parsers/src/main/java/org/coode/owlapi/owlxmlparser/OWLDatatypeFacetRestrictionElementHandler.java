@@ -76,11 +76,13 @@ public class OWLDatatypeFacetRestrictionElementHandler extends AbstractOWLElemen
         }
     }
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 
 
+    @Override
     public OWLFacetRestriction getOWLObject() {
         return getOWLDataFactory().getOWLFacetRestriction(facet, constant);
     }

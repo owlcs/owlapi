@@ -95,6 +95,7 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
      * @return The document IRI of the ontology, or <code>null</code>
      *         if the mapper doesn't have mapping for the specified ontology IRI.
      */
+    @Override
     public IRI getDocumentIRI(IRI ontologyIRI) {
         return iriMap.get(ontologyIRI);
     }

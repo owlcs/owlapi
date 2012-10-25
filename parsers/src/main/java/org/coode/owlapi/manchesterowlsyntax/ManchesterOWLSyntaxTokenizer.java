@@ -219,12 +219,12 @@ public class ManchesterOWLSyntaxTokenizer {
 
     private void readIRI() {
         sb = new StringBuilder("<");
-        int startPos = pos;
+        int startPos1 = pos;
         while (pos < buffer.length()) {
             char ch = readChar();
             if(Character.isWhitespace(ch)) {
                 // Not an IRI -- go back to where we started
-                pos = startPos;
+                pos = startPos1;
                 sb = new StringBuilder("<");
                 consumeToken();
                 break;

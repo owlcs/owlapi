@@ -84,7 +84,6 @@ package org.coode.owlapi.obo.parser;
  * <p/>
  * </p>
  */
-@SuppressWarnings("javadoc")
 public interface TagValueHandler {
 
     /**

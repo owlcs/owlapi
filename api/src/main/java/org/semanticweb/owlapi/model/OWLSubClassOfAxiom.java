@@ -70,5 +70,6 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
      */
     boolean isGCI();
 
+    @Override
     OWLSubClassOfAxiom getAxiomWithoutAnnotations();
 }

@@ -223,7 +223,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     // owl:Axiom
     // These need to be handled separately from other types, because the base triples for annotated
     // axioms should be in the ontology before annotations on the annotated versions of these axioms are parsed.
-    private Map<IRI, BuiltInTypeHandler> axiomTypeTripleHandlers = new HashMap<IRI, BuiltInTypeHandler>();
+    protected Map<IRI, BuiltInTypeHandler> axiomTypeTripleHandlers = new HashMap<IRI, BuiltInTypeHandler>();
 
     // Handlers for build in predicates
     private Map<IRI, TriplePredicateHandler> predicateHandlers;
@@ -234,13 +234,13 @@ public class OWLRDFConsumer implements RDFConsumer {
     // vocabulary.  Such triples either constitute annotationIRIs of
     // relationships between an individual and a data literal (typed or
     // untyped)
-    private List<AbstractLiteralTripleHandler> literalTripleHandlers;
+    protected List<AbstractLiteralTripleHandler> literalTripleHandlers;
 
     // Handlers for general resource triples (i.e. triples which
     // have predicates that are not part of the built in OWL/RDFS/RDF
     // vocabulary.  Such triples either constitute annotationIRIs or
     // relationships between an individual and another individual.
-    private List<AbstractResourceTripleHandler> resourceTripleHandlers;
+    protected List<AbstractResourceTripleHandler> resourceTripleHandlers;
 
     private Set<OWLAnnotation> pendingAnnotations = new HashSet<OWLAnnotation>();
 
@@ -295,7 +295,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private IRIProvider iriProvider;
 
-    private TPInverseOfHandler inverseOfHandler;
+    protected TPInverseOfHandler inverseOfHandler;
 
     private TPTypeHandler nonBuiltInTypeHandler;
 
@@ -808,26 +808,6 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
 
         }
-    }
-
-    /**
-     * Processes triples from ontologies in the imports closure that weren't consumed when those ontologies were parsed.
-     * MH: This isn't used anywhere anymore - caused weird problems in some cases.
-     */
-    private void processUnconsumedTriplesFromImportsClosure() {
-        Set<RDFTriple> unparsedTriples = getUnconsumedTriplesFromImportsClosure();
-        for(RDFTriple unparsedTriple : unparsedTriples) {
-            if (!isOWLImportsTriple(unparsedTriple)) {
-                try {
-                    processRDFTriple(unparsedTriple);
-                }
-                catch (UnloadableImportException e) {
-                    // This should never happen as we don't process owl:imports triples here.
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-
     }
 
     /**
@@ -1446,6 +1426,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+    @Override
     public void startModel(String string) throws SAXException {
         count = 0;
     }
@@ -1457,6 +1438,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     /**
      * This is where we do all remaining parsing
      */
+    @Override
     public void endModel() throws SAXException {
         parsedAllTriples = true;
         try {
@@ -1482,12 +1464,14 @@ public class OWLRDFConsumer implements RDFConsumer {
             // are not system/reserved vocabulary IRIs to translate these into ABox assertions
             // or annotationIRIs
             iterateResourceTriples(new ResourceTripleIterator<UnloadableImportException>() {
+                @Override
                 public void handleResourceTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
                     handle(subject, predicate, object);
                 }
             });
 
             iterateLiteralTriples(new LiteralTripleIterator<UnloadableImportException>() {
+                @Override
                 public void handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object) throws UnloadableImportException {
                     handle(subject, predicate, object);
                 }
@@ -1496,6 +1480,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             // Inverse property axioms
             inverseOfHandler.setAxiomParsingMode(true);
             iterateResourceTriples(new ResourceTripleIterator<UnloadableImportException>() {
+                @Override
                 public void handleResourceTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
                     if (inverseOfHandler.canHandle(subject, predicate, object)) {
                         inverseOfHandler.handleTriple(subject, predicate, object);
@@ -1555,12 +1540,14 @@ public class OWLRDFConsumer implements RDFConsumer {
     private Set<RDFTriple> getRemainingTriples() {
         final Set<RDFTriple> remainingTriples = new HashSet<RDFTriple>();
         iterateResourceTriples(new ResourceTripleIterator<RuntimeException>() {
+            @Override
             public void handleResourceTriple(IRI subject, IRI predicate, IRI object) {
                 remainingTriples.add(new RDFTriple(subject, isAnonymousNode(subject), predicate, isAnonymousNode(predicate), object, isAnonymousNode(object)));
             }
         });
 
         iterateLiteralTriples(new LiteralTripleIterator<RuntimeException>() {
+            @Override
             public void handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object) {
                 remainingTriples.add(new RDFTriple(subject, isAnonymousNode(subject), predicate, isAnonymousNode(predicate), object));
             }
@@ -1570,6 +1557,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private void consumeNonReservedPredicateTriples() throws UnloadableImportException {
         iterateResourceTriples(new ResourceTripleIterator<UnloadableImportException>() {
+            @Override
             public void handleResourceTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
                 if (isGeneralPredicate(predicate)) {
                     for (AbstractResourceTripleHandler resTripHandler : resourceTripleHandlers) {
@@ -1582,6 +1570,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             }
         });
         iterateLiteralTriples(new LiteralTripleIterator<UnloadableImportException>() {
+            @Override
             public void handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object) throws UnloadableImportException {
                 if (isGeneralPredicate(predicate)) {
                     for (AbstractLiteralTripleHandler literalTripleHandler : literalTripleHandlers) {
@@ -1604,6 +1593,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private void consumeAnnotatedAxioms() throws UnloadableImportException {
         iterateResourceTriples(new ResourceTripleIterator<UnloadableImportException>() {
+            @Override
             public void handleResourceTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
                 BuiltInTypeHandler builtInTypeHandler = axiomTypeTripleHandlers.get(object);
                 if (builtInTypeHandler != null) {
@@ -1676,15 +1666,18 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
+    @Override
     public void addModelAttribte(String string, String string1) throws SAXException {
     }
 
 
+    @Override
     public void includeModel(String string, String string1) throws SAXException {
 
     }
 
 
+    @Override
     public void logicalURI(String string) throws SAXException {
 
     }
@@ -1700,6 +1693,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         return original;
     }
 
+    @Override
     public void statementWithLiteralValue(String subject, String predicate, String object, String lang, String datatype) throws SAXException {
         incrementTripleCount();
         IRI subjectIRI = getIRI(subject);
@@ -1709,6 +1703,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
+    @Override
     public void statementWithResourceValue(String subject, String predicate, String object) throws SAXException {
         try {
             incrementTripleCount();
@@ -2261,7 +2256,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    private boolean isGeneralPredicate(IRI predicate) {
+    protected boolean isGeneralPredicate(IRI predicate) {
         return !predicate.isReservedVocabulary() || OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS.contains(predicate) || predicate.getStart().indexOf(Namespaces.SWRL.toString()) != -1 || predicate.getStart().indexOf(Namespaces.SWRLB.toString()) != -1;
     }
 

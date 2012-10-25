@@ -55,33 +55,39 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * Bio-Health Informatics Group<br>
  * Date: 12-Dec-2006<br><br>
  */
-@SuppressWarnings("unused")
 public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor {
 
+    @Override
     public void visit(RemoveAxiom change) {
     }
     
 
+    @Override
     public void visit(SetOntologyID change) {
     }
 
 
+    @Override
     public void visit(AddAxiom change) {
     }
 
 
+    @Override
     public void visit(AddImport change) {
     }
 
 
+    @Override
     public void visit(RemoveImport change) {
     }
 
 
+    @Override
     public void visit(AddOntologyAnnotation change) {
     }
 
 
+    @Override
     public void visit(RemoveOntologyAnnotation change) {
     }
 

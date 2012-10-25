@@ -81,6 +81,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
     }
 
 
+    @Override
     public boolean isNamed() {
         return true;
     }
@@ -89,6 +90,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
      * Gets the entity type for this entity
      * @return The entity type
      */
+    @Override
     public EntityType<?> getEntityType() {
         return EntityType.NAMED_INDIVIDUAL;
     }
@@ -98,6 +100,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
      * @param entityType The type of the entity to obtain.  This entity is not affected in any way.
      * @return An entity that has the same IRI as this entity and is of the specified type
      */
+    @Override
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
         return getOWLDataFactory().getOWLEntity(entityType, getIRI());
     }
@@ -107,6 +110,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
      * @param entityType The entity type
      * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
      */
+    @Override
     public boolean isType(EntityType<?> entityType) {
         return getEntityType().equals(entityType);
     }
@@ -116,34 +120,42 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
      * representation of the IRI
      * @return A string representing the toString of the IRI of this entity.
      */
+    @Override
     public String toStringID() {
         return iri.toString();
     }
 
+    @Override
     public boolean isOWLNamedIndividual() {
         return true;
     }
 
+    @Override
     public IRI getIRI() {
         return iri;
     }
 
+    @Override
     public boolean isAnonymous() {
         return false;
     }
 
+    @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
         return this;
     }
 
+    @Override
     public OWLAnonymousIndividual asOWLAnonymousIndividual() {
         throw new OWLRuntimeException("Not an anonymous individual");
     }
 
+    @Override
     public OWLAnnotationProperty asOWLAnnotationProperty() {
         throw new OWLRuntimeException("Not an annotation property");
     }
 
+    @Override
     public boolean isOWLAnnotationProperty() {
         return false;
     }
@@ -161,25 +173,30 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
     }
 
 
+    @Override
     public Set<OWLAnnotation> getAnnotations(OWLOntology ontology) {
         return ImplUtils.getAnnotations(this, Collections.singleton(ontology));
     }
 
 
+    @Override
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLOntology ontology) {
         return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
     }
 
 
+    @Override
     public Set<OWLAnnotation> getAnnotations(OWLOntology ontology, OWLAnnotationProperty annotationProperty) {
         return ImplUtils.getAnnotations(this, annotationProperty, Collections.singleton(ontology));
     }
 
 
+    @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
         return ontology.getReferencingAxioms(this);
     }
 
+    @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
         return ontology.getReferencingAxioms(this, includeImports);
     }
@@ -190,32 +207,39 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         return iri.compareTo(other.getIRI());
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLEntityVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLIndividualVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLIndividualVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

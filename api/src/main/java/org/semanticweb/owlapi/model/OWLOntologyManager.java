@@ -72,6 +72,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * Gets all of the ontologies that are managed by this manager.
      * @return The set of ontologies managed by this manager.
      */
+    @Override
     Set<OWLOntology> getOntologies();
 
 
@@ -115,8 +116,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @return <code>true</code> if there is an ontology with the specified
      *         version IRI, that is managed by this manager, otherwise
      *         <code>false</code>. */
-    // TODO to be added
-    // boolean containsVersion(IRI ontologyVersionIRI);
+    boolean containsVersion(IRI ontologyVersionIRI);
     /** Gets a set of OWLOntologyIDs representing ontologies that are managed by
      * this manager.
      * 
@@ -124,8 +124,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *            The version IRI to match against all of the known ontologies.
      * @return A set of OWLOntologyIDs where the version matches the given
      *         version or the empty set if none match. */
-    // TODO to be added
-    // Set<OWLOntologyID> getOntologyIDsByVersion(IRI ontologyVersionIRI);
+    Set<OWLOntologyID> getOntologyIDsByVersion(IRI ontologyVersionIRI);
     /** Gets a previously loaded/created ontology that has the specified ontology
      * IRI and no version IRI.
      * 

@@ -63,7 +63,6 @@ public class DataPropertyDeclarationWithAnnotationsTestCase extends AbstractAnno
         return getFactory().getOWLDeclarationAxiom(ent, annos);
     }
 
-    @SuppressWarnings("unused")
     @Override
     protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
         return false;

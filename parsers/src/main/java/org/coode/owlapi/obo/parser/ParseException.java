@@ -20,12 +20,14 @@ public class ParseException extends Exception {
    */
   private static final long serialVersionUID = 30402L;
 
-  /**
-   * This constructor is used by the method "generateParseException"
-   * in the generated parser.  Calling this constructor generates
-   * a new object of this type with the fields "currentToken",
-   * "expectedTokenSequences", and "tokenImage" set.
-   */
+    /** This constructor is used by the method "generateParseException" in the
+     * generated parser. Calling this constructor generates a new object of this
+     * type with the fields "currentToken", "expectedTokenSequences", and
+     * "tokenImage" set.
+     * 
+     * @param currentTokenVal
+     * @param expectedTokenSequencesVal
+     * @param tokenImageVal */
   public ParseException(Token currentTokenVal,
                         int[][] expectedTokenSequencesVal,
                         String[] tokenImageVal
@@ -51,7 +53,9 @@ public class ParseException extends Exception {
     super();
   }
 
-  /** Constructor with message. */
+    /** Constructor with message.
+     * 
+     * @param message */
   public ParseException(String message) {
     super(message);
   }
@@ -106,7 +110,9 @@ public class ParseException extends Exception {
     String retval = "Encountered \"";
     Token tok = currentToken.next;
     for (int i = 0; i < maxSize; i++) {
-      if (i != 0) retval += " ";
+      if (i != 0) {
+        retval += " ";
+    }
       if (tok.kind == 0) {
         retval += tokenImage[0];
         break;

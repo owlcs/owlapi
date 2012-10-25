@@ -68,7 +68,7 @@ public class ObjectOneOfTestCase extends AbstractFileRoundTrippingTestCase {
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
-    @Override  @SuppressWarnings("unused")
+    @Override
     protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
         //System.out.println(target);
     }

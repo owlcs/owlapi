@@ -64,6 +64,7 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation i
         return hasSelf;
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

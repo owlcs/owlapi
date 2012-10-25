@@ -58,6 +58,7 @@ public class DomainHandler extends AbstractTagValueHandler {
     }
 
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         OWLObjectProperty prop = getOWLObjectProperty(getConsumer().getCurrentId());
         OWLClass cls = getOWLClass(value);

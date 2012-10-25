@@ -104,6 +104,7 @@ public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O> {
     O visit(OWLDeclarationAxiom axiom);
 
 
+    @Override
     O visit(OWLAnnotationAssertionAxiom axiom);
 
 

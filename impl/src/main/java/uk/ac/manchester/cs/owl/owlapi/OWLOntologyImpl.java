@@ -145,7 +145,7 @@ Serializable {
 
     private static final long serialVersionUID = 30402L;
     private final OWLOntologyManager manager;
-    private OWLOntologyID ontologyID;
+    protected OWLOntologyID ontologyID;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Sets of different kinds of axioms
@@ -175,14 +175,17 @@ Serializable {
         return sb.toString();
     }
 
+    @Override
     public OWLOntologyManager getOWLOntologyManager() {
         return manager;
     }
 
+    @Override
     public OWLOntologyID getOntologyID() {
         return ontologyID;
     }
 
+    @Override
     public boolean isAnonymous() {
         return ontologyID.isAnonymous();
     }
@@ -196,6 +199,7 @@ Serializable {
         return ontologyID.compareTo(other.getOntologyID());
     }
 
+    @Override
     public boolean isEmpty() {
         return internals.isEmpty();
     }
@@ -211,6 +215,7 @@ Serializable {
      *            counting axioms
      * @return The number of the specified types of axioms in this ontology
      */
+    @Override
     public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType,
             boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -223,19 +228,23 @@ Serializable {
         return result;
     }
 
+    @Override
     public boolean containsAxiom(OWLAxiom axiom) {
         return internals.contains(internals.getAxiomsByType(), axiom.getAxiomType(),
                 axiom);
     }
 
+    @Override
     public int getAxiomCount() {
         return internals.getAxiomCount();
     }
 
+    @Override
     public Set<OWLAxiom> getAxioms() {
         return internals.getAxioms();
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
         return (Set<T>) internals.getValues(internals.getAxiomsByType(), axiomType);
@@ -257,6 +266,7 @@ Serializable {
      *         its imports closure) - it will not be updated if the ontology
      *         changes.
      */
+    @Override
     public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType,
             boolean includeImportsClosure) {
         if (includeImportsClosure) {
@@ -270,6 +280,7 @@ Serializable {
         }
     }
 
+    @Override
     public Set<OWLAxiom> getTBoxAxioms(boolean includeImportsClosure) {
         Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
         for (AxiomType<?> type : AxiomType.TBoxAxiomTypes) {
@@ -278,6 +289,7 @@ Serializable {
         return toReturn;
     }
 
+    @Override
     public Set<OWLAxiom> getABoxAxioms(boolean includeImportsClosure) {
         Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
         for (AxiomType<?> type : AxiomType.ABoxAxiomTypes) {
@@ -286,6 +298,7 @@ Serializable {
         return toReturn;
     }
 
+    @Override
     public Set<OWLAxiom> getRBoxAxioms(boolean includeImportsClosure) {
         Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
         for (AxiomType<?> type : AxiomType.RBoxAxiomTypes) {
@@ -294,26 +307,32 @@ Serializable {
         return toReturn;
     }
 
+    @Override
     public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType) {
         return internals.getAxiomCount(axiomType);
     }
 
+    @Override
     public Set<OWLLogicalAxiom> getLogicalAxioms() {
         return internals.getLogicalAxioms();
     }
 
+    @Override
     public int getLogicalAxiomCount() {
         return internals.getLogicalAxiomCount();
     }
 
+    @Override
     public Set<OWLAnnotation> getAnnotations() {
         return internals.getOntologyAnnotations();
     }
 
+    @Override
     public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity entity) {
         return internals.getValues(internals.getDeclarationsByEntity(), entity);
     }
 
+    @Override
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
             OWLAnnotationSubject subject) {
         //Set<OWLAnnotationAssertionAxiom> axioms = createSet();
@@ -324,6 +343,7 @@ Serializable {
         //return axioms;
     }
 
+    @Override
     public Set<OWLClassAxiom> getGeneralClassAxioms() {
         return internals.getGeneralClassAxioms();
     }
@@ -342,6 +362,7 @@ Serializable {
      *         or <code>false</code> if the ontology doesn't contain the
      *         specified axiom.
      */
+    @Override
     public boolean containsAxiom(OWLAxiom axiom, boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return containsAxiom(axiom);
@@ -363,6 +384,7 @@ Serializable {
      * @return <code>true</code> if this ontology contains this axiom with or
      *         without annotations.
      */
+    @Override
     public boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom) {
         Set<OWLAxiom> set = internals.getValues(internals.getAxiomsByType(),
                 axiom.getAxiomType());
@@ -394,6 +416,7 @@ Serializable {
      * @return <code>true</code> if this ontology contains this axiom with or
      *         without annotations.
      */
+    @Override
     public boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom,
             boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -421,6 +444,7 @@ Serializable {
      *         <code>axiomB.getAxiomWithoutAnnotations()</code>. The specified
      *         axiom will be contained in the set.
      */
+    @Override
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom) {
         Set<OWLAxiom> result = createSet();
         if (containsAxiom(axiom)) {
@@ -457,6 +481,7 @@ Serializable {
      *         <code>axiomB.getAxiomWithoutAnnotations()</code>. The specified
      *         axiom will be contained in the set.
      */
+    @Override
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom,
             boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -469,11 +494,13 @@ Serializable {
         return result;
     }
 
+    @Override
     public boolean containsClassInSignature(IRI owlClassIRI) {
         return internals.contains(internals.getOwlClassReferences(), getOWLDataFactory()
                 .getOWLClass(owlClassIRI));
     }
 
+    @Override
     public boolean containsClassInSignature(IRI owlClassIRI, boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return containsClassInSignature(owlClassIRI);
@@ -486,11 +513,13 @@ Serializable {
         return false;
     }
 
+    @Override
     public boolean containsObjectPropertyInSignature(IRI propIRI) {
         return internals.contains(internals.getOwlObjectPropertyReferences(),
                 getOWLDataFactory().getOWLObjectProperty(propIRI));
     }
 
+    @Override
     public boolean containsObjectPropertyInSignature(IRI propIRI,
             boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -504,11 +533,13 @@ Serializable {
         return false;
     }
 
+    @Override
     public boolean containsDataPropertyInSignature(IRI propIRI) {
         return internals.contains(internals.getOwlDataPropertyReferences(),
                 getOWLDataFactory().getOWLDataProperty(propIRI));
     }
 
+    @Override
     public boolean containsDataPropertyInSignature(IRI propIRI,
             boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -522,6 +553,7 @@ Serializable {
         return false;
     }
 
+    @Override
     public boolean containsAnnotationPropertyInSignature(IRI propIRI) {
         final OWLAnnotationProperty owlAnnotationProperty = getOWLDataFactory()
                 .getOWLAnnotationProperty(propIRI);
@@ -539,6 +571,7 @@ Serializable {
         return false;
     }
 
+    @Override
     public boolean containsAnnotationPropertyInSignature(IRI propIRI,
             boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -552,11 +585,13 @@ Serializable {
         return false;
     }
 
+    @Override
     public boolean containsIndividualInSignature(IRI individualIRI) {
         return internals.contains(internals.getOwlIndividualReferences(),
                 getOWLDataFactory().getOWLNamedIndividual(individualIRI));
     }
 
+    @Override
     public boolean containsIndividualInSignature(IRI individualIRI,
             boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -570,11 +605,13 @@ Serializable {
         return false;
     }
 
+    @Override
     public boolean containsDatatypeInSignature(IRI datatypeIRI) {
         return internals.contains(internals.getOwlDatatypeReferences(),
                 getOWLDataFactory().getOWLDatatype(datatypeIRI));
     }
 
+    @Override
     public boolean containsDatatypeInSignature(IRI datatypeIRI,
             boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -599,6 +636,7 @@ Serializable {
      *         entities in the signature of this ontology with the specified
      *         IRI.
      */
+    @Override
     public Set<OWLEntity> getEntitiesInSignature(IRI iri) {
         Set<OWLEntity> result = createSet(6);
         if (containsClassInSignature(iri)) {
@@ -636,6 +674,7 @@ Serializable {
      *         will be empty if there are no entities in the signature of this
      *         ontology and possibly its imports closure with the specified IRI.
      */
+    @Override
     public Set<OWLEntity> getEntitiesInSignature(IRI iri, boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return getEntitiesInSignature(iri);
@@ -685,24 +724,29 @@ Serializable {
                 property);
     }
 
+    @Override
     public boolean isDeclared(OWLEntity entity) {
         return internals.isDeclared(getOWLDataFactory().getOWLDeclarationAxiom(entity));
     }
 
+    @Override
     public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype) {
         return internals.filterAxioms(datatypeDefFilter, datatype);
     }
 
+    @Override
     public Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(
             OWLAnnotationProperty subProperty) {
         return internals.filterAxioms(subAnnPropertyFilter, subProperty);
     }
 
+    @Override
     public Set<OWLAnnotationPropertyDomainAxiom> getAnnotationPropertyDomainAxioms(
             OWLAnnotationProperty property) {
         return internals.filterAxioms(apDomainFilter, property);
     }
 
+    @Override
     public Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(
             OWLAnnotationProperty property) {
         return internals.filterAxioms(apRangeFilter, property);
@@ -712,10 +756,12 @@ Serializable {
 
         private static final long serialVersionUID = 30402L;
 
+        @Override
         public boolean pass(OWLDatatypeDefinitionAxiom axiom, OWLDatatype p) {
             return axiom.getDatatype().equals(p);
         }
 
+        @Override
         public AxiomType<OWLDatatypeDefinitionAxiom> getAxiomType() {
             return AxiomType.DATATYPE_DEFINITION;
         }
@@ -724,10 +770,12 @@ Serializable {
 
         private static final long serialVersionUID = 30402L;
 
+        @Override
         public boolean pass(OWLSubAnnotationPropertyOfAxiom axiom, OWLAnnotationProperty p) {
             return axiom.getSubProperty().equals(p);
         }
 
+        @Override
         public AxiomType<OWLSubAnnotationPropertyOfAxiom> getAxiomType() {
             return AxiomType.SUB_ANNOTATION_PROPERTY_OF;
         }
@@ -736,10 +784,12 @@ Serializable {
 
         private static final long serialVersionUID = 30402L;
 
+        @Override
         public boolean pass(OWLAnnotationPropertyRangeAxiom axiom, OWLAnnotationProperty p) {
             return axiom.getProperty().equals(p);
         }
 
+        @Override
         public AxiomType<OWLAnnotationPropertyRangeAxiom> getAxiomType() {
             return AxiomType.ANNOTATION_PROPERTY_RANGE;
         }
@@ -748,16 +798,19 @@ Serializable {
 
         private static final long serialVersionUID = 30402L;
 
+        @Override
         public boolean pass(OWLAnnotationPropertyDomainAxiom axiom,
                 OWLAnnotationProperty p) {
             return axiom.getProperty().equals(p);
         }
 
+        @Override
         public AxiomType<OWLAnnotationPropertyDomainAxiom> getAxiomType() {
             return AxiomType.ANNOTATION_PROPERTY_DOMAIN;
         }
     };
 
+    @Override
     public boolean isDeclared(OWLEntity owlEntity, boolean includeImportsClosure) {
         if (isDeclared(owlEntity)) {
             return true;
@@ -772,6 +825,7 @@ Serializable {
         return false;
     }
 
+    @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
         OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
         return entityReferenceChecker.containsReference(owlEntity);
@@ -792,6 +846,7 @@ Serializable {
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set.
      */
+    @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity,
             boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -805,6 +860,7 @@ Serializable {
         return false;
     }
 
+    @Override
     public boolean containsEntityInSignature(IRI entityIRI) {
         if (containsClassInSignature(entityIRI)) {
             return true;
@@ -827,6 +883,7 @@ Serializable {
         return false;
     }
 
+    @Override
     public boolean containsEntityInSignature(IRI entityIRI, boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return containsEntityInSignature(entityIRI);
@@ -839,11 +896,13 @@ Serializable {
         return false;
     }
 
+    @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
         final ReferencedAxiomsCollector referencedAxiomsCollector = new ReferencedAxiomsCollector();
         return owlEntity.accept(referencedAxiomsCollector);
     }
 
+    @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity,
             boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -856,6 +915,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLAnonymousIndividual individual) {
         return internals.getValues(internals.getOwlAnonymousIndividualReferences(),
                 individual);
@@ -883,10 +943,12 @@ Serializable {
     //				individual);
     //	}
 
+    @Override
     public Set<OWLClassAxiom> getAxioms(final OWLClass cls) {
         return internals.getValues(internals.getClassAxiomsByClass(), cls);
     }
 
+    @Override
     public Set<OWLObjectPropertyAxiom> getAxioms(final OWLObjectPropertyExpression prop) {
         final Set<OWLObjectPropertyAxiom> result = createSet(50);
         result.addAll(getAsymmetricObjectPropertyAxioms(prop));
@@ -905,6 +967,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLAnnotationAxiom> getAxioms(final OWLAnnotationProperty prop) {
         Set<OWLAnnotationAxiom> result = createSet();
         for (OWLSubAnnotationPropertyOfAxiom ax : getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
@@ -925,6 +988,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLDataPropertyAxiom> getAxioms(final OWLDataProperty prop) {
         final Set<OWLDataPropertyAxiom> result = createSet();
         result.addAll(getDataPropertyDomainAxioms(prop));
@@ -936,6 +1000,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLIndividualAxiom> getAxioms(final OWLIndividual individual) {
         final Set<OWLIndividualAxiom> result = createSet();
         result.addAll(getClassAssertionAxioms(individual));
@@ -948,6 +1013,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype) {
         return getDatatypeDefinitions(datatype);
     }
@@ -984,6 +1050,7 @@ Serializable {
         return entities;
     }
 
+    @Override
     public Set<OWLEntity> getSignature(boolean includeImportsClosure) {
         Set<OWLEntity> entities = getSignature();
         if (includeImportsClosure) {
@@ -1048,6 +1115,7 @@ Serializable {
      *         updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set.
      */
+    @Override
     public Set<OWLClass> getClassesInSignature(boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return getClassesInSignature();
@@ -1075,6 +1143,7 @@ Serializable {
      *         be updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set.
      */
+    @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature(
             boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -1103,6 +1172,7 @@ Serializable {
      *         be updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set.
      */
+    @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature(boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return getDataPropertiesInSignature();
@@ -1130,6 +1200,7 @@ Serializable {
      *         be updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set.
      */
+    @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature(boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return getIndividualsInSignature();
@@ -1146,6 +1217,7 @@ Serializable {
      *
      * @return The set of referenced anonymous individuals
      */
+    @Override
     public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals() {
         return internals.getKeyset(internals.getOwlAnonymousIndividualReferences());
     }
@@ -1164,6 +1236,7 @@ Serializable {
      * @return The set of datatypes that are referenced by axioms in this
      *         ontology and possibly its imports closure
      */
+    @Override
     public Set<OWLDatatype> getDatatypesInSignature(boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return getDatatypesInSignature();
@@ -1175,6 +1248,7 @@ Serializable {
         return results;
     }
 
+    @Override
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
         Set<OWLAnnotationProperty> props = createSet(internals.getKeyset(internals
                 .getOwlAnnotationPropertyReferences()));
@@ -1198,6 +1272,7 @@ Serializable {
         return results;
     }
 
+    @Override
     public Set<OWLImportsDeclaration> getImportsDeclarations() {
         return internals.getImportsDeclarations();
     }
@@ -1214,6 +1289,7 @@ Serializable {
      *             If this ontology is no longer managed by its manager because
      *             it was removed from the manager.
      */
+    @Override
     public Set<IRI> getDirectImportsDocuments() throws UnknownOWLOntologyException {
         Set<IRI> result = createSet();
         for (OWLImportsDeclaration importsDeclaration : internals
@@ -1223,6 +1299,7 @@ Serializable {
         return result;
     }
 
+    @Override
     public Set<OWLOntology> getImports() throws UnknownOWLOntologyException {
         return manager.getImports(this);
     }
@@ -1244,156 +1321,185 @@ Serializable {
      *             If this ontology is no longer managed by its manager because
      *             it was removed from the manager.
      */
+    @Override
     public Set<OWLOntology> getDirectImports() throws UnknownOWLOntologyException {
         return manager.getDirectImports(this);
     }
 
+    @Override
     public Set<OWLOntology> getImportsClosure() throws UnknownOWLOntologyException {
         return getOWLOntologyManager().getImportsClosure(this);
     }
 
+    @Override
     public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(OWLClass cls) {
         return internals.getValues(internals.getSubClassAxiomsByLHS(), cls);
     }
 
+    @Override
     public Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(OWLClass cls) {
         return internals.getValues(internals.getSubClassAxiomsByRHS(), cls);
     }
 
+    @Override
     public Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(OWLClass cls) {
         return internals.getValues(internals.getEquivalentClassesAxiomsByClass(), cls);
     }
 
+    @Override
     public Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(OWLClass cls) {
         return internals.getValues(internals.getDisjointClassesAxiomsByClass(), cls);
     }
 
+    @Override
     public Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLClass owlClass) {
         return internals.getValues(internals.getDisjointUnionAxiomsByClass(), owlClass);
     }
 
+    @Override
     public Set<OWLHasKeyAxiom> getHasKeyAxioms(OWLClass cls) {
         return internals.getValues(internals.getHasKeyAxiomsByClass(), cls);
     }
 
     // Object properties
+    @Override
     public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(
             OWLObjectPropertyExpression property) {
         return internals.getValues(internals.getObjectSubPropertyAxiomsByLHS(), property);
     }
 
+    @Override
     public Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(
             OWLObjectPropertyExpression property) {
         return internals.getValues(internals.getObjectSubPropertyAxiomsByRHS(), property);
     }
 
+    @Override
     public Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(
             OWLObjectPropertyExpression property) {
         return internals.getValues(internals.getObjectPropertyDomainAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxioms(
             OWLObjectPropertyExpression property) {
         return internals.getValues(internals.getObjectPropertyRangeAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLInverseObjectPropertiesAxiom> getInverseObjectPropertyAxioms(
             OWLObjectPropertyExpression property) {
         return internals.getValues(internals.getInversePropertyAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(
             OWLObjectPropertyExpression property) {
         return internals.getValues(
                 internals.getEquivalentObjectPropertyAxiomsByProperty(), property);
     }
 
+    @Override
     public Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(
             OWLObjectPropertyExpression property) {
         return internals.getValues(internals.getDisjointObjectPropertyAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxioms(
             OWLObjectPropertyExpression property) {
         return internals.getValues(
                 internals.getFunctionalObjectPropertyAxiomsByProperty(), property);
     }
 
+    @Override
     public Set<OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalObjectPropertyAxioms(
             OWLObjectPropertyExpression property) {
         return internals.getValues(
                 internals.getInverseFunctionalPropertyAxiomsByProperty(), property);
     }
 
+    @Override
     public Set<OWLSymmetricObjectPropertyAxiom> getSymmetricObjectPropertyAxioms(
             OWLObjectPropertyExpression property) {
         return internals.getValues(internals.getSymmetricPropertyAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLAsymmetricObjectPropertyAxiom> getAsymmetricObjectPropertyAxioms(
             OWLObjectPropertyExpression property) {
         return internals.getValues(internals.getAsymmetricPropertyAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLReflexiveObjectPropertyAxiom> getReflexiveObjectPropertyAxioms(
             OWLObjectPropertyExpression property) {
         return internals.getValues(internals.getReflexivePropertyAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLIrreflexiveObjectPropertyAxiom> getIrreflexiveObjectPropertyAxioms(
             OWLObjectPropertyExpression property) {
         return internals.getValues(internals.getIrreflexivePropertyAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLTransitiveObjectPropertyAxiom> getTransitiveObjectPropertyAxioms(
             OWLObjectPropertyExpression property) {
         return internals.getValues(internals.getTransitivePropertyAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxioms(
             OWLDataPropertyExpression property) {
         return internals.getValues(internals.getFunctionalDataPropertyAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(
             OWLDataProperty lhsProperty) {
         return internals
                 .getValues(internals.getDataSubPropertyAxiomsByLHS(), lhsProperty);
     }
 
+    @Override
     public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(
             OWLDataPropertyExpression property) {
         return internals.getValues(internals.getDataSubPropertyAxiomsByRHS(), property);
     }
 
+    @Override
     public Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(
             OWLDataProperty property) {
         return internals.getValues(internals.getDataPropertyDomainAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(
             OWLDataProperty property) {
         return internals.getValues(internals.getDataPropertyRangeAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(
             OWLDataProperty property) {
         return internals.getValues(internals.getEquivalentDataPropertyAxiomsByProperty(),
                 property);
     }
 
+    @Override
     public Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(
             OWLDataProperty property) {
         return internals.getValues(internals.getDisjointDataPropertyAxiomsByProperty(),
@@ -1401,27 +1507,32 @@ Serializable {
     }
 
     ////
+    @Override
     public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLIndividual individual) {
         return internals.getValues(internals.getClassAssertionAxiomsByIndividual(),
                 individual);
     }
 
+    @Override
     public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClassExpression type) {
         return internals.getValues(internals.getClassAssertionAxiomsByClass(), type);
     }
 
+    @Override
     public Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(
             OWLIndividual individual) {
         return internals.getValues(internals.getDataPropertyAssertionsByIndividual(),
                 individual);
     }
 
+    @Override
     public Set<OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionAxioms(
             OWLIndividual individual) {
         return internals.getValues(internals.getObjectPropertyAssertionsByIndividual(),
                 individual);
     }
 
+    @Override
     public Set<OWLNegativeObjectPropertyAssertionAxiom> getNegativeObjectPropertyAssertionAxioms(
             OWLIndividual individual) {
         return internals.getValues(
@@ -1429,6 +1540,7 @@ Serializable {
                 individual);
     }
 
+    @Override
     public Set<OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxioms(
             OWLIndividual individual) {
         return internals.getValues(
@@ -1436,11 +1548,13 @@ Serializable {
                 individual);
     }
 
+    @Override
     public Set<OWLSameIndividualAxiom> getSameIndividualAxioms(OWLIndividual individual) {
         return internals.getValues(internals.getSameIndividualsAxiomsByIndividual(),
                 individual);
     }
 
+    @Override
     public Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(
             OWLIndividual individual) {
         return internals.getValues(internals.getDifferentIndividualsAxiomsByIndividual(),
@@ -1454,6 +1568,7 @@ Serializable {
     ///
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
     public List<OWLOntologyChange> applyChange(OWLOntologyChange change) {
         List<OWLOntologyChange> appliedChanges = new ArrayList<OWLOntologyChange>(2);
         OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
@@ -1467,6 +1582,7 @@ Serializable {
         return appliedChanges;
     }
 
+    @Override
     public List<OWLOntologyChange> applyChanges(List<OWLOntologyChange> changes) {
         List<OWLOntologyChange> appliedChanges = new ArrayList<OWLOntologyChange>();
         OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
@@ -1479,30 +1595,37 @@ Serializable {
     }
 
     private final class ReferencedAxiomsCollector implements
-    OWLEntityVisitorEx<Set<OWLAxiom>> {
+            OWLEntityVisitorEx<Set<OWLAxiom>> {
+        public ReferencedAxiomsCollector() {}
+        @Override
         public Set<OWLAxiom> visit(OWLClass cls) {
             return internals.getValues(internals.getOwlClassReferences(), cls);
         }
 
+        @Override
         public Set<OWLAxiom> visit(OWLObjectProperty property) {
             return internals.getValues(internals.getOwlObjectPropertyReferences(),
                     property);
         }
 
+        @Override
         public Set<OWLAxiom> visit(OWLDataProperty property) {
             return internals
                     .getValues(internals.getOwlDataPropertyReferences(), property);
         }
 
+        @Override
         public Set<OWLAxiom> visit(OWLNamedIndividual individual) {
             return internals
                     .getValues(internals.getOwlIndividualReferences(), individual);
         }
 
+        @Override
         public Set<OWLAxiom> visit(OWLDatatype datatype) {
             return internals.getValues(internals.getOwlDatatypeReferences(), datatype);
         }
 
+        @Override
         public Set<OWLAxiom> visit(OWLAnnotationProperty property) {
             return internals.getValues(internals.getOwlAnnotationPropertyReferences(),
                     property);
@@ -1529,12 +1652,14 @@ Serializable {
             appliedChanges.clear();
         }
 
+        @Override
         public void visit(RemoveAxiom change) {
             if (internals.removeAxiom(change.getAxiom())) {
                 appliedChanges.add(change);
             }
         }
 
+        @Override
         public void visit(SetOntologyID change) {
             OWLOntologyID id = change.getNewOntologyID();
             if (!id.equals(ontologyID)) {
@@ -1543,12 +1668,14 @@ Serializable {
             }
         }
 
+        @Override
         public void visit(AddAxiom change) {
             if (internals.addAxiom(change.getAxiom())) {
                 appliedChanges.add(change);
             }
         }
 
+        @Override
         public void visit(AddImport change) {
             //TODO change this to be done inside
             if (internals.addImportsDeclaration(change.getImportDeclaration())) {
@@ -1556,18 +1683,21 @@ Serializable {
             }
         }
 
+        @Override
         public void visit(RemoveImport change) {
             if (internals.removeImportsDeclaration(change.getImportDeclaration())) {
                 appliedChanges.add(change);
             }
         }
 
+        @Override
         public void visit(AddOntologyAnnotation change) {
             if (internals.addOntologyAnnotation(change.getAnnotation())) {
                 appliedChanges.add(change);
             }
         }
 
+        @Override
         public void visit(RemoveOntologyAnnotation change) {
             if (internals.removeOntologyAnnotation(change.getAnnotation())) {
                 appliedChanges.add(change);
@@ -1587,6 +1717,7 @@ Serializable {
     // to the appropriate index.
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
@@ -1597,6 +1728,7 @@ Serializable {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
@@ -1628,34 +1760,42 @@ Serializable {
     private class OWLEntityReferenceChecker implements OWLEntityVisitor, Serializable {
 
         private static final long serialVersionUID = 30402L;
+
         private boolean ref;
 
+        public OWLEntityReferenceChecker() {}
         public boolean containsReference(OWLEntity entity) {
             ref = false;
             entity.accept(this);
             return ref;
         }
 
+        @Override
         public void visit(OWLClass cls) {
             ref = OWLOntologyImpl.this.containsReference(cls);
         }
 
+        @Override
         public void visit(OWLDatatype datatype) {
             ref = OWLOntologyImpl.this.containsReference(datatype);
         }
 
+        @Override
         public void visit(OWLNamedIndividual individual) {
             ref = OWLOntologyImpl.this.containsReference(individual);
         }
 
+        @Override
         public void visit(OWLDataProperty property) {
             ref = OWLOntologyImpl.this.containsReference(property);
         }
 
+        @Override
         public void visit(OWLObjectProperty property) {
             ref = OWLOntologyImpl.this.containsReference(property);
         }
 
+        @Override
         public void visit(OWLAnnotationProperty property) {
             ref = OWLOntologyImpl.this.containsReference(property);
         }

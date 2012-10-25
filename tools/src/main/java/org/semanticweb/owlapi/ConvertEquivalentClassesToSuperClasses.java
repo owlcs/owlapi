@@ -163,6 +163,7 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
     }
 
 
+    @Override
     public List<OWLOntologyChange> getChanges() {
         return changes;
     }

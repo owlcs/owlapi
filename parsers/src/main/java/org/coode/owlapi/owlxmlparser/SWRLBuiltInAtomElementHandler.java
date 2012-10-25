@@ -78,6 +78,7 @@ public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
         args.add(getOWLDataFactory().getSWRLLiteralArgument(handler.getOWLObject()));
     }
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
         setAtom(getOWLDataFactory().getSWRLBuiltInAtom(iri, args));
         getParentHandler().handleChild(this);

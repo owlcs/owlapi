@@ -62,6 +62,7 @@ public class OWLIndividualElementHandler extends AbstractOWLElementHandler<OWLNa
     }
 
 
+    @Override
     public OWLNamedIndividual getOWLObject() {
         return individual;
     }
@@ -73,6 +74,7 @@ public class OWLIndividualElementHandler extends AbstractOWLElementHandler<OWLNa
     }
 
 
+    @Override
     final public void endElement() throws OWLParserException, UnloadableImportException {
 //        URI uri = getNameAttribute();
         individual = getOWLDataFactory().getOWLNamedIndividual(name);

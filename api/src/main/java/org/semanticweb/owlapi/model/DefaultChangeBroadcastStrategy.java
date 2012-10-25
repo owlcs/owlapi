@@ -57,6 +57,7 @@ public class DefaultChangeBroadcastStrategy implements OWLOntologyChangeBroadcas
 
 	private static final long serialVersionUID = 30402L;
 
+    @Override
     public void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) throws OWLException {
         // Just broadcast all changes
         listener.ontologiesChanged(changes);

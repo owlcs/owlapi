@@ -91,6 +91,7 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
     }
 
 
+    @Override
     public void visit(SWRLRule node) {
         for(SWRLAtom atom : node.getBody()) {
             atom.accept(this);
@@ -101,28 +102,33 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
     }
 
 
+    @Override
     public void visit(SWRLClassAtom node) {
         node.getArgument().accept(this);
     }
 
 
+    @Override
     public void visit(SWRLDataRangeAtom node) {
         node.getArgument().accept(this);
     }
 
 
+    @Override
     public void visit(SWRLObjectPropertyAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
 
+    @Override
     public void visit(SWRLDataPropertyAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
 
+    @Override
     public void visit(SWRLBuiltInAtom node) {
         for(SWRLObject o : node.getArguments()) {
             o.accept(this);
@@ -130,26 +136,29 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
     }
 
 
+    @Override
     public void visit(SWRLVariable node) {
         variables.add(node);
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void visit(SWRLIndividualArgument node) {
 
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void visit(SWRLLiteralArgument node) {
     }
 
 
+    @Override
     public void visit(SWRLSameIndividualAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
 
+    @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);

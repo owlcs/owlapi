@@ -385,11 +385,9 @@ public class Examples {
      * then by applying facets to restrict the datarange. For example, int
      * greater than 18
      * 
-     * @throws OWLOntologyCreationException
-     * @throws OWLOntologyStorageException */
+     * @throws OWLOntologyCreationException */
     @Test
-    public void shouldUseDataranges() throws OWLOntologyCreationException,
-    OWLOntologyStorageException {
+    public void shouldUseDataranges() throws OWLOntologyCreationException {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         String base = "http://org.semanticweb.datarangeexample";
         OWLOntology ont = man.createOntology(IRI.create(base));
@@ -817,11 +815,9 @@ public class Examples {
     /** An example which shows how to "delete" entities, in this case
      * individuals, from and ontology.
      * 
-     * @throws OWLOntologyCreationException
-     * @throws OWLOntologyStorageException */
+     * @throws OWLOntologyCreationException */
     @Test
-    public void shouldDeleteIndividuals() throws OWLOntologyCreationException,
-    OWLOntologyStorageException {
+    public void shouldDeleteIndividuals() throws OWLOntologyCreationException {
         // The pizza ontology contains several individuals that represent
         // countries, which describe the country of origin of various pizzas and
         // ingredients. In this example we will delete them all. First off, we
@@ -870,11 +866,9 @@ public class Examples {
     /** An example which shows how to create restrictions and add them as
      * superclasses of a class (i.e. "adding restrictions to classes")
      * 
-     * @throws OWLOntologyCreationException
-     * @throws OWLOntologyStorageException */
+     * @throws OWLOntologyCreationException */
     @Test
-    public void shouldCreateRestrictions() throws OWLOntologyCreationException,
-    OWLOntologyStorageException {
+    public void shouldCreateRestrictions() throws OWLOntologyCreationException {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         String base = "http://org.semanticweb.restrictionexample";
         OWLOntology ont = man.createOntology(IRI.create(base));

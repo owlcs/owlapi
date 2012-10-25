@@ -59,6 +59,7 @@ public class UseOfUndeclaredClass extends OWLProfileViolation implements OWL2DLP
         this.cls = cls;
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

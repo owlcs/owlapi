@@ -74,6 +74,7 @@ public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
 
+    @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new TurtleOntologyFormat());
     }

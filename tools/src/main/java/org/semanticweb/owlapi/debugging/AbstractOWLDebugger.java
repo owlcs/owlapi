@@ -104,6 +104,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     protected abstract OWLClassExpression getCurrentClass() throws OWLException;
 
 
+    @Override
     public OWLOntology getOWLOntology() throws OWLException {
         return ontology;
     }
@@ -115,6 +116,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     }
 
 
+    @Override
     public Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(OWLClassExpression cls) throws OWLException {
         Set<OWLAxiom> firstMups = getSOSForIncosistentClass(cls);
         if (firstMups.isEmpty()) {

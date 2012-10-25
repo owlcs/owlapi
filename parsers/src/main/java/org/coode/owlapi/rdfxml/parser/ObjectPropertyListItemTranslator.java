@@ -72,12 +72,13 @@ public class ObjectPropertyListItemTranslator implements ListItemTranslator<OWLO
      * @param firstObject The rdf:first triple that points to the item to be translated.
      * @return The translated item.
      */
+    @Override
     public OWLObjectPropertyExpression translate(IRI firstObject) {
         consumer.addObjectProperty(firstObject, false);
         return consumer.translateObjectPropertyExpression(firstObject);
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public OWLObjectPropertyExpression translate(OWLLiteral firstObject) {
         logger.info("Cannot translate list item as an object property, because rdf:first triple is a literal triple");
         return null;

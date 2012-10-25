@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
  * @since 3.5
  */
 public final class RemoveOntologyAnnotationData extends OWLOntologyChangeData {
+    private static final long serialVersionUID = 30402L;
 
     private final OWLAnnotation annotation;
 
@@ -108,7 +109,7 @@ public final class RemoveOntologyAnnotationData extends OWLOntologyChangeData {
             return false;
         }
         RemoveOntologyAnnotationData other = (RemoveOntologyAnnotationData) obj;
-        return this.annotation.equals(other.annotation);
+        return annotation.equals(other.annotation);
     }
 
     @Override

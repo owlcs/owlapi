@@ -77,10 +77,12 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
         this.superProperty = superProperty;
     }
 
+    @Override
     public OWLSubPropertyChainOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLSubPropertyChainOfAxiom(getPropertyChain(), getSuperProperty(), mergeAnnos(annotations));
     }
 
+    @Override
     public OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -88,16 +90,19 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
         return getOWLDataFactory().getOWLSubPropertyChainOfAxiom(getPropertyChain(), getSuperProperty());
     }
 
+    @Override
     public List<OWLObjectPropertyExpression> getPropertyChain() {
         return new ArrayList<OWLObjectPropertyExpression>(propertyChain);
     }
 
 
+    @Override
     public OWLObjectPropertyExpression getSuperProperty() {
         return superProperty;
     }
 
 
+    @Override
     public boolean isEncodingOfTransitiveProperty() {
         if (propertyChain.size() == 2) {
             return superProperty.equals(propertyChain.get(0)) && superProperty.equals(propertyChain.get(1));
@@ -108,20 +113,24 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
@@ -139,6 +148,7 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
     }
 
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.SUB_PROPERTY_CHAIN_OF;
     }

@@ -87,6 +87,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         this.nodes.addAll(nodes);
     }
 
+    @Override
     public Set<Node<E>> getNodes() {
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(nodes);
     }
@@ -158,6 +159,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
 
     protected abstract DefaultNode<E> getNode(Set<E> entities);
 
+    @Override
     public Set<E> getFlattened() {
         Set<E> result = new HashSet<E>();
         for (Node<E> node : nodes) {
@@ -166,10 +168,12 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         return result;
     }
 
+    @Override
     public boolean isEmpty() {
         return nodes.isEmpty();
     }
 
+    @Override
     public boolean containsEntity(E e) {
         for (Node<E> node : nodes) {
             if (node.contains(e)) {
@@ -179,18 +183,22 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         return false;
     }
 
+    @Override
     public boolean isSingleton() {
         return nodes.size() == 1;
     }
 
+    @Override
     public boolean isTopSingleton() {
         return isSingleton() && nodes.iterator().next().isTopNode();
     }
 
+    @Override
     public boolean isBottomSingleton() {
         return isSingleton() && nodes.iterator().next().isBottomNode();
     }
 
+    @Override
     public Iterator<Node<E>> iterator() {
         return nodes.iterator();
     }

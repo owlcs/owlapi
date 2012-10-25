@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,7 +48,7 @@ public class ThreeEquivalentsRoundTripTestCase {
 
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
-    OWLOntologyStorageException, IOException {
+            OWLOntologyStorageException {
         // given
         OWLOntology ontology = Factory.getManager().createOntology();
         ontology.getOWLOntologyManager().addAxiom(ontology, axiomToAdd);
@@ -65,7 +64,7 @@ public class ThreeEquivalentsRoundTripTestCase {
         assertTrue(ontology.containsClassInSignature(C.getIRI()));
     }
 
-    private String saveOntology(OWLOntology o) throws IOException,
+    private String saveOntology(OWLOntology o) throws
     OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o, target);

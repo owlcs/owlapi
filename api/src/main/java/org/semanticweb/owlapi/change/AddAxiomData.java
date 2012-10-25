@@ -43,8 +43,6 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Author: Matthew Horridge<br>
  * Stanford University<br>
@@ -59,6 +57,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @since 3.5
  */
 public final class AddAxiomData extends AxiomChangeData {
+
+    private static final long serialVersionUID = 30402L;
 
     /**
      * Constructs an {@link AddAxiomData} object which specifies the addition of an axiom to "some ontology".
@@ -103,7 +103,7 @@ public final class AddAxiomData extends AxiomChangeData {
             return false;
         }
         AddAxiomData other = (AddAxiomData) obj;
-        return this.getAxiom().equals(other.getAxiom());
+        return getAxiom().equals(other.getAxiom());
     }
 
     @Override

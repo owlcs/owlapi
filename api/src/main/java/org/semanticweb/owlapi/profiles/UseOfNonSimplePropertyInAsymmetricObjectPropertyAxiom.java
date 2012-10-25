@@ -60,6 +60,7 @@ public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends OWLPr
         return (OWLAsymmetricObjectPropertyAxiom) super.getAxiom();
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

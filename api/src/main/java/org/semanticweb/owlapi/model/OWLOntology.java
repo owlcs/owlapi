@@ -406,6 +406,7 @@ public interface OWLOntology extends OWLObject {
      * @see #getDataPropertiesInSignature()
      * @see #getIndividualsInSignature()
      */
+    @Override
     Set<OWLEntity> getSignature();
 
 
@@ -433,6 +434,7 @@ public interface OWLOntology extends OWLObject {
      *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
+    @Override
     Set<OWLClass> getClassesInSignature();
 
 
@@ -459,6 +461,7 @@ public interface OWLOntology extends OWLObject {
      *         is a copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to
      *         this ontology while iterating over this set.
      */
+    @Override
     Set<OWLObjectProperty> getObjectPropertiesInSignature();
 
 
@@ -486,6 +489,7 @@ public interface OWLOntology extends OWLObject {
      *         a copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
+    @Override
     Set<OWLDataProperty> getDataPropertiesInSignature();
 
     /**
@@ -510,6 +514,7 @@ public interface OWLOntology extends OWLObject {
      *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
+    @Override
     Set<OWLNamedIndividual> getIndividualsInSignature();
 
     /**
@@ -543,6 +548,7 @@ public interface OWLOntology extends OWLObject {
      *         copy - it will not be updated if the ontology changes.  It is therefore safe to apply changes to this
      *         ontology while iterating over this set.
      */
+    @Override
     Set<OWLDatatype> getDatatypesInSignature();
 
     /**

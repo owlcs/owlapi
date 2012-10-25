@@ -66,6 +66,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWL2Profile implements OWLProfile {
 
+    @Override
     public String getName() {
         return "OWL 2";
     }
@@ -78,6 +79,7 @@ public class OWL2Profile implements OWLProfile {
      * @return An <code>OWLProfileReport</code> that describes whether or not the
      *         ontology is within this profile.
      */
+    @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWLOntologyWalker walker = new OWLOntologyWalker(ontology.getImportsClosure());
         OWL2ProfileObjectWalker visitor = new OWL2ProfileObjectWalker(walker, ontology.getOWLOntologyManager());

@@ -63,14 +63,17 @@ public class UseOfIllegalDataRange extends OWLProfileViolation implements OWL2EL
         return dataRange;
     }
 
+    @Override
     public void accept(OWL2RLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWL2QLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWL2ELProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

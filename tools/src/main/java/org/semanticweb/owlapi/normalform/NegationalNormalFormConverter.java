@@ -66,6 +66,7 @@ public class NegationalNormalFormConverter implements NormalFormRewriter {
     }
 
 
+    @Override
     public boolean isInNormalForm(OWLClassExpression classExpression) {
         // The classExpression is in negational normal form if negations
         // only appear in front of named concepts
@@ -79,6 +80,7 @@ public class NegationalNormalFormConverter implements NormalFormRewriter {
     }
 
 
+    @Override
     public OWLClassExpression convertToNormalForm(OWLClassExpression classExpression) {
         nnf.reset();
         return classExpression.accept(nnf);

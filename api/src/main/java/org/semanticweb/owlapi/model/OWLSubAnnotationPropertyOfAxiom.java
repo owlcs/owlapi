@@ -60,5 +60,6 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
     OWLAnnotationProperty getSuperProperty();
 
 
+    @Override
     OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations();
 }

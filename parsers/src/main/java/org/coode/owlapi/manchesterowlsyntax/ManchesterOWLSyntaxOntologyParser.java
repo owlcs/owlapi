@@ -67,6 +67,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     
     private static final String DEFAULT_FILE_ENCODING = "UTF-8";
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         try {
             BufferedReader br = null;
@@ -135,6 +136,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
         }
     }
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         return  parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }

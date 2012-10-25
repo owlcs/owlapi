@@ -69,10 +69,12 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
         super(subject, property, value, annotations);
     }
 
+    @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLObjectOneOf(getSubject()), getOWLDataFactory().getOWLDataHasValue(getProperty(), getObject()));
     }
 
+    @Override
     public OWLDataPropertyAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -80,6 +82,7 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
         return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
     }
 
+    @Override
     public OWLDataPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
     }
@@ -89,23 +92,28 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
         return super.equals(obj) && obj instanceof OWLDataPropertyAssertionAxiom;
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.DATA_PROPERTY_ASSERTION;
     }

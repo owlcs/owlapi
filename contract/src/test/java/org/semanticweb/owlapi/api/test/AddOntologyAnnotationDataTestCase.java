@@ -1,13 +1,14 @@
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
-import org.semanticweb.owlapi.model.*;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * Author: Matthew Horridge<br>
@@ -15,6 +16,7 @@ import static org.mockito.Mockito.mock;
  * Bio-Medical Informatics Research Group<br>
  * Date: 22/10/2012
  */
+@SuppressWarnings("javadoc")
 public class AddOntologyAnnotationDataTestCase {
 
     private OWLAnnotation mockAnnotation;

@@ -78,6 +78,7 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         this.classExpression = classExpression;
     }
 
+    @Override
     public OWLClassAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -85,15 +86,18 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(), getIndividual());
     }
 
+    @Override
     public OWLClassAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(), getIndividual(), mergeAnnos(annotations));
     }
 
+    @Override
     public OWLClassExpression getClassExpression() {
         return classExpression;
     }
 
 
+    @Override
     public OWLIndividual getIndividual() {
         return individual;
     }
@@ -111,27 +115,33 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         return false;
     }
 
+    @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLObjectOneOf(getIndividual()), getClassExpression());
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.CLASS_ASSERTION;
     }

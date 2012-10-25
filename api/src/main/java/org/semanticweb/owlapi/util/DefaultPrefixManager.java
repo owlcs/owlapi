@@ -75,7 +75,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
 		public StringLengthComparator() {}
 
-		public int compare(String o1, String o2) {
+        @Override
+        public int compare(String o1, String o2) {
 			int diff = o1.length() - o2.length();
 			if (diff != 0) {
 				return diff;
@@ -120,7 +121,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 	/**
 	 * Gets the prefix names that have a mapping in this prefix manager
 	 */
-	public Set<String> getPrefixNames() {
+    @Override
+    public Set<String> getPrefixNames() {
 		return new HashSet<String>(prefix2NamespaceMap.keySet());
 	}
 
@@ -159,7 +161,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		setPrefix(":", defaultPrefix);
 	}
 
-	public String getPrefixIRI(IRI iri) {
+    @Override
+    public String getPrefixIRI(IRI iri) {
 		String iriString = iri.toString();
 		String ns = XMLUtils.getNCNamePrefix(iriString);
 		for (String prefixName : prefix2NamespaceMap.keySet()) {
@@ -173,16 +176,19 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		return null;
 	}
 
-	public String getDefaultPrefix() {
+    @Override
+    public String getDefaultPrefix() {
 		return prefix2NamespaceMap.get(":");
 	}
 
-	public boolean containsPrefixMapping(String prefix) {
+    @Override
+    public boolean containsPrefixMapping(String prefix) {
 		return prefix2NamespaceMap.containsKey(prefix)
 				&& prefix2NamespaceMap.get(prefix) != null;
 	}
 
-	public IRI getIRI(String curie) {
+    @Override
+    public IRI getIRI(String curie) {
 		if (curie.startsWith("<")) {
 			return IRI.create(curie.substring(1, curie.length() - 1));
 		}
@@ -205,11 +211,13 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		}
 	}
 
-	public Map<String, String> getPrefixName2PrefixMap() {
+    @Override
+    public Map<String, String> getPrefixName2PrefixMap() {
 		return Collections.unmodifiableMap(prefix2NamespaceMap);
 	}
 
-	public String getPrefix(String prefixName) {
+    @Override
+    public String getPrefix(String prefixName) {
 		return prefix2NamespaceMap.get(prefixName);
 	}
 
@@ -264,7 +272,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		}
 	}
 
-	public String getShortForm(IRI iri) {
+    @Override
+    public String getShortForm(IRI iri) {
 		String sf = getPrefixIRI(iri);
 		if (sf == null) {
 			return iri.toQuotedString();
@@ -273,9 +282,11 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		}
 	}
 
-	public String getShortForm(OWLEntity entity) {
+    @Override
+    public String getShortForm(OWLEntity entity) {
 		return getShortForm(entity.getIRI());
 	}
 
-	public void dispose() {}
+    @Override
+    public void dispose() {}
 }

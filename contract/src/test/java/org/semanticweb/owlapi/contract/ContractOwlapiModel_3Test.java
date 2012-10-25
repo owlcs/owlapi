@@ -1215,11 +1215,12 @@ public class ContractOwlapiModel_3Test {
                 return false;
             }
 
-            /**
-             * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
-             * @return A set of entities that correspond to the
-             *         signature of this object. The set is a copy, changes are not reflected back.
-             */
+            /** Gets the signature of this ontology change. That is, the set of
+             * entities appearing in objects in this change.
+             * 
+             * @return A set of entities that correspond to the signature of
+             *         this object. The set is a copy, changes are not reflected
+             *         back. */
             @Override
             public Set<OWLEntity> getSignature() {
                 return null;
@@ -1550,15 +1551,15 @@ public class ContractOwlapiModel_3Test {
         testSubject0.addOntologyChangeListener(mock(OWLOntologyChangeListener.class),
                 mock(OWLOntologyChangeBroadcastStrategy.class));
         testSubject0
-        .addImpendingOntologyChangeListener(mock(ImpendingOWLOntologyChangeListener.class));
+                .addImpendingOntologyChangeListener(mock(ImpendingOWLOntologyChangeListener.class));
         testSubject0
-        .removeImpendingOntologyChangeListener(mock(ImpendingOWLOntologyChangeListener.class));
+                .removeImpendingOntologyChangeListener(mock(ImpendingOWLOntologyChangeListener.class));
         testSubject0
-        .addOntologyChangesVetoedListener(mock(OWLOntologyChangesVetoedListener.class));
+                .addOntologyChangesVetoedListener(mock(OWLOntologyChangesVetoedListener.class));
         testSubject0
-        .removeOntologyChangesVetoedListener(mock(OWLOntologyChangesVetoedListener.class));
+                .removeOntologyChangesVetoedListener(mock(OWLOntologyChangesVetoedListener.class));
         testSubject0
-        .setDefaultChangeBroadcastStrategy(mock(OWLOntologyChangeBroadcastStrategy.class));
+                .setDefaultChangeBroadcastStrategy(mock(OWLOntologyChangeBroadcastStrategy.class));
         testSubject0.removeOntologyChangeListener(mock(OWLOntologyChangeListener.class));
         testSubject0.makeLoadImportRequest(mock(OWLImportsDeclaration.class),
                 new OWLOntologyLoaderConfiguration());
@@ -1567,9 +1568,9 @@ public class ContractOwlapiModel_3Test {
         testSubject0.addOntologyLoaderListener(mock(OWLOntologyLoaderListener.class));
         testSubject0.removeOntologyLoaderListener(mock(OWLOntologyLoaderListener.class));
         testSubject0
-        .addOntologyChangeProgessListener(mock(OWLOntologyChangeProgressListener.class));
+                .addOntologyChangeProgessListener(mock(OWLOntologyChangeProgressListener.class));
         testSubject0
-        .removeOntologyChangeProgessListener(mock(OWLOntologyChangeProgressListener.class));
+                .removeOntologyChangeProgessListener(mock(OWLOntologyChangeProgressListener.class));
     }
 
     @Test

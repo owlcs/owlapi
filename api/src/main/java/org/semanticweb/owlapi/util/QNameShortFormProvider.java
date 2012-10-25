@@ -71,6 +71,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
         }
     }
 
+    @Override
     public String getShortForm(OWLEntity entity) {
         String iri = entity.getIRI().toString();
         String namespace = XMLUtils.getNCNamePrefix(iri);
@@ -80,5 +81,6 @@ public class QNameShortFormProvider implements ShortFormProvider {
         return toReturn;
     }
 
+    @Override
     public void dispose() {}
 }

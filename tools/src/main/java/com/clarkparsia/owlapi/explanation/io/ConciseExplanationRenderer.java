@@ -61,11 +61,13 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     private PrintWriter writer;
 
 
+    @Override
     public void startRendering(Writer w) {
-        this.writer = w instanceof PrintWriter ? (PrintWriter) w : new PrintWriter(w);
+        writer = w instanceof PrintWriter ? (PrintWriter) w : new PrintWriter(w);
     }
 
 
+    @Override
     public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) throws OWLException, IOException {
         writer.println("Axiom: " + renderer.render(axiom));
 
@@ -90,27 +92,29 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     }
 
 
-    private void renderMultipleExplanations(Set<Set<OWLAxiom>> explanations) throws OWLException, IOException {
+    private void renderMultipleExplanations(Set<Set<OWLAxiom>> explanations) {
         int count = 1;
         for (Set<OWLAxiom> exp : explanations) {
-            String header = (count++) + ") ";
+            String header = count++ + ") ";
             renderSingleExplanation(header, exp);
         }
     }
 
 
-    private void renderSingleExplanation(String header, Set<OWLAxiom> axioms) throws OWLException, IOException {
+    private void renderSingleExplanation(String header, Set<OWLAxiom> axioms) {
         boolean first = true;
         for (OWLAxiom axiom : axioms) {
-            if (first)
+            if (first) {
                 first = false;
-            else
+            } else {
                 header = INDENT;
+            }
             writer.println(header + renderer.render(axiom));
         }
     }
 
 
+    @Override
     public void endRendering() {
         writer.flush();
         // writer.close();

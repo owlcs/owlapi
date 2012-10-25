@@ -62,6 +62,7 @@ public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation im
         this.rangeAxiom = rangeAxiom;
     }
 
+    @Override
     public void accept(OWL2ELProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

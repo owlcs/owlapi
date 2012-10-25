@@ -4,8 +4,9 @@ package org.coode.owlapi.functionalparser;
 import uk.ac.manchester.cs.JavaCharStream;
 
 /** Token Manager. */
-public class OWLFunctionalSyntaxParserTokenManager implements OWLFunctionalSyntaxParserConstants
-{
+@SuppressWarnings("javadoc")
+public class OWLFunctionalSyntaxParserTokenManager implements
+        OWLFunctionalSyntaxParserConstants {
 
     /** Debug output. */
     public  java.io.PrintStream debugStream = System.out;
@@ -2781,18 +2782,6 @@ public class OWLFunctionalSyntaxParserTokenManager implements OWLFunctionalSynta
             catch(java.io.IOException e) { return curPos; }
         }
     }
-    private final int jjStopStringLiteralDfa_2(int pos, long active0)
-    {
-        switch (pos)
-        {
-            default :
-                return -1;
-        }
-    }
-    private final int jjStartNfa_2(int pos, long active0)
-    {
-        return jjMoveNfa_2(jjStopStringLiteralDfa_2(pos, active0), pos + 1);
-    }
     private int jjMoveStringLiteralDfa0_2()
     {
         switch(curChar)
@@ -2838,7 +2827,6 @@ public class OWLFunctionalSyntaxParserTokenManager implements OWLFunctionalSynta
             }
             else if (curChar < 128)
             {
-                long l = 1L << (curChar & 077);
                 do
                 {
                     switch(jjstateSet[--i])
@@ -2904,18 +2892,6 @@ public class OWLFunctionalSyntaxParserTokenManager implements OWLFunctionalSynta
             catch(java.io.IOException e) { return curPos; }
         }
     }
-    private final int jjStopStringLiteralDfa_1(int pos, long active0)
-    {
-        switch (pos)
-        {
-            default :
-                return -1;
-        }
-    }
-    private final int jjStartNfa_1(int pos, long active0)
-    {
-        return jjMoveNfa_1(jjStopStringLiteralDfa_1(pos, active0), pos + 1);
-    }
     private int jjMoveStringLiteralDfa0_1()
     {
         switch(curChar)
@@ -2956,7 +2932,6 @@ public class OWLFunctionalSyntaxParserTokenManager implements OWLFunctionalSynta
             }
             else if (curChar < 128)
             {
-                long l = 1L << (curChar & 077);
                 do
                 {
                     switch(jjstateSet[--i])
@@ -3296,6 +3271,8 @@ public class OWLFunctionalSyntaxParserTokenManager implements OWLFunctionalSynta
                             jjmatchedPos = 0;
                             curPos = jjMoveStringLiteralDfa0_2();
                             break;
+                    default:
+                        break;
                     }
                     if (jjmatchedKind != 0x7fffffff)
                     {

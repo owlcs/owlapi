@@ -53,6 +53,7 @@ public class OntologyTagValueHandler extends AbstractTagValueHandler {
     }
 
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         getConsumer().setOntologyTagValue(value);
     }

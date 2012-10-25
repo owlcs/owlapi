@@ -66,6 +66,7 @@ public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression<
     }
 
 
+    @Override
     public P getProperty() {
         return property;
     }

@@ -78,6 +78,7 @@ public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiter
         }
     }
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
         if (iri != null && !iri.isPlainLiteral()) {
             literal = getOWLDataFactory().getOWLLiteral(getText(), getOWLDataFactory().getOWLDatatype(iri));
@@ -90,6 +91,7 @@ public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiter
     }
 
 
+    @Override
     public OWLLiteral getOWLObject() {
         return literal;
     }

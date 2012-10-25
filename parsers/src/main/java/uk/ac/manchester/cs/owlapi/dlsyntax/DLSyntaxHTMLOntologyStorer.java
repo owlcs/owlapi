@@ -62,7 +62,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
 
 	private static final long serialVersionUID = 30402L;
-	private ShortFormProvider sfp;
+    protected ShortFormProvider sfp;
 
 
     public DLSyntaxHTMLOntologyStorer() {
@@ -70,6 +70,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     }
 
 
+    @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new DLSyntaxHTMLOntologyFormat());
     }

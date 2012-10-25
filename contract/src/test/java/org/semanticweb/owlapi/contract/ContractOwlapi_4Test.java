@@ -78,30 +78,38 @@ public class ContractOwlapi_4Test {
              */
             private static final long serialVersionUID = 30402L;
 
+            @Override
             public OWLClassExpression asSomeValuesFrom() {
                 return null;
             }
 
+            @Override
             public boolean isObjectRestriction() {
                 return false;
             }
 
+            @Override
             public boolean isDataRestriction() {
                 return false;
             }
 
+            @Override
             public ClassExpressionType getClassExpressionType() {
                 return null;
             }
 
+            @Override
             public void accept(final OWLClassExpressionVisitor visitor) {}
 
+            @Override
             public <O> O accept(final OWLClassExpressionVisitorEx<O> visitor) {
                 return null;
             }
 
+            @Override
             public void accept(final OWLObjectVisitor visitor) {}
 
+            @Override
             public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
@@ -167,22 +175,28 @@ public class ContractOwlapi_4Test {
              */
             private static final long serialVersionUID = 30402L;
 
+            @Override
             public Collection<SWRLArgument> getAllArguments() {
                 return null;
             }
 
+            @Override
             public void accept(final SWRLObjectVisitor visitor) {}
 
+            @Override
             public <O> O accept(final SWRLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
+            @Override
             public void accept(final OWLObjectVisitor visitor) {}
 
+            @Override
             public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
+            @Override
             protected int compareObjectOfSameType(final OWLObject object) {
                 return 0;
             }
@@ -214,14 +228,18 @@ public class ContractOwlapi_4Test {
              */
             private static final long serialVersionUID = 30402L;
 
+            @Override
             public void accept(final SWRLObjectVisitor visitor) {}
 
+            @Override
             public <O> O accept(final SWRLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
+            @Override
             public void accept(final OWLObjectVisitor visitor) {}
 
+            @Override
             public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
@@ -508,18 +526,23 @@ public class ContractOwlapi_4Test {
              */
             private static final long serialVersionUID = 30402L;
 
+            @Override
             public void accept(final SWRLObjectVisitor visitor) {}
 
+            @Override
             public <O> O accept(final SWRLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
+            @Override
             public void accept(final OWLObjectVisitor visitor) {}
 
+            @Override
             public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
+            @Override
             protected int compareObjectOfSameType(final OWLObject object) {
                 return 0;
             }

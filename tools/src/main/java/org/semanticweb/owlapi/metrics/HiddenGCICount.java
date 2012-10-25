@@ -124,6 +124,7 @@ public class HiddenGCICount extends IntegerValuedMetric {
     }
 
 
+    @Override
     public String getName() {
         return "Hidden GCI Count";
     }

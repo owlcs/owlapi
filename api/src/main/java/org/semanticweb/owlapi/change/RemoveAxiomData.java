@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * @since 3.5
  */
 public final class RemoveAxiomData extends AxiomChangeData {
+    private static final long serialVersionUID = 30402L;
 
     /**
      * Constructs an {@link RemoveAxiomData} object which specifies the removal of an axiom from "some ontology".
@@ -101,7 +102,7 @@ public final class RemoveAxiomData extends AxiomChangeData {
             return false;
         }
         RemoveAxiomData other = (RemoveAxiomData) obj;
-        return this.getAxiom().equals(other.getAxiom());
+        return getAxiom().equals(other.getAxiom());
     }
 
     @Override

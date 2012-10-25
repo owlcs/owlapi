@@ -60,10 +60,12 @@ public abstract class AbstractOWLDataRangeHandler extends
         this.dataRange = dataRange;
     }
 
+    @Override
     public OWLDataRange getOWLObject() {
         return dataRange;
     }
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
         endDataRangeElement();
         getParentHandler().handleChild(this);

@@ -65,6 +65,7 @@ public class InferredEquivalentDataPropertiesAxiomGenerator extends InferredData
     }
 
 
+    @Override
     public String getLabel() {
         return "Equivalent data properties";
     }

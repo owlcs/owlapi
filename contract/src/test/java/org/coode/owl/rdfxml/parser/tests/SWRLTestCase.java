@@ -67,7 +67,7 @@ public class SWRLTestCase {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         // Use the reference implementation
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());

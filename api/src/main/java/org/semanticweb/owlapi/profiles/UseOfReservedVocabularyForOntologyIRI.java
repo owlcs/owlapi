@@ -55,6 +55,7 @@ public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation i
     }
 
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

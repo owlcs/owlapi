@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 public class KRSSOWLParser extends AbstractOWLParser {
 
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException {
         try {
             KRSSOntologyFormat format = new KRSSOntologyFormat();
@@ -82,6 +83,7 @@ public class KRSSOWLParser extends AbstractOWLParser {
         }
     }
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         // We ignore the configuration information
         return parse(documentSource, ontology);

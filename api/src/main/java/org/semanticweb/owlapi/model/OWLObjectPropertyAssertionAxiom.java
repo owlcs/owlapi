@@ -48,6 +48,7 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLObjectPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>, OWLSubClassOfAxiomShortCut {
 
+    @Override
     OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
     /**

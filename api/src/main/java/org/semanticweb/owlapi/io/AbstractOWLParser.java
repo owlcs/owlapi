@@ -92,6 +92,7 @@ public abstract class AbstractOWLParser implements OWLParser {
 
     }
 
+    @Override
     @Deprecated
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
         this.owlOntologyManager = owlOntologyManager;
@@ -209,6 +210,7 @@ public abstract class AbstractOWLParser implements OWLParser {
     }
 
 
+    @Override
     public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         return parse(new IRIDocumentSource(documentIRI), ontology);
     }

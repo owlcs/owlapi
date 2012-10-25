@@ -82,6 +82,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     private final OWLReasonerConfiguration configuration;
 
     private OWLOntologyChangeListener ontologyChangeListener = new OWLOntologyChangeListener() {
+        @Override
         public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
             handleRawOntologyChanges(changes);
         }
@@ -91,7 +92,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         this.rootOntology = rootOntology;
         this.bufferingMode = bufferingMode;
         this.configuration = configuration;
-        this.timeOut = configuration.getTimeOut();
+        timeOut = configuration.getTimeOut();
         manager = rootOntology.getOWLOntologyManager();
         manager.addOntologyChangeListener(ontologyChangeListener);
         reasonerAxioms = new HashSet<OWLAxiom>();
@@ -112,14 +113,17 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         return configuration;
     }
 
+    @Override
     public BufferingMode getBufferingMode() {
         return bufferingMode;
     }
 
+    @Override
     public long getTimeOut() {
         return timeOut;
     }
 
+    @Override
     public OWLOntology getRootOntology() {
         return rootOntology;
     }
@@ -135,7 +139,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
 	 * @param changes
 	 *            The list of raw changes.
 	 */
-	private synchronized void handleRawOntologyChanges(
+    protected synchronized void handleRawOntologyChanges(
 			List<? extends OWLOntologyChange> changes) {
 		if (log) {
 			System.out.println(Thread.currentThread().getName()
@@ -148,16 +152,19 @@ public abstract class OWLReasonerBase implements OWLReasoner {
 		}
 	}
 
+    @Override
     public List<OWLOntologyChange> getPendingChanges() {
         return new ArrayList<OWLOntologyChange>(rawChanges);
     }
 
+    @Override
     public Set<OWLAxiom> getPendingAxiomAdditions() {
         Set<OWLAxiom> added = new HashSet<OWLAxiom>();
         computeDiff(added, new HashSet<OWLAxiom>());
         return added;
     }
 
+    @Override
     public Set<OWLAxiom> getPendingAxiomRemovals() {
         Set<OWLAxiom> removed = new HashSet<OWLAxiom>();
         computeDiff(new HashSet<OWLAxiom>(), removed);
@@ -170,6 +177,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * reasoner will be asked to handle these changes via the handleChanges(java.util.Set, java.util.Set)
      * method.
      */
+    @Override
     public void flush() {
         // Process the changes
         final Set<OWLAxiom> added = new HashSet<OWLAxiom>();
@@ -233,14 +241,17 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      */
     protected abstract void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms);
 
+    @Override
     public void dispose() {
         manager.removeOntologyChangeListener(ontologyChangeListener);
     }
 
+    @Override
     public FreshEntityPolicy getFreshEntityPolicy() {
         return configuration.getFreshEntityPolicy();
     }
 
+    @Override
     public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
         return configuration.getIndividualNodeSetPolicy();
     }

@@ -47,7 +47,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.coode.owlapi.rdf.model.RDFLiteralNode;
 import org.coode.owlapi.rdf.model.RDFNode;
@@ -241,7 +240,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                                     else if (litNode.getLang() != null) {
                                         writer.writeLangAttribute(litNode.getLang());
                                     }
-                                    writer.writeTextContent((litNode.getLiteral()));
+                                    writer.writeTextContent(litNode.getLiteral());
                                     writer.writeEndElement();
                                 }
                                 else {
@@ -261,7 +260,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                 }
             }
             else {
-                RDFLiteralNode rdfLiteralNode = ((RDFLiteralNode) objectNode);
+                RDFLiteralNode rdfLiteralNode = (RDFLiteralNode) objectNode;
                 if (rdfLiteralNode.getDatatype() != null) {
                     writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
                 }

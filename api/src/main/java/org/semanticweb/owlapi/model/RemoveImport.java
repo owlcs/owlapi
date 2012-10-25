@@ -39,11 +39,10 @@
 
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.change.RemoveImportData;
-import org.semanticweb.owlapi.util.CollectionFactory;
-
 import java.util.Collections;
 import java.util.Set;
+
+import org.semanticweb.owlapi.change.RemoveImportData;
 
 /**
  * Author: Matthew Horridge<br>

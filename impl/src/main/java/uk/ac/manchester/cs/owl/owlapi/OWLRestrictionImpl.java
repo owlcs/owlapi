@@ -64,11 +64,13 @@ public abstract class OWLRestrictionImpl<R extends OWLPropertyRange, P extends O
     }
 
 
+    @Override
     public boolean isClassExpressionLiteral() {
         return false;
     }
 
 
+    @Override
     public P getProperty() {
         return property;
     }

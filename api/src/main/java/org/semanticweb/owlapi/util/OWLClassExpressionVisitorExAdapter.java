@@ -60,86 +60,104 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 22-Nov-2006<br><br>
- */
-@SuppressWarnings({"unused","javadoc"})
+ * Date: 22-Nov-2006<br>
+ * <br>
+ * 
+ * @param <O> */
 public class OWLClassExpressionVisitorExAdapter<O> implements OWLClassExpressionVisitorEx<O> {
 
-	public O visit(OWLClass ce) {
+    @Override
+    public O visit(OWLClass ce) {
 
 		return null;
 	}
 
-	public O visit(OWLObjectIntersectionOf ce) {
+    @Override
+    public O visit(OWLObjectIntersectionOf ce) {
 
 		return null;
 	}
 
-	public O visit(OWLObjectUnionOf ce) {
+    @Override
+    public O visit(OWLObjectUnionOf ce) {
 		return null;
 	}
 
-	public O visit(OWLObjectComplementOf ce) {
+    @Override
+    public O visit(OWLObjectComplementOf ce) {
 		return null;
 	}
 
-	public O visit(OWLObjectSomeValuesFrom ce) {
+    @Override
+    public O visit(OWLObjectSomeValuesFrom ce) {
 		return null;
 	}
 
-	public O visit(OWLObjectAllValuesFrom ce) {
+    @Override
+    public O visit(OWLObjectAllValuesFrom ce) {
 		return null;
 	}
 
-	public O visit(OWLObjectHasValue ce) {
+    @Override
+    public O visit(OWLObjectHasValue ce) {
 		return null;
 	}
 
-	public O visit(OWLObjectMinCardinality ce) {
+    @Override
+    public O visit(OWLObjectMinCardinality ce) {
 		return null;
 	}
 
-	public O visit(OWLObjectExactCardinality ce) {
+    @Override
+    public O visit(OWLObjectExactCardinality ce) {
 		return null;
 	}
 
-	public O visit(OWLObjectMaxCardinality ce) {
+    @Override
+    public O visit(OWLObjectMaxCardinality ce) {
 		return null;
 	}
 
-	public O visit(OWLObjectHasSelf ce) {
+    @Override
+    public O visit(OWLObjectHasSelf ce) {
 		return null;
 	}
 
-	public O visit(OWLObjectOneOf ce) {
+    @Override
+    public O visit(OWLObjectOneOf ce) {
 		return null;
 	}
 
-	public O visit(OWLDataSomeValuesFrom ce) {
+    @Override
+    public O visit(OWLDataSomeValuesFrom ce) {
 		return null;
 	}
 
-	public O visit(OWLDataAllValuesFrom ce) {
+    @Override
+    public O visit(OWLDataAllValuesFrom ce) {
 		return null;
 	}
 
-	public O visit(OWLDataHasValue ce) {
+    @Override
+    public O visit(OWLDataHasValue ce) {
 		return null;
 	}
 
-	public O visit(OWLDataMinCardinality ce) {
+    @Override
+    public O visit(OWLDataMinCardinality ce) {
 		return null;
 	}
 
-	public O visit(OWLDataExactCardinality ce) {
+    @Override
+    public O visit(OWLDataExactCardinality ce) {
 		return null;
 	}
 
-	public O visit(OWLDataMaxCardinality ce) {
+    @Override
+    public O visit(OWLDataMaxCardinality ce) {
 		return null;
 	}
 

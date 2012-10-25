@@ -80,7 +80,7 @@ public class TestDisjointsTestCase {
     private OWLOntologyManager man;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         OWLParserFactoryRegistry.getInstance().registerParserFactory(
                 new RDFXMLParserFactory());

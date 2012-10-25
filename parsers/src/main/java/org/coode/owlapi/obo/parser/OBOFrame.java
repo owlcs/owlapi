@@ -49,6 +49,7 @@ import java.util.List;
  * Bio-Medical Informatics Research Group<br>
  * Date: 19/04/2012
  */
+@SuppressWarnings("javadoc")
 public class OBOFrame {
 
     private String frameType;

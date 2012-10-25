@@ -70,10 +70,12 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression<?
     }
 
 
+    @Override
     public Set<P> getProperties() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(properties);
     }
 
+    @Override
     public Set<P> getPropertiesMinus(P property) {
         Set<P> props = new TreeSet<P>(properties);
         props.remove(property);

@@ -57,7 +57,7 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
     }
 
 
-    @Override  @SuppressWarnings("unused")
+    @Override
 	public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         if(isStrict()) {
             return isObjectPropertyStrict(predicate);
@@ -69,7 +69,7 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
     }
 
 
-    @Override  @SuppressWarnings("unused")
+    @Override
 	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return false;
     }

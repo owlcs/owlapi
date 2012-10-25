@@ -56,10 +56,12 @@ public class IDSpaceTagValueHandler extends AbstractTagValueHandler {
     
     private static final int IRI_PREFIX_GROUP = 2;
     
+    /** @param consumer */
     public IDSpaceTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ID_SPACE.getName(), consumer);
     }
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         Matcher matcher = PATTERN.matcher(value);
         if(matcher.matches()) {

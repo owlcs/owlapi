@@ -39,6 +39,8 @@
 
 package org.coode.owlapi.rdf.renderer;
 
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,11 +58,39 @@ import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTranslator;
 import org.coode.owlapi.rdf.model.RDFTriple;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEntityVisitor;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
-
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 
 /**
@@ -490,14 +520,17 @@ public abstract class RDFRendererBase {
     private void addAnnotationsToOntologyHeader(RDFResourceNode ontologyHeaderNode) {
         for (OWLAnnotation anno : ontology.getAnnotations()) {
             OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
+                @Override
                 public RDFNode visit(IRI iri) {
                     return new RDFResourceNode(iri);
                 }
 
+                @Override
                 public RDFNode visit(OWLAnonymousIndividual individual) {
                     return new RDFResourceNode(System.identityHashCode(individual));
                 }
 
+                @Override
                 public RDFNode visit(OWLLiteral literal) {
                     return RDFTranslator.translateLiteralNode(literal);
                 }
@@ -519,6 +552,7 @@ public abstract class RDFRendererBase {
         axioms.addAll(ontology.getDeclarationAxioms(entity));
 
         entity.accept(new OWLEntityVisitor() {
+            @Override
             public void visit(OWLClass cls) {
                 for (OWLAxiom ax : ontology.getAxioms(cls)) {
                     if (ax instanceof OWLDisjointClassesAxiom) {
@@ -538,12 +572,14 @@ public abstract class RDFRendererBase {
             }
 
 
+            @Override
             public void visit(OWLDatatype datatype) {
                 axioms.addAll(ontology.getDatatypeDefinitions(datatype));
                 createGraph(axioms);
             }
 
 
+            @Override
             public void visit(OWLNamedIndividual individual) {
                 for (OWLAxiom ax : ontology.getAxioms(individual)) {
                     if (ax instanceof OWLDifferentIndividualsAxiom) {
@@ -554,6 +590,7 @@ public abstract class RDFRendererBase {
             }
 
 
+            @Override
             public void visit(OWLDataProperty property) {
                 for (OWLAxiom ax : ontology.getAxioms(property)) {
                     if (ax instanceof OWLDisjointDataPropertiesAxiom) {
@@ -566,6 +603,7 @@ public abstract class RDFRendererBase {
             }
 
 
+            @Override
             public void visit(OWLObjectProperty property) {
                 for (OWLAxiom ax : ontology.getAxioms(property)) {
                     if (ax instanceof OWLDisjointObjectPropertiesAxiom) {
@@ -583,6 +621,7 @@ public abstract class RDFRendererBase {
                 axioms.addAll(ontology.getAxioms(manager.getOWLDataFactory().getOWLObjectInverseOf(property)));
             }
 
+            @Override
             public void visit(OWLAnnotationProperty property) {
                 axioms.addAll(ontology.getAxioms(property));
             }
@@ -697,6 +736,8 @@ public abstract class RDFRendererBase {
 
         private static final long serialVersionUID = 30402L;
 
+        public OWLEntityIRIComparator() {}
+        @Override
         public int compare(OWLEntity o1, OWLEntity o2) {
             return o1.getIRI().compareTo(o2.getIRI());
         }
@@ -722,6 +763,7 @@ public abstract class RDFRendererBase {
         }
 
 
+        @Override
         public int compare(RDFTriple o1, RDFTriple o2) {
             int diff = getIndex(o1.getProperty().getIRI()) - getIndex(o2.getProperty().getIRI());
             if (diff == 0) {
@@ -782,8 +824,8 @@ public abstract class RDFRendererBase {
                             }
                             else {
                                 // Literal
-                                RDFLiteralNode lit1 = ((RDFLiteralNode) o1.getObject());
-                                RDFLiteralNode lit2 = ((RDFLiteralNode) o2.getObject());
+                                RDFLiteralNode lit1 = (RDFLiteralNode) o1.getObject();
+                                RDFLiteralNode lit2 = (RDFLiteralNode) o2.getObject();
                                 if (lit1.isTyped()) {
                                     if (lit2.isTyped()) {
                                         diff = lit1.getLiteral().compareTo(lit2.getLiteral());

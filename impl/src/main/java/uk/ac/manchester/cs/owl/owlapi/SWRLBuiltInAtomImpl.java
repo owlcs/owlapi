@@ -83,34 +83,41 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
      * Determines if the predicate of this atom is is a core builtin.
      * @return <code>true</code> if this is a core builtin, otherwise <code>false</code>
      */
+    @Override
     public boolean isCoreBuiltIn() {
         return SWRLBuiltInsVocabulary.getBuiltIn(getPredicate().toURI()) != null;
     }
 
+    @Override
     public List<SWRLDArgument> getArguments() {
         return new ArrayList<SWRLDArgument>(args);
     }
 
 
+    @Override
     public Collection<SWRLArgument> getAllArguments() {
         return new ArrayList<SWRLArgument>(args);
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

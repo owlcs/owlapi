@@ -83,6 +83,7 @@ public class ImportClosureSize extends IntegerValuedMetric {
     }
 
 
+    @Override
     public String getName() {
         return "Imports closure size";
     }

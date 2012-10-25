@@ -49,19 +49,21 @@ import org.semanticweb.owlapi.model.OWLException;
 /**
  * Null implementation
  */
-@SuppressWarnings("unused")
 public class SilentExplanationRenderer implements ExplanationRenderer {
 
+    @Override
     public void endRendering() {
         // do nothing
     }
 
 
+    @Override
     public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) throws OWLException, IOException {
         // do nothing
     }
 
 
+    @Override
     public void startRendering(Writer writer) {
         // do nothing
     }

@@ -38,32 +38,39 @@
  */
 
 package org.semanticweb.owlapi.util;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 04-Jan-2007<br><br>
- */@SuppressWarnings("unused")
+ * Date: 04-Jan-2007<br>
+ * <br> */
 public class NullProgressMonitor implements ProgressMonitor {
 
+    @Override
     public void setStarted() {
     }
 
+    @Override
     public void setSize(long size) {
     }
 
+    @Override
     public void setProgress(long progress) {
     }
 
+    @Override
     public void setMessage(String message) {
     }
 
+    @Override
     public void setIndeterminate(boolean b) {
     }
 
+    @Override
     public void setFinished() {
     }
 
+    @Override
     public boolean isCancelled() {
         return false;
     }

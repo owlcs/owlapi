@@ -65,26 +65,31 @@ public class IRIDocumentSource implements OWLOntologyDocumentSource {
     }
 
 
+    @Override
     public IRI getDocumentIRI() {
         return documentIRI;
     }
 
 
+    @Override
     public boolean isInputStreamAvailable() {
         return false;
     }
 
 
+    @Override
     public InputStream getInputStream() {
         throw new OWLRuntimeException("InputStream not available.  Check with IRIDocumentSource.isInputStreamAvailable() first!");
     }
 
 
+    @Override
     public boolean isReaderAvailable() {
         return false;
     }
 
 
+    @Override
     public Reader getReader() {
         throw new OWLRuntimeException("Reader not available.  Check with IRIDocumentSource.isReaderAvailable() first!");
     }

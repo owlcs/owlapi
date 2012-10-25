@@ -65,6 +65,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         this.consumer = consumer;
     }
 
+    @Override
     public String getTagName() {
         return tag;
     }

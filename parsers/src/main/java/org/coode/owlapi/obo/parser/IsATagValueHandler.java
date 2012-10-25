@@ -56,6 +56,7 @@ public class IsATagValueHandler extends AbstractTagValueHandler {
     }
 
 
+    @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         if (getConsumer().isTerm()) {
             // We simply add a subclass axiom

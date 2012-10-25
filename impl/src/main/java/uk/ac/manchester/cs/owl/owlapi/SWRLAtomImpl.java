@@ -60,6 +60,7 @@ public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
     }
 
 
+    @Override
     public SWRLPredicate getPredicate() {
         return predicate;
     }

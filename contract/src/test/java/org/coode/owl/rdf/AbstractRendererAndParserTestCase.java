@@ -81,7 +81,7 @@ public abstract class AbstractRendererAndParserTestCase {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
         man.addOntologyFactory(new EmptyInMemOWLOntologyFactory());

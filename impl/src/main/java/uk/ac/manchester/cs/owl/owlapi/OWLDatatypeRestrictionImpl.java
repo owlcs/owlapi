@@ -79,25 +79,30 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
         this.facetRestrictions = new HashSet<OWLFacetRestriction>(facetRestrictions);
     }
 
+    @Override
     public DataRangeType getDataRangeType() {
         return DataRangeType.DATATYPE_RESTRICTION;
     }
 
+    @Override
     public boolean isDatatype() {
         return false;
     }
 
 
+    @Override
     public boolean isTopDatatype() {
         return false;
     }
 
 
+    @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
     }
 
 
+    @Override
     public OWLDatatype getDatatype() {
         return datatype;
     }
@@ -108,6 +113,7 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
      * @return A <code>Set</code> of facet restrictions that apply to
      *         this data range
      */
+    @Override
     public Set<OWLFacetRestriction> getFacetRestrictions() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(facetRestrictions);
     }
@@ -126,29 +132,35 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
     }
 
 
+    @Override
     public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLDataRangeVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

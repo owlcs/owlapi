@@ -88,7 +88,7 @@ public abstract class AbstractOWLAPITestCase {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         manager = Factory.getManager();
     }
 

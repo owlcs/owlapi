@@ -55,6 +55,7 @@ public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor {
     private final ThreadMXBean bean=ManagementFactory.getThreadMXBean();
     private long beginTime;
 
+    @Override
     public void reasonerTaskStarted(String taskName) {
         System.out.print(taskName);
         System.out.println(" ...");
@@ -62,12 +63,14 @@ public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor {
         beginTime=lastTime;
     }
 
+    @Override
     public void reasonerTaskStopped() {
         System.out.println("    ... finished in "+((bean.getCurrentThreadCpuTime()-beginTime))/1000000D);
         lastPercentage = 0;
 
     }
 
+    @Override
     public void reasonerTaskProgressChanged(int value, int max) {
     	long time=bean.getCurrentThreadCpuTime();
         if (max > 0) {
@@ -80,6 +83,7 @@ public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor {
         }
     }
 
+    @Override
     public void reasonerTaskBusy() {
         System.out.println("    busy ...");
     }

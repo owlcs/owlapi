@@ -58,7 +58,8 @@ public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper, Serial
 
 	private static final long serialVersionUID = 30402L;
 
-	public IRI getDocumentIRI(IRI ontologyIRI) {
+	@Override
+    public IRI getDocumentIRI(IRI ontologyIRI) {
         return ontologyIRI;
     }
 }

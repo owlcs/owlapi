@@ -62,6 +62,7 @@ public class OWLAnnotationPropertyElementHandler extends AbstractOWLElementHandl
     }
 
 
+    @Override
     public OWLAnnotationProperty getOWLObject() {
         return prop;
     }
@@ -71,6 +72,7 @@ public class OWLAnnotationPropertyElementHandler extends AbstractOWLElementHandl
         iri = getIRIFromAttribute(localName, value);
     }
 
+    @Override
     final public void endElement() throws OWLParserException, UnloadableImportException {
         prop = getOWLDataFactory().getOWLAnnotationProperty(iri);
         getParentHandler().handleChild(this);

@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -74,14 +73,13 @@ public class ClosureAxioms {
     private OWLOntology ontology;
     private OWLDataFactory factory;
 
-    public ClosureAxioms(OWLOntologyManager manager, OWLOntology ontology)
-            throws OWLException {
+    public ClosureAxioms(OWLOntologyManager manager, OWLOntology ontology) {
         this.manager = manager;
         this.ontology = ontology;
         factory = manager.getOWLDataFactory();
     }
 
-    public void addClosureAxioms(OWLClass clazz) throws OWLException {
+    public void addClosureAxioms(OWLClass clazz) {
         /* Get the class axioms */
         Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
         /* Collect those that assert superclasses of the class */

@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * @since 3.5
  */
 public final class SetOntologyIDData extends OWLOntologyChangeData {
+    private static final long serialVersionUID = 30402L;
 
     private final OWLOntologyID newId;
 
@@ -116,7 +117,7 @@ public final class SetOntologyIDData extends OWLOntologyChangeData {
             return false;
         }
         SetOntologyIDData other = (SetOntologyIDData) obj;
-        return this.newId.equals(other.newId);
+        return newId.equals(other.newId);
     }
 
     @Override

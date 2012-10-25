@@ -68,6 +68,7 @@ public class SpecificOntologyChangeBroadcastStrategy implements OWLOntologyChang
     }
 
 
+    @Override
     public void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) throws OWLException {
         List<OWLOntologyChange> broadcastChanges = new ArrayList<OWLOntologyChange>();
         for(OWLOntologyChange change : changes) {

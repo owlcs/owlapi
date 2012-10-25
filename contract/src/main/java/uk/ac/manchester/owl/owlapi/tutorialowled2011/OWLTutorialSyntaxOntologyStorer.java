@@ -53,7 +53,6 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  * Information Management Group<br>
  * Date: 24-April-2007<br>
  * <br> */
-@SuppressWarnings("unused")
 public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     /**
      * 
@@ -67,6 +66,7 @@ public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
      *            The desired ontology format.
      * @return <code>true</code> if this storer can store an ontology in the
      *         desired format. */
+    @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new OWLTutorialSyntaxOntologyFormat());
     }

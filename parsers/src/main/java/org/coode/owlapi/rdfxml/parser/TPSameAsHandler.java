@@ -63,8 +63,7 @@ public class TPSameAsHandler extends TriplePredicateHandler {
 
 
     @Override
-    @SuppressWarnings("unused")
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return true;
     }
 

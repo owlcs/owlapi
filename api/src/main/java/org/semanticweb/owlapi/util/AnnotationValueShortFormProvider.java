@@ -141,6 +141,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         this.preferredLanguageMap = preferredLanguageMap;
     }
 
+    @Override
     public String getShortForm(OWLEntity entity) {
 
         for (OWLAnnotationProperty prop : annotationProperties) { // visit the properties in order of preference
@@ -200,6 +201,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     }
 
 
+    @Override
     public void dispose() {
     }
 

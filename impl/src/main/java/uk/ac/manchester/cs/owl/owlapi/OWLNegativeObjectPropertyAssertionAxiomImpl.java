@@ -69,6 +69,7 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
         super(subject, property, object, annotations);
     }
 
+    @Override
     public OWLNegativeObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -76,10 +77,12 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
         return getOWLDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
     }
 
+    @Override
     public OWLNegativeObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
     }
 
+    @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
         return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getSubject()), df.getOWLObjectComplementOf(df.getOWLObjectHasValue(getProperty(), getObject())));
@@ -90,6 +93,7 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
      * negative object property assertions.
      * @return <code>true</code> if this axioms contains anonymous individual axioms
      */
+    @Override
     public boolean containsAnonymousIndividuals() {
         return getSubject().isAnonymous() || getObject().isAnonymous();
     }
@@ -99,23 +103,28 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
         return super.equals(obj) && obj instanceof OWLNegativeObjectPropertyAssertionAxiom;
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION;
     }

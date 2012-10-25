@@ -54,6 +54,7 @@ public class OntologyIRINotAbsolute extends OWLProfileViolation implements OWL2P
         super(ontology, null);
     }
 
+    @Override
     public void accept(OWL2ProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

@@ -64,11 +64,13 @@ public class OWLSubObjectPropertyChainElementHandler extends AbstractOWLElementH
     }
 
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 
 
+    @Override
     public List<OWLObjectPropertyExpression> getOWLObject() {
         return propertyList;
     }

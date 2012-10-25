@@ -95,6 +95,7 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
     }
 
 
+    @Override
     public List<OWLOntologyChange> getChanges() {
         return changes;
     }

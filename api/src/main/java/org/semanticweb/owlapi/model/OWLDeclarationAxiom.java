@@ -59,5 +59,6 @@ public interface OWLDeclarationAxiom extends OWLAxiom {
      */
     OWLEntity getEntity();
 
+    @Override
     OWLDeclarationAxiom getAxiomWithoutAnnotations();
 }

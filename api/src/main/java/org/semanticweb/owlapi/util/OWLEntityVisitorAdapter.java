@@ -61,26 +61,32 @@ public class OWLEntityVisitorAdapter implements OWLEntityVisitor {
 
     }
 
+    @Override
     public void visit(OWLClass desc) {
         handleDefault(desc);
     }
 
+    @Override
     public void visit(OWLDatatype node) {
         handleDefault(node);
     }
 
+    @Override
     public void visit(OWLDataProperty property) {
         handleDefault(property);
     }
 
+    @Override
     public void visit(OWLObjectProperty property) {
         handleDefault(property);
     }
 
+    @Override
     public void visit(OWLNamedIndividual individual) {
         handleDefault(individual);
     }
 
+    @Override
     public void visit(OWLAnnotationProperty property) {
         handleDefault(property);
     }

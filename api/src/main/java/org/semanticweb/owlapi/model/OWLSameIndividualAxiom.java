@@ -52,6 +52,7 @@ import java.util.Set;
  */
 public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
 
+    @Override
     OWLSameIndividualAxiom getAxiomWithoutAnnotations();
 
     /**
@@ -65,5 +66,6 @@ public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
      * Returns this axiom represented as set of {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}s.
      * @return This axiom represented as a set of {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}s.
      */
+    @Override
     Set<OWLSameIndividualAxiom> asPairwiseAxioms();
 }

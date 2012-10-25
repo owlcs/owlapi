@@ -72,6 +72,7 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
     }
 
 
+    @Override
     public Collection<SWRLArgument> getAllArguments() {
         List<SWRLArgument> objs = new ArrayList<SWRLArgument>();
         objs.add(arg0);
@@ -80,11 +81,13 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
     }
 
 
+    @Override
     public A getFirstArgument() {
         return arg0;
     }
 
 
+    @Override
     public B getSecondArgument() {
         return arg1;
     }

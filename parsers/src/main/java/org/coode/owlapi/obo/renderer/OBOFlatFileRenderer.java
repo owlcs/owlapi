@@ -168,17 +168,19 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
     }
 
 
+    @Override
     public void addException(OBOStorageException exception) {
         exceptions.add(exception);
     }
 
 
+    @Override
     public List<OBOStorageException> getExceptions() {
         return exceptions;
     }
 
 
-    private void writeHeader(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    private void writeHeader(OWLOntology ontology, Writer writer) {
         OBOTagValuePairList tvpList = new OBOTagValuePairList(OBOVocabulary.getHeaderTags());
 
         tvpList.setDefault(OBOVocabulary.DEFAULT_NAMESPACE, defaultPrefix);

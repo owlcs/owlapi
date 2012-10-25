@@ -71,11 +71,13 @@ public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, 
     }
 
 
+    @Override
     public int getCardinality() {
         return cardinality;
     }
 
 
+    @Override
     public F getFiller() {
         return filler;
     }

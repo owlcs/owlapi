@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br><br>
  */
-@SuppressWarnings({"unused","javadoc"})
+@SuppressWarnings("javadoc")
 public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
 
     public OWLOntologyHandler(OWLXMLParserHandler handler) {
@@ -107,10 +107,12 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
     }
 
 
+    @Override
     public OWLOntology getOWLObject() {
         return getOntology();
     }

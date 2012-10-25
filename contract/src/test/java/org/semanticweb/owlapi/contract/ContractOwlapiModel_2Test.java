@@ -370,9 +370,6 @@ public class ContractOwlapiModel_2Test {
     @Test
     public void shouldTestInterfaceOWLDataRangeVisitorEx() throws Exception {
         OWLDataRangeVisitorEx<OWLObject> testSubject0 = Utils.mockDataRange();
-
-
-
     }
 
     @Test
@@ -583,10 +580,6 @@ public class ContractOwlapiModel_2Test {
     @Test
     public void shouldTestInterfaceOWLDataVisitorEx() throws Exception {
         OWLDataVisitorEx<OWLObject> testSubject0 = Utils.mockData();
-
-
-
-
     }
 
     @Test
@@ -872,9 +865,6 @@ public class ContractOwlapiModel_2Test {
     @Test
     public void shouldTestInterfaceOWLEntityVisitorEx() throws Exception {
         OWLEntityVisitorEx<OWLObject> testSubject0 = Utils.mockEntity();
-
-
-
     }
 
     @Test
@@ -1287,7 +1277,6 @@ public class ContractOwlapiModel_2Test {
     @Test
     public void shouldTestInterfaceOWLIndividualVisitorEx() throws Exception {
         OWLIndividualVisitorEx<OWLObject> testSubject0 = Utils.mockIndividual();
-
     }
 
     @Test
@@ -1476,31 +1465,22 @@ public class ContractOwlapiModel_2Test {
         OWLLogicalAxiomVisitorEx<OWLObject> testSubject0 = Utils.mockLogicalAxiom();
         Object result1 = testSubject0
                 .visit(mock(OWLNegativeObjectPropertyAssertionAxiom.class));
-
-
         Object result7 = testSubject0
                 .visit(mock(OWLEquivalentObjectPropertiesAxiom.class));
         Object result8 = testSubject0
                 .visit(mock(OWLNegativeDataPropertyAssertionAxiom.class));
-
         Object result11 = testSubject0
                 .visit(mock(OWLDisjointObjectPropertiesAxiom.class));
-
         Object result14 = testSubject0
                 .visit(mock(OWLFunctionalObjectPropertyAxiom.class));
-
-
         Object result20 = testSubject0
                 .visit(mock(OWLEquivalentDataPropertiesAxiom.class));
-
         Object result24 = testSubject0
                 .visit(mock(OWLTransitiveObjectPropertyAxiom.class));
         Object result25 = testSubject0
                 .visit(mock(OWLIrreflexiveObjectPropertyAxiom.class));
         Object result27 = testSubject0
                 .visit(mock(OWLInverseFunctionalObjectPropertyAxiom.class));
-
-
     }
 
     @Test
@@ -1885,9 +1865,6 @@ public class ContractOwlapiModel_2Test {
     @Test
     public void shouldTestInterfaceOWLNamedObjectVisitorEx() throws Exception {
         OWLNamedObjectVisitorEx<OWLObject> testSubject0 = Utils.mockNamedObject();
-
-
-
     }
 
     @Test

@@ -107,6 +107,7 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
     }
 
 
+    @Override
     public IRI getConvertedIRI(OWLEntity entity) {
         IRI iri = entityNameMap.get(entity);
         if (iri != null) {
@@ -153,36 +154,37 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
         }
 
 
-        @SuppressWarnings("unused")
+        @Override
 		public void visit(OWLClass cls) {
             classCount++;
             name = "C" + classCount;
         }
 
-        @SuppressWarnings("unused")
+        @Override
         public void visit(OWLDatatype datatype) {
             datatypeCount++;
             name = "dt" + datatypeCount;
         }
 
-        @SuppressWarnings("unused")
+        @Override
         public void visit(OWLNamedIndividual individual) {
             individualCount++;
             name = "i" + individualCount;
         }
 
-        @SuppressWarnings("unused")
+        @Override
         public void visit(OWLDataProperty property) {
             dataPropertyCount++;
             name = "dp" + dataPropertyCount;
         }
 
-        @SuppressWarnings("unused")
+        @Override
         public void visit(OWLObjectProperty property) {
             objectPropertyCount++;
             name = "op" + objectPropertyCount;
         }
-        @SuppressWarnings("unused")
+
+        @Override
         public void visit(OWLAnnotationProperty property) {
             annotationPropertyCount++;
             name = "ap" + annotationPropertyCount;

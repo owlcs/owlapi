@@ -1,8 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
@@ -62,7 +60,9 @@ public class FunctionalSyntaxIRIProblemTestCase {
 
     }
 
-    public static String saveOntology(OWLOntology ontology, PrefixOWLOntologyFormat format) throws IOException, OWLOntologyStorageException {
+    public static String
+            saveOntology(OWLOntology ontology, PrefixOWLOntologyFormat format)
+                    throws OWLOntologyStorageException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         StringDocumentTarget t=new StringDocumentTarget();
         manager.saveOntology(ontology, format, t);

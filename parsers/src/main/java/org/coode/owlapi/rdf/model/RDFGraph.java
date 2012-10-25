@@ -113,6 +113,10 @@ public class RDFGraph {
             return Collections.emptySet();
         }
     }
+
+    /** @param subject
+     * @param sort
+     * @return sorted triples */
     public List<RDFTriple> getSortedTriplesForSubject(RDFNode subject, boolean sort) {
     	List<RDFTriple> toReturn=new ArrayList<RDFTriple>();
     	Set<RDFTriple> set=triplesBySubject.get(subject);

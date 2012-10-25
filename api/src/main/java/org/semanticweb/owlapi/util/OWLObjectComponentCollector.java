@@ -190,41 +190,48 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
         result.add(obj);
     }
 
+    @Override
     public void visit(OWLOntology ontology) {
         process(ontology.getAxioms());
     }
 
 
+    @Override
     public void visit(OWLClass cls) {
         handleObject(cls);
         cls.getIRI().accept(this);
     }
 
 
+    @Override
     public void visit(OWLObjectProperty property) {
         handleObject(property);
         property.getIRI().accept(this);
     }
 
 
+    @Override
     public void visit(OWLObjectInverseOf property) {
         handleObject(property);
         property.getInverse().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDataProperty property) {
         handleObject(property);
         property.getIRI().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDatatype datatype) {
         handleObject(datatype);
         datatype.getIRI().accept(this);
     }
 
 
+    @Override
     public void visit(OWLObjectIntersectionOf desc) {
         handleObject(desc);
         for (OWLClassExpression op : desc.getOperands()) {
@@ -233,18 +240,21 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectUnionOf desc) {
         handleObject(desc);
         process(desc.getOperands());
     }
 
 
+    @Override
     public void visit(OWLObjectComplementOf desc) {
         handleObject(desc);
         desc.getOperand().accept(this);
     }
 
 
+    @Override
     public void visit(OWLObjectSomeValuesFrom desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
@@ -252,6 +262,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectAllValuesFrom desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
@@ -259,6 +270,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectHasValue desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
@@ -266,6 +278,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectMinCardinality desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
@@ -273,6 +286,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectExactCardinality desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
@@ -280,6 +294,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectMaxCardinality desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
@@ -287,54 +302,63 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectHasSelf desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLObjectOneOf desc) {
         handleObject(desc);
         process(desc.getIndividuals());
     }
 
 
+    @Override
     public void visit(OWLDataSomeValuesFrom desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDataAllValuesFrom desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDataHasValue desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDataMinCardinality desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDataExactCardinality desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDataMaxCardinality desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLSubClassOfAxiom axiom) {
         handleObject(axiom);
         axiom.getSubClass().accept(this);
@@ -342,6 +366,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         handleObject(axiom);
         axiom.getSubject().accept(this);
@@ -350,29 +375,34 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         handleObject(axiom);
         process(axiom.getClassExpressions());
     }
 
 
+    @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
+    @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         handleObject(axiom);
         axiom.getDomain().accept(this);
@@ -380,12 +410,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         handleObject(axiom);
         process(axiom.getProperties());
     }
 
 
+    @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         handleObject(axiom);
         axiom.getSubject().accept(this);
@@ -394,24 +426,28 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         handleObject(axiom);
         process(axiom.getIndividuals());
     }
 
 
+    @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         handleObject(axiom);
         process(axiom.getProperties());
     }
 
 
+    @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         handleObject(axiom);
         process(axiom.getProperties());
     }
 
 
+    @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         handleObject(axiom);
         axiom.getRange().accept(this);
@@ -419,6 +455,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         handleObject(axiom);
         axiom.getSubject().accept(this);
@@ -427,12 +464,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         handleObject(axiom);
         axiom.getSubProperty().accept(this);
@@ -440,6 +479,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         handleObject(axiom);
         axiom.getOWLClass().accept(this);
@@ -447,12 +487,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLDeclarationAxiom axiom) {
         handleObject(axiom);
         axiom.getEntity().accept(this);
     }
 
 
+    @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
         handleObject(axiom);
         axiom.getSubject().accept(this);
@@ -460,12 +502,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         handleObject(axiom);
         axiom.getRange().accept(this);
@@ -473,18 +517,21 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         handleObject(axiom);
         process(axiom.getProperties());
     }
 
 
+    @Override
     public void visit(OWLClassAssertionAxiom axiom) {
         handleObject(axiom);
         axiom.getClassExpression().accept(this);
@@ -492,12 +539,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         handleObject(axiom);
         process(axiom.getClassExpressions());
     }
 
 
+    @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         handleObject(axiom);
         axiom.getSubject().accept(this);
@@ -506,18 +555,21 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         handleObject(axiom);
         axiom.getSubProperty().accept(this);
@@ -525,18 +577,21 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
 
+    @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         handleObject(axiom);
         process(axiom.getIndividuals());
     }
 
 
+    @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         handleObject(axiom);
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
@@ -546,12 +601,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         handleObject(axiom);
         process(axiom.getProperties());
     }
 
 
+    @Override
     public void visit(SWRLRule node) {
         handleObject(node);
         process(node.getBody());
@@ -559,34 +616,40 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLDataComplementOf node) {
         handleObject(node);
         node.getDataRange().accept(this);
     }
 
 
+    @Override
     public void visit(OWLDataOneOf node) {
         handleObject(node);
         process(node.getValues());
     }
 
 
+    @Override
     public void visit(OWLDatatypeRestriction node) {
         handleObject(node);
         node.getDatatype().accept(this);
         process(node.getFacetRestrictions());
     }
 
+    @Override
     public void visit(OWLLiteral node) {
         handleObject(node);
         node.getDatatype().accept(this);
     }
 
+    @Override
     public void visit(OWLFacetRestriction node) {
         handleObject(node);
         node.getFacetValue().accept(this);
     }
 
+    @Override
     public void visit(OWLHasKeyAxiom axiom) {
         handleObject(axiom);
         axiom.getClassExpression().accept(this);
@@ -598,24 +661,28 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
         }
     }
 
+    @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
         axiom.getDomain().accept(this);
     }
 
+    @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         handleObject(axiom);
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
     }
 
+    @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         handleObject(axiom);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
     }
 
+    @Override
     public void visit(OWLDataIntersectionOf node) {
         handleObject(node);
         for (OWLDataRange rng : node.getOperands()) {
@@ -623,6 +690,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
         }
     }
 
+    @Override
     public void visit(OWLDataUnionOf node) {
         handleObject(node);
         for (OWLDataRange rng : node.getOperands()) {
@@ -630,28 +698,33 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
         }
     }
 
+    @Override
     public void visit(OWLNamedIndividual individual) {
         handleObject(individual);
         individual.getIRI().accept(this);
     }
 
+    @Override
     public void visit(OWLAnnotationProperty property) {
         handleObject(property);
         property.getIRI().accept(this);
     }
 
+    @Override
     public void visit(OWLAnonymousIndividual individual) {
         handleObject(individual);
     }
 
+    @Override
     public void visit(IRI iri) {
         handleObject(iri);
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void visit(OWLAnnotation node) {
     }
 
+    @Override
     public void visit(SWRLClassAtom node) {
         handleObject(node);
         node.getPredicate().accept(this);
@@ -659,6 +732,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(SWRLDataRangeAtom node) {
         handleObject(node);
         node.getPredicate().accept(this);
@@ -666,6 +740,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(SWRLObjectPropertyAtom node) {
         handleObject(node);
         node.getPredicate().accept(this);
@@ -674,6 +749,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(SWRLDataPropertyAtom node) {
         handleObject(node);
         node.getPredicate().accept(this);
@@ -682,6 +758,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(SWRLBuiltInAtom node) {
         handleObject(node);
         for (SWRLDArgument obj : node.getArguments()) {
@@ -690,23 +767,27 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(SWRLVariable node) {
         handleObject(node);
     }
 
 
+    @Override
     public void visit(SWRLIndividualArgument node) {
         handleObject(node);
         node.getIndividual().accept(this);
     }
 
 
+    @Override
     public void visit(SWRLLiteralArgument node) {
         handleObject(node);
         node.getLiteral().accept(this);
     }
 
 
+    @Override
     public void visit(SWRLSameIndividualAtom node) {
         handleObject(node);
         node.getFirstArgument().accept(this);
@@ -714,6 +795,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
         handleObject(node);
         node.getFirstArgument().accept(this);
@@ -721,6 +803,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
 
+    @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
         handleObject(axiom);
         axiom.getDatatype().accept(this);

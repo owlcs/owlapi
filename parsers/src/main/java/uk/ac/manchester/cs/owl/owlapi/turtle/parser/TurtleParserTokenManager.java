@@ -3,6 +3,7 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 import uk.ac.manchester.cs.JavaCharStream;
 
 /** Token Manager. */
+@SuppressWarnings("javadoc")
 public class TurtleParserTokenManager implements TurtleParserConstants
 {
 
@@ -1308,18 +1309,6 @@ public class TurtleParserTokenManager implements TurtleParserConstants
         }
         return 3;
     }
-    private final int jjStopStringLiteralDfa_1(int pos, long active0)
-    {
-        switch (pos)
-        {
-            default :
-                return -1;
-        }
-    }
-    private final int jjStartNfa_1(int pos, long active0)
-    {
-        return jjMoveNfa_1(jjStopStringLiteralDfa_1(pos, active0), pos + 1);
-    }
     private int jjMoveStringLiteralDfa0_1()
     {
         switch(curChar)
@@ -1365,7 +1354,6 @@ public class TurtleParserTokenManager implements TurtleParserConstants
             }
             else if (curChar < 128)
             {
-                long l = 1L << (curChar & 077);
                 do
                 {
                     switch(jjstateSet[--i])
@@ -1669,6 +1657,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants
                                 jjmatchedKind = 11;
                             }
                             break;
+                    default:
+                        break;
                     }
                     if (jjmatchedKind != 0x7fffffff)
                     {

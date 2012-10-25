@@ -54,5 +54,6 @@ public interface SWRLDataRangeAtom extends SWRLUnaryAtom<SWRLDArgument> {
      * Gets the predicate of this atom
      * @return The atom predicate
      */
+    @Override
     OWLDataRange getPredicate();
 }

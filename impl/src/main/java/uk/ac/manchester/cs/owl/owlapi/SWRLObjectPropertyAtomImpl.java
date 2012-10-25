@@ -75,6 +75,7 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
      * form inverseOf(P)(x, y) then P(y, x) is returned.
      * @return This atom in a simplified form
      */
+    @Override
     public SWRLObjectPropertyAtom getSimplified() {
         OWLObjectPropertyExpression prop = getPredicate().getSimplified();
         if (prop.equals(getPredicate())) {
@@ -90,20 +91,24 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
         }
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

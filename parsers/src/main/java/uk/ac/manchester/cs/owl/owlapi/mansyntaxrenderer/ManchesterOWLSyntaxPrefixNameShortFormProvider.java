@@ -107,6 +107,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
      * @return A string which represents a short rendering
      *         of the speicified entity.
      */
+    @Override
     public String getShortForm(OWLEntity entity) {
         String sf = prefixManager.getShortForm(entity);
         if(sf.startsWith(":")) {
@@ -130,6 +131,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
      * Disposes of the short form proivider.  This frees any
      * resources and clears any caches.
      */
+    @Override
     public void dispose() {
         prefixManager.dispose();
     }

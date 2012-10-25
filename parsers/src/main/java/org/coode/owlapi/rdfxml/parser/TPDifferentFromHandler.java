@@ -62,8 +62,8 @@ public class TPDifferentFromHandler extends TriplePredicateHandler {
     }
 
 
-    @Override@SuppressWarnings("unused")
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    @Override
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return true;
     }
 

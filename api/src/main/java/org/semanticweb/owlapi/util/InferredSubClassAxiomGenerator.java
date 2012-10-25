@@ -68,6 +68,7 @@ public class InferredSubClassAxiomGenerator extends InferredClassAxiomGenerator<
     }
 
 
+    @Override
     public String getLabel() {
         return "Subclasses";
     }

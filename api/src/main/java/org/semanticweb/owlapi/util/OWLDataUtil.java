@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -85,36 +84,32 @@ public class OWLDataUtil {
     /**
      * @param dataFactory factory to use
      * @return int datatype
-     * @throws OWLException if there are exceptions
      */
-    public static OWLDatatype getIntDatatype(OWLDataFactory dataFactory) throws OWLException {
+    public static OWLDatatype getIntDatatype(OWLDataFactory dataFactory) {
         return dataFactory.getOWLDatatype(INT_URI);
     }
 
     /**
      * @param dataFactory factory to use
      * @return long datatype
-     * @throws OWLException if there are exceptions
      */
-    public static OWLDatatype getLongDatatype(OWLDataFactory dataFactory) throws OWLException {
+    public static OWLDatatype getLongDatatype(OWLDataFactory dataFactory) {
         return dataFactory.getOWLDatatype(XSDVocabulary.LONG.getIRI());
     }
 
     /**
      * @param dataFactory factory to use
      * @return float datatype
-     * @throws OWLException if there are exceptions
      */
-    public static OWLDatatype getFloatDatatype(OWLDataFactory dataFactory) throws OWLException {
+    public static OWLDatatype getFloatDatatype(OWLDataFactory dataFactory) {
         return dataFactory.getOWLDatatype(XSDVocabulary.FLOAT.getIRI());
     }
 
     /**
      * @param dataFactory factory to use
      * @return double datatype
-     * @throws OWLException if there are exceptions
      */
-    public static OWLDatatype getDoubleDatatype(OWLDataFactory dataFactory) throws OWLException {
+    public static OWLDatatype getDoubleDatatype(OWLDataFactory dataFactory) {
         return dataFactory.getOWLDatatype(XSDVocabulary.DOUBLE.getIRI());
     }
 

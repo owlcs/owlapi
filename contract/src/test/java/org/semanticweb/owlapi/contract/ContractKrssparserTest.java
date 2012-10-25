@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractKrssparserTest {
-
     public void shouldTestKRSSOntologyFormat() throws Exception {
         KRSSOntologyFormat testSubject0 = new KRSSOntologyFormat();
         String result0 = testSubject0.toString();

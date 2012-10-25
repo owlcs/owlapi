@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.api.test;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
+import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
@@ -65,8 +66,8 @@ public abstract class AbstractRoundTrippingTestCase extends AbstractOWLAPITestCa
         return ont;
     }
 
-    @Override
-    public void setUp() throws Exception {
+    @Before
+    public void setUpOntology() throws Exception {
         ont = createOntology();
     }
 

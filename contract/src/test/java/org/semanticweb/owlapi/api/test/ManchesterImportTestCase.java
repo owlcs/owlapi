@@ -11,22 +11,9 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 
+@SuppressWarnings("javadoc")
+
 public class ManchesterImportTestCase {
-    // String mch1 = "Prefix: : <http://k1s.org/thesuperont>\n"
-    // + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-    // + "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
-    // + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
-    // + "Ontology: <http://k1s.org/thesuperont>\n" + "Class: Thesuperclass";
-    // String mch2 = "Prefix: : <http://k1s.org/thesubont>\n"
-    // + "Prefix: su: <http://k1s.org/thesuperont>\n"
-    // + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-    // + "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
-    // + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
-    // + "Ontology: <http://k1s.org/thesubont>\n"
-    // + "Import: <http://t.k1s.org/thesuperont.owl>\n"
-    // // XXX this fixes the case
-    // //+"Class: su:Thesuperclass\n"
-    // + "Class: Thesubclass\n" + "	SubClassOf: su:Thesuperclass";
     final String str = "http://owlapitestontologies.com/thesuperont";
     final String superpath = "/imports/thesuperont.omn";
     final String subpath = "/imports/thesubont.omn";

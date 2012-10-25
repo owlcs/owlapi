@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -66,10 +67,12 @@ import org.xml.sax.SAXException;
 public class RDFXMLParser extends AbstractOWLParser {
 
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }
 
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
         InputSource is = null;
         try {
@@ -89,21 +92,25 @@ public class RDFXMLParser extends AbstractOWLParser {
                 }
             };
             IRIProvider prov = new IRIProvider() {
+                @Override
                 public IRI getIRI(String s) {
                     return parser.getIRI(s);
                 }
             };
             OWLRDFConsumer consumer = new OWLRDFConsumer(ontology, new AnonymousNodeChecker() {
+                        @Override
                         public boolean isAnonymousNode(IRI iri) {
-                            return parser.isAnonymousNodeIRI(iri.toString());
+                            return NodeID.isAnonymousNodeIRI(iri.toString());
                 }
 
+                @Override
                 public boolean isAnonymousSharedNode(String iri) {
-                    return parser.isAnonymousNodeID(iri);
+                            return NodeID.isAnonymousNodeID(iri);
                 }
 
+                        @Override
                         public boolean isAnonymousNode(String iri) {
-                            return parser.isAnonymousNodeIRI(iri);
+                            return NodeID.isAnonymousNodeIRI(iri);
                 }
             }, configuration);
             consumer.setIRIProvider(prov);

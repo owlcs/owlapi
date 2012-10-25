@@ -59,6 +59,7 @@ public class UseOfNonSimplePropertyInCardinalityRestriction extends OWLProfileVi
         this.restriction = restriction;
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

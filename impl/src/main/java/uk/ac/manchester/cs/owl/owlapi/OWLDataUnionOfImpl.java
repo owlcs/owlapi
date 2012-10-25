@@ -65,6 +65,7 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
         super(operands);
     }
 
+    @Override
     public DataRangeType getDataRangeType() {
         return DataRangeType.DATA_UNION_OF;
     }
@@ -87,26 +88,32 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
         return getOperands().equals(other.getOperands());
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLDataRangeVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }

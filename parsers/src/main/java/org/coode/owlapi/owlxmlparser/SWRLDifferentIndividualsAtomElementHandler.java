@@ -80,6 +80,7 @@ public class SWRLDifferentIndividualsAtomElementHandler extends SWRLAtomElementH
         }
     }
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
         setAtom(getOWLDataFactory().getSWRLDifferentIndividualsAtom(arg0, arg1));
         getParentHandler().handleChild(this);

@@ -63,10 +63,12 @@ public class UseOfNonSuperClassExpression extends OWLProfileViolation implements
         return classExpression;
     }
 
+    @Override
     public void accept(OWL2QLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWL2RLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

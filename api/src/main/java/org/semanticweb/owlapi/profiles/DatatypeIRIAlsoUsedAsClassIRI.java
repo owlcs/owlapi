@@ -61,6 +61,7 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation implement
         this.iri = iri;
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

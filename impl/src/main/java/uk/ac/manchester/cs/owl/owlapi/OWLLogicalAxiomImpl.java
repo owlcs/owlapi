@@ -61,10 +61,12 @@ public abstract class OWLLogicalAxiomImpl extends OWLAxiomImpl implements OWLLog
     }
 
 
+    @Override
     public boolean isLogicalAxiom() {
         return true;
     }
 
+    @Override
     public boolean isAnnotationAxiom() {
         return false;
     }

@@ -77,10 +77,11 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
      */
     //XXX not in the interface
     public void setPrefix(String prefixName, String prefix) {
-        if(!prefixName.endsWith(":")) {
-            prefixName = prefixName + ":";
+        String _prefixName = prefixName;
+        if (!_prefixName.endsWith(":")) {
+            _prefixName = _prefixName + ":";
         }
-        nsm.setPrefix(prefixName, prefix);
+        nsm.setPrefix(_prefixName, prefix);
     }
 
     /**
@@ -119,6 +120,7 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
      * Gets the prefix names that have a mapping in this prefix manager
      * @return A set of string representing the prefix names
      */
+    @Override
     public Set<String> getPrefixNames() {
         return nsm.getPrefixNames();
     }
@@ -134,30 +136,36 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
     }
 
 
+    @Override
     public boolean containsPrefixMapping(String prefix) {
         return nsm.containsPrefixMapping(prefix);
     }
 
 
+    @Override
     public String getDefaultPrefix() {
         return nsm.getDefaultPrefix();
     }
 
 
+    @Override
     public Map<String, String> getPrefixName2PrefixMap() {
         return nsm.getPrefixName2PrefixMap();
     }
 
 
+    @Override
     public String getPrefix(String prefixName) {
         return nsm.getPrefix(prefixName);
     }
 
 
+    @Override
     public IRI getIRI(String iri) {
         return nsm.getIRI(iri);
     }
 
+    @Override
     public String getPrefixIRI(IRI iri) {
         return nsm.getPrefixIRI(iri);
     }

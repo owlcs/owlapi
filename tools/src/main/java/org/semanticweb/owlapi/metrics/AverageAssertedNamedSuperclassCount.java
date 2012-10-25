@@ -67,6 +67,7 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
     }
 
 
+    @Override
     public String getName() {
         return "Average number of named superclasses";
     }

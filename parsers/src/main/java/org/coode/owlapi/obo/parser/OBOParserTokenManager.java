@@ -4,6 +4,7 @@ package org.coode.owlapi.obo.parser;
 import uk.ac.manchester.cs.JavaCharStream;
 
 /** Token Manager. */
+@SuppressWarnings("javadoc")
 public class OBOParserTokenManager implements OBOParserConstants
 {
 
@@ -106,7 +107,6 @@ public class OBOParserTokenManager implements OBOParserConstants
             }
             else if (curChar < 128)
             {
-                long l = 1L << (curChar & 077);
                 do
                 {
                     switch(jjstateSet[--i])
@@ -173,18 +173,6 @@ public class OBOParserTokenManager implements OBOParserConstants
             try { curChar = input_stream.readChar(); }
             catch(java.io.IOException e) { return curPos; }
         }
-    }
-    private final int jjStopStringLiteralDfa_3(int pos, long active0)
-    {
-        switch (pos)
-        {
-            default :
-                return -1;
-        }
-    }
-    private final int jjStartNfa_3(int pos, long active0)
-    {
-        return jjMoveNfa_3(jjStopStringLiteralDfa_3(pos, active0), pos + 1);
     }
     private int jjStopAtPos(int pos, int kind)
     {
@@ -273,7 +261,6 @@ public class OBOParserTokenManager implements OBOParserConstants
             }
             else if (curChar < 128)
             {
-                long l = 1L << (curChar & 077);
                 do
                 {
                     switch(jjstateSet[--i])
@@ -325,18 +312,6 @@ public class OBOParserTokenManager implements OBOParserConstants
             try { curChar = input_stream.readChar(); }
             catch(java.io.IOException e) { return curPos; }
         }
-    }
-    private final int jjStopStringLiteralDfa_0(int pos, long active0)
-    {
-        switch (pos)
-        {
-            default :
-                return -1;
-        }
-    }
-    private final int jjStartNfa_0(int pos, long active0)
-    {
-        return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0), pos + 1);
     }
     private int jjMoveStringLiteralDfa0_0()
     {
@@ -492,18 +467,6 @@ public class OBOParserTokenManager implements OBOParserConstants
             catch(java.io.IOException e) { return curPos; }
         }
     }
-    private final int jjStopStringLiteralDfa_1(int pos, long active0)
-    {
-        switch (pos)
-        {
-            default :
-                return -1;
-        }
-    }
-    private final int jjStartNfa_1(int pos, long active0)
-    {
-        return jjMoveNfa_1(jjStopStringLiteralDfa_1(pos, active0), pos + 1);
-    }
     private int jjMoveStringLiteralDfa0_1()
     {
         switch(curChar)
@@ -528,7 +491,6 @@ public class OBOParserTokenManager implements OBOParserConstants
             }
             if (curChar < 64)
             {
-                long l = 1L << curChar;
                 do
                 {
                     switch(jjstateSet[--i])
@@ -676,7 +638,6 @@ public class OBOParserTokenManager implements OBOParserConstants
             }
             else if (curChar < 128)
             {
-                long l = 1L << (curChar & 077);
                 do
                 {
                     switch(jjstateSet[--i])
@@ -762,7 +723,6 @@ public class OBOParserTokenManager implements OBOParserConstants
             }
             if (curChar < 64)
             {
-                long l = 1L << curChar;
                 do
                 {
                     switch(jjstateSet[--i])
@@ -787,7 +747,6 @@ public class OBOParserTokenManager implements OBOParserConstants
             }
             else if (curChar < 128)
             {
-                long l = 1L << (curChar & 077);
                 do
                 {
                     switch(jjstateSet[--i])
@@ -798,11 +757,6 @@ public class OBOParserTokenManager implements OBOParserConstants
             }
             else
             {
-                int hiByte = curChar >> 8;
-                int i1 = hiByte >> 6;
-            long l1 = 1L << (hiByte & 077);
-            int i2 = (curChar & 0xff) >> 6;
-            long l2 = 1L << (curChar & 077);
             do
             {
                 switch(jjstateSet[--i])
@@ -1012,6 +966,8 @@ public class OBOParserTokenManager implements OBOParserConstants
                         jjmatchedPos = 0;
                         curPos = jjMoveStringLiteralDfa0_5();
                         break;
+                default:
+                    break;
                 }
                 if (jjmatchedKind != 0x7fffffff)
                 {

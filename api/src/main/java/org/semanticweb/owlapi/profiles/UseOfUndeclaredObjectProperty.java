@@ -64,6 +64,7 @@ public class UseOfUndeclaredObjectProperty extends OWLProfileViolation implement
         return property;
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

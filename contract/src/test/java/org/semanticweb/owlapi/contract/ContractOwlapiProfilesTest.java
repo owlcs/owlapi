@@ -266,11 +266,11 @@ public class ContractOwlapiProfilesTest {
     public void shouldTestInterfaceOWL2DLProfileViolationVisitor() throws Exception {
         OWL2DLProfileViolationVisitor testSubject0 = mock(OWL2DLProfileViolationVisitor.class);
         testSubject0
-        .visit(mock(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom.class));
+                .visit(mock(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom.class));
         testSubject0
-        .visit(mock(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom.class));
+                .visit(mock(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom.class));
         testSubject0
-        .visit(mock(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom.class));
+                .visit(mock(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom.class));
     }
 
     @Test

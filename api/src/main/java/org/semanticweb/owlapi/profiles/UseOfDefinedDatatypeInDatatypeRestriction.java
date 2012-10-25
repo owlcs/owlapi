@@ -59,6 +59,7 @@ public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolati
         this.restriction = restriction;
     }
 
+    @Override
     public void accept(OWL2ProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

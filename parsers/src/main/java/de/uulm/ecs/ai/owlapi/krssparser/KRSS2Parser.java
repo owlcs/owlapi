@@ -136,6 +136,8 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                     }
                     break;
                 }
+                default:
+                    break;
             }
             string2IRI.put(s, iri);
         }
@@ -3100,10 +3102,10 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     static private final class LookaheadSuccess extends java.lang.Error {
-        /**
-         * 
-         */
+
         private static final long serialVersionUID = 30402L;
+
+        public LookaheadSuccess() {}
     }
 
     final private LookaheadSuccess jj_ls = new LookaheadSuccess();
@@ -3494,6 +3496,8 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                                 break;
                             case 76:
                                 jj_3_77();
+                                break;
+                            default:
                                 break;
                         }
                     }

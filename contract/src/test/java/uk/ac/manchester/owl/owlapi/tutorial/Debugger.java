@@ -82,7 +82,7 @@ public class Debugger {
 
     @SuppressWarnings("javadoc")
     public Debugger(OWLOntologyManager manager, OWLOntology ontology,
-            OWLReasonerFactory reasonerFactory) throws OWLException {
+            OWLReasonerFactory reasonerFactory) {
         this.ontology = ontology;
         checker = reasonerFactory.createNonBufferingReasoner(ontology);
         /* Create a new debugger */

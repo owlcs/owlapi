@@ -62,7 +62,7 @@ public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
 	private static final long serialVersionUID = 30402L;
 
 
-    @Override  @SuppressWarnings("unused")
+    @Override
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {
         try {
@@ -76,6 +76,7 @@ public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
 
+    @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new LatexOntologyFormat());
     }

@@ -18,27 +18,32 @@ public class EmptyOneOfAxiom extends OWLProfileViolation implements
 		return sb.toString();
 	}
 
-	public void accept(OWL2RLProfileViolationVisitor visitor) {
+    @Override
+    public void accept(OWL2RLProfileViolationVisitor visitor) {
 		visitor.visit(this);
 
 	}
 
-	public void accept(OWL2QLProfileViolationVisitor visitor) {
+    @Override
+    public void accept(OWL2QLProfileViolationVisitor visitor) {
 		visitor.visit(this);
 
 	}
 
-	public void accept(OWL2ProfileViolationVisitor visitor) {
+    @Override
+    public void accept(OWL2ProfileViolationVisitor visitor) {
 		visitor.visit(this);
 
 	}
 
-	public void accept(OWL2ELProfileViolationVisitor visitor) {
+    @Override
+    public void accept(OWL2ELProfileViolationVisitor visitor) {
 		visitor.visit(this);
 
 	}
 
-	public void accept(OWL2DLProfileViolationVisitor visitor) {
+    @Override
+    public void accept(OWL2DLProfileViolationVisitor visitor) {
 		visitor.visit(this);
 
 	}

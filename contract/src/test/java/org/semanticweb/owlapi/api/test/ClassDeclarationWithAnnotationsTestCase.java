@@ -62,7 +62,6 @@ public class ClassDeclarationWithAnnotationsTestCase extends AbstractAnnotatedAx
         return getFactory().getOWLDeclarationAxiom(ent, annos);
     }
 
-    @SuppressWarnings("unused")
     @Override
     protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
         return false;

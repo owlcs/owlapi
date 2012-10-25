@@ -39,7 +39,6 @@
 package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
 import java.io.PrintStream;
-import java.net.MalformedURLException;
 import java.util.Set;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -70,8 +69,7 @@ public class SimpleHierarchyExample {
     private PrintStream out;
 
     private SimpleHierarchyExample(OWLReasonerFactory reasonerFactory,
-            OWLOntology _ontology) throws OWLException,
-            MalformedURLException {
+            OWLOntology _ontology) {
         this.reasonerFactory = reasonerFactory;
         ontology = _ontology;
         out = System.out;
@@ -133,7 +131,7 @@ public class SimpleHierarchyExample {
     }
 
     @SuppressWarnings("javadoc")
-    public static void main(String[] args) throws MalformedURLException, OWLException,
+    public static void main(String[] args) throws OWLException,
             InstantiationException, IllegalAccessException, ClassNotFoundException {
         String reasonerFactoryClassName = null;
         // We first need to obtain a copy of an

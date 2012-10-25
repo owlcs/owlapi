@@ -161,10 +161,12 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public boolean add(T e) {
             return backingMap.put(e, this) == null;
         }
 
+        @Override
         public boolean addAll(Collection<? extends T> c) {
             boolean toReturn = false;
             for (T o : c) {
@@ -173,14 +175,17 @@ public class CollectionFactory {
             return toReturn;
         }
 
+        @Override
         public void clear() {
             backingMap.clear();
         }
 
+        @Override
         public boolean contains(Object o) {
             return backingMap.containsKey(o);
         }
 
+        @Override
         public boolean containsAll(Collection<?> c) {
             boolean toReturn = true;
             for (Object o : c) {
@@ -192,22 +197,27 @@ public class CollectionFactory {
             return toReturn;
         }
 
+        @Override
         public boolean isEmpty() {
             return backingMap.isEmpty();
         }
 
+        @Override
         public Iterator<T> iterator() {
             return backingMap.keySet().iterator();
         }
 
+        @Override
         public int size() {
             return backingMap.size();
         }
 
+        @Override
         public boolean remove(Object o) {
             return backingMap.remove(o) != null;
         }
 
+        @Override
         public boolean removeAll(Collection<?> c) {
             boolean toReturn = false;
             for (Object o : c) {
@@ -216,6 +226,7 @@ public class CollectionFactory {
             return toReturn;
         }
 
+        @Override
         public boolean retainAll(Collection<?> c) {
             boolean toReturn = false;
             for (Map.Entry<T, Set<T>> e : backingMap.entrySet()) {
@@ -227,10 +238,12 @@ public class CollectionFactory {
             return toReturn;
         }
 
+        @Override
         public Object[] toArray() {
             return backingMap.keySet().toArray();
         }
 
+        @Override
         public <Type> Type[] toArray(Type[] a) {
             return backingMap.keySet().toArray(a);
         }
@@ -326,7 +339,7 @@ public class CollectionFactory {
      */
     public static class ConditionalCopySet<T> implements Set<T> {
         private boolean copyDone = false;
-        private Collection<T> delegate;
+        protected Collection<T> delegate;
         private final static int maxContains = 10;
         private int containsCounter = 0;
 
@@ -370,6 +383,7 @@ public class CollectionFactory {
             return delegate.toString();
         }
 
+        @Override
         public boolean add(T arg0) {
             if (!copyDone) {
                 copyDone = true;
@@ -378,6 +392,7 @@ public class CollectionFactory {
             return delegate.add(arg0);
         }
 
+        @Override
         public boolean addAll(Collection<? extends T> arg0) {
             if (!copyDone) {
                 copyDone = true;
@@ -386,6 +401,7 @@ public class CollectionFactory {
             return delegate.addAll(arg0);
         }
 
+        @Override
         public void clear() {
             if (!copyDone) {
                 copyDone = true;
@@ -394,6 +410,7 @@ public class CollectionFactory {
             delegate.clear();
         }
 
+        @Override
         public boolean contains(Object arg0) {
             containsCounter++;
             if (containsCounter >= maxContains && !copyDone) {
@@ -406,6 +423,7 @@ public class CollectionFactory {
             return delegate.contains(arg0);
         }
 
+        @Override
         public boolean containsAll(Collection<?> arg0) {
             containsCounter++;
             if (containsCounter >= maxContains && !copyDone) {
@@ -418,14 +436,17 @@ public class CollectionFactory {
             return delegate.containsAll(arg0);
         }
 
+        @Override
         public boolean isEmpty() {
             return delegate.isEmpty();
         }
 
+        @Override
         public Iterator<T> iterator() {
             return delegate.iterator();
         }
 
+        @Override
         public boolean remove(Object arg0) {
             if (!copyDone) {
                 copyDone = true;
@@ -434,6 +455,7 @@ public class CollectionFactory {
             return delegate.remove(arg0);
         }
 
+        @Override
         public boolean removeAll(Collection<?> arg0) {
             if (!copyDone) {
                 copyDone = true;
@@ -442,6 +464,7 @@ public class CollectionFactory {
             return delegate.removeAll(arg0);
         }
 
+        @Override
         public boolean retainAll(Collection<?> arg0) {
             if (!copyDone) {
                 copyDone = true;
@@ -450,14 +473,17 @@ public class CollectionFactory {
             return delegate.retainAll(arg0);
         }
 
+        @Override
         public int size() {
             return delegate.size();
         }
 
+        @Override
         public Object[] toArray() {
             return delegate.toArray();
         }
 
+        @Override
         public <Type> Type[] toArray(Type[] arg0) {
             return delegate.toArray(arg0);
         }
@@ -522,6 +548,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public boolean add(T arg0) {
             try {
                 writeLock.lock();
@@ -536,6 +563,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public boolean addAll(Collection<? extends T> arg0) {
             try {
                 writeLock.lock();
@@ -550,6 +578,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public void clear() {
             try {
                 writeLock.lock();
@@ -564,6 +593,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public boolean contains(Object arg0) {
             /*
              * note: the check on the number of contains and on the copyDone
@@ -603,6 +633,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public boolean containsAll(Collection<?> arg0) {
             if (!copyDone) {
                 if (containsCounter.incrementAndGet() >= maxContains && !copyDone) {
@@ -633,6 +664,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public boolean isEmpty() {
             try {
                 readLock.lock();
@@ -643,6 +675,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public Iterator<T> iterator() {
             try {
                 readLock.lock();
@@ -653,6 +686,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public boolean remove(Object arg0) {
             try {
                 writeLock.lock();
@@ -667,6 +701,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public boolean removeAll(Collection<?> arg0) {
             try {
                 writeLock.lock();
@@ -681,6 +716,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public boolean retainAll(Collection<?> arg0) {
             try {
                 writeLock.lock();
@@ -695,6 +731,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public int size() {
             try {
                 readLock.lock();
@@ -705,6 +742,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public Object[] toArray() {
             try {
                 readLock.lock();
@@ -715,6 +753,7 @@ public class CollectionFactory {
             }
         }
 
+        @Override
         public <Type> Type[] toArray(Type[] arg0) {
             try {
                 readLock.lock();

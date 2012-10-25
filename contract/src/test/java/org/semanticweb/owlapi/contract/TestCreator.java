@@ -39,6 +39,7 @@ public class TestCreator {
         return out;
     }
 
+    @SuppressWarnings("resource")
     private static void visit(final File root, final File current,
             final Map<String, PrintStream> outMap) throws ClassNotFoundException,
             FileNotFoundException {

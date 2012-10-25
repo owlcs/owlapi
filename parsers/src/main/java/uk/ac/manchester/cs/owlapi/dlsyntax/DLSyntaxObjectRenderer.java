@@ -75,9 +75,9 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     private OWLObject focusedObject;
 
     public DLSyntaxObjectRenderer() {
-        this.shortFormProvider = new SimpleShortFormProvider();
-        this.iriShortFormProvider = new SimpleIRIShortFormProvider();
-        this.buffer = new StringBuilder();
+        shortFormProvider = new SimpleShortFormProvider();
+        iriShortFormProvider = new SimpleIRIShortFormProvider();
+        buffer = new StringBuilder();
     }
 
 
@@ -93,10 +93,12 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
     }
 
+    @Override
     public String render(OWLObject object) {
         buffer = new StringBuilder();
         object.accept(this);
@@ -104,6 +106,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLOntology ontology) {
         for (OWLAxiom ax : new TreeSet<OWLAxiom>(ontology.getLogicalAxioms())) {
             ax.accept(this);
@@ -197,6 +200,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 //    }
 
 
+    @Override
     public void visit(OWLSubClassOfAxiom axiom) {
         axiom.getSubClass().accept(this);
         writeSpace();
@@ -217,17 +221,19 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         write(")");
     }
 
+    @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         write(NOT);
         writePropertyAssertion(axiom);
 
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
     }
 
 
+    @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         write(TOP);
         writeSpace();
@@ -241,6 +247,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         List<OWLClassExpression> descs = new ArrayList<OWLClassExpression>(axiom.getClassExpressions());
         for (int i = 0; i < descs.size(); i++) {
@@ -276,42 +283,45 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         writeDomainAxiom(axiom);
     }
 
-    @SuppressWarnings("unused")
-    public void visit(OWLImportsDeclaration axiom) {
-
-    }
 
 
+    @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         writeDomainAxiom(axiom);
     }
 
 
+    @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         write(axiom.getProperties(), EQUIVALENT_TO, false);
     }
 
 
+    @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         write(NOT);
         writePropertyAssertion(axiom);
     }
 
 
+    @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         write(axiom.getIndividuals(), NOT_EQUAL, false);
     }
 
 
+    @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         write(axiom.getProperties(), DISJOINT_WITH, false);
     }
 
 
+    @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         write(axiom.getProperties(), DISJOINT_WITH, false);
     }
@@ -328,11 +338,13 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(axiom.getRange());
     }
 
+    @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         writeRangeAxiom(axiom);
     }
 
 
+    @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         writePropertyAssertion(axiom);
     }
@@ -349,11 +361,13 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         property.accept(this);
     }
 
+    @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         writeFunctionalProperty(axiom.getProperty());
     }
 
 
+    @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         writeSpace();
@@ -363,21 +377,23 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept(this);
         write(EQUAL);
         write(axiom.getClassExpressions(), OR, false);
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void visit(OWLDeclarationAxiom axiom) {
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
     }
 
 
+    @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         writeSpace();
@@ -393,21 +409,25 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         writeRangeAxiom(axiom);
     }
 
 
+    @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         writeFunctionalProperty(axiom.getProperty());
     }
 
 
+    @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         write(axiom.getProperties(), EQUIVALENT_TO, false);
     }
 
 
+    @Override
     public void visit(OWLClassAssertionAxiom axiom) {
         if(axiom.getClassExpression().isAnonymous()) {
             write("(");
@@ -422,16 +442,19 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         write(axiom.getClassExpressions(), EQUIVALENT_TO, false);
     }
 
 
+    @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         writePropertyAssertion(axiom);
     }
 
 
+    @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         writeSpace();
@@ -442,6 +465,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         write(TOP);
         writeSpace();
@@ -456,6 +480,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         write(SUBCLASS);
@@ -463,6 +488,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         write(TOP);
         writeSpace();
@@ -477,11 +503,13 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         write(axiom.getIndividuals(), EQUAL, false);
     }
 
 
+    @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         write(axiom.getPropertyChain(), COMP, false);
         writeSpace();
@@ -491,6 +519,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         OWLObject o1 = axiom.getFirstProperty();
         OWLObject o2 = axiom.getSecondProperty();
@@ -513,6 +542,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(SWRLRule rule) {
         write(rule.getHead(), WEDGE, false);
         writeSpace();
@@ -523,6 +553,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLClass desc) {
         if (desc.isOWLThing()) {
             write(TOP);
@@ -534,16 +565,19 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLObjectIntersectionOf desc) {
         write(desc.getOperands(), AND, true);
     }
 
 
+    @Override
     public void visit(OWLObjectUnionOf desc) {
         write(desc.getOperands(), OR, true);
     }
 
 
+    @Override
     public void visit(OWLObjectComplementOf desc) {
         write(NOT);
         writeNested(desc.getOperand());
@@ -589,12 +623,14 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(restriction.getFiller());
     }
 
+    @Override
     public void visit(OWLObjectSomeValuesFrom desc) {
         writeQuantifiedRestriction(desc, EXISTS);
 
     }
 
 
+    @Override
     public void visit(OWLObjectAllValuesFrom desc) {
         writeQuantifiedRestriction(desc, FORALL);
     }
@@ -610,26 +646,31 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         write("}");
     }
 
+    @Override
     public void visit(OWLObjectHasValue desc) {
         writeValueRestriction(desc);
     }
 
 
+    @Override
     public void visit(OWLObjectMinCardinality desc) {
         writeCardinalityRestriction(desc, MIN);
     }
 
 
+    @Override
     public void visit(OWLObjectExactCardinality desc) {
         writeCardinalityRestriction(desc, EQUAL);
     }
 
 
+    @Override
     public void visit(OWLObjectMaxCardinality desc) {
         writeCardinalityRestriction(desc, MAX);
     }
 
 
+    @Override
     public void visit(OWLObjectHasSelf desc) {
         write(EXISTS);
         writeSpace();
@@ -639,6 +680,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLObjectOneOf desc) {
         for (Iterator<OWLIndividual> it = desc.getIndividuals().iterator(); it.hasNext();) {
             write("{");
@@ -654,41 +696,49 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLDataSomeValuesFrom desc) {
         writeQuantifiedRestriction(desc, EXISTS);
     }
 
 
+    @Override
     public void visit(OWLDataAllValuesFrom desc) {
         writeQuantifiedRestriction(desc, FORALL);
     }
 
 
+    @Override
     public void visit(OWLDataHasValue desc) {
         writeValueRestriction(desc);
     }
 
 
+    @Override
     public void visit(OWLDataMinCardinality desc) {
         writeCardinalityRestriction(desc, MIN);
     }
 
 
+    @Override
     public void visit(OWLDataExactCardinality desc) {
         writeCardinalityRestriction(desc, EQUAL);
     }
 
 
+    @Override
     public void visit(OWLDataMaxCardinality desc) {
         writeCardinalityRestriction(desc, MAX);
     }
 
 
+    @Override
     public void visit(OWLDatatype node) {
         write(shortFormProvider.getShortForm(node));
     }
 
 
+    @Override
     public void visit(OWLDataComplementOf node) {
         write(NOT);
         node.getDataRange().accept(this);
@@ -696,6 +746,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(OWLDataOneOf node) {
         for (Iterator<OWLLiteral> it = node.getValues().iterator(); it.hasNext();) {
             write("{");
@@ -707,75 +758,90 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         }
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void visit(OWLDatatypeRestriction node) {
 
     }
 
+    @Override
     public void visit(OWLLiteral node) {
         write(node.getLiteral());
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void visit(OWLFacetRestriction node) {
     }
 
 
+    @Override
     public void visit(OWLObjectProperty property) {
         writeEntity(property);
     }
 
 
+    @Override
     public void visit(OWLObjectInverseOf property) {
         property.getInverse().accept(this);
         write(INVERSE);
     }
 
 
+    @Override
     public void visit(OWLDataProperty property) {
         writeEntity(property);
     }
 
 
+    @Override
     public void visit(OWLNamedIndividual individual) {
         writeEntity(individual);
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void visit(OWLHasKeyAxiom axiom) {
     }
-    @SuppressWarnings("unused")
+
+    @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
     }
-    @SuppressWarnings("unused")
+
+    @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
     }
-    @SuppressWarnings("unused")
+
+    @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
     }
-    @SuppressWarnings("unused")
+
+    @Override
     public void visit(OWLDataIntersectionOf node) {
     }
-    @SuppressWarnings("unused")
+
+    @Override
     public void visit(OWLDataUnionOf node) {
     }
-    @SuppressWarnings("unused")
+
+    @Override
     public void visit(OWLAnnotationProperty property) {
     }
-    @SuppressWarnings("unused")
+
+    @Override
     public void visit(OWLAnonymousIndividual individual) {
     }
-    @SuppressWarnings("unused")
+
+    @Override
     public void visit(IRI iri) {
     }
-    @SuppressWarnings("unused")
+
+    @Override
     public void visit(OWLAnnotation node) {
     }
 
+    @Override
     public void visit(SWRLClassAtom node) {
         node.getPredicate().accept(this);
         write("(");
@@ -784,6 +850,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(SWRLDataRangeAtom node) {
         node.getPredicate().accept(this);
         write("(");
@@ -792,6 +859,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(SWRLObjectPropertyAtom node) {
         node.getPredicate().accept(this);
         write("(");
@@ -802,6 +870,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(SWRLDataPropertyAtom node) {
         node.getPredicate().accept(this);
         write("(");
@@ -812,6 +881,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(SWRLBuiltInAtom node) {
         write(node.getPredicate().toString());
         write("(");
@@ -820,21 +890,25 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(SWRLVariable node) {
         write("?");
         write(iriShortFormProvider.getShortForm(node.getIRI()));
     }
 
+    @Override
     public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
     }
 
 
+    @Override
     public void visit(SWRLLiteralArgument node) {
         node.getLiteral().accept(this);
     }
 
 
+    @Override
     public void visit(SWRLSameIndividualAtom node) {
         write("sameAs(");
         node.getFirstArgument().accept(this);
@@ -845,6 +919,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
 
+    @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
         write("differentFrom(");
         node.getFirstArgument().accept(this);

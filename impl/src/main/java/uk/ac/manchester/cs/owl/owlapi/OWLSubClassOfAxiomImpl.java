@@ -94,10 +94,12 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
         return classExpressions;
     }
 
+    @Override
     public OWLSubClassOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass, mergeAnnos(annotations));
     }
 
+    @Override
     public OWLSubClassOfAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -110,16 +112,19 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
         return subClass.equals(ce) || superClass.equals(ce);
     }
 
+    @Override
     public OWLClassExpression getSubClass() {
         return subClass;
     }
 
 
+    @Override
     public OWLClassExpression getSuperClass() {
         return superClass;
     }
 
 
+    @Override
     public boolean isGCI() {
         return subClass.isAnonymous();
     }
@@ -139,23 +144,28 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     	return false;
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.SUBCLASS_OF;
     }

@@ -120,44 +120,54 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         entities.add(entity);
     }
 
+    @Override
     public boolean isTopNode() {
         return entities.contains(getTopEntity());
     }
 
+    @Override
     public boolean isBottomNode() {
         return entities.contains(getBottomEntity());
     }
 
+    @Override
     public Set<E> getEntities() {
         return entities;
     }
 
+    @Override
     public int getSize() {
         return entities.size();
     }
 
+    @Override
     public boolean contains(E entity) {
         return entities.contains(entity);
     }
 
+    @Override
     public Set<E> getEntitiesMinus(E E) {
         HashSet<E> result = new HashSet<E>(entities);
         result.remove(E);
         return result;
     }
 
+    @Override
     public Set<E> getEntitiesMinusTop() {
         return getEntitiesMinus(getTopEntity());
     }
 
+    @Override
     public Set<E> getEntitiesMinusBottom() {
         return getEntitiesMinus(getBottomEntity());
     }
 
+    @Override
     public boolean isSingleton() {
         return entities.size() == 1;
     }
 
+    @Override
     public E getRepresentativeElement() {
         if (!entities.isEmpty()) {
             return entities.iterator().next();
@@ -167,6 +177,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         }
     }
 
+    @Override
     public Iterator<E> iterator() {
         return entities.iterator();
     }

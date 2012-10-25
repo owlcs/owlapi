@@ -44,7 +44,6 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -86,7 +85,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      */
     public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
                                        OWLReasoner reasoner, ExplanationProgressMonitor progressMonitor) {
-        this.dataFactory = man.getOWLDataFactory();
+        dataFactory = man.getOWLDataFactory();
         BlackBoxExplanation singleGen = new BlackBoxExplanation(ontology, reasonerFactory, reasoner);
         gen = new HSTExplanationGenerator(singleGen);
         if (progressMonitor != null) {
@@ -95,6 +94,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
     }
 
 
+    @Override
     public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
         return gen.getExplanation(unsatClass);
     }
@@ -110,6 +110,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
     }
 
 
+    @Override
     public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass) {
         return gen.getExplanations(unsatClass);
     }
@@ -124,6 +125,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
     }
 
 
+    @Override
     public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass, int maxExplanations) {
         return gen.getExplanations(unsatClass, maxExplanations);
     }
@@ -132,9 +134,8 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      * @param maxExplanations max number of explanations
      * @param axiom the axiom to explain
      * @return the set of explanations
-     * @throws OWLException if there are exceptions
      */
-    public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom, int maxExplanations) throws OWLException {
+    public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom, int maxExplanations) {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
         return getExplanations(converter.convert(axiom), maxExplanations);
     }

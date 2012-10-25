@@ -68,6 +68,7 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
     }
 
 
+    @Override
     public OWLClassExpression getDomain() {
         return domain;
     }

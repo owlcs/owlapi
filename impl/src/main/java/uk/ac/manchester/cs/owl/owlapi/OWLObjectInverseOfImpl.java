@@ -73,6 +73,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
     }
 
 
+    @Override
     public OWLObjectPropertyExpression getInverse() {
         return inverseProperty;
     }
@@ -96,29 +97,35 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
     }
 
 
+    @Override
     public void accept(OWLPropertyExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public boolean isAnonymous() {
         return true;
     }
 
 
+    @Override
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException("Property is not a named property.  Check using the isAnonymous method before calling this method!");
     }
@@ -133,6 +140,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
      * Determines if this is the owl:topObjectProperty
      * @return <code>true</code> if this property is the owl:topObjectProperty otherwise <code>false</code>
      */
+    @Override
     public boolean isOWLTopObjectProperty() {
         return false;
     }
@@ -141,6 +149,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
      * Determines if this is the owl:bottomObjectProperty
      * @return <code>true</code> if this property is the owl:bottomObjectProperty otherwise <code>false</code>
      */
+    @Override
     public boolean isOWLBottomObjectProperty() {
         return false;
     }
@@ -149,6 +158,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
      * Determines if this is the owl:topDataProperty
      * @return <code>true</code> if this property is the owl:topDataProperty otherwise <code>false</code>
      */
+    @Override
     public boolean isOWLTopDataProperty() {
         return false;
     }
@@ -157,6 +167,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
      * Determines if this is the owl:bottomDataProperty
      * @return <code>true</code> if this property is the owl:bottomDataProperty otherwise <code>false</code>
      */
+    @Override
     public boolean isOWLBottomDataProperty() {
         return false;
     }

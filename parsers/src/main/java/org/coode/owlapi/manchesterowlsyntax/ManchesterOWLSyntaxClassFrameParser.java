@@ -70,11 +70,13 @@ public class ManchesterOWLSyntaxClassFrameParser implements OWLExpressionParser<
     }
 
 
+    @Override
     public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
         this.checker = entityChecker;
     }
 
 
+    @Override
     public Set<OntologyAxiomPair> parse(String expression) throws ParserException {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);

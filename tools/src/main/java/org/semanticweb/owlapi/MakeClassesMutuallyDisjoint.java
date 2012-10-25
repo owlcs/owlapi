@@ -112,6 +112,7 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
     }
 
 
+    @Override
     public List<OWLOntologyChange> getChanges() {
         return changes;
     }

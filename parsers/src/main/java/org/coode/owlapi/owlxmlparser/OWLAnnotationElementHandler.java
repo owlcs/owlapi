@@ -71,6 +71,7 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
         super.startElement(name);
     }
 
+    @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
         getParentHandler().handleChild(this);
     }
@@ -113,6 +114,7 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
         object = handler.getOWLObject();
     }
 
+    @Override
     public OWLAnnotation getOWLObject() {
         if (annotations == null) {
             return getOWLDataFactory().getOWLAnnotation(property, object);

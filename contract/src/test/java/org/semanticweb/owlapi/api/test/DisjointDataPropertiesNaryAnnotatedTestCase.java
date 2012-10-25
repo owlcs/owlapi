@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 public class DisjointDataPropertiesNaryAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
-    @Override@SuppressWarnings("unused")
+    @Override
 	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return getFactory().getOWLDisjointDataPropertiesAxiom(getOWLDataProperty("p"), getOWLDataProperty("q"), getOWLDataProperty("r"));
     }

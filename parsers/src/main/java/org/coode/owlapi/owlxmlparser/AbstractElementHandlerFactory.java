@@ -63,6 +63,7 @@ public abstract class AbstractElementHandlerFactory implements OWLElementHandler
     }
 
 
+    @Override
     public String getElementName() {
         return elementName;
     }

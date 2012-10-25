@@ -48,5 +48,6 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLDataPropertyDomainAxiom extends OWLPropertyDomainAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
+    @Override
     OWLDataPropertyDomainAxiom getAxiomWithoutAnnotations();
 }

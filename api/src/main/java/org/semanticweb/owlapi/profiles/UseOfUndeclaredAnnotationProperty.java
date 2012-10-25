@@ -72,6 +72,7 @@ public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation imple
         return annotation;
     }
 
+    @Override
     public void accept(OWL2DLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }

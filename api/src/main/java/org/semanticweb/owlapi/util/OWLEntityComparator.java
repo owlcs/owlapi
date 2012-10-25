@@ -92,6 +92,7 @@ public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisi
     }
 
 
+    @Override
     public int compare(OWLEntity o1, OWLEntity o2) {
         o1.accept(this);
         int i1 = lastValue;
@@ -112,29 +113,35 @@ public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisi
     }
 
 
+    @Override
     public void visit(OWLClass cls) {
         lastValue = 0;
     }
 
 
+    @Override
     public void visit(OWLObjectProperty property) {
         lastValue = 1;
     }
 
 
+    @Override
     public void visit(OWLDataProperty property) {
         lastValue = 2;
     }
 
 
+    @Override
     public void visit(OWLNamedIndividual individual) {
         lastValue = 3;
     }
 
+    @Override
     public void visit(OWLAnnotationProperty property) {
         lastValue = 4;
     }
 
+    @Override
     public void visit(OWLDatatype datatype) {
         lastValue = 5;
     }

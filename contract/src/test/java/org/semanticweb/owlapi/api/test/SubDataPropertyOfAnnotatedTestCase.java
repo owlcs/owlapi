@@ -54,7 +54,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 public class SubDataPropertyOfAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
     @Override
-    @SuppressWarnings("unused")
 	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return getFactory().getOWLSubDataPropertyOfAxiom(getOWLDataProperty("p"), getOWLDataProperty("q"));
     }

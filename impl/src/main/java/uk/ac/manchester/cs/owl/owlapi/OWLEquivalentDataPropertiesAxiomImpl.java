@@ -71,6 +71,7 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         super(properties, annotations);
     }
 
+    @Override
     public OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
@@ -78,6 +79,7 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(getProperties());
     }
 
+    @Override
     public OWLEquivalentDataPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(getProperties(), mergeAnnos(annotations));
     }
@@ -87,27 +89,33 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         return super.equals(obj) && obj instanceof OWLEquivalentDataPropertiesAxiom;
     }
 
+    @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
 
+    @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.EQUIVALENT_DATA_PROPERTIES;
     }
 
+    @Override
     public Set<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms() {
         Set<OWLSubDataPropertyOfAxiom> result = new HashSet<OWLSubDataPropertyOfAxiom>();
         List<OWLDataPropertyExpression> props = new ArrayList<OWLDataPropertyExpression>(getProperties());
