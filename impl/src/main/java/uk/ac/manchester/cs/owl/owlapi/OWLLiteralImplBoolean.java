@@ -65,7 +65,7 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
     @SuppressWarnings("javadoc")
     public OWLLiteralImplBoolean(boolean literal) {
         super();
-        datatype=new OWLDatatypeImpl(OWL2Datatype.XSD_BOOLEAN.getIRI());
+        datatype= OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_BOOLEAN);
         this.literal = literal;
         hashcode = getHashCode();
     }

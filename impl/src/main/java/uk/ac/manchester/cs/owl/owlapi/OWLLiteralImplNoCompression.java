@@ -63,7 +63,10 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
 
     private static final long serialVersionUID = 30402L;
+
     static final String utf_8 = "UTF-8";
+
+    public static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);
 
     private final byte[] literal;
 
@@ -81,32 +84,42 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
      * null or it MUST be RDFPlainLiteral
      */
     public OWLLiteralImplNoCompression(String literal, String lang, OWLDatatype datatype) {
-        super();
-        try {
-            this.literal = literal.getBytes(utf_8);
-            OWLDatatypeImpl rdfplainlit=new OWLDatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
-            if (lang == null || lang.length() == 0) {
-                this.lang = "";
-                if (datatype == null) {
-                    this.datatype = rdfplainlit;
-                }
-                else {
-                    this.datatype = datatype;
-                }
-            }
-            else {
+        this(getBytes(literal), lang, datatype);
+    }
 
-                if (datatype != null && !datatype.isRDFPlainLiteral()) {
-                    // ERROR: attempting to build a literal with a language tag and type different from plain literal
-                    throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
-                }
-                this.lang = lang;
+    public OWLLiteralImplNoCompression(byte[] bytes, String lang, OWLDatatype datatype) {
+        super();
+        this.literal = new byte[bytes.length];
+        System.arraycopy(bytes, 0, this.literal, 0, bytes.length);
+        OWLDatatype rdfplainlit = RDF_PLAIN_LITERAL;
+        if (lang == null || lang.length() == 0) {
+            this.lang = "";
+            if (datatype == null) {
                 this.datatype = rdfplainlit;
             }
-            hashcode = getHashCode();
+            else {
+                this.datatype = datatype;
+            }
+        }
+        else {
+
+            if (datatype != null && !datatype.isRDFPlainLiteral()) {
+                // ERROR: attempting to build a literal with a language tag and type different from plain literal
+                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
+            }
+            this.lang = lang;
+            this.datatype = rdfplainlit;
+        }
+        hashcode = getHashCode();
+    }
+
+
+    private static byte[] getBytes(String literal) {
+        try {
+            return literal.getBytes(utf_8);
         }
         catch (UnsupportedEncodingException e) {
-            throw new OWLRuntimeException("Unsupported UTF 8 encoding: broken JVM", e);
+            throw new RuntimeException("Unsupported UTF 8 encoding: broken JVM", e);
         }
     }
 

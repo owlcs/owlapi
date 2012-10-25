@@ -87,11 +87,43 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
 
     private static final OWLDataFactory instance = new OWLDataFactoryImpl(false, false);
 
-    private static final OWLClass OWL_THING = new OWLClassImpl(
-            OWLRDFVocabulary.OWL_THING.getIRI());
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////
+    ////  Distinguished Entities
+    ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private static final OWLClass OWL_NOTHING = new OWLClassImpl(
-            OWLRDFVocabulary.OWL_NOTHING.getIRI());
+
+    private static final OWLClass OWL_THING = new OWLClassImpl(OWLRDFVocabulary.OWL_THING.getIRI());
+
+    private static final OWLClass OWL_NOTHING = new OWLClassImpl(OWLRDFVocabulary.OWL_NOTHING.getIRI());
+
+    private static final OWLAnnotationProperty RDFS_LABEL = new OWLAnnotationPropertyImpl(OWLRDFVocabulary.RDFS_LABEL.getIRI());
+
+    private static final OWLAnnotationProperty RDFS_COMMENT = new OWLAnnotationPropertyImpl(OWLRDFVocabulary.RDFS_COMMENT.getIRI());
+
+    private static final OWLAnnotationProperty RDFS_SEE_ALSO = new OWLAnnotationPropertyImpl(OWLRDFVocabulary.RDFS_SEE_ALSO.getIRI());
+
+    private static final OWLAnnotationProperty RDFS_IS_DEFINED_BY = new OWLAnnotationPropertyImpl(OWLRDFVocabulary.RDFS_IS_DEFINED_BY.getIRI());
+
+    private static final OWLAnnotationProperty OWL_BACKWARD_COMPATIBLE_WITH = new OWLAnnotationPropertyImpl(OWLRDFVocabulary.OWL_BACKWARD_COMPATIBLE_WITH.getIRI());
+
+    private static final OWLAnnotationProperty OWL_INCOMPATIBLE_WITH = new OWLAnnotationPropertyImpl(OWLRDFVocabulary.OWL_INCOMPATIBLE_WITH.getIRI());
+
+    private static final OWLAnnotationProperty OWL_VERSION_INFO = new OWLAnnotationPropertyImpl(OWLRDFVocabulary.OWL_VERSION_INFO.getIRI());
+
+    private static final OWLAnnotationProperty OWL_DEPRECATED = new OWLAnnotationPropertyImpl(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
+
+    private static final OWLObjectProperty OWL_TOP_OBJECT_PROPERTY = new OWLObjectPropertyImpl(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI());
+
+    private static final OWLObjectProperty OWL_BOTTOM_OBJECT_PROPERTY = new OWLObjectPropertyImpl(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
+
+    private static final OWLDataProperty OWL_TOP_DATA_PROPERTY = new OWLDataPropertyImpl(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI());
+
+    private static final OWLDataProperty OWL_BOTTOM_DATA_PROPERTY = new OWLDataPropertyImpl(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+
 
     protected OWLDataFactoryInternals data;
 
@@ -184,35 +216,35 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     }
 
     public OWLAnnotationProperty getRDFSLabel() {
-        return getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI());
+        return RDFS_LABEL;
     }
 
     public OWLAnnotationProperty getRDFSComment() {
-        return getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getIRI());
+        return RDFS_COMMENT;
     }
 
     public OWLAnnotationProperty getRDFSSeeAlso() {
-        return getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_SEE_ALSO.getIRI());
+        return RDFS_SEE_ALSO;
     }
 
     public OWLAnnotationProperty getRDFSIsDefinedBy() {
-        return getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_IS_DEFINED_BY.getIRI());
+        return RDFS_IS_DEFINED_BY;
     }
 
     public OWLAnnotationProperty getOWLVersionInfo() {
-        return getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO.getIRI());
+        return OWL_VERSION_INFO;
     }
 
     public OWLAnnotationProperty getOWLBackwardCompatibleWith() {
-        return getOWLAnnotationProperty(OWLRDFVocabulary.OWL_BACKWARD_COMPATIBLE_WITH.getIRI());
+        return OWL_BACKWARD_COMPATIBLE_WITH;
     }
 
     public OWLAnnotationProperty getOWLIncompatibleWith() {
-        return getOWLAnnotationProperty(OWLRDFVocabulary.OWL_INCOMPATIBLE_WITH.getIRI());
+        return OWL_INCOMPATIBLE_WITH;
     }
 
     public OWLAnnotationProperty getOWLDeprecated() {
-        return getOWLAnnotationProperty(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
+        return OWL_DEPRECATED;
     }
 
     public OWLDatatype getOWLDatatype(String abbreviatedIRI, PrefixManager prefixManager) {
@@ -230,19 +262,19 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     }
 
     public OWLDataProperty getOWLBottomDataProperty() {
-        return getOWLDataProperty(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+        return OWL_BOTTOM_DATA_PROPERTY;
     }
 
     public OWLObjectProperty getOWLBottomObjectProperty() {
-        return getOWLObjectProperty(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
+        return OWL_BOTTOM_OBJECT_PROPERTY;
     }
 
     public OWLDataProperty getOWLTopDataProperty() {
-        return getOWLDataProperty(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI());
+        return OWL_TOP_DATA_PROPERTY;
     }
 
     public OWLObjectProperty getOWLTopObjectProperty() {
-        return getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI());
+        return OWL_TOP_OBJECT_PROPERTY;
     }
 
 
@@ -296,7 +328,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     public OWLLiteral getOWLLiteral(String lexicalValue, OWL2Datatype datatype) {
         checkNull(lexicalValue, "lexicalValue");
         checkNull(datatype, DATATYPE2);
-        return getOWLLiteral(lexicalValue, getOWLDatatype(datatype.getIRI()));
+        return getOWLLiteral(lexicalValue, OWL2DatatypeImpl.getDatatype(datatype));
     }
 
     public OWLLiteral getOWLLiteral(boolean value) {
