@@ -66,7 +66,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     static final String utf_8 = "UTF-8";
 
-    public static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl
+            .getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);
 
     private final byte[] literal;
 
@@ -87,10 +88,13 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         this(getBytes(literal), lang, datatype);
     }
 
+    /** @param bytes
+     * @param lang
+     * @param datatype */
     public OWLLiteralImplNoCompression(byte[] bytes, String lang, OWLDatatype datatype) {
         super();
-        this.literal = new byte[bytes.length];
-        System.arraycopy(bytes, 0, this.literal, 0, bytes.length);
+        literal = new byte[bytes.length];
+        System.arraycopy(bytes, 0, literal, 0, bytes.length);
         OWLDatatype rdfplainlit = RDF_PLAIN_LITERAL;
         if (lang == null || lang.length() == 0) {
             this.lang = "";

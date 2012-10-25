@@ -1,5 +1,11 @@
 package org.semanticweb.owlapi.api.test;
 
+import static junit.framework.Assert.*;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.DataRangeType;
@@ -7,14 +13,9 @@ import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
+
 import uk.ac.manchester.cs.owl.owlapi.OWL2DatatypeImpl;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import static junit.framework.Assert.*;
+import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 
 /**
  * Author: Matthew Horridge<br>
@@ -22,6 +23,7 @@ import static junit.framework.Assert.*;
  * Bio-Medical Informatics Research Group<br>
  * Date: 24/10/2012
  */
+@SuppressWarnings("javadoc")
 public class OWL2DatatypeImplTestCase {
 
 
