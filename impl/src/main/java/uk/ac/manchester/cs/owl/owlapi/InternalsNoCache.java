@@ -50,23 +50,40 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
  * @author ignazio no cache used
  */
 public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
+
     private static final long serialVersionUID = 30402L;
+
+    private static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);
+
+    private static final OWLDatatype XSD_BOOLEAN = OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_BOOLEAN);
+
+    private static final OWLDatatype XSD_DOUBLE = OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_DOUBLE);
+
+    private static final OWLDatatype XSD_FLOAT = OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_FLOAT);
+
+    private static final OWLDatatype XSD_INTEGER = OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_INTEGER);
+
+    private static final OWLDatatype RDFS_LITERAL = OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDFS_LITERAL);
+
     private final OWLDataFactory factory;
+
     private final OWLLiteral trueLiteral;
+
     private final OWLLiteral falseLiteral;
+
     private final boolean useCompression;
 
-    /** @param f
-     *            the factory to refer to
-     * @param useCompression
-     *            true if compression of literals should be used */
+    /**
+     * @param f the factory to refer to
+     * @param useCompression true if compression of literals should be used
+     */
     public InternalsNoCache(OWLDataFactory f, boolean useCompression) {
         factory = f;
         trueLiteral = new OWLLiteralImplBoolean(true);
@@ -74,7 +91,8 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         this.useCompression = useCompression;
     }
 
-    public void purge() {}
+    public void purge() {
+    }
 
     public OWLClass getOWLClass(IRI iri) {
         return new OWLClassImpl(iri);
@@ -106,18 +124,17 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     public OWLLiteral getOWLLiteral(String value) {
         if (useCompression) {
-            return new OWLLiteralImpl(value, "",
-                    getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+            return new OWLLiteralImpl(value, "", getOWLDatatype(XSDVocabulary.STRING.getIRI()));
         }
-        return new OWLLiteralImplNoCompression(value, "",
-                getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+        return new OWLLiteralImplNoCompression(value, "", getOWLDatatype(XSDVocabulary.STRING.getIRI()));
     }
 
     public OWLLiteral getOWLLiteral(String literal, String lang) {
         String normalisedLang;
         if (lang == null) {
             normalisedLang = "";
-        } else {
+        }
+        else {
             normalisedLang = lang.trim().toLowerCase(Locale.ENGLISH);
         }
         if (useCompression) {
@@ -147,91 +164,107 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                 String lang = lexicalValue.substring(sep + 1);
                 if (useCompression) {
                     literal = new OWLLiteralImpl(lex, lang, getRDFPlainLiteral());
-                } else {
-                    literal = new OWLLiteralImplNoCompression(lex, lang,
-                            getRDFPlainLiteral());
                 }
-            } else {
-                if (useCompression) {
-                    literal = new OWLLiteralImpl(lexicalValue, "", datatype);
-                } else {
-                    literal = new OWLLiteralImplNoCompression(lexicalValue, "",
-                            datatype);
+                else {
+                    literal = new OWLLiteralImplNoCompression(lex, lang, getRDFPlainLiteral());
                 }
             }
-        } else {
+            else {
+                if (useCompression) {
+                    literal = new OWLLiteralImpl(lexicalValue, "", datatype);
+                }
+                else {
+                    literal = new OWLLiteralImplNoCompression(lexicalValue, "", datatype);
+                }
+            }
+        }
+        else {
             // check the four special cases
             try {
                 if (datatype.isBoolean()) {
                     lexicalValue = lexicalValue.trim();
-                    if (lexicalValue.equals("1")) {
+                    if (isBooleanTrueValue(lexicalValue)) {
                         literal = getOWLLiteral(true);
-                    } else if (lexicalValue.equals("0")) {
-                        literal = getOWLLiteral(false);
-                    } else {
-                        literal = factory.getOWLLiteral(Boolean
-                                .parseBoolean(lexicalValue));
                     }
-                } else if (datatype.isFloat()) {
+                    else if (isBooleanFalseValue(lexicalValue)) {
+                        literal = getOWLLiteral(false);
+                    }
+                    else {
+                        literal = factory.getOWLLiteral(Boolean.parseBoolean(lexicalValue));
+                    }
+                }
+                else if (datatype.isFloat()) {
                     float f;
                     try {
                         f = Float.parseFloat(lexicalValue);
                         literal = getOWLLiteral(f);
-                    } catch (NumberFormatException e) {
+                    }
+                    catch (NumberFormatException e) {
                         if (useCompression) {
-                            literal = new OWLLiteralImpl(lexicalValue, "",
-                                    datatype);
-                        } else {
-                            literal = new OWLLiteralImplNoCompression(
-                                    lexicalValue, "", datatype);
+                            literal = new OWLLiteralImpl(lexicalValue, "", datatype);
+                        }
+                        else {
+                            literal = new OWLLiteralImplNoCompression(lexicalValue, "", datatype);
                         }
                     }
-                } else if (datatype.isDouble()) {
+                }
+                else if (datatype.isDouble()) {
                     literal = getOWLLiteral(Double.parseDouble(lexicalValue));
-                } else if (datatype.isInteger()) {
+                }
+                else if (datatype.isInteger()) {
                     literal = getOWLLiteral(Integer.parseInt(lexicalValue));
-                } else {
+                }
+                else {
                     if (useCompression) {
                         literal = new OWLLiteralImpl(lexicalValue, "", datatype);
-                    } else {
-                        literal = new OWLLiteralImplNoCompression(lexicalValue,
-                                "", datatype);
+                    }
+                    else {
+                        literal = new OWLLiteralImplNoCompression(lexicalValue, "", datatype);
                     }
                 }
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 // some literal is malformed, i.e., wrong format
                 if (useCompression) {
                     literal = new OWLLiteralImpl(lexicalValue, "", datatype);
-                } else {
-                    literal = new OWLLiteralImplNoCompression(lexicalValue, "",
-                            datatype);
+                }
+                else {
+                    literal = new OWLLiteralImplNoCompression(lexicalValue, "", datatype);
                 }
             }
         }
         return literal;
     }
 
+    private boolean isBooleanFalseValue(String lexicalValue) {
+        return lexicalValue.equals("0") || lexicalValue.equals("false");
+    }
+
+    private boolean isBooleanTrueValue(String lexicalValue) {
+        return lexicalValue.equals("1") || lexicalValue.equals("true");
+    }
+
     public OWLDatatype getTopDatatype() {
-        return getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
+        return RDFS_LITERAL;
     }
 
     public OWLDatatype getIntegerOWLDatatype() {
-        return getOWLDatatype(XSDVocabulary.INTEGER.getIRI());
+        return XSD_INTEGER;
     }
 
     public OWLDatatype getFloatOWLDatatype() {
-        return getOWLDatatype(XSDVocabulary.FLOAT.getIRI());
+        return XSD_FLOAT;
     }
 
     public OWLDatatype getDoubleOWLDatatype() {
-        return getOWLDatatype(XSDVocabulary.DOUBLE.getIRI());
+        return XSD_DOUBLE;
     }
 
     public OWLDatatype getBooleanOWLDatatype() {
-        return getOWLDatatype(XSDVocabulary.BOOLEAN.getIRI());
+        return XSD_BOOLEAN;
     }
 
     public OWLDatatype getRDFPlainLiteral() {
-        return getOWLDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
+        return RDF_PLAIN_LITERAL;
     }
 }
