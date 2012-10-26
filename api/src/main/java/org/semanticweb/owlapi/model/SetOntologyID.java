@@ -39,10 +39,10 @@
 
 package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.change.SetOntologyIDData;
-
 import java.util.Collections;
 import java.util.Set;
+
+import org.semanticweb.owlapi.change.SetOntologyIDData;
 
 /**
  * Author: Matthew Horridge<br>
@@ -57,17 +57,28 @@ public class SetOntologyID extends OWLOntologyChange {
 
     private final OWLOntologyID newOntologyID;
 
-    /**
-     * Creates a set ontology URI change, which will set the URI of the
-     * ontology to the specified new URI.
-     *
-     * @param ont    The ontology whose URI is to be changed
-     * @param ontologyID The ontology ID
-     */
+    /** Creates a set ontology id change, which will set the ontology id to the
+     * new one.
+     * 
+     * @param ont
+     *            The ontology whose id is to be changed
+     * @param ontologyID
+     *            The ontology ID */
     public SetOntologyID(OWLOntology ont, OWLOntologyID ontologyID) {
         super(ont);
         this.ontologyID = ont.getOntologyID();
-        this.newOntologyID = ontologyID;
+        newOntologyID = ontologyID;
+    }
+
+    /** Creates a set ontology id change using the ontologyIRI, which will set
+     * the ontology id to the new one.
+     * 
+     * @param ont
+     *            The ontology whose id is to be changed
+     * @param ontologyIRI
+     *            The ontology iri */
+    public SetOntologyID(OWLOntology ont, IRI ontologyIRI) {
+        this(ont, new OWLOntologyID(ontologyIRI));
     }
 
     /**
@@ -176,7 +187,7 @@ public class SetOntologyID extends OWLOntologyChange {
             return false;
         }
         SetOntologyID change = (SetOntologyID) obj;
-        return change.getOriginalOntologyID().equals(ontologyID) && change.getNewOntologyID().equals(this.getNewOntologyID());
+        return change.getOriginalOntologyID().equals(ontologyID) && change.getNewOntologyID().equals(getNewOntologyID());
     }
 
 }
