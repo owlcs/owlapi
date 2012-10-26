@@ -562,6 +562,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     void removeOntology(OWLOntology ontology);
 
+    /** Attempts to remove an ontology. The ontology which is identified by the
+     * specified IRI is removed regardless of whether it is referenced by other
+     * ontologies via imports statements.
+     * 
+     * @param ontologyID
+     *            The ontology to be removed. If this manager does not manage
+     *            the ontology then nothing happens. */
+    void removeOntology(OWLOntologyID ontologyID);
 
     /**
      * Gets the document IRI for a given ontology.  This will either be the document IRI from where the ontology was
