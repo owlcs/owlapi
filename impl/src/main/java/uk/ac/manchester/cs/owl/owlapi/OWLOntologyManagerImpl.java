@@ -951,11 +951,17 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         throw new OWLOntologyFactoryNotFoundException(documentSource.getDocumentIRI());
     }
 
+
     @Override
     public void removeOntology(OWLOntology ontology) {
-        ontologiesByID.remove(ontology.getOntologyID());
-        ontologyFormatsByOntology.remove(ontology.getOntologyID());
-        documentIRIsByID.remove(ontology.getOntologyID());
+        this.removeOntology(ontology.getOntologyID());
+    }
+
+    @Override
+    public void removeOntology(OWLOntologyID ontologyID) {
+        ontologiesByID.remove(ontologyID);
+        ontologyFormatsByOntology.remove(ontologyID);
+        documentIRIsByID.remove(ontologyID);
         resetImportsClosureCache();
     }
 
