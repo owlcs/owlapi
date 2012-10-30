@@ -274,32 +274,11 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         OWLOntology result = ontologiesByID.get(ontologyID);
         if (result == null) {
             for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
-                if (ontologyIRI.equals(nextOntologyID.getVersionIRI())) {
+                if (ontologyIRI.equals(nextOntologyID.getVersionIRI())
+                        || ontologyIRI.equals(nextOntologyID.getOntologyIRI())
+                        || ontologyIRI.equals(nextOntologyID.getDefaultDocumentIRI())) {
                     result = ontologiesByID.get(nextOntologyID);
                 }
-            }
-        }
-        // HACK: This extra clause is necessary to make getOntology match the
-        // behaviour of createOntology
-        // in cases where a documentIRI has been recorded, based on the mappers,
-        // but an ontology has not
-        // been stored in ontologiesByID
-        if (result == null) {
-            IRI documentIRI = getDocumentIRIFromMappers(ontologyID, true);
-            if (documentIRI == null) {
-                if (!ontologyID.isAnonymous()) {
-                    documentIRI = ontologyID.getDefaultDocumentIRI();
-                } else {
-                    documentIRI = IRI.generateDocumentIRI();
-                }
-                Collection<IRI> existingDocumentIRIs = documentIRIsByID.values();
-                while (existingDocumentIRIs.contains(documentIRI)) {
-                    documentIRI = IRI.generateDocumentIRI();
-                }
-            }
-            if (documentIRIsByID.values().contains(documentIRI)) {
-                throw new RuntimeException(new OWLOntologyDocumentAlreadyExistsException(
-                        documentIRI));
             }
         }
         return result;
