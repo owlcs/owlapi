@@ -41,9 +41,11 @@
 /* JavaCCOptions: */
 package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
 
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+
 /** Token Manager Error. */
 @SuppressWarnings({"unused","javadoc"})
-public class TokenMgrError extends Error
+public class TokenMgrError extends OWLRuntimeException
 {
 
   /**
@@ -145,11 +147,11 @@ public class TokenMgrError extends Error
    * Note: You can customize the lexical error message by modifying this method.
    */
   protected static String LexicalError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, char curChar) {
-    return("Lexical error at line " +
-          errorLine + ", column " +
-          errorColumn + ".  Encountered: " +
-          (EOFSeen ? "<EOF> " : ("\"" + addEscapes(String.valueOf(curChar)) + "\"") + " (" + (int)curChar + "), ") +
-          "after : \"" + addEscapes(errorAfter) + "\"");
+    return "Lexical error at line " +
+      errorLine + ", column " +
+      errorColumn + ".  Encountered: " +
+      (EOFSeen ? "<EOF> " : "\"" + addEscapes(String.valueOf(curChar)) + "\"" + " (" + (int)curChar + "), ") +
+      "after : \"" + addEscapes(errorAfter) + "\"";
   }
 
   /**

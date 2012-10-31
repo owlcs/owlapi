@@ -63,6 +63,7 @@ import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -121,10 +122,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         OWLClassExpression desc;
         desc = parseClassDescription();
         jj_consume_token(0);
-        {if (true) {
             return desc;
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public Set<OWLAxiom> parseAxioms() throws ParseException {
@@ -151,10 +149,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
                 }
             }
         jj_consume_token(0);
-        {if (true) {
             return axioms;
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLAxiom parseAxiom() throws ParseException {
@@ -162,39 +157,26 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         if (jj_2_4(5)) {
             jj_consume_token(COLON);
             ax = parsePropertyAxiom();
-            {if (true) {
                 return ax;
-            }}
         } else if (jj_2_5(5)) {
             ax = parseClassAxiom();
-            {if (true) {
                 return ax;
-            }}
         } else if (jj_2_6(5)) {
             ax = parseIndividualAxiom();
-            {if (true) {
                 return ax;
-            }}
         } else if (jj_2_7(5)) {
             ax = parseObjectPropertyAssertion();
-            {if (true) {
                 return ax;
-            }}
         } else if (jj_2_8(5)) {
             ax = parseDataPropertyAssertion();
-            {if (true) {
                 return ax;
-            }}
         } else if (jj_2_9(5)) {
             ax = parseDifferentIndividualsAxiom();
-            {if (true) {
                 return ax;
-            }}
         } else {
             jj_consume_token(-1);
             throw new ParseException();
         }
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLAxiom parseIndividualAxiom() throws ParseException {
@@ -207,10 +189,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {if (true) {
             return ax;
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLAxiom parseDifferentIndividualsAxiom() throws ParseException {
@@ -232,10 +211,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
                 ind = parseIndividualId();
                 inds.add(ind);
             }
-        {if (true) {
             return factory.getOWLDifferentIndividualsAxiom(inds);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLAxiom parseObjectPropertyAssertion() throws ParseException {
@@ -247,10 +223,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         jj_consume_token(31);
         obj = parseIndividualId();
         jj_consume_token(CLOSEPAR);
-        {if (true) {
             return factory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLAxiom parseDataPropertyAssertion() throws ParseException {
@@ -263,10 +236,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         jj_consume_token(31);
         obj = parseLiteral();
         jj_consume_token(CLOSEPAR);
-        {if (true) {
             return factory.getOWLDataPropertyAssertionAxiom(prop, subj, obj);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLAxiom parseSameIndividual() throws ParseException {
@@ -275,10 +245,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         indA = parseIndividualId();
         jj_consume_token(EXACT);
         indB = parseIndividualId();
-        {if (true) {
             return factory.getOWLSameIndividualAxiom(CollectionFactory.createSet(indA, indB));
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLAxiom parseClassAssertion() throws ParseException {
@@ -302,14 +269,12 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
                 jj_consume_token(-1);
                 throw new ParseException();
             }
-            {if (true) {
                 return factory.getOWLClassAssertionAxiom(desc, ind);
-            }}
         } else {
             jj_consume_token(-1);
             throw new ParseException();
         }
-        throw new Error("Missing return statement in function");
+        throw new ParseException("Missing return statement in function");
     }
 
     final public OWLAxiom parseClassAxiom() throws ParseException {
@@ -324,46 +289,33 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
                 if(rhs instanceof OWLObjectAllValuesFrom) {
                     // Interpret as Range
                     OWLObjectAllValuesFrom restriction = (OWLObjectAllValuesFrom) rhs;
-                    {if (true) {
                         return factory.getOWLObjectPropertyRangeAxiom(restriction.getProperty(), restriction.getFiller());
-                    }}
                 }
                 if(rhs instanceof OWLObjectMaxCardinality) {
                     OWLObjectMaxCardinality restriction = (OWLObjectMaxCardinality) rhs;
                     if(restriction.getCardinality() == 1 && restriction.getFiller().isOWLThing()) {
-                        {if (true) {
                             return factory.getOWLFunctionalObjectPropertyAxiom(restriction.getProperty());
-                        }}
                     }
                 }
             }
             else if(lhs instanceof OWLObjectSomeValuesFrom) {
                 OWLObjectSomeValuesFrom restriction = (OWLObjectSomeValuesFrom) lhs;
                 if(restriction.getFiller().isOWLThing()) {
-                    {if (true) {
                         return factory.getOWLObjectPropertyDomainAxiom(restriction.getProperty(), rhs);
-                    }}
                 }
             }
             if(rhs instanceof OWLObjectComplementOf && !rhs.isAnonymous()) {
-                {if (true) {
                     return factory.getOWLDisjointClassesAxiom(lhs, ((OWLObjectComplementOf) rhs).getOperand());
-                }}
             }
-            {if (true) {
                 return factory.getOWLSubClassOfAxiom(lhs, rhs);
-            }}
         } else if (jj_2_18(5)) {
             jj_consume_token(EQUIVALENTTO);
             rhs = parseClassDescription();
-            {if (true) {
                 return factory.getOWLEquivalentClassesAxiom(lhs, rhs);
-            }}
         } else {
             jj_consume_token(-1);
             throw new ParseException();
         }
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLAxiom parsePropertyChain() throws ParseException {
@@ -388,10 +340,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             }
         jj_consume_token(SUBCLASSOF);
         supProp = parseObjectPropertyId();
-        {if (true) {
             return factory.getOWLSubPropertyChainOfAxiom(props, supProp);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLAxiom parsePropertyAxiom() throws ParseException {
@@ -403,50 +352,36 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             if (jj_2_20(5)) {
                 jj_consume_token(SUBCLASSOF);
                 rhs = parseObjectPropertyId();
-                {if (true) {
                     return factory.getOWLSubObjectPropertyOfAxiom(lhs, rhs);
-                }}
             } else if (jj_2_21(5)) {
                 jj_consume_token(EQUIVALENTTO);
                 rhs = parseObjectPropertyId();
                 if(rhs instanceof OWLObjectInverseOf) {
                     OWLObjectInverseOf inv = (OWLObjectInverseOf) rhs;
-                    {if (true) {
                         return factory.getOWLInverseObjectPropertiesAxiom(lhs, inv.getInverse());
-                    }}
                 }
-                {if (true) {
                     return factory.getOWLEquivalentObjectPropertiesAxiom(CollectionFactory.createSet(lhs, rhs));
-                }}
             } else if (jj_2_22(5)) {
                 jj_consume_token(IN);
                 jj_consume_token(TRANSITIVEROLES);
-                {if (true) {
                     return factory.getOWLTransitiveObjectPropertyAxiom(lhs);
-                }}
             } else {
                 jj_consume_token(-1);
                 throw new ParseException();
             }
         } else if (jj_2_24(5)) {
             ax = parsePropertyChain();
-            {if (true) {
                 return ax;
-            }}
         } else {
             jj_consume_token(-1);
             throw new ParseException();
         }
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression parseClassDescription() throws ParseException {
         OWLClassExpression desc;
         desc = Or();
-        {if (true) {
             return desc;
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression Or() throws ParseException {
@@ -466,16 +401,11 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
                 operands.add(desc);
             }
         if(operands.size() == 1) {
-            {if (true) {
                 return desc;
-            }}
         }
         else {
-            {if (true) {
                 return factory.getOWLObjectUnionOf(operands);
-            }}
         }
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression And() throws ParseException {
@@ -495,16 +425,11 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
                 operands.add(desc);
             }
         if(operands.size() == 1) {
-            {if (true) {
                 return desc;
-            }}
         }
         else {
-            {if (true) {
                 return factory.getOWLObjectIntersectionOf(operands);
-            }}
         }
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression NonNaryBooleanDescription() throws ParseException {
@@ -519,10 +444,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {if (true) {
             return desc;
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLObjectPropertyExpression parseObjectPropertyId() throws ParseException {
@@ -537,26 +459,18 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
         if(inverse) {
             OWLObjectProperty prop = factory.getOWLObjectProperty(iri);
-            {if (true) {
                 return factory.getOWLObjectInverseOf(prop);
-            }}
         }
         else {
-            {if (true) {
                 return factory.getOWLObjectProperty(iri);
-            }}
         }
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLDataPropertyExpression parseDataPropertyId() throws ParseException {
         IRI iri;
         boolean inverse = false;
         iri = parseId();
-        {if (true) {
             return factory.getOWLDataProperty(iri);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression parseRestriction() throws ParseException {
@@ -573,10 +487,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {if (true) {
             return desc;
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression parseSomeRestriction() throws ParseException {
@@ -590,10 +501,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             ;
         }
         filler = NamedClassOrNestedDescription();
-        {if (true) {
             return factory.getOWLObjectSomeValuesFrom(prop, filler);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression parseDataSomeRestriction() throws ParseException {
@@ -607,10 +515,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             ;
         }
         filler = parseDataOneOf();
-        {if (true) {
             return factory.getOWLDataSomeValuesFrom(prop, filler);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression parseAllRestriction() throws ParseException {
@@ -624,10 +529,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             ;
         }
         filler = NamedClassOrNestedDescription();
-        {if (true) {
             return factory.getOWLObjectAllValuesFrom(prop, filler);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression parseCardinalityRestriction() throws ParseException {
@@ -667,40 +569,27 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             filler = factory.getOWLThing();
         }
         if(min) {
-            {if (true) {
                 return factory.getOWLObjectMinCardinality(card, prop, filler);
-            }}
         }
         else if(exactly) {
-            {if (true) {
                 return factory.getOWLObjectExactCardinality(card, prop, filler);
-            }}
         }
         else {
-            {if (true) {
                 return factory.getOWLObjectMaxCardinality(card, prop, filler);
-            }}
         }
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLIndividual parseIndividualId() throws ParseException {
         IRI iri;
         iri = parseId();
-        {if (true) {
             return factory.getOWLNamedIndividual(iri);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression parseObjectComplementOf() throws ParseException {
         OWLClassExpression op;
         jj_consume_token(NOT);
         op = NamedClassOrNestedDescription();
-        {if (true) {
             return factory.getOWLObjectComplementOf(op);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression parseObjectOneOf() throws ParseException {
@@ -720,10 +609,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
                 inds.add(ind);
             }
         jj_consume_token(CLOSEBRACE);
-        {if (true) {
             return factory.getOWLObjectOneOf(inds);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLDataRange parseDataOneOf() throws ParseException {
@@ -743,10 +629,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
                 values.add(val);
             }
         jj_consume_token(CLOSEBRACE);
-        {if (true) {
             return factory.getOWLDataOneOf(values);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression NamedClassOrNestedDescription() throws ParseException {
@@ -759,19 +642,13 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {if (true) {
             return desc;
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClass parseClassId() throws ParseException {
         IRI iri;
         iri = parseId();
-        {if (true) {
             return factory.getOWLClass(iri);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLClassExpression NestedClassDescription() throws ParseException {
@@ -780,48 +657,35 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             jj_consume_token(OPENPAR);
             desc = Or();
             jj_consume_token(CLOSEPAR);
-            {if (true) {
                 return desc;
-            }}
         } else if (jj_2_48(5)) {
             desc = parseObjectOneOf();
-            {if (true) {
                 return desc;
-            }}
         } else {
             jj_consume_token(-1);
             throw new ParseException();
         }
-        throw new Error("Missing return statement in function");
     }
 
     final public OWLLiteral parseLiteral() throws ParseException {
         Token t;
         if (jj_2_49(5)) {
             t = jj_consume_token(INT);
-            {if (true) {
                 return factory.getOWLLiteral(Integer.parseInt(t.image));
-            }}
         } else if (jj_2_50(5)) {
             t = jj_consume_token(DOUBLE);
-            {if (true) {
                 return factory.getOWLLiteral(Double.parseDouble(t.image));
-            }}
         } else {
             jj_consume_token(-1);
             throw new ParseException();
         }
-        throw new Error("Missing return statement in function");
     }
 
     final public IRI parseId() throws ParseException {
         Token t;
         t = jj_consume_token(ID);
         String name = t.image;
-        {if (true) {
             return getIRIFromId(name);
-        }}
-        throw new Error("Missing return statement in function");
     }
 
     private boolean jj_2_1(int xla) {
@@ -2079,7 +1943,11 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     }
     /** Constructor with InputStream and supplied encoding */
     public DLSyntaxParser(java.io.InputStream stream, String encoding) {
-        try { jj_input_stream = new JavaCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
+        try {
+            jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new OWLRuntimeException(e);
+        }
         token_source = new DLSyntaxParserTokenManager(jj_input_stream);
         token = new Token();
         jj_ntk = -1;
@@ -2098,7 +1966,11 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     }
     /** Reinitialise. */
     public void ReInit(java.io.InputStream stream, String encoding) {
-        try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
+        try {
+            jj_input_stream.ReInit(stream, encoding, 1, 1);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new OWLRuntimeException(e);
+        }
         token_source.ReInit(jj_input_stream);
         token = new Token();
         jj_ntk = -1;
@@ -2198,7 +2070,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         throw generateParseException();
     }
 
-    static private final class LookaheadSuccess extends java.lang.Error { }
+    static private final class LookaheadSuccess extends OWLRuntimeException {}
     final private LookaheadSuccess jj_ls = new LookaheadSuccess();
     private boolean jj_scan_token(int kind) {
         if (jj_scanpos == jj_lastpos) {

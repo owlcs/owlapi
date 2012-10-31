@@ -55,6 +55,7 @@ import org.semanticweb.owlapi.model.OWLMutableOntology;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 import uk.ac.manchester.cs.JavaCharStream;
@@ -207,7 +208,7 @@ public class KRSSParser implements KRSSParserConstants {
         if(superProp != null) {
             return dataFactory.getOWLSubObjectPropertyOfAxiom(subProp, superProp);
         }
-        throw new Error("Missing return statement in function");
+        throw new ParseException("Missing return statement in function");
     }
 
     final public OWLAxiom Transitive() throws ParseException {
@@ -1116,7 +1117,11 @@ public class KRSSParser implements KRSSParserConstants {
     }
     /** Constructor with InputStream and supplied encoding */
     public KRSSParser(java.io.InputStream stream, String encoding) {
-        try { jj_input_stream = new JavaCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
+        try {
+            jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new OWLRuntimeException(e);
+        }
         token_source = new KRSSParserTokenManager(jj_input_stream);
         token = new Token();
         jj_ntk = -1;
@@ -1135,7 +1140,11 @@ public class KRSSParser implements KRSSParserConstants {
     }
     /** Reinitialise. */
     public void ReInit(java.io.InputStream stream, String encoding) {
-        try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
+        try {
+            jj_input_stream.ReInit(stream, encoding, 1, 1);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new OWLRuntimeException(e);
+        }
         token_source.ReInit(jj_input_stream);
         token = new Token();
         jj_ntk = -1;
@@ -1235,7 +1244,7 @@ public class KRSSParser implements KRSSParserConstants {
         throw generateParseException();
     }
 
-    static private final class LookaheadSuccess extends java.lang.Error {
+    static private final class LookaheadSuccess extends OWLRuntimeException {
 
         private static final long serialVersionUID = 30402L;
 

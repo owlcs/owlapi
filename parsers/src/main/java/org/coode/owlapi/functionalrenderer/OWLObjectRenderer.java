@@ -147,22 +147,9 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
             writer.write(s);
         }
         catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
     }
-
-
-//    private int getIndent() {
-//        return pos - lastNewLinePos - 1;
-//    }
-//
-//
-//    private void writeIndent(int indent) {
-//        for (int i = 0; i < indent; i++) {
-//            writeSpace();
-//        }
-//    }
-
 
     private void write(IRI iri) {
         String iriString = iri.toString();
