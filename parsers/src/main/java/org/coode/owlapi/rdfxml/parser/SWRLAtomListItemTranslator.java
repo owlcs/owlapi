@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIArgument;
@@ -128,13 +129,14 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
             SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject, ARGUMENT_2.getIRI());
             return dataFactory.getSWRLDifferentIndividualsAtom(arg1, arg2);
         }
-        throw new RuntimeException("Don't know how to translate SWRL Atom: " + firstObject);
+        throw new OWLRuntimeException("Don't know how to translate SWRL Atom: "
+                + firstObject);
     }
 
 
     @Override
     public SWRLAtom translate(OWLLiteral firstObject) {
-        throw new RuntimeException("Unexpected literal in atom list: " + firstObject);
+        throw new OWLRuntimeException("Unexpected literal in atom list: " + firstObject);
     }
 
 
@@ -149,7 +151,8 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
             }
         }
         else {
-            throw new RuntimeException("Cannot translate SWRL Atom I-Object for " + argPredicateIRI + " Triple not found.");
+            throw new OWLRuntimeException("Cannot translate SWRL Atom I-Object for "
+                    + argPredicateIRI + " Triple not found.");
         }
     }
 

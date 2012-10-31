@@ -1,5 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+
 import uk.ac.manchester.cs.JavaCharStream;
 
 /** Token Manager. */
@@ -1528,7 +1530,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants
     /** Constructor. */
     public TurtleParserTokenManager(JavaCharStream stream){
         if (JavaCharStream.staticFlag) {
-            throw new Error("ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
+            throw new OWLRuntimeException(
+                    "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
         }
         input_stream = stream;
     }

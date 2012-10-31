@@ -245,7 +245,7 @@ public class OWLXMLWriter {
             }
         }
         catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -289,7 +289,7 @@ public class OWLXMLWriter {
             writer.writeAttribute(Namespaces.XML + "lang", lang);
         }
         catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -299,7 +299,7 @@ public class OWLXMLWriter {
             writer.writeAttribute(OWLXMLVocabulary.CARDINALITY_ATTRIBUTE.getIRI().toString(), Integer.toString(cardinality));
         }
         catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -309,7 +309,7 @@ public class OWLXMLWriter {
             writer.writeTextContent(text);
         }
         catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -319,7 +319,7 @@ public class OWLXMLWriter {
             writer.writeAttribute(OWLXMLVocabulary.DATATYPE_FACET.getIRI().toString(), facet.getIRI().toString());
         }
         catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -329,7 +329,7 @@ public class OWLXMLWriter {
             writer.writeAttribute(OWLXMLVocabulary.ANNOTATION_URI.toString(), uri.toString());
         }
         catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 }

@@ -100,6 +100,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -191,7 +192,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     public void writeOntology() throws OWLRendererException {
         if (ontologies.size() != 1) {
-            throw new RuntimeException("Can only render one ontology");
+            throw new OWLRuntimeException("Can only render one ontology");
         }
         OWLOntology ontology = getOntologies().iterator().next();
         writePrefixMap();

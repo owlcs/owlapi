@@ -1539,7 +1539,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private Set<RDFTriple> getRemainingTriples() {
         final Set<RDFTriple> remainingTriples = new HashSet<RDFTriple>();
-        iterateResourceTriples(new ResourceTripleIterator<RuntimeException>() {
+        iterateResourceTriples(new ResourceTripleIterator<OWLRuntimeException>() {
             @Override
             public void handleResourceTriple(IRI subject, IRI predicate, IRI object) {
                 remainingTriples.add(new RDFTriple(subject, isAnonymousNode(subject), predicate, isAnonymousNode(predicate), object, isAnonymousNode(object)));

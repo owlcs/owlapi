@@ -125,6 +125,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -389,7 +390,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
             writer.write(s);
         }
         catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 

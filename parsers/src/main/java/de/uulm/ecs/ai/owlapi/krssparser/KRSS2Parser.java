@@ -61,6 +61,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -2976,7 +2977,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         try {
             jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
         } catch (java.io.UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
         token_source = new KRSS2ParserTokenManager(jj_input_stream);
         token = new Token();
@@ -3000,7 +3001,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         try {
             jj_input_stream.ReInit(stream, encoding, 1, 1);
         } catch (java.io.UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
         token_source.ReInit(jj_input_stream);
         token = new Token();
@@ -3101,7 +3102,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         throw generateParseException();
     }
 
-    static private final class LookaheadSuccess extends java.lang.Error {
+    static private final class LookaheadSuccess extends OWLRuntimeException {
 
         private static final long serialVersionUID = 30402L;
 

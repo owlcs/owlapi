@@ -44,6 +44,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+
 /** JavaCC generated JavaCharStream with added treatment for BOMs */
 @SuppressWarnings("javadoc")
 public class JavaCharStream {
@@ -125,7 +127,6 @@ public class JavaCharStream {
         char[] newbuffer = new char[bufsize + 2048];
         int newbufline[] = new int[bufsize + 2048];
         int newbufcolumn[] = new int[bufsize + 2048];
-        try {
             if (wrapAround) {
                 System.arraycopy(buffer, tokenBegin, newbuffer, 0, bufsize - tokenBegin);
                 System.arraycopy(buffer, 0, newbuffer, bufsize - tokenBegin, bufpos);
@@ -148,9 +149,7 @@ public class JavaCharStream {
                 bufcolumn = newbufcolumn;
                 bufpos -= tokenBegin;
             }
-        } catch (Throwable t) {
-            throw new Error(t.getMessage());
-        }
+
         available = bufsize += 2048;
         tokenBegin = 0;
     }
@@ -314,8 +313,8 @@ public class JavaCharStream {
                         | hexval(ReadByte()) << 4 | hexval(ReadByte()));
                 column += 4;
             } catch (IOException e) {
-                throw new Error("Invalid escape character at line " + line + " column "
-                        + column + ".");
+                throw new OWLRuntimeException("Invalid escape character at line " + line
+                        + " column " + column + ".", e);
             }
             if (backSlashCnt == 1) {
                 return c;

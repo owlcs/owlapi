@@ -39,6 +39,8 @@
 
 package org.coode.xml;
 
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+
 
 /**
  * Author: Matthew Horridge<br>
@@ -49,7 +51,7 @@ package org.coode.xml;
  * An exception which indicates that a caller tried to write an XML Element with a name that is not a QName.
  */
 @SuppressWarnings("javadoc")
-public class IllegalElementNameException extends RuntimeException {
+public class IllegalElementNameException extends OWLRuntimeException {
 
 
 	private static final long serialVersionUID = 30402L;

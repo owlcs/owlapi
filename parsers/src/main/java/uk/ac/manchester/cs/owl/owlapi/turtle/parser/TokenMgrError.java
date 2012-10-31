@@ -1,8 +1,10 @@
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+
 /** Token Manager Error. */
 @SuppressWarnings("javadoc")
-public class TokenMgrError extends Error
+public class TokenMgrError extends OWLRuntimeException
 {
 
     /**

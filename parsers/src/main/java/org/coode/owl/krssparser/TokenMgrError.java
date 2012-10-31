@@ -41,11 +41,13 @@
 /* JavaCCOptions: */
 package org.coode.owl.krssparser;
 
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+
 /**
  * Token Manager Error.
  */
 @SuppressWarnings("javadoc")
-public class TokenMgrError extends Error {
+public class TokenMgrError extends OWLRuntimeException {
 
     /**
      * The version identifier for this Serializable class.
@@ -146,7 +148,7 @@ public class TokenMgrError extends Error {
      * Note: You can customize the lexical error message by modifying this method.
      */@SuppressWarnings("unused")
     protected static String LexicalError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, char curChar) {
-        return ("Lexical error at line " + errorLine + ", column " + errorColumn + ".  Encountered: " + (EOFSeen ? "<EOF> " : ("\"" + addEscapes(String.valueOf(curChar)) + "\"") + " (" + (int) curChar + "), ") + "after : \"" + addEscapes(errorAfter) + "\"");
+        return "Lexical error at line " + errorLine + ", column " + errorColumn + ".  Encountered: " + (EOFSeen ? "<EOF> " : "\"" + addEscapes(String.valueOf(curChar)) + "\"" + " (" + (int) curChar + "), ") + "after : \"" + addEscapes(errorAfter) + "\"";
     }
 
     /**

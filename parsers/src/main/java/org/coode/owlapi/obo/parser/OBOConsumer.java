@@ -69,6 +69,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -512,31 +513,9 @@ public class OBOConsumer implements OBOParserHandler {
             throw new NullPointerException("oboId must not be null.");
         }
         return getIRI(oboId);
-//
-//        if (oboId.contains(":")) {
-//            return getIRI(oboId);
-//        }
-//        else {
-//            StringBuilder sb = new StringBuilder();
-//            sb.append(defaultNamespaceTagValue);
-//            sb.append(":");
-//            sb.append(oboId);
-//            return getIRI(sb.toString());
-//        }
     }
 
-//    public IRI getIRIFromSymbolicId(String symbolicId) {
-//        if (symbolicId == null) {
-//            throw new NullPointerException("symbolicId must not be null.");
-//        }
-//        IRI cachedIRI = symbolicIdCache.get(symbolicId);
-//        if (cachedIRI != null) {
-//            return cachedIRI;
-//        }
-//        IRI freshIRI = IRI.create(OBOVocabulary.OBO_IRI_BASE + symbolicId);
-//        symbolicIdCache.put(symbolicId, freshIRI);
-//        return freshIRI;
-//    }
+
 
     public IRI getRelationIRIFromSymbolicIdOrOBOId(String symbolicIdOrOBOId) {
         IRI fullIRI = symbolicIdCache.get(symbolicIdOrOBOId);
@@ -546,7 +525,8 @@ public class OBOConsumer implements OBOParserHandler {
         
         OBOIdType idType = OBOIdType.getIdType(symbolicIdOrOBOId);
         if (idType == null) {
-            throw new RuntimeException("Invalid ID: " + symbolicIdOrOBOId + " in frame " + currentId);
+            throw new OWLRuntimeException("Invalid ID: " + symbolicIdOrOBOId
+                    + " in frame " + currentId);
         }
         else {
             return idType.getIRIFromOBOId(ontology.getOntologyID(), idSpaceManager, symbolicIdOrOBOId);
@@ -563,7 +543,7 @@ public class OBOConsumer implements OBOParserHandler {
         OWLOntologyID ontologyID = getOntology().getOntologyID();
         OBOIdType type = OBOIdType.getIdType(trimmed);
         if (type == null) {
-            throw new RuntimeException("Not a valid OBO ID: " + s);
+            throw new OWLRuntimeException("Not a valid OBO ID: " + s);
         }
         IRI freshIRI = type.getIRIFromOBOId(ontologyID, idSpaceManager, trimmed);
         uriCache.put(trimmed, freshIRI);

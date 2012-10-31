@@ -8,6 +8,7 @@ import java.util.Map;
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -1427,7 +1428,11 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     }
     /** Constructor with InputStream and supplied encoding */
     public TurtleParser(java.io.InputStream stream, String encoding) {
-        try { jj_input_stream = new JavaCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
+        try {
+            jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new OWLRuntimeException(e);
+        }
         token_source = new TurtleParserTokenManager(jj_input_stream);
         token = new Token();
         jj_ntk = -1;
@@ -1446,7 +1451,11 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     }
     /** Reinitialise. */
     public void ReInit(java.io.InputStream stream, String encoding) {
-        try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
+        try {
+            jj_input_stream.ReInit(stream, encoding, 1, 1);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new OWLRuntimeException(e);
+        }
         token_source.ReInit(jj_input_stream);
         token = new Token();
         jj_ntk = -1;
@@ -1546,7 +1555,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         throw generateParseException();
     }
 
-    static private final class LookaheadSuccess extends java.lang.Error {
+    static private final class LookaheadSuccess extends OWLRuntimeException {
         public LookaheadSuccess() {}
     }
     final private LookaheadSuccess jj_ls = new LookaheadSuccess();

@@ -5067,7 +5067,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
     /** Constructor with InputStream and supplied encoding */
     public OWLFunctionalSyntaxParser(java.io.InputStream stream, String encoding) {
-        try { jj_input_stream = new JavaCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
+        try {
+            jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new OWLRuntimeException(e);
+        }
         token_source = new OWLFunctionalSyntaxParserTokenManager(jj_input_stream);
         token = new Token();
         jj_ntk = -1;
@@ -5086,7 +5090,11 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
     /** Reinitialise. */
     public void ReInit(java.io.InputStream stream, String encoding) {
-        try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
+        try {
+            jj_input_stream.ReInit(stream, encoding, 1, 1);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new OWLRuntimeException(e);
+        }
         token_source.ReInit(jj_input_stream);
         token = new Token();
         jj_ntk = -1;
@@ -5186,7 +5194,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         throw generateParseException();
     }
 
-    static private final class LookaheadSuccess extends java.lang.Error {
+    static private final class LookaheadSuccess extends OWLRuntimeException {
         private static final long serialVersionUID = 30402L;
 
         public LookaheadSuccess() {}
