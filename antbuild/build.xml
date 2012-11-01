@@ -84,7 +84,7 @@
          because end API users aren't expected to deal with this kind of thing -->
     <target name="javadoc">
         <mkdir dir="${javadocdir}"/>
-        <javadoc destdir="${javadocdir}" verbose="no" windowtitle="The OWL API">
+        <javadoc useexternalfile="true" destdir="${javadocdir}" verbose="no" windowtitle="The OWL API">
             <fileset dir="./.." defaultexcludes="yes">
             	<include name="api/${sourcepath}"/>
                 <include name="api/javadoc"/>
