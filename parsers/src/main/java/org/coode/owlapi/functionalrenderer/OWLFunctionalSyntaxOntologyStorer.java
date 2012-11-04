@@ -46,7 +46,6 @@ import java.util.Map;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -74,12 +73,12 @@ public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer
         return ontologyFormat.equals(new OWLFunctionalSyntaxOntologyFormat());
     }
 
-
     @Override
-	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {
         try {
-            OWLObjectRenderer ren = new OWLObjectRenderer(manager, ontology, writer);
+            OWLObjectRenderer ren = new OWLObjectRenderer(ontology, writer);
             if(format instanceof PrefixOWLOntologyFormat) {
                 PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
                 DefaultPrefixManager man = new DefaultPrefixManager();

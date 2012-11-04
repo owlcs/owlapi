@@ -90,6 +90,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
+import org.semanticweb.owlapi.util.OWLEntityIRIComparator;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 
@@ -101,6 +102,7 @@ import org.semanticweb.owlapi.util.SWRLVariableExtractor;
  */
 @SuppressWarnings("javadoc")
 public abstract class RDFRendererBase {
+
 
     private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
 
@@ -119,8 +121,7 @@ public abstract class RDFRendererBase {
     public static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
 
     public static final String RULES_BANNER_TEXT = "Rules";
-
-    protected OWLOntologyManager manager;
+    private static final OWLEntityIRIComparator entityComparator = new OWLEntityIRIComparator();
 
     protected OWLOntology ontology;
 
@@ -130,15 +131,23 @@ public abstract class RDFRendererBase {
 
     private OWLOntologyFormat format;
 
-
-    public RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager) {
-        this(ontology, manager, manager.getOntologyFormat(ontology));
+    public RDFRendererBase(OWLOntology ontology) {
+        this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 
+    @Deprecated
+    public RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager) {
+        this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
+    }
 
-    protected RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager, OWLOntologyFormat format) {
+    @Deprecated
+    protected RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager,
+            OWLOntologyFormat format) {
+        this(ontology, format);
+    }
+
+    protected RDFRendererBase(OWLOntology ontology, OWLOntologyFormat format) {
         this.ontology = ontology;
-        this.manager = manager;
         this.format = format;
     }
 
@@ -402,7 +411,6 @@ public abstract class RDFRendererBase {
                 }
             }
             if (anonRoot) {
-                //TODO check this: in some cases it seems to cause a StackOverflow error.
                 createGraph(axioms);
                 renderAnonRoots();
             }
@@ -618,7 +626,8 @@ public abstract class RDFRendererBase {
                         axioms.add(ax);
                     }
                 }
-                axioms.addAll(ontology.getAxioms(manager.getOWLDataFactory().getOWLObjectInverseOf(property)));
+                axioms.addAll(ontology.getAxioms(ontology.getOWLOntologyManager()
+                        .getOWLDataFactory().getOWLObjectInverseOf(property)));
             }
 
             @Override
@@ -646,7 +655,8 @@ public abstract class RDFRendererBase {
     }
 
     protected void createGraph(Set<? extends OWLObject> objects) {
-        RDFTranslator translator = new RDFTranslator(manager, ontology, shouldInsertDeclarations());
+        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(),
+                ontology, shouldInsertDeclarations());
         for (OWLObject obj : objects) {
             obj.accept(translator);
         }
@@ -657,7 +667,7 @@ public abstract class RDFRendererBase {
 
 
     private static <N extends OWLEntity> Set<N> toSortedSet(Set<N> entities) {
-        Set<N> results = new TreeSet<N>(new OWLEntityIRIComparator());
+        Set<N> results = new TreeSet<N>(entityComparator);
         results.addAll(entities);
         return results;
     }
@@ -719,7 +729,6 @@ public abstract class RDFRendererBase {
                     else {
                         // Should be another list
                         currentNode = triple.getObject();
-//                        toJavaList(triple.getObject(), list);
                     }
                 }
             }
@@ -727,21 +736,6 @@ public abstract class RDFRendererBase {
 
     }
 
-
-    /**
-     * Comparator that uses IRI ordering to order entities.
-     * XXX stateless, might be used through a singleton
-     */
-    private static final class OWLEntityIRIComparator implements Comparator<OWLEntity>, Serializable {
-
-        private static final long serialVersionUID = 30402L;
-
-        public OWLEntityIRIComparator() {}
-        @Override
-        public int compare(OWLEntity o1, OWLEntity o2) {
-            return o1.getIRI().compareTo(o2.getIRI());
-        }
-    }
 
 
     public static class TripleComparator implements Comparator<RDFTriple>, Serializable {

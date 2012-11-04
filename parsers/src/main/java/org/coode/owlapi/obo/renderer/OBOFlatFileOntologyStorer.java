@@ -44,7 +44,6 @@ import java.io.Writer;
 import org.coode.owlapi.obo.parser.OBOOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
@@ -67,9 +66,9 @@ public class OBOFlatFileOntologyStorer extends AbstractOWLOntologyStorer {
 
 
     @Override
-	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
-            OWLOntologyStorageException {
-        OBOFlatFileRenderer renderer = new OBOFlatFileRenderer(manager);
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
+        OBOFlatFileRenderer renderer = new OBOFlatFileRenderer();
         renderer.render(ontology, writer);
     }
 }

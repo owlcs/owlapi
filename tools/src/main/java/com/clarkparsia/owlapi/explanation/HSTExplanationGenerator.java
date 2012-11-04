@@ -109,7 +109,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return singleExplanationGenerator.getReasonerFactory();
     }
 
-
     /**
      * @return the explanation generator
      */

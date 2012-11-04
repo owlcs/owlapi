@@ -127,17 +127,14 @@ public class ContractMediumTest {
         boolean result0 = testSubject0.isEntailed();
         String result1 = testSubject0.toString();
         Tree<OWLAxiom> result2 = testSubject0.getParent();
-        int result3 = testSubject0.getSize();
         Tree<OWLAxiom> result4 = testSubject0.getRoot();
         boolean result5 = testSubject0.isRoot();
         List<Tree<OWLAxiom>> result6 = testSubject0.getChildren();
         Object result7 = testSubject0.getUserObject();
         testSubject0.addChild(mock(MutableTree.class));
-        testSubject0.addChild(mock(MutableTree.class), mock(Object.class));
         testSubject0.removeChild(mock(MutableTree.class));
         Object result8 = testSubject0.getEdge(mock(Tree.class));
         testSubject0.sortChildren(mock(Comparator.class));
-        testSubject0.clearChildren();
         int result9 = testSubject0.getChildCount();
         boolean result10 = testSubject0.isLeaf();
         List<Tree<OWLAxiom>> result11 = testSubject0.getPathToRoot();
@@ -147,7 +144,6 @@ public class ContractMediumTest {
         testSubject0.dump(mock(PrintWriter.class));
         testSubject0.setNodeRenderer(mock(NodeRenderer.class));
         List<OWLAxiom> result14 = testSubject0.fillDepthFirst();
-        int result15 = testSubject0.getMaxDepth();
     }
 
     @Test
@@ -163,17 +159,14 @@ public class ContractMediumTest {
         boolean result0 = testSubject0.isEntailed();
         String result1 = testSubject0.toString();
         Tree<OWLAxiom> result2 = testSubject0.getParent();
-        int result3 = testSubject0.getSize();
         Tree<OWLAxiom> result4 = testSubject0.getRoot();
         boolean result5 = testSubject0.isRoot();
         List<Tree<OWLAxiom>> result6 = testSubject0.getChildren();
         Object result7 = testSubject0.getUserObject();
         testSubject0.addChild(mock(MutableTree.class));
-        testSubject0.addChild(mock(MutableTree.class), mock(Object.class));
         testSubject0.removeChild(mock(MutableTree.class));
         Object result8 = testSubject0.getEdge(mock(Tree.class));
         testSubject0.sortChildren(mock(Comparator.class));
-        testSubject0.clearChildren();
         int result9 = testSubject0.getChildCount();
         boolean result10 = testSubject0.isLeaf();
         List<Tree<OWLAxiom>> result11 = testSubject0.getPathToRoot();
@@ -183,7 +176,6 @@ public class ContractMediumTest {
         testSubject0.dump(mock(PrintWriter.class));
         testSubject0.setNodeRenderer(mock(NodeRenderer.class));
         List<OWLAxiom> result14 = testSubject0.fillDepthFirst();
-        int result15 = testSubject0.getMaxDepth();
     }
 
     @Test

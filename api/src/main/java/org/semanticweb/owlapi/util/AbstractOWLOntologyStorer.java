@@ -72,8 +72,15 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 	private static final long serialVersionUID = 30402L;
 	private static final String UTF_8 = "UTF-8";
 
+    @Override
+    public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
+            IRI documentIRI, OWLOntologyFormat ontologyFormat)
+            throws OWLOntologyStorageException {
+        storeOntology(ontology, documentIRI, ontologyFormat);
+    }
 	@Override
-    public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology, IRI documentIRI, OWLOntologyFormat ontologyFormat) throws
+    public final void storeOntology(OWLOntology ontology, IRI documentIRI,
+            OWLOntologyFormat ontologyFormat) throws
             OWLOntologyStorageException {
         try {
             if (!documentIRI.isAbsolute()) {
@@ -92,7 +99,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             try {
                 tempOutputStream = new FileOutputStream(tempFile);
                 Writer tempWriter = new BufferedWriter(new OutputStreamWriter(tempOutputStream, UTF_8));
-                storeOntology(manager, ontology, tempWriter, ontologyFormat);
+                storeOntology(ontology, tempWriter, ontologyFormat);
                 tempWriter.flush();
                 tempWriter.close();
 
@@ -156,14 +163,20 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
         }
     }
 
-
     @Override
     public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology, OWLOntologyDocumentTarget target,
                                     OWLOntologyFormat format) throws OWLOntologyStorageException {
+        storeOntology(ontology, target, format);
+    }
+
+    @Override
+    public final void storeOntology(OWLOntology ontology,
+            OWLOntologyDocumentTarget target, OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         if (target.isWriterAvailable()) {
             try {
                 Writer writer = target.getWriter();
-                storeOntology(manager, ontology, writer, format);
+                storeOntology(ontology, writer, format);
                 writer.flush();
             }
             catch (IOException e) {
@@ -173,7 +186,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             Writer writer=null;
             try {
                 writer = new BufferedWriter(new OutputStreamWriter(target.getOutputStream(), UTF_8));
-                storeOntology(manager, ontology, writer, format);
+                storeOntology(ontology, writer, format);
                 writer.flush();
 
             }
@@ -181,12 +194,13 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                 throw new OWLOntologyStorageException(e);
             }
         } else if (target.isDocumentIRIAvailable()) {
-            storeOntology(manager, ontology, target.getDocumentIRI(), format);
+            storeOntology(ontology, target.getDocumentIRI(), format);
         } else {
             throw new OWLOntologyStorageException("Neither a Writer, OutputStream or Document IRI could be obtained to store the ontology");
         }
     }
 
-    // XXX check the use of manager
-    protected abstract void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException;
+
+    protected abstract void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException;
 }

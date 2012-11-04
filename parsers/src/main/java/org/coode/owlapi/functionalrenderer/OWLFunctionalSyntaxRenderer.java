@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 
 /**
@@ -58,15 +57,10 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
 
-    public OWLFunctionalSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
-    }
-
-
     @Override
 	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         try {
-            OWLObjectRenderer ren = new OWLObjectRenderer(getOWLOntologyManager(), ontology, writer);
+            OWLObjectRenderer ren = new OWLObjectRenderer(ontology, writer);
             ontology.accept(ren);
             writer.flush();
         }

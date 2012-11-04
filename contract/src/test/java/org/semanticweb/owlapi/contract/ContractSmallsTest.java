@@ -23,6 +23,7 @@ import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLRenderer;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
+import org.coode.owlapi.turtle.TurtleRenderer;
 import org.coode.string.EscapeUtils;
 import org.junit.Test;
 import org.semanticweb.owlapi.debugging.AbstractOWLDebugger;
@@ -222,8 +223,7 @@ public class ContractSmallsTest {
 
     @Test
     public void shouldTestRDFRendererBase() throws Exception {
-        RDFRendererBase testSubject0 = new RDFRendererBase(Utils.getMockOntology(),
-                Utils.getMockManager()) {
+        RDFRendererBase testSubject0 = new RDFRendererBase(Utils.getMockOntology()) {
             @Override
             protected void beginDocument() throws IOException {}
 
@@ -299,9 +299,9 @@ public class ContractSmallsTest {
 
     @Test
     public void shouldTestRDFXMLRenderer() throws Exception {
-        RDFXMLRenderer testSubject0 = new RDFXMLRenderer(Utils.getMockManager(),
+        RDFXMLRenderer testSubject0 = new RDFXMLRenderer(
                 Utils.getMockOntology(), mock(Writer.class));
-        RDFXMLRenderer testSubject1 = new RDFXMLRenderer(Utils.getMockManager(),
+        RDFXMLRenderer testSubject1 = new RDFXMLRenderer(
                 Utils.getMockOntology(), mock(Writer.class),
                 mock(OWLOntologyFormat.class));
         Set<OWLEntity> result0 = testSubject0.getUnserialisableEntities();
@@ -312,18 +312,14 @@ public class ContractSmallsTest {
         MutableTree<Object> testSubject0 = new MutableTree<Object>(mock(Object.class));
         String result0 = testSubject0.toString();
         Tree<Object> result1 = testSubject0.getParent();
-        int result2 = testSubject0.getSize();
-        testSubject0.setParent(new MutableTree<Object>(mock(Object.class)));
         Tree<Object> result3 = testSubject0.getRoot();
         boolean result4 = testSubject0.isRoot();
         List<Tree<Object>> result5 = testSubject0.getChildren();
         Object result6 = testSubject0.getUserObject();
         testSubject0.addChild(mock(MutableTree.class));
-        testSubject0.addChild(mock(MutableTree.class), mock(Object.class));
         testSubject0.removeChild(mock(MutableTree.class));
         Object result7 = testSubject0.getEdge(mock(Tree.class));
         testSubject0.sortChildren(mock(Comparator.class));
-        testSubject0.clearChildren();
         int result8 = testSubject0.getChildCount();
         boolean result9 = testSubject0.isLeaf();
         List<Tree<Object>> result10 = testSubject0.getPathToRoot();
@@ -333,7 +329,6 @@ public class ContractSmallsTest {
         testSubject0.dump(mock(PrintWriter.class));
         testSubject0.setNodeRenderer(mock(NodeRenderer.class));
         List<Object> result13 = testSubject0.fillDepthFirst();
-        int result14 = testSubject0.getMaxDepth();
     }
 
     @Test
@@ -420,6 +415,18 @@ public class ContractSmallsTest {
     }
 
 
+    public void shouldTestTurtleRenderer() throws Exception {
+        TurtleRenderer testSubject0 = new TurtleRenderer(Utils.getMockOntology(),
+                mock(Writer.class), mock(OWLOntologyFormat.class));
+        testSubject0.render(mock(RDFResourceNode.class));
+        testSubject0.pushTab();
+        testSubject0.popTab();
+        OWLOntology result0 = testSubject0.getOntology();
+        testSubject0.render();
+        RDFGraph result1 = testSubject0.getGraph();
+        testSubject0.renderAnonRoots();
+        String result2 = testSubject0.toString();
+    }
 
     @Test
     public void shouldTestInterfaceRDFConsumer() throws Exception {

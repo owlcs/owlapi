@@ -44,7 +44,6 @@ import java.io.Writer;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
@@ -66,11 +65,11 @@ public class OWLXMLOntologyStorer extends AbstractOWLOntologyStorer {
         return ontologyFormat.equals(new OWLXMLOntologyFormat());
     }
 
-
     @Override
-	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
-                                                                                                                            OWLOntologyStorageException {
-        OWLXMLRenderer renderer = new OWLXMLRenderer(manager);
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
+        OWLXMLRenderer renderer = new OWLXMLRenderer();
         renderer.render(ontology, writer, format);
+
     }
 }

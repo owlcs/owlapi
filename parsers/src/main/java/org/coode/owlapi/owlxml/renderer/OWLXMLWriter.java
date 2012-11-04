@@ -40,10 +40,8 @@
 package org.coode.owlapi.owlxml.renderer;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.io.Writer;
 import java.net.URI;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -57,6 +55,7 @@ import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.StringLengthComparator;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -74,25 +73,6 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  */
 @SuppressWarnings("javadoc")
 public class OWLXMLWriter {
-
-    /**
-     * String comparator that takes length into account before natural ordering.
-     * XXX stateless, might be used through a singleton
-     */
-    private static final class StringLengthComparator implements Comparator<String>, Serializable {
-        private static final long serialVersionUID = 30402L;
-
-        public StringLengthComparator() {}
-		@Override
-        public int compare(String o1, String o2) {
-            int diff = o1.length() - o2.length();
-            if (diff != 0) {
-                return diff;
-            }
-            return o1.compareTo(o2);
-        }
-    }
-
 
     private XMLWriter writer;
 

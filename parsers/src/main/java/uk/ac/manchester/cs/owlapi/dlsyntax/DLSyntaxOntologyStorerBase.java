@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
@@ -70,9 +69,11 @@ public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStor
 	private static final long serialVersionUID = 30402L;
 	private OWLOntology ont;
 
+
     @Override
-	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer w, OWLOntologyFormat format) throws
-            OWLOntologyStorageException {
+    protected void
+            storeOntology(OWLOntology ontology, Writer w, OWLOntologyFormat format)
+                    throws OWLOntologyStorageException {
 
         ont = ontology;
         PrintWriter writer = new PrintWriter(w);

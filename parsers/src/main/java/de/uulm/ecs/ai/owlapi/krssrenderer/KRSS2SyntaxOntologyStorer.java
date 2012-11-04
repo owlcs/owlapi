@@ -43,7 +43,6 @@ import java.io.Writer;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
@@ -67,11 +66,10 @@ public class KRSS2SyntaxOntologyStorer extends AbstractOWLOntologyStorer {
         return ontologyFormat.equals(new KRSS2OntologyFormat());
     }
 
-    // I changed this class to extend AbstractOWLOntologyStorer - Matthew Horridge
-	@Override
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
-            OWLOntologyStorageException {
-        KRSS2SyntaxRenderer renderer = new KRSS2SyntaxRenderer(manager);
+    @Override
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
+        KRSS2SyntaxRenderer renderer = new KRSS2SyntaxRenderer();
         renderer.render(ontology, writer);
     }
 }

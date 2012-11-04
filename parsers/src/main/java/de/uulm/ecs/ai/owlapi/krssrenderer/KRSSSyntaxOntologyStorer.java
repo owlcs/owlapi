@@ -44,7 +44,6 @@ import java.io.Writer;
 import org.coode.owl.krssparser.KRSSOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
@@ -67,10 +66,10 @@ public class KRSSSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
         return ontologyFormat.equals(new KRSSOntologyFormat());
     }
 
-	@Override
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer,
-                                 OWLOntologyFormat format) throws OWLOntologyStorageException {
-        KRSSSyntaxRenderer renderer = new KRSSSyntaxRenderer(manager);
+    @Override
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
+        KRSSSyntaxRenderer renderer = new KRSSSyntaxRenderer();
         renderer.render(ontology, writer);
     }
 }

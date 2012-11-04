@@ -356,8 +356,6 @@ public class XMLWriterImpl implements XMLWriter {
 
 
         public void setWrapAttributes(boolean b) {
-        	//XXX it was:
-            //wrapAttributes = true;
         	wrapAttributes = b;
         }
 

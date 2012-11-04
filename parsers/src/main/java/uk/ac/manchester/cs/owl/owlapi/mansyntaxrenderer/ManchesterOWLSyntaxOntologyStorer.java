@@ -44,7 +44,6 @@ import java.io.Writer;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
@@ -66,11 +65,13 @@ public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer
         return ontologyFormat.equals(new ManchesterOWLSyntaxOntologyFormat());
     }
 
-
     @Override
-	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
 
-        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(manager, ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
+        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
+                ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(
+                        format));
         ren.writeOntology();
     }
 }

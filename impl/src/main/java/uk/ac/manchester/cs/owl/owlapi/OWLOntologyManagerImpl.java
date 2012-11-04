@@ -84,7 +84,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeBroadcastStrategy;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyChangeProgressListener;
 import org.semanticweb.owlapi.model.OWLOntologyChangeVetoException;
@@ -169,11 +168,6 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         defaultChangeBroadcastStrategy = new DefaultChangeBroadcastStrategy();
         defaultImpendingChangeBroadcastStrategy = new DefaultImpendingChangeBroadcastStrategy();
     }
-    //XXX not in the interface
-    @SuppressWarnings("javadoc")
-    public OWLOntologyManagerProperties getProperties() {
-        return properties;
-    }
 
     @Override
     public OWLDataFactory getOWLDataFactory() {
@@ -195,8 +189,8 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         }
         return result;
     }
-    //XXX not in the interface
-    @SuppressWarnings("javadoc")
+
+    @Override
     public boolean contains(OWLOntology ontology) {
         return ontologiesByID.containsValue(ontology);
     }
@@ -257,16 +251,6 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         return result;
     }
 
-    /**
-     * Gets a previously loaded/created ontology that has the specified ontology
-     * IRI and no version IRI.
-     *
-     * @param ontologyIRI
-     *            The IRI of the ontology to be retrieved.
-     * @return The ontology that has the specified IRI and no version IRI, or
-     *         <code>null</code> if this manager does not manage an ontology
-     *         with the specified IRI and no version IRI.
-     */
     @Override
     public OWLOntology getOntology(IRI ontologyIRI) {
         OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRI);
@@ -284,16 +268,6 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         return result;
     }
 
-    /**
-     * Gets a previously loaded/created ontology that has the specified ontology
-     * ID
-     *
-     * @param ontologyID
-     *            The ID of the ontology to retrieve
-     * @return The ontology that has the specified ID, or <code>null</code> if
-     *         this manager does not manage an ontology with the specified
-     *         ontology ID.
-     */
     @Override
     public OWLOntology getOntology(OWLOntologyID ontologyID) {
         OWLOntology result = ontologiesByID.get(ontologyID);
@@ -341,17 +315,6 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         return onts;
     }
 
-    /**
-     * Given an imports declaration, obtains the ontology that this import has
-     * been resolved to.
-     *
-     * @param declaration
-     *            The declaration that points to the imported ontology.
-     * @return The ontology that the imports declaration resolves to, or
-     *         <code>null</code> if the imports declaration could not be
-     *         resolved to an ontology, because the ontology was not loaded or
-     *         has been removed from this manager
-     */
     @Override
     public OWLOntology getImportedOntology(OWLImportsDeclaration declaration) {
         OWLOntologyID ontologyID = ontologyIDsByImportsDeclaration.get(declaration);
@@ -363,19 +326,6 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         }
     }
 
-    /**
-     * Gets the set of <em>loaded</em> ontologies that the specified ontology is
-     * related to via the directlyImports relation as defined in Section 3.4 of
-     * the OWL 2 Structural specification
-     *
-     * @param ontology
-     *            The ontology whose direct imports are to be retrieved.
-     * @return The set of <em>loaded</em> ontologies that the specified ontology
-     *         is related to via the directlyImports relation.
-     * @throws org.semanticweb.owlapi.model.UnknownOWLOntologyException
-     *             if there isn't an ontology in this manager which has the
-     *             specified IRI.
-     */
     @Override
     public Set<OWLOntology> getDirectImports(OWLOntology ontology)
             throws UnknownOWLOntologyException {
@@ -392,20 +342,6 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         return imports;
     }
 
-    /**
-     * Gets the set of ontologies that are in the transitive closure of the
-     * directly imports relation.
-     *
-     * @param ontology
-     *            The ontology whose imports are to be retrieved.
-     * @return A set of <code>OWLOntology</code>ies that are in the transitive
-     *         closure of the directly imports relation of this ontology. If,
-     *         for what ever reason, an imported ontology could not be loaded,
-     *         then it will not be contained in the returned set of ontologies.
-     * @throws org.semanticweb.owlapi.model.UnknownOWLOntologyException
-     *             if there isn't an ontology in this manager which has the
-     *             specified IRI.
-     */
     @Override
     public Set<OWLOntology> getImports(OWLOntology ontology)
             throws UnknownOWLOntologyException {
@@ -417,15 +353,6 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         return result;
     }
 
-    /**
-     * A method that gets the imports of a given ontology
-     *
-     * @param ont
-     *            The ontology whose (transitive) imports are to be retrieved.
-     * @param result
-     *            A place to store the result - the transitive closure of the
-     *            imports will be stored in this result set.
-     */
     private void getImports(OWLOntology ont, Set<OWLOntology> result) {
         for (OWLOntology directImport : getDirectImports(ont)) {
             if (result.add(directImport)) {
@@ -447,16 +374,6 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(ontologies);
     }
 
-    /**
-     * A recursive method that gets the reflexive transitive closure of the
-     * ontologies that are imported by this ontology.
-     *
-     * @param ontology
-     *            The ontology whose reflexive transitive closure is to be
-     *            retrieved
-     * @param ontologies
-     *            a place to store the result
-     */
     private void getImportsClosure(OWLOntology ontology, Set<OWLOntology> ontologies) {
         ontologies.add(ontology);
         for (OWLOntology ont : getDirectImports(ontology)) {
@@ -485,17 +402,8 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         }
     }
 
-    /**
-     * Determines if a change is applicable. A change may not be applicable for
-     * a number of reasons.
-     *
-     * @param change
-     *            The change to be tested.
-     * @return <code>true</code> if the change is applicable, otherwise,
-     *         <code>false</code>.
-     */
     private boolean isChangeApplicable(OWLOntologyChange change) {
-        if (!getProperties().isLoadAnnotationAxioms() && change instanceof AddAxiom) {
+        if (!properties.isLoadAnnotationAxioms() && change instanceof AddAxiom) {
             if (change.getAxiom() instanceof OWLAnnotationAxiom) {
                 return false;
             }
@@ -611,14 +519,6 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
                         }
                     }
                 }
-                //                // Do we contain the import already?
-                //                for (OWLOntologyID id : ontologiesByID.keySet()) {
-                //
-                //                    if ((id.getDefaultDocumentIRI() != null && id.getDefaultDocumentIRI().equals(iri))||(id.getOntologyIRI() != null && id.getOntologyIRI().equals(iri))) {
-                //                        // Yes we do
-                //                        ontologyIDsByImportsDeclaration.put(addImportDeclaration, id);
-                //                    }
-                //                }
             } else {
                 // Remove the mapping from declaration to ontology
                 ontologyIDsByImportsDeclaration.remove(((RemoveImport) change)
@@ -658,14 +558,6 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         addOntology(ontology);
     }
 
-    /**
-     * Sets the format of an ontology
-     *
-     * @param ontology
-     *            The ontology
-     * @param format
-     *            The format of the ontology
-     */
     @Override
     public void setOntologyFormat(OWLOntology ontology, OWLOntologyFormat format) {
         OWLOntologyID ontologyID = ontology.getOntologyID();
@@ -688,12 +580,6 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
     public OWLOntology createOntology(IRI ontologyIRI)
             throws OWLOntologyCreationException {
         return createOntology(new OWLOntologyID(ontologyIRI));
-    }
-    //XXX not in the interface
-    @SuppressWarnings("javadoc")
-    public OWLOntology createOntology(IRI ontologyIRI, IRI versionIRI)
-            throws OWLOntologyCreationException {
-        return createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
     }
 
     @Override
@@ -1031,7 +917,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         try {
             for (OWLOntologyStorer storer : ontologyStorers) {
                 if (storer.canStoreOntology(ontologyFormat)) {
-                    storer.storeOntology(this, ontology, documentIRI, ontologyFormat);
+                    storer.storeOntology(ontology, documentIRI, ontologyFormat);
                     return;
                 }
             }
@@ -1067,7 +953,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         try {
             for (OWLOntologyStorer storer : ontologyStorers) {
                 if (storer.canStoreOntology(ontologyFormat)) {
-                    storer.storeOntology(this, ontology, documentTarget, ontologyFormat);
+                    storer.storeOntology(ontology, documentTarget, ontologyFormat);
                     return;
                 }
             }

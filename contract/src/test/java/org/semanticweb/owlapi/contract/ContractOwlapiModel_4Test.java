@@ -126,9 +126,9 @@ public class ContractOwlapiModel_4Test {
     public void shouldTestInterfaceOWLOntologyStorer() throws Exception {
         OWLOntologyStorer testSubject0 = mock(OWLOntologyStorer.class);
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 IRI.create("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
     }
 

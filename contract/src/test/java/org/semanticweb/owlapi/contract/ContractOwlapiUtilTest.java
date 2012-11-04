@@ -60,7 +60,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
@@ -95,8 +94,7 @@ public class ContractOwlapiUtilTest {
             }
 
             @Override
-            protected void storeOntology(final OWLOntologyManager manager,
-                    final OWLOntology ontology, final Writer writer,
+            protected void storeOntology(final OWLOntology ontology, final Writer writer,
                     final OWLOntologyFormat format) throws OWLOntologyStorageException {}
         };
         String result0 = testSubject0.toString();

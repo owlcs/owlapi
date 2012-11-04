@@ -59,7 +59,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.OWLEntityComparator;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
@@ -73,12 +72,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 @SuppressWarnings("javadoc")
 public class LatexRenderer extends AbstractOWLRenderer {
 
-    private ShortFormProvider shortFormProvider;
-
-    public LatexRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
-        shortFormProvider = new SimpleShortFormProvider();
-    }
+    private ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
 
     private void writeEntitySection(OWLEntity entity, LatexWriter w) {
         w.write("\\subsubsection*{");
@@ -104,7 +98,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
             w.write("\\begin{document}\n\n");
 
-            LatexObjectVisitor renderer = new LatexObjectVisitor(w, getOWLOntologyManager().getOWLDataFactory());
+            LatexObjectVisitor renderer = new LatexObjectVisitor(w, ontology
+                    .getOWLOntologyManager().getOWLDataFactory());
 
             Collection<OWLClass> clses = sortEntities(ontology.getClassesInSignature());
             if (!clses.isEmpty()) {

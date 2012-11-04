@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 
 import java.io.IOException;
@@ -46,20 +45,13 @@ import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/**
- * @author Olaf Noppens
- */
+/** @author Olaf Noppens */
 public class KRSS2OWLSyntaxRenderer extends AbstractOWLRenderer {
-	@SuppressWarnings("javadoc")
-    public KRSS2OWLSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
-    }
 
     @Override
-	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         try {
             KRSS2OWLObjectRenderer ren = new KRSS2OWLObjectRenderer(ontology, writer);
             ontology.accept(ren);

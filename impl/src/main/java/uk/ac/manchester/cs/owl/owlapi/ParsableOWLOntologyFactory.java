@@ -42,7 +42,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -65,7 +64,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** Author: Matthew Horridge<br>
@@ -95,23 +93,18 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         parsableSchemes.add("ftp");
     }
 
-    // @Override
-    // public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager)
-    // {
-    // super.setOWLOntologyManager(owlOntologyManager);
-    // }
     /** @return a list of parsers that this factory uses when it tries to create
      *         an ontology from a concrete representation. */
-    @SuppressWarnings("deprecation")
     // XXX not in the interface
-            public
-            List<OWLParser> getParsers() {
+    public List<OWLParser> getParsers() {
         List<OWLParser> parsers = new ArrayList<OWLParser>();
         List<OWLParserFactory> factories = OWLParserFactoryRegistry.getInstance()
                 .getParserFactories();
         for (OWLParserFactory factory : factories) {
             OWLParser parser = factory.createParser(getOWLOntologyManager());
-            parser.setOWLOntologyManager(getOWLOntologyManager());
+            if (parser == null) {
+                throw new NullPointerException();
+            }
             parsers.add(parser);
         }
         return new ArrayList<OWLParser>(parsers);
@@ -126,22 +119,6 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     @Override
     public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return false;
-    }
-
-    /** Overriden - This method will throw an OWLException which wraps an
-     * UnsupportedOperationException.
-     * 
-     * @param ontologyURI
-     *            ignored
-     * @param physicalURI
-     *            ignored
-     * @return never returns */
-    @SuppressWarnings("unused")
-    // XXX not in the interface
-            public
-            OWLOntology createOWLOntology(URI ontologyURI, URI physicalURI) {
-        throw new OWLRuntimeException(new UnsupportedOperationException(
-                "Cannot create new empty ontologies!"));
     }
 
     @Override
