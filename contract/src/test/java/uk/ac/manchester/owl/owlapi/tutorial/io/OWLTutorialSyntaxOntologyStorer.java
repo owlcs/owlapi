@@ -76,7 +76,7 @@ public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
             Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
-            OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer(manager);
+            OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer();
             renderer.render(ontology, writer);
             writer.flush();
         } catch (IOException e) {
