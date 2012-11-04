@@ -59,6 +59,7 @@ public interface OWL2ELProfileViolationVisitor {
 
     void visit(UseOfIllegalDataRange violation);
 
+    void visit(IllegalPunning violation);
     void visit(UseOfObjectPropertyInverse violation);
 
     void visit(UseOfObjectOneOfWithMultipleIndividuals violation);

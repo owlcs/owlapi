@@ -46,7 +46,7 @@ package org.semanticweb.owlapi.profiles;
  */
 @SuppressWarnings("javadoc")
 public interface OWL2DLProfileViolationVisitor {
-
+    void visit(IllegalPunning violation);
     void visit(CycleInDatatypeDefinition violation);
 
     void visit(UseOfBuiltInDatatypeInDatatypeDefinition violation);
