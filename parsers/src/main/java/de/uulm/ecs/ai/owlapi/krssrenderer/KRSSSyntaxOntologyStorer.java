@@ -70,7 +70,7 @@ public class KRSSSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
 	@Override
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer,
                                  OWLOntologyFormat format) throws OWLOntologyStorageException {
-        KRSSSyntaxRenderer renderer = new KRSSSyntaxRenderer(manager);
+        KRSSSyntaxRenderer renderer = new KRSSSyntaxRenderer();
         renderer.render(ontology, writer);
     }
 }

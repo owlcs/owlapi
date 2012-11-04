@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
@@ -62,8 +61,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 @SuppressWarnings("javadoc")
 public class OWLXMLRenderer extends AbstractOWLRenderer {
 
-    public OWLXMLRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    public OWLXMLRenderer() {
     }
 
     public void render(OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLRendererException {
@@ -115,6 +113,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
 
     @Override
 	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
-        render(ontology, writer, getOWLOntologyManager().getOntologyFormat(ontology));
+        render(ontology, writer,
+                ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 }

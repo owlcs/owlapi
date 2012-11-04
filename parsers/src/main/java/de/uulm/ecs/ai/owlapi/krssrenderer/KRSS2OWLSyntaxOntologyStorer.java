@@ -68,7 +68,7 @@ public class KRSS2OWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     @Override
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {
-            KRSS2OWLSyntaxRenderer renderer = new KRSS2OWLSyntaxRenderer(manager);
+        KRSS2OWLSyntaxRenderer renderer = new KRSS2OWLSyntaxRenderer();
             renderer.render(ontology, writer);
     }
 }

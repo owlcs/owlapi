@@ -70,7 +70,7 @@ public class OWLXMLOntologyStorer extends AbstractOWLOntologyStorer {
     @Override
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {
-        OWLXMLRenderer renderer = new OWLXMLRenderer(manager);
+        OWLXMLRenderer renderer = new OWLXMLRenderer();
         renderer.render(ontology, writer, format);
     }
 }

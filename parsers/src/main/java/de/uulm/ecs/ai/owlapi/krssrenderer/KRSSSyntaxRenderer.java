@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
  * Author: Olaf Noppens<br>
@@ -55,14 +54,13 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public class KRSSSyntaxRenderer extends AbstractOWLRenderer {
 	@SuppressWarnings("javadoc")
-    public KRSSSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    public KRSSSyntaxRenderer() {
     }
 
     @Override
 	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         try {
-            KRSSObjectRenderer ren = new KRSSObjectRenderer(getOWLOntologyManager(), ontology, writer);
+            KRSSObjectRenderer ren = new KRSSObjectRenderer(ontology, writer);
             ontology.accept(ren);
             writer.flush();
         }

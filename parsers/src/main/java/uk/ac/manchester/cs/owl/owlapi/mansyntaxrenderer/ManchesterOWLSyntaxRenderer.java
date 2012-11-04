@@ -44,7 +44,6 @@ import java.io.Writer;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 
 /**
@@ -56,14 +55,15 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
 
-    public ManchesterOWLSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    public ManchesterOWLSyntaxRenderer() {
     }
 
 
     @Override
 	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
-        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(getOWLOntologyManager(), ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(getOWLOntologyManager(), ontology));
+        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
+                ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(
+                        ontology));
         ren.writeOntology();
         ren.flush();
     }
