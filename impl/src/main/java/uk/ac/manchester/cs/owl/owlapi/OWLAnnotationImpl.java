@@ -101,19 +101,11 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         if(annotationsToAdd.isEmpty()) {
             return this;
         }
-        Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(this.annotations);
+        Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annotations);
         merged.addAll(annotationsToAdd);
         return new OWLAnnotationImpl(property, value, merged);
     }
-    //XXX not in the interface
-    public boolean isComment() {
-        return property.isComment();
-    }
 
-    //XXX not in the interface
-    public boolean isLabel() {
-        return property.isLabel();
-    }
 
     /**
      * Determines if this annotation is an annotation used to deprecate an IRI.  This is the case if the annotation

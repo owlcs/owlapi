@@ -97,7 +97,6 @@ import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLMutableOntology;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
@@ -496,7 +495,7 @@ Serializable {
 
     @Override
     public boolean containsClassInSignature(IRI owlClassIRI) {
-        return internals.contains(internals.getOwlClassReferences(), getOWLDataFactory()
+        return containsReference(getOWLDataFactory()
                 .getOWLClass(owlClassIRI));
     }
 
@@ -515,7 +514,7 @@ Serializable {
 
     @Override
     public boolean containsObjectPropertyInSignature(IRI propIRI) {
-        return internals.contains(internals.getOwlObjectPropertyReferences(),
+        return containsReference(
                 getOWLDataFactory().getOWLObjectProperty(propIRI));
     }
 
@@ -535,7 +534,7 @@ Serializable {
 
     @Override
     public boolean containsDataPropertyInSignature(IRI propIRI) {
-        return internals.contains(internals.getOwlDataPropertyReferences(),
+        return containsReference(
                 getOWLDataFactory().getOWLDataProperty(propIRI));
     }
 
@@ -557,7 +556,7 @@ Serializable {
     public boolean containsAnnotationPropertyInSignature(IRI propIRI) {
         final OWLAnnotationProperty owlAnnotationProperty = getOWLDataFactory()
                 .getOWLAnnotationProperty(propIRI);
-        boolean b = internals.contains(internals.getOwlAnnotationPropertyReferences(),
+        boolean b = containsReference(
                 owlAnnotationProperty);
         if (b) {
             return true;
@@ -587,7 +586,7 @@ Serializable {
 
     @Override
     public boolean containsIndividualInSignature(IRI individualIRI) {
-        return internals.contains(internals.getOwlIndividualReferences(),
+        return containsReference(
                 getOWLDataFactory().getOWLNamedIndividual(individualIRI));
     }
 
@@ -607,7 +606,7 @@ Serializable {
 
     @Override
     public boolean containsDatatypeInSignature(IRI datatypeIRI) {
-        return internals.contains(internals.getOwlDatatypeReferences(),
+        return containsReference(
                 getOWLDataFactory().getOWLDatatype(datatypeIRI));
     }
 
@@ -687,38 +686,32 @@ Serializable {
         }
     }
 
-    //XXX not in the interface
-    @SuppressWarnings("javadoc")
+    @Override
     public boolean containsReference(OWLClass owlClass) {
         return internals.contains(internals.getOwlClassReferences(), owlClass);
     }
 
-    //XXX not in the interface
-    @SuppressWarnings("javadoc")
+    @Override
     public boolean containsReference(OWLObjectProperty prop) {
         return internals.contains(internals.getOwlObjectPropertyReferences(), prop);
     }
 
-    //XXX not in the interface
-    @SuppressWarnings("javadoc")
+    @Override
     public boolean containsReference(OWLDataProperty prop) {
         return internals.contains(internals.getOwlDataPropertyReferences(), prop);
     }
 
-    //XXX not in the interface
-    @SuppressWarnings("javadoc")
+    @Override
     public boolean containsReference(OWLNamedIndividual ind) {
         return internals.contains(internals.getOwlIndividualReferences(), ind);
     }
 
-    //XXX not in the interface
-    @SuppressWarnings("javadoc")
+    @Override
     public boolean containsReference(OWLDatatype dt) {
         return internals.contains(internals.getOwlDatatypeReferences(), dt);
     }
 
-    //XXX not in the interface
-    @SuppressWarnings("javadoc")
+    @Override
     public boolean containsReference(OWLAnnotationProperty property) {
         return internals.contains(internals.getOwlAnnotationPropertyReferences(),
                 property);
@@ -1018,23 +1011,6 @@ Serializable {
         return getDatatypeDefinitions(datatype);
     }
 
-    //XXX not in the interface
-    @SuppressWarnings("javadoc")
-    public Set<OWLNamedObject> getReferencedObjects() {
-        Set<OWLNamedObject> result = createSet();
-        result.addAll(internals.getKeyset(internals.getOwlClassReferences()));
-        // Consider doing this in a more efficient way (although typically, the number of
-        // properties in an ontology isn't large)
-        for (OWLObjectPropertyExpression prop : internals.getKeyset(internals
-                .getOwlObjectPropertyReferences())) {
-            if (!prop.isAnonymous()) {
-                result.add((OWLObjectProperty) prop);
-            }
-        }
-        result.addAll(internals.getKeyset(internals.getOwlDataPropertyReferences()));
-        result.addAll(internals.getKeyset(internals.getOwlIndividualReferences()));
-        return result;
-    }
 
     @Override
     public Set<OWLEntity> getSignature() {
@@ -1256,20 +1232,6 @@ Serializable {
             props.add(anno.getProperty());
         }
         return props;
-    }
-
-    //XXX not in the interface
-    @SuppressWarnings("javadoc")
-    public Set<OWLAnnotationProperty> getReferencedAnnotationProperties(
-            boolean includeImportsClosure) {
-        if (!includeImportsClosure) {
-            return getAnnotationPropertiesInSignature();
-        }
-        Set<OWLAnnotationProperty> results = createSet();
-        for (OWLOntology ont : getImportsClosure()) {
-            results.addAll(ont.getAnnotationPropertiesInSignature());
-        }
-        return results;
     }
 
     @Override
@@ -1722,8 +1684,7 @@ Serializable {
         visitor.visit(this);
     }
 
-    //XXX not in the interface
-    @SuppressWarnings("javadoc")
+    @Override
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }

@@ -234,31 +234,10 @@ Serializable {
         return getOWLDataFactory().getOWLObjectComplementOf(this);
     }
 
-    // XXX not in the interface
-    public Set<OWLSubClassOfAxiom> getSubClassAxioms(OWLOntology ontology) {
-        return ontology.getSubClassAxiomsForSubClass(this);
-    }
-
-    // XXX not in the interface
-    public Set<OWLEquivalentClassesAxiom>
-    getEquivalentClassesAxioms(OWLOntology ontology) {
-        return ontology.getEquivalentClassesAxioms(this);
-    }
-
-    // XXX not in the interface
-    public Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(OWLOntology ontology) {
-        return ontology.getDisjointClassesAxioms(this);
-    }
-
-    // XXX not in the interface
-    public Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLOntology ontology) {
-        return ontology.getDisjointUnionAxioms(this);
-    }
-
     @Override
     public Set<OWLClassExpression> getSuperClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLSubClassOfAxiom axiom : getSubClassAxioms(ontology)) {
+        for (OWLSubClassOfAxiom axiom : ontology.getSubClassAxiomsForSubClass(this)) {
             result.add(axiom.getSuperClass());
         }
         return result;
@@ -294,7 +273,7 @@ Serializable {
     @Override
     public Set<OWLClassExpression> getEquivalentClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLEquivalentClassesAxiom axiom : getEquivalentClassesAxioms(ontology)) {
+        for (OWLEquivalentClassesAxiom axiom : ontology.getEquivalentClassesAxioms(this)) {
             result.addAll(axiom.getClassExpressions());
         }
         // Don't have the class equivalent to itself
@@ -314,7 +293,7 @@ Serializable {
     @Override
     public Set<OWLClassExpression> getDisjointClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLDisjointClassesAxiom axiom : getDisjointClassesAxioms(ontology)) {
+        for (OWLDisjointClassesAxiom axiom : ontology.getDisjointClassesAxioms(this)) {
             result.addAll(axiom.getClassExpressions());
         }
         // The disjoint classes will contain this class - remove it!
