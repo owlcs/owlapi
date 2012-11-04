@@ -133,7 +133,6 @@ public class NamedConjunctChecker {
     private class NamedConjunctCheckerVisitor extends OWLClassExpressionVisitorAdapter {
 
         public NamedConjunctCheckerVisitor() {
-			// TODO Auto-generated constructor stub
 		}
 
 

@@ -141,7 +141,6 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
 
 
         public OWLEntityFragmentProvider() {
-			// TODO Auto-generated constructor stub
 		}
 
 
