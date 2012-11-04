@@ -49,11 +49,9 @@ public class IOProperties {
     private static final IOProperties instance = new IOProperties();
 
     /**default connection timeout*/
-    //XXX public why?
-    public static final int DEFAULT_CONNECTION_TIME_OUT = 20000;
+    private static final String DEFAULT_CONNECTION_TIME_OUT = "20000";
 
     /**timeout property name*/
-    //XXX never used
     public static final String CONNECTION_TIME_OUT_PROPERTY_NAME = "owlapi.connectionTimeOut";
 
     private int connectionTimeout;
@@ -69,7 +67,8 @@ public class IOProperties {
 
 
     private IOProperties() {
-        connectionTimeout = DEFAULT_CONNECTION_TIME_OUT;
+        connectionTimeout = Integer.parseInt(System.getProperty(
+                CONNECTION_TIME_OUT_PROPERTY_NAME, DEFAULT_CONNECTION_TIME_OUT));
         connectionAcceptHTTPCompression = DEFAULT_CONNECTION_ACCEPT_HTTP_COMPRESSION;
     }
 
