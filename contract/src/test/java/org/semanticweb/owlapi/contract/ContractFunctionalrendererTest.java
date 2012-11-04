@@ -34,16 +34,14 @@ public class ContractFunctionalrendererTest {
 
     @Test
     public void shouldTestOWLFunctionalSyntaxRenderer() throws Exception {
-        OWLFunctionalSyntaxRenderer testSubject0 = new OWLFunctionalSyntaxRenderer(
-                Utils.getMockManager());
+        OWLFunctionalSyntaxRenderer testSubject0 = new OWLFunctionalSyntaxRenderer();
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         String result0 = testSubject0.toString();
     }
 
     public void shouldTestOWLObjectRenderer() throws Exception {
-        OWLObjectRenderer testSubject0 = new OWLObjectRenderer(Utils.getMockManager(),
+        OWLObjectRenderer testSubject0 = new OWLObjectRenderer(
                 Utils.getMockOntology(), mock(Writer.class));
         testSubject0.write(mock(OWLAnnotation.class));
         testSubject0.write(OWLXMLVocabulary.COMMENT, mock(OWLObject.class));

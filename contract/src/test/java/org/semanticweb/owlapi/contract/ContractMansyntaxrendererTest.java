@@ -59,11 +59,11 @@ public class ContractMansyntaxrendererTest {
 
     public void shouldTestManchesterOWLSyntaxFrameRenderer() throws Exception {
         ManchesterOWLSyntaxFrameRenderer testSubject0 = new ManchesterOWLSyntaxFrameRenderer(
-                Utils.getMockManager(), Utils.mockSet(Utils.getMockOntology()),
+                Utils.mockSet(Utils.getMockOntology()),
                 Utils.getMockOntology(), mock(Writer.class),
                 mock(ShortFormProvider.class));
         ManchesterOWLSyntaxFrameRenderer testSubject1 = new ManchesterOWLSyntaxFrameRenderer(
-                Utils.getMockManager(), Utils.getMockOntology(), mock(Writer.class),
+                Utils.getMockOntology(), mock(Writer.class),
                 mock(ShortFormProvider.class));
         Set<OWLAxiom> result0 = testSubject0.write(mock(SWRLRule.class));
         Set<OWLAxiom> result1 = testSubject0.write(mock(OWLDatatype.class));
@@ -152,7 +152,7 @@ public class ContractMansyntaxrendererTest {
     public void shouldTestManchesterOWLSyntaxPrefixNameShortFormProvider()
             throws Exception {
         ManchesterOWLSyntaxPrefixNameShortFormProvider testSubject0 = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
-                Utils.getMockManager(), Utils.getMockOntology());
+                Utils.getMockOntology());
         ManchesterOWLSyntaxPrefixNameShortFormProvider testSubject1 = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
                 mock(OWLOntologyFormat.class));
         ManchesterOWLSyntaxPrefixNameShortFormProvider testSubject2 = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
@@ -166,10 +166,8 @@ public class ContractMansyntaxrendererTest {
 
     @Test
     public void shouldTestManchesterOWLSyntaxRenderer() throws Exception {
-        ManchesterOWLSyntaxRenderer testSubject0 = new ManchesterOWLSyntaxRenderer(
-                Utils.getMockManager());
+        ManchesterOWLSyntaxRenderer testSubject0 = new ManchesterOWLSyntaxRenderer();
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         String result0 = testSubject0.toString();
     }

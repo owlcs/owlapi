@@ -2,11 +2,8 @@ package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
 
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.io.Writer;
-import java.net.URI;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -17,7 +14,6 @@ import org.coode.xml.IllegalElementNameException;
 import org.coode.xml.OWLOntologyXMLNamespaceManager;
 import org.coode.xml.XMLWriter;
 import org.coode.xml.XMLWriterFactory;
-import org.coode.xml.XMLWriterImpl;
 import org.coode.xml.XMLWriterNamespaceManager;
 import org.coode.xml.XMLWriterPreferences;
 import org.junit.Test;
@@ -28,7 +24,6 @@ import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -38,7 +33,6 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -66,14 +60,11 @@ import uk.ac.manchester.cs.bhig.util.MutableTree;
 import uk.ac.manchester.cs.bhig.util.NodeRenderer;
 import uk.ac.manchester.cs.bhig.util.Tree;
 import uk.ac.manchester.cs.owl.explanation.ordering.AlphaExplanationOrderer;
-import uk.ac.manchester.cs.owl.explanation.ordering.DefaultExplanationOrderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.EntailedAxiomTree;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationTree;
 import uk.ac.manchester.cs.owl.explanation.ordering.NullExplanationOrderer;
-import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParser;
 import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParserConstants;
-import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParserTokenManager;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractMediumTest {
@@ -131,21 +122,12 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestDefaultExplanationOrderer() throws Exception {
-        DefaultExplanationOrderer testSubject0 = new DefaultExplanationOrderer();
-        ExplanationTree result0 = testSubject0.getOrderedExplanation(
-                mock(OWLAxiom.class), Utils.mockSet(mock(OWLAxiom.class)));
-        String result1 = testSubject0.toString();
-    }
-
     public void shouldTestEntailedAxiomTree() throws Exception {
         EntailedAxiomTree testSubject0 = new EntailedAxiomTree(mock(OWLAxiom.class));
         boolean result0 = testSubject0.isEntailed();
         String result1 = testSubject0.toString();
-        testSubject0.replace(mock(MutableTree.class));
         Tree<OWLAxiom> result2 = testSubject0.getParent();
         int result3 = testSubject0.getSize();
-        testSubject0.setParent(mock(MutableTree.class));
         Tree<OWLAxiom> result4 = testSubject0.getRoot();
         boolean result5 = testSubject0.isRoot();
         List<Tree<OWLAxiom>> result6 = testSubject0.getChildren();
@@ -175,14 +157,13 @@ public class ContractMediumTest {
                 mock(OWLAxiom.class), Utils.mockSet(mock(OWLAxiom.class)));
     }
 
+    @Test
     public void shouldTestExplanationTree() throws Exception {
         ExplanationTree testSubject0 = new ExplanationTree(mock(OWLAxiom.class));
         boolean result0 = testSubject0.isEntailed();
         String result1 = testSubject0.toString();
-        testSubject0.replace(mock(MutableTree.class));
         Tree<OWLAxiom> result2 = testSubject0.getParent();
         int result3 = testSubject0.getSize();
-        testSubject0.setParent(mock(MutableTree.class));
         Tree<OWLAxiom> result4 = testSubject0.getRoot();
         boolean result5 = testSubject0.isRoot();
         List<Tree<OWLAxiom>> result6 = testSubject0.getChildren();
@@ -316,6 +297,7 @@ public class ContractMediumTest {
         String result6 = testSubject0.getLocalizedMessage();
     }
 
+    @Test
     public void shouldTestOWLOntologyXMLNamespaceManager() throws Exception {
         OWLOntologyXMLNamespaceManager testSubject0 = new OWLOntologyXMLNamespaceManager(
                 Utils.getMockManager(), Utils.getMockOntology());
@@ -361,24 +343,6 @@ public class ContractMediumTest {
         String result2 = testSubject0.toString();
     }
 
-    public void shouldTestXMLWriterImpl() throws Exception {
-        XMLWriterImpl testSubject0 = new XMLWriterImpl(mock(Writer.class),
-                mock(XMLWriterNamespaceManager.class), "");
-        testSubject0.setEncoding("");
-        testSubject0.startDocument("");
-        testSubject0.endDocument();
-        String result0 = testSubject0.getDefaultNamespace();
-        XMLWriterNamespaceManager result1 = testSubject0.getNamespacePrefixes();
-        String result2 = testSubject0.getXMLBase();
-        testSubject0.setWrapAttributes(false);
-        testSubject0.writeStartElement("");
-        testSubject0.writeEndElement();
-        testSubject0.writeAttribute("", "");
-        testSubject0.writeTextContent("");
-        testSubject0.writeComment("");
-        URI result3 = testSubject0.getXMLBaseAsURI();
-        String result4 = testSubject0.toString();
-    }
 
     @Test
     public void shouldTestXMLWriterNamespaceManager() throws Exception {
@@ -411,6 +375,7 @@ public class ContractMediumTest {
         String result4 = testSubject0.toString();
     }
 
+    @Test
     public void shouldTestStructuralReasoner() throws Exception {
         StructuralReasoner testSubject0 = new StructuralReasoner(Utils.getMockOntology(),
                 mock(OWLReasonerConfiguration.class), BufferingMode.NON_BUFFERING);
@@ -512,57 +477,6 @@ public class ContractMediumTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestDLSyntaxParser() throws Exception {
-        DLSyntaxParser testSubject0 = new DLSyntaxParser(mock(InputStream.class));
-        DLSyntaxParser testSubject1 = new DLSyntaxParser(
-                mock(DLSyntaxParserTokenManager.class));
-        DLSyntaxParser testSubject2 = new DLSyntaxParser(mock(Reader.class));
-        DLSyntaxParser testSubject3 = new DLSyntaxParser(mock(InputStream.class), "UTF-8");
-        IRI result0 = testSubject0.getIRI("");
-        testSubject0.setDefaultNamespace("");
-        testSubject0.ReInit(mock(InputStream.class), "UTF-8");
-        testSubject0.ReInit(mock(Reader.class));
-        testSubject0.ReInit(mock(InputStream.class));
-        testSubject0.ReInit(mock(DLSyntaxParserTokenManager.class));
-        OWLClassExpression result1 = testSubject0.And();
-        OWLClassExpression result2 = testSubject0.Or();
-        testSubject0.enable_tracing();
-        testSubject0.disable_tracing();
-        OWLClassExpression result6 = testSubject0.parseRestriction();
-        OWLClassExpression result7 = testSubject0.parseObjectOneOf();
-        OWLDataRange result8 = testSubject0.parseDataOneOf();
-        OWLLiteral result9 = testSubject0.parseLiteral();
-        OWLAxiom result10 = testSubject0.parseSameIndividual();
-        OWLAxiom result11 = testSubject0.parseClassAxiom();
-        OWLAxiom result12 = testSubject0.parseAxiom();
-        testSubject0.setOWLDataFactory(mock(OWLDataFactory.class));
-        testSubject0.setPrefixMapping("", "");
-        IRI result13 = testSubject0.getIRIFromId("");
-        OWLClassExpression result14 = testSubject0.parseDescription();
-        OWLClassExpression result15 = testSubject0.parseClassDescription();
-        Set<OWLAxiom> result16 = testSubject0.parseAxioms();
-        OWLAxiom result17 = testSubject0.parsePropertyAxiom();
-        OWLAxiom result18 = testSubject0.parseIndividualAxiom();
-        OWLAxiom result19 = testSubject0.parseObjectPropertyAssertion();
-        OWLAxiom result20 = testSubject0.parseDataPropertyAssertion();
-        OWLAxiom result21 = testSubject0.parseDifferentIndividualsAxiom();
-        OWLAxiom result22 = testSubject0.parseClassAssertion();
-        OWLIndividual result23 = testSubject0.parseIndividualId();
-        OWLObjectPropertyExpression result24 = testSubject0.parseObjectPropertyId();
-        OWLDataPropertyExpression result25 = testSubject0.parseDataPropertyId();
-        OWLAxiom result26 = testSubject0.parsePropertyChain();
-        OWLClassExpression result27 = testSubject0.NonNaryBooleanDescription();
-        OWLClassExpression result28 = testSubject0.parseObjectComplementOf();
-        OWLClassExpression result29 = testSubject0.NamedClassOrNestedDescription();
-        IRI result30 = testSubject0.parseId();
-        OWLClassExpression result31 = testSubject0.parseSomeRestriction();
-        OWLClassExpression result32 = testSubject0.parseDataSomeRestriction();
-        OWLClassExpression result33 = testSubject0.parseAllRestriction();
-        OWLClassExpression result34 = testSubject0.parseCardinalityRestriction();
-        OWLClass result35 = testSubject0.parseClassId();
-        OWLClassExpression result36 = testSubject0.NestedClassDescription();
-        String result37 = testSubject0.toString();
-    }
 
     @Test
     public void shouldTestInterfaceDLSyntaxParserConstants() throws Exception {
