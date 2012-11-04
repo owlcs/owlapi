@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyManagerProperties;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionObject;
 import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
@@ -1662,7 +1661,6 @@ public class ContractOwlapi_3Test {
         boolean result0 = testSubject0.contains(IRI.create("urn:aFake"));
         boolean result1 = testSubject0.contains(Utils.getMockOntology());
         boolean result2 = testSubject0.contains(new OWLOntologyID());
-        OWLOntologyManagerProperties result3 = testSubject0.getProperties();
     }
 
     @Test
@@ -2447,7 +2445,6 @@ public class ContractOwlapi_3Test {
         OWLSubClassOfAxiomImpl testSubject0 = new OWLSubClassOfAxiomImpl(
                 Utils.mockAnonClass(), Utils.mockAnonClass(),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
-        boolean result0 = testSubject0.contains(Utils.mockAnonClass());
         testSubject0.accept(mock(OWLObjectVisitor.class));
         testSubject0.accept(mock(OWLAxiomVisitor.class));
         Object result1 = testSubject0.accept(Utils.mockObject());
@@ -2462,9 +2459,6 @@ public class ContractOwlapi_3Test {
         OWLClassExpression result8 = testSubject0.getSubClass();
         OWLClassExpression result9 = testSubject0.getSuperClass();
         boolean result10 = testSubject0.isGCI();
-        Set<OWLClassExpression> result11 = testSubject0.getClassExpressions();
-        Set<OWLClassExpression> result12 = testSubject0.getClassExpressionsMinus(Utils
-                .mockAnonClass());
         boolean result13 = testSubject0.isLogicalAxiom();
         boolean result14 = testSubject0.isAnnotationAxiom();
         Set<OWLAnnotation> result15 = testSubject0.getAnnotations();

@@ -69,13 +69,7 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
         nsm.clear();
     }
 
-
-    /**
-     * A convenience method to add a prefix name to prefix mapping
-     * @param prefixName   The prefix name which maps to a prefix
-     * @param prefix The prefix
-     */
-    //XXX not in the interface
+    @Override
     public void setPrefix(String prefixName, String prefix) {
         String _prefixName = prefixName;
         if (!_prefixName.endsWith(":")) {
@@ -84,11 +78,8 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
         nsm.setPrefix(_prefixName, prefix);
     }
 
-    /**
-     * Clears any previously set prefixes
-     */
-    //XXX not in the interface
-    public void clearPrefixes() {
+    @Override
+    public void clear() {
         nsm.clear();
     }
 
@@ -125,12 +116,7 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
         return nsm.getPrefixNames();
     }
 
-    /**
-     * Sets the default namespace. This is equivalent to adding mapping from the empty string prefix to a
-     * namespace.
-     * @param namespace The namespace to be set.
-     */
-    //XXX not in the interface
+    @Override
     public void setDefaultPrefix(String namespace) {
         nsm.setDefaultPrefix(namespace);
     }
@@ -168,5 +154,10 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
     @Override
     public String getPrefixIRI(IRI iri) {
         return nsm.getPrefixIRI(iri);
+    }
+
+    @Override
+    public void unregisterNamespace(String namespace) {
+        nsm.unregisterNamespace(namespace);
     }
 }

@@ -89,7 +89,7 @@ public class ManchesterOWLSyntaxMissingCatchTestCase {
                         onto));
         final Set<OWLOntology> ontologies = mngr.getOntologies();
         ShortFormProvider sfp = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
-                mngr, wine);
+wine);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
                 ontologies, sfp);
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(

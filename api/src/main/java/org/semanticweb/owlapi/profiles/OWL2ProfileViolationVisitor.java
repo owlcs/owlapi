@@ -55,6 +55,7 @@ public interface OWL2ProfileViolationVisitor {
 
     void visit(OntologyIRINotAbsolute violation);
 
+    void visit(IllegalPunning violation);
     void visit(OntologyVersionIRINotAbsolute violation);
 
     void visit(UseOfDefinedDatatypeInDatatypeRestriction violation);

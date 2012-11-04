@@ -376,10 +376,12 @@ public class OWL2DLProfile implements OWLProfile {
                 profileViolations.add(new UseOfUndeclaredObjectProperty(getCurrentOntology(), getCurrentAxiom(), property));
             }
             if (getCurrentOntology().containsDataPropertyInSignature(property.getIRI(), true)) {
-                // TODO: Error
+                profileViolations.add(new IllegalPunning(getCurrentOntology(),
+                        getCurrentAxiom(), property.getIRI()));
             }
             if (getCurrentOntology().containsAnnotationPropertyInSignature(property.getIRI(), true)) {
-                // TODO: Error
+                profileViolations.add(new IllegalPunning(getCurrentOntology(),
+                        getCurrentAxiom(), property.getIRI()));
             }
 
             return null;
@@ -397,11 +399,13 @@ public class OWL2DLProfile implements OWLProfile {
             }
 
             if (getCurrentOntology().containsObjectPropertyInSignature(property.getIRI(), true)) {
-                // TODO: Error
+                profileViolations.add(new IllegalPunning(getCurrentOntology(),
+                        getCurrentAxiom(), property.getIRI()));
             }
 
             if (getCurrentOntology().containsAnnotationPropertyInSignature(property.getIRI(), true)) {
-                // TODO: Error
+                profileViolations.add(new IllegalPunning(getCurrentOntology(),
+                        getCurrentAxiom(), property.getIRI()));
             }
             return null;
         }
@@ -418,13 +422,13 @@ public class OWL2DLProfile implements OWLProfile {
             }
 
             if (getCurrentOntology().containsObjectPropertyInSignature(property.getIRI(), true)) {
-                // TODO: Error
-                //                System.out.println("Annotation property IRI is also an object property IRI");
+                profileViolations.add(new IllegalPunning(getCurrentOntology(),
+                        getCurrentAxiom(), property.getIRI()));
             }
 
             if (getCurrentOntology().containsDataPropertyInSignature(property.getIRI(), true)) {
-                // TODO: Error
-                //                System.out.println("Annotation property IRI is also a data property IRI");
+                profileViolations.add(new IllegalPunning(getCurrentOntology(),
+                        getCurrentAxiom(), property.getIRI()));
             }
             return null;
         }

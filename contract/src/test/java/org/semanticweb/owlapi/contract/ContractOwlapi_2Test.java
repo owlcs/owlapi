@@ -42,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
@@ -73,6 +72,7 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternals;
@@ -97,7 +97,6 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDifferentIndividualsAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLDisjointClassesAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLDisjointDataPropertiesAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLDisjointObjectPropertiesAxiomImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDisjointUnionAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLEntityCollectionContainerCollector;
 import uk.ac.manchester.cs.owl.owlapi.OWLEquivalentClassesAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLEquivalentDataPropertiesAxiomImpl;
@@ -1068,46 +1067,6 @@ public class ContractOwlapi_2Test {
         boolean result30 = testSubject0.isBottomEntity();
     }
 
-    public void shouldTestOWLDisjointUnionAxiomImpl() throws Exception {
-        OWLDisjointUnionAxiomImpl testSubject0 = new OWLDisjointUnionAxiomImpl(
-                mock(OWLClass.class), Utils.mockSet(Utils.mockAnonClass()),
-                Utils.mockSet(mock(OWLAnnotation.class)));
-        Object result0 = testSubject0.accept(Utils.mockAxiom());
-        testSubject0.accept(mock(OWLAxiomVisitor.class));
-        testSubject0.accept(mock(OWLObjectVisitor.class));
-        Object result1 = testSubject0.accept(Utils.mockObject());
-        OWLAxiom result2 = testSubject0.getAxiomWithoutAnnotations();
-        OWLDisjointUnionAxiom result3 = testSubject0.getAxiomWithoutAnnotations();
-        OWLDisjointUnionAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        AxiomType<?> result6 = testSubject0.getAxiomType();
-        Set<OWLClassExpression> result7 = testSubject0.getClassExpressions();
-        OWLClass result8 = testSubject0.getOWLClass();
-        OWLEquivalentClassesAxiom result9 = testSubject0.getOWLEquivalentClassesAxiom();
-        OWLDisjointClassesAxiom result10 = testSubject0.getOWLDisjointClassesAxiom();
-        boolean result11 = testSubject0.isLogicalAxiom();
-        boolean result12 = testSubject0.isAnnotationAxiom();
-        Set<OWLAnnotation> result13 = testSubject0.getAnnotations();
-        Set<OWLAnnotation> result14 = testSubject0
-                .getAnnotations(mock(OWLAnnotationProperty.class));
-        testSubject0.accept(Utils.mockAxiom());
-        boolean result15 = testSubject0.equalsIgnoreAnnotations(mock(OWLAxiom.class));
-        boolean result16 = testSubject0.isAnnotated();
-        boolean result17 = testSubject0.isOfType(AxiomType.CLASS_ASSERTION);
-        boolean result18 = testSubject0.isOfType(AxiomType.SUBCLASS_OF);
-        String result20 = testSubject0.toString();
-        Set<OWLEntity> result50 = testSubject0.getSignature();
-        Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
-        Set<OWLClass> result52 = testSubject0.getClassesInSignature();
-        Set<OWLDataProperty> result53 = testSubject0.getDataPropertiesInSignature();
-        Set<OWLObjectProperty> result54 = testSubject0.getObjectPropertiesInSignature();
-        Set<OWLNamedIndividual> result55 = testSubject0.getIndividualsInSignature();
-        Set<OWLDatatype> result56 = testSubject0.getDatatypesInSignature();
-        boolean result31 = testSubject0.isTopEntity();
-        boolean result32 = testSubject0.isBottomEntity();
-    }
 
     @Test
     public void shouldTestOWLEntityCollectionContainerCollector() throws Exception {
@@ -1417,7 +1376,6 @@ public class ContractOwlapi_2Test {
                 IRI.create("urn:aFake"));
         String result0 = testSubject0.toString();
         IRI result3 = testSubject0.getIRI();
-        boolean result4 = testSubject0.isLogicalAxiom();
         URI result5 = testSubject0.getURI();
     }
 
@@ -1550,25 +1508,7 @@ public class ContractOwlapi_2Test {
                 return 0;
             }
         };
-        boolean result0 = testSubject0.isBuiltIn();
         boolean result1 = !testSubject0.isAnonymous();
-        if (!!testSubject0.isAnonymous()) {
-            if (!testSubject0.isAnonymous()) {
-                OWLClass result2 = testSubject0.asOWLClass();
-            }
-        }
-        boolean result3 = testSubject0.isOWLObjectProperty();
-        if (testSubject0.isOWLObjectProperty()) {
-            OWLObjectProperty result4 = testSubject0.asOWLObjectProperty();
-        }
-        boolean result5 = testSubject0.isOWLDataProperty();
-        if (testSubject0.isOWLDataProperty()) {
-            OWLDataProperty result6 = testSubject0.asOWLDataProperty();
-        }
-        boolean result7 = testSubject0.isOWLDatatype();
-        if (testSubject0.isOWLDatatype()) {
-            OWLDatatype result8 = testSubject0.asOWLDatatype();
-        }
         Set<OWLClassExpression> result9 = testSubject0.getTypes(Utils.getMockOntology());
         Set<OWLClassExpression> result10 = testSubject0.getTypes(Utils.mockSet(Utils
                 .getMockOntology()));
@@ -1703,6 +1643,7 @@ public class ContractOwlapi_2Test {
         OWLSubClassOfAxiom result31 = testSubject0.asOWLSubClassOfAxiom();
     }
 
+    @Test
     public void shouldTestOWLInverseFunctionalObjectPropertyAxiomImpl() throws Exception {
         OWLInverseFunctionalObjectPropertyAxiomImpl testSubject0 = new OWLInverseFunctionalObjectPropertyAxiomImpl(
                 Utils.mockObjectProperty(),
@@ -1722,6 +1663,7 @@ public class ContractOwlapi_2Test {
         OWLSubClassOfAxiom result7 = testSubject0.asOWLSubClassOfAxiom();
     }
 
+    @Test
     public void shouldTestOWLInverseObjectPropertiesAxiomImpl() throws Exception {
         OWLInverseObjectPropertiesAxiomImpl testSubject0 = new OWLInverseObjectPropertiesAxiomImpl(
                 Utils.mockObjectProperty(), Utils.mockObjectProperty(),
@@ -1809,11 +1751,19 @@ public class ContractOwlapi_2Test {
         boolean result31 = testSubject0.isBottomEntity();
     }
 
+    @Test
     public void shouldTestOWLLiteralImpl() throws Exception {
-        OWLLiteralImpl testSubject0 = new OWLLiteralImpl("", "", mock(OWLDatatype.class));
+        OWLLiteralImpl testSubject0 = new OWLLiteralImpl("test", "en",
+                new OWLDatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()));
+        if (testSubject0.isBoolean()) {
         boolean result0 = testSubject0.parseBoolean();
-        float result1 = testSubject0.parseFloat();
-        double result2 = testSubject0.parseDouble();
+        }
+        if (testSubject0.isFloat()) {
+            float result1 = testSubject0.parseFloat();
+        }
+        if (testSubject0.isDouble()) {
+            double result2 = testSubject0.parseDouble();
+        }
         Object result3 = testSubject0.accept(Utils.mockObject());
         testSubject0.accept(mock(OWLDataVisitor.class));
         Object result4 = testSubject0.accept(Utils.mockData());
@@ -1826,8 +1776,10 @@ public class ContractOwlapi_2Test {
         boolean result9 = testSubject0.hasLang("");
         boolean result10 = testSubject0.hasLang();
         String result11 = testSubject0.getLang();
+        if (testSubject0.isInteger()) {
         boolean result12 = testSubject0.isInteger();
         int result13 = testSubject0.parseInteger();
+        }
         boolean result14 = testSubject0.isBoolean();
         boolean result15 = testSubject0.isDouble();
         boolean result16 = testSubject0.isFloat();
@@ -1843,11 +1795,9 @@ public class ContractOwlapi_2Test {
         boolean result29 = testSubject0.isBottomEntity();
     }
 
+    @Test
     public void shouldTestOWLLiteralImplBoolean() throws Exception {
         OWLLiteralImplBoolean testSubject0 = new OWLLiteralImplBoolean(false);
-        boolean result1 = testSubject0.parseBoolean();
-        float result2 = testSubject0.parseFloat();
-        double result3 = testSubject0.parseDouble();
         Object result4 = testSubject0.accept(Utils.mockObject());
         testSubject0.accept(mock(OWLDataVisitor.class));
         Object result5 = testSubject0.accept(Utils.mockData());
@@ -1861,7 +1811,6 @@ public class ContractOwlapi_2Test {
         boolean result11 = testSubject0.hasLang("");
         String result12 = testSubject0.getLang();
         boolean result13 = testSubject0.isInteger();
-        int result14 = testSubject0.parseInteger();
         boolean result15 = testSubject0.isBoolean();
         boolean result16 = testSubject0.isDouble();
         boolean result17 = testSubject0.isFloat();

@@ -2,11 +2,13 @@ package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
 
-import java.net.URI;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -70,6 +72,7 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapi_4Test {
+    @Test
     public void shouldTestOWLValueRestrictionImpl() throws Exception {
         OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObject> testSubject0 = new OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObject>(
                 Utils.mockObjectProperty(), mock(OWLObject.class)) {
@@ -147,10 +150,11 @@ public class ContractOwlapi_4Test {
         OWLClassExpression result32 = testSubject0.asSomeValuesFrom();
     }
 
+    @Ignore
+    @Test
     public void shouldTestParsableOWLOntologyFactory() throws Exception {
         ParsableOWLOntologyFactory testSubject0 = new ParsableOWLOntologyFactory();
-        OWLOntology result0 = testSubject0.createOWLOntology(mock(URI.class),
-                mock(URI.class));
+        testSubject0.setOWLOntologyManager(Factory.getManager());
         OWLOntology result1 = testSubject0.loadOWLOntology(
                 mock(OWLOntologyDocumentSource.class),
                 mock(OWLOntologyCreationHandler.class),
@@ -161,18 +165,15 @@ public class ContractOwlapi_4Test {
         boolean result3 = testSubject0.canCreateFromDocumentIRI(IRI.create("urn:aFake"));
         boolean result4 = testSubject0.canLoad(mock(OWLOntologyDocumentSource.class));
         List<OWLParser> result5 = testSubject0.getParsers();
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         OWLOntologyManager result6 = testSubject0.getOWLOntologyManager();
         OWLOntology result7 = testSubject0.createOWLOntology(new OWLOntologyID(),
                 IRI.create("urn:aFake"), mock(OWLOntologyCreationHandler.class));
         String result8 = testSubject0.toString();
     }
 
+    @Test
     public void shouldTestSWRLAtomImpl() throws Exception {
         SWRLAtomImpl testSubject0 = new SWRLAtomImpl(mock(SWRLPredicate.class)) {
-            /**
-             * 
-             */
             private static final long serialVersionUID = 30402L;
 
             @Override
@@ -219,6 +220,7 @@ public class ContractOwlapi_4Test {
         Object result17 = testSubject0.accept(Utils.mockSWRLObject());
     }
 
+    @Test
     public void shouldTestSWRLBinaryAtomImpl() throws Exception {
         SWRLBinaryAtomImpl<SWRLArgument, SWRLArgument> testSubject0 = new SWRLBinaryAtomImpl<SWRLArgument, SWRLArgument>(
                 mock(SWRLPredicate.class), mock(SWRLArgument.class),
@@ -264,6 +266,7 @@ public class ContractOwlapi_4Test {
         Object result19 = testSubject0.accept(Utils.mockSWRLObject());
     }
 
+    @Test
     public void shouldTestSWRLBuiltInAtomImpl() throws Exception {
         SWRLBuiltInAtomImpl testSubject0 = new SWRLBuiltInAtomImpl(
                 IRI.create("urn:aFake"), Utils.mockList(mock(SWRLDArgument.class)));
@@ -288,6 +291,7 @@ public class ContractOwlapi_4Test {
         boolean result19 = testSubject0.isBottomEntity();
     }
 
+    @Test
     public void shouldTestSWRLClassAtomImpl() throws Exception {
         SWRLClassAtomImpl testSubject0 = new SWRLClassAtomImpl(Utils.mockAnonClass(),
                 mock(SWRLIArgument.class));
@@ -311,6 +315,7 @@ public class ContractOwlapi_4Test {
         boolean result18 = testSubject0.isBottomEntity();
     }
 
+    @Test
     public void shouldTestSWRLDataPropertyAtomImpl() throws Exception {
         SWRLDataPropertyAtomImpl testSubject0 = new SWRLDataPropertyAtomImpl(
                 mock(OWLDataPropertyExpression.class), mock(SWRLIArgument.class),
@@ -336,6 +341,7 @@ public class ContractOwlapi_4Test {
         boolean result19 = testSubject0.isBottomEntity();
     }
 
+    @Test
     public void shouldTestSWRLDataRangeAtomImpl() throws Exception {
         SWRLDataRangeAtomImpl testSubject0 = new SWRLDataRangeAtomImpl(
                 mock(OWLDataRange.class), mock(SWRLDArgument.class));
@@ -359,6 +365,7 @@ public class ContractOwlapi_4Test {
         boolean result18 = testSubject0.isBottomEntity();
     }
 
+    @Test
     public void shouldTestSWRLDifferentIndividualsAtomImpl() throws Exception {
         SWRLDifferentIndividualsAtomImpl testSubject0 = new SWRLDifferentIndividualsAtomImpl(
                 mock(OWLDataFactory.class), mock(SWRLIArgument.class),
@@ -383,6 +390,7 @@ public class ContractOwlapi_4Test {
         boolean result18 = testSubject0.isBottomEntity();
     }
 
+    @Test
     public void shouldTestSWRLIndividualArgumentImpl() throws Exception {
         SWRLIndividualArgumentImpl testSubject0 = new SWRLIndividualArgumentImpl(
                 mock(OWLIndividual.class));
@@ -403,6 +411,7 @@ public class ContractOwlapi_4Test {
         boolean result15 = testSubject0.isBottomEntity();
     }
 
+    @Test
     public void shouldTestSWRLLiteralArgumentImpl() throws Exception {
         SWRLLiteralArgumentImpl testSubject0 = new SWRLLiteralArgumentImpl(
                 mock(OWLLiteral.class));
@@ -423,6 +432,7 @@ public class ContractOwlapi_4Test {
         boolean result15 = testSubject0.isBottomEntity();
     }
 
+    @Test
     public void shouldTestSWRLObjectPropertyAtomImpl() throws Exception {
         SWRLObjectPropertyAtomImpl testSubject0 = new SWRLObjectPropertyAtomImpl(
                 Utils.mockObjectProperty(), mock(SWRLIArgument.class),
@@ -449,6 +459,7 @@ public class ContractOwlapi_4Test {
         boolean result20 = testSubject0.isBottomEntity();
     }
 
+    @Test
     public void shouldTestSWRLRuleImpl() throws Exception {
         SWRLRuleImpl testSubject0 = new SWRLRuleImpl(Utils.mockSet(mock(SWRLAtom.class)),
                 Utils.mockSet(mock(SWRLAtom.class)));
@@ -494,6 +505,7 @@ public class ContractOwlapi_4Test {
         boolean result34 = testSubject0.isBottomEntity();
     }
 
+    @Test
     public void shouldTestSWRLSameIndividualAtomImpl() throws Exception {
         SWRLSameIndividualAtomImpl testSubject0 = new SWRLSameIndividualAtomImpl(
                 mock(OWLDataFactory.class), mock(SWRLIArgument.class),
@@ -518,6 +530,7 @@ public class ContractOwlapi_4Test {
         boolean result18 = testSubject0.isBottomEntity();
     }
 
+    @Test
     public void shouldTestSWRLUnaryAtomImpl() throws Exception {
         SWRLUnaryAtomImpl<SWRLArgument> testSubject0 = new SWRLUnaryAtomImpl<SWRLArgument>(
                 mock(SWRLPredicate.class), mock(SWRLArgument.class)) {
@@ -566,11 +579,9 @@ public class ContractOwlapi_4Test {
         Object result18 = testSubject0.accept(Utils.mockSWRLObject());
     }
 
+    @Test
     public void shouldTestSWRLVariableImpl() throws Exception {
         SWRLVariableImpl testSubject0 = new SWRLVariableImpl(IRI.create("urn:aFake")) {
-            /**
-             * 
-             */
             private static final long serialVersionUID = 30402L;
         };
         testSubject0.accept(mock(OWLObjectVisitor.class));

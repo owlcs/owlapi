@@ -55,6 +55,8 @@ public interface OWL2QLProfileViolationVisitor {
 
     void visit(UseOfIllegalDataRange individual);
 
+    void visit(IllegalPunning violation);
+
     void visit(UseOfNonAtomicClassExpression individual);
 
     void visit(UseOfNonSubClassExpression individual);

@@ -2,14 +2,12 @@ package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URISyntaxException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,10 +16,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.DefaultOntologyFormat;
-import org.semanticweb.owlapi.io.FileDocumentSource;
-import org.semanticweb.owlapi.io.FileDocumentTarget;
 import org.semanticweb.owlapi.io.IOProperties;
-import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
@@ -51,17 +46,8 @@ import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.ReaderDocumentSource;
-import org.semanticweb.owlapi.io.StreamDocumentSource;
-import org.semanticweb.owlapi.io.StreamDocumentTarget;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 import org.semanticweb.owlapi.io.ToStringRenderer;
-import org.semanticweb.owlapi.io.UnparsableOntologyException;
-import org.semanticweb.owlapi.io.WriterDocumentTarget;
 import org.semanticweb.owlapi.io.XMLUtils;
-import org.semanticweb.owlapi.io.ZipDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -111,22 +97,20 @@ public class ContractOwlapiIoTest {
 
     @Test
     public void shouldTestAbstractOWLRenderer() throws Exception {
-        AbstractOWLRenderer testSubject0 = new AbstractOWLRenderer(Utils.getMockManager()) {
+        AbstractOWLRenderer testSubject0 = new AbstractOWLRenderer() {
             @Override
             public void render(final OWLOntology ontology, final Writer writer)
                     throws OWLRendererException {}
         };
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         String result0 = testSubject0.toString();
     }
 
+    @Test
     public void shouldTestDefaultOntologyFormat() throws Exception {
         DefaultOntologyFormat testSubject0 = new DefaultOntologyFormat();
         String result0 = testSubject0.toString();
-        RDFParserMetaData result1 = testSubject0.getOntologyLoaderMetaData();
-        OWLOntologyLoaderMetaData result2 = testSubject0.getOntologyLoaderMetaData();
         boolean result3 = testSubject0.isAddMissingTypes();
         boolean result4 = RDFOntologyFormat.isMissingType(Utils.mockOWLEntity(),
                 Utils.getMockOntology());
@@ -135,7 +119,7 @@ public class ContractOwlapiIoTest {
         String result5 = testSubject0.getPrefix("");
         IRI result6 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");
-        testSubject0.clearPrefixes();
+        testSubject0.clear();
         testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
         testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
         Map<String, String> result7 = testSubject0.getPrefixName2PrefixMap();
@@ -152,26 +136,6 @@ public class ContractOwlapiIoTest {
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
-    public void shouldTestFileDocumentSource() throws Exception {
-        FileDocumentSource testSubject0 = new FileDocumentSource(mock(File.class));
-        InputStream result0 = testSubject0.getInputStream();
-        boolean result1 = testSubject0.isReaderAvailable();
-        Reader result2 = testSubject0.getReader();
-        boolean result3 = testSubject0.isInputStreamAvailable();
-        IRI result4 = testSubject0.getDocumentIRI();
-        String result5 = testSubject0.toString();
-    }
-
-    public void shouldTestFileDocumentTarget() throws Exception {
-        FileDocumentTarget testSubject0 = new FileDocumentTarget(mock(File.class));
-        OutputStream result0 = testSubject0.getOutputStream();
-        IRI result1 = testSubject0.getDocumentIRI();
-        boolean result2 = testSubject0.isWriterAvailable();
-        Writer result3 = testSubject0.getWriter();
-        boolean result4 = testSubject0.isOutputStreamAvailable();
-        boolean result5 = testSubject0.isDocumentIRIAvailable();
-        String result6 = testSubject0.toString();
-    }
 
     @Test
     public void shouldTestIOProperties() throws Exception {
@@ -184,15 +148,6 @@ public class ContractOwlapiIoTest {
         String result3 = testSubject0.toString();
     }
 
-    public void shouldTestIRIDocumentSource() throws Exception {
-        IRIDocumentSource testSubject0 = new IRIDocumentSource(IRI.create("urn:aFake"));
-        String result0 = testSubject0.toString();
-        InputStream result1 = testSubject0.getInputStream();
-        boolean result2 = testSubject0.isReaderAvailable();
-        Reader result3 = testSubject0.getReader();
-        boolean result4 = testSubject0.isInputStreamAvailable();
-        IRI result5 = testSubject0.getDocumentIRI();
-    }
 
     @Test
     public void shouldTestOntologyIRIMappingNotFoundException() throws Exception {
@@ -212,7 +167,7 @@ public class ContractOwlapiIoTest {
         String result1 = testSubject0.getPrefix("");
         IRI result2 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");
-        testSubject0.clearPrefixes();
+        testSubject0.clear();
         testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
         testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
         Map<String, String> result3 = testSubject0.getPrefixName2PrefixMap();
@@ -338,13 +293,11 @@ public class ContractOwlapiIoTest {
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
     }
 
+    @Test
     public void shouldTestOWLParserFactoryRegistry() throws Exception {
         OWLParserFactoryRegistry testSubject0 = OWLParserFactoryRegistry.getInstance();
         OWLParserFactoryRegistry result0 = OWLParserFactoryRegistry.getInstance();
-        testSubject0.clearParserFactories();
         List<OWLParserFactory> result1 = testSubject0.getParserFactories();
-        testSubject0.registerParserFactory(mock(OWLParserFactory.class));
-        testSubject0.unregisterParserFactory(mock(OWLParserFactory.class));
         String result2 = testSubject0.toString();
     }
 
@@ -390,7 +343,6 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestInterfaceOWLRenderer() throws Exception {
         OWLRenderer testSubject0 = mock(OWLRenderer.class);
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
     }
 
@@ -424,7 +376,7 @@ public class ContractOwlapiIoTest {
         String result1 = testSubject0.getPrefix("");
         IRI result2 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");
-        testSubject0.clearPrefixes();
+        testSubject0.clear();
         testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
         testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
         Map<String, String> result3 = testSubject0.getPrefixName2PrefixMap();
@@ -462,15 +414,11 @@ public class ContractOwlapiIoTest {
         String result1 = testSubject0.toString();
     }
 
+    @Test
     public void shouldTestRDFOntologyFormat() throws Exception {
         RDFOntologyFormat testSubject0 = new RDFOntologyFormat() {
-            /**
-             * 
-             */
             private static final long serialVersionUID = 30402L;
         };
-        RDFParserMetaData result0 = testSubject0.getOntologyLoaderMetaData();
-        OWLOntologyLoaderMetaData result1 = testSubject0.getOntologyLoaderMetaData();
         boolean result2 = testSubject0.isAddMissingTypes();
         boolean result3 = RDFOntologyFormat.isMissingType(Utils.mockOWLEntity(),
                 Utils.getMockOntology());
@@ -479,7 +427,7 @@ public class ContractOwlapiIoTest {
         String result4 = testSubject0.getPrefix("");
         IRI result5 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");
-        testSubject0.clearPrefixes();
+        testSubject0.clear();
         testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
         testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
         Map<String, String> result6 = testSubject0.getPrefixName2PrefixMap();
@@ -506,9 +454,10 @@ public class ContractOwlapiIoTest {
         int result8 = testSubject0.ordinal();
     }
 
+    @Test
     public void shouldTestRDFParserMetaData() throws Exception {
         RDFParserMetaData testSubject0 = new RDFParserMetaData(
-                mock(RDFOntologyHeaderStatus.class), 0,
+                RDFOntologyHeaderStatus.PARSED_ONE_HEADER, 0,
                 Utils.mockSet(mock(RDFTriple.class)));
         int result0 = testSubject0.getTripleCount();
         RDFOntologyHeaderStatus result1 = testSubject0.getHeaderState();
@@ -551,11 +500,10 @@ public class ContractOwlapiIoTest {
         RDFResource result3 = testSubject0.getPredicate();
     }
 
+    @Test
     public void shouldTestRDFXMLOntologyFormat() throws Exception {
         RDFXMLOntologyFormat testSubject0 = new RDFXMLOntologyFormat();
         String result0 = testSubject0.toString();
-        RDFParserMetaData result1 = testSubject0.getOntologyLoaderMetaData();
-        OWLOntologyLoaderMetaData result2 = testSubject0.getOntologyLoaderMetaData();
         boolean result3 = testSubject0.isAddMissingTypes();
         boolean result4 = RDFOntologyFormat.isMissingType(Utils.mockOWLEntity(),
                 Utils.getMockOntology());
@@ -564,7 +512,7 @@ public class ContractOwlapiIoTest {
         String result5 = testSubject0.getPrefix("");
         IRI result6 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");
-        testSubject0.clearPrefixes();
+        testSubject0.clear();
         testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
         testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
         Map<String, String> result7 = testSubject0.getPrefixName2PrefixMap();
@@ -581,114 +529,16 @@ public class ContractOwlapiIoTest {
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
-    public void shouldTestReaderDocumentSource() throws Exception {
-        ReaderDocumentSource testSubject0 = new ReaderDocumentSource(mock(Reader.class),
-                IRI.create("urn:aFake"));
-        ReaderDocumentSource testSubject1 = new ReaderDocumentSource(mock(Reader.class));
-        InputStream result0 = testSubject0.getInputStream();
-        boolean result1 = testSubject0.isReaderAvailable();
-        Reader result2 = testSubject0.getReader();
-        boolean result3 = testSubject0.isInputStreamAvailable();
-        IRI result4 = testSubject0.getDocumentIRI();
-        IRI result5 = ReaderDocumentSource.getNextDocumentIRI();
-        String result6 = testSubject0.toString();
-    }
 
-    public void shouldTestStreamDocumentSource() throws Exception {
-        StreamDocumentSource testSubject0 = new StreamDocumentSource(
-                mock(InputStream.class));
-        StreamDocumentSource testSubject1 = new StreamDocumentSource(
-                mock(InputStream.class), IRI.create("urn:aFake"));
-        InputStream result0 = testSubject0.getInputStream();
-        boolean result1 = testSubject0.isReaderAvailable();
-        Reader result2 = testSubject0.getReader();
-        boolean result3 = testSubject0.isInputStreamAvailable();
-        IRI result4 = testSubject0.getDocumentIRI();
-        IRI result5 = StreamDocumentSource.getNextDocumentIRI();
-        String result6 = testSubject0.toString();
-    }
-
-    public void shouldTestStreamDocumentTarget() throws Exception {
-        StreamDocumentTarget testSubject0 = new StreamDocumentTarget(
-                mock(OutputStream.class));
-        OutputStream result0 = testSubject0.getOutputStream();
-        IRI result1 = testSubject0.getDocumentIRI();
-        boolean result2 = testSubject0.isWriterAvailable();
-        Writer result3 = testSubject0.getWriter();
-        boolean result4 = testSubject0.isOutputStreamAvailable();
-        boolean result5 = testSubject0.isDocumentIRIAvailable();
-        String result6 = testSubject0.toString();
-    }
-
-    public void shouldTestStringDocumentSource() throws Exception {
-        StringDocumentSource testSubject0 = new StringDocumentSource("");
-        StringDocumentSource testSubject1 = new StringDocumentSource("",
-                IRI.create("urn:aFake"));
-        InputStream result0 = testSubject0.getInputStream();
-        boolean result1 = testSubject0.isReaderAvailable();
-        Reader result2 = testSubject0.getReader();
-        boolean result3 = testSubject0.isInputStreamAvailable();
-        IRI result4 = testSubject0.getDocumentIRI();
-        IRI result5 = StringDocumentSource.getNextDocumentIRI();
-        String result6 = testSubject0.toString();
-    }
-
-    public void shouldTestStringDocumentTarget() throws Exception {
-        StringDocumentTarget testSubject0 = new StringDocumentTarget();
-        String result0 = testSubject0.toString();
-        OutputStream result1 = testSubject0.getOutputStream();
-        IRI result2 = testSubject0.getDocumentIRI();
-        boolean result3 = testSubject0.isWriterAvailable();
-        Writer result4 = testSubject0.getWriter();
-        boolean result5 = testSubject0.isOutputStreamAvailable();
-        boolean result6 = testSubject0.isDocumentIRIAvailable();
-    }
-
-    public void shouldTestSystemOutDocumentTarget() throws Exception {
-        SystemOutDocumentTarget testSubject0 = new SystemOutDocumentTarget();
-        OutputStream result0 = testSubject0.getOutputStream();
-        IRI result1 = testSubject0.getDocumentIRI();
-        boolean result2 = testSubject0.isWriterAvailable();
-        Writer result3 = testSubject0.getWriter();
-        boolean result4 = testSubject0.isOutputStreamAvailable();
-        boolean result5 = testSubject0.isDocumentIRIAvailable();
-        String result6 = testSubject0.toString();
-    }
-
+    @Test
     public void shouldTestToStringRenderer() throws Exception {
         ToStringRenderer testSubject0 = ToStringRenderer.getInstance();
         ToStringRenderer result0 = ToStringRenderer.getInstance();
-        testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
-        testSubject0.setRenderer(mock(OWLObjectRenderer.class));
         String result2 = testSubject0.getRendering(mock(OWLObject.class));
         String result3 = testSubject0.toString();
     }
 
-    @Test
-    public void shouldTestUnparsableOntologyException() throws Exception {
-        UnparsableOntologyException testSubject0 = new UnparsableOntologyException(
-                IRI.create("urn:aFake"),
-                Collections.<OWLParser, OWLParserException> emptyMap());
-        String result0 = testSubject0.getMessage();
-        IRI result1 = testSubject0.getDocumentIRI();
-        boolean result2 = UnparsableOntologyException.isIncludeStackTraceInMessage();
-        UnparsableOntologyException.setIncludeStackTraceInMessage(false);
-        Map<OWLParser, OWLParserException> result3 = testSubject0.getExceptions();
-        Throwable result5 = testSubject0.getCause();
-        String result7 = testSubject0.toString();
-        String result8 = testSubject0.getLocalizedMessage();
-    }
 
-    public void shouldTestWriterDocumentTarget() throws Exception {
-        WriterDocumentTarget testSubject0 = new WriterDocumentTarget(mock(Writer.class));
-        OutputStream result0 = testSubject0.getOutputStream();
-        IRI result1 = testSubject0.getDocumentIRI();
-        boolean result2 = testSubject0.isWriterAvailable();
-        Writer result3 = testSubject0.getWriter();
-        boolean result4 = testSubject0.isOutputStreamAvailable();
-        boolean result5 = testSubject0.isDocumentIRIAvailable();
-        String result6 = testSubject0.toString();
-    }
 
     @Test
     public void shouldTestXMLUtils() throws Exception {
@@ -707,14 +557,4 @@ public class ContractOwlapiIoTest {
         String result11 = testSubject0.toString();
     }
 
-    public void shouldTestZipDocumentTarget() throws Exception {
-        ZipDocumentTarget testSubject0 = new ZipDocumentTarget(mock(File.class));
-        OutputStream result0 = testSubject0.getOutputStream();
-        IRI result1 = testSubject0.getDocumentIRI();
-        boolean result2 = testSubject0.isWriterAvailable();
-        Writer result3 = testSubject0.getWriter();
-        boolean result4 = testSubject0.isOutputStreamAvailable();
-        boolean result5 = testSubject0.isDocumentIRIAvailable();
-        String result6 = testSubject0.toString();
-    }
 }
