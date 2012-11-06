@@ -43,6 +43,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -70,8 +71,8 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
      * @param man The manager
      * @param ont The ontology
      */
-    public ManchesterOWLSyntaxPrefixNameShortFormProvider(OWLOntology ont) {
-        this(ont.getOWLOntologyManager().getOntologyFormat(ont));
+    public ManchesterOWLSyntaxPrefixNameShortFormProvider(OWLOntologyManager man, OWLOntology ont) {
+        this(man.getOntologyFormat(ont));
     }
 
     /**

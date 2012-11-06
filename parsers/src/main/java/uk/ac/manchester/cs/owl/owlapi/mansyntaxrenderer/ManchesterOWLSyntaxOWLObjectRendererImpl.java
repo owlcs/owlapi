@@ -90,6 +90,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
         private StringWriter delegate;
 
         public WriterDelegate() {
+			// TODO Auto-generated constructor stub
 		}
 
 

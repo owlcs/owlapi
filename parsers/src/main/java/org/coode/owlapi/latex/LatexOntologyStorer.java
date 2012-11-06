@@ -66,7 +66,7 @@ public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
                                                                                                                             OWLOntologyStorageException {
         try {
-            LatexRenderer ren = new LatexRenderer();
+            LatexRenderer ren = new LatexRenderer(manager);
             ren.render(ontology, writer);
             writer.flush();
         }

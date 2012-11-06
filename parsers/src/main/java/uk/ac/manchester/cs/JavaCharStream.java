@@ -166,7 +166,7 @@ public class JavaCharStream {
             } else {
                 maxNextCharInd += i;
             }
-            // this treats the BOM problem; when the parser is regenerated,
+            // XXX this treats the BOM problem; when the parser is regenerated,
             // this needs to be applied again
             if (beginning && nextCharBuf[0] == '\uFEFF') {
                 nextCharInd++;

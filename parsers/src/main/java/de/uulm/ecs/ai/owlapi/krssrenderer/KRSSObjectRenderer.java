@@ -122,6 +122,7 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -335,13 +336,15 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     protected final OWLOntology ontology;
     protected final Writer writer;
+    protected final OWLOntologyManager manager;
 
     private int pos = 0;
     private int lastNewLinePos = 0;
 
-    public KRSSObjectRenderer(OWLOntology ontology, Writer writer) {
+    public KRSSObjectRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = new PrintWriter(writer);
+        this.manager = manager;
     }
 
     protected <T extends OWLObject> List<T> sort(Collection<T>objects) {
@@ -480,10 +483,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLOntology ontology1) {
         Set<OWLClass> classes = ontology1.getClassesInSignature();
-        classes.remove(ontology1.getOWLOntologyManager().getOWLDataFactory()
-                .getOWLThing());
-        classes.remove(ontology1.getOWLOntologyManager().getOWLDataFactory()
-                .getOWLNothing());
+        classes.remove(manager.getOWLDataFactory().getOWLThing());
+        classes.remove(manager.getOWLDataFactory().getOWLNothing());
 
         for (final OWLClass eachClass : sort(classes)) {
             final boolean primitive = !eachClass.isDefined(ontology1);

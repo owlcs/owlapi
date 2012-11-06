@@ -70,9 +70,7 @@ public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer
     @Override
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
 
-        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
-                ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(
-                        format));
+        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(manager, ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
         ren.writeOntology();
     }
 }

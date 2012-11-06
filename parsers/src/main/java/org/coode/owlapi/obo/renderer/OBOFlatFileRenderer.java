@@ -76,6 +76,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLRestriction;
@@ -130,7 +131,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
     private String defaultNamespace;
 
 
-    protected OBOFlatFileRenderer() {
+    protected OBOFlatFileRenderer(OWLOntologyManager owlOntologyManager) {
+        super(owlOntologyManager);
         relationshipHandler = new OBORelationshipGenerator(this);
         sfp = new SimpleShortFormProvider();
     }
@@ -306,8 +308,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
             }
         }
 
-        final OWLClass owlThing = ontology.getOWLOntologyManager().getOWLDataFactory()
-                .getOWLThing();
+        final OWLClass owlThing = getOWLOntologyManager().getOWLDataFactory().getOWLThing();
 
         // if no named superclass is specified, then this must be asserted to be a subclass of owlapi:Thing
         if (!cls.equals(owlThing) && tvpList.getValues(OBOVocabulary.IS_A).isEmpty()) {
@@ -325,8 +326,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
                 /* OBO equivalence must be of the form "A and p some B and ..."
                  * if this class is equiv to a restriction, put this into an intersection with owlapi:Thing as the named class
                  */
-                OWLObjectIntersectionOf intersection = ontology.getOWLOntologyManager()
-                        .getOWLDataFactory().getOWLObjectIntersectionOf(owlThing, equiv);
+                OWLObjectIntersectionOf intersection = getOWLOntologyManager().getOWLDataFactory().getOWLObjectIntersectionOf(owlThing, equiv);
                 handleIntersection(cls, intersection, tvpList);
             }
             else {
