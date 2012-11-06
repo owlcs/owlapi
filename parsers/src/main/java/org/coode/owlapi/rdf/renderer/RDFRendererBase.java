@@ -120,8 +120,6 @@ public abstract class RDFRendererBase {
 
     public static final String RULES_BANNER_TEXT = "Rules";
 
-    protected OWLOntologyManager manager;
-
     protected OWLOntology ontology;
 
     private RDFGraph graph;
@@ -130,15 +128,23 @@ public abstract class RDFRendererBase {
 
     private OWLOntologyFormat format;
 
-
-    public RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager) {
-        this(ontology, manager, manager.getOntologyFormat(ontology));
+    public RDFRendererBase(OWLOntology ontology) {
+        this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 
+    @Deprecated
+    public RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager) {
+        this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
+    }
 
-    protected RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager, OWLOntologyFormat format) {
+    @Deprecated
+    protected RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager,
+            OWLOntologyFormat format) {
+        this(ontology, format);
+    }
+
+    protected RDFRendererBase(OWLOntology ontology, OWLOntologyFormat format) {
         this.ontology = ontology;
-        this.manager = manager;
         this.format = format;
     }
 
@@ -618,7 +624,8 @@ public abstract class RDFRendererBase {
                         axioms.add(ax);
                     }
                 }
-                axioms.addAll(ontology.getAxioms(manager.getOWLDataFactory().getOWLObjectInverseOf(property)));
+                axioms.addAll(ontology.getAxioms(ontology.getOWLOntologyManager()
+                        .getOWLDataFactory().getOWLObjectInverseOf(property)));
             }
 
             @Override
@@ -646,7 +653,8 @@ public abstract class RDFRendererBase {
     }
 
     protected void createGraph(Set<? extends OWLObject> objects) {
-        RDFTranslator translator = new RDFTranslator(manager, ontology, shouldInsertDeclarations());
+        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(),
+                ontology, shouldInsertDeclarations());
         for (OWLObject obj : objects) {
             obj.accept(translator);
         }

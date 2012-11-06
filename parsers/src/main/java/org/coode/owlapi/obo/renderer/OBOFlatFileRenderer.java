@@ -61,6 +61,7 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -130,9 +131,14 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
     private String defaultNamespace;
 
+    private OWLDataFactory factory;
 
+    @Deprecated
     protected OBOFlatFileRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+        this();
+    }
+
+    protected OBOFlatFileRenderer() {
         relationshipHandler = new OBORelationshipGenerator(this);
         sfp = new SimpleShortFormProvider();
     }
@@ -140,6 +146,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
 
     @Override
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+        factory = ontology.getOWLOntologyManager().getOWLDataFactory();
         exceptions.clear();
 
         IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
@@ -308,7 +315,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
             }
         }
 
-        final OWLClass owlThing = getOWLOntologyManager().getOWLDataFactory().getOWLThing();
+        final OWLClass owlThing = factory.getOWLThing();
 
         // if no named superclass is specified, then this must be asserted to be a subclass of owlapi:Thing
         if (!cls.equals(owlThing) && tvpList.getValues(OBOVocabulary.IS_A).isEmpty()) {
@@ -326,7 +333,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
                 /* OBO equivalence must be of the form "A and p some B and ..."
                  * if this class is equiv to a restriction, put this into an intersection with owlapi:Thing as the named class
                  */
-                OWLObjectIntersectionOf intersection = getOWLOntologyManager().getOWLDataFactory().getOWLObjectIntersectionOf(owlThing, equiv);
+                OWLObjectIntersectionOf intersection = factory
+                        .getOWLObjectIntersectionOf(owlThing, equiv);
                 handleIntersection(cls, intersection, tvpList);
             }
             else {

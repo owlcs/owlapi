@@ -54,9 +54,6 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  * Date: 24-April-2007<br>
  * <br> */
 public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 30402L;
 
     /** Determines if this storer can store an ontology in the specified ontology
@@ -74,8 +71,14 @@ public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     @Override
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
             Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
+        storeOntology(ontology, writer, format);
+    }
+
+    @Override
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
-            OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer(manager);
+            OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer();
             renderer.render(ontology, writer);
             writer.flush();
         } catch (IOException e) {

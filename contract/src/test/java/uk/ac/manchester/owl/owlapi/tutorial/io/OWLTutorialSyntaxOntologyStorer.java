@@ -71,12 +71,17 @@ public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
         return ontologyFormat.equals(new OWLTutorialSyntaxOntologyFormat());
     }
 
-
     @Override
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
             Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
+        storeOntology(ontology, writer, format);
+    }
+
+    @Override
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
-            OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer(manager);
+            OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer();
             renderer.render(ontology, writer);
             writer.flush();
         } catch (IOException e) {

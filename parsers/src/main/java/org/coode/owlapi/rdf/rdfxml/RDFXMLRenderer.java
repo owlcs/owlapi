@@ -83,15 +83,22 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     private RDFXMLNamespaceManager qnameManager;
 
-    //private Set<RDFResourceNode> renderedAnonymousNodes;
-
+    @Deprecated
     public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w) {
-        this(manager, ontology, w, manager.getOntologyFormat(ontology));
+        this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 
+    public RDFXMLRenderer(OWLOntology ontology, Writer w) {
+        this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
+    }
 
+    @Deprecated
     public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w, OWLOntologyFormat format) {
-        super(ontology, manager, format);
+        this(ontology, w, format);
+    }
+
+    public RDFXMLRenderer(OWLOntology ontology, Writer w, OWLOntologyFormat format) {
+        super(ontology, format);
         pending = new HashSet<RDFResourceNode>();
         //renderedAnonymousNodes = new HashSet<RDFResourceNode>();
 

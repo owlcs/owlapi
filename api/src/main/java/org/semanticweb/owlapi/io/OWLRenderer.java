@@ -55,10 +55,11 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public interface OWLRenderer {
 
 
-    /**
-     * @param owlOntologyManager
+    /** @param owlOntologyManager
      * @throws OWLException
-     */
+     * @Deprecated the manager should not be set but accessed through the
+     *             ontology passed to render */
+    @Deprecated
     void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) throws OWLException;
 
     /**

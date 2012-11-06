@@ -252,8 +252,7 @@ public class ContractSmallsTest {
 
     @Test
     public void shouldTestRDFRendererBase() throws Exception {
-        RDFRendererBase testSubject0 = new RDFRendererBase(Utils.getMockOntology(),
-                Utils.getMockManager()) {
+        RDFRendererBase testSubject0 = new RDFRendererBase(Utils.getMockOntology()) {
             @Override
             protected void beginDocument() throws IOException {}
 
@@ -330,9 +329,9 @@ public class ContractSmallsTest {
     }
 
     public void shouldTestRDFXMLRenderer() throws Exception {
-        RDFXMLRenderer testSubject0 = new RDFXMLRenderer(Utils.getMockManager(),
+        RDFXMLRenderer testSubject0 = new RDFXMLRenderer(
                 Utils.getMockOntology(), mock(Writer.class));
-        RDFXMLRenderer testSubject1 = new RDFXMLRenderer(Utils.getMockManager(),
+        RDFXMLRenderer testSubject1 = new RDFXMLRenderer(
                 Utils.getMockOntology(), mock(Writer.class),
                 mock(OWLOntologyFormat.class));
         testSubject0.render(mock(RDFResourceNode.class));
@@ -347,7 +346,6 @@ public class ContractSmallsTest {
     public void shouldTestMutableTree() throws Exception {
         MutableTree<Object> testSubject0 = new MutableTree<Object>(mock(Object.class));
         String result0 = testSubject0.toString();
-        testSubject0.replace(mock(MutableTree.class));
         Tree<Object> result1 = testSubject0.getParent();
         int result2 = testSubject0.getSize();
         testSubject0.setParent(mock(MutableTree.class));
@@ -469,7 +467,7 @@ public class ContractSmallsTest {
 
     public void shouldTestTurtleRenderer() throws Exception {
         TurtleRenderer testSubject0 = new TurtleRenderer(Utils.getMockOntology(),
-                Utils.getMockManager(), mock(Writer.class), mock(OWLOntologyFormat.class));
+                mock(Writer.class), mock(OWLOntologyFormat.class));
         testSubject0.render(mock(RDFResourceNode.class));
         testSubject0.pushTab();
         testSubject0.popTab();
@@ -568,11 +566,10 @@ public class ContractSmallsTest {
 
     @Test
     public void shouldTestOWLXMLRenderer() throws Exception {
-        OWLXMLRenderer testSubject0 = new OWLXMLRenderer(Utils.getMockManager());
+        OWLXMLRenderer testSubject0 = new OWLXMLRenderer();
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class),
                 mock(OWLOntologyFormat.class));
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         String result0 = testSubject0.toString();
     }

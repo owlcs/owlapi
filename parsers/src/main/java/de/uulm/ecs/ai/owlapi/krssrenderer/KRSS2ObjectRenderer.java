@@ -360,8 +360,13 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
      */
     protected boolean ignoreDeclarations = false;
 
+    @Deprecated
     public KRSS2ObjectRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer writer) {
-        super(manager, ontology, writer);
+        this(ontology, writer);
+    }
+
+    public KRSS2ObjectRenderer(OWLOntology ontology, Writer writer) {
+        super(ontology, writer);
         leftRightIdentityUsed = new HashSet<OWLSubPropertyChainOfAxiom>();
     }
 

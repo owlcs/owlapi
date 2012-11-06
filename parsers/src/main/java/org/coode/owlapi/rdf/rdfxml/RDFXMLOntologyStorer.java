@@ -70,11 +70,16 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
         return ontologyFormat instanceof RDFXMLOntologyFormat;
     }
 
-
     @Override
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
+        storeOntology(ontology, writer, format);
+    }
+
+    @Override
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
-            RDFXMLRenderer renderer = new RDFXMLRenderer(manager, ontology, writer, format);
+            RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer, format);
             Set<OWLEntity> entities = renderer.getUnserialisableEntities();
             if (!entities.isEmpty()) {
                 StringBuilder sb = new StringBuilder();
@@ -93,35 +98,4 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
             throw new OWLOntologyStorageException(e);
         }
     }
-
-//    public Set<UnstorableAxiom> getUnstorableAxioms(OWLOntology ontology) {
-//        Set<OWLProperty> processedProperties = new HashSet<OWLProperty>();
-//        Set<OWLProperty> unstorableProperties = new HashSet<OWLProperty>();
-//        Set<OWLAxiom> unstorableAxioms = new HashSet<OWLAxiom>();
-//        for (OWLObjectPropertyAssertionAxiom ax : ontology.getAxioms(AxiomType.OBJECT_PROPERTY_ASSERTION)) {
-//            processPropertyAssertionAxiom(processedProperties, unstorableProperties, unstorableAxioms, ax);
-//        }
-//    }
-//
-//    private void processPropertyAssertionAxiom(Set<OWLProperty> processedProperties, Set<OWLProperty> unstorableProperties, Set<OWLAxiom> unstorableAxioms, OWLPropertyAssertionAxiom<?, ?> ax) {
-//        OWLProperty namedProperty = ax.getProperty().getNamedProperty();
-//        if (!processedProperties.contains(namedProperty)) {
-//            processedProperties.add(namedProperty);
-//            if(!canCreateQName(namedProperty)) {
-//                unstorableProperties.add(namedProperty);
-//            }
-//        }
-//        if (unstorableProperties.contains(namedProperty)) {
-//            unstorableAxioms.add(ax);
-//        }
-//    }
-//
-//
-//    public boolean canCreateQName(OWLEntity entity) {
-//        NamespaceUtil util = new NamespaceUtil();
-//        String[] splitResult = new String[2];
-//        util.split(entity.toStringID(), splitResult);
-//        return !"".equals(splitResult[0]) && !"".equals(splitResult[1]);
-//
-//    }
 }

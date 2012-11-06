@@ -71,6 +71,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
      * @param man The manager
      * @param ont The ontology
      */
+    @Deprecated
     public ManchesterOWLSyntaxPrefixNameShortFormProvider(OWLOntologyManager man, OWLOntology ont) {
         this(man.getOntologyFormat(ont));
     }

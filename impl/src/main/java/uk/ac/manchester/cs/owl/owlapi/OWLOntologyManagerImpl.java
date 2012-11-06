@@ -1031,7 +1031,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         try {
             for (OWLOntologyStorer storer : ontologyStorers) {
                 if (storer.canStoreOntology(ontologyFormat)) {
-                    storer.storeOntology(this, ontology, documentIRI, ontologyFormat);
+                    storer.storeOntology(ontology, documentIRI, ontologyFormat);
                     return;
                 }
             }
@@ -1067,7 +1067,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         try {
             for (OWLOntologyStorer storer : ontologyStorers) {
                 if (storer.canStoreOntology(ontologyFormat)) {
-                    storer.storeOntology(this, ontology, documentTarget, ontologyFormat);
+                    storer.storeOntology(ontology, documentTarget, ontologyFormat);
                     return;
                 }
             }

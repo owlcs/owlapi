@@ -71,8 +71,16 @@ public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStor
 	private OWLOntology ont;
 
     @Override
-	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer w, OWLOntologyFormat format) throws
+    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
+            Writer w, OWLOntologyFormat format) throws
             OWLOntologyStorageException {
+        storeOntology(ontology, w, format);
+    }
+
+    @Override
+    protected void
+            storeOntology(OWLOntology ontology, Writer w, OWLOntologyFormat format)
+                    throws OWLOntologyStorageException {
 
         ont = ontology;
         PrintWriter writer = new PrintWriter(w);

@@ -57,16 +57,18 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 @SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
-
+    @Deprecated
     public OWLFunctionalSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+}
+
+    public OWLFunctionalSyntaxRenderer() {
     }
 
 
     @Override
 	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         try {
-            OWLObjectRenderer ren = new OWLObjectRenderer(getOWLOntologyManager(), ontology, writer);
+            OWLObjectRenderer ren = new OWLObjectRenderer(ontology, writer);
             ontology.accept(ren);
             writer.flush();
         }

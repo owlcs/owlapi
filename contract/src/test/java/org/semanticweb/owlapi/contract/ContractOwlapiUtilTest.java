@@ -98,6 +98,10 @@ public class ContractOwlapiUtilTest {
             protected void storeOntology(final OWLOntologyManager manager,
                     final OWLOntology ontology, final Writer writer,
                     final OWLOntologyFormat format) throws OWLOntologyStorageException {}
+
+            @Override
+            protected void storeOntology(final OWLOntology ontology, final Writer writer,
+                    final OWLOntologyFormat format) throws OWLOntologyStorageException {}
         };
         String result0 = testSubject0.toString();
         boolean result1 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));

@@ -53,9 +53,13 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * <br> */
 public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
     @SuppressWarnings("javadoc")
+    @Deprecated
     public OWLTutorialSyntaxRenderer(OWLOntologyManager manager) {
         super(manager);
     }
+
+    @SuppressWarnings("javadoc")
+    public OWLTutorialSyntaxRenderer() {}
 
     @Override
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererIOException {
