@@ -49,9 +49,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
@@ -60,7 +57,6 @@ import org.semanticweb.owlapi.model.OWLIndividualVisitorEx;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -248,48 +244,5 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         return visitor.visit(this);
     }
 
-    @Override
-    public OWLClass asOWLClass() {
-        throw new OWLRuntimeException("Not an OWLClass!");
-    }
 
-    @Override
-    public OWLDataProperty asOWLDataProperty() {
-        throw new OWLRuntimeException("Not a data property!");
-    }
-
-    @Override
-    public OWLDatatype asOWLDatatype() {
-        throw new OWLRuntimeException("Not a data type!");
-    }
-
-    @Override
-    public OWLObjectProperty asOWLObjectProperty() {
-        throw new OWLRuntimeException("Not an object property");
-    }
-
-    @Override
-    public boolean isOWLClass() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLDataProperty() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLDatatype() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLObjectProperty() {
-        return false;
-    }
-
-    @Override
-    public boolean isBuiltIn() {
-        return false;
-    }
 }

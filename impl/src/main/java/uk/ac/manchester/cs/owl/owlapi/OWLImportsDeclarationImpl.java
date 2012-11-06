@@ -62,6 +62,13 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Seriali
         this.iri = iri;
     }
 
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
+    public boolean isLogicalAxiom() {
+        return false;
+    }
+
+
     @Override
     public IRI getIRI() {
         return iri;
@@ -89,7 +96,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Seriali
             return false;
         }
         OWLImportsDeclaration other = (OWLImportsDeclaration) obj;
-        return iri.equals(other.getIRI());
+        return this.iri.equals(other.getIRI());
     }
 
 

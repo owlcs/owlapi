@@ -40,6 +40,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -75,6 +76,23 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
         this.superClass = superClass;
     }
 
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
+    public Set<OWLClassExpression> getClassExpressions() {
+        Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>(3);
+        classExpressions.add(subClass);
+        classExpressions.add(superClass);
+        return classExpressions;
+    }
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
+    public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc) {
+        Set<OWLClassExpression> classExpressions = getClassExpressions();
+        for (OWLClassExpression ce : desc) {
+            classExpressions.remove(ce);
+        }
+        return classExpressions;
+    }
 
     @Override
     public OWLSubClassOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
@@ -87,6 +105,11 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
             return this;
         }
         return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass);
+    }
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
+    public boolean contains(OWLClassExpression ce) {
+        return subClass.equals(ce) || superClass.equals(ce);
     }
 
     @Override

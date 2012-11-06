@@ -169,7 +169,11 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         defaultChangeBroadcastStrategy = new DefaultChangeBroadcastStrategy();
         defaultImpendingChangeBroadcastStrategy = new DefaultImpendingChangeBroadcastStrategy();
     }
-
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
+    public OWLOntologyManagerProperties getProperties() {
+        return properties;
+    }
 
     @Override
     public OWLDataFactory getOWLDataFactory() {
@@ -191,8 +195,8 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         }
         return result;
     }
-
-    @Override
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
     public boolean contains(OWLOntology ontology) {
         return ontologiesByID.containsValue(ontology);
     }
@@ -491,7 +495,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
      *         <code>false</code>.
      */
     private boolean isChangeApplicable(OWLOntologyChange change) {
-        if (!properties.isLoadAnnotationAxioms() && change instanceof AddAxiom) {
+        if (!getProperties().isLoadAnnotationAxioms() && change instanceof AddAxiom) {
             if (change.getAxiom() instanceof OWLAnnotationAxiom) {
                 return false;
             }
@@ -684,6 +688,12 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
     public OWLOntology createOntology(IRI ontologyIRI)
             throws OWLOntologyCreationException {
         return createOntology(new OWLOntologyID(ontologyIRI));
+    }
+    //XXX not in the interface
+    @SuppressWarnings("javadoc")
+    public OWLOntology createOntology(IRI ontologyIRI, IRI versionIRI)
+            throws OWLOntologyCreationException {
+        return createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
     }
 
     @Override

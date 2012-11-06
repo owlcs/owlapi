@@ -185,6 +185,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean hasLang(String l) {
+        //XXX this was missing null checks: a null lang is still valid in the factory, where it becomes a ""
         if (l == null && lang == null) {
             return true;
         }
