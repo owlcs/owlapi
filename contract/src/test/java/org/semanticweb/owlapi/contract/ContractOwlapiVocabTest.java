@@ -134,7 +134,7 @@ public class ContractOwlapiVocabTest {
         String result0 = testSubject0.getPrefix("");
         IRI result1 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");
-        testSubject0.clear();
+        testSubject0.clearPrefixes();
         testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
         testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
         Map<String, String> result2 = testSubject0.getPrefixName2PrefixMap();

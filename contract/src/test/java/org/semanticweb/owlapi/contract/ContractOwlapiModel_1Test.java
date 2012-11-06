@@ -183,7 +183,6 @@ public class ContractOwlapiModel_1Test {
         String result6 = testSubject0.toString();
     }
 
-    @Test
     public void shouldTestIRI() throws Exception {
         IRI testSubject0 = IRI.create(new File("."));
         IRI testSubject1 = IRI.create("");
@@ -197,7 +196,7 @@ public class ContractOwlapiModel_1Test {
         String result4 = testSubject0.getFragment();
         IRI result7 = IRI.create("");
         IRI result8 = IRI.create("", "");
-        IRI result9 = IRI.create(new File("test"));
+        IRI result9 = IRI.create(mock(File.class));
         String result10 = testSubject0.getStart();
         boolean result11 = testSubject0.isReservedVocabulary();
         boolean result12 = testSubject0.isThing();
@@ -1251,7 +1250,6 @@ public class ContractOwlapiModel_1Test {
         boolean result30 = testSubject0.isBottomEntity();
     }
 
-    @Test
     public void shouldTestInterfaceOWLDataFactory() throws Exception {
         OWLDataFactory testSubject0 = mock(OWLDataFactory.class);
         OWLEntity result0 = testSubject0.getOWLEntity(EntityType.CLASS,
@@ -1330,11 +1328,11 @@ public class ContractOwlapiModel_1Test {
         OWLLiteral result51 = testSubject0.getOWLLiteral("", mock(OWLDatatype.class));
         OWLDataOneOf result61 = testSubject0.getOWLDataOneOf(Utils
                 .mockSet(mock(OWLLiteral.class)));
-        OWLDataOneOf result62 = testSubject0.getOWLDataOneOf(mock(OWLLiteral.class));
+        OWLDataOneOf result62 = testSubject0.getOWLDataOneOf(mock(OWLLiteral[].class));
         OWLDataComplementOf result63 = testSubject0
                 .getOWLDataComplementOf(mock(OWLDataRange.class));
         OWLDatatypeRestriction result64 = testSubject0.getOWLDatatypeRestriction(
-                mock(OWLDatatype.class), mock(OWLFacetRestriction.class));
+                mock(OWLDatatype.class), mock(OWLFacetRestriction[].class));
         OWLDatatypeRestriction result65 = testSubject0.getOWLDatatypeRestriction(
                 mock(OWLDatatype.class), OWLFacet.MAX_INCLUSIVE, mock(OWLLiteral.class));
         OWLDatatypeRestriction result66 = testSubject0.getOWLDatatypeRestriction(
@@ -1372,13 +1370,13 @@ public class ContractOwlapiModel_1Test {
         OWLFacetRestriction result82 = testSubject0.getOWLFacetRestriction(
                 OWLFacet.MAX_INCLUSIVE, 0);
         OWLDataUnionOf result83 = testSubject0
-                .getOWLDataUnionOf(mock(OWLDataRange.class));
+                .getOWLDataUnionOf(mock(OWLDataRange[].class));
         OWLDataUnionOf result84 = testSubject0.getOWLDataUnionOf(Utils
                 .mockSet(mock(OWLDatatype.class)));
         OWLDataIntersectionOf result85 = testSubject0.getOWLDataIntersectionOf(Utils
                 .mockSet(mock(OWLDatatype.class)));
         OWLDataIntersectionOf result86 = testSubject0
-                .getOWLDataIntersectionOf(mock(OWLDataRange.class));
+                .getOWLDataIntersectionOf(mock(OWLDataRange[].class));
         OWLObjectIntersectionOf result87 = testSubject0.getOWLObjectIntersectionOf(Utils
                 .mockSet(Utils.mockAnonClass()));
         OWLObjectIntersectionOf result88 = testSubject0.getOWLObjectIntersectionOf(Utils
@@ -1406,7 +1404,7 @@ public class ContractOwlapiModel_1Test {
         OWLObjectOneOf result99 = testSubject0.getOWLObjectOneOf(Utils
                 .mockSet(mock(OWLIndividual.class)));
         OWLObjectOneOf result100 = testSubject0
-                .getOWLObjectOneOf(mock(OWLIndividual.class));
+                .getOWLObjectOneOf(mock(OWLIndividual[].class));
         OWLObjectAllValuesFrom result101 = testSubject0.getOWLObjectAllValuesFrom(
                 Utils.mockObjectProperty(), Utils.mockAnonClass());
         OWLObjectSomeValuesFrom result102 = testSubject0.getOWLObjectSomeValuesFrom(
@@ -1469,7 +1467,7 @@ public class ContractOwlapiModel_1Test {
                 .getOWLEquivalentObjectPropertiesAxiom(Utils.mockSet(Utils
                         .mockObjectProperty()));
         OWLEquivalentObjectPropertiesAxiom result125 = testSubject0
-                .getOWLEquivalentObjectPropertiesAxiom(mock(OWLObjectPropertyExpression.class));
+                .getOWLEquivalentObjectPropertiesAxiom(mock(OWLObjectPropertyExpression[].class));
         OWLEquivalentObjectPropertiesAxiom result126 = testSubject0
                 .getOWLEquivalentObjectPropertiesAxiom(Utils.mockObjectProperty(),
                         Utils.mockObjectProperty());
@@ -1481,7 +1479,7 @@ public class ContractOwlapiModel_1Test {
                 .getOWLDisjointObjectPropertiesAxiom(Utils.mockSet(Utils
                         .mockObjectProperty()));
         OWLDisjointObjectPropertiesAxiom result129 = testSubject0
-                .getOWLDisjointObjectPropertiesAxiom(mock(OWLObjectPropertyExpression.class));
+                .getOWLDisjointObjectPropertiesAxiom(mock(OWLObjectPropertyExpression[].class));
         OWLDisjointObjectPropertiesAxiom result130 = testSubject0
                 .getOWLDisjointObjectPropertiesAxiom(
                         Utils.mockSet(Utils.mockObjectProperty()),
@@ -1564,13 +1562,13 @@ public class ContractOwlapiModel_1Test {
                         Utils.mockSet(mock(OWLDataPropertyExpression.class)),
                         Utils.mockSet(mock(OWLAnnotation.class)));
         OWLEquivalentDataPropertiesAxiom result157 = testSubject0
-                .getOWLEquivalentDataPropertiesAxiom(mock(OWLDataPropertyExpression.class));
+                .getOWLEquivalentDataPropertiesAxiom(mock(OWLDataPropertyExpression[].class));
         OWLDisjointDataPropertiesAxiom result158 = testSubject0
                 .getOWLDisjointDataPropertiesAxiom(
                         Utils.mockSet(mock(OWLDataPropertyExpression.class)),
                         Utils.mockSet(mock(OWLAnnotation.class)));
         OWLDisjointDataPropertiesAxiom result159 = testSubject0
-                .getOWLDisjointDataPropertiesAxiom(mock(OWLDataPropertyExpression.class));
+                .getOWLDisjointDataPropertiesAxiom(mock(OWLDataPropertyExpression[].class));
         OWLDisjointDataPropertiesAxiom result160 = testSubject0
                 .getOWLDisjointDataPropertiesAxiom(Utils
                         .mockSet(mock(OWLDataPropertyExpression.class)));
@@ -1594,7 +1592,7 @@ public class ContractOwlapiModel_1Test {
                 new HashSet<OWLPropertyExpression<?, ?>>(),
                 Utils.mockSet(mock(OWLAnnotation.class)));
         OWLHasKeyAxiom result168 = testSubject0.getOWLHasKeyAxiom(Utils.mockAnonClass(),
-                mock(OWLPropertyExpression.class));
+                mock(OWLPropertyExpression[].class));
         OWLHasKeyAxiom result169 = testSubject0.getOWLHasKeyAxiom(Utils.mockAnonClass(),
                 new HashSet<OWLPropertyExpression<?, ?>>());
         OWLDatatypeDefinitionAxiom result170 = testSubject0
@@ -1607,12 +1605,12 @@ public class ContractOwlapiModel_1Test {
         OWLSameIndividualAxiom result172 = testSubject0.getOWLSameIndividualAxiom(Utils
                 .mockSet(mock(OWLIndividual.class)));
         OWLSameIndividualAxiom result173 = testSubject0
-                .getOWLSameIndividualAxiom(mock(OWLIndividual.class));
+                .getOWLSameIndividualAxiom(mock(OWLIndividual[].class));
         OWLSameIndividualAxiom result174 = testSubject0.getOWLSameIndividualAxiom(
                 Utils.mockSet(mock(OWLIndividual.class)),
                 Utils.mockSet(mock(OWLAnnotation.class)));
         OWLDifferentIndividualsAxiom result175 = testSubject0
-                .getOWLDifferentIndividualsAxiom(mock(OWLIndividual.class));
+                .getOWLDifferentIndividualsAxiom(mock(OWLIndividual[].class));
         OWLDifferentIndividualsAxiom result176 = testSubject0
                 .getOWLDifferentIndividualsAxiom(Utils.mockSet(mock(OWLIndividual.class)));
         OWLDifferentIndividualsAxiom result177 = testSubject0

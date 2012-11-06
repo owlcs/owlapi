@@ -32,7 +32,6 @@ import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.owlapi.rdfxml.parser.OWLRDFConsumer;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
@@ -46,16 +45,12 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorExAdapter;
 import org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import uk.ac.manchester.cs.owl.owlapi.CollectionContainer;
 import uk.ac.manchester.cs.owl.owlapi.CollectionContainerVisitor;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class Utils {
-    static final IRI fakeiri1 = IRI.create("urn:aFake1");
-    static final IRI fakeiri2 = IRI.create("urn:aFake2");
-    static final IRI fakeiriproperty = IRI.create("urn:aFakeproperty");
     public static AxiomType<OWLAnnotationAssertionAxiom> mockAxiomType() {
         return AxiomType.ANNOTATION_ASSERTION;
     }
@@ -1080,11 +1075,12 @@ public class Utils {
     }
 
     public static OWLRDFConsumer mockOWLRDFConsumer() {
-        try {
-            OWLOntologyManager man = Factory.getManager();
-            OWLOntology mockOntology = man.createOntology(
+        OWLOntology mockOntology = mock(OWLOntology.class);
+        when(mockOntology.getOntologyID()).thenReturn(
                 new OWLOntologyID(IRI.create("urn:test:test"), IRI
                         .create("urn:test:othertest")));
+        OWLOntologyManager man = getMockManagerMockFactory();
+        when(mockOntology.getOWLOntologyManager()).thenReturn(man);
         OWLRDFConsumer c = new OWLRDFConsumer(mockOntology, new AnonymousNodeChecker() {
             @Override
             public boolean isAnonymousSharedNode(final String iri) {
@@ -1104,13 +1100,7 @@ public class Utils {
         c.setOntologyFormat(new RDFOntologyFormat() {
             private static final long serialVersionUID = 30402L;
         });
-            c.addTriple(fakeiri1,
-                    OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(),
- fakeiri2);
         return c;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public static OWLReasoner structReasoner() {

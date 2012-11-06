@@ -37,10 +37,11 @@ public class ContractOwlxmlRendererTest {
 
     @Test
     public void shouldTestOWLXMLRenderer() throws Exception {
-        OWLXMLRenderer testSubject0 = new OWLXMLRenderer();
+        OWLXMLRenderer testSubject0 = new OWLXMLRenderer(Utils.getMockManager());
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class),
                 mock(OWLOntologyFormat.class));
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
+        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         String result0 = testSubject0.toString();
     }

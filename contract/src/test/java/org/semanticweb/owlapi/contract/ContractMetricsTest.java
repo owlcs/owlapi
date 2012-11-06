@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.metrics.AbstractOWLMetric;
+import org.semanticweb.owlapi.metrics.AverageAssertedNamedSuperclassCount;
+import org.semanticweb.owlapi.metrics.AxiomCount;
 import org.semanticweb.owlapi.metrics.AxiomCountMetric;
 import org.semanticweb.owlapi.metrics.AxiomTypeCountMetricFactory;
+import org.semanticweb.owlapi.metrics.AxiomTypeMetric;
 import org.semanticweb.owlapi.metrics.DLExpressivity;
 import org.semanticweb.owlapi.metrics.DoubleValuedMetric;
 import org.semanticweb.owlapi.metrics.GCICount;
@@ -27,6 +29,7 @@ import org.semanticweb.owlapi.metrics.ReferencedClassCount;
 import org.semanticweb.owlapi.metrics.ReferencedDataPropertyCount;
 import org.semanticweb.owlapi.metrics.ReferencedIndividualCount;
 import org.semanticweb.owlapi.metrics.ReferencedObjectPropertyCount;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -70,9 +73,39 @@ public class ContractMetricsTest {
         String result6 = testSubject0.getName();
     }
 
+    public void shouldTestAverageAssertedNamedSuperclassCount() throws Exception {
+        AverageAssertedNamedSuperclassCount testSubject0 = new AverageAssertedNamedSuperclassCount(
+                Utils.getMockManager());
+        String result0 = testSubject0.getName();
+        Double result1 = testSubject0.recomputeMetric();
+        Object result2 = testSubject0.recomputeMetric();
+        String result3 = testSubject0.toString();
+        Object result4 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result5 = testSubject0.getOntologies();
+        OWLOntology result6 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result7 = testSubject0.getManager();
+        boolean result8 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
+    }
 
+    public void shouldTestAxiomCount() throws Exception {
+        AxiomCount testSubject0 = new AxiomCount(Utils.getMockManager());
+        String result0 = testSubject0.getName();
+        String result1 = testSubject0.toString();
+        Object result2 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result3 = testSubject0.getOntologies();
+        OWLOntology result4 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result5 = testSubject0.getManager();
+        boolean result6 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
+    }
 
-    @Test
     public void shouldTestAxiomCountMetric() throws Exception {
         AxiomCountMetric testSubject0 = new AxiomCountMetric(Utils.getMockManager()) {
             @Override
@@ -85,6 +118,20 @@ public class ContractMetricsTest {
                 return null;
             }
         };
+        Set<? extends OWLAxiom> result0 = testSubject0.getAxioms();
+        String result1 = testSubject0.getName();
+        Object result2 = testSubject0.recomputeMetric();
+        Integer result3 = testSubject0.recomputeMetric();
+        String result4 = testSubject0.toString();
+        Object result5 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result6 = testSubject0.getOntologies();
+        OWLOntology result7 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result8 = testSubject0.getManager();
+        boolean result9 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 
     @Test
@@ -95,10 +142,41 @@ public class ContractMetricsTest {
         String result1 = testSubject0.toString();
     }
 
+    public void shouldTestAxiomTypeMetric() throws Exception {
+        AxiomTypeMetric testSubject0 = new AxiomTypeMetric(Utils.getMockManager(),
+                mock(AxiomType.class));
+        AxiomType<?> result0 = testSubject0.getAxiomType();
+        Set<? extends OWLAxiom> result1 = testSubject0.getAxioms();
+        String result2 = testSubject0.getName();
+        Object result3 = testSubject0.recomputeMetric();
+        Integer result4 = testSubject0.recomputeMetric();
+        String result5 = testSubject0.toString();
+        Object result6 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result7 = testSubject0.getOntologies();
+        OWLOntology result8 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result9 = testSubject0.getManager();
+        boolean result10 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
+    }
 
-    @Test
     public void shouldTestDLExpressivity() throws Exception {
         DLExpressivity testSubject0 = new DLExpressivity(Utils.getMockManager());
+        String result0 = testSubject0.getName();
+        String result1 = testSubject0.recomputeMetric();
+        Object result2 = testSubject0.recomputeMetric();
+        String result3 = testSubject0.toString();
+        Object result4 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result5 = testSubject0.getOntologies();
+        OWLOntology result6 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result7 = testSubject0.getManager();
+        boolean result8 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 
     @Test
@@ -136,19 +214,52 @@ public class ContractMetricsTest {
         String result6 = testSubject0.getName();
     }
 
-    @Test
     public void shouldTestGCICount() throws Exception {
         GCICount testSubject0 = new GCICount(Utils.getMockManager());
+        Set<? extends OWLAxiom> result0 = testSubject0.getAxioms();
+        String result1 = testSubject0.getName();
+        Object result2 = testSubject0.recomputeMetric();
+        Integer result3 = testSubject0.recomputeMetric();
+        String result4 = testSubject0.toString();
+        Object result5 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result6 = testSubject0.getOntologies();
+        OWLOntology result7 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result8 = testSubject0.getManager();
+        boolean result9 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 
-    @Test
     public void shouldTestHiddenGCICount() throws Exception {
         HiddenGCICount testSubject0 = new HiddenGCICount(Utils.getMockManager());
+        String result0 = testSubject0.getName();
+        String result1 = testSubject0.toString();
+        Object result2 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result3 = testSubject0.getOntologies();
+        OWLOntology result4 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result5 = testSubject0.getManager();
+        boolean result6 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 
-    @Test
     public void shouldTestImportClosureSize() throws Exception {
         ImportClosureSize testSubject0 = new ImportClosureSize(Utils.getMockManager());
+        String result0 = testSubject0.getName();
+        String result1 = testSubject0.toString();
+        Object result2 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result3 = testSubject0.getOntologies();
+        OWLOntology result4 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result5 = testSubject0.getManager();
+        boolean result6 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 
     @Test
@@ -186,27 +297,63 @@ public class ContractMetricsTest {
         String result6 = testSubject0.getName();
     }
 
-    @Test
     public void shouldTestLogicalAxiomCount() throws Exception {
         LogicalAxiomCount testSubject0 = new LogicalAxiomCount(Utils.getMockManager());
+        Set<? extends OWLAxiom> result0 = testSubject0.getAxioms();
+        String result1 = testSubject0.getName();
+        Object result2 = testSubject0.recomputeMetric();
+        Integer result3 = testSubject0.recomputeMetric();
+        String result4 = testSubject0.toString();
+        Object result5 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result6 = testSubject0.getOntologies();
+        OWLOntology result7 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result8 = testSubject0.getManager();
+        boolean result9 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 
-    @Test
     public void shouldTestMaximumNumberOfNamedSuperclasses() throws Exception {
         MaximumNumberOfNamedSuperclasses testSubject0 = new MaximumNumberOfNamedSuperclasses(
                 Utils.getMockManager());
+        String result0 = testSubject0.getName();
+        Integer result1 = testSubject0.recomputeMetric();
+        Object result2 = testSubject0.recomputeMetric();
+        String result3 = testSubject0.toString();
+        Object result4 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result5 = testSubject0.getOntologies();
+        OWLOntology result6 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result7 = testSubject0.getManager();
+        boolean result8 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 
-    @Test
     public void shouldTestNumberOfClassesWithMultipleInheritance() throws Exception {
         NumberOfClassesWithMultipleInheritance testSubject0 = new NumberOfClassesWithMultipleInheritance(
-                Factory.getManager());
+                Utils.getMockManager());
+        String result0 = testSubject0.getName();
+        Integer result1 = testSubject0.recomputeMetric();
+        Object result2 = testSubject0.recomputeMetric();
+        String result3 = testSubject0.toString();
+        Object result4 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result5 = testSubject0.getOntologies();
+        OWLOntology result6 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result7 = testSubject0.getManager();
+        boolean result8 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 
-    @Test
     public void shouldTestObjectCountMetric() throws Exception {
         ObjectCountMetric<Object> testSubject0 = new ObjectCountMetric<Object>(
-                Factory.getManager()) {
+                Utils.getMockManager()) {
             @Override
             protected String getObjectTypeName() {
                 return null;
@@ -217,6 +364,19 @@ public class ContractMetricsTest {
                 return null;
             }
         };
+        String result0 = testSubject0.getName();
+        Object result1 = testSubject0.recomputeMetric();
+        Integer result2 = testSubject0.recomputeMetric();
+        String result3 = testSubject0.toString();
+        Object result4 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result5 = testSubject0.getOntologies();
+        OWLOntology result6 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result7 = testSubject0.getManager();
+        boolean result8 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 
     @Test
@@ -241,27 +401,75 @@ public class ContractMetricsTest {
         List<OWLMetric<?>> result1 = testSubject0.getMetrics();
     }
 
-    @Test
     public void shouldTestReferencedClassCount() throws Exception {
         ReferencedClassCount testSubject0 = new ReferencedClassCount(
                 Utils.getMockManager());
+        String result0 = testSubject0.getName();
+        Object result1 = testSubject0.recomputeMetric();
+        Integer result2 = testSubject0.recomputeMetric();
+        String result3 = testSubject0.toString();
+        Object result4 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result5 = testSubject0.getOntologies();
+        OWLOntology result6 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result7 = testSubject0.getManager();
+        boolean result8 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 
-    @Test
     public void shouldTestReferencedDataPropertyCount() throws Exception {
         ReferencedDataPropertyCount testSubject0 = new ReferencedDataPropertyCount(
                 Utils.getMockManager());
+        String result0 = testSubject0.getName();
+        Object result1 = testSubject0.recomputeMetric();
+        Integer result2 = testSubject0.recomputeMetric();
+        String result3 = testSubject0.toString();
+        Object result4 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result5 = testSubject0.getOntologies();
+        OWLOntology result6 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result7 = testSubject0.getManager();
+        boolean result8 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 
-    @Test
     public void shouldTestReferencedIndividualCount() throws Exception {
         ReferencedIndividualCount testSubject0 = new ReferencedIndividualCount(
                 Utils.getMockManager());
+        String result0 = testSubject0.getName();
+        Object result1 = testSubject0.recomputeMetric();
+        Integer result2 = testSubject0.recomputeMetric();
+        String result3 = testSubject0.toString();
+        Object result4 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result5 = testSubject0.getOntologies();
+        OWLOntology result6 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result7 = testSubject0.getManager();
+        boolean result8 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 
-    @Test
     public void shouldTestReferencedObjectPropertyCount() throws Exception {
         ReferencedObjectPropertyCount testSubject0 = new ReferencedObjectPropertyCount(
                 Utils.getMockManager());
+        String result0 = testSubject0.getName();
+        Object result1 = testSubject0.recomputeMetric();
+        Integer result2 = testSubject0.recomputeMetric();
+        String result3 = testSubject0.toString();
+        Object result4 = testSubject0.getValue();
+        testSubject0.dispose();
+        Set<OWLOntology> result5 = testSubject0.getOntologies();
+        OWLOntology result6 = testSubject0.getOntology();
+        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.setOntology(Utils.getMockOntology());
+        OWLOntologyManager result7 = testSubject0.getManager();
+        boolean result8 = testSubject0.isImportsClosureUsed();
+        testSubject0.setImportsClosureUsed(false);
     }
 }

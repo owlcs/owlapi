@@ -46,10 +46,11 @@ public class ContractOboRendererTest {
     }
 
     public void shouldTestOBOFlatFileRenderer() throws Exception {
-        OBOFlatFileRenderer testSubject0 = new OBOFlatFileRenderer() {};
+        OBOFlatFileRenderer testSubject0 = new OBOFlatFileRenderer(Utils.getMockManager()) {};
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         List<OBOStorageException> result0 = testSubject0.getExceptions();
         testSubject0.addException(mock(OBOStorageException.class));
+        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         String result1 = testSubject0.toString();
     }

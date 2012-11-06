@@ -89,8 +89,9 @@ public class ContractLatexTest {
 
     @Test
     public void shouldTestLatexRenderer() throws Exception {
-        LatexRenderer testSubject0 = new LatexRenderer();
+        LatexRenderer testSubject0 = new LatexRenderer(Utils.getMockManager());
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
+        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         String result0 = testSubject0.toString();
     }
