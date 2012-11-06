@@ -106,11 +106,13 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         return new OWLAnnotationImpl(property, value, merged);
     }
     //XXX not in the interface
+    @Deprecated
     public boolean isComment() {
         return property.isComment();
     }
 
     //XXX not in the interface
+    @Deprecated
     public boolean isLabel() {
         return property.isLabel();
     }

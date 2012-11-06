@@ -90,6 +90,11 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     Set<OWLOntology> getVersions(IRI ontology);
 
+    
+    //XXX when the interface changes, uncomment this
+    /** @param ontology
+     * @return true if the ontology is contained */
+    //boolean contains(OWLOntology ontology);
     /**
      * Determines if there is an ontology with the specified IRI, and no version IRI, that is managed by this manager
      * @param ontologyIRI The IRI of the ontology to test for (the version IRI is assumed to be <code>null</code>)

@@ -80,6 +80,7 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
 
     @SuppressWarnings("javadoc")
     //XXX not in the interface
+        @Deprecated
     public boolean isBuiltIn() {
         return false;
     }
@@ -109,19 +110,6 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
 
-//    public Map<OWLProperty, Set<OWLObject>> getPropertyValues(OWLOntology ontology) {
-//        Map<OWLProperty, Set<OWLObject>> results = new HashMap<OWLProperty, Set<OWLObject>>();
-//        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> opMap = getObjectPropertyValues(ontology);
-//        for (OWLObjectPropertyExpression prop : opMap.keySet()) {
-//            results.put((OWLProperty) prop, new HashSet<OWLObject>(opMap.get(prop)));
-//        }
-//        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dpMap = getDataPropertyValues(ontology);
-//        for (OWLDataPropertyExpression prop : dpMap.keySet()) {
-//            results.put((OWLProperty) prop, new HashSet<OWLObject>(dpMap.get(prop)));
-//        }
-//        return results;
-//    }
-
     /**
      * Gets the asserted object property values for this individual and the specified property.
      * @param ontology The ontology to be examined for axioms that assert property values for this individual
@@ -139,19 +127,6 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
             return new HashSet<OWLIndividual>(vals);
         }
     }
-
-//    public Map<OWLProperty, Set<OWLObject>> getNPropertyValues(OWLOntology ontology) {
-//        Map<OWLProperty, Set<OWLObject>> results = new HashMap<OWLProperty, Set<OWLObject>>();
-//        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> opMap = getObjectPropertyValues(ontology);
-//        for (OWLObjectPropertyExpression prop : opMap.keySet()) {
-//            results.put((OWLProperty) prop, new HashSet<OWLObject>(opMap.get(prop)));
-//        }
-//        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dpMap = getDataPropertyValues(ontology);
-//        for (OWLDataPropertyExpression prop : dpMap.keySet()) {
-//            results.put((OWLProperty) prop, new HashSet<OWLObject>(dpMap.get(prop)));
-//        }
-//        return results;
-//    }
 
     /**
      * Gets the values that this individual has for a specific data property
@@ -287,21 +262,6 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
 
-//    public Set<OWLClassAssertionAxiom> getIndividualTypeAxioms(OWLOntology ontology) {
-//        return ontology.getClassAssertionAxioms(this);
-//    }
-
-
-//    public Set<OWLObjectPropertyAssertionAxiom> getIndividualObjectRelationshipAxioms(OWLOntology ontology) {
-//        return ontology.getObjectPropertyAssertionAxioms(this);
-//    }
-
-
-//    public Set<OWLDataPropertyAssertionAxiom> getIndividualDataRelationshipAxioms(OWLOntology ontology) {
-//        return ontology.getDataPropertyAssertionAxioms(this);
-//    }
-
-
     @Override
     public Set<OWLIndividual> getSameIndividuals(OWLOntology ontology) {
         Set<OWLIndividual> result = new TreeSet<OWLIndividual>();
@@ -323,57 +283,54 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
         return result;
     }
 
-
-//    public Set<OWLNegativeObjectPropertyAssertionAxiom> getIndividualNotObjectRelationshipAxioms(OWLOntology ontology) throws OWLException {
-//        return ontology.getNegativeObjectPropertyAssertionAxioms(this);
-//    }
-//
-//
-//    public Set<OWLNegativeDataPropertyAssertionAxiom> getIndividualNotDataRelationshipAxioms(OWLOntology ontology) throws OWLException {
-//        return ontology.getNegativeDataPropertyAssertionAxioms(this);
-//    }
-
-
     @SuppressWarnings("javadoc")
     //XXX not in the interface
-	public OWLClass asOWLClass() {
+    @Deprecated
+    	public OWLClass asOWLClass() {
         throw new OWLRuntimeException("Not an OWLClass!");
     }
     @SuppressWarnings("javadoc")
     //XXX not in the interface
-    public OWLDataProperty asOWLDataProperty() {
+        @Deprecated
+        public OWLDataProperty asOWLDataProperty() {
         throw new OWLRuntimeException("Not a data property!");
     }
     @SuppressWarnings("javadoc")
     //XXX not in the interface
+        @Deprecated
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
     }
 
     @SuppressWarnings("javadoc")
     //XXX not in the interface
+        @Deprecated
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException("Not an object property");
     }
     @SuppressWarnings("javadoc")
     //XXX not in the interface
+        @Deprecated
     public boolean isOWLClass() {
         return false;
     }
     @SuppressWarnings("javadoc")
     //XXX not in the interface
+        @Deprecated
     public boolean isOWLDataProperty() {
         return false;
     }
 
     @SuppressWarnings("javadoc")
     //XXX not in the interface
+        @Deprecated
     public boolean isOWLDatatype() {
         return false;
     }
 
     @SuppressWarnings("javadoc")
     //XXX not in the interface
+        @Deprecated
     public boolean isOWLObjectProperty() {
         return false;
     }

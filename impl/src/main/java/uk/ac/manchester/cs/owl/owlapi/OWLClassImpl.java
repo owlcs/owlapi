@@ -235,22 +235,26 @@ Serializable {
     }
 
     // XXX not in the interface
+        @Deprecated
     public Set<OWLSubClassOfAxiom> getSubClassAxioms(OWLOntology ontology) {
         return ontology.getSubClassAxiomsForSubClass(this);
     }
 
     // XXX not in the interface
+        @Deprecated
     public Set<OWLEquivalentClassesAxiom>
     getEquivalentClassesAxioms(OWLOntology ontology) {
         return ontology.getEquivalentClassesAxioms(this);
     }
 
     // XXX not in the interface
+        @Deprecated
     public Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(OWLOntology ontology) {
         return ontology.getDisjointClassesAxioms(this);
     }
 
     // XXX not in the interface
+        @Deprecated
     public Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLOntology ontology) {
         return ontology.getDisjointUnionAxioms(this);
     }
