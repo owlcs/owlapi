@@ -112,36 +112,4 @@ public interface PrefixManager extends Serializable {
      * @return The prefix names as a set of strings.
      */
     Set<String> getPrefixNames();
-
-    /** Sets the default namespace. This will also bind the prefix name ":" to
-     * this prefix
-     * 
-     * @param defaultPrefix
-     *            The namespace to be used as the default namespace. Note that
-     *            the value may be <code>null</code> in order to clear the
-     *            default namespace. */
-    void setDefaultPrefix(String defaultPrefix);
-    
-    /**
-     * Adds a prefix name to prefix mapping
-     *
-     * @param prefixName
-     *            name The prefix name (must not be null)
-     * @param prefix
-     *            The prefix. Cannot be null.
-     * @throws IllegalArgumentException
-     *             if some parameter is null or the prefix name does not end
-     *             with a colon.
-     */
-    void setPrefix(String prefixName, String prefix);
-
-    /** Removes a previously registerd prefix namespace mapping
-     * 
-     * @param namespace
-     *            The namespace to be removed. */
-    void unregisterNamespace(String namespace);
-
-    /** clear the map */
-    void clear();
-
 }
