@@ -286,8 +286,10 @@ public class MutableTree<N> implements Tree<N> {
 
     /**
      * @param tree the node to put in place of this one
+@deprecated this method is not in the public interface and is unused.
      */
     //XXX not in the interface
+    @Deprecated
     public void replace(MutableTree<N> tree) {
         parent.children.remove(this);
         parent.children.add(tree);
