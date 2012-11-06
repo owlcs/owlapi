@@ -123,6 +123,10 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
         return (RDFParserMetaData) super.getOntologyLoaderMetaData();
     }
 
+//    public void setOntologyLoaderMetaData(RDFParserMetaData loaderMetaData) {
+//        super.setOntologyLoaderMetaData(loaderMetaData);
+//    }
+
     /**
      * @param error error to add to the error set
      */

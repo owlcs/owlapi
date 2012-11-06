@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 
@@ -60,7 +61,18 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  */
 public interface OWLParser {
 
-
+    /**
+     * Sets the <code>OWLOntologyManager</code> which should be used to load
+     * imports etc.
+     * @param owlOntologyManager The ontology manager to be set
+     * @deprecated Each <code>OWLOntology</code> contains a reference to its manager.  This method is no longer
+     * necessary.  Parsers will obtain the manager from the ontology in the various parse methods i.e.
+     * {@link #parse(OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)},
+     * {@link #parse(OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)},
+     * {@link #parse(OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration)}
+     */
+    @Deprecated
+    void setOWLOntologyManager(OWLOntologyManager owlOntologyManager);
 
     /**
      * Parses the ontology that has a concrete representation which is pointed

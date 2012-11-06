@@ -43,6 +43,7 @@ import java.io.OutputStream;
 
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 
 /**
@@ -52,6 +53,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Date: 14-Nov-2006<br><br>
  */
 public interface OWLRenderer {
+
+
+    /**
+     * @param owlOntologyManager
+     * @throws OWLException
+     */
+    void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) throws OWLException;
 
     /**
      * Renders the specified ontology to a concrete representation which should

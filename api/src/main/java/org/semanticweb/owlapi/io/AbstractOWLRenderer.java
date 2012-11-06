@@ -46,6 +46,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 
 /**
@@ -56,7 +57,23 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public abstract class AbstractOWLRenderer implements OWLRenderer {
 
-    protected AbstractOWLRenderer() {
+    private OWLOntologyManager owlOntologyManager;
+
+
+    protected AbstractOWLRenderer(OWLOntologyManager owlOntologyManager) {
+        this.owlOntologyManager = owlOntologyManager;
+    }
+
+
+    @Override
+    public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
+        // XXX should get it through the ontology
+        this.owlOntologyManager = owlOntologyManager;
+    }
+
+
+    protected OWLOntologyManager getOWLOntologyManager() {
+        return owlOntologyManager;
     }
 
 

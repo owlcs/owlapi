@@ -56,6 +56,7 @@ import java.util.zip.ZipInputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.xml.sax.InputSource;
 
@@ -84,12 +85,28 @@ public abstract class AbstractOWLParser implements OWLParser {
     private static final Pattern ZIP_ENTRY_ONTOLOGY_NAME_PATTERN = Pattern.compile(".*owl|rdf|xml|mos");
 
 
+    private OWLOntologyManager owlOntologyManager;
+
+
     protected AbstractOWLParser() {
 
     }
 
+    @Override
+    @Deprecated
+    public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
+        this.owlOntologyManager = owlOntologyManager;
+    }
 
-
+    /**
+     * @return An ontology manager that was set with {@link #setOWLOntologyManager(org.semanticweb.owlapi.model.OWLOntologyManager)}
+     * @deprecated Parser implementors should obtain ontology managers from the ontology that gets supplied
+     *             in the parse method.
+     */
+    @Deprecated
+    public OWLOntologyManager getOWLOntologyManager() {
+        return owlOntologyManager;
+    }
 
     protected String getRequestTypes() {
         return "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
