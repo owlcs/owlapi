@@ -130,11 +130,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         expandedAxiomMap = new HashMap<OWLAxiom, OWLAxiom>();
     }
 
-
-    /**
-     * dispose of the reasoners and ontologies
-     */
-    //XXX not in the interface
+    // XXX once the interface changes, uncomment this
+    //@Override
     public void dispose() {
         reset();
         getReasoner().dispose();
