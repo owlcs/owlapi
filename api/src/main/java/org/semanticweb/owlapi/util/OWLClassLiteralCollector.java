@@ -105,6 +105,7 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
     private class OWLClassLiteralCollectorVisitor extends OWLObjectVisitorExAdapter<Object> {
 
         public OWLClassLiteralCollectorVisitor() {
+			// TODO Auto-generated constructor stub
 		}
 
 		@Override

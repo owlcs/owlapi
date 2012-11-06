@@ -38,8 +38,10 @@
  */
 package org.semanticweb.owlapi.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +65,25 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		IRIShortFormProvider {
 	private static final long serialVersionUID = 30402L;
 
+	/**
+	 * String comparator that takes length into account before natural ordering.
+	 * XXX stateless, might be used through a singleton
+	 */
+	private static final class StringLengthComparator implements Comparator<String>,
+			Serializable {
+		private static final long serialVersionUID = 30402L;
+
+		public StringLengthComparator() {}
+
+        @Override
+        public int compare(String o1, String o2) {
+			int diff = o1.length() - o2.length();
+			if (diff != 0) {
+				return diff;
+			}
+			return o1.compareTo(o2);
+		}
+	}
 
 	private final Map<String, String> prefix2NamespaceMap = new TreeMap<String, String>(
 			new StringLengthComparator());
@@ -88,8 +109,12 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		}
 	}
 
-    @Override
+	/**
+	 * clear the map
+	 */
+	//XXX not in the interface
 	public void clear() {
+		// Clear the default namespace and map
 		prefix2NamespaceMap.clear();
 	}
 
@@ -122,8 +147,17 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		setPrefix("xml:", Namespaces.XML.toString());
 	}
 
-    @Override
-    public void setDefaultPrefix(String defaultPrefix) {
+	/**
+	 * Sets the default namespace. This will also bind the prefix name ":" to
+	 * this prefix
+	 *
+	 * @param defaultPrefix
+	 *            The namespace to be used as the default namespace. Note that
+	 *            the value may be <code>null</code> in order to clear the
+	 *            default namespace.
+	 */
+	//XXX not in the interface
+	public void setDefaultPrefix(String defaultPrefix) {
 		setPrefix(":", defaultPrefix);
 	}
 
@@ -135,6 +169,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 			String prefix = prefix2NamespaceMap.get(prefixName);
 			if (ns.equals(prefix)) {
 				return prefixName + XMLUtils.getNCNameSuffix(iriString);
+				//				String localName = iriString.substring(prefix.length());
+				//				return prefixName+localName;
 			}
 		}
 		return null;
@@ -185,8 +221,19 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		return prefix2NamespaceMap.get(prefixName);
 	}
 
-    @Override
-    public void setPrefix(String prefixName, String prefix) {
+	/**
+	 * Adds a prefix name to prefix mapping
+	 *
+	 * @param prefixName
+	 *            name The prefix name (must not be null)
+	 * @param prefix
+	 *            The prefix. Cannot be null.
+	 * @throws IllegalArgumentException
+	 *             if some parameter is null or the prefix name does not end
+	 *             with a colon.
+	 */
+	//XXX not in the interface
+	public void setPrefix(String prefixName, String prefix) {
 		if (prefix == null) {
 			throw new IllegalArgumentException("prefix cannot be null");
 		}
@@ -196,10 +243,23 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		if (!prefixName.endsWith(":")) {
 			throw new IllegalArgumentException("Prefix names must end with a colon (:)");
 		}
+		//XXX on Java 6 all is fine, on Java 5 this code will print the results of a strange switch between default values
+//		String p = prefix2NamespaceMap.get(prefixName);
+//		if (prefixName.equals(":") && p!=null && !p.equals(prefix)) {
+//			System.out.println("DefaultPrefixManager.setPrefix() Replacing value for '"
+//					+ prefixName + "' : '" + p + "' replaced with '" + prefix + "'");
+//			new Exception().printStackTrace(System.out);
+//		}
 		prefix2NamespaceMap.put(prefixName, prefix);
 	}
 
-    @Override
+	/**
+	 * Removes a previously registerd prefix namespace mapping
+	 *
+	 * @param namespace
+	 *            The namespace to be removed.
+	 */
+	//XXX not in the interface
 	public void unregisterNamespace(String namespace) {
 		List<String> toRemove = new ArrayList<String>();
 		for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
