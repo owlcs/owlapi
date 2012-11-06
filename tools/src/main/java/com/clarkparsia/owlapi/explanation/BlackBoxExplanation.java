@@ -131,7 +131,10 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
 
-    @Override
+    /**
+     * dispose of the reasoners and ontologies
+     */
+    //XXX not in the interface
     public void dispose() {
         reset();
         getReasoner().dispose();
