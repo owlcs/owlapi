@@ -61,7 +61,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * Date: 10-Jan-2007<br>
  * <br> */
 public class CollectionFactory {
-    private static final AtomicInteger expectedThreads = new AtomicInteger(16);
+    private static final AtomicInteger expectedThreads = new AtomicInteger(8);
 
     /** @param value
      *            the number of expected threads that will access threadsafe
