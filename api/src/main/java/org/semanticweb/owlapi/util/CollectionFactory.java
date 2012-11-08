@@ -63,7 +63,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * <br>
  */
 public class CollectionFactory {
-    private static final AtomicInteger expectedThreads = new AtomicInteger(16);
+    private static final AtomicInteger expectedThreads = new AtomicInteger(8);
 
     /**
      * @param value
