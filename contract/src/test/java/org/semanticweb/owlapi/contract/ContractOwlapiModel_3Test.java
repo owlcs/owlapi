@@ -1240,6 +1240,11 @@ public class ContractOwlapiModel_3Test {
             }
 
             @Override
+            public boolean isAddAxiom() {
+                return false;
+            }
+
+            @Override
             public void accept(final OWLOntologyChangeVisitor visitor) {}
 
             @Override

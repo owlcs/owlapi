@@ -39,10 +39,10 @@
 
 package org.semanticweb.owlapi.model;
 
+import java.util.Set;
+
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
-
-import java.util.Set;
 
 /**
  * Author: Matthew Horridge<br>
@@ -70,16 +70,29 @@ public abstract class OWLOntologyChange {
      *         or {@code OWLRemoveAxiomChange} otherwise {@code false}.
      */
     public abstract boolean isAxiomChange();
+    
+    /** Determines if the change will add an axiom to an ontology.
+     * 
+     * @return <code>true</code> if the change is an AddAxiom change and it will
+     *         add an axiom to an ontology, <code>false</code> otherwise. */
+    public abstract boolean isAddAxiom();
 
-    /**
-     * If the change is an axiom change (i.e. AddAxiom or RemoveAxiom)
-     * this method obtains the axiom.
-     *
+    /** Determines if the change will remove an axiom from an ontology.
+     * 
+     * @return <code>true</code> if the change is a RemoveAxiom change and it
+     *         will remove an axiom from an ontology, <code>false</code>
+     *         otherwise. */
+    public boolean isRemoveAxiom() {
+        return isAxiomChange() && !isAddAxiom();
+    }
+
+    /** If the change is an axiom change (i.e. AddAxiom or RemoveAxiom) this
+     * method obtains the axiom.
+     * 
      * @return The Axiom if this change is an axiom change
-     *
-     * @throws UnsupportedOperationException If the change is not an axiom change (check
-     *                                       with the {@code isAxiomChange} method first).
-     */
+     * @throws UnsupportedOperationException
+     *             If the change is not an axiom change (check with the
+     *             {@code isAxiomChange} method first). */
     public abstract OWLAxiom getAxiom();
 
 

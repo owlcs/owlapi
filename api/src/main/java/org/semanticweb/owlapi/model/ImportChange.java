@@ -101,6 +101,11 @@ public abstract class ImportChange extends OWLOntologyChange {
         return false;
     }
 
+    @Override
+    public boolean isAddAxiom() {
+        return false;
+    }
+
 
     /**
      * If the change is an axiom change (i.e. AddAxiom or RemoveAxiom)

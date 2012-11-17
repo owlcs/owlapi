@@ -757,7 +757,7 @@ public class ContractOwlapiModel_1Test {
         OWLAxiomChange testSubject0 = new OWLAxiomChange(Utils.getMockOntology(),
                 mock(OWLAxiom.class)) {
             @Override
-            protected boolean isAdd() {
+            public boolean isAddAxiom() {
                 return false;
             }
 

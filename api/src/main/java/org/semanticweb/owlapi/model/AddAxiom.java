@@ -73,7 +73,7 @@ public class AddAxiom extends OWLAxiomChange {
     }
 
     @Override
-	protected boolean isAdd() {
+    public boolean isAddAxiom() {
         return true;
     }
 
@@ -88,7 +88,7 @@ public class AddAxiom extends OWLAxiomChange {
         }
 
         AddAxiom other = (AddAxiom) obj;
-        return other.getOntology().equals(this.getOntology()) && other.getAxiom().equals(this.getAxiom());
+        return other.getOntology().equals(getOntology()) && other.getAxiom().equals(getAxiom());
     }
 
 

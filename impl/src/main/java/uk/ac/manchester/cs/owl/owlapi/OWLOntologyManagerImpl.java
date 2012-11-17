@@ -403,7 +403,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
     }
 
     private boolean isChangeApplicable(OWLOntologyChange change) {
-        if (!properties.isLoadAnnotationAxioms() && change instanceof AddAxiom) {
+        if (!properties.isLoadAnnotationAxioms() && change.isAddAxiom()) {
             if (change.getAxiom() instanceof OWLAnnotationAxiom) {
                 return false;
             }

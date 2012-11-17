@@ -41,73 +41,53 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-
 /**
  * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 18-Mar-2009
  */
-public abstract class OWLAxiomChange extends OWLOntologyChange {
+public abstract class AnnotationChange extends OWLOntologyChange {
 
-    private final OWLAxiom axiom;
+    private final OWLAnnotation annotation;
 
-    /**
-     * @param ont the ontology to which the change is to be applied
-     * @param axiom the axiom to be changed
-     */
-    public OWLAxiomChange(OWLOntology ont, OWLAxiom axiom) {
+    /** @param ont
+     *            the ontology to which the change is to be applied
+     * @param annotation
+     *            the annotation */
+    public AnnotationChange(OWLOntology ont, OWLAnnotation annotation) {
         super(ont);
-        this.axiom = axiom;
+        this.annotation = annotation;
     }
 
-    /**
-     * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
-     * @return A set of entities that correspond to the
-     *         signature of this object. The set is a copy, changes are not reflected back.
-     */
     @Override
     public Set<OWLEntity> getSignature() {
-        return axiom.getSignature();
+        return annotation.getSignature();
     }
 
-    @Override
-	public boolean isAxiomChange() {
-        return true;
+    /** Gets the annotation that was added to an ontology.
+     * 
+     * @return The annotation that was added */
+    public OWLAnnotation getAnnotation() {
+        return annotation;
     }
 
-
-    /**
-     * Determines if this change is an import change
-     * @return <code>true</code> if this change is an import change, otherwise <code>false</code>.
-     */
     @Override
 	public boolean isImportChange() {
         return false;
     }
 
-
-
-
-
-    /**
-     * Gets the axiom that is involved in the change (the
-     * axiom to either be added or removed)
-     */
     @Override
-	public OWLAxiom getAxiom() {
-        return axiom;
+    public boolean isAxiomChange() {
+        return false;
     }
 
-
-    /** A convenience method that obtains the entities which are referenced in
-     * the axiom contained within this change.
-     * 
-     * @return A <code>Set</code> of entities which are referenced by the axiom
-     *         contained within this change.
-     * @deprecated use getSignature() instead */
-    @Deprecated
-    public Set<OWLEntity> getEntities() {
-    	return axiom.getSignature();
+    @Override
+    public boolean isAddAxiom() {
+        return false;
+    }
+    @Override
+    public OWLAxiom getAxiom() {
+        return null;
     }
 }

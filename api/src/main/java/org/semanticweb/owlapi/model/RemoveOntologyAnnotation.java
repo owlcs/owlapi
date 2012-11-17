@@ -42,17 +42,12 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
 
-import java.util.Set;
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 24-Mar-2009
- */
-public class RemoveOntologyAnnotation extends OWLOntologyChange {
-
-    private final OWLAnnotation annotation;
+ * Date: 24-Mar-2009 Represents an ontology change where an annotation is
+ * removed from an ontology. */
+public class RemoveOntologyAnnotation extends AnnotationChange {
 
     /**
      * @param ont the ontology to which the change is to be applied
@@ -60,50 +55,13 @@ public class RemoveOntologyAnnotation extends OWLOntologyChange {
      */
     public RemoveOntologyAnnotation(OWLOntology ont,
                                     OWLAnnotation annotation) {
-        super(ont);
-        this.annotation = annotation;
-    }
-
-
-    /**
-     * @return the annotation
-     */
-    public OWLAnnotation getAnnotation() {
-        return annotation;
-    }
-
-    /**
-     * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
-     * @return A set of entities that correspond to the
-     *         signature of this object. The set is a copy, changes are not reflected back.
-     */
-    @Override
-    public Set<OWLEntity> getSignature() {
-        return annotation.getSignature();
+        super(ont, annotation);
     }
 
     @Override
     public OWLOntologyChangeData getChangeData() {
-        return new RemoveOntologyAnnotationData(annotation);
+        return new RemoveOntologyAnnotationData(getAnnotation());
     }
-
-    @Override
-	public boolean isAxiomChange() {
-        return false;
-    }
-
-
-    @Override
-	public OWLAxiom getAxiom() {
-        return null;
-    }
-
-
-    @Override
-	public boolean isImportChange() {
-        return false;
-    }
-
 
     @Override
 	public void accept(OWLOntologyChangeVisitor visitor) {
@@ -115,12 +73,10 @@ public class RemoveOntologyAnnotation extends OWLOntologyChange {
     	return visitor.visit(this);
     }
 
-
     @Override
 	public int hashCode() {
         return 23 + getOntology().hashCode() + getAnnotation().hashCode();
     }
-
 
     @Override
 	public boolean equals(Object obj) {
