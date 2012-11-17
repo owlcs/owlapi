@@ -41,8 +41,6 @@ package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
 
-import java.util.Set;
-
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -51,65 +49,20 @@ import java.util.Set;
  * </p>
  * Represents an ontology change where an annotation is added to an ontology.
  */
-public class AddOntologyAnnotation extends OWLOntologyChange {
-
-    private final OWLAnnotation annotation;
+public class AddOntologyAnnotation extends AnnotationChange {
 
     /**
      * @param ont the ontology to which the change is to be applied
      * @param annotation the annotation
      */
     public AddOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
-        super(ont);
-        this.annotation = annotation;
+        super(ont, annotation);
     }
 
-    /**
-     * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
-     * @return A set of entities that correspond to the
-     *         signature of this object. The set is a copy, changes are not reflected back.
-     */
-    @Override
-    public Set<OWLEntity> getSignature() {
-        return annotation.getSignature();
-    }
-
-    @Override
-	public boolean isAxiomChange() {
-        return false;
-    }
-
-
-    /**
-     * Gets the annotation that was added to an ontology.
-     * @return The annotation that was added
-     */
-    public OWLAnnotation getAnnotation() {
-        return annotation;
-    }
-
-    /**
-     * Gets the data (independent of the ontology) associated with this specific change.
-     *
-     * @return The {@link org.semanticweb.owlapi.change.OWLOntologyChangeData} associated with this {@link
-     *         org.semanticweb.owlapi.model.OWLOntologyChange}.  Not {@code null}.
-     */
     @Override
     public AddOntologyAnnotationData getChangeData() {
-        return new AddOntologyAnnotationData(annotation);
+        return new AddOntologyAnnotationData(getAnnotation());
     }
-
-    @Override
-	public OWLAxiom getAxiom() {
-        return null;
-    }
-
-
-    @Override
-	public boolean isImportChange() {
-        return false;
-    }
-
 
     @Override
 	public void accept(OWLOntologyChangeVisitor visitor) {
@@ -121,12 +74,10 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
     	return visitor.visit(this);
     }
 
-
     @Override
 	public int hashCode() {
-        return annotation.hashCode() + getOntology().hashCode() + 317;
+        return getAnnotation().hashCode() + getOntology().hashCode() + 317;
     }
-
 
     @Override
 	public boolean equals(Object obj) {
@@ -137,7 +88,8 @@ public class AddOntologyAnnotation extends OWLOntologyChange {
             return false;
         }
         AddOntologyAnnotation other = (AddOntologyAnnotation) obj;
-        return annotation.equals(other.annotation) && getOntology().equals(other.getOntology());
+        return getAnnotation().equals(other.getAnnotation())
+                && getOntology().equals(other.getOntology());
     }
 
     @Override

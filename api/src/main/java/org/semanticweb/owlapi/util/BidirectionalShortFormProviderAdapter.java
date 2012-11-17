@@ -145,18 +145,17 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
         Set<OWLEntity> processed = new HashSet<OWLEntity>();
         for(OWLOntologyChange chg : changes) {
             if (ontologies.contains(chg.getOntology())) {
-                if(chg instanceof AddAxiom) {
+                if (chg.isAddAxiom()) {
                    AddAxiom addAx = (AddAxiom) chg;
-                   for(OWLEntity ent : addAx.getEntities()) {
+                    for (OWLEntity ent : addAx.getSignature()) {
                        if(!processed.contains(ent)) {
                            processed.add(ent);
                            add(ent);
                        }
                    }
-                }
-                else if(chg instanceof RemoveAxiom) {
+                } else if (chg.isRemoveAxiom()) {
                    RemoveAxiom remAx = (RemoveAxiom) chg;
-                   for(OWLEntity ent : remAx.getEntities()) {
+                    for (OWLEntity ent : remAx.getSignature()) {
                        if(!processed.contains(ent)) {
                            processed.add(ent);
                            boolean stillRef = false;

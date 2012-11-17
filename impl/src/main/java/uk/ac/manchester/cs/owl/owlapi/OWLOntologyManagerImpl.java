@@ -497,7 +497,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
      *         <code>false</code>.
      */
     private boolean isChangeApplicable(OWLOntologyChange change) {
-        if (!properties.isLoadAnnotationAxioms() && change instanceof AddAxiom) {
+        if (!properties.isLoadAnnotationAxioms() && change.isAddAxiom()) {
             if (change.getAxiom() instanceof OWLAnnotationAxiom) {
                 return false;
             }
