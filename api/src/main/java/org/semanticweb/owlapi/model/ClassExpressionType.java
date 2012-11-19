@@ -38,13 +38,16 @@
  */
 
 package org.semanticweb.owlapi.model;
+
+import java.io.Serializable;
+
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 08-Sep-2008<br><br>
  * </p>
  * Represents the different types of OWL 2 class expressions.
  */
-public enum ClassExpressionType {
+public enum ClassExpressionType implements Serializable {
 
 
     /**
