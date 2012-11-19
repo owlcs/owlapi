@@ -64,8 +64,14 @@ public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
 
 	@Override
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
+        storeOntology(ontology, writer, format);
+    }
+
+    @Override
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
-            TurtleRenderer ren = new TurtleRenderer(ontology, manager, writer, format);
+            TurtleRenderer ren = new TurtleRenderer(ontology, writer, format);
             ren.render();
         }
         catch (IOException e) {

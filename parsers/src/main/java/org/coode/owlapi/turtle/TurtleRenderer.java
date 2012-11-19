@@ -88,21 +88,26 @@ public class TurtleRenderer extends RDFRendererBase {
 
     private String base;
 
+    @Deprecated
+    public TurtleRenderer(OWLOntology ontology, OWLOntologyManager manager,
+            Writer writer, OWLOntologyFormat format) {
+        this(ontology, writer, format);
+    }
 
-    public TurtleRenderer(OWLOntology ontology, OWLOntologyManager manager, Writer writer, OWLOntologyFormat format) {
-        super(ontology, manager, format);
+    public TurtleRenderer(OWLOntology ontology, Writer writer, OWLOntologyFormat format) {
+        super(ontology, format);
         this.writer = new PrintWriter(writer);
         pending = new HashSet<RDFResourceNode>();
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
             pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI() + "#");
         }
-        if(format instanceof PrefixOWLOntologyFormat) {
+        if (format instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
-            for(String prefixName : prefixFormat.getPrefixNames()) {
+            for (String prefixName : prefixFormat.getPrefixNames()) {
                 pm.setPrefix(prefixName, prefixFormat.getPrefix(prefixName));
-            }
         }
+    }
         base = "";
     }
 
@@ -226,7 +231,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
     private void write(RDFLiteralNode node) {
         if (node.getDatatype() != null) {
-            if (node.getDatatype().equals(manager.getOWLDataFactory().getIntegerOWLDatatype().getIRI())) {
+            if (node.getDatatype().equals(XSDVocabulary.INTEGER.getIRI())) {
                 write(node.getLiteral());
             }
             else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getIRI())) {

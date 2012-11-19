@@ -99,42 +99,15 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return singleExplanationGenerator.getOntology();
     }
 
-//    public Set<OWLOntology> getOntologies() {
-//        return singleExplanationGenerator.getOntologies();
-//    }
-
-//    public void setOntology(OWLOntology ontology) {
-//        singleExplanationGenerator.setOntology(ontology);
-//    }
-
-//    public void setOntologies(Set<OWLOntology> ontologies) {
-//        singleExplanationGenerator.setOntologies(ontologies);
-//    }
-
-//
-
     @Override
     public OWLReasoner getReasoner() {
         return singleExplanationGenerator.getReasoner();
     }
-//
-//
-//    public void setReasoner(OWLReasoner reasoner) {
-//        singleExplanationGenerator.setReasoner(reasoner);
-//    }
-//
-//
 
     @Override
     public OWLReasonerFactory getReasonerFactory() {
         return singleExplanationGenerator.getReasonerFactory();
     }
-//
-//
-//    public void setReasonerFactory(OWLReasonerFactory reasonerFactory) {
-//        singleExplanationGenerator.setReasonerFactory(reasonerFactory);
-//    }
-
 
     /**
      * @return the explanation generator
@@ -155,6 +128,11 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return getExplanations(unsatClass, 0);
     }
 
+   // XXX onche the interface changes, uncomment this
+   // @Override
+   // public void dispose() {
+   //     singleExplanationGenerator.dispose();
+   // }
 
     @Override
     public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass, int maxExplanations) {

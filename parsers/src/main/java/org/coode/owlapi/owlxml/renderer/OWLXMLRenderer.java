@@ -62,9 +62,12 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 @SuppressWarnings("javadoc")
 public class OWLXMLRenderer extends AbstractOWLRenderer {
 
+    @Deprecated
     public OWLXMLRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
     }
+
+
+    public OWLXMLRenderer() {}
 
     public void render(OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLRendererException {
         try {
@@ -115,6 +118,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
 
     @Override
 	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
-        render(ontology, writer, getOWLOntologyManager().getOntologyFormat(ontology));
+        render(ontology, writer,
+                ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 }

@@ -64,7 +64,8 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Seriali
 
     //XXX not in the interface
     @SuppressWarnings("javadoc")
-    public boolean isLogicalAxiom() {
+       @Deprecated
+        public boolean isLogicalAxiom() {
         return false;
     }
 

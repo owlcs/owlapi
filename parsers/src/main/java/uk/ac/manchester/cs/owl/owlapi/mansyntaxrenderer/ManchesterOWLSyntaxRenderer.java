@@ -55,15 +55,18 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
-
+    @Deprecated
     public ManchesterOWLSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+
     }
 
+    public ManchesterOWLSyntaxRenderer() {}
 
     @Override
 	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
-        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(getOWLOntologyManager(), ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(getOWLOntologyManager(), ontology));
+        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
+                ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(
+                        ontology.getOWLOntologyManager().getOntologyFormat(ontology)));
         ren.writeOntology();
         ren.flush();
     }

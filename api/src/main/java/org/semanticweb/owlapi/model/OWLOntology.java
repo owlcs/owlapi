@@ -58,6 +58,9 @@ import java.util.Set;
  */
 public interface OWLOntology extends OWLObject {
 
+    // XXX when the interfce changes, uncomment this
+    //void accept(OWLNamedObjectVisitor visitor);
+
     /**
      * Gets the manager that created this ontology. The manager is used by various methods on OWLOntology
      * to resolve imports
@@ -1459,4 +1462,35 @@ public interface OWLOntology extends OWLObject {
      * apply changes to this ontology while iterating over this set.
      */
     Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype);
+
+// XXX when the interface changes, uncomment this
+//    /** @param entity
+//     *            entyty to check
+//     * @return true if entity is referenced */
+//    boolean containsReference(OWLClass entity);
+//
+//    /** @param entity
+//     *            entyty to check
+//     * @return true if entity is referenced */
+//    boolean containsReference(OWLObjectProperty entity);
+//
+//    /** @param entity
+//     *            entyty to check
+//     * @return true if entity is referenced */
+//    boolean containsReference(OWLDataProperty entity);
+//
+//    /** @param entity
+//     *            entyty to check
+//     * @return true if entity is referenced */
+//   boolean containsReference(OWLNamedIndividual entity);
+//
+//    /** @param entity
+//     *            entyty to check
+//     * @return true if entity is referenced */
+//    boolean containsReference(OWLDatatype entity);
+//
+//    /** @param entity
+//     *            entyty to check
+//     * @return true if entity is referenced */
+//    boolean containsReference(OWLAnnotationProperty propentityerty);
 }

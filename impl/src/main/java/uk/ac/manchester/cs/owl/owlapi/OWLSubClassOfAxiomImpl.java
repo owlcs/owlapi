@@ -78,6 +78,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
 
     //XXX not in the interface
     @SuppressWarnings("javadoc")
+    @Deprecated
     public Set<OWLClassExpression> getClassExpressions() {
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>(3);
         classExpressions.add(subClass);
@@ -86,6 +87,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     }
     //XXX not in the interface
     @SuppressWarnings("javadoc")
+    @Deprecated
     public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc) {
         Set<OWLClassExpression> classExpressions = getClassExpressions();
         for (OWLClassExpression ce : desc) {
@@ -108,6 +110,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     }
     //XXX not in the interface
     @SuppressWarnings("javadoc")
+    @Deprecated
     public boolean contains(OWLClassExpression ce) {
         return subClass.equals(ce) || superClass.equals(ce);
     }

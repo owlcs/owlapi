@@ -57,14 +57,16 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 @SuppressWarnings("javadoc")
 public class KRSS2SyntaxRenderer extends AbstractOWLRenderer {
 
+    @Deprecated
     public KRSS2SyntaxRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
     }
+
+    public KRSS2SyntaxRenderer() {}
 
     @Override
 	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         try {
-            KRSS2ObjectRenderer ren = new KRSS2ObjectRenderer(getOWLOntologyManager(), ontology, writer);
+            KRSS2ObjectRenderer ren = new KRSS2ObjectRenderer(ontology, writer);
             ontology.accept(ren);
             writer.flush();
         }

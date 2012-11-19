@@ -57,14 +57,18 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public abstract class AbstractOWLRenderer implements OWLRenderer {
 
+    // XXX this should not be a field but accessed through the rendered ontology
     private OWLOntologyManager owlOntologyManager;
 
 
+    @Deprecated
     protected AbstractOWLRenderer(OWLOntologyManager owlOntologyManager) {
         this.owlOntologyManager = owlOntologyManager;
     }
 
+    protected AbstractOWLRenderer() {}
 
+    @Deprecated
     @Override
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
         // XXX should get it through the ontology
@@ -72,6 +76,7 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
     }
 
 
+    @Deprecated
     protected OWLOntologyManager getOWLOntologyManager() {
         return owlOntologyManager;
     }

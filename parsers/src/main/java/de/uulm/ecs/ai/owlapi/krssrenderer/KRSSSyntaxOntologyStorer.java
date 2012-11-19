@@ -67,10 +67,16 @@ public class KRSSSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
         return ontologyFormat.equals(new KRSSOntologyFormat());
     }
 
-	@Override
+    @Override
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer,
                                  OWLOntologyFormat format) throws OWLOntologyStorageException {
-        KRSSSyntaxRenderer renderer = new KRSSSyntaxRenderer(manager);
+        storeOntology(ontology, writer, format);
+    }
+
+    @Override
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
+        KRSSSyntaxRenderer renderer = new KRSSSyntaxRenderer();
         renderer.render(ontology, writer);
     }
 }

@@ -69,7 +69,13 @@ public class OBOFlatFileOntologyStorer extends AbstractOWLOntologyStorer {
     @Override
 	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
             OWLOntologyStorageException {
-        OBOFlatFileRenderer renderer = new OBOFlatFileRenderer(manager);
+        storeOntology(ontology, writer, format);
+    }
+
+    @Override
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
+        OBOFlatFileRenderer renderer = new OBOFlatFileRenderer();
         renderer.render(ontology, writer);
     }
 }

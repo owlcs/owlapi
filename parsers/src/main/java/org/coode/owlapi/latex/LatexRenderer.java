@@ -75,8 +75,12 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     private ShortFormProvider shortFormProvider;
 
+    @Deprecated
     public LatexRenderer(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+        this();
+    }
+
+    public LatexRenderer() {
         shortFormProvider = new SimpleShortFormProvider();
     }
 
@@ -104,7 +108,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
             w.write("\\begin{document}\n\n");
 
-            LatexObjectVisitor renderer = new LatexObjectVisitor(w, getOWLOntologyManager().getOWLDataFactory());
+            LatexObjectVisitor renderer = new LatexObjectVisitor(w, ontology
+                    .getOWLOntologyManager().getOWLDataFactory());
 
             Collection<OWLClass> clses = sortEntities(ontology.getClassesInSignature());
             if (!clses.isEmpty()) {

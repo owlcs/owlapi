@@ -144,12 +144,25 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     private RenderingDirector renderingDirector = new DefaultRenderingDirector();
 
+    @Deprecated
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, Writer writer, ShortFormProvider entityShortFormProvider) {
-        this(owlOntologyManager, Collections.singleton(ontology), ontology, writer, entityShortFormProvider);
+        this(Collections.singleton(ontology), ontology, writer, entityShortFormProvider);
     }
 
+    public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer,
+            ShortFormProvider entityShortFormProvider) {
+        this(Collections.singleton(ontology), ontology, writer, entityShortFormProvider);
+    }
+
+    @Deprecated
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager,
             Set<OWLOntology> ontologies, OWLOntology defaultOntology, Writer writer,
+            ShortFormProvider entityShortFormProvider) {
+        this(ontologies, defaultOntology, writer, entityShortFormProvider);
+    }
+
+    public ManchesterOWLSyntaxFrameRenderer(Set<OWLOntology> ontologies,
+            OWLOntology defaultOntology, Writer writer,
             ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
         this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);

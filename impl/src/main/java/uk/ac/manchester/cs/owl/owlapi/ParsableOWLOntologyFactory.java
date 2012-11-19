@@ -95,11 +95,6 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         parsableSchemes.add("ftp");
     }
 
-    // @Override
-    // public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager)
-    // {
-    // super.setOWLOntologyManager(owlOntologyManager);
-    // }
     /** @return a list of parsers that this factory uses when it tries to create
      *         an ontology from a concrete representation. */
     @SuppressWarnings("deprecation")
@@ -138,8 +133,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      * @return never returns */
     @SuppressWarnings("unused")
     // XXX not in the interface
-            public
-            OWLOntology createOWLOntology(URI ontologyURI, URI physicalURI) {
+    @Deprecated
+    public OWLOntology createOWLOntology(URI ontologyURI, URI physicalURI) {
         throw new OWLRuntimeException(new UnsupportedOperationException(
                 "Cannot create new empty ontologies!"));
     }

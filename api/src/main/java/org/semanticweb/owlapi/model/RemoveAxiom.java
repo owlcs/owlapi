@@ -61,7 +61,7 @@ public class RemoveAxiom extends OWLAxiomChange {
 
 
     @Override
-	protected boolean isAdd() {
+    public boolean isAddAxiom() {
         return false;
     }
 

@@ -171,6 +171,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
     }
     //XXX not in the interface
     @SuppressWarnings("javadoc")
+    @Deprecated
     public OWLOntologyManagerProperties getProperties() {
         return properties;
     }
@@ -197,6 +198,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
     }
     //XXX not in the interface
     @SuppressWarnings("javadoc")
+    //@Override
     public boolean contains(OWLOntology ontology) {
         return ontologiesByID.containsValue(ontology);
     }
@@ -495,7 +497,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
      *         <code>false</code>.
      */
     private boolean isChangeApplicable(OWLOntologyChange change) {
-        if (!getProperties().isLoadAnnotationAxioms() && change instanceof AddAxiom) {
+        if (!properties.isLoadAnnotationAxioms() && change.isAddAxiom()) {
             if (change.getAxiom() instanceof OWLAnnotationAxiom) {
                 return false;
             }
@@ -691,6 +693,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
     }
     //XXX not in the interface
     @SuppressWarnings("javadoc")
+    @Deprecated
     public OWLOntology createOntology(IRI ontologyIRI, IRI versionIRI)
             throws OWLOntologyCreationException {
         return createOntology(new OWLOntologyID(ontologyIRI, versionIRI));
@@ -1031,7 +1034,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         try {
             for (OWLOntologyStorer storer : ontologyStorers) {
                 if (storer.canStoreOntology(ontologyFormat)) {
-                    storer.storeOntology(this, ontology, documentIRI, ontologyFormat);
+                    storer.storeOntology(ontology, documentIRI, ontologyFormat);
                     return;
                 }
             }
@@ -1067,7 +1070,7 @@ OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
         try {
             for (OWLOntologyStorer storer : ontologyStorers) {
                 if (storer.canStoreOntology(ontologyFormat)) {
-                    storer.storeOntology(this, ontology, documentTarget, ontologyFormat);
+                    storer.storeOntology(ontology, documentTarget, ontologyFormat);
                     return;
                 }
             }

@@ -45,7 +45,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -55,7 +54,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
  * Tracker for definitions
@@ -80,7 +78,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      * @param ontology ontology to track
      */
     public DefinitionTracker(OWLOntology ontology) {
-        this.manager = ontology.getOWLOntologyManager();
+        manager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         for (OWLOntology ont : ontology.getImportsClosure()) {
 			for (OWLOntology importOnt : manager.getImportsClosure(ont)) {
@@ -104,10 +102,11 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         if (axioms.add(axiom)) {
             for (OWLEntity entity : getEntities(axiom)) {
                 Integer count = referenceCounts.get(entity);
-                if (count == null)
+                if (count == null) {
                     count = ONE;
-                else
+                } else {
                     count = count + 1;
+                }
                 referenceCounts.put(entity, count);
             }
         }
@@ -122,10 +121,11 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         if (axioms.remove(axiom)) {
             for (OWLEntity entity : getEntities(axiom)) {
                 Integer count = referenceCounts.get(entity);
-                if (count == 1)
+                if (count == 1) {
                     referenceCounts.remove(entity);
-                else
+                } else {
                     referenceCounts.put(entity, count - 1);
+                }
             }
         }
     }
@@ -175,8 +175,9 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      */
     public boolean isDefined(OWLClassExpression classExpression) {
         for (OWLEntity entity : getEntities(classExpression)) {
-            if (!isDefined(entity))
+            if (!isDefined(entity)) {
                 return false;
+            }
         }
         return true;
     }
@@ -185,17 +186,19 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     @Override
     public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
         for (OWLOntologyChange change : changes) {
-            if (!change.isAxiomChange() || !ontology.getImportsClosure().contains(change.getOntology()))
+            if (!change.isAxiomChange() || !ontology.getImportsClosure().contains(change.getOntology())) {
                 continue;
+            }
 
 			final OWLAxiom axiom = change.getAxiom();
 
-            if (change instanceof AddAxiom)
+            if (change.isAddAxiom()) {
 				addAxiom( axiom );
-            else if (change instanceof RemoveAxiom)
+            } else if (change.isRemoveAxiom()) {
 				removeAxiom( axiom );
-            else
+            } else {
                 throw new UnsupportedOperationException("Unrecognized axiom change: " + change);
+            }
         }
     }
 }

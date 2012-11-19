@@ -336,15 +336,18 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     protected final OWLOntology ontology;
     protected final Writer writer;
-    protected final OWLOntologyManager manager;
 
     private int pos = 0;
     private int lastNewLinePos = 0;
 
+    @Deprecated
     public KRSSObjectRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer writer) {
+        this(ontology, writer);
+    }
+
+    public KRSSObjectRenderer(OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = new PrintWriter(writer);
-        this.manager = manager;
     }
 
     protected <T extends OWLObject> List<T> sort(Collection<T>objects) {
@@ -483,8 +486,10 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLOntology ontology1) {
         Set<OWLClass> classes = ontology1.getClassesInSignature();
-        classes.remove(manager.getOWLDataFactory().getOWLThing());
-        classes.remove(manager.getOWLDataFactory().getOWLNothing());
+        classes.remove(ontology1.getOWLOntologyManager().getOWLDataFactory()
+                .getOWLThing());
+        classes.remove(ontology1.getOWLOntologyManager().getOWLDataFactory()
+                .getOWLNothing());
 
         for (final OWLClass eachClass : sort(classes)) {
             final boolean primitive = !eachClass.isDefined(ontology1);

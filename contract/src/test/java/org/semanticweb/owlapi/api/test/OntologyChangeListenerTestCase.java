@@ -45,7 +45,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -54,7 +53,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
  * Author: Matthew Horridge<br>
@@ -79,10 +77,9 @@ public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
                     @Override
             public void handleImpendingOntologyChanges(List<? extends OWLOntologyChange> impendingChanges) {
                 for (OWLOntologyChange change : impendingChanges) {
-                    if (change instanceof AddAxiom) {
+                            if (change.isAddAxiom()) {
                         impendingAdditions.add(change.getAxiom());
-                    }
-                    else if (change instanceof RemoveAxiom) {
+                            } else if (change.isRemoveAxiom()) {
                         impendingRemovals.add(change.getAxiom());
                     }
                 }
@@ -92,10 +89,9 @@ public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
             @Override
             public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
                 for (OWLOntologyChange change : changes) {
-                    if (change instanceof AddAxiom) {
+                    if (change.isAddAxiom()) {
                         additions.add(change.getAxiom());
-                    }
-                    else if (change instanceof RemoveAxiom) {
+                    } else if (change.isRemoveAxiom()) {
                         removals.add(change.getAxiom());
                     }
                 }
