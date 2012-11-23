@@ -48,12 +48,19 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
+import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
 /**
  * Author: Matthew Horridge<br>
@@ -120,6 +127,39 @@ public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase 
         assertEquals(sfp.getShortForm(root), "myIRI");
     }
 
+    @Test
+    public void shouldWrapWithDoubleQuotes() throws OWLOntologyCreationException {
+        OWLOntologyManager man = Factory.getManager();
+        PrefixManager pm = new DefaultPrefixManager("http://org.semanticweb.owlapi/ont#");
+        OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
+        OWLNamedIndividual root = NamedIndividual("ind", pm);
+        String shortForm = "MyLabel";
+        Ontology(man, AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
+        List<OWLAnnotationProperty> props = Arrays.asList(prop);
+        Map<OWLAnnotationProperty, List<String>> langMap = Collections.emptyMap();
+        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(man,
+                new SimpleShortFormProvider(), new SimpleIRIShortFormProvider(), props,
+                langMap, new OWLAnnotationValueVisitorEx<String>() {
+                    @Override
+                    public String visit(OWLLiteral literal) {
+                        return "\"" + literal.getLiteral() + "\"";
+                    }
 
+                    @Override
+                    public String visit(OWLAnonymousIndividual individual) {
+                        return null;
+                    }
+
+                    @Override
+                    public String visit(IRI iri) {
+                        return null;
+                    }
+                });
+        String shortForm2 = sfp.getShortForm(root);
+        System.out
+                .println("AnnotationShortFormProviderTestCase.shouldWrapWithDoubleQuotes() "
+                        + shortForm2);
+        assertEquals(shortForm2, "\"" + shortForm + "\"");
+    }
 
 }
