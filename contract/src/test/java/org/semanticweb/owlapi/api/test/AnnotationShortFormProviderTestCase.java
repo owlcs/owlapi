@@ -156,9 +156,6 @@ public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase 
                     }
                 });
         String shortForm2 = sfp.getShortForm(root);
-        System.out
-                .println("AnnotationShortFormProviderTestCase.shouldWrapWithDoubleQuotes() "
-                        + shortForm2);
         assertEquals(shortForm2, "\"" + shortForm + "\"");
     }
 
