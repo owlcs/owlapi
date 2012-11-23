@@ -39,8 +39,10 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.io.Serializable;
+import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -71,8 +73,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     private static final long serialVersionUID = 30402L;
     // private final OWLDataFactory dataFactory;
     private int hashCode = 0;
-    private Set<OWLEntity> signature;
-    private Set<OWLAnonymousIndividual> anons;
+    private WeakReference<Set<OWLEntity>> signature = null;
+    private WeakReference<Set<OWLAnonymousIndividual>> anons;
 
     /** */
     public OWLObjectImpl() {}
@@ -91,23 +93,28 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        if (signature == null) {
-            Set<OWLEntity> sig = new HashSet<OWLEntity>();
-            anons = new HashSet<OWLAnonymousIndividual>();
-            OWLEntityCollectionContainerCollector collector = new OWLEntityCollectionContainerCollector(
-                    sig, anons);
-            accept(collector);
-            signature = sig;
+        Set<OWLEntity> set = null;
+        if (signature != null) {
+            set = signature.get();
         }
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(signature);
+        if (set == null) {
+            set = new HashSet<OWLEntity>();
+            Set<OWLAnonymousIndividual> anon = new HashSet<OWLAnonymousIndividual>();
+            OWLEntityCollectionContainerCollector collector = new OWLEntityCollectionContainerCollector(
+                    set, anon);
+            accept(collector);
+            signature = new WeakReference<Set<OWLEntity>>(set);
+            anons = new WeakReference<Set<OWLAnonymousIndividual>>(anon);
+        }
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(set);
     }
 
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        if (signature == null) {
+        if (signature == null || signature.get() == null) {
             getSignature();
         }
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(anons);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(anons.get());
     }
 
     @Override
@@ -255,5 +262,21 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
             i++;
         }
         return ss1.size() - ss2.size();
+    }
+
+    protected static int compareLists(List<? extends OWLObject> list1,
+            List<? extends OWLObject> list2) {
+        int i = 0;
+        int size = list1.size() < list2.size() ? list1.size() : list2.size();
+        while (i < size) {
+            OWLObject o1 = list1.get(i);
+            OWLObject o2 = list2.get(i);
+            int diff = o1.compareTo(o2);
+            if (diff != 0) {
+                return diff;
+            }
+            i++;
+        }
+        return list1.size() - list2.size();
     }
 }
