@@ -45,6 +45,8 @@ import java.util.Map;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -75,6 +77,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     private final List<OWLAnnotationProperty> annotationProperties;
 
     private final Map<OWLAnnotationProperty, List<String>> preferredLanguageMap;
+    private final OWLAnnotationValueVisitorEx<String> literalRenderer;
 
 
     /**
@@ -134,11 +137,39 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      * @param alternateIRIShortFormProvider the alternate IRI short form provider
      */
     public AnnotationValueShortFormProvider(OWLOntologySetProvider ontologySetProvider, ShortFormProvider alternateShortFormProvider, IRIShortFormProvider alternateIRIShortFormProvider, List<OWLAnnotationProperty> annotationProperties, Map<OWLAnnotationProperty, List<String>> preferredLanguageMap) {
+        this(ontologySetProvider, alternateShortFormProvider,
+                alternateIRIShortFormProvider, annotationProperties,
+                preferredLanguageMap, new OWLAnnotationValueVisitorEx<String>() {
+                    @Override
+                    public String visit(IRI iri) {
+                        // TODO refactor the short form providers in here
+                        return null;
+                    }
+
+                    @Override
+                    public String visit(OWLAnonymousIndividual individual) {
+                        return null;
+                    }
+
+                    @Override
+                    public String visit(OWLLiteral literal) {
+                        return literal.getLiteral();
+                    }
+                });
+    }
+
+    public AnnotationValueShortFormProvider(OWLOntologySetProvider ontologySetProvider,
+            ShortFormProvider alternateShortFormProvider,
+            IRIShortFormProvider alternateIRIShortFormProvider,
+            List<OWLAnnotationProperty> annotationProperties,
+            Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
+            OWLAnnotationValueVisitorEx<String> literalRenderer) {
         this.ontologySetProvider = ontologySetProvider;
         this.alternateShortFormProvider = alternateShortFormProvider;
         this.alternateIRIShortFormProvider = alternateIRIShortFormProvider;
         this.annotationProperties = annotationProperties;
         this.preferredLanguageMap = preferredLanguageMap;
+        this.literalRenderer = literalRenderer;
     }
 
     @Override
@@ -174,7 +205,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.
         if (object instanceof OWLLiteral) {
-            return ((OWLLiteral) object).getLiteral();
+            // TODO refactor this method to use the annotation value visitor
+            return literalRenderer.visit((OWLLiteral) object);
         }
         else if (object instanceof IRI) {
             return alternateIRIShortFormProvider.getShortForm((IRI) object);
