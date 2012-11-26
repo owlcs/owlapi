@@ -77,7 +77,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
         String namespace = XMLUtils.getNCNamePrefix(iri);
         String localName = XMLUtils.getNCNameSuffix(iri);
         String prefix = namespaceUtil.getPrefix(namespace);
-        String toReturn = prefix + ":" + localName;
+        String toReturn = prefix + ":" + (localName != null ? localName : "");
         return toReturn;
     }
 

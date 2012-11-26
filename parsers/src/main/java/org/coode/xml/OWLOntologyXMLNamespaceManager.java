@@ -196,14 +196,14 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     @Override
     public String getQName(String name) {
         final String ns = XMLUtils.getNCNamePrefix(name);
-        final String fragment = XMLUtils.getNCNameSuffix(name);
+        String fragment = XMLUtils.getNCNameSuffix(name);
         if (ns.equals(getDefaultNamespace())) {
             return fragment;
         }
         if (name.startsWith("xmlns") || name.startsWith("xml:")) {
             return name;
         }
-        if (ns.equals("") || fragment == null) {
+        if (ns.equals("") || fragment == null || fragment.isEmpty()) {
             // Couldn't split
             return name;
         }

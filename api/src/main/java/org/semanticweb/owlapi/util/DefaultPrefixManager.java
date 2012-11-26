@@ -168,9 +168,11 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		for (String prefixName : prefix2NamespaceMap.keySet()) {
 			String prefix = prefix2NamespaceMap.get(prefixName);
 			if (ns.equals(prefix)) {
-				return prefixName + XMLUtils.getNCNameSuffix(iriString);
-				//				String localName = iriString.substring(prefix.length());
-				//				return prefixName+localName;
+				String ncNameSuffix = XMLUtils.getNCNameSuffix(iriString);
+                if (ncNameSuffix == null) {
+                    ncNameSuffix = "";
+                }
+                return prefixName + ncNameSuffix;
 			}
 		}
 		return null;

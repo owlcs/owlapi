@@ -55,6 +55,12 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 @SuppressWarnings("javadoc")
 public class DefaultPrefixManagerTestCase {
+    @Test
+    public void getPrefixIRIEmpty() {
+        DefaultPrefixManager pm = new DefaultPrefixManager();
+        pm.setPrefix("foaf:", "http://xmlns.com/foaf/0.1/");
+        assertEquals("foaf:", pm.getPrefixIRI(IRI.create("http://xmlns.com/foaf/0.1/")));
+    }
 
     @Test
     public void testContainsDefaultPrefixNames() {
