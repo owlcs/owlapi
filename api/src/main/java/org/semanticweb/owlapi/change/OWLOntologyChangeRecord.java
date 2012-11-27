@@ -239,9 +239,8 @@ public final class OWLOntologyChangeRecord implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("OWLOntologyChangeRecord(");
-        sb.append("OntologyID(");
         sb.append(ontologyID);
-        sb.append(") ");
+        sb.append(" ");
         sb.append(data);
         sb.append(")");
         return sb.toString();
