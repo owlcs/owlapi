@@ -197,7 +197,14 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     public float parseFloat() throws NumberFormatException {
-        return Float.parseFloat(getLiteral());
+        String literal2 = getLiteral();
+        if ("inf".equalsIgnoreCase(literal2)) {
+            return Float.POSITIVE_INFINITY;
+        }
+        if ("-inf".equalsIgnoreCase(literal2)) {
+            return Float.NEGATIVE_INFINITY;
+        }
+        return Float.parseFloat(literal2);
     }
 
     @Override
@@ -231,7 +238,17 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         int hashCode = 277;
         hashCode = hashCode * 37 + getDatatype().hashCode();
         hashCode = hashCode * 37;
-        hashCode += Arrays.hashCode(literal);
+        if (isInteger()) {
+            hashCode += parseInteger() * 65536;
+        } else if (isDouble()) {
+            hashCode += (int) parseDouble() * 65536;
+        } else if (isFloat()) {
+            hashCode += (int) parseFloat() * 65536;
+        } else if (isBoolean()) {
+            hashCode += parseBoolean() ? 65536 : 0;
+        } else {
+            hashCode+=getLiteral().hashCode()*65536;
+        }
         if (hasLang()) {
             hashCode = hashCode * 37 + getLang().hashCode();
         }

@@ -79,11 +79,7 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
     private int getHashCode() {
         int hashCode = 277;
-        try {
             hashCode = hashCode * 37 + getDatatype().hashCode();
-        }catch (NullPointerException e) {
-            e.printStackTrace();
-        }
         hashCode = hashCode * 37 +  (literal?  65536:0);
         return hashCode;
     }
