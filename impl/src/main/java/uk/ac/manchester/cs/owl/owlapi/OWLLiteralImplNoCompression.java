@@ -238,6 +238,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         int hashCode = 277;
         hashCode = hashCode * 37 + getDatatype().hashCode();
         hashCode = hashCode * 37;
+        try {
         if (isInteger()) {
             hashCode += parseInteger() * 65536;
         } else if (isDouble()) {
@@ -248,6 +249,13 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
             hashCode += parseBoolean() ? 65536 : 0;
         } else {
             hashCode+=getLiteral().hashCode()*65536;
+        }
+        } catch (NumberFormatException e) {
+            // it is possible that a literal does not have a value that's valid
+            // for its datatype
+            // not very useful for a consistent ontology but some W3C reasoner
+            // tests use them
+            hashCode += getLiteral().hashCode() * 65536;
         }
         if (hasLang()) {
             hashCode = hashCode * 37 + getLang().hashCode();
