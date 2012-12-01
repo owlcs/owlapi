@@ -71,7 +71,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     private final OWLDataFactory factory;
     private final OWLLiteral trueLiteral;
     private final OWLLiteral falseLiteral;
-    private final OWLLiteral negativeFloatZero;
+    private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 
     /** @param f
@@ -82,7 +82,6 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         factory = f;
         trueLiteral = new OWLLiteralImplBoolean(true);
         falseLiteral = new OWLLiteralImplBoolean(false);
-        negativeFloatZero = getBasicLiteral("-0.0", XSD_FLOAT);
         this.useCompression = useCompression;
     }
 
@@ -192,6 +191,9 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                     if (lexicalValue.trim().equals("-0.0")) {
                         // according to some W3C test, this needs to be
                         // different from 0.0; Java floats disagree
+                        if (negativeFloatZero == null) {
+                            negativeFloatZero = getBasicLiteral("-0.0", XSD_FLOAT);
+                        }
                         literal = negativeFloatZero;
                     } else {
                         try {
