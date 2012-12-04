@@ -62,19 +62,30 @@
             <include name="impl/${sourcepath}"/>
         </javac>
     </target>
+    
+    <available file="../.git" type="dir" property="git.present"/>
+    <target name="git.revision" description="Store git revision in ${repository.version}" if="git.present">
+    <exec executable="git" outputproperty="git.revision" failifexecutionfails="false" errorproperty="">
+        <arg value="describe"/>
+        <arg value="--tags"/>
+        <arg value="--always"/>
+        <arg value="HEAD"/>
+    </exec>
+    <condition property="repository.version" value="${git.revision}" else="unknown">
+        <and>
+            <isset property="git.revision"/>
+            <length string="${git.revision}" trim="yes" length="0" when="greater"/>
+        </and>
+    </condition>
+    </target>
 
     <!-- Creates a jar containing the OWL API binary code -->
-    <target name="binjar" depends="compile">
-        <!-- Get the SVN revision number -->
-        <exec executable="svn" output="build/svn.properties">
-            <arg value="info" />
-        </exec>
-      <property prefix="svn" file="build/svn.properties"/>
+    <target name="binjar" depends="compile, git.revision">
         <jar basedir="${classesdir}" destfile="${builddir}/${bin-name}">
             <manifest>
                 <attribute name="Title" value="The OWL API"/>
                 <attribute name="Built-By" value="${user.name}"/>
-                <attribute name="Implementation-Version" value="${version}.${svn.Revision}"/>
+                <attribute name="Implementation-Version" value="${version}.${repository.version}"/>
             </manifest>
         </jar>
     </target>
