@@ -1,3 +1,33 @@
+3.4.2 4 Dec 2012
+
+Features implemented:
+
+Repository migrated to Git.
+Fixed memory leak with OWLObject signatures never being released once cached.
+Improved Serializable implementation.
+Made timeout property functional.
+
+3585007 	Make OWLAxiomChange.isAdd().
+3579488 	Clean documentation page.
+3578004 	Javadoc OWLRDFVocabulary.
+3578003 	Add OWLOntologyManager.removeOntology(OntologyID).
+3578002 	Add new constructor for SetOntologyID.
+3576182 	Bump minimum java version to 1.6.
+3575834 	Improvements to OWLOntologyManager and related contrib.
+3566810 	Lack of support in OWLOntologyManager for version IRIs.
+3521809 	KRSS parser throws Error instead of RuntimeException.
+
+Bugs closed:
+
+Some OWLLiterals cannot be optimised: -0.0^^xsd:float, 01^^xsd:int (optimisation with primitive types makes reasoners queasy in combination with W3C tests).
+
+3590243 	hashCode for literals inconsistent.
+3590084     misuse of XMLUtils.getNCNameSuffix().
+3581575 	OWLOntologyDocumentAlreadyExistsException in OWL API 3.4.1.
+3580114 	IRI isAbsolute method.
+3579862 	OWLDataFactory.getRDFPlainLiteral creates new objects.
+3579861 	rdf:PlainLiteral is not in the allowed OWL2EL datatypes.
+
 3.4.1 16 Sep 2012
 
 Features implemented:
