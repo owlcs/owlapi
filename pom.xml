@@ -207,7 +207,7 @@
 	<!-- Parameters for the Source Code Management system. -->
 	<scm>
 		<connection>scm:git:git://owlapi.git.sourceforge.net/gitroot/owlapi/owlapi</connection>
-		<developerConnection>scm:git:ssh://owlapi.git.sourceforge.net/gitroot/owlapi/owlapi</developerConnection>
+		<developerConnection>scm:git:ssh://ignazio1977@owlapi.git.sourceforge.net/gitroot/owlapi/owlapi</developerConnection>
 		<url>git://owlapi.git.sourceforge.net/gitroot/owlapi/owlapi</url>
 	</scm>
 
