@@ -355,7 +355,9 @@ public class ManchesterOWLSyntaxEditorParser {
             final String string = iri.toString();
             String ns = XMLUtils.getNCNamePrefix(string);
             String fragment = XMLUtils.getNCNameSuffix(string);
-            annotationPropertyNames.add(u.getPrefix(ns) + ":" + fragment);
+            annotationPropertyNames
+.add(u.getPrefix(ns) + ":"
+                    + (fragment != null ? fragment : ""));
         }
 
         base = "http://www.semanticweb.org#";

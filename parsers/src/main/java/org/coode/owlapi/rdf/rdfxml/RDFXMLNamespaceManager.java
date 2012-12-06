@@ -89,7 +89,7 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
         Set<OWLEntity> result = new HashSet<OWLEntity>();
         for(OWLEntity entity : getEntitiesThatRequireNamespaces()) {
             final String stringID = entity.toStringID();
-            if(getQName(stringID).equals(stringID)) {
+            if (stringID.equals(getQName(stringID))) {
                 result.add(entity);
             }
         }

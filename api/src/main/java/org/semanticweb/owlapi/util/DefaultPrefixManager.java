@@ -93,9 +93,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		prefix2NamespaceMap.clear();
 	}
 
-	/**
-	 * Gets the prefix names that have a mapping in this prefix manager
-	 */
     @Override
     public Set<String> getPrefixNames() {
 		return new HashSet<String>(prefix2NamespaceMap.keySet());
@@ -134,7 +131,11 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 		for (String prefixName : prefix2NamespaceMap.keySet()) {
 			String prefix = prefix2NamespaceMap.get(prefixName);
 			if (ns.equals(prefix)) {
-				return prefixName + XMLUtils.getNCNameSuffix(iriString);
+				String ncNameSuffix = XMLUtils.getNCNameSuffix(iriString);
+                if (ncNameSuffix == null) {
+                    ncNameSuffix = "";
+                }
+                return prefixName + ncNameSuffix;
 			}
 		}
 		return null;

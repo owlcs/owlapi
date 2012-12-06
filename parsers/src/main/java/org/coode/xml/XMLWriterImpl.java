@@ -227,7 +227,10 @@ public class XMLWriterImpl implements XMLWriter {
     @Override
     public void writeAttribute(String attr, String val) {
         XMLElement element = elementStack.peek();
-        element.setAttribute(xmlWriterNamespaceManager.getQName(attr), val);
+        String qName = xmlWriterNamespaceManager.getQName(attr);
+        if (qName != null) {
+        element.setAttribute(qName, val);
+        }
     }
 
 
@@ -258,7 +261,12 @@ public class XMLWriterImpl implements XMLWriter {
 
 
     private void writeEntities(String rootName) throws IOException {
-        writer.write("\n\n<!DOCTYPE " + xmlWriterNamespaceManager.getQName(rootName) + " [\n");
+        String qName = xmlWriterNamespaceManager.getQName(rootName);
+        if (qName == null) {
+            throw new IOException("Cannot create valid XML: qname for " + rootName
+                    + " is null");
+        }
+        writer.write("\n\n<!DOCTYPE " + qName + " [\n");
         for (String entityVal : entities.keySet()) {
             String entity = entities.get(entityVal);
             entity = entity.substring(1, entity.length() - 1);
