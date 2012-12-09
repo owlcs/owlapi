@@ -42,6 +42,7 @@ package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
