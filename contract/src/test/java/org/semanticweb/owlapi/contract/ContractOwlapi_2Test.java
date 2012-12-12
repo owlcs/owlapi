@@ -1959,23 +1959,7 @@ public class ContractOwlapi_2Test {
         if (testSubject0.isAnonymous()) {
             OWLAnonymousIndividual result19 = testSubject0.asOWLAnonymousIndividual();
         }
-        boolean result20 = testSubject0.isBuiltIn();
         boolean result21 = !testSubject0.isAnonymous();
-        if (testSubject0.isOWLClass()) {
-            OWLClass result22 = testSubject0.asOWLClass();
-        }
-        boolean result23 = testSubject0.isOWLObjectProperty();
-        if (testSubject0.isOWLObjectProperty()) {
-            OWLObjectProperty result24 = testSubject0.asOWLObjectProperty();
-        }
-        boolean result25 = testSubject0.isOWLDataProperty();
-        if (testSubject0.isOWLDataProperty()) {
-            OWLDataProperty result26 = testSubject0.asOWLDataProperty();
-        }
-        boolean result27 = testSubject0.isOWLDatatype();
-        if (testSubject0.isOWLDatatype()) {
-            OWLDatatype result28 = testSubject0.asOWLDatatype();
-        }
         Set<OWLClassExpression> result29 = testSubject0.getTypes(Utils.getMockOntology());
         Set<OWLClassExpression> result30 = testSubject0.getTypes(Utils.mockSet(Utils
                 .getMockOntology()));

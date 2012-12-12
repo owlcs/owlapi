@@ -8,7 +8,6 @@ import java.util.Set;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -154,7 +153,6 @@ public class ContractOwlapi_4Test {
     @Test
     public void shouldTestParsableOWLOntologyFactory() throws Exception {
         ParsableOWLOntologyFactory testSubject0 = new ParsableOWLOntologyFactory();
-        testSubject0.setOWLOntologyManager(Factory.getManager());
         OWLOntology result1 = testSubject0.loadOWLOntology(
                 mock(OWLOntologyDocumentSource.class),
                 mock(OWLOntologyCreationHandler.class),

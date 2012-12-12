@@ -1035,7 +1035,7 @@ public class ContractOwlapiModel_4Test {
         OWLAxiom result2 = testSubject0.getAxiom();
         boolean result3 = testSubject0.isAxiomChange();
         boolean result4 = testSubject0.isImportChange();
-        Set<OWLEntity> result5 = testSubject0.getEntities();
+        Set<OWLEntity> result5 = testSubject0.getSignature();
         OWLOntology result6 = testSubject0.getOntology();
     }
 

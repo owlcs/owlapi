@@ -24,7 +24,6 @@ import org.coode.owlapi.rdf.rdfxml.RDFXMLRenderer;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.coode.owlapi.turtle.TurtleRenderer;
-import org.coode.string.EscapeUtils;
 import org.junit.Test;
 import org.semanticweb.owlapi.debugging.AbstractOWLDebugger;
 import org.semanticweb.owlapi.debugging.DebuggerClassExpressionGenerator;
@@ -58,6 +57,7 @@ import org.semanticweb.owlapi.rdf.syntax.RDFParserException;
 import org.semanticweb.owlapi.rdf.util.RDFConstants;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.xml.sax.Locator;
 

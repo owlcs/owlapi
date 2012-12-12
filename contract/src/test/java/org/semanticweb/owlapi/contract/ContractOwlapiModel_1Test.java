@@ -30,7 +30,7 @@ public class ContractOwlapiModel_1Test {
         OWLAxiom result2 = testSubject0.getAxiom();
         boolean result3 = testSubject0.isAxiomChange();
         boolean result4 = testSubject0.isImportChange();
-        Set<OWLEntity> result5 = testSubject0.getEntities();
+        Set<OWLEntity> result5 = testSubject0.getSignature();
         OWLOntology result6 = testSubject0.getOntology();
     }
 
@@ -777,7 +777,7 @@ public class ContractOwlapiModel_1Test {
         OWLAxiom result0 = testSubject0.getAxiom();
         boolean result1 = testSubject0.isAxiomChange();
         boolean result2 = testSubject0.isImportChange();
-        Set<OWLEntity> result3 = testSubject0.getEntities();
+        Set<OWLEntity> result3 = testSubject0.getSignature();
         testSubject0.accept(mock(OWLOntologyChangeVisitor.class));
         Object result4 = testSubject0.accept(Utils.mockOntologyChange());
         OWLOntology result5 = testSubject0.getOntology();
