@@ -63,11 +63,18 @@ public class QNameShortFormProvider implements ShortFormProvider {
      * auto-generated prefix namespace mappings.
      * 
      * @param prefix2NamespaceMap
-     *            The map which contains a prefix -> namespace mapping. */
+     *            The map which contains a prefix -> namespace mapping. The
+     *            prefix must not have a trailing ":"; if one is there, it will
+     *            be removed */
     public QNameShortFormProvider(Map<String, String> prefix2NamespaceMap) {
         namespaceUtil = new NamespaceUtil();
         for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
-            namespaceUtil.setPrefix(e.getKey(), e.getValue());
+            String key = e.getKey();
+            int lastChar = key.length() - 1;
+            if (key.charAt(lastChar) == ':') {
+                key = key.substring(0, lastChar);
+            }
+            namespaceUtil.setPrefix(e.getValue(), key);
         }
     }
 

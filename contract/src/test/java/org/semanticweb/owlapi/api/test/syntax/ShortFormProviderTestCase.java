@@ -2,6 +2,9 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.model.IRI;
@@ -29,5 +32,16 @@ public class ShortFormProviderTestCase {
         QNameShortFormProvider shortener = new QNameShortFormProvider();
         String shortform = shortener.getShortForm(c);
         assertEquals("www:Woman", shortform);
+    }
+
+    @Test
+    public void shouldFindShortFormForSetPRefix() {
+        OWLClass c = Factory.getFactory().getOWLClass(
+                IRI.create("http://www.example.org/#Woman"));
+        Map<String, String> prefixes = new HashMap<String, String>();
+        prefixes.put("test", "http://www.example.org/#");
+        QNameShortFormProvider shortener = new QNameShortFormProvider(prefixes);
+        String shortform = shortener.getShortForm(c);
+        assertEquals("test:Woman", shortform);
     }
 }
