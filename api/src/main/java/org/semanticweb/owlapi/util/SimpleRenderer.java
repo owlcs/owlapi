@@ -878,20 +878,16 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLLiteral node) {
+        String literal = EscapeUtils.escapeString(node.getLiteral());
         if(node.isRDFPlainLiteral()) {
             // We can use a syntactic shortcut
-            sb.append("\"");
-            sb.append(node.getLiteral());
-            sb.append("\"");
+            sb.append("\"").append(literal).append("\"");
             if(node.hasLang()) {
-                sb.append("@");
-                sb.append(node.getLang());
+                sb.append("@").append(node.getLang());
             }
         }
         else {
-            sb.append("\"");
-            sb.append(node.getLiteral());
-            sb.append("\"^^");
+            sb.append("\"").append(literal).append("\"^^");
             node.getDatatype().accept(this);
         }
     }

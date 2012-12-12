@@ -52,9 +52,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 

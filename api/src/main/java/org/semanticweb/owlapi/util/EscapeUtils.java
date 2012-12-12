@@ -36,17 +36,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.coode.string;
-
-/** Author: Matthew Horridge<br>
+package org.semanticweb.owlapi.util;
+/**
+ * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008<br>
- * <br>
- * 
- * @deprecated use EscapeUtils from the api util package. */
-@Deprecated
+ * Date: 16-Apr-2008<br><br>
+ */
 public class EscapeUtils {
 
     /**
@@ -110,46 +106,6 @@ public class EscapeUtils {
                 sb.append(ch);
             }
         }
-        return sb.toString();
-    }
-
-
-    /** @param s
-     * @return escaped string
-     * @deprecated Use
-     *             {@link org.semanticweb.owlapi.io.XMLUtils#escapeXML(CharSequence)} */
-    @Deprecated
-    public static String escapeXML(String s) {
-        // double quote -- quot
-        // ampersand    -- amp
-        // less than    -- lt
-        // greater than -- gt
-        // apostrophe   -- apos
-        StringBuilder sb = new StringBuilder(s.length() * 2);
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            if (ch == '<') {
-                sb.append("&lt;");
-            }
-            else if (ch == '>') {
-                sb.append("&gt;");
-            }
-            else if (ch == '\"') {
-                sb.append("&quot;");
-            }
-            else if (ch == '&') {
-                sb.append("&amp;");
-            }
-            else if (ch == '\'') {
-                sb.append("&#");
-                sb.append(Integer.toString(ch, 10));
-                sb.append(';');
-            }
-            else {
-                sb.append(ch);
-            }
-        }
-
         return sb.toString();
     }
 }

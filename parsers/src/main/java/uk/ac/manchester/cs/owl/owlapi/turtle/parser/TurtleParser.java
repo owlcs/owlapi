@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
-import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 

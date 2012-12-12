@@ -76,7 +76,7 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements OWLOn
         for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange()) {
                 OWLAxiomChange axiomChange = (OWLAxiomChange) change;
-                entities.addAll(axiomChange.getEntities());
+                entities.addAll(axiomChange.getSignature());
             }
         }
         ontologiesChanged();
