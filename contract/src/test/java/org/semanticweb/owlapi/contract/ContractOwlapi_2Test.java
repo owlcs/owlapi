@@ -1417,7 +1417,6 @@ public class ContractOwlapi_2Test {
                 IRI.create("urn:aFake"));
         String result0 = testSubject0.toString();
         IRI result3 = testSubject0.getIRI();
-        boolean result4 = testSubject0.isLogicalAxiom();
         URI result5 = testSubject0.getURI();
     }
 
@@ -1550,25 +1549,7 @@ public class ContractOwlapi_2Test {
                 return 0;
             }
         };
-        boolean result0 = testSubject0.isBuiltIn();
         boolean result1 = !testSubject0.isAnonymous();
-        if (!!testSubject0.isAnonymous()) {
-            if (!testSubject0.isAnonymous()) {
-                OWLClass result2 = testSubject0.asOWLClass();
-            }
-        }
-        boolean result3 = testSubject0.isOWLObjectProperty();
-        if (testSubject0.isOWLObjectProperty()) {
-            OWLObjectProperty result4 = testSubject0.asOWLObjectProperty();
-        }
-        boolean result5 = testSubject0.isOWLDataProperty();
-        if (testSubject0.isOWLDataProperty()) {
-            OWLDataProperty result6 = testSubject0.asOWLDataProperty();
-        }
-        boolean result7 = testSubject0.isOWLDatatype();
-        if (testSubject0.isOWLDatatype()) {
-            OWLDatatype result8 = testSubject0.asOWLDatatype();
-        }
         Set<OWLClassExpression> result9 = testSubject0.getTypes(Utils.getMockOntology());
         Set<OWLClassExpression> result10 = testSubject0.getTypes(Utils.mockSet(Utils
                 .getMockOntology()));
@@ -2010,23 +1991,7 @@ public class ContractOwlapi_2Test {
         if (testSubject0.isAnonymous()) {
             OWLAnonymousIndividual result19 = testSubject0.asOWLAnonymousIndividual();
         }
-        boolean result20 = testSubject0.isBuiltIn();
         boolean result21 = !testSubject0.isAnonymous();
-        if (testSubject0.isOWLClass()) {
-            OWLClass result22 = testSubject0.asOWLClass();
-        }
-        boolean result23 = testSubject0.isOWLObjectProperty();
-        if (testSubject0.isOWLObjectProperty()) {
-            OWLObjectProperty result24 = testSubject0.asOWLObjectProperty();
-        }
-        boolean result25 = testSubject0.isOWLDataProperty();
-        if (testSubject0.isOWLDataProperty()) {
-            OWLDataProperty result26 = testSubject0.asOWLDataProperty();
-        }
-        boolean result27 = testSubject0.isOWLDatatype();
-        if (testSubject0.isOWLDatatype()) {
-            OWLDatatype result28 = testSubject0.asOWLDatatype();
-        }
         Set<OWLClassExpression> result29 = testSubject0.getTypes(Utils.getMockOntology());
         Set<OWLClassExpression> result30 = testSubject0.getTypes(Utils.mockSet(Utils
                 .getMockOntology()));

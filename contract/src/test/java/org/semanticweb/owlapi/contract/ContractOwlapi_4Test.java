@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
 
-import java.net.URI;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -149,8 +148,7 @@ public class ContractOwlapi_4Test {
 
     public void shouldTestParsableOWLOntologyFactory() throws Exception {
         ParsableOWLOntologyFactory testSubject0 = new ParsableOWLOntologyFactory();
-        OWLOntology result0 = testSubject0.createOWLOntology(mock(URI.class),
-                mock(URI.class));
+
         OWLOntology result1 = testSubject0.loadOWLOntology(
                 mock(OWLOntologyDocumentSource.class),
                 mock(OWLOntologyCreationHandler.class),

@@ -111,12 +111,11 @@ public class ContractOwlapiIoTest {
 
     @Test
     public void shouldTestAbstractOWLRenderer() throws Exception {
-        AbstractOWLRenderer testSubject0 = new AbstractOWLRenderer(Utils.getMockManager()) {
+        AbstractOWLRenderer testSubject0 = new AbstractOWLRenderer() {
             @Override
             public void render(final OWLOntology ontology, final Writer writer)
                     throws OWLRendererException {}
         };
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         String result0 = testSubject0.toString();
@@ -390,7 +389,6 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestInterfaceOWLRenderer() throws Exception {
         OWLRenderer testSubject0 = mock(OWLRenderer.class);
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
     }
 

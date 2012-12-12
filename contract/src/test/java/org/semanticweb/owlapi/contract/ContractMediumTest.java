@@ -66,7 +66,6 @@ import uk.ac.manchester.cs.bhig.util.MutableTree;
 import uk.ac.manchester.cs.bhig.util.NodeRenderer;
 import uk.ac.manchester.cs.bhig.util.Tree;
 import uk.ac.manchester.cs.owl.explanation.ordering.AlphaExplanationOrderer;
-import uk.ac.manchester.cs.owl.explanation.ordering.DefaultExplanationOrderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.EntailedAxiomTree;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationTree;
@@ -130,19 +129,10 @@ public class ContractMediumTest {
         String result1 = testSubject0.toString();
     }
 
-    @Test
-    public void shouldTestDefaultExplanationOrderer() throws Exception {
-        DefaultExplanationOrderer testSubject0 = new DefaultExplanationOrderer();
-        ExplanationTree result0 = testSubject0.getOrderedExplanation(
-                mock(OWLAxiom.class), Utils.mockSet(mock(OWLAxiom.class)));
-        String result1 = testSubject0.toString();
-    }
-
     public void shouldTestEntailedAxiomTree() throws Exception {
         EntailedAxiomTree testSubject0 = new EntailedAxiomTree(mock(OWLAxiom.class));
         boolean result0 = testSubject0.isEntailed();
         String result1 = testSubject0.toString();
-        testSubject0.replace(mock(MutableTree.class));
         Tree<OWLAxiom> result2 = testSubject0.getParent();
         int result3 = testSubject0.getSize();
         testSubject0.setParent(mock(MutableTree.class));
@@ -179,7 +169,6 @@ public class ContractMediumTest {
         ExplanationTree testSubject0 = new ExplanationTree(mock(OWLAxiom.class));
         boolean result0 = testSubject0.isEntailed();
         String result1 = testSubject0.toString();
-        testSubject0.replace(mock(MutableTree.class));
         Tree<OWLAxiom> result2 = testSubject0.getParent();
         int result3 = testSubject0.getSize();
         testSubject0.setParent(mock(MutableTree.class));
