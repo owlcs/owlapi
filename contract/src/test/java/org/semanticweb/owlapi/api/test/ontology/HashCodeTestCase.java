@@ -21,6 +21,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
  * Bio-Medical Informatics Research Group<br>
  * Date: 26/11/2012
  */
+@SuppressWarnings("javadoc")
 public class HashCodeTestCase {
 
 

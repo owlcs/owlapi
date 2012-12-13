@@ -8,6 +8,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
+@SuppressWarnings("javadoc")
 public class StrangeLiteralsTestCase {
     @Test
     public void testFloatZeros() throws Exception {

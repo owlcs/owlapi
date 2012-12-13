@@ -17,6 +17,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
+@SuppressWarnings("javadoc")
 @Ignore
 public class ManchesterOWLSyntaxDisjointUnionTestCase {
     @Test

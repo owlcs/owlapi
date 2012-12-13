@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import java.io.IOException;
@@ -50,27 +49,19 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Apr-2007<br><br>
- */
+ * Date: 25-Apr-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class AbstractRenderer {
-
     private ShortFormProvider shortFormProvider;
-
     private int lastNewLinePos = -1;
-
     private int currentPos;
-
     private Writer writer;
-
     private List<Integer> tabs;
-
     private boolean useTabbing = true;
-
     private boolean useWrapping = true;
 
     public AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
@@ -80,37 +71,26 @@ public class AbstractRenderer {
         pushTab(0);
     }
 
-
     public void setUseTabbing(boolean useTabbing) {
         this.useTabbing = useTabbing;
     }
-
 
     public void setUseWrapping(boolean useWrapping) {
         this.useWrapping = useWrapping;
     }
 
-
     public boolean isUseWrapping() {
         return useWrapping;
     }
-
 
     public boolean isUseTabbing() {
         return useTabbing;
     }
 
-
-//    public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-//        this.shortFormProvider = shortFormProvider;
-//    }
-
-
     public void flush() throws OWLRendererException {
         try {
             writer.flush();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new OWLRendererIOException(e);
         }
     }
@@ -121,7 +101,7 @@ public class AbstractRenderer {
 
     protected void incrementTab(int increment) {
         int base = 0;
-        if(!tabs.isEmpty()) {
+        if (!tabs.isEmpty()) {
             base = tabs.get(0);
         }
         tabs.add(0, base + increment);
@@ -133,7 +113,7 @@ public class AbstractRenderer {
 
     protected void writeTab() {
         int tab = tabs.get(0);
-        for(int i = 0; i < tab; i++) {
+        for (int i = 0; i < tab; i++) {
             write(" ");
         }
     }
@@ -142,20 +122,18 @@ public class AbstractRenderer {
         return currentPos - lastNewLinePos - 2;
     }
 
-
     protected void write(String s) {
-        if(s == null) {
+        if (s == null) {
             return;
         }
         int indexOfNewLine = s.indexOf('\n');
-        if(indexOfNewLine != -1) {
+        if (indexOfNewLine != -1) {
             lastNewLinePos = currentPos + indexOfNewLine;
         }
         currentPos += s.length();
         try {
             writer.write(s);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -167,14 +145,15 @@ public class AbstractRenderer {
     protected void write(String s, int lineLen) {
         StringTokenizer tokenizer = new StringTokenizer(s, " \n\t-", true);
         int currentLineLength = 0;
-        while(tokenizer.hasMoreTokens()) {
+        while (tokenizer.hasMoreTokens()) {
             String curToken = tokenizer.nextToken();
             write(curToken);
-            if(curToken.equals("\n")) {
+            if (curToken.equals("\n")) {
                 writeTab();
             }
             currentLineLength += curToken.length();
-            if(currentLineLength > lineLen && curToken.trim().length() != 0 && tokenizer.hasMoreTokens()) {
+            if (currentLineLength > lineLen && curToken.trim().length() != 0
+                    && tokenizer.hasMoreTokens()) {
                 writeNewLine();
                 currentLineLength = 0;
             }
@@ -213,5 +192,4 @@ public class AbstractRenderer {
     protected ShortFormProvider getShortFormProvider() {
         return shortFormProvider;
     }
-
 }

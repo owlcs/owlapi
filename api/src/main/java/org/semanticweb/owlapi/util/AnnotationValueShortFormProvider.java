@@ -158,6 +158,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
                 });
     }
 
+    @SuppressWarnings("javadoc")
     public AnnotationValueShortFormProvider(OWLOntologySetProvider ontologySetProvider,
             ShortFormProvider alternateShortFormProvider,
             IRIShortFormProvider alternateIRIShortFormProvider,

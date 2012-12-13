@@ -123,8 +123,6 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectRenderer implements OWLEntityVisitor {
 
-    //private OWLOntology defaultOntology;
-
     private Set<OWLOntology> ontologies;
 
     private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
@@ -146,28 +144,33 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     @Deprecated
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, Writer writer, ShortFormProvider entityShortFormProvider) {
-        this(Collections.singleton(ontology), ontology, writer, entityShortFormProvider);
+        this(Collections.singleton(ontology), writer, entityShortFormProvider);
     }
 
     public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer,
             ShortFormProvider entityShortFormProvider) {
-        this(Collections.singleton(ontology), ontology, writer, entityShortFormProvider);
+        this(Collections.singleton(ontology), writer, entityShortFormProvider);
     }
 
     @Deprecated
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager,
             Set<OWLOntology> ontologies, OWLOntology defaultOntology, Writer writer,
             ShortFormProvider entityShortFormProvider) {
-        this(ontologies, defaultOntology, writer, entityShortFormProvider);
+        this(ontologies, writer, entityShortFormProvider);
     }
 
+    @Deprecated
     public ManchesterOWLSyntaxFrameRenderer(Set<OWLOntology> ontologies,
             OWLOntology defaultOntology, Writer writer,
             ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
         this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
-        //this.defaultOntology = defaultOntology;
+    }
 
+    public ManchesterOWLSyntaxFrameRenderer(Set<OWLOntology> ontologies, Writer writer,
+            ShortFormProvider entityShortFormProvider) {
+        super(writer, entityShortFormProvider);
+        this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
     }
 
     public void setRenderingDirector(RenderingDirector renderingDirector) {

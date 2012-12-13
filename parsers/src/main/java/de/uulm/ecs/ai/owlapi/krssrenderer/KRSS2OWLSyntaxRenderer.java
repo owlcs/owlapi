@@ -55,6 +55,7 @@ public class KRSS2OWLSyntaxRenderer extends AbstractOWLRenderer {
     public KRSS2OWLSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
 }
 
+    @SuppressWarnings("javadoc")
     public KRSS2OWLSyntaxRenderer() {}
 
     @Override
