@@ -128,6 +128,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                     }
                     adaptiveMaxRuns--;
                 }
+                //$FALL-THROUGH$
                 case CHECK: {
                     String ns = XMLUtils.getNCNamePrefix(s);
                     if (ns.equals("")) {

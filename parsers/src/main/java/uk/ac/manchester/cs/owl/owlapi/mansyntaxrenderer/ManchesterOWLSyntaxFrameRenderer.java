@@ -143,12 +143,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer,
             ShortFormProvider entityShortFormProvider) {
-        this(Collections.singleton(ontology), ontology, writer, entityShortFormProvider);
+        this(Collections.singleton(ontology), writer, entityShortFormProvider);
     }
 
-
-    public ManchesterOWLSyntaxFrameRenderer(Set<OWLOntology> ontologies,
-            OWLOntology defaultOntology, Writer writer,
+    public ManchesterOWLSyntaxFrameRenderer(Set<OWLOntology> ontologies, Writer writer,
             ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
         this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);

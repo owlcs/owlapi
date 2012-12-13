@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
+@SuppressWarnings("javadoc")
 @Ignore
 public class DisjointClassesRoundTripTestCase {
     String NS = "http://ns.owl";

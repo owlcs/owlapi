@@ -224,11 +224,11 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         return literal;
     }
 
-    public OWLLiteral getBasicLiteral(String lexicalValue, OWLDatatype datatype) {
+    protected OWLLiteral getBasicLiteral(String lexicalValue, OWLDatatype datatype) {
         return getBasicLiteral(lexicalValue, "", datatype);
     }
 
-    public OWLLiteral getBasicLiteral(String lexicalValue, String lang,
+    protected OWLLiteral getBasicLiteral(String lexicalValue, String lang,
             OWLDatatype datatype) {
         OWLLiteral literal = null;
         if (useCompression) {
