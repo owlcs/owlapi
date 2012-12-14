@@ -612,7 +612,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        sb.append("SubDataProperty(");
+        sb.append("SubDataPropertyOf(");
         writeAnnotations(axiom);
         axiom.getSubProperty().accept(this);
         insertSpace();
