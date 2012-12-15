@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax;
+
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
+
 @SuppressWarnings("javadoc")
 public class GenIdGalenTestCase {
     @Test
@@ -65,15 +66,12 @@ public class GenIdGalenTestCase {
                 + "<owl:someValuesFrom>\n"
                 + "<owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#anotherTest\"/>"
                 + "</owl:someValuesFrom>\n"
-                + "</owl:Restriction></rdfs:subClassOf></owl:Class>"
-                + "	</rdf:RDF>";
+                + "</owl:Restriction></rdfs:subClassOf></owl:Class>" + "	</rdf:RDF>";
         OWLOntologyManager m = Factory.getManager();
         OWLOntology o = m
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(test));
-
         OWL2DLProfile profile = new OWL2DLProfile();
         OWLProfileReport report = profile.checkOntology(o);
         assertTrue(report.isInProfile());
-
     }
 }

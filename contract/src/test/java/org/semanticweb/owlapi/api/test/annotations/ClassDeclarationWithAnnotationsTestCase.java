@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.annotations;
 
 import java.util.Set;
@@ -48,15 +47,12 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 01-Jul-2010
- */
-
-public class ClassDeclarationWithAnnotationsTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
-
+ * Date: 01-Jul-2010 */
+public class ClassDeclarationWithAnnotationsTestCase extends
+        AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         OWLEntity ent = getOWLClass("A");
@@ -72,6 +68,6 @@ public class ClassDeclarationWithAnnotationsTestCase extends AbstractAnnotatedAx
     @Test
     public void testManchesterOWLSyntax() throws Exception {
         // Can't represent annotated declarations in Manchester Syntax
-        //        super.testManchesterOWLSyntax();
+        // super.testManchesterOWLSyntax();
     }
 }

@@ -18,7 +18,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class DuplicateImportTestCase {
-
     @Test
     public void shouldLoad() throws Exception {
         File ontologyByName;

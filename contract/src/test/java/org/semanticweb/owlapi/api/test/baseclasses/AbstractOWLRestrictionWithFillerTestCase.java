@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
@@ -46,34 +45,28 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLRestriction;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-@SuppressWarnings({"rawtypes","javadoc"})
-public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLPropertyExpression, F extends OWLObject> extends AbstractOWLRestrictionTestCase<P> {
-
-
-    protected abstract OWLRestriction createRestriction(P prop, F filler) throws Exception;
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
+@SuppressWarnings({ "rawtypes", "javadoc" })
+public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLPropertyExpression, F extends OWLObject>
+        extends AbstractOWLRestrictionTestCase<P> {
+    protected abstract OWLRestriction createRestriction(P prop, F filler)
+            throws Exception;
 
     @Override
     protected OWLRestriction createRestriction(P prop) throws Exception {
         return createRestriction(prop, createFiller());
     }
 
-
     protected abstract F createFiller() throws Exception;
 
     @Override
     @Test
     public void testCreation() throws Exception {
-        assertNotNull("restriction should not be null", createRestriction(createProperty(), createFiller()));
+        assertNotNull("restriction should not be null",
+                createRestriction(createProperty(), createFiller()));
     }
-
 
     @Override
     @Test
@@ -84,7 +77,6 @@ public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLProp
         OWLRestriction restB = createRestriction(prop, filler);
         assertEquals(restA, restB);
     }
-
 
     @Override
     @Test
@@ -100,7 +92,6 @@ public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLProp
         OWLRestriction restD = createRestriction(createProperty(), filler);
         assertNotEquals(restC, restD);
     }
-
 
     @Override
     @Test

@@ -25,28 +25,27 @@ public class ContractRdfModelTest {
         AbstractTranslator testSubject0 = new AbstractTranslator(Utils.getMockManager(),
                 Utils.getMockOntology(), false) {
             @Override
-            protected Object getResourceNode(final IRI IRI) {
+            protected Object getResourceNode(IRI IRI) {
                 return null;
             }
 
             @Override
-            protected Object getPredicateNode(final IRI IRI) {
+            protected Object getPredicateNode(IRI IRI) {
                 return null;
             }
 
             @Override
-            protected Object getAnonymousNode(final Object key) {
+            protected Object getAnonymousNode(Object key) {
                 return null;
             }
 
             @Override
-            protected Object getLiteralNode(final OWLLiteral literal) {
+            protected Object getLiteralNode(OWLLiteral literal) {
                 return null;
             }
 
             @Override
-            protected void addTriple(final Object subject, final Object pred,
-                    final Object object) {}
+            protected void addTriple(Object subject, Object pred, Object object) {}
         };
         String result0 = testSubject0.toString();
     }

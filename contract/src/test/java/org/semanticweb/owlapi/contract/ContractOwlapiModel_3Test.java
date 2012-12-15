@@ -1247,10 +1247,10 @@ public class ContractOwlapiModel_3Test {
             }
 
             @Override
-            public void accept(final OWLOntologyChangeVisitor visitor) {}
+            public void accept(OWLOntologyChangeVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLOntologyChangeVisitorEx<O> visitor) {
+            public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
                 return null;
             }
         };

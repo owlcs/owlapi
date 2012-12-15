@@ -37,8 +37,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.literals;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.Set;
@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+
 @SuppressWarnings("javadoc")
 public class TestBirteW3CWebOnt_oneof_004TestCase {
     @Test
@@ -117,35 +118,33 @@ public class TestBirteW3CWebOnt_oneof_004TestCase {
                 + "   <owl:Restriction>\n"
                 + "    <owl:onProperty rdf:resource=\"#p\"/>\n"
                 + "    <owl:minCardinality rdf:datatype=\"&xsd;int\">1</owl:minCardinality>\n"
-                + "   </owl:Restriction>\n" + "  </rdf:type>\n"
-                + " </owl:Thing>\n" + "</rdf:RDF>";
+                + "   </owl:Restriction>\n" + "  </rdf:type>\n" + " </owl:Thing>\n"
+                + "</rdf:RDF>";
         Set<String> expectedResult = new TreeSet<String>();
         expectedResult
-        .add("DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"1\"^^xsd:integer \"2\"^^xsd:integer \"3\"^^xsd:integer \"4\"^^xsd:integer ))");
+                .add("DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"1\"^^xsd:integer \"2\"^^xsd:integer \"3\"^^xsd:integer \"4\"^^xsd:integer ))");
         expectedResult
-        .add("Declaration(DataProperty(<http://www.w3.org/2002/03owlt/oneOf/premises004#p>))");
+                .add("Declaration(DataProperty(<http://www.w3.org/2002/03owlt/oneOf/premises004#p>))");
         expectedResult
-        .add("ClassAssertion(owl:Thing <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
+                .add("ClassAssertion(owl:Thing <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
         expectedResult
-        .add("DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"4\"^^xsd:integer \"5\"^^xsd:integer \"6\"^^xsd:integer ))");
-
+                .add("DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"4\"^^xsd:integer \"5\"^^xsd:integer \"6\"^^xsd:integer ))");
         expectedResult
-        .add("ClassAssertion(DataMinCardinality(1 <http://www.w3.org/2002/03owlt/oneOf/premises004#p> rdfs:Literal) <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
+                .add("ClassAssertion(DataMinCardinality(1 <http://www.w3.org/2002/03owlt/oneOf/premises004#p> rdfs:Literal) <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
         OWLOntologyManager m = Factory.getManager();
-        OWLOntology o = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(s));
-        Set<String> result=new TreeSet<String>();
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
+        Set<String> result = new TreeSet<String>();
         for (OWLAxiom ax : o.getAxioms()) {
             result.add(ax.toString());
         }
-        if(!result.equals(expectedResult)) {
-            Set<String> intersection=new TreeSet<String>(result);
+        if (!result.equals(expectedResult)) {
+            Set<String> intersection = new TreeSet<String>(result);
             intersection.retainAll(expectedResult);
-            Set<String> s1=new TreeSet<String>(result);
+            Set<String> s1 = new TreeSet<String>(result);
             s1.removeAll(intersection);
-            Set<String> s2=new TreeSet<String>(expectedResult);
+            Set<String> s2 = new TreeSet<String>(expectedResult);
             s2.removeAll(intersection);
         }
-        assertEquals("Sets were supposed to be equal",result, expectedResult);
+        assertEquals("Sets were supposed to be equal", result, expectedResult);
     }
 }

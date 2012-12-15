@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.*;
@@ -55,26 +54,23 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 11/03/2011
- */
+ * Date: 11/03/2011 */
 @SuppressWarnings("javadoc")
 public class SubClassOfUntypedSomeValuesFromTestCase extends AbstractFileTestCase {
-
     @Override
     protected String getFileName() {
         return "SubClassOfUntypedSomeValuesFrom.rdf";
     }
 
-    public static final IRI SUBCLASS_IRI = IRI.create("http://www.semanticweb.org/owlapi/test#A");
-
-    public static final IRI PROPERTY_IRI = IRI.create("http://www.semanticweb.org/owlapi/test#P");
-
-    public static final IRI FILLER_IRI = IRI.create("http://www.semanticweb.org/owlapi/test#C");
-
+    public static final IRI SUBCLASS_IRI = IRI
+            .create("http://www.semanticweb.org/owlapi/test#A");
+    public static final IRI PROPERTY_IRI = IRI
+            .create("http://www.semanticweb.org/owlapi/test#P");
+    public static final IRI FILLER_IRI = IRI
+            .create("http://www.semanticweb.org/owlapi/test#C");
 
     @Override
     protected OWLOntologyLoaderConfiguration getConfiguration() {
@@ -96,6 +92,5 @@ public class SubClassOfUntypedSomeValuesFromTestCase extends AbstractFileTestCas
         OWLClass fillerCls = getFactory().getOWLClass(FILLER_IRI);
         assertEquals(property, someValuesFrom.getProperty());
         assertEquals(fillerCls, someValuesFrom.getFiller());
-
     }
 }

@@ -39,44 +39,27 @@ public class SharedBlankNodeTestCase {
             System.out.println("HasKeyTestCase.verify() " + ax);
         }
     }
+
     @Test
     public void shouldSaveOneIndividual() throws Exception {
         OWLOntology ontology = createOntology();
-        // OWL2DLProfile profile = new OWL2DLProfile();
-        // for (OWLProfileViolation v :
-        // profile.checkOntology(ontology).getViolations()) {
-        // System.out.println("TestClass.shouldSaveOneIndividual() 1 " + v);
-        // }
-        // for (OWLAxiom ax : ontology.getAxioms()) {
-        // System.out.println("TestClass.shouldSaveOneIndividual() 1 " + ax);
-        // }
         testAnnotation(ontology);
-        // displayOntology(ontology);
         String s = saveOntology(ontology);
         System.out.println(s);
         ontology = loadOntology(s);
-        // for (OWLProfileViolation v :
-        // profile.checkOntology(ontology).getViolations()) {
-        // System.out.println("TestClass.shouldSaveOneIndividual() 2 " + v);
-        // }
-        // for (OWLAxiom ax : ontology.getAxioms()) {
-        // System.out.println("TestClass.shouldSaveOneIndividual() 2 " + ax);
-        // }
-        // displayOntology(ontology);
         testAnnotation(ontology);
     }
 
     public static OWLOntology createOntology() throws OWLOntologyCreationException {
         String NS = "http://protege.org/more/anonymous/junk";
         OWLDataProperty P = Factory.getFactory()
-                .getOWLDataProperty(
-                        IRI.create(NS + "#p"));
+                .getOWLDataProperty(IRI.create(NS + "#p"));
         OWLObjectProperty P1 = Factory.getFactory().getOWLObjectProperty(
                 IRI.create(NS + "#p1"));
         OWLObjectProperty P2 = Factory.getFactory().getOWLObjectProperty(
                 IRI.create(NS + "#p2"));
-        OWLAnnotationProperty ann = Factory.getFactory()
-                .getOWLAnnotationProperty(IRI.create(NS + "#ann"));
+        OWLAnnotationProperty ann = Factory.getFactory().getOWLAnnotationProperty(
+                IRI.create(NS + "#ann"));
         OWLOntologyManager manager = Factory.getManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
         OWLOntology ontology = manager.createOntology(IRI.create(NS));
@@ -89,8 +72,7 @@ public class SharedBlankNodeTestCase {
                 ann, i)));
         OWLAxiom ass = factory.getOWLDataPropertyAssertionAxiom(P, i,
                 factory.getOWLLiteral("hello world"));
-        OWLNamedIndividual ind = factory
-                .getOWLNamedIndividual(IRI.create(NS + "#test"));
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(NS + "#test"));
         OWLAxiom ax1 = factory.getOWLObjectPropertyAssertionAxiom(P1, ind, i);
         OWLAxiom ax2 = factory.getOWLObjectPropertyAssertionAxiom(P2, ind, i);
         manager.addAxiom(ontology, ass);
@@ -100,8 +82,7 @@ public class SharedBlankNodeTestCase {
     }
 
     public static String saveOntology(OWLOntology ontology)
-            throws
-    OWLOntologyStorageException {
+            throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         ontology.getOWLOntologyManager().saveOntology(ontology,
                 new RDFXMLOntologyFormat(), target);
@@ -118,7 +99,6 @@ public class SharedBlankNodeTestCase {
             throws OWLOntologyStorageException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
-        // format.setDefaultPrefix(NS + "#");
         manager.saveOntology(ontology, format, new SystemOutDocumentTarget());
         System.out.println();
     }

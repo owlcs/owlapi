@@ -1,4 +1,5 @@
 package org.semanticweb.owlapi.api.test.literals;
+
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -8,8 +9,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 
 @SuppressWarnings("javadoc")
 public class OWLLiteralCorruptionTestCase {
-
-
     @Test
     public void testmain() {
         String TEST_STRING;
@@ -21,10 +20,8 @@ public class OWLLiteralCorruptionTestCase {
             sb.append("\n");
         }
         TEST_STRING = sb.toString();
-
         OWLDataFactory factory = Factory.getFactory();
         OWLLiteral literal = factory.getOWLLiteral(TEST_STRING);
-
-        assertEquals("Out = in ? false", literal.getLiteral(),TEST_STRING);
+        assertEquals("Out = in ? false", literal.getLiteral(), TEST_STRING);
     }
 }

@@ -36,37 +36,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLBinaryOperandAxiomTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-
-public class OWLObjectSubPropertyAxiomTestCase extends AbstractOWLBinaryOperandAxiomTestCase<OWLObjectProperty, OWLObjectProperty> {
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
+public class OWLObjectSubPropertyAxiomTestCase extends
+        AbstractOWLBinaryOperandAxiomTestCase<OWLObjectProperty, OWLObjectProperty> {
     @Override
-	protected OWLObjectProperty createLeftOperand() throws Exception {
+    protected OWLObjectProperty createLeftOperand() throws Exception {
         return createOWLObjectProperty();
     }
 
-
     @Override
-	protected OWLObjectProperty createRightOperand() throws Exception {
+    protected OWLObjectProperty createRightOperand() throws Exception {
         return createOWLObjectProperty();
     }
 
-
     @Override
-	protected OWLAxiom createAxiom(OWLObjectProperty leftOperand, OWLObjectProperty rightOperand) throws Exception {
+    protected OWLAxiom createAxiom(OWLObjectProperty leftOperand,
+            OWLObjectProperty rightOperand) throws Exception {
         return getFactory().getOWLSubObjectPropertyOfAxiom(leftOperand, rightOperand);
     }
 }

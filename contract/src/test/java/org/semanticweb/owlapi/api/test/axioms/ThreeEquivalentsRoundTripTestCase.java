@@ -55,8 +55,8 @@ public class ThreeEquivalentsRoundTripTestCase {
         ontology.getOWLOntologyManager().addAxiom(ontology, axiomToAdd);
         String saved = saveOntology(ontology);
         // when
-        ontology = Factory.getManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(saved));
+        ontology = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(saved));
         // then
         saved = saveOntology(ontology);
         assertTrue(ontology.containsObjectPropertyInSignature(p.getIRI()));
@@ -65,8 +65,7 @@ public class ThreeEquivalentsRoundTripTestCase {
         assertTrue(ontology.containsClassInSignature(C.getIRI()));
     }
 
-    private String saveOntology(OWLOntology o) throws
-    OWLOntologyStorageException {
+    private String saveOntology(OWLOntology o) throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o, target);
         return target.toString();

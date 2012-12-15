@@ -16,12 +16,8 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * Date: 22/10/2012 */
 @SuppressWarnings("javadoc")
 public class SetOntologyIDDataTestCase {
-
-
     private OWLOntology mockOntology;
-
     private OWLOntologyID mockOntologyID;
-
 
     @Before
     public void setUp() {
@@ -29,15 +25,13 @@ public class SetOntologyIDDataTestCase {
         mockOntologyID = new OWLOntologyID();
     }
 
-
-    /**
-     * Creates SetOntologyIDData with the value of the {@code mockDeclaration} field as a parameter.
-     * @return The freshly created SetOntologyIDData
-     */
+    /** Creates SetOntologyIDData with the value of the {@code mockDeclaration}
+     * field as a parameter.
+     * 
+     * @return The freshly created SetOntologyIDData */
     private SetOntologyIDData createData() {
         return new SetOntologyIDData(mockOntologyID);
     }
-
 
     @Test(expected = NullPointerException.class)
     public void testNewWithNullArgs() {
@@ -51,7 +45,6 @@ public class SetOntologyIDDataTestCase {
         assertEquals(data1, data2);
         assertEquals(data1.hashCode(), data2.hashCode());
     }
-
 
     @Test
     public void testGettersReturnNotNull() {

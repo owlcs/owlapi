@@ -44,7 +44,7 @@ public class MultipleOntologyLoadsTest {
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testMultipleVersionLoadChangeIRI() throws OWLOntologyCreationException,
-    OWLOntologyChangeException, OWLParserException, IOException {
+            OWLOntologyChangeException, OWLParserException, IOException {
         // given
         ReaderDocumentSource initialDocumentSource = getDocumentSource();
         OWLOntologyID expected = new OWLOntologyID(CREATE0139, CREATEv2);
@@ -62,7 +62,6 @@ public class MultipleOntologyLoadsTest {
         }
     }
 
-
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testMultipleVersionLoadNoChange() throws Exception {
         // given
@@ -75,12 +74,13 @@ public class MultipleOntologyLoadsTest {
         // when
         try {
             manager.createOntology(secondUniqueOWLOntologyID);
-        } catch (final OWLOntologyAlreadyExistsException e) {
+        } catch (OWLOntologyAlreadyExistsException e) {
             // then
             Assert.assertEquals(expected, e.getOntologyID());
             throw e;
         }
     }
+
     @Test
     public void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
         // given
@@ -177,5 +177,4 @@ public class MultipleOntologyLoadsTest {
                 initialInputReader, EXAMPLE);
         return documentSource;
     }
-
 }

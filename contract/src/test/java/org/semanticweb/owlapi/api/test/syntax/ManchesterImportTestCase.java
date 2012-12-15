@@ -13,12 +13,11 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 @SuppressWarnings("javadoc")
-
 public class ManchesterImportTestCase {
-    final String str = "http://owlapitestontologies.com/thesuperont";
-    final String superpath = "/imports/thesuperont.omn";
-    final String subpath = "/imports/thesubont.omn";
-    public static final File RESOURCES;
+    private static final String str = "http://owlapitestontologies.com/thesuperont";
+    private static final String superpath = "/imports/thesuperont.omn";
+    private static final String subpath = "/imports/thesubont.omn";
+    private static final File RESOURCES;
     static {
         File f = new File("contract/src/test/resources/");
         if (f.exists()) {
@@ -30,7 +29,7 @@ public class ManchesterImportTestCase {
             } else {
                 RESOURCES = null;
                 System.out
-                .println("ManchesterImportTestCase: NO RESOURCE FOLDER ACCESSIBLE");
+                        .println("ManchesterImportTestCase: NO RESOURCE FOLDER ACCESSIBLE");
             }
         }
     }
@@ -44,7 +43,7 @@ public class ManchesterImportTestCase {
 
     private OWLOntologyManager getManager() {
         OWLOntologyManager manager = Factory.getManager();
-        final AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
         manager.addIRIMapper(mapper);
         return manager;
     }
@@ -52,7 +51,7 @@ public class ManchesterImportTestCase {
     @Test
     public void testRemoteIsParseable() throws Exception {
         OWLOntologyManager manager = getManager();
-        final IRI iri = IRI.create(str);
+        IRI iri = IRI.create(str);
         OWLOntology ontology = manager.loadOntology(iri);
         assertEquals(1, ontology.getAxioms().size());
         assertEquals(ontology.getOntologyID().getOntologyIRI(), iri);

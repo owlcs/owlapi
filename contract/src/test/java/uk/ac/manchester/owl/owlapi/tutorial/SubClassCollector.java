@@ -56,25 +56,25 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
  * Date: 24-April-2007<br>
  * <br> */
 @SuppressWarnings({ "javadoc" })
- public class SubClassCollector extends OWLAxiomVisitorAdapter {
-     /* Collected axioms */
-     private Set<OWLSubClassOfAxiom> axioms;
-     /* Class to look for */
-     private OWLClass clazz;
+public class SubClassCollector extends OWLAxiomVisitorAdapter {
+    /* Collected axioms */
+    private final Set<OWLSubClassOfAxiom> axioms;
+    /* Class to look for */
+    private final OWLClass clazz;
 
-     public SubClassCollector(OWLClass clazz) {
-         axioms = new HashSet<OWLSubClassOfAxiom>();
-         this.clazz = clazz;
-     }
+    public SubClassCollector(OWLClass clazz) {
+        axioms = new HashSet<OWLSubClassOfAxiom>();
+        this.clazz = clazz;
+    }
 
-     @Override
-     public void visit(OWLSubClassOfAxiom axiom) {
-         if (axiom.getSubClass().equals(clazz)) {
-             axioms.add(axiom);
-         }
-     }
+    @Override
+    public void visit(OWLSubClassOfAxiom axiom) {
+        if (axiom.getSubClass().equals(clazz)) {
+            axioms.add(axiom);
+        }
+    }
 
-     public Set<OWLSubClassOfAxiom> getAxioms() {
-         return axioms;
-     }
- }
+    public Set<OWLSubClassOfAxiom> getAxioms() {
+        return axioms;
+    }
+}

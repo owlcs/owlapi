@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import java.util.Set;
@@ -45,25 +44,18 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLNaryOperandsObject
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-
-public class OWLDisjointObjectPropertiesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLObjectProperty> {
-
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
+public class OWLDisjointObjectPropertiesAxiomTestCase extends
+        AbstractOWLNaryOperandsObjectTestCase<OWLObjectProperty> {
     @Override
-	protected OWLObject createObject(Set<OWLObjectProperty> operands) throws Exception {
+    protected OWLObject createObject(Set<OWLObjectProperty> operands) throws Exception {
         return getFactory().getOWLDisjointObjectPropertiesAxiom(operands);
     }
 
-
     @Override
-	protected OWLObjectProperty createOperand() throws Exception {
+    protected OWLObjectProperty createOperand() throws Exception {
         return createOWLObjectProperty();
     }
 }

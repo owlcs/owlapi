@@ -37,6 +37,7 @@
  * limitations under the License.
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
+
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
@@ -49,10 +50,10 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class TestOWLClassExpressionsAndObjectOneOfTestCase {
     @Test
     public void testAnonymous() throws Exception {
-        String text = "Prefix(:=<http://example.org/#>)\n " +
-                "Ontology(<http://example.org/>\n " +
-                "SubClassOf(\n:man\n ObjectSomeValuesFrom(\n :like\n " +
-                "ObjectOneOf(\n_:c\n)\n)\n)\n\n ClassAssertion(\n:car\n_:c\n)\n)";
+        String text = "Prefix(:=<http://example.org/#>)\n "
+                + "Ontology(<http://example.org/>\n "
+                + "SubClassOf(\n:man\n ObjectSomeValuesFrom(\n :like\n "
+                + "ObjectOneOf(\n_:c\n)\n)\n)\n\n ClassAssertion(\n:car\n_:c\n)\n)";
         StringDocumentSource input = new StringDocumentSource(text);
         OWLOntologyManager m = Factory.getManager();
         OWLOntology o = m.loadOntologyFromOntologyDocument(input);

@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.ontology;
+
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -49,22 +49,20 @@ import org.semanticweb.owlapi.model.IRI;
  * Date: 09/11/2011 */
 @SuppressWarnings("javadoc")
 public class IRICharSequenceTestCase {
-
     @Test
     public void testCharAt() {
         String str = "http://owlapi.sourceforge.net#ABC";
         IRI iri = IRI.create(str);
-        for(int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             assertEquals(str.charAt(i), iri.charAt(i));
         }
     }
-
 
     @Test
     public void testCharAtNoRemainder() {
         String str = "http://owlapi.sourceforge.net";
         IRI iri = IRI.create(str);
-        for(int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             assertEquals(str.charAt(i), iri.charAt(i));
         }
     }
@@ -73,7 +71,7 @@ public class IRICharSequenceTestCase {
     public void testCharAtNoPrefix() {
         String str = "#ABC";
         IRI iri = IRI.create(str);
-        for(int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             assertEquals(str.charAt(i), iri.charAt(i));
         }
     }
@@ -82,8 +80,8 @@ public class IRICharSequenceTestCase {
     public void testSubSequence() {
         String str = "http://owlapi.sourceforge.net#ABC";
         IRI iri = IRI.create(str);
-        for(int i = 0; i < str.length(); i++) {
-            for(int j = i; j < str.length(); j++) {
+        for (int i = 0; i < str.length(); i++) {
+            for (int j = i; j < str.length(); j++) {
                 assertEquals(str.subSequence(i, j), iri.subSequence(i, j));
             }
         }
@@ -95,7 +93,6 @@ public class IRICharSequenceTestCase {
         IRI iri = IRI.create(str);
         assertEquals(str.length(), iri.length());
     }
-
 
     @Test
     public void testLengthNoRemainder() {
@@ -110,5 +107,4 @@ public class IRICharSequenceTestCase {
         IRI iri = IRI.create(str);
         assertEquals(str.length(), iri.length());
     }
-
 }

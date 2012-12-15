@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.ontology;
 
 import org.junit.Test;
@@ -49,26 +48,22 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 22-Dec-2009
- */
+ * Date: 22-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
-
     @Test(expected = OWLOntologyRenameException.class)
     public void testRenameToExistingOntology() throws Exception {
         OWLOntologyManager manager = getManager();
         IRI ontologyAIRI = IRI.create("http://www.semanticweb.org/ontologies/ontologyA");
         OWLOntology onto = manager.createOntology(ontologyAIRI);
-        final OWLDataFactory df = manager.getOWLDataFactory();
+        OWLDataFactory df = manager.getOWLDataFactory();
         manager.addAxiom(onto, df.getOWLDeclarationAxiom(df.getOWLClass(IRI
                 .create("urn:test:testclass"))));
         IRI ontologyBIRI = IRI.create("http://www.semanticweb.org/ontologies/ontologyB");
         OWLOntology ontologyB = manager.createOntology(ontologyBIRI);
         manager.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(ontologyAIRI)));
     }
-
 }

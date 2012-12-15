@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import java.util.Collections;
@@ -55,25 +54,26 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 28-Jun-2009
- */
-
+ * Date: 28-Jun-2009 */
 public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
-
     @Override
-	protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         OWLDataFactory factory = getFactory();
         OWLDatatype dt = factory.getOWLDatatype(IRI.create("file:/c/test.owlapi#SSN"));
-        OWLFacetRestriction fr = factory.getOWLFacetRestriction(OWLFacet.PATTERN, factory.getOWLLiteral("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
-        OWLDataRange dr = factory.getOWLDatatypeRestriction(factory.getOWLDatatype(IRI.create("http://www.w3.org/2001/XMLSchema#string")), fr);
-        OWLDataIntersectionOf disj1 = factory.getOWLDataIntersectionOf(factory.getOWLDataComplementOf(dr), dt); // here I negate dr
-        OWLDataIntersectionOf disj2 = factory.getOWLDataIntersectionOf(factory.getOWLDataComplementOf(dt), dr); // here I negate dt
+        OWLFacetRestriction fr = factory.getOWLFacetRestriction(OWLFacet.PATTERN,
+                factory.getOWLLiteral("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
+        OWLDataRange dr = factory.getOWLDatatypeRestriction(factory.getOWLDatatype(IRI
+                .create("http://www.w3.org/2001/XMLSchema#string")), fr);
+        OWLDataIntersectionOf disj1 = factory.getOWLDataIntersectionOf(
+                factory.getOWLDataComplementOf(dr), dt);
+        // here I negate dr
+        OWLDataIntersectionOf disj2 = factory.getOWLDataIntersectionOf(
+                factory.getOWLDataComplementOf(dt), dr);
+        // here I negate dt
         OWLDataUnionOf union = factory.getOWLDataUnionOf(disj1, disj2);
-        //System.out.println(union.toString());
         OWLDataProperty prop = getOWLDataProperty("prop");
         OWLDataPropertyRangeAxiom ax = factory.getOWLDataPropertyRangeAxiom(prop, union);
         return Collections.singleton(ax);

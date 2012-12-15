@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import java.util.HashSet;
@@ -53,18 +52,15 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 28-May-2009
- */
-
+ * Date: 28-May-2009 */
 public class HasKeyAnnotatedTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
     @Override
-	protected Set<? extends OWLAxiom> createAxioms() {
-        OWLAnnotationProperty ap = getFactory().getOWLAnnotationProperty(IRI.create("http://annotation.com/annos#prop"));
+    protected Set<? extends OWLAxiom> createAxioms() {
+        OWLAnnotationProperty ap = getFactory().getOWLAnnotationProperty(
+                IRI.create("http://annotation.com/annos#prop"));
         OWLLiteral val = getFactory().getOWLLiteral("Test", "");
         OWLAnnotation anno = getFactory().getOWLAnnotation(ap, val);
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
@@ -73,7 +69,6 @@ public class HasKeyAnnotatedTestCase extends AbstractAxiomsRoundTrippingTestCase
         OWLObjectProperty p1 = getOWLObjectProperty("p1");
         OWLObjectProperty p2 = getOWLObjectProperty("p2");
         OWLObjectProperty p3 = getOWLObjectProperty("p3");
-
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         props.add(p1);
         props.add(p2);

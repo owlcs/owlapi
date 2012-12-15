@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.*;
@@ -46,16 +45,10 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
-
     @Override
     @Test
     public void testCreation() throws Exception {
@@ -63,7 +56,6 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
         OWLObjectComplementOf not = getFactory().getOWLObjectComplementOf(operand);
         assertNotNull(not);
     }
-
 
     @Override
     @Test
@@ -74,7 +66,6 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
         assertEquals(notA, notB);
     }
 
-
     @Override
     @Test
     public void testEqualsNegative() throws Exception {
@@ -84,7 +75,6 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
         OWLObjectComplementOf notB = getFactory().getOWLObjectComplementOf(operandB);
         assertNotEquals(notA, notB);
     }
-
 
     @Override
     @Test

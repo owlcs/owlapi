@@ -16,9 +16,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * Date: 22/10/2012 */
 @SuppressWarnings("javadoc")
 public class RemoveAxiomDataTestCase {
-
     private OWLAxiom mockAxiom;
-
     private OWLOntology mockOntology;
 
     @Before
@@ -26,12 +24,12 @@ public class RemoveAxiomDataTestCase {
         mockAxiom = mock(OWLAxiom.class);
         mockOntology = mock(OWLOntology.class);
     }
-    
+
     @Test(expected = NullPointerException.class)
     public void testNewWithNullArgs() {
         new RemoveAxiomData(null);
     }
-    
+
     @Test
     public void testEquals() {
         RemoveAxiomData data1 = new RemoveAxiomData(mockAxiom);
@@ -54,13 +52,11 @@ public class RemoveAxiomDataTestCase {
         assertEquals(change.getOntology(), mockOntology);
         assertEquals(change.getAxiom(), mockAxiom);
     }
-    
+
     @Test
     public void testRoundTripChange() {
         RemoveAxiomData data = new RemoveAxiomData(mockAxiom);
         RemoveAxiom change = new RemoveAxiom(mockOntology, mockAxiom);
         assertEquals(data, change.getChangeData());
     }
-
-
 }

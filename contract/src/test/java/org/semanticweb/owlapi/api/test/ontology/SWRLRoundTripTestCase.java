@@ -31,14 +31,12 @@ public class SWRLRoundTripTestCase {
     public void shouldDoCompleteRoundtrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
         String NS = "urn:test";
-
         OWLDataFactory factory = Factory.getFactory();
         OWLClass A = factory.getOWLClass(IRI.create(NS + "#A"));
         OWLDataProperty P = factory.getOWLDataProperty(IRI.create(NS + "#P"));
         SWRLVariable X = factory.getSWRLVariable(IRI.create(NS + "#X"));
         SWRLVariable Y = factory.getSWRLVariable(IRI.create(NS + "#Y"));
-        OWLOntology ontology = Factory.getManager().createOntology(
-                IRI.create(NS));
+        OWLOntology ontology = Factory.getManager().createOntology(IRI.create(NS));
         Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
         body.add(factory.getSWRLDataPropertyAtom(P, X, Y));
         body.add(factory.getSWRLDataRangeAtom(
@@ -49,14 +47,12 @@ public class SWRLRoundTripTestCase {
         ontology.getOWLOntologyManager().addAxiom(ontology, rule);
         StringDocumentTarget t = new StringDocumentTarget();
         OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
-        // format.setPrefix(":", NS);
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto1 = t.toString();
-        ontology = Factory.getManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(t.toString()));
+        ontology = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(t.toString()));
         t = new StringDocumentTarget();
         format = new OWLXMLOntologyFormat();
-        // format.setPrefix(":", NS);
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto2 = t.toString();
         assertEquals(onto1, onto2);
@@ -72,8 +68,7 @@ public class SWRLRoundTripTestCase {
         OWLDataProperty P = factory.getOWLDataProperty(IRI.create(NS + "#P"));
         SWRLVariable X = factory.getSWRLVariable(IRI.create(NS + "#X"));
         SWRLVariable Y = factory.getSWRLVariable(IRI.create(NS + "#Y"));
-        OWLOntology ontology = Factory.getManager().createOntology(
-                IRI.create(NS));
+        OWLOntology ontology = Factory.getManager().createOntology(IRI.create(NS));
         Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
         body.add(factory.getSWRLDataPropertyAtom(P, X, Y));
         body.add(factory.getSWRLDataRangeAtom(
@@ -86,8 +81,8 @@ public class SWRLRoundTripTestCase {
         ManchesterOWLSyntaxOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto1 = t.toString();
-        ontology = Factory.getManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(t.toString()));
+        ontology = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(t.toString()));
         t = new StringDocumentTarget();
         format = new ManchesterOWLSyntaxOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);

@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.dataproperties;
+
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -48,30 +48,24 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
-public class OWLEquivalentDataPropertiesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLDataProperty> {
-
+public class OWLEquivalentDataPropertiesAxiomTestCase extends
+        AbstractOWLNaryOperandsObjectTestCase<OWLDataProperty> {
     public void testAsSubAxioms() throws Exception {
         Set<OWLDataProperty> operands = new HashSet<OWLDataProperty>();
         operands.add(createOperand());
         operands.add(createOperand());
         OWLEquivalentDataPropertiesAxiom objA = (OWLEquivalentDataPropertiesAxiom) createObject(operands);
-        assertTrue(objA.asSubDataPropertyOfAxioms().size()==2);
-
+        assertTrue(objA.asSubDataPropertyOfAxioms().size() == 2);
     }
 
     @Override
     protected OWLObject createObject(Set<OWLDataProperty> operands) throws Exception {
         return getFactory().getOWLEquivalentDataPropertiesAxiom(operands);
     }
-
 
     @Override
     protected OWLDataProperty createOperand() throws Exception {

@@ -121,7 +121,7 @@ public class DLQueryExample {
         while (true) {
             // Prompt the user to enter a class expression
             System.out
-            .println("Please type a class expression in Manchester Syntax and press Enter (or press x to exit):");
+                    .println("Please type a class expression in Manchester Syntax and press Enter (or press x to exit):");
             System.out.println("");
             String classExpression = readInput();
             // Check for exit condition
@@ -142,7 +142,7 @@ public class DLQueryExample {
         return br.readLine();
     }
 
-    private static OWLReasoner createReasoner(OWLOntology rootOntology) {
+    private static OWLReasoner createReasoner(final OWLOntology rootOntology) {
         // We need to create an instance of OWLReasoner. An OWLReasoner provides
         // the basic query functionality that we need, for example the ability
         // obtain the subclasses of a class etc. To do this we use a reasoner
@@ -156,8 +156,8 @@ public class DLQueryExample {
 /** This example shows how to perform a "dlquery". The DLQuery view/tab in
  * Protege 4 works like this. */
 class DLQueryEngine {
-    private OWLReasoner reasoner;
-    private DLQueryParser parser;
+    private final OWLReasoner reasoner;
+    private final DLQueryParser parser;
 
     /** Constructs a DLQueryEngine. This will answer "DL queries" using the
      * specified reasoner. A short form provider specifies how entities are
@@ -262,8 +262,8 @@ class DLQueryEngine {
 }
 
 class DLQueryParser {
-    private OWLOntology rootOntology;
-    private BidirectionalShortFormProvider bidiShortFormProvider;
+    private final OWLOntology rootOntology;
+    private final BidirectionalShortFormProvider bidiShortFormProvider;
 
     /** Constructs a DLQueryParser using the specified ontology and short form
      * provider to map entity IRIs to short names.
@@ -311,8 +311,8 @@ class DLQueryParser {
 }
 
 class DLQueryPrinter {
-    private DLQueryEngine dlQueryEngine;
-    private ShortFormProvider shortFormProvider;
+    private final DLQueryEngine dlQueryEngine;
+    private final ShortFormProvider shortFormProvider;
 
     /** @param engine
      *            the engine
@@ -350,7 +350,7 @@ class DLQueryPrinter {
                 Set<OWLNamedIndividual> individuals = dlQueryEngine.getInstances(
                         classExpression, true);
                 printEntities("Instances", individuals, sb);
-                System.out.println(sb.toString());
+                // System.out.println(sb.toString());
             } catch (ParserException e) {
                 System.out.println(e.getMessage());
             }

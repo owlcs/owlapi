@@ -59,8 +59,7 @@ public class ContractMansyntaxrendererTest {
 
     public void shouldTestManchesterOWLSyntaxFrameRenderer() throws Exception {
         ManchesterOWLSyntaxFrameRenderer testSubject0 = new ManchesterOWLSyntaxFrameRenderer(
-                Utils.mockSet(Utils.getMockOntology()),
- mock(Writer.class),
+                Utils.mockSet(Utils.getMockOntology()), mock(Writer.class),
                 mock(ShortFormProvider.class));
         ManchesterOWLSyntaxFrameRenderer testSubject1 = new ManchesterOWLSyntaxFrameRenderer(
                 Utils.getMockOntology(), mock(Writer.class),

@@ -410,10 +410,10 @@ public class ContractOwlapi_2Test {
             private static final long serialVersionUID = 30402L;
 
             @Override
-            public void accept(final OWLAxiomVisitor visitor) {}
+            public void accept(OWLAxiomVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLAxiomVisitorEx<O> visitor) {
+            public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
                 return null;
             }
 
@@ -423,7 +423,7 @@ public class ContractOwlapi_2Test {
             }
 
             @Override
-            public OWLAxiom getAnnotatedAxiom(final Set<OWLAnnotation> annotations) {
+            public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
                 return this;
             }
 
@@ -433,15 +433,15 @@ public class ContractOwlapi_2Test {
             }
 
             @Override
-            public void accept(final OWLObjectVisitor visitor) {}
+            public void accept(OWLObjectVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
+            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
             @Override
-            protected int compareObjectOfSameType(final OWLObject object) {
+            protected int compareObjectOfSameType(OWLObject object) {
                 return 0;
             }
         };
@@ -1430,10 +1430,10 @@ public class ContractOwlapi_2Test {
             private static final long serialVersionUID = 30402L;
 
             @Override
-            public void accept(final OWLAxiomVisitor visitor) {}
+            public void accept(OWLAxiomVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLAxiomVisitorEx<O> visitor) {
+            public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
                 return null;
             }
 
@@ -1443,7 +1443,7 @@ public class ContractOwlapi_2Test {
             }
 
             @Override
-            public OWLAxiom getAnnotatedAxiom(final Set<OWLAnnotation> annotations) {
+            public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
                 return this;
             }
 
@@ -1453,15 +1453,15 @@ public class ContractOwlapi_2Test {
             }
 
             @Override
-            public void accept(final OWLObjectVisitor visitor) {}
+            public void accept(OWLObjectVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
+            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
             @Override
-            protected int compareObjectOfSameType(final OWLObject object) {
+            protected int compareObjectOfSameType(OWLObject object) {
                 return 0;
             }
         };
@@ -1529,23 +1529,23 @@ public class ContractOwlapi_2Test {
             }
 
             @Override
-            public void accept(final OWLIndividualVisitor visitor) {}
+            public void accept(OWLIndividualVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLIndividualVisitorEx<O> visitor) {
+            public <O> O accept(OWLIndividualVisitorEx<O> visitor) {
                 return null;
             }
 
             @Override
-            public void accept(final OWLObjectVisitor visitor) {}
+            public void accept(OWLObjectVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
+            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
             @Override
-            protected int compareObjectOfSameType(final OWLObject object) {
+            protected int compareObjectOfSameType(OWLObject object) {
                 return 0;
             }
         };
@@ -1615,10 +1615,10 @@ public class ContractOwlapi_2Test {
             private static final long serialVersionUID = 30402L;
 
             @Override
-            public void accept(final OWLAxiomVisitor visitor) {}
+            public void accept(OWLAxiomVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLAxiomVisitorEx<O> visitor) {
+            public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
                 return null;
             }
 
@@ -1628,7 +1628,7 @@ public class ContractOwlapi_2Test {
             }
 
             @Override
-            public OWLAxiom getAnnotatedAxiom(final Set<OWLAnnotation> annotations) {
+            public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
                 return this;
             }
 
@@ -1638,10 +1638,10 @@ public class ContractOwlapi_2Test {
             }
 
             @Override
-            public void accept(final OWLObjectVisitor visitor) {}
+            public void accept(OWLObjectVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
+            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
@@ -1888,10 +1888,10 @@ public class ContractOwlapi_2Test {
             private static final long serialVersionUID = 30402L;
 
             @Override
-            public void accept(final OWLAxiomVisitor visitor) {}
+            public void accept(OWLAxiomVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLAxiomVisitorEx<O> visitor) {
+            public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
                 return null;
             }
 
@@ -1901,7 +1901,7 @@ public class ContractOwlapi_2Test {
             }
 
             @Override
-            public OWLAxiom getAnnotatedAxiom(final Set<OWLAnnotation> annotations) {
+            public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
                 return this;
             }
 
@@ -1911,15 +1911,15 @@ public class ContractOwlapi_2Test {
             }
 
             @Override
-            public void accept(final OWLObjectVisitor visitor) {}
+            public void accept(OWLObjectVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
+            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
             @Override
-            protected int compareObjectOfSameType(final OWLObject object) {
+            protected int compareObjectOfSameType(OWLObject object) {
                 return 0;
             }
         };

@@ -36,24 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 22-Jul-2008<br><br>
- */
-
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Information Management Group<br>
+ * Date: 22-Jul-2008<br>
+ * <br> */
 public class InversePropertiesAxiomTestCase extends AbstractRoundTrippingTestCase {
-
     @Override
-	protected OWLOntology createOntology() {
-            OWLOntology ont = getOWLOntology("ont");
-            getManager().addAxiom(ont, getFactory().getOWLInverseObjectPropertiesAxiom(getOWLObjectProperty("p"), getOWLObjectProperty("q")));
-            return ont;
+    protected OWLOntology createOntology() {
+        OWLOntology ont = getOWLOntology("ont");
+        getManager().addAxiom(
+                ont,
+                getFactory().getOWLInverseObjectPropertiesAxiom(
+                        getOWLObjectProperty("p"), getOWLObjectProperty("q")));
+        return ont;
     }
 }

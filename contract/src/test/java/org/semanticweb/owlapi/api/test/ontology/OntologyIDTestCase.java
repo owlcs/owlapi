@@ -8,7 +8,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
 @SuppressWarnings("javadoc")
-
 public class OntologyIDTestCase {
     @Test
     public void shouldFindSameHashCode() {
@@ -40,8 +39,9 @@ public class OntologyIDTestCase {
     @Ignore
     // this is an experiment, if the manager were to keep all versions of an
     // ontology together in a multimap or something
-    @Test
-    public void shouldFindSameHashCodeForIDs3() {
+            @Test
+            public
+            void shouldFindSameHashCodeForIDs3() {
         IRI iri1 = IRI.create("http://test.it/check1");
         IRI iri2 = IRI.create("http://test.it/check1");
         assertEquals(iri1.hashCode(), iri2.hashCode());

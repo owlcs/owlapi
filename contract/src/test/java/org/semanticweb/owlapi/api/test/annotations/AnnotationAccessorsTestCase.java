@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.annotations;
+
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -53,24 +53,20 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 01-Jul-2010
- */
-
+ * Date: 01-Jul-2010 */
 @SuppressWarnings("javadoc")
 public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
-
-    private static final IRI SUBJECT = IRI.create("http://owlapi.sourceforge.net/ontologies/test#X");
+    private static final IRI SUBJECT = IRI
+            .create("http://owlapi.sourceforge.net/ontologies/test#X");
 
     private OWLAnnotationAssertionAxiom createAnnotationAssertionAxiom() {
         OWLAnnotationProperty prop = getOWLAnnotationProperty("prop");
         OWLAnnotationValue value = getFactory().getOWLLiteral("value");
         return getFactory().getOWLAnnotationAssertionAxiom(prop, SUBJECT, value);
     }
-
 
     @Test
     public void testClassAccessor() {

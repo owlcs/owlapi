@@ -51,15 +51,15 @@ public class MissingDeclarationRoundTripTestCase {
     private OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager.createOntology(IRI.create(NS));
-        OWLAnnotation annotation = factory.getOWLAnnotation(P, factory.getOWLLiteral("Hello"));
-        OWLAnnotationAssertionAxiom axiom = factory.getOWLAnnotationAssertionAxiom(A.getIRI(), annotation);
+        OWLAnnotation annotation = factory.getOWLAnnotation(P,
+                factory.getOWLLiteral("Hello"));
+        OWLAnnotationAssertionAxiom axiom = factory.getOWLAnnotationAssertionAxiom(
+                A.getIRI(), annotation);
         manager.addAxiom(ontology, axiom);
         return ontology;
     }
 
-
-    public String saveOntology(OWLOntology ontology) throws
-    OWLOntologyStorageException {
+    public String saveOntology(OWLOntology ontology) throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
@@ -75,6 +75,4 @@ public class MissingDeclarationRoundTripTestCase {
         return manager.loadOntologyFromOntologyDocument(new StringDocumentSource(o),
                 config);
     }
-
-
 }

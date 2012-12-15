@@ -12,10 +12,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-
 public class ManchesterOWLSyntaxSWRLDataRangeTestCase {
-
-    private String inputManSyntax = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
+    private final String inputManSyntax = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
             + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
             + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
             + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
@@ -43,15 +41,14 @@ public class ManchesterOWLSyntaxSWRLDataRangeTestCase {
 
     @Test
     public void shouldParseRuleInManSyntax() throws OWLOntologyCreationException,
-    OWLOntologyStorageException {
-        OWLOntology o = Factory.getManager()
-                .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(inputManSyntax));
+            OWLOntologyStorageException {
+        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(inputManSyntax));
         StringDocumentTarget t = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
-        OWLOntology o1 = Factory.getManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(t.toString()));
+        OWLOntology o1 = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(t.toString()));
         o1.getOWLOntologyManager().saveOntology(o1,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());

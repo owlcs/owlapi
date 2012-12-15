@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.individuals;
 
 import java.util.HashSet;
@@ -45,19 +44,18 @@ import java.util.Set;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 02-Jul-2009
- */
-
-public class DifferentIndividualsPairwiseAnonymousTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
+ * Date: 02-Jul-2009 */
+public class DifferentIndividualsPairwiseAnonymousTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
-	protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLDifferentIndividualsAxiom(getFactory().getOWLAnonymousIndividual(), getFactory().getOWLAnonymousIndividual()));
+        axioms.add(getFactory().getOWLDifferentIndividualsAxiom(
+                getFactory().getOWLAnonymousIndividual(),
+                getFactory().getOWLAnonymousIndividual()));
         return axioms;
     }
 }

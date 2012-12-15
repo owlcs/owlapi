@@ -177,7 +177,6 @@ public class TutorialSnippets {
         // These are the named classes referenced by axioms in the ontology.
         for (OWLClass cls : o.getClassesInSignature()) {
             // use the class for whatever purpose
-            // System.out.println(cls);
         }
     }
 
@@ -215,8 +214,7 @@ public class TutorialSnippets {
         // the manager will look up an ontology IRI by checking
         // localFolder first for a local copy, checking its subfolders as well
         m.addIRIMapper(new AutoIRIMapper(localFolder, true));
-        // Now create the ontology - we use the ontology IRI (not the physical
-        // URI)
+        // Create the ontology - we use the ontology IRI (not the physical URI)
         OWLOntology o = m.createOntology(example_save_iri);
         // save the ontology to its physical location - documentIRI
         m.saveOntology(o);
@@ -387,10 +385,8 @@ public class TutorialSnippets {
         // leave owl:Nothing out
         Set<OWLClass> unsatisfiable = bottomNode.getEntitiesMinusBottom();
         if (!unsatisfiable.isEmpty()) {
-            // System.out.println("The following classes are unsatisfiable: ");
             for (OWLClass cls : unsatisfiable) {
                 // deal with unsatisfiable classes
-                // System.out.println("    " + cls);
             }
         }
     }
@@ -420,8 +416,6 @@ public class TutorialSnippets {
             NodeSet<OWLClass> subClasses = reasoner.getSubClasses(c, true);
             for (OWLClass subClass : subClasses.getFlattened()) {
                 // process all subclasses no matter what node they're in
-                // System.out.println(labelFor(subClass, o) + "\tsubclass of\t"
-                // + labelFor(c, o));
             }
         }
     }
@@ -451,16 +445,12 @@ public class TutorialSnippets {
             // individuals
             NodeSet<OWLNamedIndividual> instances = reasoner.getInstances(c, true);
             for (OWLNamedIndividual i : instances.getFlattened()) {
-                // System.out.println(labelFor(i, o) + "\tinstance of\t" +
-                // labelFor(c, o));
                 // look up all property assertions
                 for (OWLObjectProperty op : o.getObjectPropertiesInSignature()) {
                     NodeSet<OWLNamedIndividual> petValuesNodeSet = reasoner
                             .getObjectPropertyValues(i, op);
                     for (OWLNamedIndividual value : petValuesNodeSet.getFlattened()) {
                         // use the value individuals
-                        // System.out.println(labelFor(i, o) + "\t" +
-                        // labelFor(op, o) + "\t" + labelFor(value, o));
                     }
                 }
             }
@@ -497,9 +487,9 @@ public class TutorialSnippets {
     /** Visits existential restrictions and collects the properties which are
      * restricted */
     private static class RestrictionVisitor extends OWLClassExpressionVisitorAdapter {
-        private Set<OWLClass> processedClasses;
-        private Set<OWLObjectPropertyExpression> restrictedProperties;
-        private Set<OWLOntology> onts;
+        private final Set<OWLClass> processedClasses;
+        private final Set<OWLObjectPropertyExpression> restrictedProperties;
+        private final Set<OWLOntology> onts;
 
         public RestrictionVisitor(Set<OWLOntology> onts) {
             restrictedProperties = new HashSet<OWLObjectPropertyExpression>();
@@ -630,7 +620,6 @@ public class TutorialSnippets {
         OWLOntologyWalkerVisitor<Object> visitor = new OWLOntologyWalkerVisitor<Object>(
                 walker) {
             @Override
-
             public Object visit(OWLObjectSomeValuesFrom desc) {
                 // Print out the restriction
                 // System.out.println(desc);
@@ -670,8 +659,7 @@ public class TutorialSnippets {
      *            The reasoner
      * @param cls
      *            The class expression */
-    private void printProperties(OWLOntology o,
-            OWLReasoner reasoner, OWLClass cls) {
+    private void printProperties(OWLOntology o, OWLReasoner reasoner, OWLClass cls) {
         if (!o.containsClassInSignature(cls.getIRI())) {
             throw new RuntimeException("Class not in signature of the ontology");
         }
@@ -782,7 +770,7 @@ public class TutorialSnippets {
         OWLDatatypeDefinitionAxiom datatypeDef = df.getOWLDatatypeDefinitionAxiom(df
                 .getOWLDatatype(IRI
                         .create("http://www.semanticweb.org/ontologies/dataranges#age")),
-                        integerGE18);
+                integerGE18);
         // Add the definition to our ontology
         m.addAxiom(o, datatypeDef);
         // Dump our ontology
@@ -835,7 +823,7 @@ public class TutorialSnippets {
     }
 
     class LabelExtractor extends OWLObjectVisitorExAdapter<String> implements
-    OWLAnnotationObjectVisitorEx<String> {
+            OWLAnnotationObjectVisitorEx<String> {
         @Override
         public String visit(OWLAnnotation annotation) {
             /*

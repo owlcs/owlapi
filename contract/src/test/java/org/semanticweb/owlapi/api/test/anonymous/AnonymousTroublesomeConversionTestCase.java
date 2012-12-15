@@ -36,51 +36,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.anonymous;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
  * Date: 30-Jul-2008<br>
- * <br>
- */
-
+ * <br> */
 public class AnonymousTroublesomeConversionTestCase extends
-		AbstractFileRoundTrippingTestCase {
-	@Override
-	protected String getFileName() {
-		return "extraBlankNodes.owl";
-	}
-@Override
-@Test
+        AbstractFileRoundTrippingTestCase {
+    @Override
+    protected String getFileName() {
+        return "extraBlankNodes.owl";
+    }
+
+    @Override
+    @Test
     public void testRDFXML() throws Exception {
-	// XXX roundtripping fails because of errors in the check code
-	//super.testRDFXML();
-}
-@Override
-@Test
+        // XXX roundtripping fails because of errors in the check code
+        // super.testRDFXML();
+    }
+
+    @Override
+    @Test
     public void testTurtle() throws Exception {
-	// XXX roundtripping fails because of errors in the check code
-	//super.testTurtle();
-}
+        // XXX roundtripping fails because of errors in the check code
+        // super.testTurtle();
+    }
 
-	@Override
-	@Test
-    public void testFunctionalSyntax() throws Exception {
-	}
+    @Override
+    @Test
+    public void testFunctionalSyntax() throws Exception {}
 
-	@Override
-	@Test
-    public void testManchesterOWLSyntax() throws Exception {
-	}
+    @Override
+    @Test
+    public void testManchesterOWLSyntax() throws Exception {}
 
-	@Override
-	@Test
-    public void testOWLXML() throws Exception {
-	}
+    @Override
+    @Test
+    public void testOWLXML() throws Exception {}
 }

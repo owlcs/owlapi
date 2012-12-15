@@ -16,20 +16,16 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
  * Date: 22/10/2012 */
 @SuppressWarnings("javadoc")
 public class RemoveOntologyAnnotationDataTestCase {
-
     private OWLAnnotation mockAnnotation;
-
     private OWLOntology mockOntology;
 
-
-    /**
-     * Creates RemoveOntologyAnnotationData with the value of the {@code mockAnnotation} field as a parameter.
-     * @return The freshly created RemoveOntologyAnnotationData
-     */
+    /** Creates RemoveOntologyAnnotationData with the value of the
+     * {@code mockAnnotation} field as a parameter.
+     * 
+     * @return The freshly created RemoveOntologyAnnotationData */
     private RemoveOntologyAnnotationData createData() {
         return new RemoveOntologyAnnotationData(mockAnnotation);
     }
-
 
     @Before
     public void setUp() {
@@ -49,7 +45,6 @@ public class RemoveOntologyAnnotationDataTestCase {
         assertEquals(data1, data2);
         assertEquals(data1.hashCode(), data2.hashCode());
     }
-
 
     @Test
     public void testGettersReturnNotNull() {
@@ -75,7 +70,8 @@ public class RemoveOntologyAnnotationDataTestCase {
     @Test
     public void testGetChangeData() {
         RemoveOntologyAnnotationData data = createData();
-        RemoveOntologyAnnotation change = new RemoveOntologyAnnotation(mockOntology, mockAnnotation);
+        RemoveOntologyAnnotation change = new RemoveOntologyAnnotation(mockOntology,
+                mockAnnotation);
         assertEquals(change.getChangeData(), data);
     }
 }

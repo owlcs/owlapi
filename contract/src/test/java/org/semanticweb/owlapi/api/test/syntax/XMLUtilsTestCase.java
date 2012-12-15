@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
@@ -50,12 +49,8 @@ import org.semanticweb.owlapi.io.XMLUtils;
  * Date: 23/09/2011 */
 @SuppressWarnings("javadoc")
 public class XMLUtilsTestCase {
-
-
     private static final int CODE_POINT = 0xEFFFF;
-
     private static final String CODE_POINT_STRING;
-
     static {
         StringBuilder sb = new StringBuilder();
         sb.appendCodePoint(CODE_POINT);
@@ -76,23 +71,23 @@ public class XMLUtilsTestCase {
     public void testIsQName() {
         assertTrue(XMLUtils.isQName(CODE_POINT_STRING + "p1:abc" + CODE_POINT_STRING));
         assertFalse(XMLUtils.isQName(CODE_POINT_STRING + "p1:2abc" + CODE_POINT_STRING));
-        assertFalse(XMLUtils.isQName("11" + CODE_POINT_STRING + ":abc" + CODE_POINT_STRING));
+        assertFalse(XMLUtils.isQName("11" + CODE_POINT_STRING + ":abc"
+                + CODE_POINT_STRING));
         assertFalse(XMLUtils.isQName("ab:c%20d"));
     }
 
-
     @Test
     public void testEndsWithNCName() {
-        assertEquals("abc" + CODE_POINT_STRING, XMLUtils.getNCNameSuffix("1abc" + CODE_POINT_STRING));
+        assertEquals("abc" + CODE_POINT_STRING,
+                XMLUtils.getNCNameSuffix("1abc" + CODE_POINT_STRING));
         assertTrue(XMLUtils.hasNCNameSuffix("1abc" + CODE_POINT_STRING));
-
-
         assertNull(XMLUtils.getNCNameSuffix(CODE_POINT_STRING + "p1:123"));
         assertFalse(XMLUtils.hasNCNameSuffix(CODE_POINT_STRING + "p1:123"));
-
-        assertEquals("ABC", XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology/ABC"));
-        assertEquals("ABC", XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology#ABC"));
-        assertEquals("ABC", XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology:ABC"));
-
+        assertEquals("ABC",
+                XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology/ABC"));
+        assertEquals("ABC",
+                XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology#ABC"));
+        assertEquals("ABC",
+                XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology:ABC"));
     }
 }

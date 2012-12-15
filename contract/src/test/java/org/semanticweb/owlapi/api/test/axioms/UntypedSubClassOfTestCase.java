@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.axioms;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
@@ -48,13 +48,12 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTest
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 21-Jan-2009
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 21-Jan-2009 */
 @SuppressWarnings("javadoc")
 public class UntypedSubClassOfTestCase extends AbstractFileRoundTrippingTestCase {
-
     @Test
     public void testContainsAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
@@ -63,8 +62,6 @@ public class UntypedSubClassOfTestCase extends AbstractFileRoundTrippingTestCase
         axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, clsB));
         assertEquals(axioms, getOnt().getAxioms());
     }
-
-
 
     @Override
     protected String getFileName() {

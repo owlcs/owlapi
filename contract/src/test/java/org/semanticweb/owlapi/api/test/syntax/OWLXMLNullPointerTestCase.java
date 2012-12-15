@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax;
 
 import org.junit.Test;
@@ -52,17 +51,13 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 01-Jul-2010
- */
+ * Date: 01-Jul-2010 */
 @SuppressWarnings("javadoc")
 public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
-
     private static final String NS = "http://www.co-ode.org/ontologies/pizza/pizza.owl";
-
     public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
 
     @Test
@@ -70,21 +65,26 @@ public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager.createOntology(IRI.create(NS));
         OWLDataFactory factory = manager.getOWLDataFactory();
-
         OWLAnonymousIndividual i = factory.getOWLAnonymousIndividual();
-        manager.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), i, factory.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION)));
-        manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(factory.getOWLClass(IRI.create(NS + "#CheeseyPizza")), i));
+        manager.addAxiom(
+                ontology,
+                factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), i,
+                        factory.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION)));
+        manager.addAxiom(
+                ontology,
+                factory.getOWLClassAssertionAxiom(
+                        factory.getOWLClass(IRI.create(NS + "#CheeseyPizza")), i));
         OWLIndividual j = factory.getOWLAnonymousIndividual();
-        manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(factory.getOWLClass(IRI.create(NS + "#CheeseTopping")), j));
-        manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(factory.getOWLObjectProperty(IRI.create(NS + "#hasTopping")), i, j));
-
+        manager.addAxiom(
+                ontology,
+                factory.getOWLClassAssertionAxiom(
+                        factory.getOWLClass(IRI.create(NS + "#CheeseTopping")), j));
+        manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(
+                factory.getOWLObjectProperty(IRI.create(NS + "#hasTopping")), i, j));
         StringDocumentTarget target = new StringDocumentTarget();
         manager.saveOntology(ontology, new OWLXMLOntologyFormat(), target);
-
         OWLOntologyManager manager2 = Factory.getManager();
         manager2.loadOntologyFromOntologyDocument(new StringDocumentSource(target
                 .toString()));
-
     }
-
 }

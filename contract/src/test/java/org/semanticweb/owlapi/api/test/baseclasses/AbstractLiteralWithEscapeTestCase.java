@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
@@ -49,18 +48,17 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 28/09/2011
- */
-public abstract class AbstractLiteralWithEscapeTestCase extends AbstractRoundTrippingTestCase {
-
+ * Date: 28/09/2011 */
+public abstract class AbstractLiteralWithEscapeTestCase extends
+        AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() throws Exception {
         OWLClass cls = Class(IRI.create("http://owlapi.sourceforge.net/ontology#A"));
-        OWLAnnotationProperty prop = AnnotationProperty(IRI.create("http://owlapi.sourceforge.net/ontology#prop"));
+        OWLAnnotationProperty prop = AnnotationProperty(IRI
+                .create("http://owlapi.sourceforge.net/ontology#prop"));
         OWLLiteral lit1 = Literal(getEscape());
         OWLLiteral lit2 = Literal("Start" + getEscape());
         OWLLiteral lit3 = Literal(getEscape() + "End");

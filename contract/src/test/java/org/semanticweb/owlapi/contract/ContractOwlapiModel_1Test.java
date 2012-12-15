@@ -162,10 +162,10 @@ public class ContractOwlapiModel_1Test {
         ImportChange testSubject0 = new ImportChange(Utils.getMockOntology(),
                 mock(OWLImportsDeclaration.class)) {
             @Override
-            public void accept(final OWLOntologyChangeVisitor visitor) {}
+            public void accept(OWLOntologyChangeVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLOntologyChangeVisitorEx<O> visitor) {
+            public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
                 return null;
             }
 
@@ -766,10 +766,10 @@ public class ContractOwlapiModel_1Test {
             }
 
             @Override
-            public void accept(final OWLOntologyChangeVisitor visitor) {}
+            public void accept(OWLOntologyChangeVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLOntologyChangeVisitorEx<O> visitor) {
+            public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
                 return null;
             }
         };

@@ -10,28 +10,22 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 22/10/2012
- */
+ * Date: 22/10/2012 */
 @SuppressWarnings("javadoc")
 public class AddImportDataTestCase {
-
     private OWLImportsDeclaration mockDeclaration;
-
     private OWLOntology mockOntology;
 
-
-    /**
-     * Creates AddImportData with the value of the {@code mockDeclaration} field as a parameter.
-     * @return The freshly created AddImportData
-     */
+    /** Creates AddImportData with the value of the {@code mockDeclaration} field
+     * as a parameter.
+     * 
+     * @return The freshly created AddImportData */
     private AddImportData createData() {
         return new AddImportData(mockDeclaration);
     }
-
 
     @Before
     public void setUp() {
@@ -51,7 +45,6 @@ public class AddImportDataTestCase {
         assertEquals(data1, data2);
         assertEquals(data1.hashCode(), data2.hashCode());
     }
-
 
     @Test
     public void testGettersReturnNotNull() {

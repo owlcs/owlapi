@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax;
+
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -53,7 +53,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Date: 21/09/2011 */
 @SuppressWarnings("javadoc")
 public class RDFSClassTestCase extends AbstractFileTestCase {
-
     @Test
     public void testCorrectAxioms() {
         OWLOntology ont = createOntology();
@@ -62,7 +61,6 @@ public class RDFSClassTestCase extends AbstractFileTestCase {
         OWLDeclarationAxiom ax = getFactory().getOWLDeclarationAxiom(cls);
         assertTrue(ont.containsAxiom(ax));
     }
-
 
     @Override
     protected String getFileName() {

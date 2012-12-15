@@ -98,18 +98,18 @@ public class ContractOwlapi_4Test {
             }
 
             @Override
-            public void accept(final OWLClassExpressionVisitor visitor) {}
+            public void accept(OWLClassExpressionVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLClassExpressionVisitorEx<O> visitor) {
+            public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
                 return null;
             }
 
             @Override
-            public void accept(final OWLObjectVisitor visitor) {}
+            public void accept(OWLObjectVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
+            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
         };
@@ -148,7 +148,6 @@ public class ContractOwlapi_4Test {
 
     public void shouldTestParsableOWLOntologyFactory() throws Exception {
         ParsableOWLOntologyFactory testSubject0 = new ParsableOWLOntologyFactory();
-
         OWLOntology result1 = testSubject0.loadOWLOntology(
                 mock(OWLOntologyDocumentSource.class),
                 mock(OWLOntologyCreationHandler.class),
@@ -179,23 +178,23 @@ public class ContractOwlapi_4Test {
             }
 
             @Override
-            public void accept(final SWRLObjectVisitor visitor) {}
+            public void accept(SWRLObjectVisitor visitor) {}
 
             @Override
-            public <O> O accept(final SWRLObjectVisitorEx<O> visitor) {
+            public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
             @Override
-            public void accept(final OWLObjectVisitor visitor) {}
+            public void accept(OWLObjectVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
+            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
             @Override
-            protected int compareObjectOfSameType(final OWLObject object) {
+            protected int compareObjectOfSameType(OWLObject object) {
                 return 0;
             }
         };
@@ -227,18 +226,18 @@ public class ContractOwlapi_4Test {
             private static final long serialVersionUID = 30402L;
 
             @Override
-            public void accept(final SWRLObjectVisitor visitor) {}
+            public void accept(SWRLObjectVisitor visitor) {}
 
             @Override
-            public <O> O accept(final SWRLObjectVisitorEx<O> visitor) {
+            public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
             @Override
-            public void accept(final OWLObjectVisitor visitor) {}
+            public void accept(OWLObjectVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
+            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
         };
@@ -525,23 +524,23 @@ public class ContractOwlapi_4Test {
             private static final long serialVersionUID = 30402L;
 
             @Override
-            public void accept(final SWRLObjectVisitor visitor) {}
+            public void accept(SWRLObjectVisitor visitor) {}
 
             @Override
-            public <O> O accept(final SWRLObjectVisitorEx<O> visitor) {
+            public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
             @Override
-            public void accept(final OWLObjectVisitor visitor) {}
+            public void accept(OWLObjectVisitor visitor) {}
 
             @Override
-            public <O> O accept(final OWLObjectVisitorEx<O> visitor) {
+            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
 
             @Override
-            protected int compareObjectOfSameType(final OWLObject object) {
+            protected int compareObjectOfSameType(OWLObject object) {
                 return 0;
             }
         };

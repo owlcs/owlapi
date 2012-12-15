@@ -75,10 +75,10 @@ import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxObjectRenderer;
  * Date: 24-April-2007<br>
  * <br> */
 public class Debugger {
-    private OWLOntology ontology;
-    private OWLDebugger debugger;
-    private OWLReasoner checker;
-    private OWLClass bottom;
+    private final OWLOntology ontology;
+    private final OWLDebugger debugger;
+    private final OWLReasoner checker;
+    private final OWLClass bottom;
 
     @SuppressWarnings("javadoc")
     public Debugger(OWLOntologyManager manager, OWLOntology ontology,

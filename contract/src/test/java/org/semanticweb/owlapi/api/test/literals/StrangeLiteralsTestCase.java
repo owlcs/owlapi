@@ -11,7 +11,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 @SuppressWarnings("javadoc")
 public class StrangeLiteralsTestCase {
     @Test
-    public void testFloatZeros() throws Exception {
+    public void testFloatZeros() {
         // +0 and -0 are not equal
         OWLDataFactory df = Factory.getFactory();
         OWLDatatype type = df.getFloatOWLDatatype();
@@ -21,7 +21,7 @@ public class StrangeLiteralsTestCase {
     }
 
     @Test
-    public void testIntegerRange2_4() throws Exception {
+    public void testIntegerRange2_4() {
         OWLDataFactory df = Factory.getFactory();
         OWLDatatype type = df.getIntegerOWLDatatype();
         df.getOWLLiteral("2147483648", type);

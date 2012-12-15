@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.axioms;
+
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -52,21 +52,17 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 01-May-2007<br><br>
+ * Date: 01-May-2007<br>
+ * <br>
  * <p/>
- * A test case which ensures that an ontology contains
- * entity references when that ontology only contains
- * entity declaration axioms.  In other words, entity
- * declaration axioms produce the correct entity references.
- */
+ * A test case which ensures that an ontology contains entity references when
+ * that ontology only contains entity declaration axioms. In other words, entity
+ * declaration axioms produce the correct entity references. */
 @SuppressWarnings("javadoc")
 public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase {
-
     @Test
     public void testOWLClassDeclarationAxiom() throws Exception {
         OWLClass cls = getFactory().getOWLClass(TestUtils.createIRI());
@@ -99,7 +95,8 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase 
 
     @Test
     public void testOWLIndividualDeclarationAxiom() throws Exception {
-        OWLNamedIndividual ind = getFactory().getOWLNamedIndividual(TestUtils.createIRI());
+        OWLNamedIndividual ind = getFactory()
+                .getOWLNamedIndividual(TestUtils.createIRI());
         OWLAxiom ax = getFactory().getOWLDeclarationAxiom(ind);
         OWLOntologyManager man = getManager();
         OWLOntology ont = man.createOntology(TestUtils.createIRI());

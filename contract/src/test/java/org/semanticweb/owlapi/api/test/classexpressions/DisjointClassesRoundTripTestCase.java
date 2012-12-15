@@ -36,7 +36,6 @@ public class DisjointClassesRoundTripTestCase {
         F = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(NS + "#F"));
     }
 
-
     @Test
     public void shouldParse() throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -86,8 +85,7 @@ public class DisjointClassesRoundTripTestCase {
         assertEquals(s, ontology.getLogicalAxioms(), roundtripped.getLogicalAxioms());
     }
 
-    public String saveOntology(OWLOntology ontology) throws
-            OWLOntologyStorageException {
+    public String saveOntology(OWLOntology ontology) throws OWLOntologyStorageException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         PrefixOWLOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
         format.setPrefix("piz", NS + "#");

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax;
 
 import java.net.URISyntaxException;
@@ -45,12 +44,13 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+
 @SuppressWarnings("javadoc")
 public class TurtleUTF8BOMTestCase {
     @Test
     public void testLoadingUTF8BOM() throws URISyntaxException,
             OWLOntologyCreationException {
-        IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl" ).toURI());
+        IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl").toURI());
         Factory.getManager().loadOntologyFromOntologyDocument(uri);
     }
 }

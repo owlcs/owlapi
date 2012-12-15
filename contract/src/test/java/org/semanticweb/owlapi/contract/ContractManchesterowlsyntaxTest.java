@@ -180,7 +180,7 @@ public class ContractManchesterowlsyntaxTest {
         OWLAnnotationProperty result65 = testSubject0.parseAnnotationProperty();
         IRI result66 = testSubject0.parseIRI();
         testSubject0.setDefaultOntology(Utils.getMockOntology());
-        final Set<OWLOntology> mock = Utils.mockSet(Utils.getMockOntology());
+        Set<OWLOntology> mock = Utils.mockSet(Utils.getMockOntology());
         Set<OntologyAxiomPair> result67 = testSubject0.parseValuePartitionValues(mock,
                 mock(OWLClass.class));
         List<SWRLAtom> result68 = testSubject0.parseRuleAtoms();
@@ -297,8 +297,8 @@ public class ContractManchesterowlsyntaxTest {
 
     @Test
     public void shouldTestManchesterOWLSyntaxOntologyHeader() throws Exception {
-        final Set<OWLAnnotation> mock1 = Utils.mockSet(mock(OWLAnnotation.class));
-        final Set<OWLImportsDeclaration> mock2 = Utils
+        Set<OWLAnnotation> mock1 = Utils.mockSet(mock(OWLAnnotation.class));
+        Set<OWLImportsDeclaration> mock2 = Utils
                 .mockSet(mock(OWLImportsDeclaration.class));
         ManchesterOWLSyntaxOntologyHeader testSubject0 = new ManchesterOWLSyntaxOntologyHeader(
                 IRI.create("urn:aFake"), IRI.create("urn:aFake"), mock1, mock2);

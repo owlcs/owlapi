@@ -13,7 +13,6 @@ import org.semanticweb.owlapi.util.QNameShortFormProvider;
 
 @SuppressWarnings("javadoc")
 public class ShortFormProviderTestCase {
-
     @Test
     public void shouldFindShortForm() {
         OWLClass c = Factory

@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.ontology;
+
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -47,24 +47,21 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 10-Dec-2009
- */
+ * Date: 10-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class DeprecatedTestCase extends AbstractFileTestCase {
-
     @Test
     public void testAnnotationAssertionsPresent() {
         OWLOntology ont = createOntology();
         OWLClass cls = getOWLClass("http://www.semanticweb.org/owlapi/test#ClsA");
-        for(OWLAnnotation anno : cls.getAnnotations(ont)) {
+        for (OWLAnnotation anno : cls.getAnnotations(ont)) {
             assertTrue(anno.isDeprecatedIRIAnnotation());
         }
         OWLDataProperty prop = getOWLDataProperty("http://www.semanticweb.org/owlapi/test#prop");
-        for(OWLAnnotation anno : prop.getAnnotations(ont)) {
+        for (OWLAnnotation anno : prop.getAnnotations(ont)) {
             assertTrue(anno.isDeprecatedIRIAnnotation());
         }
     }

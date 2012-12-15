@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import java.util.HashSet;
@@ -48,24 +47,21 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 28-May-2009
- */
-public abstract class AbstractAxiomsRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
-
-    private Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-
+ * Date: 28-May-2009 */
+public abstract class AbstractAxiomsRoundTrippingTestCase extends
+        AbstractRoundTrippingTestCase {
+    private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 
     @Override
-    final protected OWLOntology createOntology() {
+    protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("Ont");
         axioms.clear();
         axioms.addAll(createAxioms());
         getManager().addAxioms(ont, axioms);
-        for(OWLEntity entity : ont.getSignature()) {
+        for (OWLEntity entity : ont.getSignature()) {
             if (!entity.isBuiltIn() && !ont.isDeclared(entity, true)) {
                 getManager().addAxiom(ont, getFactory().getOWLDeclarationAxiom(entity));
             }
@@ -73,12 +69,10 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends AbstractRoundT
         return ont;
     }
 
-
-
     protected abstract Set<? extends OWLAxiom> createAxioms();
 
     @Override
     protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
-        return (format instanceof ManchesterOWLSyntaxOntologyFormat);
+        return format instanceof ManchesterOWLSyntaxOntologyFormat;
     }
 }

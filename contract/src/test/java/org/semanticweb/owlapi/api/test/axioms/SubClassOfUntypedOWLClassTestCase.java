@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.*;
@@ -52,18 +51,16 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25/02/2011
- */
+ * Date: 25/02/2011 */
 @SuppressWarnings("javadoc")
 public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
-
-    public static final IRI SUBCLASS_IRI = IRI.create("http://www.semanticweb.org/owlapi/test#A");
-
-    public static final IRI SUPERCLASS_IRI = IRI.create("http://www.semanticweb.org/owlapi/test#B");
+    public static final IRI SUBCLASS_IRI = IRI
+            .create("http://www.semanticweb.org/owlapi/test#A");
+    public static final IRI SUPERCLASS_IRI = IRI
+            .create("http://www.semanticweb.org/owlapi/test#B");
 
     @Override
     protected OWLOntologyLoaderConfiguration getConfiguration() {
@@ -85,6 +82,5 @@ public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
         OWLClass supCls = getFactory().getOWLClass(SUPERCLASS_IRI);
         assertEquals(subCls, ax.getSubClass());
         assertEquals(supCls, ax.getSuperClass());
-
     }
 }

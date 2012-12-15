@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.assertTrue;
@@ -68,22 +67,20 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 09-May-2007<br><br>
- */
+ * Date: 09-May-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public abstract class AbstractRendererAndParser {
-
     private OWLOntologyManager man;
 
     @Before
     public void setUp() {
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
+        OWLParserFactoryRegistry.getInstance().registerParserFactory(
+                new RDFXMLParserFactory());
         man.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         man.addOntologyFactory(new ParsableOWLOntologyFactory());
         man.addOntologyStorer(new RDFXMLOntologyStorer());
@@ -124,13 +121,10 @@ public abstract class AbstractRendererAndParser {
         man.removeOntology(ontA);
         OWLOntology ontB = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
                 target.toString()));
-
         Set<OWLLogicalAxiom> AminusB = ontA.getLogicalAxioms();
         AminusB.removeAll(ontB.getAxioms());
-
         Set<OWLLogicalAxiom> BminusA = ontB.getLogicalAxioms();
         BminusA.removeAll(ontA.getAxioms());
-
         StringBuilder msg = new StringBuilder();
         if (AminusB.isEmpty() && BminusA.isEmpty()) {
             msg.append("Ontology save/load roundtripp OK.\n");
@@ -151,5 +145,4 @@ public abstract class AbstractRendererAndParser {
     protected abstract Set<OWLAxiom> getAxioms();
 
     protected abstract String getClassExpression();
-
 }

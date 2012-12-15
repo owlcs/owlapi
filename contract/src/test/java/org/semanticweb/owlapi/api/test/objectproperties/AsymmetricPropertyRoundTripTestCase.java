@@ -36,32 +36,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 07-Sep-2008<br><br>
- */
-
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Information Management Group<br>
+ * Date: 07-Sep-2008<br>
+ * <br> */
 public class AsymmetricPropertyRoundTripTestCase extends AbstractRoundTrippingTestCase {
-
     @Override
-	protected OWLOntology createOntology() {
+    protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("Test");
-        getManager().addAxiom(ont, getFactory().getOWLAsymmetricObjectPropertyAxiom(getOWLObjectProperty("p")));
+        getManager().addAxiom(
+                ont,
+                getFactory().getOWLAsymmetricObjectPropertyAxiom(
+                        getOWLObjectProperty("p")));
         return ont;
     }
 
-
     @Override
-	@Test
-    public void testFunctionalSyntax() throws Exception {
-
-    }
+    @Test
+    public void testFunctionalSyntax() throws Exception {}
 }

@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax.rdfxml;
+
 import static org.junit.Assert.assertTrue;
 
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
@@ -52,28 +52,25 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 03-Aug-2007<br><br>
- */
+ * Date: 03-Aug-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class SWRLTestCase {
-
     private OWLOntologyManager man;
-
 
     @Before
     public void setUp() {
         // Use the reference implementation
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
+        OWLParserFactoryRegistry.getInstance().registerParserFactory(
+                new RDFXMLParserFactory());
         ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory();
         man.addOntologyFactory(factory);
-
     }
+
     @Test
     public void testSWRLParser() throws Exception {
         OWLOntology ont = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
@@ -81,68 +78,65 @@ public class SWRLTestCase {
         assertTrue(ont.getIndividualsInSignature().isEmpty());
     }
 
-    String input="<?xml version=\"1.0\"?>\n" +
-            "<rdf:RDF\n" +
-            "    xmlns:temporal=\"http://swrl.stanford.edu/ontologies/built-ins/3.3/temporal.owl#\"\n" +
-            "    xmlns:swrla=\"http://swrl.stanford.edu/ontologies/3.3/swrla.owl#\"\n" +
-            "    xmlns:query=\"http://swrl.stanford.edu/ontologies/built-ins/3.3/query.owl#\"\n" +
-            "    xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n" +
-            "    xmlns:swrlx=\"http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#\"\n" +
-            "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n" +
-            "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n" +
-            "    xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\"\n" +
-            "    xmlns=\"http://www.owl-ontologies.com/Ontology1186164271.owl#\"\n" +
-            "    xmlns:abox=\"http://swrl.stanford.edu/ontologies/built-ins/3.3/abox.owl#\"\n" +
-            "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n" +
-            "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n" +
-            "    xmlns:tbox=\"http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl#\"\n" +
-            "  xml:base=\"http://www.owl-ontologies.com/Ontology1186164271.owl\">\n" +
-            "  <owl:Ontology rdf:about=\"\">\n" +
-            "  </owl:Ontology>\n" +
-            "  <owl:Class rdf:ID=\"A\"/>\n" +
-            "  <owl:Class rdf:ID=\"B\"/>\n" +
-            "  <owl:ObjectProperty rdf:ID=\"hasPart\"/>\n" +
-            "  <owl:ObjectProperty rdf:about=\"http://www.w3.org/2003/11/swrl#argument2\"/>\n" +
-            "  <swrl:Variable rdf:ID=\"z\"/>\n" +
-            "  <swrl:Variable rdf:ID=\"y\"/>\n" +
-            "  <swrl:Imp rdf:ID=\"Rule-1\">\n" +
-            "    <swrl:head>\n" +
-            "      <swrl:AtomList>\n" +
-            "        <rdf:first>\n" +
-            "          <swrl:IndividualPropertyAtom>\n" +
-            "            <swrl:argument1>\n" +
-            "              <swrl:Variable rdf:ID=\"x\"/>\n" +
-            "            </swrl:argument1>\n" +
-            "            <swrl:propertyPredicate rdf:resource=\"#hasPart\"/>\n" +
-            "            <swrl:argument2 rdf:resource=\"#z\"/>\n" +
-            "          </swrl:IndividualPropertyAtom>\n" +
-            "        </rdf:first>\n" +
-            "        <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n" +
-            "      </swrl:AtomList>\n" +
-            "    </swrl:head>\n" +
-            "    <swrl:body>\n" +
-            "      <swrl:AtomList>\n" +
-            "        <rdf:first>\n" +
-            "          <swrl:IndividualPropertyAtom>\n" +
-            "            <swrl:argument2 rdf:resource=\"#y\"/>\n" +
-            "            <swrl:argument1 rdf:resource=\"#x\"/>\n" +
-            "            <swrl:propertyPredicate rdf:resource=\"#hasPart\"/>\n" +
-            "          </swrl:IndividualPropertyAtom>\n" +
-            "        </rdf:first>\n" +
-            "        <rdf:rest>\n" +
-            "          <swrl:AtomList>\n" +
-            "            <rdf:first>\n" +
-            "              <swrl:IndividualPropertyAtom>\n" +
-            "                <swrl:argument2 rdf:resource=\"#z\"/>\n" +
-            "                <swrl:argument1 rdf:resource=\"#y\"/>\n" +
-            "                <swrl:propertyPredicate rdf:resource=\"#hasPart\"/>\n" +
-            "              </swrl:IndividualPropertyAtom>\n" +
-            "            </rdf:first>\n" +
-            "            <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n" +
-            "          </swrl:AtomList>\n" +
-            "        </rdf:rest>\n" +
-            "      </swrl:AtomList>\n" +
-            "    </swrl:body>\n" +
-            "  </swrl:Imp>\n" +
-            "</rdf:RDF>";
+    String input = "<?xml version=\"1.0\"?>\n"
+            + "<rdf:RDF\n"
+            + "    xmlns:temporal=\"http://swrl.stanford.edu/ontologies/built-ins/3.3/temporal.owl#\"\n"
+            + "    xmlns:swrla=\"http://swrl.stanford.edu/ontologies/3.3/swrla.owl#\"\n"
+            + "    xmlns:query=\"http://swrl.stanford.edu/ontologies/built-ins/3.3/query.owl#\"\n"
+            + "    xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
+            + "    xmlns:swrlx=\"http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#\"\n"
+            + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+            + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+            + "    xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\"\n"
+            + "    xmlns=\"http://www.owl-ontologies.com/Ontology1186164271.owl#\"\n"
+            + "    xmlns:abox=\"http://swrl.stanford.edu/ontologies/built-ins/3.3/abox.owl#\"\n"
+            + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
+            + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+            + "    xmlns:tbox=\"http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl#\"\n"
+            + "  xml:base=\"http://www.owl-ontologies.com/Ontology1186164271.owl\">\n"
+            + "  <owl:Ontology rdf:about=\"\">\n"
+            + "  </owl:Ontology>\n"
+            + "  <owl:Class rdf:ID=\"A\"/>\n"
+            + "  <owl:Class rdf:ID=\"B\"/>\n"
+            + "  <owl:ObjectProperty rdf:ID=\"hasPart\"/>\n"
+            + "  <owl:ObjectProperty rdf:about=\"http://www.w3.org/2003/11/swrl#argument2\"/>\n"
+            + "  <swrl:Variable rdf:ID=\"z\"/>\n"
+            + "  <swrl:Variable rdf:ID=\"y\"/>\n"
+            + "  <swrl:Imp rdf:ID=\"Rule-1\">\n"
+            + "    <swrl:head>\n"
+            + "      <swrl:AtomList>\n"
+            + "        <rdf:first>\n"
+            + "          <swrl:IndividualPropertyAtom>\n"
+            + "            <swrl:argument1>\n"
+            + "              <swrl:Variable rdf:ID=\"x\"/>\n"
+            + "            </swrl:argument1>\n"
+            + "            <swrl:propertyPredicate rdf:resource=\"#hasPart\"/>\n"
+            + "            <swrl:argument2 rdf:resource=\"#z\"/>\n"
+            + "          </swrl:IndividualPropertyAtom>\n"
+            + "        </rdf:first>\n"
+            + "        <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
+            + "      </swrl:AtomList>\n"
+            + "    </swrl:head>\n"
+            + "    <swrl:body>\n"
+            + "      <swrl:AtomList>\n"
+            + "        <rdf:first>\n"
+            + "          <swrl:IndividualPropertyAtom>\n"
+            + "            <swrl:argument2 rdf:resource=\"#y\"/>\n"
+            + "            <swrl:argument1 rdf:resource=\"#x\"/>\n"
+            + "            <swrl:propertyPredicate rdf:resource=\"#hasPart\"/>\n"
+            + "          </swrl:IndividualPropertyAtom>\n"
+            + "        </rdf:first>\n"
+            + "        <rdf:rest>\n"
+            + "          <swrl:AtomList>\n"
+            + "            <rdf:first>\n"
+            + "              <swrl:IndividualPropertyAtom>\n"
+            + "                <swrl:argument2 rdf:resource=\"#z\"/>\n"
+            + "                <swrl:argument1 rdf:resource=\"#y\"/>\n"
+            + "                <swrl:propertyPredicate rdf:resource=\"#hasPart\"/>\n"
+            + "              </swrl:IndividualPropertyAtom>\n"
+            + "            </rdf:first>\n"
+            + "            <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
+            + "          </swrl:AtomList>\n" + "        </rdf:rest>\n"
+            + "      </swrl:AtomList>\n" + "    </swrl:body>\n" + "  </swrl:Imp>\n"
+            + "</rdf:RDF>";
 }

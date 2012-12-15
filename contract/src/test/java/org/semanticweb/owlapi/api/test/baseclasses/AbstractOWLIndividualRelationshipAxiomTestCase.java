@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
@@ -48,28 +47,25 @@ import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
-public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends OWLPropertyExpression<?,?>, O extends OWLObject> extends AbstractOWLDataFactoryTest {
-
+public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends OWLPropertyExpression<?, ?>, O extends OWLObject>
+        extends AbstractOWLDataFactoryTest {
     protected abstract P createProperty() throws Exception;
 
     protected abstract O createObject() throws Exception;
 
-    protected abstract OWLIndividualAxiom createAxiom(OWLIndividual subject, P property, O object) throws OWLException;
+    protected abstract OWLIndividualAxiom createAxiom(OWLIndividual subject, P property,
+            O object) throws OWLException;
 
     @Override
     @Test
     public void testCreation() throws Exception {
-        assertNotNull("axiom should not be null", createAxiom(createOWLIndividual(), createProperty(), createObject()));
+        assertNotNull("axiom should not be null",
+                createAxiom(createOWLIndividual(), createProperty(), createObject()));
     }
-
 
     @Override
     @Test
@@ -81,7 +77,6 @@ public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends O
         OWLIndividualAxiom axiomB = createAxiom(subject, property, object);
         assertEquals(axiomA, axiomB);
     }
-
 
     @Override
     @Test
@@ -102,7 +97,6 @@ public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends O
         OWLIndividualAxiom axiomF = createAxiom(subject, property, createObject());
         assertNotEquals(axiomE, axiomF);
     }
-
 
     @Override
     @Test

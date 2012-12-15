@@ -36,25 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLEntityTestCase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 public class OWLObjectPropertyTestCase extends AbstractOWLEntityTestCase {
-
-
     @Override
-	protected OWLEntity createEntity(IRI iri) throws Exception {
+    protected OWLEntity createEntity(IRI iri) throws Exception {
         return getFactory().getOWLObjectProperty(iri);
     }
 }

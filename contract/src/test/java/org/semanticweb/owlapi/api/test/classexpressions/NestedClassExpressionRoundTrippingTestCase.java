@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
@@ -46,24 +45,21 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-May-2008<br><br>
- */
-
-public class NestedClassExpressionRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
-
-
+ * Date: 10-May-2008<br>
+ * <br> */
+public class NestedClassExpressionRoundTrippingTestCase extends
+        AbstractRoundTrippingTestCase {
     @Override
-	protected OWLOntology createOntology() {
+    protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");
         OWLObjectProperty prop = getOWLObjectProperty("propP");
         OWLClass clsA = getOWLClass("A");
         OWLClass clsB = getOWLClass("B");
-        OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(prop, getFactory().getOWLObjectSomeValuesFrom(prop, clsB));
+        OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(prop,
+                getFactory().getOWLObjectSomeValuesFrom(prop, clsB));
         OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(clsA, desc);
         addAxiom(ont, ax);
         addAxiom(ont, getFactory().getOWLDeclarationAxiom(clsA));

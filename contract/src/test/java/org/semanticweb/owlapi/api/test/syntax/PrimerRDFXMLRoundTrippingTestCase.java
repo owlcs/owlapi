@@ -36,24 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 08-Dec-2009
- */
-
+ * Date: 08-Dec-2009 */
 public class PrimerRDFXMLRoundTrippingTestCase extends AbstractFileRoundTrippingTestCase {
-
-
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "primer.rdfxml.xml";
     }
 
@@ -65,21 +59,17 @@ public class PrimerRDFXMLRoundTrippingTestCase extends AbstractFileRoundTripping
 
     @Override
     @Test
-    public void testOWLXML() throws Exception {
-    }
+    public void testOWLXML() throws Exception {}
 
     @Override
     @Test
-    public void testFunctionalSyntax() throws Exception {
-    }
+    public void testFunctionalSyntax() throws Exception {}
 
     @Override
     @Test
-    public void testTurtle() throws Exception {
-    }
+    public void testTurtle() throws Exception {}
 
     @Override
     @Test
-    public void testManchesterOWLSyntax() throws Exception {
-    }
+    public void testManchesterOWLSyntax() throws Exception {}
 }
