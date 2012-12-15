@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.normalform;
 
 import java.util.HashSet;
@@ -63,19 +62,15 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Oct-2007<br><br>
+ * Date: 13-Oct-2007<br>
+ * <br>
  * <p/>
- * Extracts the parts of a class expression which are negated.
- * For example, A and not (B or C or not D) would extract
- * {(B or C or notD), D}
- */
+ * Extracts the parts of a class expression which are negated. For example, A
+ * and not (B or C or not D) would extract {(B or C or notD), D} */
 public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor {
-
     private final Set<OWLClassExpression> result;
 
     @SuppressWarnings("javadoc")
@@ -83,64 +78,47 @@ public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor
         result = new HashSet<OWLClassExpression>();
     }
 
-    /**
-     * @param desc the class to look for
-     * @return the complemented expressions
-     */
-    public Set<OWLClassExpression> getComplementedClassExpressions(OWLClassExpression desc) {
-    	// XXX a stateless visitor would not need copies
+    /** @param desc
+     *            the class to look for
+     * @return the complemented expressions */
+    public Set<OWLClassExpression>
+            getComplementedClassExpressions(OWLClassExpression desc) {
+        // XXX a stateless visitor would not need copies
         reset();
         desc.accept(this);
         return new HashSet<OWLClassExpression>(result);
     }
 
-    /**
-     * clear the visitor
-     */
+    /** clear the visitor */
     public void reset() {
         result.clear();
     }
 
     @Override
-    public void visit(OWLClass desc) {
-    }
-
+    public void visit(OWLClass desc) {}
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
-    }
-
+    public void visit(OWLDataAllValuesFrom desc) {}
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
-    }
-
+    public void visit(OWLDataExactCardinality desc) {}
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
-    }
-
+    public void visit(OWLDataMaxCardinality desc) {}
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
-    }
-
+    public void visit(OWLDataMinCardinality desc) {}
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
-    }
-
+    public void visit(OWLDataSomeValuesFrom desc) {}
 
     @Override
-    public void visit(OWLDataHasValue desc) {
-    }
-
+    public void visit(OWLDataHasValue desc) {}
 
     @Override
     public void visit(OWLObjectAllValuesFrom desc) {
         desc.getFiller().accept(this);
     }
-
 
     @Override
     public void visit(OWLObjectComplementOf desc) {
@@ -148,12 +126,10 @@ public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor
         desc.getOperand().accept(this);
     }
 
-
     @Override
     public void visit(OWLObjectExactCardinality desc) {
         desc.getFiller().accept(this);
     }
-
 
     @Override
     public void visit(OWLObjectIntersectionOf desc) {
@@ -162,36 +138,26 @@ public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor
         }
     }
 
-
     @Override
     public void visit(OWLObjectMaxCardinality desc) {
         desc.getFiller().accept(this);
     }
-
 
     @Override
     public void visit(OWLObjectMinCardinality desc) {
         desc.getFiller().accept(this);
     }
 
+    @Override
+    public void visit(OWLObjectOneOf desc) {}
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
-
-    }
-
-
-    @Override
-    public void visit(OWLObjectHasSelf desc) {
-
-    }
-
+    public void visit(OWLObjectHasSelf desc) {}
 
     @Override
     public void visit(OWLObjectSomeValuesFrom desc) {
         desc.getFiller().accept(this);
     }
-
 
     @Override
     public void visit(OWLObjectUnionOf desc) {
@@ -200,9 +166,6 @@ public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor
         }
     }
 
-
     @Override
-    public void visit(OWLObjectHasValue desc) {
-
-    }
+    public void visit(OWLObjectHasValue desc) {}
 }

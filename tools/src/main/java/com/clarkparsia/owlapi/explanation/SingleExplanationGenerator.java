@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clarkparsia.owlapi.explanation;
 
 import java.util.Set;
@@ -48,45 +47,30 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-
-/**
- * Explanation generator for a single explanation
- */
+/** Explanation generator for a single explanation */
 public interface SingleExplanationGenerator {
-
-    /**
-     * @return the ontology manager for this explanation generator.
-     */
+    /** @return the ontology manager for this explanation generator. */
     OWLOntologyManager getOntologyManager();
 
-	/**
-	 * @return the ontology according to which the explanations are generated
-	 */
+    /** @return the ontology according to which the explanations are generated */
     OWLOntology getOntology();
 
     /** dispose of the reasoners and ontologies */
     // XXX once the interface is changed, uncomment this
-    //void dispose();
-
-    /**
-     * @return the reasoner associated with this generator.
-     */
+    // void dispose();
+    /** @return the reasoner associated with this generator. */
     OWLReasoner getReasoner();
 
-
-    /**
-     * @return the reasoner factory used to create fresh reasoners.
-     */
+    /** @return the reasoner factory used to create fresh reasoners. */
     OWLReasonerFactory getReasonerFactory();
 
-
-    /**
-     * Get a single explanation for an arbitrary class expression, or empty set
+    /** Get a single explanation for an arbitrary class expression, or empty set
      * if the given expression is satisfiable.
-     * @param unsatClass arbitrary class expression whose unsatisfiability will be
-     *                   explained
+     * 
+     * @param unsatClass
+     *            arbitrary class expression whose unsatisfiability will be
+     *            explained
      * @return set of axioms explaining the unsatisfiability of given class
-     *         expression, or empty set if the given expression is satisfiable.
-     */
+     *         expression, or empty set if the given expression is satisfiable. */
     Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass);
 }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.metrics;
 
 import java.util.Set;
@@ -45,31 +44,25 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br><br>
- */
+ * Date: 27-Jul-2007<br>
+ * <br> */
 public class ReferencedDataPropertyCount extends ObjectCountMetric<OWLDataProperty> {
-
-    /**
-     * @param owlOntologyManager manager to use
-     */
+    /** @param owlOntologyManager
+     *            manager to use */
     public ReferencedDataPropertyCount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
 
-
     @Override
-	protected String getObjectTypeName() {
+    protected String getObjectTypeName() {
         return "Data property";
     }
 
-
     @Override
-	protected Set<OWLDataProperty> getObjects(OWLOntology ont) {
+    protected Set<OWLDataProperty> getObjects(OWLOntology ont) {
         return ont.getDataPropertiesInSignature();
     }
 }

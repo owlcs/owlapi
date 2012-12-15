@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.metrics;
 
 import java.util.HashSet;
@@ -51,31 +50,25 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.NamedConjunctChecker;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br><br>
- */
+ * Date: 27-Jul-2007<br>
+ * <br> */
 public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric {
-
-    /**
-     * @param owlOntologyManager manager to use
-     */
+    /** @param owlOntologyManager
+     *            manager to use */
     public NumberOfClassesWithMultipleInheritance(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
-
 
     @Override
     public String getName() {
         return "Number of classes with asserted multiple inheritance";
     }
 
-
     @Override
-	public Integer recomputeMetric() {
+    public Integer recomputeMetric() {
         Set<OWLClass> processed = new HashSet<OWLClass>();
         Set<OWLClass> clses = new HashSet<OWLClass>();
         NamedConjunctChecker checker = new NamedConjunctChecker();
@@ -100,9 +93,8 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         return clses.size();
     }
 
-
     @Override
-	protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange()) {
                 if (change.getAxiom() instanceof OWLSubClassOfAxiom) {
@@ -113,8 +105,6 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         return false;
     }
 
-
     @Override
-	protected void disposeMetric() {
-    }
+    protected void disposeMetric() {}
 }

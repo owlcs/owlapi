@@ -36,25 +36,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clarkparsia.owlapi.explanation;
 
-/**
- * transactional support for single explanation generator
- */
+/** transactional support for single explanation generator */
 public interface TransactionAwareSingleExpGen extends SingleExplanationGenerator {
+    /** Indicates to the explanation generator that a transaction which may
+     * modify the ontology state is starting. Intended to allow the explanation
+     * generator to efficiently preserve state when used by
+     * {@link HSTExplanationGenerator}. */
+    public void beginTransaction();
 
-	/**
-	 * Indicates to the explanation generator that a transaction which may
-	 * modify the ontology state is starting. Intended to allow the explanation
-	 * generator to efficiently preserve state when used by
-	 * {@link HSTExplanationGenerator}.
-	 */
-	public void beginTransaction();
-
-	/**
-	 * End a transaction. See {@link #beginTransaction()}
-	 */
-	public void endTransaction();
-
+    /** End a transaction. See {@link #beginTransaction()} */
+    public void endTransaction();
 }

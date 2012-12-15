@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.metrics;
 
 import java.util.HashSet;
@@ -50,31 +49,25 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br><br>
- */
+ * Date: 27-Jul-2007<br>
+ * <br> */
 public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
-
-    /**
-     * @param owlOntologyManager manager to use
-     */
+    /** @param owlOntologyManager
+     *            manager to use */
     public AverageAssertedNamedSuperclassCount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
-
 
     @Override
     public String getName() {
         return "Average number of named superclasses";
     }
 
-
     @Override
-	public Double recomputeMetric() {
+    public Double recomputeMetric() {
         int total = 0;
         int count = 0;
         Set<OWLClass> processedClasses = new HashSet<OWLClass>();
@@ -92,16 +85,14 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
                     if (prevTotal == total) {
                         total++;
                     }
-
                 }
             }
         }
-        return ((double) total) / count;
+        return (double) total / count;
     }
 
-
     @Override
-	protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange chg : changes) {
             if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;
@@ -110,8 +101,6 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
         return false;
     }
 
-
     @Override
-	protected void disposeMetric() {
-    }
+    protected void disposeMetric() {}
 }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.bhig.util;
 
 import java.io.PrintWriter;
@@ -49,29 +48,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 22-Jan-2008<br><br>
- * @param <N> type of elements
- */
+ * Date: 22-Jan-2008<br>
+ * <br>
+ * 
+ * @param <N>
+ *            type of elements */
 public class MutableTree<N> implements Tree<N> {
-
     private final N userObject;
-
     private MutableTree<N> parent;
-
     private final List<MutableTree<N>> children;
-
     private final Map<Tree<N>, Object> child2EdgeMap;
-
     private NodeRenderer<N> toStringRenderer;
 
-    /**
-     * @param userObject the user object
-     */
+    /** @param userObject
+     *            the user object */
     public MutableTree(N userObject) {
         this.userObject = userObject;
         children = new ArrayList<MutableTree<N>>();
@@ -89,11 +82,9 @@ public class MutableTree<N> implements Tree<N> {
         return userObject;
     }
 
-
-    /**
-     * @param parent the new parent
-     */
-    //XXX not in the interface
+    /** @param parent
+     *            the new parent */
+    // XXX not in the interface
     public void setParent(MutableTree<N> parent) {
         if (this.parent != null) {
             this.parent.children.remove(this);
@@ -102,86 +93,72 @@ public class MutableTree<N> implements Tree<N> {
         this.parent.children.add(this);
     }
 
-
-    /**
-     * @param child child to add
-     */
+    /** @param child
+     *            child to add */
     public void addChild(MutableTree<N> child) {
         children.add(child);
         child.parent = this;
     }
-    /**
-     * @param child child to add
-     * @param edge the edge
-     */
-    //XXX not in the interface
+
+    /** @param child
+     *            child to add
+     * @param edge
+     *            the edge */
+    // XXX not in the interface
     public void addChild(MutableTree<N> child, Object edge) {
         addChild(child);
         child2EdgeMap.put(child, edge);
     }
 
-
-    /**
-     * @param child child to remove
-     */
+    /** @param child
+     *            child to remove */
     public void removeChild(MutableTree<N> child) {
         children.remove(child);
         child.parent = null;
     }
-
 
     @Override
     public Object getEdge(Tree<N> child) {
         return child2EdgeMap.get(child);
     }
 
-
     @Override
     public void sortChildren(Comparator<Tree<N>> comparator) {
         Collections.sort(children, comparator);
     }
 
-
-    /**
-     * remove all children
-     */
-    //XXX not in the interface
+    /** remove all children */
+    // XXX not in the interface
     public void clearChildren() {
         for (MutableTree<N> child : new ArrayList<MutableTree<N>>(children)) {
             removeChild(child);
         }
     }
 
-
     @Override
     public Tree<N> getParent() {
         return parent;
     }
-
 
     @Override
     public List<Tree<N>> getChildren() {
         return new ArrayList<Tree<N>>(children);
     }
 
-
     @Override
     public int getChildCount() {
         return children.size();
     }
-
 
     @Override
     public boolean isRoot() {
         return parent == null;
     }
 
-
     @Override
     public boolean isLeaf() {
         return children.isEmpty();
     }
-
 
     @Override
     public Tree<N> getRoot() {
@@ -190,7 +167,6 @@ public class MutableTree<N> implements Tree<N> {
         }
         return parent.getRoot();
     }
-
 
     @Override
     public List<Tree<N>> getPathToRoot() {
@@ -204,7 +180,6 @@ public class MutableTree<N> implements Tree<N> {
         return path;
     }
 
-
     @Override
     public List<N> getUserObjectPathToRoot() {
         List<N> path = new ArrayList<N>();
@@ -216,7 +191,6 @@ public class MutableTree<N> implements Tree<N> {
         }
         return path;
     }
-
 
     @Override
     public Set<N> getUserObjectClosure() {
@@ -231,7 +205,6 @@ public class MutableTree<N> implements Tree<N> {
             getUserObjectClosure(child, bin);
         }
     }
-
 
     @Override
     public void dump(PrintWriter writer) {
@@ -284,11 +257,10 @@ public class MutableTree<N> implements Tree<N> {
         }
     }
 
-    /**
-     * @param tree the node to put in place of this one
-@deprecated this method is not in the public interface and is unused.
-     */
-    //XXX not in the interface
+    /** @param tree
+     *            the node to put in place of this one
+     * @deprecated this method is not in the public interface and is unused. */
+    // XXX not in the interface
     @Deprecated
     public void replace(MutableTree<N> tree) {
         parent.children.remove(this);
@@ -299,9 +271,8 @@ public class MutableTree<N> implements Tree<N> {
         children.clear();
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         if (userObject != null) {
             return userObject.toString();
         } else {
@@ -309,21 +280,14 @@ public class MutableTree<N> implements Tree<N> {
         }
     }
 
-
-    /**
-     * @return the size
-     */
-    //XXX not in the interface
+    /** @return the size */
+    // XXX not in the interface
     public int getSize() {
         return getUserObjectClosure().size();
     }
 
-
-
-    /**
-     * @return the max depth
-     */
-    //XXX not in the interface
+    /** @return the max depth */
+    // XXX not in the interface
     public int getMaxDepth() {
         return getMaxDepth(this);
     }
@@ -332,11 +296,10 @@ public class MutableTree<N> implements Tree<N> {
         int maxChildDepth = tree.getPathToRoot().size();
         for (Tree<N> child : tree.getChildren()) {
             int childDepth = getMaxDepth(child);
-            if(childDepth > maxChildDepth) {
+            if (childDepth > maxChildDepth) {
                 maxChildDepth = childDepth;
             }
         }
         return maxChildDepth;
     }
-
 }

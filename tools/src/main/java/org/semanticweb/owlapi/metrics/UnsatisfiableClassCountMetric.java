@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.metrics;
 
 import java.util.List;
@@ -45,45 +44,39 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 17-Jan-2008<br><br>
- */
+ * Date: 17-Jan-2008<br>
+ * <br> */
 public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
-
     private final OWLReasoner reasoner;
-    /**
-     * @param owlOntologyManager manager to use
-     * @param reasoner the reasoner
-     */
-    public UnsatisfiableClassCountMetric(OWLReasoner reasoner, OWLOntologyManager owlOntologyManager) {
+
+    /** @param owlOntologyManager
+     *            manager to use
+     * @param reasoner
+     *            the reasoner */
+    public UnsatisfiableClassCountMetric(OWLReasoner reasoner,
+            OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
         this.reasoner = reasoner;
     }
-
 
     @Override
     public String getName() {
         return "Unsatisfiable class count";
     }
 
-
     @Override
-	protected Integer recomputeMetric() {
+    protected Integer recomputeMetric() {
         return reasoner.getUnsatisfiableClasses().getSize();
     }
-
 
     @Override
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         return false;
     }
 
-
     @Override
-	protected void disposeMetric() {
-    }
+    protected void disposeMetric() {}
 }

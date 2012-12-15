@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.metrics;
 
 import java.util.HashSet;
@@ -47,25 +46,22 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br><br>
- * @param <E> the entity type
- */
+ * Date: 27-Jul-2007<br>
+ * <br>
+ * 
+ * @param <E>
+ *            the entity type */
 public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedMetric {
-
-    /**
-     * @param owlOntologyManager manager to use
-     */
+    /** @param owlOntologyManager
+     *            manager to use */
     public ObjectCountMetric(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
 
     protected abstract String getObjectTypeName();
-
 
     @Override
     public String getName() {
@@ -74,20 +70,18 @@ public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedM
 
     protected abstract Set<? extends E> getObjects(OWLOntology ont);
 
-
     @Override
-	public Integer recomputeMetric() {
+    public Integer recomputeMetric() {
         return getObjects().size();
     }
 
     protected Set<? extends E> getObjects() {
         Set<E> objects = new HashSet<E>();
-        for(OWLOntology ont : getOntologies()) {
+        for (OWLOntology ont : getOntologies()) {
             objects.addAll(getObjects(ont));
         }
         return objects;
     }
-
 
     @Override
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
@@ -95,6 +89,5 @@ public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedM
     }
 
     @Override
-	protected void disposeMetric() {
-    }
+    protected void disposeMetric() {}
 }
