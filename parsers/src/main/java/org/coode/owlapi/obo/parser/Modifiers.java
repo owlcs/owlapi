@@ -68,7 +68,6 @@ public class Modifiers {
      */
     public static Modifiers parseModifiers(String modifiersList) {
         Modifiers modifiers = new Modifiers();
-        //String stripped = modifiersList.replace("{", "").replace("}", "");
         StringTokenizer tokenizer = new StringTokenizer(modifiersList, ",");
         while(tokenizer.hasMoreTokens()) {
             String nameValuePair = tokenizer.nextToken().trim();

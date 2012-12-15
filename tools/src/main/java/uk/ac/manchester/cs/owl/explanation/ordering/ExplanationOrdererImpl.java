@@ -139,12 +139,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         lhs2AxiomMap = new HashMap<OWLEntity, Set<OWLAxiom>>();
         entitiesByAxiomRHS = new HashMap<OWLAxiom, Set<OWLEntity>>();
         seedExtractor = new SeedExtractor();
-        // man = OWLManager.createOWLOntologyManager();
-        // man.addIRIMapper(new OWLOntologyIRIMapper() {
-        // public IRI getDocumentIRI(IRI ontologyIRI) {
-        // return ontologyIRI;
-        // }
-        // });
         man = m;
         mappedAxioms = new HashMap<OWLObject, Set<OWLAxiom>>();
         passTypes = new HashSet<AxiomType<?>>();

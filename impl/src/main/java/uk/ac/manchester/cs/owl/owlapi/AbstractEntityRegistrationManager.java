@@ -123,12 +123,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor, SW
         }
     }
 
-    //	protected void processAxiomAnnotations(OWLAxiom ax) {
-    //		for (OWLAnnotation anno : ax.getAnnotations()) {
-    //			anno.accept(this);
-    //		}
-    //	}
-
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
         axiom.getSubClass().accept(this);

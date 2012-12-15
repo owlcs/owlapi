@@ -260,10 +260,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     private OWLDataFactory dataFactory;
 
 
-    //    private List<ClassExpressionTranslator> objectRestrictionTranslators = new ArrayList<ClassExpressionTranslator>();
-    //
-    //    private List<ClassExpressionTranslator> dataRestrictionTranslators = new ArrayList<ClassExpressionTranslator>();
-
     private List<ClassExpressionTranslator> classExpressionTranslators = new ArrayList<ClassExpressionTranslator>();
 
 
@@ -299,7 +295,6 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private TPTypeHandler nonBuiltInTypeHandler;
 
-    //    private GTPObjectPropertyAssertionHandler objectPropertyAssertionHandler;
 
     /**
      * A cache of annotation axioms to be added at the end - saves some peek memory doing this
@@ -673,7 +668,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         addAxiomTypeTripleHandler(new TypeAllDifferentHandler(this));
         addAxiomTypeTripleHandler(new TypeAllDisjointClassesHandler(this));
         addAxiomTypeTripleHandler(new TypeAllDisjointPropertiesHandler(this));
-        // addAxiomTypeTripleHandler(new TypeAllDifferentHandler(this));
         addAxiomTypeTripleHandler(new TypeNegativePropertyAssertionHandler(this));
     }
 
@@ -698,7 +692,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         nonBuiltInTypeHandler = new TPTypeHandler(this);
         addPredicateHandler(nonBuiltInTypeHandler);
         addPredicateHandler(new TPDistinctMembersHandler(this));
-        //  addPredicateHandler(new TPDistinctMembersHandlerAlternateForm(this));
         addPredicateHandler(new TPImportsHandler(this));
         addPredicateHandler(new TPIntersectionOfHandler(this));
         addPredicateHandler(new TPUnionOfHandler(this));
@@ -1363,9 +1356,6 @@ public class OWLRDFConsumer implements RDFConsumer {
 
 
     protected void dumpRemainingTriples() {
-        //        if (!logger.isLoggable(Level.FINE)) {
-        //            return;
-        //        }
         StringWriter sw = new StringWriter();
         PrintWriter w = new PrintWriter(sw);
 
@@ -1444,9 +1434,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         try {
 
             // We are now left with triples that could not be consumed during streaming parsing
-
-            //            classExpressionIRIs.removeAll(restrictionIRIs);
-            //            classExpressionIRIs.removeAll(dataRangeIRIs);
 
             IRIMap.clear();
 
@@ -1717,10 +1704,6 @@ public class OWLRDFConsumer implements RDFConsumer {
             throw new TranslatedUnloadedImportException(e);
         }
     }
-
-
-    //    private int addCount = 0;
-
 
     /**
      * Called when a resource triple has been parsed.

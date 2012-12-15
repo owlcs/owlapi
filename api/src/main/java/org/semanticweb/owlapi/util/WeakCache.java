@@ -26,14 +26,11 @@ public class WeakCache<K> implements Serializable {
         WeakReference<K> w = prefixCache.get(s);
         if (w != null) {
             K toReturn = w.get();
-            if (toReturn == null) {
-                //entry removed - move on
-            } else {
+            if (toReturn != null) {
                 return toReturn;
             }
         }
         // need to add the new key and return it
-        //miss++;
         prefixCache.put(s, new WeakReference<K>(s));
         return s;
     }

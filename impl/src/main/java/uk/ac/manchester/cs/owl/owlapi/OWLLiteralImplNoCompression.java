@@ -53,37 +53,29 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
- * <br>
- */
+ * <br> */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
-
     private static final long serialVersionUID = 30402L;
-
     static final String utf_8 = "UTF-8";
-
     private static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl
             .getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);
-
     private final byte[] literal;
-
     private final OWLDatatype datatype;
-
     private final String lang;
-
     private final int hashcode;
 
-    /**
-     * @param literal the lexical form
-     * @param lang the language; can be null or an empty string, in which case
-     * datatype can be any datatype but not null
-     * @param datatype the datatype; if lang is null or the empty string, it can be
-     * null or it MUST be RDFPlainLiteral
-     */
+    /** @param literal
+     *            the lexical form
+     * @param lang
+     *            the language; can be null or an empty string, in which case
+     *            datatype can be any datatype but not null
+     * @param datatype
+     *            the datatype; if lang is null or the empty string, it can be
+     *            null or it MUST be RDFPlainLiteral */
     public OWLLiteralImplNoCompression(String literal, String lang, OWLDatatype datatype) {
         this(getBytes(literal), lang, datatype);
     }
@@ -100,16 +92,15 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
             this.lang = "";
             if (datatype == null) {
                 this.datatype = rdfplainlit;
-            }
-            else {
+            } else {
                 this.datatype = datatype;
             }
-        }
-        else {
-
+        } else {
             if (datatype != null && !datatype.isRDFPlainLiteral()) {
-                // ERROR: attempting to build a literal with a language tag and type different from plain literal
-                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
+                // ERROR: attempting to build a literal with a language tag and
+                // type different from plain literal
+                throw new OWLRuntimeException("Error: cannot build a literal with type: "
+                        + datatype.getIRI() + " and language: " + lang);
             }
             this.lang = lang;
             this.datatype = rdfplainlit;
@@ -117,12 +108,10 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         hashcode = getHashCode();
     }
 
-
     private static byte[] getBytes(String literal) {
         try {
             return literal.getBytes(utf_8);
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("Unsupported UTF 8 encoding: broken JVM", e);
         }
     }
@@ -131,8 +120,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     public String getLiteral() {
         try {
             return new String(literal, utf_8);
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             throw new OWLRuntimeException("Unsupported UTF 8 encoding: broken JVM", e);
         }
     }
@@ -214,7 +202,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     public boolean hasLang(String l) {
-        //XXX this was missing null checks: a null lang is still valid in the factory, where it becomes a ""
+        // XXX this was missing null checks: a null lang is still valid in the
+        // factory, where it becomes a ""
         if (l == null && lang == null) {
             return true;
         }
@@ -239,22 +228,21 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         hashCode = hashCode * 37 + getDatatype().hashCode();
         hashCode = hashCode * 37;
         try {
-        if (isInteger()) {
-            hashCode += parseInteger() * 65536;
-        } else if (isDouble()) {
-            hashCode += (int) parseDouble() * 65536;
-        } else if (isFloat()) {
-            hashCode += (int) parseFloat() * 65536;
-        } else if (isBoolean()) {
-            hashCode += parseBoolean() ? 65536 : 0;
-        } else {
-            hashCode+=getLiteral().hashCode()*65536;
-        }
+            if (isInteger()) {
+                hashCode += parseInteger() * 65536;
+            } else if (isDouble()) {
+                hashCode += (int) parseDouble() * 65536;
+            } else if (isFloat()) {
+                hashCode += (int) parseFloat() * 65536;
+            } else if (isBoolean()) {
+                hashCode += parseBoolean() ? 65536 : 0;
+            } else {
+                hashCode += getLiteral().hashCode() * 65536;
+            }
         } catch (NumberFormatException e) {
             // it is possible that a literal does not have a value that's valid
-            // for its datatype
-            // not very useful for a consistent ontology but some W3C reasoner
-            // tests use them
+            // for its datatype; not very useful for a consistent ontology but
+            // some W3C reasoner tests use them
             hashCode += getLiteral().hashCode() * 65536;
         }
         if (hasLang()) {
@@ -271,9 +259,14 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
             }
             OWLLiteral other = (OWLLiteral) obj;
             if (other instanceof OWLLiteralImplNoCompression) {
-                return Arrays.equals(literal, ((OWLLiteralImplNoCompression) other).literal) && datatype.equals(other.getDatatype()) && lang.equals(other.getLang());
+                return Arrays.equals(literal,
+                        ((OWLLiteralImplNoCompression) other).literal)
+                        && datatype.equals(other.getDatatype())
+                        && lang.equals(other.getLang());
             }
-            return getLiteral().equals(other.getLiteral()) && datatype.equals(other.getDatatype()) && lang.equals(other.getLang());
+            return getLiteral().equals(other.getLiteral())
+                    && datatype.equals(other.getDatatype())
+                    && lang.equals(other.getLang());
         }
         return false;
     }

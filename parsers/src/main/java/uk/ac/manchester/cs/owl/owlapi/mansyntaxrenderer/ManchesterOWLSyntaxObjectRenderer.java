@@ -103,7 +103,6 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     protected void write(Set<? extends OWLClassExpression> objects, boolean newline) {
-        //boolean lastWasNamed = false;
         boolean first = true;
 
         for (Iterator<? extends OWLObject> it = sort(objects).iterator(); it.hasNext();) {
@@ -124,7 +123,6 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
                 write(")");
             }
 
-            //lastWasNamed = desc instanceof OWLClass;
         }
     }
 

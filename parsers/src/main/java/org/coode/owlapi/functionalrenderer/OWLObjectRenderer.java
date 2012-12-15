@@ -331,12 +331,10 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     private void write(Collection<? extends OWLObject> objects) {
         if (objects.size() > 2) {
-            //int indent = getIndent();
             for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
                 it.next().accept(this);
                 if (it.hasNext()) {
                     write(" ");
-//                    writeIndent(indent);
                 }
             }
         }
@@ -364,12 +362,10 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     private void write(List<? extends OWLObject> objects) {
         if (objects.size() > 1) {
-            //int indent = getIndent();
             for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
                 it.next().accept(this);
                 if (it.hasNext()) {
                     write(" ");
-//                    writeIndent(indent);
                 }
             }
         }

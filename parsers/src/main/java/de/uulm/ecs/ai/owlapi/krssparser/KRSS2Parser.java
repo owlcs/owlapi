@@ -73,7 +73,6 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     private OWLOntology ontology;
     private OWLDataFactory dataFactory;
     private Map<String, IRI> string2IRI;
-    // private boolean ignoreAnnotationsAndDeclarations = false;
     private String base;
     private NamespaceUtil utils;
     private NameResolverStrategy nameResolution;
@@ -150,9 +149,6 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         this.nameResolution = nameResolution;
     }
 
-    // public void setIgnoreAnnotationsAndDeclarations(boolean b) {
-    // ignoreAnnotationsAndDeclarations = b;
-    // }
     final public void parse() throws ParseException, KRSS2OWLParserException {
         label_1: while (true) {
             if (jj_2_1(2)) {} else {

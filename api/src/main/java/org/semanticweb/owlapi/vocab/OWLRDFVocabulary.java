@@ -337,7 +337,6 @@ public enum OWLRDFVocabulary {
             OWL_TARGET_INDIVIDUAL(Namespaces.OWL, "targetIndividual"),
             /** http://www.w3.org/2002/07/owl#targetValue **/
             OWL_TARGET_VALUE(Namespaces.OWL, "targetValue");
-    // final URI uri;
     final IRI iri;
     final Namespaces namespace;
     final String shortName;

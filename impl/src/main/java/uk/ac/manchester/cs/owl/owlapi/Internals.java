@@ -126,10 +126,10 @@ public interface Internals {
     <K, V extends OWLAxiom> boolean contains(Pointer<K, V> pointer, K k, V v);
 
     Pointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>
-    getAnnotationAssertionAxiomsBySubject();
+            getAnnotationAssertionAxiomsBySubject();
 
     Pointer<OWLObjectPropertyExpression, OWLAsymmetricObjectPropertyAxiom>
-    getAsymmetricPropertyAxiomsByProperty();
+            getAsymmetricPropertyAxiomsByProperty();
 
     int getAxiomCount();
 
@@ -144,48 +144,48 @@ public interface Internals {
     Pointer<OWLClass, OWLClassAxiom> getClassAxiomsByClass();
 
     Pointer<OWLIndividual, OWLDataPropertyAssertionAxiom>
-    getDataPropertyAssertionsByIndividual();
+            getDataPropertyAssertionsByIndividual();
 
     Pointer<OWLDataPropertyExpression, OWLDataPropertyDomainAxiom>
-    getDataPropertyDomainAxiomsByProperty();
+            getDataPropertyDomainAxiomsByProperty();
 
     Pointer<OWLDataPropertyExpression, OWLDataPropertyRangeAxiom>
-    getDataPropertyRangeAxiomsByProperty();
+            getDataPropertyRangeAxiomsByProperty();
 
     Pointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom>
-    getDataSubPropertyAxiomsByLHS();
+            getDataSubPropertyAxiomsByLHS();
 
     Pointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom>
-    getDataSubPropertyAxiomsByRHS();
+            getDataSubPropertyAxiomsByRHS();
 
     Pointer<OWLEntity, OWLDeclarationAxiom> getDeclarationsByEntity();
 
     Pointer<OWLIndividual, OWLDifferentIndividualsAxiom>
-    getDifferentIndividualsAxiomsByIndividual();
+            getDifferentIndividualsAxiomsByIndividual();
 
     Pointer<OWLClass, OWLDisjointClassesAxiom> getDisjointClassesAxiomsByClass();
 
     Pointer<OWLDataPropertyExpression, OWLDisjointDataPropertiesAxiom>
-    getDisjointDataPropertyAxiomsByProperty();
+            getDisjointDataPropertyAxiomsByProperty();
 
     Pointer<OWLObjectPropertyExpression, OWLDisjointObjectPropertiesAxiom>
-    getDisjointObjectPropertyAxiomsByProperty();
+            getDisjointObjectPropertyAxiomsByProperty();
 
     Pointer<OWLClass, OWLDisjointUnionAxiom> getDisjointUnionAxiomsByClass();
 
     Pointer<OWLClass, OWLEquivalentClassesAxiom> getEquivalentClassesAxiomsByClass();
 
     Pointer<OWLDataPropertyExpression, OWLEquivalentDataPropertiesAxiom>
-    getEquivalentDataPropertyAxiomsByProperty();
+            getEquivalentDataPropertyAxiomsByProperty();
 
     Pointer<OWLObjectPropertyExpression, OWLEquivalentObjectPropertiesAxiom>
-    getEquivalentObjectPropertyAxiomsByProperty();
+            getEquivalentObjectPropertyAxiomsByProperty();
 
     Pointer<OWLDataPropertyExpression, OWLFunctionalDataPropertyAxiom>
-    getFunctionalDataPropertyAxiomsByProperty();
+            getFunctionalDataPropertyAxiomsByProperty();
 
     Pointer<OWLObjectPropertyExpression, OWLFunctionalObjectPropertyAxiom>
-    getFunctionalObjectPropertyAxiomsByProperty();
+            getFunctionalObjectPropertyAxiomsByProperty();
 
     Set<OWLClassAxiom> getGeneralClassAxioms();
 
@@ -194,39 +194,38 @@ public interface Internals {
     Set<OWLImportsDeclaration> getImportsDeclarations();
 
     Pointer<OWLObjectPropertyExpression, OWLInverseFunctionalObjectPropertyAxiom>
-    getInverseFunctionalPropertyAxiomsByProperty();
+            getInverseFunctionalPropertyAxiomsByProperty();
 
     Pointer<OWLObjectPropertyExpression, OWLInverseObjectPropertiesAxiom>
-    getInversePropertyAxiomsByProperty();
+            getInversePropertyAxiomsByProperty();
 
     Pointer<OWLObjectPropertyExpression, OWLIrreflexiveObjectPropertyAxiom>
-    getIrreflexivePropertyAxiomsByProperty();
+            getIrreflexivePropertyAxiomsByProperty();
 
-    // Pointer<OWLAxiom, OWLAxiom> getLogicalAxiom2AnnotatedAxiomMap();
     int getLogicalAxiomCount();
 
     Set<OWLLogicalAxiom> getLogicalAxioms();
 
     Pointer<OWLIndividual, OWLNegativeDataPropertyAssertionAxiom>
-    getNegativeDataPropertyAssertionAxiomsByIndividual();
+            getNegativeDataPropertyAssertionAxiomsByIndividual();
 
     Pointer<OWLIndividual, OWLNegativeObjectPropertyAssertionAxiom>
-    getNegativeObjectPropertyAssertionAxiomsByIndividual();
+            getNegativeObjectPropertyAssertionAxiomsByIndividual();
 
     Pointer<OWLIndividual, OWLObjectPropertyAssertionAxiom>
-    getObjectPropertyAssertionsByIndividual();
+            getObjectPropertyAssertionsByIndividual();
 
     Pointer<OWLObjectPropertyExpression, OWLObjectPropertyDomainAxiom>
-    getObjectPropertyDomainAxiomsByProperty();
+            getObjectPropertyDomainAxiomsByProperty();
 
     Pointer<OWLObjectPropertyExpression, OWLObjectPropertyRangeAxiom>
-    getObjectPropertyRangeAxiomsByProperty();
+            getObjectPropertyRangeAxiomsByProperty();
 
     Pointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom>
-    getObjectSubPropertyAxiomsByLHS();
+            getObjectSubPropertyAxiomsByLHS();
 
     Pointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom>
-    getObjectSubPropertyAxiomsByRHS();
+            getObjectSubPropertyAxiomsByRHS();
 
     Set<OWLAnnotation> getOntologyAnnotations();
 
@@ -245,7 +244,7 @@ public interface Internals {
     Pointer<OWLObjectProperty, OWLAxiom> getOwlObjectPropertyReferences();
 
     Pointer<OWLObjectPropertyExpression, OWLReflexiveObjectPropertyAxiom>
-    getReflexivePropertyAxiomsByProperty();
+            getReflexivePropertyAxiomsByProperty();
 
     Pointer<OWLIndividual, OWLSameIndividualAxiom> getSameIndividualsAxiomsByIndividual();
 
@@ -254,10 +253,10 @@ public interface Internals {
     Pointer<OWLClass, OWLSubClassOfAxiom> getSubClassAxiomsByRHS();
 
     Pointer<OWLObjectPropertyExpression, OWLSymmetricObjectPropertyAxiom>
-    getSymmetricPropertyAxiomsByProperty();
+            getSymmetricPropertyAxiomsByProperty();
 
     Pointer<OWLObjectPropertyExpression, OWLTransitiveObjectPropertyAxiom>
-    getTransitivePropertyAxiomsByProperty();
+            getTransitivePropertyAxiomsByProperty();
 
     <K, V extends OWLAxiom> Set<V> getValues(Pointer<K, V> pointer, K key);
 

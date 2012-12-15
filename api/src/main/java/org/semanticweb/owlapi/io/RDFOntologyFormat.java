@@ -117,7 +117,6 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
         this.addMissingTypes = addMissingTypes;
     }
 
-    //XXX the next two methods don't seem to do anything useful
     @Override
     public RDFParserMetaData getOntologyLoaderMetaData() {
         return (RDFParserMetaData) super.getOntologyLoaderMetaData();

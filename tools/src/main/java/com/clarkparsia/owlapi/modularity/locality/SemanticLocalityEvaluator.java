@@ -121,16 +121,11 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            // XXX this seems wrong, doesn't use the input and isLocal can only
-            // possibly be set to true
-            // Set<OWLClassExpression> disjClasses =
-            // axiom.getClassExpressions();
-            // OWLClassExpression conjunction =
-            // df.getOWLObjectIntersectionOf(disjClasses);
+            // XXX this seems wrong
             if (log.isLoggable(Level.FINE)) {
                 log.fine("Calling the Reasoner");
             }
-            isLocal = !reasoner.isSatisfiable(df.getOWLNothing());
+            isLocal = true;
             if (log.isLoggable(Level.FINE)) {
                 log.fine("DONE Calling the Reasoner. isLocal = " + isLocal);
             }
@@ -142,7 +137,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (eqClasses.size() != 2) {
                 return;
             }
-            // Iterator<OWLClassExpression> iter = eqClasses.iterator();
             if (log.isLoggable(Level.FINE)) {
                 log.fine("Calling the Reasoner");
             }

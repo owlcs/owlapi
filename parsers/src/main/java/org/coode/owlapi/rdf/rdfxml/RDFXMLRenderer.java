@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdf.rdfxml;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
@@ -69,18 +68,15 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group<br> Date:
- * 06-Dec-2006<br><br>
- */
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 06-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class RDFXMLRenderer extends RDFRendererBase {
-
     private RDFXMLWriter writer;
-
     private Set<RDFResourceNode> pending;
-
     private RDFXMLNamespaceManager qnameManager;
 
     @Deprecated
@@ -93,27 +89,24 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Deprecated
-    public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w, OWLOntologyFormat format) {
+    public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w,
+            OWLOntologyFormat format) {
         this(ontology, w, format);
     }
 
     public RDFXMLRenderer(OWLOntology ontology, Writer w, OWLOntologyFormat format) {
         super(ontology, format);
         pending = new HashSet<RDFResourceNode>();
-        //renderedAnonymousNodes = new HashSet<RDFResourceNode>();
-
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
-
-
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base;
         if (defaultNamespace.endsWith("#")) {
             base = defaultNamespace.substring(0, defaultNamespace.length() - 1);
-        }
-        else {
+        } else {
             base = defaultNamespace;
         }
-        writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(w, qnameManager, base));
+        writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(w,
+                qnameManager, base));
         prettyPrintedTypes = new HashSet<IRI>();
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_CLASS.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
@@ -134,12 +127,10 @@ public class RDFXMLRenderer extends RDFRendererBase {
         return qnameManager.getEntitiesWithInvalidQNames();
     }
 
-
     @Override
     protected void beginDocument() throws IOException {
         writer.startDocument();
     }
-
 
     @Override
     protected void endDocument() throws IOException {
@@ -147,24 +138,20 @@ public class RDFXMLRenderer extends RDFRendererBase {
         writer.writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
     }
 
-
     @Override
     protected void writeIndividualComments(OWLNamedIndividual ind) throws IOException {
         writer.writeComment(XMLUtils.escapeXML(ind.getIRI().toString()));
     }
-
 
     @Override
     protected void writeClassComment(OWLClass cls) throws IOException {
         writer.writeComment(XMLUtils.escapeXML(cls.getIRI().toString()));
     }
 
-
     @Override
     protected void writeDataPropertyComment(OWLDataProperty prop) throws IOException {
         writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
     }
-
 
     @Override
     protected void writeObjectPropertyComment(OWLObjectProperty prop) throws IOException {
@@ -172,7 +159,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) throws IOException {
+    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop)
+            throws IOException {
         writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
     }
 
@@ -183,44 +171,54 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     @Override
     protected void writeBanner(String name) throws IOException {
-        writer.writeComment("\n///////////////////////////////////////////////////////////////////////////////////////\n" + "//\n" + "// " + name + "\n" + "//\n" + "///////////////////////////////////////////////////////////////////////////////////////\n");
+        writer.writeComment("\n///////////////////////////////////////////////////////////////////////////////////////\n"
+                + "//\n"
+                + "// "
+                + name
+                + "\n"
+                + "//\n"
+                + "///////////////////////////////////////////////////////////////////////////////////////\n");
     }
-
 
     @Override
     public void render(RDFResourceNode node) throws IOException {
         if (pending.contains(node)) {
-            // We essentially remove all structure sharing during parsing - any cycles therefore indicate a bug!
-//            throw new IllegalStateException("Rendering cycle!  This indicates structure sharing and should not happen! (Node: " + node.toString() + ")");
+            // We essentially remove all structure sharing during parsing - any
+            // cycles therefore indicate a bug!
+            // throw new
+            // IllegalStateException("Rendering cycle!  This indicates structure sharing and should not happen! (Node: "
+            // + node.toString() + ")");
             return;
         }
         pending.add(node);
         RDFTriple candidatePrettyPrintTypeTriple = null;
         final List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
-		for (RDFTriple triple : triples) {
+        for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getProperty().getIRI();
-            if (propertyIRI.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()) {
-                if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())) {
+            if (propertyIRI.equals(OWLRDFVocabulary.RDF_TYPE.getIRI())
+                    && !triple.getObject().isAnonymous()) {
+                if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject()
+                        .getIRI())) {
                     if (prettyPrintedTypes.contains(triple.getObject().getIRI())) {
                         candidatePrettyPrintTypeTriple = triple;
                     }
                 }
-//                else {
-//                    candidatePrettyPrintTypeTriple = triple;
-//                }
+                // else {
+                // candidatePrettyPrintTypeTriple = triple;
+                // }
             }
         }
         if (candidatePrettyPrintTypeTriple == null) {
             writer.writeStartElement(RDF_DESCRIPTION.getIRI());
-        }
-        else {
+        } else {
             writer.writeStartElement(candidatePrettyPrintTypeTriple.getObject().getIRI());
         }
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
         }
         for (RDFTriple triple : triples) {
-            if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
+            if (candidatePrettyPrintTypeTriple != null
+                    && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;
             }
             writer.writeStartElement(triple.getProperty().getIRI());
@@ -236,42 +234,37 @@ public class RDFXMLRenderer extends RDFRendererBase {
                         for (RDFNode n : list) {
                             if (n.isAnonymous()) {
                                 render((RDFResourceNode) n);
-                            }
-                            else {
+                            } else {
                                 if (n.isLiteral()) {
                                     RDFLiteralNode litNode = (RDFLiteralNode) n;
-                                    writer.writeStartElement(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
+                                    writer.writeStartElement(OWLRDFVocabulary.RDFS_LITERAL
+                                            .getIRI());
                                     if (litNode.getDatatype() != null) {
-                                        writer.writeDatatypeAttribute(litNode.getDatatype());
-                                    }
-                                    else if (litNode.getLang() != null) {
+                                        writer.writeDatatypeAttribute(litNode
+                                                .getDatatype());
+                                    } else if (litNode.getLang() != null) {
                                         writer.writeLangAttribute(litNode.getLang());
                                     }
                                     writer.writeTextContent(litNode.getLiteral());
                                     writer.writeEndElement();
-                                }
-                                else {
+                                } else {
                                     writer.writeStartElement(RDF_DESCRIPTION.getIRI());
                                     writer.writeAboutAttribute(n.getIRI());
                                     writer.writeEndElement();
                                 }
                             }
                         }
-                    }
-                    else {
+                    } else {
                         render(objectRes);
                     }
-                }
-                else {
+                } else {
                     writer.writeResourceAttribute(objectRes.getIRI());
                 }
-            }
-            else {
+            } else {
                 RDFLiteralNode rdfLiteralNode = (RDFLiteralNode) objectNode;
                 if (rdfLiteralNode.getDatatype() != null) {
                     writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
-                }
-                else if (rdfLiteralNode.getLang() != null) {
+                } else if (rdfLiteralNode.getLang() != null) {
                     writer.writeLangAttribute(rdfLiteralNode.getLang());
                 }
                 writer.writeTextContent(rdfLiteralNode.getLiteral());

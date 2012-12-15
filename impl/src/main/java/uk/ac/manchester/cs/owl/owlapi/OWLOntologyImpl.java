@@ -335,12 +335,8 @@ Serializable {
     @Override
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
             OWLAnnotationSubject subject) {
-        //Set<OWLAnnotationAssertionAxiom> axioms = createSet();
-        //axioms.addAll(
         return internals.getValues(internals.getAnnotationAssertionAxiomsBySubject(),
                 subject);
-        //);
-        //return axioms;
     }
 
     @Override
@@ -394,13 +390,6 @@ Serializable {
             }
         }
         return false;
-        //		if (axiom.isAnnotated()) {
-        //			return internals.contains(internals.getLogicalAxiom2AnnotatedAxiomMap(),axiom.getAxiomWithoutAnnotations());
-        //		} else {
-        //			return containsAxiom(axiom)
-        //					|| internals.contains(internals.getLogicalAxiom2AnnotatedAxiomMap(),
-        //							axiom);
-        //		}
     }
 
     /**
@@ -457,9 +446,6 @@ Serializable {
                 result.add(ax);
             }
         }
-        //		Set<OWLAxiom> annotated = internals.getValues(
-        //				internals.getLogicalAxiom2AnnotatedAxiomMap(), axiom.getAxiomWithoutAnnotations());
-        //		result.addAll(annotated);
         return result;
     }
 
@@ -926,28 +912,6 @@ Serializable {
         return internals.getValues(internals.getOwlAnonymousIndividualReferences(),
                 individual);
     }
-
-    //	public boolean hasReferencingAxioms(OWLEntity owlEntity) {
-    //		final ReferencedAxiomsChecker referencedAxiomsCollector = new ReferencedAxiomsChecker();
-    //		return owlEntity.accept(referencedAxiomsCollector);
-    //	}
-    //
-    //	public boolean hasReferencingAxioms(OWLEntity owlEntity, boolean includeImportsClosure) {
-    //		if (!includeImportsClosure) {
-    //			return hasReferencingAxioms(owlEntity);
-    //		}
-    //		for (OWLOntology ont : getImportsClosure()) {
-    //			if (ont.hasReferencingAxioms(owlEntity)) {
-    //				return true;
-    //			}
-    //		}
-    //		return false;
-    //	}
-    //
-    //	public boolean hasReferencingAxioms(OWLAnonymousIndividual individual) {
-    //		return internals.hasValues(internals.getOwlAnonymousIndividualReferences(),
-    //				individual);
-    //	}
 
     @Override
     public Set<OWLClassAxiom> getAxioms(final OWLClass cls) {

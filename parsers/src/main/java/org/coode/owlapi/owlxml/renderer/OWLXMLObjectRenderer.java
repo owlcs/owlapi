@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxml.renderer;
 
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
@@ -138,30 +137,17 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
- */
+ * Date: 12-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
-
     private OWLXMLWriter writer;
-
-    //private OWLOntology ontology;
-
-
-    //public OWLXMLObjectRenderer(OWLOntology ontology, OWLXMLWriter writer) {
-        //this.writer = writer;
-        //this.ontology = ontology;
-    //}
-
 
     public OWLXMLObjectRenderer(OWLXMLWriter writer) {
         this.writer = writer;
-        //this.ontology = null;
     }
 
     private void writeAnnotations(OWLAxiom axiom) {
@@ -180,7 +166,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         for (OWLAnnotation annotation : ontology.getAnnotations()) {
             annotation.accept(this);
         }
-
         List<OWLAxiom> axioms = new ArrayList<OWLAxiom>(ontology.getAxioms());
         Collections.sort(axioms);
         for (OWLAxiom ax : axioms) {
@@ -200,7 +185,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         writer.writeStartElement(ASYMMETRIC_OBJECT_PROPERTY);
@@ -218,7 +202,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         writer.writeStartElement(DATA_PROPERTY_ASSERTION);
@@ -229,7 +212,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         writer.writeStartElement(DATA_PROPERTY_DOMAIN);
@@ -238,7 +220,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         axiom.getDomain().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
@@ -249,7 +230,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         writer.writeStartElement(SUB_DATA_PROPERTY_OF);
@@ -259,7 +239,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
         writer.writeStartElement(DECLARATION);
@@ -267,7 +246,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         axiom.getEntity().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
@@ -277,7 +255,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         writer.writeStartElement(DISJOINT_CLASSES);
@@ -285,7 +262,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         render(axiom.getClassExpressions());
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
@@ -295,7 +271,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         writer.writeStartElement(DISJOINT_OBJECT_PROPERTIES);
@@ -303,7 +278,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         render(axiom.getProperties());
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
@@ -313,7 +287,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         render(axiom.getClassExpressions());
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
@@ -325,7 +298,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         writer.writeStartElement(EQUIVALENT_CLASSES);
@@ -333,7 +305,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         render(axiom.getClassExpressions());
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
@@ -343,7 +314,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         writer.writeStartElement(EQUIVALENT_OBJECT_PROPERTIES);
@@ -351,7 +321,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         render(axiom.getProperties());
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
@@ -361,7 +330,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         writer.writeStartElement(FUNCTIONAL_OBJECT_PROPERTY);
@@ -370,7 +338,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         writer.writeStartElement(INVERSE_FUNCTIONAL_OBJECT_PROPERTY);
@@ -378,7 +345,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         axiom.getProperty().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
@@ -389,7 +355,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         writer.writeStartElement(IRREFLEXIVE_OBJECT_PROPERTY);
@@ -397,7 +362,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         axiom.getProperty().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
@@ -409,7 +373,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         writer.writeStartElement(NEGATIVE_OBJECT_PROPERTY_ASSERTION);
@@ -420,7 +383,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         writer.writeStartElement(OBJECT_PROPERTY_ASSERTION);
@@ -430,7 +392,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         axiom.getObject().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
@@ -445,7 +406,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         writer.writeStartElement(OBJECT_PROPERTY_DOMAIN);
@@ -454,7 +414,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         axiom.getDomain().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
@@ -465,7 +424,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         writer.writeStartElement(SUB_OBJECT_PROPERTY_OF);
@@ -475,7 +433,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         writer.writeStartElement(REFLEXIVE_OBJECT_PROPERTY);
@@ -484,7 +441,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         writer.writeStartElement(SAME_INDIVIDUAL);
@@ -492,7 +448,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         render(axiom.getIndividuals());
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
@@ -503,7 +458,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         writer.writeStartElement(SYMMETRIC_OBJECT_PROPERTY);
@@ -511,7 +465,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         axiom.getProperty().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
@@ -521,14 +474,12 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLClass desc) {
         writer.writeStartElement(CLASS);
         writer.writeIRIAttribute(desc.getIRI());
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLDataAllValuesFrom desc) {
@@ -537,7 +488,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         desc.getFiller().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLDataExactCardinality desc) {
@@ -550,7 +500,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLDataMaxCardinality desc) {
         writer.writeStartElement(DATA_MAX_CARDINALITY);
@@ -561,7 +510,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         }
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLDataMinCardinality desc) {
@@ -574,7 +522,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLDataSomeValuesFrom desc) {
         writer.writeStartElement(DATA_SOME_VALUES_FROM);
@@ -582,7 +529,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         desc.getFiller().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLDataHasValue desc) {
@@ -592,7 +538,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLObjectAllValuesFrom desc) {
         writer.writeStartElement(OBJECT_ALL_VALUES_FROM);
@@ -601,14 +546,12 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLObjectComplementOf desc) {
         writer.writeStartElement(OBJECT_COMPLEMENT_OF);
         desc.getOperand().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLObjectExactCardinality desc) {
@@ -621,14 +564,12 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLObjectIntersectionOf desc) {
         writer.writeStartElement(OBJECT_INTERSECTION_OF);
         render(desc.getOperands());
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLObjectMaxCardinality desc) {
@@ -641,7 +582,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLObjectMinCardinality desc) {
         writer.writeStartElement(OBJECT_MIN_CARDINALITY);
@@ -653,7 +593,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLObjectOneOf desc) {
         writer.writeStartElement(OBJECT_ONE_OF);
@@ -661,14 +600,12 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLObjectHasSelf desc) {
         writer.writeStartElement(OBJECT_HAS_SELF);
         desc.getProperty().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLObjectSomeValuesFrom desc) {
@@ -678,14 +615,12 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLObjectUnionOf desc) {
         writer.writeStartElement(OBJECT_UNION_OF);
         render(desc.getOperands());
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLObjectHasValue desc) {
@@ -695,14 +630,12 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLDataComplementOf node) {
         writer.writeStartElement(DATA_COMPLEMENT_OF);
         node.getDataRange().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLDataOneOf node) {
@@ -711,14 +644,12 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLDatatype node) {
         writer.writeStartElement(DATATYPE);
         writer.writeIRIAttribute(node.getIRI());
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLDatatypeRestriction node) {
@@ -727,7 +658,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         render(node.getFacetRestrictions());
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLFacetRestriction node) {
@@ -755,7 +685,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLObjectProperty property) {
         writer.writeStartElement(OBJECT_PROPERTY);
@@ -763,14 +692,12 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLObjectInverseOf property) {
         writer.writeStartElement(OBJECT_INVERSE_OF);
         property.getInverse().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(OWLNamedIndividual individual) {
@@ -845,7 +772,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
         writer.writeStartElement(DATATYPE_DEFINITION);
@@ -853,7 +779,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         axiom.getDataRange().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(SWRLRule rule) {
@@ -872,7 +797,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(SWRLClassAtom node) {
         writer.writeStartElement(CLASS_ATOM);
@@ -881,7 +805,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(SWRLDataRangeAtom node) {
         writer.writeStartElement(DATA_RANGE_ATOM);
@@ -889,7 +812,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         node.getArgument().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(SWRLObjectPropertyAtom node) {
@@ -900,7 +822,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(SWRLDataPropertyAtom node) {
         writer.writeStartElement(DATA_PROPERTY_ATOM);
@@ -909,7 +830,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         node.getSecondArgument().accept(this);
         writer.writeEndElement();
     }
-
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
@@ -921,7 +841,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(SWRLVariable node) {
         writer.writeStartElement(VARIABLE);
@@ -929,18 +848,15 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
     }
 
-
     @Override
     public void visit(SWRLLiteralArgument node) {
         node.getLiteral().accept(this);
     }
-
 
     @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
@@ -950,7 +866,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-
     @Override
     public void visit(SWRLSameIndividualAtom node) {
         writer.writeStartElement(SAME_INDIVIDUAL_ATOM);
@@ -958,7 +873,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         node.getSecondArgument().accept(this);
         writer.writeEndElement();
     }
-
 
     private void render(Set<? extends OWLObject> objects) {
         for (OWLObject obj : objects) {

@@ -784,14 +784,6 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor, 
     @Override
     public void visit(IRI iri) {}
 
-    //    public void visit(OWLAnnotationValue value) {
-    //        if(value.isLiteral()) {
-    //            value.asLiteral().accept(this);
-    //        }
-    //        else if(value.isAnonymousIndividual()) {
-    //            value.asOWLAnonymousIndividual().accept(this);
-    //        }
-    //    }
     @Override
     public void visit(OWLOntology ontology) {
         objects.addAll(ontology.getSignature());

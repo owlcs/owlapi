@@ -117,6 +117,5 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     @Override
     public void endRendering() {
         writer.flush();
-        // writer.close();
     }
 }

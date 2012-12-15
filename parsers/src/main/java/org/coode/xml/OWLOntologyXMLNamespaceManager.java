@@ -86,7 +86,6 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     public OWLOntologyXMLNamespaceManager(OWLOntology ontology, OWLOntologyFormat format) {
         super(getDefaultNamespace(ontology, format));
-        //this.man = man;
         this.ontology = ontology;
         namespaceUtil = new NamespaceUtil();
         ontologyFormat = format;

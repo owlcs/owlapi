@@ -77,19 +77,16 @@ public class TurtleOntologyParser extends AbstractOWLParser {
         try {
             TurtleParser parser;
             if(documentSource.isReaderAvailable()) {
-                //parser = new TurtleParser(documentSource.getReader(), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
                 reader = documentSource.getReader();
                 parser = new TurtleParser(reader, new ConsoleTripleHandler(),
                         documentSource.getDocumentIRI().toString());
             }
             else if(documentSource.isInputStreamAvailable()) {
-                //parser = new TurtleParser(documentSource.getInputStream(), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
                 is = documentSource.getInputStream();
                 parser = new TurtleParser(is, new ConsoleTripleHandler(), documentSource
                         .getDocumentIRI().toString());
             }
             else {
-                //parser = new TurtleParser(new BufferedInputStream(documentSource.getDocumentIRI().toURI().toURL().openStream()), new ConsoleTripleHandler(), documentSource.getDocumentIRI().toString());
                 is = new BufferedInputStream(documentSource.getDocumentIRI().toURI()
                         .toURL().openStream());
                 parser = new TurtleParser(is, new ConsoleTripleHandler(), documentSource
