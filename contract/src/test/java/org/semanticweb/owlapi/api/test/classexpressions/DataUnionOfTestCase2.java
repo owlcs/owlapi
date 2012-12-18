@@ -38,13 +38,13 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Collections;
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
@@ -61,21 +61,18 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLDataFactory factory = getFactory();
-        OWLDatatype dt = factory.getOWLDatatype(IRI.create("file:/c/test.owlapi#SSN"));
-        OWLFacetRestriction fr = factory.getOWLFacetRestriction(OWLFacet.PATTERN,
-                factory.getOWLLiteral("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
-        OWLDataRange dr = factory.getOWLDatatypeRestriction(factory.getOWLDatatype(IRI
-                .create("http://www.w3.org/2001/XMLSchema#string")), fr);
-        OWLDataIntersectionOf disj1 = factory.getOWLDataIntersectionOf(
-                factory.getOWLDataComplementOf(dr), dt);
+        OWLDatatype dt = Datatype(IRI("file:/c/test.owlapi#SSN"));
+        OWLFacetRestriction fr = FacetRestriction(OWLFacet.PATTERN,
+                Literal("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
+        OWLDataRange dr = DatatypeRestriction(
+                Datatype(IRI("http://www.w3.org/2001/XMLSchema#string")), fr);
+        OWLDataIntersectionOf disj1 = DataIntersectionOf(DataComplementOf(dr), dt);
         // here I negate dr
-        OWLDataIntersectionOf disj2 = factory.getOWLDataIntersectionOf(
-                factory.getOWLDataComplementOf(dt), dr);
+        OWLDataIntersectionOf disj2 = DataIntersectionOf(DataComplementOf(dt), dr);
         // here I negate dt
-        OWLDataUnionOf union = factory.getOWLDataUnionOf(disj1, disj2);
-        OWLDataProperty prop = getOWLDataProperty("prop");
-        OWLDataPropertyRangeAxiom ax = factory.getOWLDataPropertyRangeAxiom(prop, union);
+        OWLDataUnionOf union = DataUnionOf(disj1, disj2);
+        OWLDataProperty prop = DataProperty(getIRI("prop"));
+        OWLDataPropertyRangeAxiom ax = DataPropertyRange(prop, union);
         return Collections.singleton(ax);
     }
 }

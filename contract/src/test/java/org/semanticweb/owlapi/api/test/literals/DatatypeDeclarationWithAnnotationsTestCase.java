@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.literals;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Set;
 
 import org.junit.Test;
@@ -55,8 +57,8 @@ public class DatatypeDeclarationWithAnnotationsTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        OWLEntity ent = getOWLDatatype("DT");
-        return getFactory().getOWLDeclarationAxiom(ent, annos);
+        OWLEntity ent = Datatype(getIRI("DT"));
+        return Declaration(ent, annos);
     }
 
     @Override

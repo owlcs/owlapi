@@ -38,15 +38,17 @@
  */
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -77,19 +79,19 @@ public class Utf8RoundTrip001TestCase {
         OWLOntologyManager manager;
         OWLOntology ontology;
         manager = Factory.getManager();
-        ontology = manager.createOntology(IRI.create(NS));
+        ontology = manager.createOntology(IRI(NS));
         OWLDataFactory factory = manager.getOWLDataFactory();
-        OWLClass a = factory.getOWLClass(IRI.create(NS + "#A"));
+        OWLClass a = Class(IRI(NS + "#A"));
         manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(a));
         OWLAnnotationAssertionAxiom axiom = factory.getOWLAnnotationAssertionAxiom(
                 a.getIRI(),
                 factory.getOWLAnnotation(factory.getRDFSLabel(),
                         factory.getOWLLiteral("Chinese=處方")));
         manager.addAxiom(ontology, axiom);
-        File ontFile = File.createTempFile("OWLApi-utf8", "owl");
-        manager.saveOntology(ontology, new OWLFunctionalSyntaxOntologyFormat(),
-                IRI.create(ontFile));
+        StringDocumentTarget ontFile = new StringDocumentTarget();
+        manager.saveOntology(ontology, new OWLFunctionalSyntaxOntologyFormat(), ontFile);
         manager = Factory.getManager();
-        ontology = manager.loadOntologyFromOntologyDocument(ontFile);
+        ontology = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(
+                ontFile.toString()));
     }
 }

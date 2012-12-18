@@ -39,6 +39,8 @@
 package org.semanticweb.owlapi.api.test.literals;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
@@ -52,7 +54,7 @@ public class OWLDatatypeTestCase extends AbstractOWLDataFactoryTest {
     @Override
     @Test
     public void testCreation() throws Exception {
-        OWLDatatype typeA = getFactory().getOWLDatatype(createIRI());
+        OWLDatatype typeA = Datatype(createIRI());
         assertNotNull(typeA);
     }
 
@@ -60,25 +62,25 @@ public class OWLDatatypeTestCase extends AbstractOWLDataFactoryTest {
     @Test
     public void testEqualsPositive() throws Exception {
         IRI iri = createIRI();
-        OWLDatatype typeA = getFactory().getOWLDatatype(iri);
-        OWLDatatype typeB = getFactory().getOWLDatatype(iri);
+        OWLDatatype typeA = Datatype(iri);
+        OWLDatatype typeB = Datatype(iri);
         assertEquals(typeA, typeB);
     }
 
     @Override
     @Test
     public void testEqualsNegative() throws Exception {
-        OWLDatatype typeA = getFactory().getOWLDatatype(createIRI());
-        OWLDatatype typeB = getFactory().getOWLDatatype(createIRI());
-        assertNotEquals(typeA, typeB);
+        OWLDatatype typeA = Datatype(createIRI());
+        OWLDatatype typeB = Datatype(createIRI());
+        assertFalse(typeA.equals(typeB));
     }
 
     @Override
     @Test
     public void testHashCode() throws Exception {
         IRI iri = createIRI();
-        OWLDatatype typeA = getFactory().getOWLDatatype(iri);
-        OWLDatatype typeB = getFactory().getOWLDatatype(iri);
+        OWLDatatype typeA = Datatype(iri);
+        OWLDatatype typeB = Datatype(iri);
         assertEquals(typeA.hashCode(), typeB.hashCode());
     }
 }

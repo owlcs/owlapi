@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.List;
 
@@ -19,7 +20,6 @@ import org.semanticweb.owlapi.OWLCompositeOntologyChange;
 import org.semanticweb.owlapi.RemoveAllDisjointAxioms;
 import org.semanticweb.owlapi.ShortForm2AnnotationGenerator;
 import org.semanticweb.owlapi.SplitSubClassAxioms;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -141,10 +141,10 @@ public class ContractOwlapiTest {
     public void shouldTestShortForm2AnnotationGenerator() throws Exception {
         ShortForm2AnnotationGenerator testSubject0 = new ShortForm2AnnotationGenerator(
                 Utils.getMockManager(), Utils.getMockOntology(),
-                mock(ShortFormProvider.class), IRI.create("urn:aFake"), "");
+                mock(ShortFormProvider.class), IRI("urn:aFake"), "");
         ShortForm2AnnotationGenerator testSubject1 = new ShortForm2AnnotationGenerator(
                 Utils.getMockManager(), Utils.getMockOntology(),
-                mock(ShortFormProvider.class), IRI.create("urn:aFake"));
+                mock(ShortFormProvider.class), IRI("urn:aFake"));
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }

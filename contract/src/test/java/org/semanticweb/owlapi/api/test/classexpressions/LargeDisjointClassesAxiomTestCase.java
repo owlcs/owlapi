@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -56,9 +58,9 @@ public class LargeDisjointClassesAxiomTestCase extends
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         Set<OWLClass> clses = new HashSet<OWLClass>();
         for (int i = 0; i < 1000; i++) {
-            clses.add(getOWLClass("Cls" + i));
+            clses.add(Class(getIRI("Cls" + i)));
         }
-        axioms.add(getFactory().getOWLDisjointClassesAxiom(clses));
+        axioms.add(DisjointClasses(clses));
         return axioms;
     }
 }

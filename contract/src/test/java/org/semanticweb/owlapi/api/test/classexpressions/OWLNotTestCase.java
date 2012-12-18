@@ -39,6 +39,8 @@
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
@@ -52,36 +54,36 @@ public class OWLNotTestCase extends AbstractOWLDataFactoryTest {
     @Override
     @Test
     public void testCreation() throws Exception {
-        OWLClassExpression operand = getFactory().getOWLClass(createIRI());
-        OWLObjectComplementOf not = getFactory().getOWLObjectComplementOf(operand);
+        OWLClassExpression operand = Class(createIRI());
+        OWLObjectComplementOf not = ObjectComplementOf(operand);
         assertNotNull(not);
     }
 
     @Override
     @Test
     public void testEqualsPositive() throws Exception {
-        OWLClassExpression operand = getFactory().getOWLClass(createIRI());
-        OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(operand);
-        OWLObjectComplementOf notB = getFactory().getOWLObjectComplementOf(operand);
+        OWLClassExpression operand = Class(createIRI());
+        OWLObjectComplementOf notA = ObjectComplementOf(operand);
+        OWLObjectComplementOf notB = ObjectComplementOf(operand);
         assertEquals(notA, notB);
     }
 
     @Override
     @Test
     public void testEqualsNegative() throws Exception {
-        OWLClassExpression operandA = getFactory().getOWLClass(createIRI());
-        OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(operandA);
-        OWLClassExpression operandB = getFactory().getOWLClass(createIRI());
-        OWLObjectComplementOf notB = getFactory().getOWLObjectComplementOf(operandB);
-        assertNotEquals(notA, notB);
+        OWLClassExpression operandA = Class(createIRI());
+        OWLObjectComplementOf notA = ObjectComplementOf(operandA);
+        OWLClassExpression operandB = Class(createIRI());
+        OWLObjectComplementOf notB = ObjectComplementOf(operandB);
+        assertFalse(notA.equals(notB));
     }
 
     @Override
     @Test
     public void testHashCode() throws Exception {
-        OWLClassExpression operand = getFactory().getOWLClass(createIRI());
-        OWLObjectComplementOf notA = getFactory().getOWLObjectComplementOf(operand);
-        OWLObjectComplementOf notB = getFactory().getOWLObjectComplementOf(operand);
+        OWLClassExpression operand = Class(createIRI());
+        OWLObjectComplementOf notA = ObjectComplementOf(operand);
+        OWLObjectComplementOf notB = ObjectComplementOf(operand);
         assertEquals(notA.hashCode(), notB.hashCode());
     }
 }

@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -34,18 +36,18 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 public class NullCheckTestCase {
     private static final OWLDataFactory f = Factory.getFactory();
     OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
-    OWLDataPropertyExpression owldpe = f.getOWLDataProperty(IRI.create("urn:dp"));
-    OWLObjectPropertyExpression ope = f.getOWLObjectProperty(IRI.create("urn:op"));
-    IRI iri = IRI.create("urn:iri");
+    OWLDataPropertyExpression owldpe = f.getOWLDataProperty(IRI("urn:dp"));
+    OWLObjectPropertyExpression ope = f.getOWLObjectProperty(IRI("urn:op"));
+    IRI iri = IRI("urn:iri");
     OWLLiteral lit = f.getOWLLiteral(true);
-    OWLAnnotationSubject owlannsubj = IRI.create("urn:i");
+    OWLAnnotationSubject owlannsubj = IRI("urn:i");
     OWLDatatype owldatatype = f.getOWLDatatype(owl2datatype.getIRI());
     OWLDataRange owldatarange = f.getOWLDatatypeRestriction(owldatatype);
-    OWLAnnotationProperty owlap = f.getOWLAnnotationProperty(IRI.create("urn:ap"));
+    OWLAnnotationProperty owlap = f.getOWLAnnotationProperty(IRI("urn:ap"));
     OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
     OWLAnnotation owlannotation = f.getOWLAnnotation(owlap, lit);
     String string = "testString";
-    OWLClass owlclass = f.getOWLClass(IRI.create("urn:classexpression"));
+    OWLClass owlclass = f.getOWLClass(IRI("urn:classexpression"));
     OWLClassExpression ce = owlclass;
     PrefixManager prefixmanager = new DefaultPrefixManager();
     OWLIndividual ind = f.getOWLAnonymousIndividual();

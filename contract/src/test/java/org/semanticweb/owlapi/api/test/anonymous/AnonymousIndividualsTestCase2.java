@@ -38,16 +38,16 @@
  */
 package org.semanticweb.owlapi.api.test.anonymous;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** Author: Matthew Horridge<br>
@@ -58,19 +58,17 @@ public class AnonymousIndividualsTestCase2 extends AbstractAxiomsRoundTrippingTe
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         // Originally submitted by Timothy Redmond
-        OWLDataFactory factory = getFactory();
         String NS = "http://another.com/ont";
-        OWLClass a = factory.getOWLClass(IRI.create(NS + "#A"));
-        OWLAnnotationProperty p = factory.getOWLAnnotationProperty(IRI.create(NS + "#p"));
-        OWLObjectProperty q = factory.getOWLObjectProperty(IRI.create(NS + "#q"));
-        OWLAnonymousIndividual h = factory.getOWLAnonymousIndividual();
-        OWLAnonymousIndividual i = factory.getOWLAnonymousIndividual();
+        OWLClass a = Class(IRI(NS + "#A"));
+        OWLAnnotationProperty p = AnnotationProperty(IRI(NS + "#p"));
+        OWLObjectProperty q = ObjectProperty(IRI(NS + "#q"));
+        OWLAnonymousIndividual h = AnonymousIndividual();
+        OWLAnonymousIndividual i = AnonymousIndividual();
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(factory.getOWLAnnotationAssertionAxiom(p, a.getIRI(), h));
-        axioms.add(factory.getOWLClassAssertionAxiom(a, h));
-        axioms.add(factory.getOWLObjectPropertyAssertionAxiom(q, h, i));
-        axioms.add(factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), h,
-                factory.getOWLLiteral("Second", "en")));
+        axioms.add(AnnotationAssertion(p, a.getIRI(), h));
+        axioms.add(ClassAssertion(a, h));
+        axioms.add(ObjectPropertyAssertion(q, h, i));
+        axioms.add(AnnotationAssertion(RDFSLabel(), h, Literal("Second", "en")));
         return axioms;
     }
 }

@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.imports;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
@@ -57,11 +58,11 @@ public class ImportsClosureTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testImportsClosureUpdate() throws Exception {
         OWLOntologyManager manager = getManager();
-        IRI aIRI = IRI.create("http://a.com");
+        IRI aIRI = IRI("http://a.com");
         OWLOntology ontA = manager.createOntology(aIRI);
-        IRI bIRI = IRI.create("http://b.com");
+        IRI bIRI = IRI("http://b.com");
         OWLOntology ontB = manager.createOntology(bIRI);
-        OWLDataFactory df = getFactory();
+        OWLDataFactory df = manager.getOWLDataFactory();
         manager.applyChange(new AddImport(ontA, df.getOWLImportsDeclaration(bIRI)));
         assertEquals(2, manager.getImportsClosure(ontA).size());
         manager.removeOntology(ontB);

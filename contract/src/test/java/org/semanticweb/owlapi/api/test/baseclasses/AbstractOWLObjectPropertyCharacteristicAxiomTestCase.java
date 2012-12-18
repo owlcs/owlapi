@@ -38,6 +38,9 @@
  */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** Author: Matthew Horridge<br>
@@ -47,6 +50,6 @@ public abstract class AbstractOWLObjectPropertyCharacteristicAxiomTestCase exten
         AbstractOWLPropertyCharacteristicTestCase<OWLObjectProperty> {
     @Override
     protected OWLObjectProperty createProperty() throws Exception {
-        return createOWLObjectProperty();
+        return ObjectProperty(createIRI());
     }
 }

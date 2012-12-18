@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
@@ -70,7 +71,7 @@ public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTe
     public void testEqualsNegative() throws Exception {
         OWLEntity entityA = createEntity(createIRI());
         OWLEntity entityB = createEntity(createIRI());
-        assertNotEquals(entityA, entityB);
+        assertFalse(entityA.equals(entityB));
     }
 
     @Override

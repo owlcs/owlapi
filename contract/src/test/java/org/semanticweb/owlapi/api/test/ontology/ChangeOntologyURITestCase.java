@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
@@ -58,11 +59,11 @@ public class ChangeOntologyURITestCase extends AbstractOWLAPITestCase {
     @Test
     public void testChangeURI() throws Exception {
         OWLOntologyManager man = getManager();
-        IRI oldIRI = IRI.create("http://www.semanticweb.org/ontologies/ontA");
-        IRI newIRI = IRI.create("http://www.semanticweb.org/ontologies/ontB");
+        IRI oldIRI = IRI("http://www.semanticweb.org/ontologies/ontA");
+        IRI newIRI = IRI("http://www.semanticweb.org/ontologies/ontB");
         OWLOntology ont = man.createOntology(oldIRI);
-        OWLOntology importingOnt = man.createOntology(IRI
-                .create("http://www.semanticweb.org/ontologies/ontC"));
+        OWLOntology importingOnt = man
+                .createOntology(IRI("http://www.semanticweb.org/ontologies/ontC"));
         man.applyChange(new AddImport(importingOnt, man.getOWLDataFactory()
                 .getOWLImportsDeclaration(ont.getOntologyID().getOntologyIRI())));
         assertTrue(man.contains(oldIRI));

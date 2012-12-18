@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,7 +20,6 @@ import org.coode.owlapi.latex.LatexWriter;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -72,7 +72,7 @@ public class ContractLatexTest {
         LatexOntologyStorer testSubject0 = new LatexOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI.create("urn:aFake"), mock(OWLOntologyFormat.class));
+                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();

@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
 
@@ -50,7 +51,6 @@ import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -87,7 +87,7 @@ public abstract class AbstractRendererAndParser {
     }
 
     protected OWLClass createClass() {
-        return man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
+        return Class(TestUtils.createIRI());
     }
 
     protected OWLAnnotationProperty createAnnotationProperty() {
@@ -112,7 +112,7 @@ public abstract class AbstractRendererAndParser {
 
     @Test
     public void testSaveAndReload() throws Exception {
-        OWLOntology ontA = man.createOntology(IRI.create("http://rdfxmltests/ontology"));
+        OWLOntology ontA = man.createOntology(IRI("http://rdfxmltests/ontology"));
         for (OWLAxiom ax : getAxioms()) {
             man.applyChange(new AddAxiom(ontA, ax));
         }

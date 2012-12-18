@@ -38,6 +38,9 @@
  */
 package org.semanticweb.owlapi.api.test.individuals;
 
+import static org.semanticweb.owlapi.api.test.TestUtils.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLIndividualRelationshipAxiomTestCase;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLException;
@@ -52,7 +55,7 @@ public class OWLIndividualDataRelationshipAxiomTestCase extends
         AbstractOWLIndividualRelationshipAxiomTestCase<OWLDataProperty, OWLLiteral> {
     @Override
     protected OWLDataProperty createProperty() throws Exception {
-        return createOWLDataProperty();
+        return DataProperty(createIRI());
     }
 
     @Override
@@ -63,6 +66,6 @@ public class OWLIndividualDataRelationshipAxiomTestCase extends
     @Override
     protected OWLIndividualAxiom createAxiom(OWLIndividual subject,
             OWLDataProperty property, OWLLiteral object) throws OWLException {
-        return getFactory().getOWLDataPropertyAssertionAxiom(property, subject, object);
+        return DataPropertyAssertion(property, subject, object);
     }
 }

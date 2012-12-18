@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Collections;
 
@@ -58,9 +59,9 @@ public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPIT
     public void testGetSuperProperties() {
         OWLOntology ont = getOWLOntology("OntA");
         OWLDataFactory df = ont.getOWLOntologyManager().getOWLDataFactory();
-        OWLAnnotationProperty propP = getOWLAnnotationProperty("propP");
-        OWLAnnotationProperty propQ = getOWLAnnotationProperty("propQ");
-        OWLAnnotationProperty propR = getOWLAnnotationProperty("propR");
+        OWLAnnotationProperty propP = AnnotationProperty(getIRI("propP"));
+        OWLAnnotationProperty propQ = AnnotationProperty(getIRI("propQ"));
+        OWLAnnotationProperty propR = AnnotationProperty(getIRI("propR"));
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,
@@ -79,9 +80,9 @@ public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPIT
     public void testGetSubProperties() {
         OWLOntology ont = getOWLOntology("OntA");
         OWLDataFactory df = ont.getOWLOntologyManager().getOWLDataFactory();
-        OWLAnnotationProperty propP = getOWLAnnotationProperty("propP");
-        OWLAnnotationProperty propQ = getOWLAnnotationProperty("propQ");
-        OWLAnnotationProperty propR = getOWLAnnotationProperty("propR");
+        OWLAnnotationProperty propP = AnnotationProperty(getIRI("propP"));
+        OWLAnnotationProperty propQ = AnnotationProperty(getIRI("propQ"));
+        OWLAnnotationProperty propR = AnnotationProperty(getIRI("propR"));
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,

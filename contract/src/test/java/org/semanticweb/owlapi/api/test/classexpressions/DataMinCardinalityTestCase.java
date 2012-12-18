@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -58,11 +59,10 @@ public class DataMinCardinalityTestCase extends AbstractFileRoundTrippingTestCas
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = getOWLClass("A");
-        OWLDataProperty prop = getOWLDataProperty("p");
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA,
-                getFactory().getOWLDataMinCardinality(3, prop)));
-        axioms.add(getFactory().getOWLDeclarationAxiom(prop));
+        OWLClass clsA = Class(getIRI("A"));
+        OWLDataProperty prop = DataProperty(getIRI("p"));
+        axioms.add(SubClassOf(clsA, DataMinCardinality(3, prop, TopDatatype())));
+        axioms.add(Declaration(prop));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

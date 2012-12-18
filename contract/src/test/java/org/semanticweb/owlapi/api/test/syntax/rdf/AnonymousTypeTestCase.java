@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,7 +57,7 @@ public class AnonymousTypeTestCase extends AbstractRendererAndParser {
     protected Set<OWLAxiom> getAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClassExpression desc = getDataFactory().getOWLObjectComplementOf(
-                getDataFactory().getOWLClass(TestUtils.createIRI()));
+                Class(TestUtils.createIRI()));
         OWLIndividual ind = getDataFactory().getOWLNamedIndividual(TestUtils.createIRI());
         axioms.add(getDataFactory().getOWLClassAssertionAxiom(desc, ind));
         return axioms;

@@ -72,7 +72,7 @@ public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPro
     public void testEqualsNegative() throws Exception {
         OWLPropertyAxiom axiomA = createOWLPropertyAxiom(createProperty());
         OWLPropertyAxiom axiomB = createOWLPropertyAxiom(createProperty());
-        assertNotEquals(axiomA, axiomB);
+        assertFalse(axiomA.equals(axiomB));
     }
 
     protected abstract P createProperty() throws Exception;

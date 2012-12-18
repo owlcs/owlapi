@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +56,6 @@ import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -84,14 +84,14 @@ public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
         OWLOntologyManager man = Factory.getManager();
         OWLOntology ont = man.createOntology();
         OWLDataFactory df = man.getOWLDataFactory();
-        OWLClass clsA = df.getOWLClass(IRI.create("http://ont.com#A"));
-        OWLClass clsB = df.getOWLClass(IRI.create("http://ont.com#B"));
-        OWLSubClassOfAxiom sca = df.getOWLSubClassOfAxiom(clsA, clsB);
+        OWLClass clsA = Class("http://ont.com#A");
+        OWLClass clsB = Class("http://ont.com#B");
+        OWLSubClassOfAxiom sca = SubClassOf(clsA, clsB);
         man.addAxiom(ont, sca);
-        OWLAnnotationProperty rdfsComment = df.getRDFSComment();
-        OWLLiteral lit = df.getOWLLiteral("Hello world");
-        OWLAnnotationAssertionAxiom annoAx1 = df.getOWLAnnotationAssertionAxiom(
-                rdfsComment, clsA.getIRI(), lit);
+        OWLAnnotationProperty rdfsComment = RDFSComment();
+        OWLLiteral lit = Literal("Hello world");
+        OWLAnnotationAssertionAxiom annoAx1 = AnnotationAssertion(rdfsComment,
+                clsA.getIRI(), lit);
         man.addAxiom(ont, annoAx1);
         OWLAnnotationPropertyDomainAxiom annoAx2 = df
                 .getOWLAnnotationPropertyDomainAxiom(rdfsComment, clsA.getIRI());
@@ -99,8 +99,7 @@ public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
         OWLAnnotationPropertyRangeAxiom annoAx3 = df.getOWLAnnotationPropertyRangeAxiom(
                 rdfsComment, clsB.getIRI());
         man.addAxiom(ont, annoAx3);
-        OWLAnnotationProperty myComment = df.getOWLAnnotationProperty(IRI
-                .create("http://ont.com#myComment"));
+        OWLAnnotationProperty myComment = AnnotationProperty(IRI("http://ont.com#myComment"));
         OWLSubAnnotationPropertyOfAxiom annoAx4 = df.getOWLSubAnnotationPropertyOfAxiom(
                 myComment, rdfsComment);
         man.addAxiom(ont, annoAx4);

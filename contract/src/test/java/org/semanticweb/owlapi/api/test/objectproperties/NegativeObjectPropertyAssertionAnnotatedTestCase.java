@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
@@ -52,8 +54,7 @@ public class NegativeObjectPropertyAssertionAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return getFactory().getOWLNegativeObjectPropertyAssertionAxiom(
-                getOWLObjectProperty("p"), getOWLIndividual("i"), getOWLIndividual("j"),
-                annos);
+        return NegativeObjectPropertyAssertion(ObjectProperty(getIRI("p")),
+                NamedIndividual(getIRI("i")), NamedIndividual(getIRI("j")), annos);
     }
 }

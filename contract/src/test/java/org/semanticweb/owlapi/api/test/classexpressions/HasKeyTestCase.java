@@ -39,13 +39,13 @@
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -60,13 +60,11 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class HasKeyTestCase extends AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
-        OWLClass cls = getFactory().getOWLClass(IRI.create("http://example.com/Person"));
-        OWLDataProperty propP = getFactory().getOWLDataProperty(
-                IRI.create("http://example.com/dataProperty"));
-        OWLObjectProperty propQ = getFactory().getOWLObjectProperty(
-                IRI.create("http://example.com/objectPoperty"));
+        OWLClass cls = Class(IRI("http://example.com/Person"));
+        OWLDataProperty propP = DataProperty(IRI("http://example.com/dataProperty"));
+        OWLObjectProperty propQ = ObjectProperty(IRI("http://example.com/objectPoperty"));
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLHasKeyAxiom owlHasKeyAxiom = getFactory().getOWLHasKeyAxiom(cls, propQ, propP);
+        OWLHasKeyAxiom owlHasKeyAxiom = HasKey(cls, propQ, propP);
         axioms.add(owlHasKeyAxiom);
         Set<OWLAxiom> axioms2 = getOnt().getAxioms();
         assertTrue(axioms2.containsAll(axioms));

@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.io.Reader;
 import java.io.StringReader;
 
@@ -20,12 +22,10 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 /** @author Peter Ansell p_ansell@yahoo.com */
 @SuppressWarnings("javadoc")
 public class MultipleOntologyLoadsTestCase {
-    private static final IRI v2 = IRI
-            .create("http://test.example.org/ontology/0139/version:2");
-    private static final IRI o = IRI.create("http://base.example.com/");
-    private static final IRI v1 = IRI
-            .create("http://test.example.org/ontology/0139/version:1");
-    private static final IRI _139 = IRI.create("http://test.example.org/ontology/0139");
+    private static final IRI v2 = IRI("http://test.example.org/ontology/0139/version:2");
+    private static final IRI o = IRI("http://base.example.com/");
+    private static final IRI v1 = IRI("http://test.example.org/ontology/0139/version:1");
+    private static final IRI _139 = IRI("http://test.example.org/ontology/0139");
     String input = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF\n"
             + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"

@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -72,8 +73,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testOntologyContainsPlainAxiom() {
-        OWLAxiom axiom = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-                getOWLClass("B"));
+        OWLAxiom axiom = SubClassOf(Class(getIRI("A")), Class(getIRI("B")));
         OWLOntology ont = getOWLOntology("testont");
         getManager().addAxiom(ont, axiom);
         assertTrue(ont.containsAxiom(axiom));
@@ -82,11 +82,11 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
 
     @Test
     public void testOntologyContainsAnnotatedAxiom() {
-        OWLLiteral annoLiteral = getFactory().getOWLLiteral("value");
-        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
-        OWLAnnotation anno = getFactory().getOWLAnnotation(annoProp, annoLiteral);
-        OWLAxiom axiom = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-                getOWLClass("B"), Collections.singleton(anno));
+        OWLLiteral annoLiteral = Literal("value");
+        OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
+        OWLAnnotation anno = Annotation(annoProp, annoLiteral);
+        OWLAxiom axiom = SubClassOf(Class(getIRI("A")), Class(getIRI("B")),
+                Collections.singleton(anno));
         OWLOntology ont = getOWLOntology("testont");
         getManager().addAxiom(ont, axiom);
         assertTrue(ont.containsAxiom(axiom));
@@ -139,24 +139,21 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         IRI ont1_iri = ont1.getOntologyID().getOntologyIRI();
         OWLOntology ont2 = getOWLOntology("testont2A");
         IRI ont2_iri = ont2.getOntologyID().getOntologyIRI();
-        OWLImportsDeclaration ont2_import = getFactory().getOWLImportsDeclaration(
-                ont1_iri);
+        OWLImportsDeclaration ont2_import = ImportsDeclaration(ont1_iri);
         getManager().applyChange(new AddImport(ont2, ont2_import));
-        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
-        OWLAxiom ax_annoProp_decl = getFactory().getOWLDeclarationAxiom(annoProp);
+        OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
+        OWLAxiom ax_annoProp_decl = Declaration(annoProp);
         getManager().addAxiom(ont1, ax_annoProp_decl);
-        OWLAnnotation in_ont1_anno = getFactory().getOWLAnnotation(annoProp, ont1_iri);
-        OWLAnnotation in_ont2_anno = getFactory().getOWLAnnotation(annoProp, ont2_iri);
-        OWLClass A = getOWLClass("A");
-        OWLAxiom ax_A_decl = getFactory().getOWLDeclarationAxiom(A,
-                Collections.singleton(in_ont1_anno));
+        OWLAnnotation in_ont1_anno = Annotation(annoProp, ont1_iri);
+        OWLAnnotation in_ont2_anno = Annotation(annoProp, ont2_iri);
+        OWLClass A = Class(getIRI("A"));
+        OWLAxiom ax_A_decl = Declaration(A, Collections.singleton(in_ont1_anno));
         getManager().addAxiom(ont1, ax_A_decl);
-        OWLClass B = getOWLClass("B");
-        OWLAxiom ax_B_decl = getFactory().getOWLDeclarationAxiom(B,
-                Collections.singleton(in_ont2_anno));
+        OWLClass B = Class(getIRI("B"));
+        OWLAxiom ax_B_decl = Declaration(B, Collections.singleton(in_ont2_anno));
         getManager().addAxiom(ont2, ax_B_decl);
-        OWLAxiom ax_AsubB = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-                getOWLClass("B"), Collections.singleton(in_ont2_anno));
+        OWLAxiom ax_AsubB = SubClassOf(Class(getIRI("A")), Class(getIRI("B")),
+                Collections.singleton(in_ont2_anno));
         getManager().addAxiom(ont2, ax_AsubB);
         // annoProp is in ont1 and in the import closure of ont2
         assertTrue(ont1.containsAxiom(ax_annoProp_decl, false));
@@ -229,24 +226,21 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         IRI ont1_iri = ont1.getOntologyID().getOntologyIRI();
         OWLOntology ont2 = getOWLOntology("testont2B");
         IRI ont2_iri = ont2.getOntologyID().getOntologyIRI();
-        OWLImportsDeclaration ont2_import = getFactory().getOWLImportsDeclaration(
-                ont1_iri);
+        OWLImportsDeclaration ont2_import = ImportsDeclaration(ont1_iri);
         getManager().applyChange(new AddImport(ont2, ont2_import));
-        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
-        OWLAxiom ax_annoProp_decl = getFactory().getOWLDeclarationAxiom(annoProp);
+        OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
+        OWLAxiom ax_annoProp_decl = Declaration(annoProp);
         getManager().addAxiom(ont1, ax_annoProp_decl);
-        OWLAnnotation in_ont1_anno = getFactory().getOWLAnnotation(annoProp, ont1_iri);
-        OWLAnnotation in_ont2_anno = getFactory().getOWLAnnotation(annoProp, ont2_iri);
-        OWLClass A = getOWLClass("A");
-        OWLAxiom ax_A_decl = getFactory().getOWLDeclarationAxiom(A,
-                Collections.singleton(in_ont1_anno));
+        OWLAnnotation in_ont1_anno = Annotation(annoProp, ont1_iri);
+        OWLAnnotation in_ont2_anno = Annotation(annoProp, ont2_iri);
+        OWLClass A = Class(getIRI("A"));
+        OWLAxiom ax_A_decl = Declaration(A, Collections.singleton(in_ont1_anno));
         getManager().addAxiom(ont1, ax_A_decl);
-        OWLClass B = getOWLClass("B");
-        OWLAxiom ax_B_decl = getFactory().getOWLDeclarationAxiom(B,
-                Collections.singleton(in_ont2_anno));
+        OWLClass B = Class(getIRI("B"));
+        OWLAxiom ax_B_decl = Declaration(B, Collections.singleton(in_ont2_anno));
         getManager().addAxiom(ont2, ax_B_decl);
-        OWLAxiom ax_AsubB = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-                getOWLClass("B"), Collections.singleton(in_ont2_anno));
+        OWLAxiom ax_AsubB = SubClassOf(Class(getIRI("A")), Class(getIRI("B")),
+                Collections.singleton(in_ont2_anno));
         getManager().addAxiom(ont2, ax_AsubB);
         // annoProp is in ont1 and in the import closure of ont2
         assertTrue(ont1.containsAxiom(ax_annoProp_decl, false));

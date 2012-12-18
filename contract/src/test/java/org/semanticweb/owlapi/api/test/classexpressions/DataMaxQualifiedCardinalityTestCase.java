@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -56,11 +58,10 @@ public class DataMaxQualifiedCardinalityTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLDataProperty prop = getOWLDataProperty("prop");
-        OWLDataRange dr = getFactory().getIntegerOWLDatatype();
-        OWLClass base = getOWLClass("A");
-        axioms.add(getFactory().getOWLSubClassOfAxiom(base,
-                getFactory().getOWLDataMaxCardinality(3, prop, dr)));
+        OWLDataProperty prop = DataProperty(getIRI("prop"));
+        OWLDataRange dr = Integer();
+        OWLClass base = Class(getIRI("A"));
+        axioms.add(SubClassOf(base, DataMaxCardinality(3, prop, dr)));
         return axioms;
     }
 }

@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.fail;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -46,7 +47,6 @@ import java.util.Set;
 import org.coode.xml.IllegalElementNameException;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -60,15 +60,10 @@ public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLNamedIndividual indA = getFactory()
-                .getOWLNamedIndividual(
-                        IRI.create("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A"));
-        OWLNamedIndividual indB = getFactory()
-                .getOWLNamedIndividual(
-                        IRI.create("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B"));
-        OWLObjectProperty property = getFactory().getOWLObjectProperty(
-                IRI.create("http://example.com/place/123"));
-        axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(property, indA, indB));
+        OWLNamedIndividual indA = NamedIndividual(IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A"));
+        OWLNamedIndividual indB = NamedIndividual(IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B"));
+        OWLObjectProperty property = ObjectProperty(IRI("http://example.com/place/123"));
+        axioms.add(ObjectPropertyAssertion(property, indA, indB));
         return axioms;
     }
 

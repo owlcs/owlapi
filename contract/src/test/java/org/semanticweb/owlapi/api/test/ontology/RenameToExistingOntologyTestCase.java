@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.ontology;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.IRI;
@@ -57,12 +59,12 @@ public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
     @Test(expected = OWLOntologyRenameException.class)
     public void testRenameToExistingOntology() throws Exception {
         OWLOntologyManager manager = getManager();
-        IRI ontologyAIRI = IRI.create("http://www.semanticweb.org/ontologies/ontologyA");
+        IRI ontologyAIRI = IRI("http://www.semanticweb.org/ontologies/ontologyA");
         OWLOntology onto = manager.createOntology(ontologyAIRI);
         OWLDataFactory df = manager.getOWLDataFactory();
-        manager.addAxiom(onto, df.getOWLDeclarationAxiom(df.getOWLClass(IRI
-                .create("urn:test:testclass"))));
-        IRI ontologyBIRI = IRI.create("http://www.semanticweb.org/ontologies/ontologyB");
+        manager.addAxiom(onto,
+                df.getOWLDeclarationAxiom(Class(IRI("urn:test:testclass"))));
+        IRI ontologyBIRI = IRI("http://www.semanticweb.org/ontologies/ontologyB");
         OWLOntology ontologyB = manager.createOntology(ontologyBIRI);
         manager.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(ontologyAIRI)));
     }

@@ -38,13 +38,14 @@
  */
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -63,24 +64,22 @@ public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testRoundTrip() throws Exception {
         OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager.createOntology(IRI.create(NS));
+        OWLOntology ontology = manager.createOntology(IRI(NS));
         OWLDataFactory factory = manager.getOWLDataFactory();
         OWLAnonymousIndividual i = factory.getOWLAnonymousIndividual();
         manager.addAxiom(
                 ontology,
                 factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), i,
                         factory.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION)));
-        manager.addAxiom(
-                ontology,
-                factory.getOWLClassAssertionAxiom(
-                        factory.getOWLClass(IRI.create(NS + "#CheeseyPizza")), i));
+        manager.addAxiom(ontology,
+                factory.getOWLClassAssertionAxiom(Class(IRI(NS + "#CheeseyPizza")), i));
         OWLIndividual j = factory.getOWLAnonymousIndividual();
+        manager.addAxiom(ontology,
+                factory.getOWLClassAssertionAxiom(Class(IRI(NS + "#CheeseTopping")), j));
         manager.addAxiom(
                 ontology,
-                factory.getOWLClassAssertionAxiom(
-                        factory.getOWLClass(IRI.create(NS + "#CheeseTopping")), j));
-        manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(
-                factory.getOWLObjectProperty(IRI.create(NS + "#hasTopping")), i, j));
+                factory.getOWLObjectPropertyAssertionAxiom(
+                        factory.getOWLObjectProperty(IRI(NS + "#hasTopping")), i, j));
         StringDocumentTarget target = new StringDocumentTarget();
         manager.saveOntology(ontology, new OWLXMLOntologyFormat(), target);
         OWLOntologyManager manager2 = Factory.getManager();

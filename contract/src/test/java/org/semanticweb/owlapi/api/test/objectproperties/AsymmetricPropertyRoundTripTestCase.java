@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -51,10 +53,7 @@ public class AsymmetricPropertyRoundTripTestCase extends AbstractRoundTrippingTe
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("Test");
-        getManager().addAxiom(
-                ont,
-                getFactory().getOWLAsymmetricObjectPropertyAxiom(
-                        getOWLObjectProperty("p")));
+        getManager().addAxiom(ont, AsymmetricObjectProperty(ObjectProperty(getIRI("p"))));
         return ont;
     }
 

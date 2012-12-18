@@ -39,6 +39,8 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -60,11 +62,11 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends
     @Override
     @Test
     public void testCreation() throws Exception {
-        OWLObjectProperty prop = getFactory().getOWLObjectProperty(createIRI());
+        OWLObjectProperty prop = ObjectProperty(createIRI());
         int cardinality = 3;
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality);
         assertNotNull("restriction should not be null", restA);
-        OWLClassExpression cls = getFactory().getOWLClass(createIRI());
+        OWLClassExpression cls = Class(createIRI());
         OWLObjectCardinalityRestriction restB = createRestriction(prop, cardinality, cls);
         assertNotNull("restriction should not be null", restB);
     }
@@ -72,12 +74,12 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends
     @Override
     @Test
     public void testEqualsPositive() throws Exception {
-        OWLObjectProperty prop = getFactory().getOWLObjectProperty(createIRI());
+        OWLObjectProperty prop = ObjectProperty(createIRI());
         int cardinality = 3;
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality);
         OWLObjectCardinalityRestriction restB = createRestriction(prop, cardinality);
         assertEquals(restA, restB);
-        OWLClassExpression cls = getFactory().getOWLClass(createIRI());
+        OWLClassExpression cls = Class(createIRI());
         OWLObjectCardinalityRestriction restC = createRestriction(prop, cardinality, cls);
         OWLObjectCardinalityRestriction restD = createRestriction(prop, cardinality, cls);
         assertEquals(restC, restD);
@@ -86,31 +88,31 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends
     @Override
     @Test
     public void testEqualsNegative() throws Exception {
-        OWLObjectProperty prop = getFactory().getOWLObjectProperty(createIRI());
+        OWLObjectProperty prop = ObjectProperty(createIRI());
         // Different cardinality
         OWLObjectCardinalityRestriction restA = createRestriction(prop, 3);
         OWLObjectCardinalityRestriction restB = createRestriction(prop, 4);
-        assertNotEquals(restA, restB);
+        assertFalse(restA.equals(restB));
         // Different property
-        OWLObjectCardinalityRestriction restC = createRestriction(getFactory()
-                .getOWLObjectProperty(createIRI()), 3);
-        OWLObjectCardinalityRestriction restD = createRestriction(getFactory()
-                .getOWLObjectProperty(createIRI()), 3);
-        assertNotEquals(restC, restD);
+        OWLObjectCardinalityRestriction restC = createRestriction(
+                ObjectProperty(createIRI()), 3);
+        OWLObjectCardinalityRestriction restD = createRestriction(
+                ObjectProperty(createIRI()), 3);
+        assertFalse(restC.equals(restD));
         // Different filler
-        OWLObjectCardinalityRestriction restE = createRestriction(prop, 3, getFactory()
-                .getOWLClass(createIRI()));
-        OWLObjectCardinalityRestriction restF = createRestriction(prop, 3, getFactory()
-                .getOWLClass(createIRI()));
-        assertNotEquals(restE, restF);
+        OWLObjectCardinalityRestriction restE = createRestriction(prop, 3,
+                Class(createIRI()));
+        OWLObjectCardinalityRestriction restF = createRestriction(prop, 3,
+                Class(createIRI()));
+        assertFalse(restE.equals(restF));
     }
 
     @Override
     @Test
     public void testHashCode() throws Exception {
-        OWLObjectProperty prop = getFactory().getOWLObjectProperty(createIRI());
+        OWLObjectProperty prop = ObjectProperty(createIRI());
         int cardinality = 3;
-        OWLClassExpression cls = getFactory().getOWLClass(createIRI());
+        OWLClassExpression cls = Class(createIRI());
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality, cls);
         OWLObjectCardinalityRestriction restB = createRestriction(prop, cardinality, cls);
         assertEquals(restA.hashCode(), restB.hashCode());

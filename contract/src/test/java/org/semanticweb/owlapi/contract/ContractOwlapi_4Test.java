@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -155,13 +156,13 @@ public class ContractOwlapi_4Test {
         OWLOntology result2 = testSubject0.loadOWLOntology(
                 mock(OWLOntologyDocumentSource.class),
                 mock(OWLOntologyCreationHandler.class));
-        boolean result3 = testSubject0.canCreateFromDocumentIRI(IRI.create("urn:aFake"));
+        boolean result3 = testSubject0.canCreateFromDocumentIRI(IRI("urn:aFake"));
         boolean result4 = testSubject0.canLoad(mock(OWLOntologyDocumentSource.class));
         List<OWLParser> result5 = testSubject0.getParsers();
         testSubject0.setOWLOntologyManager(Utils.getMockManager());
         OWLOntologyManager result6 = testSubject0.getOWLOntologyManager();
         OWLOntology result7 = testSubject0.createOWLOntology(new OWLOntologyID(),
-                IRI.create("urn:aFake"), mock(OWLOntologyCreationHandler.class));
+                IRI("urn:aFake"), mock(OWLOntologyCreationHandler.class));
         String result8 = testSubject0.toString();
     }
 
@@ -262,8 +263,8 @@ public class ContractOwlapi_4Test {
     }
 
     public void shouldTestSWRLBuiltInAtomImpl() throws Exception {
-        SWRLBuiltInAtomImpl testSubject0 = new SWRLBuiltInAtomImpl(
-                IRI.create("urn:aFake"), Utils.mockList(mock(SWRLDArgument.class)));
+        SWRLBuiltInAtomImpl testSubject0 = new SWRLBuiltInAtomImpl(IRI("urn:aFake"),
+                Utils.mockList(mock(SWRLDArgument.class)));
         testSubject0.accept(mock(SWRLObjectVisitor.class));
         testSubject0.accept(mock(OWLObjectVisitor.class));
         Object result0 = testSubject0.accept(Utils.mockSWRLObject());
@@ -564,7 +565,7 @@ public class ContractOwlapi_4Test {
     }
 
     public void shouldTestSWRLVariableImpl() throws Exception {
-        SWRLVariableImpl testSubject0 = new SWRLVariableImpl(IRI.create("urn:aFake")) {
+        SWRLVariableImpl testSubject0 = new SWRLVariableImpl(IRI("urn:aFake")) {
             /**
              * 
              */

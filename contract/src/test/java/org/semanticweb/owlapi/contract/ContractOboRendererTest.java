@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.OutputStream;
 import java.io.Writer;
@@ -18,7 +19,6 @@ import org.coode.owlapi.obo.renderer.OBOStorageIncompleteException;
 import org.coode.owlapi.obo.renderer.OBOTagValuePairList;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -39,7 +39,7 @@ public class ContractOboRendererTest {
         OBOFlatFileOntologyStorer testSubject0 = new OBOFlatFileOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI.create("urn:aFake"), mock(OWLOntologyFormat.class));
+                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
@@ -107,10 +107,10 @@ public class ContractOboRendererTest {
                 Utils.mockList(mock(OBOVocabulary.class)));
         testSubject0.write(mock(Writer.class));
         testSubject0.setDefault(mock(OBOVocabulary.class), "");
-        testSubject0.setDefault(IRI.create("urn:aFake"), "");
+        testSubject0.setDefault(IRI("urn:aFake"), "");
         Set<String> result0 = testSubject0.getValues(mock(OBOVocabulary.class));
         testSubject0.addPair(mock(OBOVocabulary.class), "");
-        testSubject0.addPair(IRI.create("urn:aFake"), "");
+        testSubject0.addPair(IRI("urn:aFake"), "");
         testSubject0.setPair(mock(OBOVocabulary.class), "");
         String result1 = testSubject0.toString();
     }

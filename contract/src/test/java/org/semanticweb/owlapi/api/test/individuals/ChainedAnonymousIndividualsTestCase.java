@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.individuals;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -57,21 +59,19 @@ public class ChainedAnonymousIndividualsTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        IRI annoPropIRI = IRI.create("http://owlapi.sourceforge.net/ontology#annoProp");
-        OWLAnnotationProperty property = getFactory().getOWLAnnotationProperty(
-                annoPropIRI);
-        IRI subject = IRI.create("http://owlapi.sourceforge.net/ontology#subject");
-        axioms.add(getFactory().getOWLDeclarationAxiom(
-                getFactory().getOWLNamedIndividual(subject)));
-        OWLAnonymousIndividual individual1 = getFactory().getOWLAnonymousIndividual();
-        OWLAnonymousIndividual individual2 = getFactory().getOWLAnonymousIndividual();
-        OWLAnonymousIndividual individual3 = getFactory().getOWLAnonymousIndividual();
-        OWLAnnotationAssertionAxiom annoAssertion1 = getFactory()
-                .getOWLAnnotationAssertionAxiom(property, subject, individual1);
-        OWLAnnotationAssertionAxiom annoAssertion2 = getFactory()
-                .getOWLAnnotationAssertionAxiom(property, individual1, individual2);
-        OWLAnnotationAssertionAxiom annoAssertion3 = getFactory()
-                .getOWLAnnotationAssertionAxiom(property, individual2, individual3);
+        IRI annoPropIRI = IRI("http://owlapi.sourceforge.net/ontology#annoProp");
+        OWLAnnotationProperty property = AnnotationProperty(annoPropIRI);
+        IRI subject = IRI("http://owlapi.sourceforge.net/ontology#subject");
+        axioms.add(Declaration(NamedIndividual(subject)));
+        OWLAnonymousIndividual individual1 = AnonymousIndividual();
+        OWLAnonymousIndividual individual2 = AnonymousIndividual();
+        OWLAnonymousIndividual individual3 = AnonymousIndividual();
+        OWLAnnotationAssertionAxiom annoAssertion1 = AnnotationAssertion(property,
+                subject, individual1);
+        OWLAnnotationAssertionAxiom annoAssertion2 = AnnotationAssertion(property,
+                individual1, individual2);
+        OWLAnnotationAssertionAxiom annoAssertion3 = AnnotationAssertion(property,
+                individual2, individual3);
         axioms.add(annoAssertion1);
         axioms.add(annoAssertion2);
         axioms.add(annoAssertion3);

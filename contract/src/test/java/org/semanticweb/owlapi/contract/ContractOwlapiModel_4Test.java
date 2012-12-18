@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -126,7 +127,7 @@ public class ContractOwlapiModel_4Test {
     public void shouldTestInterfaceOWLOntologyStorer() throws Exception {
         OWLOntologyStorer testSubject0 = mock(OWLOntologyStorer.class);
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockOntology(), IRI.create("urn:aFake"),
+        testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
@@ -1022,7 +1023,7 @@ public class ContractOwlapiModel_4Test {
         Set<String> result3 = testSubject0.getPrefixNames();
         boolean result4 = testSubject0.containsPrefixMapping("");
         String result5 = testSubject0.getDefaultPrefix();
-        String result6 = testSubject0.getPrefixIRI(IRI.create("urn:aFake"));
+        String result6 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
     }
 
     @Test
@@ -1230,9 +1231,9 @@ public class ContractOwlapiModel_4Test {
         SWRLDataPropertyAtom result7 = testSubject0.getSWRLDataPropertyAtom(
                 mock(OWLDataPropertyExpression.class), mock(SWRLIArgument.class),
                 mock(SWRLDArgument.class));
-        SWRLBuiltInAtom result8 = testSubject0.getSWRLBuiltInAtom(
-                IRI.create("urn:aFake"), Utils.mockList(mock(SWRLDArgument.class)));
-        SWRLVariable result9 = testSubject0.getSWRLVariable(IRI.create("urn:aFake"));
+        SWRLBuiltInAtom result8 = testSubject0.getSWRLBuiltInAtom(IRI("urn:aFake"),
+                Utils.mockList(mock(SWRLDArgument.class)));
+        SWRLVariable result9 = testSubject0.getSWRLVariable(IRI("urn:aFake"));
         SWRLIndividualArgument result10 = testSubject0
                 .getSWRLIndividualArgument(mock(OWLIndividual.class));
         SWRLLiteralArgument result11 = testSubject0

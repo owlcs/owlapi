@@ -39,11 +39,13 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Collections;
 import java.util.Set;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -62,11 +64,10 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testContainsReferenceForAnnotationAssertion() {
-        OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
-        OWLLiteral val = getFactory().getOWLLiteral("Test", "");
-        OWLAnnotationSubject subject = getOWLClass("A").getIRI();
-        OWLAnnotationAssertionAxiom ax = getFactory().getOWLAnnotationAssertionAxiom(ap,
-                subject, val);
+        OWLAnnotationProperty ap = AnnotationProperty(getIRI("prop"));
+        OWLLiteral val = Literal("Test", "");
+        OWLAnnotationSubject subject = Class(getIRI("A")).getIRI();
+        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(ap, subject, val);
         OWLOntology ont = getOWLOntology("Ont");
         getManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(ap.getIRI()));
@@ -75,12 +76,12 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
 
     @Test
     public void testContainsReferenceForAxiomAnnotation() {
-        OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
-        OWLLiteral val = getFactory().getOWLLiteral("Test", "");
-        OWLAnnotation anno = getFactory().getOWLAnnotation(ap, val);
+        OWLAnnotationProperty ap = AnnotationProperty(getIRI("prop"));
+        OWLLiteral val = Literal("Test", "");
+        OWLAnnotation anno = Factory.getFactory().getOWLAnnotation(ap, val);
         Set<OWLAnnotation> annos = Collections.singleton(anno);
-        OWLSubClassOfAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-                getOWLClass("B"), annos);
+        OWLSubClassOfAxiom ax = Factory.getFactory().getOWLSubClassOfAxiom(
+                Class(getIRI("A")), Class(getIRI("B")), annos);
         OWLOntology ont = getOWLOntology("Ont");
         getManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI()));
@@ -89,9 +90,9 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
 
     @Test
     public void testContainsReferenceForOntologyAnnotation() throws Exception {
-        OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
-        OWLLiteral val = getFactory().getOWLLiteral("Test");
-        OWLAnnotation anno = getFactory().getOWLAnnotation(ap, val);
+        OWLAnnotationProperty ap = AnnotationProperty(getIRI("prop"));
+        OWLLiteral val = Literal("Test");
+        OWLAnnotation anno = Factory.getFactory().getOWLAnnotation(ap, val);
         OWLOntology ont = getOWLOntology("Ont");
         getManager().applyChange(new AddOntologyAnnotation(ont, anno));
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI()));

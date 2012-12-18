@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.io.InputStreamReader;
 import java.io.Reader;
 
@@ -24,9 +26,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class MultipleDistinctOntologyLoadsTest {
     private OWLOntologyManager manager;
-    IRI JB = IRI.create("http://example.purl.org.au/domainontology/JB_000007");
-    IRI v1 = IRI.create("http://test.example.org/ontology/0139/version:1");
-    IRI v2 = IRI.create("http://test.example.org/ontology/0139/version:2");
+    IRI JB = IRI("http://example.purl.org.au/domainontology/JB_000007");
+    IRI v1 = IRI("http://test.example.org/ontology/0139/version:1");
+    IRI v2 = IRI("http://test.example.org/ontology/0139/version:2");
 
     @Before
     public void setUp() {
@@ -53,7 +55,7 @@ public class MultipleDistinctOntologyLoadsTest {
         Reader initialInputReader = new InputStreamReader(this.getClass()
                 .getResourceAsStream("/owlapi/multipleOntologyLoadsTest.rdf"));
         ReaderDocumentSource initialDocumentSource = new ReaderDocumentSource(
-                initialInputReader, IRI.create("http://base.example.com/"));
+                initialInputReader, IRI("http://base.example.com/"));
         return initialDocumentSource;
     }
 
@@ -98,8 +100,8 @@ public class MultipleDistinctOntologyLoadsTest {
         OWLOntology initialOntology = manager.createOntology();
         OWLParser parser = new RDFXMLParserFactory().createParser(manager);
         parser.parse(documentSource, initialOntology);
-        Assert.assertEquals(IRI.create("http://test.example.org/ontology/0139"),
-                initialOntology.getOntologyID().getOntologyIRI());
+        Assert.assertEquals(IRI("http://test.example.org/ontology/0139"), initialOntology
+                .getOntologyID().getOntologyIRI());
         Assert.assertEquals(v1, initialOntology.getOntologyID().getVersionIRI());
         ReaderDocumentSource secondDocumentSource = getDocument();
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(JB, v2);

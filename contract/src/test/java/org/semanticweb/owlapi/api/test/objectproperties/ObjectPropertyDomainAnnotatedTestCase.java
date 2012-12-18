@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
@@ -52,7 +54,7 @@ public class ObjectPropertyDomainAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return getFactory().getOWLObjectPropertyDomainAxiom(getOWLObjectProperty("p"),
-                getOWLClass("A"), annos);
+        return ObjectPropertyDomain(ObjectProperty(getIRI("p")), Class(getIRI("A")),
+                annos);
     }
 }

@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
@@ -55,7 +56,7 @@ public class OWLOntologyToStringTestCase {
     @Test
     public void testNamedOntologyToString() throws Exception {
         OWLOntologyManager man = Factory.getManager();
-        IRI ontIRI = IRI.create("http://owlapi.sourceforge.net/ont");
+        IRI ontIRI = IRI("http://owlapi.sourceforge.net/ont");
         OWLOntology ont = man.createOntology(ontIRI);
         String s = ont.toString();
         String expected = "Ontology(" + ont.getOntologyID().toString() + ") [Axioms: "

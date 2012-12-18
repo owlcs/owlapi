@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -1382,8 +1383,7 @@ public class ContractOwlapi_3Test {
 
     @Test
     public void shouldTestOWLObjectPropertyImpl() throws Exception {
-        OWLObjectPropertyImpl testSubject0 = new OWLObjectPropertyImpl(
-                IRI.create("urn:aFake"));
+        OWLObjectPropertyImpl testSubject0 = new OWLObjectPropertyImpl(IRI("urn:aFake"));
         Set<OWLAnnotation> result0 = testSubject0.getAnnotations(Utils.getMockOntology(),
                 mock(OWLAnnotationProperty.class));
         Set<OWLAnnotation> result1 = testSubject0.getAnnotations(Utils.getMockOntology());
@@ -1643,8 +1643,8 @@ public class ContractOwlapi_3Test {
     @Test
     public void shouldTestOWLOntologyIRIMapperImpl() throws Exception {
         OWLOntologyIRIMapperImpl testSubject0 = new OWLOntologyIRIMapperImpl();
-        IRI result0 = testSubject0.getDocumentIRI(IRI.create("urn:aFake"));
-        testSubject0.addMapping(IRI.create("urn:aFake"), IRI.create("urn:aFake"));
+        IRI result0 = testSubject0.getDocumentIRI(IRI("urn:aFake"));
+        testSubject0.addMapping(IRI("urn:aFake"), IRI("urn:aFake"));
         String result1 = testSubject0.toString();
     }
 
@@ -1652,7 +1652,7 @@ public class ContractOwlapi_3Test {
     public void shouldTestOWLOntologyManagerImpl() throws Exception {
         OWLOntologyManagerImpl testSubject0 = new OWLOntologyManagerImpl(
                 mock(OWLDataFactory.class));
-        boolean result0 = testSubject0.contains(IRI.create("urn:aFake"));
+        boolean result0 = testSubject0.contains(IRI("urn:aFake"));
         boolean result1 = testSubject0.contains(Utils.getMockOntology());
         boolean result2 = testSubject0.contains(new OWLOntologyID());
     }

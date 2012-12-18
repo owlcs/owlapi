@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -126,18 +127,15 @@ public class ContractOwlapi_2Test {
     @Test
     public void shouldTestInterfaceOWLDataFactoryInternals() throws Exception {
         OWLDataFactoryInternals testSubject0 = mock(OWLDataFactoryInternals.class);
-        OWLClass result0 = testSubject0.getOWLClass(IRI.create("urn:aFake"));
+        OWLClass result0 = testSubject0.getOWLClass(IRI("urn:aFake"));
         OWLDatatype result1 = testSubject0.getTopDatatype();
-        OWLObjectProperty result2 = testSubject0.getOWLObjectProperty(IRI
-                .create("urn:aFake"));
-        OWLDataProperty result3 = testSubject0
-                .getOWLDataProperty(IRI.create("urn:aFake"));
-        OWLNamedIndividual result4 = testSubject0.getOWLNamedIndividual(IRI
-                .create("urn:aFake"));
-        OWLAnnotationProperty result5 = testSubject0.getOWLAnnotationProperty(IRI
-                .create("urn:aFake"));
+        OWLObjectProperty result2 = testSubject0.getOWLObjectProperty(IRI("urn:aFake"));
+        OWLDataProperty result3 = testSubject0.getOWLDataProperty(IRI("urn:aFake"));
+        OWLNamedIndividual result4 = testSubject0.getOWLNamedIndividual(IRI("urn:aFake"));
+        OWLAnnotationProperty result5 = testSubject0
+                .getOWLAnnotationProperty(IRI("urn:aFake"));
         OWLDatatype result6 = testSubject0.getRDFPlainLiteral();
-        OWLDatatype result7 = testSubject0.getOWLDatatype(IRI.create("urn:aFake"));
+        OWLDatatype result7 = testSubject0.getOWLDatatype(IRI("urn:aFake"));
         OWLDatatype result8 = testSubject0.getIntegerOWLDatatype();
         OWLDatatype result9 = testSubject0.getFloatOWLDatatype();
         OWLDatatype result10 = testSubject0.getDoubleOWLDatatype();
@@ -156,16 +154,13 @@ public class ContractOwlapi_2Test {
     public void shouldTestOWLDataFactoryInternalsImpl() throws Exception {
         OWLDataFactoryInternalsImpl testSubject0 = new OWLDataFactoryInternalsImpl(
                 mock(OWLDataFactory.class), false);
-        OWLClass result0 = testSubject0.getOWLClass(IRI.create("urn:aFake"));
-        OWLObjectProperty result1 = testSubject0.getOWLObjectProperty(IRI
-                .create("urn:aFake"));
-        OWLDataProperty result2 = testSubject0
-                .getOWLDataProperty(IRI.create("urn:aFake"));
-        OWLNamedIndividual result3 = testSubject0.getOWLNamedIndividual(IRI
-                .create("urn:aFake"));
-        OWLAnnotationProperty result4 = testSubject0.getOWLAnnotationProperty(IRI
-                .create("urn:aFake"));
-        OWLDatatype result5 = testSubject0.getOWLDatatype(IRI.create("urn:aFake"));
+        OWLClass result0 = testSubject0.getOWLClass(IRI("urn:aFake"));
+        OWLObjectProperty result1 = testSubject0.getOWLObjectProperty(IRI("urn:aFake"));
+        OWLDataProperty result2 = testSubject0.getOWLDataProperty(IRI("urn:aFake"));
+        OWLNamedIndividual result3 = testSubject0.getOWLNamedIndividual(IRI("urn:aFake"));
+        OWLAnnotationProperty result4 = testSubject0
+                .getOWLAnnotationProperty(IRI("urn:aFake"));
+        OWLDatatype result5 = testSubject0.getOWLDatatype(IRI("urn:aFake"));
         OWLLiteral result6 = testSubject0.getOWLLiteral(0D);
         OWLLiteral result7 = testSubject0.getOWLLiteral(0);
         OWLLiteral result8 = testSubject0.getOWLLiteral("");
@@ -518,8 +513,7 @@ public class ContractOwlapi_2Test {
 
     @Test
     public void shouldTestOWLDataPropertyImpl() throws Exception {
-        OWLDataPropertyImpl testSubject0 = new OWLDataPropertyImpl(
-                IRI.create("urn:aFake"));
+        OWLDataPropertyImpl testSubject0 = new OWLDataPropertyImpl(IRI("urn:aFake"));
         Set<OWLAnnotation> result0 = testSubject0.getAnnotations(Utils.getMockOntology(),
                 mock(OWLAnnotationProperty.class));
         Set<OWLAnnotation> result1 = testSubject0.getAnnotations(Utils.getMockOntology());
@@ -729,7 +723,7 @@ public class ContractOwlapi_2Test {
 
     @Test
     public void shouldTestOWLDatatypeImpl() throws Exception {
-        OWLDatatypeImpl testSubject0 = new OWLDatatypeImpl(IRI.create("urn:aFake"));
+        OWLDatatypeImpl testSubject0 = new OWLDatatypeImpl(IRI("urn:aFake"));
         Set<OWLAnnotation> result0 = testSubject0.getAnnotations(Utils.getMockOntology());
         Set<OWLAnnotation> result1 = testSubject0.getAnnotations(Utils.getMockOntology(),
                 mock(OWLAnnotationProperty.class));
@@ -1414,7 +1408,7 @@ public class ContractOwlapi_2Test {
     @Test
     public void shouldTestOWLImportsDeclarationImpl() throws Exception {
         OWLImportsDeclarationImpl testSubject0 = new OWLImportsDeclarationImpl(
-                IRI.create("urn:aFake"));
+                IRI("urn:aFake"));
         String result0 = testSubject0.toString();
         IRI result3 = testSubject0.getIRI();
         URI result5 = testSubject0.getURI();
@@ -1955,8 +1949,7 @@ public class ContractOwlapi_2Test {
 
     @Test
     public void shouldTestOWLNamedIndividualImpl() throws Exception {
-        OWLNamedIndividualImpl testSubject0 = new OWLNamedIndividualImpl(
-                IRI.create("urn:aFake"));
+        OWLNamedIndividualImpl testSubject0 = new OWLNamedIndividualImpl(IRI("urn:aFake"));
         Set<OWLAnnotation> result0 = testSubject0.getAnnotations(Utils.getMockOntology());
         Set<OWLAnnotation> result1 = testSubject0.getAnnotations(Utils.getMockOntology(),
                 mock(OWLAnnotationProperty.class));

@@ -38,10 +38,9 @@
  */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.semanticweb.owlapi.api.test.Factory;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -56,9 +55,8 @@ public abstract class AbstractLiteralWithEscapeTestCase extends
         AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() throws Exception {
-        OWLClass cls = Class(IRI.create("http://owlapi.sourceforge.net/ontology#A"));
-        OWLAnnotationProperty prop = AnnotationProperty(IRI
-                .create("http://owlapi.sourceforge.net/ontology#prop"));
+        OWLClass cls = Class(IRI("http://owlapi.sourceforge.net/ontology#A"));
+        OWLAnnotationProperty prop = AnnotationProperty(IRI("http://owlapi.sourceforge.net/ontology#prop"));
         OWLLiteral lit1 = Literal(getEscape());
         OWLLiteral lit2 = Literal("Start" + getEscape());
         OWLLiteral lit3 = Literal(getEscape() + "End");

@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.Writer;
 import java.util.ArrayList;
@@ -211,10 +212,9 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestCommonBaseIRIMapper() throws Exception {
-        CommonBaseIRIMapper testSubject0 = new CommonBaseIRIMapper(
-                IRI.create("urn:aFake"));
-        IRI result0 = testSubject0.getDocumentIRI(IRI.create("urn:aFake"));
-        testSubject0.addMapping(IRI.create("urn:aFake"), "");
+        CommonBaseIRIMapper testSubject0 = new CommonBaseIRIMapper(IRI("urn:aFake"));
+        IRI result0 = testSubject0.getDocumentIRI(IRI("urn:aFake"));
+        testSubject0.addMapping(IRI("urn:aFake"), "");
         String result1 = testSubject0.toString();
     }
 
@@ -234,8 +234,8 @@ public class ContractOwlapiUtilTest {
         testSubject0.setDefaultPrefix("");
         boolean result4 = testSubject0.containsPrefixMapping("");
         String result5 = testSubject0.getDefaultPrefix();
-        String result6 = testSubject0.getPrefixIRI(IRI.create("urn:aFake"));
-        String result7 = testSubject0.getShortForm(IRI.create("urn:aFake"));
+        String result6 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
+        String result7 = testSubject0.getShortForm(IRI("urn:aFake"));
         String result8 = testSubject0.getShortForm(Utils.mockOWLEntity());
         testSubject0.unregisterNamespace("");
         String result9 = testSubject0.toString();
@@ -537,7 +537,7 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestInterfaceIRIShortFormProvider() throws Exception {
         IRIShortFormProvider testSubject0 = mock(IRIShortFormProvider.class);
-        String result0 = testSubject0.getShortForm(IRI.create("urn:aFake"));
+        String result0 = testSubject0.getShortForm(IRI("urn:aFake"));
     }
 
     @Test
@@ -590,7 +590,7 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestNonMappingOntologyIRIMapper() throws Exception {
         NonMappingOntologyIRIMapper testSubject0 = new NonMappingOntologyIRIMapper();
-        IRI result0 = testSubject0.getDocumentIRI(IRI.create("urn:aFake"));
+        IRI result0 = testSubject0.getDocumentIRI(IRI("urn:aFake"));
         String result1 = testSubject0.toString();
     }
 
@@ -620,7 +620,7 @@ public class ContractOwlapiUtilTest {
     public void shouldTestOntologyIRIShortFormProvider() throws Exception {
         OntologyIRIShortFormProvider testSubject0 = new OntologyIRIShortFormProvider();
         String result0 = testSubject0.getShortForm(Utils.getMockOntology());
-        String result1 = testSubject0.getShortForm(IRI.create("urn:aFake"));
+        String result1 = testSubject0.getShortForm(IRI("urn:aFake"));
         String result2 = testSubject0.toString();
     }
 
@@ -764,10 +764,10 @@ public class ContractOwlapiUtilTest {
     public void shouldTestOWLEntityRenamer() throws Exception {
         OWLEntityRenamer testSubject0 = new OWLEntityRenamer(Utils.getMockManager(),
                 Utils.mockSet(Utils.getMockOntology()));
-        List<OWLOntologyChange> result0 = testSubject0.changeIRI(IRI.create("urn:aFake"),
-                IRI.create("urn:aFake"));
+        List<OWLOntologyChange> result0 = testSubject0.changeIRI(IRI("urn:aFake"),
+                IRI("urn:aFake"));
         List<OWLOntologyChange> result1 = testSubject0.changeIRI(Utils.mockOWLEntity(),
-                IRI.create("urn:aFake"));
+                IRI("urn:aFake"));
         List<OWLOntologyChange> result2 = testSubject0.changeIRI(mock(Map.class));
         String result3 = testSubject0.toString();
     }
@@ -967,7 +967,7 @@ public class ContractOwlapiUtilTest {
                 mock(OWLOntologySetProvider.class), mock(OWLAxiomFilter.class));
         boolean result0 = testSubject0.passes(mock(OWLAxiom.class));
         OWLOntology result1 = testSubject0.createMergedOntology(Utils.getMockManager(),
-                IRI.create("urn:aFake"));
+                IRI("urn:aFake"));
         String result2 = testSubject0.toString();
     }
 
@@ -984,7 +984,7 @@ public class ContractOwlapiUtilTest {
         OWLOntologyURIChanger testSubject0 = new OWLOntologyURIChanger(
                 Utils.getMockManager());
         List<OWLOntologyChange> result0 = testSubject0.getChanges(
-                Utils.getMockOntology(), IRI.create("urn:aFake"));
+                Utils.getMockOntology(), IRI("urn:aFake"));
         String result1 = testSubject0.toString();
     }
 
@@ -1092,16 +1092,16 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestSimpleIRIMapper() throws Exception {
-        SimpleIRIMapper testSubject0 = new SimpleIRIMapper(IRI.create("urn:aFake"),
-                IRI.create("urn:aFake"));
-        IRI result0 = testSubject0.getDocumentIRI(IRI.create("urn:aFake"));
+        SimpleIRIMapper testSubject0 = new SimpleIRIMapper(IRI("urn:aFake"),
+                IRI("urn:aFake"));
+        IRI result0 = testSubject0.getDocumentIRI(IRI("urn:aFake"));
         String result1 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestSimpleIRIShortFormProvider() throws Exception {
         SimpleIRIShortFormProvider testSubject0 = new SimpleIRIShortFormProvider();
-        String result0 = testSubject0.getShortForm(IRI.create("urn:aFake"));
+        String result0 = testSubject0.getShortForm(IRI("urn:aFake"));
         String result1 = testSubject0.toString();
     }
 
@@ -1112,7 +1112,7 @@ public class ContractOwlapiUtilTest {
         String result1 = testSubject0.render(mock(OWLObject.class));
         testSubject0.setPrefix("", "");
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
-        String result2 = testSubject0.getShortForm(IRI.create("urn:aFake"));
+        String result2 = testSubject0.getShortForm(IRI("urn:aFake"));
         testSubject0.resetShortFormProvider();
         boolean result3 = testSubject0.isUsingDefaultShortFormProvider();
         testSubject0.setPrefixesFromOntologyFormat(Utils.getMockOntology(),

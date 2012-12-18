@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -52,7 +53,7 @@ public class ContractKrssparserTest {
         OWLOntologyFormat result1 = testSubject0.parse(
                 mock(OWLOntologyDocumentSource.class), Utils.getMockOntology(),
                 new OWLOntologyLoaderConfiguration());
-        OWLOntologyFormat result2 = testSubject0.parse(IRI.create("urn:aFake"),
+        OWLOntologyFormat result2 = testSubject0.parse(IRI("urn:aFake"),
                 Utils.getMockOntology());
         String result4 = testSubject0.toString();
     }

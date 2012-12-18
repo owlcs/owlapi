@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -90,19 +91,17 @@ public class ContractOboParserTest {
         mock = mock(OBOConsumer.class);
         when(mock.getOWLOntologyManager()).thenReturn(manager);
         when(mock.getCurrentId()).thenReturn("urn:test:test2");
-        when(mock.getIRIFromOBOId(anyString())).thenReturn(IRI.create("urn:test:test3"));
-        when(mock.getIRIFromTagName(anyString()))
-                .thenReturn(IRI.create("urn:test:test3"));
-        when(mock.getCurrentEntity()).thenReturn(
-                df.getOWLClass(IRI.create("urn:test:test3")));
+        when(mock.getIRIFromOBOId(anyString())).thenReturn(IRI("urn:test:test3"));
+        when(mock.getIRIFromTagName(anyString())).thenReturn(IRI("urn:test:test3"));
+        when(mock.getCurrentEntity()).thenReturn(Class(IRI("urn:test:test3")));
         when(mock.parseXRef(anyString())).thenReturn(
                 df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral("fake")));
         mockonto = manager.createOntology();
         when(mock.getOntology()).thenReturn(mockonto);
         when(mock.getRelationIRIFromSymbolicIdOrOBOId(anyString())).thenReturn(
-                IRI.create("urn:p:prop"));
-        mockChange = new AddAxiom(mockonto, df.getOWLDeclarationAxiom(df.getOWLClass(IRI
-                .create("urn:test#test"))));
+                IRI("urn:p:prop"));
+        mockChange = new AddAxiom(mockonto,
+                df.getOWLDeclarationAxiom(Class(IRI("urn:test#test"))));
     }
 
     @Test
@@ -418,10 +417,10 @@ public class ContractOboParserTest {
     @Test
     public void shouldTestOBOConsumer() throws Exception {
         OBOConsumer testSubject0 = new OBOConsumer(manager, mockonto,
-                new OWLOntologyLoaderConfiguration(), IRI.create("urn:aFake"));
+                new OWLOntologyLoaderConfiguration(), IRI("urn:aFake"));
         testSubject0.setCurrentId("");
         OBOConsumer testSubject1 = new OBOConsumer(mockonto,
-                new OWLOntologyLoaderConfiguration(), IRI.create("urn:aFake"));
+                new OWLOntologyLoaderConfiguration(), IRI("urn:aFake"));
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
         OWLOntology result1 = testSubject0.getOntology();
         OWLClass result2 = testSubject0.getCurrentClass();
@@ -429,7 +428,7 @@ public class ContractOboParserTest {
         IRI result4 = testSubject0.getIRIFromOBOId("");
         String result5 = testSubject0.getCurrentId();
         IRI result6 = testSubject0.getRelationIRIFromSymbolicIdOrOBOId("");
-        testSubject0.addSymbolicIdMapping("", IRI.create("urn:aFake"));
+        testSubject0.addSymbolicIdMapping("", IRI("urn:aFake"));
         testSubject0.setDefaultNamespaceTagValue("");
         String result7 = testSubject0.getDefaultNamespaceTagValue();
         testSubject0.setOntologyTagValue("");
@@ -505,7 +504,7 @@ public class ContractOboParserTest {
     public void shouldTestOBOParser() throws Exception {
         StringDocumentTarget target = new StringDocumentTarget();
         mockonto.getOWLOntologyManager().addAxiom(mockonto,
-                df.getOWLDeclarationAxiom(df.getOWLClass(IRI.create("urn:c:test"))));
+                df.getOWLDeclarationAxiom(Class(IRI("urn:c:test"))));
         manager.saveOntology(mockonto, new OBOOntologyFormat(), target);
         String string = target.toString();
         OBOParser testSubject0 = new OBOParser(new InputStreamReader(
@@ -599,7 +598,7 @@ public class ContractOboParserTest {
         OBOVocabulary[] result1 = OBOVocabulary.values();
         String result3 = testSubject0.getName();
         IRI result4 = testSubject0.getIRI();
-        boolean result5 = OBOVocabulary.isOBOIRI(IRI.create("urn:aFake"));
+        boolean result5 = OBOVocabulary.isOBOIRI(IRI("urn:aFake"));
         List<OBOVocabulary> result6 = OBOVocabulary.getHeaderTags();
         List<OBOVocabulary> result7 = OBOVocabulary.getTermStanzaTags();
         List<OBOVocabulary> result8 = OBOVocabulary.getTypeDefStanzaTags();

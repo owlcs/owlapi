@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.OutputStream;
 import java.io.Writer;
@@ -11,7 +12,6 @@ import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxRenderer;
 import org.coode.owlapi.functionalrenderer.OWLObjectRenderer;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -26,7 +26,7 @@ public class ContractFunctionalrendererTest {
         OWLFunctionalSyntaxOntologyStorer testSubject0 = new OWLFunctionalSyntaxOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI.create("urn:aFake"), mock(OWLOntologyFormat.class));
+                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();

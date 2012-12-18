@@ -38,24 +38,57 @@
  */
 package org.semanticweb.owlapi.api.test.individuals;
 
-import java.util.Set;
+import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createOWLIndividual;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLNaryOperandsObjectTestCase;
+import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
-public class OWLDifferentIndividualsAxiomTestCase extends
-        AbstractOWLNaryOperandsObjectTestCase<OWLIndividual> {
+public class OWLDifferentIndividualsAxiomTestCase extends AbstractOWLDataFactoryTest {
     @Override
-    protected OWLObject createObject(Set<OWLIndividual> operands) throws Exception {
-        return getFactory().getOWLDifferentIndividualsAxiom(operands);
+    @Test
+    public void testCreation() throws Exception {
+        OWLObject obj = DifferentIndividuals(createOWLIndividual(),
+                createOWLIndividual(), createOWLIndividual());
+        assertNotNull("object should not be null", obj);
     }
 
     @Override
-    protected OWLIndividual createOperand() throws Exception {
-        return createOWLIndividual();
+    @Test
+    public void testEqualsPositive() throws Exception {
+        OWLIndividual a = createOWLIndividual();
+        OWLIndividual b = createOWLIndividual();
+        OWLIndividual c = createOWLIndividual();
+        OWLObject objA = DifferentIndividuals(a, b, c);
+        OWLObject objB = DifferentIndividuals(a, b, c);
+        assertEquals(objA, objB);
+    }
+
+    @Override
+    @Test
+    public void testEqualsNegative() throws Exception {
+        OWLIndividual a = createOWLIndividual();
+        OWLIndividual b = createOWLIndividual();
+        OWLObject objA = DifferentIndividuals(a, b);
+        OWLIndividual c = createOWLIndividual();
+        OWLObject objB = DifferentIndividuals(a, b, c);
+        assertFalse(objA.equals(objB));
+    }
+
+    @Override
+    @Test
+    public void testHashCode() throws Exception {
+        OWLIndividual a = createOWLIndividual();
+        OWLIndividual b = createOWLIndividual();
+        OWLIndividual c = createOWLIndividual();
+        OWLObject objA = DifferentIndividuals(a, b, c);
+        OWLObject objB = DifferentIndividuals(a, b, c);
+        assertEquals(objA.hashCode(), objB.hashCode());
     }
 }

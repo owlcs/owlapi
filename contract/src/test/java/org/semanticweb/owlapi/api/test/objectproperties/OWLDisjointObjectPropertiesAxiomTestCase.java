@@ -1,7 +1,7 @@
 /*
  * This file is part of the OWL API.
  *
- * The contents of this file are subject to the LGPL License, Version 3.0.
+ * The contents of this file are subject tOWLObjectProperty the LGPL License, Version 3.0.
  *
  * Copyright (C) 2011, The University of Manchester
  *
@@ -30,7 +30,7 @@
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
+ * Unless required by applicable law or agreed tOWLObjectProperty in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
@@ -38,24 +38,57 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
-import java.util.Set;
+import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLNaryOperandsObjectTestCase;
+import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
-public class OWLDisjointObjectPropertiesAxiomTestCase extends
-        AbstractOWLNaryOperandsObjectTestCase<OWLObjectProperty> {
+public class OWLDisjointObjectPropertiesAxiomTestCase extends AbstractOWLDataFactoryTest {
     @Override
-    protected OWLObject createObject(Set<OWLObjectProperty> operands) throws Exception {
-        return getFactory().getOWLDisjointObjectPropertiesAxiom(operands);
+    @Test
+    public void testCreation() throws Exception {
+        OWLObject obj = DisjointObjectProperties(ObjectProperty(createIRI()),
+                ObjectProperty(createIRI()), ObjectProperty(createIRI()));
+        assertNotNull("object should not be null", obj);
     }
 
     @Override
-    protected OWLObjectProperty createOperand() throws Exception {
-        return createOWLObjectProperty();
+    @Test
+    public void testEqualsPositive() throws Exception {
+        OWLObjectProperty a = ObjectProperty(createIRI());
+        OWLObjectProperty b = ObjectProperty(createIRI());
+        OWLObjectProperty c = ObjectProperty(createIRI());
+        OWLObject objA = DisjointObjectProperties(a, b, c);
+        OWLObject objB = DisjointObjectProperties(a, b, c);
+        assertEquals(objA, objB);
+    }
+
+    @Override
+    @Test
+    public void testEqualsNegative() throws Exception {
+        OWLObjectProperty a = ObjectProperty(createIRI());
+        OWLObjectProperty b = ObjectProperty(createIRI());
+        OWLObject objA = DisjointObjectProperties(a, b);
+        OWLObjectProperty c = ObjectProperty(createIRI());
+        OWLObject objB = DisjointObjectProperties(a, b, c);
+        assertFalse(objA.equals(objB));
+    }
+
+    @Override
+    @Test
+    public void testHashCode() throws Exception {
+        OWLObjectProperty a = ObjectProperty(createIRI());
+        OWLObjectProperty b = ObjectProperty(createIRI());
+        OWLObjectProperty c = ObjectProperty(createIRI());
+        OWLObject objA = DisjointObjectProperties(a, b, c);
+        OWLObject objB = DisjointObjectProperties(a, b, c);
+        assertEquals(objA.hashCode(), objB.hashCode());
     }
 }

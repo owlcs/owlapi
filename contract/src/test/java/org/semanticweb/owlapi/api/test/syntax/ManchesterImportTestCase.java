@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.File;
 
@@ -38,7 +39,7 @@ public class ManchesterImportTestCase {
     public void testManualImports() throws Exception {
         OWLOntologyManager manager = getManager();
         manager.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
-        assertNotNull(manager.getOntology(IRI.create(str)));
+        assertNotNull(manager.getOntology(IRI(str)));
     }
 
     private OWLOntologyManager getManager() {
@@ -51,7 +52,7 @@ public class ManchesterImportTestCase {
     @Test
     public void testRemoteIsParseable() throws Exception {
         OWLOntologyManager manager = getManager();
-        IRI iri = IRI.create(str);
+        IRI iri = IRI(str);
         OWLOntology ontology = manager.loadOntology(iri);
         assertEquals(1, ontology.getAxioms().size());
         assertEquals(ontology.getOntologyID().getOntologyIRI(), iri);
@@ -64,7 +65,7 @@ public class ManchesterImportTestCase {
         OWLOntology manualImport = managerStart
                 .loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
         OWLOntologyManager managerTest = getManager();
-        OWLOntology iriImport = managerTest.loadOntology(IRI.create(str));
+        OWLOntology iriImport = managerTest.loadOntology(IRI(str));
         assertEquals(manualImport.getAxioms(), iriImport.getAxioms());
         assertEquals(manualImport.getOntologyID(), iriImport.getOntologyID());
     }

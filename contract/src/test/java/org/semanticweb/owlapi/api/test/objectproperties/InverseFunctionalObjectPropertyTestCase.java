@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,8 +55,7 @@ public class InverseFunctionalObjectPropertyTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLInverseFunctionalObjectPropertyAxiom(
-                getOWLObjectProperty("p")));
+        axioms.add(InverseFunctionalObjectProperty(ObjectProperty(getIRI("p"))));
         return axioms;
     }
 }

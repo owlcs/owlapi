@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
 
@@ -57,10 +58,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Date: 25/02/2011 */
 @SuppressWarnings("javadoc")
 public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
-    public static final IRI SUBCLASS_IRI = IRI
-            .create("http://www.semanticweb.org/owlapi/test#A");
-    public static final IRI SUPERCLASS_IRI = IRI
-            .create("http://www.semanticweb.org/owlapi/test#B");
+    public static final IRI SUBCLASS_IRI = IRI("http://www.semanticweb.org/owlapi/test#A");
+    public static final IRI SUPERCLASS_IRI = IRI("http://www.semanticweb.org/owlapi/test#B");
 
     @Override
     protected OWLOntologyLoaderConfiguration getConfiguration() {
@@ -78,8 +77,8 @@ public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
         Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
         assertTrue(axioms.size() == 1);
         OWLSubClassOfAxiom ax = axioms.iterator().next();
-        OWLClass subCls = getFactory().getOWLClass(SUBCLASS_IRI);
-        OWLClass supCls = getFactory().getOWLClass(SUPERCLASS_IRI);
+        OWLClass subCls = Class(SUBCLASS_IRI);
+        OWLClass supCls = Class(SUPERCLASS_IRI);
         assertEquals(subCls, ax.getSubClass());
         assertEquals(supCls, ax.getSuperClass());
     }

@@ -38,11 +38,11 @@
  */
 package org.semanticweb.owlapi.api.test.reasoners;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
@@ -63,10 +63,9 @@ public class StructuralReasonerRecursionTestCase extends AbstractFileTestCase {
     public void testRecusion() {
         OWLOntology ontology = createOntology();
         String ontName = ontology.getOntologyID().getOntologyIRI().toString();
-        OWLDataFactory factory = getFactory();
         StructuralReasoner reasoner = new StructuralReasoner(ontology,
                 new SimpleConfiguration(), BufferingMode.BUFFERING);
-        OWLClass cls = factory.getOWLClass(IRI.create(ontName + "#Koala"));
+        OWLClass cls = Class(IRI(ontName + "#Koala"));
         reasoner.getSubClasses(cls, false);
         reasoner.getSuperClasses(cls, false);
     }

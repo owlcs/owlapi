@@ -38,11 +38,12 @@
  */
 package org.semanticweb.owlapi.api.test.literals;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -55,12 +56,10 @@ public class DatatypeDefinitionTestCase extends AbstractAxiomsRoundTrippingTestC
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLDatatype datatype = getFactory().getOWLDatatype(
-                IRI.create("http://www.ont.com/myont/mydatatype"));
-        OWLDataRange dr = getFactory().getOWLDataComplementOf(
-                getFactory().getIntegerOWLDatatype());
-        axioms.add(getFactory().getOWLDatatypeDefinitionAxiom(datatype, dr));
-        axioms.add(getFactory().getOWLDeclarationAxiom(datatype));
+        OWLDatatype datatype = Datatype(IRI("http://www.ont.com/myont/mydatatype"));
+        OWLDataRange dr = DataComplementOf(Integer());
+        axioms.add(DatatypeDefinition(datatype, dr));
+        axioms.add(Declaration(datatype));
         return axioms;
     }
 }

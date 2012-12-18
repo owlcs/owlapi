@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.individuals;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,9 +57,7 @@ public class SameIndividualsAnonymousTestCase extends AbstractAxiomsRoundTrippin
         // Can't round trip more than two in RDF! Also, same individuals axiom
         // with anon individuals is not allowed
         // in OWL 2, but it should at least round trip
-        axioms.add(getFactory().getOWLSameIndividualAxiom(
-                getFactory().getOWLAnonymousIndividual(),
-                getFactory().getOWLAnonymousIndividual()));
+        axioms.add(SameIndividual(AnonymousIndividual(), AnonymousIndividual()));
         return axioms;
     }
 }

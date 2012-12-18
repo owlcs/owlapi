@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -56,10 +57,10 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class InverseOfTestCase extends AbstractFileRoundTrippingTestCase {
     @Test
     public void testContains() {
-        OWLObjectProperty propP = getOWLObjectProperty("p");
-        OWLObjectProperty propQ = getOWLObjectProperty("q");
+        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
+        OWLObjectProperty propQ = ObjectProperty(getIRI("q"));
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLInverseObjectPropertiesAxiom(propP, propQ));
+        axioms.add(InverseObjectProperties(propP, propQ));
         assertEquals(axioms, getOnt().getAxioms());
     }
 

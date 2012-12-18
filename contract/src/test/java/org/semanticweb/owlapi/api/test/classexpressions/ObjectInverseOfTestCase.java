@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,12 +56,11 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class ObjectInverseOfTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLClass clsA = getOWLClass("A");
-        OWLObjectProperty prop = getOWLObjectProperty("prop");
-        OWLClassExpression ce = getFactory().getOWLObjectSomeValuesFrom(
-                prop.getInverseProperty(), clsA);
+        OWLClass clsA = Class(getIRI("A"));
+        OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
+        OWLClassExpression ce = ObjectSomeValuesFrom(prop.getInverseProperty(), clsA);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLSubClassOfAxiom(getOWLClass("B"), ce));
+        axioms.add(SubClassOf(Class(getIRI("B")), ce));
         return axioms;
     }
 }

@@ -39,6 +39,8 @@
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
@@ -52,36 +54,34 @@ public class OWLObjectSelfRestrictionTestCase extends AbstractOWLDataFactoryTest
     @Override
     @Test
     public void testCreation() throws Exception {
-        OWLObjectProperty prop = createOWLObjectProperty();
-        OWLObjectHasSelf restA = getFactory().getOWLObjectHasSelf(prop);
+        OWLObjectProperty prop = ObjectProperty(createIRI());
+        OWLObjectHasSelf restA = ObjectHasSelf(prop);
         assertNotNull(restA);
     }
 
     @Override
     @Test
     public void testEqualsPositive() throws Exception {
-        OWLObjectProperty prop = createOWLObjectProperty();
-        OWLObjectHasSelf restA = getFactory().getOWLObjectHasSelf(prop);
-        OWLObjectHasSelf restB = getFactory().getOWLObjectHasSelf(prop);
+        OWLObjectProperty prop = ObjectProperty(createIRI());
+        OWLObjectHasSelf restA = ObjectHasSelf(prop);
+        OWLObjectHasSelf restB = ObjectHasSelf(prop);
         assertEquals(restA, restB);
     }
 
     @Override
     @Test
     public void testEqualsNegative() throws Exception {
-        OWLObjectHasSelf restA = getFactory().getOWLObjectHasSelf(
-                createOWLObjectProperty());
-        OWLObjectHasSelf restB = getFactory().getOWLObjectHasSelf(
-                createOWLObjectProperty());
-        assertNotEquals(restA, restB);
+        OWLObjectHasSelf restA = ObjectHasSelf(ObjectProperty(createIRI()));
+        OWLObjectHasSelf restB = ObjectHasSelf(ObjectProperty(createIRI()));
+        assertFalse(restA.equals(restB));
     }
 
     @Override
     @Test
     public void testHashCode() throws Exception {
-        OWLObjectProperty prop = createOWLObjectProperty();
-        OWLObjectHasSelf restA = getFactory().getOWLObjectHasSelf(prop);
-        OWLObjectHasSelf restB = getFactory().getOWLObjectHasSelf(prop);
+        OWLObjectProperty prop = ObjectProperty(createIRI());
+        OWLObjectHasSelf restA = ObjectHasSelf(prop);
+        OWLObjectHasSelf restB = ObjectHasSelf(prop);
         assertEquals(restA.hashCode(), restB.hashCode());
     }
 }

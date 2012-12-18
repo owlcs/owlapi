@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -57,22 +59,20 @@ public class ObjectPropertyChainAnnotatedRoundTrippingTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLObjectProperty propA = getOWLObjectProperty("propA");
-        OWLObjectProperty propB = getOWLObjectProperty("propB");
-        OWLObjectProperty propC = getOWLObjectProperty("propC");
-        OWLObjectProperty propD = getOWLObjectProperty("propD");
+        OWLObjectProperty propA = ObjectProperty(getIRI("propA"));
+        OWLObjectProperty propB = ObjectProperty(getIRI("propB"));
+        OWLObjectProperty propC = ObjectProperty(getIRI("propC"));
+        OWLObjectProperty propD = ObjectProperty(getIRI("propD"));
         List<OWLObjectProperty> props = new ArrayList<OWLObjectProperty>();
         props.add(propA);
         props.add(propB);
         props.add(propC);
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
-        OWLAnnotationProperty annoPropA = getOWLAnnotationProperty("annoPropA");
-        OWLAnnotationProperty annoPropB = getOWLAnnotationProperty("annoPropB");
-        annos.add(getFactory().getOWLAnnotation(annoPropA,
-                getFactory().getOWLLiteral("Test", "en")));
-        annos.add(getFactory().getOWLAnnotation(annoPropB,
-                getFactory().getOWLLiteral("Test", "")));
-        OWLAxiom ax = getFactory().getOWLSubPropertyChainOfAxiom(props, propD, annos);
+        OWLAnnotationProperty annoPropA = AnnotationProperty(getIRI("annoPropA"));
+        OWLAnnotationProperty annoPropB = AnnotationProperty(getIRI("annoPropB"));
+        annos.add(Annotation(annoPropA, Literal("Test", "en")));
+        annos.add(Annotation(annoPropB, Literal("Test", "")));
+        OWLAxiom ax = SubPropertyChainOf(props, propD, annos);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(ax);
         return axioms;

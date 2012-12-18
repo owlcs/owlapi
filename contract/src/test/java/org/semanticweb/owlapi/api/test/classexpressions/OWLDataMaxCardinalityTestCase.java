@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataCardinalityRestrictionTestCase;
 import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -51,12 +53,12 @@ public class OWLDataMaxCardinalityTestCase extends
     @Override
     protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop,
             int cardinality) throws Exception {
-        return getFactory().getOWLDataMaxCardinality(cardinality, prop);
+        return DataMaxCardinality(cardinality, prop, TopDatatype());
     }
 
     @Override
     protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop,
             int cardinality, OWLDataRange dataRange) throws Exception {
-        return getFactory().getOWLDataMaxCardinality(cardinality, prop, dataRange);
+        return DataMaxCardinality(cardinality, prop, dataRange);
     }
 }

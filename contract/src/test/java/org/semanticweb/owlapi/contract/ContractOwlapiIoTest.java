@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -96,7 +97,7 @@ public class ContractOwlapiIoTest {
                 return null;
             }
         };
-        OWLOntologyFormat result0 = testSubject0.parse(IRI.create("urn:aFake"),
+        OWLOntologyFormat result0 = testSubject0.parse(IRI("urn:aFake"),
                 Utils.getMockOntology());
         String result2 = testSubject0.toString();
         OWLOntologyFormat result3 = testSubject0.parse(
@@ -139,7 +140,7 @@ public class ContractOwlapiIoTest {
         testSubject0.setDefaultPrefix("");
         boolean result9 = testSubject0.containsPrefixMapping("");
         String result10 = testSubject0.getDefaultPrefix();
-        String result11 = testSubject0.getPrefixIRI(IRI.create("urn:aFake"));
+        String result11 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result12 = testSubject0.getParameter(mock(Object.class),
                 mock(Object.class));
@@ -181,7 +182,7 @@ public class ContractOwlapiIoTest {
     }
 
     public void shouldTestIRIDocumentSource() throws Exception {
-        IRIDocumentSource testSubject0 = new IRIDocumentSource(IRI.create("urn:aFake"));
+        IRIDocumentSource testSubject0 = new IRIDocumentSource(IRI("urn:aFake"));
         String result0 = testSubject0.toString();
         InputStream result1 = testSubject0.getInputStream();
         boolean result2 = testSubject0.isReaderAvailable();
@@ -193,7 +194,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestOntologyIRIMappingNotFoundException() throws Exception {
         OntologyIRIMappingNotFoundException testSubject0 = new OntologyIRIMappingNotFoundException(
-                IRI.create("urn:aFake"));
+                IRI("urn:aFake"));
         IRI result0 = testSubject0.getOntologyIRI();
         Throwable result2 = testSubject0.getCause();
         String result4 = testSubject0.toString();
@@ -216,7 +217,7 @@ public class ContractOwlapiIoTest {
         testSubject0.setDefaultPrefix("");
         boolean result5 = testSubject0.containsPrefixMapping("");
         String result6 = testSubject0.getDefaultPrefix();
-        String result7 = testSubject0.getPrefixIRI(IRI.create("urn:aFake"));
+        String result7 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result8 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
@@ -299,7 +300,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestInterfaceOWLParser() throws Exception {
         OWLParser testSubject0 = mock(OWLParser.class);
-        OWLOntologyFormat result0 = testSubject0.parse(IRI.create("urn:aFake"),
+        OWLOntologyFormat result0 = testSubject0.parse(IRI("urn:aFake"),
                 Utils.getMockOntology());
         OWLOntologyFormat result1 = testSubject0.parse(
                 mock(OWLOntologyDocumentSource.class), Utils.getMockOntology());
@@ -427,7 +428,7 @@ public class ContractOwlapiIoTest {
         testSubject0.setDefaultPrefix("");
         boolean result5 = testSubject0.containsPrefixMapping("");
         String result6 = testSubject0.getDefaultPrefix();
-        String result7 = testSubject0.getPrefixIRI(IRI.create("urn:aFake"));
+        String result7 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result8 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
@@ -482,7 +483,7 @@ public class ContractOwlapiIoTest {
         testSubject0.setDefaultPrefix("");
         boolean result8 = testSubject0.containsPrefixMapping("");
         String result9 = testSubject0.getDefaultPrefix();
-        String result10 = testSubject0.getPrefixIRI(IRI.create("urn:aFake"));
+        String result10 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result11 = testSubject0.getParameter(mock(Object.class),
                 mock(Object.class));
@@ -513,8 +514,8 @@ public class ContractOwlapiIoTest {
 
     @Test
     public void shouldTestRDFResource() throws Exception {
-        RDFResource testSubject0 = new RDFResource(IRI.create("urn:aFake"));
-        RDFResource testSubject1 = new RDFResource(IRI.create("urn:aFake"), false);
+        RDFResource testSubject0 = new RDFResource(IRI("urn:aFake"));
+        RDFResource testSubject1 = new RDFResource(IRI("urn:aFake"), false);
         String result0 = testSubject0.toString();
         IRI result1 = testSubject0.getResource();
         boolean result2 = testSubject0.isAnonymous();
@@ -534,10 +535,10 @@ public class ContractOwlapiIoTest {
 
     @Test
     public void shouldTestRDFTriple() throws Exception {
-        RDFTriple testSubject0 = new RDFTriple(IRI.create("urn:aFake"), false,
-                IRI.create("urn:aFake"), false, IRI.create("urn:aFake"), false);
-        RDFTriple testSubject1 = new RDFTriple(IRI.create("urn:aFake"), false,
-                IRI.create("urn:aFake"), false, mock(OWLLiteral.class));
+        RDFTriple testSubject0 = new RDFTriple(IRI("urn:aFake"), false, IRI("urn:aFake"),
+                false, IRI("urn:aFake"), false);
+        RDFTriple testSubject1 = new RDFTriple(IRI("urn:aFake"), false, IRI("urn:aFake"),
+                false, mock(OWLLiteral.class));
         RDFTriple testSubject2 = new RDFTriple(mock(RDFResource.class),
                 mock(RDFResource.class), mock(RDFNode.class));
         String result0 = testSubject0.toString();
@@ -567,7 +568,7 @@ public class ContractOwlapiIoTest {
         testSubject0.setDefaultPrefix("");
         boolean result9 = testSubject0.containsPrefixMapping("");
         String result10 = testSubject0.getDefaultPrefix();
-        String result11 = testSubject0.getPrefixIRI(IRI.create("urn:aFake"));
+        String result11 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result12 = testSubject0.getParameter(mock(Object.class),
                 mock(Object.class));
@@ -578,7 +579,7 @@ public class ContractOwlapiIoTest {
 
     public void shouldTestReaderDocumentSource() throws Exception {
         ReaderDocumentSource testSubject0 = new ReaderDocumentSource(mock(Reader.class),
-                IRI.create("urn:aFake"));
+                IRI("urn:aFake"));
         ReaderDocumentSource testSubject1 = new ReaderDocumentSource(mock(Reader.class));
         InputStream result0 = testSubject0.getInputStream();
         boolean result1 = testSubject0.isReaderAvailable();
@@ -593,7 +594,7 @@ public class ContractOwlapiIoTest {
         StreamDocumentSource testSubject0 = new StreamDocumentSource(
                 mock(InputStream.class));
         StreamDocumentSource testSubject1 = new StreamDocumentSource(
-                mock(InputStream.class), IRI.create("urn:aFake"));
+                mock(InputStream.class), IRI("urn:aFake"));
         InputStream result0 = testSubject0.getInputStream();
         boolean result1 = testSubject0.isReaderAvailable();
         Reader result2 = testSubject0.getReader();
@@ -617,8 +618,7 @@ public class ContractOwlapiIoTest {
 
     public void shouldTestStringDocumentSource() throws Exception {
         StringDocumentSource testSubject0 = new StringDocumentSource("");
-        StringDocumentSource testSubject1 = new StringDocumentSource("",
-                IRI.create("urn:aFake"));
+        StringDocumentSource testSubject1 = new StringDocumentSource("", IRI("urn:aFake"));
         InputStream result0 = testSubject0.getInputStream();
         boolean result1 = testSubject0.isReaderAvailable();
         Reader result2 = testSubject0.getReader();
@@ -662,8 +662,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestUnparsableOntologyException() throws Exception {
         UnparsableOntologyException testSubject0 = new UnparsableOntologyException(
-                IRI.create("urn:aFake"),
-                Collections.<OWLParser, OWLParserException> emptyMap());
+                IRI("urn:aFake"), Collections.<OWLParser, OWLParserException> emptyMap());
         String result0 = testSubject0.getMessage();
         IRI result1 = testSubject0.getDocumentIRI();
         boolean result2 = UnparsableOntologyException.isIncludeStackTraceInMessage();

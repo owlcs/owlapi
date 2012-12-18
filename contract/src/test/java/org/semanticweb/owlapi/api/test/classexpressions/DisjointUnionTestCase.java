@@ -39,16 +39,11 @@
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.assertTrue;
-
-import java.util.HashSet;
-import java.util.Set;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -57,10 +52,9 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class DisjointUnionTestCase {
     public static final String NS = "http://protege.org/protege/DisjointUnion.owl";
-    private static OWLDataFactory factory = Factory.getFactory();
-    public static final OWLClass A = factory.getOWLClass(IRI.create(NS + "#A"));
-    public static final OWLClass B = factory.getOWLClass(IRI.create(NS + "#B"));
-    public static final OWLClass C = factory.getOWLClass(IRI.create(NS + "#C"));
+    public static final OWLClass A = Class(IRI(NS + "#A"));
+    public static final OWLClass B = Class(IRI(NS + "#B"));
+    public static final OWLClass C = Class(IRI(NS + "#C"));
 
     /** @param args
      * @throws OWLOntologyCreationException
@@ -68,11 +62,8 @@ public class DisjointUnionTestCase {
     @Test
     public void testDisjointUnion() throws Exception {
         OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager.createOntology(IRI.create(NS));
-        Set<OWLClassExpression> disjoints = new HashSet<OWLClassExpression>();
-        disjoints.add(B);
-        disjoints.add(C);
-        manager.addAxiom(ontology, factory.getOWLDisjointUnionAxiom(A, disjoints));
+        OWLOntology ontology = manager.createOntology(IRI(NS));
+        manager.addAxiom(ontology, DisjointUnion(A, B, C));
         assertTrue(ontology.getDisjointUnionAxioms(A).size() == 1);
         assertTrue(ontology.getDisjointUnionAxioms(B).size() == 0);
     }

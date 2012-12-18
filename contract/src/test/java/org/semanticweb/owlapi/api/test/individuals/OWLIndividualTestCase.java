@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.individuals;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLEntityTestCase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -48,6 +50,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 public class OWLIndividualTestCase extends AbstractOWLEntityTestCase {
     @Override
     protected OWLEntity createEntity(IRI iri) throws Exception {
-        return getFactory().getOWLNamedIndividual(iri);
+        return NamedIndividual(iri);
     }
 }

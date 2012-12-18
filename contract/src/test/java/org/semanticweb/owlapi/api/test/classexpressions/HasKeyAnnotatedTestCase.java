@@ -38,11 +38,12 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -50,7 +51,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -59,27 +59,22 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public class HasKeyAnnotatedTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLAnnotationProperty ap = getFactory().getOWLAnnotationProperty(
-                IRI.create("http://annotation.com/annos#prop"));
-        OWLLiteral val = getFactory().getOWLLiteral("Test", "");
-        OWLAnnotation anno = getFactory().getOWLAnnotation(ap, val);
+        OWLAnnotationProperty ap = AnnotationProperty(IRI("http://annotation.com/annos#prop"));
+        OWLLiteral val = Literal("Test", "");
+        OWLAnnotation anno = Annotation(ap, val);
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
         annos.add(anno);
-        OWLClassExpression ce = getOWLClass("A");
-        OWLObjectProperty p1 = getOWLObjectProperty("p1");
-        OWLObjectProperty p2 = getOWLObjectProperty("p2");
-        OWLObjectProperty p3 = getOWLObjectProperty("p3");
-        Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
-        props.add(p1);
-        props.add(p2);
-        props.add(p3);
-        OWLHasKeyAxiom ax = getFactory().getOWLHasKeyAxiom(ce, props, annos);
+        OWLClassExpression ce = Class(getIRI("A"));
+        OWLObjectProperty p1 = ObjectProperty(getIRI("p1"));
+        OWLObjectProperty p2 = ObjectProperty(getIRI("p2"));
+        OWLObjectProperty p3 = ObjectProperty(getIRI("p3"));
+        OWLHasKeyAxiom ax = HasKey(annos, ce, p1, p2, p3);
         Set<OWLAxiom> axs = new HashSet<OWLAxiom>();
         axs.add(ax);
-        axs.add(getFactory().getOWLDeclarationAxiom(ap));
-        axs.add(getFactory().getOWLDeclarationAxiom(p1));
-        axs.add(getFactory().getOWLDeclarationAxiom(p2));
-        axs.add(getFactory().getOWLDeclarationAxiom(p3));
+        axs.add(Declaration(ap));
+        axs.add(Declaration(p1));
+        axs.add(Declaration(p2));
+        axs.add(Declaration(p3));
         return axs;
     }
 }

@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
@@ -9,7 +11,6 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -52,17 +53,14 @@ public class SharedBlankNodeTestCase {
 
     public static OWLOntology createOntology() throws OWLOntologyCreationException {
         String NS = "http://protege.org/more/anonymous/junk";
-        OWLDataProperty P = Factory.getFactory()
-                .getOWLDataProperty(IRI.create(NS + "#p"));
-        OWLObjectProperty P1 = Factory.getFactory().getOWLObjectProperty(
-                IRI.create(NS + "#p1"));
-        OWLObjectProperty P2 = Factory.getFactory().getOWLObjectProperty(
-                IRI.create(NS + "#p2"));
+        OWLDataProperty P = Factory.getFactory().getOWLDataProperty(IRI(NS + "#p"));
+        OWLObjectProperty P1 = Factory.getFactory().getOWLObjectProperty(IRI(NS + "#p1"));
+        OWLObjectProperty P2 = Factory.getFactory().getOWLObjectProperty(IRI(NS + "#p2"));
         OWLAnnotationProperty ann = Factory.getFactory().getOWLAnnotationProperty(
-                IRI.create(NS + "#ann"));
+                IRI(NS + "#ann"));
         OWLOntologyManager manager = Factory.getManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
-        OWLOntology ontology = manager.createOntology(IRI.create(NS));
+        OWLOntology ontology = manager.createOntology(IRI(NS));
         OWLAnonymousIndividual i = factory.getOWLAnonymousIndividual();
         manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(P));
         manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(P1));
@@ -72,7 +70,7 @@ public class SharedBlankNodeTestCase {
                 ann, i)));
         OWLAxiom ass = factory.getOWLDataPropertyAssertionAxiom(P, i,
                 factory.getOWLLiteral("hello world"));
-        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI.create(NS + "#test"));
+        OWLNamedIndividual ind = factory.getOWLNamedIndividual(IRI(NS + "#test"));
         OWLAxiom ax1 = factory.getOWLObjectPropertyAssertionAxiom(P1, ind, i);
         OWLAxiom ax2 = factory.getOWLObjectPropertyAssertionAxiom(P2, ind, i);
         manager.addAxiom(ontology, ass);

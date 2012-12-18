@@ -85,12 +85,12 @@ public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLProp
         P prop = createProperty();
         OWLRestriction restA = createRestriction(prop, createFiller());
         OWLRestriction restB = createRestriction(prop, createFiller());
-        assertNotEquals(restA, restB);
+        assertFalse(restA.equals(restB));
         // Different property
         F filler = createFiller();
         OWLRestriction restC = createRestriction(createProperty(), filler);
         OWLRestriction restD = createRestriction(createProperty(), filler);
-        assertNotEquals(restC, restD);
+        assertFalse(restC.equals(restD));
     }
 
     @Override

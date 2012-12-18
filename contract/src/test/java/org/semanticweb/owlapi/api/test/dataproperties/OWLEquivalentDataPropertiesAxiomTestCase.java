@@ -1,7 +1,7 @@
 /*
  * This file is part of the OWL API.
  *
- * The contents of this file are subject to the LGPL License, Version 3.0.
+ * The contents of this file are subject tOWLDataProperty the LGPL License, Version 3.0.
  *
  * Copyright (C) 2011, The University of Manchester
  *
@@ -30,7 +30,7 @@
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
+ * Unless required by applicable law or agreed tOWLDataProperty in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
@@ -38,12 +38,12 @@
  */
 package org.semanticweb.owlapi.api.test.dataproperties;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLNaryOperandsObjectTestCase;
+import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -52,23 +52,52 @@ import org.semanticweb.owlapi.model.OWLObject;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
-public class OWLEquivalentDataPropertiesAxiomTestCase extends
-        AbstractOWLNaryOperandsObjectTestCase<OWLDataProperty> {
+public class OWLEquivalentDataPropertiesAxiomTestCase extends AbstractOWLDataFactoryTest {
     public void testAsSubAxioms() throws Exception {
-        Set<OWLDataProperty> operands = new HashSet<OWLDataProperty>();
-        operands.add(createOperand());
-        operands.add(createOperand());
-        OWLEquivalentDataPropertiesAxiom objA = (OWLEquivalentDataPropertiesAxiom) createObject(operands);
+        OWLDataProperty a = DataProperty(createIRI());
+        OWLDataProperty b = DataProperty(createIRI());
+        OWLEquivalentDataPropertiesAxiom objA = EquivalentDataProperties(a, b);
         assertTrue(objA.asSubDataPropertyOfAxioms().size() == 2);
     }
 
     @Override
-    protected OWLObject createObject(Set<OWLDataProperty> operands) throws Exception {
-        return getFactory().getOWLEquivalentDataPropertiesAxiom(operands);
+    @Test
+    public void testCreation() throws Exception {
+        OWLObject obj = EquivalentDataProperties(DataProperty(createIRI()),
+                DataProperty(createIRI()), DataProperty(createIRI()));
+        assertNotNull("object should not be null", obj);
     }
 
     @Override
-    protected OWLDataProperty createOperand() throws Exception {
-        return createOWLDataProperty();
+    @Test
+    public void testEqualsPositive() throws Exception {
+        OWLDataProperty a = DataProperty(createIRI());
+        OWLDataProperty b = DataProperty(createIRI());
+        OWLDataProperty c = DataProperty(createIRI());
+        OWLObject objA = EquivalentDataProperties(a, b, c);
+        OWLObject objB = EquivalentDataProperties(a, b, c);
+        assertEquals(objA, objB);
+    }
+
+    @Override
+    @Test
+    public void testEqualsNegative() throws Exception {
+        OWLDataProperty a = DataProperty(createIRI());
+        OWLDataProperty b = DataProperty(createIRI());
+        OWLObject objA = EquivalentDataProperties(a, b);
+        OWLDataProperty c = DataProperty(createIRI());
+        OWLObject objB = EquivalentDataProperties(a, b, c);
+        assertFalse(objA.equals(objB));
+    }
+
+    @Override
+    @Test
+    public void testHashCode() throws Exception {
+        OWLDataProperty a = DataProperty(createIRI());
+        OWLDataProperty b = DataProperty(createIRI());
+        OWLDataProperty c = DataProperty(createIRI());
+        OWLObject objA = EquivalentDataProperties(a, b, c);
+        OWLObject objB = EquivalentDataProperties(a, b, c);
+        assertEquals(objA.hashCode(), objB.hashCode());
     }
 }

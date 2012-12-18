@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -74,15 +75,15 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 @SuppressWarnings("javadoc")
 public class ProfileValidationTestCase {
     private static final String TEST_NAMESPACE = "http://www.w3.org/2007/OWL/testOntology#";
-    private static final IRI PROFILE_IDENTIFICATION_TEST_IRI = IRI.create(TEST_NAMESPACE
+    private static final IRI PROFILE_IDENTIFICATION_TEST_IRI = IRI(TEST_NAMESPACE
             + "ProfileIdentificationTest");
-    private static final IRI SPECIES_IRI = IRI.create(TEST_NAMESPACE + "species");
-    private static final IRI FULL_IRI = IRI.create(TEST_NAMESPACE + "FULL");
-    private static final IRI DL_IRI = IRI.create(TEST_NAMESPACE + "DL");
-    private static final IRI EL_IRI = IRI.create(TEST_NAMESPACE + "EL");
-    private static final IRI QL_IRI = IRI.create(TEST_NAMESPACE + "QL");
-    private static final IRI RL_IRI = IRI.create(TEST_NAMESPACE + "RL");
-    private static final IRI RDF_XML_PREMISE_ONTOLOGY_IRI = IRI.create(TEST_NAMESPACE
+    private static final IRI SPECIES_IRI = IRI(TEST_NAMESPACE + "species");
+    private static final IRI FULL_IRI = IRI(TEST_NAMESPACE + "FULL");
+    private static final IRI DL_IRI = IRI(TEST_NAMESPACE + "DL");
+    private static final IRI EL_IRI = IRI(TEST_NAMESPACE + "EL");
+    private static final IRI QL_IRI = IRI(TEST_NAMESPACE + "QL");
+    private static final IRI RL_IRI = IRI(TEST_NAMESPACE + "RL");
+    private static final IRI RDF_XML_PREMISE_ONTOLOGY_IRI = IRI(TEST_NAMESPACE
             + "rdfXmlPremiseOntology");
 
     @Test
@@ -92,8 +93,7 @@ public class ProfileValidationTestCase {
         IRI allTestURI = IRI.create(resourceURL);
         OWLOntology testCasesOntology = man.loadOntologyFromOntologyDocument(allTestURI);
         OWLDataFactory df = man.getOWLDataFactory();
-        OWLClass profileIdentificationTestClass = df
-                .getOWLClass(PROFILE_IDENTIFICATION_TEST_IRI);
+        OWLClass profileIdentificationTestClass = Class(PROFILE_IDENTIFICATION_TEST_IRI);
         OWLNamedIndividual EL = df.getOWLNamedIndividual(EL_IRI);
         OWLNamedIndividual QL = df.getOWLNamedIndividual(QL_IRI);
         OWLNamedIndividual RL = df.getOWLNamedIndividual(RL_IRI);

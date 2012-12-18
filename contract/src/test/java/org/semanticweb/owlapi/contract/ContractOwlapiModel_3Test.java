@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.File;
 import java.io.InputStream;
@@ -1067,39 +1068,34 @@ public class ContractOwlapiModel_3Test {
         boolean result61 = testSubject0.containsEntityInSignature(Utils.mockOWLEntity(),
                 false);
         boolean result62 = testSubject0.containsEntityInSignature(Utils.mockOWLEntity());
-        boolean result63 = testSubject0.containsEntityInSignature(
-                IRI.create("urn:aFake"), false);
-        boolean result64 = testSubject0
-                .containsEntityInSignature(IRI.create("urn:aFake"));
+        boolean result63 = testSubject0
+                .containsEntityInSignature(IRI("urn:aFake"), false);
+        boolean result64 = testSubject0.containsEntityInSignature(IRI("urn:aFake"));
         boolean result65 = testSubject0.isDeclared(Utils.mockOWLEntity());
         boolean result66 = testSubject0.isDeclared(Utils.mockOWLEntity(), false);
-        boolean result67 = testSubject0.containsClassInSignature(IRI.create("urn:aFake"),
-                false);
-        boolean result68 = testSubject0.containsClassInSignature(IRI.create("urn:aFake"));
+        boolean result67 = testSubject0.containsClassInSignature(IRI("urn:aFake"), false);
+        boolean result68 = testSubject0.containsClassInSignature(IRI("urn:aFake"));
         boolean result59 = testSubject0.containsObjectPropertyInSignature(
-                IRI.create("urn:aFake"), false);
-        boolean result120 = testSubject0.containsObjectPropertyInSignature(IRI
-                .create("urn:aFake"));
-        boolean result121 = testSubject0.containsDataPropertyInSignature(IRI
-                .create("urn:aFake"));
+                IRI("urn:aFake"), false);
+        boolean result120 = testSubject0
+                .containsObjectPropertyInSignature(IRI("urn:aFake"));
+        boolean result121 = testSubject0
+                .containsDataPropertyInSignature(IRI("urn:aFake"));
         boolean result122 = testSubject0.containsDataPropertyInSignature(
-                IRI.create("urn:aFake"), false);
-        boolean result123 = testSubject0.containsAnnotationPropertyInSignature(IRI
-                .create("urn:aFake"));
+                IRI("urn:aFake"), false);
+        boolean result123 = testSubject0
+                .containsAnnotationPropertyInSignature(IRI("urn:aFake"));
         boolean result124 = testSubject0.containsAnnotationPropertyInSignature(
-                IRI.create("urn:aFake"), false);
-        boolean result125 = testSubject0.containsIndividualInSignature(IRI
-                .create("urn:aFake"));
-        boolean result126 = testSubject0.containsIndividualInSignature(
-                IRI.create("urn:aFake"), false);
-        boolean result127 = testSubject0.containsDatatypeInSignature(IRI
-                .create("urn:aFake"));
-        boolean result128 = testSubject0.containsDatatypeInSignature(
-                IRI.create("urn:aFake"), false);
-        Set<OWLEntity> result69 = testSubject0.getEntitiesInSignature(
-                IRI.create("urn:aFake"), false);
-        Set<OWLEntity> result70 = testSubject0.getEntitiesInSignature(IRI
-                .create("urn:aFake"));
+                IRI("urn:aFake"), false);
+        boolean result125 = testSubject0.containsIndividualInSignature(IRI("urn:aFake"));
+        boolean result126 = testSubject0.containsIndividualInSignature(IRI("urn:aFake"),
+                false);
+        boolean result127 = testSubject0.containsDatatypeInSignature(IRI("urn:aFake"));
+        boolean result128 = testSubject0.containsDatatypeInSignature(IRI("urn:aFake"),
+                false);
+        Set<OWLEntity> result69 = testSubject0.getEntitiesInSignature(IRI("urn:aFake"),
+                false);
+        Set<OWLEntity> result70 = testSubject0.getEntitiesInSignature(IRI("urn:aFake"));
         Set<OWLSubAnnotationPropertyOfAxiom> result71 = testSubject0
                 .getSubAnnotationPropertyOfAxioms(mock(OWLAnnotationProperty.class));
         Set<OWLAnnotationPropertyDomainAxiom> result72 = testSubject0
@@ -1194,11 +1190,11 @@ public class ContractOwlapiModel_3Test {
         OWLOntologyAlreadyExistsException testSubject0 = new OWLOntologyAlreadyExistsException(
                 new OWLOntologyID());
         OWLOntologyAlreadyExistsException testSubject1 = new OWLOntologyAlreadyExistsException(
-                new OWLOntologyID(), IRI.create("urn:aFake"));
+                new OWLOntologyID(), IRI("urn:aFake"));
         OWLOntologyAlreadyExistsException testSubject2 = new OWLOntologyAlreadyExistsException(
                 new OWLOntologyID(), new RuntimeException());
         OWLOntologyAlreadyExistsException testSubject3 = new OWLOntologyAlreadyExistsException(
-                new OWLOntologyID(), IRI.create("urn:aFake"), new RuntimeException());
+                new OWLOntologyID(), IRI("urn:aFake"), new RuntimeException());
         IRI result0 = testSubject0.getDocumentIRI();
         OWLOntologyID result1 = testSubject0.getOntologyID();
         Throwable result3 = testSubject0.getCause();
@@ -1363,7 +1359,7 @@ public class ContractOwlapiModel_3Test {
     @Test
     public void shouldTestOWLOntologyDocumentAlreadyExistsException() throws Exception {
         OWLOntologyDocumentAlreadyExistsException testSubject0 = new OWLOntologyDocumentAlreadyExistsException(
-                IRI.create("urn:aFake"));
+                IRI("urn:aFake"));
         IRI result0 = testSubject0.getOntologyDocumentIRI();
         Throwable result2 = testSubject0.getCause();
         String result4 = testSubject0.toString();
@@ -1377,7 +1373,7 @@ public class ContractOwlapiModel_3Test {
         testSubject0.setOWLOntologyManager(Utils.getMockManager());
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
         OWLOntology result1 = testSubject0.createOWLOntology(new OWLOntologyID(),
-                IRI.create("urn:aFake"), mock(OWLOntologyCreationHandler.class));
+                IRI("urn:aFake"), mock(OWLOntologyCreationHandler.class));
         OWLOntology result2 = testSubject0.loadOWLOntology(
                 mock(OWLOntologyDocumentSource.class),
                 mock(OWLOntologyCreationHandler.class));
@@ -1385,14 +1381,14 @@ public class ContractOwlapiModel_3Test {
                 mock(OWLOntologyDocumentSource.class),
                 mock(OWLOntologyCreationHandler.class),
                 new OWLOntologyLoaderConfiguration());
-        boolean result4 = testSubject0.canCreateFromDocumentIRI(IRI.create("urn:aFake"));
+        boolean result4 = testSubject0.canCreateFromDocumentIRI(IRI("urn:aFake"));
         boolean result5 = testSubject0.canLoad(mock(OWLOntologyDocumentSource.class));
     }
 
     @Test
     public void shouldTestOWLOntologyFactoryNotFoundException() throws Exception {
         OWLOntologyFactoryNotFoundException testSubject0 = new OWLOntologyFactoryNotFoundException(
-                IRI.create("urn:aFake"));
+                IRI("urn:aFake"));
         Throwable result1 = testSubject0.getCause();
         String result3 = testSubject0.toString();
         String result4 = testSubject0.getMessage();
@@ -1414,9 +1410,8 @@ public class ContractOwlapiModel_3Test {
     @Test
     public void shouldTestOWLOntologyID() throws Exception {
         OWLOntologyID testSubject0 = new OWLOntologyID();
-        OWLOntologyID testSubject1 = new OWLOntologyID(IRI.create("urn:aFake"),
-                IRI.create("urn:aFake"));
-        OWLOntologyID testSubject2 = new OWLOntologyID(IRI.create("urn:aFake"));
+        OWLOntologyID testSubject1 = new OWLOntologyID(IRI("urn:aFake"), IRI("urn:aFake"));
+        OWLOntologyID testSubject2 = new OWLOntologyID(IRI("urn:aFake"));
         String result0 = testSubject0.toString();
         boolean result3 = testSubject0.isAnonymous();
         IRI result4 = testSubject0.getOntologyIRI();
@@ -1428,13 +1423,13 @@ public class ContractOwlapiModel_3Test {
     @Test
     public void shouldTestInterfaceOWLOntologyIRIMapper() throws Exception {
         OWLOntologyIRIMapper testSubject0 = mock(OWLOntologyIRIMapper.class);
-        IRI result0 = testSubject0.getDocumentIRI(IRI.create("urn:aFake"));
+        IRI result0 = testSubject0.getDocumentIRI(IRI("urn:aFake"));
     }
 
     @Test
     public void shouldTestOWLOntologyIRIMappingNotFoundException() throws Exception {
         OWLOntologyIRIMappingNotFoundException testSubject0 = new OWLOntologyIRIMappingNotFoundException(
-                IRI.create("urn:aFake"));
+                IRI("urn:aFake"));
         Throwable result1 = testSubject0.getCause();
         String result3 = testSubject0.toString();
         String result4 = testSubject0.getMessage();
@@ -1456,12 +1451,12 @@ public class ContractOwlapiModel_3Test {
         MissingImportHandlingStrategy result7 = testSubject0
                 .getMissingImportHandlingStrategy();
         OWLOntologyLoaderConfiguration result8 = testSubject0.setStrict(false);
-        boolean result9 = testSubject0.isIgnoredImport(IRI.create("urn:aFake"));
+        boolean result9 = testSubject0.isIgnoredImport(IRI("urn:aFake"));
         Set<IRI> result10 = testSubject0.getIgnoredImports();
-        OWLOntologyLoaderConfiguration result11 = testSubject0.addIgnoredImport(IRI
-                .create("urn:aFake"));
-        OWLOntologyLoaderConfiguration result12 = testSubject0.removeIgnoredImport(IRI
-                .create("urn:aFake"));
+        OWLOntologyLoaderConfiguration result11 = testSubject0
+                .addIgnoredImport(IRI("urn:aFake"));
+        OWLOntologyLoaderConfiguration result12 = testSubject0
+                .removeIgnoredImport(IRI("urn:aFake"));
         OWLOntologyLoaderConfiguration result13 = testSubject0.clearIgnoredImports();
         String result14 = testSubject0.toString();
     }
@@ -1473,7 +1468,7 @@ public class ContractOwlapiModel_3Test {
 
     public void shouldTestInterfaceOWLOntologyManager() throws Exception {
         OWLOntologyManager testSubject0 = Utils.getMockManager();
-        boolean result0 = testSubject0.contains(IRI.create("urn:aFake"));
+        boolean result0 = testSubject0.contains(IRI("urn:aFake"));
         boolean result1 = testSubject0.contains(new OWLOntologyID());
         Set<OWLOntology> result2 = testSubject0.getDirectImports(Utils.getMockOntology());
         Set<OWLOntology> result3 = testSubject0.getImports(Utils.getMockOntology());
@@ -1482,8 +1477,8 @@ public class ContractOwlapiModel_3Test {
         OWLDataFactory result5 = testSubject0.getOWLDataFactory();
         Set<OWLOntology> result6 = testSubject0.getOntologies();
         Set<OWLOntology> result7 = testSubject0.getOntologies(mock(OWLAxiom.class));
-        Set<OWLOntology> result8 = testSubject0.getVersions(IRI.create("urn:aFake"));
-        OWLOntology result9 = testSubject0.getOntology(IRI.create("urn:aFake"));
+        Set<OWLOntology> result8 = testSubject0.getVersions(IRI("urn:aFake"));
+        OWLOntology result9 = testSubject0.getOntology(IRI("urn:aFake"));
         OWLOntology result10 = testSubject0.getOntology(new OWLOntologyID());
         OWLOntology result11 = testSubject0
                 .getImportedOntology(mock(OWLImportsDeclaration.class));
@@ -1505,16 +1500,16 @@ public class ContractOwlapiModel_3Test {
         OWLOntology result20 = testSubject0.createOntology(Utils
                 .mockSet(mock(OWLAxiom.class)));
         OWLOntology result21 = testSubject0.createOntology(
-                Utils.mockSet(mock(OWLAxiom.class)), IRI.create("urn:aFake"));
-        OWLOntology result22 = testSubject0.createOntology(IRI.create("urn:aFake"));
+                Utils.mockSet(mock(OWLAxiom.class)), IRI("urn:aFake"));
+        OWLOntology result22 = testSubject0.createOntology(IRI("urn:aFake"));
         OWLOntology result23 = testSubject0.createOntology(new OWLOntologyID());
-        OWLOntology result24 = testSubject0.createOntology(IRI.create("urn:aFake"),
+        OWLOntology result24 = testSubject0.createOntology(IRI("urn:aFake"),
                 Utils.mockSet(Utils.getMockOntology()), false);
-        OWLOntology result25 = testSubject0.createOntology(IRI.create("urn:aFake"),
+        OWLOntology result25 = testSubject0.createOntology(IRI("urn:aFake"),
                 Utils.mockSet(Utils.getMockOntology()));
-        OWLOntology result26 = testSubject0.loadOntology(IRI.create("urn:aFake"));
-        OWLOntology result27 = testSubject0.loadOntologyFromOntologyDocument(IRI
-                .create("urn:aFake"));
+        OWLOntology result26 = testSubject0.loadOntology(IRI("urn:aFake"));
+        OWLOntology result27 = testSubject0
+                .loadOntologyFromOntologyDocument(IRI("urn:aFake"));
         OWLOntology result28 = testSubject0
                 .loadOntologyFromOntologyDocument(mock(File.class));
         OWLOntology result29 = testSubject0
@@ -1526,18 +1521,17 @@ public class ContractOwlapiModel_3Test {
                 new OWLOntologyLoaderConfiguration());
         testSubject0.removeOntology(Utils.getMockOntology());
         IRI result32 = testSubject0.getOntologyDocumentIRI(Utils.getMockOntology());
-        testSubject0.setOntologyDocumentIRI(Utils.getMockOntology(),
-                IRI.create("urn:aFake"));
+        testSubject0.setOntologyDocumentIRI(Utils.getMockOntology(), IRI("urn:aFake"));
         OWLOntologyFormat result33 = testSubject0.getOntologyFormat(Utils
                 .getMockOntology());
         testSubject0.setOntologyFormat(Utils.getMockOntology(),
                 mock(OWLOntologyFormat.class));
         testSubject0.saveOntology(Utils.getMockOntology());
-        testSubject0.saveOntology(Utils.getMockOntology(), IRI.create("urn:aFake"));
+        testSubject0.saveOntology(Utils.getMockOntology(), IRI("urn:aFake"));
         testSubject0.saveOntology(Utils.getMockOntology(), mock(OutputStream.class));
         testSubject0.saveOntology(Utils.getMockOntology(), mock(OWLOntologyFormat.class));
         testSubject0.saveOntology(Utils.getMockOntology(), mock(OWLOntologyFormat.class),
-                IRI.create("urn:aFake"));
+                IRI("urn:aFake"));
         testSubject0.saveOntology(Utils.getMockOntology(), mock(OWLOntologyFormat.class),
                 mock(OutputStream.class));
         testSubject0.saveOntology(Utils.getMockOntology(),

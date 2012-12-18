@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -117,9 +118,9 @@ public class ContractSmallsTest {
         Set<OWLAxiom> result1 = testSubject0.extract(
                 Utils.mockSet(Utils.mockOWLEntity()), 0, 0, Utils.structReasoner());
         OWLOntology result2 = testSubject0.extractAsOntology(
-                Utils.mockSet(Utils.mockOWLEntity()), IRI.create("urn:aFake"));
+                Utils.mockSet(Utils.mockOWLEntity()), IRI("urn:aFake"));
         OWLOntology result3 = testSubject0.extractAsOntology(
-                Utils.mockSet(Utils.mockOWLEntity()), IRI.create("urn:aFake"), 0, 0,
+                Utils.mockSet(Utils.mockOWLEntity()), IRI("urn:aFake"), 0, 0,
                 Utils.structReasoner());
     }
 
@@ -203,10 +204,10 @@ public class ContractSmallsTest {
         Set<OWLAxiom> result2 = testSubject0.extract(
                 Utils.mockSet(Utils.mockOWLEntity()), 0, 0, Utils.structReasoner());
         OWLOntology result3 = testSubject0.extractAsOntology(
-                Utils.mockSet(Utils.mockOWLEntity()), IRI.create("urn:aFake"), 0, 0,
+                Utils.mockSet(Utils.mockOWLEntity()), IRI("urn:aFake"), 0, 0,
                 Utils.structReasoner());
         OWLOntology result4 = testSubject0.extractAsOntology(
-                Utils.mockSet(Utils.mockOWLEntity()), IRI.create("urn:aFake"));
+                Utils.mockSet(Utils.mockOWLEntity()), IRI("urn:aFake"));
         testSubject0.setModuleType(mock(ModuleType.class));
         ModuleType result5 = testSubject0.getModuleType();
         String result6 = testSubject0.toString();
@@ -320,7 +321,7 @@ public class ContractSmallsTest {
         RDFXMLOntologyStorer testSubject0 = new RDFXMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI.create("urn:aFake"), mock(OWLOntologyFormat.class));
+                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
@@ -443,7 +444,7 @@ public class ContractSmallsTest {
         testSubject0.setDefaultPrefix("");
         boolean result9 = testSubject0.containsPrefixMapping("");
         String result10 = testSubject0.getDefaultPrefix();
-        String result11 = testSubject0.getPrefixIRI(IRI.create("urn:aFake"));
+        String result11 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result12 = testSubject0.getParameter(mock(Object.class),
                 mock(Object.class));
@@ -456,7 +457,7 @@ public class ContractSmallsTest {
         TurtleOntologyStorer testSubject0 = new TurtleOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI.create("urn:aFake"), mock(OWLOntologyFormat.class));
+                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
@@ -555,7 +556,7 @@ public class ContractSmallsTest {
         OWLXMLOntologyStorer testSubject0 = new OWLXMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI.create("urn:aFake"), mock(OWLOntologyFormat.class));
+                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
@@ -580,9 +581,9 @@ public class ContractSmallsTest {
         testSubject0.writeEndElement();
         testSubject0.writeTextContent("");
         testSubject0.writePrefix("", "");
-        testSubject0.writeIRIElement(IRI.create("urn:aFake"));
+        testSubject0.writeIRIElement(IRI("urn:aFake"));
         testSubject0.writeNodeIDAttribute(mock(NodeID.class));
-        testSubject0.writeIRIAttribute(IRI.create("urn:aFake"));
+        testSubject0.writeIRIAttribute(IRI("urn:aFake"));
         testSubject0.writeCardinalityAttribute(0);
         testSubject0.writeFacetAttribute(OWLFacet.MAX_INCLUSIVE);
         testSubject0.writeLangAttribute("");

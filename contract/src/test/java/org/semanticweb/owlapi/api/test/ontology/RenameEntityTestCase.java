@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -71,35 +72,33 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testRenameClass() throws Exception {
         OWLOntology ont = getOWLOntology("testont");
-        OWLClass clsAIRI1 = getOWLClass("ClsA1");
-        OWLClass clsAIRI2 = getOWLClass("ClsA2");
-        OWLClass clsB = getOWLClass("ClsB");
-        OWLClass clsC = getOWLClass("ClsC");
-        OWLObjectPropertyExpression propA = getOWLObjectProperty("propA");
-        OWLDataPropertyExpression propB = getOWLDataProperty("propA");
-        OWLIndividual indA = getOWLIndividual("indA");
-        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
+        OWLClass clsAIRI1 = Class(getIRI("ClsA1"));
+        OWLClass clsAIRI2 = Class(getIRI("ClsA2"));
+        OWLClass clsB = Class(getIRI("ClsB"));
+        OWLClass clsC = Class(getIRI("ClsC"));
+        OWLObjectPropertyExpression propA = ObjectProperty(getIRI("propA"));
+        OWLDataPropertyExpression propB = DataProperty(getIRI("propA"));
+        OWLIndividual indA = NamedIndividual(getIRI("indA"));
+        OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
         Set<OWLAxiom> axioms1 = new HashSet<OWLAxiom>();
-        axioms1.add(getFactory().getOWLSubClassOfAxiom(clsAIRI1, clsB));
-        axioms1.add(getFactory().getOWLEquivalentClassesAxiom(clsAIRI1, clsC));
-        axioms1.add(getFactory().getOWLDisjointClassesAxiom(clsAIRI1, clsC));
-        axioms1.add(getFactory().getOWLObjectPropertyDomainAxiom(propA, clsAIRI1));
-        axioms1.add(getFactory().getOWLObjectPropertyRangeAxiom(propA, clsAIRI1));
-        axioms1.add(getFactory().getOWLDataPropertyDomainAxiom(propB, clsAIRI1));
-        axioms1.add(getFactory().getOWLClassAssertionAxiom(clsAIRI1, indA));
-        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp,
-                clsAIRI1.getIRI(), getFactory().getOWLLiteral("X")));
+        axioms1.add(SubClassOf(clsAIRI1, clsB));
+        axioms1.add(EquivalentClasses(clsAIRI1, clsC));
+        axioms1.add(DisjointClasses(clsAIRI1, clsC));
+        axioms1.add(ObjectPropertyDomain(propA, clsAIRI1));
+        axioms1.add(ObjectPropertyRange(propA, clsAIRI1));
+        axioms1.add(DataPropertyDomain(propB, clsAIRI1));
+        axioms1.add(ClassAssertion(clsAIRI1, indA));
+        axioms1.add(AnnotationAssertion(annoProp, clsAIRI1.getIRI(), Literal("X")));
         getManager().addAxioms(ont, axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<OWLAxiom>();
-        axioms2.add(getFactory().getOWLSubClassOfAxiom(clsAIRI2, clsB));
-        axioms2.add(getFactory().getOWLEquivalentClassesAxiom(clsAIRI2, clsC));
-        axioms2.add(getFactory().getOWLDisjointClassesAxiom(clsAIRI2, clsC));
-        axioms2.add(getFactory().getOWLObjectPropertyDomainAxiom(propA, clsAIRI2));
-        axioms2.add(getFactory().getOWLObjectPropertyRangeAxiom(propA, clsAIRI2));
-        axioms2.add(getFactory().getOWLDataPropertyDomainAxiom(propB, clsAIRI2));
-        axioms2.add(getFactory().getOWLClassAssertionAxiom(clsAIRI2, indA));
-        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp,
-                clsAIRI2.getIRI(), getFactory().getOWLLiteral("X")));
+        axioms2.add(SubClassOf(clsAIRI2, clsB));
+        axioms2.add(EquivalentClasses(clsAIRI2, clsC));
+        axioms2.add(DisjointClasses(clsAIRI2, clsC));
+        axioms2.add(ObjectPropertyDomain(propA, clsAIRI2));
+        axioms2.add(ObjectPropertyRange(propA, clsAIRI2));
+        axioms2.add(DataPropertyDomain(propB, clsAIRI2));
+        axioms2.add(ClassAssertion(clsAIRI2, indA));
+        axioms2.add(AnnotationAssertion(annoProp, clsAIRI2.getIRI(), Literal("X")));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(),
                 Collections.singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(clsAIRI1,
@@ -115,51 +114,47 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testRenameObjectProperty() throws Exception {
         OWLOntology ont = getOWLOntology("testont");
-        OWLClass clsA = getOWLClass("ClsA");
-        OWLObjectProperty propA = getOWLObjectProperty("propA");
-        OWLObjectProperty propA2 = getOWLObjectProperty("propA2");
-        OWLObjectPropertyExpression propB = getOWLObjectProperty("propB")
+        OWLClass clsA = Class(getIRI("ClsA"));
+        OWLObjectProperty propA = ObjectProperty(getIRI("propA"));
+        OWLObjectProperty propA2 = ObjectProperty(getIRI("propA2"));
+        OWLObjectPropertyExpression propB = ObjectProperty(getIRI("propB"))
                 .getInverseProperty();
-        OWLIndividual indA = getOWLIndividual("indA");
-        OWLIndividual indB = getOWLIndividual("indB");
-        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
+        OWLIndividual indA = NamedIndividual(getIRI("indA"));
+        OWLIndividual indB = NamedIndividual(getIRI("indB"));
+        OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
         Set<OWLAxiom> axioms1 = new HashSet<OWLAxiom>();
-        axioms1.add(getFactory().getOWLSubObjectPropertyOfAxiom(propA, propB));
-        axioms1.add(getFactory().getOWLEquivalentObjectPropertiesAxiom(propA, propB));
-        axioms1.add(getFactory().getOWLDisjointObjectPropertiesAxiom(propA, propB));
-        axioms1.add(getFactory().getOWLObjectPropertyDomainAxiom(propA, clsA));
-        axioms1.add(getFactory().getOWLObjectPropertyRangeAxiom(propA, clsA));
-        axioms1.add(getFactory().getOWLFunctionalObjectPropertyAxiom(propA));
-        axioms1.add(getFactory().getOWLInverseFunctionalObjectPropertyAxiom(propA));
-        axioms1.add(getFactory().getOWLSymmetricObjectPropertyAxiom(propA));
-        axioms1.add(getFactory().getOWLAsymmetricObjectPropertyAxiom(propA));
-        axioms1.add(getFactory().getOWLTransitiveObjectPropertyAxiom(propA));
-        axioms1.add(getFactory().getOWLReflexiveObjectPropertyAxiom(propA));
-        axioms1.add(getFactory().getOWLIrreflexiveObjectPropertyAxiom(propA));
-        axioms1.add(getFactory().getOWLObjectPropertyAssertionAxiom(propA, indA, indB));
-        axioms1.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(propA, indA,
-                indB));
-        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(),
-                getFactory().getOWLLiteral("X")));
+        axioms1.add(SubObjectPropertyOf(propA, propB));
+        axioms1.add(EquivalentObjectProperties(propA, propB));
+        axioms1.add(DisjointObjectProperties(propA, propB));
+        axioms1.add(ObjectPropertyDomain(propA, clsA));
+        axioms1.add(ObjectPropertyRange(propA, clsA));
+        axioms1.add(FunctionalObjectProperty(propA));
+        axioms1.add(InverseFunctionalObjectProperty(propA));
+        axioms1.add(SymmetricObjectProperty(propA));
+        axioms1.add(AsymmetricObjectProperty(propA));
+        axioms1.add(TransitiveObjectProperty(propA));
+        axioms1.add(ReflexiveObjectProperty(propA));
+        axioms1.add(IrreflexiveObjectProperty(propA));
+        axioms1.add(ObjectPropertyAssertion(propA, indA, indB));
+        axioms1.add(NegativeObjectPropertyAssertion(propA, indA, indB));
+        axioms1.add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
         getManager().addAxioms(ont, axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<OWLAxiom>();
-        axioms2.add(getFactory().getOWLSubObjectPropertyOfAxiom(propA2, propB));
-        axioms2.add(getFactory().getOWLEquivalentObjectPropertiesAxiom(propA2, propB));
-        axioms2.add(getFactory().getOWLDisjointObjectPropertiesAxiom(propA2, propB));
-        axioms2.add(getFactory().getOWLObjectPropertyDomainAxiom(propA2, clsA));
-        axioms2.add(getFactory().getOWLObjectPropertyRangeAxiom(propA2, clsA));
-        axioms2.add(getFactory().getOWLFunctionalObjectPropertyAxiom(propA2));
-        axioms2.add(getFactory().getOWLInverseFunctionalObjectPropertyAxiom(propA2));
-        axioms2.add(getFactory().getOWLSymmetricObjectPropertyAxiom(propA2));
-        axioms2.add(getFactory().getOWLAsymmetricObjectPropertyAxiom(propA2));
-        axioms2.add(getFactory().getOWLTransitiveObjectPropertyAxiom(propA2));
-        axioms2.add(getFactory().getOWLReflexiveObjectPropertyAxiom(propA2));
-        axioms2.add(getFactory().getOWLIrreflexiveObjectPropertyAxiom(propA2));
-        axioms2.add(getFactory().getOWLObjectPropertyAssertionAxiom(propA2, indA, indB));
-        axioms2.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(propA2, indA,
-                indB));
-        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp,
-                propA2.getIRI(), getFactory().getOWLLiteral("X")));
+        axioms2.add(SubObjectPropertyOf(propA2, propB));
+        axioms2.add(EquivalentObjectProperties(propA2, propB));
+        axioms2.add(DisjointObjectProperties(propA2, propB));
+        axioms2.add(ObjectPropertyDomain(propA2, clsA));
+        axioms2.add(ObjectPropertyRange(propA2, clsA));
+        axioms2.add(FunctionalObjectProperty(propA2));
+        axioms2.add(InverseFunctionalObjectProperty(propA2));
+        axioms2.add(SymmetricObjectProperty(propA2));
+        axioms2.add(AsymmetricObjectProperty(propA2));
+        axioms2.add(TransitiveObjectProperty(propA2));
+        axioms2.add(ReflexiveObjectProperty(propA2));
+        axioms2.add(IrreflexiveObjectProperty(propA2));
+        axioms2.add(ObjectPropertyAssertion(propA2, indA, indB));
+        axioms2.add(NegativeObjectPropertyAssertion(propA2, indA, indB));
+        axioms2.add(AnnotationAssertion(annoProp, propA2.getIRI(), Literal("X")));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(),
                 Collections.singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(propA, propA2.getIRI());
@@ -174,41 +169,33 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testRenameDataProperty() throws Exception {
         OWLOntology ont = getOWLOntology("testont");
-        OWLClass clsA = getOWLClass("ClsA");
-        OWLDataProperty propA = getOWLDataProperty("propA");
-        OWLDataProperty propA2 = getOWLDataProperty("propA2");
-        OWLDataPropertyExpression propB = getOWLDataProperty("propB");
-        OWLIndividual indA = getOWLIndividual("indA");
-        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
+        OWLClass clsA = Class(getIRI("ClsA"));
+        OWLDataProperty propA = DataProperty(getIRI("propA"));
+        OWLDataProperty propA2 = DataProperty(getIRI("propA2"));
+        OWLDataPropertyExpression propB = DataProperty(getIRI("propB"));
+        OWLIndividual indA = NamedIndividual(getIRI("indA"));
+        OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
         Set<OWLAxiom> axioms1 = new HashSet<OWLAxiom>();
-        axioms1.add(getFactory().getOWLSubDataPropertyOfAxiom(propA, propB));
-        axioms1.add(getFactory().getOWLEquivalentDataPropertiesAxiom(propA, propB));
-        axioms1.add(getFactory().getOWLDisjointDataPropertiesAxiom(propA, propB));
-        axioms1.add(getFactory().getOWLDataPropertyDomainAxiom(propA, clsA));
-        axioms1.add(getFactory().getOWLDataPropertyRangeAxiom(propA,
-                getFactory().getTopDatatype()));
-        axioms1.add(getFactory().getOWLFunctionalDataPropertyAxiom(propA));
-        axioms1.add(getFactory().getOWLDataPropertyAssertionAxiom(propA, indA,
-                getFactory().getOWLLiteral(33)));
-        axioms1.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(propA, indA,
-                getFactory().getOWLLiteral(44)));
-        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(),
-                getFactory().getOWLLiteral("X")));
+        axioms1.add(SubDataPropertyOf(propA, propB));
+        axioms1.add(EquivalentDataProperties(propA, propB));
+        axioms1.add(DisjointDataProperties(propA, propB));
+        axioms1.add(DataPropertyDomain(propA, clsA));
+        axioms1.add(DataPropertyRange(propA, TopDatatype()));
+        axioms1.add(FunctionalDataProperty(propA));
+        axioms1.add(DataPropertyAssertion(propA, indA, Literal(33)));
+        axioms1.add(NegativeDataPropertyAssertion(propA, indA, Literal(44)));
+        axioms1.add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
         getManager().addAxioms(ont, axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<OWLAxiom>();
-        axioms2.add(getFactory().getOWLSubDataPropertyOfAxiom(propA2, propB));
-        axioms2.add(getFactory().getOWLEquivalentDataPropertiesAxiom(propA2, propB));
-        axioms2.add(getFactory().getOWLDisjointDataPropertiesAxiom(propA2, propB));
-        axioms2.add(getFactory().getOWLDataPropertyDomainAxiom(propA2, clsA));
-        axioms2.add(getFactory().getOWLDataPropertyRangeAxiom(propA2,
-                getFactory().getTopDatatype()));
-        axioms2.add(getFactory().getOWLFunctionalDataPropertyAxiom(propA2));
-        axioms2.add(getFactory().getOWLDataPropertyAssertionAxiom(propA2, indA,
-                getFactory().getOWLLiteral(33)));
-        axioms2.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(propA2, indA,
-                getFactory().getOWLLiteral(44)));
-        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp,
-                propA2.getIRI(), getFactory().getOWLLiteral("X")));
+        axioms2.add(SubDataPropertyOf(propA2, propB));
+        axioms2.add(EquivalentDataProperties(propA2, propB));
+        axioms2.add(DisjointDataProperties(propA2, propB));
+        axioms2.add(DataPropertyDomain(propA2, clsA));
+        axioms2.add(DataPropertyRange(propA2, TopDatatype()));
+        axioms2.add(FunctionalDataProperty(propA2));
+        axioms2.add(DataPropertyAssertion(propA2, indA, Literal(33)));
+        axioms2.add(NegativeDataPropertyAssertion(propA2, indA, Literal(44)));
+        axioms2.add(AnnotationAssertion(annoProp, propA2.getIRI(), Literal("X")));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(),
                 Collections.singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(propA, propA2.getIRI());
@@ -223,35 +210,27 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testRenameIndividual() throws Exception {
         OWLOntology ont = getOWLOntology("testont");
-        OWLClass clsA = getOWLClass("ClsA");
-        OWLDataProperty propA = getOWLDataProperty("propA");
-        OWLObjectProperty propB = getOWLObjectProperty("propB");
-        OWLNamedIndividual indA = getOWLIndividual("indA");
-        OWLNamedIndividual indB = getOWLIndividual("indA");
-        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
+        OWLClass clsA = Class(getIRI("ClsA"));
+        OWLDataProperty propA = DataProperty(getIRI("propA"));
+        OWLObjectProperty propB = ObjectProperty(getIRI("propB"));
+        OWLNamedIndividual indA = NamedIndividual(getIRI("indA"));
+        OWLNamedIndividual indB = NamedIndividual(getIRI("indA"));
+        OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
         Set<OWLAxiom> axioms1 = new HashSet<OWLAxiom>();
-        axioms1.add(getFactory().getOWLClassAssertionAxiom(clsA, indA));
-        axioms1.add(getFactory().getOWLDataPropertyAssertionAxiom(propA, indA,
-                getFactory().getOWLLiteral(33)));
-        axioms1.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(propA, indA,
-                getFactory().getOWLLiteral(44)));
-        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(),
-                getFactory().getOWLLiteral("X")));
-        axioms1.add(getFactory().getOWLObjectPropertyAssertionAxiom(propB, indA, indB));
-        axioms1.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(propB, indA,
-                indB));
+        axioms1.add(ClassAssertion(clsA, indA));
+        axioms1.add(DataPropertyAssertion(propA, indA, Literal(33)));
+        axioms1.add(NegativeDataPropertyAssertion(propA, indA, Literal(44)));
+        axioms1.add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
+        axioms1.add(ObjectPropertyAssertion(propB, indA, indB));
+        axioms1.add(NegativeObjectPropertyAssertion(propB, indA, indB));
         getManager().addAxioms(ont, axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<OWLAxiom>();
-        axioms2.add(getFactory().getOWLClassAssertionAxiom(clsA, indB));
-        axioms2.add(getFactory().getOWLDataPropertyAssertionAxiom(propA, indB,
-                getFactory().getOWLLiteral(33)));
-        axioms2.add(getFactory().getOWLNegativeDataPropertyAssertionAxiom(propA, indB,
-                getFactory().getOWLLiteral(44)));
-        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, propA.getIRI(),
-                getFactory().getOWLLiteral("X")));
-        axioms2.add(getFactory().getOWLObjectPropertyAssertionAxiom(propB, indB, indB));
-        axioms2.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(propB, indB,
-                indB));
+        axioms2.add(ClassAssertion(clsA, indB));
+        axioms2.add(DataPropertyAssertion(propA, indB, Literal(33)));
+        axioms2.add(NegativeDataPropertyAssertion(propA, indB, Literal(44)));
+        axioms2.add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
+        axioms2.add(ObjectPropertyAssertion(propB, indB, indB));
+        axioms2.add(NegativeObjectPropertyAssertion(propB, indB, indB));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(),
                 Collections.singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(indA, indB.getIRI());
@@ -266,25 +245,25 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testRenameDatatype() throws Exception {
         OWLOntology ont = getOWLOntology("testont");
-        OWLDatatype dtA = getOWLDatatype("DtA");
-        OWLDatatype dtB = getOWLDatatype("DtB");
-        OWLDatatype dtC = getOWLDatatype("DtC");
-        OWLDataRange rng1 = getFactory().getOWLDataIntersectionOf(dtA, dtB);
-        OWLDataRange rng1R = getFactory().getOWLDataIntersectionOf(dtC, dtB);
-        OWLDataRange rng2 = getFactory().getOWLDataUnionOf(dtA, dtB);
-        OWLDataRange rng2R = getFactory().getOWLDataUnionOf(dtC, dtB);
-        OWLDataRange rng3 = getFactory().getOWLDataComplementOf(dtA);
-        OWLDataRange rng3R = getFactory().getOWLDataComplementOf(dtC);
-        OWLDataPropertyExpression propB = getOWLDataProperty("propA");
+        OWLDatatype dtA = Datatype(getIRI("DtA"));
+        OWLDatatype dtB = Datatype(getIRI("DtB"));
+        OWLDatatype dtC = Datatype(getIRI("DtC"));
+        OWLDataRange rng1 = DataIntersectionOf(dtA, dtB);
+        OWLDataRange rng1R = DataIntersectionOf(dtC, dtB);
+        OWLDataRange rng2 = DataUnionOf(dtA, dtB);
+        OWLDataRange rng2R = DataUnionOf(dtC, dtB);
+        OWLDataRange rng3 = DataComplementOf(dtA);
+        OWLDataRange rng3R = DataComplementOf(dtC);
+        OWLDataPropertyExpression propB = DataProperty(getIRI("propA"));
         Set<OWLAxiom> axioms1 = new HashSet<OWLAxiom>();
-        axioms1.add(getFactory().getOWLDataPropertyRangeAxiom(propB, rng1));
-        axioms1.add(getFactory().getOWLDataPropertyRangeAxiom(propB, rng2));
-        axioms1.add(getFactory().getOWLDataPropertyRangeAxiom(propB, rng3));
+        axioms1.add(DataPropertyRange(propB, rng1));
+        axioms1.add(DataPropertyRange(propB, rng2));
+        axioms1.add(DataPropertyRange(propB, rng3));
         getManager().addAxioms(ont, axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<OWLAxiom>();
-        axioms2.add(getFactory().getOWLDataPropertyRangeAxiom(propB, rng1R));
-        axioms2.add(getFactory().getOWLDataPropertyRangeAxiom(propB, rng2R));
-        axioms2.add(getFactory().getOWLDataPropertyRangeAxiom(propB, rng3R));
+        axioms2.add(DataPropertyRange(propB, rng1R));
+        axioms2.add(DataPropertyRange(propB, rng2R));
+        axioms2.add(DataPropertyRange(propB, rng3R));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(),
                 Collections.singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(dtA, dtC.getIRI());
@@ -299,30 +278,24 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testRenameAnnotationProperty() throws Exception {
         OWLOntology ont = getOWLOntology("testont");
-        OWLNamedIndividual indA = getOWLIndividual("indA");
-        OWLNamedIndividual indB = getOWLIndividual("indB");
-        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
-        OWLAnnotationProperty annoPropR = getOWLAnnotationProperty("annoPropR");
-        OWLAnnotationProperty annoProp2 = getOWLAnnotationProperty("annoProp2");
+        OWLNamedIndividual indA = NamedIndividual(getIRI("indA"));
+        OWLNamedIndividual indB = NamedIndividual(getIRI("indB"));
+        OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
+        OWLAnnotationProperty annoPropR = AnnotationProperty(getIRI("annoPropR"));
+        OWLAnnotationProperty annoProp2 = AnnotationProperty(getIRI("annoProp2"));
         Set<OWLAxiom> axioms1 = new HashSet<OWLAxiom>();
-        axioms1.add(getFactory().getOWLDeclarationAxiom(annoProp));
-        axioms1.add(getFactory().getOWLAnnotationAssertionAxiom(annoProp, indA.getIRI(),
-                indB.getIRI()));
-        axioms1.add(getFactory().getOWLSubAnnotationPropertyOfAxiom(annoProp, annoProp2));
-        axioms1.add(getFactory().getOWLAnnotationPropertyRangeAxiom(annoProp,
-                indA.getIRI()));
-        axioms1.add(getFactory().getOWLAnnotationPropertyDomainAxiom(annoProp,
-                indA.getIRI()));
+        axioms1.add(Declaration(annoProp));
+        axioms1.add(AnnotationAssertion(annoProp, indA.getIRI(), indB.getIRI()));
+        axioms1.add(SubAnnotationPropertyOf(annoProp, annoProp2));
+        axioms1.add(AnnotationPropertyRange(annoProp, indA.getIRI()));
+        axioms1.add(AnnotationPropertyDomain(annoProp, indA.getIRI()));
         getManager().addAxioms(ont, axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<OWLAxiom>();
-        axioms2.add(getFactory().getOWLDeclarationAxiom(annoPropR));
-        axioms2.add(getFactory().getOWLAnnotationAssertionAxiom(annoPropR, indA.getIRI(),
-                indB.getIRI()));
-        axioms2.add(getFactory().getOWLSubAnnotationPropertyOfAxiom(annoPropR, annoProp2));
-        axioms2.add(getFactory().getOWLAnnotationPropertyRangeAxiom(annoPropR,
-                indA.getIRI()));
-        axioms2.add(getFactory().getOWLAnnotationPropertyDomainAxiom(annoPropR,
-                indA.getIRI()));
+        axioms2.add(Declaration(annoPropR));
+        axioms2.add(AnnotationAssertion(annoPropR, indA.getIRI(), indB.getIRI()));
+        axioms2.add(SubAnnotationPropertyOf(annoPropR, annoProp2));
+        axioms2.add(AnnotationPropertyRange(annoPropR, indA.getIRI()));
+        axioms2.add(AnnotationPropertyDomain(annoPropR, indA.getIRI()));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(),
                 Collections.singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(annoProp,

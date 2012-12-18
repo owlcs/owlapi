@@ -1,11 +1,11 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -46,7 +46,7 @@ public class ContractDlsyntaxTest {
         DLSyntaxHTMLOntologyStorer testSubject0 = new DLSyntaxHTMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI.create("urn:aFake"), mock(OWLOntologyFormat.class));
+                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
@@ -78,7 +78,7 @@ public class ContractDlsyntaxTest {
         DLSyntaxOntologyStorer testSubject0 = new DLSyntaxOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI.create("urn:aFake"), mock(OWLOntologyFormat.class));
+                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
@@ -97,7 +97,7 @@ public class ContractDlsyntaxTest {
             }
         };
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI.create("urn:aFake"), mock(OWLOntologyFormat.class));
+                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result0 = testSubject0.toString();

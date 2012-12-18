@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.literals;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,14 +61,13 @@ public class DatatypeRestrictionTestCase extends AbstractFileRoundTrippingTestCa
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLDataRange dr = getFactory().getOWLDatatypeRestriction(
-                getFactory().getIntegerOWLDatatype(),
-                getFactory().getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, 18),
-                getFactory().getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, 30));
-        OWLDataProperty p = getOWLDataProperty("p");
-        OWLDataPropertyRangeAxiom ax = getFactory().getOWLDataPropertyRangeAxiom(p, dr);
+        OWLDataRange dr = DatatypeRestriction(Integer(),
+                FacetRestriction(OWLFacet.MIN_INCLUSIVE, Literal(18)),
+                FacetRestriction(OWLFacet.MAX_INCLUSIVE, Literal(30)));
+        OWLDataProperty p = DataProperty(getIRI("p"));
+        OWLDataPropertyRangeAxiom ax = DataPropertyRange(p, dr);
         axioms.add(ax);
-        axioms.add(getFactory().getOWLDeclarationAxiom(p));
+        axioms.add(Declaration(p));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

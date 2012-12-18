@@ -38,10 +38,13 @@
  */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -55,11 +58,11 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLAnnotationProperty prop = getOWLAnnotationProperty("prop");
-        OWLLiteral lit = getFactory().getOWLLiteral("Test", "");
-        OWLAnnotation anno1 = getFactory().getOWLAnnotation(prop, lit);
-        OWLAnnotationProperty prop2 = getOWLAnnotationProperty("prop2");
-        OWLAnnotation anno2 = getFactory().getOWLAnnotation(prop2, lit);
+        OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));
+        OWLLiteral lit = Literal("Test", "");
+        OWLAnnotation anno1 = Factory.getFactory().getOWLAnnotation(prop, lit);
+        OWLAnnotationProperty prop2 = AnnotationProperty(getIRI("prop2"));
+        OWLAnnotation anno2 = Factory.getFactory().getOWLAnnotation(prop2, lit);
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
         // Add two annotations per axiom
         annos.add(anno1);
@@ -67,8 +70,8 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends
         OWLAxiom ax = getMainAxiom(annos);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(ax.getAnnotatedAxiom(annos));
-        axioms.add(getFactory().getOWLDeclarationAxiom(prop));
-        axioms.add(getFactory().getOWLDeclarationAxiom(prop2));
+        axioms.add(Declaration(prop));
+        axioms.add(Declaration(prop2));
         axioms.add(ax.getAnnotatedAxiom(Collections.singleton(anno1)));
         axioms.add(ax.getAnnotatedAxiom(Collections.singleton(anno2)));
         // Set<OWLAxiom> declarations = getDeclarationsToAdd(ax);

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.individuals;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Set;
 
 import org.junit.Test;
@@ -55,8 +57,8 @@ public class NamedIndividualDeclarationWithAnnotationsTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        OWLEntity ent = getOWLIndividual("I");
-        return getFactory().getOWLDeclarationAxiom(ent, annos);
+        OWLEntity ent = NamedIndividual(getIRI("I"));
+        return Declaration(ent, annos);
     }
 
     @Override

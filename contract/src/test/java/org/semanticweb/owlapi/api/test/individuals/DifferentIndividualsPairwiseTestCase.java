@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.individuals;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,10 +55,10 @@ public class DifferentIndividualsPairwiseTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLDifferentIndividualsAxiom(getOWLIndividual("i"),
-                getOWLIndividual("j")));
-        axioms.add(getFactory().getOWLDifferentIndividualsAxiom(getOWLIndividual("i"),
-                getOWLIndividual("k")));
+        axioms.add(DifferentIndividuals(NamedIndividual(getIRI("i")),
+                NamedIndividual(getIRI("j"))));
+        axioms.add(DifferentIndividuals(NamedIndividual(getIRI("i")),
+                NamedIndividual(getIRI("k"))));
         return axioms;
     }
 }

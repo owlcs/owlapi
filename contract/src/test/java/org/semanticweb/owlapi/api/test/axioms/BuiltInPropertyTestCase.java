@@ -39,8 +39,10 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -53,49 +55,50 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public class BuiltInPropertyTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testTopObjectPropertyPositive() {
-        OWLObjectPropertyExpression prop = getFactory().getOWLTopObjectProperty();
+        OWLObjectPropertyExpression prop = Factory.getFactory().getOWLTopObjectProperty();
         assertTrue(prop.isOWLTopObjectProperty());
     }
 
     @Test
     public void testBottomObjectPropertyPositive() {
-        OWLObjectPropertyExpression prop = getFactory().getOWLBottomObjectProperty();
+        OWLObjectPropertyExpression prop = Factory.getFactory()
+                .getOWLBottomObjectProperty();
         assertTrue(prop.isOWLBottomObjectProperty());
     }
 
     @Test
     public void testTopObjectPropertyNegative() {
-        OWLObjectPropertyExpression prop = getOWLObjectProperty("prop");
+        OWLObjectPropertyExpression prop = ObjectProperty(getIRI("prop"));
         assertFalse(prop.isOWLTopObjectProperty());
     }
 
     @Test
     public void testBottomObjectPropertyNegative() {
-        OWLObjectPropertyExpression prop = getOWLObjectProperty("prop");
+        OWLObjectPropertyExpression prop = ObjectProperty(getIRI("prop"));
         assertFalse(prop.isOWLBottomObjectProperty());
     }
 
     @Test
     public void testTopDataPropertyPositive() {
-        OWLDataPropertyExpression prop = getFactory().getOWLTopDataProperty();
+        OWLDataPropertyExpression prop = Factory.getFactory().getOWLTopDataProperty();
         assertTrue(prop.isOWLTopDataProperty());
     }
 
     @Test
     public void testBottomDataPropertyPositive() {
-        OWLDataPropertyExpression prop = getFactory().getOWLBottomDataProperty();
+        OWLDataPropertyExpression prop = Factory.getFactory().getOWLBottomDataProperty();
         assertTrue(prop.isOWLBottomDataProperty());
     }
 
     @Test
     public void testTopDataPropertyNegative() {
-        OWLDataPropertyExpression prop = getOWLDataProperty("prop");
+        OWLDataPropertyExpression prop = DataProperty(getIRI("prop"));
         assertFalse(prop.isOWLTopDataProperty());
     }
 
     @Test
     public void testBottomDataPropertyNegative() {
-        OWLDataPropertyExpression prop = getOWLDataProperty("prop");
+        OWLDataPropertyExpression prop = DataProperty(getIRI("prop"));
         assertFalse(prop.isOWLBottomDataProperty());
     }
 }

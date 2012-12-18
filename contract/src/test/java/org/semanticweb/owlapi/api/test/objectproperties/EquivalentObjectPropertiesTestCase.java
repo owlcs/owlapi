@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,11 +56,11 @@ public class EquivalentObjectPropertiesTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLObjectProperty propA = getOWLObjectProperty("propA");
-        OWLObjectProperty propB = getOWLObjectProperty("propB");
-        axioms.add(getFactory().getOWLEquivalentObjectPropertiesAxiom(propA, propB));
-        axioms.add(getFactory().getOWLDeclarationAxiom(propA));
-        axioms.add(getFactory().getOWLDeclarationAxiom(propB));
+        OWLObjectProperty propA = ObjectProperty(getIRI("propA"));
+        OWLObjectProperty propB = ObjectProperty(getIRI("propB"));
+        axioms.add(EquivalentObjectProperties(propA, propB));
+        axioms.add(Declaration(propA));
+        axioms.add(Declaration(propB));
         return axioms;
     }
 }

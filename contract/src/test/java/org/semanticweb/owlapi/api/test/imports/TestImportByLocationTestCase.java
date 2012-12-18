@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.imports;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -58,13 +59,13 @@ public class TestImportByLocationTestCase {
     public void testImportOntologyByLocation() {
         File f = new File("a.owl");
         try {
-            createOntologyFile(IRI.create("http://a.com"), f);
+            createOntologyFile(IRI("http://a.com"), f);
             OWLOntologyManager mngr = Factory.getManager();
             OWLDataFactory df = mngr.getOWLDataFactory();
             // have to load an ontology for it to get a document IRI
             OWLOntology a = mngr.loadOntologyFromOntologyDocument(f);
             IRI locA = mngr.getOntologyDocumentIRI(a);
-            IRI bIRI = IRI.create("http://b.com");
+            IRI bIRI = IRI("http://b.com");
             OWLOntology b = mngr.createOntology(bIRI);
             // import from the document location of a.owl (rather than the
             // ontology IRI)

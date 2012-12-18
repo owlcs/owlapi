@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.junit.Test;
@@ -9,7 +10,6 @@ import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -25,16 +25,16 @@ public class FunctionalSyntaxIRIProblemTestCase {
     public void testmain() throws Exception {
         OWLOntologyManager manager = Factory.getManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
-        OWLOntology ontology = manager.createOntology(IRI.create("urn:testontology:o1"));
-        OWLObjectProperty p = factory.getOWLObjectProperty(IRI
-                .create("http://example.org/A_#part_of"));
-        OWLClass a = factory.getOWLClass(IRI.create("http://example.org/A_A"));
-        OWLClass b = factory.getOWLClass(IRI.create("http://example.org/A_B"));
-        manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(p));
-        manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(a));
-        manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(b));
-        manager.addAxiom(ontology, factory.getOWLSubClassOfAxiom(b,
-                factory.getOWLObjectSomeValuesFrom(p, a)));
+        OWLOntology ontology = manager.createOntology(IRI("urn:testontology:o1"));
+        OWLObjectProperty p = factory
+                .getOWLObjectProperty(IRI("http://example.org/A_#part_of"));
+        OWLClass a = Class(IRI("http://example.org/A_A"));
+        OWLClass b = Class(IRI("http://example.org/A_B"));
+        manager.addAxiom(ontology, Declaration(p));
+        manager.addAxiom(ontology, Declaration(a));
+        manager.addAxiom(ontology, Declaration(b));
+        manager.addAxiom(ontology,
+                SubClassOf(b, factory.getOWLObjectSomeValuesFrom(p, a)));
         String rdfxmlSaved = saveOntology(ontology, new RDFXMLOntologyFormat());
         OWLOntology loadOntology = loadOntology(rdfxmlSaved);
         OWLFunctionalSyntaxOntologyFormat functionalFormat = new OWLFunctionalSyntaxOntologyFormat();

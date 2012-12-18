@@ -38,14 +38,13 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -55,8 +54,7 @@ public class DisjointObjectPropertiesAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return getFactory().getOWLDisjointObjectPropertiesAxiom(
-                new HashSet<OWLObjectProperty>(Arrays.asList(getOWLObjectProperty("p"),
-                        getOWLObjectProperty("q"))), annos);
+        return DisjointObjectProperties(annos, ObjectProperty(getIRI("p")),
+                ObjectProperty(getIRI("q")));
     }
 }

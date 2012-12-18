@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,12 +56,12 @@ public class ObjectPropertyAssertionWithAnonymousIndividualsTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLIndividual subject = getFactory().getOWLAnonymousIndividual();
-        OWLIndividual object = getFactory().getOWLAnonymousIndividual();
-        OWLObjectProperty prop = getOWLObjectProperty("prop");
+        OWLIndividual subject = AnonymousIndividual();
+        OWLIndividual object = AnonymousIndividual();
+        OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(prop, subject, object));
-        axioms.add(getFactory().getOWLDeclarationAxiom(prop));
+        axioms.add(ObjectPropertyAssertion(prop, subject, object));
+        axioms.add(Declaration(prop));
         return axioms;
     }
 }

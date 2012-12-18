@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,11 +57,10 @@ public class NegativeObjectPropertyAssertionTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLObjectProperty prop = getOWLObjectProperty("prop");
-        OWLIndividual subject = getOWLIndividual("iA");
-        OWLIndividual object = getOWLIndividual("iB");
-        axioms.add(getFactory().getOWLNegativeObjectPropertyAssertionAxiom(prop, subject,
-                object));
+        OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
+        OWLIndividual subject = NamedIndividual(getIRI("iA"));
+        OWLIndividual object = NamedIndividual(getIRI("iB"));
+        axioms.add(NegativeObjectPropertyAssertion(prop, subject, object));
         return axioms;
     }
 }

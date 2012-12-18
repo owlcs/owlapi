@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.ontology;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -56,17 +58,15 @@ public class IRISubstringTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         XMLWriterPreferences.getInstance().setUseNamespaceEntities(true);
-        IRI iriA = IRI.create("http://owlapi.sourceforge.net/properties#propA");
-        IRI iriB = IRI.create("http://owlapi.sourceforge.net/properties2#propB");
+        IRI iriA = IRI("http://owlapi.sourceforge.net/properties#propA");
+        IRI iriB = IRI("http://owlapi.sourceforge.net/properties2#propB");
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = getOWLClass("A");
-        OWLAnnotationProperty propA = getFactory().getOWLAnnotationProperty(iriA);
-        OWLAnnotationProperty propB = getFactory().getOWLAnnotationProperty(iriB);
-        axioms.add(getFactory().getOWLDeclarationAxiom(clsA));
-        axioms.add(getFactory().getOWLAnnotationAssertionAxiom(propA, clsA.getIRI(),
-                getFactory().getOWLLiteral("value1")));
-        axioms.add(getFactory().getOWLAnnotationAssertionAxiom(propB, clsA.getIRI(),
-                getFactory().getOWLLiteral("value2")));
+        OWLClass clsA = Class(getIRI("A"));
+        OWLAnnotationProperty propA = AnnotationProperty(iriA);
+        OWLAnnotationProperty propB = AnnotationProperty(iriB);
+        axioms.add(Declaration(clsA));
+        axioms.add(AnnotationAssertion(propA, clsA.getIRI(), Literal("value1")));
+        axioms.add(AnnotationAssertion(propB, clsA.getIRI(), Literal("value2")));
         return axioms;
     }
 }

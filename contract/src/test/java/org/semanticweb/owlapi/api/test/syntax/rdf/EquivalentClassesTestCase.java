@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -60,7 +62,7 @@ public class EquivalentClassesTestCase extends AbstractRendererAndParser {
 
     @Override
     protected Set<OWLAxiom> getAxioms() {
-        OWLClass clsA = getDataFactory().getOWLClass(TestUtils.createIRI());
+        OWLClass clsA = Class(TestUtils.createIRI());
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
                 TestUtils.createIRI());
         OWLClassExpression descA = getDataFactory().getOWLObjectSomeValuesFrom(prop,
