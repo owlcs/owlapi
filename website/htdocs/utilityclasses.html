@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<link type="text/css" rel="stylesheet" href="owlapi.css"/>
+<title>OWL API Utility Classes</title>
+</head>
+
+<body>
+
+<div align="center" class="body_content">
+<div class="menu_bar">
+
+<!-- *** MENU BAR *** -->
+<span class="menu_bar_item"><a href="index.html">home</a></span>
+<span class="menu_bar_item"><a href="releases.html">releases</a></span>
+<span class="menu_bar_item"><a href="source.html">source</a></span>
+<span class="menu_bar_item"><a href="documentation.html">documentation</a></span>
+<span class="menu_bar_item"><a href="reasoners.html">reasoners</a></span>
+<span class="menu_bar_item"><a href="publications.html">publications</a></span>
+</div>
+
+
+<!-- *** MAIN TITLE *** -->
+<div class="title">Utility Classes</div>
+
+
+<div align="justify">
+<div class="content">
+
+<!-- *** PAGE CONTENT GOES HERE *** -->
+
+<h1>Utility Classes</h1>
+
+The OWL API contains various utility classes that are designed to make common tasks easy.  Some of these utility classes are documented below.
+
+<h2>Short Form Providers</h2>
+In OWL, entities such as classes, properties and individuals are named using URIs.  Since URIs can be long and not particularly readable, "short forms" of these URIs are often used for presentation in tools such as editors and end user applications.  The API makes the <span class="interface">ShortFormProvider</span> interface available to provide a common point for this task.  Stock implementations of short form providers are provided with the API.  These include:
+<ul>
+<li><span class="interface">SimpleShortFormProvider</span> - Generates short forms directly from URIs.  In general, if the fragment of a URI is available (the part of the URI following the #) then this will be used for the short form.</li>
+<li><span class="interface">QNameShortFormProvider</span> - Generates short forms that look like QNames.  For example, "owl:Thing", "pizza:MarghertiaPizza"</li>
+<li><span class="interface">AnnotationValueShortFormProvider</span> - Generates short forms using the values of annotation properties.  This short form provider also allows preferred languages to be set up.</li>
+<li><span class="interface">PropertyAssertionValueShortFormProvider</span> - Similar to AnnotationValueShortFormProvider, but can also be used for arbitrary property values.</li>
+<li><span class="interface">OntologyURIShortFormProvider</span> - Generates short forms for ontology URIs</li>
+<li><span class="interface">BidirectionalShortFormProviderAdapter</span> - Can be used to set up a bidirectional mapping between entities and their short forms.  This utility class uses a short form provider to generate the mappings.
+</ul>
+
+
+<h2>Mapping Ontology URIs to Physical URIs</h2>
+The following utility classes are provided to make it easy to set up Ontology to Physical URI mappings.  Mappers can be registered on instances of <span class="interface">OWLOntologyManager</span> using the addURIMapper method.
+<ul>
+<li><span class="interface">SimpleURIMapper</span> - Maps a specific ontolog URI to a specific physical URI</li>
+<li><span class="interface">CommonBaseURIMapper</span> - Makes it relatively efficient to map Ontology URIs to Physical URIs where the physical URI have a common base/prefix</li>
+<li><span class="interface">AutoURIMapper</span> - Automatically generates Ontology URI to Physical URI mappings for ontologies that are contained in a specific folder.</li>
+</ul>
+
+<h2>Structural Checking/Inspection</h2>
+<ul>
+<li><span class="interface">AxiomSubjectProvider</span> - Gets the "subject" of an axiom.  This is a slightly loose notion, but the subject of an axiom is regarded as being the entity that the axioms "defines".  For example, SubClassOf(A, B) could be said to define class A.
+</li>
+<li>
+<span class="interface">DLExpressivityChecker</span> - Performs a syntactic analysis to discover the DL expressivty that is used in an ontology.
+</li>
+<li>
+<span class="interface">NamedConjunctChecker</span> - Checks to see if a conjunction contains at least one named class. 
+</li>
+<li>
+<span class="interface">OWLEntityCollector</span> - Can be used to "visit" any number of OWLObjects, and will "collect" all of the entities that these objects reference. 
+</li>
+<li>
+<span class="interface">OWLDescriptionComparator</span> - Can be used to sort OWLDescriptions based on some predifined ordering. (Although it should be noted that OWLObject extends the comparable interface anyway).
+</li>
+<li>
+<span class="interface">OWLEntityRemover</span> - Can be used to generated the changes that are required to remove all axioms that reference a particular entity. 
+</li>
+<li>
+<span class="interface">OWLEntityURIConverter</span> - Can be used to perform a bulk conversion of entity URIs into some format.  This class uses a pluggable strategy that defined how the conversion should take place. 
+</li>
+<li>
+<span class="interface">OWLOntologyMerger</span> - Provides a convenient method of merging two or more ontologies into one. 
+</li>
+
+</ul>
+<!-- *** END OF PAGE CONTENT *** -->
+</div>
+</div>
+
+<div align="right" class="footer"> <a href="http://sourceforge.net"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=90989&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" /></a></div>
+
+</div>
+
+<!-- PAGE FOOTER -->
+</body>
+</html>
+	

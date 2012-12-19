@@ -1,0 +1,138 @@
+/* CSS Document */
+
+.body_content{
+    color: #666666;
+	background-color:#FFFFFF;
+	margin-left:auto;
+	margin-right:auto;
+	width: 750px;
+	font-family: Lucida Grande,Helvetica,Arial,Verdana,sans-serif;
+	font-size: 12px;
+	line-height: 18px;
+	list-style: disc;
+}
+
+
+
+.menu_bar {
+	padding-top:20px;
+	padding-bottom:20px;
+	border-bottom: medium, solid, #666666;
+	font-size:14px;
+	text-align: left;
+	font-weight: 100; 
+}
+
+.highlight {
+	color: #D1422E; 
+	
+}
+
+
+.menu_bar_item {
+	padding-left: 10px;
+	padding-right: 10px;
+	font-weight: 100;
+}
+
+.menu_bar_item_active {
+	padding-left: 10px;
+	padding-right: 10px;
+	font-weight: 100;
+}
+
+.title {
+	font-family: Gill Sans, Arial, Helvetica, sans-serif, Helvetica, sans-serif;
+	line-height:normal;
+	font-size:50px;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	/* border-top: thin, #666666;
+	border-top-width: 1px;
+	border-top-style: solid; */
+	color: #D1422E;
+	border-color:#999999;
+	font-weight: 100;
+	text-align: left;
+}
+
+.footer {
+	padding-top: 100px;
+	text-align: left;
+	font-size: 10px;
+}
+
+.code {
+	
+	font-family:"Courier New", Courier, monospace;
+	line-height: 20px;
+}
+
+.image {
+	padding: 10px;
+}
+
+h1 {
+	padding-top: 20px;
+	font-family: Gill Sans, Arial, Helvetica, sans-serif;
+	color: #D1422E;
+	font-size: 40px;
+	font-weight: 100;
+}
+
+h2 {
+	color: #D1422E;
+	font-family: Gill Sans, Arial, Helvetica, sans-serif;
+	font-size: 30px;
+	font-weight: 100;
+}
+
+h3 {
+	color: #D1422E;
+	font-size: 14px;
+	font-family: Gill Sans, Arial, Helvetica, sans-serif;
+	font-weight: 100;
+}
+
+table {
+	font-size: 10px;
+	border-collapse: collapse;
+}
+
+td {
+	border-color: #CCCCCC;
+	border-bottom: thin;
+	border-style: solid;
+	border-left: none;
+    border-right: none;
+	padding-right: 20px;
+}
+
+.publication {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 40px;
+	padding-right: 40px;
+	line-height: normal;
+}
+
+.pubtitle {
+	font-style: italic;
+}
+
+.pubauth {
+	font-weight: bold;
+}
+
+.publoc {
+
+}
+
+.list {
+	padding-bottom: 20px;
+}
+
+.interface {
+	color: #D1422E;
+	font-family:"Courier New", Courier, monospace;
+}
