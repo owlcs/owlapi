@@ -39,9 +39,8 @@
 
 package org.semanticweb.owlapi.change;
 
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 
 /**
  * Author: Matthew Horridge<br>
@@ -49,49 +48,51 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
  * Bio-Medical Informatics Research Group<br>
  * Date: 27/04/2012
  * <p>
- * Represents the specific non-ontology data required by a {@link org.semanticweb.owlapi.model.RemoveOntologyAnnotation}
- * change.
+ *     Represents the specific non-ontology data required by an {@link AddOntologyAnnotation} change.
  * </p>
  * <p>
- * Instances of this class are immutable.
+ *     Instances of this class are immutable.
  * </p>
  * @since 3.5
  */
-public final class RemoveOntologyAnnotationData extends OntologyAnnotationChangeData {
-    // TODO update serialVersionUID on all classes
+public abstract class OntologyAnnotationChangeData extends OWLOntologyChangeData {
     private static final long serialVersionUID = 30402L;
 
+    private final OWLAnnotation annotation;
+
     /**
-     * Constructs a {@link RemoveOntologyAnnotationData} object that describes a {@link
-     * org.semanticweb.owlapi.model.RemoveOntologyAnnotation} change
+     * Constructs an {@link OntologyAnnotationChangeData} object that describes an {@link AddOntologyAnnotation} change
      * for the {@link OWLAnnotation} specified by the {@code annotation} parameter.
      * @param annotation The {@link OWLAnnotation} that is the focus of some change.  Not {@code null}.
      * @throws NullPointerException if {@code annotation} is {@code null}.
      */
-    public RemoveOntologyAnnotationData(OWLAnnotation annotation) {
-        super(annotation);
-    }
-
-    @Override
-    public RemoveOntologyAnnotation createOntologyChange(OWLOntology ontology) {
-        return new RemoveOntologyAnnotation(ontology, getAnnotation());
-    }
-
-    @Override
-    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj == this) {
-            return true;
+    public OntologyAnnotationChangeData(OWLAnnotation annotation) {
+        if(annotation == null) {
+            throw new NullPointerException("annotation must not be null");
         }
-        if(!(obj instanceof RemoveOntologyAnnotationData)) {
-            return false;
-        }
-        RemoveOntologyAnnotationData other = (RemoveOntologyAnnotationData) obj;
-        return getAnnotation().equals(other.getAnnotation());
+        this.annotation = annotation;
     }
 
+    /**
+     * Gets the {@link OWLAnnotation} that is the focus of some {@link AddOntologyAnnotation} change.
+     * @return The {@link OWLAnnotation}.  Not {@code null}.
+     */
+    public OWLAnnotation getAnnotation() {
+        return annotation;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().getSimpleName().hashCode() + annotation.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append("(");
+        sb.append(annotation);
+        sb.append(")");
+        return sb.toString();
+    }
 }

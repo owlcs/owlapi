@@ -56,10 +56,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * </p>
  * @since 3.5
  */
-public final class AddOntologyAnnotationData extends OWLOntologyChangeData {
+public final class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
     private static final long serialVersionUID = 30402L;
-
-    private final OWLAnnotation annotation;
 
     /**
      * Constructs an {@link AddOntologyAnnotationData} object that describes an {@link AddOntologyAnnotation} change
@@ -68,33 +66,17 @@ public final class AddOntologyAnnotationData extends OWLOntologyChangeData {
      * @throws NullPointerException if {@code annotation} is {@code null}.
      */
     public AddOntologyAnnotationData(OWLAnnotation annotation) {
-        if(annotation == null) {
-            throw new NullPointerException("annotation must not be null");
-        }
-        this.annotation = annotation;
-    }
-
-    /**
-     * Gets the {@link OWLAnnotation} that is the focus of some {@link AddOntologyAnnotation} change.
-     * @return The {@link OWLAnnotation}.  Not {@code null}.
-     */
-    public OWLAnnotation getAnnotation() {
-        return annotation;
+        super(annotation);
     }
 
     @Override
     public AddOntologyAnnotation createOntologyChange(OWLOntology ontology) {
-        return new AddOntologyAnnotation(ontology, annotation);
+        return new AddOntologyAnnotation(ontology, getAnnotation());
     }
 
     @Override
     public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
         return visitor.visit(this);
-    }
-
-    @Override
-    public int hashCode() {
-        return "AddOntologyAnnotationData".hashCode() + annotation.hashCode();
     }
 
     @Override
@@ -106,17 +88,6 @@ public final class AddOntologyAnnotationData extends OWLOntologyChangeData {
             return false;
         }
         AddOntologyAnnotationData other = (AddOntologyAnnotationData) obj;
-        return annotation.equals(other.annotation);
-    }
-
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("AddOntologyAnnotationData");
-        sb.append("(");
-        sb.append(annotation);
-        sb.append(")");
-        return sb.toString();
+        return getAnnotation().equals(other.getAnnotation());
     }
 }
