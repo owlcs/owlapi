@@ -48,7 +48,7 @@ package org.semanticweb.owlapi.util;
  */
 public class VersionInfo {
 
-    private static VersionInfo instance;
+    private static final VersionInfo instance = new VersionInfo();
 
     private final String version;
 
@@ -58,17 +58,14 @@ public class VersionInfo {
             version = v;
         }
         else {
-            version = "[Not Released]";
+            version = "3.4.3-SNAPSHOT";
         }
     }
 
     /**
      * @return the version info
      */
-    public synchronized static VersionInfo getVersionInfo() {
-        if(instance == null) {
-            instance = new VersionInfo();
-        }
+    public static VersionInfo getVersionInfo() {
         return instance;
     }
 
