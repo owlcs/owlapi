@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
-import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

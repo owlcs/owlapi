@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.io.ByteArrayInputStream;
 import java.util.Arrays;

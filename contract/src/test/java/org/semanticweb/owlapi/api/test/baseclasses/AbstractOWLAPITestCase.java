@@ -39,7 +39,7 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.net.URISyntaxException;
 import java.net.URL;

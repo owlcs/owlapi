@@ -39,7 +39,7 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
 
@@ -64,9 +64,9 @@ public class AnnotatedPropertyAssertionsTestCase extends AbstractFileTestCase {
     @Test
     public void testCorrectAxiomAnnotated() {
         OWLOntology ontology = createOntology();
-        OWLNamedIndividual subject = NamedIndividual("http://Example.com#myBuilding");
-        OWLObjectProperty predicate = ObjectProperty("http://Example.com#located_at");
-        OWLNamedIndividual object = NamedIndividual("http://Example.com#myLocation");
+        OWLNamedIndividual subject = NamedIndividual(IRI("http://Example.com#myBuilding"));
+        OWLObjectProperty predicate = ObjectProperty(IRI("http://Example.com#located_at"));
+        OWLNamedIndividual object = NamedIndividual(IRI("http://Example.com#myLocation"));
         OWLAxiom ax = ObjectPropertyAssertion(predicate, subject, object);
         assertTrue(ontology.containsAxiomIgnoreAnnotations(ax));
         Set<OWLAxiom> axioms = ontology.getAxiomsIgnoreAnnotations(ax);

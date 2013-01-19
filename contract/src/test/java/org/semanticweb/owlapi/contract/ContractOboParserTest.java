@@ -2,7 +2,7 @@ package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
