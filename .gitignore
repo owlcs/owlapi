@@ -3,3 +3,4 @@
 *.iml
 *.class
 target/
+bin/
