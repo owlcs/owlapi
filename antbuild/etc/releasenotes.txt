@@ -1,3 +1,19 @@
+3.4.3 26 Jan 2013
+
+Features implemented:
+Updated OWLFunctionalSyntaxFactory with more methods.
+Removed deprecated method calls.
+Test package broken up in smaller packages.
+Web site updated and added to version management.
+
+Bugs fixed:
+Changed VersionInfo message default to provide more information.
+Bug 354 fixed: There is AnnotationChange, but no AnnotationChangeData
+Bug 353 fixed: SimpleRenderer renders SubDataPropertyOfAxiom wrong.
+Bug 351 fixed: QNameShortFormProvider swapped prefix and iri.
+Bug 352 fixed: SimpleRenderer does not escape double quotes in literals.
+
+
 3.4.2 4 Dec 2012
 
 Features implemented:
