@@ -48,6 +48,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -250,6 +251,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         tree.sortChildren(comparator);
     }
 
+    private static AtomicLong randomstart = new AtomicLong(System.currentTimeMillis());
     private void buildIndices() {
         reset();
         AxiomMapBuilder builder = new AxiomMapBuilder();
@@ -261,7 +263,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                 man.removeOntology(ont);
             }
             ont = man.createOntology(IRI.create("http://www.semanticweb.org/ontology"
-                    + System.currentTimeMillis()));
+                    + randomstart.incrementAndGet()));
             List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
             for (OWLAxiom ax : currentExplanation) {
                 changes.add(new AddAxiom(ont, ax));
