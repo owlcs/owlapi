@@ -1,4 +1,2 @@
 language: java
 
-## stop quiet build.
-install: mvn install -DskipTests=true
