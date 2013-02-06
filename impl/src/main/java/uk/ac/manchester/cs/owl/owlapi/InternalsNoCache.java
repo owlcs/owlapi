@@ -39,6 +39,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Locale;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -211,7 +212,13 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                     if (lexicalValue.trim().charAt(0) == '0') {
                         literal = getBasicLiteral(lexicalValue, getIntegerOWLDatatype());
                     } else {
-                        literal = getOWLLiteral(Integer.parseInt(lexicalValue));
+                        try {
+                            literal = getOWLLiteral(Integer.parseInt(lexicalValue));
+                        } catch (NumberFormatException ex) {
+                            // try as a big decimal
+                        BigDecimal bigint = new BigDecimal(lexicalValue);
+                        literal = getOWLLiteral(bigint.intValue());
+                        }
                     }
                 } else {
                     literal = getBasicLiteral(lexicalValue, datatype);

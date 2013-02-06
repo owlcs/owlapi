@@ -416,18 +416,10 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         Token t;
         if (jj_2_36(2)) {
             t = jj_consume_token(INTEGER);
-            {
-                if (true) {
-                    return t.image;
-                }
-            }
+            return t.image;
         } else if (jj_2_37(2)) {
             t = jj_consume_token(DIGIT);
-            {
-                if (true) {
-                    return t.image;
-                }
-            }
+            return t.image;
         }
         jj_consume_token(-1);
         throw new ParseException();
@@ -1800,7 +1792,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         }
         return t;
     }
-
 
     private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
     private int[] jj_expentry;
