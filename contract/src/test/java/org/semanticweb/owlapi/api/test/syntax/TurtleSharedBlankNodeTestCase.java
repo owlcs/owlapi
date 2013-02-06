@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTest
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -150,19 +151,9 @@ public class TurtleSharedBlankNodeTestCase extends AbstractFileRoundTrippingTest
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1e+07 .";
         OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input));
-        StringDocumentTarget t = new StringDocumentTarget();
-        TurtleOntologyFormat format = new TurtleOntologyFormat();
-        ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
-        String onto1 = t.toString();
-        System.out
-                .println("TurtleSharedBlankNodeTestCase.shouldParseScientificNotation() "
-                        + onto1);
-        // ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-        // new StringDocumentSource(t.toString()));
-        // t = new StringDocumentTarget();
-        // format = new TurtleOntologyFormat();
-        // ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
-        // String onto2 = t.toString();
-        // assertEquals(onto1, onto2);
+        OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
+        assertTrue(ontology.getAnnotationPropertiesInSignature().contains(p));
+        IRI s = IRI("http://dbpedia.org/resource/South_Africa");
+        assertTrue(ontology.containsAxiom(AnnotationAssertion(p, s, Literal(10000000))));
     }
 }
