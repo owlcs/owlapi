@@ -358,7 +358,8 @@ public class JavaCharStream {
     }
 
     /** Constructor. */
-    private JavaCharStream(Reader dstream, int startline, int startcolumn, int buffersize) {
+    protected JavaCharStream(Reader dstream, int startline, int startcolumn,
+            int buffersize) {
         inputStream = dstream;
         line = startline;
         column = startcolumn - 1;
@@ -397,7 +398,7 @@ public class JavaCharStream {
     }
 
     /** Constructor. */
-    private JavaCharStream(InputStream dstream, String encoding, int startline,
+    protected JavaCharStream(InputStream dstream, String encoding, int startline,
             int startcolumn, int buffersize) throws UnsupportedEncodingException {
         this(encoding == null ? new InputStreamReader(dstream, "UTF-8")
         : new InputStreamReader(dstream, encoding), startline, startcolumn,
