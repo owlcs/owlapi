@@ -86,7 +86,7 @@ public class OBOTagValuePairList {
      * @param knownVocab the set of tags that are known by this generator
      */
     public OBOTagValuePairList(List<OBOVocabulary> knownVocab) {
-        this.vocab = knownVocab;
+        vocab = knownVocab;
         iriSFP = new SimpleIRIShortFormProvider();
     }
 
@@ -152,8 +152,8 @@ public class OBOTagValuePairList {
     }
 
 
-    public void write(Writer writer) {
-        this.writer = writer;
+    public void write(Writer w) {
+        writer = w;
 
         // write tags out in order
         for (OBOVocabulary tag : vocab) {
