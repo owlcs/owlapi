@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
+@SuppressWarnings("javadoc")
 public class TurtleTestCase {
     @Test
     public void testLoadingUTF8BOM() throws URISyntaxException,
@@ -119,8 +120,6 @@ public class TurtleTestCase {
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
         assertTrue(ontology.getAnnotationPropertiesInSignature().contains(p));
         IRI s = IRI("http://dbpedia.org/resource/South_Africa");
-        System.out.println("TurtleSharedBlankNodeTestCase.shouldParseTen() "
-                + ontology.getAxioms());
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, s, Literal(1))));
     }
 
@@ -133,8 +132,6 @@ public class TurtleTestCase {
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
         assertTrue(ontology.getAnnotationPropertiesInSignature().contains(p));
         IRI s = IRI("http://dbpedia.org/resource/South_Africa");
-        System.out.println("TurtleSharedBlankNodeTestCase.shouldParseTen() "
-                + ontology.getAxioms());
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, s,
                 Literal("1.0", OWL2Datatype.XSD_DECIMAL))));
     }
