@@ -107,9 +107,6 @@ public class TurtleTestCase {
                 new StringDocumentSource(input));
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
         assertTrue(ontology.getAnnotationPropertiesInSignature().contains(p));
-        for (OWLAxiom ax : ontology.getAxioms()) {
-            System.out.println("TurtleTestCase.shouldParseScientificNotation() " + ax);
-        }
         IRI s = IRI("http://dbpedia.org/resource/South_Africa");
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, s,
                 Literal("1.0E7", OWL2Datatype.XSD_DOUBLE))));
