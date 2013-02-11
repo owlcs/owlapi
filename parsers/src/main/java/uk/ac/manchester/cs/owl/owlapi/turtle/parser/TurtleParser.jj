@@ -173,12 +173,12 @@ TOKEN:
 
 TOKEN:
 {
-    <INTEGER: ("+" | "-")? (<DIGIT>)+(<EXPONENT>)? >
+    <INTEGER: ("+" | "-")? (<DIGIT>)+ >
 }
 
 TOKEN:
 {
-    <DOUBLE: ("-" | "+") ? (<DIGIT>)+ "." (<DIGIT>)* (<EXPONENT> | "." (<DIGIT>)+ <EXPONENT> | (<DIGIT>)+ <EXPONENT>)>
+    <DOUBLE: ("-" | "+") ? ((<DIGIT>)+ ("." (<DIGIT>)*)? <EXPONENT> |  "." (<DIGIT>)+ <EXPONENT>) >
 }
 
 TOKEN:
