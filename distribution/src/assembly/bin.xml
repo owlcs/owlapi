@@ -15,12 +15,12 @@
 
 			<!-- Projects to be included in this module-set. -->
 			<includes>
-				<!-- <include>net.sourceforge.owlapi:owlapi-api</include> -->
-				<include>net.sourceforge.owlapi:owlapi-apibinding</include>
-				<include>net.sourceforge.owlapi:owlapi-tools</include>
-				<include>net.sourceforge.owlapi:owlapi-parsers</include>
-				<include>net.sourceforge.owlapi:owlapi-contract</include>
-				<include>net.sourceforge.owlapi:owlapi-impl</include>
+				<include>net.sourceforge.owlapi:owlapi-api:*</include>
+				<include>net.sourceforge.owlapi:owlapi-apibinding:*</include>
+				<include>net.sourceforge.owlapi:owlapi-tools:*</include>
+				<include>net.sourceforge.owlapi:owlapi-parsers:*</include>
+				<include>net.sourceforge.owlapi:owlapi-contract:*</include>
+				<include>net.sourceforge.owlapi:owlapi-impl:*</include>
 			</includes>
 			<binaries>
 				<outputDirectory>.</outputDirectory>
