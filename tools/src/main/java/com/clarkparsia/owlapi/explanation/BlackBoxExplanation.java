@@ -132,6 +132,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
     // XXX once the interface changes, uncomment this
     //@Override
+    @SuppressWarnings("javadoc")
     public void dispose() {
         reset();
         getReasoner().dispose();

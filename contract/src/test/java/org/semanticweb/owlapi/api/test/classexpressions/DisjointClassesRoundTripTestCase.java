@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -55,12 +54,6 @@ public class DisjointClassesRoundTripTestCase {
                 + "             or piz:D,piz:C,\n" + "             or piz:E,piz:C,\n"
                 + "             or piz:F,piz:C";
         OWLOntology roundtripped = loadOntology(input);
-        for (OWLAxiom ax : ontology.getLogicalAxioms()) {
-            System.out.println("o1 " + ax);
-        }
-        for (OWLAxiom ax : roundtripped.getLogicalAxioms()) {
-            System.out.println("o2 " + ax);
-        }
         assertEquals(input, ontology.getLogicalAxioms(), roundtripped.getLogicalAxioms());
     }
 
@@ -75,12 +68,6 @@ public class DisjointClassesRoundTripTestCase {
                         ObjectUnionOf(C, F)));
         String s = saveOntology(ontology);
         OWLOntology roundtripped = loadOntology(s);
-        for (OWLAxiom ax : ontology.getLogicalAxioms()) {
-            System.out.println("o1 " + ax);
-        }
-        for (OWLAxiom ax : roundtripped.getLogicalAxioms()) {
-            System.out.println("o2 " + ax);
-        }
         assertEquals(s, ontology.getLogicalAxioms(), roundtripped.getLogicalAxioms());
     }
 

@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.ByteArrayInputStream;
 import java.util.Arrays;
@@ -402,9 +402,6 @@ public class UseOfPropertyInChainCausesCycleTestCase {
                 new ByteArrayInputStream(input1.getBytes()));
         OWL2DLProfile profile = new OWL2DLProfile();
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
-        for (OWLProfileViolation v : violations) {
-            System.out.println(v);
-        }
         assertTrue(violations.isEmpty());
     }
 
@@ -414,9 +411,6 @@ public class UseOfPropertyInChainCausesCycleTestCase {
                 new ByteArrayInputStream(input2.getBytes()));
         OWL2DLProfile profile = new OWL2DLProfile();
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
-        for (OWLProfileViolation v : violations) {
-            System.out.println(v);
-        }
         assertTrue(violations.isEmpty());
     }
 }

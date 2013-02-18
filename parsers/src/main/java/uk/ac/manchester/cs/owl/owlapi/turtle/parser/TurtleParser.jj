@@ -13,13 +13,12 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.semanticweb.owlapi.model.*;
-import java.net.*;
 import java.util.*;
 import java.io.Reader;
 import java.io.InputStream;
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
-import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.EscapeUtils;
 
 @SuppressWarnings("javadoc")
 public class TurtleParser implements AnonymousNodeChecker {
@@ -174,12 +173,12 @@ TOKEN:
 
 TOKEN:
 {
-    <INTEGER: ("+" | "-")? (<DIGIT>)+>
+    <INTEGER: ("+" | "-")? (<DIGIT>)+ >
 }
 
 TOKEN:
 {
-    <DOUBLE: ("-" | "+") ? (<DIGIT>)+ "." (<DIGIT>)* (<EXPONENT> | "." (<DIGIT>)+ <EXPONENT> | (<DIGIT>)+ <EXPONENT>)>
+    <DOUBLE: ("-" | "+") ? ((<DIGIT>)+ ("." (<DIGIT>)*)? <EXPONENT> |  "." (<DIGIT>)+ <EXPONENT>) >
 }
 
 TOKEN:
@@ -415,7 +414,6 @@ void parsePrefixDirective() :
 
 void parseBaseDirective() :
 {
-    IRI baseIRI;
     Token t;
 }
 {
@@ -451,7 +449,6 @@ IRI parseSubject() :
 
 IRI parseLoneNS() :
 {
-    IRI iri;
     Token t;
 }
 {
@@ -461,7 +458,6 @@ IRI parseLoneNS() :
 }
 IRI parseAbbreviatedIRI() :
 {
-    IRI iri;
     Token t;
 }
 {
@@ -473,7 +469,6 @@ IRI parseAbbreviatedIRI() :
 IRI parseIRI() :
 {
     Token t;
-    IRI iri;
 }
 {
     t=<FULLIRI> {return getIRI(t.image);}

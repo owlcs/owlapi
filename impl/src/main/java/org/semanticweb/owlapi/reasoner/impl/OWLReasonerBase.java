@@ -128,8 +128,6 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         return rootOntology;
     }
 
-	private final boolean log = false;
-
 	/**
 	 * Handles raw ontology changes. If the reasoner is a buffering reasoner
 	 * then the changes will be stored in a buffer. If the reasoner is a
@@ -141,10 +139,6 @@ public abstract class OWLReasonerBase implements OWLReasoner {
 	 */
     protected synchronized void handleRawOntologyChanges(
 			List<? extends OWLOntologyChange> changes) {
-		if (log) {
-			System.out.println(Thread.currentThread().getName()
-					+ " OWLReasonerBase.handleRawOntologyChanges() " + changes);
-		}
 		rawChanges.addAll(changes);
 		// We auto-flush the changes if the reasoner is non-buffering
 		if (bufferingMode.equals(BufferingMode.NON_BUFFERING)) {

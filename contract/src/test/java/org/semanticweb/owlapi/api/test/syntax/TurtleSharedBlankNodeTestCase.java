@@ -49,4 +49,5 @@ public class TurtleSharedBlankNodeTestCase extends AbstractFileRoundTrippingTest
     protected String getFileName() {
         return "annotatedpropertychain.ttl.rdf";
     }
+
 }
