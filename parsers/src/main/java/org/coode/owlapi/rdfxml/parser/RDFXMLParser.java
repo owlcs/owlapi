@@ -100,7 +100,7 @@ public class RDFXMLParser extends AbstractOWLParser {
             OWLRDFConsumer consumer = new OWLRDFConsumer(ontology, new AnonymousNodeChecker() {
                         @Override
                         public boolean isAnonymousNode(IRI iri) {
-                            return NodeID.isAnonymousNodeIRI(iri.toString());
+                            return NodeID.isAnonymousNodeIRI(iri);
                 }
 
                 @Override
