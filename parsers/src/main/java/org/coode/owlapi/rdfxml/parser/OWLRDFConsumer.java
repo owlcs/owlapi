@@ -41,8 +41,6 @@ package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -1345,56 +1343,69 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
 
-    private void printTriple(IRI subject, IRI predicate, Object object, PrintWriter w) {
-        w.append(subject.toString());
-        w.append(" -> ");
-        w.append(predicate.toString());
-        w.append(" -> ");
-        w.append(object.toString());
-        w.append("\n");
+    private void append(IRI i, StringBuilder b) {
+        b.append(i.getStart());
+        if (i.getFragment() != null) {
+            b.append(i.getFragment());
+        }
     }
 
+    private void printTriple(IRI subject, IRI predicate, IRI object) {
+        StringBuilder b = new StringBuilder();
+        append(subject, b);
+        b.append(" -> ");
+        append(predicate, b);
+        b.append(" -> ");
+        append(object, b);
+        logger.fine(b.toString());
+    }
+
+    private void printTriple(IRI subject, IRI predicate, Object object) {
+        StringBuilder b = new StringBuilder();
+        append(subject, b);
+        b.append(" -> ");
+        append(predicate, b);
+        b.append(" -> ");
+        b.append(object.toString());
+        logger.fine(b.toString());
+    }
 
     protected void dumpRemainingTriples() {
-        StringWriter sw = new StringWriter();
-        PrintWriter w = new PrintWriter(sw);
-
-        for (IRI predicate : singleValuedResTriplesByPredicate.keySet()) {
-            Map<IRI, IRI> map = singleValuedResTriplesByPredicate.get(predicate);
-            for (IRI subject : map.keySet()) {
-                IRI object = map.get(subject);
-                printTriple(subject, predicate, object, w);
+        if (logger.isLoggable(Level.FINE)) {
+            for (IRI predicate : singleValuedResTriplesByPredicate.keySet()) {
+                Map<IRI, IRI> map = singleValuedResTriplesByPredicate.get(predicate);
+                for (IRI subject : map.keySet()) {
+                    IRI object = map.get(subject);
+                    printTriple(subject, predicate, object);
+                }
             }
-        }
-
-        for (IRI predicate : singleValuedLitTriplesByPredicate.keySet()) {
-            Map<IRI, OWLLiteral> map = singleValuedLitTriplesByPredicate.get(predicate);
-            for (IRI subject : map.keySet()) {
-                OWLLiteral object = map.get(subject);
-                printTriple(subject, predicate, object, w);
+            for (IRI predicate : singleValuedLitTriplesByPredicate.keySet()) {
+                Map<IRI, OWLLiteral> map = singleValuedLitTriplesByPredicate
+                        .get(predicate);
+                for (IRI subject : map.keySet()) {
+                    OWLLiteral object = map.get(subject);
+                    printTriple(subject, predicate, object);
+                }
             }
-        }
-
-        for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
-            Map<IRI, Collection<IRI>> map = resTriplesBySubject.get(subject);
-            for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                Collection<IRI> objects = map.get(predicate);
-                for (IRI object : objects) {
-                    printTriple(subject, predicate, object, w);
+            for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
+                Map<IRI, Collection<IRI>> map = resTriplesBySubject.get(subject);
+                for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
+                    Collection<IRI> objects = map.get(predicate);
+                    for (IRI object : objects) {
+                        printTriple(subject, predicate, object);
+                    }
+                }
+            }
+            for (IRI subject : new ArrayList<IRI>(litTriplesBySubject.keySet())) {
+                Map<IRI, Collection<OWLLiteral>> map = litTriplesBySubject.get(subject);
+                for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
+                    Collection<OWLLiteral> objects = map.get(predicate);
+                    for (OWLLiteral object : objects) {
+                        printTriple(subject, predicate, object);
+                    }
                 }
             }
         }
-        for (IRI subject : new ArrayList<IRI>(litTriplesBySubject.keySet())) {
-            Map<IRI, Collection<OWLLiteral>> map = litTriplesBySubject.get(subject);
-            for (IRI predicate : new ArrayList<IRI>(map.keySet())) {
-                Collection<OWLLiteral> objects = map.get(predicate);
-                for (OWLLiteral object : objects) {
-                    printTriple(subject, predicate, object, w);
-                }
-            }
-        }
-        w.flush();
-        logger.fine(sw.getBuffer().toString());
     }
 
 
