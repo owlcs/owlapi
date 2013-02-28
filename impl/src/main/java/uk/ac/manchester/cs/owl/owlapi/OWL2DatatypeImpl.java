@@ -419,6 +419,11 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return owl2Datatype.getIRI().toString();
     }
 
+    @Override
+    public String toString() {
+        return toStringID();
+    }
+
     /**
      * Gets the axioms in the specified ontology that contain this entity in their signature.
      * @param ontology The ontology that will be searched for axioms
@@ -570,7 +575,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      */
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
-        return Collections.emptySet();
+        return Collections.singleton((OWLDatatype) this);
     }
 
     /**
