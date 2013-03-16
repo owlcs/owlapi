@@ -51,6 +51,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
@@ -71,6 +72,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
 	private static final long serialVersionUID = 30402L;
 	private static final String UTF_8 = "UTF-8";
+    protected final static Logger LOGGER = Logger.getLogger(OWLOntologyStorer.class
+            .getName());
 
     @Override
     public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
@@ -132,8 +135,6 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             }
             finally {
 
-                tempFile.delete();
-
                 if (br != null){
                     br.close();
                 }
@@ -154,6 +155,10 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                 }
                 if (outputStreamWriter != null){
                     outputStreamWriter.close();
+                }
+                if (!tempFile.delete()) {
+                    LOGGER.warning("Temporary file " + tempFile.getAbsolutePath()
+                            + " cannot be deleted.");
                 }
             }
 
