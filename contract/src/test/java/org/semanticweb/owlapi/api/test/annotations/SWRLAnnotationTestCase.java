@@ -44,7 +44,9 @@ public class SWRLAnnotationTestCase {
                 Literal("Not a great rule"));
         Set<OWLAnnotation> annotations = new TreeSet<OWLAnnotation>();
         annotations.add(annotation);
-        AXIOM = factory.getSWRLRule(new TreeSet<SWRLAtom>(), consequent, annotations);
+        Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
+        body.add(atom);
+        AXIOM = factory.getSWRLRule(body, consequent, annotations);
         // System.out.println("Using " + AXIOM + " as a rule");
     }
 

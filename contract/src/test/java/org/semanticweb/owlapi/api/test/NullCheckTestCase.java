@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,9 +42,13 @@ public class NullCheckTestCase {
     OWLLiteral lit = f.getOWLLiteral(true);
     OWLAnnotationSubject owlannsubj = IRI("urn:i");
     OWLDatatype owldatatype = f.getOWLDatatype(owl2datatype.getIRI());
-    OWLDataRange owldatarange = f.getOWLDatatypeRestriction(owldatatype);
-    OWLAnnotationProperty owlap = f.getOWLAnnotationProperty(IRI("urn:ap"));
     OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
+    OWLFacetRestriction[] lowlfacetrestriction = new OWLFacetRestriction[] { f
+            .getOWLFacetRestriction(owlfacet, 1) };
+    OWLDataRange owldatarange = f.getOWLDatatypeRestriction(owldatatype,
+            lowlfacetrestriction);
+    OWLAnnotationProperty owlap = f.getOWLAnnotationProperty(IRI("urn:ap"));
+
     OWLAnnotation owlannotation = f.getOWLAnnotation(owlap, lit);
     String string = "testString";
     OWLClass owlclass = f.getOWLClass(IRI("urn:classexpression"));
@@ -65,8 +69,7 @@ public class NullCheckTestCase {
     Set<OWLIndividual> nullsetowlindividual = getNullSet();
     Set<OWLPropertyExpression<?, ?>> setowlpropertyexpression = new HashSet<OWLPropertyExpression<?, ?>>();
     Set<OWLPropertyExpression<?, ?>> nullsetowlpropertyexpression = getNullSet();
-    OWLFacetRestriction[] lowlfacetrestriction = new OWLFacetRestriction[] { f
-            .getOWLFacetRestriction(owlfacet, 1) };
+
     OWLFacetRestriction[] nulllowlfacetrestriction = new OWLFacetRestriction[] {
             f.getOWLFacetRestriction(owlfacet, 1), null };
     Set<OWLClassExpression> setce = new HashSet<OWLClassExpression>();

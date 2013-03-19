@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.Collection;
 import java.util.List;
@@ -461,8 +461,6 @@ public class ContractOwlapi_4Test {
         Object result2 = testSubject0.accept(Utils.mockAxiom());
         OWLAxiom result3 = testSubject0.getAxiomWithoutAnnotations();
         SWRLRule result4 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         boolean result6 = testSubject0.isLogicalAxiom();
         AxiomType<?> result7 = testSubject0.getAxiomType();
         SWRLRule result8 = testSubject0.getSimplified();

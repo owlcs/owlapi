@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -267,8 +267,6 @@ public class ContractOwlapi_3Test {
         testSubject0.accept(mock(OWLAxiomVisitor.class));
         Object result28 = testSubject0.accept(Utils.mockAxiom());
         OWLAxiom result29 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result30 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result31 = testSubject0.getAxiomType();
         Set<? extends OWLNaryAxiom> result32 = testSubject0.asPairwiseAxioms();
         Set<OWLSubClassOfAxiom> result33 = testSubject0.asOWLSubClassOfAxioms();
@@ -420,8 +418,6 @@ public class ContractOwlapi_3Test {
         testSubject0.accept(mock(OWLAxiomVisitor.class));
         Object result26 = testSubject0.accept(Utils.mockAxiom());
         OWLAxiom result27 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result28 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result29 = testSubject0.getAxiomType();
         Set<? extends OWLNaryAxiom> result30 = testSubject0.asPairwiseAxioms();
         Set<OWLSubClassOfAxiom> result31 = testSubject0.asOWLSubClassOfAxioms();
@@ -496,8 +492,6 @@ public class ContractOwlapi_3Test {
         testSubject0.accept(mock(OWLAxiomVisitor.class));
         Object result26 = testSubject0.accept(Utils.mockAxiom());
         OWLAxiom result27 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result28 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result29 = testSubject0.getAxiomType();
     }
 
@@ -513,10 +507,6 @@ public class ContractOwlapi_3Test {
         OWLAxiom result2 = testSubject0.getAxiomWithoutAnnotations();
         OWLNegativeDataPropertyAssertionAxiom result3 = testSubject0
                 .getAxiomWithoutAnnotations();
-        OWLAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLNegativeDataPropertyAssertionAxiom result5 = testSubject0
-                .getAnnotatedAxiom(Utils.mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result6 = testSubject0.getAxiomType();
         boolean result7 = testSubject0.containsAnonymousIndividuals();
         OWLSubClassOfAxiom result8 = testSubject0.asOWLSubClassOfAxiom();
@@ -557,10 +547,6 @@ public class ContractOwlapi_3Test {
         OWLAxiom result2 = testSubject0.getAxiomWithoutAnnotations();
         OWLNegativeObjectPropertyAssertionAxiom result3 = testSubject0
                 .getAxiomWithoutAnnotations();
-        OWLAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLNegativeObjectPropertyAssertionAxiom result5 = testSubject0
-                .getAnnotatedAxiom(Utils.mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result6 = testSubject0.getAxiomType();
         boolean result7 = testSubject0.containsAnonymousIndividuals();
         OWLSubClassOfAxiom result8 = testSubject0.asOWLSubClassOfAxiom();
@@ -1071,7 +1057,6 @@ public class ContractOwlapi_3Test {
         Set<OWLIndividual> result2 = testSubject0.getIndividuals();
         ClassExpressionType result3 = testSubject0.getClassExpressionType();
         boolean result4 = testSubject0.isClassExpressionLiteral();
-        OWLClassExpression result5 = testSubject0.asObjectUnionOf();
         boolean result6 = testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {
             if (!testSubject0.isAnonymous()) {
@@ -1106,10 +1091,6 @@ public class ContractOwlapi_3Test {
         OWLObjectPropertyAssertionAxiom result2 = testSubject0
                 .getAxiomWithoutAnnotations();
         OWLAxiom result3 = testSubject0.getAxiomWithoutAnnotations();
-        OWLObjectPropertyAssertionAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result6 = testSubject0.getAxiomType();
         OWLObjectPropertyAssertionAxiom result7 = testSubject0.getSimplified();
         OWLSubClassOfAxiom result8 = testSubject0.asOWLSubClassOfAxiom();
@@ -1203,8 +1184,6 @@ public class ContractOwlapi_3Test {
         testSubject0.accept(mock(OWLAxiomVisitor.class));
         Object result26 = testSubject0.accept(Utils.mockAxiom());
         OWLAxiom result27 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result28 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result29 = testSubject0.getAxiomType();
     }
 
@@ -1219,10 +1198,6 @@ public class ContractOwlapi_3Test {
         Object result1 = testSubject0.accept(Utils.mockObject());
         OWLObjectPropertyDomainAxiom result2 = testSubject0.getAxiomWithoutAnnotations();
         OWLAxiom result3 = testSubject0.getAxiomWithoutAnnotations();
-        OWLObjectPropertyDomainAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result6 = testSubject0.getAxiomType();
         OWLSubClassOfAxiom result7 = testSubject0.asOWLSubClassOfAxiom();
         OWLClassExpression result8 = testSubject0.getDomain();
@@ -1513,10 +1488,6 @@ public class ContractOwlapi_3Test {
         Object result1 = testSubject0.accept(Utils.mockObject());
         OWLObjectPropertyRangeAxiom result2 = testSubject0.getAxiomWithoutAnnotations();
         OWLAxiom result3 = testSubject0.getAxiomWithoutAnnotations();
-        OWLObjectPropertyRangeAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result6 = testSubject0.getAxiomType();
         OWLSubClassOfAxiom result7 = testSubject0.asOWLSubClassOfAxiom();
         OWLPropertyRange result8 = testSubject0.getRange();
@@ -1725,8 +1696,6 @@ public class ContractOwlapi_3Test {
         testSubject0.accept(mock(OWLAxiomVisitor.class));
         Object result24 = testSubject0.accept(Utils.mockAxiom());
         OWLAxiom result25 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result26 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result27 = testSubject0.getAxiomType();
     }
 
@@ -1801,8 +1770,6 @@ public class ContractOwlapi_3Test {
         testSubject0.accept(mock(OWLAxiomVisitor.class));
         Object result26 = testSubject0.accept(Utils.mockAxiom());
         OWLAxiom result27 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result28 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result29 = testSubject0.getAxiomType();
         OWLSubClassOfAxiom result30 = testSubject0.asOWLSubClassOfAxiom();
     }
@@ -2011,8 +1978,6 @@ public class ContractOwlapi_3Test {
         Set<OWLDatatype> result20 = testSubject0.getDatatypesInSignature();
         testSubject0.accept(mock(OWLObjectVisitor.class));
         OWLAxiom result27 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result28 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result29 = testSubject0.getAxiomType();
         OWLSubClassOfAxiom result30 = testSubject0.asOWLSubClassOfAxiom();
     }
@@ -2250,10 +2215,6 @@ public class ContractOwlapi_3Test {
         OWLReflexiveObjectPropertyAxiom result2 = testSubject0
                 .getAxiomWithoutAnnotations();
         OWLAxiom result3 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLReflexiveObjectPropertyAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result6 = testSubject0.getAxiomType();
         OWLSubClassOfAxiom result7 = testSubject0.asOWLSubClassOfAxiom();
         OWLObjectPropertyExpression result8 = testSubject0.getProperty();
@@ -2365,10 +2326,6 @@ public class ContractOwlapi_3Test {
         testSubject0.accept(mock(OWLObjectVisitor.class));
         OWLAxiom result2 = testSubject0.getAxiomWithoutAnnotations();
         OWLSameIndividualAxiom result3 = testSubject0.getAxiomWithoutAnnotations();
-        OWLSameIndividualAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result6 = testSubject0.getAxiomType();
         boolean result7 = testSubject0.containsAnonymousIndividuals();
         Set<OWLSameIndividualAxiom> result8 = testSubject0.asPairwiseAxioms();
@@ -2407,10 +2364,6 @@ public class ContractOwlapi_3Test {
         OWLAxiom result2 = testSubject0.getAxiomWithoutAnnotations();
         OWLSubAnnotationPropertyOfAxiom result3 = testSubject0
                 .getAxiomWithoutAnnotations();
-        OWLAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLSubAnnotationPropertyOfAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         boolean result6 = testSubject0.isLogicalAxiom();
         boolean result7 = testSubject0.isAnnotationAxiom();
         AxiomType<?> result8 = testSubject0.getAxiomType();
@@ -2445,10 +2398,6 @@ public class ContractOwlapi_3Test {
         Object result2 = testSubject0.accept(Utils.mockAxiom());
         OWLAxiom result3 = testSubject0.getAxiomWithoutAnnotations();
         OWLSubClassOfAxiom result4 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLSubClassOfAxiom result6 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result7 = testSubject0.getAxiomType();
         OWLClassExpression result8 = testSubject0.getSubClass();
         OWLClassExpression result9 = testSubject0.getSuperClass();
@@ -2485,10 +2434,6 @@ public class ContractOwlapi_3Test {
         Object result1 = testSubject0.accept(Utils.mockObject());
         OWLAxiom result2 = testSubject0.getAxiomWithoutAnnotations();
         OWLSubDataPropertyOfAxiom result3 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLSubDataPropertyOfAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result6 = testSubject0.getAxiomType();
         OWLDataPropertyExpression result7 = testSubject0.getSubProperty();
         OWLDataPropertyExpression result8 = testSubject0.getSuperProperty();
@@ -2523,10 +2468,6 @@ public class ContractOwlapi_3Test {
         Object result1 = testSubject0.accept(Utils.mockObject());
         OWLAxiom result2 = testSubject0.getAxiomWithoutAnnotations();
         OWLSubObjectPropertyOfAxiom result3 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLSubObjectPropertyOfAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result6 = testSubject0.getAxiomType();
         OWLObjectPropertyExpression result7 = testSubject0.getSubProperty();
         OWLObjectPropertyExpression result8 = testSubject0.getSuperProperty();
@@ -2616,8 +2557,6 @@ public class ContractOwlapi_3Test {
         testSubject0.accept(mock(OWLAxiomVisitor.class));
         Object result26 = testSubject0.accept(Utils.mockAxiom());
         OWLAxiom result27 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result28 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result29 = testSubject0.getAxiomType();
     }
 
@@ -2632,10 +2571,6 @@ public class ContractOwlapi_3Test {
         Object result1 = testSubject0.accept(Utils.mockObject());
         OWLAxiom result2 = testSubject0.getAxiomWithoutAnnotations();
         OWLSubPropertyChainOfAxiom result3 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLSubPropertyChainOfAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result6 = testSubject0.getAxiomType();
         OWLObjectPropertyExpression result7 = testSubject0.getSuperProperty();
         List<OWLObjectPropertyExpression> result8 = testSubject0.getPropertyChain();
@@ -2672,10 +2607,6 @@ public class ContractOwlapi_3Test {
         OWLAxiom result2 = testSubject0.getAxiomWithoutAnnotations();
         OWLSymmetricObjectPropertyAxiom result3 = testSubject0
                 .getAxiomWithoutAnnotations();
-        OWLAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
-        OWLSymmetricObjectPropertyAxiom result5 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result6 = testSubject0.getAxiomType();
         boolean result10 = testSubject0.isLogicalAxiom();
         boolean result11 = testSubject0.isAnnotationAxiom();
@@ -2707,8 +2638,6 @@ public class ContractOwlapi_3Test {
         OWLAxiom result2 = testSubject0.getAxiomWithoutAnnotations();
         OWLTransitiveObjectPropertyAxiom result3 = testSubject0
                 .getAxiomWithoutAnnotations();
-        OWLAxiom result4 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result5 = testSubject0.getAxiomType();
         OWLObjectPropertyExpression result6 = testSubject0.getProperty();
         OWLObjectPropertyExpression result7 = testSubject0.getProperty();
@@ -2800,8 +2729,6 @@ public class ContractOwlapi_3Test {
         testSubject0.accept(mock(OWLAxiomVisitor.class));
         Object result25 = testSubject0.accept(Utils.mockAxiom());
         OWLAxiom result26 = testSubject0.getAxiomWithoutAnnotations();
-        OWLAxiom result27 = testSubject0.getAnnotatedAxiom(Utils
-                .mockSet(mock(OWLAnnotation.class)));
         AxiomType<?> result28 = testSubject0.getAxiomType();
     }
 }

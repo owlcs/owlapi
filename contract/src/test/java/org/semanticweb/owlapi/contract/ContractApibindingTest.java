@@ -90,37 +90,34 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractApibindingTest {
     public void shouldTestOWLFunctionalSyntaxFactory() throws Exception {
-        OWLDeclarationAxiom result0 = Declaration(Utils
-                .mockOWLEntity());
+        OWLDeclarationAxiom result0 = Declaration(Utils.mockOWLEntity());
         OWLEquivalentClassesAxiom result1 = EquivalentClasses(Utils.mockAnonClass());
-        OWLSubClassOfAxiom result2 = SubClassOf(
-                Utils.mockAnonClass(), Utils.mockAnonClass());
+        OWLSubClassOfAxiom result2 = SubClassOf(Utils.mockAnonClass(),
+                Utils.mockAnonClass());
         OWLDisjointClassesAxiom result3 = DisjointClasses(Utils.mockAnonClass());
-        OWLDisjointUnionAxiom result4 = DisjointUnion(
-                mock(OWLClass.class), Utils.mockAnonClass());
-        OWLClassAssertionAxiom result5 = ClassAssertion(
-                Utils.mockAnonClass(), mock(OWLIndividual.class));
+        OWLDisjointUnionAxiom result4 = DisjointUnion(mock(OWLClass.class),
+                Utils.mockAnonClass());
+        OWLClassAssertionAxiom result5 = ClassAssertion(Utils.mockAnonClass(),
+                mock(OWLIndividual.class));
         OWLSameIndividualAxiom result6 = SameIndividual(mock(OWLIndividual[].class));
         OWLDifferentIndividualsAxiom result7 = DifferentIndividuals(mock(OWLIndividual[].class));
         OWLObjectPropertyAssertionAxiom result8 = ObjectPropertyAssertion(
-                Utils.mockObjectProperty(),
-                        mock(OWLIndividual.class), mock(OWLIndividual.class));
+                Utils.mockObjectProperty(), mock(OWLIndividual.class),
+                mock(OWLIndividual.class));
         OWLNegativeObjectPropertyAssertionAxiom result9 = NegativeObjectPropertyAssertion(
-                Utils.mockObjectProperty(),
-                        mock(OWLIndividual.class), mock(OWLIndividual.class));
+                Utils.mockObjectProperty(), mock(OWLIndividual.class),
+                mock(OWLIndividual.class));
         OWLDataPropertyAssertionAxiom result10 = DataPropertyAssertion(
-                mock(OWLDataPropertyExpression.class),
-                        mock(OWLIndividual.class), mock(OWLLiteral.class));
+                mock(OWLDataPropertyExpression.class), mock(OWLIndividual.class),
+                mock(OWLLiteral.class));
         OWLNegativeDataPropertyAssertionAxiom result11 = NegativeDataPropertyAssertion(
-                mock(OWLDataPropertyExpression.class),
-                        mock(OWLIndividual.class), mock(OWLLiteral.class));
+                mock(OWLDataPropertyExpression.class), mock(OWLIndividual.class),
+                mock(OWLLiteral.class));
         OWLEquivalentObjectPropertiesAxiom result12 = EquivalentObjectProperties(mock(OWLObjectPropertyExpression[].class));
         OWLSubObjectPropertyOfAxiom result13 = SubObjectPropertyOf(
-                Utils.mockObjectProperty(),
-                        Utils.mockObjectProperty());
+                Utils.mockObjectProperty(), Utils.mockObjectProperty());
         OWLInverseObjectPropertiesAxiom result14 = InverseObjectProperties(
-                Utils.mockObjectProperty(),
-                        Utils.mockObjectProperty());
+                Utils.mockObjectProperty(), Utils.mockObjectProperty());
         OWLFunctionalObjectPropertyAxiom result15 = FunctionalObjectProperty(Utils
                 .mockObjectProperty());
         OWLInverseFunctionalObjectPropertyAxiom result16 = InverseFunctionalObjectProperty(Utils
@@ -141,48 +138,39 @@ public class ContractApibindingTest {
         OWLEquivalentDataPropertiesAxiom result24 = EquivalentDataProperties(mock(OWLDataPropertyExpression[].class));
         OWLSubDataPropertyOfAxiom result25 = SubDataPropertyOf(
                 mock(OWLDataPropertyExpression.class),
-                        mock(OWLDataPropertyExpression.class));
+                mock(OWLDataPropertyExpression.class));
         OWLFunctionalDataPropertyAxiom result26 = FunctionalDataProperty(mock(OWLDataPropertyExpression.class));
         OWLDataPropertyDomainAxiom result27 = DataPropertyDomain(
-                mock(OWLDataPropertyExpression.class),
-                        Utils.mockAnonClass());
+                mock(OWLDataPropertyExpression.class), Utils.mockAnonClass());
         OWLDataPropertyRangeAxiom result28 = DataPropertyRange(
-                mock(OWLDataPropertyExpression.class),
-                        mock(OWLDataRange.class));
+                mock(OWLDataPropertyExpression.class), mock(OWLDataRange.class));
         OWLDisjointDataPropertiesAxiom result29 = DisjointDataProperties(mock(OWLDataPropertyExpression[].class));
-        OWLHasKeyAxiom result30 = HasKey(
-                Utils.mockAnonClass(), mock(OWLPropertyExpression[].class));
+        OWLHasKeyAxiom result30 = HasKey(Utils.mockAnonClass(),
+                mock(OWLPropertyExpression[].class));
         OWLAnnotationAssertionAxiom result31 = AnnotationAssertion(
-                mock(OWLAnnotationProperty.class),
-                        mock(OWLAnnotationSubject.class), mock(OWLAnnotationValue.class));
+                mock(OWLAnnotationProperty.class), mock(OWLAnnotationSubject.class),
+                mock(OWLAnnotationValue.class));
         OWLSubAnnotationPropertyOfAxiom result32 = SubAnnotationPropertyOf(
-                mock(OWLAnnotationProperty.class),
-                        mock(OWLAnnotationProperty.class));
+                mock(OWLAnnotationProperty.class), mock(OWLAnnotationProperty.class));
         OWLAnnotationPropertyDomainAxiom result33 = AnnotationPropertyDomain(
-                mock(OWLAnnotationProperty.class),
-                        IRI("urn:aFake"));
+                mock(OWLAnnotationProperty.class), IRI("urn:aFake"));
         OWLDatatypeDefinitionAxiom result34 = DatatypeDefinition(mock(OWLDatatype.class),
                 mock(OWLDataRange.class));
         OWLClass result35 = Class(IRI("urn:aFake"));
-        OWLClass result36 = Class("",
-                new DefaultPrefixManager());
+        OWLClass result36 = Class("", new DefaultPrefixManager());
         OWLObjectSomeValuesFrom result37 = ObjectSomeValuesFrom(
                 Utils.mockObjectProperty(), Utils.mockAnonClass());
-        OWLObjectAllValuesFrom result38 = ObjectAllValuesFrom(
-                Utils.mockObjectProperty(), Utils.mockAnonClass());
+        OWLObjectAllValuesFrom result38 = ObjectAllValuesFrom(Utils.mockObjectProperty(),
+                Utils.mockAnonClass());
         OWLObjectMinCardinality result39 = ObjectMinCardinality(0,
-                Utils.mockObjectProperty(),
-                        Utils.mockAnonClass());
+                Utils.mockObjectProperty(), Utils.mockAnonClass());
         OWLObjectMaxCardinality result40 = ObjectMaxCardinality(0,
-                Utils.mockObjectProperty(),
-                        Utils.mockAnonClass());
+                Utils.mockObjectProperty(), Utils.mockAnonClass());
         OWLObjectExactCardinality result41 = ObjectExactCardinality(0,
-                Utils.mockObjectProperty(),
-                        Utils.mockAnonClass());
-        OWLObjectHasValue result42 = ObjectHasValue(
-                Utils.mockObjectProperty(), mock(OWLIndividual.class));
-        OWLObjectHasSelf result43 = ObjectHasSelf(Utils
-                .mockObjectProperty());
+                Utils.mockObjectProperty(), Utils.mockAnonClass());
+        OWLObjectHasValue result42 = ObjectHasValue(Utils.mockObjectProperty(),
+                mock(OWLIndividual.class));
+        OWLObjectHasSelf result43 = ObjectHasSelf(Utils.mockObjectProperty());
         OWLDataSomeValuesFrom result44 = DataSomeValuesFrom(
                 mock(OWLDataPropertyExpression.class), mock(OWLDataRange.class));
         OWLDataAllValuesFrom result45 = DataAllValuesFrom(
@@ -192,36 +180,30 @@ public class ContractApibindingTest {
         OWLDataMaxCardinality result47 = DataMaxCardinality(0,
                 mock(OWLDataPropertyExpression.class), mock(OWLDataRange.class));
         OWLDataExactCardinality result48 = DataExactCardinality(0,
-                mock(OWLDataPropertyExpression.class),
-                        mock(OWLDataRange.class));
-        OWLDataHasValue result49 = DataHasValue(
-                mock(OWLDataPropertyExpression.class), mock(OWLLiteral.class));
+                mock(OWLDataPropertyExpression.class), mock(OWLDataRange.class));
+        OWLDataHasValue result49 = DataHasValue(mock(OWLDataPropertyExpression.class),
+                mock(OWLLiteral.class));
         OWLObjectIntersectionOf result50 = ObjectIntersectionOf(Utils.mockAnonClass());
-        OWLObjectUnionOf result51 = ObjectUnionOf(Utils
-                .mockAnonClass());
+        OWLObjectUnionOf result51 = ObjectUnionOf(Utils.mockAnonClass());
         OWLObjectComplementOf result52 = ObjectComplementOf(Utils.mockAnonClass());
         OWLObjectOneOf result53 = ObjectOneOf(mock(OWLIndividual[].class));
         OWLDatatype result54 = Datatype(IRI("urn:aFake"));
         OWLDataOneOf result55 = DataOneOf(mock(OWLLiteral[].class));
-        OWLDatatypeRestriction result56 = DatatypeRestriction(
-                mock(OWLDatatype.class), mock(OWLFacetRestriction[].class));
+        OWLDatatypeRestriction result56 = DatatypeRestriction(mock(OWLDatatype.class),
+                mock(OWLFacetRestriction[].class));
         OWLDataComplementOf result57 = DataComplementOf(mock(OWLDataRange.class));
         OWLDataUnionOf result58 = DataUnionOf(mock(OWLDataRange[].class));
         OWLDataIntersectionOf result59 = DataIntersectionOf(mock(OWLDataRange[].class));
         OWLObjectProperty result60 = ObjectProperty(IRI("urn:aFake"));
-        OWLObjectProperty result61 = ObjectProperty("",
-                new DefaultPrefixManager());
-        OWLDataProperty result62 = DataProperty("",
-                new DefaultPrefixManager());
+        OWLObjectProperty result61 = ObjectProperty("", new DefaultPrefixManager());
+        OWLDataProperty result62 = DataProperty("", new DefaultPrefixManager());
         OWLDataProperty result63 = DataProperty(IRI("urn:aFake"));
-        OWLAnnotationProperty result64 = AnnotationProperty(
-                "", new DefaultPrefixManager());
+        OWLAnnotationProperty result64 = AnnotationProperty("",
+                new DefaultPrefixManager());
         OWLAnnotationProperty result65 = AnnotationProperty(IRI("urn:aFake"));
         OWLNamedIndividual result66 = NamedIndividual(IRI("urn:aFake"));
-        OWLNamedIndividual result67 = NamedIndividual("",
-                new DefaultPrefixManager());
-        OWLOntology result68 = Ontology(
-                Utils.getMockManager(), mock(OWLAxiom[].class));
+        OWLNamedIndividual result67 = NamedIndividual("", new DefaultPrefixManager());
+        OWLOntology result68 = Ontology(Utils.getMockManager(), mock(OWLAxiom[].class));
         OWLLiteral result69 = Literal(false);
         OWLLiteral result70 = Literal(0F);
         OWLLiteral result71 = Literal(0D);
@@ -229,15 +211,13 @@ public class ContractApibindingTest {
         OWLLiteral result73 = Literal("");
         OWLLiteral result74 = Literal(0);
         OWLLiteral result75 = PlainLiteral("");
-        OWLObjectInverseOf result77 = ObjectInverseOf(Utils
-                .mockObjectProperty());
-        OWLFacetRestriction result78 = FacetRestriction(
-                OWLFacet.MAX_INCLUSIVE, mock(OWLLiteral.class));
+        OWLObjectInverseOf result77 = ObjectInverseOf(Utils.mockObjectProperty());
+        OWLFacetRestriction result78 = FacetRestriction(OWLFacet.MAX_INCLUSIVE,
+                mock(OWLLiteral.class));
         OWLIrreflexiveObjectPropertyAxiom result79 = IrreflexiveObjectProperty(Utils
                 .mockObjectProperty());
         OWLAnnotationPropertyRangeAxiom result80 = AnnotationPropertyRange(
-                mock(OWLAnnotationProperty.class),
-                        IRI("urn:aFake"));
+                mock(OWLAnnotationProperty.class), IRI("urn:aFake"));
         OWLClass result81 = OWLThing();
         OWLClass result82 = OWLNothing();
     }
