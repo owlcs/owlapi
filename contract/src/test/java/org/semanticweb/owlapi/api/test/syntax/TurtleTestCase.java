@@ -13,7 +13,9 @@ import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -100,8 +102,7 @@ public class TurtleTestCase {
 
     // test for 335
     @Test
-    public void shouldParseScientificNotation() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldParseScientificNotation() throws OWLOntologyCreationException {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1e+07 .";
         OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input));
@@ -113,8 +114,7 @@ public class TurtleTestCase {
     }
 
     @Test
-    public void shouldParse_one() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldParse_one() throws OWLOntologyCreationException {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1 .";
         OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input));
@@ -125,8 +125,7 @@ public class TurtleTestCase {
     }
 
     @Test
-    public void shouldParseOne() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldParseOne() throws OWLOntologyCreationException {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1.0.";
         OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input));
@@ -135,5 +134,24 @@ public class TurtleTestCase {
         IRI s = IRI("http://dbpedia.org/resource/South_Africa");
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, s,
                 Literal("1.0", OWL2Datatype.XSD_DECIMAL))));
+    }
+
+    @Test
+    public void shouldParseEmptySpaceInBnode() throws OWLOntologyCreationException {
+        String input = "<http://taxonomy.wolterskluwer.de/practicearea/10112>\n"
+                + "      a       <http://schema.wolterskluwer.de/TaxonomyTerm> , <http://www.w3.org/2004/02/skos/core#Concept> ;\n"
+                + "      <http://www.w3.org/2004/02/skos/core#broader>\n"
+                + "              [] ;\n"
+                + "      <http://www.w3.org/2004/02/skos/core#broader>\n"
+                + "              [] .";
+        OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(input));
+        OWLIndividual i = NamedIndividual(IRI("http://taxonomy.wolterskluwer.de/practicearea/10112"));
+        OWLAnnotationProperty ap = AnnotationProperty(IRI("http://www.w3.org/2004/02/skos/core#broader"));
+        OWLClass c = Class(IRI("http://www.w3.org/2004/02/skos/core#Concept"));
+        OWLClass term = Class(IRI("http://schema.wolterskluwer.de/TaxonomyTerm"));
+        assertTrue(ontology.containsAxiom(ClassAssertion(c, i)));
+        assertTrue(ontology.containsAxiom(ClassAssertion(term, i)));
+        assertTrue(ontology.containsEntityInSignature(ap));
     }
 }

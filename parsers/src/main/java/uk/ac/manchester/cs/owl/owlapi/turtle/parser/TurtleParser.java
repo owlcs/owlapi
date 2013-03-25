@@ -224,7 +224,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     } else if (jj_2_12(2)) {
       jj_consume_token(EMPTY_BLANK_NODE);
                        if(iri==null){iri = getNextBlankNode(null);}
-      parsePredicateObjectList(iri);
     } else if (jj_2_13(2)) {
       jj_consume_token(OPEN_SQUARE_BRACKET);
       if (jj_2_10(2)) {
@@ -1192,7 +1191,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
   private boolean jj_3_12() {
     if (jj_scan_token(EMPTY_BLANK_NODE)) return true;
-    if (jj_3R_9()) return true;
     return false;
   }
 
