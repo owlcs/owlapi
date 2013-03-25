@@ -17,7 +17,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>3.4.3-SNAPSHOT</version>
+	<version>3.4.4-SNAPSHOT</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
@@ -124,7 +124,55 @@
 							</execution>
 						</executions>
 					</plugin>
-				</plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Name>${project.artifactId}</Bundle-Name>
+							<Export-Package>org.semanticweb.owlapi.*</Export-Package>
+							<Export-Package>org.semanticweb.owlapi.reasoner.*</Export-Package>
+							<Export-Package>org.semanticweb.owlapi.*</Export-Package>
+							<Export-Package>org.coode.owlapi.*</Export-Package>
+							<Export-Package>org.semanticweb.owlapi.*</Export-Package>
+							<Export-Package>org.semanticweb.owlapi.api.*</Export-Package>
+							<Export-Package>org.semanticweb.owlapi.api.test.*</Export-Package>
+							<Export-Package>org.semanticweb.owlapi.api.test.syntax.*</Export-Package>
+							<Export-Package>uk.ac.manchester.cs.owl.explanation.*</Export-Package>
+							<Export-Package>uk.ac.manchester.owl.owlapi.*</Export-Package>
+							<Export-Package>uk.ac.manchester.owl.owlapi.tutorial.*</Export-Package>
+							<Export-Package>org.semanticweb.owlapi.reasoner.*</Export-Package>
+							<Export-Package>uk.ac.manchester.cs.owl.*</Export-Package>
+							<Export-Package>de.uulm.ecs.ai.owlapi.*</Export-Package>
+							<Export-Package>org.coode.*</Export-Package>
+							<Export-Package>org.coode.owl.*</Export-Package>
+							<Export-Package>org.coode.owlapi.*</Export-Package>
+							<Export-Package>org.coode.owlapi.obo.*</Export-Package>
+							<Export-Package>org.coode.owlapi.owlxml.*</Export-Package>
+							<Export-Package>org.coode.owlapi.rdf.*</Export-Package>
+							<Export-Package>org.coode.owlapi.rdfxml.*</Export-Package>
+							<Export-Package>org.semanticweb.owlapi.*</Export-Package>
+							<Export-Package>org.semanticweb.owlapi.rdf.*</Export-Package>
+							<Export-Package>uk.ac.manchester.*</Export-Package>
+							<Export-Package>uk.ac.manchester.cs.owl.owlapi.*</Export-Package>
+							<Export-Package>uk.ac.manchester.cs.owl.owlapi.turtle.*</Export-Package>
+							<Export-Package>uk.ac.manchester.cs.owlapi.*</Export-Package>
+							<Export-Package>uk.ac.manchester.cs.owlapi.dlsyntax.*</Export-Package>
+							<Export-Package>com.clarkparsia.owlapi.*</Export-Package>
+							<Export-Package>com.clarkparsia.owlapi.explanation.*</Export-Package>
+							<Export-Package>com.clarkparsia.owlapi.modularity.*</Export-Package>
+							<Export-Package>org.semanticweb.*</Export-Package>
+							<Export-Package>org.semanticweb.owlapi.*</Export-Package>
+							<Export-Package>uk.ac.manchester.cs.bhig.*</Export-Package>
+							<Export-Package>uk.ac.manchester.cs.owl.explanation.*</Export-Package>
+							<Export-Package>uk.ac.manchester.cs.owlapi.*</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
 			</build>
 		</profile>
 
