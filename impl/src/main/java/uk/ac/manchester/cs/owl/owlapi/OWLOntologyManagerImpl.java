@@ -232,7 +232,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             return true;
         }
         for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
-            if (id.getOntologyIRI().equals(nextOntologyID.getOntologyIRI())) {
+            if (!id.isAnonymous()
+                    && id.getOntologyIRI().equals(nextOntologyID.getOntologyIRI())) {
                 return true;
             }
         }

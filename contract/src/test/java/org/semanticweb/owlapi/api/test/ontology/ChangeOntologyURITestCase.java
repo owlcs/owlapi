@@ -39,13 +39,16 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.OWLOntologyURIChanger;
 
@@ -81,5 +84,14 @@ public class ChangeOntologyURITestCase extends AbstractOWLAPITestCase {
         // Document IRI will still be the same (in this case the old ont URI)
         assertEquals(man.getOntologyDocumentIRI(ont), oldIRI);
         assertNotNull("ontology format should not be null", man.getOntologyFormat(ont));
+    }
+
+    @Test
+    public void shouldCheckContents() throws OWLOntologyCreationException {
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        manager.createOntology(IRI.create("http://www.test.com/123"));
+        OWLOntologyID anonymousId = OWLManager.createOWLOntologyManager()
+                .createOntology().getOntologyID();
+        manager.contains(anonymousId);
     }
 }
