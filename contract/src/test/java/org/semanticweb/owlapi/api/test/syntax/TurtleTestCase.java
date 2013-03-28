@@ -4,14 +4,19 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.net.URISyntaxException;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -19,6 +24,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
@@ -153,5 +159,57 @@ public class TurtleTestCase {
         assertTrue(ontology.containsAxiom(ClassAssertion(c, i)));
         assertTrue(ontology.containsAxiom(ClassAssertion(term, i)));
         assertTrue(ontology.containsEntityInSignature(ap));
+    }
+
+    @Test
+    public void shouldRoundTripAxiomAnnotation() throws Exception {
+        String input = "@prefix : <urn:fm2#> .\n"
+                + "@prefix fm:    <urn:fm2#> .\n"
+                + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+                + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+                + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+                + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+                + "@prefix prov: <urn:prov#> .\n"
+                + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                + "@base <urn:fm2> .\n"
+                + "\n"
+                + "<http://www.ida.org/fm2.owl> rdf:type owl:Ontology.\n"
+                + ":prov rdf:type owl:AnnotationProperty .\n"
+                + "\n"
+                + ":Manage rdf:type owl:Class ; rdfs:subClassOf :ManagementType .\n"
+                + "[ rdf:type owl:Axiom ;\n"
+                + "  owl:annotatedSource :Manage ;\n"
+                + "  owl:annotatedTarget :ManagementType ;\n"
+                + "  owl:annotatedProperty rdfs:subClassOf ;\n"
+                + "  :prov [\n"
+                + "    prov:gen :FMDomain ;\n"
+                + "    prov:att :DM .\n"
+                + "  ]\n"
+                + "] .\n"
+                + ":ManagementType rdf:type owl:Class .\n"
+                + ":DM rdf:type owl:NamedIndividual , prov:Person .\n"
+                + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
+        OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(input));
+
+        StringDocumentTarget t = new StringDocumentTarget();
+        ontology.getOWLOntologyManager().saveOntology(ontology,
+                new TurtleOntologyFormat(), t);
+        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(t.toString()));
+        t = new StringDocumentTarget();
+        o.getOWLOntologyManager().saveOntology(o, new TurtleOntologyFormat(), t);
+        Set<OWLSubClassOfAxiom> axioms = o.getAxioms(AxiomType.SUBCLASS_OF);
+        assertEquals(1, axioms.size());
+        OWLAnnotation next = axioms.iterator().next().getAnnotations().iterator().next();
+        assertTrue(next.getValue() instanceof OWLAnonymousIndividual);
+        OWLAnonymousIndividual ind = (OWLAnonymousIndividual) next.getValue();
+        Set<OWLAxiom> anns = new HashSet<OWLAxiom>();
+        for (OWLAxiom ax : o.getAxioms()) {
+            if (ax.getAnonymousIndividuals().contains(ind)) {
+                anns.add(ax);
+            }
+        }
+        assertEquals(3, anns.size());
     }
 }

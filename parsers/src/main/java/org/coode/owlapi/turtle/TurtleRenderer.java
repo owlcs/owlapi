@@ -393,8 +393,14 @@ public class TurtleRenderer extends RDFRendererBase {
      */
     @Override
     public void render(RDFResourceNode node) {
+
         level++;
         List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
+        if (node.isAnonymous()) {
+            System.out.println("======================================================");
+            System.out.println(node);
+            System.out.println(triples.toString().replace(",", ",\n"));
+        }
         if (pending.contains(node)) {
             // We essentially remove all structure sharing during parsing - any cycles therefore indicate a bug!
             triples = new ArrayList<RDFTriple>();

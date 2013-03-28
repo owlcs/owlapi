@@ -903,6 +903,12 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     private void translateAnnotation(OWLObject subject, OWLAnnotation annotation) {
         // We first add the base triple
         addTriple(subject, annotation.getProperty().getIRI(), annotation.getValue());
+        // if the annotation has a blank node as subject, add the triples here
+        if (annotation.getValue() instanceof OWLAnonymousIndividual) {
+            OWLAnonymousIndividual ind = (OWLAnonymousIndividual) annotation.getValue();
+            translateAnonymousNode(ind);
+            processIfAnonymous(ind);
+        }
         // If the annotation doesn't have annotations on it then we're done
         if (annotation.getAnnotations().isEmpty()) {
             return;
@@ -1053,6 +1059,22 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
                     }
                 }
                 for (OWLAnnotationAssertionAxiom ax : ontology.getAnnotationAssertionAxioms(ind.asOWLAnonymousIndividual())) {
+                    ax.accept(this);
+                }
+            }
+            currentIndividuals.remove(ind);
+        }
+    }
+
+    private void processIfAnonymous(OWLIndividual ind) {
+        if (!currentIndividuals.contains(ind)) {
+            currentIndividuals.add(ind);
+            if (ind.isAnonymous()) {
+                for (OWLAxiom ax : ontology.getAxioms(ind)) {
+                    ax.accept(this);
+                }
+                for (OWLAnnotationAssertionAxiom ax : ontology
+                        .getAnnotationAssertionAxioms(ind.asOWLAnonymousIndividual())) {
                     ax.accept(this);
                 }
             }
