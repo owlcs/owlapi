@@ -168,10 +168,6 @@ public abstract class NodeID implements Comparable<NodeID>, Serializable {
             return id.hashCode();
         }
 
-        /**
-         * Gets the string representation of the node ID.  This will begin with _:
-         * @return The string representation of the node ID.
-         */
         @Override
         public String getID() {
             return id;

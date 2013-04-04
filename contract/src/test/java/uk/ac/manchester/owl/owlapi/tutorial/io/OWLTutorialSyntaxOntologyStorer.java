@@ -59,13 +59,6 @@ public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
      */
     private static final long serialVersionUID = 30402L;
 
-    /** Determines if this storer can store an ontology in the specified ontology
-     * format.
-     * 
-     * @param ontologyFormat
-     *            The desired ontology format.
-     * @return <code>true</code> if this storer can store an ontology in the
-     *         desired format. */
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new OWLTutorialSyntaxOntologyFormat());

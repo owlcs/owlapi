@@ -36,30 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 19/04/2012
- */
+ * Date: 19/04/2012 */
 public class RawFrameHandler implements OBOParserHandler {
-
     private String currentFrameType;
-    
     private List<OBOTagValuePair> currentTagValuePairs = new ArrayList<OBOTagValuePair>();
-    
     private OBOFrame headerFrame;
-    
     private List<OBOFrame> typeDefFrames = new ArrayList<OBOFrame>();
-    
     private List<OBOFrame> nonTypeDefFrames = new ArrayList<OBOFrame>();
-    
+
     @Override
     public void startHeader() {
         currentTagValuePairs.clear();
@@ -83,17 +75,17 @@ public class RawFrameHandler implements OBOParserHandler {
 
     private OBOFrame storeCurrentFrame() {
         OBOFrame frame = new OBOFrame(currentFrameType, currentTagValuePairs);
-        if(frame.isTypeDefFrame()) {
+        if (frame.isTypeDefFrame()) {
             typeDefFrames.add(frame);
-        }
-        else {
+        } else {
             nonTypeDefFrames.add(frame);
         }
         return frame;
     }
 
     @Override
-    public void handleTagValue(String tag, String value, String qualifierBlock, String comment) {
+    public void handleTagValue(String tag, String value, String qualifierBlock,
+            String comment) {
         OBOTagValuePair tvp = new OBOTagValuePair(tag, value, qualifierBlock, comment);
         currentTagValuePairs.add(tvp);
     }
@@ -102,7 +94,6 @@ public class RawFrameHandler implements OBOParserHandler {
     public OBOFrame getHeaderFrame() {
         return headerFrame;
     }
-
 
     /** @return the typedef frames */
     public List<OBOFrame> getTypeDefFrames() {

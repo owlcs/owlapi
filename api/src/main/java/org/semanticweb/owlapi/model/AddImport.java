@@ -59,12 +59,6 @@ public class AddImport extends ImportChange {
         super(ont, importDeclaration);
     }
 
-    /**
-     * Gets the data (independent of the ontology) associated with this specific change.
-     *
-     * @return The {@link org.semanticweb.owlapi.change.OWLOntologyChangeData} associated with this {@link
-     *         org.semanticweb.owlapi.model.OWLOntologyChange}.  Not {@code null}.
-     */
     @Override
     public AddImportData getChangeData() {
         return new AddImportData(getImportDeclaration());

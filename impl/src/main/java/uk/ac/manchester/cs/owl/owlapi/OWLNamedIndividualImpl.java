@@ -86,40 +86,21 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         return true;
     }
 
-    /**
-     * Gets the entity type for this entity
-     * @return The entity type
-     */
     @Override
     public EntityType<?> getEntityType() {
         return EntityType.NAMED_INDIVIDUAL;
     }
 
-    /**
-     * Gets an entity that has the same IRI as this entity but is of the specified type.
-     * @param entityType The type of the entity to obtain.  This entity is not affected in any way.
-     * @return An entity that has the same IRI as this entity and is of the specified type
-     */
     @Override
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
         return getOWLDataFactory().getOWLEntity(entityType, getIRI());
     }
 
-    /**
-     * Tests to see if this entity is of the specified type
-     * @param entityType The entity type
-     * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
-     */
     @Override
     public boolean isType(EntityType<?> entityType) {
         return getEntityType().equals(entityType);
     }
 
-    /**
-     * Returns a string representation that can be used as the ID of this entity.  This is the toString
-     * representation of the IRI
-     * @return A string representing the toString of the IRI of this entity.
-     */
     @Override
     public String toStringID() {
         return iri.toString();

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -48,35 +47,28 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLDataMaxCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements OWLDataMaxCardinality {
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLDataMaxCardinalityImpl extends OWLDataCardinalityRestrictionImpl
+        implements OWLDataMaxCardinality {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-
-	@SuppressWarnings("javadoc")
-    public OWLDataMaxCardinalityImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
+    @SuppressWarnings("javadoc")
+    public OWLDataMaxCardinalityImpl(OWLDataPropertyExpression property, int cardinality,
+            OWLDataRange filler) {
         super(property, cardinality, filler);
     }
 
-
-    /**
-     * Gets the class expression type for this class expression
-     * @return The class expression type
-     */
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.DATA_MAX_CARDINALITY;
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataMaxCardinality;
         }
@@ -97,7 +89,6 @@ public class OWLDataMaxCardinalityImpl extends OWLDataCardinalityRestrictionImpl
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

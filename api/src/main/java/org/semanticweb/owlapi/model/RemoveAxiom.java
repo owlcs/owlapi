@@ -36,81 +36,64 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.change.RemoveAxiomData;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- *
- * Represents an ontology change were an axiom will be removed
- * from an ontology if the change is applied to an ontology.
- */
+ * Bio-Health Informatics Group Date: 25-Oct-2006 Represents an ontology change
+ * were an axiom will be removed from an ontology if the change is applied to an
+ * ontology. */
 public class RemoveAxiom extends OWLAxiomChange {
-    /**
-     * @param ont the ontology to which the change is to be applied
-     * @param axiom the axiom to be removed
-     */
+    /** @param ont
+     *            the ontology to which the change is to be applied
+     * @param axiom
+     *            the axiom to be removed */
     public RemoveAxiom(OWLOntology ont, OWLAxiom axiom) {
         super(ont, axiom);
     }
-
 
     @Override
     public boolean isAddAxiom() {
         return false;
     }
 
-    /**
-     * Gets the data (independent of the ontology) associated with this specific change.
-     *
-     * @return The {@link org.semanticweb.owlapi.change.RemoveAxiomData} associated with this {@link
-     *         org.semanticweb.owlapi.model.OWLOntologyChange}.  Not {@code null}.
-     */
     @Override
     public RemoveAxiomData getChangeData() {
         return new RemoveAxiomData(getAxiom());
     }
 
-
     @Override
-	public int hashCode() {
+    public int hashCode() {
         return 37 + getOntology().hashCode() * 13 + getAxiom().hashCode() * 13;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-
-        if(obj == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RemoveAxiom)) {
+        if (!(obj instanceof RemoveAxiom)) {
             return false;
         }
-
         RemoveAxiom other = (RemoveAxiom) obj;
-        return other.getOntology().equals(getOntology()) && other.getAxiom().equals(getAxiom());
+        return other.getOntology().equals(getOntology())
+                && other.getAxiom().equals(getAxiom());
     }
 
-
     @Override
-	public void accept(OWLOntologyChangeVisitor visitor) {
+    public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
-    	return visitor.visit(this);
+        return visitor.visit(this);
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("RemoveAxiom(");
         sb.append(getAxiom().toString());

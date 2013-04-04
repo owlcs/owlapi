@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
@@ -72,36 +71,26 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007<br><br>
- */
+ * Date: 15-Jan-2007<br>
+ * <br> */
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
-
-
-	private static final long serialVersionUID = 30402L;
-
+    private static final long serialVersionUID = 30402L;
     private final Set<SWRLAtom> head;
-
     private final Set<SWRLAtom> body;
-
     private Set<SWRLVariable> variables;
-
     private Boolean containsAnonymousClassExpressions = null;
-
     private Set<OWLClassExpression> classAtomsPredicates;
 
-
     @SuppressWarnings("javadoc")
-	public SWRLRuleImpl(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Collection<? extends OWLAnnotation> annotations) {
+    public SWRLRuleImpl(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.head = new TreeSet<SWRLAtom>(head);
         this.body = new TreeSet<SWRLAtom>(body);
     }
-
 
     @Override
     public SWRLRule getAxiomWithoutAnnotations() {
@@ -117,10 +106,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     @SuppressWarnings("javadoc")
-	public SWRLRuleImpl(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
+    public SWRLRuleImpl(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
         this(body, head, new ArrayList<OWLAnnotation>(0));
     }
-
 
     @Override
     public Set<SWRLVariable> getVariables() {
@@ -162,7 +150,6 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         return containsAnonymousClassExpressions.booleanValue();
     }
 
-
     @Override
     public Set<OWLClassExpression> getClassAtomPredicates() {
         if (classAtomsPredicates == null) {
@@ -182,12 +169,10 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         return classAtomsPredicates;
     }
 
-
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
@@ -199,104 +184,71 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
-
-    /**
-     * Gets the atoms in the antecedent
-     * @return A set of <code>SWRLAtom</code>s, which represent the atoms
-     *         in the antecedent of the rule.
-     */
     @Override
     public Set<SWRLAtom> getBody() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(body);
     }
 
-
-    /**
-     * Gets the atoms in the consequent.
-     * @return A set of <code>SWRLAtom</code>s, which represent the atoms
-     *         in the consequent of the rule
-     */
     @Override
     public Set<SWRLAtom> getHead() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(head);
     }
-
 
     @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
-    /**
-     * If this rule contains atoms that have predicates that are inverse object properties, then this method
-     * creates and returns a rule where the arguments of these atoms are fliped over and the predicate is the
-     * inverse (simplified) property
-     * @return The rule such that any atoms of the form  inverseOf(p)(x, y) are transformed to p(x, y).
-     */
     @Override
     public SWRLRule getSimplified() {
         return (SWRLRule) this.accept(ATOM_SIMPLIFIER);
     }
 
-    /**
-     * Determines if this axiom is a logical axiom. Logical axioms are defined to be
-     * axioms other than declaration axioms (including imports declarations) and annotation
-     * axioms.
-     * @return <code>true</code> if the axiom is a logical axiom, <code>false</code>
-     *         if the axiom is not a logical axiom.
-     */
     @Override
     public boolean isLogicalAxiom() {
         return true;
     }
 
     @Override
-	public boolean equals(Object obj) {
-    	if(super.equals(obj)) {
-        if (!(obj instanceof SWRLRule)) {
-            return false;
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            if (!(obj instanceof SWRLRule)) {
+                return false;
+            }
+            SWRLRule other = (SWRLRule) obj;
+            return other.getBody().equals(body) && other.getHead().equals(head);
         }
-        SWRLRule other = (SWRLRule) obj;
-        return other.getBody().equals(body) && other.getHead().equals(head);
-    	}
-    	return false;
+        return false;
     }
-
 
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.SWRL_RULE;
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         SWRLRule other = (SWRLRule) object;
-
         int diff = compareSets(getBody(), other.getBody());
         if (diff == 0) {
             diff = compareSets(getHead(), other.getHead());
         }
         return diff;
-
     }
 
     protected final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
     protected class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
-
         @Override
         public SWRLRule visit(SWRLRule node) {
             Set<SWRLAtom> nodebody = new HashSet<SWRLAtom>();

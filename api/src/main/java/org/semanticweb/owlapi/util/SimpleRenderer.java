@@ -233,10 +233,6 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         ((DefaultPrefixManager) shortFormProvider).setPrefix(prefixName, prefix);
     }
 
-    /**
-     * Override the short form provider that is used to generate abreviated names for entities
-     * @param shortFormProvider The short form provider to use
-     */
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;

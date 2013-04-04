@@ -68,10 +68,6 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     OWLDataFactory getOWLDataFactory();
 
 
-    /**
-     * Gets all of the ontologies that are managed by this manager.
-     * @return The set of ontologies managed by this manager.
-     */
     @Override
     Set<OWLOntology> getOntologies();
 

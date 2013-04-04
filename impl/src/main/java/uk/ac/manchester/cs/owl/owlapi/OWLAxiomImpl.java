@@ -117,31 +117,12 @@ CollectionContainer<OWLAnnotation> {
         }
     }
 
-    /**
-     * Determines if another axiom is equal to this axiom not taking into
-     * consideration the annotations on the axiom
-     *
-     * @param axiom
-     *            The axiom to test if equal
-     * @return <code>true</code> if <code>axiom</code> without annotations is
-     *         equal to this axiom without annotations otherwise
-     *         <code>false</code>.
-     */
     @Override
     public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
         return getAxiomWithoutAnnotations().equals(
                 axiom.getAxiomWithoutAnnotations());
     }
 
-    /**
-     * Determines if this axiom is one of the specified types
-     *
-     * @param axiomTypes
-     *            The axiom types to check for
-     * @return <code>true</code> if this axiom is one of the specified types,
-     *         otherwise <code>false</code>
-     * @since 3.0
-     */
     @Override
     public boolean isOfType(AxiomType<?>... axiomTypes) {
         for (AxiomType<?> type : axiomTypes) {
@@ -152,15 +133,6 @@ CollectionContainer<OWLAnnotation> {
         return false;
     }
 
-    /**
-     * Determines if this axiom is one of the specified types
-     *
-     * @param types
-     *            The axiom types to check for
-     * @return <code>true</code> if this axioms is one of the specified types,
-     *         otherwise <code>false</code>
-     * @since 3.0
-     */
     @Override
     public boolean isOfType(Set<AxiomType<?>> types) {
         return types.contains(getAxiomType());

@@ -165,12 +165,6 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         return removed;
     }
 
-    /**
-     * Flushes the pending changes from the pending change list.  The changes will be analysed to determine which
-     * axioms have actually been added and removed from the imports closure of the root ontology and then the
-     * reasoner will be asked to handle these changes via the handleChanges(java.util.Set, java.util.Set)
-     * method.
-     */
     @Override
     public void flush() {
         // Process the changes

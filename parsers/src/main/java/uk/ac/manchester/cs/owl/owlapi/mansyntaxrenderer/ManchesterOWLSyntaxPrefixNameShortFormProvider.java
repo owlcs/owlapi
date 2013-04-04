@@ -102,12 +102,6 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
         return new DefaultPrefixManager(prefixManager);
     }
 
-    /**
-     * Gets the short form for the specified entity.
-     * @param entity The entity.
-     * @return A string which represents a short rendering
-     *         of the speicified entity.
-     */
     @Override
     public String getShortForm(OWLEntity entity) {
         String sf = prefixManager.getShortForm(entity);
@@ -128,10 +122,6 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
         return iri.toQuotedString();
     }
 
-    /**
-     * Disposes of the short form proivider.  This frees any
-     * resources and clears any caches.
-     */
     @Override
     public void dispose() {
         prefixManager.dispose();

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -50,28 +49,21 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLLiteral> implements OWLDataHasValue {
+public class OWLDataHasValueImpl extends
+        OWLValueRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLLiteral>
+        implements OWLDataHasValue {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-
-	public OWLDataHasValueImpl(OWLDataPropertyExpression property, OWLLiteral value) {
+    public OWLDataHasValueImpl(OWLDataPropertyExpression property, OWLLiteral value) {
         super(property, value);
     }
 
-    /**
-     * Gets the class expression type for this class expression
-     * @return The class expression type
-     */
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.DATA_HAS_VALUE;
@@ -88,19 +80,18 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLDataRange, O
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataHasValue;
         }
         return false;
     }
 
-
     @Override
     public OWLClassExpression asSomeValuesFrom() {
-        return getOWLDataFactory().getOWLDataSomeValuesFrom(getProperty(), getOWLDataFactory().getOWLDataOneOf(getValue()));
+        return getOWLDataFactory().getOWLDataSomeValuesFrom(getProperty(),
+                getOWLDataFactory().getOWLDataOneOf(getValue()));
     }
-
 
     @Override
     public void accept(OWLClassExpressionVisitor visitor) {
@@ -112,12 +103,10 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLDataRange, O
         visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

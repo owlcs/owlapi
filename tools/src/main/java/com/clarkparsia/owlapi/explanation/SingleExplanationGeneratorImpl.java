@@ -78,7 +78,6 @@ public abstract class SingleExplanationGeneratorImpl implements
         return definitionTracker;
     }
 
-    /** {@inheritDoc} */
     @Override
     public OWLOntology getOntology() {
         return ontology;

@@ -261,14 +261,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return result;
     }
 
-    /** Gets a previously loaded/created ontology that has the specified ontology
-     * IRI and no version IRI.
-     * 
-     * @param ontologyIRI
-     *            The IRI of the ontology to be retrieved.
-     * @return The ontology that has the specified IRI and no version IRI, or
-     *         <code>null</code> if this manager does not manage an ontology
-     *         with the specified IRI and no version IRI. */
     @Override
     public OWLOntology getOntology(IRI ontologyIRI) {
         OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRI);
@@ -285,14 +277,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return result;
     }
 
-    /** Gets a previously loaded/created ontology that has the specified ontology
-     * ID
-     * 
-     * @param ontologyID
-     *            The ID of the ontology to retrieve
-     * @return The ontology that has the specified ID, or <code>null</code> if
-     *         this manager does not manage an ontology with the specified
-     *         ontology ID. */
     @Override
     public OWLOntology getOntology(OWLOntologyID ontologyID) {
         OWLOntology result = ontologiesByID.get(ontologyID);
@@ -339,15 +323,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return onts;
     }
 
-    /** Given an imports declaration, obtains the ontology that this import has
-     * been resolved to.
-     * 
-     * @param declaration
-     *            The declaration that points to the imported ontology.
-     * @return The ontology that the imports declaration resolves to, or
-     *         <code>null</code> if the imports declaration could not be
-     *         resolved to an ontology, because the ontology was not loaded or
-     *         has been removed from this manager */
     @Override
     public OWLOntology getImportedOntology(OWLImportsDeclaration declaration) {
         OWLOntologyID ontologyID = ontologyIDsByImportsDeclaration.get(declaration);
@@ -359,17 +334,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    /** Gets the set of <em>loaded</em> ontologies that the specified ontology is
-     * related to via the directlyImports relation as defined in Section 3.4 of
-     * the OWL 2 Structural specification
-     * 
-     * @param ontology
-     *            The ontology whose direct imports are to be retrieved.
-     * @return The set of <em>loaded</em> ontologies that the specified ontology
-     *         is related to via the directlyImports relation.
-     * @throws org.semanticweb.owlapi.model.UnknownOWLOntologyException
-     *             if there isn't an ontology in this manager which has the
-     *             specified IRI. */
     @Override
     public Set<OWLOntology> getDirectImports(OWLOntology ontology)
             throws UnknownOWLOntologyException {
@@ -386,18 +350,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return imports;
     }
 
-    /** Gets the set of ontologies that are in the transitive closure of the
-     * directly imports relation.
-     * 
-     * @param ontology
-     *            The ontology whose imports are to be retrieved.
-     * @return A set of <code>OWLOntology</code>ies that are in the transitive
-     *         closure of the directly imports relation of this ontology. If,
-     *         for what ever reason, an imported ontology could not be loaded,
-     *         then it will not be contained in the returned set of ontologies.
-     * @throws org.semanticweb.owlapi.model.UnknownOWLOntologyException
-     *             if there isn't an ontology in this manager which has the
-     *             specified IRI. */
     @Override
     public Set<OWLOntology> getImports(OWLOntology ontology)
             throws UnknownOWLOntologyException {
@@ -638,12 +590,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         addOntology(ontology);
     }
 
-    /** Sets the format of an ontology
-     * 
-     * @param ontology
-     *            The ontology
-     * @param format
-     *            The format of the ontology */
     @Override
     public void setOntologyFormat(OWLOntology ontology, OWLOntologyFormat format) {
         OWLOntologyID ontologyID = ontology.getOntologyID();
@@ -1098,9 +1044,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         ontologyFactories.remove(factory);
     }
 
-    /** Gets the ontology factories that are registered with this manager.
-     * 
-     * @return A collection of ontology factories. */
     @Override
     public Collection<OWLOntologyFactory> getOntologyFactories() {
         return new ArrayList<OWLOntologyFactory>(ontologyFactories);

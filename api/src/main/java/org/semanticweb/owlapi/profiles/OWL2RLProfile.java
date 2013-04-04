@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import java.util.HashSet;
@@ -88,15 +87,12 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
 public class OWL2RLProfile implements OWLProfile {
-
     final Set<IRI> allowedDatatypes = new HashSet<IRI>();
 
     public OWL2RLProfile() {
@@ -132,31 +128,17 @@ public class OWL2RLProfile implements OWLProfile {
         allowedDatatypes.add(OWL2Datatype.XSD_DATE_TIME_STAMP.getIRI());
     }
 
-    /**
-     * Gets the name of the profile.
-     *
-     * @return A string that represents the name of the profile
-     */
     @Override
     public String getName() {
         return "OWL 2 RL";
     }
 
-    /**
-     * Checks an ontology and its import closure to see if it is within
-     * this profile.
-     *
-     * @param ontology The ontology to be checked.
-     * @return An <code>OWLProfileReport</code> that describes whether or not the
-     *         ontology is within this profile.
-     */
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWL2DLProfile profile = new OWL2DLProfile();
         OWLProfileReport report = profile.checkOntology(ontology);
         Set<OWLProfileViolation> violations = new HashSet<OWLProfileViolation>();
         violations.addAll(report.getViolations());
-
         OWLOntologyWalker walker = new OWLOntologyWalker(ontology.getImportsClosure());
         OWL2RLObjectVisitor visitor = new OWL2RLObjectVisitor(walker);
         walker.walkStructure(visitor);
@@ -164,9 +146,7 @@ public class OWL2RLProfile implements OWLProfile {
         return new OWLProfileReport(this, violations);
     }
 
-
     private class OWL2RLObjectVisitor extends OWLOntologyWalkerVisitor<Object> {
-
         private final Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
         OWL2RLObjectVisitor(OWLOntologyWalker walker) {
@@ -178,153 +158,166 @@ public class OWL2RLProfile implements OWLProfile {
         }
 
         @Override
-		public Object visit(OWLClassAssertionAxiom axiom) {
+        public Object visit(OWLClassAssertionAxiom axiom) {
             if (!isOWL2RLSuperClassExpression(axiom.getClassExpression())) {
-                profileViolations.add(new UseOfNonSuperClassExpression(getCurrentOntology(), axiom, axiom.getClassExpression()));
+                profileViolations.add(new UseOfNonSuperClassExpression(
+                        getCurrentOntology(), axiom, axiom.getClassExpression()));
             }
             return null;
         }
 
         @Override
-		public Object visit(OWLDataPropertyDomainAxiom axiom) {
+        public Object visit(OWLDataPropertyDomainAxiom axiom) {
             if (!isOWL2RLSuperClassExpression(axiom.getDomain())) {
-                profileViolations.add(new UseOfNonSuperClassExpression(getCurrentOntology(), axiom, axiom.getDomain()));
+                profileViolations.add(new UseOfNonSuperClassExpression(
+                        getCurrentOntology(), axiom, axiom.getDomain()));
             }
             return null;
         }
 
         @Override
-		public Object visit(OWLDisjointClassesAxiom axiom) {
+        public Object visit(OWLDisjointClassesAxiom axiom) {
             for (OWLClassExpression ce : axiom.getClassExpressions()) {
                 if (!isOWL2RLSubClassExpression(ce)) {
-                    profileViolations.add(new UseOfNonSubClassExpression(getCurrentOntology(), axiom, ce));
+                    profileViolations.add(new UseOfNonSubClassExpression(
+                            getCurrentOntology(), axiom, ce));
                 }
             }
             return null;
         }
 
         @Override
-		public Object visit(OWLDisjointDataPropertiesAxiom axiom) {
+        public Object visit(OWLDisjointDataPropertiesAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
         @Override
-		public Object visit(OWLDisjointUnionAxiom axiom) {
+        public Object visit(OWLDisjointUnionAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
         @Override
-		public Object visit(OWLEquivalentClassesAxiom axiom) {
+        public Object visit(OWLEquivalentClassesAxiom axiom) {
             for (OWLClassExpression ce : axiom.getClassExpressions()) {
                 if (!isOWL2RLEquivalentClassExpression(ce)) {
-                    profileViolations.add(new UseOfNonEquivalentClassExpression(getCurrentOntology(), axiom, ce));
+                    profileViolations.add(new UseOfNonEquivalentClassExpression(
+                            getCurrentOntology(), axiom, ce));
                 }
             }
             return null;
         }
 
         @Override
-		public Object visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        public Object visit(OWLEquivalentDataPropertiesAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
             return null;
         }
 
         @Override
-		public Object visit(OWLFunctionalDataPropertyAxiom axiom) {
+        public Object visit(OWLFunctionalDataPropertyAxiom axiom) {
             return null;
         }
 
         @Override
-		public Object visit(OWLHasKeyAxiom axiom) {
+        public Object visit(OWLHasKeyAxiom axiom) {
             if (!isOWL2RLSubClassExpression(axiom.getClassExpression())) {
-                profileViolations.add(new UseOfNonSubClassExpression(getCurrentOntology(), axiom, axiom.getClassExpression()));
+                profileViolations.add(new UseOfNonSubClassExpression(
+                        getCurrentOntology(), axiom, axiom.getClassExpression()));
             }
             return null;
         }
 
         @Override
-		public Object visit(OWLObjectPropertyDomainAxiom axiom) {
+        public Object visit(OWLObjectPropertyDomainAxiom axiom) {
             if (!isOWL2RLSuperClassExpression(axiom.getDomain())) {
-                profileViolations.add(new UseOfNonSuperClassExpression(getCurrentOntology(), axiom, axiom.getDomain()));
+                profileViolations.add(new UseOfNonSuperClassExpression(
+                        getCurrentOntology(), axiom, axiom.getDomain()));
             }
             return null;
         }
 
         @Override
-		public Object visit(OWLObjectPropertyRangeAxiom axiom) {
+        public Object visit(OWLObjectPropertyRangeAxiom axiom) {
             if (!isOWL2RLSuperClassExpression(axiom.getRange())) {
-                profileViolations.add(new UseOfNonSuperClassExpression(getCurrentOntology(), axiom, axiom.getRange()));
+                profileViolations.add(new UseOfNonSuperClassExpression(
+                        getCurrentOntology(), axiom, axiom.getRange()));
             }
             return null;
         }
 
         @Override
-		public Object visit(OWLSubClassOfAxiom axiom) {
+        public Object visit(OWLSubClassOfAxiom axiom) {
             if (!isOWL2RLSubClassExpression(axiom.getSubClass())) {
-                profileViolations.add(new UseOfNonSubClassExpression(getCurrentOntology(), axiom, axiom.getSubClass()));
+                profileViolations.add(new UseOfNonSubClassExpression(
+                        getCurrentOntology(), axiom, axiom.getSubClass()));
             }
             if (!isOWL2RLSuperClassExpression(axiom.getSuperClass())) {
-                profileViolations.add(new UseOfNonSuperClassExpression(getCurrentOntology(), axiom, axiom.getSuperClass()));
+                profileViolations.add(new UseOfNonSuperClassExpression(
+                        getCurrentOntology(), axiom, axiom.getSuperClass()));
             }
             return null;
         }
 
         @Override
-		public Object visit(SWRLRule rule) {
+        public Object visit(SWRLRule rule) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), rule));
             return super.visit(rule);
         }
 
-//        @Override
-//		public Object visit(OWLDataComplementOf node) {
-//            return super.visit(node);
-//        }
-
+        // @Override
+        // public Object visit(OWLDataComplementOf node) {
+        // return super.visit(node);
+        // }
         @Override
-		public Object visit(OWLDataIntersectionOf node) {
-            profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
+        public Object visit(OWLDataIntersectionOf node) {
+            profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(),
+                    getCurrentAxiom(), node));
             return null;
         }
 
         @Override
-		public Object visit(OWLDataOneOf node) {
-            profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
+        public Object visit(OWLDataOneOf node) {
+            profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(),
+                    getCurrentAxiom(), node));
             return null;
         }
 
         @Override
-		public Object visit(OWLDatatype node) {
+        public Object visit(OWLDatatype node) {
             if (!allowedDatatypes.contains(node.getIRI())) {
-                profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
+                profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(),
+                        getCurrentAxiom(), node));
             }
             return null;
         }
 
         @Override
-		public Object visit(OWLDatatypeRestriction node) {
-            profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
+        public Object visit(OWLDatatypeRestriction node) {
+            profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(),
+                    getCurrentAxiom(), node));
             return null;
         }
 
         @Override
-		public Object visit(OWLDataUnionOf node) {
-            profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
+        public Object visit(OWLDataUnionOf node) {
+            profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(),
+                    getCurrentAxiom(), node));
             return null;
         }
 
         @Override
-		public Object visit(OWLDatatypeDefinitionAxiom axiom) {
-            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(), getCurrentAxiom()));
+        public Object visit(OWLDatatypeDefinitionAxiom axiom) {
+            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
+                    getCurrentAxiom()));
             return null;
         }
     }
 
-    private class OWL2RLSubClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
-
-        public OWL2RLSubClassExpressionChecker() {
-		}
+    private class OWL2RLSubClassExpressionChecker implements
+            OWLClassExpressionVisitorEx<Boolean> {
+        public OWL2RLSubClassExpressionChecker() {}
 
         @Override
         public Boolean visit(OWLClass desc) {
@@ -428,17 +421,15 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
-
     private final OWL2RLSubClassExpressionChecker subClassExpressionChecker = new OWL2RLSubClassExpressionChecker();
 
     protected boolean isOWL2RLSubClassExpression(OWLClassExpression ce) {
         return ce.accept(subClassExpressionChecker).booleanValue();
     }
 
-    private class OWL2RLSuperClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
-
-        public OWL2RLSuperClassExpressionChecker() {
-		}
+    private class OWL2RLSuperClassExpressionChecker implements
+            OWLClassExpressionVisitorEx<Boolean> {
+        public OWL2RLSuperClassExpressionChecker() {}
 
         @Override
         public Boolean visit(OWLClass desc) {
@@ -546,11 +537,9 @@ public class OWL2RLProfile implements OWLProfile {
         return ce.accept(superClassExpressionChecker).booleanValue();
     }
 
-    private static class OWL2RLEquivalentClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
-
-    	public OWL2RLEquivalentClassExpressionChecker() {
-
-		}
+    private static class OWL2RLEquivalentClassExpressionChecker implements
+            OWLClassExpressionVisitorEx<Boolean> {
+        public OWL2RLEquivalentClassExpressionChecker() {}
 
         @Override
         public Boolean visit(OWLClass desc) {
@@ -653,6 +642,4 @@ public class OWL2RLProfile implements OWLProfile {
     public boolean isOWL2RLEquivalentClassExpression(OWLClassExpression ce) {
         return ce.accept(equivalentClassExpressionChecker).booleanValue();
     }
-
-
 }

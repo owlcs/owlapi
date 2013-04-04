@@ -204,17 +204,6 @@ Serializable {
         return internals.isEmpty();
     }
 
-    /**
-     * Gets the axiom count of a specific type of axiom, possibly in the imports
-     * closure of this ontology
-     *
-     * @param axiomType
-     *            The type of axiom to count
-     * @param includeImportsClosure
-     *            Specifies that the imports closure should be included when
-     *            counting axioms
-     * @return The number of the specified types of axioms in this ontology
-     */
     @Override
     public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType,
             boolean includeImportsClosure) {
@@ -250,22 +239,6 @@ Serializable {
         return (Set<T>) internals.getValues(internals.getAxiomsByType(), axiomType);
     }
 
-    /**
-     * Gets the axioms which are of the specified type, possibly from the
-     * imports closure of this ontology
-     *
-     * @param axiomType
-     *            The type of axioms to be retrived.
-     * @param includeImportsClosure
-     *            if <code>true</code> then axioms of the specified type will
-     *            also be retrieved from the imports closure of this ontology,
-     *            if <code>false</code> then axioms of the specified type will
-     *            only be retrieved from this ontology.
-     * @return A set containing the axioms which are of the specified type. The
-     *         set that is returned is a copy of the axioms in the ontology (and
-     *         its imports closure) - it will not be updated if the ontology
-     *         changes.
-     */
     @Override
     public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType,
             boolean includeImportsClosure) {
@@ -344,20 +317,6 @@ Serializable {
         return internals.getGeneralClassAxioms();
     }
 
-    /**
-     * Determines if this ontology, and possibly the imports closure, contains
-     * the specified axiom.
-     *
-     * @param axiom
-     *            The axiom to test for.
-     * @param includeImportsClosure
-     *            if <code>true</code> the imports closure of this ontology will
-     *            be searched for the specific axiom, if <code>false</code> just
-     *            this ontology will be searched.
-     * @return <code>true</code> if the ontology contains the specified axioms,
-     *         or <code>false</code> if the ontology doesn't contain the
-     *         specified axiom.
-     */
     @Override
     public boolean containsAxiom(OWLAxiom axiom, boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -371,15 +330,6 @@ Serializable {
         return false;
     }
 
-    /**
-     * Determines if this ontology contains the specified axiom, ignoring any
-     * annotations on this axiom.
-     *
-     * @param axiom
-     *            The axiom to test for.
-     * @return <code>true</code> if this ontology contains this axiom with or
-     *         without annotations.
-     */
     @Override
     public boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom) {
         Set<OWLAxiom> set = internals.getValues(internals.getAxiomsByType(),
@@ -392,19 +342,6 @@ Serializable {
         return false;
     }
 
-    /**
-     * Determines if this ontology and possibly its imports closure contains the
-     * specified axiom, ignoring any annotations on this axiom.
-     *
-     * @param axiom
-     *            The axiom to test for.
-     * @param includeImportsClosure
-     *            if <code>true</code> the imports closure of this ontology will
-     *            be searched for the specified axiom. If <code>false</code>
-     *            only this ontology will be searched for the specifed axiom.
-     * @return <code>true</code> if this ontology contains this axiom with or
-     *         without annotations.
-     */
     @Override
     public boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom,
             boolean includeImportsClosure) {
@@ -420,19 +357,6 @@ Serializable {
         }
     }
 
-    /**
-     * Gets the set of axioms that have the same "logical structure" as the
-     * specified axiom.
-     *
-     * @param axiom
-     *            The axiom that specifies the logical structure of the axioms
-     *            to retrieve
-     * @return A set of axioms such that for any two axioms, <code>axiomA</code>
-     *         and <code>axiomB</code> in the set,
-     *         <code>axiomA.getAxiomWithoutAnnotations()</code> is equal to
-     *         <code>axiomB.getAxiomWithoutAnnotations()</code>. The specified
-     *         axiom will be contained in the set.
-     */
     @Override
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom) {
         Set<OWLAxiom> result = createSet();
@@ -449,24 +373,6 @@ Serializable {
         return result;
     }
 
-    /**
-     * Gets the set of axioms that have the same "logical structure" as the
-     * specified axiom, possibly searching the imports closure of this ontology.
-     *
-     * @param axiom
-     *            The axiom that specifies the logical structure of the axioms
-     *            to retrieve. If this axiom is annotated then the annotations
-     *            are ignored.
-     * @param includeImportsClosure
-     *            if <code>true</code> then axioms in the imports closure of
-     *            this ontology are returned, if <code>false</code> only axioms
-     *            in this ontology will be returned.
-     * @return A set of axioms such that for any two axioms, <code>axiomA</code>
-     *         and <code>axiomB</code> in the set,
-     *         <code>axiomA.getAxiomWithoutAnnotations()</code> is equal to
-     *         <code>axiomB.getAxiomWithoutAnnotations()</code>. The specified
-     *         axiom will be contained in the set.
-     */
     @Override
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom,
             boolean includeImportsClosure) {
@@ -611,17 +517,6 @@ Serializable {
         return false;
     }
 
-    /**
-     * Gets the entities in the signature of this ontology that have the
-     * specified IRI
-     *
-     * @param iri
-     *            The IRI
-     * @return A set of entities that are in the signature of this ontology that
-     *         have the specified IRI. The set will be empty if there are no
-     *         entities in the signature of this ontology with the specified
-     *         IRI.
-     */
     @Override
     public Set<OWLEntity> getEntitiesInSignature(IRI iri) {
         Set<OWLEntity> result = createSet(6);
@@ -646,20 +541,6 @@ Serializable {
         return result;
     }
 
-    /**
-     * Gets the entities in the signature of this ontology, and possibly its
-     * imports closure, that have the specified IRI
-     *
-     * @param iri
-     *            The IRI
-     * @param includeImportsClosure
-     *            Specifies if the imports closure signature should be taken
-     *            into account
-     * @return A set of entities that are in the signature of this ontology and
-     *         possibly its imports closure that have the specified IRI. The set
-     *         will be empty if there are no entities in the signature of this
-     *         ontology and possibly its imports closure with the specified IRI.
-     */
     @Override
     public Set<OWLEntity> getEntitiesInSignature(IRI iri, boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -823,21 +704,6 @@ Serializable {
         return entityReferenceChecker.containsReference(owlEntity);
     }
 
-    /**
-     * Determines if the ontology, and possibly its imports closure, contains a
-     * reference to the specified entity.
-     *
-     * @param owlEntity
-     *            The entity
-     * @param includeImportsClosure
-     *            Specifies whether the imports closure should be examined for
-     *            the entity reference or not.
-     * @return <code>true</code> if the ontology contains a reference to the
-     *         specified entity, otherwise <code>false</code> The set that is
-     *         returned is a copy - it will not be updated if the ontology
-     *         changes. It is therefore safe to apply changes to this ontology
-     *         while iterating over this set.
-     */
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity,
             boolean includeImportsClosure) {
@@ -1059,33 +925,11 @@ Serializable {
         return internals.getKeyset(internals.getOwlIndividualReferences());
     }
 
-    /**
-     * A convenience method that obtains the datatypes that are in the signature
-     * of this object
-     *
-     * @return A set containing the datatypes that are in the signature of this
-     *         object.
-     */
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
         return internals.getKeyset(internals.getOwlDatatypeReferences());
     }
 
-    /**
-     * Gets the classes that are referenced by axioms in this ontology, and
-     * possibly the imports closure of this ontology.
-     *
-     * @param includeImportsClosure
-     *            Specifies whether referenced classes should be drawn from this
-     *            ontology or the imports closure. If <code>true</code> then the
-     *            set of referenced classes will be from the imports closure of
-     *            this ontology, if <code>false</code> then the set of
-     *            referenced classes will just be from this ontology.
-     * @return A set of named classes, which are referenced by any axiom in this
-     *         ontology. The set that is returned is a copy - it will not be
-     *         updated if the ontology changes. It is therefore safe to apply
-     *         changes to this ontology while iterating over this set.
-     */
     @Override
     public Set<OWLClass> getClassesInSignature(boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -1098,22 +942,6 @@ Serializable {
         return results;
     }
 
-    /**
-     * Gets the object properties that are referenced by axioms in this
-     * ontology, and possibly the imports closure of this ontology.
-     *
-     * @param includeImportsClosure
-     *            Specifies whether referenced object properties should be drawn
-     *            from this ontology or the imports closure. If
-     *            <code>true</code> then the set of referenced object properties
-     *            will be from the imports closure of this ontology, if
-     *            <code>false</code> then the set of referenced object
-     *            properties will just be from this ontology.
-     * @return A set of object properties, which are referenced by any axiom in
-     *         this ontology. The set that is returned is a copy - it will not
-     *         be updated if the ontology changes. It is therefore safe to apply
-     *         changes to this ontology while iterating over this set.
-     */
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature(
             boolean includeImportsClosure) {
@@ -1127,22 +955,6 @@ Serializable {
         return results;
     }
 
-    /**
-     * Gets the data properties that are referenced by axioms in this ontology,
-     * and possibly the imports closure of this ontology.
-     *
-     * @param includeImportsClosure
-     *            Specifies whether referenced data properties should be drawn
-     *            from this ontology or the imports closure. If
-     *            <code>true</code> then the set of referenced data properties
-     *            will be from the imports closure of this ontology, if
-     *            <code>false</code> then the set of referenced data properties
-     *            will just be from this ontology.
-     * @return A set of data properties, which are referenced by any axiom in
-     *         this ontology. The set that is returned is a copy - it will not
-     *         be updated if the ontology changes. It is therefore safe to apply
-     *         changes to this ontology while iterating over this set.
-     */
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature(boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -1155,22 +967,6 @@ Serializable {
         return results;
     }
 
-    /**
-     * Gets the named individuals that are referenced by axioms in this
-     * ontology, and possibly the imports closure of this ontology.
-     *
-     * @param includeImportsClosure
-     *            Specifies whether referenced named individuals should be drawn
-     *            from this ontology or the imports closure. If
-     *            <code>true</code> then the set of referenced named individuals
-     *            will be from the imports closure of this ontology, if
-     *            <code>false</code> then the set of referenced named
-     *            individuals will just be from this ontology.
-     * @return A set of named individuals, which are referenced by any axiom in
-     *         this ontology. The set that is returned is a copy - it will not
-     *         be updated if the ontology changes. It is therefore safe to apply
-     *         changes to this ontology while iterating over this set.
-     */
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature(boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -1183,30 +979,11 @@ Serializable {
         return results;
     }
 
-    /**
-     * Gets the referenced anonymous individuals
-     *
-     * @return The set of referenced anonymous individuals
-     */
     @Override
     public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals() {
         return internals.getKeyset(internals.getOwlAnonymousIndividualReferences());
     }
 
-    /**
-     * Gets the datatypes that are referenced by this ontology and possibly its
-     * imports closure
-     *
-     * @param includeImportsClosure
-     *            Specifies whether referenced named individuals should be drawn
-     *            from this ontology or the imports closure of this ontology. If
-     *            <code>true</code> then the set of referenced named individuals
-     *            will be from the imports closure of this ontology, if
-     *            <code>false</code> then the set of referenced named
-     *            individuals will just be from this ontology.
-     * @return The set of datatypes that are referenced by axioms in this
-     *         ontology and possibly its imports closure
-     */
     @Override
     public Set<OWLDatatype> getDatatypesInSignature(boolean includeImportsClosure) {
         if (!includeImportsClosure) {
@@ -1249,18 +1026,6 @@ Serializable {
         return internals.getImportsDeclarations();
     }
 
-    /**
-     * Gets the set of IRIs corresponding to the IRIs of the ontology documents
-     * that are directly imported by this ontology. This corresponds to the IRIs
-     * defined by the directlyImportsDocuments relation as discussed in Section
-     * 3 of the OWL 2 Structural specification.
-     *
-     * @return A set of IRIs where each IRI represents the IRI of an ontology
-     *         document that was directly imported by this ontology.
-     * @throws org.semanticweb.owlapi.model.UnknownOWLOntologyException
-     *             If this ontology is no longer managed by its manager because
-     *             it was removed from the manager.
-     */
     @Override
     public Set<IRI> getDirectImportsDocuments() throws UnknownOWLOntologyException {
         Set<IRI> result = createSet();
@@ -1276,23 +1041,6 @@ Serializable {
         return manager.getImports(this);
     }
 
-    /**
-     * Gets the ontologies that are directly imported by this ontology. This
-     * corresponds to the notion of logical direct imports as discussed in
-     * Section 3.4 of the OWL 2 Structural Specification. The direct imports are
-     * obtained by accessing the directly imported ontology documents and
-     * converting (parsing) them into OWL 2 ontologies. Note that there may be
-     * fewer ontologies in the set returned by this method than there are IRIs
-     * in the set returned by the getDirectImportsDocuments method. This will be
-     * the case if some of the ontologies that are directly imported by this
-     * ontology are not loaded for whatever reason.
-     *
-     * @return The set of ontologies that are
-     *         <em>logically directly imported</em> by this ontology
-     * @throws org.semanticweb.owlapi.model.UnknownOWLOntologyException
-     *             If this ontology is no longer managed by its manager because
-     *             it was removed from the manager.
-     */
     @Override
     public Set<OWLOntology> getDirectImports() throws UnknownOWLOntologyException {
         return manager.getDirectImports(this);

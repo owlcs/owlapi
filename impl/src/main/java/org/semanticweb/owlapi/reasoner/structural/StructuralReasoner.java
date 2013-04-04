@@ -143,10 +143,6 @@ public class StructuralReasoner extends OWLReasonerBase {
         prepareReasoner();
     }
 
-    /**
-     * Gets the name of this reasoner.
-     * @return A string that represents the name of this reasoner.
-     */
     @Override
     public String getReasonerName() {
         return "Structural Reasoner";
@@ -158,19 +154,11 @@ public class StructuralReasoner extends OWLReasonerBase {
         return FreshEntityPolicy.ALLOW;
     }
 
-    /**
-     * Gets the IndividualNodeSetPolicy  in use by this reasoner.  The policy is set at reasoner creation time.
-     * @return The policy.
-     */
     @Override
     public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
         return IndividualNodeSetPolicy.BY_NAME;
     }
 
-    /**
-     * Gets the version of this reasoner.
-     * @return The version of this reasoner. Not <code>null</code>.
-     */
     @Override
     public Version getReasonerVersion() {
         return version;
@@ -578,23 +566,6 @@ public class StructuralReasoner extends OWLReasonerBase {
         return result;
     }
 
-    /**
-     * Gets the data property values for the specified individual and data property.
-     * @param ind The individual that is the subject of the data property values
-     * @param pe The data property whose values are to be retrieved for the specified individual
-     * @return A set of <code>OWLLiteral</code>s containing literals such that for each literal <code>l</code> in the
-     *         set, either there is an explicit data property assertion in the set of reasoner axioms
-     *         <code>DataPropertyAssertion(pe, ind, l)</code>, or, there is an explicit
-     *         data property assertion in the set of reasoner axioms <code>DataPropertyAssertion(S, ind, l)</code> and
-     *         the set of reasoner axioms entails <code>SubDataPropertyOf(S, pe)</code>.
-     * @throws InconsistentOntologyException if the imports closure of the root ontology is inconsistent
-     * @throws org.semanticweb.owlapi.reasoner.FreshEntitiesException
-     *                                       if the signature of the individual and property is not contained within the signature
-     *                                       of the imports closure of the root ontology and the undeclared entity policy of this reasoner is set to {@link org.semanticweb.owlapi.reasoner.FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException  if the reasoning process was interrupted for any particular reason (for example if
-     *                                       reasoning was cancelled by a client process)
-     * @throws TimeOutException              if the reasoner timed out during a basic reasoning operation. See {@link #getTimeOut()}.
-     */
     @Override
     public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataProperty pe) throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
         ensurePrepared();
@@ -1209,10 +1180,6 @@ public class StructuralReasoner extends OWLReasonerBase {
             return new OWLObjectPropertyNode();
         }
 
-        /**
-         * Processes the specified signature that represents the signature of potential changes
-         * @param signature The signature
-         */
         @Override
         public void processChanges(Set<OWLObjectPropertyExpression> signature, Set<OWLAxiom> added, Set<OWLAxiom> removed) {
             boolean rebuild = false;

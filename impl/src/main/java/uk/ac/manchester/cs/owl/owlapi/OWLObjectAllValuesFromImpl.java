@@ -65,11 +65,6 @@ public class OWLObjectAllValuesFromImpl extends OWLQuantifiedObjectRestrictionIm
         super(property, filler);
     }
 
-
-    /**
-     * Gets the class expression type for this class expression
-     * @return The class expression type
-     */
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_ALL_VALUES_FROM;

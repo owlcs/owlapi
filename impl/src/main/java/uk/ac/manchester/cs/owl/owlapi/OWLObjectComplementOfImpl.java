@@ -66,10 +66,6 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl i
         this.operand = operand;
     }
 
-    /**
-     * Gets the class expression type for this class expression
-     * @return The class expression type
-     */
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_COMPLEMENT_OF;

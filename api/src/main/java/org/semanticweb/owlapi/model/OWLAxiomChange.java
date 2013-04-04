@@ -36,69 +36,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
- */
+ * Date: 12-Dec-2006<br>
+ * <br> */
 public abstract class OWLAxiomChange extends OWLOntologyChange {
-
     private final OWLAxiom axiom;
 
-    /**
-     * @param ont the ontology to which the change is to be applied
-     * @param axiom the axiom to be changed
-     */
+    /** @param ont
+     *            the ontology to which the change is to be applied
+     * @param axiom
+     *            the axiom to be changed */
     public OWLAxiomChange(OWLOntology ont, OWLAxiom axiom) {
         super(ont);
         this.axiom = axiom;
     }
 
-    /**
-     * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
-     * @return A set of entities that correspond to the
-     *         signature of this object. The set is a copy, changes are not reflected back.
-     */
     @Override
     public Set<OWLEntity> getSignature() {
         return axiom.getSignature();
     }
 
     @Override
-	public boolean isAxiomChange() {
+    public boolean isAxiomChange() {
         return true;
     }
 
-
-    /**
-     * Determines if this change is an import change
-     * @return <code>true</code> if this change is an import change, otherwise <code>false</code>.
-     */
     @Override
-	public boolean isImportChange() {
+    public boolean isImportChange() {
         return false;
     }
 
-
-
-
-
-    /**
-     * Gets the axiom that is involved in the change (the
-     * axiom to either be added or removed)
-     */
     @Override
-	public OWLAxiom getAxiom() {
+    public OWLAxiom getAxiom() {
         return axiom;
     }
-
 
     /** A convenience method that obtains the entities which are referenced in
      * the axiom contained within this change.
@@ -108,6 +85,6 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
      * @deprecated use getSignature() instead */
     @Deprecated
     public Set<OWLEntity> getEntities() {
-    	return axiom.getSignature();
+        return axiom.getSignature();
     }
 }

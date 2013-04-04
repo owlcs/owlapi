@@ -66,7 +66,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
 
     public OWLAnonymousIndividualImpl(NodeID nodeID) {
         super();
-        this.nodeId = nodeID;
+        nodeId = nodeID;
     }
 
     @Override
@@ -74,11 +74,6 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
         return nodeId;
     }
 
-    /**
-     * Returns a string representation that can be used as the ID of this individual.  This is the toString
-     * representation of the node ID of this individual
-     * @return A string representing the toString of the node ID of this entity.
-     */
     @Override
     public String toStringID() {
         return nodeId.getID();

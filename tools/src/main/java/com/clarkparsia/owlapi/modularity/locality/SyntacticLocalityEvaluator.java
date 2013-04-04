@@ -1514,12 +1514,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     }
 
 
-    /**
-     * Tests whether a given axiom is local with respect to a given signature.
-     * @param axiom the axiom to test
-     * @param signature the signature to test against
-     * @return <code>true</code> if the axiom is local w.r.t. the signature; <code>false</code> otherwise
-     */
     @Override
     public boolean isLocal(OWLAxiom axiom, Set<? extends OWLEntity> signature) {
         return axiomVisitor.isLocal(axiom, signature);

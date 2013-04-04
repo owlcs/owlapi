@@ -1199,12 +1199,6 @@ public class ContractOwlapiModel_3Test {
                 return false;
             }
 
-            /** Gets the signature of this ontology change. That is, the set of
-             * entities appearing in objects in this change.
-             * 
-             * @return A set of entities that correspond to the signature of
-             *         this object. The set is a copy, changes are not reflected
-             *         back. */
             @Override
             public Set<OWLEntity> getSignature() {
                 return null;

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.HashSet;
@@ -50,50 +49,41 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl implements OWLObjectUnionOf {
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl implements
+        OWLObjectUnionOf {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-
-	@SuppressWarnings("javadoc")
+    @SuppressWarnings("javadoc")
     public OWLObjectUnionOfImpl(Set<? extends OWLClassExpression> operands) {
         super(operands);
     }
 
-    /**
-     * Gets the class expression type for this class expression
-     * @return The class expression type
-     */
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_UNION_OF;
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectUnionOf;
         }
         return false;
     }
 
-
     @Override
-	public Set<OWLClassExpression> asDisjunctSet() {
+    public Set<OWLClassExpression> asDisjunctSet() {
         Set<OWLClassExpression> disjuncts = new HashSet<OWLClassExpression>();
         for (OWLClassExpression op : getOperands()) {
             disjuncts.addAll(op.asDisjunctSet());
         }
         return disjuncts;
     }
-
 
     @Override
     public void accept(OWLClassExpressionVisitor visitor) {
@@ -109,7 +99,6 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl impl
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

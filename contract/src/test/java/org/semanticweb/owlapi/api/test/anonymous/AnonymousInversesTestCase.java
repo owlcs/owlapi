@@ -53,7 +53,7 @@ public class AnonymousInversesTestCase extends AbstractFileRoundTrippingTestCase
     }
 
     /*
-     * Manchester syntax and functional syntax are commented out. This isn't
+     * XXX Manchester syntax and functional syntax are commented out. This isn't
      * supported in the Manchester syntax (current spec) and the functional
      * syntax parser needs fixing once the OWL 2 spec has stabilised.
      */
