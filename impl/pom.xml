@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-impl</artifactId>
 	<packaging>bundle</packaging>
@@ -32,8 +33,9 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.artifactId}</Bundle-Name>
-						<Export-Package>org.semanticweb.owlapi.reasoner.*</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owl.*</Export-Package>
+						<Export-Package>org.semanticweb.owlapi.reasoner.impl</Export-Package>
+						<Export-Package>org.semanticweb.owlapi.reasoner.structural</Export-Package>
+						<Export-Package>uk.ac.manchester.cs.owl.owlapi</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>
