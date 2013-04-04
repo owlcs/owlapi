@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-parsers</artifactId>
 	<packaging>bundle</packaging>
@@ -32,21 +33,32 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.artifactId}</Bundle-Name>
-						<Export-Package>de.uulm.ecs.ai.owlapi.*</Export-Package>
-						<Export-Package>org.coode.*</Export-Package>
-						<Export-Package>org.coode.owl.*</Export-Package>
-						<Export-Package>org.coode.owlapi.*</Export-Package>
-						<Export-Package>org.coode.owlapi.obo.*</Export-Package>
-						<Export-Package>org.coode.owlapi.owlxml.*</Export-Package>
-						<Export-Package>org.coode.owlapi.rdf.*</Export-Package>
-						<Export-Package>org.coode.owlapi.rdfxml.*</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.*</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.rdf.*</Export-Package>
-						<Export-Package>uk.ac.manchester.*</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owl.owlapi.*</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owl.owlapi.turtle.*</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owlapi.*</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owlapi.dlsyntax.*</Export-Package>
+						<Export-Package>de.uulm.ecs.ai.owlapi.krssparser</Export-Package>
+						<Export-Package>de.uulm.ecs.ai.owlapi.krssrenderer</Export-Package>
+						<Export-Package>org.coode.owl.krssparser</Export-Package>
+						<Export-Package>org.coode.owlapi.functionalparser</Export-Package>
+						<Export-Package>org.coode.owlapi.functionalrenderer</Export-Package>
+						<Export-Package>org.coode.owlapi.latex</Export-Package>
+						<Export-Package>org.coode.owlapi.manchesterowlsyntax</Export-Package>
+						<Export-Package>org.coode.owlapi.obo.parser</Export-Package>
+						<Export-Package>org.coode.owlapi.obo.renderer</Export-Package>
+						<Export-Package>org.coode.owlapi.owlxml.renderer</Export-Package>
+						<Export-Package>org.coode.owlapi.owlxmlparser</Export-Package>
+						<Export-Package>org.coode.owlapi.rdf.model</Export-Package>
+						<Export-Package>org.coode.owlapi.rdf.rdfxml</Export-Package>
+						<Export-Package>org.coode.owlapi.rdf.renderer</Export-Package>
+						<Export-Package>org.coode.owlapi.rdfxml.parser</Export-Package>
+						<Export-Package>org.coode.owlapi.turtle</Export-Package>
+						<Export-Package>org.coode.string</Export-Package>
+						<Export-Package>org.coode.xml</Export-Package>
+						<Export-Package>org.semanticweb.owlapi.expression</Export-Package>
+						<Export-Package>org.semanticweb.owlapi.rdf.syntax</Export-Package>
+						<Export-Package>org.semanticweb.owlapi.rdf.util</Export-Package>
+						<Export-Package>uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer</Export-Package>
+						<Export-Package>uk.ac.manchester.cs.owl.owlapi.turtle.parser</Export-Package>
+						<Export-Package>uk.ac.manchester.cs.owlapi.dlsyntax.parser</Export-Package>
+						<Export-Package>uk.ac.manchester.cs.owlapi.dlsyntax</Export-Package>
+						<Export-Package>uk.ac.manchester.cs</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>
