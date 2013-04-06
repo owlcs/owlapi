@@ -114,4 +114,12 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
      *            true if only deterministic results should be returned
      * */
     Node<? extends OWLDataRange> getDataLabel(RootNode node, boolean deterministicOnly);
+
+    /**
+     * @param node
+     *            a node, as return by either getRoot() or getObjectNeighbours()
+     * @return
+     *            a node that blocks given node, or null if there is no such blocker
+     */
+    RootNode getBlocker(RootNode node);
 }
