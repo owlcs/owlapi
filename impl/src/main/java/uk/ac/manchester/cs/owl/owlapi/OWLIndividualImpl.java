@@ -141,6 +141,18 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
     @Override
+    public boolean hasDataPropertyValue(OWLDataPropertyExpression property,
+            OWLLiteral value, OWLOntology ontology) {
+        for (OWLDataPropertyAssertionAxiom ax : ontology
+                .getDataPropertyAssertionAxioms(this)) {
+            if (ax.getProperty().equals(property) && ax.getObject().equals(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public Map<OWLObjectPropertyExpression, Set<OWLIndividual>> getObjectPropertyValues(
             OWLOntology ontology) {
         Map<OWLObjectPropertyExpression, Set<OWLIndividual>> result = new HashMap<OWLObjectPropertyExpression, Set<OWLIndividual>>();
