@@ -133,6 +133,23 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      */
     boolean hasObjectPropertyValue(OWLObjectPropertyExpression property, OWLIndividual individual, OWLOntology ontology);
 
+    /** Test whether a specific value for a specific data property on this
+     * individual has been asserted.
+     * 
+     * @param property
+     *            The property whose values will be examined
+     * @param value
+     *            The value value of the property that will be tested for
+     * @param ontology
+     *            The ontology to search for the property value
+     * @return <code>true</code> if the individual has the specified property
+     *         value, that is, <code>true</code> if the specified ontology
+     *         contains a data property assertion
+     *         DataPropertyAssertion(property, this, value), otherwise
+     *         <code>false</code> */
+    boolean hasDataPropertyValue(OWLDataPropertyExpression property, OWLLiteral value,
+            OWLOntology ontology);
+
     /**
      * Test whether a specific value for a specific object property has been asserted not to hold for this individual.
      * @param property The property to test for
