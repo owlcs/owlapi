@@ -185,13 +185,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     }
 
 
-    /**
-     * Gets a QName for a full URI.
-     *
-     * @param name The name which represents the full name.
-     *
-     * @return The QName representation or <code>null</code> if a QName could not be generated.
-     */
+
     @Override
     public String getQName(String name) {
         final String ns = XMLUtils.getNCNamePrefix(name);

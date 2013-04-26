@@ -387,10 +387,6 @@ public class TurtleRenderer extends RDFRendererBase {
 
     int level = 0;
 
-    /**
-     * Renders the triples whose subject is the specified node
-     * @param node The node
-     */
     @Override
     public void render(RDFResourceNode node) {
 

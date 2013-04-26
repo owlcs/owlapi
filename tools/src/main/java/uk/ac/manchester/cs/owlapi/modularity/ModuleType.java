@@ -70,10 +70,6 @@ public enum ModuleType {
         this.name = name;
     }
 
-    /** Returns the name and alternative name of the module type.
-     * 
-     * @return name (in bottom/top notation), followed by alternative name (in
-     *         upper/lower notation) */
     @Override
     public String toString() {
         return name;

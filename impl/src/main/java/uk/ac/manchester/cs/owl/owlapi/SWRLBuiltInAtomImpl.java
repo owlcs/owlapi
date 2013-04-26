@@ -79,10 +79,6 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
         return (IRI) super.getPredicate();
     }
 
-    /**
-     * Determines if the predicate of this atom is is a core builtin.
-     * @return <code>true</code> if this is a core builtin, otherwise <code>false</code>
-     */
     @Override
     public boolean isCoreBuiltIn() {
         return SWRLBuiltInsVocabulary.getBuiltIn(getPredicate().toURI()) != null;

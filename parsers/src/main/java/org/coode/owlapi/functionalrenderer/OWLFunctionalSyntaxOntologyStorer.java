@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.functionalrenderer;
 
 import java.io.IOException;
@@ -51,23 +50,14 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Jan-2007<br><br>
- */
+ * Date: 25-Jan-2007<br>
+ * <br> */
 public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-	/**
-     * Determines if this storer can store an ontology in the specified ontology format.
-     * @param ontologyFormat The desired ontology format.
-     * @return <code>true</code> if this storer can store an ontology in the desired
-     *         format.
-     */
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new OWLFunctionalSyntaxOntologyFormat());
@@ -75,23 +65,21 @@ public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer
 
     @Override
     protected void storeOntology(OWLOntology ontology, Writer writer,
-            OWLOntologyFormat format) throws
-                                                                                                                            OWLOntologyStorageException {
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
             OWLObjectRenderer ren = new OWLObjectRenderer(ontology, writer);
-            if(format instanceof PrefixOWLOntologyFormat) {
+            if (format instanceof PrefixOWLOntologyFormat) {
                 PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
                 DefaultPrefixManager man = new DefaultPrefixManager();
                 Map<String, String> map = prefixFormat.getPrefixName2PrefixMap();
-                for(Map.Entry<String, String> e : map.entrySet()) {
+                for (Map.Entry<String, String> e : map.entrySet()) {
                     man.setPrefix(e.getKey(), e.getValue());
                 }
                 ren.setPrefixManager(man);
             }
             ontology.accept(ren);
             writer.flush();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
         }
     }

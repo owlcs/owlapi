@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -49,37 +48,28 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements OWLDataExactCardinality {
+public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionImpl
+        implements OWLDataExactCardinality {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-
-	public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
+    public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property,
+            int cardinality, OWLDataRange filler) {
         super(property, cardinality, filler);
     }
 
-
-    /**
-     * Gets the class expression type for this class expression
-     * @return The class expression type
-     */
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.DATA_EXACT_CARDINALITY;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataExactCardinality;
         }
@@ -101,15 +91,17 @@ public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionIm
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
-
     @Override
     public OWLClassExpression asIntersectionOfMinMax() {
-        return getOWLDataFactory().getOWLObjectIntersectionOf(getOWLDataFactory().getOWLDataMinCardinality(getCardinality(), getProperty(), getFiller()), getOWLDataFactory().getOWLDataMaxCardinality(getCardinality(), getProperty(), getFiller()));
+        return getOWLDataFactory().getOWLObjectIntersectionOf(
+                getOWLDataFactory().getOWLDataMinCardinality(getCardinality(),
+                        getProperty(), getFiller()),
+                getOWLDataFactory().getOWLDataMaxCardinality(getCardinality(),
+                        getProperty(), getFiller()));
     }
 }

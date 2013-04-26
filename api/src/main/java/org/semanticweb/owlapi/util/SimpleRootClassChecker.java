@@ -105,13 +105,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
     protected final NamedSuperChecker superChecker = new NamedSuperChecker();
 
 
-    /**
-     * Determines if the specified class is a direct syntactic subclass of owl:Thing
-     *
-     * @param cls The class to be checked.
-     * @return <code>true</code> if the class is a direct syntactic root class of
-     *         owl:Thing, otherwise <code>false</code>.
-     */
+
     @Override
     public boolean isRootClass(OWLClass cls) {
 

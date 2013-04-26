@@ -66,11 +66,6 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
         super(property, cardinality, filler);
     }
 
-
-    /**
-     * Gets the class expression type for this class expression
-     * @return The class expression type
-     */
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_EXACT_CARDINALITY;

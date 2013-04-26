@@ -36,25 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.Collections;
 import java.util.Set;
 
 import org.semanticweb.owlapi.change.SetOntologyIDData;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 01-Apr-2009
- */
+ * Date: 01-Apr-2009 */
 public class SetOntologyID extends OWLOntologyChange {
-
-
     private final OWLOntologyID ontologyID;
-
     private final OWLOntologyID newOntologyID;
 
     /** Creates a set ontology id change, which will set the ontology id to the
@@ -81,38 +76,24 @@ public class SetOntologyID extends OWLOntologyChange {
         this(ont, new OWLOntologyID(ontologyIRI));
     }
 
-    /**
-     * Gets the data (independent of the ontology) associated with this specific change.
-     *
-     * @return The {@link org.semanticweb.owlapi.change.OWLOntologyChangeData} associated with this {@link
-     *         org.semanticweb.owlapi.model.OWLOntologyChange}.  Not {@code null}.
-     */
     @Override
     public SetOntologyIDData getChangeData() {
         return new SetOntologyIDData(newOntologyID);
     }
 
-    /**
-     * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
-     * @return A set of entities that correspond to the
-     *         signature of this object. The set is a copy, changes are not reflected back.
-     */
     @Override
     public Set<OWLEntity> getSignature() {
-        return Collections.emptySet();
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
+                .<OWLEntity> emptySet());
     }
 
-    /**
-     * Determines if this change is an import change
-     * @return <code>true</code> if this change is an import change, otherwise <code>false</code>.
-     */
     @Override
-	public boolean isImportChange() {
+    public boolean isImportChange() {
         return false;
     }
 
     @Override
-	public boolean isAxiomChange() {
+    public boolean isAxiomChange() {
         return false;
     }
 
@@ -121,50 +102,36 @@ public class SetOntologyID extends OWLOntologyChange {
         return false;
     }
 
-    /**
-     * If the change is an axiom change (i.e. AddAxiom or RemoveAxiom)
-     * this method obtains the axiom.
-     *
-     * @return The Axiom if this change is an axiom change
-     * @throws UnsupportedOperationException If the change is not an axiom change (check
-     *                                       with the <code>isAxiomChange</code> method first).
-     */
     @Override
-	public OWLAxiom getAxiom() {
+    public OWLAxiom getAxiom() {
         throw new UnsupportedOperationException("Not an axiom change");
     }
 
-
-    /**
-     * Gets the original ID of the ontology whose URI was changed
-     *
-     * @return The original ID
-     */
+    /** Gets the original ID of the ontology whose URI was changed
+     * 
+     * @return The original ID */
     public OWLOntologyID getOriginalOntologyID() {
         return ontologyID;
     }
 
-    /**
-     * @return the new URI - i.e. the URI of the ontology after the change
-     * was applied.
-     */
+    /** @return the new URI - i.e. the URI of the ontology after the change was
+     *         applied. */
     public OWLOntologyID getNewOntologyID() {
         return newOntologyID;
     }
 
-
     @Override
-	public void accept(OWLOntologyChangeVisitor visitor) {
+    public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
-    	return visitor.visit(this);
+        return visitor.visit(this);
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("SetOntologyID(");
         sb.append(getNewOntologyID().toString());
@@ -175,12 +142,10 @@ public class SetOntologyID extends OWLOntologyChange {
         return sb.toString();
     }
 
-
     @Override
     public int hashCode() {
         return 57 + ontologyID.hashCode() + newOntologyID.hashCode() * 3;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -191,7 +156,7 @@ public class SetOntologyID extends OWLOntologyChange {
             return false;
         }
         SetOntologyID change = (SetOntologyID) obj;
-        return change.getOriginalOntologyID().equals(ontologyID) && change.getNewOntologyID().equals(getNewOntologyID());
+        return change.getOriginalOntologyID().equals(ontologyID)
+                && change.getNewOntologyID().equals(getNewOntologyID());
     }
-
 }

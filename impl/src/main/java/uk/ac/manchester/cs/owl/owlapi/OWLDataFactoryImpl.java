@@ -1440,10 +1440,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * @param iri The rule IRI - this parameter is IGNORED since OWL axioms do
-     * not have IRIs, and is here for backwards compatability.
-     * @param body The atoms that make up the body of the rule
-     * @param head The atoms that make up the head of the rule
      * @deprecated Use either
      *             {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)}
      *             or {@link #getSWRLRule(java.util.Set, java.util.Set)}
@@ -1461,9 +1457,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     }
 
     /**
-     * @param nodeID The node ID
-     * @param body The atoms that make up the body of the rule
-     * @param head The atoms that make up the head of the rule
      * @deprecated Use either
      *             {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)}
      *             or {@link #getSWRLRule(java.util.Set, java.util.Set)}
@@ -1480,13 +1473,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         return new SWRLRuleImpl(body, head, annos);
     }
 
-    /**
-     * Gets an anonymous SWRL Rule
-     * @param body The atoms that make up the body
-     * @param head The atoms that make up the head
-     * @param annotations The annotations for the rule (may be an empty set)
-     * @return An anonymous rule with the specified body and head
-     */
     @Override
     public SWRLRule getSWRLRule(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head, Set<OWLAnnotation> annotations) {
         checkNull(body, "body");
@@ -1495,11 +1481,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         return new SWRLRuleImpl(body, head, annotations);
     }
 
-    /**
-     * Gets a SWRL rule which is anonymous - i.e. isn't named with a URI
-     * @param antecedent The atoms that make up the antecedent
-     * @param consequent The atoms that make up the consequent
-     */
     @Override
     public SWRLRule getSWRLRule(Set<? extends SWRLAtom> antecedent, Set<? extends SWRLAtom> consequent) {
         checkNull(antecedent, "antecedent");
@@ -1507,12 +1488,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         return new SWRLRuleImpl(antecedent, consequent);
     }
 
-    /**
-     * Gets a SWRL class atom, i.e. C(x) where C is a class expression and x is
-     * either an individual id or an i-variable
-     * @param predicate The class expression that corresponds to the predicate
-     * @param arg The argument (x)
-     */
     @Override
     public SWRLClassAtom getSWRLClassAtom(OWLClassExpression predicate, SWRLIArgument arg) {
         checkNull(predicate, "predicate");
@@ -1520,12 +1495,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         return new SWRLClassAtomImpl(predicate, arg);
     }
 
-    /**
-     * Gets a SWRL data range atom, i.e. D(x) where D is an OWL data range and x
-     * is either a constant or a d-variable
-     * @param predicate The data range that corresponds to the predicate
-     * @param arg The argument (x)
-     */
     @Override
     public SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange predicate, SWRLDArgument arg) {
         checkNull(predicate, "predicate");
@@ -1533,14 +1502,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         return new SWRLDataRangeAtomImpl(predicate, arg);
     }
 
-    /**
-     * Gets a SWRL object property atom, i.e. P(x, y) where P is an OWL object
-     * property (expression) and x and y are are either an individual id or an
-     * i-variable.
-     * @param property The property (P)
-     * @param arg0 The first argument (x)
-     * @param arg1 The second argument (y)
-     */
     @Override
     public SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, SWRLIArgument arg0, SWRLIArgument arg1) {
         checkNull(property, "property");
@@ -1549,14 +1510,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         return new SWRLObjectPropertyAtomImpl(property, arg0, arg1);
     }
 
-    /**
-     * Gets a SWRL data property atom, i.e. R(x, y) where R is an OWL data
-     * property (expression) and x and y are are either a constant or a
-     * d-variable.
-     * @param property The property (P)
-     * @param arg0 The first argument (x)
-     * @param arg1 The second argument (y)
-     */
     @Override
     public SWRLDataPropertyAtom getSWRLDataPropertyAtom(OWLDataPropertyExpression property, SWRLIArgument arg0, SWRLDArgument arg1) {
         checkNull(property, "property");
@@ -1565,11 +1518,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         return new SWRLDataPropertyAtomImpl(property, arg0, arg1);
     }
 
-    /**
-     * Creates a SWRL Built-In atom.
-     * @param builtInIRI The SWRL builtIn (see SWRL W3 member submission)
-     * @param args A non-empty set of SWRL D-Objects
-     */
     @Override
     public SWRLBuiltInAtom getSWRLBuiltInAtom(IRI builtInIRI, List<SWRLDArgument> args) {
         checkNull(builtInIRI, "builtInIRI");
@@ -1577,31 +1525,18 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         return new SWRLBuiltInAtomImpl(builtInIRI, args);
     }
 
-    /**
-     * Gets a SWRLVariable.
-     * @param var The id (IRI) of the variable
-     * @return A SWRLVariable that has the name specified by the IRI
-     */
     @Override
     public SWRLVariable getSWRLVariable(IRI var) {
         checkNull(var, "var");
         return new SWRLVariableImpl(var);
     }
 
-    /**
-     * Gets a SWRL individual object.
-     * @param individual The individual that is the object argument
-     */
     @Override
     public SWRLIndividualArgument getSWRLIndividualArgument(OWLIndividual individual) {
         checkNull(individual, "individual");
         return new SWRLIndividualArgumentImpl(individual);
     }
 
-    /**
-     * Gets a SWRL constant object.
-     * @param literal The constant that is the object argument
-     */
     @Override
     public SWRLLiteralArgument getSWRLLiteralArgument(OWLLiteral literal) {
         checkNull(literal, "literal");

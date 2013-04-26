@@ -164,11 +164,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
-    /** A convenience method that obtains the datatypes that are in the signature
-     * of this object
-     * 
-     * @return A set containing the datatypes that are in the signature of this
-     *         object. */
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
         Set<OWLDatatype> result = new HashSet<OWLDatatype>();

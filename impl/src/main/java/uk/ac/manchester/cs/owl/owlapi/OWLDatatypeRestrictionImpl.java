@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.HashSet;
@@ -56,24 +55,20 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLDatatypeRestriction {
-
-
-	private static final long serialVersionUID = 30402L;
-
-	private final OWLDatatype datatype;
-
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
+        OWLDatatypeRestriction {
+    private static final long serialVersionUID = 30402L;
+    private final OWLDatatype datatype;
     private final Set<OWLFacetRestriction> facetRestrictions;
 
     @SuppressWarnings("javadoc")
-    public OWLDatatypeRestrictionImpl(OWLDatatype datatype, Set<OWLFacetRestriction> facetRestrictions) {
+    public OWLDatatypeRestrictionImpl(OWLDatatype datatype,
+            Set<OWLFacetRestriction> facetRestrictions) {
         super();
         this.datatype = datatype;
         this.facetRestrictions = new HashSet<OWLFacetRestriction>(facetRestrictions);
@@ -89,66 +84,54 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
         return false;
     }
 
-
     @Override
     public boolean isTopDatatype() {
         return false;
     }
-
 
     @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
     }
 
-
     @Override
     public OWLDatatype getDatatype() {
         return datatype;
     }
 
-
-    /**
-     * Gets the facet restrictions on this data range
-     * @return A <code>Set</code> of facet restrictions that apply to
-     *         this data range
-     */
     @Override
     public Set<OWLFacetRestriction> getFacetRestrictions() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(facetRestrictions);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(facetRestrictions);
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLDatatypeRestriction)) {
                 return false;
             }
             OWLDatatypeRestriction other = (OWLDatatypeRestriction) obj;
-            return other.getDatatype().equals(datatype) && other.getFacetRestrictions().equals(facetRestrictions);
+            return other.getDatatype().equals(datatype)
+                    && other.getFacetRestrictions().equals(facetRestrictions);
         }
         return false;
     }
-
 
     @Override
     public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
-
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
@@ -166,7 +149,7 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLDatatypeRestriction other = (OWLDatatypeRestriction) object;
         int diff = datatype.compareTo(other.getDatatype());
         if (diff != 0) {

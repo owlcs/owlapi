@@ -1436,9 +1436,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         return parsedAllTriples;
     }
 
-    /**
-     * This is where we do all remaining parsing
-     */
     @Override
     public void endModel() throws SAXException {
         parsedAllTriples = true;

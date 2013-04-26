@@ -61,12 +61,6 @@ public class AddAxiom extends OWLAxiomChange {
         super(ont, axiom);
     }
 
-    /**
-     * Gets the data (independent of the ontology) associated with this specific change.
-     *
-     * @return The {@link org.semanticweb.owlapi.change.OWLOntologyChangeData} associated with this {@link
-     *         org.semanticweb.owlapi.model.OWLOntologyChange}.  Not {@code null}.
-     */
     @Override
     public AddAxiomData getChangeData() {
         return new AddAxiomData(getAxiom());

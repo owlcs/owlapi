@@ -62,10 +62,6 @@ public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
      */
     boolean containsAnonymousIndividuals();
 
-    /**
-     * Returns this axiom represented as set of {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}s.
-     * @return This axiom represented as a set of {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}s.
-     */
     @Override
     Set<OWLSameIndividualAxiom> asPairwiseAxioms();
 }

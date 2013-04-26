@@ -93,7 +93,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
     public OWLDataPropertyImpl(IRI iri) {
         super();
         this.iri = iri;
-        this.builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+        builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
     @Override
@@ -106,40 +106,21 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
         return isOWLBottomDataProperty();
     }
 
-    /**
-     * Gets the entity type for this entity
-     * @return The entity type
-     */
     @Override
     public EntityType<?> getEntityType() {
         return EntityType.DATA_PROPERTY;
     }
 
-    /**
-     * Gets an entity that has the same IRI as this entity but is of the specified type.
-     * @param entityType The type of the entity to obtain.  This entity is not affected in any way.
-     * @return An entity that has the same IRI as this entity and is of the specified type
-     */
     @Override
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
         return getOWLDataFactory().getOWLEntity(entityType, iri);
     }
 
-    /**
-     * Tests to see if this entity is of the specified type
-     * @param entityType The entity type
-     * @return <code>true</code> if this entity is of the specified type, otherwise <code>false</code>.
-     */
     @Override
     public boolean isType(EntityType<?> entityType) {
         return getEntityType().equals(entityType);
     }
 
-    /**
-     * Returns a string representation that can be used as the ID of this entity.  This is the toString
-     * representation of the IRI
-     * @return A string representing the toString of the IRI of this entity.
-     */
     @Override
     public String toStringID() {
         return iri.toString();
@@ -358,37 +339,21 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
         return false;
     }
 
-    /**
-     * Determines if this is the owl:topObjectProperty
-     * @return <code>true</code> if this property is the owl:topObjectProperty otherwise <code>false</code>
-     */
     @Override
     public boolean isOWLTopObjectProperty() {
         return false;
     }
 
-    /**
-     * Determines if this is the owl:bottomObjectProperty
-     * @return <code>true</code> if this property is the owl:bottomObjectProperty otherwise <code>false</code>
-     */
     @Override
     public boolean isOWLBottomObjectProperty() {
         return false;
     }
 
-    /**
-     * Determines if this is the owl:topDataProperty
-     * @return <code>true</code> if this property is the owl:topDataProperty otherwise <code>false</code>
-     */
     @Override
     public boolean isOWLTopDataProperty() {
         return iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI());
     }
 
-    /**
-     * Determines if this is the owl:bottomDataProperty
-     * @return <code>true</code> if this property is the owl:bottomDataProperty otherwise <code>false</code>
-     */
     @Override
     public boolean isOWLBottomDataProperty() {
         return iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());

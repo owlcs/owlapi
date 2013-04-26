@@ -361,7 +361,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
-    /** True if the axiom is semantically local w.r.t. given signature */
     @Override
     public boolean isLocal(OWLAxiom axiom, Set<? extends OWLEntity> signature) {
         if (log.isLoggable(Level.FINE)) {

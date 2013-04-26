@@ -115,7 +115,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      * 
      * @param documentIRI
      *            ignored
-     * @return never returns */
+     * @return false */
     @Override
     public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return false;

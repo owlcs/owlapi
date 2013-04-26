@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
@@ -556,52 +555,11 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         return enrichedSig;
     }
 
-    /** Extracts a module from the associated ontology for a given signature and
-     * the associated module type, and returns the module as a set of axioms.
-     * The module will include annotation and declaration axioms for all
-     * entities and axioms in it.
-     * 
-     * @param sig
-     *            the seed signature (set of entities) for the module
-     * @return the module */
     @Override
     public Set<OWLAxiom> extract(Set<OWLEntity> sig) {
         return extract(sig, 0, 0, null, false);
     }
 
-    /** Extracts a module from the associated ontology for a given signature and
-     * the associated module type, and returns the module as a set of axioms.
-     * The seed signature (set of entities) which determines the module is the
-     * specified signature plus possibly all superclasses and/or subclasses of
-     * the classes therein. Sub-/superclasses are determined using the specified
-     * reasoner. The module will include annotation and declaration axioms for
-     * all entities and axioms in it.
-     * 
-     * @param sig
-     *            the seed signature (set of entities) for the module
-     * @param superClassLevel
-     *            determines whether superclasses are added to the signature
-     *            before segment extraction, see below for admissible values
-     * @param subClassLevel
-     *            determines whether subclasses are added to the signature
-     *            before segment extraction<br>
-     *            Admissible values for superClassLevel (analogously for
-     *            subClassLevel):
-     *            <ul>
-     *            <li>If superClassLevel > 0, then all classes C are included
-     *            for which the class hierarchy computed by the reasoner
-     *            contains a path of length at most superClassLevel downwards
-     *            from C to some class from the signature.</li>
-     *            <li>If superClassLevel = 0, then no super-/subclasses are
-     *            added.</li>
-     *            <li>If superClassLevel < 0, then all direct and indirect
-     *            super-/subclasses of any class in the signature are added.</li>
-     *            </ul>
-     * @param reasoner
-     *            the reasoner to determine super-/subclasses. This can be an
-     *            arbitrary reasoner, including a ToldClassHierarchyReasoner. It
-     *            must have loaded the ontology.
-     * @return the module */
     @Override
     public Set<OWLAxiom> extract(Set<OWLEntity> sig, int superClassLevel,
             int subClassLevel, OWLReasoner reasoner) {
@@ -687,63 +645,12 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         }
     }
 
-    /** Extracts a module from the associated ontology for a given signature and
-     * the associated module type, and returns the module as an ontology.
-     * 
-     * @param signature
-     *            the seed signature (set of entities) for the module
-     * @param iri
-     *            the IRI for the module
-     * @return the module, having the specified IRI
-     * @throws OWLOntologyChangeException
-     *             if adding axioms to the module fails
-     * @throws OWLOntologyCreationException
-     *             if the module cannot be created */
     @Override
     public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri)
             throws OWLOntologyCreationException {
         return extractAsOntology(signature, iri, 0, 0, null, false);
     }
 
-    /** Extracts a module from the associated ontology for a given signature and
-     * the associated module type, and returns the module as an ontology. The
-     * seed signature (set of entities) which determines the module is the
-     * specified signature plus possibly all superclasses and/or subclasses of
-     * the classes therein. Sub-/superclasses are determined using the specified
-     * reasoner. The module will include annotation and declaration axioms for
-     * all entities and axioms in it.
-     * 
-     * @param signature
-     *            the seed signature (set of entities) for the module
-     * @param iri
-     *            the IRI for the module
-     * @param superClassLevel
-     *            determines whether superclasses are added to the signature
-     *            before segment extraction, see below for admissible values
-     * @param subClassLevel
-     *            determines whether subclasses are added to the signature
-     *            before segment extraction<br>
-     *            Admissible values for superClassLevel (analogously for
-     *            subClassLevel):
-     *            <ul>
-     *            <li>If superClassLevel > 0, then all classes C are included
-     *            for which the class hierarchy computed by the reasoner
-     *            contains a path of length at most superClassLevel downwards
-     *            from C to some class from the signature.</li>
-     *            <li>If superClassLevel = 0, then no super-/subclasses are
-     *            added.</li>
-     *            <li>If superClassLevel < 0, then all direct and indirect
-     *            super-/subclasses of any class in the signature are added.</li>
-     *            </ul>
-     * @param reasoner
-     *            the reasoner to determine super-/subclasses. This can be an
-     *            arbitrary reasoner, including a ToldClassHierarchyReasoner. It
-     *            must have loaded the ontology.
-     * @return the module, having the specified IRI
-     * @throws OWLOntologyChangeException
-     *             if adding axioms to the module fails
-     * @throws OWLOntologyCreationException
-     *             if the module cannot be created */
     @Override
     public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri,
             int superClassLevel, int subClassLevel, OWLReasoner reasoner)

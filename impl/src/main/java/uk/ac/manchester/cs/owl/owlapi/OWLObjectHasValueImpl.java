@@ -66,10 +66,6 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLClassExpre
         super(property, value);
     }
 
-    /**
-     * Gets the class expression type for this class expression
-     * @return The class expression type
-     */
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_HAS_VALUE;

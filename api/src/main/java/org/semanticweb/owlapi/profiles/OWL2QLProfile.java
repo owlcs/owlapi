@@ -127,22 +127,11 @@ public class OWL2QLProfile implements OWLProfile {
         allowedDatatypes.add(OWL2Datatype.XSD_DATE_TIME_STAMP.getIRI());
     }
 
-    /**
-     * Gets the name of the profile.
-     * @return A string that represents the name of the profile
-     */
     @Override
     public String getName() {
         return "OWL 2 QL";
     }
 
-    /**
-     * Checks an ontology and its import closure to see if it is within
-     * this profile.
-     * @param ontology The ontology to be checked.
-     * @return An <code>OWLProfileReport</code> that describes whether or not the
-     *         ontology is within this profile.
-     */
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWL2DLProfile profile = new OWL2DLProfile();

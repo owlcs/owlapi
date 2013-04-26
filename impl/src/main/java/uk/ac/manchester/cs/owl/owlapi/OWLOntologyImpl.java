@@ -920,7 +920,6 @@ Serializable {
         return results;
     }
 
-
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature(boolean includeImportsClosure) {
         if (!includeImportsClosure) {

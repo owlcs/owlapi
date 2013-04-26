@@ -75,23 +75,6 @@ public interface OWLAnnotationProperty extends OWLEntity {
     boolean isDeprecated();
 
     /**
-     * Determines if this property is a built in annotation property.  i.e. one of the following
-     * <ul>
-     * <li>rdfs:label</li>
-     * <li>rdfs:comment</li>
-     * <li>rdfs:seeAlso</li>
-     * <li>rdfs:isDefinedBy</li>
-     * <li>owl:deprecated</li>
-     * <li>owl:priorVersion</li>
-     * <li>owl:backwardCompatibleWith</li>
-     * <li>owl:incompatibleWith</li>
-     * </ul>
-     * @return <code>true</code> if the property is a built in annotation property, otherwise <code>false</code>
-     */
-    @Override
-    boolean isBuiltIn();
-
-    /**
      * Gets the annotation properties which are asserted to be sub-properties of this annotation property in
      * the specified ontology.
      * @param ontology The ontology to be examined for <code>SubAnnotationPropertyOf</code> axioms.

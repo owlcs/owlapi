@@ -1004,9 +1004,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         ontologyFactories.remove(factory);
     }
 
-    /** Gets the ontology factories that are registered with this manager.
-     * 
-     * @return A collection of ontology factories. */
     @Override
     public Collection<OWLOntologyFactory> getOntologyFactories() {
         return new ArrayList<OWLOntologyFactory>(ontologyFactories);

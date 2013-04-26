@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataVisitor;
@@ -48,20 +47,14 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 11-Jan-2007<br><br>
- */
+ * Date: 11-Jan-2007<br>
+ * <br> */
 public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRestriction {
-
-
-	private static final long serialVersionUID = 30402L;
-
-	private final OWLFacet facet;
-
+    private static final long serialVersionUID = 30402L;
+    private final OWLFacet facet;
     private final OWLLiteral facetValue;
 
     @SuppressWarnings("javadoc")
@@ -71,24 +64,15 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
         this.facetValue = facetValue;
     }
 
-
-    /**
-     * Gets the restricting facet for this facet restriction
-     */
     @Override
     public OWLFacet getFacet() {
         return facet;
     }
 
-
-    /**
-     * Gets the corresponding facet value for this facet restriction
-     */
     @Override
     public OWLLiteral getFacetValue() {
         return facetValue;
     }
-
 
     @Override
     public void accept(OWLObjectVisitor visitor) {
@@ -111,7 +95,7 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLFacetRestriction other = (OWLFacetRestriction) object;
         int diff = facet.compareTo(other.getFacet());
         if (diff != 0) {

@@ -97,6 +97,12 @@ public class XMLWriterNamespaceManager {
         return prefixNamespaceMap.get(prefix);
     }
 
+    /** Gets a QName for a full URI.
+     * 
+     * @param name
+     *            The name which represents the full name.
+     * @return The QName representation or <code>null</code> if a QName could not
+     *         be generated. */
     public String getQName(String name) {
         if (name.startsWith(defaultNamespace)) {
             return name.substring(defaultNamespace.length(), name.length());

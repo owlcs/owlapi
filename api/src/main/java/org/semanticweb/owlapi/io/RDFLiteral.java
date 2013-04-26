@@ -66,10 +66,6 @@ public class RDFLiteral extends RDFNode {
         return literal;
     }
 
-    /**
-     * Determines if this node is a literal node.
-     * @return <code>true</code> if this node is a literal, otherwise <code>false</code>.
-     */
     @Override
     public boolean isLiteral() {
         return true;

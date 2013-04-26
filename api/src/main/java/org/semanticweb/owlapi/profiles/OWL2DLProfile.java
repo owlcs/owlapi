@@ -98,22 +98,11 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWL2DLProfile implements OWLProfile {
 
-    /**
-     * Gets the name of the profile.
-     * @return A string that represents the name of the profile
-     */
     @Override
     public String getName() {
         return "OWL 2 DL";
     }
 
-    /**
-     * Checks an ontology and its import closure to see if it is within
-     * this profile.
-     * @param ontology The ontology to be checked.
-     * @return An <code>OWLProfileReport</code> that describes whether or not the
-     *         ontology is within this profile.
-     */
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWL2Profile owl2Profile = new OWL2Profile();
