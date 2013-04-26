@@ -39,7 +39,7 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -84,8 +84,8 @@ public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
         OWLOntologyManager man = Factory.getManager();
         OWLOntology ont = man.createOntology();
         OWLDataFactory df = man.getOWLDataFactory();
-        OWLClass clsA = Class("http://ont.com#A");
-        OWLClass clsB = Class("http://ont.com#B");
+        OWLClass clsA = Class(IRI("http://ont.com#A"));
+        OWLClass clsB = Class(IRI("http://ont.com#B"));
         OWLSubClassOfAxiom sca = SubClassOf(clsA, clsB);
         man.addAxiom(ont, sca);
         OWLAnnotationProperty rdfsComment = RDFSComment();

@@ -39,7 +39,7 @@
 package org.semanticweb.owlapi.api.test.dataproperties;
 
 import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
-import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLPropertyCharacteristicTestCase;
 import org.semanticweb.owlapi.model.OWLDataProperty;

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.annotations;
 
-import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Collections;
 import java.util.Set;

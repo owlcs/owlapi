@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.annotations;
 
-import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -70,7 +70,7 @@ public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTripping
             OWLLiteral lit = Literal("Annotation " + (i + 1));
             annotations.add(Factory.getFactory().getOWLAnnotation(RDFSLabel(), lit));
         }
-        OWLEntity entity = NamedIndividual("http://www.another.com/ont#peter");
+        OWLEntity entity = NamedIndividual(IRI("http://www.another.com/ont#peter"));
         addAxiom(ont, Declaration(entity));
         OWLAnnotationAssertionAxiom ax = Factory.getFactory()
                 .getOWLAnnotationAssertionAxiom(prop, entity.getIRI(),

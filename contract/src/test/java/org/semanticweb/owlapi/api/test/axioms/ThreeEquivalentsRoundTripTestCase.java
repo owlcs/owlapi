@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Before;
 import org.junit.Test;

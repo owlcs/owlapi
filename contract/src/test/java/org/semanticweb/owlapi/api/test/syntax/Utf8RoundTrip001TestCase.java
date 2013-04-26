@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
