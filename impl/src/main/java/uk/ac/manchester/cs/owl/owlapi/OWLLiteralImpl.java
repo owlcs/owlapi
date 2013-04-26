@@ -304,7 +304,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 }
                 catch (IOException e) {
                     // some problem happened - defaulting to no compression
-                    System.out.println("OWLLiteralImpl.LiteralWrapper.LiteralWrapper() " + e.getMessage());
                     l = s;
                     bytes = null;
                 }

@@ -130,7 +130,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         expandedAxiomMap = new HashMap<OWLAxiom, OWLAxiom>();
     }
 
-
     @Override
     public void dispose() {
         reset();
