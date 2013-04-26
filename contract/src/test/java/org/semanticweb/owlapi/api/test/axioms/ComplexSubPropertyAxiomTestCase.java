@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,6 +47,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -59,13 +61,13 @@ public class ComplexSubPropertyAxiomTestCase extends AbstractFileRoundTrippingTe
     @Test
     public void testContains() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLObjectProperty propP = getOWLObjectProperty("p");
-        OWLObjectProperty propQ = getOWLObjectProperty("q");
-        OWLObjectProperty propR = getOWLObjectProperty("r");
+        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
+        OWLObjectProperty propQ = ObjectProperty(getIRI("q"));
+        OWLObjectProperty propR = ObjectProperty(getIRI("r"));
         List<OWLObjectProperty> chain = new ArrayList<OWLObjectProperty>();
         chain.add(propP);
         chain.add(propQ);
-        axioms.add(getFactory().getOWLSubPropertyChainOfAxiom(chain, propR));
+        axioms.add(Factory.getFactory().getOWLSubPropertyChainOfAxiom(chain, propR));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

@@ -1,11 +1,11 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory;
+import org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -171,10 +171,10 @@ public class ContractApibindingTest {
                         mock(OWLAnnotationProperty.class));
         OWLAnnotationPropertyDomainAxiom result33 = OWLFunctionalSyntaxFactory
                 .AnnotationPropertyDomain(mock(OWLAnnotationProperty.class),
-                        IRI.create("urn:aFake"));
+                        IRI("urn:aFake"));
         OWLDatatypeDefinitionAxiom result34 = OWLFunctionalSyntaxFactory
                 .DatatypeDefinition(mock(OWLDatatype.class), mock(OWLDataRange.class));
-        OWLClass result35 = OWLFunctionalSyntaxFactory.Class(IRI.create("urn:aFake"));
+        OWLClass result35 = OWLFunctionalSyntaxFactory.Class(IRI("urn:aFake"));
         OWLClass result36 = OWLFunctionalSyntaxFactory.Class("",
                 new DefaultPrefixManager());
         OWLObjectSomeValuesFrom result37 = OWLFunctionalSyntaxFactory
@@ -215,8 +215,7 @@ public class ContractApibindingTest {
                 .ObjectComplementOf(Utils.mockAnonClass());
         OWLObjectOneOf result53 = OWLFunctionalSyntaxFactory
                 .ObjectOneOf(mock(OWLIndividual[].class));
-        OWLDatatype result54 = OWLFunctionalSyntaxFactory.Datatype(IRI
-                .create("urn:aFake"));
+        OWLDatatype result54 = OWLFunctionalSyntaxFactory.Datatype("urn:aFake");
         OWLDataOneOf result55 = OWLFunctionalSyntaxFactory
                 .DataOneOf(mock(OWLLiteral[].class));
         OWLDatatypeRestriction result56 = OWLFunctionalSyntaxFactory.DatatypeRestriction(
@@ -227,20 +226,20 @@ public class ContractApibindingTest {
                 .DataUnionOf(mock(OWLDataRange[].class));
         OWLDataIntersectionOf result59 = OWLFunctionalSyntaxFactory
                 .DataIntersectionOf(mock(OWLDataRange[].class));
-        OWLObjectProperty result60 = OWLFunctionalSyntaxFactory.ObjectProperty(IRI
-                .create("urn:aFake"));
+        OWLObjectProperty result60 = OWLFunctionalSyntaxFactory
+                .ObjectProperty(IRI("urn:aFake"));
         OWLObjectProperty result61 = OWLFunctionalSyntaxFactory.ObjectProperty("",
                 new DefaultPrefixManager());
         OWLDataProperty result62 = OWLFunctionalSyntaxFactory.DataProperty("",
                 new DefaultPrefixManager());
-        OWLDataProperty result63 = OWLFunctionalSyntaxFactory.DataProperty(IRI
-                .create("urn:aFake"));
+        OWLDataProperty result63 = OWLFunctionalSyntaxFactory
+                .DataProperty(IRI("urn:aFake"));
         OWLAnnotationProperty result64 = OWLFunctionalSyntaxFactory.AnnotationProperty(
                 "", new DefaultPrefixManager());
         OWLAnnotationProperty result65 = OWLFunctionalSyntaxFactory
-                .AnnotationProperty(IRI.create("urn:aFake"));
-        OWLNamedIndividual result66 = OWLFunctionalSyntaxFactory.NamedIndividual(IRI
-                .create("urn:aFake"));
+                .AnnotationProperty(IRI("urn:aFake"));
+        OWLNamedIndividual result66 = OWLFunctionalSyntaxFactory
+                .NamedIndividual(IRI("urn:aFake"));
         OWLNamedIndividual result67 = OWLFunctionalSyntaxFactory.NamedIndividual("",
                 new DefaultPrefixManager());
         OWLOntology result68 = OWLFunctionalSyntaxFactory.Ontology(
@@ -252,7 +251,6 @@ public class ContractApibindingTest {
         OWLLiteral result73 = OWLFunctionalSyntaxFactory.Literal("");
         OWLLiteral result74 = OWLFunctionalSyntaxFactory.Literal(0);
         OWLLiteral result75 = OWLFunctionalSyntaxFactory.PlainLiteral("");
-        IRI result76 = OWLFunctionalSyntaxFactory.IRI("");
         OWLObjectInverseOf result77 = OWLFunctionalSyntaxFactory.ObjectInverseOf(Utils
                 .mockObjectProperty());
         OWLFacetRestriction result78 = OWLFunctionalSyntaxFactory.FacetRestriction(
@@ -261,7 +259,7 @@ public class ContractApibindingTest {
                 .IrreflexiveObjectProperty(Utils.mockObjectProperty());
         OWLAnnotationPropertyRangeAxiom result80 = OWLFunctionalSyntaxFactory
                 .AnnotationPropertyRange(mock(OWLAnnotationProperty.class),
-                        IRI.create("urn:aFake"));
+                        IRI("urn:aFake"));
         OWLClass result81 = OWLFunctionalSyntaxFactory.OWLThing();
         OWLClass result82 = OWLFunctionalSyntaxFactory.OWLNothing();
         String result83 = testSubject0.toString();

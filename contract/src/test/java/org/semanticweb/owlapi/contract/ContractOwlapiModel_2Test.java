@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.net.URI;
 import java.util.List;
@@ -1618,39 +1619,33 @@ public class ContractOwlapiModel_2Test {
         boolean result53 = testSubject0.containsEntityInSignature(Utils.mockOWLEntity(),
                 false);
         boolean result54 = testSubject0.containsEntityInSignature(Utils.mockOWLEntity());
-        boolean result55 = testSubject0.containsEntityInSignature(
-                IRI.create("urn:aFake"), false);
-        boolean result56 = testSubject0
-                .containsEntityInSignature(IRI.create("urn:aFake"));
+        boolean result55 = testSubject0
+                .containsEntityInSignature(IRI("urn:aFake"), false);
+        boolean result56 = testSubject0.containsEntityInSignature(IRI("urn:aFake"));
         boolean result57 = testSubject0.isDeclared(Utils.mockOWLEntity());
         boolean result58 = testSubject0.isDeclared(Utils.mockOWLEntity(), false);
-        boolean result59 = testSubject0.containsClassInSignature(IRI.create("urn:aFake"),
-                false);
-        boolean result60 = testSubject0.containsClassInSignature(IRI.create("urn:aFake"));
+        boolean result59 = testSubject0.containsClassInSignature(IRI("urn:aFake"), false);
+        boolean result60 = testSubject0.containsClassInSignature(IRI("urn:aFake"));
         boolean result61 = testSubject0.containsObjectPropertyInSignature(
-                IRI.create("urn:aFake"), false);
-        boolean result62 = testSubject0.containsObjectPropertyInSignature(IRI
-                .create("urn:aFake"));
-        boolean result63 = testSubject0.containsDataPropertyInSignature(IRI
-                .create("urn:aFake"));
-        boolean result64 = testSubject0.containsDataPropertyInSignature(
-                IRI.create("urn:aFake"), false);
-        boolean result65 = testSubject0.containsAnnotationPropertyInSignature(IRI
-                .create("urn:aFake"));
+                IRI("urn:aFake"), false);
+        boolean result62 = testSubject0
+                .containsObjectPropertyInSignature(IRI("urn:aFake"));
+        boolean result63 = testSubject0.containsDataPropertyInSignature(IRI("urn:aFake"));
+        boolean result64 = testSubject0.containsDataPropertyInSignature(IRI("urn:aFake"),
+                false);
+        boolean result65 = testSubject0
+                .containsAnnotationPropertyInSignature(IRI("urn:aFake"));
         boolean result66 = testSubject0.containsAnnotationPropertyInSignature(
-                IRI.create("urn:aFake"), false);
-        boolean result67 = testSubject0.containsIndividualInSignature(IRI
-                .create("urn:aFake"));
-        boolean result68 = testSubject0.containsIndividualInSignature(
-                IRI.create("urn:aFake"), false);
-        boolean result69 = testSubject0.containsDatatypeInSignature(IRI
-                .create("urn:aFake"));
-        boolean result70 = testSubject0.containsDatatypeInSignature(
-                IRI.create("urn:aFake"), false);
-        Set<OWLEntity> result71 = testSubject0.getEntitiesInSignature(
-                IRI.create("urn:aFake"), false);
-        Set<OWLEntity> result72 = testSubject0.getEntitiesInSignature(IRI
-                .create("urn:aFake"));
+                IRI("urn:aFake"), false);
+        boolean result67 = testSubject0.containsIndividualInSignature(IRI("urn:aFake"));
+        boolean result68 = testSubject0.containsIndividualInSignature(IRI("urn:aFake"),
+                false);
+        boolean result69 = testSubject0.containsDatatypeInSignature(IRI("urn:aFake"));
+        boolean result70 = testSubject0.containsDatatypeInSignature(IRI("urn:aFake"),
+                false);
+        Set<OWLEntity> result71 = testSubject0.getEntitiesInSignature(IRI("urn:aFake"),
+                false);
+        Set<OWLEntity> result72 = testSubject0.getEntitiesInSignature(IRI("urn:aFake"));
         Set<OWLSubAnnotationPropertyOfAxiom> result73 = testSubject0
                 .getSubAnnotationPropertyOfAxioms(mock(OWLAnnotationProperty.class));
         Set<OWLAnnotationPropertyDomainAxiom> result74 = testSubject0

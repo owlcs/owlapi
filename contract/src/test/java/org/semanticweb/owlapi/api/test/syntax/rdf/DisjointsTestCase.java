@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.File;
 import java.util.HashSet;
@@ -92,8 +93,8 @@ public class DisjointsTestCase {
     @Test
     public void testAnonDisjoints() throws Exception {
         OWLOntology ontA = man.createOntology(TestUtils.createIRI());
-        OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
-        OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
+        OWLClass clsA = Class(TestUtils.createIRI());
+        OWLClass clsB = Class(TestUtils.createIRI());
         OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(
                 TestUtils.createIRI());
         OWLClassExpression descA = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(

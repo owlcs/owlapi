@@ -1,13 +1,13 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -24,9 +24,9 @@ public class TurtleQNamesTestCase {
                 + "@prefix foaf:    <http://xmlns.com/foaf/0.1/> .\n"
                 + "foaf:fundedBy rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .";
         OWLDataFactory df = Factory.getFactory();
-        OWLAxiom expected = df.getOWLAnnotationAssertionAxiom(df.getRDFSIsDefinedBy(),
-                IRI.create("http://xmlns.com/foaf/0.1/fundedBy"),
-                IRI.create("http://xmlns.com/foaf/0.1/"));
+        OWLAxiom expected = AnnotationAssertion(df.getRDFSIsDefinedBy(),
+                IRI("http://xmlns.com/foaf/0.1/fundedBy"),
+                IRI("http://xmlns.com/foaf/0.1/"));
         // when
         OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(working));
@@ -40,8 +40,8 @@ public class TurtleQNamesTestCase {
         String input = "@prefix f:    <urn:test/> . f:r f:p f: .";
         OWLDataFactory df = Factory.getFactory();
         OWLAxiom expected = df.getOWLAnnotationAssertionAxiom(
-                df.getOWLAnnotationProperty(IRI.create("urn:test/p")),
-                IRI.create("urn:test/r"), IRI.create("urn:test/"));
+                df.getOWLAnnotationProperty(IRI("urn:test/p")), IRI("urn:test/r"),
+                IRI("urn:test/"));
         // when
         OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input));

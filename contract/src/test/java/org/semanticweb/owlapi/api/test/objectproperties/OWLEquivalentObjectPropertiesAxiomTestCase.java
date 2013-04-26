@@ -1,7 +1,7 @@
 /*
  * This file is part of the OWL API.
  *
- * The contents of this file are subject to the LGPL License, Version 3.0.
+ * The contents of this file are subject tOWLObjectProperty the LGPL License, Version 3.0.
  *
  * Copyright (C) 2011, The University of Manchester
  *
@@ -30,7 +30,7 @@
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
+ * Unless required by applicable law or agreed tOWLObjectProperty in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
@@ -38,12 +38,12 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLNaryOperandsObjectTestCase;
+import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -53,22 +53,59 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
 public class OWLEquivalentObjectPropertiesAxiomTestCase extends
-        AbstractOWLNaryOperandsObjectTestCase<OWLObjectProperty> {
+        AbstractOWLDataFactoryTest {
     public void testAsSubAxioms() throws Exception {
-        Set<OWLObjectProperty> operands = new HashSet<OWLObjectProperty>();
-        operands.add(createOperand());
-        operands.add(createOperand());
-        OWLEquivalentObjectPropertiesAxiom objA = (OWLEquivalentObjectPropertiesAxiom) createObject(operands);
+        OWLObjectProperty[] operands = { ObjectProperty(createIRI()),
+                ObjectProperty(createIRI()) };
+        OWLEquivalentObjectPropertiesAxiom objA = EquivalentObjectProperties(operands);
         assertTrue(objA.asSubObjectPropertyOfAxioms().size() == 2);
     }
 
     @Override
-    protected OWLObject createObject(Set<OWLObjectProperty> operands) throws Exception {
-        return getFactory().getOWLEquivalentObjectPropertiesAxiom(operands);
+    @Test
+    public void testCreation() throws Exception {
+        OWLObjectProperty[] operands = { ObjectProperty(createIRI()),
+                ObjectProperty(createIRI()), ObjectProperty(createIRI()) };
+        OWLObject obj = EquivalentObjectProperties(operands);
+        assertNotNull("object should not be null", obj);
     }
 
     @Override
-    protected OWLObjectProperty createOperand() throws Exception {
-        return createOWLObjectProperty();
+    @Test
+    public void testEqualsPositive() throws Exception {
+        OWLObjectProperty a = ObjectProperty(createIRI());
+        OWLObjectProperty b = ObjectProperty(createIRI());
+        OWLObjectProperty c = ObjectProperty(createIRI());
+        OWLObjectProperty[] operands = { a, b, c };
+        OWLObject objA = EquivalentObjectProperties(operands);
+        OWLObjectProperty[] operands1 = { a, b, c };
+        OWLObject objB = EquivalentObjectProperties(operands1);
+        assertEquals(objA, objB);
+    }
+
+    @Override
+    @Test
+    public void testEqualsNegative() throws Exception {
+        OWLObjectProperty a = ObjectProperty(createIRI());
+        OWLObjectProperty b = ObjectProperty(createIRI());
+        OWLObjectProperty[] operands = { a, b };
+        OWLObject objA = EquivalentObjectProperties(operands);
+        OWLObjectProperty c = ObjectProperty(createIRI());
+        OWLObjectProperty[] operands1 = { a, b, c };
+        OWLObject objB = EquivalentObjectProperties(operands1);
+        assertFalse(objA.equals(objB));
+    }
+
+    @Override
+    @Test
+    public void testHashCode() throws Exception {
+        OWLObjectProperty a = ObjectProperty(createIRI());
+        OWLObjectProperty b = ObjectProperty(createIRI());
+        OWLObjectProperty c = ObjectProperty(createIRI());
+        OWLObjectProperty[] operands = { a, b, c };
+        OWLObject objA = EquivalentObjectProperties(operands);
+        OWLObjectProperty[] operands1 = { a, b, c };
+        OWLObject objB = EquivalentObjectProperties(operands1);
+        assertEquals(objA.hashCode(), objB.hashCode());
     }
 }

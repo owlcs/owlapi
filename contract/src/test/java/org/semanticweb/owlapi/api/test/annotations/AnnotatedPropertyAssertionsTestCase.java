@@ -39,14 +39,13 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -65,14 +64,10 @@ public class AnnotatedPropertyAssertionsTestCase extends AbstractFileTestCase {
     @Test
     public void testCorrectAxiomAnnotated() {
         OWLOntology ontology = createOntology();
-        OWLDataFactory df = getFactory();
-        OWLNamedIndividual subject = df.getOWLNamedIndividual(IRI
-                .create("http://Example.com#myBuilding"));
-        OWLObjectProperty predicate = df.getOWLObjectProperty(IRI
-                .create("http://Example.com#located_at"));
-        OWLNamedIndividual object = df.getOWLNamedIndividual(IRI
-                .create("http://Example.com#myLocation"));
-        OWLAxiom ax = df.getOWLObjectPropertyAssertionAxiom(predicate, subject, object);
+        OWLNamedIndividual subject = NamedIndividual("http://Example.com#myBuilding");
+        OWLObjectProperty predicate = ObjectProperty("http://Example.com#located_at");
+        OWLNamedIndividual object = NamedIndividual("http://Example.com#myLocation");
+        OWLAxiom ax = ObjectPropertyAssertion(predicate, subject, object);
         assertTrue(ontology.containsAxiomIgnoreAnnotations(ax));
         Set<OWLAxiom> axioms = ontology.getAxiomsIgnoreAnnotations(ax);
         assertTrue(axioms.size() == 1);

@@ -38,9 +38,12 @@
  */
 package org.semanticweb.owlapi.api.test.anonymous;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -56,9 +59,9 @@ public class AnonymousRootRoundTrippingTestCase extends AbstractRoundTrippingTes
         OWLOntology ont = getOWLOntology("OntA");
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         for (int i = 0; i < 10; i++) {
-            inds.add(getOWLIndividual("Ind" + i));
+            inds.add(NamedIndividual(getIRI("Ind" + i)));
         }
-        addAxiom(ont, getFactory().getOWLDifferentIndividualsAxiom(inds));
+        addAxiom(ont, Factory.getFactory().getOWLDifferentIndividualsAxiom(inds));
         return ont;
     }
 }

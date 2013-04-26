@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
@@ -56,9 +57,9 @@ public class RDFSClassTestCase extends AbstractFileTestCase {
     @Test
     public void testCorrectAxioms() {
         OWLOntology ont = createOntology();
-        IRI clsIRI = IRI.create("http://owlapi.sourceforge.net/ontology#ClsA");
-        OWLClass cls = getFactory().getOWLClass(clsIRI);
-        OWLDeclarationAxiom ax = getFactory().getOWLDeclarationAxiom(cls);
+        IRI clsIRI = IRI("http://owlapi.sourceforge.net/ontology#ClsA");
+        OWLClass cls = Class(clsIRI);
+        OWLDeclarationAxiom ax = Declaration(cls);
         assertTrue(ont.containsAxiom(ax));
     }
 

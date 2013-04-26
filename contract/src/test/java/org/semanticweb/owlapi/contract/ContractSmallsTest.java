@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,7 +20,6 @@ import org.coode.owlapi.owlxml.renderer.OWLXMLWriter;
 import org.coode.owlapi.rdf.model.RDFGraph;
 import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLNamespaceManager;
-import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.coode.owlapi.turtle.TurtleRenderer;
@@ -99,9 +99,9 @@ public class ContractSmallsTest {
         Set<OWLAxiom> result1 = testSubject0.extract(
                 Utils.mockSet(Utils.mockOWLEntity()), 0, 0, Utils.structReasoner());
         OWLOntology result2 = testSubject0.extractAsOntology(
-                Utils.mockSet(Utils.mockOWLEntity()), IRI.create("urn:aFake"));
+                Utils.mockSet(Utils.mockOWLEntity()), IRI("urn:aFake"));
         OWLOntology result3 = testSubject0.extractAsOntology(
-                Utils.mockSet(Utils.mockOWLEntity()), IRI.create("urn:aFake"), 0, 0,
+                Utils.mockSet(Utils.mockOWLEntity()), IRI("urn:aFake"), 0, 0,
                 Utils.structReasoner());
     }
 
@@ -173,7 +173,7 @@ public class ContractSmallsTest {
         Set<OWLAxiom> result2 = testSubject0.extract(
                 Utils.mockSet(Utils.mockOWLEntity()), 0, 0, Utils.structReasoner());
         OWLOntology result3 = testSubject0.extractAsOntology(
-                Utils.mockSet(Utils.mockOWLEntity()), IRI.create("urn:aFake"), 0, 0,
+                Utils.mockSet(Utils.mockOWLEntity()), IRI("urn:aFake"), 0, 0,
                 Utils.structReasoner());
         OWLOntology result4 = testSubject0.extractAsOntology(
                 Utils.mockSet(Utils.mockOWLEntity()), IRI.create("urn:anotherFake"));
@@ -288,13 +288,6 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestRDFXMLOntologyStorer() throws Exception {
-        RDFXMLOntologyStorer testSubject0 = new RDFXMLOntologyStorer();
-        boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        String result1 = testSubject0.toString();
-    }
-
-    @Test
     public void shouldTestMutableTree() throws Exception {
         MutableTree<Object> testSubject0 = new MutableTree<Object>(mock(Object.class));
         String result0 = testSubject0.toString();
@@ -392,7 +385,7 @@ public class ContractSmallsTest {
         testSubject0.setDefaultPrefix("");
         boolean result9 = testSubject0.containsPrefixMapping("");
         String result10 = testSubject0.getDefaultPrefix();
-        String result11 = testSubject0.getPrefixIRI(IRI.create("urn:aFake"));
+        String result11 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result12 = testSubject0.getParameter(mock(Object.class),
                 mock(Object.class));
@@ -475,7 +468,6 @@ public class ContractSmallsTest {
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         String result0 = testSubject0.toString();
     }
-
 
     @Test
     public void shouldTestAbstractOWLDebugger() throws Exception {

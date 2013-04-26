@@ -39,6 +39,8 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
@@ -52,17 +54,17 @@ public class OWLTypedConstantTestCase extends AbstractOWLDataFactoryTest {
     @Override
     @Test
     public void testCreation() throws Exception {
-        OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
-        OWLLiteral conA = getFactory().getOWLLiteral("3", dt);
+        OWLDatatype dt = Datatype(createIRI());
+        OWLLiteral conA = Literal("3", dt);
         assertNotNull(conA);
     }
 
     @Override
     @Test
     public void testEqualsPositive() throws Exception {
-        OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
-        OWLLiteral conA = getFactory().getOWLLiteral("3", dt);
-        OWLLiteral conB = getFactory().getOWLLiteral("3", dt);
+        OWLDatatype dt = Datatype(createIRI());
+        OWLLiteral conA = Literal("3", dt);
+        OWLLiteral conB = Literal("3", dt);
         assertEquals(conA, conB);
     }
 
@@ -70,24 +72,24 @@ public class OWLTypedConstantTestCase extends AbstractOWLDataFactoryTest {
     @Test
     public void testEqualsNegative() throws Exception {
         // Different datatypes - same literal
-        OWLDatatype dtA = getFactory().getOWLDatatype(createIRI());
-        OWLLiteral conA = getFactory().getOWLLiteral("3", dtA);
-        OWLDatatype dtB = getFactory().getOWLDatatype(createIRI());
-        OWLLiteral conB = getFactory().getOWLLiteral("3", dtB);
-        assertNotEquals(conA, conB);
+        OWLDatatype dtA = Datatype(createIRI());
+        OWLLiteral conA = Literal("3", dtA);
+        OWLDatatype dtB = Datatype(createIRI());
+        OWLLiteral conB = Literal("3", dtB);
+        assertFalse(conA.equals(conB));
         // Different literals - same datatype
-        OWLDatatype dtC = getFactory().getOWLDatatype(createIRI());
-        OWLLiteral conC = getFactory().getOWLLiteral("3", dtC);
-        OWLLiteral conD = getFactory().getOWLLiteral("4", dtC);
-        assertNotEquals(conC, conD);
+        OWLDatatype dtC = Datatype(createIRI());
+        OWLLiteral conC = Literal("3", dtC);
+        OWLLiteral conD = Literal("4", dtC);
+        assertFalse(conC.equals(conD));
     }
 
     @Override
     @Test
     public void testHashCode() throws Exception {
-        OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
-        OWLLiteral conA = getFactory().getOWLLiteral("3", dt);
-        OWLLiteral conB = getFactory().getOWLLiteral("3", dt);
+        OWLDatatype dt = Datatype(createIRI());
+        OWLLiteral conA = Literal("3", dt);
+        OWLLiteral conB = Literal("3", dt);
         assertEquals(conA.hashCode(), conB.hashCode());
     }
 }

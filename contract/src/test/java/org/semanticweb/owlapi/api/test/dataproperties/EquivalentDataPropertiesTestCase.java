@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.dataproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,8 +54,8 @@ public class EquivalentDataPropertiesTestCase extends AbstractAxiomsRoundTrippin
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLEquivalentDataPropertiesAxiom(
-                getOWLDataProperty("p"), getOWLDataProperty("q")));
+        axioms.add(EquivalentDataProperties(DataProperty(getIRI("p")),
+                DataProperty(getIRI("q"))));
         return axioms;
     }
 }

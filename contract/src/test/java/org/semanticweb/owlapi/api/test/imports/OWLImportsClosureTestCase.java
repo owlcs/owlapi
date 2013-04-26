@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.imports;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.TestUtils;
@@ -62,8 +63,8 @@ public class OWLImportsClosureTestCase extends AbstractOWLAPITestCase {
         OWLOntology ontA = getManager().createOntology(TestUtils.createIRI());
         OWLOntology ontB = getManager().createOntology(TestUtils.createIRI());
         assertTrue(getManager().getImportsClosure(ontA).contains(ontA));
-        OWLImportsDeclaration importsDeclaration = getFactory().getOWLImportsDeclaration(
-                ontB.getOntologyID().getOntologyIRI());
+        OWLImportsDeclaration importsDeclaration = ImportsDeclaration(ontB
+                .getOntologyID().getOntologyIRI());
         getManager().applyChange(new AddImport(ontA, importsDeclaration));
         assertTrue(getManager().getImportsClosure(ontA).contains(ontB));
         getManager().applyChange(new RemoveImport(ontA, importsDeclaration));

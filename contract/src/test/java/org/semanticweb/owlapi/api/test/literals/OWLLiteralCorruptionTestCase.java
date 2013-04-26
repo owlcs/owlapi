@@ -1,10 +1,9 @@
 package org.semanticweb.owlapi.api.test.literals;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 @SuppressWarnings("javadoc")
@@ -20,8 +19,7 @@ public class OWLLiteralCorruptionTestCase {
             sb.append("\n");
         }
         TEST_STRING = sb.toString();
-        OWLDataFactory factory = Factory.getFactory();
-        OWLLiteral literal = factory.getOWLLiteral(TEST_STRING);
+        OWLLiteral literal = Literal(TEST_STRING);
         assertEquals("Out = in ? false", literal.getLiteral(), TEST_STRING);
     }
 }

@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.ByteArrayInputStream;
 import java.util.Arrays;
@@ -8,7 +9,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -28,12 +28,10 @@ public class UseOfPropertyInChainCausesCycleTestCase {
         // a:hasUncle ) The brother of someone's father is that person's uncle.
         // SubObjectPropertyOf( ObjectPropertyChain( a:hasChild a:hasUncle )
         // a:hasBrother ) The uncle of someone's child is that person's brother.
-        OWLObjectProperty father = f.getOWLObjectProperty(IRI
-                .create("urn:test:hasFather"));
-        OWLObjectProperty brother = f.getOWLObjectProperty(IRI
-                .create("urn:test:hasBrother"));
-        OWLObjectProperty child = f.getOWLObjectProperty(IRI.create("urn:test:hasChild"));
-        OWLObjectProperty uncle = f.getOWLObjectProperty(IRI.create("urn:test:hasUncle"));
+        OWLObjectProperty father = f.getOWLObjectProperty(IRI("urn:test:hasFather"));
+        OWLObjectProperty brother = f.getOWLObjectProperty(IRI("urn:test:hasBrother"));
+        OWLObjectProperty child = f.getOWLObjectProperty(IRI("urn:test:hasChild"));
+        OWLObjectProperty uncle = f.getOWLObjectProperty(IRI("urn:test:hasUncle"));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(father));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(child));
@@ -63,12 +61,10 @@ public class UseOfPropertyInChainCausesCycleTestCase {
     public void shouldNotCauseViolations() throws OWLOntologyCreationException {
         OWLOntology o = Factory.getManager().createOntology();
         OWLDataFactory f = Factory.getFactory();
-        OWLObjectProperty father = f.getOWLObjectProperty(IRI
-                .create("urn:test:hasFather"));
-        OWLObjectProperty brother = f.getOWLObjectProperty(IRI
-                .create("urn:test:hasBrother"));
-        OWLObjectProperty child = f.getOWLObjectProperty(IRI.create("urn:test:hasChild"));
-        OWLObjectProperty uncle = f.getOWLObjectProperty(IRI.create("urn:test:hasUncle"));
+        OWLObjectProperty father = f.getOWLObjectProperty(IRI("urn:test:hasFather"));
+        OWLObjectProperty brother = f.getOWLObjectProperty(IRI("urn:test:hasBrother"));
+        OWLObjectProperty child = f.getOWLObjectProperty(IRI("urn:test:hasChild"));
+        OWLObjectProperty uncle = f.getOWLObjectProperty(IRI("urn:test:hasUncle"));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(father));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(child));

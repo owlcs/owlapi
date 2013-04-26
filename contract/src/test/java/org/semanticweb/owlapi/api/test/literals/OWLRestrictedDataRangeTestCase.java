@@ -39,16 +39,14 @@
 package org.semanticweb.owlapi.api.test.literals;
 
 import static org.junit.Assert.*;
-
-import java.util.Set;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.util.OWLDataUtil;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /** Author: Matthew Horridge<br>
@@ -58,60 +56,46 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
     @Override
     @Test
     public void testCreation() throws Exception {
-        OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
-        OWLLiteral facetValue = getFactory().getOWLLiteral("3",
-                getFactory().getOWLDatatype(createIRI()));
-        Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(
-                getFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
-        OWLDatatypeRestriction restRng = getFactory().getOWLDatatypeRestriction(rng,
-                restrictions);
+        OWLDatatype rng = Datatype(createIRI());
+        OWLLiteral facetValue = Literal("3", Datatype(createIRI()));
+        OWLDatatypeRestriction restRng = DatatypeRestriction(rng,
+                FacetRestriction(OWLFacet.MAX_EXCLUSIVE, facetValue));
         assertNotNull(restRng);
     }
 
     @Override
     @Test
     public void testEqualsPositive() throws Exception {
-        OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
-        OWLLiteral facetValue = getFactory().getOWLLiteral("3",
-                getFactory().getOWLDatatype(createIRI()));
-        Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(
-                getFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
-        OWLDatatypeRestriction restRngA = getFactory().getOWLDatatypeRestriction(rng,
-                restrictions);
-        OWLDatatypeRestriction restRngB = getFactory().getOWLDatatypeRestriction(rng,
-                restrictions);
+        OWLDatatype rng = Datatype(createIRI());
+        OWLLiteral facetValue = Literal("3", Datatype(createIRI()));
+        OWLDatatypeRestriction restRngA = DatatypeRestriction(rng,
+                FacetRestriction(OWLFacet.MAX_EXCLUSIVE, facetValue));
+        OWLDatatypeRestriction restRngB = DatatypeRestriction(rng,
+                FacetRestriction(OWLFacet.MAX_EXCLUSIVE, facetValue));
         assertEquals(restRngA, restRngB);
     }
 
     @Override
     @Test
     public void testEqualsNegative() throws Exception {
-        OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
-        OWLLiteral facetValue = getFactory().getOWLLiteral("3",
-                getFactory().getOWLDatatype(createIRI()));
-        Set<OWLFacetRestriction> restrictionsA = OWLDataUtil.getFacetRestrictionSet(
-                getFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
-        Set<OWLFacetRestriction> restrictionsB = OWLDataUtil.getFacetRestrictionSet(
-                getFactory(), OWLFacet.MIN_INCLUSIVE, facetValue);
-        OWLDatatypeRestriction restRngA = getFactory().getOWLDatatypeRestriction(rng,
-                restrictionsA);
-        OWLDatatypeRestriction restRngB = getFactory().getOWLDatatypeRestriction(rng,
-                restrictionsB);
-        assertNotEquals(restRngA, restRngB);
+        OWLDatatype rng = Datatype(createIRI());
+        OWLLiteral facetValue = Literal("3", Datatype(createIRI()));
+        OWLDatatypeRestriction restRngA = DatatypeRestriction(rng,
+                FacetRestriction(OWLFacet.MAX_EXCLUSIVE, facetValue));
+        OWLDatatypeRestriction restRngB = DatatypeRestriction(rng,
+                FacetRestriction(OWLFacet.MIN_INCLUSIVE, facetValue));
+        assertFalse(restRngA.equals(restRngB));
     }
 
     @Override
     @Test
     public void testHashCode() throws Exception {
-        OWLDatatype rng = getFactory().getOWLDatatype(createIRI());
-        OWLLiteral facetValue = getFactory().getOWLLiteral("3",
-                getFactory().getOWLDatatype(createIRI()));
-        Set<OWLFacetRestriction> restrictions = OWLDataUtil.getFacetRestrictionSet(
-                getFactory(), OWLFacet.MAX_EXCLUSIVE, facetValue);
-        OWLDatatypeRestriction restRngA = getFactory().getOWLDatatypeRestriction(rng,
-                restrictions);
-        OWLDatatypeRestriction restRngB = getFactory().getOWLDatatypeRestriction(rng,
-                restrictions);
+        OWLDatatype rng = Datatype(createIRI());
+        OWLLiteral facetValue = Literal("3", Datatype(createIRI()));
+        OWLDatatypeRestriction restRngA = DatatypeRestriction(rng,
+                FacetRestriction(OWLFacet.MAX_EXCLUSIVE, facetValue));
+        OWLDatatypeRestriction restRngB = DatatypeRestriction(rng,
+                FacetRestriction(OWLFacet.MAX_EXCLUSIVE, facetValue));
         assertEquals(restRngA.hashCode(), restRngB.hashCode());
     }
 }

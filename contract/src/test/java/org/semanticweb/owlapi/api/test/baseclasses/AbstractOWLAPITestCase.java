@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -54,14 +55,7 @@ import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -77,11 +71,11 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLAPITestCase {
     private OWLOntologyManager manager;
-    private IRI uriBase;
+    private String uriBase;
 
     public AbstractOWLAPITestCase() {
         manager = Factory.getManager();
-        uriBase = IRI.create("http://www.semanticweb.org/owlapi/test");
+        uriBase = "http://www.semanticweb.org/owlapi/test";
     }
 
     @Before
@@ -93,13 +87,9 @@ public abstract class AbstractOWLAPITestCase {
         return manager;
     }
 
-    public OWLDataFactory getFactory() {
-        return manager.getOWLDataFactory();
-    }
-
     public OWLOntology getOWLOntology(String name) {
         try {
-            IRI iri = IRI.create(uriBase + "/" + name);
+            IRI iri = IRI(uriBase + "/" + name);
             if (manager.contains(iri)) {
                 return manager.getOntology(iri);
             } else {
@@ -123,28 +113,8 @@ public abstract class AbstractOWLAPITestCase {
         }
     }
 
-    public OWLClass getOWLClass(String name) {
-        return getFactory().getOWLClass(IRI.create(uriBase + "#" + name));
-    }
-
-    public OWLObjectProperty getOWLObjectProperty(String name) {
-        return getFactory().getOWLObjectProperty(IRI.create(uriBase + "#" + name));
-    }
-
-    public OWLDataProperty getOWLDataProperty(String name) {
-        return getFactory().getOWLDataProperty(IRI.create(uriBase + "#" + name));
-    }
-
-    public OWLNamedIndividual getOWLIndividual(String name) {
-        return getFactory().getOWLNamedIndividual(IRI.create(uriBase + "#" + name));
-    }
-
-    public OWLDatatype getOWLDatatype(String name) {
-        return getFactory().getOWLDatatype(IRI.create(uriBase + "#" + name));
-    }
-
-    public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
-        return getFactory().getOWLAnnotationProperty(IRI.create(uriBase + "#" + name));
+    public IRI getIRI(String name) {
+        return IRI(uriBase + "#" + name);
     }
 
     public void addAxiom(OWLOntology ont, OWLAxiom ax) {

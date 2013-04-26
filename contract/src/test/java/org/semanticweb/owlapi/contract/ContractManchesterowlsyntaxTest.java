@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -278,7 +279,7 @@ public class ContractManchesterowlsyntaxTest {
         testSubject0.setDefaultPrefix("");
         boolean result5 = testSubject0.containsPrefixMapping("");
         String result6 = testSubject0.getDefaultPrefix();
-        String result7 = testSubject0.getPrefixIRI(IRI.create("urn:aFake"));
+        String result7 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result8 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
@@ -294,7 +295,7 @@ public class ContractManchesterowlsyntaxTest {
         Set<OWLImportsDeclaration> mock2 = Utils
                 .mockSet(mock(OWLImportsDeclaration.class));
         ManchesterOWLSyntaxOntologyHeader testSubject0 = new ManchesterOWLSyntaxOntologyHeader(
-                IRI.create("urn:aFake"), IRI.create("urn:aFake"), mock1, mock2);
+                IRI("urn:aFake"), IRI("urn:aFake"), mock1, mock2);
         Collection<OWLAnnotation> result0 = testSubject0.getAnnotations();
         OWLOntologyID result1 = testSubject0.getOntologyID();
         Collection<OWLImportsDeclaration> result2 = testSubject0.getImportsDeclarations();
@@ -308,7 +309,7 @@ public class ContractManchesterowlsyntaxTest {
                 new OWLOntologyLoaderConfiguration());
         OWLOntologyFormat result1 = testSubject0.parse(
                 mock(OWLOntologyDocumentSource.class), Utils.getMockOntology());
-        OWLOntologyFormat result2 = testSubject0.parse(IRI.create("urn:aFake"),
+        OWLOntologyFormat result2 = testSubject0.parse(IRI("urn:aFake"),
                 Utils.getMockOntology());
         String result4 = testSubject0.toString();
     }

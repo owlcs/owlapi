@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -57,10 +58,10 @@ public class DisjointClassesTestCase extends AbstractFileRoundTrippingTestCase {
     @Test
     public void testContains() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = getOWLClass("A");
-        OWLClass clsB = getOWLClass("B");
-        OWLClass clsC = getOWLClass("C");
-        axioms.add(getFactory().getOWLDisjointClassesAxiom(clsA, clsB, clsC));
+        OWLClass clsA = Class(getIRI("A"));
+        OWLClass clsB = Class(getIRI("B"));
+        OWLClass clsC = Class(getIRI("C"));
+        axioms.add(DisjointClasses(clsA, clsB, clsC));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

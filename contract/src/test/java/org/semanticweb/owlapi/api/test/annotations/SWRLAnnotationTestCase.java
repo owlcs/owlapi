@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,6 @@ import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -35,13 +35,13 @@ public class SWRLAnnotationTestCase {
     @Before
     public void setUp() {
         OWLDataFactory factory = Factory.getFactory();
-        A = factory.getOWLClass(IRI.create(NS + "#A"));
-        SWRLVariable x = factory.getSWRLVariable(IRI.create(NS + "#x"));
+        A = Class(IRI(NS + "#A"));
+        SWRLVariable x = factory.getSWRLVariable(IRI(NS + "#x"));
         SWRLAtom atom = factory.getSWRLClassAtom(A, x);
         Set<SWRLAtom> consequent = new TreeSet<SWRLAtom>();
         consequent.add(atom);
-        OWLAnnotation annotation = factory.getOWLAnnotation(factory.getRDFSComment(),
-                factory.getOWLLiteral("Not a great rule"));
+        OWLAnnotation annotation = factory.getOWLAnnotation(RDFSComment(),
+                Literal("Not a great rule"));
         Set<OWLAnnotation> annotations = new TreeSet<OWLAnnotation>();
         annotations.add(annotation);
         AXIOM = factory.getSWRLRule(new TreeSet<SWRLAtom>(), consequent, annotations);
@@ -60,7 +60,7 @@ public class SWRLAnnotationTestCase {
 
     public OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager.createOntology(IRI.create(NS));
+        OWLOntology ontology = manager.createOntology(IRI(NS));
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         changes.add(new AddAxiom(ontology, AXIOM));
         manager.applyChanges(changes);

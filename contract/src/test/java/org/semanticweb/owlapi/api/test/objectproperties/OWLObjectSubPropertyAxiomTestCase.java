@@ -38,6 +38,9 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLBinaryOperandAxiomTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -49,17 +52,17 @@ public class OWLObjectSubPropertyAxiomTestCase extends
         AbstractOWLBinaryOperandAxiomTestCase<OWLObjectProperty, OWLObjectProperty> {
     @Override
     protected OWLObjectProperty createLeftOperand() throws Exception {
-        return createOWLObjectProperty();
+        return ObjectProperty(createIRI());
     }
 
     @Override
     protected OWLObjectProperty createRightOperand() throws Exception {
-        return createOWLObjectProperty();
+        return ObjectProperty(createIRI());
     }
 
     @Override
     protected OWLAxiom createAxiom(OWLObjectProperty leftOperand,
             OWLObjectProperty rightOperand) throws Exception {
-        return getFactory().getOWLSubObjectPropertyOfAxiom(leftOperand, rightOperand);
+        return SubObjectPropertyOf(leftOperand, rightOperand);
     }
 }

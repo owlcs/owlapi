@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,9 +55,9 @@ public class DisjointObjectPropertiesTestCase extends AbstractAxiomsRoundTrippin
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLObjectPropertyExpression propA = getOWLObjectProperty("propA");
-        OWLObjectPropertyExpression propB = getOWLObjectProperty("propB");
-        axioms.add(getFactory().getOWLDisjointObjectPropertiesAxiom(propA, propB));
+        OWLObjectPropertyExpression propA = ObjectProperty(getIRI("propA"));
+        OWLObjectPropertyExpression propB = ObjectProperty(getIRI("propB"));
+        axioms.add(DisjointObjectProperties(propA, propB));
         return axioms;
     }
 }

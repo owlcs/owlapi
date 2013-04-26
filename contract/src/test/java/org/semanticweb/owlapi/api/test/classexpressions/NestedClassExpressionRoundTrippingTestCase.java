@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -55,15 +57,15 @@ public class NestedClassExpressionRoundTrippingTestCase extends
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");
-        OWLObjectProperty prop = getOWLObjectProperty("propP");
-        OWLClass clsA = getOWLClass("A");
-        OWLClass clsB = getOWLClass("B");
-        OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(prop,
-                getFactory().getOWLObjectSomeValuesFrom(prop, clsB));
-        OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(clsA, desc);
+        OWLObjectProperty prop = ObjectProperty(getIRI("propP"));
+        OWLClass clsA = Class(getIRI("A"));
+        OWLClass clsB = Class(getIRI("B"));
+        OWLClassExpression desc = ObjectSomeValuesFrom(prop,
+                ObjectSomeValuesFrom(prop, clsB));
+        OWLAxiom ax = SubClassOf(clsA, desc);
         addAxiom(ont, ax);
-        addAxiom(ont, getFactory().getOWLDeclarationAxiom(clsA));
-        addAxiom(ont, getFactory().getOWLDeclarationAxiom(clsB));
+        addAxiom(ont, Declaration(clsA));
+        addAxiom(ont, Declaration(clsB));
         return ont;
     }
 }

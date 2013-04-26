@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLObjectPropertyCharacteristicAxiomTestCase;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -51,6 +53,6 @@ public class OWLIrreflexiveObjectPropertyAxiomTestCase extends
     @Override
     protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property)
             throws OWLException {
-        return getFactory().getOWLIrreflexiveObjectPropertyAxiom(property);
+        return IrreflexiveObjectProperty(property);
     }
 }

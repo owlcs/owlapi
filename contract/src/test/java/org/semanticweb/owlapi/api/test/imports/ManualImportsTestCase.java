@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.imports;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -59,9 +60,9 @@ public class ManualImportsTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testManualImports() throws Exception {
         OWLOntologyManager manager = getManager();
-        OWLOntology baseOnt = manager.createOntology(IRI
-                .create("http://semanticweb.org/ontologies/base"));
-        IRI importedIRI = IRI.create("http://semanticweb.org/ontologies/imported");
+        OWLOntology baseOnt = manager
+                .createOntology(IRI("http://semanticweb.org/ontologies/base"));
+        IRI importedIRI = IRI("http://semanticweb.org/ontologies/imported");
         OWLOntology importedOnt = manager.createOntology(importedIRI);
         Set<OWLOntology> preImportsClosureCache = new HashSet<OWLOntology>(
                 manager.getImportsClosure(baseOnt));

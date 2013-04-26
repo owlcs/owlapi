@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.junit.Before;
@@ -9,10 +10,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -30,20 +29,20 @@ public class DisjointClassesRoundTripTestCase {
 
     @Before
     public void setUp() {
-        C = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(NS + "#C"));
-        D = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(NS + "#D"));
-        E = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(NS + "#E"));
-        F = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(NS + "#F"));
+        C = Class(IRI(NS + "#C"));
+        D = Class(IRI(NS + "#D"));
+        E = Class(IRI(NS + "#E"));
+        F = Class(IRI(NS + "#F"));
     }
 
     @Test
     public void shouldParse() throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = manager.createOntology(IRI.create(NS));
-        OWLDataFactory factory = manager.getOWLDataFactory();
-        manager.addAxiom(ontology, factory.getOWLDisjointClassesAxiom(
-                factory.getOWLObjectUnionOf(C, D), factory.getOWLObjectUnionOf(C, E),
-                factory.getOWLObjectUnionOf(C, F)));
+        OWLOntology ontology = manager.createOntology(IRI(NS));
+        manager.addAxiom(
+                ontology,
+                DisjointClasses(ObjectUnionOf(C, D), ObjectUnionOf(C, E),
+                        ObjectUnionOf(C, F)));
         String input = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
                 + "        Prefix: piz: <http://ns.owl#>\n"
                 + "        Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
@@ -69,11 +68,11 @@ public class DisjointClassesRoundTripTestCase {
     public void shouldRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = manager.createOntology(IRI.create(NS));
-        OWLDataFactory factory = manager.getOWLDataFactory();
-        manager.addAxiom(ontology, factory.getOWLDisjointClassesAxiom(
-                factory.getOWLObjectUnionOf(C, D), factory.getOWLObjectUnionOf(C, E),
-                factory.getOWLObjectUnionOf(C, F)));
+        OWLOntology ontology = manager.createOntology(IRI(NS));
+        manager.addAxiom(
+                ontology,
+                DisjointClasses(ObjectUnionOf(C, D), ObjectUnionOf(C, E),
+                        ObjectUnionOf(C, F)));
         String s = saveOntology(ontology);
         OWLOntology roundtripped = loadOntology(s);
         for (OWLAxiom ax : ontology.getLogicalAxioms()) {

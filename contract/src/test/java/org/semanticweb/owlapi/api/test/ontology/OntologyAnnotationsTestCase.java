@@ -38,9 +38,10 @@
  */
 package org.semanticweb.owlapi.api.test.ontology;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -54,13 +55,11 @@ public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("AnnotationOntology");
-        OWLAnnotationProperty prop = getFactory()
-                .getOWLAnnotationProperty(
-                        IRI.create("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
-        OWLLiteral value = getFactory().getOWLLiteral(33);
-        OWLAnnotation annotation = getFactory().getOWLAnnotation(prop, value);
+        OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
+        OWLLiteral value = Literal(33);
+        OWLAnnotation annotation = Annotation(prop, value);
         getManager().applyChange(new AddOntologyAnnotation(ont, annotation));
-        getManager().addAxiom(ont, getFactory().getOWLDeclarationAxiom(prop));
+        getManager().addAxiom(ont, Declaration(prop));
         return ont;
     }
 }

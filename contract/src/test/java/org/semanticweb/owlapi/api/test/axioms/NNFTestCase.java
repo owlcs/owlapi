@@ -39,10 +39,11 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -59,137 +60,131 @@ import org.semanticweb.owlapi.util.NNF;
 public class NNFTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testPosOWLClass() {
-        OWLClass cls = getOWLClass("A");
+        OWLClass cls = Class(getIRI("A"));
         assertEquals(cls.getNNF(), cls);
     }
 
     @Test
     public void testNegOWLClass() {
-        OWLClassExpression cls = getFactory().getOWLObjectComplementOf(getOWLClass("A"));
+        OWLClassExpression cls = ObjectComplementOf(Class(getIRI("A")));
         assertEquals(cls.getNNF(), cls);
     }
 
     @Test
     public void testPosAllValuesFrom() {
-        OWLClassExpression cls = getFactory().getOWLObjectAllValuesFrom(
-                getOWLObjectProperty("p"), getOWLClass("A"));
+        OWLClassExpression cls = ObjectAllValuesFrom(ObjectProperty(getIRI("p")),
+                Class(getIRI("A")));
         assertEquals(cls.getNNF(), cls);
     }
 
     @Test
     public void testNegAllValuesFrom() {
-        OWLObjectProperty property = getOWLObjectProperty("p");
-        OWLClass filler = getOWLClass("A");
-        OWLObjectAllValuesFrom allValuesFrom = getFactory().getOWLObjectAllValuesFrom(
-                property, filler);
+        OWLObjectProperty property = ObjectProperty(getIRI("p"));
+        OWLClass filler = Class(getIRI("A"));
+        OWLObjectAllValuesFrom allValuesFrom = ObjectAllValuesFrom(property, filler);
         OWLClassExpression cls = allValuesFrom.getObjectComplementOf();
-        OWLClassExpression nnf = getFactory().getOWLObjectSomeValuesFrom(property,
+        OWLClassExpression nnf = ObjectSomeValuesFrom(property,
                 filler.getObjectComplementOf());
         assertEquals(cls.getNNF(), nnf);
     }
 
     @Test
     public void testPosSomeValuesFrom() {
-        OWLClassExpression cls = getFactory().getOWLObjectSomeValuesFrom(
-                getOWLObjectProperty("p"), getOWLClass("A"));
+        OWLClassExpression cls = ObjectSomeValuesFrom(ObjectProperty(getIRI("p")),
+                Class(getIRI("A")));
         assertEquals(cls.getNNF(), cls);
     }
 
     @Test
     public void testNegSomeValuesFrom() {
-        OWLObjectProperty property = getOWLObjectProperty("p");
-        OWLClass filler = getOWLClass("A");
-        OWLObjectSomeValuesFrom someValuesFrom = getFactory().getOWLObjectSomeValuesFrom(
-                property, filler);
-        OWLClassExpression cls = getFactory().getOWLObjectComplementOf(someValuesFrom);
-        OWLClassExpression nnf = getFactory().getOWLObjectAllValuesFrom(property,
-                getFactory().getOWLObjectComplementOf(filler));
+        OWLObjectProperty property = ObjectProperty(getIRI("p"));
+        OWLClass filler = Class(getIRI("A"));
+        OWLObjectSomeValuesFrom someValuesFrom = ObjectSomeValuesFrom(property, filler);
+        OWLClassExpression cls = ObjectComplementOf(someValuesFrom);
+        OWLClassExpression nnf = ObjectAllValuesFrom(property, ObjectComplementOf(filler));
         assertEquals(cls.getNNF(), nnf);
     }
 
     @Test
     public void testPosObjectIntersectionOf() {
-        OWLClassExpression cls = getFactory().getOWLObjectIntersectionOf(
-                getOWLClass("A"), getOWLClass("B"), getOWLClass("C"));
+        OWLClassExpression cls = ObjectIntersectionOf(Class(getIRI("A")),
+                Class(getIRI("B")), Class(getIRI("C")));
         assertEquals(cls.getNNF(), cls);
     }
 
     @Test
     public void testNegObjectIntersectionOf() {
-        OWLClassExpression cls = getFactory().getOWLObjectComplementOf(
-                getFactory().getOWLObjectIntersectionOf(getOWLClass("A"),
-                        getOWLClass("B"), getOWLClass("C")));
-        OWLClassExpression nnf = getFactory().getOWLObjectUnionOf(
-                getFactory().getOWLObjectComplementOf(getOWLClass("A")),
-                getFactory().getOWLObjectComplementOf(getOWLClass("B")),
-                getFactory().getOWLObjectComplementOf(getOWLClass("C")));
+        OWLClassExpression cls = ObjectComplementOf(ObjectIntersectionOf(
+                Class(getIRI("A")), Class(getIRI("B")), Class(getIRI("C"))));
+        OWLClassExpression nnf = ObjectUnionOf(ObjectComplementOf(Class(getIRI("A"))),
+                ObjectComplementOf(Class(getIRI("B"))),
+                ObjectComplementOf(Class(getIRI("C"))));
         assertEquals(cls.getNNF(), nnf);
     }
 
     @Test
     public void testPosObjectUnionOf() {
-        OWLClassExpression cls = getFactory().getOWLObjectUnionOf(getOWLClass("A"),
-                getOWLClass("B"), getOWLClass("C"));
+        OWLClassExpression cls = ObjectUnionOf(Class(getIRI("A")), Class(getIRI("B")),
+                Class(getIRI("C")));
         assertEquals(cls.getNNF(), cls);
     }
 
     @Test
     public void testNegObjectUnionOf() {
-        OWLClassExpression cls = getFactory().getOWLObjectComplementOf(
-                getFactory().getOWLObjectUnionOf(getOWLClass("A"), getOWLClass("B"),
-                        getOWLClass("C")));
-        OWLClassExpression nnf = getFactory().getOWLObjectIntersectionOf(
-                getFactory().getOWLObjectComplementOf(getOWLClass("A")),
-                getFactory().getOWLObjectComplementOf(getOWLClass("B")),
-                getFactory().getOWLObjectComplementOf(getOWLClass("C")));
+        OWLClassExpression cls = ObjectComplementOf(ObjectUnionOf(Class(getIRI("A")),
+                Class(getIRI("B")), Class(getIRI("C"))));
+        OWLClassExpression nnf = ObjectIntersectionOf(
+                ObjectComplementOf(Class(getIRI("A"))),
+                ObjectComplementOf(Class(getIRI("B"))),
+                ObjectComplementOf(Class(getIRI("C"))));
         assertEquals(cls.getNNF(), nnf);
     }
 
     @Test
     public void testPosObjectMinCardinality() {
-        OWLObjectProperty prop = getOWLObjectProperty("p");
-        OWLClassExpression filler = getOWLClass("A");
-        OWLClassExpression cls = getFactory().getOWLObjectMinCardinality(3, prop, filler);
+        OWLObjectProperty prop = ObjectProperty(getIRI("p"));
+        OWLClassExpression filler = Class(getIRI("A"));
+        OWLClassExpression cls = ObjectMinCardinality(3, prop, filler);
         assertEquals(cls.getNNF(), cls);
     }
 
     @Test
     public void testNegObjectMinCardinality() {
-        OWLObjectProperty prop = getOWLObjectProperty("p");
-        OWLClassExpression filler = getOWLClass("A");
-        OWLClassExpression cls = getFactory().getOWLObjectMinCardinality(3, prop, filler)
+        OWLObjectProperty prop = ObjectProperty(getIRI("p"));
+        OWLClassExpression filler = Class(getIRI("A"));
+        OWLClassExpression cls = ObjectMinCardinality(3, prop, filler)
                 .getObjectComplementOf();
-        OWLClassExpression nnf = getFactory().getOWLObjectMaxCardinality(2, prop, filler);
+        OWLClassExpression nnf = ObjectMaxCardinality(2, prop, filler);
         assertEquals(cls.getNNF(), nnf);
     }
 
     @Test
     public void testPosObjectMaxCardinality() {
-        OWLObjectProperty prop = getOWLObjectProperty("p");
-        OWLClassExpression filler = getOWLClass("A");
-        OWLClassExpression cls = getFactory().getOWLObjectMaxCardinality(3, prop, filler);
+        OWLObjectProperty prop = ObjectProperty(getIRI("p"));
+        OWLClassExpression filler = Class(getIRI("A"));
+        OWLClassExpression cls = ObjectMaxCardinality(3, prop, filler);
         assertEquals(cls.getNNF(), cls);
     }
 
     @Test
     public void testNegObjectMaxCardinality() {
-        OWLObjectProperty prop = getOWLObjectProperty("p");
-        OWLClassExpression filler = getOWLClass("A");
-        OWLClassExpression cls = getFactory().getOWLObjectMaxCardinality(3, prop, filler)
+        OWLObjectProperty prop = ObjectProperty(getIRI("p"));
+        OWLClassExpression filler = Class(getIRI("A"));
+        OWLClassExpression cls = ObjectMaxCardinality(3, prop, filler)
                 .getObjectComplementOf();
-        OWLClassExpression nnf = getFactory().getOWLObjectMinCardinality(4, prop, filler);
+        OWLClassExpression nnf = ObjectMinCardinality(4, prop, filler);
         assertEquals(cls.getNNF(), nnf);
     }
 
-    private OWLClass clsA = getFactory().getOWLClass(IRI.create("A"));
-    private OWLClass clsB = getFactory().getOWLClass(IRI.create("B"));
-    private OWLClass clsC = getFactory().getOWLClass(IRI.create("C"));
-    private OWLClass clsD = getFactory().getOWLClass(IRI.create("D"));
-    private OWLObjectProperty propP = getFactory().getOWLObjectProperty(IRI.create("p"));
-    private OWLNamedIndividual indA = getFactory().getOWLNamedIndividual(IRI.create("a"));
+    private OWLClass clsA = Class(IRI("A"));
+    private OWLClass clsB = Class(IRI("B"));
+    private OWLClass clsC = Class(IRI("C"));
+    private OWLClass clsD = Class(IRI("D"));
+    private OWLObjectProperty propP = ObjectProperty(IRI("p"));
+    private OWLNamedIndividual indA = NamedIndividual(IRI("a"));
 
     private OWLClassExpression getNNF(OWLClassExpression classExpression) {
-        NNF nnf = new NNF(getFactory());
+        NNF nnf = new NNF(Factory.getFactory());
         return classExpression.accept(nnf);
     }
 
@@ -203,30 +198,28 @@ public class NNFTestCase extends AbstractOWLAPITestCase {
 
     @Test
     public void testObjectIntersectionOf() {
-        OWLClassExpression desc = getFactory().getOWLObjectIntersectionOf(clsA, clsB);
-        OWLClassExpression neg = getFactory().getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = getFactory().getOWLObjectUnionOf(
-                getFactory().getOWLObjectComplementOf(clsA),
-                getFactory().getOWLObjectComplementOf(clsB));
+        OWLClassExpression desc = ObjectIntersectionOf(clsA, clsB);
+        OWLClassExpression neg = ObjectComplementOf(desc);
+        OWLClassExpression nnf = ObjectUnionOf(ObjectComplementOf(clsA),
+                ObjectComplementOf(clsB));
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
 
     @Test
     public void testObjectUnionOf() {
-        OWLClassExpression desc = getFactory().getOWLObjectUnionOf(clsA, clsB);
-        OWLClassExpression neg = getFactory().getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = getFactory().getOWLObjectIntersectionOf(
-                getFactory().getOWLObjectComplementOf(clsA),
-                getFactory().getOWLObjectComplementOf(clsB));
+        OWLClassExpression desc = ObjectUnionOf(clsA, clsB);
+        OWLClassExpression neg = ObjectComplementOf(desc);
+        OWLClassExpression nnf = ObjectIntersectionOf(ObjectComplementOf(clsA),
+                ObjectComplementOf(clsB));
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
 
     @Test
     public void testDoubleNegation() {
-        OWLClassExpression desc = getFactory().getOWLObjectComplementOf(clsA);
-        OWLClassExpression neg = getFactory().getOWLObjectComplementOf(desc);
+        OWLClassExpression desc = ObjectComplementOf(clsA);
+        OWLClassExpression neg = ObjectComplementOf(desc);
         OWLClassExpression nnf = clsA;
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
@@ -234,94 +227,84 @@ public class NNFTestCase extends AbstractOWLAPITestCase {
 
     @Test
     public void testTripleNegation() {
-        OWLClassExpression desc = getFactory().getOWLObjectComplementOf(
-                getFactory().getOWLObjectComplementOf(clsA));
-        OWLClassExpression neg = getFactory().getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = getFactory().getOWLObjectComplementOf(clsA);
+        OWLClassExpression desc = ObjectComplementOf(ObjectComplementOf(clsA));
+        OWLClassExpression neg = ObjectComplementOf(desc);
+        OWLClassExpression nnf = ObjectComplementOf(clsA);
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
 
     @Test
     public void testObjectSome() {
-        OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(propP, clsA);
-        OWLClassExpression neg = getFactory().getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = getFactory().getOWLObjectAllValuesFrom(propP,
-                getFactory().getOWLObjectComplementOf(clsA));
+        OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsA);
+        OWLClassExpression neg = ObjectComplementOf(desc);
+        OWLClassExpression nnf = ObjectAllValuesFrom(propP, ObjectComplementOf(clsA));
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
 
     @Test
     public void testObjectAll() {
-        OWLClassExpression desc = getFactory().getOWLObjectAllValuesFrom(propP, clsA);
-        OWLClassExpression neg = getFactory().getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = getFactory().getOWLObjectSomeValuesFrom(propP,
-                getFactory().getOWLObjectComplementOf(clsA));
+        OWLClassExpression desc = ObjectAllValuesFrom(propP, clsA);
+        OWLClassExpression neg = ObjectComplementOf(desc);
+        OWLClassExpression nnf = ObjectSomeValuesFrom(propP, ObjectComplementOf(clsA));
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
 
     @Test
     public void testObjectHasValue() {
-        OWLClassExpression desc = getFactory().getOWLObjectHasValue(propP, indA);
-        OWLClassExpression neg = getFactory().getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = getFactory().getOWLObjectAllValuesFrom(
-                propP,
-                getFactory().getOWLObjectComplementOf(
-                        getFactory().getOWLObjectOneOf(indA)));
+        OWLClassExpression desc = ObjectHasValue(propP, indA);
+        OWLClassExpression neg = ObjectComplementOf(desc);
+        OWLClassExpression nnf = ObjectAllValuesFrom(propP,
+                ObjectComplementOf(ObjectOneOf(indA)));
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
 
     @Test
     public void testObjectMin() {
-        OWLClassExpression desc = getFactory().getOWLObjectMinCardinality(3, propP, clsA);
-        OWLClassExpression neg = getFactory().getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = getFactory().getOWLObjectMaxCardinality(2, propP, clsA);
+        OWLClassExpression desc = ObjectMinCardinality(3, propP, clsA);
+        OWLClassExpression neg = ObjectComplementOf(desc);
+        OWLClassExpression nnf = ObjectMaxCardinality(2, propP, clsA);
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
 
     @Test
     public void testObjectMax() {
-        OWLClassExpression desc = getFactory().getOWLObjectMaxCardinality(3, propP, clsA);
-        OWLClassExpression neg = getFactory().getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = getFactory().getOWLObjectMinCardinality(4, propP, clsA);
+        OWLClassExpression desc = ObjectMaxCardinality(3, propP, clsA);
+        OWLClassExpression neg = ObjectComplementOf(desc);
+        OWLClassExpression nnf = ObjectMinCardinality(4, propP, clsA);
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
 
     @Test
     public void testNestedA() {
-        OWLClassExpression fillerA = getFactory().getOWLObjectUnionOf(clsA, clsB);
-        OWLClassExpression opA = getFactory().getOWLObjectSomeValuesFrom(propP, fillerA);
+        OWLClassExpression fillerA = ObjectUnionOf(clsA, clsB);
+        OWLClassExpression opA = ObjectSomeValuesFrom(propP, fillerA);
         OWLClassExpression opB = clsB;
-        OWLClassExpression desc = getFactory().getOWLObjectUnionOf(opA, opB);
-        OWLClassExpression nnf = getFactory().getOWLObjectIntersectionOf(
-                getFactory().getOWLObjectComplementOf(clsB),
-                getFactory().getOWLObjectAllValuesFrom(
+        OWLClassExpression desc = ObjectUnionOf(opA, opB);
+        OWLClassExpression nnf = ObjectIntersectionOf(
+                ObjectComplementOf(clsB),
+                ObjectAllValuesFrom(
                         propP,
-                        getFactory().getOWLObjectIntersectionOf(
-                                getFactory().getOWLObjectComplementOf(clsA),
-                                getFactory().getOWLObjectComplementOf(clsB))));
-        OWLClassExpression neg = getFactory().getOWLObjectComplementOf(desc);
+                        ObjectIntersectionOf(ObjectComplementOf(clsA),
+                                ObjectComplementOf(clsB))));
+        OWLClassExpression neg = ObjectComplementOf(desc);
         OWLClassExpression comp = getNNF(neg);
         assertEquals(comp, nnf);
     }
 
     @Test
     public void testNestedB() {
-        OWLClassExpression desc = getFactory().getOWLObjectIntersectionOf(
-                getFactory().getOWLObjectIntersectionOf(clsA, clsB),
-                getFactory().getOWLObjectComplementOf(
-                        getFactory().getOWLObjectUnionOf(clsC, clsD)));
-        OWLClassExpression neg = getFactory().getOWLObjectComplementOf(desc);
-        OWLClassExpression nnf = getFactory().getOWLObjectUnionOf(
-                getFactory().getOWLObjectUnionOf(
-                        getFactory().getOWLObjectComplementOf(clsA),
-                        getFactory().getOWLObjectComplementOf(clsB)),
-                getFactory().getOWLObjectUnionOf(clsC, clsD));
+        OWLClassExpression desc = ObjectIntersectionOf(ObjectIntersectionOf(clsA, clsB),
+                ObjectComplementOf(ObjectUnionOf(clsC, clsD)));
+        OWLClassExpression neg = ObjectComplementOf(desc);
+        OWLClassExpression nnf = ObjectUnionOf(
+                ObjectUnionOf(ObjectComplementOf(clsA), ObjectComplementOf(clsB)),
+                ObjectUnionOf(clsC, clsD));
         OWLClassExpression comp = getNNF(neg);
         assertEquals(comp, nnf);
     }

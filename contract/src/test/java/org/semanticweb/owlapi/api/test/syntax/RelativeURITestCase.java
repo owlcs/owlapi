@@ -38,11 +38,12 @@
  */
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -55,10 +56,9 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLOntology ont = getOWLOntology("Ont");
-        OWLClass cls = getFactory().getOWLClass(
-                IRI.create(ont.getOntologyID().getOntologyIRI() + "/Office"));
+        OWLClass cls = Class(IRI(ont.getOntologyID().getOntologyIRI() + "/Office"));
         Set<OWLAxiom> axs = new HashSet<OWLAxiom>();
-        axs.add(getFactory().getOWLDeclarationAxiom(cls));
+        axs.add(Declaration(cls));
         return axs;
     }
 }

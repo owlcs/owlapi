@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -59,12 +60,11 @@ public class ObjectHasValueTestCase extends AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = getOWLClass("A");
-        OWLIndividual ind = getOWLIndividual("a");
-        OWLObjectProperty propP = getOWLObjectProperty("p");
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA,
-                getFactory().getOWLObjectHasValue(propP, ind)));
-        axioms.add(getFactory().getOWLDeclarationAxiom(propP));
+        OWLClass clsA = Class(getIRI("A"));
+        OWLIndividual ind = NamedIndividual(getIRI("a"));
+        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
+        axioms.add(SubClassOf(clsA, ObjectHasValue(propP, ind)));
+        axioms.add(Declaration(propP));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Collections;
 import java.util.Set;
@@ -58,9 +59,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class QCRTestCase extends AbstractRendererAndParser {
     @Override
     protected Set<OWLAxiom> getAxioms() {
-        OWLClass clsA = getDataFactory().getOWLClass(TestUtils.createIRI());
-        OWLClass clsB = getDataFactory().getOWLClass(TestUtils.createIRI());
-        OWLClass clsC = getDataFactory().getOWLClass(TestUtils.createIRI());
+        OWLClass clsA = Class(TestUtils.createIRI());
+        OWLClass clsB = Class(TestUtils.createIRI());
+        OWLClass clsC = Class(TestUtils.createIRI());
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
                 TestUtils.createIRI());
         OWLClassExpression filler = getDataFactory().getOWLObjectIntersectionOf(

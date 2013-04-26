@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.dataproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,13 +56,13 @@ public class DisjointDataPropertiesRoundTrippingTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLDataProperty propA = getOWLDataProperty("pA");
-        OWLDataProperty propB = getOWLDataProperty("pB");
-        OWLDataProperty propC = getOWLDataProperty("pC");
-        axioms.add(getFactory().getOWLDisjointDataPropertiesAxiom(propA, propB, propC));
-        axioms.add(getFactory().getOWLDeclarationAxiom(propA));
-        axioms.add(getFactory().getOWLDeclarationAxiom(propB));
-        axioms.add(getFactory().getOWLDeclarationAxiom(propC));
+        OWLDataProperty propA = DataProperty(getIRI("pA"));
+        OWLDataProperty propB = DataProperty(getIRI("pB"));
+        OWLDataProperty propC = DataProperty(getIRI("pC"));
+        axioms.add(DisjointDataProperties(propA, propB, propC));
+        axioms.add(Declaration(propA));
+        axioms.add(Declaration(propB));
+        axioms.add(Declaration(propC));
         return axioms;
     }
 }

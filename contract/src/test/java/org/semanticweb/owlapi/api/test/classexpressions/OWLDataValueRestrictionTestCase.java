@@ -38,6 +38,9 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
+import static org.semanticweb.owlapi.api.test.TestUtils.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLRestrictionWithFillerTestCase;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLException;
@@ -53,12 +56,12 @@ public class OWLDataValueRestrictionTestCase extends
     @Override
     protected OWLRestriction createRestriction(OWLDataProperty prop, OWLLiteral filler)
             throws Exception {
-        return getFactory().getOWLDataHasValue(prop, filler);
+        return DataHasValue(prop, filler);
     }
 
     @Override
     protected OWLDataProperty createProperty() throws OWLException {
-        return createOWLDataProperty();
+        return DataProperty(createIRI());
     }
 
     @Override

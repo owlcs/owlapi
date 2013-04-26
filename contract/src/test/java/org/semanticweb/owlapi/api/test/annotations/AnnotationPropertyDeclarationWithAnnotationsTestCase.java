@@ -38,9 +38,12 @@
  */
 package org.semanticweb.owlapi.api.test.annotations;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Set;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -55,8 +58,8 @@ public class AnnotationPropertyDeclarationWithAnnotationsTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        OWLEntity ent = getOWLAnnotationProperty("propA");
-        return getFactory().getOWLDeclarationAxiom(ent, annos);
+        OWLEntity ent = AnnotationProperty(getIRI("propA"));
+        return Factory.getFactory().getOWLDeclarationAxiom(ent, annos);
     }
 
     @Override

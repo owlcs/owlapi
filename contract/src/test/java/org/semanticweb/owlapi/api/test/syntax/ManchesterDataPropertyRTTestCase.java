@@ -1,12 +1,12 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,9 +22,9 @@ public class ManchesterDataPropertyRTTestCase {
         // given
         OWLDataFactory factory = Factory.getFactory();
         String NS = "http://protege.org/ontologies";
-        OWLDataProperty p = factory.getOWLDataProperty(IRI.create(NS + "#p"));
+        OWLDataProperty p = factory.getOWLDataProperty(IRI(NS + "#p"));
         OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager.createOntology(IRI.create(NS));
+        OWLOntology ontology = manager.createOntology(IRI(NS));
         manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(p));
         String saved = saveOntology(ontology);
         // when

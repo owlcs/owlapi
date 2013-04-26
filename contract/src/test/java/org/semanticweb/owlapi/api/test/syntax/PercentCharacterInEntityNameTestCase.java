@@ -38,11 +38,12 @@
  */
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** Author: Matthew Horridge<br>
@@ -54,12 +55,8 @@ public class PercentCharacterInEntityNameTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLDeclarationAxiom(
-                getFactory().getOWLClass(
-                        IRI.create("http://www.test.com/ontology#Class%37A"))));
-        axioms.add(getFactory().getOWLDeclarationAxiom(
-                getFactory().getOWLObjectProperty(
-                        IRI.create("http://www.test.com/ontology#prop%37A"))));
+        axioms.add(Declaration(Class(IRI("http://www.test.com/ontology#Class%37A"))));
+        axioms.add(Declaration(ObjectProperty(IRI("http://www.test.com/ontology#prop%37A"))));
         return axioms;
     }
 }

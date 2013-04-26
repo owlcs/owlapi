@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.net.URI;
 import java.util.Collection;
@@ -71,9 +72,9 @@ public class ContractOwlapiVocabTest {
         OWL2Datatype[] result0 = OWL2Datatype.values();
         boolean result2 = testSubject0.isFinite();
         IRI result3 = testSubject0.getIRI();
-        boolean result4 = OWL2Datatype.isBuiltIn(IRI.create("urn:aFake"));
+        boolean result4 = OWL2Datatype.isBuiltIn(IRI("urn:aFake"));
         if (result4) {
-            OWL2Datatype result5 = OWL2Datatype.getDatatype(IRI.create("urn:aFake"));
+            OWL2Datatype result5 = OWL2Datatype.getDatatype(IRI("urn:aFake"));
         }
         URI result6 = testSubject0.getURI();
         String result7 = testSubject0.getShortName();
@@ -96,7 +97,7 @@ public class ContractOwlapiVocabTest {
         IRI result3 = testSubject0.getIRI();
         String result4 = testSubject0.getShortName();
         Set<String> result5 = OWLFacet.getFacets();
-        OWLFacet result6 = OWLFacet.getFacet(IRI.create("urn:aFake"));
+        OWLFacet result6 = OWLFacet.getFacet(IRI("urn:aFake"));
         String result7 = testSubject0.getSymbolicForm();
         Set<IRI> result8 = OWLFacet.getFacetIRIs();
         OWLFacet result9 = OWLFacet.getFacetByShortName("");
@@ -142,7 +143,7 @@ public class ContractOwlapiVocabTest {
         testSubject0.setDefaultPrefix("");
         boolean result4 = testSubject0.containsPrefixMapping("");
         String result5 = testSubject0.getDefaultPrefix();
-        String result6 = testSubject0.getPrefixIRI(IRI.create("urn:aFake"));
+        String result6 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result7 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
@@ -182,8 +183,8 @@ public class ContractOwlapiVocabTest {
         String result4 = testSubject0.getShortName();
         int result5 = testSubject0.getMinArity();
         int result6 = testSubject0.getMaxArity();
-        SWRLBuiltInsVocabulary result8 = SWRLBuiltInsVocabulary.getBuiltIn(IRI
-                .create("urn:aFake"));
+        SWRLBuiltInsVocabulary result8 = SWRLBuiltInsVocabulary
+                .getBuiltIn(IRI("urn:aFake"));
         String result10 = testSubject0.name();
         String result11 = testSubject0.toString();
         int result16 = testSubject0.ordinal();

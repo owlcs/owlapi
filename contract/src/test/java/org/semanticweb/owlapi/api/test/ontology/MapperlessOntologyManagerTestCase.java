@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Collections;
 
@@ -57,7 +58,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 17/02/2011 */
 @SuppressWarnings("javadoc")
 public class MapperlessOntologyManagerTestCase {
-    private static final IRI ONTOLOGY_IRI = IRI.create("http://test.com/ont");
+    private static final IRI ONTOLOGY_IRI = IRI("http://test.com/ont");
 
     private OWLOntologyManager createManager() {
         OWLOntologyManager manager = Factory.getManager();
@@ -94,7 +95,7 @@ public class MapperlessOntologyManagerTestCase {
     public void testCreateOntologyWithIdWithVersionIRI()
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        IRI versionIRI = IRI.create("http://version/1");
+        IRI versionIRI = IRI("http://version/1");
         OWLOntologyID id = new OWLOntologyID(ONTOLOGY_IRI, versionIRI);
         OWLOntology ontology = manager.createOntology(id);
         assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI());

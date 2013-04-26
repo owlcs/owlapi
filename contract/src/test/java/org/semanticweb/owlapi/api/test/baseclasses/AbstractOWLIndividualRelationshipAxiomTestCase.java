@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createOWLIndividual;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLException;
@@ -86,16 +87,16 @@ public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends O
         O object = createObject();
         OWLIndividualAxiom axiomA = createAxiom(createOWLIndividual(), property, object);
         OWLIndividualAxiom axiomB = createAxiom(createOWLIndividual(), property, object);
-        assertNotEquals(axiomA, axiomB);
+        assertFalse(axiomA.equals(axiomB));
         // Different property
         OWLIndividual subject = createOWLIndividual();
         OWLIndividualAxiom axiomC = createAxiom(subject, createProperty(), object);
         OWLIndividualAxiom axiomD = createAxiom(subject, createProperty(), object);
-        assertNotEquals(axiomC, axiomD);
+        assertFalse(axiomC.equals(axiomD));
         // Different object
         OWLIndividualAxiom axiomE = createAxiom(subject, property, createObject());
         OWLIndividualAxiom axiomF = createAxiom(subject, property, createObject());
-        assertNotEquals(axiomE, axiomF);
+        assertFalse(axiomE.equals(axiomF));
     }
 
     @Override

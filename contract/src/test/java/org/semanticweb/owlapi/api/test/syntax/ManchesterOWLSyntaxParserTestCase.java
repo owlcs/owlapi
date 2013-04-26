@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,7 +13,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -42,8 +42,8 @@ public class ManchesterOWLSyntaxParserTestCase {
     @Before
     public void setUp() {
         factory = Factory.getFactory();
-        a = factory.getOWLClass(IRI.create(NS + "#A"));
-        p = factory.getOWLDataProperty(IRI.create(NS + "#p"));
+        a = Class(IRI(NS + "#A"));
+        p = DataProperty(IRI(NS + "#p"));
         date_time = factory.getOWLDatatype(XSDVocabulary.DATE_TIME.getIRI());
     }
 

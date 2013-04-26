@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.anonymous;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,7 +48,6 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -57,8 +58,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 @SuppressWarnings("javadoc")
 public class AnonymousRoundTripTestCase {
@@ -82,25 +81,24 @@ class AnonymousRoundTrip {
     private File savedLocation;
 
     public AnonymousRoundTrip() {
-        OWLDataFactory factory = new OWLDataFactoryImpl();
-        a = factory.getOWLClass(IRI.create(NS + "#A"));
-        p = factory.getOWLAnnotationProperty(IRI.create(NS + "#p"));
-        q = factory.getOWLObjectProperty(IRI.create(NS + "#q"));
-        h = factory.getOWLAnonymousIndividual();
-        i = factory.getOWLAnonymousIndividual();
+        a = Class(IRI(NS + "#A"));
+        p = AnnotationProperty(IRI(NS + "#p"));
+        q = ObjectProperty(IRI(NS + "#q"));
+        h = AnonymousIndividual();
+        i = AnonymousIndividual();
     }
 
     public void buildOntology() throws OWLOntologyCreationException {
         manager = Factory.getManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
-        ontology = manager.createOntology(IRI.create(NS));
+        ontology = manager.createOntology(IRI(NS));
         OWLAnnotation annotation1 = factory.getOWLAnnotation(p, h);
         manager.addAxiom(ontology,
                 factory.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1));
-        manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(a, h));
-        manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(q, h, i));
+        manager.addAxiom(ontology, ClassAssertion(a, h));
+        manager.addAxiom(ontology, ObjectPropertyAssertion(q, h, i));
         OWLAnnotation annotation2 = factory.getOWLAnnotation(factory.getRDFSLabel(),
-                factory.getOWLLiteral("Second", "en"));
+                Literal("Second", "en"));
         manager.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(h, annotation2));
     }
 

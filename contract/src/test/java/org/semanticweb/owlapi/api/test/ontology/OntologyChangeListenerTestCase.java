@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -64,9 +65,9 @@ public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testOntologyChangeListener() {
         OWLOntology ont = getOWLOntology("ont");
-        OWLClass clsA = getOWLClass("ClsA");
-        OWLClass clsB = getOWLClass("ClsB");
-        OWLSubClassOfAxiom ax = getFactory().getOWLSubClassOfAxiom(clsA, clsB);
+        OWLClass clsA = Class(getIRI("ClsA"));
+        OWLClass clsB = Class(getIRI("ClsB"));
+        OWLSubClassOfAxiom ax = SubClassOf(clsA, clsB);
         final Set<OWLAxiom> impendingAdditions = new HashSet<OWLAxiom>();
         final Set<OWLAxiom> impendingRemovals = new HashSet<OWLAxiom>();
         final Set<OWLAxiom> additions = new HashSet<OWLAxiom>();

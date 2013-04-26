@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -57,9 +58,9 @@ public class UntypedSubClassOfTestCase extends AbstractFileRoundTrippingTestCase
     @Test
     public void testContainsAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = getOWLClass("A");
-        OWLClass clsB = getOWLClass("B");
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, clsB));
+        OWLClass clsA = Class(getIRI("A"));
+        OWLClass clsB = Class(getIRI("B"));
+        axioms.add(SubClassOf(clsA, clsB));
         assertEquals(axioms, getOnt().getAxioms());
     }
 

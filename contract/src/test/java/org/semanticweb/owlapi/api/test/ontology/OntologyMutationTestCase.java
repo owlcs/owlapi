@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,8 +65,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testAddAxiom() {
         OWLOntology ont = getOWLOntology("OntA");
-        OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-                getFactory().getOWLThing());
+        OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();
         getManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
             @Override
@@ -82,8 +82,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testAddAxioms() {
         OWLOntology ont = getOWLOntology("OntB");
-        OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-                getFactory().getOWLThing());
+        OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();
         getManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
             @Override
@@ -100,8 +99,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testApplyChange() throws Exception {
         OWLOntology ont = getOWLOntology("OntC");
-        OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-                getFactory().getOWLThing());
+        OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();
         getManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
             @Override
@@ -118,8 +116,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testApplyChanges() throws Exception {
         OWLOntology ont = getOWLOntology("OntD");
-        OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-                getFactory().getOWLThing());
+        OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();
         getManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
             @Override

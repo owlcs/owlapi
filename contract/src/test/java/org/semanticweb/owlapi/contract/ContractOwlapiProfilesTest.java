@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.List;
 import java.util.Set;
@@ -121,7 +122,7 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestDatatypeIRIAlsoUsedAsClassIRI() throws Exception {
         DatatypeIRIAlsoUsedAsClassIRI testSubject0 = new DatatypeIRIAlsoUsedAsClassIRI(
-                Utils.getMockOntology(), mock(OWLAxiom.class), IRI.create("urn:aFake"));
+                Utils.getMockOntology(), mock(OWLAxiom.class), IRI("urn:aFake"));
         String result0 = testSubject0.toString();
         testSubject0.accept(mock(OWL2DLProfileViolationVisitor.class));
         IRI result1 = testSubject0.getIRI();
@@ -510,7 +511,7 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestUseOfNonAbsoluteIRI() throws Exception {
         UseOfNonAbsoluteIRI testSubject0 = new UseOfNonAbsoluteIRI(
-                Utils.getMockOntology(), mock(OWLAxiom.class), IRI.create("test"));
+                Utils.getMockOntology(), mock(OWLAxiom.class), IRI("test"));
         testSubject0.accept(mock(OWL2ProfileViolationVisitor.class));
         IRI result0 = testSubject0.getDocumentIRI(new OWLOntologyID());
         OWLOntologyID result1 = testSubject0.getOntologyID();

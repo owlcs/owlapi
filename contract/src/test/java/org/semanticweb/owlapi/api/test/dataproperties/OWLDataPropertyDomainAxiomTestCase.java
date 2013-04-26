@@ -38,6 +38,9 @@
  */
 package org.semanticweb.owlapi.api.test.dataproperties;
 
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLBinaryOperandAxiomTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -50,17 +53,17 @@ public class OWLDataPropertyDomainAxiomTestCase extends
         AbstractOWLBinaryOperandAxiomTestCase<OWLDataProperty, OWLClassExpression> {
     @Override
     protected OWLDataProperty createLeftOperand() throws Exception {
-        return createOWLDataProperty();
+        return DataProperty(createIRI());
     }
 
     @Override
     protected OWLClassExpression createRightOperand() throws Exception {
-        return createOWLClass();
+        return Class(createIRI());
     }
 
     @Override
     protected OWLAxiom createAxiom(OWLDataProperty leftOperand,
             OWLClassExpression rightOperand) throws Exception {
-        return getFactory().getOWLDataPropertyDomainAxiom(leftOperand, rightOperand);
+        return DataPropertyDomain(leftOperand, rightOperand);
     }
 }

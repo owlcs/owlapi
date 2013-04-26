@@ -38,10 +38,13 @@
  */
 package org.semanticweb.owlapi.api.test.annotations;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -54,23 +57,23 @@ public class AnnotationOnAnnotationTestCase extends AbstractAxiomsRoundTrippingT
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLAnnotation annoOuterOuter1 = getFactory().getOWLAnnotation(
-                getOWLAnnotationProperty("myOuterOuterLabel1"),
-                getFactory().getOWLLiteral("Outer Outer label 1"));
-        OWLAnnotation annoOuterOuter2 = getFactory().getOWLAnnotation(
-                getOWLAnnotationProperty("myOuterOuterLabel2"),
-                getFactory().getOWLLiteral("Outer Outer label 2"));
+        OWLAnnotation annoOuterOuter1 = Factory.getFactory().getOWLAnnotation(
+                AnnotationProperty(getIRI("myOuterOuterLabel1")),
+                Literal("Outer Outer label 1"));
+        OWLAnnotation annoOuterOuter2 = Factory.getFactory().getOWLAnnotation(
+                AnnotationProperty(getIRI("myOuterOuterLabel2")),
+                Literal("Outer Outer label 2"));
         Set<OWLAnnotation> outerOuterAnnos = new HashSet<OWLAnnotation>();
         outerOuterAnnos.add(annoOuterOuter1);
         outerOuterAnnos.add(annoOuterOuter2);
-        OWLAnnotation annoOuter = getFactory().getOWLAnnotation(
-                getOWLAnnotationProperty("myOuterLabel"),
-                getFactory().getOWLLiteral("Outer label"), outerOuterAnnos);
-        OWLAnnotation annoInner = getFactory().getOWLAnnotation(
-                getOWLAnnotationProperty("myLabel"), getFactory().getOWLLiteral("Label"),
+        OWLAnnotation annoOuter = Factory.getFactory().getOWLAnnotation(
+                AnnotationProperty(getIRI("myOuterLabel")), Literal("Outer label"),
+                outerOuterAnnos);
+        OWLAnnotation annoInner = Factory.getFactory().getOWLAnnotation(
+                AnnotationProperty(getIRI("myLabel")), Literal("Label"),
                 Collections.singleton(annoOuter));
-        OWLAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-                getOWLClass("B"), Collections.singleton(annoInner));
+        OWLAxiom ax = Factory.getFactory().getOWLSubClassOfAxiom(Class(getIRI("A")),
+                Class(getIRI("B")), Collections.singleton(annoInner));
         axioms.add(ax);
         return axioms;
     }

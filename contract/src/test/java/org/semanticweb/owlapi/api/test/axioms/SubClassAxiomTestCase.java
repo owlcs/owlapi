@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -65,22 +66,22 @@ public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = getOWLClass("A");
-        OWLClass clsB = getOWLClass("B");
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, clsB));
+        OWLClass clsA = Class(getIRI("A"));
+        OWLClass clsB = Class(getIRI("B"));
+        axioms.add(SubClassOf(clsA, clsB));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
     /** Tests the isGCI method on OWLSubClassAxiom */
     @Test
     public void testIsGCIMethod() {
-        OWLClass clsA = getOWLClass("A");
-        OWLClass clsB = getOWLClass("B");
-        OWLClass clsC = getOWLClass("C");
-        OWLClassExpression desc = getFactory().getOWLObjectIntersectionOf(clsA, clsC);
-        OWLSubClassOfAxiom ax1 = getFactory().getOWLSubClassOfAxiom(clsA, clsB);
+        OWLClass clsA = Class(getIRI("A"));
+        OWLClass clsB = Class(getIRI("B"));
+        OWLClass clsC = Class(getIRI("C"));
+        OWLClassExpression desc = ObjectIntersectionOf(clsA, clsC);
+        OWLSubClassOfAxiom ax1 = SubClassOf(clsA, clsB);
         assertFalse(ax1.isGCI());
-        OWLSubClassOfAxiom ax2 = getFactory().getOWLSubClassOfAxiom(desc, clsB);
+        OWLSubClassOfAxiom ax2 = SubClassOf(desc, clsB);
         assertTrue(ax2.isGCI());
     }
 }

@@ -39,10 +39,12 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Collections;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -58,11 +60,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class GetAxiomsIgnoringAnnotationsTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testGetAxiomsIgnoringAnnoations() {
-        OWLLiteral annoLiteral = getFactory().getOWLLiteral("value");
-        OWLAnnotationProperty annoProp = getOWLAnnotationProperty("annoProp");
-        OWLAnnotation anno = getFactory().getOWLAnnotation(annoProp, annoLiteral);
-        OWLAxiom axiom = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
-                getOWLClass("B"), Collections.singleton(anno));
+        OWLLiteral annoLiteral = Literal("value");
+        OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
+        OWLAnnotation anno = Factory.getFactory().getOWLAnnotation(annoProp, annoLiteral);
+        OWLAxiom axiom = Factory.getFactory().getOWLSubClassOfAxiom(Class(getIRI("A")),
+                Class(getIRI("B")), Collections.singleton(anno));
         OWLOntology ont = getOWLOntology("testont");
         getManager().addAxiom(ont, axiom);
         assertTrue(ont.getAxiomsIgnoreAnnotations(axiom).contains(axiom));

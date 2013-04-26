@@ -38,24 +38,57 @@
  */
 package org.semanticweb.owlapi.api.test.dataproperties;
 
-import java.util.Set;
+import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createOWLLiteral;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLNaryOperandsObjectTestCase;
+import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
-public class OWLDataEnumerationTestCase extends
-        AbstractOWLNaryOperandsObjectTestCase<OWLLiteral> {
+public class OWLDataEnumerationTestCase extends AbstractOWLDataFactoryTest {
     @Override
-    protected OWLObject createObject(Set<OWLLiteral> operands) throws Exception {
-        return getFactory().getOWLDataOneOf(operands);
+    @Test
+    public void testCreation() throws Exception {
+        OWLObject obj = DataOneOf(createOWLLiteral(), createOWLLiteral(),
+                createOWLLiteral());
+        assertNotNull("object should not be null", obj);
     }
 
     @Override
-    protected OWLLiteral createOperand() throws Exception {
-        return createOWLLiteral();
+    @Test
+    public void testEqualsPositive() throws Exception {
+        OWLLiteral a = createOWLLiteral();
+        OWLLiteral b = createOWLLiteral();
+        OWLLiteral c = createOWLLiteral();
+        OWLObject objA = DataOneOf(a, b, c);
+        OWLObject objB = DataOneOf(a, b, c);
+        assertEquals(objA, objB);
+    }
+
+    @Override
+    @Test
+    public void testEqualsNegative() throws Exception {
+        OWLLiteral a = createOWLLiteral();
+        OWLLiteral b = createOWLLiteral();
+        OWLObject objA = DataOneOf(a, b);
+        OWLLiteral c = createOWLLiteral();
+        OWLObject objB = DataOneOf(a, b, c);
+        assertFalse(objA.equals(objB));
+    }
+
+    @Override
+    @Test
+    public void testHashCode() throws Exception {
+        OWLLiteral a = createOWLLiteral();
+        OWLLiteral b = createOWLLiteral();
+        OWLLiteral c = createOWLLiteral();
+        OWLObject objA = DataOneOf(a, b, c);
+        OWLObject objB = DataOneOf(a, b, c);
+        assertEquals(objA.hashCode(), objB.hashCode());
     }
 }

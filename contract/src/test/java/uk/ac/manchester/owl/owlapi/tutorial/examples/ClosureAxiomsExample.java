@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -96,7 +98,7 @@ public class ClosureAxiomsExample {
         System.out.println("Document IRI: " + ontology.getOntologyID());
         System.out.println("Format      : " + manager.getOntologyFormat(ontology));
         ClosureAxioms closureAxioms = new ClosureAxioms(manager, ontology);
-        OWLClass clazz = manager.getOWLDataFactory().getOWLClass(classIRI);
+        OWLClass clazz = Class(classIRI);
         System.out.println("Class URI   : " + classIRI);
         System.out.println(clazz);
         /* Add the closure axioms */

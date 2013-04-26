@@ -38,14 +38,15 @@
  */
 package org.semanticweb.owlapi.api.test.annotations;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Collections;
 import java.util.Set;
 
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -55,11 +56,10 @@ public class OWLSubAnnotationPropertyOfAxiomTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLDataFactory df = getFactory();
-        OWLAnnotationProperty subProp = df.getOWLAnnotationProperty(IRI
-                .create("http://ont.com#myLabel"));
-        OWLAnnotationProperty superProp = df.getRDFSLabel();
-        OWLAxiom ax = df.getOWLSubAnnotationPropertyOfAxiom(subProp, superProp);
+        OWLAnnotationProperty subProp = AnnotationProperty(IRI("http://ont.com#myLabel"));
+        OWLAnnotationProperty superProp = RDFSLabel();
+        OWLAxiom ax = Factory.getFactory().getOWLSubAnnotationPropertyOfAxiom(subProp,
+                superProp);
         return Collections.singleton(ax);
     }
 }

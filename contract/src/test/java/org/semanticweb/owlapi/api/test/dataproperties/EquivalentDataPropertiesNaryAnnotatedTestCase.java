@@ -38,15 +38,14 @@
  */
 package org.semanticweb.owlapi.api.test.dataproperties;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -56,9 +55,8 @@ public class EquivalentDataPropertiesNaryAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return getFactory().getOWLEquivalentDataPropertiesAxiom(
-                new HashSet<OWLDataProperty>(Arrays.asList(getOWLDataProperty("p"),
-                        getOWLDataProperty("q"), getOWLDataProperty("r"))), annos);
+        return EquivalentDataProperties(annos, DataProperty(getIRI("p")),
+                DataProperty(getIRI("q")), DataProperty(getIRI("r")));
     }
 
     @Override

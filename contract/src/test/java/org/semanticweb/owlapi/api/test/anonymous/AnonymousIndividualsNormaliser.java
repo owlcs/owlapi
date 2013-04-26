@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.anonymous;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -58,7 +60,6 @@ import org.semanticweb.owlapi.util.OWLObjectDuplicator;
 @SuppressWarnings("javadoc")
 public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
     private final Map<OWLAnonymousIndividual, OWLAnonymousIndividual> renamingMap = new HashMap<OWLAnonymousIndividual, OWLAnonymousIndividual>();
-    private final OWLDataFactory dataFactory;
     private int counter = 0;
 
     /** Creates an object duplicator that duplicates objects using the specified
@@ -68,7 +69,6 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
      *            The data factory to be used for the duplication. */
     public AnonymousIndividualsNormaliser(OWLDataFactory dataFactory) {
         super(dataFactory);
-        this.dataFactory = dataFactory;
     }
 
     public Set<OWLAxiom> getNormalisedAxioms(Set<OWLAxiom> axioms) {
@@ -87,7 +87,7 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
         OWLAnonymousIndividual ind = renamingMap.get(individual);
         if (ind == null) {
             counter++;
-            ind = dataFactory.getOWLAnonymousIndividual("anon-ind-" + counter);
+            ind = AnonymousIndividual("anon-ind-" + counter);
             renamingMap.put(individual, ind);
         }
         setLastObject(ind);

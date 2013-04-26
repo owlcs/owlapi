@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.io.Writer;
 import java.util.List;
@@ -64,7 +65,7 @@ public class ContractRdfModelTest {
 
     @Test
     public void shouldTestRDFLiteralNode() throws Exception {
-        RDFLiteralNode testSubject0 = new RDFLiteralNode("", IRI.create("urn:aFake"));
+        RDFLiteralNode testSubject0 = new RDFLiteralNode("", IRI("urn:aFake"));
         RDFLiteralNode testSubject1 = new RDFLiteralNode("", "");
         String result0 = testSubject0.toString();
         boolean result1 = testSubject0.isAnonymous();
@@ -103,7 +104,7 @@ public class ContractRdfModelTest {
     @Test
     public void shouldTestRDFResourceNode() throws Exception {
         RDFResourceNode testSubject0 = new RDFResourceNode(0);
-        RDFResourceNode testSubject1 = new RDFResourceNode(IRI.create("urn:aFake"));
+        RDFResourceNode testSubject1 = new RDFResourceNode(IRI("urn:aFake"));
         String result0 = testSubject0.toString();
         boolean result1 = testSubject0.isAnonymous();
         IRI result2 = testSubject0.getIRI();

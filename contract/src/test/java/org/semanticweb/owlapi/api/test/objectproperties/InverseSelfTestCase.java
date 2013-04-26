@@ -39,11 +39,11 @@
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -56,10 +56,9 @@ public class InverseSelfTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testInverse() {
         OWLOntology ont = getOWLOntology("Ont");
-        OWLObjectProperty propP = getOWLObjectProperty("p");
-        OWLObjectProperty propQ = getOWLObjectProperty("q");
-        OWLDataFactory df = getFactory();
-        OWLAxiom ax = df.getOWLInverseObjectPropertiesAxiom(propP, propQ);
+        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
+        OWLObjectProperty propQ = ObjectProperty(getIRI("q"));
+        OWLAxiom ax = InverseObjectProperties(propP, propQ);
         getManager().addAxiom(ont, ax);
         assertTrue(propP.getInverses(ont).contains(propQ));
         assertFalse(propP.getInverses(ont).contains(propP));
@@ -68,9 +67,8 @@ public class InverseSelfTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testInverseSelf() {
         OWLOntology ont = getOWLOntology("Ont");
-        OWLObjectProperty propP = getOWLObjectProperty("p");
-        OWLDataFactory df = getFactory();
-        OWLAxiom ax = df.getOWLInverseObjectPropertiesAxiom(propP, propP);
+        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
+        OWLAxiom ax = InverseObjectProperties(propP, propP);
         getManager().addAxiom(ont, ax);
         assertTrue(propP.getInverses(ont).contains(propP));
     }

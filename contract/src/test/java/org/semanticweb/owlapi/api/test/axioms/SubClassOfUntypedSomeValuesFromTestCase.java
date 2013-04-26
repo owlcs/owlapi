@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
 
@@ -65,12 +66,9 @@ public class SubClassOfUntypedSomeValuesFromTestCase extends AbstractFileTestCas
         return "SubClassOfUntypedSomeValuesFrom.rdf";
     }
 
-    public static final IRI SUBCLASS_IRI = IRI
-            .create("http://www.semanticweb.org/owlapi/test#A");
-    public static final IRI PROPERTY_IRI = IRI
-            .create("http://www.semanticweb.org/owlapi/test#P");
-    public static final IRI FILLER_IRI = IRI
-            .create("http://www.semanticweb.org/owlapi/test#C");
+    public static final IRI SUBCLASS_IRI = IRI("http://www.semanticweb.org/owlapi/test#A");
+    public static final IRI PROPERTY_IRI = IRI("http://www.semanticweb.org/owlapi/test#P");
+    public static final IRI FILLER_IRI = IRI("http://www.semanticweb.org/owlapi/test#C");
 
     @Override
     protected OWLOntologyLoaderConfiguration getConfiguration() {
@@ -83,13 +81,13 @@ public class SubClassOfUntypedSomeValuesFromTestCase extends AbstractFileTestCas
         Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
         assertTrue(axioms.size() == 1);
         OWLSubClassOfAxiom ax = axioms.iterator().next();
-        OWLClass subCls = getFactory().getOWLClass(SUBCLASS_IRI);
+        OWLClass subCls = Class(SUBCLASS_IRI);
         assertEquals(subCls, ax.getSubClass());
         OWLClassExpression supCls = ax.getSuperClass();
         assertTrue(supCls instanceof OWLObjectSomeValuesFrom);
         OWLObjectSomeValuesFrom someValuesFrom = (OWLObjectSomeValuesFrom) supCls;
-        OWLObjectProperty property = getFactory().getOWLObjectProperty(PROPERTY_IRI);
-        OWLClass fillerCls = getFactory().getOWLClass(FILLER_IRI);
+        OWLObjectProperty property = ObjectProperty(PROPERTY_IRI);
+        OWLClass fillerCls = Class(FILLER_IRI);
         assertEquals(property, someValuesFrom.getProperty());
         assertEquals(fillerCls, someValuesFrom.getFiller());
     }

@@ -38,24 +38,57 @@
  */
 package org.semanticweb.owlapi.api.test.axioms;
 
-import java.util.Set;
+import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLNaryOperandsObjectTestCase;
+import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
-public class OWLAndTestCase extends
-        AbstractOWLNaryOperandsObjectTestCase<OWLClassExpression> {
+public class OWLAndTestCase extends AbstractOWLDataFactoryTest {
     @Override
-    protected OWLObject createObject(Set<OWLClassExpression> objects) throws Exception {
-        return getFactory().getOWLObjectIntersectionOf(objects);
+    @Test
+    public void testCreation() throws Exception {
+        OWLObject obj = ObjectIntersectionOf(Class(createIRI()), Class(createIRI()),
+                Class(createIRI()));
+        assertNotNull("object should not be null", obj);
     }
 
     @Override
-    protected OWLClassExpression createOperand() throws Exception {
-        return createOWLClass();
+    @Test
+    public void testEqualsPositive() throws Exception {
+        OWLClassExpression a = Class(createIRI());
+        OWLClassExpression b = Class(createIRI());
+        OWLClassExpression c = Class(createIRI());
+        OWLObject objA = ObjectIntersectionOf(a, b, c);
+        OWLObject objB = ObjectIntersectionOf(a, b, c);
+        assertEquals(objA, objB);
+    }
+
+    @Override
+    @Test
+    public void testEqualsNegative() throws Exception {
+        OWLClassExpression a = Class(createIRI());
+        OWLClassExpression b = Class(createIRI());
+        OWLObject objA = ObjectIntersectionOf(a, b);
+        OWLClassExpression c = Class(createIRI());
+        OWLObject objB = ObjectIntersectionOf(a, b, c);
+        assertFalse(objA.equals(objB));
+    }
+
+    @Override
+    @Test
+    public void testHashCode() throws Exception {
+        OWLClassExpression a = Class(createIRI());
+        OWLClassExpression b = Class(createIRI());
+        OWLClassExpression c = Class(createIRI());
+        OWLObject objA = ObjectIntersectionOf(a, b, c);
+        OWLObject objB = ObjectIntersectionOf(a, b, c);
+        assertEquals(objA.hashCode(), objB.hashCode());
     }
 }

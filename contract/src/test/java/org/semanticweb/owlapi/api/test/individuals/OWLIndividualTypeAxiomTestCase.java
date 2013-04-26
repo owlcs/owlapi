@@ -38,6 +38,9 @@
  */
 package org.semanticweb.owlapi.api.test.individuals;
 
+import static org.semanticweb.owlapi.api.test.TestUtils.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLBinaryOperandAxiomTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -55,12 +58,12 @@ public class OWLIndividualTypeAxiomTestCase extends
 
     @Override
     protected OWLClassExpression createRightOperand() throws Exception {
-        return createOWLClass();
+        return Class(createIRI());
     }
 
     @Override
     protected OWLAxiom createAxiom(OWLIndividual leftOperand,
             OWLClassExpression rightOperand) throws Exception {
-        return getFactory().getOWLClassAssertionAxiom(rightOperand, leftOperand);
+        return ClassAssertion(rightOperand, leftOperand);
     }
 }

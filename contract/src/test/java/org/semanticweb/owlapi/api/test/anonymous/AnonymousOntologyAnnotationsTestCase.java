@@ -38,9 +38,11 @@
  */
 package org.semanticweb.owlapi.api.test.anonymous;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -56,13 +58,11 @@ public class AnonymousOntologyAnnotationsTestCase extends AbstractRoundTrippingT
     protected OWLOntology createOntology() {
         try {
             OWLOntology ont = getManager().createOntology();
-            OWLAnnotationProperty prop = getFactory()
-                    .getOWLAnnotationProperty(
-                            IRI.create("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
-            OWLLiteral value = getFactory().getOWLLiteral(33);
-            OWLAnnotation annotation = getFactory().getOWLAnnotation(prop, value);
+            OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
+            OWLLiteral value = Literal(33);
+            OWLAnnotation annotation = Factory.getFactory().getOWLAnnotation(prop, value);
             getManager().applyChange(new AddOntologyAnnotation(ont, annotation));
-            getManager().addAxiom(ont, getFactory().getOWLDeclarationAxiom(prop));
+            getManager().addAxiom(ont, Declaration(prop));
             return ont;
         } catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);

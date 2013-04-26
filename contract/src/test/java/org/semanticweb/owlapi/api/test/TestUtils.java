@@ -38,13 +38,25 @@
  */
 package org.semanticweb.owlapi.api.test;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
 public class TestUtils {
+    public static OWLIndividual createOWLIndividual() {
+        return NamedIndividual(createIRI());
+    }
+
+    public static OWLLiteral createOWLLiteral() {
+        return Literal("Test" + System.currentTimeMillis(), Datatype(createIRI()));
+    }
+
     private static int uriCounter = 0;
 
     public static IRI createIRI() {

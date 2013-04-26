@@ -38,14 +38,13 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -55,8 +54,7 @@ public class DisjointClassesAxiomNaryAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return getFactory().getOWLDisjointClassesAxiom(
-                new HashSet<OWLClass>(Arrays.asList(getOWLClass("A"), getOWLClass("B"),
-                        getOWLClass("C"), getOWLClass("D"))), annos);
+        return DisjointClasses(annos, Class(getIRI("A")), Class(getIRI("B")),
+                Class(getIRI("C")), Class(getIRI("D")));
     }
 }

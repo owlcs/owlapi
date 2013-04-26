@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -63,7 +65,7 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends
         getManager().addAxioms(ont, axioms);
         for (OWLEntity entity : ont.getSignature()) {
             if (!entity.isBuiltIn() && !ont.isDeclared(entity, true)) {
-                getManager().addAxiom(ont, getFactory().getOWLDeclarationAxiom(entity));
+                getManager().addAxiom(ont, Declaration(entity));
             }
         }
         return ont;

@@ -39,10 +39,10 @@
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -55,34 +55,34 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public class ObjectPropertySimplifierTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testNamedSimplification() {
-        OWLObjectProperty p = getFactory().getOWLObjectProperty(IRI.create("p"));
+        OWLObjectProperty p = ObjectProperty(IRI("p"));
         OWLObjectPropertyExpression exp = p.getSimplified();
         assertEquals(p, exp);
     }
 
     @Test
     public void testInverseSimplification() {
-        OWLObjectProperty p = getFactory().getOWLObjectProperty(IRI.create("p"));
-        OWLObjectPropertyExpression inv = getFactory().getOWLObjectInverseOf(p);
+        OWLObjectProperty p = ObjectProperty(IRI("p"));
+        OWLObjectPropertyExpression inv = ObjectInverseOf(p);
         OWLObjectPropertyExpression exp = inv.getSimplified();
         assertEquals(inv, exp);
     }
 
     @Test
     public void testInverseInverseSimplification() {
-        OWLObjectProperty p = getFactory().getOWLObjectProperty(IRI.create("p"));
-        OWLObjectPropertyExpression inv = getFactory().getOWLObjectInverseOf(p);
-        OWLObjectPropertyExpression inv2 = getFactory().getOWLObjectInverseOf(inv);
+        OWLObjectProperty p = ObjectProperty(IRI("p"));
+        OWLObjectPropertyExpression inv = ObjectInverseOf(p);
+        OWLObjectPropertyExpression inv2 = ObjectInverseOf(inv);
         OWLObjectPropertyExpression exp = inv2.getSimplified();
         assertEquals(p, exp);
     }
 
     @Test
     public void testInverseInverseInverseSimplification() {
-        OWLObjectProperty p = getFactory().getOWLObjectProperty(IRI.create("p"));
-        OWLObjectPropertyExpression inv = getFactory().getOWLObjectInverseOf(p);
-        OWLObjectPropertyExpression inv2 = getFactory().getOWLObjectInverseOf(inv);
-        OWLObjectPropertyExpression inv3 = getFactory().getOWLObjectInverseOf(inv2);
+        OWLObjectProperty p = ObjectProperty(IRI("p"));
+        OWLObjectPropertyExpression inv = ObjectInverseOf(p);
+        OWLObjectPropertyExpression inv2 = ObjectInverseOf(inv);
+        OWLObjectPropertyExpression inv3 = ObjectInverseOf(inv2);
         OWLObjectPropertyExpression exp = inv3.getSimplified();
         assertEquals(inv, exp);
     }

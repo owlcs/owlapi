@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test.anonymous;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,7 @@ import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -67,21 +66,17 @@ public class AnonymousFunctionalRoundtripTestCase {
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
-        OWLDataFactory df = Factory.getFactory();
-        OWLClass C = df.getOWLClass(IRI.create(NS + "#C"));
-        OWLClass D = df.getOWLClass(IRI.create(NS + "#D"));
-        OWLObjectProperty P = df.getOWLObjectProperty(IRI.create(NS + "#p"));
-        OWLDataProperty Q = df.getOWLDataProperty(IRI.create(NS + "#q"));
-        OWLIndividual i = df.getOWLAnonymousIndividual();
+        OWLClass C = Class(IRI(NS + "#C"));
+        OWLClass D = Class(IRI(NS + "#D"));
+        OWLObjectProperty P = ObjectProperty(IRI(NS + "#p"));
+        OWLDataProperty Q = DataProperty(IRI(NS + "#q"));
+        OWLIndividual i = AnonymousIndividual();
         OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager.createOntology(IRI.create(NS));
-        OWLDataFactory factory = manager.getOWLDataFactory();
+        OWLOntology ontology = manager.createOntology(IRI(NS));
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-        changes.add(new AddAxiom(ontology, factory.getOWLSubClassOfAxiom(C,
-                factory.getOWLObjectHasValue(P, i))));
-        changes.add(new AddAxiom(ontology, factory.getOWLClassAssertionAxiom(D, i)));
-        changes.add(new AddAxiom(ontology, factory.getOWLDataPropertyAssertionAxiom(Q, i,
-                factory.getOWLLiteral("hello"))));
+        changes.add(new AddAxiom(ontology, SubClassOf(C, ObjectHasValue(P, i))));
+        changes.add(new AddAxiom(ontology, ClassAssertion(D, i)));
+        changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i, Literal("hello"))));
         manager.applyChanges(changes);
         String saved = saveOntology(ontology, new RDFXMLOntologyFormat());
         ontology = loadOntology(saved);

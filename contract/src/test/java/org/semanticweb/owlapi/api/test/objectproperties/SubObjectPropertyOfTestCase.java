@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,9 +55,9 @@ public class SubObjectPropertyOfTestCase extends AbstractAxiomsRoundTrippingTest
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLObjectProperty propA = getOWLObjectProperty("p");
-        OWLObjectProperty propB = getOWLObjectProperty("q");
-        axioms.add(getFactory().getOWLSubObjectPropertyOfAxiom(propA, propB));
+        OWLObjectProperty propA = ObjectProperty(getIRI("p"));
+        OWLObjectProperty propB = ObjectProperty(getIRI("q"));
+        axioms.add(SubObjectPropertyOf(propA, propB));
         return axioms;
     }
 }

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.annotations;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -56,13 +58,11 @@ public class AnnotationAssertionWithIRITestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass cls = getOWLClass("ClsA");
-        axioms.add(getFactory().getOWLDeclarationAxiom(cls));
-        IRI object = IRI.create("http://www.semanticweb.org/owlapi#object");
-        OWLAnnotationProperty prop = getFactory().getOWLAnnotationProperty(
-                IRI.create("http://www.semanticweb.org/owlapi#prop"));
-        axioms.add(getFactory()
-                .getOWLAnnotationAssertionAxiom(prop, cls.getIRI(), object));
+        OWLClass cls = Class(getIRI("ClsA"));
+        axioms.add(Declaration(cls));
+        IRI object = IRI("http://www.semanticweb.org/owlapi#object");
+        OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/owlapi#prop"));
+        axioms.add(AnnotationAssertion(prop, cls.getIRI(), object));
         return axioms;
     }
 }

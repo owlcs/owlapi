@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLObjectCardinalityRestrictionTestCase;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
@@ -51,13 +53,12 @@ public class OWLObjectMinCardinalityTestCase extends
     @Override
     protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop,
             int cardinality) throws Exception {
-        return getFactory().getOWLObjectMinCardinality(cardinality, prop);
+        return ObjectMinCardinality(cardinality, prop, OWLThing());
     }
 
     @Override
     protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop,
             int cardinality, OWLClassExpression classExpression) throws Exception {
-        return getFactory()
-                .getOWLObjectMinCardinality(cardinality, prop, classExpression);
+        return ObjectMinCardinality(cardinality, prop, classExpression);
     }
 }

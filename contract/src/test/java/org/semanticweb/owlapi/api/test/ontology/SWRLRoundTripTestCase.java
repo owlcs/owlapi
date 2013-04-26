@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -12,7 +13,6 @@ import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -32,11 +32,11 @@ public class SWRLRoundTripTestCase {
             OWLOntologyStorageException {
         String NS = "urn:test";
         OWLDataFactory factory = Factory.getFactory();
-        OWLClass A = factory.getOWLClass(IRI.create(NS + "#A"));
-        OWLDataProperty P = factory.getOWLDataProperty(IRI.create(NS + "#P"));
-        SWRLVariable X = factory.getSWRLVariable(IRI.create(NS + "#X"));
-        SWRLVariable Y = factory.getSWRLVariable(IRI.create(NS + "#Y"));
-        OWLOntology ontology = Factory.getManager().createOntology(IRI.create(NS));
+        OWLClass A = Class(IRI(NS + "#A"));
+        OWLDataProperty P = factory.getOWLDataProperty(IRI(NS + "#P"));
+        SWRLVariable X = factory.getSWRLVariable(IRI(NS + "#X"));
+        SWRLVariable Y = factory.getSWRLVariable(IRI(NS + "#Y"));
+        OWLOntology ontology = Factory.getManager().createOntology(IRI(NS));
         Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
         body.add(factory.getSWRLDataPropertyAtom(P, X, Y));
         body.add(factory.getSWRLDataRangeAtom(
@@ -64,11 +64,11 @@ public class SWRLRoundTripTestCase {
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         String NS = "urn:test";
         OWLDataFactory factory = Factory.getFactory();
-        OWLClass A = factory.getOWLClass(IRI.create(NS + "#A"));
-        OWLDataProperty P = factory.getOWLDataProperty(IRI.create(NS + "#P"));
-        SWRLVariable X = factory.getSWRLVariable(IRI.create(NS + "#X"));
-        SWRLVariable Y = factory.getSWRLVariable(IRI.create(NS + "#Y"));
-        OWLOntology ontology = Factory.getManager().createOntology(IRI.create(NS));
+        OWLClass A = Class(IRI(NS + "#A"));
+        OWLDataProperty P = factory.getOWLDataProperty(IRI(NS + "#P"));
+        SWRLVariable X = factory.getSWRLVariable(IRI(NS + "#X"));
+        SWRLVariable Y = factory.getSWRLVariable(IRI(NS + "#Y"));
+        OWLOntology ontology = Factory.getManager().createOntology(IRI(NS));
         Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
         body.add(factory.getSWRLDataPropertyAtom(P, X, Y));
         body.add(factory.getSWRLDataRangeAtom(

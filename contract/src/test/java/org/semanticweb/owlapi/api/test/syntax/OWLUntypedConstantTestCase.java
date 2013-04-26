@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
@@ -51,34 +52,34 @@ public class OWLUntypedConstantTestCase extends AbstractOWLDataFactoryTest {
     @Override
     @Test
     public void testCreation() throws Exception {
-        OWLLiteral conB = getFactory().getOWLLiteral("TEST", "LANG");
+        OWLLiteral conB = Literal("TEST", "LANG");
         assertNotNull(conB);
     }
 
     @Override
     @Test
     public void testEqualsPositive() throws Exception {
-        OWLLiteral conC = getFactory().getOWLLiteral("TEST", "LANG");
-        OWLLiteral conD = getFactory().getOWLLiteral("TEST", "LANG");
+        OWLLiteral conC = Literal("TEST", "LANG");
+        OWLLiteral conD = Literal("TEST", "LANG");
         assertEquals(conC, conD);
     }
 
     @Override
     @Test
     public void testEqualsNegative() throws Exception {
-        OWLLiteral conC = getFactory().getOWLLiteral("TEST", "LANG");
-        OWLLiteral conD = getFactory().getOWLLiteral("TEST", "OTHER_LANG");
-        assertNotEquals(conC, conD);
-        OWLLiteral conE = getFactory().getOWLLiteral("TEST", "LANG");
-        OWLLiteral conF = getFactory().getOWLLiteral("OTHER", "LANG");
-        assertNotEquals(conE, conF);
+        OWLLiteral conC = Literal("TEST", "LANG");
+        OWLLiteral conD = Literal("TEST", "OTHER_LANG");
+        assertFalse(conC.equals(conD));
+        OWLLiteral conE = Literal("TEST", "LANG");
+        OWLLiteral conF = Literal("OTHER", "LANG");
+        assertFalse(conE.equals(conF));
     }
 
     @Override
     @Test
     public void testHashCode() throws Exception {
-        OWLLiteral conA = getFactory().getOWLLiteral("TEST", "LANG");
-        OWLLiteral conB = getFactory().getOWLLiteral("TEST", "LANG");
+        OWLLiteral conA = Literal("TEST", "LANG");
+        OWLLiteral conB = Literal("TEST", "LANG");
         assertEquals(conA.hashCode(), conB.hashCode());
     }
 }

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,15 +58,15 @@ public class ObjectPropertyChainRoundTrippingTestCase extends
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");
-        OWLObjectProperty propA = getOWLObjectProperty("propA");
-        OWLObjectProperty propB = getOWLObjectProperty("propB");
-        OWLObjectProperty propC = getOWLObjectProperty("propC");
-        OWLObjectProperty propD = getOWLObjectProperty("propD");
+        OWLObjectProperty propA = ObjectProperty(getIRI("propA"));
+        OWLObjectProperty propB = ObjectProperty(getIRI("propB"));
+        OWLObjectProperty propC = ObjectProperty(getIRI("propC"));
+        OWLObjectProperty propD = ObjectProperty(getIRI("propD"));
         List<OWLObjectProperty> props = new ArrayList<OWLObjectProperty>();
         props.add(propA);
         props.add(propB);
         props.add(propC);
-        OWLAxiom ax = getFactory().getOWLSubPropertyChainOfAxiom(props, propD);
+        OWLAxiom ax = SubPropertyChainOf(props, propD);
         addAxiom(ont, ax);
         return ont;
     }

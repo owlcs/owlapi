@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /** Author: Matthew Horridge<br>
@@ -51,6 +53,6 @@ public class TestUtils {
 
     public static IRI createIRI() {
         uriCounter++;
-        return IRI.create("http://org.semanticweb.owlapi/tests#uri" + uriCounter);
+        return IRI("http://org.semanticweb.owlapi/tests#uri" + uriCounter);
     }
 }

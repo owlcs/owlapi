@@ -82,11 +82,11 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
         // Different left operand
         OWLAxiom axiomA = createAxiom(createLeftOperand(), rightOp);
         OWLAxiom axiomB = createAxiom(createLeftOperand(), rightOp);
-        assertNotEquals(axiomA, axiomB);
+        assertFalse(axiomA.equals(axiomB));
         // Different right operand
         OWLAxiom axiomC = createAxiom(leftOp, createRightOperand());
         OWLAxiom axiomD = createAxiom(leftOp, createRightOperand());
-        assertNotEquals(axiomC, axiomD);
+        assertFalse(axiomC.equals(axiomD));
     }
 
     @Override

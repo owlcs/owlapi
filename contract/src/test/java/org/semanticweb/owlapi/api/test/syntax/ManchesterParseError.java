@@ -1,11 +1,12 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ParserException;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -66,8 +67,7 @@ public class ManchesterParseError {
         @Override
         public OWLDataProperty getOWLDataProperty(String name) {
             if (name != null && name.equals("p")) {
-                return factory.getOWLDataProperty(IRI
-                        .create("http://protege.org/Test.owl#p"));
+                return factory.getOWLDataProperty(IRI("http://protege.org/Test.owl#p"));
             } else {
                 return null;
             }

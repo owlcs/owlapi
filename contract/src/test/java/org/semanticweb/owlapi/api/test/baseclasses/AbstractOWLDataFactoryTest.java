@@ -38,16 +38,6 @@
  */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import static org.junit.Assert.assertFalse;
-
-import org.semanticweb.owlapi.api.test.TestUtils;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -56,10 +46,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * The base for test cases that need a data factory. */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLDataFactoryTest extends AbstractOWLAPITestCase {
-    public static IRI createIRI() {
-        return TestUtils.createIRI();
-    }
-
     public abstract void testCreation() throws Exception;
 
     public abstract void testEqualsPositive() throws Exception;
@@ -67,33 +53,4 @@ public abstract class AbstractOWLDataFactoryTest extends AbstractOWLAPITestCase 
     public abstract void testEqualsNegative() throws Exception;
 
     public abstract void testHashCode() throws Exception;
-
-    public static void assertNotEquals(Object objA, Object objB) {
-        assertFalse("Objects should not be equal", objA.equals(objB));
-    }
-
-    protected OWLObjectProperty createOWLObjectProperty() {
-        return getFactory().getOWLObjectProperty(createIRI());
-    }
-
-    protected OWLClass createOWLClass() {
-        return getFactory().getOWLClass(createIRI());
-    }
-
-    protected OWLIndividual createOWLIndividual() {
-        return getFactory().getOWLNamedIndividual(createIRI());
-    }
-
-    protected OWLDataProperty createOWLDataProperty() {
-        return getFactory().getOWLDataProperty(createIRI());
-    }
-
-    protected OWLDatatype createOWLDatatype() {
-        return getFactory().getOWLDatatype(createIRI());
-    }
-
-    protected OWLLiteral createOWLLiteral() {
-        return getFactory().getOWLLiteral("Test" + System.currentTimeMillis(),
-                createOWLDatatype());
-    }
 }

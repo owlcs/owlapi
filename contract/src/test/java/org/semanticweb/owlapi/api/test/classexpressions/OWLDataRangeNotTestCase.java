@@ -39,6 +39,8 @@
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
@@ -52,36 +54,36 @@ public class OWLDataRangeNotTestCase extends AbstractOWLDataFactoryTest {
     @Override
     @Test
     public void testCreation() throws Exception {
-        OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
-        OWLDataComplementOf rng = getFactory().getOWLDataComplementOf(dt);
+        OWLDatatype dt = Datatype(createIRI());
+        OWLDataComplementOf rng = DataComplementOf(dt);
         assertNotNull(rng);
     }
 
     @Override
     @Test
     public void testEqualsPositive() throws Exception {
-        OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
-        OWLDataComplementOf rngA = getFactory().getOWLDataComplementOf(dt);
-        OWLDataComplementOf rngB = getFactory().getOWLDataComplementOf(dt);
+        OWLDatatype dt = Datatype(createIRI());
+        OWLDataComplementOf rngA = DataComplementOf(dt);
+        OWLDataComplementOf rngB = DataComplementOf(dt);
         assertEquals(rngA, rngB);
     }
 
     @Override
     @Test
     public void testEqualsNegative() throws Exception {
-        OWLDatatype dtA = getFactory().getOWLDatatype(createIRI());
-        OWLDataComplementOf rngA = getFactory().getOWLDataComplementOf(dtA);
-        OWLDatatype dtB = getFactory().getOWLDatatype(createIRI());
-        OWLDataComplementOf rngB = getFactory().getOWLDataComplementOf(dtB);
-        assertNotEquals(rngA, rngB);
+        OWLDatatype dtA = Datatype(createIRI());
+        OWLDataComplementOf rngA = DataComplementOf(dtA);
+        OWLDatatype dtB = Datatype(createIRI());
+        OWLDataComplementOf rngB = DataComplementOf(dtB);
+        assertFalse(rngA.equals(rngB));
     }
 
     @Override
     @Test
     public void testHashCode() throws Exception {
-        OWLDatatype dt = getFactory().getOWLDatatype(createIRI());
-        OWLDataComplementOf rngA = getFactory().getOWLDataComplementOf(dt);
-        OWLDataComplementOf rngB = getFactory().getOWLDataComplementOf(dt);
+        OWLDatatype dt = Datatype(createIRI());
+        OWLDataComplementOf rngA = DataComplementOf(dt);
+        OWLDataComplementOf rngB = DataComplementOf(dt);
         assertEquals(rngA.hashCode(), rngB.hashCode());
     }
 }

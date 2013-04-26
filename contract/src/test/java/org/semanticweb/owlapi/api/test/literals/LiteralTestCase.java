@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.literals;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,92 +61,86 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLLiteral literalWithLang = getFactory().getOWLLiteral("abc", "en");
-        OWLClass cls = getOWLClass("A");
-        OWLAnnotationProperty prop = getOWLAnnotationProperty("prop");
-        OWLAnnotationAssertionAxiom ax = getFactory().getOWLAnnotationAssertionAxiom(
-                prop, cls.getIRI(), literalWithLang);
+        OWLLiteral literalWithLang = Literal("abc", "en");
+        OWLClass cls = Class(getIRI("A"));
+        OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));
+        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, cls.getIRI(),
+                literalWithLang);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(ax);
-        axioms.add(getFactory().getOWLDeclarationAxiom(cls));
+        axioms.add(Declaration(cls));
         return axioms;
     }
 
     @Test
     public void testHasLangMethod() {
-        OWLLiteral literalWithLang = getFactory().getOWLLiteral("abc", "en");
+        OWLLiteral literalWithLang = Literal("abc", "en");
         assertTrue(literalWithLang.hasLang());
-        OWLLiteral literalWithoutLang = getFactory().getOWLLiteral("abc", "");
+        OWLLiteral literalWithoutLang = Literal("abc", "");
         assertFalse(literalWithoutLang.hasLang());
     }
 
     @Test
     public void testGetLangMethod() {
-        OWLLiteral literalWithLang = getFactory().getOWLLiteral("abc", "en");
+        OWLLiteral literalWithLang = Literal("abc", "en");
         assertEquals(literalWithLang.getLang(), "en");
-        OWLLiteral literalWithoutLang = getFactory().getOWLLiteral("abc", "");
+        OWLLiteral literalWithoutLang = Literal("abc", "");
         assertEquals(literalWithoutLang.getLang(), "");
     }
 
     @Test
     public void testNormalisation() {
-        OWLLiteral literalWithLang = getFactory().getOWLLiteral("abc", "EN");
+        OWLLiteral literalWithLang = Literal("abc", "EN");
         assertEquals(literalWithLang.getLang(), "en");
         assertTrue(literalWithLang.hasLang("EN"));
     }
 
     @Test
     public void testPlainLiteralWithLang() {
-        OWLLiteral literalWithLang = getFactory().getOWLLiteral("abc", "en");
+        OWLLiteral literalWithLang = Literal("abc", "en");
         assertTrue(literalWithLang.getDatatype().getIRI().isPlainLiteral());
         assertTrue(literalWithLang.isRDFPlainLiteral());
     }
 
     @Test
     public void testPlainLiteralWithEmbeddedLang() {
-        OWLLiteral literal = getFactory().getOWLLiteral("abc@en",
-                getFactory().getRDFPlainLiteral());
+        OWLLiteral literal = Literal("abc@en", PlainLiteral());
         assertTrue(literal.hasLang());
         assertEquals(literal.getLang(), "en");
         assertEquals(literal.getLiteral(), "abc");
-        assertEquals(literal.getDatatype(), getFactory().getRDFPlainLiteral());
+        assertEquals(literal.getDatatype(), PlainLiteral());
     }
 
     public void tesPlainLiteralWithEmbeddedEmptyLang() {
-        OWLLiteral literal = getFactory().getOWLLiteral("abc@",
-                getFactory().getRDFPlainLiteral());
+        OWLLiteral literal = Literal("abc@", PlainLiteral());
         assertTrue(!literal.hasLang());
         assertEquals(literal.getLang(), "");
         assertEquals(literal.getLiteral(), "abc");
-        assertEquals(literal.getDatatype(), getFactory().getRDFPlainLiteral());
+        assertEquals(literal.getDatatype(), PlainLiteral());
     }
 
     public void tesPlainLiteralWithDoubleSep() {
-        OWLLiteral literal = getFactory().getOWLLiteral("abc@@en",
-                getFactory().getRDFPlainLiteral());
+        OWLLiteral literal = Literal("abc@@en", PlainLiteral());
         assertEquals(literal.getLang(), "en");
         assertEquals(literal.getLiteral(), "abc@");
-        assertEquals(literal.getDatatype(), getFactory().getRDFPlainLiteral());
+        assertEquals(literal.getDatatype(), PlainLiteral());
     }
 
     @Test
     public void testBoolean() {
-        OWLLiteral literal = getFactory().getOWLLiteral(true);
+        OWLLiteral literal = Literal(true);
         assertTrue(literal.isBoolean());
         assertTrue(literal.parseBoolean());
-        OWLLiteral trueLiteral = getFactory().getOWLLiteral("true",
-                OWL2Datatype.XSD_BOOLEAN);
+        OWLLiteral trueLiteral = Literal("true", OWL2Datatype.XSD_BOOLEAN);
         assertTrue(trueLiteral.isBoolean());
         assertTrue(trueLiteral.parseBoolean());
-        OWLLiteral falseLiteral = getFactory().getOWLLiteral("false",
-                OWL2Datatype.XSD_BOOLEAN);
+        OWLLiteral falseLiteral = Literal("false", OWL2Datatype.XSD_BOOLEAN);
         assertTrue(falseLiteral.isBoolean());
         assertTrue(!falseLiteral.parseBoolean());
-        OWLLiteral oneLiteral = getFactory().getOWLLiteral("1", OWL2Datatype.XSD_BOOLEAN);
+        OWLLiteral oneLiteral = Literal("1", OWL2Datatype.XSD_BOOLEAN);
         assertTrue(oneLiteral.isBoolean());
         assertTrue(oneLiteral.parseBoolean());
-        OWLLiteral zeroLiteral = getFactory()
-                .getOWLLiteral("0", OWL2Datatype.XSD_BOOLEAN);
+        OWLLiteral zeroLiteral = Literal("0", OWL2Datatype.XSD_BOOLEAN);
         assertTrue(zeroLiteral.isBoolean());
         assertTrue(!zeroLiteral.parseBoolean());
     }

@@ -38,12 +38,12 @@
  */
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -59,25 +59,19 @@ public class NumericIRIsTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() throws Exception {
-        OWLDataFactory df = getFactory();
         DefaultPrefixManager pm = new DefaultPrefixManager(DEFAULT_PREFIX);
-        OWLClass cls123 = df.getOWLClass("123", pm);
+        OWLClass cls123 = Class("123", pm);
         cls123.getIRI().toURI();
-        OWLNamedIndividual ind = df.getOWLNamedIndividual("456", pm);
-        OWLObjectProperty prop = df.getOWLObjectProperty("789", pm);
-        OWLOntology ont = getManager().createOntology(
-                IRI.create("http://www.myont.com/ont"));
-        // OWLOntology ont =
-        // getManager().loadOntology(IRI.create("http://owl.cs.manchester.ac.uk/repository/download?ontology=file:/Users/seanb/Desktop/Cercedilla2005/hands-on/people.owl&format=RDF/XML"));
-        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLDeclarationAxiom(cls123));
-        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLDeclarationAxiom(ind));
-        ont.getOWLOntologyManager().addAxiom(ont,
-                df.getOWLClassAssertionAxiom(cls123, ind));
-        ont.getOWLOntologyManager().addAxiom(ont,
-                df.getOWLClassAssertionAxiom(cls123, ind));
-        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLDeclarationAxiom(prop));
-        ont.getOWLOntologyManager().addAxiom(ont,
-                df.getOWLObjectPropertyAssertionAxiom(prop, ind, ind));
+        OWLNamedIndividual ind = NamedIndividual("456", pm);
+        OWLObjectProperty prop = ObjectProperty("789", pm);
+        OWLOntology ont = getManager().createOntology(IRI("http://www.myont.com/ont"));
+        ont.getOWLOntologyManager().addAxiom(ont, Declaration(cls123));
+        ont.getOWLOntologyManager().addAxiom(ont, Declaration(ind));
+        ont.getOWLOntologyManager().addAxiom(ont, ClassAssertion(cls123, ind));
+        ont.getOWLOntologyManager().addAxiom(ont, ClassAssertion(cls123, ind));
+        ont.getOWLOntologyManager().addAxiom(ont, Declaration(prop));
+        ont.getOWLOntologyManager()
+                .addAxiom(ont, ObjectPropertyAssertion(prop, ind, ind));
         return ont;
     }
 

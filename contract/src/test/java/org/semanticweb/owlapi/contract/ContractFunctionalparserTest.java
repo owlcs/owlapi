@@ -25,7 +25,6 @@ public class ContractFunctionalparserTest {
         int result2 = testSubject0.jjtGetNumChildren();
     }
 
-
     @Test
     public void shouldTestInterfaceOWLFunctionalSyntaxParserConstants() throws Exception {
         OWLFunctionalSyntaxParserConstants testSubject0 = mock(OWLFunctionalSyntaxParserConstants.class);

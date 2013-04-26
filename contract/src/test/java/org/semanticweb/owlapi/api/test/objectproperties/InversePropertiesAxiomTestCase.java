@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -52,8 +54,8 @@ public class InversePropertiesAxiomTestCase extends AbstractRoundTrippingTestCas
         OWLOntology ont = getOWLOntology("ont");
         getManager().addAxiom(
                 ont,
-                getFactory().getOWLInverseObjectPropertiesAxiom(
-                        getOWLObjectProperty("p"), getOWLObjectProperty("q")));
+                InverseObjectProperties(ObjectProperty(getIRI("p")),
+                        ObjectProperty(getIRI("q"))));
         return ont;
     }
 }

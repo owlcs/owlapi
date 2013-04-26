@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -59,15 +60,13 @@ public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = getOWLClass("A");
-        OWLLiteral literal = getFactory().getOWLLiteral(3);
-        OWLLiteral stringLiteral = getFactory().getOWLLiteral("A", "");
-        OWLDataProperty propP = getOWLDataProperty("p");
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA,
-                getFactory().getOWLDataHasValue(propP, literal)));
-        axioms.add(getFactory().getOWLDeclarationAxiom(propP));
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA,
-                getFactory().getOWLDataHasValue(propP, stringLiteral)));
+        OWLClass clsA = Class(getIRI("A"));
+        OWLLiteral literal = Literal(3);
+        OWLLiteral stringLiteral = Literal("A", "");
+        OWLDataProperty propP = DataProperty(getIRI("p"));
+        axioms.add(SubClassOf(clsA, DataHasValue(propP, literal)));
+        axioms.add(Declaration(propP));
+        axioms.add(SubClassOf(clsA, DataHasValue(propP, stringLiteral)));
         Set<OWLAxiom> axioms2 = getOnt().getAxioms();
         assertEquals(axioms2, axioms);
     }

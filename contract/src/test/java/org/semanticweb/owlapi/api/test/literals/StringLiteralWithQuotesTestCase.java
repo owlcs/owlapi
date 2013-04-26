@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.literals;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,14 +57,14 @@ public class StringLiteralWithQuotesTestCase extends AbstractAxiomsRoundTripping
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLNamedIndividual ind = getOWLIndividual("i");
-        OWLDataProperty prop = getOWLDataProperty("prop");
-        OWLLiteral literal = getFactory().getOWLLiteral("Test \"literal\"");
-        axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind, literal));
-        OWLLiteral literal2 = getFactory().getOWLLiteral("Test 'literal'");
-        axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind, literal2));
-        OWLLiteral literal3 = getFactory().getOWLLiteral("Test \"\"\"literal\"\"\"");
-        axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind, literal3));
+        OWLNamedIndividual ind = NamedIndividual(getIRI("i"));
+        OWLDataProperty prop = DataProperty(getIRI("prop"));
+        OWLLiteral literal = Literal("Test \"literal\"");
+        axioms.add(DataPropertyAssertion(prop, ind, literal));
+        OWLLiteral literal2 = Literal("Test 'literal'");
+        axioms.add(DataPropertyAssertion(prop, ind, literal2));
+        OWLLiteral literal3 = Literal("Test \"\"\"literal\"\"\"");
+        axioms.add(DataPropertyAssertion(prop, ind, literal3));
         return axioms;
     }
 }

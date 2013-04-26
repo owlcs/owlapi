@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.individuals;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,8 +54,9 @@ public class DifferentIndividualsTestCase extends AbstractAxiomsRoundTrippingTes
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLDifferentIndividualsAxiom(getOWLIndividual("i"),
-                getOWLIndividual("j"), getOWLIndividual("k"), getOWLIndividual("l")));
+        axioms.add(DifferentIndividuals(NamedIndividual(getIRI("i")),
+                NamedIndividual(getIRI("j")), NamedIndividual(getIRI("k")),
+                NamedIndividual(getIRI("l"))));
         return axioms;
     }
 }

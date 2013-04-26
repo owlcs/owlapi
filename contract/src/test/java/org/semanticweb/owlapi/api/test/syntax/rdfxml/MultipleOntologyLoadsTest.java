@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -28,13 +30,10 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * @author Peter Ansell p_ansell@yahoo.com */
 @SuppressWarnings("javadoc")
 public class MultipleOntologyLoadsTest {
-    private static final IRI EXAMPLE = IRI.create("http://base.example.com/");
-    private static final IRI CREATEv1 = IRI
-            .create("http://test.example.org/ontology/0139/version:1");
-    private static final IRI CREATEv2 = IRI
-            .create("http://test.example.org/ontology/0139/version:2");
-    private static final IRI CREATE0139 = IRI
-            .create("http://test.example.org/ontology/0139");
+    private static final IRI EXAMPLE = IRI("http://base.example.com/");
+    private static final IRI CREATEv1 = IRI("http://test.example.org/ontology/0139/version:1");
+    private static final IRI CREATEv2 = IRI("http://test.example.org/ontology/0139/version:2");
+    private static final IRI CREATE0139 = IRI("http://test.example.org/ontology/0139");
     private OWLOntologyManager manager;
 
     @Before

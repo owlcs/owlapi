@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.literals;
 
+import static org.semanticweb.owlapi.api.test.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,10 +57,10 @@ public class StringLiteralWithNewLineTestCase extends AbstractAxiomsRoundTrippin
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLNamedIndividual ind = getOWLIndividual("i");
-        OWLDataProperty prop = getOWLDataProperty("prop");
-        OWLLiteral literal = getFactory().getOWLLiteral("Test \"literal\"\nStuff");
-        axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind, literal));
+        OWLNamedIndividual ind = NamedIndividual(getIRI("i"));
+        OWLDataProperty prop = DataProperty(getIRI("prop"));
+        OWLLiteral literal = Literal("Test \"literal\"\nStuff");
+        axioms.add(DataPropertyAssertion(prop, ind, literal));
         return axioms;
     }
 }
