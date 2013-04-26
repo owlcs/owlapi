@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.uulm.ecs.ai.owlapi.krssparser;
 
 import java.io.IOException;
@@ -52,12 +51,12 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/**
- * The KRSS2OWLParser differs from the {@link org.coode.owl.krssparser.KRSSOWLParser KRSSOWLParser} that
- * it supports an extended KRSS vocabulary available in many reasoning systems. For instance, CGIs can
- * be added with help of (implies subclass superclass), range, domain, inverse, functinal attribute can be
- * provided for roles.
- * Note that DatatypeProperties are not supported within KRSS2.
+/** The KRSS2OWLParser differs from the
+ * {@link org.coode.owl.krssparser.KRSSOWLParser KRSSOWLParser} that it supports
+ * an extended KRSS vocabulary available in many reasoning systems. For
+ * instance, CGIs can be added with help of (implies subclass superclass),
+ * range, domain, inverse, functinal attribute can be provided for roles. Note
+ * that DatatypeProperties are not supported within KRSS2.
  * <p/>
  * <b>Abbreviations</b>
  * <table bordercolor="#000200" border="1">
@@ -204,15 +203,18 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * <p/>
  * <tr>
  * <td>(define-primitive-role RN :parents (RN1 RN2 ...RNn))</td>
- * <td>(OWLSubObjectPropertyAxiom RN RN1)<br>(OWLSubObjectPropertyAxiom RN RN2)<br>(OWLSubObjectPropertyAxiom RN RNn)</td>
+ * <td>(OWLSubObjectPropertyAxiom RN RN1)<br>
+ * (OWLSubObjectPropertyAxiom RN RN2)<br>
+ * (OWLSubObjectPropertyAxiom RN RNn)</td>
  * <td></td>
  * </tr>
  * <p/>
  * <tr>
- * <td>(define-primitive-role RN :domain (C D ...E) :range (C D ...E) :transitive t :symmetric t :reflexive t :inverse RN1)</td>
+ * <td>(define-primitive-role RN :domain (C D ...E) :range (C D ...E)
+ * :transitive t :symmetric t :reflexive t :inverse RN1)</td>
  * <td></td>
- * <td>Corresponding axioms for domain and range as well as transitive, symmetric, reflexive and inverse will be added.
- * </td>
+ * <td>Corresponding axioms for domain and range as well as transitive,
+ * symmetric, reflexive and inverse will be added.</td>
  * </tr>
  * <p/>
  * <p/>
@@ -286,51 +288,49 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * <p/>
  * <p/>
  * </table>
- *
  * Author: Olaf Noppens<br>
  * Ulm University<br>
- * Institute of Artificial Intelligence<br>
- */
+ * Institute of Artificial Intelligence<br> */
 public class KRSS2OWLParser extends AbstractOWLParser {
-
-
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology) throws OWLParserException, IOException,
+            UnloadableImportException {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }
 
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
-    	 Reader reader = null;
-    		        InputStream is = null;
-    	try {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+            throws OWLParserException, IOException, OWLOntologyChangeException,
+            UnloadableImportException {
+        Reader reader = null;
+        InputStream is = null;
+        try {
             KRSS2OntologyFormat format = new KRSS2OntologyFormat();
             KRSS2Parser parser;
             if (documentSource.isReaderAvailable()) {
-                //parser = new KRSS2Parser(documentSource.getReader());
-            	reader = documentSource.getReader();
-            	                parser = new KRSS2Parser(reader);
+                reader = documentSource.getReader();
+                parser = new KRSS2Parser(reader);
             } else if (documentSource.isInputStreamAvailable()) {
-                //parser = new KRSS2Parser(documentSource.getInputStream());
-            	is = documentSource.getInputStream();
-            	                parser = new KRSS2Parser(is);
+                is = documentSource.getInputStream();
+                parser = new KRSS2Parser(is);
             } else {
-                //parser = new KRSS2Parser(getInputStream(documentSource.getDocumentIRI()));
-            	is = getInputStream(documentSource.getDocumentIRI());
-            	                parser = new KRSS2Parser(is);
+                is = getInputStream(documentSource.getDocumentIRI());
+                parser = new KRSS2Parser(is);
             }
-            parser.setOntology(ontology, ontology.getOWLOntologyManager().getOWLDataFactory());
+            parser.setOntology(ontology, ontology.getOWLOntologyManager()
+                    .getOWLDataFactory());
             parser.parse();
             return format;
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             throw new KRSS2OWLParserException(e);
-        }finally {
-			if (is != null) {
-				is.close();
-			} else if (reader != null) {
-				reader.close();
-			}
-		}
+        } finally {
+            if (is != null) {
+                is.close();
+            } else if (reader != null) {
+                reader.close();
+            }
+        }
     }
 }

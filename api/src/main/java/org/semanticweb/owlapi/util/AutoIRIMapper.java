@@ -208,7 +208,6 @@ Serializable {
                 if (file.isDirectory() && recursive) {
                     processFile(file);
                 } else {
-                    // boolean parsedFile = false;
                     if (file.getName().endsWith(".obo")) {
                         oboFileMap.put(file.getName(), IRI.create(file));
                     } else if (file.getName().endsWith(".omn")) {
@@ -217,7 +216,6 @@ Serializable {
                         for (String ext : fileExtensions) {
                             if (file.getName().endsWith(ext)) {
                                 parseFile(file);
-                                // parsedFile = true;
                                 break;
                             }
                         }
@@ -239,14 +237,12 @@ Serializable {
             } catch (ParserConfigurationException e) {
                 throw new OWLRuntimeException(e);
             } catch (SAXException e) {
-                // We simply aren't interested in any parsing problems - if
-                // we can't parse a file, then we can't map it and we don't
-                // care!
+                // if we can't parse a file, then we can't map it
             } catch (IOException e) {
-                // Again - these kinds of exceptions are of no interest to us!
+                // if we can't parse a file, then we can't map it
             }
         } catch (FileNotFoundException e) {
-            // Don't care?
+            // if we can't parse a file, then we can't map it
         } finally {
             if (is != null) {
                 try {
@@ -282,14 +278,13 @@ Serializable {
                 }
             }
         } catch (IOException e) {
-            // Ignore - don't care
-        } finally {
+            // if we can't parse a file, then we can't map it } finally {
             try {
                 if (br != null) {
                     br.close();
                 }
             } catch (IOException e2) {
-                // no operation
+                e2.printStackTrace();
             }
         }
     }

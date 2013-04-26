@@ -152,7 +152,6 @@ public class LatexRenderer extends AbstractOWLRenderer {
                     w.write("\n\n");
                 }
             }
-            //            writer.write(w.toString());
             writer.write("\\end{document}\n");
             writer.flush();
         }

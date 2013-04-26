@@ -109,11 +109,9 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 @SuppressWarnings("javadoc")
 public class InternalsImpl extends AbstractInternalsImpl {
-
     private static final long serialVersionUID = 30402L;
 
     protected class SetPointer<K> implements Internals.SimplePointer<K>, Serializable {
-
         private static final long serialVersionUID = 30402L;
         private final Set<K> set;
 
@@ -456,7 +454,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
     @Override
     public MapPointer<OWLAnonymousIndividual, OWLAxiom>
-    getOwlAnonymousIndividualReferences() {
+            getOwlAnonymousIndividualReferences() {
         return owlAnonymousIndividualReferences;
     }
 
@@ -467,7 +465,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
     @Override
     public MapPointer<OWLAnnotationProperty, OWLAxiom>
-    getOwlAnnotationPropertyReferences() {
+            getOwlAnnotationPropertyReferences() {
         return owlAnnotationPropertyReferences;
     }
 
@@ -480,7 +478,6 @@ public class InternalsImpl extends AbstractInternalsImpl {
     public MapPointer<AxiomType<?>, OWLAxiom> getAxiomsByType() {
         return axiomsByType;
     }
-
 
     class AddAxiomVisitor implements OWLAxiomVisitor, Serializable {
         private static final long serialVersionUID = 30402L;
@@ -728,7 +725,6 @@ public class InternalsImpl extends AbstractInternalsImpl {
         @Override
         public void visit(OWLDatatypeDefinitionAxiom axiom) {}
     }
-
 
     class RemoveAxiomVisitor implements OWLAxiomVisitor, Serializable {
         private static final long serialVersionUID = 30402L;
@@ -980,9 +976,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         @Override
         public void visit(OWLDatatypeDefinitionAxiom axiom) {
             // Just use general indexing (on the assumption that there won't be
-            // many
-            // datatype definitions). This could always be optimised at a later
-            // stage.
+            // many datatype definitions). This could always be optimised at a
+            // later stage.
         }
     }
 }

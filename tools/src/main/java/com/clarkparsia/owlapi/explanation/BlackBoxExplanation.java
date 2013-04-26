@@ -198,7 +198,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         int axiomsAdded = 0;
 
         int remainingSpace = expansionLimit;
-        // System.out.println("Expansion limit: " + expansionLimit);
         for (OWLAxiom ax : new ArrayList<OWLAxiom>(debuggingAxioms)) {
             if (expandedWithDefiningAxioms.contains(ax)) {
                 // Skip if already done
@@ -338,22 +337,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         if (log.isLoggable(Level.FINE)) {
             log.info("Fast pruning: ");
         }
-        //        if (performRepeatedFastPruning) {
-        //            int desiredWindowSize = debuggingAxioms.size() / 6;
-        //
-        //            if (desiredWindowSize == fastPruningWindowSize) {
-        //                fastPruningWindowSize = desiredWindowSize / 3;
-        //            }
-        //            else {
-        //                fastPruningWindowSize = desiredWindowSize;
-        //            }
-        //            if (fastPruningWindowSize < 1) {
-        //                fastPruningWindowSize = 1;
-        //            }
-        //        }
-        //        else {
-        //            fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
-        //        }
         if (log.isLoggable(Level.FINE)) {
             log.fine("     - Window size: " + fastPruningWindowSize);
         }
@@ -583,11 +566,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
             axiom.accept(declarationRemover);
         }
     }
-
-    //    private static URI createURI() {
-    //        return URI.create("http://debugging.blackbox#" + System.nanoTime());
-    //    }
-
 
     @Override
     public String toString() {

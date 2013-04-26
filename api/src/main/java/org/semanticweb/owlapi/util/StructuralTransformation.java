@@ -319,7 +319,6 @@ public class StructuralTransformation {
         public OWLClassExpression visit(OWLObjectUnionOf desc) {
             Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
             for (OWLClassExpression op : desc.getOperands()) {
-                // if(!op.isClassExpressionLiteral()) {
                 OWLClassExpression flatOp = op.accept(this);
                 if (flatOp.isAnonymous() || signature.contains(flatOp.asOWLClass())) {
                     OWLClass name = createNewName();
@@ -328,12 +327,6 @@ public class StructuralTransformation {
                 } else {
                     descs.add(flatOp);
                 }
-                // }
-                // else {
-                // OWLClass name = createNewName();
-                // descs.add(name);
-                // axioms.add(df.getOWLSubClassOfAxiom(name, op));
-                // }
             }
             return ldf.getOWLObjectUnionOf(descs);
         }

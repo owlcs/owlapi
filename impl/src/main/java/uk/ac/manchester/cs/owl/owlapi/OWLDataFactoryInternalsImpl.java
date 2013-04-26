@@ -79,8 +79,6 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
                 }
             }
             // need to add the new key and return it
-            //miss++;
-            // cast needed for javac not to complain
             @SuppressWarnings("unchecked")
             V value = (V) v.build(s);
             prefixCache.put(s, new WeakReference<V>(value));

@@ -347,19 +347,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         write(">");
     }
 
-    //    protected void write(IRI uri) {
-    //        String qname = null;
-    //        ShortFormProvider shortFormProvider = getShortFormProvider();
-    //        if(pm != null) {
-    //            qname = getPrefixManager().getPrefixIRI(uri);
-    //        }
-    //        if (qname != null) {
-    //            super.write(qname);
-    //        } else {
-    //            writeFullURI(uri.toString());
-    //        }
-    //    }
-
     public boolean isFiltered(AxiomType<?> axiomType) {
         return filteredAxiomTypes.contains(axiomType);
     }
@@ -1200,10 +1187,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (ontologiesList.length == 0) {
             return;
         }
-        //        if (ontologies.length == 1) {
-        //            if (defaultOntology != null) {
-        //            }
-        //        }
         write("[in ");
         int count = 0;
         for (OWLOntology ont : ontologiesList) {

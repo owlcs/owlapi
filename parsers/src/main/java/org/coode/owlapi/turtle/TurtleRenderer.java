@@ -163,14 +163,6 @@ public class TurtleRenderer extends RDFRendererBase {
         return getCurrentPos() - lastNewLineIndex;
     }
 
-
-    //    private void writeIndent(int indent) {
-    //        for (int i = 1; i < indent; i++) {
-    //            write(" ");
-    //        }
-    //    }
-
-
     private void writeAsURI(String s) {
         write("<");
         if (s.startsWith(base)) {
@@ -405,8 +397,6 @@ public class TurtleRenderer extends RDFRendererBase {
         List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
         if (pending.contains(node)) {
             // We essentially remove all structure sharing during parsing - any cycles therefore indicate a bug!
-            // throw new
-            // IllegalStateException("Rendering cycle!  This indicates structure sharing and should not happen!");
             triples = new ArrayList<RDFTriple>();
         }
         pending.add(node);

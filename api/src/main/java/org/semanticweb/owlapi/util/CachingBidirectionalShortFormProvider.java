@@ -102,6 +102,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
      *                          will be cached.
      */
     //XXX not in the interface
+    @Deprecated
     public void rebuild(OWLEntitySetProvider<OWLEntity> entitySetProvider) {
         shortForm2EntityMap.clear();
         entity2ShortFormMap.clear();
@@ -134,6 +135,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
      * @param entity The entity to be removed.
      */
     //XXX not in the interface
+    @Deprecated
     public void remove(OWLEntity entity) {
         String shortForm = entity2ShortFormMap.remove(entity);
         if (shortForm != null) {
@@ -149,6 +151,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
      * @param entity The entity whose short form should be updated.
      */
     //XXX not in the interface
+    @Deprecated
     public void update(OWLEntity entity) {
         remove(entity);
         add(entity);

@@ -74,17 +74,14 @@ public class OWLOBOParser extends AbstractOWLParser {
         Reader reader = null;
         InputStream is = null;
         if (documentSource.isReaderAvailable()) {
-            // parser = new OBOParser(documentSource.getReader());
             reader = documentSource.getReader();
             parser = new OBOParser(reader);
         }
         else if (documentSource.isInputStreamAvailable()) {
-            //parser = new OBOParser(documentSource.getInputStream());
             is = documentSource.getInputStream();
             parser = new OBOParser(is);
         }
         else {
-            //parser = new OBOParser(getInputStream(documentSource.getDocumentIRI()));
             is = getInputStream(documentSource.getDocumentIRI());
             parser = new OBOParser(is);
         }

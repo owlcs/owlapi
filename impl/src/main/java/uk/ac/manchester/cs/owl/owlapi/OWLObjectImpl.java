@@ -71,7 +71,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     private static final long serialVersionUID = 30402L;
-    // private final OWLDataFactory dataFactory;
     private int hashCode = 0;
     private WeakReference<Set<OWLEntity>> signature = null;
     private WeakReference<Set<OWLAnonymousIndividual>> anons;
@@ -79,14 +78,18 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     /** */
     public OWLObjectImpl() {}
 
+    // XXX there should be no datafactory here at all
+    @Deprecated
     private static OWLDataFactory f = new OWLDataFactoryImpl(false, false);
 
     /** @return this object's data factory */
+    @Deprecated
     public static OWLDataFactory getOWLDataFactory() {
         return f;
     }
 
     @SuppressWarnings("javadoc")
+    @Deprecated
     public static void setOWLDataFactory(OWLDataFactory factory) {
         f = factory;
     }
@@ -198,14 +201,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     @Override
     final public int compareTo(OWLObject o) {
-        // if (o instanceof OWLAxiom && this instanceof OWLAxiom) {
-        // OWLObject thisSubj = subjectProvider.getSubject((OWLAxiom) this);
-        // OWLObject otherSubj = subjectProvider.getSubject((OWLAxiom) o);
-        // int axDiff = thisSubj.compareTo(otherSubj);
-        // if (axDiff != 0) {
-        // return axDiff;
-        // }
-        // }
         OWLObjectTypeIndexProvider typeIndexProvider = new OWLObjectTypeIndexProvider();
         int thisTypeIndex = typeIndexProvider.getTypeIndex(this);
         int otherTypeIndex = typeIndexProvider.getTypeIndex(o);

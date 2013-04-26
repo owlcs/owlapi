@@ -65,7 +65,6 @@ public class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
     
     private static final int NAME_GROUP = 2;
     
-    // private static final int SCOPE_GROUP = 4;
     
     /** @param consumer */
     public SynonymTypeDefTagHandler(OBOConsumer consumer) {

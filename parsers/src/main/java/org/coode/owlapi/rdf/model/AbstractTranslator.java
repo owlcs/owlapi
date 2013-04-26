@@ -713,15 +713,10 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     @Override
     public void visit(SWRLRule rule) {
-        //        if (!rule.isAnonymous()) {
-        //            if (!nodeMap.containsKey(rule)) {
-        //                nodeMap.put(rule, getResourceNode(rule.getIRI()));
-        //            }
-        //        }
-        //        else {
+
         translateAnonymousNode(rule);
         translateAnnotations(rule);
-        //        }
+
         addTriple(rule, RDF_TYPE.getIRI(), IMP.getIRI());
 
         Set<SWRLAtom> antecedent = rule.getBody();
@@ -832,16 +827,6 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         node.getLiteral().accept(this);
         nodeMap.put(node, nodeMap.get(node.getLiteral()));
     }
-
-
-    //    private void processAnonymousIndividual(OWLIndividual ind) {
-    //        if (!ind.isAnonymous()) {
-    //            return;
-    //        }
-    //        for (OWLAxiom ax : ontology.getAxioms(ind)) {
-    //            ax.accept(this);
-    //        }
-    //    }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -965,17 +950,6 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
 
     protected abstract LITERAL getLiteralNode(OWLLiteral literal);
-    //    /**
-    //     * Gets a literal node that represents a typed literal.
-    //     * @param literal The literal
-    //     * @param datatype The datatype that types the literal
-    //     * @return The literal
-    //     */
-    //    protected abstract LITERAL getLiteralNode(String literal, IRI datatype);
-    //
-    //
-    //    protected abstract LITERAL getLiteralNode(String literal, String lang);
-
 
     protected abstract void addTriple(RESOURCE subject, PREDICATE pred, NODE object);
 
@@ -1085,10 +1059,6 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
             currentIndividuals.remove(ind);
         }
     }
-
-    //    private boolean isAnonymous(OWLObject object) {
-    //        return !(object instanceof OWLEntity || object instanceof IRI);
-    //    }
 
     private void addPairwise(OWLAxiom axiom, Collection<? extends OWLObject> objects, IRI IRI) {
         List<? extends OWLObject> objectList = new ArrayList<OWLObject>(objects);

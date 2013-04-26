@@ -70,7 +70,6 @@ public class RelationshipTagValueHandler extends AbstractTagValueHandler {
         if(matcher.matches()) {
             IRI propIRI = getConsumer().getRelationIRIFromSymbolicIdOrOBOId(matcher.group(1));
             IRI fillerIRI = getIRIFromOBOId(matcher.group(2));
-          //  String modifier = matcher.group(3);
             OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
             OWLClass filler = getDataFactory().getOWLClass(fillerIRI);
             OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);

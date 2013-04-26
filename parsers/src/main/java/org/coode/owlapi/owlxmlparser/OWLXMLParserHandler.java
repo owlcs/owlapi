@@ -872,7 +872,6 @@ public class OWLXMLParserHandler extends DefaultHandler {
                     if (base == null) {
                         throw new OWLXMLParserException("Unable to resolve relative URI", getLineNumber(), getColumnNumber());
                     }
-                    //                    iri = IRI.create(getBase().resolve(uri));
                     iri = IRI.create(base + iriStr);
                 }
                 else {

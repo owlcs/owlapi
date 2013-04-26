@@ -176,7 +176,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     @Override
     public String getShortForm(OWLEntity entity) {
 
-        for (OWLAnnotationProperty prop : annotationProperties) { // visit the properties in order of preference
+        for (OWLAnnotationProperty prop : annotationProperties) {
+            // visit the properties in order of preference
             AnnotationLanguageFilter checker = new AnnotationLanguageFilter(prop, preferredLanguageMap.get(prop));
 
             for (OWLOntology ontology : ontologySetProvider.getOntologies()) {
@@ -262,15 +263,17 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
         @Override
 		public void visit(OWLAnnotationAssertionAxiom anno) {
-            if (lastLangMatchIndex > 0 && // a perfect match - no need to carry on search
+            if (lastLangMatchIndex > 0 &&
                     anno.getProperty().equals(prop)) {
+                // a perfect match - no need to carry on search
                 anno.getValue().accept(this);
             }
         }
 
         @Override
 		public void visit(OWLLiteral node) {
-            if (preferredLanguages == null || preferredLanguages.isEmpty()) { // if there are no languages just match the first thing
+            if (preferredLanguages == null || preferredLanguages.isEmpty()) {
+                // if there are no languages just match the first thing
                 lastLangMatchIndex = 0;
                 candidateValue = node;
             }

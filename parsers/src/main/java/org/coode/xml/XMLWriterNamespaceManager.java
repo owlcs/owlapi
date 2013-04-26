@@ -154,7 +154,8 @@ public class XMLWriterNamespaceManager {
      */
     public String getDefaultPrefix() {
         for (String prefix : prefixNamespaceMap.keySet()) {
-            if (!prefix.equals("")) { // if the default has a blank entry then skip it
+            if (!prefix.equals("")) {
+                // if the default has a blank entry then skip it
                 final String ns = prefixNamespaceMap.get(prefix);
                 if (ns.equals(defaultNamespace)) {
                     return prefix;

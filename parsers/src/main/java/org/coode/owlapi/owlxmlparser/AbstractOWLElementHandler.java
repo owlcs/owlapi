@@ -125,9 +125,6 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
         return handler.getAbbreviatedIRI(abbreviatedIRI);
     }
 
-    // protected URI getIRI(String uri) throws OWLXMLParserException {
-    // return handler.getIRI(uri);
-    // }
     protected int getLineNumber() {
         return handler.getLineNumber();
     }

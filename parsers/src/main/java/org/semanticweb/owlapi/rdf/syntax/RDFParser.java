@@ -460,10 +460,6 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             try {
                 String resolved = resolvedIRIs.get(uri);
                 if(resolved != null) {
-                    //                    cacheHits++;
-                    //                    if((cacheHits % 10000) == 0) {
-                    //                        System.out.println(cacheHits + " cache hits");
-                    //                    }
                     return resolved;
                 }
                 else {

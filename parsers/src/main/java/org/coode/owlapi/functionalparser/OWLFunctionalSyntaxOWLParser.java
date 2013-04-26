@@ -73,17 +73,14 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
         try {
             OWLFunctionalSyntaxParser parser;
             if(documentSource.isReaderAvailable()) {
-                //parser = new OWLFunctionalSyntaxParser(documentSource.getReader());
                 reader = documentSource.getReader();
                 parser = new OWLFunctionalSyntaxParser(reader);
             }
             else if(documentSource.isInputStreamAvailable()) {
-                //parser = new OWLFunctionalSyntaxParser(documentSource.getInputStream());
                 is = documentSource.getInputStream();
                 parser = new OWLFunctionalSyntaxParser(is);
             }
             else {
-                //parser = new OWLFunctionalSyntaxParser(getInputStream(documentSource.getDocumentIRI()));
                 is = getInputStream(documentSource.getDocumentIRI());
                 parser = new OWLFunctionalSyntaxParser(is);
             }

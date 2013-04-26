@@ -312,7 +312,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLDeclarationAxiom axiom) {
             isLocal = true;
-            //            isLocal = !(axiom.getEntity().isOWLNamedIndividual());
         }
 
 
@@ -322,7 +321,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
             isLocal = true;
-            //            isLocal = false;
         }
 
 
@@ -515,25 +513,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             if (!isBottom && !topEvaluator.isTopEquivalent(first, signature, localityCls)) {
                 isLocal = false;
             }
-
-            //            // unless we find a non-locality, process all the class expressions
-            //            while (isLocal && eqs.hasNext()) {
-            //                OWLClassExpression next = eqs.next();
-            //
-            //                if (isBottom) {
-            //                    // other concepts were BOTTOM so this one should be BOTTOM
-            //                    // too
-            //                    if (!bottomEvaluator.isBottomEquivalent(next, signature, localityCls)) {
-            //                        isLocal = false;
-            //                    }
-            //                }
-            //                else {
-            //                    // other concepts were TOP so this one should be TOP too
-            //                    if (!topEvaluator.isTopEquivalent(next, signature, localityCls)) {
-            //                        isLocal = false;
-            //                    }
-            //                }
-            //            }
 
             if (isBottom) {
                 // unless we find a non-locality, process all the class expressions
@@ -831,7 +810,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLSameIndividualAxiom axiom) {
-            //            isLocal = false;
             isLocal = true;
         }
 
