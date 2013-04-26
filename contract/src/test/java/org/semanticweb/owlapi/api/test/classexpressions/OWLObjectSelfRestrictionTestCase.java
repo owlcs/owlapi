@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.*;
@@ -46,16 +45,10 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 public class OWLObjectSelfRestrictionTestCase extends AbstractOWLDataFactoryTest {
-
     @Override
     @Test
     public void testCreation() throws Exception {
@@ -63,7 +56,6 @@ public class OWLObjectSelfRestrictionTestCase extends AbstractOWLDataFactoryTest
         OWLObjectHasSelf restA = getFactory().getOWLObjectHasSelf(prop);
         assertNotNull(restA);
     }
-
 
     @Override
     @Test
@@ -74,15 +66,15 @@ public class OWLObjectSelfRestrictionTestCase extends AbstractOWLDataFactoryTest
         assertEquals(restA, restB);
     }
 
-
     @Override
     @Test
     public void testEqualsNegative() throws Exception {
-        OWLObjectHasSelf restA = getFactory().getOWLObjectHasSelf(createOWLObjectProperty());
-        OWLObjectHasSelf restB = getFactory().getOWLObjectHasSelf(createOWLObjectProperty());
+        OWLObjectHasSelf restA = getFactory().getOWLObjectHasSelf(
+                createOWLObjectProperty());
+        OWLObjectHasSelf restB = getFactory().getOWLObjectHasSelf(
+                createOWLObjectProperty());
         assertNotEquals(restA, restB);
     }
-
 
     @Override
     @Test

@@ -28,8 +28,7 @@ public class TestCreator {
         }
     }
 
-    private static PrintStream initPrintStream(final String _name)
-            throws FileNotFoundException {
+    private static PrintStream initPrintStream(String _name) throws FileNotFoundException {
         String name = _name.replace("/", "_");
         PrintStream out = new PrintStream(
                 "apibinding/src/test/java/org/semanticweb/owlapi/unit/test/GeneratedJUnitTest"
@@ -40,9 +39,8 @@ public class TestCreator {
     }
 
     @SuppressWarnings("resource")
-    private static void visit(final File root, final File current,
-            final Map<String, PrintStream> outMap) throws ClassNotFoundException,
-            FileNotFoundException {
+    private static void visit(File root, File current, Map<String, PrintStream> outMap)
+            throws ClassNotFoundException, FileNotFoundException {
         if (current == null) {
             for (File f : root.listFiles()) {
                 visit(root, f, outMap);
@@ -71,7 +69,7 @@ public class TestCreator {
                 out.println("@Test\npublic void shouldTest" + theClass.getSimpleName()
                         + "()throws Exception{");
                 int counter = 0;
-                final Constructor<?>[] constructors = theClass.getConstructors();
+                Constructor<?>[] constructors = theClass.getConstructors();
                 if (constructors.length > 0) {
                     for (Constructor<?> c : constructors) {
                         out.print(theClass.getSimpleName() + " testSubject" + counter++

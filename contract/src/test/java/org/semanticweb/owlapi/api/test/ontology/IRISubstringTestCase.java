@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.ontology;
 
 import java.util.HashSet;
@@ -49,17 +48,13 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 10-Dec-2009
- */
-
+ * Date: 10-Dec-2009 */
 public class IRISubstringTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
     @Override
-	protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         XMLWriterPreferences.getInstance().setUseNamespaceEntities(true);
         IRI iriA = IRI.create("http://owlapi.sourceforge.net/properties#propA");
         IRI iriB = IRI.create("http://owlapi.sourceforge.net/properties2#propB");
@@ -68,8 +63,10 @@ public class IRISubstringTestCase extends AbstractAxiomsRoundTrippingTestCase {
         OWLAnnotationProperty propA = getFactory().getOWLAnnotationProperty(iriA);
         OWLAnnotationProperty propB = getFactory().getOWLAnnotationProperty(iriB);
         axioms.add(getFactory().getOWLDeclarationAxiom(clsA));
-        axioms.add(getFactory().getOWLAnnotationAssertionAxiom(propA, clsA.getIRI(), getFactory().getOWLLiteral("value1")));
-        axioms.add(getFactory().getOWLAnnotationAssertionAxiom(propB, clsA.getIRI(), getFactory().getOWLLiteral("value2")));
+        axioms.add(getFactory().getOWLAnnotationAssertionAxiom(propA, clsA.getIRI(),
+                getFactory().getOWLLiteral("value1")));
+        axioms.add(getFactory().getOWLAnnotationAssertionAxiom(propB, clsA.getIRI(),
+                getFactory().getOWLLiteral("value2")));
         return axioms;
     }
 }

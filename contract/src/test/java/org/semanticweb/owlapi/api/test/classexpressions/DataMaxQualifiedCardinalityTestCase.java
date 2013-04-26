@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import java.util.HashSet;
@@ -48,24 +47,20 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 14-Jul-2009
- */
-
-public class DataMaxQualifiedCardinalityTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
+ * Date: 14-Jul-2009 */
+public class DataMaxQualifiedCardinalityTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
-	protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLDataProperty prop = getOWLDataProperty("prop");
         OWLDataRange dr = getFactory().getIntegerOWLDatatype();
         OWLClass base = getOWLClass("A");
-        axioms.add(getFactory().getOWLSubClassOfAxiom(base, getFactory().getOWLDataMaxCardinality(3, prop, dr)));
+        axioms.add(getFactory().getOWLSubClassOfAxiom(base,
+                getFactory().getOWLDataMaxCardinality(3, prop, dr)));
         return axioms;
     }
-
-
 }

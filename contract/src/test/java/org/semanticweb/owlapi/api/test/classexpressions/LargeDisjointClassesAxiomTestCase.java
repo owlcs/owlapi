@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import java.util.HashSet;
@@ -46,20 +45,17 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTe
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 21-Sep-2009
- */
-
-public class LargeDisjointClassesAxiomTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
+ * Date: 21-Sep-2009 */
+public class LargeDisjointClassesAxiomTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
-	protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         Set<OWLClass> clses = new HashSet<OWLClass>();
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             clses.add(getOWLClass("Cls" + i));
         }
         axioms.add(getFactory().getOWLDisjointClassesAxiom(clses));

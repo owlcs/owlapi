@@ -64,9 +64,9 @@ import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
  * <br> */
 public class SimpleHierarchyExample {
     private static int INDENT = 4;
-    private OWLReasonerFactory reasonerFactory;
-    private OWLOntology ontology;
-    private PrintStream out;
+    private final OWLReasonerFactory reasonerFactory;
+    private final OWLOntology ontology;
+    private final PrintStream out;
 
     private SimpleHierarchyExample(OWLReasonerFactory reasonerFactory,
             OWLOntology _ontology) {
@@ -131,8 +131,8 @@ public class SimpleHierarchyExample {
     }
 
     @SuppressWarnings("javadoc")
-    public static void main(String[] args) throws OWLException,
-            InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public static void main(String[] args) throws OWLException, InstantiationException,
+            IllegalAccessException, ClassNotFoundException {
         String reasonerFactoryClassName = null;
         // We first need to obtain a copy of an
         // OWLOntologyManager, which, as the name
@@ -152,7 +152,7 @@ public class SimpleHierarchyExample {
         // / Create a new SimpleHierarchy object with the given reasoner.
         SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample(
                 (OWLReasonerFactory) Class.forName(reasonerFactoryClassName)
-                .newInstance(), ontology);
+                        .newInstance(), ontology);
         // Get Thing
         OWLClass clazz = manager.getOWLDataFactory().getOWLThing();
         System.out.println("Class       : " + clazz);

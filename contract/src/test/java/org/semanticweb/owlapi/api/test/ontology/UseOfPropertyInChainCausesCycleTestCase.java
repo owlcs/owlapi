@@ -28,21 +28,19 @@ public class UseOfPropertyInChainCausesCycleTestCase {
         // a:hasUncle ) The brother of someone's father is that person's uncle.
         // SubObjectPropertyOf( ObjectPropertyChain( a:hasChild a:hasUncle )
         // a:hasBrother ) The uncle of someone's child is that person's brother.
-        final OWLObjectProperty father = f.getOWLObjectProperty(IRI
+        OWLObjectProperty father = f.getOWLObjectProperty(IRI
                 .create("urn:test:hasFather"));
-        final OWLObjectProperty brother = f.getOWLObjectProperty(IRI
+        OWLObjectProperty brother = f.getOWLObjectProperty(IRI
                 .create("urn:test:hasBrother"));
-        final OWLObjectProperty child = f.getOWLObjectProperty(IRI
-                .create("urn:test:hasChild"));
-        final OWLObjectProperty uncle = f.getOWLObjectProperty(IRI
-                .create("urn:test:hasUncle"));
+        OWLObjectProperty child = f.getOWLObjectProperty(IRI.create("urn:test:hasChild"));
+        OWLObjectProperty uncle = f.getOWLObjectProperty(IRI.create("urn:test:hasUncle"));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(father));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(child));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(uncle));
-        final OWLSubPropertyChainOfAxiom brokenAxiom1 = f.getOWLSubPropertyChainOfAxiom(
+        OWLSubPropertyChainOfAxiom brokenAxiom1 = f.getOWLSubPropertyChainOfAxiom(
                 Arrays.asList(father, brother), uncle);
-        final OWLSubPropertyChainOfAxiom brokenAxiom2 = f.getOWLSubPropertyChainOfAxiom(
+        OWLSubPropertyChainOfAxiom brokenAxiom2 = f.getOWLSubPropertyChainOfAxiom(
                 Arrays.asList(child, uncle), brother);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(
                 o.getOWLOntologyManager(), o);
@@ -53,8 +51,7 @@ public class UseOfPropertyInChainCausesCycleTestCase {
         assertTrue(manager.isLessThan(brother, brother));
         assertTrue(manager.isLessThan(uncle, uncle));
         OWL2DLProfile profile = new OWL2DLProfile();
-        final List<OWLProfileViolation> violations = profile.checkOntology(o)
-                .getViolations();
+        List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         assertTrue(!violations.isEmpty());
         for (OWLProfileViolation v : violations) {
             assertTrue(v.getAxiom().equals(brokenAxiom1)
@@ -66,27 +63,24 @@ public class UseOfPropertyInChainCausesCycleTestCase {
     public void shouldNotCauseViolations() throws OWLOntologyCreationException {
         OWLOntology o = Factory.getManager().createOntology();
         OWLDataFactory f = Factory.getFactory();
-        final OWLObjectProperty father = f.getOWLObjectProperty(IRI
+        OWLObjectProperty father = f.getOWLObjectProperty(IRI
                 .create("urn:test:hasFather"));
-        final OWLObjectProperty brother = f.getOWLObjectProperty(IRI
+        OWLObjectProperty brother = f.getOWLObjectProperty(IRI
                 .create("urn:test:hasBrother"));
-        final OWLObjectProperty child = f.getOWLObjectProperty(IRI
-                .create("urn:test:hasChild"));
-        final OWLObjectProperty uncle = f.getOWLObjectProperty(IRI
-                .create("urn:test:hasUncle"));
+        OWLObjectProperty child = f.getOWLObjectProperty(IRI.create("urn:test:hasChild"));
+        OWLObjectProperty uncle = f.getOWLObjectProperty(IRI.create("urn:test:hasUncle"));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(father));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(child));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(uncle));
-        final OWLSubPropertyChainOfAxiom brokenAxiom1 = f.getOWLSubPropertyChainOfAxiom(
+        OWLSubPropertyChainOfAxiom brokenAxiom1 = f.getOWLSubPropertyChainOfAxiom(
                 Arrays.asList(father, brother), uncle);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(
                 o.getOWLOntologyManager(), o);
         o.getOWLOntologyManager().addAxiom(o, brokenAxiom1);
         assertTrue(manager.isLessThan(brother, uncle));
         OWL2DLProfile profile = new OWL2DLProfile();
-        final List<OWLProfileViolation> violations = profile.checkOntology(o)
-                .getViolations();
+        List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         assertTrue(violations.isEmpty());
         for (OWLProfileViolation v : violations) {
             assertTrue(v.getAxiom().equals(brokenAxiom1));
@@ -408,12 +402,10 @@ public class UseOfPropertyInChainCausesCycleTestCase {
 
     @Test
     public void shouldNotCauseViolationsInput1() throws OWLOntologyCreationException {
-        OWLOntology o = Factory.getManager()
-                .loadOntologyFromOntologyDocument(
-                        new ByteArrayInputStream(input1.getBytes()));
+        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
+                new ByteArrayInputStream(input1.getBytes()));
         OWL2DLProfile profile = new OWL2DLProfile();
-        final List<OWLProfileViolation> violations = profile.checkOntology(o)
-                .getViolations();
+        List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         for (OWLProfileViolation v : violations) {
             System.out.println(v);
         }
@@ -422,12 +414,10 @@ public class UseOfPropertyInChainCausesCycleTestCase {
 
     @Test
     public void shouldNotCauseViolationsInput2() throws OWLOntologyCreationException {
-        OWLOntology o = Factory.getManager()
-                .loadOntologyFromOntologyDocument(
-                        new ByteArrayInputStream(input2.getBytes()));
+        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
+                new ByteArrayInputStream(input2.getBytes()));
         OWL2DLProfile profile = new OWL2DLProfile();
-        final List<OWLProfileViolation> violations = profile.checkOntology(o)
-                .getViolations();
+        List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         for (OWLProfileViolation v : violations) {
             System.out.println(v);
         }

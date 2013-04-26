@@ -109,8 +109,8 @@ public class ContractOboParserTest {
     public void shouldTestAbstractTagValueHandler() throws Exception {
         AbstractTagValueHandler testSubject0 = new AbstractTagValueHandler("", mock) {
             @Override
-            public void handle(final String currentId, final String value,
-                    final String qualifierBlock, final String comment) {}
+            public void handle(String currentId, String value, String qualifierBlock,
+                    String comment) {}
         };
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
         OWLOntology result1 = testSubject0.getOntology();
@@ -497,8 +497,6 @@ public class ContractOboParserTest {
         Object result2 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
         boolean result3 = testSubject0.isPrefixOWLOntologyFormat();
-        // PrefixOWLOntologyFormat result4 =
-        // testSubject0.asPrefixOWLOntologyFormat();
         OWLOntologyLoaderMetaData result5 = testSubject0.getOntologyLoaderMetaData();
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }

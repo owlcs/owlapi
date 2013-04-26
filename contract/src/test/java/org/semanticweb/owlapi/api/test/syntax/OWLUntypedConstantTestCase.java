@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
@@ -45,23 +44,16 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 public class OWLUntypedConstantTestCase extends AbstractOWLDataFactoryTest {
-
     @Override
     @Test
     public void testCreation() throws Exception {
         OWLLiteral conB = getFactory().getOWLLiteral("TEST", "LANG");
         assertNotNull(conB);
     }
-
 
     @Override
     @Test
@@ -70,7 +62,6 @@ public class OWLUntypedConstantTestCase extends AbstractOWLDataFactoryTest {
         OWLLiteral conD = getFactory().getOWLLiteral("TEST", "LANG");
         assertEquals(conC, conD);
     }
-
 
     @Override
     @Test
@@ -82,7 +73,6 @@ public class OWLUntypedConstantTestCase extends AbstractOWLDataFactoryTest {
         OWLLiteral conF = getFactory().getOWLLiteral("OTHER", "LANG");
         assertNotEquals(conE, conF);
     }
-
 
     @Override
     @Test

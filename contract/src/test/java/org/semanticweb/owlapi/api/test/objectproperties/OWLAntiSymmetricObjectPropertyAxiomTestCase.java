@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLObjectPropertyCharacteristicAxiomTestCase;
@@ -44,18 +43,14 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-
-public class OWLAntiSymmetricObjectPropertyAxiomTestCase extends AbstractOWLObjectPropertyCharacteristicAxiomTestCase {
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
+public class OWLAntiSymmetricObjectPropertyAxiomTestCase extends
+        AbstractOWLObjectPropertyCharacteristicAxiomTestCase {
     @Override
-	protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) throws OWLException {
+    protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property)
+            throws OWLException {
         return getFactory().getOWLAsymmetricObjectPropertyAxiom(property);
     }
 }

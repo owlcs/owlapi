@@ -20,7 +20,6 @@ import org.coode.owlapi.rdf.model.RDFGraph;
 import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLNamespaceManager;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
-import org.coode.owlapi.rdf.rdfxml.RDFXMLRenderer;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.coode.owlapi.turtle.TurtleRenderer;
@@ -231,34 +230,32 @@ public class ContractSmallsTest {
             protected void endDocument() throws IOException {}
 
             @Override
-            protected void writeIndividualComments(final OWLNamedIndividual ind)
+            protected void writeIndividualComments(OWLNamedIndividual ind)
                     throws IOException {}
 
             @Override
-            protected void writeClassComment(final OWLClass cls) throws IOException {}
+            protected void writeClassComment(OWLClass cls) throws IOException {}
 
             @Override
-            protected void writeDataPropertyComment(final OWLDataProperty prop)
+            protected void writeDataPropertyComment(OWLDataProperty prop)
                     throws IOException {}
 
             @Override
-            protected void writeObjectPropertyComment(final OWLObjectProperty prop)
+            protected void writeObjectPropertyComment(OWLObjectProperty prop)
                     throws IOException {}
 
             @Override
-            protected void writeDatatypeComment(final OWLDatatype datatype)
+            protected void writeDatatypeComment(OWLDatatype datatype) throws IOException {}
+
+            @Override
+            protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop)
                     throws IOException {}
 
             @Override
-            protected void
-                    writeAnnotationPropertyComment(final OWLAnnotationProperty prop)
-                            throws IOException {}
+            protected void writeBanner(String name) throws IOException {}
 
             @Override
-            protected void writeBanner(final String name) throws IOException {}
-
-            @Override
-            public void render(final RDFResourceNode node) throws IOException {}
+            public void render(RDFResourceNode node) throws IOException {}
         };
         OWLOntology result0 = testSubject0.getOntology();
         testSubject0.render(mock(RDFResourceNode.class));
@@ -295,16 +292,6 @@ public class ContractSmallsTest {
         RDFXMLOntologyStorer testSubject0 = new RDFXMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
-    }
-
-    @Test
-    public void shouldTestRDFXMLRenderer() throws Exception {
-        RDFXMLRenderer testSubject0 = new RDFXMLRenderer(
-                Utils.getMockOntology(), mock(Writer.class));
-        RDFXMLRenderer testSubject1 = new RDFXMLRenderer(
-                Utils.getMockOntology(), mock(Writer.class),
-                mock(OWLOntologyFormat.class));
-        Set<OWLEntity> result0 = testSubject0.getUnserialisableEntities();
     }
 
     @Test
@@ -495,7 +482,7 @@ public class ContractSmallsTest {
         AbstractOWLDebugger testSubject0 = new AbstractOWLDebugger(
                 Utils.getRealMockManager(), Utils.getMockOntology()) {
             @Override
-            public Set<OWLAxiom> getSOSForIncosistentClass(final OWLClassExpression cls)
+            public Set<OWLAxiom> getSOSForIncosistentClass(OWLClassExpression cls)
                     throws OWLException {
                 return Collections.emptySet();
             }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.*;
@@ -48,15 +47,12 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 01-Jul-2010
- */
+ * Date: 01-Jul-2010 */
 @SuppressWarnings("javadoc")
 public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITestCase {
-
     @Test
     public void testTransitive() {
         OWLOntology ont = getOWLOntology("Ont");

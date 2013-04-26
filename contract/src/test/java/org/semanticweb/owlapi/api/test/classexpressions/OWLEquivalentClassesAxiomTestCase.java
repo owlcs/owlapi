@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
+
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -48,29 +48,24 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
-public class OWLEquivalentClassesAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLClassExpression> {
-
+public class OWLEquivalentClassesAxiomTestCase extends
+        AbstractOWLNaryOperandsObjectTestCase<OWLClassExpression> {
     public void testAsSubAxioms() throws Exception {
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(createOperand());
         operands.add(createOperand());
         OWLEquivalentClassesAxiom objA = (OWLEquivalentClassesAxiom) createObject(operands);
-        assertTrue(objA.asOWLSubClassOfAxioms().size()==2);
-
+        assertTrue(objA.asOWLSubClassOfAxioms().size() == 2);
     }
+
     @Override
     protected OWLObject createObject(Set<OWLClassExpression> operands) throws Exception {
         return getFactory().getOWLEquivalentClassesAxiom(operands);
     }
-
 
     @Override
     protected OWLClassExpression createOperand() throws Exception {

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.anonymous;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
@@ -48,26 +47,24 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 14/01/2011
- */
-
+ * Date: 14/01/2011 */
 public class AnonymousOntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() {
         try {
             OWLOntology ont = getManager().createOntology();
-            OWLAnnotationProperty prop = getFactory().getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
+            OWLAnnotationProperty prop = getFactory()
+                    .getOWLAnnotationProperty(
+                            IRI.create("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
             OWLLiteral value = getFactory().getOWLLiteral(33);
             OWLAnnotation annotation = getFactory().getOWLAnnotation(prop, value);
             getManager().applyChange(new AddOntologyAnnotation(ont, annotation));
             getManager().addAxiom(ont, getFactory().getOWLDeclarationAxiom(prop));
             return ont;
-        }
-        catch (OWLOntologyCreationException e) {
+        } catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);
         }
     }

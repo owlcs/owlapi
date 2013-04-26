@@ -1,4 +1,5 @@
 package org.semanticweb.owlapi.api.test.ontology;
+
 import static org.junit.Assert.*;
 
 import java.util.HashSet;
@@ -15,26 +16,19 @@ import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplFloat;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplInteger;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 26/11/2012
- */
+ * Date: 26/11/2012 */
 @SuppressWarnings("javadoc")
 public class HashCodeTestCase {
-
-
     @Test
     public void testSetContainsInt() {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(OWL2Datatype.XSD_INTEGER.getIRI());
-
         OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3", null, datatype);
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3", null, datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplInteger(3, datatype);
-
         assertEquals(litNoComp, litIntImpl);
-
         Set<OWLLiteral> lncset = new HashSet<OWLLiteral>();
         lncset.add(litNoComp);
         assertTrue(lncset.contains(litNoComp2));

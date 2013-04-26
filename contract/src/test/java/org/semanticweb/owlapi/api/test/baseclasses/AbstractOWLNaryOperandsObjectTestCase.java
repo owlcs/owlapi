@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
@@ -47,20 +46,15 @@ import java.util.Set;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLObject;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
-public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject> extends AbstractOWLDataFactoryTest {
-
+public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject> extends
+        AbstractOWLDataFactoryTest {
     protected abstract OWLObject createObject(Set<O> operands) throws Exception;
 
     protected abstract O createOperand() throws Exception;
-
 
     @Override
     @Test
@@ -72,7 +66,6 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
         OWLObject obj = createObject(operands);
         assertNotNull("object should not be null", obj);
     }
-
 
     @Override
     @Test
@@ -86,7 +79,6 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
         assertEquals(objA, objB);
     }
 
-
     @Override
     @Test
     public void testEqualsNegative() throws Exception {
@@ -99,7 +91,6 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
         assertNotEquals(objA, objB);
     }
 
-
     @Override
     @Test
     public void testHashCode() throws Exception {
@@ -111,6 +102,4 @@ public abstract class AbstractOWLNaryOperandsObjectTestCase<O extends OWLObject>
         OWLObject objB = createObject(operands);
         assertEquals(objA.hashCode(), objB.hashCode());
     }
-
-
 }

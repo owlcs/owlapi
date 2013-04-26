@@ -1,4 +1,5 @@
 package org.semanticweb.owlapi.api.test.syntax;
+
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
@@ -15,9 +16,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 @SuppressWarnings("javadoc")
-
 public class ManchesterParseError {
-
     @Test(expected = ParserException.class)
     public void shouldNotParse() throws ParserException {
         parse("p some rdfs:Literal");
@@ -35,21 +34,20 @@ public class ManchesterParseError {
     private static OWLClassExpression parse(String text) throws ParserException {
         OWLDataFactory factory = Factory.getFactory();
         StupidEntityChecker checker = new StupidEntityChecker(factory);
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(factory, text);
+        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
+                factory, text);
         parser.setOWLEntityChecker(checker);
         return parser.parseClassExpression();
     }
 
-    /**
-     * A very stupid entity checker that only understands that "p" is a property and
-     * rdfs:Literal is a datatype.  He is an extreme simplification of the entity checker
-     * that runs when Protege is set to render entities as qnames.
+    /** A very stupid entity checker that only understands that "p" is a property
+     * and rdfs:Literal is a datatype. He is an extreme simplification of the
+     * entity checker that runs when Protege is set to render entities as
+     * qnames.
      * 
-     * @author tredmond
-     *
-     */
+     * @author tredmond */
     private static class StupidEntityChecker implements OWLEntityChecker {
-        private OWLDataFactory factory;
+        private final OWLDataFactory factory;
 
         public StupidEntityChecker(OWLDataFactory factory) {
             this.factory = factory;
@@ -68,9 +66,9 @@ public class ManchesterParseError {
         @Override
         public OWLDataProperty getOWLDataProperty(String name) {
             if (name != null && name.equals("p")) {
-                return factory.getOWLDataProperty(IRI.create("http://protege.org/Test.owl#p"));
-            }
-            else {
+                return factory.getOWLDataProperty(IRI
+                        .create("http://protege.org/Test.owl#p"));
+            } else {
                 return null;
             }
         }
@@ -89,11 +87,9 @@ public class ManchesterParseError {
         public OWLDatatype getOWLDatatype(String name) {
             if (name != null && name.equals("rdfs:Literal")) {
                 return factory.getTopDatatype();
-            }
-            else {
+            } else {
                 return null;
             }
         }
-
     }
 }

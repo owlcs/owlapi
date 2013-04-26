@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.literals;
 
 import java.util.HashSet;
@@ -48,17 +47,13 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 02-Jul-2009
- */
-
+ * Date: 02-Jul-2009 */
 public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
     @Override
-	protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         addAxiomForLiteral(getFactory().getOWLLiteral(3), axioms);
         addAxiomForLiteral(getFactory().getOWLLiteral(33.3), axioms);
@@ -71,10 +66,6 @@ public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
     private void addAxiomForLiteral(OWLLiteral lit, Set<OWLAxiom> axioms) {
         OWLDataProperty prop = getOWLDataProperty("p");
         OWLNamedIndividual ind = getOWLIndividual("i");
-        axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(
-                prop,
-                ind,
-                lit
-        ));
+        axioms.add(getFactory().getOWLDataPropertyAssertionAxiom(prop, ind, lit));
     }
 }

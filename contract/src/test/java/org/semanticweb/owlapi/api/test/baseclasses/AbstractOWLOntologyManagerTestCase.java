@@ -46,7 +46,7 @@ import org.junit.Test;
  * Date: 16-Mar-2007<br>
  * <br> */
 public abstract class AbstractOWLOntologyManagerTestCase extends
-AbstractOWLDataFactoryTest {
+        AbstractOWLDataFactoryTest {
     @Override
     @Test
     public void testCreation() throws Exception {

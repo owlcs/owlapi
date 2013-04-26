@@ -13,7 +13,6 @@ import org.semanticweb.owlapi.io.OWLParser;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractFunctionalparserTest {
-
     @Test
     public void shouldTestInterfaceNode() throws Exception {
         Node testSubject0 = mock(Node.class);

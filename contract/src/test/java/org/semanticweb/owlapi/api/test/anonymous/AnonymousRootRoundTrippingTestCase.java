@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.anonymous;
 
 import java.util.HashSet;
@@ -46,18 +45,14 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-May-2008<br><br>
- */
-
+ * Date: 10-May-2008<br>
+ * <br> */
 public class AnonymousRootRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
-
     @Override
-	protected OWLOntology createOntology() {
+    protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         for (int i = 0; i < 10; i++) {

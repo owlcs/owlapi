@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.axioms;
+
 import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
@@ -51,15 +51,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25/02/2011
- */
+ * Date: 25/02/2011 */
 @SuppressWarnings("javadoc")
 public class SubClassOfUntypedOWLClassStrictTestCase extends AbstractFileTestCase {
-
     @Override
     protected String getFileName() {
         return "SubClassOfUntypedOWLClass.rdf";
@@ -72,7 +69,8 @@ public class SubClassOfUntypedOWLClassStrictTestCase extends AbstractFileTestCas
         OWLOntologyFormat format = getManager().getOntologyFormat(ont);
         assertTrue(format instanceof RDFXMLOntologyFormat);
         RDFXMLOntologyFormat rdfxmlFormat = (RDFXMLOntologyFormat) format;
-        Set<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData().getUnparsedTriples();
+        Set<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData()
+                .getUnparsedTriples();
         assertTrue(triples.size() == 1);
     }
 

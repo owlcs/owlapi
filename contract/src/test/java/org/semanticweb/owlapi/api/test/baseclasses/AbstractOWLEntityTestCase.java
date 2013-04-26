@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
@@ -45,23 +44,17 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTest {
-
-
     protected abstract OWLEntity createEntity(IRI iri) throws Exception;
 
     @Override
     @Test
     public void testCreation() throws Exception {
-        assertNotNull("entity should not be null",createEntity(createIRI()));
+        assertNotNull("entity should not be null", createEntity(createIRI()));
     }
-
 
     @Override
     @Test
@@ -72,7 +65,6 @@ public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTe
         assertEquals("entities should be equal", entityA, entityB);
     }
 
-
     @Override
     @Test
     public void testEqualsNegative() throws Exception {
@@ -81,13 +73,12 @@ public abstract class AbstractOWLEntityTestCase extends AbstractOWLDataFactoryTe
         assertNotEquals(entityA, entityB);
     }
 
-
     @Override
     @Test
     public void testHashCode() throws Exception {
         IRI iri = createIRI();
         int hashCodeA = createEntity(iri).hashCode();
         int hashCodeB = createEntity(iri).hashCode();
-        assertEquals("hashcode should coincide",hashCodeA, hashCodeB);
+        assertEquals("hashcode should coincide", hashCodeA, hashCodeB);
     }
 }

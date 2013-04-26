@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.ontology;
 
 import java.util.ArrayList;
@@ -56,17 +55,13 @@ import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 08-Jul-2009
- */
-
+ * Date: 08-Jul-2009 */
 public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
     @Override
-	protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLDataFactory df = getFactory();
         SWRLVariable varX = df.getSWRLVariable(IRI.create("http://www.owlapi#x"));
@@ -74,8 +69,10 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
         SWRLVariable varZ = df.getSWRLVariable(IRI.create("http://www.owlapi#z"));
         Set<SWRLAtom> body = new HashSet<SWRLAtom>();
         body.add(df.getSWRLClassAtom(getOWLClass("A"), varX));
-        SWRLIndividualArgument indIArg = df.getSWRLIndividualArgument(getOWLIndividual("i"));
-        SWRLIndividualArgument indJArg = df.getSWRLIndividualArgument(getOWLIndividual("j"));
+        SWRLIndividualArgument indIArg = df
+                .getSWRLIndividualArgument(getOWLIndividual("i"));
+        SWRLIndividualArgument indJArg = df
+                .getSWRLIndividualArgument(getOWLIndividual("j"));
         body.add(df.getSWRLClassAtom(getOWLClass("D"), indIArg));
         body.add(df.getSWRLClassAtom(getOWLClass("B"), varX));
         SWRLVariable varQ = df.getSWRLVariable(IRI.create("http://www.owlapi#q"));
@@ -92,10 +89,9 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
         head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
         head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
         head.add(df.getSWRLDifferentIndividualsAtom(indIArg, indJArg));
-
-        OWLObjectSomeValuesFrom svf = df.getOWLObjectSomeValuesFrom(getOWLObjectProperty("p"), getOWLClass("A"));
+        OWLObjectSomeValuesFrom svf = df.getOWLObjectSomeValuesFrom(
+                getOWLObjectProperty("p"), getOWLClass("A"));
         head.add(df.getSWRLClassAtom(svf, varX));
-
         List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
         args.add(varQ);
         args.add(varR);
@@ -104,5 +100,4 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
         axioms.add(df.getSWRLRule(body, head));
         return axioms;
     }
-
 }

@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
@@ -45,22 +45,17 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 23-Apr-2009
- */
+ * Date: 23-Apr-2009 */
 @SuppressWarnings("javadoc")
 public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
-
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
@@ -68,20 +63,17 @@ public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
         OWLLiteral literal = getFactory().getOWLLiteral(3);
         OWLLiteral stringLiteral = getFactory().getOWLLiteral("A", "");
         OWLDataProperty propP = getOWLDataProperty("p");
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataHasValue(propP, literal)));
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA,
+                getFactory().getOWLDataHasValue(propP, literal)));
         axioms.add(getFactory().getOWLDeclarationAxiom(propP));
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataHasValue(propP, stringLiteral)));
-        final Set<OWLAxiom> axioms2 = getOnt().getAxioms();
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA,
+                getFactory().getOWLDataHasValue(propP, stringLiteral)));
+        Set<OWLAxiom> axioms2 = getOnt().getAxioms();
         assertEquals(axioms2, axioms);
     }
 
     @Override
     protected String getFileName() {
         return "DataHasValue.rdf";
-    }
-
-    @Override
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        //  System.out.println(target);
     }
 }

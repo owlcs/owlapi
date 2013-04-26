@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.literals;
 
 import static org.junit.Assert.*;
@@ -57,12 +56,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
 @SuppressWarnings("javadoc")
 public class TestPlainLiteralTestCase {
     @Test
     public void testPlainLiteral() {
-        IRI iri = IRI
-                .create("http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral");
+        IRI iri = IRI.create("http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral");
         assertTrue(iri.isPlainLiteral());
         assertNotNull(Factory.getFactory().getRDFPlainLiteral());
         assertNotNull(OWL2Datatype.getDatatype(iri));
@@ -70,8 +69,7 @@ public class TestPlainLiteralTestCase {
 
     @Test
     public void testPlainLiteralFromEvren() {
-        OWLDataFactory factory = Factory.getManager()
-                .getOWLDataFactory();
+        OWLDataFactory factory = Factory.getManager().getOWLDataFactory();
         OWLDatatype node = factory.getRDFPlainLiteral();
         assertTrue(node.isBuiltIn());
         assertNotNull(node.getBuiltInDatatype());
@@ -87,8 +85,7 @@ public class TestPlainLiteralTestCase {
                 IRI.create("urn:test#ind"));
         OWLLiteral l = m.getOWLDataFactory().getOWLLiteral("test",
                 OWL2Datatype.RDF_PLAIN_LITERAL);
-        m.addAxiom(o,
-                m.getOWLDataFactory().getOWLDataPropertyAssertionAxiom(p, i, l));
+        m.addAxiom(o, m.getOWLDataFactory().getOWLDataPropertyAssertionAxiom(p, i, l));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         m.saveOntology(o, out);
         String expected = "<test:p>test</test:p>";
@@ -108,7 +105,7 @@ public class TestPlainLiteralTestCase {
                 m.getOWLDataFactory().getOWLAnnotationAssertionAxiom(
                         m.getOWLDataFactory().getOWLAnnotationProperty(
                                 OWLRDFVocabulary.RDFS_COMMENT.getIRI()),
-                                i.asOWLNamedIndividual().getIRI(), l));
+                        i.asOWLNamedIndividual().getIRI(), l));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         m.saveOntology(o, out);
         String expected = "<rdfs:comment>test</rdfs:comment>";
@@ -127,7 +124,6 @@ public class TestPlainLiteralTestCase {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         m.saveOntology(o, out);
         String expected = "<rdfs:comment>test</rdfs:comment>";
-
         assertTrue(out.toString().contains(expected));
     }
 }

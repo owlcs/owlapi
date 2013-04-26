@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLRestrictionWithFillerTestCase;
@@ -44,31 +43,25 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLRestriction;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-
-public class OWLObjectValueRestrictionTestCase extends AbstractOWLRestrictionWithFillerTestCase<OWLObjectProperty, OWLIndividual> {
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
+public class OWLObjectValueRestrictionTestCase extends
+        AbstractOWLRestrictionWithFillerTestCase<OWLObjectProperty, OWLIndividual> {
     @SuppressWarnings("rawtypes")
     @Override
-	protected OWLRestriction createRestriction(OWLObjectProperty prop, OWLIndividual filler) throws Exception {
+    protected OWLRestriction createRestriction(OWLObjectProperty prop,
+            OWLIndividual filler) throws Exception {
         return getFactory().getOWLObjectHasValue(prop, filler);
     }
 
-
     @Override
-	protected OWLObjectProperty createProperty() throws Exception {
+    protected OWLObjectProperty createProperty() throws Exception {
         return createOWLObjectProperty();
     }
 
-
     @Override
-	protected OWLIndividual createFiller() throws Exception {
+    protected OWLIndividual createFiller() throws Exception {
         return createOWLIndividual();
     }
 }

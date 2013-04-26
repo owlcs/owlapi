@@ -325,7 +325,7 @@ public class ContractOwlxmlparserTest {
         AbstractElementHandlerFactory testSubject0 = new AbstractElementHandlerFactory(
                 OWLXMLVocabulary.COMMENT) {
             @Override
-            public OWLElementHandler<?> createHandler(final OWLXMLParserHandler handler) {
+            public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) {
                 return null;
             }
         };
@@ -384,7 +384,7 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler()) {
             @Override
             protected OWLClassExpression createClassExpression(
-                    final Set<OWLClassExpression> operands) {
+                    Set<OWLClassExpression> operands) {
                 return null;
             }
         };

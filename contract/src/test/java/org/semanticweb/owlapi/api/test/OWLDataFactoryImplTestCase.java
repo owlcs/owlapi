@@ -16,34 +16,29 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 24/10/2012
- * </p>
- * A test case to ensure that the reference implementation data factories do not create duplicate objects
- * for distinguished values (e.g. owl:Thing, rdfs:Literal etc.)
- */
+ * Date: 24/10/2012 </p> A test case to ensure that the reference implementation
+ * data factories do not create duplicate objects for distinguished values (e.g.
+ * owl:Thing, rdfs:Literal etc.) */
 @RunWith(value = Parameterized.class)
 @SuppressWarnings("javadoc")
 public class OWLDataFactoryImplTestCase {
-
-
-    private OWLDataFactoryImpl dataFactory;
+    private final OWLDataFactoryImpl dataFactory;
 
     public OWLDataFactoryImplTestCase(OWLDataFactoryImpl dataFactory) {
         this.dataFactory = dataFactory;
     }
 
     @Parameterized.Parameters
-    public static Collection<Object []> parameters() {
+    public static Collection<Object[]> parameters() {
         OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl(false, false);
         OWLDataFactoryImpl withCaching = new OWLDataFactoryImpl(true, false);
-        return Arrays.asList(new Object[] {noCaching}, new Object[] {withCaching});
+        return Arrays.asList(new Object[] { noCaching }, new Object[] { withCaching });
     }
 
-    @Test 
+    @Test
     public void getRDFPlainLiteral() {
         OWLDatatype datatypeCall1 = dataFactory.getRDFPlainLiteral();
         OWLDatatype datatypeCall2 = dataFactory.getRDFPlainLiteral();
@@ -141,7 +136,6 @@ public class OWLDataFactoryImplTestCase {
         assertTrue(call1 == call2);
     }
 
-
     @Test
     public void getOWLNothing() {
         OWLClass call1 = dataFactory.getOWLNothing();
@@ -176,6 +170,4 @@ public class OWLDataFactoryImplTestCase {
         OWLDataProperty call2 = dataFactory.getOWLBottomDataProperty();
         assertTrue(call1 == call2);
     }
-
-
 }

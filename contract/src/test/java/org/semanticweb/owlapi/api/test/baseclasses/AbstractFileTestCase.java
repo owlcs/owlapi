@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import java.net.URI;
@@ -48,22 +47,20 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 21-Jan-2009
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 21-Jan-2009 */
 public abstract class AbstractFileTestCase extends AbstractOWLAPITestCase {
-
     protected OWLOntology createOntology() {
         try {
             String fileName = getFileName();
             URI uri = getClass().getResource("/" + fileName).toURI();
-            return getManager().loadOntologyFromOntologyDocument(new IRIDocumentSource(IRI.create(uri)), getConfiguration());
-        }
-        catch (URISyntaxException e) {
+            return getManager().loadOntologyFromOntologyDocument(
+                    new IRIDocumentSource(IRI.create(uri)), getConfiguration());
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
-        }
-        catch (OWLOntologyCreationException e) {
+        } catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);
         }
     }

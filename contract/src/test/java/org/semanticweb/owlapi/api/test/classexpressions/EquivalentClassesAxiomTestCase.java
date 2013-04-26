@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.junit.Assert.*;
@@ -52,14 +51,13 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 12-Oct-2008<br><br>
- */
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Information Management Group<br>
+ * Date: 12-Oct-2008<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
-
     @Test
     public void testContainsNamedClass() {
         OWLClass clsA = getOWLClass("A");
@@ -67,12 +65,13 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
         OWLObjectProperty propP = getOWLObjectProperty("p");
         OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(propP, clsB);
         OWLClassExpression desc2 = getFactory().getOWLObjectSomeValuesFrom(propP, clsA);
-        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(clsA, desc);
+        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(clsA,
+                desc);
         assertTrue(ax.containsNamedEquivalentClass());
-        OWLEquivalentClassesAxiom ax2 = getFactory().getOWLEquivalentClassesAxiom(desc, desc2);
+        OWLEquivalentClassesAxiom ax2 = getFactory().getOWLEquivalentClassesAxiom(desc,
+                desc2);
         assertFalse(ax2.containsNamedEquivalentClass());
     }
-
 
     @Test
     public void testGetNamedClasses() {
@@ -80,7 +79,8 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
         OWLClass clsB = getOWLClass("B");
         OWLObjectProperty propP = getOWLObjectProperty("p");
         OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(propP, clsB);
-        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(clsA, desc);
+        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(clsA,
+                desc);
         Set<OWLClass> clses = ax.getNamedClasses();
         assertEquals(clses.size(), 1);
         assertTrue(clses.contains(clsA));
@@ -91,7 +91,8 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
         OWLClass clsB = getOWLClass("B");
         OWLObjectProperty propP = getOWLObjectProperty("p");
         OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(propP, clsB);
-        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(getFactory().getOWLNothing(), desc);
+        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(
+                getFactory().getOWLNothing(), desc);
         Set<OWLClass> clses = ax.getNamedClasses();
         assertTrue(clses.isEmpty());
         assertFalse(ax.containsOWLThing());
@@ -103,7 +104,8 @@ public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
         OWLClass clsB = getOWLClass("B");
         OWLObjectProperty propP = getOWLObjectProperty("p");
         OWLClassExpression desc = getFactory().getOWLObjectSomeValuesFrom(propP, clsB);
-        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(getFactory().getOWLThing(), desc);
+        OWLEquivalentClassesAxiom ax = getFactory().getOWLEquivalentClassesAxiom(
+                getFactory().getOWLThing(), desc);
         Set<OWLClass> clses = ax.getNamedClasses();
         assertTrue(clses.isEmpty());
         assertFalse(ax.containsOWLNothing());

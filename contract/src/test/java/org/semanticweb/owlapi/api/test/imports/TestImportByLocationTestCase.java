@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.imports;
 
 import static org.junit.Assert.*;
@@ -52,13 +51,13 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+
 @SuppressWarnings("javadoc")
 public class TestImportByLocationTestCase {
     @Test
     public void testImportOntologyByLocation() {
         File f = new File("a.owl");
         try {
-
             createOntologyFile(IRI.create("http://a.com"), f);
             OWLOntologyManager mngr = Factory.getManager();
             OWLDataFactory df = mngr.getOWLDataFactory();
@@ -67,7 +66,8 @@ public class TestImportByLocationTestCase {
             IRI locA = mngr.getOntologyDocumentIRI(a);
             IRI bIRI = IRI.create("http://b.com");
             OWLOntology b = mngr.createOntology(bIRI);
-            // import from the document location of a.owl (rather than the ontology IRI)
+            // import from the document location of a.owl (rather than the
+            // ontology IRI)
             mngr.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
             assertEquals(1, b.getImportsDeclarations().size());
             assertEquals(1, b.getImports().size());

@@ -32,12 +32,12 @@ public class ContractRdfxmlParserTest {
         AbstractClassExpressionTranslator testSubject0 = new AbstractClassExpressionTranslator(
                 Utils.mockOWLRDFConsumer()) {
             @Override
-            public boolean matchesStrict(final IRI mainNode) {
+            public boolean matchesStrict(IRI mainNode) {
                 return false;
             }
 
             @Override
-            public boolean matchesLax(final IRI mainNode) {
+            public boolean matchesLax(IRI mainNode) {
                 return false;
             }
 
@@ -63,18 +63,16 @@ public class ContractRdfxmlParserTest {
         AbstractLiteralTripleHandler testSubject0 = new AbstractLiteralTripleHandler(
                 Utils.mockOWLRDFConsumer()) {
             @Override
-            public void handleTriple(final IRI subject, final IRI predicate,
-                    final OWLLiteral object) {}
+            public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {}
 
             @Override
-            public boolean canHandle(final IRI subject, final IRI predicate,
-                    final OWLLiteral object) {
+            public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
                 return false;
             }
 
             @Override
-            public boolean canHandleStreaming(final IRI subject, final IRI predicate,
-                    final OWLLiteral object) {
+            public boolean canHandleStreaming(IRI subject, IRI predicate,
+                    OWLLiteral object) {
                 return false;
             }
         };
@@ -113,18 +111,17 @@ public class ContractRdfxmlParserTest {
         AbstractResourceTripleHandler testSubject0 = new AbstractResourceTripleHandler(
                 Utils.mockOWLRDFConsumer()) {
             @Override
-            public void handleTriple(final IRI subject, final IRI predicate,
-                    final IRI object) throws UnloadableImportException {}
+            public void handleTriple(IRI subject, IRI predicate, IRI object)
+                    throws UnloadableImportException {}
 
             @Override
-            public boolean canHandleStreaming(final IRI subject, final IRI predicate,
-                    final IRI object) throws UnloadableImportException {
+            public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
+                    throws UnloadableImportException {
                 return false;
             }
 
             @Override
-            public boolean canHandle(final IRI subject, final IRI predicate,
-                    final IRI object) {
+            public boolean canHandle(IRI subject, IRI predicate, IRI object) {
                 return false;
             }
         };
@@ -159,8 +156,8 @@ public class ContractRdfxmlParserTest {
         BuiltInTypeHandler testSubject0 = new BuiltInTypeHandler(
                 Utils.mockOWLRDFConsumer(), Utils.fakeiri1) {
             @Override
-            public void handleTriple(final IRI subject, final IRI predicate,
-                    final IRI object) throws UnloadableImportException {}
+            public void handleTriple(IRI subject, IRI predicate, IRI object)
+                    throws UnloadableImportException {}
         };
         IRI result0 = testSubject0.getTypeIRI();
         boolean result1 = testSubject0.canHandle(Utils.fakeiri1, Utils.fakeiri1,
@@ -1323,12 +1320,12 @@ Utils.fakeiri1,
         TriplePredicateHandler testSubject0 = new TriplePredicateHandler(
                 Utils.mockOWLRDFConsumer(), Utils.fakeiri1) {
             @Override
-            public void handleTriple(final IRI subject, final IRI predicate,
-                    final IRI object) throws UnloadableImportException {}
+            public void handleTriple(IRI subject, IRI predicate, IRI object)
+                    throws UnloadableImportException {}
 
             @Override
-            public boolean canHandleStreaming(final IRI subject, final IRI predicate,
-                    final IRI object) throws UnloadableImportException {
+            public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
+                    throws UnloadableImportException {
                 return false;
             }
         };

@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax;
+
 import static org.junit.Assert.fail;
 
 import java.util.HashSet;
@@ -52,22 +52,22 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 17-Dec-2009
- */
-
+ * Date: 17-Dec-2009 */
 public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
-
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLNamedIndividual indA = getFactory().getOWLNamedIndividual(IRI.create("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A"));
-        OWLNamedIndividual indB = getFactory().getOWLNamedIndividual(IRI.create("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B"));
-        OWLObjectProperty property = getFactory().getOWLObjectProperty(IRI.create("http://example.com/place/123"));
+        OWLNamedIndividual indA = getFactory()
+                .getOWLNamedIndividual(
+                        IRI.create("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A"));
+        OWLNamedIndividual indB = getFactory()
+                .getOWLNamedIndividual(
+                        IRI.create("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B"));
+        OWLObjectProperty property = getFactory().getOWLObjectProperty(
+                IRI.create("http://example.com/place/123"));
         axioms.add(getFactory().getOWLObjectPropertyAssertionAxiom(property, indA, indB));
         return axioms;
     }
@@ -78,12 +78,10 @@ public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
         try {
             super.testRDFXML();
             fail("Expected an exception specifying that a QName could not be generated");
-        }
-        catch (OWLOntologyStorageException e) {
+        } catch (OWLOntologyStorageException e) {
             if (e.getCause() instanceof IllegalElementNameException) {
-                //nothing to do
-            }
-            else {
+                // nothing to do
+            } else {
                 throw e;
             }
         }

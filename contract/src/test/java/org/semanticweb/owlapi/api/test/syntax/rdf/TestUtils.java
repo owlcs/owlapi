@@ -36,21 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import org.semanticweb.owlapi.model.IRI;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 11-May-2007<br><br>
- */
+ * Date: 11-May-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class TestUtils {
-
     private static int uriCounter = 0;
 
     public static IRI createIRI() {

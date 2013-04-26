@@ -77,7 +77,7 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
 
     @Override
     public ExplanationTree
-    getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
+            getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
         return delegate.getOrderedExplanation(entailment, axioms);
     }
 

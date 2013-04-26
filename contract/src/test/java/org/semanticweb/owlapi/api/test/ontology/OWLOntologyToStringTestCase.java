@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertEquals;
@@ -53,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 01/02/2012 */
 @SuppressWarnings("javadoc")
 public class OWLOntologyToStringTestCase {
-
     @Test
     public void testNamedOntologyToString() throws Exception {
         OWLOntologyManager man = Factory.getManager();

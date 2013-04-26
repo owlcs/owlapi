@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import java.util.Set;
@@ -45,17 +44,15 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTr
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 25-Nov-2009
- */
-
-public class TransitiveObjectPropertyAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
+ * Date: 25-Nov-2009 */
+public class TransitiveObjectPropertyAnnotatedTestCase extends
+        AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
-
-	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return getFactory().getOWLTransitiveObjectPropertyAxiom(getOWLObjectProperty("p"));
+    protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
+        return getFactory().getOWLTransitiveObjectPropertyAxiom(
+                getOWLObjectProperty("p"), annos);
     }
 }

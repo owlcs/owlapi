@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.annotations;
+
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
@@ -54,27 +54,24 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 28-May-2009
- */
+ * Date: 28-May-2009 */
 @SuppressWarnings("javadoc")
 public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase {
-
     @Test
     public void testContainsReferenceForAnnotationAssertion() {
         OWLAnnotationProperty ap = getOWLAnnotationProperty("prop");
         OWLLiteral val = getFactory().getOWLLiteral("Test", "");
         OWLAnnotationSubject subject = getOWLClass("A").getIRI();
-        OWLAnnotationAssertionAxiom ax = getFactory().getOWLAnnotationAssertionAxiom(ap, subject, val);
+        OWLAnnotationAssertionAxiom ax = getFactory().getOWLAnnotationAssertionAxiom(ap,
+                subject, val);
         OWLOntology ont = getOWLOntology("Ont");
         getManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(ap.getIRI()));
         assertTrue(ont.getAnnotationPropertiesInSignature().contains(ap));
     }
-
 
     @Test
     public void testContainsReferenceForAxiomAnnotation() {
@@ -82,7 +79,8 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
         OWLLiteral val = getFactory().getOWLLiteral("Test", "");
         OWLAnnotation anno = getFactory().getOWLAnnotation(ap, val);
         Set<OWLAnnotation> annos = Collections.singleton(anno);
-        OWLSubClassOfAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"), getOWLClass("B"), annos);
+        OWLSubClassOfAxiom ax = getFactory().getOWLSubClassOfAxiom(getOWLClass("A"),
+                getOWLClass("B"), annos);
         OWLOntology ont = getOWLOntology("Ont");
         getManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI()));
@@ -99,6 +97,4 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI()));
         assertTrue(ont.getAnnotationPropertiesInSignature().contains(anno.getProperty()));
     }
-
-
 }

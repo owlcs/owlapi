@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
@@ -45,19 +45,17 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 02-Feb-2009
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 02-Feb-2009 */
 @SuppressWarnings("javadoc")
-public class ObjectMaxQualifiedCardinalityTestCase extends AbstractFileRoundTrippingTestCase {
-
+public class ObjectMaxQualifiedCardinalityTestCase extends
+        AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
@@ -65,15 +63,10 @@ public class ObjectMaxQualifiedCardinalityTestCase extends AbstractFileRoundTrip
         OWLClass clsB = getOWLClass("B");
         OWLObjectProperty prop = getOWLObjectProperty("p");
         axioms.add(getFactory().getOWLDeclarationAxiom(prop));
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLObjectMaxCardinality(3, prop, clsB)));
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA,
+                getFactory().getOWLObjectMaxCardinality(3, prop, clsB)));
         assertEquals(getOnt().getAxioms(), axioms);
     }
-
-    @Override
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        //System.out.println(target);
-    }
-
 
     @Override
     protected String getFileName() {

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
@@ -47,12 +46,10 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 02-Jun-2009
- */
+ * Date: 02-Jun-2009 */
 @SuppressWarnings("javadoc")
 public class DefaultPrefixManagerTestCase {
     @Test
@@ -92,5 +89,4 @@ public class DefaultPrefixManagerTestCase {
         IRI iri = pm.getIRI(":A");
         assertEquals(iri.toString(), expansion);
     }
-
 }

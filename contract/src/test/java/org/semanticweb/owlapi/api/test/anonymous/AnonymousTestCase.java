@@ -26,10 +26,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-
 public class AnonymousTestCase {
-
-
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
@@ -43,19 +40,15 @@ public class AnonymousTestCase {
         OWLOntology ontology = manager.createOntology();
         OWLDataFactory factory = manager.getOWLDataFactory();
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-
-        changes.add(new AddAxiom(ontology, factory.getOWLSubClassOfAxiom(C, factory.getOWLObjectHasValue(P, i))));
+        changes.add(new AddAxiom(ontology, factory.getOWLSubClassOfAxiom(C,
+                factory.getOWLObjectHasValue(P, i))));
         changes.add(new AddAxiom(ontology, factory.getOWLClassAssertionAxiom(D, i)));
-        changes.add(new AddAxiom(ontology, factory.getOWLDataPropertyAssertionAxiom(Q, i, factory.getOWLLiteral("hello"))));
-
+        changes.add(new AddAxiom(ontology, factory.getOWLDataPropertyAssertionAxiom(Q, i,
+                factory.getOWLLiteral("hello"))));
         manager.applyChanges(changes);
         String saved = saveOntology(ontology);
-        // System.out.println("AnonymousFunctionalRoundtripTestCase.shouldRoundTrip() "
-        // + saved);
         OWLOntology ontologyReloaded = loadOntology(saved);
         saved = saveOntology(ontologyReloaded);
-        // System.out.println("AnonymousFunctionalRoundtripTestCase.shouldRoundTrip() "
-        // + saved);
         assertEquals(asString(ontology), asString(ontologyReloaded));
     }
 
@@ -64,13 +57,10 @@ public class AnonymousTestCase {
         for (OWLAxiom ax : o.getLogicalAxioms()) {
             set.add(ax.toString().replaceAll("\\_\\:genid[0-9]+", "genid"));
         }
-        // System.out.println("AnonymousTestCase.asString() "
-        // + set.toString().replace(",", "\n"));
         return set;
     }
 
-    String saveOntology(OWLOntology ontology)
- throws OWLOntologyStorageException {
+    String saveOntology(OWLOntology ontology) throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         ontology.getOWLOntologyManager().saveOntology(ontology, target);
         return target.toString();
@@ -82,5 +72,4 @@ public class AnonymousTestCase {
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(ontologyFile));
         return ontology;
     }
-
 }

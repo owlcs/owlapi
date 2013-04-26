@@ -1,4 +1,5 @@
 package org.semanticweb.owlapi.api.test.annotations;
+
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 @SuppressWarnings("javadoc")
 public class SWRLAnnotationTestCase {
     String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
-
     OWLClass A;
     OWLAxiom AXIOM;
 
@@ -40,7 +40,8 @@ public class SWRLAnnotationTestCase {
         SWRLAtom atom = factory.getSWRLClassAtom(A, x);
         Set<SWRLAtom> consequent = new TreeSet<SWRLAtom>();
         consequent.add(atom);
-        OWLAnnotation annotation = factory.getOWLAnnotation(factory.getRDFSComment(), factory.getOWLLiteral("Not a great rule"));
+        OWLAnnotation annotation = factory.getOWLAnnotation(factory.getRDFSComment(),
+                factory.getOWLLiteral("Not a great rule"));
         Set<OWLAnnotation> annotations = new TreeSet<OWLAnnotation>();
         annotations.add(annotation);
         AXIOM = factory.getSWRLRule(new TreeSet<SWRLAtom>(), consequent, annotations);
@@ -66,10 +67,7 @@ public class SWRLAnnotationTestCase {
         return ontology;
     }
 
-
-
-    public String saveOntology(OWLOntology ontology) throws
-    OWLOntologyStorageException {
+    public String saveOntology(OWLOntology ontology) throws OWLOntologyStorageException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         StringDocumentTarget target = new StringDocumentTarget();
         manager.saveOntology(ontology, target);
@@ -82,6 +80,4 @@ public class SWRLAnnotationTestCase {
         return manager.loadOntologyFromOntologyDocument(new StringDocumentSource(
                 ontologyFile));
     }
-
-
 }

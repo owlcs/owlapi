@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
@@ -46,18 +45,16 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 07-Sep-2008<br><br>
- */
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Information Management Group<br>
+ * Date: 07-Sep-2008<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class OntologyURITestCase extends AbstractOWLAPITestCase {
-
     @Test
     public void testOntologyID() {
         IRI iriA = IRI.create("http://www.another.com/ont");
@@ -83,24 +80,12 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
         assertEquals(ont.getOntologyID(), ontID);
     }
 
-    @Test
-    public void testDuplicateOntologyURI() throws Exception{
+    @Test(expected = OWLOntologyAlreadyExistsException.class)
+    public void testDuplicateOntologyURI() throws Exception {
         IRI uri = IRI.create("http://www.another.com/ont");
         getManager().createOntology(uri);
-        boolean rightException=false;
-        try {
-            getManager().createOntology(uri);
-        } catch (OWLOntologyAlreadyExistsException e) {
-            // as expected
-            rightException=true;
-            //e.printStackTrace();
-        } catch (OWLOntologyCreationException e) {
-
-            e.printStackTrace();
-        }
-        assertTrue("an OntologyAlreadyExistsException has not been thrown",rightException);
+        getManager().createOntology(uri);
     }
-
 
     @Test
     public void testSetOntologyURI() throws Exception {

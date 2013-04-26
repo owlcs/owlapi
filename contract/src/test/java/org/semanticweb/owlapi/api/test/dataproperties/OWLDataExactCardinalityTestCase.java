@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.dataproperties;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataCardinalityRestrictionTestCase;
@@ -44,23 +43,20 @@ import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-
-public class OWLDataExactCardinalityTestCase extends AbstractOWLDataCardinalityRestrictionTestCase {
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
+public class OWLDataExactCardinalityTestCase extends
+        AbstractOWLDataCardinalityRestrictionTestCase {
     @Override
-	protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality) throws Exception {
+    protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop,
+            int cardinality) throws Exception {
         return getFactory().getOWLDataExactCardinality(cardinality, prop);
     }
 
     @Override
-	protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality, OWLDataRange dataRange) throws Exception {
+    protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop,
+            int cardinality, OWLDataRange dataRange) throws Exception {
         return getFactory().getOWLDataExactCardinality(cardinality, prop, dataRange);
     }
 }

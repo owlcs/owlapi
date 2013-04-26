@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import java.util.Collections;
@@ -48,22 +47,19 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 28-May-2009
- */
-public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
+ * Date: 28-May-2009 */
+public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
-	final protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         OWLAnnotationProperty prop = getOWLAnnotationProperty("prop");
         OWLLiteral lit = getFactory().getOWLLiteral("Test", "");
         OWLAnnotation anno1 = getFactory().getOWLAnnotation(prop, lit);
         OWLAnnotationProperty prop2 = getOWLAnnotationProperty("prop2");
         OWLAnnotation anno2 = getFactory().getOWLAnnotation(prop2, lit);
-
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
         // Add two annotations per axiom
         annos.add(anno1);
@@ -73,22 +69,19 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends Abstra
         axioms.add(ax.getAnnotatedAxiom(annos));
         axioms.add(getFactory().getOWLDeclarationAxiom(prop));
         axioms.add(getFactory().getOWLDeclarationAxiom(prop2));
-
         axioms.add(ax.getAnnotatedAxiom(Collections.singleton(anno1)));
         axioms.add(ax.getAnnotatedAxiom(Collections.singleton(anno2)));
-
-//        Set<OWLAxiom> declarations = getDeclarationsToAdd(ax);
-//        axioms.addAll(declarations);
+        // Set<OWLAxiom> declarations = getDeclarationsToAdd(ax);
+        // axioms.addAll(declarations);
         return axioms;
     }
 
-//    protected Set<OWLAxiom> getDeclarationsToAdd(OWLAxiom ax) {
-//        Set<OWLAxiom> declarations = new HashSet<OWLAxiom>();
-//        for(OWLEntity ent : ax.getSignature()) {
-//            declarations.add(getFactory().getOWLDeclarationAxiom(ent));
-//        }
-//        return declarations;
-//    }
-
+    // protected Set<OWLAxiom> getDeclarationsToAdd(OWLAxiom ax) {
+    // Set<OWLAxiom> declarations = new HashSet<OWLAxiom>();
+    // for(OWLEntity ent : ax.getSignature()) {
+    // declarations.add(getFactory().getOWLDeclarationAxiom(ent));
+    // }
+    // return declarations;
+    // }
     protected abstract OWLAxiom getMainAxiom(Set<OWLAnnotation> annos);
 }

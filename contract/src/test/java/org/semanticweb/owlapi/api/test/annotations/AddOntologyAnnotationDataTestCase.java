@@ -10,28 +10,22 @@ import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 22/10/2012
- */
+ * Date: 22/10/2012 */
 @SuppressWarnings("javadoc")
 public class AddOntologyAnnotationDataTestCase {
-
     private OWLAnnotation mockAnnotation;
-
     private OWLOntology mockOntology;
 
-
-    /**
-     * Creates AddOntologyAnnotationData with the value of the {@code mockAnnotation} field as a parameter.
-     * @return The freshly created AddOntologyAnnotationData
-     */
+    /** Creates AddOntologyAnnotationData with the value of the
+     * {@code mockAnnotation} field as a parameter.
+     * 
+     * @return The freshly created AddOntologyAnnotationData */
     private AddOntologyAnnotationData createData() {
         return new AddOntologyAnnotationData(mockAnnotation);
     }
-
 
     @Before
     public void setUp() {
@@ -51,7 +45,6 @@ public class AddOntologyAnnotationDataTestCase {
         assertEquals(data1, data2);
         assertEquals(data1.hashCode(), data2.hashCode());
     }
-
 
     @Test
     public void testGettersReturnNotNull() {
@@ -73,12 +66,12 @@ public class AddOntologyAnnotationDataTestCase {
         assertEquals(mockOntology, change.getOntology());
         assertEquals(mockAnnotation, change.getAnnotation());
     }
-    
+
     @Test
     public void testOntologyChangeSymmetry() {
         AddOntologyAnnotationData data = createData();
-        AddOntologyAnnotation change = new AddOntologyAnnotation(mockOntology, mockAnnotation);
+        AddOntologyAnnotation change = new AddOntologyAnnotation(mockOntology,
+                mockAnnotation);
         assertEquals(change.getChangeData(), data);
     }
-    
 }

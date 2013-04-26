@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax;
 
 import java.util.HashSet;
@@ -48,22 +47,18 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 08-Jun-2009
- */
-
+ * Date: 08-Jun-2009 */
 public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
-
     @Override
-	protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         OWLOntology ont = getOWLOntology("Ont");
-        OWLClass cls = getFactory().getOWLClass(IRI.create(ont.getOntologyID().getOntologyIRI() + "/Office"));
+        OWLClass cls = getFactory().getOWLClass(
+                IRI.create(ont.getOntologyID().getOntologyIRI() + "/Office"));
         Set<OWLAxiom> axs = new HashSet<OWLAxiom>();
         axs.add(getFactory().getOWLDeclarationAxiom(cls));
         return axs;
-
     }
 }

@@ -16,20 +16,16 @@ import org.semanticweb.owlapi.model.RemoveImport;
  * Date: 22/10/2012 */
 @SuppressWarnings("javadoc")
 public class RemoveImportDataTestCase {
-
     private OWLImportsDeclaration mockDeclaration;
-
     private OWLOntology mockOntology;
 
-
-    /**
-     * Creates RemoveImportData with the value of the {@code mockDeclaration} field as a parameter.
-     * @return The freshly created RemoveImportData
-     */
+    /** Creates RemoveImportData with the value of the {@code mockDeclaration}
+     * field as a parameter.
+     * 
+     * @return The freshly created RemoveImportData */
     private RemoveImportData createData() {
         return new RemoveImportData(mockDeclaration);
     }
-
 
     @Before
     public void setUp() {
@@ -49,7 +45,6 @@ public class RemoveImportDataTestCase {
         assertEquals(data1, data2);
         assertEquals(data1.hashCode(), data2.hashCode());
     }
-
 
     @Test
     public void testGettersReturnNotNull() {

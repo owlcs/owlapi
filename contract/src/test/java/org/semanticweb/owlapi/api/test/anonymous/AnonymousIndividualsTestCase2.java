@@ -36,14 +36,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.anonymous;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -51,17 +49,12 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 22/12/2010
- */
-
+ * Date: 22/12/2010 */
 public class AnonymousIndividualsTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
-
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         // Originally submitted by Timothy Redmond
@@ -76,11 +69,8 @@ public class AnonymousIndividualsTestCase2 extends AbstractAxiomsRoundTrippingTe
         axioms.add(factory.getOWLAnnotationAssertionAxiom(p, a.getIRI(), h));
         axioms.add(factory.getOWLClassAssertionAxiom(a, h));
         axioms.add(factory.getOWLObjectPropertyAssertionAxiom(q, h, i));
-        axioms.add(factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), h, factory.getOWLLiteral("Second", "en")));
+        axioms.add(factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), h,
+                factory.getOWLLiteral("Second", "en")));
         return axioms;
-    }
-
-    @Override
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
     }
 }

@@ -50,7 +50,7 @@ public class ContractMetricsTest {
 
             @Override
             protected boolean isMetricInvalidated(
-                    final List<? extends OWLOntologyChange> changes) {
+                    List<? extends OWLOntologyChange> changes) {
                 return false;
             }
 
@@ -81,7 +81,7 @@ public class ContractMetricsTest {
             }
 
             @Override
-            protected Set<? extends OWLAxiom> getObjects(final OWLOntology ont) {
+            protected Set<? extends OWLAxiom> getObjects(OWLOntology ont) {
                 return null;
             }
         };
@@ -116,7 +116,7 @@ public class ContractMetricsTest {
 
             @Override
             protected boolean isMetricInvalidated(
-                    final List<? extends OWLOntologyChange> changes) {
+                    List<? extends OWLOntologyChange> changes) {
                 return false;
             }
 
@@ -166,7 +166,7 @@ public class ContractMetricsTest {
 
             @Override
             protected boolean isMetricInvalidated(
-                    final List<? extends OWLOntologyChange> changes) {
+                    List<? extends OWLOntologyChange> changes) {
                 return false;
             }
 
@@ -213,7 +213,7 @@ public class ContractMetricsTest {
             }
 
             @Override
-            protected Set<Object> getObjects(final OWLOntology ont) {
+            protected Set<Object> getObjects(OWLOntology ont) {
                 return null;
             }
         };

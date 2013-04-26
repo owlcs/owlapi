@@ -60,11 +60,11 @@ public class Utils {
         return AxiomType.ANNOTATION_ASSERTION;
     }
 
-    public static <T> Collection<T> mockCollection(final T... values) {
+    public static <T> Collection<T> mockCollection(T... values) {
         return new ArrayList<T>();
     }
 
-    public static <T> Set<T> mockSet(final T... values) {
+    public static <T> Set<T> mockSet(T... values) {
         return new HashSet<T>();
     }
 
@@ -72,72 +72,72 @@ public class Utils {
         return new HashSet<Set<OWLAxiom>>();
     }
 
-    public static <T> List<T> mockList(final T... values) {
+    public static <T> List<T> mockList(T... values) {
         return new ArrayList<T>();
     }
 
-    public static <T extends OWLObject> Node<T> mockNode(final Class<T> classT) {
+    public static <T extends OWLObject> Node<T> mockNode(Class<T> classT) {
         return Mockito.mock(Node.class);
     }
 
-    public static <T extends OWLObject> NodeSet<T> mockNodeSet(final Class<T> classT) {
+    public static <T extends OWLObject> NodeSet<T> mockNodeSet(Class<T> classT) {
         return Mockito.mock(NodeSet.class);
     }
 
     public static SWRLObjectVisitorEx<OWLObject> mockSWRLObject() {
         return new SWRLObjectVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final SWRLRule node) {
+            public OWLObject visit(SWRLRule node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SWRLClassAtom node) {
+            public OWLObject visit(SWRLClassAtom node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SWRLDataRangeAtom node) {
+            public OWLObject visit(SWRLDataRangeAtom node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SWRLObjectPropertyAtom node) {
+            public OWLObject visit(SWRLObjectPropertyAtom node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SWRLDataPropertyAtom node) {
+            public OWLObject visit(SWRLDataPropertyAtom node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SWRLBuiltInAtom node) {
+            public OWLObject visit(SWRLBuiltInAtom node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SWRLVariable node) {
+            public OWLObject visit(SWRLVariable node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SWRLIndividualArgument node) {
+            public OWLObject visit(SWRLIndividualArgument node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SWRLLiteralArgument node) {
+            public OWLObject visit(SWRLLiteralArgument node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SWRLSameIndividualAtom node) {
+            public OWLObject visit(SWRLSameIndividualAtom node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SWRLDifferentIndividualsAtom node) {
+            public OWLObject visit(SWRLDifferentIndividualsAtom node) {
                 return null;
             }
         };
@@ -146,15 +146,15 @@ public class Utils {
     public static <T> CollectionContainerVisitor<T> mockCollContainer() {
         return new CollectionContainerVisitor<T>() {
             @Override
-            public void visitItem(final T c) {}
+            public void visitItem(T c) {}
 
             @Override
-            public void visit(final CollectionContainer<T> c) {}
+            public void visit(CollectionContainer<T> c) {}
         };
     }
 
     public static OWLXMLParserHandler mockHandler() throws OWLParserException {
-        final OWLXMLParserHandler mock = mock(OWLXMLParserHandler.class);
+        OWLXMLParserHandler mock = mock(OWLXMLParserHandler.class);
         Mockito.when(mock.getIRI(Matchers.anyString())).thenReturn(
                 IRI.create("urn:otherfake"));
         Mockito.when(mock.getDataFactory()).thenReturn(mock(OWLDataFactory.class));
@@ -165,7 +165,7 @@ public class Utils {
 
     public static OWLElementHandler<OWLObject> mockElementHandler()
             throws OWLXMLParserException {
-        final OWLElementHandler<OWLObject> mock = mock(OWLElementHandler.class);
+        OWLElementHandler<OWLObject> mock = mock(OWLElementHandler.class);
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLThing());
         return mock;
@@ -173,7 +173,7 @@ public class Utils {
 
     public static AbstractOWLIndividualOperandAxiomElementHandler mockIndividualHandler()
             throws OWLParserException {
-        final AbstractOWLIndividualOperandAxiomElementHandler mock = mock(AbstractOWLIndividualOperandAxiomElementHandler.class);
+        AbstractOWLIndividualOperandAxiomElementHandler mock = mock(AbstractOWLIndividualOperandAxiomElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
@@ -185,7 +185,7 @@ public class Utils {
 
     public static OWLAnnotationElementHandler mockAnnotationHandler()
             throws OWLParserException {
-        final OWLAnnotationElementHandler mock = mock(OWLAnnotationElementHandler.class);
+        OWLAnnotationElementHandler mock = mock(OWLAnnotationElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
@@ -197,7 +197,7 @@ public class Utils {
 
     public static AbstractOWLDataRangeHandler mockDataRangeHandler()
             throws OWLParserException {
-        final AbstractOWLDataRangeHandler mock = mock(AbstractOWLDataRangeHandler.class);
+        AbstractOWLDataRangeHandler mock = mock(AbstractOWLDataRangeHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(mock(OWLDatatype.class));
@@ -206,7 +206,7 @@ public class Utils {
 
     public static OWLAnonymousIndividualElementHandler mockAnonymousIndividualHandler()
             throws OWLParserException {
-        final OWLAnonymousIndividualElementHandler mock = mock(OWLAnonymousIndividualElementHandler.class);
+        OWLAnonymousIndividualElementHandler mock = mock(OWLAnonymousIndividualElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
@@ -215,7 +215,7 @@ public class Utils {
     }
 
     public static OWLLiteralElementHandler mockLiteralHandler() throws OWLParserException {
-        final OWLLiteralElementHandler mock = mock(OWLLiteralElementHandler.class);
+        OWLLiteralElementHandler mock = mock(OWLLiteralElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
@@ -225,7 +225,7 @@ public class Utils {
 
     public static OWLSubAnnotationPropertyOfElementHandler
             mockSubAnnotationPropertyOfHandler() throws OWLParserException {
-        final OWLSubAnnotationPropertyOfElementHandler mock = mock(OWLSubAnnotationPropertyOfElementHandler.class);
+        OWLSubAnnotationPropertyOfElementHandler mock = mock(OWLSubAnnotationPropertyOfElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
@@ -236,7 +236,7 @@ public class Utils {
 
     public static OWLSubClassAxiomElementHandler mockSubObjectPropertyChainHandler()
             throws OWLParserException {
-        final OWLSubClassAxiomElementHandler mock = mock(OWLSubClassAxiomElementHandler.class);
+        OWLSubClassAxiomElementHandler mock = mock(OWLSubClassAxiomElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
@@ -247,7 +247,7 @@ public class Utils {
 
     public static OWLDatatypeElementHandler mockDatatypeFacetRestrictionHandler()
             throws OWLParserException {
-        final OWLDatatypeElementHandler mock = mock(OWLDatatypeElementHandler.class);
+        OWLDatatypeElementHandler mock = mock(OWLDatatypeElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
@@ -258,7 +258,7 @@ public class Utils {
 
     public static OWLAnnotationPropertyElementHandler mockAnnotationPropertyHandler()
             throws OWLParserException {
-        final OWLAnnotationPropertyElementHandler mock = mock(OWLAnnotationPropertyElementHandler.class);
+        OWLAnnotationPropertyElementHandler mock = mock(OWLAnnotationPropertyElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
@@ -268,7 +268,7 @@ public class Utils {
 
     public static AbstractClassExpressionElementHandler mockClassHandler()
             throws OWLParserException {
-        final AbstractClassExpressionElementHandler mock = mock(AbstractClassExpressionElementHandler.class);
+        AbstractClassExpressionElementHandler mock = mock(AbstractClassExpressionElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
@@ -278,7 +278,7 @@ public class Utils {
 
     public static OWLDataPropertyElementHandler mockDataPropertyHandler()
             throws OWLParserException {
-        final OWLDataPropertyElementHandler mock = mock(OWLDataPropertyElementHandler.class);
+        OWLDataPropertyElementHandler mock = mock(OWLDataPropertyElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
@@ -288,7 +288,7 @@ public class Utils {
 
     public static AbstractIRIElementHandler mockAbstractIRIHandler()
             throws OWLParserException {
-        final AbstractIRIElementHandler mock = mock(AbstractIRIElementHandler.class);
+        AbstractIRIElementHandler mock = mock(AbstractIRIElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(IRI.create(""));
@@ -297,7 +297,7 @@ public class Utils {
 
     public static AbstractOWLAxiomElementHandler mockAxiomHandler()
             throws OWLParserException {
-        final AbstractOWLAxiomElementHandler mock = mock(AbstractOWLAxiomElementHandler.class);
+        AbstractOWLAxiomElementHandler mock = mock(AbstractOWLAxiomElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
@@ -307,7 +307,7 @@ public class Utils {
     }
 
     public static SWRLAtomElementHandler mockSWRLAtomHandler() throws OWLParserException {
-        final SWRLAtomElementHandler mock = mock(SWRLAtomElementHandler.class);
+        SWRLAtomElementHandler mock = mock(SWRLAtomElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(mock(SWRLAtom.class));
@@ -316,7 +316,7 @@ public class Utils {
 
     public static SWRLVariableElementHandler mockSWRLVariableHandler()
             throws OWLParserException {
-        final SWRLVariableElementHandler mock = mock(SWRLVariableElementHandler.class);
+        SWRLVariableElementHandler mock = mock(SWRLVariableElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(mock(SWRLVariable.class));
@@ -325,7 +325,7 @@ public class Utils {
 
     public static SWRLAtomListElementHandler mockSWRLAtomListHandler()
             throws OWLParserException {
-        final SWRLAtomListElementHandler mock = mock(SWRLAtomListElementHandler.class);
+        SWRLAtomListElementHandler mock = mock(SWRLAtomListElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(mockList(mock(SWRLAtom.class)));
@@ -334,7 +334,7 @@ public class Utils {
 
     public static OWLObjectPropertyElementHandler mockObjectPropertyHandler()
             throws OWLParserException {
-        final OWLObjectPropertyElementHandler mock = mock(OWLObjectPropertyElementHandler.class);
+        OWLObjectPropertyElementHandler mock = mock(OWLObjectPropertyElementHandler.class);
         Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
                 .thenReturn(IRI.create("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
@@ -345,22 +345,22 @@ public class Utils {
     public static OWLAnnotationAxiomVisitorEx<OWLObject> mockAnnotationAxiom() {
         return new OWLAnnotationAxiomVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final OWLAnnotationAssertionAxiom axiom) {
+            public OWLObject visit(OWLAnnotationAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSubAnnotationPropertyOfAxiom axiom) {
+            public OWLObject visit(OWLSubAnnotationPropertyOfAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnnotationPropertyDomainAxiom axiom) {
+            public OWLObject visit(OWLAnnotationPropertyDomainAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnnotationPropertyRangeAxiom axiom) {
+            public OWLObject visit(OWLAnnotationPropertyRangeAxiom axiom) {
                 return null;
             }
         };
@@ -377,42 +377,42 @@ public class Utils {
     public static OWLAnnotationObjectVisitorEx<OWLObject> mockAnnotationObject() {
         return new OWLAnnotationObjectVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final OWLAnnotationAssertionAxiom axiom) {
+            public OWLObject visit(OWLAnnotationAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSubAnnotationPropertyOfAxiom axiom) {
+            public OWLObject visit(OWLSubAnnotationPropertyOfAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnnotationPropertyDomainAxiom axiom) {
+            public OWLObject visit(OWLAnnotationPropertyDomainAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnnotationPropertyRangeAxiom axiom) {
+            public OWLObject visit(OWLAnnotationPropertyRangeAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final IRI iri) {
+            public OWLObject visit(IRI iri) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnonymousIndividual individual) {
+            public OWLObject visit(OWLAnonymousIndividual individual) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLLiteral literal) {
+            public OWLObject visit(OWLLiteral literal) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnnotation node) {
+            public OWLObject visit(OWLAnnotation node) {
                 return null;
             }
         };
@@ -421,12 +421,12 @@ public class Utils {
     public static OWLAnnotationSubjectVisitorEx<OWLObject> mockAnnotationSubject() {
         return new OWLAnnotationSubjectVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final IRI iri) {
+            public OWLObject visit(IRI iri) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnonymousIndividual individual) {
+            public OWLObject visit(OWLAnonymousIndividual individual) {
                 return null;
             }
         };
@@ -435,17 +435,17 @@ public class Utils {
     public static OWLAnnotationValueVisitorEx<OWLObject> mockAnnotationValue() {
         return new OWLAnnotationValueVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final IRI iri) {
+            public OWLObject visit(IRI iri) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnonymousIndividual individual) {
+            public OWLObject visit(OWLAnonymousIndividual individual) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLLiteral literal) {
+            public OWLObject visit(OWLLiteral literal) {
                 return null;
             }
         };
@@ -454,32 +454,32 @@ public class Utils {
     public static OWLDataRangeVisitorEx<OWLObject> mockDataRange() {
         return new OWLDataRangeVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final OWLDatatype node) {
+            public OWLObject visit(OWLDatatype node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataOneOf node) {
+            public OWLObject visit(OWLDataOneOf node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataComplementOf node) {
+            public OWLObject visit(OWLDataComplementOf node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataIntersectionOf node) {
+            public OWLObject visit(OWLDataIntersectionOf node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataUnionOf node) {
+            public OWLObject visit(OWLDataUnionOf node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDatatypeRestriction node) {
+            public OWLObject visit(OWLDatatypeRestriction node) {
                 return null;
             }
         };
@@ -488,17 +488,17 @@ public class Utils {
     public static OWLPropertyExpressionVisitorEx<OWLObject> mockPropertyExpression() {
         return new OWLPropertyExpressionVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final OWLObjectProperty property) {
+            public OWLObject visit(OWLObjectProperty property) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLObjectInverseOf property) {
+            public OWLObject visit(OWLObjectInverseOf property) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataProperty property) {
+            public OWLObject visit(OWLDataProperty property) {
                 return null;
             }
         };
@@ -507,167 +507,167 @@ public class Utils {
     public static OWLLogicalAxiomVisitorEx<OWLObject> mockLogicalAxiom() {
         return new OWLLogicalAxiomVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final OWLSubClassOfAxiom axiom) {
+            public OWLObject visit(OWLSubClassOfAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLNegativeObjectPropertyAssertionAxiom axiom) {
+            public OWLObject visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAsymmetricObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLAsymmetricObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLReflexiveObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLReflexiveObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDisjointClassesAxiom axiom) {
+            public OWLObject visit(OWLDisjointClassesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataPropertyDomainAxiom axiom) {
+            public OWLObject visit(OWLDataPropertyDomainAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLObjectPropertyDomainAxiom axiom) {
+            public OWLObject visit(OWLObjectPropertyDomainAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLEquivalentObjectPropertiesAxiom axiom) {
+            public OWLObject visit(OWLEquivalentObjectPropertiesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLNegativeDataPropertyAssertionAxiom axiom) {
+            public OWLObject visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDifferentIndividualsAxiom axiom) {
+            public OWLObject visit(OWLDifferentIndividualsAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDisjointDataPropertiesAxiom axiom) {
+            public OWLObject visit(OWLDisjointDataPropertiesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDisjointObjectPropertiesAxiom axiom) {
+            public OWLObject visit(OWLDisjointObjectPropertiesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLObjectPropertyRangeAxiom axiom) {
+            public OWLObject visit(OWLObjectPropertyRangeAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLObjectPropertyAssertionAxiom axiom) {
+            public OWLObject visit(OWLObjectPropertyAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLFunctionalObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLFunctionalObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSubObjectPropertyOfAxiom axiom) {
+            public OWLObject visit(OWLSubObjectPropertyOfAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDisjointUnionAxiom axiom) {
+            public OWLObject visit(OWLDisjointUnionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSymmetricObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLSymmetricObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataPropertyRangeAxiom axiom) {
+            public OWLObject visit(OWLDataPropertyRangeAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLFunctionalDataPropertyAxiom axiom) {
+            public OWLObject visit(OWLFunctionalDataPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLEquivalentDataPropertiesAxiom axiom) {
+            public OWLObject visit(OWLEquivalentDataPropertiesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLClassAssertionAxiom axiom) {
+            public OWLObject visit(OWLClassAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLEquivalentClassesAxiom axiom) {
+            public OWLObject visit(OWLEquivalentClassesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataPropertyAssertionAxiom axiom) {
+            public OWLObject visit(OWLDataPropertyAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLTransitiveObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLTransitiveObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLIrreflexiveObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSubDataPropertyOfAxiom axiom) {
+            public OWLObject visit(OWLSubDataPropertyOfAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLInverseFunctionalObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSameIndividualAxiom axiom) {
+            public OWLObject visit(OWLSameIndividualAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSubPropertyChainOfAxiom axiom) {
+            public OWLObject visit(OWLSubPropertyChainOfAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLInverseObjectPropertiesAxiom axiom) {
+            public OWLObject visit(OWLInverseObjectPropertiesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLHasKeyAxiom axiom) {
+            public OWLObject visit(OWLHasKeyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SWRLRule rule) {
+            public OWLObject visit(SWRLRule rule) {
                 return null;
             }
         };
@@ -676,37 +676,37 @@ public class Utils {
     public static OWLNamedObjectVisitorEx<OWLObject> mockNamedObject() {
         return new OWLNamedObjectVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final OWLClass owlClass) {
+            public OWLObject visit(OWLClass owlClass) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLObjectProperty property) {
+            public OWLObject visit(OWLObjectProperty property) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataProperty property) {
+            public OWLObject visit(OWLDataProperty property) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLNamedIndividual owlIndividual) {
+            public OWLObject visit(OWLNamedIndividual owlIndividual) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLOntology ontology) {
+            public OWLObject visit(OWLOntology ontology) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDatatype datatype) {
+            public OWLObject visit(OWLDatatype datatype) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnnotationProperty property) {
+            public OWLObject visit(OWLAnnotationProperty property) {
                 return null;
             }
         };
@@ -721,32 +721,32 @@ public class Utils {
     public static OWLEntityVisitorEx<OWLObject> mockEntity() {
         return new OWLEntityVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final OWLClass cls) {
+            public OWLObject visit(OWLClass cls) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLObjectProperty property) {
+            public OWLObject visit(OWLObjectProperty property) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataProperty property) {
+            public OWLObject visit(OWLDataProperty property) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLNamedIndividual individual) {
+            public OWLObject visit(OWLNamedIndividual individual) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDatatype datatype) {
+            public OWLObject visit(OWLDatatype datatype) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnnotationProperty property) {
+            public OWLObject visit(OWLAnnotationProperty property) {
                 return null;
             }
         };
@@ -755,12 +755,12 @@ public class Utils {
     public static OWLIndividualVisitorEx<OWLObject> mockIndividual() {
         return new OWLIndividualVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final OWLNamedIndividual individual) {
+            public OWLObject visit(OWLNamedIndividual individual) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnonymousIndividual individual) {
+            public OWLObject visit(OWLAnonymousIndividual individual) {
                 return null;
             }
         };
@@ -769,37 +769,37 @@ public class Utils {
     public static OWLOntologyChangeVisitorEx<OWLObject> mockOntologyChange() {
         return new OWLOntologyChangeVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final AddAxiom change) {
+            public OWLObject visit(AddAxiom change) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final RemoveAxiom change) {
+            public OWLObject visit(RemoveAxiom change) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SetOntologyID change) {
+            public OWLObject visit(SetOntologyID change) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final AddImport change) {
+            public OWLObject visit(AddImport change) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final RemoveImport change) {
+            public OWLObject visit(RemoveImport change) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final AddOntologyAnnotation change) {
+            public OWLObject visit(AddOntologyAnnotation change) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final RemoveOntologyAnnotation change) {
+            public OWLObject visit(RemoveOntologyAnnotation change) {
                 return null;
             }
         };
@@ -808,197 +808,197 @@ public class Utils {
     public static OWLAxiomVisitorEx<OWLObject> mockAxiom() {
         return new OWLAxiomVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final OWLSubAnnotationPropertyOfAxiom axiom) {
+            public OWLObject visit(OWLSubAnnotationPropertyOfAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnnotationPropertyDomainAxiom axiom) {
+            public OWLObject visit(OWLAnnotationPropertyDomainAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnnotationPropertyRangeAxiom axiom) {
+            public OWLObject visit(OWLAnnotationPropertyRangeAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSubClassOfAxiom axiom) {
+            public OWLObject visit(OWLSubClassOfAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLNegativeObjectPropertyAssertionAxiom axiom) {
+            public OWLObject visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAsymmetricObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLAsymmetricObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLReflexiveObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLReflexiveObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDisjointClassesAxiom axiom) {
+            public OWLObject visit(OWLDisjointClassesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataPropertyDomainAxiom axiom) {
+            public OWLObject visit(OWLDataPropertyDomainAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLObjectPropertyDomainAxiom axiom) {
+            public OWLObject visit(OWLObjectPropertyDomainAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLEquivalentObjectPropertiesAxiom axiom) {
+            public OWLObject visit(OWLEquivalentObjectPropertiesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLNegativeDataPropertyAssertionAxiom axiom) {
+            public OWLObject visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDifferentIndividualsAxiom axiom) {
+            public OWLObject visit(OWLDifferentIndividualsAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDisjointDataPropertiesAxiom axiom) {
+            public OWLObject visit(OWLDisjointDataPropertiesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDisjointObjectPropertiesAxiom axiom) {
+            public OWLObject visit(OWLDisjointObjectPropertiesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLObjectPropertyRangeAxiom axiom) {
+            public OWLObject visit(OWLObjectPropertyRangeAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLObjectPropertyAssertionAxiom axiom) {
+            public OWLObject visit(OWLObjectPropertyAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLFunctionalObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLFunctionalObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSubObjectPropertyOfAxiom axiom) {
+            public OWLObject visit(OWLSubObjectPropertyOfAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDisjointUnionAxiom axiom) {
+            public OWLObject visit(OWLDisjointUnionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDeclarationAxiom axiom) {
+            public OWLObject visit(OWLDeclarationAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLAnnotationAssertionAxiom axiom) {
+            public OWLObject visit(OWLAnnotationAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSymmetricObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLSymmetricObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataPropertyRangeAxiom axiom) {
+            public OWLObject visit(OWLDataPropertyRangeAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLFunctionalDataPropertyAxiom axiom) {
+            public OWLObject visit(OWLFunctionalDataPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLEquivalentDataPropertiesAxiom axiom) {
+            public OWLObject visit(OWLEquivalentDataPropertiesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLClassAssertionAxiom axiom) {
+            public OWLObject visit(OWLClassAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLEquivalentClassesAxiom axiom) {
+            public OWLObject visit(OWLEquivalentClassesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataPropertyAssertionAxiom axiom) {
+            public OWLObject visit(OWLDataPropertyAssertionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLTransitiveObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLTransitiveObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLIrreflexiveObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSubDataPropertyOfAxiom axiom) {
+            public OWLObject visit(OWLSubDataPropertyOfAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLInverseFunctionalObjectPropertyAxiom axiom) {
+            public OWLObject visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSameIndividualAxiom axiom) {
+            public OWLObject visit(OWLSameIndividualAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLSubPropertyChainOfAxiom axiom) {
+            public OWLObject visit(OWLSubPropertyChainOfAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLInverseObjectPropertiesAxiom axiom) {
+            public OWLObject visit(OWLInverseObjectPropertiesAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLHasKeyAxiom axiom) {
+            public OWLObject visit(OWLHasKeyAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDatatypeDefinitionAxiom axiom) {
+            public OWLObject visit(OWLDatatypeDefinitionAxiom axiom) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final SWRLRule rule) {
+            public OWLObject visit(SWRLRule rule) {
                 return null;
             }
         };
@@ -1007,42 +1007,42 @@ public class Utils {
     public static OWLDataVisitorEx<OWLObject> mockData() {
         return new OWLDataVisitorEx<OWLObject>() {
             @Override
-            public OWLObject visit(final OWLDatatype node) {
+            public OWLObject visit(OWLDatatype node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataComplementOf node) {
+            public OWLObject visit(OWLDataComplementOf node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataOneOf node) {
+            public OWLObject visit(OWLDataOneOf node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataIntersectionOf node) {
+            public OWLObject visit(OWLDataIntersectionOf node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDataUnionOf node) {
+            public OWLObject visit(OWLDataUnionOf node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLDatatypeRestriction node) {
+            public OWLObject visit(OWLDatatypeRestriction node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLLiteral node) {
+            public OWLObject visit(OWLLiteral node) {
                 return null;
             }
 
             @Override
-            public OWLObject visit(final OWLFacetRestriction node) {
+            public OWLObject visit(OWLFacetRestriction node) {
                 return null;
             }
         };
@@ -1053,13 +1053,13 @@ public class Utils {
     }
 
     public static OWLOntologyManager getRealMockManager() {
-        final OWLOntologyManager mock = mock(OWLOntologyManager.class);
+        OWLOntologyManager mock = mock(OWLOntologyManager.class);
         when(mock.getOWLDataFactory()).thenReturn(OWLManager.getOWLDataFactory());
         return mock;
     }
 
     public static OWLOntologyManager getMockManagerMockFactory() {
-        final OWLOntologyManager mock = mock(OWLOntologyManager.class);
+        OWLOntologyManager mock = mock(OWLOntologyManager.class);
         OWLDataFactory f = mock(OWLDataFactory.class);
         when(mock.getOWLDataFactory()).thenReturn(f);
         return mock;
@@ -1087,17 +1087,17 @@ public class Utils {
                         .create("urn:test:othertest")));
         OWLRDFConsumer c = new OWLRDFConsumer(mockOntology, new AnonymousNodeChecker() {
             @Override
-            public boolean isAnonymousSharedNode(final String iri) {
+            public boolean isAnonymousSharedNode(String iri) {
                 return false;
             }
 
             @Override
-            public boolean isAnonymousNode(final String iri) {
+            public boolean isAnonymousNode(String iri) {
                 return false;
             }
 
             @Override
-            public boolean isAnonymousNode(final IRI iri) {
+            public boolean isAnonymousNode(IRI iri) {
                 return false;
             }
         }, new OWLOntologyLoaderConfiguration());

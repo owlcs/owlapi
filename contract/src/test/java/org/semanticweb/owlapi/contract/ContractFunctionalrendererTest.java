@@ -41,8 +41,8 @@ public class ContractFunctionalrendererTest {
     }
 
     public void shouldTestOWLObjectRenderer() throws Exception {
-        OWLObjectRenderer testSubject0 = new OWLObjectRenderer(
-                Utils.getMockOntology(), mock(Writer.class));
+        OWLObjectRenderer testSubject0 = new OWLObjectRenderer(Utils.getMockOntology(),
+                mock(Writer.class));
         testSubject0.write(mock(OWLAnnotation.class));
         testSubject0.write(OWLXMLVocabulary.COMMENT, mock(OWLObject.class));
         Set<OWLAxiom> result0 = testSubject0.writeAnnotations(Utils.mockOWLEntity());

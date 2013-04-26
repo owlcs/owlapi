@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import java.util.ArrayList;
@@ -47,19 +46,15 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-May-2008<br><br>
- */
-
-public class ObjectPropertyChainRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
-
-
+ * Date: 10-May-2008<br>
+ * <br> */
+public class ObjectPropertyChainRoundTrippingTestCase extends
+        AbstractRoundTrippingTestCase {
     @Override
-	protected OWLOntology createOntology() {
+    protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");
         OWLObjectProperty propA = getOWLObjectProperty("propA");
         OWLObjectProperty propB = getOWLObjectProperty("propB");

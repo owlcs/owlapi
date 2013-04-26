@@ -69,9 +69,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * <br> */
 @SuppressWarnings({ "javadoc" })
 public class ClosureAxioms {
-    private OWLOntologyManager manager;
-    private OWLOntology ontology;
-    private OWLDataFactory factory;
+    private final OWLOntologyManager manager;
+    private final OWLOntology ontology;
+    private final OWLDataFactory factory;
 
     public ClosureAxioms(OWLOntologyManager manager, OWLOntology ontology) {
         this.manager = manager;

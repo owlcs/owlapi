@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.dataproperties;
 
 import java.util.Set;
@@ -45,25 +44,18 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLNaryOperandsObject
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-
-public class OWLDataEnumerationTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLLiteral> {
-
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
+public class OWLDataEnumerationTestCase extends
+        AbstractOWLNaryOperandsObjectTestCase<OWLLiteral> {
     @Override
-	protected OWLObject createObject(Set<OWLLiteral> operands) throws Exception {
+    protected OWLObject createObject(Set<OWLLiteral> operands) throws Exception {
         return getFactory().getOWLDataOneOf(operands);
     }
 
-
     @Override
-	protected OWLLiteral createOperand() throws Exception {
+    protected OWLLiteral createOperand() throws Exception {
         return createOWLLiteral();
     }
 }

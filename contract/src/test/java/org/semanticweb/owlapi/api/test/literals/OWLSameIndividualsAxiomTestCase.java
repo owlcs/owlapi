@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.literals;
 
 import java.util.Set;
@@ -45,24 +44,18 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLNaryOperandsObject
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-
-public class OWLSameIndividualsAxiomTestCase extends AbstractOWLNaryOperandsObjectTestCase<OWLIndividual> {
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
+public class OWLSameIndividualsAxiomTestCase extends
+        AbstractOWLNaryOperandsObjectTestCase<OWLIndividual> {
     @Override
-	protected OWLObject createObject(Set<OWLIndividual> operands) throws Exception {
+    protected OWLObject createObject(Set<OWLIndividual> operands) throws Exception {
         return getFactory().getOWLSameIndividualAxiom(operands);
     }
 
-
     @Override
-	protected OWLIndividual createOperand() throws Exception {
+    protected OWLIndividual createOperand() throws Exception {
         return createOWLIndividual();
     }
 }

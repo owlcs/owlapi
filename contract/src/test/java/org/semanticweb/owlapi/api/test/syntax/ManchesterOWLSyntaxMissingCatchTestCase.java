@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax;
 
 import java.util.Set;
@@ -56,11 +55,12 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
+
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxMissingCatchTestCase {
     @Test(expected = UnparsableOntologyException.class)
     public void testManSyntaxEditorParser() throws OWLOntologyCreationException,
-    ParserException {
+            ParserException {
         String onto = "<?xml version=\"1.0\"?>"
                 + "<!DOCTYPE rdf:RDF ["
                 + "<!ENTITY vin  \"http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#\" >"
@@ -82,13 +82,11 @@ public class ManchesterOWLSyntaxMissingCatchTestCase {
                 + "<owl:Class rdf:ID=\"VintageYear\" />"
                 + "<owl:DatatypeProperty rdf:ID=\"yearValue\"><rdfs:domain rdf:resource=\"#VintageYear\" />    <rdfs:range  rdf:resource=\"&xsd;positiveInteger\" />"
                 + "</owl:DatatypeProperty></rdf:RDF>";
-
         String expression = "yearValue some ";
-        final OWLOntologyManager mngr = Factory.getManager();
-        final OWLOntology wine = mngr
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        onto));
-        final Set<OWLOntology> ontologies = mngr.getOntologies();
+        OWLOntologyManager mngr = Factory.getManager();
+        OWLOntology wine = mngr
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(onto));
+        Set<OWLOntology> ontologies = mngr.getOntologies();
         ShortFormProvider sfp = new ManchesterOWLSyntaxPrefixNameShortFormProvider(wine
                 .getOWLOntologyManager().getOntologyFormat(wine));
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
@@ -96,8 +94,7 @@ public class ManchesterOWLSyntaxMissingCatchTestCase {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 mngr.getOWLDataFactory(), expression);
         parser.setDefaultOntology(wine);
-        parser.setOWLEntityChecker(new ShortFormEntityChecker(
-                shortFormProvider));
+        parser.setOWLEntityChecker(new ShortFormEntityChecker(shortFormProvider));
         parser.parseClassExpression();
     }
 }

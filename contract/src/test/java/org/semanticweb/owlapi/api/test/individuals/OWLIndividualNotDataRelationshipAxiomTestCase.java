@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.individuals;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLIndividualRelationshipAxiomTestCase;
@@ -46,30 +45,25 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-
-public class OWLIndividualNotDataRelationshipAxiomTestCase extends AbstractOWLIndividualRelationshipAxiomTestCase<OWLDataProperty, OWLLiteral> {
-
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
+public class OWLIndividualNotDataRelationshipAxiomTestCase extends
+        AbstractOWLIndividualRelationshipAxiomTestCase<OWLDataProperty, OWLLiteral> {
     @Override
-	protected OWLDataProperty createProperty() throws Exception {
+    protected OWLDataProperty createProperty() throws Exception {
         return createOWLDataProperty();
     }
 
-
     @Override
-	protected OWLLiteral createObject() throws Exception {
+    protected OWLLiteral createObject() throws Exception {
         return createOWLLiteral();
     }
 
-
     @Override
-	protected OWLIndividualAxiom createAxiom(OWLIndividual subject, OWLDataProperty property, OWLLiteral object) throws OWLException {
-        return getFactory().getOWLNegativeDataPropertyAssertionAxiom(property, subject, object);
+    protected OWLIndividualAxiom createAxiom(OWLIndividual subject,
+            OWLDataProperty property, OWLLiteral object) throws OWLException {
+        return getFactory().getOWLNegativeDataPropertyAssertionAxiom(property, subject,
+                object);
     }
 }

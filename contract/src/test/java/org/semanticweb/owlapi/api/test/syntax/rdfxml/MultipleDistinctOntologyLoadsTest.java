@@ -43,7 +43,7 @@ public class MultipleDistinctOntologyLoadsTest {
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(JB, v2);
         try {
             manager.createOntology(secondUniqueOWLOntologyID);
-        } catch (final OWLOntologyAlreadyExistsException e) {
+        } catch (OWLOntologyAlreadyExistsException e) {
             Assert.assertEquals(new OWLOntologyID(JB, v2), e.getOntologyID());
             throw e;
         }

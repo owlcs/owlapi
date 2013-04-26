@@ -162,17 +162,17 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     private final boolean tables = true;
     private static int TABLE_COLUMNS = 3;
 
-    public String labelFor(final OWLEntity entity) {
+    public String labelFor(OWLEntity entity) {
         return shortForms.getShortForm(entity);
     }
 
-    public OWLTutorialSyntaxObjectRenderer(final OWLOntology ontology, final Writer writer) {
+    public OWLTutorialSyntaxObjectRenderer(OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = writer;
         shortForms = new QNameShortFormProvider();
     }
 
-    private void write(final String s) {
+    private void write(String s) {
         try {
             int newLineIndex = s.indexOf('\n');
             if (newLineIndex != -1) {
@@ -185,7 +185,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    private void write(final IRI iri) {
+    private void write(IRI iri) {
         write("<");
         write(iri.toQuotedString());
         write(">");
@@ -214,7 +214,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write("</html>\n");
     }
 
-    private void writeCollection(final Collection<? extends OWLObject> objects) {
+    private void writeCollection(Collection<? extends OWLObject> objects) {
         if (tables) {
             writeTable(objects);
         } else {
@@ -222,7 +222,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    private void writeTable(final Collection<? extends OWLObject> objects) {
+    private void writeTable(Collection<? extends OWLObject> objects) {
         writeTableStart();
         int count = 0;
         for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
@@ -241,7 +241,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         writeTableEnd();
     }
 
-    private void writeList(final Collection<? extends OWLObject> objects) {
+    private void writeList(Collection<? extends OWLObject> objects) {
         writeListStart();
         for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
             writeListItemStart();
@@ -252,7 +252,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLOntology ontology1) {
+    public void visit(OWLOntology ontology1) {
         header();
         write("<h1>");
         write(ontology1.getOntologyID().toString());
@@ -291,28 +291,25 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         footer();
     }
 
-    public void write(final String str, final OWLObject o) {
+    public void write(String str, OWLObject o) {
         write(str);
         write("(");
         o.accept(this);
         write(")");
     }
 
-    private void write(final Collection<? extends OWLObject> objects,
-            final String separator) {
-        // int indent = getIndent();
+    private void write(Collection<? extends OWLObject> objects, String separator) {
         for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
                 write(separator);
                 writeSpace();
-                // writeIndent(indent);
             }
         }
     }
 
-    private void write(final Collection<? extends OWLObject> objects) {
+    private void write(Collection<? extends OWLObject> objects) {
         write(objects, "");
     }
 
@@ -328,39 +325,10 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write(" ");
     }
 
-    public void writeAnnotations(final OWLAxiom ax) {
+    public void writeAnnotations(OWLAxiom ax) {
         // TODO: IMPLEMENT
     }
 
-    // public void visit(OWLConstantAnnotation annotation) {
-    // if (annotation.isLabel()) {
-    // write("label");
-    // writeOpenBracket();
-    // annotation.getValue().accept(this);
-    // writeCloseBracket();
-    // } else if (annotation.isComment()) {
-    // write("comment");
-    // writeOpenBracket();
-    // annotation.getValue().accept(this);
-    // writeCloseBracket();
-    // } else {
-    // write("annotation");
-    // writeOpenBracket();
-    // write(annotation.getProperty().getIRI());
-    // writeSpace();
-    // annotation.getValue().accept(this);
-    // writeCloseBracket();
-    // }
-    // }
-    //
-    // public void visit(OWLObjectAnnotation annotation) {
-    // write("annotation");
-    // writeOpenBracket();
-    // write(annotation.getProperty().getIRI());
-    // writeSpace();
-    // annotation.getValue().accept(this);
-    // writeCloseBracket();
-    // }
     public void writeListStart() {
         write("<ul>\n");
     }
@@ -401,20 +369,20 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write("</li>\n");
     }
 
-    public void writePropertyCharacteristic(final String str, final OWLAxiom ax,
-            final OWLPropertyExpression<?, ?> prop) throws OWLRuntimeException {
+    public void writePropertyCharacteristic(String str, OWLAxiom ax,
+            OWLPropertyExpression<?, ?> prop) throws OWLRuntimeException {
         write(keyword(str));
         writeSpace();
         prop.accept(this);
     }
 
     @Override
-    public void visit(final OWLAsymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         writePropertyCharacteristic("asymmetric", axiom, axiom.getProperty());
     }
 
     @Override
-    public void visit(final OWLClassAssertionAxiom axiom) {
+    public void visit(OWLClassAssertionAxiom axiom) {
         axiom.getIndividual().accept(this);
         write(keyword(":"));
         writeSpace();
@@ -422,7 +390,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLDataPropertyAssertionAxiom axiom) {
+    public void visit(OWLDataPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         writeSpace();
         axiom.getProperty().accept(this);
@@ -431,7 +399,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLDataPropertyDomainAxiom axiom) {
+    public void visit(OWLDataPropertyDomainAxiom axiom) {
         axiom.getProperty().accept(this);
         writeSpace();
         write(keyword("domain"));
@@ -440,7 +408,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLDataPropertyRangeAxiom axiom) {
+    public void visit(OWLDataPropertyRangeAxiom axiom) {
         axiom.getProperty().accept(this);
         writeSpace();
         write(keyword("range"));
@@ -449,7 +417,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLSubDataPropertyOfAxiom axiom) {
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         writeSpace();
         write(keyword("subProperty"));
@@ -458,31 +426,31 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLDeclarationAxiom axiom) {}
+    public void visit(OWLDeclarationAxiom axiom) {}
 
     @Override
-    public void visit(final OWLDifferentIndividualsAxiom axiom) {
+    public void visit(OWLDifferentIndividualsAxiom axiom) {
         write(axiom.getIndividuals(), keyword("!="));
     }
 
     @Override
-    public void visit(final OWLDisjointClassesAxiom axiom) {
+    public void visit(OWLDisjointClassesAxiom axiom) {
         write(axiom.getClassExpressions(), keyword("|"));
     }
 
     @Override
-    public void visit(final OWLDisjointDataPropertiesAxiom axiom) {
+    public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         write(axiom.getProperties(), keyword("|"));
     }
 
     @Override
-    public void visit(final OWLDisjointObjectPropertiesAxiom axiom) {
+    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         write(keyword("disjoint"));
         write(axiom.getProperties(), keyword("|"));
     }
 
     @Override
-    public void visit(final OWLDisjointUnionAxiom axiom) {
+    public void visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept(this);
         writeSpace();
         write(keyword("=="));
@@ -491,47 +459,47 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLAnnotationAssertionAxiom axiom) {
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
         // Ignored
     }
 
     @Override
-    public void visit(final OWLEquivalentClassesAxiom axiom) {
+    public void visit(OWLEquivalentClassesAxiom axiom) {
         write(axiom.getClassExpressions(), keyword("=="));
     }
 
     @Override
-    public void visit(final OWLEquivalentDataPropertiesAxiom axiom) {
+    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         write(axiom.getProperties(), keyword("=="));
     }
 
     @Override
-    public void visit(final OWLEquivalentObjectPropertiesAxiom axiom) {
+    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         write(axiom.getProperties(), keyword("=="));
     }
 
     @Override
-    public void visit(final OWLFunctionalDataPropertyAxiom axiom) {
+    public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         writePropertyCharacteristic("functional", axiom, axiom.getProperty());
     }
 
     @Override
-    public void visit(final OWLFunctionalObjectPropertyAxiom axiom) {
+    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         writePropertyCharacteristic("functional", axiom, axiom.getProperty());
     }
 
-    public void visit(final OWLImportsDeclaration axiom) {
+    public void visit(OWLImportsDeclaration axiom) {
         write(keyword("imports"));
         write(axiom.getIRI());
     }
 
     @Override
-    public void visit(final OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         writePropertyCharacteristic("inversefunctional", axiom, axiom.getProperty());
     }
 
     @Override
-    public void visit(final OWLInverseObjectPropertiesAxiom axiom) {
+    public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         axiom.getFirstProperty().accept(this);
         writeSpace();
         write(keyword("inverse"));
@@ -540,12 +508,12 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLIrreflexiveObjectPropertyAxiom axiom) {
+    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         writePropertyCharacteristic("Irreflexive", axiom, axiom.getProperty());
     }
 
     @Override
-    public void visit(final OWLNegativeDataPropertyAssertionAxiom axiom) {
+    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         writeSpace();
         write(keyword("notvalue"));
@@ -555,7 +523,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLNegativeObjectPropertyAssertionAxiom axiom) {
+    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         writeSpace();
         write(keyword("notvalue"));
@@ -565,7 +533,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLObjectPropertyAssertionAxiom axiom) {
+    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         writeSpace();
         axiom.getProperty().accept(this);
@@ -574,7 +542,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLSubPropertyChainOfAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         write("chain");
         writeOpenBracket();
         write(axiom.getPropertyChain());
@@ -586,7 +554,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLObjectPropertyDomainAxiom axiom) {
+    public void visit(OWLObjectPropertyDomainAxiom axiom) {
         axiom.getProperty().accept(this);
         writeSpace();
         write(keyword("domain"));
@@ -595,7 +563,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLObjectPropertyRangeAxiom axiom) {
+    public void visit(OWLObjectPropertyRangeAxiom axiom) {
         axiom.getProperty().accept(this);
         writeSpace();
         write(keyword("range"));
@@ -604,7 +572,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLSubObjectPropertyOfAxiom axiom) {
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         writeSpace();
         write(keyword("subProperty"));
@@ -613,17 +581,17 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLReflexiveObjectPropertyAxiom axiom) {
+    public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         writePropertyCharacteristic("reflexive", axiom, axiom.getProperty());
     }
 
     @Override
-    public void visit(final OWLSameIndividualAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         write(axiom.getIndividuals(), keyword("="));
     }
 
     @Override
-    public void visit(final OWLSubClassOfAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         axiom.getSubClass().accept(this);
         writeSpace();
         write(keyword("subClass"));
@@ -632,24 +600,24 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLSymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         writePropertyCharacteristic("symmetric", axiom, axiom.getProperty());
     }
 
     @Override
-    public void visit(final OWLTransitiveObjectPropertyAxiom axiom) {
+    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         writePropertyCharacteristic("transitive", axiom, axiom.getProperty());
     }
 
     @Override
-    public void visit(final OWLClass desc) {
+    public void visit(OWLClass desc) {
         write("<span class='cl'>" + labelFor(desc) + "</span>");
     }
 
     private
-    <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
-    void writeRestriction(final String str,
-            final OWLCardinalityRestriction<R, P, F> restriction) {
+            <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
+            void writeRestriction(String str,
+                    OWLCardinalityRestriction<R, P, F> restriction) {
         write(str);
         writeOpenBracket();
         write(Integer.toString(restriction.getCardinality()));
@@ -662,19 +630,17 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    private void writeRestriction(final String str,
-            final OWLQuantifiedDataRestriction restriction) {
+    private void writeRestriction(String str, OWLQuantifiedDataRestriction restriction) {
         writeRestriction(str, restriction.getProperty(), restriction.getFiller());
     }
 
-    private void writeRestriction(final String str,
-            final OWLQuantifiedObjectRestriction restriction) {
+    private void writeRestriction(String str, OWLQuantifiedObjectRestriction restriction) {
         writeRestriction(str, restriction.getProperty(), restriction.getFiller());
     }
 
-    private void writeRestriction(final String str,
-            final OWLPropertyExpression<?, ?> prop,
-            final OWLObject filler) throws OWLRuntimeException {
+    private void writeRestriction(String str, OWLPropertyExpression<?, ?> prop,
+            OWLObject filler)
+            throws OWLRuntimeException {
         write(str);
         writeOpenBracket();
         prop.accept(this);
@@ -684,69 +650,69 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLDataAllValuesFrom desc) {
+    public void visit(OWLDataAllValuesFrom desc) {
         writeRestriction(operator("only"), desc);
     }
 
     @Override
-    public void visit(final OWLDataExactCardinality desc) {
+    public void visit(OWLDataExactCardinality desc) {
         writeRestriction("exact", desc);
     }
 
     @Override
-    public void visit(final OWLDataMaxCardinality desc) {
+    public void visit(OWLDataMaxCardinality desc) {
         writeRestriction("atmost", desc);
     }
 
     @Override
-    public void visit(final OWLDataMinCardinality desc) {
+    public void visit(OWLDataMinCardinality desc) {
         writeRestriction("atleast", desc);
     }
 
     @Override
-    public void visit(final OWLDataSomeValuesFrom desc) {
+    public void visit(OWLDataSomeValuesFrom desc) {
         writeRestriction(operator("some"), desc);
     }
 
     @Override
-    public void visit(final OWLDataHasValue desc) {
+    public void visit(OWLDataHasValue desc) {
         writeRestriction("has-value", desc.getProperty(), desc.getValue());
     }
 
     @Override
-    public void visit(final OWLObjectAllValuesFrom desc) {
+    public void visit(OWLObjectAllValuesFrom desc) {
         writeRestriction(operator("only"), desc);
     }
 
     @Override
-    public void visit(final OWLObjectComplementOf desc) {
+    public void visit(OWLObjectComplementOf desc) {
         write(operator("not"), desc.getOperand());
     }
 
     @Override
-    public void visit(final OWLObjectExactCardinality desc) {
+    public void visit(OWLObjectExactCardinality desc) {
         writeRestriction("exact", desc);
     }
 
     @Override
-    public void visit(final OWLObjectIntersectionOf desc) {
+    public void visit(OWLObjectIntersectionOf desc) {
         writeOpenBracket();
         write(desc.getOperands(), keyword("and"));
         writeCloseBracket();
     }
 
     @Override
-    public void visit(final OWLObjectMaxCardinality desc) {
+    public void visit(OWLObjectMaxCardinality desc) {
         writeRestriction("atmost", desc);
     }
 
     @Override
-    public void visit(final OWLObjectMinCardinality desc) {
+    public void visit(OWLObjectMinCardinality desc) {
         writeRestriction("atleast", desc);
     }
 
     @Override
-    public void visit(final OWLObjectOneOf desc) {
+    public void visit(OWLObjectOneOf desc) {
         write(operator("one-of"));
         writeOpenBracket();
         write(desc.getIndividuals());
@@ -754,34 +720,34 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLObjectHasSelf desc) {
+    public void visit(OWLObjectHasSelf desc) {
         write("self", desc.getProperty());
     }
 
     @Override
-    public void visit(final OWLObjectSomeValuesFrom desc) {
+    public void visit(OWLObjectSomeValuesFrom desc) {
         writeRestriction(operator("some"), desc);
     }
 
     @Override
-    public void visit(final OWLObjectUnionOf desc) {
+    public void visit(OWLObjectUnionOf desc) {
         writeOpenBracket();
         write(desc.getOperands(), " or ");
         writeCloseBracket();
     }
 
     @Override
-    public void visit(final OWLObjectHasValue desc) {
+    public void visit(OWLObjectHasValue desc) {
         writeRestriction("hasValue", desc.getProperty(), desc.getValue());
     }
 
     @Override
-    public void visit(final OWLDataComplementOf node) {
+    public void visit(OWLDataComplementOf node) {
         write(operator("not"), node.getDataRange());
     }
 
     @Override
-    public void visit(final OWLDataOneOf node) {
+    public void visit(OWLDataOneOf node) {
         write(operator("one-of"));
         write("(");
         write(node.getValues());
@@ -789,7 +755,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLDatatype node) {
+    public void visit(OWLDatatype node) {
         write("Datatype");
         writeOpenBracket();
         write(node.getIRI());
@@ -797,7 +763,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLDatatypeRestriction node) {
+    public void visit(OWLDatatypeRestriction node) {
         write("DatatypeRestriction");
         writeOpenBracket();
         node.getDatatype().accept(this);
@@ -809,14 +775,14 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLFacetRestriction node) {
+    public void visit(OWLFacetRestriction node) {
         write(node.getFacet().getIRI());
         writeSpace();
         node.getFacetValue().accept(this);
     }
 
     @Override
-    public void visit(final OWLLiteral node) {
+    public void visit(OWLLiteral node) {
         write("\"");
         write(node.getLiteral());
         write("\"");
@@ -830,17 +796,17 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLDataProperty property) {
+    public void visit(OWLDataProperty property) {
         write("<span class='pr'>" + labelFor(property) + "</span>");
     }
 
     @Override
-    public void visit(final OWLObjectProperty property) {
+    public void visit(OWLObjectProperty property) {
         write("<span class='pr'>" + labelFor(property) + "</span>");
     }
 
     @Override
-    public void visit(final OWLObjectInverseOf property) {
+    public void visit(OWLObjectInverseOf property) {
         write("inv");
         writeOpenBracket();
         property.getInverse().accept(this);
@@ -848,123 +814,123 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(final OWLNamedIndividual individual) {
+    public void visit(OWLNamedIndividual individual) {
         write("<span class='in'>" + labelFor(individual) + "</span>");
     }
 
     @Override
-    public void visit(final SWRLRule rule) {}
+    public void visit(SWRLRule rule) {}
 
     @Override
-    public void visit(final SWRLIndividualArgument node) {
+    public void visit(SWRLIndividualArgument node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final SWRLClassAtom node) {
+    public void visit(SWRLClassAtom node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final SWRLDataRangeAtom node) {
+    public void visit(SWRLDataRangeAtom node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final SWRLObjectPropertyAtom node) {
+    public void visit(SWRLObjectPropertyAtom node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final SWRLDataPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final SWRLBuiltInAtom node) {
+    public void visit(SWRLBuiltInAtom node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final SWRLVariable node) {
+    public void visit(SWRLVariable node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final SWRLLiteralArgument node) {
+    public void visit(SWRLLiteralArgument node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final SWRLDifferentIndividualsAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final SWRLSameIndividualAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final OWLHasKeyAxiom axiom) {
+    public void visit(OWLHasKeyAxiom axiom) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final OWLAnnotationPropertyDomainAxiom axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final OWLAnnotationPropertyRangeAxiom axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final OWLSubAnnotationPropertyOfAxiom axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final OWLDataIntersectionOf node) {
+    public void visit(OWLDataIntersectionOf node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final OWLDataUnionOf node) {
+    public void visit(OWLDataUnionOf node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final OWLAnnotationProperty property) {
+    public void visit(OWLAnnotationProperty property) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final OWLAnonymousIndividual individual) {
+    public void visit(OWLAnonymousIndividual individual) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final IRI iri) {
+    public void visit(IRI iri) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final OWLAnnotation node) {
+    public void visit(OWLAnnotation node) {
         throw new OWLRuntimeException("NOT IMPLEMENTED!");
     }
 
     @Override
-    public void visit(final OWLDatatypeDefinitionAxiom axiom) {
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
         throw new OWLRuntimeException("NOT IMPLEMENTED");
     }
 
-    public String keyword(final String str) {
+    public String keyword(String str) {
         return "<span class='key'>" + str + "</span>";
     }
 
-    public String operator(final String str) {
+    public String operator(String str) {
         return "<span class='op'>" + str + "</span>";
     }
 }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.*;
@@ -46,15 +45,12 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 09-Jun-2009
- */
+ * Date: 09-Jun-2009 */
 @SuppressWarnings("javadoc")
 public class BuiltInPropertyTestCase extends AbstractOWLAPITestCase {
-
     @Test
     public void testTopObjectPropertyPositive() {
         OWLObjectPropertyExpression prop = getFactory().getOWLTopObjectProperty();
@@ -66,7 +62,6 @@ public class BuiltInPropertyTestCase extends AbstractOWLAPITestCase {
         OWLObjectPropertyExpression prop = getFactory().getOWLBottomObjectProperty();
         assertTrue(prop.isOWLBottomObjectProperty());
     }
-
 
     @Test
     public void testTopObjectPropertyNegative() {
@@ -91,7 +86,6 @@ public class BuiltInPropertyTestCase extends AbstractOWLAPITestCase {
         OWLDataPropertyExpression prop = getFactory().getOWLBottomDataProperty();
         assertTrue(prop.isOWLBottomDataProperty());
     }
-
 
     @Test
     public void testTopDataPropertyNegative() {

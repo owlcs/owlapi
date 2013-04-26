@@ -28,14 +28,13 @@ public class ManchesterDataPropertyRTTestCase {
         manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(p));
         String saved = saveOntology(ontology);
         // when
-        ontology = Factory.getManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(saved));
+        ontology = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(saved));
         // then
         assertTrue(ontology.containsDataPropertyInSignature(p.getIRI()));
     }
 
-    private String saveOntology(OWLOntology o) throws
-    OWLOntologyStorageException {
+    private String saveOntology(OWLOntology o) throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o, target);
         return target.toString();

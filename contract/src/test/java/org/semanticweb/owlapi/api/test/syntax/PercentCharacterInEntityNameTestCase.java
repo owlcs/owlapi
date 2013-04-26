@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax;
 
 import java.util.HashSet;
@@ -46,20 +45,21 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTe
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 21-Sep-2009
- */
-
-public class PercentCharacterInEntityNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
+ * Date: 21-Sep-2009 */
+public class PercentCharacterInEntityNameTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
-	protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLClass(IRI.create("http://www.test.com/ontology#Class%37A"))));
-        axioms.add(getFactory().getOWLDeclarationAxiom(getFactory().getOWLObjectProperty(IRI.create("http://www.test.com/ontology#prop%37A"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(
+                getFactory().getOWLClass(
+                        IRI.create("http://www.test.com/ontology#Class%37A"))));
+        axioms.add(getFactory().getOWLDeclarationAxiom(
+                getFactory().getOWLObjectProperty(
+                        IRI.create("http://www.test.com/ontology#prop%37A"))));
         return axioms;
     }
 }

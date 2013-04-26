@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
@@ -45,31 +44,25 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
-public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject, R extends OWLObject> extends AbstractOWLDataFactoryTest {
-
+public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject, R extends OWLObject>
+        extends AbstractOWLDataFactoryTest {
     protected abstract L createLeftOperand() throws Exception;
-
 
     protected abstract R createRightOperand() throws Exception;
 
-
-    protected abstract OWLAxiom createAxiom(L leftOperand, R rightOperand) throws Exception;
-
+    protected abstract OWLAxiom createAxiom(L leftOperand, R rightOperand)
+            throws Exception;
 
     @Override
     @Test
     public void testCreation() throws Exception {
-        assertNotNull("Axiom should not be null",createAxiom(createLeftOperand(), createRightOperand()));
+        assertNotNull("Axiom should not be null",
+                createAxiom(createLeftOperand(), createRightOperand()));
     }
-
 
     @Override
     @Test
@@ -78,9 +71,8 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
         R rightOp = createRightOperand();
         OWLAxiom axiomA = createAxiom(leftOp, rightOp);
         OWLAxiom axiomB = createAxiom(leftOp, rightOp);
-        assertEquals("Axioms should be equal",axiomA, axiomB);
+        assertEquals("Axioms should be equal", axiomA, axiomB);
     }
-
 
     @Override
     @Test
@@ -96,7 +88,6 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
         OWLAxiom axiomD = createAxiom(leftOp, createRightOperand());
         assertNotEquals(axiomC, axiomD);
     }
-
 
     @Override
     @Test

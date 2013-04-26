@@ -50,18 +50,17 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 24-April-2007<br>
  * <br> */
-@SuppressWarnings({ "javadoc" })
  public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
 
-     @Override
-     public void render(OWLOntology ontology, Writer writer) throws OWLRendererIOException {
-         try {
-             OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(
-                     ontology, writer);
-             ontology.accept(ren);
-             writer.flush();
-         } catch (IOException ex) {
-             throw new OWLRendererIOException(ex);
-         }
-     }
- }
+    @Override
+    public void render(OWLOntology ontology, Writer writer) throws OWLRendererIOException {
+        try {
+            OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(
+                    ontology, writer);
+            ontology.accept(ren);
+            writer.flush();
+        } catch (IOException ex) {
+            throw new OWLRendererIOException(ex);
+        }
+    }
+}

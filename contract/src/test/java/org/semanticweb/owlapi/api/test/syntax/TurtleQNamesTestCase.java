@@ -28,8 +28,8 @@ public class TurtleQNamesTestCase {
                 IRI.create("http://xmlns.com/foaf/0.1/fundedBy"),
                 IRI.create("http://xmlns.com/foaf/0.1/"));
         // when
-        OWLOntology o = Factory.getManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(working));
+        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(working));
         // then
         assertTrue(o.getAxioms().contains(expected));
     }
@@ -43,8 +43,8 @@ public class TurtleQNamesTestCase {
                 df.getOWLAnnotationProperty(IRI.create("urn:test/p")),
                 IRI.create("urn:test/r"), IRI.create("urn:test/"));
         // when
-        OWLOntology o = Factory.getManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(input));
         // then
         assertTrue(o.getAxioms().contains(expected));
     }
@@ -55,8 +55,8 @@ public class TurtleQNamesTestCase {
         // given
         String input = "@base <http://test.org/path#> .\n" + "<a1> <b1> <c1> .";
         // when
-        OWLOntology o = Factory.getManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(input));
         // then
         String axioms = o.getAxioms().toString();
         assertTrue(axioms.contains("http://test.org/a1"));
@@ -72,15 +72,14 @@ public class TurtleQNamesTestCase {
                 + "ex:ex1 a ex:Something ; ex:prop1 _:a .\n"
                 + "_:a a ex:Something1 ; ex:prop2 _:b .\n"
                 + "_:b a ex:Something ; ex:prop3 _:a .";
-        OWLOntology ontology = Factory.getManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(input));
         StringDocumentTarget t = new StringDocumentTarget();
         TurtleOntologyFormat format = new TurtleOntologyFormat();
-        // format.setPrefix(":", NS);
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto1 = t.toString();
-        ontology = Factory.getManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(t.toString()));
+        ontology = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(t.toString()));
         t = new StringDocumentTarget();
         format = new TurtleOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);

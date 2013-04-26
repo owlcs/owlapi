@@ -36,39 +36,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.anonymous;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 30-Jul-2008<br><br>
- */
-
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Information Management Group<br>
+ * Date: 30-Jul-2008<br>
+ * <br> */
 public class AnonymousInversesTestCase extends AbstractFileRoundTrippingTestCase {
-
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "AnonymousInverses.rdf";
     }
 
     /*
-        Manchester syntax and functional syntax are commented out.  This isn't supported
-        in the Manchester syntax (current spec) and the functional syntax parser needs fixing
-        once the OWL 2 spec has stabilised.
+     * Manchester syntax and functional syntax are commented out. This isn't
+     * supported in the Manchester syntax (current spec) and the functional
+     * syntax parser needs fixing once the OWL 2 spec has stabilised.
      */
-
     @Override
-	@Test
+    @Test
     public void testManchesterOWLSyntax() throws Exception {
-//        super.testManchesterOWLSyntax();
+        // super.testManchesterOWLSyntax();
     }
 
-
     @Override
-	@Test
+    @Test
     public void testFunctionalSyntax() throws Exception {
         super.testFunctionalSyntax();
     }

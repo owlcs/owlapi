@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
@@ -48,19 +47,17 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLRestriction;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
-public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends AbstractOWLRestrictionTestCase<OWLDataProperty> {
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
+public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends
+        AbstractOWLRestrictionTestCase<OWLDataProperty> {
+    protected abstract OWLDataCardinalityRestriction createRestriction(
+            OWLDataProperty prop, int cardinality) throws Exception;
 
-    protected abstract OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality) throws Exception;
-
-    protected abstract OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop, int cardinality, OWLDataRange dataRange) throws Exception;
-
+    protected abstract OWLDataCardinalityRestriction createRestriction(
+            OWLDataProperty prop, int cardinality, OWLDataRange dataRange)
+            throws Exception;
 
     @SuppressWarnings("rawtypes")
     @Override
@@ -68,12 +65,10 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
         return createRestriction(prop, 3);
     }
 
-
     @Override
     protected OWLDataProperty createProperty() throws OWLException {
         return createOWLDataProperty();
     }
-
 
     @Override
     @Test
@@ -81,12 +76,12 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
         OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
         int cardinality = 3;
         OWLDataCardinalityRestriction restA = createRestriction(prop, cardinality);
-        assertNotNull("restriction should not be null",restA);
+        assertNotNull("restriction should not be null", restA);
         OWLDataRange dataRange = getFactory().getOWLDatatype(createIRI());
-        OWLDataCardinalityRestriction restB = createRestriction(prop, cardinality, dataRange);
-        assertNotNull("restriction should not be null",restB);
+        OWLDataCardinalityRestriction restB = createRestriction(prop, cardinality,
+                dataRange);
+        assertNotNull("restriction should not be null", restB);
     }
-
 
     @Override
     @Test
@@ -95,13 +90,14 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
         int cardinality = 3;
         OWLDataCardinalityRestriction restA = createRestriction(prop, cardinality);
         OWLDataCardinalityRestriction restB = createRestriction(prop, cardinality);
-        assertEquals("restrictions should be equal",restA, restB);
+        assertEquals("restrictions should be equal", restA, restB);
         OWLDataRange dataRange = getFactory().getOWLDatatype(createIRI());
-        OWLDataCardinalityRestriction restC = createRestriction(prop, cardinality, dataRange);
-        OWLDataCardinalityRestriction restD = createRestriction(prop, cardinality, dataRange);
-        assertEquals("restrictions should be equal",restC, restD);
+        OWLDataCardinalityRestriction restC = createRestriction(prop, cardinality,
+                dataRange);
+        OWLDataCardinalityRestriction restD = createRestriction(prop, cardinality,
+                dataRange);
+        assertEquals("restrictions should be equal", restC, restD);
     }
-
 
     @Override
     @Test
@@ -112,15 +108,18 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
         OWLDataCardinalityRestriction restB = createRestriction(prop, 4);
         assertNotEquals(restA, restB);
         // Different property
-        OWLDataCardinalityRestriction restC = createRestriction(getFactory().getOWLDataProperty(createIRI()), 3);
-        OWLDataCardinalityRestriction restD = createRestriction(getFactory().getOWLDataProperty(createIRI()), 3);
+        OWLDataCardinalityRestriction restC = createRestriction(getFactory()
+                .getOWLDataProperty(createIRI()), 3);
+        OWLDataCardinalityRestriction restD = createRestriction(getFactory()
+                .getOWLDataProperty(createIRI()), 3);
         assertNotEquals(restC, restD);
         // Different filler
-        OWLDataCardinalityRestriction restE = createRestriction(prop, 3, getFactory().getOWLDatatype(createIRI()));
-        OWLDataCardinalityRestriction restF = createRestriction(prop, 3, getFactory().getOWLDatatype(createIRI()));
+        OWLDataCardinalityRestriction restE = createRestriction(prop, 3, getFactory()
+                .getOWLDatatype(createIRI()));
+        OWLDataCardinalityRestriction restF = createRestriction(prop, 3, getFactory()
+                .getOWLDatatype(createIRI()));
         assertNotEquals(restE, restF);
     }
-
 
     @Override
     @Test
@@ -128,8 +127,10 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends Abst
         OWLDataProperty prop = getFactory().getOWLDataProperty(createIRI());
         int cardinality = 3;
         OWLDataRange dataRange = getFactory().getOWLDatatype(createIRI());
-        OWLDataCardinalityRestriction restA = createRestriction(prop, cardinality, dataRange);
-        OWLDataCardinalityRestriction restB = createRestriction(prop, cardinality, dataRange);
+        OWLDataCardinalityRestriction restA = createRestriction(prop, cardinality,
+                dataRange);
+        OWLDataCardinalityRestriction restB = createRestriction(prop, cardinality,
+                dataRange);
         assertEquals(restA, restB);
     }
 }

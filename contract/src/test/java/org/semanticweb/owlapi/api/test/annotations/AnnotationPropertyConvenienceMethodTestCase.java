@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.annotations;
+
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
@@ -48,61 +48,51 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 05/01/2011
- */
-
+ * Date: 05/01/2011 */
 @SuppressWarnings("javadoc")
 public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPITestCase {
-
     @Test
     public void testGetSuperProperties() {
         OWLOntology ont = getOWLOntology("OntA");
-
         OWLDataFactory df = ont.getOWLOntologyManager().getOWLDataFactory();
         OWLAnnotationProperty propP = getOWLAnnotationProperty("propP");
         OWLAnnotationProperty propQ = getOWLAnnotationProperty("propQ");
         OWLAnnotationProperty propR = getOWLAnnotationProperty("propR");
-        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
-        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
-
+        ont.getOWLOntologyManager().addAxiom(ont,
+                df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
+        ont.getOWLOntologyManager().addAxiom(ont,
+                df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
         assertTrue(propP.getSuperProperties(ont).contains(propQ));
         assertTrue(propP.getSuperProperties(Collections.singleton(ont)).contains(propQ));
         assertTrue(propP.getSuperProperties(ont, true).contains(propQ));
         assertTrue(propP.getSuperProperties(ont, false).contains(propQ));
-
-
         assertTrue(propP.getSuperProperties(ont).contains(propR));
         assertTrue(propP.getSuperProperties(Collections.singleton(ont)).contains(propR));
         assertTrue(propP.getSuperProperties(ont, true).contains(propR));
         assertTrue(propP.getSuperProperties(ont, false).contains(propR));
     }
 
-
     @Test
     public void testGetSubProperties() {
         OWLOntology ont = getOWLOntology("OntA");
-
         OWLDataFactory df = ont.getOWLOntologyManager().getOWLDataFactory();
         OWLAnnotationProperty propP = getOWLAnnotationProperty("propP");
         OWLAnnotationProperty propQ = getOWLAnnotationProperty("propQ");
         OWLAnnotationProperty propR = getOWLAnnotationProperty("propR");
-        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
-        ont.getOWLOntologyManager().addAxiom(ont, df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
-
+        ont.getOWLOntologyManager().addAxiom(ont,
+                df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
+        ont.getOWLOntologyManager().addAxiom(ont,
+                df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
         assertTrue(propQ.getSubProperties(ont).contains(propP));
         assertTrue(propQ.getSubProperties(Collections.singleton(ont)).contains(propP));
         assertTrue(propQ.getSubProperties(ont, true).contains(propP));
         assertTrue(propQ.getSubProperties(ont, false).contains(propP));
-
         assertTrue(propR.getSubProperties(ont).contains(propP));
         assertTrue(propR.getSubProperties(Collections.singleton(ont)).contains(propP));
         assertTrue(propR.getSubProperties(ont, true).contains(propP));
         assertTrue(propR.getSubProperties(ont, false).contains(propP));
     }
-
-
 }

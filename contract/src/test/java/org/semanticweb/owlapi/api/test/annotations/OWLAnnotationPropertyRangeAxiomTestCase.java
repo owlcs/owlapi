@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.annotations;
 
 import java.util.Collections;
@@ -48,20 +47,18 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16/12/2010
- */
-
-public class OWLAnnotationPropertyRangeAxiomTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
+ * Date: 16/12/2010 */
+public class OWLAnnotationPropertyRangeAxiomTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLDataFactory df = getFactory();
         OWLAnnotationProperty prop = df.getRDFSComment();
-        OWLAxiom ax = df.getOWLAnnotationPropertyRangeAxiom(prop, IRI.create("http://ont.com#A"));
+        OWLAxiom ax = df.getOWLAnnotationPropertyRangeAxiom(prop,
+                IRI.create("http://ont.com#A"));
         return Collections.singleton(ax);
     }
 }

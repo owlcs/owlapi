@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
@@ -45,34 +45,25 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 23-Apr-2009
- */
+ * Date: 23-Apr-2009 */
 @SuppressWarnings("javadoc")
 public class DataMaxCardinalityTestCase extends AbstractFileRoundTrippingTestCase {
-
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClass clsA = getOWLClass("A");
         OWLDataProperty prop = getOWLDataProperty("p");
-        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA, getFactory().getOWLDataMaxCardinality(3, prop)));
+        axioms.add(getFactory().getOWLSubClassOfAxiom(clsA,
+                getFactory().getOWLDataMaxCardinality(3, prop)));
         axioms.add(getFactory().getOWLDeclarationAxiom(prop));
         assertEquals(getOnt().getAxioms(), axioms);
-    }
-
-    @Override
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        //  System.out.println(target);
     }
 
     @Override

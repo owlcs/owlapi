@@ -92,7 +92,7 @@ public class ContractDlsyntaxTest {
             private static final long serialVersionUID = 30402L;
 
             @Override
-            public boolean canStoreOntology(final OWLOntologyFormat ontologyFormat) {
+            public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
                 return false;
             }
         };

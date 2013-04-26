@@ -68,18 +68,15 @@ public class ContractOwlapiIoTest {
     public void shouldTestAbstractOWLParser() throws Exception {
         AbstractOWLParser testSubject0 = new AbstractOWLParser() {
             @Override
-            public OWLOntologyFormat parse(
-                    final OWLOntologyDocumentSource documentSource,
-                    final OWLOntology ontology) throws OWLParserException, IOException,
+            public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+                    OWLOntology ontology) throws OWLParserException, IOException,
                     OWLOntologyChangeException, UnloadableImportException {
                 return null;
             }
 
             @Override
-            public OWLOntologyFormat parse(
-                    final OWLOntologyDocumentSource documentSource,
-                    final OWLOntology ontology,
-                    final OWLOntologyLoaderConfiguration configuration)
+            public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+                    OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
                     throws OWLParserException, IOException, OWLOntologyChangeException,
                     UnloadableImportException {
                 return null;
@@ -99,7 +96,7 @@ public class ContractOwlapiIoTest {
     public void shouldTestAbstractOWLRenderer() throws Exception {
         AbstractOWLRenderer testSubject0 = new AbstractOWLRenderer() {
             @Override
-            public void render(final OWLOntology ontology, final Writer writer)
+            public void render(OWLOntology ontology, Writer writer)
                     throws OWLRendererException {}
         };
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));

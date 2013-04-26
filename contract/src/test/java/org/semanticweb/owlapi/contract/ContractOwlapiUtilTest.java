@@ -89,13 +89,13 @@ public class ContractOwlapiUtilTest {
             private static final long serialVersionUID = 30402L;
 
             @Override
-            public boolean canStoreOntology(final OWLOntologyFormat ontologyFormat) {
+            public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
                 return false;
             }
 
             @Override
-            protected void storeOntology(final OWLOntology ontology, final Writer writer,
-                    final OWLOntologyFormat format) throws OWLOntologyStorageException {}
+            protected void storeOntology(OWLOntology ontology, Writer writer,
+                    OWLOntologyFormat format) throws OWLOntologyStorageException {}
         };
         String result0 = testSubject0.toString();
         boolean result1 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
@@ -157,13 +157,10 @@ public class ContractOwlapiUtilTest {
                 mock(ShortFormProvider.class));
         testSubject0.dispose();
         testSubject0.add(Utils.mockOWLEntity());
-        testSubject0.remove(Utils.mockOWLEntity());
-        testSubject0.update(Utils.mockOWLEntity());
         String result0 = testSubject0.getShortForm(Utils.mockOWLEntity());
         Set<OWLEntity> result1 = testSubject0.getEntities("");
         OWLEntity result2 = testSubject0.getEntity("");
         Set<String> result3 = testSubject0.getShortForms();
-        testSubject0.rebuild(mock(OWLEntitySetProvider.class));
         String result4 = testSubject0.toString();
     }
 
@@ -171,19 +168,16 @@ public class ContractOwlapiUtilTest {
     public void shouldTestCachingBidirectionalShortFormProvider() throws Exception {
         CachingBidirectionalShortFormProvider testSubject0 = new CachingBidirectionalShortFormProvider() {
             @Override
-            protected String generateShortForm(final OWLEntity entity) {
+            protected String generateShortForm(OWLEntity entity) {
                 return null;
             }
         };
         testSubject0.add(Utils.mockOWLEntity());
-        testSubject0.remove(Utils.mockOWLEntity());
-        testSubject0.update(Utils.mockOWLEntity());
         testSubject0.dispose();
         String result0 = testSubject0.getShortForm(Utils.mockOWLEntity());
         Set<OWLEntity> result1 = testSubject0.getEntities("");
         OWLEntity result2 = testSubject0.getEntity("");
         Set<String> result3 = testSubject0.getShortForms();
-        testSubject0.rebuild(mock(OWLEntitySetProvider.class));
         String result4 = testSubject0.toString();
     }
 
@@ -353,8 +347,8 @@ public class ContractOwlapiUtilTest {
             }
 
             @Override
-            protected void addAxioms(final OWLClass entity, final OWLReasoner reasoner,
-                    final OWLDataFactory dataFactory, final Set<OWLClassAxiom> result) {}
+            protected void addAxioms(OWLClass entity, OWLReasoner reasoner,
+                    OWLDataFactory dataFactory, Set<OWLClassAxiom> result) {}
         };
         String result0 = testSubject0.toString();
         Set<OWLClassAxiom> result1 = testSubject0.createAxioms(Utils.getMockManager(),
@@ -371,9 +365,8 @@ public class ContractOwlapiUtilTest {
             }
 
             @Override
-            protected void addAxioms(final OWLDataProperty entity,
-                    final OWLReasoner reasoner, final OWLDataFactory dataFactory,
-                    final Set<OWLDataPropertyAxiom> result) {}
+            protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner,
+                    OWLDataFactory dataFactory, Set<OWLDataPropertyAxiom> result) {}
         };
         String result0 = testSubject0.toString();
         Set<OWLDataPropertyAxiom> result1 = testSubject0.createAxioms(
@@ -438,9 +431,8 @@ public class ContractOwlapiUtilTest {
             }
 
             @Override
-            protected void addAxioms(final OWLNamedIndividual entity,
-                    final OWLReasoner reasoner, final OWLDataFactory dataFactory,
-                    final Set<OWLIndividualAxiom> result) {}
+            protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner,
+                    OWLDataFactory dataFactory, Set<OWLIndividualAxiom> result) {}
         };
         String result0 = testSubject0.toString();
         Set<OWLIndividualAxiom> result1 = testSubject0.createAxioms(
@@ -467,9 +459,8 @@ public class ContractOwlapiUtilTest {
             }
 
             @Override
-            protected void addAxioms(final OWLObjectProperty entity,
-                    final OWLReasoner reasoner, final OWLDataFactory dataFactory,
-                    final Set<OWLObjectPropertyAxiom> result) {}
+            protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
+                    OWLDataFactory dataFactory, Set<OWLObjectPropertyAxiom> result) {}
         };
         String result0 = testSubject0.toString();
         Set<OWLObjectPropertyAxiom> result1 = testSubject0.createAxioms(
@@ -644,10 +635,10 @@ public class ContractOwlapiUtilTest {
     public void shouldTestOWLAxiomTypeProcessor() throws Exception {
         OWLAxiomTypeProcessor testSubject0 = new OWLAxiomTypeProcessor() {
             @Override
-            public void visit(final OWLDatatypeDefinitionAxiom axiom) {}
+            public void visit(OWLDatatypeDefinitionAxiom axiom) {}
 
             @Override
-            protected void process(final OWLAxiom axiom, final AxiomType<?> type) {}
+            protected void process(OWLAxiom axiom, AxiomType<?> type) {}
         };
         String result0 = testSubject0.toString();
     }

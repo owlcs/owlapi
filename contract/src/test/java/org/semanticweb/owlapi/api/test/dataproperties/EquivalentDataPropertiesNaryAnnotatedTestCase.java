@@ -36,28 +36,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.dataproperties;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataProperty;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 25-Nov-2009
- */
-
-public class EquivalentDataPropertiesNaryAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
-
+ * Date: 25-Nov-2009 */
+public class EquivalentDataPropertiesNaryAnnotatedTestCase extends
+        AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
-	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return getFactory().getOWLEquivalentDataPropertiesAxiom(getOWLDataProperty("p"), getOWLDataProperty("q"), getOWLDataProperty("r"));
+    protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
+        return getFactory().getOWLEquivalentDataPropertiesAxiom(
+                new HashSet<OWLDataProperty>(Arrays.asList(getOWLDataProperty("p"),
+                        getOWLDataProperty("q"), getOWLDataProperty("r"))), annos);
     }
 
     @Override

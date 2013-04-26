@@ -67,15 +67,12 @@ public class UTF8RoundTripTestCase {
          * The two unicode characters entered here are valid and can be found in
          * the code chart http://www.unicode.org/charts/PDF/U4E00.pdf. It has
          * been said that they are chinese and they do look the part. In UTF-8
-         * these characters are encoded as
-         *
-         * \u8655 --> \350\231\225 \u65b9 --> \346\226\271
-         *
-         * where the right hand side is in octal. (I chose octal because this is
-         * how emacs represents it with find-file-literally).
+         * these characters are encoded as \u8655 --> \350\231\225 \u65b9 -->
+         * \346\226\271 where the right hand side is in octal. (I chose octal
+         * because this is how emacs represents it with find-file-literally).
          */
         String CHINESE = "Rx\u8655\u65b9";
-        System.setProperty("file.encoding", "UTF-8"); // doesn't matter
+        System.setProperty("file.encoding", "UTF-8");
         OWLOntology ontology = createOriginalOntology(factory, NS, C, CHINESE);
         checkOntology(ontology, C, CHINESE);
         OWLOntology newOntology = roundTrip(ontology, true);
@@ -95,7 +92,8 @@ public class UTF8RoundTripTestCase {
         return ontology;
     }
 
-    private static boolean checkOntology(OWLOntology ontology, OWLClass C, String CHINESE) {
+    private static boolean
+            checkOntology(OWLOntology ontology, OWLClass C, String CHINESE) {
         for (OWLAnnotation annotation : C.getAnnotations(ontology)) {
             String value = ((OWLLiteral) annotation.getValue()).getLiteral();
             return CHINESE.equals(value);

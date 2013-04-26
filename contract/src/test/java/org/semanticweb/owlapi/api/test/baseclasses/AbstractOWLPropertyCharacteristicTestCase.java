@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
@@ -46,24 +45,18 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
-public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPropertyExpression<?,?>> extends AbstractOWLDataFactoryTest {
-
-
+public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPropertyExpression<?, ?>>
+        extends AbstractOWLDataFactoryTest {
     @Override
     @Test
     public void testCreation() throws Exception {
         OWLPropertyAxiom axiom = createOWLPropertyAxiom(createProperty());
         assertNotNull("axiom should not be null", axiom);
     }
-
 
     @Override
     @Test
@@ -73,7 +66,6 @@ public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPro
         OWLPropertyAxiom axiomB = createOWLPropertyAxiom(prop);
         assertEquals(axiomA, axiomB);
     }
-
 
     @Override
     @Test
@@ -85,8 +77,8 @@ public abstract class AbstractOWLPropertyCharacteristicTestCase<P extends OWLPro
 
     protected abstract P createProperty() throws Exception;
 
-    protected abstract OWLPropertyAxiom createOWLPropertyAxiom(P property) throws OWLException;
-
+    protected abstract OWLPropertyAxiom createOWLPropertyAxiom(P property)
+            throws OWLException;
 
     @Override
     @Test

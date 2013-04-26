@@ -70,15 +70,12 @@ public class RenderingExample {
             throw new IllegalArgumentException("Ontology iris cannot be null");
         }
         // A simple example of how to load and save an ontology
-
         /* Get an Ontology Manager */
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-
         IRI inputDocumentIRI = IRI.create(inputOntology);
         IRI outputDocumentIRI = IRI.create(outputOntology);
         /* Load an ontology from a document IRI */
-        OWLOntology ontology = manager
-                .loadOntologyFromOntologyDocument(inputDocumentIRI);
+        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputDocumentIRI);
         /* Report information about the ontology */
         System.out.println("Ontology Loaded...");
         System.out.println("Document IRI: " + inputDocumentIRI);

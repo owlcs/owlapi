@@ -37,6 +37,7 @@
  * limitations under the License.
  */
 package org.semanticweb.owlapi.api.test.individuals;
+
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -47,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class AllDifferentTestCase {
-    private String onto1 = "<?xml version=\"1.0\"?>\n"
+    private final String onto1 = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xml:base = \"http://example.org/\" "
             + "xmlns = \"http://example.org/\" xmlns:owl = \"http://www.w3.org/2002/07/owl#\" "
             + "xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"> <owl:Ontology/>"
@@ -57,7 +58,7 @@ public class AllDifferentTestCase {
             + "<rdf:Description rdf:about=\"Peter_Griffin\" /> "
             + "<rdf:Description rdf:about=\"Petre\" /> "
             + "</owl:distinctMembers> </owl:AllDifferent> </rdf:RDF>";
-    private String onto2 = "<?xml version=\"1.0\"?>\n"
+    private final String onto2 = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xml:base = \"http://example.org/\" xmlns = \"http://example.org/\" "
             + "xmlns:owl = \"http://www.w3.org/2002/07/owl#\" "
             + "xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><owl:Ontology/>"

@@ -49,7 +49,7 @@ public class ManchesterOWLSyntaxParserTestCase {
 
     @Test
     public void shouldParseCorrectly() throws ParserException,
-    OWLOntologyCreationException {
+            OWLOntologyCreationException {
         // given
         String text1 = "'GWAS study' and  has_publication_date some dateTime[< \"2009-01-01T00:00:00+00:00\"^^dateTime]";
         OWLClassExpression expected = factory.getOWLObjectIntersectionOf(a, factory
@@ -73,7 +73,7 @@ public class ManchesterOWLSyntaxParserTestCase {
                 manager.getOntologies(), sfp);
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 factory, text1);
-        final ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
+        ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
                 shortFormProvider);
         parser.setOWLEntityChecker(owlEntityChecker);
         parser.setDefaultOntology(o);
@@ -84,7 +84,7 @@ public class ManchesterOWLSyntaxParserTestCase {
         assertEquals(expected, dsvf);
     }
 
-    public OWLAxiom annotation(OWLEntity e, String s) {
+    public OWLAxiom annotation(final OWLEntity e, final String s) {
         return factory.getOWLAnnotationAssertionAxiom(e.getIRI(), factory
                 .getOWLAnnotation(factory.getRDFSLabel(), factory.getOWLLiteral(s)));
     }

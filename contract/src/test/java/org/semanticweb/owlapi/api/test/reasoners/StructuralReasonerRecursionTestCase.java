@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.reasoners;
 
 import org.junit.Test;
@@ -49,15 +48,12 @@ import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 01-Jul-2010
- */
+ * Date: 01-Jul-2010 */
 @SuppressWarnings("javadoc")
 public class StructuralReasonerRecursionTestCase extends AbstractFileTestCase {
-
     @Override
     protected String getFileName() {
         return "koala.owl";
@@ -68,7 +64,8 @@ public class StructuralReasonerRecursionTestCase extends AbstractFileTestCase {
         OWLOntology ontology = createOntology();
         String ontName = ontology.getOntologyID().getOntologyIRI().toString();
         OWLDataFactory factory = getFactory();
-        StructuralReasoner reasoner = new StructuralReasoner(ontology, new SimpleConfiguration(), BufferingMode.BUFFERING);
+        StructuralReasoner reasoner = new StructuralReasoner(ontology,
+                new SimpleConfiguration(), BufferingMode.BUFFERING);
         OWLClass cls = factory.getOWLClass(IRI.create(ontName + "#Koala"));
         reasoner.getSubClasses(cls, false);
         reasoner.getSuperClasses(cls, false);

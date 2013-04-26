@@ -1,4 +1,5 @@
 package org.semanticweb.owlapi.api.test.anonymous;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -42,21 +43,12 @@ public class AnonymousFunctionalRoundtripTestCase {
             + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
             + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
             + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
-            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n"
-            + "\n"
-            + "\n"
-            + "Ontology(<http://namespace.owl>\n"
-            + "\n"
-            + "Declaration(Class(:C))\n"
-            + "SubClassOf(:C ObjectHasValue(:p _:genid2))\n"
-            + "Declaration(Class(:D))\n"
-            + "Declaration(ObjectProperty(:p))\n"
-            + "Declaration(DataProperty(:q))\n"
+            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n" + "\n" + "\n"
+            + "Ontology(<http://namespace.owl>\n" + "\n" + "Declaration(Class(:C))\n"
+            + "SubClassOf(:C ObjectHasValue(:p _:genid2))\n" + "Declaration(Class(:D))\n"
+            + "Declaration(ObjectProperty(:p))\n" + "Declaration(DataProperty(:q))\n"
             + "ClassAssertion(:D _:genid2)\n"
-            + "DataPropertyAssertion(:q _:genid2 \"hello\"^^xsd:string)\n"
-            + ")";
-
-
+            + "DataPropertyAssertion(:q _:genid2 \"hello\"^^xsd:string)\n" + ")";
 
     @Test
     public void shouldRoundTripFixed() throws OWLOntologyCreationException {
@@ -85,11 +77,11 @@ public class AnonymousFunctionalRoundtripTestCase {
         OWLOntology ontology = manager.createOntology(IRI.create(NS));
         OWLDataFactory factory = manager.getOWLDataFactory();
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-
-        changes.add(new AddAxiom(ontology, factory.getOWLSubClassOfAxiom(C, factory.getOWLObjectHasValue(P, i))));
+        changes.add(new AddAxiom(ontology, factory.getOWLSubClassOfAxiom(C,
+                factory.getOWLObjectHasValue(P, i))));
         changes.add(new AddAxiom(ontology, factory.getOWLClassAssertionAxiom(D, i)));
-        changes.add(new AddAxiom(ontology, factory.getOWLDataPropertyAssertionAxiom(Q, i, factory.getOWLLiteral("hello"))));
-
+        changes.add(new AddAxiom(ontology, factory.getOWLDataPropertyAssertionAxiom(Q, i,
+                factory.getOWLLiteral("hello"))));
         manager.applyChanges(changes);
         String saved = saveOntology(ontology, new RDFXMLOntologyFormat());
         ontology = loadOntology(saved);
@@ -112,5 +104,4 @@ public class AnonymousFunctionalRoundtripTestCase {
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(ontologyFile));
         return ontology;
     }
-
 }

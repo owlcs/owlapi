@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import java.util.HashSet;
@@ -47,17 +46,14 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 09-Jun-2009
- */
-
-public class ObjectPropertyAssertionWithAnonymousIndividualsTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
+ * Date: 09-Jun-2009 */
+public class ObjectPropertyAssertionWithAnonymousIndividualsTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
-	protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         OWLIndividual subject = getFactory().getOWLAnonymousIndividual();
         OWLIndividual object = getFactory().getOWLAnonymousIndividual();
         OWLObjectProperty prop = getOWLObjectProperty("prop");

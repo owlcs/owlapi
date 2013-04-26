@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.baseclasses;
+
 import static org.junit.Assert.assertFalse;
 
 import org.semanticweb.owlapi.api.test.TestUtils;
@@ -49,19 +49,13 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
+ * Bio-Health Informatics Group Date: 25-Oct-2006
  * <p/>
- * The base for test cases that need a data factory.
- */
+ * The base for test cases that need a data factory. */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLDataFactoryTest extends AbstractOWLAPITestCase {
-
-
-
     public static IRI createIRI() {
         return TestUtils.createIRI();
     }
@@ -99,8 +93,7 @@ public abstract class AbstractOWLDataFactoryTest extends AbstractOWLAPITestCase 
     }
 
     protected OWLLiteral createOWLLiteral() {
-        return getFactory().getOWLLiteral("Test" + System.currentTimeMillis(), createOWLDatatype());
+        return getFactory().getOWLLiteral("Test" + System.currentTimeMillis(),
+                createOWLDatatype());
     }
-
-
 }

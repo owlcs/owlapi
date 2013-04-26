@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import java.util.HashSet;
@@ -47,21 +46,19 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTe
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 09-Jun-2009
- */
-
-public class EquivalentObjectPropertiesWithInversesTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
+ * Date: 09-Jun-2009 */
+public class EquivalentObjectPropertiesWithInversesTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
-	protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLObjectProperty propA = getOWLObjectProperty("propA");
         OWLObjectProperty propB = getOWLObjectProperty("propB");
-        axioms.add(getFactory().getOWLEquivalentObjectPropertiesAxiom(propA.getInverseProperty(), propB.getInverseProperty()));
+        axioms.add(getFactory().getOWLEquivalentObjectPropertiesAxiom(
+                propA.getInverseProperty(), propB.getInverseProperty()));
         axioms.add(getFactory().getOWLDeclarationAxiom(propA));
         axioms.add(getFactory().getOWLDeclarationAxiom(propB));
         return axioms;
@@ -70,7 +67,8 @@ public class EquivalentObjectPropertiesWithInversesTestCase extends AbstractAxio
     @Override
     @Test
     public void testManchesterOWLSyntax() throws Exception {
-        // Can't represent inverse object property frames in Manchester OWL Syntax
-//        super.testManchesterOWLSyntax();
+        // Can't represent inverse object property frames in Manchester OWL
+        // Syntax
+        // super.testManchesterOWLSyntax();
     }
 }

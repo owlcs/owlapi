@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import java.util.Collections;
@@ -48,20 +47,16 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 09-May-2007<br><br>
- */
+ * Date: 09-May-2007<br>
+ * <br> */
 public class EquivalentClassesTestCase extends AbstractRendererAndParser {
-
     @Override
     protected String getClassExpression() {
         return "Equivalent classes axioms test case";
     }
-
 
     @Override
     protected Set<OWLAxiom> getAxioms() {

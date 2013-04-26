@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.objectproperties;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
@@ -45,19 +45,15 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 21-Jan-2009
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 21-Jan-2009 */
 @SuppressWarnings("javadoc")
 public class InverseOfTestCase extends AbstractFileRoundTrippingTestCase {
-
-
     @Test
     public void testContains() {
         OWLObjectProperty propP = getOWLObjectProperty("p");
@@ -65,11 +61,6 @@ public class InverseOfTestCase extends AbstractFileRoundTrippingTestCase {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(getFactory().getOWLInverseObjectPropertiesAxiom(propP, propQ));
         assertEquals(axioms, getOnt().getAxioms());
-    }
-
-    @Override
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        //System.out.println(target);
     }
 
     @Override

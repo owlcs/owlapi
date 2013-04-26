@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.anonymous;
 
 import java.util.ArrayList;
@@ -52,26 +51,21 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 02-Jul-2009
- */
+ * Date: 02-Jul-2009 */
 @SuppressWarnings("javadoc")
 public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
-
-    private Map<OWLAnonymousIndividual, OWLAnonymousIndividual> renamingMap = new HashMap<OWLAnonymousIndividual, OWLAnonymousIndividual>();
-
-    private OWLDataFactory dataFactory;
-
+    private final Map<OWLAnonymousIndividual, OWLAnonymousIndividual> renamingMap = new HashMap<OWLAnonymousIndividual, OWLAnonymousIndividual>();
+    private final OWLDataFactory dataFactory;
     private int counter = 0;
 
-    /**
-     * Creates an object duplicator that duplicates objects using the specified
+    /** Creates an object duplicator that duplicates objects using the specified
      * data factory.
-     * @param dataFactory The data factory to be used for the duplication.
-     */
+     * 
+     * @param dataFactory
+     *            The data factory to be used for the duplication. */
     public AnonymousIndividualsNormaliser(OWLDataFactory dataFactory) {
         super(dataFactory);
         this.dataFactory = dataFactory;
@@ -81,7 +75,7 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
         List<OWLAxiom> axiomsList = new ArrayList<OWLAxiom>(axioms);
         Collections.sort(axiomsList);
         Set<OWLAxiom> normalised = new HashSet<OWLAxiom>();
-        for(OWLAxiom ax : axiomsList) {
+        for (OWLAxiom ax : axiomsList) {
             OWLAxiom dup = duplicateObject(ax);
             normalised.add(dup);
         }
@@ -89,9 +83,9 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
     }
 
     @Override
-	public void visit(OWLAnonymousIndividual individual) {
+    public void visit(OWLAnonymousIndividual individual) {
         OWLAnonymousIndividual ind = renamingMap.get(individual);
-        if(ind == null) {
+        if (ind == null) {
             counter++;
             ind = dataFactory.getOWLAnonymousIndividual("anon-ind-" + counter);
             renamingMap.put(individual, ind);

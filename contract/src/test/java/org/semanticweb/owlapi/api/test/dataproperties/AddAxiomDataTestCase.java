@@ -10,17 +10,13 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 22/10/2012
- */
+ * Date: 22/10/2012 */
 @SuppressWarnings("javadoc")
 public class AddAxiomDataTestCase {
-
     private OWLAxiom mockAxiom;
-
     private OWLOntology mockOntology;
 
     @Before
@@ -33,7 +29,6 @@ public class AddAxiomDataTestCase {
     public void testNewWithNullArgs() {
         new AddAxiomData(null);
     }
-
 
     @Test
     public void testEquals() {
@@ -56,5 +51,4 @@ public class AddAxiomDataTestCase {
         AddAxiom change = new AddAxiom(mockOntology, mockAxiom);
         assertEquals(data, change.getChangeData());
     }
-
 }

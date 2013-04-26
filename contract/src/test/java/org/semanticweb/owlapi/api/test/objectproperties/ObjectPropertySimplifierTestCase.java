@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.objectproperties;
+
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -46,15 +46,13 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 06-Jun-2008<br><br>
- */
+ * Date: 06-Jun-2008<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class ObjectPropertySimplifierTestCase extends AbstractOWLAPITestCase {
-
     @Test
     public void testNamedSimplification() {
         OWLObjectProperty p = getFactory().getOWLObjectProperty(IRI.create("p"));

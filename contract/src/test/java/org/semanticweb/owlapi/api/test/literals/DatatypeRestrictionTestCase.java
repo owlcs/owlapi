@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.literals;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
@@ -45,39 +45,30 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 02-Feb-2009
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 02-Feb-2009 */
 @SuppressWarnings("javadoc")
 public class DatatypeRestrictionTestCase extends AbstractFileRoundTrippingTestCase {
-
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLDataRange dr = getFactory().getOWLDatatypeRestriction(
                 getFactory().getIntegerOWLDatatype(),
                 getFactory().getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, 18),
-                getFactory().getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, 30)
-                );
+                getFactory().getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, 30));
         OWLDataProperty p = getOWLDataProperty("p");
         OWLDataPropertyRangeAxiom ax = getFactory().getOWLDataPropertyRangeAxiom(p, dr);
         axioms.add(ax);
         axioms.add(getFactory().getOWLDeclarationAxiom(p));
         assertEquals(getOnt().getAxioms(), axioms);
-    }
-
-    @Override
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        //System.out.println(target);
     }
 
     @Override

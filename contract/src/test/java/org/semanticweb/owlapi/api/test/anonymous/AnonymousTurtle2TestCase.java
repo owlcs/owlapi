@@ -36,49 +36,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.anonymous;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 30-Jul-2008<br><br>
- */
-
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Information Management Group<br>
+ * Date: 30-Jul-2008<br>
+ * <br> */
 public class AnonymousTurtle2TestCase extends AbstractFileRoundTrippingTestCase {
-
     @Override
-	protected String getFileName() {
+    protected String getFileName() {
         return "testBlankNodes2.ttl";
     }
 
     @Override
     @Test
     public void testTurtle() throws Exception {
-//XXX roundtripping is broken but the results seem semantically equivalent
-//    	super.testTurtle();
+        // XXX roundtripping is broken but the results seem semantically
+        // equivalent
+        // super.testTurtle();
     }
 
     @Override
     @Test
-    public void testFunctionalSyntax() throws Exception {
-    }
+    public void testFunctionalSyntax() throws Exception {}
+
     @Override
     @Test
-    public void testManchesterOWLSyntax() throws Exception {
+    public void testManchesterOWLSyntax() throws Exception {}
 
-    }
     @Override
     @Test
-    public void testOWLXML() throws Exception {
+    public void testOWLXML() throws Exception {}
 
-    }
     @Override
     @Test
-    public void testRDFXML() throws Exception {
-
-    }
-
+    public void testRDFXML() throws Exception {}
 }

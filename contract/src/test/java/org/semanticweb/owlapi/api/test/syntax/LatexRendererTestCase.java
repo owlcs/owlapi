@@ -10,7 +10,6 @@ import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
-
 public class LatexRendererTestCase {
     String input = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n"
@@ -28,7 +27,7 @@ public class LatexRendererTestCase {
         OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input));
         StringDocumentTarget target = new StringDocumentTarget();
-        final LatexOntologyFormat ontologyFormat = new LatexOntologyFormat();
+        LatexOntologyFormat ontologyFormat = new LatexOntologyFormat();
         o.getOWLOntologyManager().saveOntology(o, ontologyFormat, target);
         assertTrue(target.toString().contains("C\\_Test"));
     }

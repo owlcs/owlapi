@@ -36,26 +36,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.classexpressions;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 25-Nov-2009
- */
-
-public class EquivalentClassesAxiomAnnotatedTestCase extends AbstractAnnotatedAxiomRoundTrippingTestCase {
-
+ * Date: 25-Nov-2009 */
+public class EquivalentClassesAxiomAnnotatedTestCase extends
+        AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
-	protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return getFactory().getOWLEquivalentClassesAxiom(getOWLClass("A"), getOWLClass("B"));
+    protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
+        return getFactory().getOWLEquivalentClassesAxiom(
+                new HashSet<OWLClass>(Arrays.asList(getOWLClass("A"), getOWLClass("B"))),
+                annos);
     }
 }

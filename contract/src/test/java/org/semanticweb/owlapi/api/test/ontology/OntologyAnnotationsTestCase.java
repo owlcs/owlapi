@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.ontology;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
@@ -47,19 +46,17 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 23-Nov-2009
- */
-
+ * Date: 23-Nov-2009 */
 public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
-
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("AnnotationOntology");
-        OWLAnnotationProperty prop = getFactory().getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
+        OWLAnnotationProperty prop = getFactory()
+                .getOWLAnnotationProperty(
+                        IRI.create("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
         OWLLiteral value = getFactory().getOWLLiteral(33);
         OWLAnnotation annotation = getFactory().getOWLAnnotation(prop, value);
         getManager().applyChange(new AddOntologyAnnotation(ont, annotation));

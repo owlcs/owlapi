@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.*;
@@ -51,20 +50,17 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 12-Oct-2008<br><br>
- */
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Information Management Group<br>
+ * Date: 12-Oct-2008<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
-
-
     @Override
     protected String getFileName() {
         return "SubClassOf.rdf";
     }
-
 
     @Test
     public void testCorrectAxioms() {
@@ -75,10 +71,7 @@ public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
-
-    /**
-     * Tests the isGCI method on OWLSubClassAxiom
-     */
+    /** Tests the isGCI method on OWLSubClassAxiom */
     @Test
     public void testIsGCIMethod() {
         OWLClass clsA = getOWLClass("A");
@@ -89,6 +82,5 @@ public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
         assertFalse(ax1.isGCI());
         OWLSubClassOfAxiom ax2 = getFactory().getOWLSubClassOfAxiom(desc, clsB);
         assertTrue(ax2.isGCI());
-
     }
 }

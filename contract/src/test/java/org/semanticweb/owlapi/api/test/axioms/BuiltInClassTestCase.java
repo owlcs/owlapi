@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.*;
@@ -52,33 +51,26 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 29-Apr-2007<br><br>
+ * Date: 29-Apr-2007<br>
+ * <br>
  * <p/>
- * Tests that the isOWLThing and isOWLNothing methods
- * return correct values.
- */
+ * Tests that the isOWLThing and isOWLNothing methods return correct values. */
 @SuppressWarnings("javadoc")
 public class BuiltInClassTestCase {
-
     private OWLDataFactory dataFactory;
-
 
     @Before
     public void setUp() {
         dataFactory = new OWLDataFactoryImpl();
     }
 
-
     @After
     public void tearDown() {
         dataFactory = null;
     }
-
 
     @Test
     public void testOWLThing() {
@@ -89,7 +81,8 @@ public class BuiltInClassTestCase {
 
     @Test
     public void testOWLThingFromURI() {
-        OWLClassExpression desc = dataFactory.getOWLClass(OWLRDFVocabulary.OWL_THING.getIRI());
+        OWLClassExpression desc = dataFactory.getOWLClass(OWLRDFVocabulary.OWL_THING
+                .getIRI());
         assertTrue(desc.isOWLThing());
         assertFalse(desc.isOWLNothing());
     }
@@ -103,17 +96,17 @@ public class BuiltInClassTestCase {
 
     @Test
     public void testOWLNothingFromURI() {
-        OWLClassExpression desc = dataFactory.getOWLClass(OWLRDFVocabulary.OWL_NOTHING.getIRI());
+        OWLClassExpression desc = dataFactory.getOWLClass(OWLRDFVocabulary.OWL_NOTHING
+                .getIRI());
         assertTrue(desc.isOWLNothing());
         assertFalse(desc.isOWLThing());
     }
 
     @Test
     public void testAnonymousClass() {
-        OWLClassExpression desc = dataFactory.getOWLObjectHasSelf(dataFactory.getOWLObjectProperty(TestUtils.createIRI()));
+        OWLClassExpression desc = dataFactory.getOWLObjectHasSelf(dataFactory
+                .getOWLObjectProperty(TestUtils.createIRI()));
         assertFalse(desc.isOWLThing());
         assertFalse(desc.isOWLNothing());
     }
-
-
 }
