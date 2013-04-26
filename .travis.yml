@@ -1,10 +1,5 @@
-<<<<<<< master
-
-language: java
-=======
 language: java
 jdk:
   - openjdk6
   - openjdk7
   - oraclejdk7
->>>>>>> 74c5860 Add all three supported JDKs to .travis.yml
