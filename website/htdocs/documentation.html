@@ -1,0 +1,431 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<link type="text/css" rel="stylesheet" href="owlapi.css"/>
+<title>documentation</title>
+</head>
+
+<body>
+
+<div align="center" class="body_content">
+<div class="menu_bar">
+
+<!-- *** MENU BAR *** -->
+<span class="menu_bar_item"><a href="index.html">Home</a></span>
+<span class="menu_bar_item"><a href="https://sourceforge.net/projects/owlapi/files/">Download</a></span>
+<span class="menu_bar_item"><a href="source.html">Source</a></span>
+<span class="menu_bar_item"><a href="support.html">Support</a></span>
+<span class="menu_bar_item_active">Documentation</span>
+<span class="menu_bar_item"><a href="reasoners.html">Reasoners</a></span>
+<span class="menu_bar_item"><a href="publications.html">Publications</a></span>
+</div>
+
+
+<!-- *** MAIN TITLE *** -->
+<div class="title">Documentation</div>
+
+
+<div align="justify">
+<div class="content">
+
+<!-- *** PAGE CONTENT GOES HERE *** -->
+
+
+<p><span class="highlight">Javadoc</span> 
+for the API may be found included in the 
+<a href="https://sourceforge.net/projects/owlapi/files/">release</a> </p>
+
+<p>Many requests have come in for the online javadoc to be <a href="http://owlapi.sourceforge.net/javadoc/index.html">updated - now at release 3.4.3</a></p>
+
+<p>In order to use the API in your own applications, you should 
+<a href="https://sourceforge.net/projects/owlapi/files/">download 
+the latest binary release</a> 
+and ensure that all of the jar files are in the application class path.</p>
+
+<p>The central point of access is the OWLOntologyManager, which is used to 
+<span class="highlight">load</span>, <span class="highlight">create</span> 
+and <span class="highlight">access</span> ontologies.
+The examples below show how to create an instance of this class and how 
+to use it.</p>
+
+
+<h1>Code examples</h1>
+<div class="list">
+<ul>
+<li>
+<a href="owled2011_tutorial.pdf">The Rough Guide to the OWL API</a>, 
+a tutorial presented at OWLED 2011, can be found here.
+</li>
+<li>
+<a 
+href="https://sourceforge.net/p/owlapi/code/ci/aef6981535f07a2d0d44c394b9f4d5415f36025a/tree/contract/src/main/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/">Source 
+code for The Rough Guide to the OWL API</a> 
+(includes most of the code available in the subsequent examples).
+</li>
+
+<li>
+<a 
+href="https://sourceforge.net/p/owlapi/code/ci/aef6981535f07a2d0d44c394b9f4d5415f36025a/tree/contract/src/test/java/org/coode/owlapi/examples/">DL 
+Query Example</a> presenting an example of how to query an ontology.</li>
+</ul>
+
+<ul><li>
+<a 
+href="https://sourceforge.net/p/owlapi/code/ci/aef6981535f07a2d0d44c394b9f4d5415f36025a/tree/contract/src/test/java/org/coode/owlapi/examples/">Examples</a> 
+include:
+</li>
+<li>- How to <span class="highlight">load</span> an ontology</li>
+<li>- How to <span class="highlight">save</span> an ontology</li>
+<li>- How to obtain references to <span class="highlight">entities</span> 
+(classes, properties, individuals etc.)</li>
+<li>- How to work with <span class="highlight">data types and other 
+data ranges</span></li>
+<li>- How to work with <span class="highlight">user defined 
+data ranges</span> (e.g. int > 10)</li>
+<li>- How to work with <span class="highlight">string, data 
+values and language tags</span></li>
+<li>- How to create an empty ontology, <span class="highlight">add 
+axioms</span> and save</li>
+<li>- How to specify that an <span class="highlight">individual is 
+an instance of a class</span></li>
+<li>- How to specify that two individuals are 
+<span class="highlight">related</span> to each other.</li>
+<li>- How to add an <span class="highlight">object property 
+assertion (triple)</span> to an ontology</li>
+<li>- How to <span class="highlight">delete entities</span> 
+(classes, properties and individuals) from an ontology</li>
+<li>- How to create <span class="highlight">restrictions</span> 
+and ''add them to classes'' as superclasses</li>
+<li>- How to create an ontology and add some <span class="highlight">rules</span></li>
+<li>- How to interact with a <span class="highlight">reasoner</span></li>
+<li>- How to collect the <span class="highlight">properties</span> 
+that are used in <span class="highlight">restrictions</span> on a given class </li>
+<li>- How to work with <span class="highlight">annotations</span> 
+such as <span class="highlight">labels</span> and <span class="highlight">comments</span> </li>
+<li>- How to save <span class="highlight">inferred axioms</span> 
+into a new ontology, or back into an existing ontology </li>
+<li>- How two (or more) ontologies can be 
+<span class="highlight">merged</span> in a simple way </li>
+<li>- How to '<span class="highlight">walk</span>' over the 
+<span class="highlight">asserted structure</span> of an ontology.</li>
+<li>- How to use OWLOntologyIRIMappers to redirect 
+loading and loading of imports.</li>
+<li>- How to extract a locality based module from an ontology.</li>
+</ul>
+
+
+</div>
+
+<h1>Programming with the OWL API Tutorial</h1>
+<p>Note: most of the API has changed since this tutorial was written (2007). 
+The theoretical basis is, however, the same. If you are new to OWL, 
+start with this.</p>
+
+<p>
+A set of tutorial slides are available below. Some simple examples that 
+relate to the tutorial slides are provided. These illustrate parsing ontologies 
+from concrete formats; rendering to concrete formats; manipulating ontologies 
+and using inference services.  If you check out the OWL API source code from 
+the sourceforge website, the tutorial examples can be found in the tutorial 
+directory.
+</p>
+
+<h2>Slides</h2>
+<p>Slides are available in PDF format: </p>
+<ul>
+<li><a href="SKB-SemTech-OWLAPI-6up.pdf">6 slides per page </a></li>
+</ul>
+
+<h2>Code examples</h2>
+
+<h3>Simple Hierarchy</h3>
+<p>
+This <a 
+href="http://owlapi.svn.sourceforge.net/viewvc/owlapi/v3/trunk/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorial/examples/SimpleHierarchyExample.java?view=markup">example</a> 
+shows how we can calculate and display a basic ontology hierarchy. 
+The example makes use of an OWLReasoner to calculate the class hierarchy, 
+then navigates the structure obtained, printing out basic information for 
+each of the classes.</p>
+<p>
+The example either uses a StructuralReasoner, which returns information about 
+the hierarchy based solely on the assertions that are made in the ontology.
+</p>
+
+<h3>Rendering example</h3>
+<p>
+This <a 
+href="http://owlapi.svn.sourceforge.net/viewvc/owlapi/v3/trunk/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorial/examples/RenderingExample.java?view=markup">example</a> 
+shows the definition of a simple renderer. The renderer provided an HTML 
+page describing the entities in the ontology.</p>
+
+<h3>Closure Axioms</h3>
+<p>
+This <a 
+href="http://owlapi.svn.sourceforge.net/viewvc/owlapi/v3/trunk/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorial/examples/ClosureAxiomsExample.java?view=markup">example</a> 
+illustrates manipulation of axioms in an ontology.</p>
+
+<h3>Debugging</h3>
+<p>
+This <a 
+href="http://owlapi.svn.sourceforge.net/viewvc/owlapi/v3/trunk/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorial/examples/SimpleHierarchyExample.java?view=markup">example</a> 
+illustrates the use of the debugger. The debugger identifies axioms causing 
+inconsistencies in OWL ontologies.</p>
+
+
+<h2>Name Changes from OWL API 2 to OWL API 3</h2>
+<p>
+Version 3 of the OWL API is backward incompatible with version 2 of 
+the OWL API.  The reason for this is that it was decided to align the 
+names of interfaces with the names used in the
+ <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/">OWL 2 
+ Structural Specification</a>.  The main API interfaces and corresponding 
+ name changes are shown in the table below.  It should be noted that the 
+ <code>URI</code> class has been replaces with the <code>IRI</code> class.  
+ Additionally, package names have changed.  In general, replace "owl" with 
+ "owlapi" in client code to rename OWL API 2 package names to OWL API 3 
+ package names.  For example, <code>org.semanticweb.owl.model</code> has 
+ become <code>org.semanticweb.owlapi.model</code>.
+
+</p>
+
+<table>
+<tr><td>	<b>OWL API 2 Interface</b>	</td><td>	<b>OWL API 3 Interface</b>	</td></tr>
+<tr><td>	  AddAxiom	</td><td>		</td></tr>
+<tr><td>	  AxiomType	</td><td>		</td></tr>
+<tr><td>	  DataRangeType	</td><td>	DatarangeType	</td></tr>
+<tr><td>	  DefaultChangeBroadcastStrategy	</td><td>		</td></tr>
+<tr><td>	  DescriptionType	</td><td>	ClassExpressionType	</td></tr>
+<tr><td>	  ImmutableOWLOntologyChangeException	</td><td>		</td></tr>
+<tr><td>	  MissingImportEvent	</td><td>		</td></tr>
+<tr><td>	  MissingImportListener	</td><td>		</td></tr>
+<tr><td>	  NamespaceManager	</td><td>	PrefixManager	</td></tr>
+<tr><td>	  OWLAnnotation	</td><td>		</td></tr>
+<tr><td>	  OWLAnnotationAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLAnnotationVisitor	</td><td>		</td></tr>
+<tr><td>	  OWLAnnotationVisitorEx	</td><td>		</td></tr>
+<tr><td>	  OWLAnonymousDescription	</td><td>	OWLAnonymousClassExpression	</td></tr>
+<tr><td>	  OWLAnonymousIndividual	</td><td>		</td></tr>
+<tr><td>	  OWLAntiSymmetricObjectPropertyAxiom	</td><td>	OWLAsymmetricObjectPropertyAxiom	</td></tr>
+<tr><td>	  OWLAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLAxiomAnnotationAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLAxiomChange	</td><td>		</td></tr>
+<tr><td>	  OWLAxiomVisitor	</td><td>		</td></tr>
+<tr><td>	  OWLAxiomVisitorEx	</td><td>		</td></tr>
+<tr><td>	  OWLBooleanDescription	</td><td>	OWLBooleanClassExpression	</td></tr>
+<tr><td>	  OWLCardinalityRestriction	</td><td>		</td></tr>
+<tr><td>	  OWLClass	</td><td>		</td></tr>
+<tr><td>	  OWLClassAssertionAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLClassAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLCommentAnnotation	</td><td>	 Use an annotation with rdfs:comment as the property	</td></tr>
+<tr><td>	  OWLCompositeOntologyChange	</td><td>		</td></tr>
+<tr><td>	  OWLConstant	</td><td>	OWLLiteral	</td></tr>
+<tr><td>	  OWLConstantAnnotation	</td><td>		</td></tr>
+<tr><td>	  OWLDataAllRestriction	</td><td>	OWLDataAllValuesFrom	</td></tr>
+<tr><td>	  OWLDataCardinalityRestriction	</td><td>		</td></tr>
+<tr><td>	  OWLDataComplementOf	</td><td>		</td></tr>
+<tr><td>	  OWLDataExactCardinalityRestriction	</td><td>	OWLDataExactCardinality	</td></tr>
+<tr><td>	  OWLDataFactory	</td><td>		</td></tr>
+<tr><td>	  OWLDataMaxCardinalityRestriction	</td><td>	OWLDataMaxCardinality	</td></tr>
+<tr><td>	  OWLDataMinCardinalityRestriction	</td><td>	OWLDataMinCardinality	</td></tr>
+<tr><td>	  OWLDataOneOf	</td><td>		</td></tr>
+<tr><td>	  OWLDataProperty	</td><td>		</td></tr>
+<tr><td>	  OWLDataPropertyAssertionAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLDataPropertyAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLDataPropertyCharacteristicAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLDataPropertyDomainAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLDataPropertyExpression	</td><td>		</td></tr>
+<tr><td>	  OWLDataPropertyRangeAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLDataRange	</td><td>		</td></tr>
+<tr><td>	  OWLDataRangeFacetRestriction	</td><td>	OWLFacetRestriction	</td></tr>
+<tr><td>	  OWLDataRangeRestriction	</td><td>	OWLDatatypeRestriction	</td></tr>
+<tr><td>	  OWLDataSomeRestriction	</td><td>	OWLDataSomeValiesFrom	</td></tr>
+<tr><td>	  OWLDataSubPropertyAxiom	</td><td>	OWLSubDataPropertyOfAxiom	</td></tr>
+<tr><td>	  OWLDataType	</td><td>	OWLDatatype	</td></tr>
+<tr><td>	  OWLDataValueRestriction	</td><td>	OWLDataHasValue	</td></tr>
+<tr><td>	  OWLDataVisitor	</td><td>		</td></tr>
+<tr><td>	  OWLDataVisitorEx	</td><td>		</td></tr>
+<tr><td>	  OWLDeclarationAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLDeprecatedClassAxiom	</td><td>	 Deprecation on IRIs is done using a built in annotation	</td></tr>
+<tr><td>	  OWLDeprecatedDataPropertyAxiom	</td><td>	 Deprecation on IRIs is done using a built in annotation	</td></tr>
+<tr><td>	  OWLDeprecatedObjectPropertyAxiom	</td><td>	 Deprecation on IRIs is done using a built in annotation	</td></tr>
+<tr><td>	  OWLDescription	</td><td>	OWLClassExpression	</td></tr>
+<tr><td>	  OWLDescriptionVisitor	</td><td>	OWLClassExpressionVisitor	</td></tr>
+<tr><td>	  OWLDescriptionVisitorEx	</td><td>	OWLClassExpressionVisitorEx	</td></tr>
+<tr><td>	  OWLDifferentIndividualsAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLDisjointClassesAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLDisjointDataPropertiesAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLDisjointObjectPropertiesAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLDisjointUnionAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLEntity	</td><td>		</td></tr>
+<tr><td>	  OWLEntityAnnotationAxiom	</td><td>	OWLAnnotationAssertionAxiom	</td></tr>
+<tr><td>	  OWLEntityVisitor	</td><td>		</td></tr>
+<tr><td>	  OWLEntityVisitorEx	</td><td>		</td></tr>
+<tr><td>	  OWLEquivalentClassesAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLEquivalentDataPropertiesAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLEquivalentObjectPropertiesAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLException	</td><td>		</td></tr>
+<tr><td>	  OWLFunctionalDataPropertyAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLFunctionalObjectPropertyAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLImportsDeclaration	</td><td>	<Note> This is no longer an axiom	</td></tr>
+<tr><td>	  OWLIndividual	</td><td>	OWLNamedIndividual	</td></tr>
+<tr><td>	  OWLIndividualAxiom	</td><td>		</td></tr>
+<tr><td>	 OWLInverseFunctionalObjectPropertyAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLInverseObjectPropertiesAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLIrreflexiveObjectPropertyAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLLabelAnnotation	</td><td>	 Use an annotation with rdfs:label as the property	</td></tr>
+<tr><td>	  OWLLogicalAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLMutableOntology	</td><td>		</td></tr>
+<tr><td>	  OWLNamedObject	</td><td>		</td></tr>
+<tr><td>	  OWLNamedObjectVisitor	</td><td>		</td></tr>
+<tr><td>	  OWLNamedObjectVisitorEx	</td><td>		</td></tr>
+<tr><td>	  OWLNaryBooleanDescription	</td><td>	OWLNaryBooleanClassExpression	</td></tr>
+<tr><td>	  OWLNaryClassAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLNaryIndividualAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLNaryPropertyAxiom	</td><td>		</td></tr>
+<tr><td>	 OWLNegativeDataPropertyAssertionAxiom	</td><td>		</td></tr>
+<tr><td>	 OWLNegativeObjectPropertyAssertionAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLObject	</td><td>		</td></tr>
+<tr><td>	  OWLObjectAllRestriction	</td><td>	OWLObjectAllValuesFrom	</td></tr>
+<tr><td>	  OWLObjectAnnotation	</td><td>		</td></tr>
+<tr><td>	  OWLObjectCardinalityRestriction	</td><td>		</td></tr>
+<tr><td>	  OWLObjectComplementOf	</td><td>		</td></tr>
+<tr><td>	  OWLObjectExactCardinalityRestriction	</td><td>	OWLObjectExactCardinality	</td></tr>
+<tr><td>	  OWLObjectIntersectionOf	</td><td>		</td></tr>
+<tr><td>	  OWLObjectMaxCardinalityRestriction	</td><td>	OWLObjectMaxCardinality	</td></tr>
+<tr><td>	  OWLObjectMinCardinalityRestriction	</td><td>	OWLObjectMinCardinality	</td></tr>
+<tr><td>	  OWLObjectOneOf	</td><td>		</td></tr>
+<tr><td>	  OWLObjectProperty	</td><td>		</td></tr>
+<tr><td>	  OWLObjectPropertyAssertionAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLObjectPropertyAxiom	</td><td>		</td></tr>
+<tr><td>	 OWLObjectPropertyChainSubPropertyAxiom	</td><td>	OWLSubPropertyChainOfAxiom	</td></tr>
+<tr><td>	  OWLObjectPropertyCharacteristicAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLObjectPropertyDomainAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLObjectPropertyExpression	</td><td>		</td></tr>
+<tr><td>	  OWLObjectPropertyInverse	</td><td>		</td></tr>
+<tr><td>	  OWLObjectPropertyRangeAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLObjectSelfRestriction	</td><td>	OWLObjectHasSelf	</td></tr>
+<tr><td>	  OWLObjectSomeRestriction	</td><td>	OWLObjectSomeValuesFrom	</td></tr>
+<tr><td>	  OWLObjectSubPropertyAxiom	</td><td>	OWLSubObjectPropertyOfAxiom	</td></tr>
+<tr><td>	  OWLObjectUnionOf	</td><td>		</td></tr>
+<tr><td>	  OWLObjectValueRestriction	</td><td>	OWLObjectHasValue	</td></tr>
+<tr><td>	  OWLObjectVisitor	</td><td>		</td></tr>
+<tr><td>	  OWLObjectVisitorEx	</td><td>		</td></tr>
+<tr><td>	  OWLOntology	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyAnnotationAxiom	</td><td>	  Ontology annotations are now stored directly in an ontology and not as axioms in an ontology	</td></tr>
+<tr><td>	  OWLOntologyChange	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyChangeBroadcastStrategy	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyChangeException	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyChangeListener	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyChangeVetoException	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyChangeVisitor	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyCreationException	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyFactory	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyFactoryNotFoundException	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyFormat	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyLoaderListener	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyManager	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyManagerProperties	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyResourceAccessException	</td><td>		</td></tr>
+<tr><td>	  OWLOntologySetProvider	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyStorageException	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyStorer	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyStorerNotFoundException	</td><td>		</td></tr>
+<tr><td>	  OWLOntologyURIMapper	</td><td>	OWLOntologyIRIMapper	</td></tr>
+<tr><td>	 OWLOntologyURIMappingNotFoundException	</td><td>	OWLOntologyIRIMappingNotFoundException	</td></tr>
+<tr><td>	  OWLProperty	</td><td>		</td></tr>
+<tr><td>	  OWLPropertyAssertionAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLPropertyAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLPropertyDomainAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLPropertyExpression	</td><td>		</td></tr>
+<tr><td>	  OWLPropertyExpressionVisitor	</td><td>		</td></tr>
+<tr><td>	  OWLPropertyExpressionVisitorEx	</td><td>		</td></tr>
+<tr><td>	  OWLPropertyRange	</td><td>		</td></tr>
+<tr><td>	  OWLPropertyRangeAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLQuantifiedRestriction	</td><td>		</td></tr>
+<tr><td>	  OWLReflexiveObjectPropertyAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLRestriction	</td><td>		</td></tr>
+<tr><td>	  OWLRuntimeException	</td><td>		</td></tr>
+<tr><td>	  OWLSameIndividualsAxiom	</td><td>	OWLSameIndividualAxiom	</td></tr>
+<tr><td>	  OWLSubClassAxiom	</td><td>	OWLSubClassOfAxiom	</td></tr>
+<tr><td>	  OWLSubPropertyAxiom	</td><td>	OWLSubPropertyOfAxiom	</td></tr>
+<tr><td>	  OWLSymmetricObjectPropertyAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLTransitiveObjectPropertyAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLTypedConstant	</td><td>	OWLTypedLiteral	</td></tr>
+<tr><td>	  OWLUnaryPropertyAxiom	</td><td>		</td></tr>
+<tr><td>	  OWLUntypedConstant	</td><td>	OWLStringLiteral	</td></tr>
+<tr><td>	  OWLValueRestriction	</td><td>	OWLHasValueRestriction	</td></tr>
+<tr><td>	  RemoveAxiom	</td><td>		</td></tr>
+<tr><td>	  SWRLAtom	</td><td>		</td></tr>
+<tr><td>	  SWRLAtomConstantObject	</td><td>	SWRLLiteralArgument	</td></tr>
+<tr><td>	  SWRLAtomDObject	</td><td>	SWRLDArgument	</td></tr>
+<tr><td>	  SWRLAtomDVariable	</td><td>	SWRLVariable	</td></tr>
+<tr><td>	  SWRLAtomIObject	</td><td>	SWRLObjectArgument	</td></tr>
+<tr><td>	  SWRLAtomIVariable	</td><td>	SWRLVariable	</td></tr>
+<tr><td>	  SWRLAtomIndividualObject	</td><td>	SWRLIndividualArgument	</td></tr>
+<tr><td>	  SWRLAtomObject	</td><td>	SWRLArgument	</td></tr>
+<tr><td>	  SWRLAtomVariable	</td><td>	SWRLVariable	</td></tr>
+<tr><td>	  SWRLBinaryAtom	</td><td>		</td></tr>
+<tr><td>	  SWRLBuiltInAtom	</td><td>		</td></tr>
+<tr><td>	  SWRLClassAtom	</td><td>		</td></tr>
+<tr><td>	  SWRLDataFactory	</td><td>		</td></tr>
+<tr><td>	  SWRLDataRangeAtom	</td><td>		</td></tr>
+<tr><td>	  SWRLDataValuedPropertyAtom	</td><td>	SWRLDataPropertyAtom	</td></tr>
+<tr><td>	  SWRLDifferentFromAtom	</td><td>	SWRLDifferentIndividualsAtom	</td></tr>
+<tr><td>	  SWRLObject	</td><td>		</td></tr>
+<tr><td>	  SWRLObjectPropertyAtom	</td><td>		</td></tr>
+<tr><td>	  SWRLObjectVisitor	</td><td>		</td></tr>
+<tr><td>	  SWRLObjectVisitorEx	</td><td>		</td></tr>
+<tr><td>	  SWRLRule	</td><td>		</td></tr>
+<tr><td>	  SWRLSameAsAtom	</td><td>	SWRLSameIndividualAtom	</td></tr>
+<tr><td>	  SWRLUnaryAtom	</td><td>		</td></tr>
+<tr><td>	  SetOntologyURI	</td><td>	SetOntologyID	</td></tr>
+<tr><td>	 SpecificOntologyChangeBroadcastStrategy	</td><td>		</td></tr>
+<tr><td>	 MonitorableOWLReasoner	</td><td>	 Set an OWLReasonerProgressMonitor in the reasoner configuration at reasoner creation time	</td></tr>
+<tr><td>	  MonitorableOWLReasonerAdapter	</td><td>		</td></tr>
+<tr><td>	  NullReasoner	</td><td>		</td></tr>
+<tr><td>	  NullReasonerFactory	</td><td>		</td></tr>
+<tr><td>	  OWLClassReasoner	</td><td>	 OWLReasoner	</td></tr>
+<tr><td>	  OWLConsistencyChecker	</td><td>	 OWLReasoner	</td></tr>
+<tr><td>	  OWLInconsistentOntologyException	</td><td>		</td></tr>
+<tr><td>	  OWLIndividualReasoner	</td><td>	 OWLReasoner	</td></tr>
+<tr><td>	  OWLPropertyReasoner	</td><td>	 OWLReasoner	</td></tr>
+<tr><td>	  OWLReasoner	</td><td>		</td></tr>
+<tr><td>	  OWLReasonerAdapter	</td><td>	 OWLReasoner	</td></tr>
+<tr><td>	  OWLReasonerBase	</td><td>	 OWLReasoner	</td></tr>
+<tr><td>	  OWLReasonerException	</td><td>		</td></tr>
+<tr><td>	  OWLReasonerFactory	</td><td>		</td></tr>
+<tr><td>	  OWLReasonerManager	</td><td>		</td></tr>
+<tr><td>	  OWLReasonerManagerEvent	</td><td>		</td></tr>
+<tr><td>	  OWLReasonerManagerImpl	</td><td>		</td></tr>
+<tr><td>	  OWLReasonerManagerListener	</td><td>		</td></tr>
+<tr><td>	  OWLSatisfiabilityChecker	</td><td>	 OWLReasoner	</td></tr>
+<tr><td>	  UndefinedEntityException	</td><td>		</td></tr>
+<tr><td>	 UnsupportedReasonerOperationException	</td><td>		</td></tr>
+
+</table>
+
+
+<!-- *** END OF PAGE CONTENT *** -->
+
+</div>
+</div>
+
+<div align="right" class="footer"> <a href="http://sourceforge.net"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=90989&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" /></a></div>
+
+</div>
+
+
+
+<!-- PAGE FOOTER -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-3531385-2");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+</body>
+</html>
