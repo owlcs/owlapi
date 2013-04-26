@@ -36,34 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clarkparsia.owlapi.explanation.util;
 
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Clark & Parsia, LLC<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Nov-2007<br><br>
- */
+ * Date: 26-Nov-2007<br>
+ * <br> */
 public class SilentExplanationProgressMonitor implements ExplanationProgressMonitor {
-
-	@Override
-    public void foundExplanation(Set<OWLAxiom> axioms) {
-    }
-
+    @Override
+    public void foundExplanation(Set<OWLAxiom> axioms) {}
 
     @Override
     public boolean isCancelled() {
         return false;
     }
 
-
     @Override
-    public void foundAllExplanations() {
-    }
+    public void foundAllExplanations() {}
 }

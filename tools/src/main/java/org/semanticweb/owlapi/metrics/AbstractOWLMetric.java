@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.metrics;
 
 import java.util.Collections;
@@ -49,33 +48,28 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br><br>
- * @param <M> the metric type
- */
-public abstract class AbstractOWLMetric<M> implements OWLMetric<M>, OWLOntologyChangeListener {
-
+ * Date: 27-Jul-2007<br>
+ * <br>
+ * 
+ * @param <M>
+ *            the metric type */
+public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
+        OWLOntologyChangeListener {
     private final OWLOntologyManager owlOntologyManager;
-
     private OWLOntology ontology;
-
     private boolean dirty;
-
     private boolean importsClosureUsed;
-
     private M value;
 
-    /**
-     * @param owlOntologyManager the manager to use
-     */
+    /** @param owlOntologyManager
+     *            the manager to use */
     public AbstractOWLMetric(OWLOntologyManager owlOntologyManager) {
         this.owlOntologyManager = owlOntologyManager;
         owlOntologyManager.addOntologyChangeListener(this);
-        dirty=true;
+        dirty = true;
     }
 
     @Override
@@ -93,33 +87,29 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>, OWLOntologyC
 
     @Override
     final public M getValue() {
-        if(dirty) {
+        if (dirty) {
             value = recomputeMetric();
         }
         return value;
     }
 
-
     private void setDirty(boolean dirty) {
         this.dirty = dirty;
     }
 
-
-    /**
-     * @return ontologies as a set
-     */
+    /** @return ontologies as a set */
     public Set<OWLOntology> getOntologies() {
         if (importsClosureUsed) {
             return owlOntologyManager.getImportsClosure(ontology);
-        }
-        else {
+        } else {
             return Collections.singleton(ontology);
         }
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
-        if(isMetricInvalidated(changes)) {
+    public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+            throws OWLException {
+        if (isMetricInvalidated(changes)) {
             setDirty(true);
         }
     }
@@ -129,45 +119,41 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>, OWLOntologyC
         return owlOntologyManager;
     }
 
-
     @Override
     public void dispose() {
         owlOntologyManager.removeOntologyChangeListener(this);
         disposeMetric();
     }
 
-
-
-
     @Override
     final public boolean isImportsClosureUsed() {
         return importsClosureUsed;
     }
 
-
     @Override
     public void setImportsClosureUsed(boolean b) {
         importsClosureUsed = b;
-        if(ontology!= null) {
+        if (ontology != null) {
             recomputeMetric();
         }
     }
 
-    /**
-     * Determines if the specified list of changes will cause the value of this metric
-     * to be invalid.
-     * @param changes The list of changes which will be examined to determine if the
-     * metric is now invalid.
-     * @return <code>true</code> if the metric value is invalidated by the specified
-     * list of changes, or <code>false</code> if the list of changes do not cause
-     * the value of this metric to be invalidated.
-     */
-    protected abstract boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes);
+    /** Determines if the specified list of changes will cause the value of this
+     * metric to be invalid.
+     * 
+     * @param changes
+     *            The list of changes which will be examined to determine if the
+     *            metric is now invalid.
+     * @return <code>true</code> if the metric value is invalidated by the
+     *         specified list of changes, or <code>false</code> if the list of
+     *         changes do not cause the value of this metric to be invalidated. */
+    protected abstract boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange> changes);
 
     protected abstract void disposeMetric();
 
     @Override
-	public String toString() {
+    public String toString() {
         return getName() + ": " + getValue();
     }
 }

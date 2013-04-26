@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clarkparsia.owlapi.explanation;
 
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -47,28 +46,23 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import com.clarkparsia.owlapi.explanation.util.DefinitionTracker;
 
 @SuppressWarnings("javadoc")
-public abstract class SingleExplanationGeneratorImpl implements TransactionAwareSingleExpGen {
-
-	private boolean inTransaction;
-
+public abstract class SingleExplanationGeneratorImpl implements
+        TransactionAwareSingleExpGen {
+    private boolean inTransaction;
     private final OWLOntologyManager owlOntologyManager;
-
     private final OWLOntology ontology;
-
     private final OWLReasoner reasoner;
-
     private final OWLReasonerFactory reasonerFactory;
-
     private final DefinitionTracker definitionTracker;
 
-    public SingleExplanationGeneratorImpl(OWLOntology ontology, OWLReasonerFactory reasonerFactory, OWLReasoner reasoner) {
+    public SingleExplanationGeneratorImpl(OWLOntology ontology,
+            OWLReasonerFactory reasonerFactory, OWLReasoner reasoner) {
         this.ontology = ontology;
         this.reasonerFactory = reasonerFactory;
         this.reasoner = reasoner;
-        this.owlOntologyManager = ontology.getOWLOntologyManager();
+        owlOntologyManager = ontology.getOWLOntologyManager();
         definitionTracker = new DefinitionTracker(ontology);
     }
-
 
     @Override
     public OWLOntologyManager getOntologyManager() {
@@ -84,9 +78,7 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
         return definitionTracker;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public OWLOntology getOntology() {
         return ontology;
@@ -98,22 +90,22 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
     }
 
     protected boolean isFirstExplanation() {
-    	return !inTransaction;
+        return !inTransaction;
     }
 
     @Override
     public void beginTransaction() {
-		if (inTransaction)
-			throw new RuntimeException( "Already in transaction" );
+        if (inTransaction) {
+            throw new RuntimeException("Already in transaction");
+        }
+        inTransaction = true;
+    }
 
-		inTransaction = true;
-	}
-
-	@Override
+    @Override
     public void endTransaction() {
-		if (!inTransaction)
-			throw new RuntimeException( "Cannot end transaction" );
-
-		inTransaction = false;
-	}
+        if (!inTransaction) {
+            throw new RuntimeException("Cannot end transaction");
+        }
+        inTransaction = false;
+    }
 }

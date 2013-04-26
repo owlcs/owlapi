@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clarkparsia.owlapi.explanation.util;
 
 import java.util.HashMap;
@@ -55,50 +54,31 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/**
- * Tracker for definitions
- */
+/** Tracker for definitions */
 public class DefinitionTracker implements OWLOntologyChangeListener {
-
-    /**
-     * Mapping from entities to the number of axioms
-     */
+    /** Mapping from entities to the number of axioms */
     private final Map<OWLEntity, Integer> referenceCounts = new HashMap<OWLEntity, Integer>();
-
     private final OWLOntology ontology;
-
-	private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-
+    private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
     private final OWLOntologyManager manager;
-
     private final Integer ONE = Integer.valueOf(1);
 
-
-    /**
-     * @param ontology ontology to track
-     */
+    /** @param ontology
+     *            ontology to track */
     public DefinitionTracker(OWLOntology ontology) {
         manager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         for (OWLOntology ont : ontology.getImportsClosure()) {
-			for (OWLOntology importOnt : manager.getImportsClosure(ont)) {
-//	            if (this.ontologies.add(importOnt)) {
-					for (OWLAxiom axiom : importOnt.getAxioms()) {
-		                addAxiom(axiom);
-					}
-//	            }
-	        }
-		}
+            for (OWLOntology importOnt : manager.getImportsClosure(ont)) {
+                for (OWLAxiom axiom : importOnt.getAxioms()) {
+                    addAxiom(axiom);
+                }
+            }
+        }
         manager.addOntologyChangeListener(this);
     }
 
-//    private void clear() {
-//        axioms.clear();
-//        ontologies.clear();
-//        referenceCounts.clear();
-//    }
-
-	private void addAxiom(OWLAxiom axiom) {
+    private void addAxiom(OWLAxiom axiom) {
         if (axioms.add(axiom)) {
             for (OWLEntity entity : getEntities(axiom)) {
                 Integer count = referenceCounts.get(entity);
@@ -112,12 +92,11 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         }
     }
 
-
     private Set<OWLEntity> getEntities(OWLObject obj) {
-    	return obj.getSignature();
+        return obj.getSignature();
     }
 
-	private void removeAxiom(OWLAxiom axiom) {
+    private void removeAxiom(OWLAxiom axiom) {
         if (axioms.remove(axiom)) {
             for (OWLEntity entity : getEntities(axiom)) {
                 Integer count = referenceCounts.get(entity);
@@ -130,49 +109,27 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         }
     }
 
-//	public void setOntology(OWLOntology ontology) {
-//		setOntologies( Collections.singleton( ontology ) );
-//	}
-
-//	public void setOntologies(Set<OWLOntology> ontologies) {
-//		clear();
-//		for (OWLOntology ont : ontologies) {
-//			for (OWLOntology importOnt : manager.getImportsClosure(ont)) {
-//	            if (this.ontologies.add(importOnt)) {
-//					for (OWLAxiom axiom : importOnt.getAxioms()) {
-//		                addAxiom(axiom);
-//					}
-//	            }
-//	        }
-//		}
-//	}
-
-//    public Set<OWLOntology> getOntologies() {
-//    	return ontologies;
-//    }
-
-    /**
-     * Checks if this entity is referred by a logical axiom in the imports
+    /** Checks if this entity is referred by a logical axiom in the imports
      * closure of the designated ontology.
-     * @param entity entity we are searching for
+     * 
+     * @param entity
+     *            entity we are searching for
      * @return <code>true</code> if there is at least one logical axiom in the
      *         imports closure of the given ontology that refers the given
-     *         entity
-     */
+     *         entity */
     public boolean isDefined(OWLEntity entity) {
         return entity.isBuiltIn() || referenceCounts.containsKey(entity);
     }
 
-
-    /**
-     * Checks if all the entities referred in the given concept are also
+    /** Checks if all the entities referred in the given concept are also
      * referred by a logical axiom in the imports closure of the designated
      * ontology.
-     * @param classExpression description that contains the entities we are searching for
+     * 
+     * @param classExpression
+     *            description that contains the entities we are searching for
      * @return <code>true</code> if all the entities in the given description
      *         are referred by at least one logical axiom in the imports closure
-     *         of the given ontology
-     */
+     *         of the given ontology */
     public boolean isDefined(OWLClassExpression classExpression) {
         for (OWLEntity entity : getEntities(classExpression)) {
             if (!isDefined(entity)) {
@@ -182,22 +139,22 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         return true;
     }
 
-
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
+    public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+            throws OWLException {
         for (OWLOntologyChange change : changes) {
-            if (!change.isAxiomChange() || !ontology.getImportsClosure().contains(change.getOntology())) {
+            if (!change.isAxiomChange()
+                    || !ontology.getImportsClosure().contains(change.getOntology())) {
                 continue;
             }
-
-			final OWLAxiom axiom = change.getAxiom();
-
+            final OWLAxiom axiom = change.getAxiom();
             if (change.isAddAxiom()) {
-				addAxiom( axiom );
+                addAxiom(axiom);
             } else if (change.isRemoveAxiom()) {
-				removeAxiom( axiom );
+                removeAxiom(axiom);
             } else {
-                throw new UnsupportedOperationException("Unrecognized axiom change: " + change);
+                throw new UnsupportedOperationException("Unrecognized axiom change: "
+                        + change);
             }
         }
     }
