@@ -69,7 +69,6 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * Medical Informatics Group<br>
  * Date: 15-Jun-2007<br><br>
  */
-@SuppressWarnings("javadoc")
 public class LatexRenderer extends AbstractOWLRenderer {
 
     private ShortFormProvider shortFormProvider = new SimpleShortFormProvider();

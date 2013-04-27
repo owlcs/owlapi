@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.net.URI;
 import java.util.Collection;
@@ -18,7 +18,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.BuiltInVocabulary;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -136,8 +135,6 @@ public class ContractOwlapiVocabTest {
         IRI result1 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");
         testSubject0.clear();
-        testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
-        testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
         Map<String, String> result2 = testSubject0.getPrefixName2PrefixMap();
         Set<String> result3 = testSubject0.getPrefixNames();
         testSubject0.setDefaultPrefix("");

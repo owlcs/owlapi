@@ -143,6 +143,14 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     @Override
+    public void copyPrefixesFrom(PrefixManager prefixManager) {
+        for (String prefixName : prefixManager.getPrefixNames()) {
+            String prefix = prefixManager.getPrefix(prefixName);
+            setPrefix(prefixName, prefix);
+        }
+    }
+
+    @Override
     public IRI getIRI(String curie) {
         if (curie.startsWith("<")) {
             return IRI.create(curie.substring(1, curie.length() - 1));

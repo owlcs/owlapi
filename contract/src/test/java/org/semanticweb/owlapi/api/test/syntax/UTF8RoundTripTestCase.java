@@ -40,8 +40,6 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.io.IOException;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
@@ -97,7 +95,8 @@ public class UTF8RoundTripTestCase {
         return false;
     }
 
-    private static OWLOntology roundTrip(OWLOntology ontology) throws IOException,
+    private static OWLOntology roundTrip(OWLOntology ontology)
+            throws
             OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntologyManager oldManager = ontology.getOWLOntologyManager();
         StringDocumentTarget target = new StringDocumentTarget();

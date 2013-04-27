@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;

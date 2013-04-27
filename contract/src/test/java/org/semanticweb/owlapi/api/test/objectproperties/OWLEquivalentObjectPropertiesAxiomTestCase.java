@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 @SuppressWarnings("javadoc")
 public class OWLEquivalentObjectPropertiesAxiomTestCase extends
         AbstractOWLDataFactoryTest {
-    public void testAsSubAxioms() throws Exception {
+    public void testAsSubAxioms() {
         OWLObjectProperty[] operands = { ObjectProperty(createIRI()),
                 ObjectProperty(createIRI()) };
         OWLEquivalentObjectPropertiesAxiom objA = EquivalentObjectProperties(operands);

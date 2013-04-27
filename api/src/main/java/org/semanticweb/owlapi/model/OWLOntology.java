@@ -57,7 +57,10 @@ import java.util.Set;
  * An ontology cannot be modified directly.  Changes must be applied via its <code>OWLOntologyManager</code>.
  */
 public interface OWLOntology extends OWLObject {
-
+    /** accept for named object visitor
+     * 
+     * @param visitor
+     *            the visitor */
     void accept(OWLNamedObjectVisitor visitor);
 
     /**
@@ -1482,8 +1485,14 @@ public interface OWLOntology extends OWLObject {
      * @return true if entity is referenced */
     boolean containsReference(OWLNamedIndividual entity);
 
+    /** @param dt
+     *            dt to check
+     * @return true if entity is referenced */
     boolean containsReference(OWLDatatype dt);
 
+    /** @param property
+     *            property to check
+     * @return true if entity is referenced */
     boolean containsReference(OWLAnnotationProperty property);
 
 }

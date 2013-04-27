@@ -87,9 +87,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
      * @param entitySetProvider
      *            The <code>OWLEntitySetProvider</code> that should be used to
      *            obtain the entities whose short forms will be cached. */
-    // XXX not in the interface
-    @Deprecated
-    public void rebuild(OWLEntitySetProvider<OWLEntity> entitySetProvider) {
+    protected void rebuild(OWLEntitySetProvider<OWLEntity> entitySetProvider) {
         shortForm2EntityMap.clear();
         entity2ShortFormMap.clear();
         for (OWLEntity entity : entitySetProvider.getEntities()) {
@@ -118,9 +116,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
      * 
      * @param entity
      *            The entity to be removed. */
-    // XXX not in the interface
-    @Deprecated
-    public void remove(OWLEntity entity) {
+    protected void remove(OWLEntity entity) {
         String shortForm = entity2ShortFormMap.remove(entity);
         if (shortForm != null) {
             shortForm2EntityMap.remove(shortForm);

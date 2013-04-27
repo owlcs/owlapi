@@ -103,29 +103,6 @@ public class OptimisedListTranslator<O extends OWLObject> {
 		}
 	}
 
-	//    private void translateList(IRI mainNode, List<O> list) {
-	//        
-	//        IRI firstResource = consumer.getFirstResource(mainNode, true);
-	//        if (firstResource != null) {
-	//            list.add(translator.translate(firstResource));
-	//        }
-	//        else {
-	//            OWLLiteral literal = consumer.getFirstLiteral(mainNode);
-	//            if (literal != null) {
-	//                list.add(translator.translate(literal));
-	//            }
-	//            else {
-	//                // Empty list?
-	//                if (logger.isLoggable(Level.FINE)) {
-	//                    logger.fine("Possible malformed list: rdf:first triple missing");
-	//                }
-	//            }
-	//        }
-	//        IRI rest = consumer.getRest(mainNode, true);
-	//        if (rest != null) {
-	//            translateList(rest, list);
-	//        }
-	//    }
 	public List<O> translateList(IRI mainNode) {
 		boolean shared = consumer.isSharedAnonymousNode(mainNode);
 		List<O> list;

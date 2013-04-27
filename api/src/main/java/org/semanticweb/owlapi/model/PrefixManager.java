@@ -135,6 +135,12 @@ public interface PrefixManager extends Serializable {
      */
     void setPrefix(String prefixName, String prefix);
 
+    /** Copies the prefix from another prefix manager into this one
+     * 
+     * @param from
+     *            The manager that the prefixes should be copied from */
+    void copyPrefixesFrom(PrefixManager from);
+
     /** Removes a previously registerd prefix namespace mapping
      * 
      * @param namespace

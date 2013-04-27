@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
 import org.semanticweb.owlapi.rdf.syntax.RDFParserException;
 import org.semanticweb.owlapi.rdf.util.RDFConstants;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.xml.sax.Locator;
@@ -378,8 +377,6 @@ public class ContractSmallsTest {
         IRI result6 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");
         testSubject0.clear();
-        testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
-        testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
         Map<String, String> result7 = testSubject0.getPrefixName2PrefixMap();
         Set<String> result8 = testSubject0.getPrefixNames();
         testSubject0.setDefaultPrefix("");

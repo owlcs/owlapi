@@ -118,6 +118,11 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
     }
 
     @Override
+    public void copyPrefixesFrom(PrefixManager prefixManager) {
+        nsm.copyPrefixesFrom(prefixManager);
+    }
+
+    @Override
     public void unregisterNamespace(String namespace) {
         nsm.unregisterNamespace(namespace);
     }

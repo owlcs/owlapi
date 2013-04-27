@@ -42,7 +42,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
@@ -74,7 +73,7 @@ public class Utf8RoundTrip001TestCase {
 
     @Test
     public void testPositiveUTF8roundTrip() throws OWLOntologyCreationException,
-            IOException, OWLOntologyStorageException {
+            OWLOntologyStorageException {
         String NS = "http://protege.org/UTF8.owl";
         OWLOntologyManager manager;
         OWLOntology ontology;

@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Bio-Health Informatics Group<br>
  * Date: 10-May-2007<br><br>
  */
-@SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
