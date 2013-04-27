@@ -15,12 +15,15 @@ import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLogicalAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -211,5 +214,36 @@ public class TurtleTestCase {
             }
         }
         assertEquals(3, anns.size());
+    }
+
+    @Test
+    public void presentDeclaration() throws Exception {
+        // given
+        String input = "<urn:test#Settlement> rdf:type owl:Class.\n"
+                + "<urn:test#fm2.owl> rdf:type owl:Ontology.\n"
+                + "<urn:test#numberOfPads> rdf:type owl:ObjectProperty ;\n"
+                + "rdfs:domain <urn:test#Settlement> .";
+        // when
+        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(input));
+        // then
+        for (OWLLogicalAxiom ax : o.getLogicalAxioms()) {
+            assertTrue(ax instanceof OWLObjectPropertyDomainAxiom);
+        }
+    }
+
+    @Test
+    public void missingDeclaration() throws Exception {
+        // given
+        String input = "<urn:test#fm2.owl> rdf:type owl:Ontology.\n"
+                + "<urn:test#numberOfPads> rdf:type owl:ObjectProperty ;\n"
+                + "rdfs:domain <urn:test#Settlement> .";
+        // when
+        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(input));
+        // then
+        for (OWLLogicalAxiom ax : o.getLogicalAxioms()) {
+            assertTrue(ax instanceof OWLAnnotationAssertionAxiom);
+        }
     }
 }
