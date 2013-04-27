@@ -1,12 +1,13 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.List;
 import java.util.Set;
 
 import org.coode.owlapi.rdfxml.parser.*;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
@@ -208,6 +209,7 @@ public class ContractRdfxmlParserTest {
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
     }
 
+    @Ignore
     @Test
     public void shouldTestDataAllValuesFromTranslator() throws Exception {
         DataAllValuesFromTranslator testSubject0 = new DataAllValuesFromTranslator(
@@ -221,6 +223,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestDataCardinalityTranslator() throws Exception {
         DataCardinalityTranslator testSubject0 = new DataCardinalityTranslator(
@@ -234,6 +237,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestDataHasValueTranslator() throws Exception {
         DataHasValueTranslator testSubject0 = new DataHasValueTranslator(
@@ -247,6 +251,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestDataMaxCardinalityTranslator() throws Exception {
         DataMaxCardinalityTranslator testSubject0 = new DataMaxCardinalityTranslator(
@@ -260,6 +265,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestDataMaxQualifiedCardinalityTranslator() throws Exception {
         DataMaxQualifiedCardinalityTranslator testSubject0 = new DataMaxQualifiedCardinalityTranslator(
@@ -273,6 +279,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestDataMinCardinalityTranslator() throws Exception {
         DataMinCardinalityTranslator testSubject0 = new DataMinCardinalityTranslator(
@@ -286,6 +293,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestDataMinQualifiedCardinalityTranslator() throws Exception {
         DataMinQualifiedCardinalityTranslator testSubject0 = new DataMinQualifiedCardinalityTranslator(
@@ -311,6 +319,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestDataQualifiedCardinalityTranslator() throws Exception {
         DataQualifiedCardinalityTranslator testSubject0 = new DataQualifiedCardinalityTranslator(
@@ -335,6 +344,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestDataSomeValuesFromTranslator() throws Exception {
         DataSomeValuesFromTranslator testSubject0 = new DataSomeValuesFromTranslator(
@@ -477,6 +487,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestObjectAllValuesFromTranslator() throws Exception {
         ObjectAllValuesFromTranslator testSubject0 = new ObjectAllValuesFromTranslator(
@@ -490,6 +501,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestObjectCardinalityTranslator() throws Exception {
         ObjectCardinalityTranslator testSubject0 = new ObjectCardinalityTranslator(
@@ -503,6 +515,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestObjectComplementOfTranslator() throws Exception {
         ObjectComplementOfTranslator testSubject0 = new ObjectComplementOfTranslator(
@@ -516,6 +529,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestObjectHasSelfTranslator() throws Exception {
         ObjectHasSelfTranslator testSubject0 = new ObjectHasSelfTranslator(
@@ -529,6 +543,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestObjectHasValueTranslator() throws Exception {
         ObjectHasValueTranslator testSubject0 = new ObjectHasValueTranslator(
@@ -542,6 +557,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestObjectMaxCardinalityTranslator() throws Exception {
         ObjectMaxCardinalityTranslator testSubject0 = new ObjectMaxCardinalityTranslator(
@@ -555,6 +571,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestObjectMaxQualifiedCardinalityTranslator() throws Exception {
         ObjectMaxQualifiedCardinalityTranslator testSubject0 = new ObjectMaxQualifiedCardinalityTranslator(
@@ -568,6 +585,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestObjectMinCardinalityTranslator() throws Exception {
         ObjectMinCardinalityTranslator testSubject0 = new ObjectMinCardinalityTranslator(
@@ -581,6 +599,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestObjectMinQualifiedCardinalityTranslator() throws Exception {
         ObjectMinQualifiedCardinalityTranslator testSubject0 = new ObjectMinQualifiedCardinalityTranslator(
@@ -605,6 +624,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestObjectQualifiedCardinalityTranslator() throws Exception {
         ObjectQualifiedCardinalityTranslator testSubject0 = new ObjectQualifiedCardinalityTranslator(
@@ -618,6 +638,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestObjectSomeValuesFromTranslator() throws Exception {
         ObjectSomeValuesFromTranslator testSubject0 = new ObjectSomeValuesFromTranslator(
@@ -1093,6 +1114,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
+    @Ignore
     @Test
     public void shouldTestTPImportsHandler() throws Exception {
         TPImportsHandler testSubject0 = new TPImportsHandler(Utils.mockOWLRDFConsumer());

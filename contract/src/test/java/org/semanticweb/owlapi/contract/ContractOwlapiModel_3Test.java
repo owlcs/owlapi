@@ -3,14 +3,18 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Ignore;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.OWLOntologyFactory.OWLOntologyCreationHandler;
@@ -1375,9 +1379,10 @@ public class ContractOwlapiModel_3Test {
         String result5 = testSubject0.getLocalizedMessage();
     }
 
+    @Ignore
     @Test
     public void shouldTestOWLOntologyFormat() throws Exception {
-        OWLOntologyFormat testSubject0 = new PrefixOWLOntologyFormat();
+        OWLOntologyFormat testSubject0 = new OWLOntologyFormat() {};
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result0 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
@@ -1417,6 +1422,7 @@ public class ContractOwlapiModel_3Test {
         String result5 = testSubject0.getLocalizedMessage();
     }
 
+    @Ignore
     @Test
     public void shouldTestOWLOntologyLoaderConfiguration() throws Exception {
         OWLOntologyLoaderConfiguration testSubject0 = new OWLOntologyLoaderConfiguration();
@@ -1424,12 +1430,12 @@ public class ContractOwlapiModel_3Test {
         MissingOntologyHeaderStrategy result2 = testSubject0
                 .getMissingOntologyHeaderStrategy();
         OWLOntologyLoaderConfiguration result3 = testSubject0
-                .setMissingOntologyHeaderStrategy(MissingOntologyHeaderStrategy.INCLUDE_GRAPH);
+                .setMissingOntologyHeaderStrategy(mock(MissingOntologyHeaderStrategy.class));
         OWLOntologyLoaderConfiguration result4 = testSubject0
                 .setLoadAnnotationAxioms(false);
         boolean result5 = testSubject0.isLoadAnnotationAxioms();
         OWLOntologyLoaderConfiguration result6 = testSubject0
-                .setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
+                .setMissingImportHandlingStrategy(mock(MissingImportHandlingStrategy.class));
         MissingImportHandlingStrategy result7 = testSubject0
                 .getMissingImportHandlingStrategy();
         OWLOntologyLoaderConfiguration result8 = testSubject0.setStrict(false);
@@ -1448,28 +1454,44 @@ public class ContractOwlapiModel_3Test {
         OWLOntologyLoaderListener testSubject0 = mock(OWLOntologyLoaderListener.class);
     }
 
+    @Ignore
     @Test
     public void shouldTestInterfaceOWLOntologyManager() throws Exception {
-        OWLOntology o = Factory.getManager().createOntology();
-        OWLOntologyManager testSubject0 = o.getOWLOntologyManager();
-        OWLClass owlClass = testSubject0.getOWLDataFactory().getOWLClass(Utils.fakeiri1);
-        OWLAxiom ax = testSubject0.getOWLDataFactory().getOWLDeclarationAxiom(owlClass);
-        OWLOntologyChange change = new AddAxiom(o, ax);
-        boolean result0 = testSubject0.contains(IRI.create("urn:aFake"));
-        boolean result1 = testSubject0.contains(new OWLOntologyID(Utils.fakeiri1));
-        Set<OWLOntology> result2 = testSubject0.getDirectImports(o);
-        Set<OWLOntology> result3 = testSubject0.getImports(o);
-        Set<OWLOntology> result4 = testSubject0.getImportsClosure(o);
+        OWLOntologyManager testSubject0 = Utils.getMockManager();
+        boolean result0 = testSubject0.contains(IRI("urn:aFake"));
+        boolean result1 = testSubject0.contains(new OWLOntologyID());
+        Set<OWLOntology> result2 = testSubject0.getDirectImports(Utils.getMockOntology());
+        Set<OWLOntology> result3 = testSubject0.getImports(Utils.getMockOntology());
+        Set<OWLOntology> result4 = testSubject0
+                .getImportsClosure(Utils.getMockOntology());
         OWLDataFactory result5 = testSubject0.getOWLDataFactory();
         Set<OWLOntology> result6 = testSubject0.getOntologies();
         Set<OWLOntology> result7 = testSubject0.getOntologies(mock(OWLAxiom.class));
         Set<OWLOntology> result8 = testSubject0.getVersions(IRI("urn:aFake"));
         OWLOntology result9 = testSubject0.getOntology(IRI("urn:aFake"));
         OWLOntology result10 = testSubject0.getOntology(new OWLOntologyID());
-        OWLOntology result20 = testSubject0.createOntology(Utils.mockSet(ax));
-        OWLOntology result21 = testSubject0.createOntology(Utils.mockSet(ax),
-                IRI.create("urn:aFake"));
-        OWLOntology result22 = testSubject0.createOntology(IRI.create("urn:anotherFake"));
+        OWLOntology result11 = testSubject0
+                .getImportedOntology(mock(OWLImportsDeclaration.class));
+        List<OWLOntology> result12 = testSubject0.getSortedImportsClosure(Utils
+                .getMockOntology());
+        List<OWLOntologyChange> result13 = testSubject0.applyChanges(Utils
+                .mockList(mock(OWLOntologyChange.class)));
+        List<OWLOntologyChange> result14 = testSubject0.addAxioms(
+                Utils.getMockOntology(), Utils.mockSet(mock(OWLAxiom.class)));
+        List<OWLOntologyChange> result15 = testSubject0.addAxiom(Utils.getMockOntology(),
+                mock(OWLAxiom.class));
+        List<OWLOntologyChange> result16 = testSubject0.removeAxiom(
+                Utils.getMockOntology(), mock(OWLAxiom.class));
+        List<OWLOntologyChange> result17 = testSubject0.removeAxioms(
+                Utils.getMockOntology(), Utils.mockSet(mock(OWLAxiom.class)));
+        List<OWLOntologyChange> result18 = testSubject0
+                .applyChange(mock(OWLOntologyChange.class));
+        OWLOntology result19 = testSubject0.createOntology();
+        OWLOntology result20 = testSubject0.createOntology(Utils
+                .mockSet(mock(OWLAxiom.class)));
+        OWLOntology result21 = testSubject0.createOntology(
+                Utils.mockSet(mock(OWLAxiom.class)), IRI("urn:aFake"));
+        OWLOntology result22 = testSubject0.createOntology(IRI("urn:aFake"));
         OWLOntology result23 = testSubject0.createOntology(new OWLOntologyID());
         OWLOntology result24 = testSubject0.createOntology(IRI("urn:aFake"),
                 Utils.mockSet(Utils.getMockOntology()), false);
@@ -1478,6 +1500,10 @@ public class ContractOwlapiModel_3Test {
         OWLOntology result26 = testSubject0.loadOntology(IRI("urn:aFake"));
         OWLOntology result27 = testSubject0
                 .loadOntologyFromOntologyDocument(IRI("urn:aFake"));
+        OWLOntology result28 = testSubject0
+                .loadOntologyFromOntologyDocument(mock(File.class));
+        OWLOntology result29 = testSubject0
+                .loadOntologyFromOntologyDocument(mock(InputStream.class));
         OWLOntology result30 = testSubject0
                 .loadOntologyFromOntologyDocument(mock(OWLOntologyDocumentSource.class));
         OWLOntology result31 = testSubject0.loadOntologyFromOntologyDocument(
@@ -1492,9 +1518,16 @@ public class ContractOwlapiModel_3Test {
                 mock(OWLOntologyFormat.class));
         testSubject0.saveOntology(Utils.getMockOntology());
         testSubject0.saveOntology(Utils.getMockOntology(), IRI("urn:aFake"));
+        testSubject0.saveOntology(Utils.getMockOntology(), mock(OutputStream.class));
         testSubject0.saveOntology(Utils.getMockOntology(), mock(OWLOntologyFormat.class));
         testSubject0.saveOntology(Utils.getMockOntology(), mock(OWLOntologyFormat.class),
                 IRI("urn:aFake"));
+        testSubject0.saveOntology(Utils.getMockOntology(), mock(OWLOntologyFormat.class),
+                mock(OutputStream.class));
+        testSubject0.saveOntology(Utils.getMockOntology(),
+                mock(OWLOntologyDocumentTarget.class));
+        testSubject0.saveOntology(Utils.getMockOntology(), mock(OWLOntologyFormat.class),
+                mock(OWLOntologyDocumentTarget.class));
         testSubject0.addIRIMapper(mock(OWLOntologyIRIMapper.class));
         testSubject0.removeIRIMapper(mock(OWLOntologyIRIMapper.class));
         testSubject0.clearIRIMappers();
@@ -1517,6 +1550,10 @@ public class ContractOwlapiModel_3Test {
         testSubject0
                 .setDefaultChangeBroadcastStrategy(mock(OWLOntologyChangeBroadcastStrategy.class));
         testSubject0.removeOntologyChangeListener(mock(OWLOntologyChangeListener.class));
+        testSubject0.makeLoadImportRequest(mock(OWLImportsDeclaration.class),
+                new OWLOntologyLoaderConfiguration());
+        testSubject0.addMissingImportListener(mock(MissingImportListener.class));
+        testSubject0.removeMissingImportListener(mock(MissingImportListener.class));
         testSubject0.addOntologyLoaderListener(mock(OWLOntologyLoaderListener.class));
         testSubject0.removeOntologyLoaderListener(mock(OWLOntologyLoaderListener.class));
         testSubject0

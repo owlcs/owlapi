@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -73,7 +74,6 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternals;
@@ -1708,19 +1708,13 @@ public class ContractOwlapi_2Test {
         boolean result31 = testSubject0.isBottomEntity();
     }
 
+    @Ignore
     @Test
     public void shouldTestOWLLiteralImpl() throws Exception {
-        OWLLiteralImpl testSubject0 = new OWLLiteralImpl("test", "en",
-                new OWLDatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()));
-        if (testSubject0.isBoolean()) {
+        OWLLiteralImpl testSubject0 = new OWLLiteralImpl("", "", mock(OWLDatatype.class));
         boolean result0 = testSubject0.parseBoolean();
-        }
-        if (testSubject0.isFloat()) {
             float result1 = testSubject0.parseFloat();
-        }
-        if (testSubject0.isDouble()) {
             double result2 = testSubject0.parseDouble();
-        }
         Object result3 = testSubject0.accept(Utils.mockObject());
         testSubject0.accept(mock(OWLDataVisitor.class));
         Object result4 = testSubject0.accept(Utils.mockData());
@@ -1733,10 +1727,8 @@ public class ContractOwlapi_2Test {
         boolean result9 = testSubject0.hasLang("");
         boolean result10 = testSubject0.hasLang();
         String result11 = testSubject0.getLang();
-        if (testSubject0.isInteger()) {
         boolean result12 = testSubject0.isInteger();
         int result13 = testSubject0.parseInteger();
-        }
         boolean result14 = testSubject0.isBoolean();
         boolean result15 = testSubject0.isDouble();
         boolean result16 = testSubject0.isFloat();
@@ -1752,9 +1744,13 @@ public class ContractOwlapi_2Test {
         boolean result29 = testSubject0.isBottomEntity();
     }
 
+    @Ignore
     @Test
     public void shouldTestOWLLiteralImplBoolean() throws Exception {
         OWLLiteralImplBoolean testSubject0 = new OWLLiteralImplBoolean(false);
+        boolean result1 = testSubject0.parseBoolean();
+        float result2 = testSubject0.parseFloat();
+        double result3 = testSubject0.parseDouble();
         Object result4 = testSubject0.accept(Utils.mockObject());
         testSubject0.accept(mock(OWLDataVisitor.class));
         Object result5 = testSubject0.accept(Utils.mockData());
@@ -1768,6 +1764,7 @@ public class ContractOwlapi_2Test {
         boolean result11 = testSubject0.hasLang("");
         String result12 = testSubject0.getLang();
         boolean result13 = testSubject0.isInteger();
+        int result14 = testSubject0.parseInteger();
         boolean result15 = testSubject0.isBoolean();
         boolean result16 = testSubject0.isDouble();
         boolean result17 = testSubject0.isFloat();

@@ -151,8 +151,6 @@ public class ContractMansyntaxrendererTest {
     public void shouldTestManchesterOWLSyntaxPrefixNameShortFormProvider()
             throws Exception {
         ManchesterOWLSyntaxPrefixNameShortFormProvider testSubject0 = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
-                Utils.getMockOntology());
-        ManchesterOWLSyntaxPrefixNameShortFormProvider testSubject1 = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
                 mock(OWLOntologyFormat.class));
         ManchesterOWLSyntaxPrefixNameShortFormProvider testSubject2 = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
                 mock(DefaultPrefixManager.class));

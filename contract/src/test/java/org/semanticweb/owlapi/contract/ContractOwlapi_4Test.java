@@ -164,6 +164,7 @@ public class ContractOwlapi_4Test {
         boolean result3 = testSubject0.canCreateFromDocumentIRI(IRI("urn:aFake"));
         boolean result4 = testSubject0.canLoad(mock(OWLOntologyDocumentSource.class));
         List<OWLParser> result5 = testSubject0.getParsers();
+        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         OWLOntologyManager result6 = testSubject0.getOWLOntologyManager();
         OWLOntology result7 = testSubject0.createOWLOntology(new OWLOntologyID(),
                 IRI("urn:aFake"), mock(OWLOntologyCreationHandler.class));

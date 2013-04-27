@@ -22,6 +22,7 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxParserFactory;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer.Token;
 import org.coode.owlapi.manchesterowlsyntax.OntologyAxiomPair;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
@@ -62,6 +63,7 @@ import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
@@ -93,6 +95,7 @@ public class ContractManchesterowlsyntaxTest {
                 mock(OWLDataFactory.class), mock(OWLEntityChecker.class));
     }
 
+    @Ignore
     @Test
     public void shouldTestManchesterOWLSyntaxEditorParser() throws Exception {
         ManchesterOWLSyntaxEditorParser testSubject0 = new ManchesterOWLSyntaxEditorParser(
@@ -271,6 +274,8 @@ public class ContractManchesterowlsyntaxTest {
         IRI result2 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");
         testSubject0.clear();
+        testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
+        testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
         Map<String, String> result3 = testSubject0.getPrefixName2PrefixMap();
         Set<String> result4 = testSubject0.getPrefixNames();
         testSubject0.setDefaultPrefix("");

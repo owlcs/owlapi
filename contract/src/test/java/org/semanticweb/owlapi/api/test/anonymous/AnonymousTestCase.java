@@ -50,7 +50,8 @@ public class AnonymousTestCase {
     public static Set<String> asString(OWLOntology o) {
         Set<String> set = new HashSet<String>();
         for (OWLAxiom ax : o.getLogicalAxioms()) {
-            set.add(ax.toString().replaceAll("\\_\\:genid[0-9]+", "genid"));
+            OWLAxiom ax2 = ax;
+            set.add(ax2.toString().replaceAll("\\_\\:genid[0-9]+", "genid"));
         }
         return set;
     }
