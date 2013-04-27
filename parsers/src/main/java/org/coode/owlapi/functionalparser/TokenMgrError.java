@@ -2,11 +2,8 @@
 /* JavaCCOptions: */
 package org.coode.owlapi.functionalparser;
 
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-
 /** Token Manager Error. */
-@SuppressWarnings("javadoc")
-public class TokenMgrError extends OWLRuntimeException
+public class TokenMgrError extends Error
 {
 
   /**
@@ -14,7 +11,7 @@ public class TokenMgrError extends OWLRuntimeException
    * Increment only if the <i>serialized</i> form of the
    * class changes.
    */
-  private static final long serialVersionUID = 30402L;
+  private static final long serialVersionUID = 1L;
 
   /*
    * Ordinals for various reasons why an Error of this type can be thrown.
@@ -108,11 +105,11 @@ public class TokenMgrError extends OWLRuntimeException
    * Note: You can customize the lexical error message by modifying this method.
    */
   protected static String LexicalError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, char curChar) {
-    return "Lexical error at line " +
-      errorLine + ", column " +
-      errorColumn + ".  Encountered: " +
-      (EOFSeen ? "<EOF> " : "\"" + addEscapes(String.valueOf(curChar)) + "\"" + " (" + (int)curChar + "), ") +
-      "after : \"" + addEscapes(errorAfter) + "\"";
+    return("Lexical error at line " +
+          errorLine + ", column " +
+          errorColumn + ".  Encountered: " +
+          (EOFSeen ? "<EOF> " : ("\"" + addEscapes(String.valueOf(curChar)) + "\"") + " (" + (int)curChar + "), ") +
+          "after : \"" + addEscapes(errorAfter) + "\"");
   }
 
   /**
@@ -124,8 +121,7 @@ public class TokenMgrError extends OWLRuntimeException
    *
    * from this method for such cases in the release version of your parser.
    */
-  @Override
-public String getMessage() {
+  public String getMessage() {
     return super.getMessage();
   }
 

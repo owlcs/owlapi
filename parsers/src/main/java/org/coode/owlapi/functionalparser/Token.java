@@ -5,7 +5,7 @@ package org.coode.owlapi.functionalparser;
 /**
  * Describes the input token stream.
  */
-@SuppressWarnings("javadoc")
+
 public class Token implements java.io.Serializable {
 
   /**
@@ -13,7 +13,7 @@ public class Token implements java.io.Serializable {
    * Increment only if the <i>serialized</i> form of the
    * class changes.
    */
-  private static final long serialVersionUID = 30402L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * An integer that describes the kind of this token.  This numbering
@@ -97,8 +97,7 @@ public class Token implements java.io.Serializable {
   /**
    * Returns the image.
    */
-  @Override
-public String toString()
+  public String toString()
   {
     return image;
   }

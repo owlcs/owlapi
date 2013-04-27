@@ -11,7 +11,6 @@ package org.coode.owlapi.functionalparser;
  * You can modify this class to customize your error reporting
  * mechanisms so long as you retain the public fields.
  */
-@SuppressWarnings("javadoc")
 public class ParseException extends Exception {
 
   /**
@@ -19,7 +18,7 @@ public class ParseException extends Exception {
    * Increment only if the <i>serialized</i> form of the
    * class changes.
    */
-  private static final long serialVersionUID = 30402L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * This constructor is used by the method "generateParseException"
