@@ -74,13 +74,6 @@ public class ToStringRenderer {
         return instance;
     }
 
-    /**Deprecated: this method returns internal mutable state, it is not safe to use in a multithreaded environment. Use ToStringRenderer::getInstance().setShortFormProvider() to set the ShortFormProvider instead.
-     * @return the current OWLObjectRenderer */
-    @Deprecated
-    public synchronized OWLObjectRenderer getRenderer() {
-        return renderer;
-    }
-
     /**
      * @param provider the new short form provider
      */
