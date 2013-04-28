@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
 public class OWLEquivalentDataPropertiesAxiomTestCase extends AbstractOWLDataFactoryTest {
-    public void testAsSubAxioms() throws Exception {
+    public void testAsSubAxioms() {
         OWLDataProperty a = DataProperty(createIRI());
         OWLDataProperty b = DataProperty(createIRI());
         OWLEquivalentDataPropertiesAxiom objA = EquivalentDataProperties(a, b);
