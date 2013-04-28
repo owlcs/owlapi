@@ -43,6 +43,10 @@ for the API may be found included in the
 the latest binary release</a> 
 and ensure that all of the jar files are in the application class path.</p>
 
+<p>Note: the latest OWL API requires Java 6 or newer. It has been compiled and tested on Oracle JDK 7 - we have no reports on it not working on other versions of the JDK, so if you find it not working on any JRE 6 or newer, please let us know in the bug section.</p>
+
+<p>If you want to check out the source code and build the binaries yourself, you can either use ANT (build file is in the antbuild folder) or Maven. Maven is the build system currently used for official builds, and it includes OSGI compatibility in the builds (experimental feature).</p>
+
 <p>The central point of access is the OWLOntologyManager, which is used to 
 <span class="highlight">load</span>, <span class="highlight">create</span> 
 and <span class="highlight">access</span> ontologies.
