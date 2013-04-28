@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test.literals;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 import java.util.Collections;
 import java.util.HashSet;
