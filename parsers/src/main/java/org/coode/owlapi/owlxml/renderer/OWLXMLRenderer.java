@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxml.renderer;
 
 import java.io.IOException;
@@ -51,65 +50,57 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
- */
+ * Date: 12-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class OWLXMLRenderer extends AbstractOWLRenderer {
-
-    public void render(OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer, OWLOntologyFormat format)
+            throws OWLRendererException {
         try {
             OWLXMLWriter w = new OWLXMLWriter(writer, ontology);
             w.startDocument(ontology);
-
-
-            if(format instanceof PrefixOWLOntologyFormat) {
+            if (format instanceof PrefixOWLOntologyFormat) {
                 PrefixOWLOntologyFormat fromPrefixFormat = (PrefixOWLOntologyFormat) format;
-                final Map<String,String> map = fromPrefixFormat.getPrefixName2PrefixMap();
-                for(String prefixName : map.keySet()) {
+                final Map<String, String> map = fromPrefixFormat
+                        .getPrefixName2PrefixMap();
+                for (String prefixName : map.keySet()) {
                     String prefix = map.get(prefixName);
-                    if(prefix != null && prefix.length() > 0) {
+                    if (prefix != null && prefix.length() > 0) {
                         w.writePrefix(prefixName, prefix);
                     }
                 }
-                if(!map.containsKey("rdf:")) {
+                if (!map.containsKey("rdf:")) {
                     w.writePrefix("rdf:", Namespaces.RDF.toString());
                 }
-                if(!map.containsKey("rdfs:")) {
+                if (!map.containsKey("rdfs:")) {
                     w.writePrefix("rdfs:", Namespaces.RDFS.toString());
                 }
-                if(!map.containsKey("xsd:")) {
+                if (!map.containsKey("xsd:")) {
                     w.writePrefix("xsd:", Namespaces.XSD.toString());
                 }
-                if(!map.containsKey("owl:")) {
+                if (!map.containsKey("owl:")) {
                     w.writePrefix("owl:", Namespaces.OWL.toString());
                 }
-            }
-            else {
+            } else {
                 w.writePrefix("rdf:", Namespaces.RDF.toString());
                 w.writePrefix("rdfs:", Namespaces.RDFS.toString());
                 w.writePrefix("xsd:", Namespaces.XSD.toString());
                 w.writePrefix("owl:", Namespaces.OWL.toString());
             }
-
-
             OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(w);
             ontology.accept(ren);
             w.endDocument();
             writer.flush();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new OWLRendererIOException(e);
         }
     }
 
-
     @Override
-	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         render(ontology, writer,
                 ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }

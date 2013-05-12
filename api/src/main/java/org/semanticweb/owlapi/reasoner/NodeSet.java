@@ -36,74 +36,71 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
 
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLObject;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 01-Aug-2009
- *
- * </p>
- * A set of {@link Node}s.
- * @param <E> the type of elements in the node set
- */
+ * Date: 01-Aug-2009 </p> A set of {@link Node}s.
+ * 
+ * @param <E>
+ *            the type of elements in the node set */
 public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
-
-
-    /**
-     * A convenience method that gets all of the entities contained in the <code>Nodes</code> in this <code>NodeSet</code>.
-     * @return The union of the entities contained in the <code>Nodes</code> in this <code>NodeSet</code>.
-     */
+    /** A convenience method that gets all of the entities contained in the
+     * <code>Nodes</code> in this <code>NodeSet</code>.
+     * 
+     * @return The union of the entities contained in the <code>Nodes</code> in
+     *         this <code>NodeSet</code>. */
     Set<E> getFlattened();
 
-    /**
-     * @return true if the node set is empty
-     */
+    /** @return true if the node set is empty */
     boolean isEmpty();
 
-    /**
-     * A convenience method that determines if this <code>NodeSet</code> contains a specific entity.
-     * @param e The entity to test for
-     * @return <code>true</code> if this <code>NodeSet</code> contains a <code>Node</code> that contains the entity,
-     * <code>e</code>, and <code>false</code> if this <code>NodeSet</code> does not contain a <code>Node</code>
-     * that contains the entity, <code>e</code>.
-     */
+    /** A convenience method that determines if this <code>NodeSet</code>
+     * contains a specific entity.
+     * 
+     * @param e
+     *            The entity to test for
+     * @return <code>true</code> if this <code>NodeSet</code> contains a
+     *         <code>Node</code> that contains the entity, <code>e</code>, and
+     *         <code>false</code> if this <code>NodeSet</code> does not contain
+     *         a <code>Node</code> that contains the entity, <code>e</code>. */
     boolean containsEntity(E e);
 
-    /**
-     * Determines if this <code>NodeSet</code> is a singleton.  A <code>NodeSet</code> is a singleton if it contains
-     * only one <code>Node</code>.
-     * @return <code>true</code> if this <code>NodeSet</code> is a singleton, otherwise <code>false</code>.
-     */
+    /** Determines if this <code>NodeSet</code> is a singleton. A
+     * <code>NodeSet</code> is a singleton if it contains only one
+     * <code>Node</code>.
+     * 
+     * @return <code>true</code> if this <code>NodeSet</code> is a singleton,
+     *         otherwise <code>false</code>. */
     boolean isSingleton();
 
-    /**
-     * Determines if this <code>NodeSet</code> is a singleton node that only contains the top node (in a hierarchy).
+    /** Determines if this <code>NodeSet</code> is a singleton node that only
+     * contains the top node (in a hierarchy).
+     * 
      * @see {@link Node#isTopNode()}
-     * @return <code>true</code> if this <code>NodeSet</code> is a singleton that contains only the top node, and
-     * <code>false</code> otherwise.
-     */
+     * @return <code>true</code> if this <code>NodeSet</code> is a singleton
+     *         that contains only the top node, and <code>false</code>
+     *         otherwise. */
     boolean isTopSingleton();
 
-
-    /**
-     * Determies if this <code>NodeSet</code> is a singleton that only contains the bottom node (in a hierarchy).
+    /** Determies if this <code>NodeSet</code> is a singleton that only contains
+     * the bottom node (in a hierarchy).
+     * 
      * @see {@link Node#isBottomNode()}
-     * @return <code>true</code> if this <code>NodeSet</code> is a singleton that only contains a node that is the
-     * bottom node, otherwise <code>false</code>
-     */
+     * @return <code>true</code> if this <code>NodeSet</code> is a singleton
+     *         that only contains a node that is the bottom node, otherwise
+     *         <code>false</code> */
     boolean isBottomSingleton();
 
-    /**
-     * Gets the <code>Node</code>s contained in this <code>NodeSet</code>
-     * @return The set of <code>Node</code>s contained in this <code>NodeSet</code>.  Note that this set will be
-     * an unmodifiable set.
-     */
+    /** Gets the <code>Node</code>s contained in this <code>NodeSet</code>
+     * 
+     * @return The set of <code>Node</code>s contained in this
+     *         <code>NodeSet</code>. Note that this set will be an unmodifiable
+     *         set. */
     Set<Node<E>> getNodes();
 }

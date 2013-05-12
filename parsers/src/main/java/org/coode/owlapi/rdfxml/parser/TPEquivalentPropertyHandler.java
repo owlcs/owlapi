@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.HashSet;
@@ -49,45 +48,43 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
- */
+ * Date: 08-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
-
     public TPEquivalentPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_EQUIVALENT_PROPERTY.getIRI());
     }
 
-
     @Override
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return false;
     }
 
-
     @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         Set<OWLAnnotation> pendingAnnotations = getPendingAnnotations();
-        if (getConsumer().isObjectProperty(subject) && getConsumer().isObjectProperty(object)) {
+        if (getConsumer().isObjectProperty(subject)
+                && getConsumer().isObjectProperty(object)) {
             Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
             props.add(translateObjectProperty(subject));
             props.add(translateObjectProperty(object));
-            addAxiom(getDataFactory().getOWLEquivalentObjectPropertiesAxiom(props, pendingAnnotations));
+            addAxiom(getDataFactory().getOWLEquivalentObjectPropertiesAxiom(props,
+                    pendingAnnotations));
             consumeTriple(subject, predicate, object);
         }
         if (getConsumer().isDataProperty(subject) && getConsumer().isDataProperty(object)) {
             Set<OWLDataPropertyExpression> props = new HashSet<OWLDataPropertyExpression>();
             props.add(translateDataProperty(subject));
             props.add(translateDataProperty(object));
-            addAxiom(getDataFactory().getOWLEquivalentDataPropertiesAxiom(props, pendingAnnotations));
+            addAxiom(getDataFactory().getOWLEquivalentDataPropertiesAxiom(props,
+                    pendingAnnotations));
             consumeTriple(subject, predicate, object);
         }
         // TODO: LOG ERROR
     }
-
 }

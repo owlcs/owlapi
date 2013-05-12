@@ -36,25 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfReservedVocabularyForIndividualIRI extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+public class UseOfReservedVocabularyForIndividualIRI extends OWLProfileViolation
+        implements OWL2DLProfileViolation {
     private final OWLNamedIndividual ind;
 
-    public UseOfReservedVocabularyForIndividualIRI(OWLOntology ontology, OWLAxiom axiom, OWLNamedIndividual ind) {
+    public UseOfReservedVocabularyForIndividualIRI(OWLOntology ontology, OWLAxiom axiom,
+            OWLNamedIndividual ind) {
         super(ontology, axiom);
         this.ind = ind;
     }
@@ -69,7 +67,7 @@ public class UseOfReservedVocabularyForIndividualIRI extends OWLProfileViolation
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of reserved vocabulary for individual IRI: ");
         sb.append(ind);

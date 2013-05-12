@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -48,21 +47,18 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl implements OWLDataAllValuesFrom {
+public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl implements
+        OWLDataAllValuesFrom {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-
-	public OWLDataAllValuesFromImpl(OWLDataPropertyExpression property, OWLDataRange filler) {
+    public OWLDataAllValuesFromImpl(OWLDataPropertyExpression property,
+            OWLDataRange filler) {
         super(property, filler);
     }
 
@@ -72,7 +68,7 @@ public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl i
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataAllValuesFrom;
         }
@@ -103,7 +99,6 @@ public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl i
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

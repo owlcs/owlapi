@@ -36,23 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owlapi.dlsyntax;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Feb-2008<br><br>
- */
+ * Date: 10-Feb-2008<br>
+ * <br> */
 public class DLSyntaxOntologyFormat extends OWLOntologyFormat {
-
-
     @Override
-	public String toString() {
+    public String toString() {
         return "DL Syntax";
     }
 }

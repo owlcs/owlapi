@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -52,19 +51,19 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLTransitiveObjectPropertyAxiom {
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLTransitiveObjectPropertyAxiomImpl extends
+        OWLObjectPropertyCharacteristicAxiomImpl implements
+        OWLTransitiveObjectPropertyAxiom {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-	@SuppressWarnings("javadoc")
-    public OWLTransitiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+    @SuppressWarnings("javadoc")
+    public OWLTransitiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
+            Collection<? extends OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -78,11 +77,12 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
 
     @Override
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
+        return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(getProperty(),
+                mergeAnnos(annotations));
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLTransitiveObjectPropertyAxiom;
     }
 
@@ -100,7 +100,6 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

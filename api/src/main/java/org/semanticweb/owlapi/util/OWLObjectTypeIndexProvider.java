@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -127,51 +126,32 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 09-Feb-2008<br><br>
- */
+ * Date: 09-Feb-2008<br>
+ * <br> */
 public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
-
-	private static final int ENTITY_TYPE_INDEX_BASE = 1000;
-
+    private static final int ENTITY_TYPE_INDEX_BASE = 1000;
     private static final int IRI = 0;
-
     private static final int ONTOLOGY = 1;
-
     private static final int OWL_CLASS = ENTITY_TYPE_INDEX_BASE + ONTOLOGY;
-
-
     private static final int OBJECT_PROPERTY = ENTITY_TYPE_INDEX_BASE + 2;
-
-
     private int type;
-
     private static final int OBJECT_PROPERTY_INVERSE = ENTITY_TYPE_INDEX_BASE + 3;
-
     private static final int DATA_PROPERTY = ENTITY_TYPE_INDEX_BASE + 4;
-
     private static final int INDIVIDUAL = ENTITY_TYPE_INDEX_BASE + 5;
-
     private static final int ANNOTATION_PROPERTY = ENTITY_TYPE_INDEX_BASE + 6;
-
     private static final int ANON_INDIVIDUAL = ENTITY_TYPE_INDEX_BASE + 7;
-
-
     private static final int AXIOM_TYPE_INDEX_BASE = 2000;
+    private static final int SUBCLASS_AXIOM = AXIOM_TYPE_INDEX_BASE
+            + AxiomType.SUBCLASS_OF.index;
+    private static final int NEGATIVE_OBJECT_PROPERTY_ASSERTION = AXIOM_TYPE_INDEX_BASE
+            + AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIndex();
 
-    private static final int SUBCLASS_AXIOM = AXIOM_TYPE_INDEX_BASE + AxiomType.SUBCLASS_OF.index;
-
-    private static final int NEGATIVE_OBJECT_PROPERTY_ASSERTION = AXIOM_TYPE_INDEX_BASE + AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIndex();
-
-
-    /**
-     * @param object the object to compute the type index of
-     * @return the type
-     */
+    /** @param object
+     *            the object to compute the type index of
+     * @return the type */
     public int getTypeIndex(OWLObject object) {
         object.accept(this);
         return type;
@@ -182,13 +162,11 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = IRI;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    //  Entities
+    // Entities
     //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLClass desc) {
         type = OWL_CLASS;
@@ -199,18 +177,15 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = OBJECT_PROPERTY;
     }
 
-
     @Override
     public void visit(OWLObjectInverseOf property) {
         type = OBJECT_PROPERTY_INVERSE;
     }
 
-
     @Override
     public void visit(OWLDataProperty property) {
         type = DATA_PROPERTY;
     }
-
 
     @Override
     public void visit(OWLNamedIndividual individual) {
@@ -232,13 +207,11 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = ANON_INDIVIDUAL;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    //  Axioms
+    // Axioms
     //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
         type = SUBCLASS_AXIOM;
@@ -249,24 +222,20 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = NEGATIVE_OBJECT_PROPERTY_ASSERTION;
     }
 
-
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
@@ -278,72 +247,60 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
@@ -370,84 +327,70 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
-
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
@@ -464,14 +407,12 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    //  Anon class expressions
+    // Anon class expressions
     //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final int CLASS_EXPRESSION_TYPE_INDEX_BASE = 3000;
-
 
     @Override
     public void visit(OWLObjectIntersectionOf desc) {
@@ -483,102 +424,86 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 2;
     }
 
-
     @Override
     public void visit(OWLObjectComplementOf desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 3;
     }
-
 
     @Override
     public void visit(OWLObjectOneOf desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 4;
     }
 
-
     @Override
     public void visit(OWLObjectSomeValuesFrom desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 5;
     }
-
 
     @Override
     public void visit(OWLObjectAllValuesFrom desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 6;
     }
 
-
     @Override
     public void visit(OWLObjectHasValue desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 7;
     }
-
 
     @Override
     public void visit(OWLObjectMinCardinality desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 8;
     }
 
-
     @Override
     public void visit(OWLObjectExactCardinality desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 9;
     }
-
 
     @Override
     public void visit(OWLObjectMaxCardinality desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 10;
     }
 
-
     @Override
     public void visit(OWLObjectHasSelf desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 11;
     }
-
 
     @Override
     public void visit(OWLDataSomeValuesFrom desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 12;
     }
 
-
     @Override
     public void visit(OWLDataAllValuesFrom desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 13;
     }
-
 
     @Override
     public void visit(OWLDataHasValue desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 14;
     }
 
-
     @Override
     public void visit(OWLDataMinCardinality desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 15;
     }
-
 
     @Override
     public void visit(OWLDataExactCardinality desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 16;
     }
 
-
     @Override
     public void visit(OWLDataMaxCardinality desc) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 17;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    //  Data types and data values
+    // Data types and data values
     //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final int DATA_TYPE_INDEX_BASE = 4000;
 
     @Override
@@ -586,12 +511,10 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = DATA_TYPE_INDEX_BASE + ONTOLOGY;
     }
 
-
     @Override
     public void visit(OWLDataComplementOf node) {
         type = DATA_TYPE_INDEX_BASE + 2;
     }
-
 
     @Override
     public void visit(OWLDataOneOf node) {
@@ -623,12 +546,11 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = DATA_TYPE_INDEX_BASE + 8;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    //  Annotations
+    // Annotations
     //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final int ANNOTATION_TYPE_INDEX_BASE = 5000;
 
     @Override
@@ -636,38 +558,32 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = ANNOTATION_TYPE_INDEX_BASE + 1;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    //  Rule objects
+    // Rule objects
     //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final int RULE_OBJECT_TYPE_INDEX_BASE = 6000;
-
 
     @Override
     public void visit(SWRLClassAtom node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + ONTOLOGY;
     }
 
-
     @Override
     public void visit(SWRLDataRangeAtom node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 2;
     }
-
 
     @Override
     public void visit(SWRLObjectPropertyAtom node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 3;
     }
 
-
     @Override
     public void visit(SWRLDataPropertyAtom node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 4;
     }
-
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
@@ -684,18 +600,15 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 7;
     }
 
-
     @Override
     public void visit(SWRLLiteralArgument node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 8;
     }
 
-
     @Override
     public void visit(SWRLSameIndividualAtom node) {
         type = RULE_OBJECT_TYPE_INDEX_BASE + 9;
     }
-
 
     @Override
     public void visit(SWRLDifferentIndividualsAtom node) {

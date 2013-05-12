@@ -36,25 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- * Use of an unknown datatype. That is, the datatype isn't in the OWL 2 datatype map,
- * the datatype IRI doesn't begin with the xsd: prefix, the datatype isn't rdfs:Literal, and the
- * datatype isn't defined with a DatatypeDefinition axiom
- */
+ * Date: 03-Aug-2009 Use of an unknown datatype. That is, the datatype isn't in
+ * the OWL 2 datatype map, the datatype IRI doesn't begin with the xsd: prefix,
+ * the datatype isn't rdfs:Literal, and the datatype isn't defined with a
+ * DatatypeDefinition axiom */
 @SuppressWarnings("javadoc")
-public class UseOfUnknownDatatype extends OWLProfileViolation implements OWL2ProfileViolation {
-
+public class UseOfUnknownDatatype extends OWLProfileViolation implements
+        OWL2ProfileViolation {
     private final OWLDatatype datatype;
 
     public UseOfUnknownDatatype(OWLOntology ontology, OWLAxiom axiom, OWLDatatype datatype) {
@@ -67,16 +64,15 @@ public class UseOfUnknownDatatype extends OWLProfileViolation implements OWL2Pro
         visitor.visit(this);
     }
 
-    /**
-     * Gets the datatype that is invalid
-     * @return The invalid datatype
-     */
+    /** Gets the datatype that is invalid
+     * 
+     * @return The invalid datatype */
     public OWLDatatype getDatatype() {
         return datatype;
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of unknown datatype: ");
         sb.append(datatype);

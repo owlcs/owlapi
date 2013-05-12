@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -48,25 +47,22 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007<br><br>
- */
-public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument> implements SWRLClassAtom {
+ * Date: 15-Jan-2007<br>
+ * <br> */
+public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument> implements
+        SWRLClassAtom {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-	@SuppressWarnings("javadoc")
-	public SWRLClassAtomImpl(OWLClassExpression predicate, SWRLIArgument arg) {
+    @SuppressWarnings("javadoc")
+    public SWRLClassAtomImpl(OWLClassExpression predicate, SWRLIArgument arg) {
         super(predicate, arg);
     }
 
     @Override
-	public OWLClassExpression getPredicate() {
+    public OWLClassExpression getPredicate() {
         return (OWLClassExpression) super.getPredicate();
     }
 
@@ -74,7 +70,6 @@ public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument> implemen
     public void accept(SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(OWLObjectVisitor visitor) {
@@ -86,14 +81,13 @@ public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument> implemen
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -101,11 +95,12 @@ public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument> implemen
             return false;
         }
         SWRLClassAtom other = (SWRLClassAtom) obj;
-        return other.getArgument().equals(getArgument()) && other.getPredicate().equals(getPredicate());
+        return other.getArgument().equals(getArgument())
+                && other.getPredicate().equals(getPredicate());
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         SWRLClassAtom other = (SWRLClassAtom) object;
         int diff = getPredicate().compareTo(other.getPredicate());
         if (diff != 0) {

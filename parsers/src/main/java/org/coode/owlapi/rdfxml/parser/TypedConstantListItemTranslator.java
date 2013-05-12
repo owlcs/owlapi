@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.logging.Logger;
@@ -44,27 +43,23 @@ import java.util.logging.Logger;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Dec-2006<br><br>
- */
+ * Date: 10-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class TypedConstantListItemTranslator implements ListItemTranslator<OWLLiteral> {
+    private static final Logger logger = Logger
+            .getLogger(TypedConstantListItemTranslator.class.getName());
 
-    private static final Logger logger = Logger.getLogger(TypedConstantListItemTranslator.class.getName());
-
-    public TypedConstantListItemTranslator(OWLRDFConsumer consumer) {
-    }
+    public TypedConstantListItemTranslator(OWLRDFConsumer consumer) {}
 
     @Override
     public OWLLiteral translate(IRI firstObject) {
         logger.info("Cannot translate list item to a constant because rdf:first triple is a resource triple");
         return null;
     }
-
 
     @Override
     public OWLLiteral translate(OWLLiteral firstObject) {

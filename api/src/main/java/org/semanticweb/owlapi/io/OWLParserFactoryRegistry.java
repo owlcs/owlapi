@@ -36,71 +36,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Nov-2006<br><br>
+ * Date: 15-Nov-2006<br>
+ * <br>
  * <p/>
- * The <code>OWLParserFactoryRegistry</code> provides a central point for
- * the registration of parser factories that create parsers to parse OWL
- * ontologies.  The registry is typically used by at least one type of ontology
- * factory for loading ontologies whose concrete representations are contained
- * in some kind of document.
- */
+ * The <code>OWLParserFactoryRegistry</code> provides a central point for the
+ * registration of parser factories that create parsers to parse OWL ontologies.
+ * The registry is typically used by at least one type of ontology factory for
+ * loading ontologies whose concrete representations are contained in some kind
+ * of document. */
 public class OWLParserFactoryRegistry {
-
     private static final OWLParserFactoryRegistry instance = new OWLParserFactoryRegistry();
+    private final List<OWLParserFactory> parserFactories = new ArrayList<OWLParserFactory>(
+            10);
 
-    private final List<OWLParserFactory> parserFactories = new ArrayList<OWLParserFactory>(10);
+    private OWLParserFactoryRegistry() {}
 
-
-    private OWLParserFactoryRegistry() {
-
-    }
-
-
-    /**@return the parser factory registry*/
+    /** @return the parser factory registry */
     public static OWLParserFactoryRegistry getInstance() {
         return instance;
     }
 
-
-    /**
-     * clear all registered parser factories
-     */
+    /** clear all registered parser factories */
     public void clearParserFactories() {
         parserFactories.clear();
     }
 
-
-    /**
-     * @return the list of parsers - changes will not be backed by the factory
-     */
+    /** @return the list of parsers - changes will not be backed by the factory */
     public List<OWLParserFactory> getParserFactories() {
         return Collections.unmodifiableList(parserFactories);
     }
 
-
-    /**
-     * @param parserFactory the parser factory to register
-     */
+    /** @param parserFactory
+     *            the parser factory to register */
     public void registerParserFactory(OWLParserFactory parserFactory) {
         parserFactories.add(0, parserFactory);
     }
 
-
-    /**
-     * @param parserFactory the parser factory to remove
-     */
+    /** @param parserFactory
+     *            the parser factory to remove */
     public void unregisterParserFactory(OWLParserFactory parserFactory) {
         parserFactories.remove(parserFactory);
     }

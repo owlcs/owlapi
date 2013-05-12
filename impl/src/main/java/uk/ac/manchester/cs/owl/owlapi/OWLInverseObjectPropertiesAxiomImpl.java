@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Arrays;
@@ -56,24 +55,24 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 29-Nov-2006<br><br>
- */
-public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements OWLInverseObjectPropertiesAxiom {
-
-
-	private static final long serialVersionUID = 30402L;
-
-	private final OWLObjectPropertyExpression first;
-
+ * Date: 29-Nov-2006<br>
+ * <br> */
+public class OWLInverseObjectPropertiesAxiomImpl extends
+        OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements
+        OWLInverseObjectPropertiesAxiom {
+    private static final long serialVersionUID = 30402L;
+    private final OWLObjectPropertyExpression first;
     private final OWLObjectPropertyExpression second;
+
     @SuppressWarnings("javadoc")
-    public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first, OWLObjectPropertyExpression second, Collection<? extends OWLAnnotation> annotations) {
-        super(new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(first, second)), annotations);
+    public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first,
+            OWLObjectPropertyExpression second,
+            Collection<? extends OWLAnnotation> annotations) {
+        super(new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(first, second)),
+                annotations);
         this.first = first;
         this.second = second;
     }
@@ -83,19 +82,21 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(getFirstProperty(), getSecondProperty());
+        return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(getFirstProperty(),
+                getSecondProperty());
     }
 
     @Override
-    public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(getFirstProperty(), getSecondProperty(), mergeAnnos(annotations));
+    public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(getFirstProperty(),
+                getSecondProperty(), mergeAnnos(annotations));
     }
 
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(OWLAxiomVisitor visitor) {
@@ -107,43 +108,39 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public OWLObjectPropertyExpression getFirstProperty() {
         return first;
     }
 
-
     @Override
     public OWLObjectPropertyExpression getSecondProperty() {
         return second;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLInverseObjectPropertiesAxiom;
     }
-
 
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.INVERSE_OBJECT_PROPERTIES;
     }
 
-
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<OWLSubObjectPropertyOfAxiom>();
         OWLDataFactory df = getOWLDataFactory();
-        axs.add(df.getOWLSubObjectPropertyOfAxiom(first, second.getInverseProperty().getSimplified()));
-        axs.add(df.getOWLSubObjectPropertyOfAxiom(second, first.getInverseProperty().getSimplified()));
+        axs.add(df.getOWLSubObjectPropertyOfAxiom(first, second.getInverseProperty()
+                .getSimplified()));
+        axs.add(df.getOWLSubObjectPropertyOfAxiom(second, first.getInverseProperty()
+                .getSimplified()));
         return axs;
     }
 }

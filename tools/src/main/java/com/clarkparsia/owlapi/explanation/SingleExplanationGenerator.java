@@ -58,9 +58,7 @@ public interface SingleExplanationGenerator {
     /** dispose of the reasoners and ontologies */
     void dispose();
 
-    /**
-     * @return the reasoner associated with this generator.
-     */
+    /** @return the reasoner associated with this generator. */
     OWLReasoner getReasoner();
 
     /** @return the reasoner factory used to create fresh reasoners. */

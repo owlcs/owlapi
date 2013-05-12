@@ -1679,12 +1679,12 @@ public class ContractOwlapi_1Test {
                 Utils.getMockOntology(), false);
         Set<OWLAnnotationAssertionAxiom> result13 = testSubject0
                 .getAnnotationAssertionAxioms(Utils.getMockOntology());
-
-        Set<OWLEquivalentClassesAxiom> result14 = Utils.getMockOntology().getEquivalentClassesAxioms(testSubject0);
-        Set<OWLDisjointClassesAxiom> result15 = Utils.getMockOntology().getDisjointClassesAxioms(testSubject0);
-        Set<OWLDisjointUnionAxiom> result16 = Utils
-        .getMockOntology().getDisjointUnionAxioms(testSubject0);
-
+        Set<OWLEquivalentClassesAxiom> result14 = Utils.getMockOntology()
+                .getEquivalentClassesAxioms(testSubject0);
+        Set<OWLDisjointClassesAxiom> result15 = Utils.getMockOntology()
+                .getDisjointClassesAxioms(testSubject0);
+        Set<OWLDisjointUnionAxiom> result16 = Utils.getMockOntology()
+                .getDisjointUnionAxioms(testSubject0);
         IRI result17 = testSubject0.getIRI();
         boolean result18 = testSubject0.isBuiltIn();
         EntityType<?> result19 = testSubject0.getEntityType();
@@ -1744,10 +1744,8 @@ public class ContractOwlapi_1Test {
         Set<OWLClassExpression> result51 = testSubject0.asConjunctSet();
         boolean result52 = testSubject0.containsConjunct(Utils.mockAnonClass());
         Set<OWLClassExpression> result53 = testSubject0.asDisjunctSet();
-
-        Set<OWLSubClassOfAxiom> result54 = Utils
-        .getMockOntology().getSubClassAxiomsForSubClass(testSubject0);
-
+        Set<OWLSubClassOfAxiom> result54 = Utils.getMockOntology()
+                .getSubClassAxiomsForSubClass(testSubject0);
         String result55 = testSubject0.toString();
         Set<OWLEntity> result60 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result61 = testSubject0.getAnonymousIndividuals();

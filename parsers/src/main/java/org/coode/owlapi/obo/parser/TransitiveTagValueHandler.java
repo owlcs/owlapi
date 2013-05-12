@@ -36,32 +36,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br><br>
- */
+ * Date: 10-Jan-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class TransitiveTagValueHandler extends AbstractTagValueHandler {
-
     public TransitiveTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_TRANSITIVE.getName(), consumer);
     }
 
-
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         if (Boolean.parseBoolean(value)) {
-            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getIRIFromOBOId(currentId));
+            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
+                    getIRIFromOBOId(currentId));
             OWLAxiom ax = getDataFactory().getOWLTransitiveObjectPropertyAxiom(prop);
             applyChange(new AddAxiom(getOntology(), ax));
         }

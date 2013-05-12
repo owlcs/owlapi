@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
@@ -54,20 +53,19 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<OWLDataPropertyExpression> implements OWLDataPropertyDomainAxiom {
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLDataPropertyDomainAxiomImpl extends
+        OWLPropertyDomainAxiomImpl<OWLDataPropertyExpression> implements
+        OWLDataPropertyDomainAxiom {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-
-	@SuppressWarnings("javadoc")
-    public OWLDataPropertyDomainAxiomImpl(OWLDataPropertyExpression property, OWLClassExpression domain, Set<? extends OWLAnnotation> annotations) {
+    @SuppressWarnings("javadoc")
+    public OWLDataPropertyDomainAxiomImpl(OWLDataPropertyExpression property,
+            OWLClassExpression domain, Set<? extends OWLAnnotation> annotations) {
         super(property, domain, annotations);
     }
 
@@ -76,17 +74,18 @@ public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<O
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDataPropertyDomainAxiom(getProperty(), getDomain());
+        return getOWLDataFactory().getOWLDataPropertyDomainAxiom(getProperty(),
+                getDomain());
     }
 
     @Override
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDataPropertyDomainAxiom(getProperty(), getDomain(), mergeAnnos(annotations));
+        return getOWLDataFactory().getOWLDataPropertyDomainAxiom(getProperty(),
+                getDomain(), mergeAnnos(annotations));
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLDataPropertyDomainAxiom;
     }
 
@@ -105,7 +104,6 @@ public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<O
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -116,13 +114,11 @@ public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<O
         return AxiomType.DATA_PROPERTY_DOMAIN;
     }
 
-
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
-        OWLClassExpression sub = df.getOWLDataSomeValuesFrom(getProperty(), df.getTopDatatype());
+        OWLClassExpression sub = df.getOWLDataSomeValuesFrom(getProperty(),
+                df.getTopDatatype());
         return df.getOWLSubClassOfAxiom(sub, getDomain());
     }
-
-
 }

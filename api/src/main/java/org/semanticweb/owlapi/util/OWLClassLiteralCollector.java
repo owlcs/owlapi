@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.HashSet;
@@ -48,78 +47,64 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 23-Jul-2009
- */
+ * Date: 23-Jul-2009 */
 public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
-
-	// XXX stateful visitor...
+    // XXX stateful visitor...
     protected final Set<OWLClass> pos = new HashSet<OWLClass>();
-
     protected final Set<OWLClass> neg = new HashSet<OWLClass>();
-
     private boolean processed = false;
 
-    /**
-     * @param objects the objects to visit
-     */
+    /** @param objects
+     *            the objects to visit */
     public OWLClassLiteralCollector(Set<OWLObject> objects) {
         super(objects);
     }
 
-    /**
-     * @param objects the objects to visit
-     * @param visitDuplicates true if duplicates must be visited
-     */
+    /** @param objects
+     *            the objects to visit
+     * @param visitDuplicates
+     *            true if duplicates must be visited */
     public OWLClassLiteralCollector(Set<OWLObject> objects, boolean visitDuplicates) {
         super(objects, visitDuplicates);
     }
 
     private void process() {
-        if(!processed) {
+        if (!processed) {
             processed = true;
             walkStructure(new OWLClassLiteralCollectorVisitor());
         }
     }
 
-    /**
-     * @return positive literals
-     */
+    /** @return positive literals */
     public Set<OWLClass> getPositiveLiterals() {
         process();
         return new HashSet<OWLClass>(pos);
     }
 
-
-    /**
-     * @return negative literals
-     */
+    /** @return negative literals */
     public Set<OWLClass> getNegativeLiterals() {
         process();
         return new HashSet<OWLClass>(neg);
     }
 
-    private class OWLClassLiteralCollectorVisitor extends OWLObjectVisitorExAdapter<Object> {
+    private class OWLClassLiteralCollectorVisitor extends
+            OWLObjectVisitorExAdapter<Object> {
+        public OWLClassLiteralCollectorVisitor() {}
 
-        public OWLClassLiteralCollectorVisitor() {
-		}
-
-		@Override
-		public Object visit(OWLClass desc) {
+        @Override
+        public Object visit(OWLClass desc) {
             List<OWLClassExpression> path = getClassExpressionPath();
-            if(path.size() > 1) {
+            if (path.size() > 1) {
                 OWLClassExpression prev = path.get(path.size() - 2);
-                if(prev instanceof OWLObjectComplementOf) {
+                if (prev instanceof OWLObjectComplementOf) {
                     neg.add(desc);
-                }
-                else {
+                } else {
                     pos.add(desc);
                 }
-            }
-            else {
+            } else {
                 pos.add(desc);
             }
             return null;

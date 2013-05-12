@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owl.krssparser;
 
 import java.io.IOException;
@@ -50,16 +49,12 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 14-Nov-2006<br><br>
- */
+ * Date: 14-Nov-2006<br>
+ * <br> */
 public class KRSSOWLParser extends AbstractOWLParser {
-
-
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
@@ -75,21 +70,19 @@ public class KRSSOWLParser extends AbstractOWLParser {
         try {
             KRSSOntologyFormat format = new KRSSOntologyFormat();
             KRSSParser parser;
-            if(documentSource.isReaderAvailable()) {
+            if (documentSource.isReaderAvailable()) {
                 parser = new KRSSParser(documentSource.getReader());
-            }
-            else if(documentSource.isInputStreamAvailable()) {
+            } else if (documentSource.isInputStreamAvailable()) {
                 parser = new KRSSParser(documentSource.getInputStream());
-            }
-            else {
+            } else {
                 parser = new KRSSParser(getInputStream(documentSource.getDocumentIRI(),
                         configuration));
             }
-            parser.setOntology(ontology, ontology.getOWLOntologyManager().getOWLDataFactory());
+            parser.setOntology(ontology, ontology.getOWLOntologyManager()
+                    .getOWLDataFactory());
             parser.parse();
             return format;
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             throw new KRSSOWLParserException(e);
         }
     }

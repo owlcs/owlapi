@@ -37,24 +37,23 @@
  * limitations under the License.
  */
 package org.semanticweb.owlapi.util;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008<br><br>
- */
+ * Date: 16-Apr-2008<br>
+ * <br> */
 public class EscapeUtils {
-
-    /**
-     * Escapes quotes and backslashes in a string.  Double
-     * quotes are replaced with a backslash followed by a double
-     * quote, and backslashes are replaced with a double backslash.
-     * @param s The string to be escaped
-     * @return The escaped string.
-     */
+    /** Escapes quotes and backslashes in a string. Double quotes are replaced
+     * with a backslash followed by a double quote, and backslashes are replaced
+     * with a double backslash.
+     * 
+     * @param s
+     *            The string to be escaped
+     * @return The escaped string. */
     public static String escapeString(String s) {
         // We replace double quotes with a back slash followed
-        // by a double quote.  We replace backslashes with a double
+        // by a double quote. We replace backslashes with a double
         // backslash
         if (s.indexOf('\"') == -1 && s.indexOf('\\') == -1) {
             return s;
@@ -65,23 +64,19 @@ public class EscapeUtils {
             if (ch == '\\') {
                 sb.append('\\');
                 sb.append('\\');
-            }
-            else if (ch == '\"') {
+            } else if (ch == '\"') {
                 sb.append('\\');
                 sb.append('\"');
-            }
-            else {
+            } else {
                 sb.append(ch);
             }
         }
         return sb.toString();
     }
 
-
-    /**
-     * @param s string to unescape
-     * @return the unescaped string
-     */
+    /** @param s
+     *            string to unescape
+     * @return the unescaped string */
     public static String unescapeString(String s) {
         if (s.indexOf('\\') == -1) {
             return s;
@@ -97,12 +92,10 @@ public class EscapeUtils {
                         i++;
                         sb.append(escCh);
                     }
-                }
-                else {
+                } else {
                     sb.append('\\');
                 }
-            }
-            else {
+            } else {
                 sb.append(ch);
             }
         }

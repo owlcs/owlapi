@@ -36,30 +36,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 public interface OWLMutableOntology extends OWLOntology {
+    /** @param change
+     *            the change to apply
+     * @return the list of ontology changes NOT applied
+     * @throws OWLOntologyChangeException
+     *             if errors happen */
+    public List<OWLOntologyChange> applyChange(OWLOntologyChange change)
+            throws OWLOntologyChangeException;
 
-    /**
-     * @param change the change to apply
+    /** @param changes
+     *            the changes to apply
      * @return the list of ontology changes NOT applied
-     * @throws OWLOntologyChangeException if errors happen
-     */
-    public List<OWLOntologyChange> applyChange(OWLOntologyChange change) throws OWLOntologyChangeException;
-    /**
-     * @param changes the changes to apply
-     * @return the list of ontology changes NOT applied
-     * @throws OWLOntologyChangeException if errors happen
-     */
-    public List<OWLOntologyChange> applyChanges(List<OWLOntologyChange> changes) throws OWLOntologyChangeException;
+     * @throws OWLOntologyChangeException
+     *             if errors happen */
+    public List<OWLOntologyChange> applyChanges(List<OWLOntologyChange> changes)
+            throws OWLOntologyChangeException;
 }

@@ -36,28 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 19/04/2012
- */
+ * Date: 19/04/2012 */
 public class OBOIdTranslator {
-
     /** @param oboId
      * @return null */
     public IRI getIRIFromOBOId(String oboId) {
         return null;
     }
-    
+
     /** @return null */
     public String getOBOIdFromIRI() {
         return null;
     }
-    
 }

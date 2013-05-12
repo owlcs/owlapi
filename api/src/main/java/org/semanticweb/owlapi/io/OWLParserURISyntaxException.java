@@ -36,27 +36,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.net.URISyntaxException;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 07-Dec-2009
- */
+ * Date: 07-Dec-2009 */
 public class OWLParserURISyntaxException extends OWLParserException {
-
     private static final long serialVersionUID = 30402L;
 
-    /**
-     * @param cause the cause
-     * @param lineNumber the line number
-     * @param columnNumber the column number
-     */
-    public OWLParserURISyntaxException(URISyntaxException cause, int lineNumber, int columnNumber) {
+    /** @param cause
+     *            the cause
+     * @param lineNumber
+     *            the line number
+     * @param columnNumber
+     *            the column number */
+    public OWLParserURISyntaxException(URISyntaxException cause, int lineNumber,
+            int columnNumber) {
         super(cause, lineNumber, columnNumber);
     }
 

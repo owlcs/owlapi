@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.latex;
 
 import java.io.StringWriter;
@@ -46,24 +45,19 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2007<br><br>
- */
+ * Date: 25-Nov-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class LatexOWLObjectRenderer implements OWLObjectRenderer {
-
     private OWLDataFactory dataFactory;
-
     private ShortFormProvider shortFormProvider;
 
     public LatexOWLObjectRenderer(OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
     }
-
 
     @Override
     public String render(OWLObject object) {
@@ -75,10 +69,8 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
         return writer.getBuffer().toString();
     }
 
-
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
     }
-
 }

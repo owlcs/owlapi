@@ -36,36 +36,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.Collections;
 import java.util.Set;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 18-Mar-2009
- */
+ * Date: 18-Mar-2009 */
 public abstract class ImportChange extends OWLOntologyChange {
-
     private final OWLImportsDeclaration declaration;
 
-    /**
-     * @param ont the ontology to which the change is to be applied
-     * @param importDeclaration the import declaration
-     */
+    /** @param ont
+     *            the ontology to which the change is to be applied
+     * @param importDeclaration
+     *            the import declaration */
     public ImportChange(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
         super(ont);
         declaration = importDeclaration;
     }
 
-
-    /**
-     * Gets the import declaration that the change pertains to.
-     * @return The import declaration
-     */
+    /** Gets the import declaration that the change pertains to.
+     * 
+     * @return The import declaration */
     public OWLImportsDeclaration getImportDeclaration() {
         return declaration;
     }
@@ -76,12 +70,12 @@ public abstract class ImportChange extends OWLOntologyChange {
     }
 
     @Override
-	public boolean isImportChange() {
+    public boolean isImportChange() {
         return true;
     }
 
     @Override
-	public boolean isAxiomChange() {
+    public boolean isAxiomChange() {
         return false;
     }
 
@@ -91,8 +85,7 @@ public abstract class ImportChange extends OWLOntologyChange {
     }
 
     @Override
-	public OWLAxiom getAxiom() {
+    public OWLAxiom getAxiom() {
         throw new UnsupportedOperationException("Not an axiom");
     }
-
 }

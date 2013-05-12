@@ -14,8 +14,8 @@ import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 
 @SuppressWarnings("javadoc")
-public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V>, Serializable {
-
+public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V>,
+        Serializable {
     private static final long serialVersionUID = 30402L;
     private final MultiMap<K, V> map;
     private final AxiomType<?> type;

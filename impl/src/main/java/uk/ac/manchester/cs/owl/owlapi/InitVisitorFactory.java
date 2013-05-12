@@ -95,9 +95,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 @SuppressWarnings("javadoc")
 public class InitVisitorFactory {
     @SuppressWarnings("unchecked")
-    public static class InitVisitor<K> extends
-    OWLAxiomVisitorExAdapter<K> {
-
+    public static class InitVisitor<K> extends OWLAxiomVisitorExAdapter<K> {
         private static final long serialVersionUID = 30402L;
         private final boolean sub;
         private final boolean named;
@@ -239,7 +237,6 @@ public class InitVisitorFactory {
 
     @SuppressWarnings("unchecked")
     public static class InitIndividualVisitor<K extends OWLObject> extends InitVisitor<K> {
-
         private static final long serialVersionUID = 30402L;
 
         public InitIndividualVisitor(boolean sub, boolean named) {
@@ -254,8 +251,7 @@ public class InitVisitorFactory {
 
     @SuppressWarnings("unchecked")
     public static class InitCollectionVisitor<K> extends
-    OWLAxiomVisitorExAdapter<Collection<K>> {
-
+            OWLAxiomVisitorExAdapter<Collection<K>> {
         private static final long serialVersionUID = 30402L;
         private final boolean named;
 
@@ -334,9 +330,8 @@ public class InitVisitorFactory {
         }
     }
 
-
-    abstract static class OWLAxiomVisitorExAdapter<K> implements OWLAxiomVisitorEx<K>, Serializable {
-
+    abstract static class OWLAxiomVisitorExAdapter<K> implements OWLAxiomVisitorEx<K>,
+            Serializable {
         private static final long serialVersionUID = 30402L;
 
         @Override

@@ -36,33 +36,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
 
-
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 21-Jan-2009
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 21-Jan-2009 */
 @SuppressWarnings("javadoc")
 public class IllegalConfigurationException extends OWLReasonerRuntimeException {
+    private static final long serialVersionUID = 30402L;
+    private final OWLReasonerConfiguration configuration;
 
-
-
-	private static final long serialVersionUID = 30402L;
-	private final OWLReasonerConfiguration configuration;
-
-    public IllegalConfigurationException(Throwable cause, OWLReasonerConfiguration configuration) {
+    public IllegalConfigurationException(Throwable cause,
+            OWLReasonerConfiguration configuration) {
         super(cause);
         this.configuration = configuration;
     }
 
-    public IllegalConfigurationException(String message, OWLReasonerConfiguration configuration) {
+    public IllegalConfigurationException(String message,
+            OWLReasonerConfiguration configuration) {
         super(message);
         this.configuration = configuration;
     }
 
-    public IllegalConfigurationException(String message, Throwable cause, OWLReasonerConfiguration configuration) {
+    public IllegalConfigurationException(String message, Throwable cause,
+            OWLReasonerConfiguration configuration) {
         super(message, cause);
         this.configuration = configuration;
     }

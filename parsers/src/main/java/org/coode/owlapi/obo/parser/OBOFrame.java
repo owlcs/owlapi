@@ -36,24 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 19/04/2012
- */
+ * Date: 19/04/2012 */
 @SuppressWarnings("javadoc")
 public class OBOFrame {
-
     private String frameType;
-    
     private List<OBOTagValuePair> tagValuePairs;
 
     public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
@@ -72,7 +67,7 @@ public class OBOFrame {
     public List<OBOTagValuePair> getTagValuePairs() {
         return Collections.unmodifiableList(tagValuePairs);
     }
-    
+
     public boolean isHeaderFrame() {
         return frameType == null;
     }
@@ -80,6 +75,4 @@ public class OBOFrame {
     public boolean isTypeDefFrame() {
         return OBOVocabulary.TYPEDEF.getName().equals(frameType);
     }
-
-
 }

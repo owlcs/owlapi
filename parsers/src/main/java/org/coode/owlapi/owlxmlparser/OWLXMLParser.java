@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import java.io.IOException;
@@ -60,25 +59,26 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br><br>
- */
+ * Date: 13-Dec-2006<br>
+ * <br> */
 public class OWLXMLParser extends AbstractOWLParser {
-
-
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology) throws OWLParserException, IOException,
+            UnloadableImportException {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }
 
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
-    	InputSource isrc = null;
-    	try {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+            throws OWLParserException, IOException, OWLOntologyChangeException,
+            UnloadableImportException {
+        InputSource isrc = null;
+        try {
             System.setProperty("entityExpansionLimit", "100000000");
             OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
             SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -88,30 +88,27 @@ public class OWLXMLParser extends AbstractOWLParser {
             OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology, configuration);
             parser.parse(isrc, handler);
             Map<String, String> prefix2NamespaceMap = handler.getPrefixName2PrefixMap();
-            for(String prefix : prefix2NamespaceMap.keySet()) {
+            for (String prefix : prefix2NamespaceMap.keySet()) {
                 format.setPrefix(prefix, prefix2NamespaceMap.get(prefix));
             }
             return format;
-        }
-        catch (ParserConfigurationException e) {
-            // What the hell should be do here?  In serious trouble if this happens
+        } catch (ParserConfigurationException e) {
+            // What the hell should be do here? In serious trouble if this
+            // happens
             throw new OWLRuntimeException(e);
-        }
-        catch (TranslatedOWLParserException e) {
+        } catch (TranslatedOWLParserException e) {
             throw e.getParserException();
-        }
-        catch (TranslatedUnloadableImportException e) {
+        } catch (TranslatedUnloadableImportException e) {
             throw e.getUnloadableImportException();
-        }
-        catch (SAXException e) {
+        } catch (SAXException e) {
             // General exception
             throw new OWLParserSAXException(e);
-		} finally {
-			if (isrc != null && isrc.getByteStream() != null) {
-				isrc.getByteStream().close();
-			} else if (isrc != null && isrc.getCharacterStream() != null) {
-				isrc.getCharacterStream().close();
-			}
-		}
+        } finally {
+            if (isrc != null && isrc.getByteStream() != null) {
+                isrc.getByteStream().close();
+            } else if (isrc != null && isrc.getCharacterStream() != null) {
+                isrc.getCharacterStream().close();
+            }
+        }
     }
 }

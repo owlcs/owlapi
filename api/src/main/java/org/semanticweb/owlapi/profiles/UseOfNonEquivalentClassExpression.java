@@ -36,25 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfNonEquivalentClassExpression extends OWLProfileViolation implements OWL2RLProfileViolation {
-
+public class UseOfNonEquivalentClassExpression extends OWLProfileViolation implements
+        OWL2RLProfileViolation {
     private final OWLClassExpression classExpression;
 
-    public UseOfNonEquivalentClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
+    public UseOfNonEquivalentClassExpression(OWLOntology ontology, OWLAxiom axiom,
+            OWLClassExpression classExpression) {
         super(ontology, axiom);
         this.classExpression = classExpression;
     }
@@ -69,7 +67,7 @@ public class UseOfNonEquivalentClassExpression extends OWLProfileViolation imple
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-equivalent class expression in position that requires an equivalent class expression: ");
         sb.append(classExpression);

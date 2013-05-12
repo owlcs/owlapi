@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -44,20 +43,16 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 02-Oct-2009
- */
+ * Date: 02-Oct-2009 */
 public class SWRLVariableElementHandler extends AbstractOWLElementHandler<SWRLVariable> {
-
     protected SWRLVariableElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
     private IRI iri;
-
 
     @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
@@ -75,6 +70,5 @@ public class SWRLVariableElementHandler extends AbstractOWLElementHandler<SWRLVa
             return getOWLDataFactory().getSWRLVariable(iri);
         }
         return null;
-
     }
 }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdf.model;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -45,89 +44,81 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 06-Dec-2006<br>
- * <br>
- */
-public class RDFTranslator
-		extends
-		AbstractTranslator<RDFNode, RDFResourceNode, RDFResourceNode, RDFLiteralNode> {
-	private RDFGraph graph;
+ * <br> */
+public class RDFTranslator extends
+        AbstractTranslator<RDFNode, RDFResourceNode, RDFResourceNode, RDFLiteralNode> {
+    private RDFGraph graph;
 
-	/**
-	 * @param manager the manager
-	 * @param ontology the ontology
-	 * @param useStrongTyping true if strong typing is required
-	 */
-	public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology,
-			boolean useStrongTyping) {
-		super(manager, ontology, useStrongTyping);
-		graph = new RDFGraph();
-	}
+    /** @param manager
+     *            the manager
+     * @param ontology
+     *            the ontology
+     * @param useStrongTyping
+     *            true if strong typing is required */
+    public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology,
+            boolean useStrongTyping) {
+        super(manager, ontology, useStrongTyping);
+        graph = new RDFGraph();
+    }
 
-	/**
-	 * @return the graph
-	 */
-	public RDFGraph getGraph() {
-		return graph;
-	}
+    /** @return the graph */
+    public RDFGraph getGraph() {
+        return graph;
+    }
 
-	@Override
-	protected void addTriple(RDFResourceNode subject, RDFResourceNode pred,
-			RDFNode object) {
-		graph.addTriple(new RDFTriple(subject, pred, object));
-	}
+    @Override
+    protected void
+            addTriple(RDFResourceNode subject, RDFResourceNode pred, RDFNode object) {
+        graph.addTriple(new RDFTriple(subject, pred, object));
+    }
 
-	@Override
-	protected RDFResourceNode getAnonymousNode(Object key) {
-		if (key instanceof OWLAnonymousIndividual) {
-			RDFResourceNode toReturn = new RDFResourceNode(
-					((OWLAnonymousIndividual) key).getID().getID().hashCode());
-			//System.out.println("RDFTranslator.getAnonymousNodeTricked() "+key.getClass().getSimpleName()+"\t"+key+"\t"+toReturn);
-			return toReturn;
-		}
-		RDFResourceNode toReturn = new RDFResourceNode(
-				System.identityHashCode(key));
-		//System.out.println("RDFTranslator.getAnonymousNode() "+key.getClass().getSimpleName()+"\t"+key+"\t"+toReturn);
-		return toReturn;
-	}
+    @Override
+    protected RDFResourceNode getAnonymousNode(Object key) {
+        if (key instanceof OWLAnonymousIndividual) {
+            RDFResourceNode toReturn = new RDFResourceNode(((OWLAnonymousIndividual) key)
+                    .getID().getID().hashCode());
+            // System.out.println("RDFTranslator.getAnonymousNodeTricked() "+key.getClass().getSimpleName()+"\t"+key+"\t"+toReturn);
+            return toReturn;
+        }
+        RDFResourceNode toReturn = new RDFResourceNode(System.identityHashCode(key));
+        // System.out.println("RDFTranslator.getAnonymousNode() "+key.getClass().getSimpleName()+"\t"+key+"\t"+toReturn);
+        return toReturn;
+    }
 
-	@Override
-	protected RDFLiteralNode getLiteralNode(OWLLiteral literal) {
-		return translateLiteralNode(literal);
-	}
+    @Override
+    protected RDFLiteralNode getLiteralNode(OWLLiteral literal) {
+        return translateLiteralNode(literal);
+    }
 
-	/**
-	 * @param literal literal to translate
-	 * @return translated literal
-	 */
-	public static RDFLiteralNode translateLiteralNode(OWLLiteral literal) {
-		if (!literal.isRDFPlainLiteral()) {
-			return new RDFLiteralNode(literal.getLiteral(), literal
-					.getDatatype().getIRI());
-		} else {
-			return new RDFLiteralNode(literal.getLiteral(),
-					literal.hasLang() ? literal.getLang() : null);
-		}
-	}
+    /** @param literal
+     *            literal to translate
+     * @return translated literal */
+    public static RDFLiteralNode translateLiteralNode(OWLLiteral literal) {
+        if (!literal.isRDFPlainLiteral()) {
+            return new RDFLiteralNode(literal.getLiteral(), literal.getDatatype()
+                    .getIRI());
+        } else {
+            return new RDFLiteralNode(literal.getLiteral(),
+                    literal.hasLang() ? literal.getLang() : null);
+        }
+    }
 
-	@Override
-	protected RDFResourceNode getPredicateNode(IRI uri) {
-		return new RDFResourceNode(uri);
-	}
+    @Override
+    protected RDFResourceNode getPredicateNode(IRI uri) {
+        return new RDFResourceNode(uri);
+    }
 
-	@Override
-	protected RDFResourceNode getResourceNode(IRI uri) {
-		return new RDFResourceNode(uri);
-	}
+    @Override
+    protected RDFResourceNode getResourceNode(IRI uri) {
+        return new RDFResourceNode(uri);
+    }
 
-	/**
-	 * clear the graph
-	 */
-	public void reset() {
-		graph = new RDFGraph();
-	}
+    /** clear the graph */
+    public void reset() {
+        graph = new RDFGraph();
+    }
 }

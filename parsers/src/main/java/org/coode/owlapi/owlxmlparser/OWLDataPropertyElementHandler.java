@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -44,23 +43,20 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br><br>
- */@SuppressWarnings("javadoc")
-public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWLDataPropertyExpression> {
-
+ * Date: 13-Dec-2006<br>
+ * <br> */
+@SuppressWarnings("javadoc")
+public class OWLDataPropertyElementHandler extends
+        AbstractOWLElementHandler<OWLDataPropertyExpression> {
     private OWLDataPropertyExpression prop;
-
     private IRI iri;
 
     public OWLDataPropertyElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
-
 
     @Override
     public OWLDataPropertyExpression getOWLObject() {
@@ -68,7 +64,7 @@ public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWL
     }
 
     @Override
-	public void attribute(String localName, String value) throws OWLParserException {
+    public void attribute(String localName, String value) throws OWLParserException {
         iri = getIRIFromAttribute(localName, value);
     }
 
@@ -77,5 +73,4 @@ public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWL
         prop = getOWLDataFactory().getOWLDataProperty(iri);
         getParentHandler().handleChild(this);
     }
-
 }

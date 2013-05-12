@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import java.util.ArrayList;
@@ -48,33 +47,27 @@ import java.util.Set;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 22-Jan-2008<br><br>
- * Orders an explanation in a flat list, sorting axioms
- * alphabetically.
- */
+ * Date: 22-Jan-2008<br>
+ * <br>
+ * Orders an explanation in a flat list, sorting axioms alphabetically. */
 public final class AlphaExplanationOrderer implements ExplanationOrderer {
-
     protected final OWLObjectRenderer renderer;
 
-
-    /**
-     * @param renderer the renderer to use
-     */
+    /** @param renderer
+     *            the renderer to use */
     public AlphaExplanationOrderer(OWLObjectRenderer renderer) {
         this.renderer = renderer;
     }
 
     @Override
-    public ExplanationTree getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
+    public ExplanationTree
+            getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
         EntailedAxiomTree root = new EntailedAxiomTree(entailment);
         List<OWLAxiom> sortedAxioms = new ArrayList<OWLAxiom>(axioms);
         Collections.sort(sortedAxioms, new Comparator<OWLAxiom>() {
-
             @Override
             public int compare(OWLAxiom o1, OWLAxiom o2) {
                 return renderer.render(o1).compareTo(renderer.render(o2));

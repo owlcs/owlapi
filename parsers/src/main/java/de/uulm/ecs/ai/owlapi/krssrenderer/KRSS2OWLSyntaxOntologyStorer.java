@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 
 import java.io.Writer;
@@ -48,27 +47,21 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OntologyFormat;
 
-/**
- *
- * @author Olaf Noppens
- */
+/** @author Olaf Noppens */
 public class KRSS2OWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
-
-
-	private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30402L;
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new KRSS2OntologyFormat());
     }
 
-    // I changed this class to extend AbstractOWLOntologyStorer - Matthew Horridge
-
+    // I changed this class to extend AbstractOWLOntologyStorer - Matthew
+    // Horridge
     @Override
     protected void storeOntology(OWLOntology ontology, Writer writer,
-            OWLOntologyFormat format) throws
-                                                                                                                            OWLOntologyStorageException {
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
         KRSS2OWLSyntaxRenderer renderer = new KRSS2OWLSyntaxRenderer();
-            renderer.render(ontology, writer);
+        renderer.render(ontology, writer);
     }
 }

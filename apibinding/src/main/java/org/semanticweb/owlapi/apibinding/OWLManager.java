@@ -36,9 +36,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.apibinding;
-
 
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParserFactory;
 import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxOntologyStorer;
@@ -66,17 +64,16 @@ import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParserFactory;
 import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OWLParserFactory;
 import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br><br>
+ * Date: 06-Dec-2006<br>
+ * <br>
  * <p/>
- * Provides a point of convenience for creating an <code>OWLOntologyManager</code>
- * with commonly required features (such as an RDF parser for example).
- */
+ * Provides a point of convenience for creating an
+ * <code>OWLOntologyManager</code> with commonly required features (such as an
+ * RDF parser for example). */
 public class OWLManager implements OWLOntologyManagerFactory {
-
     static {
         // Register useful parsers
         OWLParserFactoryRegistry registry = OWLParserFactoryRegistry.getInstance();
@@ -87,47 +84,40 @@ public class OWLManager implements OWLOntologyManagerFactory {
         registry.registerParserFactory(new OWLFunctionalSyntaxParserFactory());
         registry.registerParserFactory(new OWLXMLParserFactory());
         registry.registerParserFactory(new RDFXMLParserFactory());
-
     }
 
     @Override
     public OWLOntologyManager buildOWLOntologyManager() {
-
-    	return createOWLOntologyManager();
+        return createOWLOntologyManager();
     }
 
     @Override
     public OWLOntologyManager buildOWLOntologyManager(OWLDataFactory f) {
-
-    	return createOWLOntologyManager(f);
+        return createOWLOntologyManager(f);
     }
 
     @Override
     public OWLDataFactory getFactory() {
-
-    	return getOWLDataFactory();
+        return getOWLDataFactory();
     }
 
-    /**
-     * Creates an OWL ontology manager that is configured with standard parsers,
+    /** Creates an OWL ontology manager that is configured with standard parsers,
      * storeres etc.
-     *
-     * @return The new manager.
-     */
+     * 
+     * @return The new manager. */
     public static OWLOntologyManager createOWLOntologyManager() {
         return createOWLOntologyManager(getOWLDataFactory());
     }
 
-
-    /**
-     * Creates an OWL ontology manager that is configured with standard parsers,
+    /** Creates an OWL ontology manager that is configured with standard parsers,
      * storeres etc.
-     *
-     * @param dataFactory The data factory that the manager should have a reference to.
-     * @return The manager.
-     */
+     * 
+     * @param dataFactory
+     *            The data factory that the manager should have a reference to.
+     * @return The manager. */
     public static OWLOntologyManager createOWLOntologyManager(OWLDataFactory dataFactory) {
-        // Create the ontology manager and add ontology factories, mappers and storers
+        // Create the ontology manager and add ontology factories, mappers and
+        // storers
         OWLOntologyManager ontologyManager = new OWLOntologyManagerImpl(dataFactory);
         ontologyManager.addOntologyStorer(new RDFXMLOntologyStorer());
         ontologyManager.addOntologyStorer(new OWLXMLOntologyStorer());
@@ -137,19 +127,15 @@ public class OWLManager implements OWLOntologyManagerFactory {
         ontologyManager.addOntologyStorer(new KRSS2OWLSyntaxOntologyStorer());
         ontologyManager.addOntologyStorer(new TurtleOntologyStorer());
         ontologyManager.addOntologyStorer(new LatexOntologyStorer());
-
         ontologyManager.addIRIMapper(new NonMappingOntologyIRIMapper());
-
         ontologyManager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         ontologyManager.addOntologyFactory(new ParsableOWLOntologyFactory());
-
         return ontologyManager;
     }
 
-    /**
-     * Gets a global data factory that can be used to create OWL API objects.
-     * @return An OWLDataFactory  that can be used for creating OWL API objects.
-     */
+    /** Gets a global data factory that can be used to create OWL API objects.
+     * 
+     * @return An OWLDataFactory that can be used for creating OWL API objects. */
     public static OWLDataFactory getOWLDataFactory() {
         return new OWLDataFactoryImpl();
     }

@@ -36,27 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- * An exception to describe a situation where there was an attempt to apply
- * a change to an immutable ontology.
- */
+ * Date: 13-Apr-2007<br>
+ * <br>
+ * An exception to describe a situation where there was an attempt to apply a
+ * change to an immutable ontology. */
 public class ImmutableOWLOntologyChangeException extends OWLOntologyChangeException {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-    /**
-     * Constructs an exception which describes the attempted change.
-     * @param change The change.
-     */
+    /** Constructs an exception which describes the attempted change.
+     * 
+     * @param change
+     *            The change. */
     public ImmutableOWLOntologyChangeException(OWLOntologyChange change) {
-        super(change, "Cannot apply changes to immutable ontology: " + change.getOntology());
+        super(change, "Cannot apply changes to immutable ontology: "
+                + change.getOntology());
     }
-
 }

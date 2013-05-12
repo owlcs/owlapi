@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
@@ -46,40 +45,36 @@ import java.util.List;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 11-Oct-2009
- * </p>
- * Represents the different types of OWL 2 Entities.
- */
+ * Date: 11-Oct-2009 </p> Represents the different types of OWL 2 Entities. */
 @SuppressWarnings("javadoc")
 public final class EntityType<E extends OWLEntity> implements Serializable {
-
-    public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class", OWLRDFVocabulary.OWL_CLASS);
-
-    public static final EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<OWLObjectProperty>("ObjectProperty", OWLRDFVocabulary.OWL_OBJECT_PROPERTY);
-
-    public static final EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<OWLDataProperty>("DataProperty", OWLRDFVocabulary.OWL_DATA_PROPERTY);
-
-    public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<OWLAnnotationProperty>("AnnotationProperty", OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY);
-
-    public static final EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<OWLNamedIndividual>("NamedIndividual", OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL);
-
-    public static final EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>("Datatype", OWLRDFVocabulary.RDFS_DATATYPE);
-
-
+    public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class",
+            OWLRDFVocabulary.OWL_CLASS);
+    public static final EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<OWLObjectProperty>(
+            "ObjectProperty", OWLRDFVocabulary.OWL_OBJECT_PROPERTY);
+    public static final EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<OWLDataProperty>(
+            "DataProperty", OWLRDFVocabulary.OWL_DATA_PROPERTY);
+    public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<OWLAnnotationProperty>(
+            "AnnotationProperty", OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY);
+    public static final EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<OWLNamedIndividual>(
+            "NamedIndividual", OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL);
+    public static final EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>(
+            "Datatype", OWLRDFVocabulary.RDFS_DATATYPE);
     private static List<EntityType<?>> values;
-
     static {
-    	List<EntityType<?>> l=new ArrayList<EntityType<?>>();
-    	l.add(CLASS);l.add(OBJECT_PROPERTY);l.add( DATA_PROPERTY);l.add( ANNOTATION_PROPERTY);l.add( NAMED_INDIVIDUAL);l.add( DATATYPE);
+        List<EntityType<?>> l = new ArrayList<EntityType<?>>();
+        l.add(CLASS);
+        l.add(OBJECT_PROPERTY);
+        l.add(DATA_PROPERTY);
+        l.add(ANNOTATION_PROPERTY);
+        l.add(NAMED_INDIVIDUAL);
+        l.add(DATATYPE);
         values = Collections.unmodifiableList(l);
     }
-
     private final String name;
-
     private final OWLRDFVocabulary vocabulary;
 
     private EntityType(String name, OWLRDFVocabulary vocabulary) {
@@ -103,5 +98,4 @@ public final class EntityType<E extends OWLEntity> implements Serializable {
     public static List<EntityType<?>> values() {
         return values;
     }
-
 }

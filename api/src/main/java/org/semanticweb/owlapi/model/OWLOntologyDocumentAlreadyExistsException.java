@@ -36,22 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 22-Dec-2009
- * </p>
- * An exception that describes the situation where there was an attempt to create or load an ontology
- * where the corresponding ontology document IRI already was already mapped to an ontology.
- */
+ * Date: 22-Dec-2009 </p> An exception that describes the situation where there
+ * was an attempt to create or load an ontology where the corresponding ontology
+ * document IRI already was already mapped to an ontology. */
 @SuppressWarnings("javadoc")
-public class OWLOntologyDocumentAlreadyExistsException extends OWLOntologyCreationException {
-
-
-	private static final long serialVersionUID = 30402L;
+public class OWLOntologyDocumentAlreadyExistsException extends
+        OWLOntologyCreationException {
+    private static final long serialVersionUID = 30402L;
     private final IRI ontologyDocumentIRI;
 
     public OWLOntologyDocumentAlreadyExistsException(IRI ontologyDocumentIRI) {

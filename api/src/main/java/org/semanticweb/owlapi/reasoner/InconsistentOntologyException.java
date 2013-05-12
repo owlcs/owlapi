@@ -36,24 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 21-Jan-2009
- *
- * This type of exception is thrown by an {@link org.semanticweb.owlapi.reasoner.OWLReasoner} to indicate that
- * the imports closure of the root ontology (returned by {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()})
- * is inconsistent.
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 21-Jan-2009 This type of exception is thrown by an
+ * {@link org.semanticweb.owlapi.reasoner.OWLReasoner} to indicate that the
+ * imports closure of the root ontology (returned by
+ * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()}) is
+ * inconsistent. */
 @SuppressWarnings("javadoc")
 public class InconsistentOntologyException extends OWLReasonerRuntimeException {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-	public InconsistentOntologyException() {
+    public InconsistentOntologyException() {
         super("Inconsistent ontology");
     }
 }

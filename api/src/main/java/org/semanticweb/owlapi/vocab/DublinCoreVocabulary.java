@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.vocab;
 
 import java.net.URI;
@@ -45,40 +44,21 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 09-Mar-2007<br><br>
- */
+ * Date: 09-Mar-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public enum DublinCoreVocabulary {
-
-    CONTRIBUTOR("contributor"),
-    COVERAGE("coverage"),
-    CREATOR("creator"),
-    DATE("date"),
-    DESCRIPTION("description"),
-    FORMAT("format"),
-    IDENTIFIER("identifier"),
-    LANGUAGE("language"),
-    PUBLISHER("publisher"),
-    RELATION("relation"),
-    RIGHTS("rights"),
-    SOURCE("source"),
-    SUBJECT("subject"),
-    TITLE("title"),
-    TYPE("type");
-
+    CONTRIBUTOR("contributor"), COVERAGE("coverage"), CREATOR("creator"), DATE("date"), DESCRIPTION(
+            "description"), FORMAT("format"), IDENTIFIER("identifier"), LANGUAGE(
+            "language"), PUBLISHER("publisher"), RELATION("relation"), RIGHTS("rights"), SOURCE(
+            "source"), SUBJECT("subject"), TITLE("title"), TYPE("type");
     private final String shortName;
-
     private final String qname;
-
     private final IRI iri;
-
     public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
-
 
     DublinCoreVocabulary(String name) {
         shortName = name;
@@ -103,8 +83,6 @@ public enum DublinCoreVocabulary {
     }
 
     public static final Set<IRI> ALL_URIS;
-
-
     static {
         ALL_URIS = new HashSet<IRI>();
         for (DublinCoreVocabulary v : DublinCoreVocabulary.values()) {
@@ -112,9 +90,8 @@ public enum DublinCoreVocabulary {
         }
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         return iri.toString();
     }
 }

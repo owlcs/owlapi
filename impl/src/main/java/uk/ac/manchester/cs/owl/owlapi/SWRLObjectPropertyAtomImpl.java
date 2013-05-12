@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -47,25 +46,24 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007<br><br>
- */
-public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements SWRLObjectPropertyAtom {
-
-
-	private static final long serialVersionUID = 30402L;
+ * Date: 15-Jan-2007<br>
+ * <br> */
+public class SWRLObjectPropertyAtomImpl extends
+        SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
+        SWRLObjectPropertyAtom {
+    private static final long serialVersionUID = 30402L;
 
     @SuppressWarnings("javadoc")
-	public SWRLObjectPropertyAtomImpl(OWLObjectPropertyExpression predicate, SWRLIArgument arg0, SWRLIArgument arg1) {
+    public SWRLObjectPropertyAtomImpl(OWLObjectPropertyExpression predicate,
+            SWRLIArgument arg0, SWRLIArgument arg1) {
         super(predicate, arg0, arg1);
     }
 
     @Override
-	public OWLObjectPropertyExpression getPredicate() {
+    public OWLObjectPropertyExpression getPredicate() {
         return (OWLObjectPropertyExpression) super.getPredicate();
     }
 
@@ -74,14 +72,15 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
         OWLObjectPropertyExpression prop = getPredicate().getSimplified();
         if (prop.equals(getPredicate())) {
             return this;
-        }
-        else if (prop.isAnonymous()) {
+        } else if (prop.isAnonymous()) {
             // Flip
-            return getOWLDataFactory().getSWRLObjectPropertyAtom(prop.getInverseProperty().getSimplified(), getSecondArgument(), getFirstArgument());
-        }
-        else {
+            return getOWLDataFactory().getSWRLObjectPropertyAtom(
+                    prop.getInverseProperty().getSimplified(), getSecondArgument(),
+                    getFirstArgument());
+        } else {
             // No need to flip
-            return getOWLDataFactory().getSWRLObjectPropertyAtom(prop, getFirstArgument(), getSecondArgument());
+            return getOWLDataFactory().getSWRLObjectPropertyAtom(prop,
+                    getFirstArgument(), getSecondArgument());
         }
     }
 
@@ -89,7 +88,6 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(SWRLObjectVisitor visitor) {
@@ -101,14 +99,13 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -116,6 +113,8 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
             return false;
         }
         SWRLObjectPropertyAtom other = (SWRLObjectPropertyAtom) obj;
-        return other.getPredicate().equals(getPredicate()) && other.getFirstArgument().equals(getFirstArgument()) && other.getSecondArgument().equals(getSecondArgument());
+        return other.getPredicate().equals(getPredicate())
+                && other.getFirstArgument().equals(getFirstArgument())
+                && other.getSecondArgument().equals(getSecondArgument());
     }
 }

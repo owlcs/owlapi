@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.change;
 
 import java.io.Serializable;
@@ -44,49 +43,54 @@ import java.io.Serializable;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 27/04/2012
  * <p>
- *     Represents an abstraction of the essential non-ontology data required by a particular kind of
- *     {@link OWLOntologyChange}.  There is a concrete subclass of this class for each concrete class of
- *     {@link OWLOntologyChange}.
+ * Represents an abstraction of the essential non-ontology data required by a
+ * particular kind of {@link OWLOntologyChange}. There is a concrete subclass of
+ * this class for each concrete class of {@link OWLOntologyChange}.
  * </p>
  * <p>
- *     Instances of this class are immutable
+ * Instances of this class are immutable
  * </p>
+ * 
  * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
- * @since 3.5
- */
+ * @since 3.5 */
 public abstract class OWLOntologyChangeData implements Serializable {
     private static final long serialVersionUID = 30402L;
 
-    /**
-     * Default constructor for serialization purposes.
-     */
-    protected OWLOntologyChangeData() {
-    }
+    /** Default constructor for serialization purposes. */
+    protected OWLOntologyChangeData() {}
 
-    /**
-     * Accepts a visit from an {@link OWLOntologyChangeDataVisitor}
-     * @param visitor The visitor
-     * @param <R> The return type for visitor's visit methods.
-     * @param <E> The exception type for exceptions thrown by the visitor's visit methods.
+    /** Accepts a visit from an {@link OWLOntologyChangeDataVisitor}
+     * 
+     * @param visitor
+     *            The visitor
+     * @param <R>
+     *            The return type for visitor's visit methods.
+     * @param <E>
+     *            The exception type for exceptions thrown by the visitor's
+     *            visit methods.
      * @return The object returned by the visitor's visit methods.
-     * @throws E The exception thrown by the visitor's visit methods.
-     */
-    public abstract <R, E extends Exception> R accept(OWLOntologyChangeDataVisitor<R, E> visitor) throws E;
+     * @throws E
+     *             The exception thrown by the visitor's visit methods. */
+    public abstract <R, E extends Exception> R accept(
+            OWLOntologyChangeDataVisitor<R, E> visitor) throws E;
 
-    /**
-     * Creates an {@link OWLOntologyChange} object that pertains to the specified {@code ontology}, which when applied
-     * to the specified ontology enacts the change described by this info object.
-     * @param ontology The {@link OWLOntology} that the change should apply to.  Not {@code null}.
-     * @return An {@link OWLOntologyChange} object that applies to {@code ontology} and changes {@code ontology} is
-     * a way that is consistent with this the information held in this {@link OWLOntologyChangeData} object.
-     * @throws NullPointerException if {@code ontology} is {@code null}.
-     */
+    /** Creates an {@link OWLOntologyChange} object that pertains to the
+     * specified {@code ontology}, which when applied to the specified ontology
+     * enacts the change described by this info object.
+     * 
+     * @param ontology
+     *            The {@link OWLOntology} that the change should apply to. Not
+     *            {@code null}.
+     * @return An {@link OWLOntologyChange} object that applies to
+     *         {@code ontology} and changes {@code ontology} is a way that is
+     *         consistent with this the information held in this
+     *         {@link OWLOntologyChangeData} object.
+     * @throws NullPointerException
+     *             if {@code ontology} is {@code null}. */
     public abstract OWLOntologyChange createOntologyChange(OWLOntology ontology);
-
 }

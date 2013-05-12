@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.HashSet;
@@ -54,30 +53,26 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 19-Dec-2006<br><br>
- */
+ * Date: 19-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
-
-
-	private static final long serialVersionUID = 30402L;
-
-	private final OWLAnnotationProperty property;
-
+    private static final long serialVersionUID = 30402L;
+    private final OWLAnnotationProperty property;
     private final OWLAnnotationValue value;
-
     private final Set<OWLAnnotation> annotations;
 
-    public OWLAnnotationImpl(OWLAnnotationProperty property, OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
+    public OWLAnnotationImpl(OWLAnnotationProperty property, OWLAnnotationValue value,
+            Set<? extends OWLAnnotation> annotations) {
         super();
         this.property = property;
         this.value = value;
-        this.annotations = CollectionFactory.getCopyOnRequestSetFromMutableCollection(new TreeSet<OWLAnnotation>(annotations));
+        this.annotations = CollectionFactory
+                .getCopyOnRequestSetFromMutableCollection(new TreeSet<OWLAnnotation>(
+                        annotations));
     }
 
     @Override
@@ -90,7 +85,6 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         return property;
     }
 
-
     @Override
     public OWLAnnotationValue getValue() {
         return value;
@@ -98,7 +92,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
     @Override
     public OWLAnnotation getAnnotatedAnnotation(Set<OWLAnnotation> annotationsToAdd) {
-        if(annotationsToAdd.isEmpty()) {
+        if (annotationsToAdd.isEmpty()) {
             return this;
         }
         Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annotations);
@@ -106,35 +100,37 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         return new OWLAnnotationImpl(property, value, merged);
     }
 
-    /**
-     * Determines if this annotation is an annotation used to deprecate an IRI.  This is the case if the annotation
-     * property has an IRI of <code>owl:deprecated</code> and the value of the annotation is <code>"true"^^xsd:boolean</code>
-     * @return <code>true</code> if this annotation is an annotation that can be used to deprecate an IRI, otherwise
-     *         <code>false</code>.
-     */
+    /** Determines if this annotation is an annotation used to deprecate an IRI.
+     * This is the case if the annotation property has an IRI of
+     * <code>owl:deprecated</code> and the value of the annotation is
+     * <code>"true"^^xsd:boolean</code>
+     * 
+     * @return <code>true</code> if this annotation is an annotation that can be
+     *         used to deprecate an IRI, otherwise <code>false</code>. */
     @Override
     public boolean isDeprecatedIRIAnnotation() {
-        return property.isDeprecated() && value instanceof OWLLiteral && ((OWLLiteral) value).isBoolean() && ((OWLLiteral) value).parseBoolean();
+        return property.isDeprecated() && value instanceof OWLLiteral
+                && ((OWLLiteral) value).isBoolean()
+                && ((OWLLiteral) value).parseBoolean();
     }
 
     @Override
-	public boolean equals(Object obj) {
-		if (super.equals(obj) && obj instanceof OWLAnnotation) {
-			OWLAnnotation other = (OWLAnnotation) obj;
-			return other.getProperty().equals(property) && other.getValue().equals(value)
-					&& other.getAnnotations().equals(annotations);
-		}
+    public boolean equals(Object obj) {
+        if (super.equals(obj) && obj instanceof OWLAnnotation) {
+            OWLAnnotation other = (OWLAnnotation) obj;
+            return other.getProperty().equals(property) && other.getValue().equals(value)
+                    && other.getAnnotations().equals(annotations);
+        }
         return false;
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLAnnotation other = (OWLAnnotation) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {
             return diff;
-        }
-        else {
+        } else {
             return getValue().compareTo(other.getValue());
         }
     }

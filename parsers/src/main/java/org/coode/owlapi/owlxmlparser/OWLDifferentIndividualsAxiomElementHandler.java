@@ -36,27 +36,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br><br>
- */@SuppressWarnings("javadoc")
-public class OWLDifferentIndividualsAxiomElementHandler extends AbstractOWLIndividualOperandAxiomElementHandler {
-
+ * Date: 14-Dec-2006<br>
+ * <br> */
+@SuppressWarnings("javadoc")
+public class OWLDifferentIndividualsAxiomElementHandler extends
+        AbstractOWLIndividualOperandAxiomElementHandler {
     public OWLDifferentIndividualsAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
-
     @Override
-	protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getOperands(), getAnnotations());
+    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+        return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getOperands(),
+                getAnnotations());
     }
 }

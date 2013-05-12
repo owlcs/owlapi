@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi;/*
  * Copyright (C) 2007, University of Manchester
  *
@@ -60,7 +59,6 @@ package org.semanticweb.owlapi;/*
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -77,45 +75,48 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 23-Jul-2007<br><br>
+ * Date: 23-Jul-2007<br>
+ * <br>
  * <p/>
- * This composite change will convert a defined class to a primitive class by replacing equivalent classes
- * axioms where the class in question is a class in the equivalent classes axioms to a set of subclass axioms
- * whose superclasses are the set of classes which were originally equivalent to the class in question.
+ * This composite change will convert a defined class to a primitive class by
+ * replacing equivalent classes axioms where the class in question is a class in
+ * the equivalent classes axioms to a set of subclass axioms whose superclasses
+ * are the set of classes which were originally equivalent to the class in
+ * question.
  * <p/>
- * More formally, for a given class A, a set of ontologies S, and a target ontology T, this composite change
- * will remove all equivalent axioms from each ontology O in S where the equivalent class axiom contains A
- * as a 'top level' class (e.g.  EquivalentClasses(A, C, D)). For each class, D, that was made equivalent to A via
- * an equivalent classes axiom, a subclass axiom SubClassOf(A, D) will be added to the target ontology T.
+ * More formally, for a given class A, a set of ontologies S, and a target
+ * ontology T, this composite change will remove all equivalent axioms from each
+ * ontology O in S where the equivalent class axiom contains A as a 'top level'
+ * class (e.g. EquivalentClasses(A, C, D)). For each class, D, that was made
+ * equivalent to A via an equivalent classes axiom, a subclass axiom
+ * SubClassOf(A, D) will be added to the target ontology T.
  * <p/>
- * This change supports a common pattern of working, where a class is converted from a
- * defined class to a primitive class.
- */
-public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOntologyChange {
-
+ * This change supports a common pattern of working, where a class is converted
+ * from a defined class to a primitive class. */
+public class ConvertEquivalentClassesToSuperClasses extends
+        AbstractCompositeOntologyChange {
     private final OWLOntology targetOntology;
-
     private final OWLClass cls;
-
     private final Set<OWLOntology> ontologies;
-
     private final boolean splitIntersections;
-
     private List<OWLOntologyChange> changes;
 
-    /**
-     * @param ontologies the ontologies to use
-     * @param dataFactory the data factory
-     * @param cls the class to convert
-     * @param targetOntology the target ontology
-     * @param splitIntersections whether or not intersections should be split
-     */
-    public ConvertEquivalentClassesToSuperClasses(OWLDataFactory dataFactory, OWLClass cls, Set<OWLOntology> ontologies,
-            OWLOntology targetOntology, boolean splitIntersections) {
+    /** @param ontologies
+     *            the ontologies to use
+     * @param dataFactory
+     *            the data factory
+     * @param cls
+     *            the class to convert
+     * @param targetOntology
+     *            the target ontology
+     * @param splitIntersections
+     *            whether or not intersections should be split */
+    public ConvertEquivalentClassesToSuperClasses(OWLDataFactory dataFactory,
+            OWLClass cls, Set<OWLOntology> ontologies, OWLOntology targetOntology,
+            boolean splitIntersections) {
         super(dataFactory);
         this.targetOntology = targetOntology;
         this.cls = cls;
@@ -123,7 +124,6 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
         this.splitIntersections = splitIntersections;
         generateChanges();
     }
-
 
     private void generateChanges() {
         changes = new ArrayList<OWLOntologyChange>();
@@ -138,16 +138,15 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
         }
         supers.remove(cls);
         for (OWLClassExpression sup : supers) {
-            changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassOfAxiom(cls, sup)));
+            changes.add(new AddAxiom(targetOntology, getDataFactory()
+                    .getOWLSubClassOfAxiom(cls, sup)));
         }
     }
-
 
     private Set<OWLClassExpression> getClassExpressions(OWLClassExpression desc) {
         final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         if (splitIntersections) {
             desc.accept(new OWLClassExpressionVisitorAdapter() {
-
                 @Override
                 public void visit(OWLObjectIntersectionOf intersection) {
                     for (OWLClassExpression op : intersection.getOperands()) {
@@ -161,7 +160,6 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
         }
         return result;
     }
-
 
     @Override
     public List<OWLOntologyChange> getChanges() {

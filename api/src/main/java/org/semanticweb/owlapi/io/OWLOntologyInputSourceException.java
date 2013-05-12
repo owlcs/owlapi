@@ -36,47 +36,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 17-Nov-2007<br><br>
- */
+ * Date: 17-Nov-2007<br>
+ * <br> */
 public class OWLOntologyInputSourceException extends OWLRuntimeException {
-
-
-
-	private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30402L;
 
     @SuppressWarnings("javadoc")
-	public OWLOntologyInputSourceException() {
-    }
+    public OWLOntologyInputSourceException() {}
 
-
-    /**
-     * @param cause the cause
-     */
+    /** @param cause
+     *            the cause */
     public OWLOntologyInputSourceException(Throwable cause) {
         super(cause);
     }
 
-    /**
-     * @param message the message
-     */
+    /** @param message
+     *            the message */
     public OWLOntologyInputSourceException(String message) {
         super(message);
     }
 
-    /**
-     * @param message the message
-     * @param cause the cause
-     */
+    /** @param message
+     *            the message
+     * @param cause
+     *            the cause */
     public OWLOntologyInputSourceException(String message, Throwable cause) {
         super(message, cause);
     }

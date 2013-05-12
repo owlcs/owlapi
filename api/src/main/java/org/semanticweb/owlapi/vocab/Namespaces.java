@@ -36,59 +36,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.vocab;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br><br>
- */
+ * Date: 13-Dec-2006<br>
+ * <br> */
 public enum Namespaces {
-
-//    OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
-
-    /**
-     * The OWL 2 namespace is here for legacy reasons.
-     */
+    // OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
+    /** The OWL 2 namespace is here for legacy reasons. */
     OWL2("http://www.w3.org/2006/12/owl2#"),
-
-    /**legacy*/
+    /** legacy */
     OWL11XML("http://www.w3.org/2006/12/owl11-xml#"),
-
-
-    /**
-     * The OWL 1.1 namespace is here for legacy reasons.
-     */
+    /** The OWL 1.1 namespace is here for legacy reasons. */
     OWL11("http://www.w3.org/2006/12/owl11#"),
-
-    /**OWL namespace*/
+    /** OWL namespace */
     OWL("http://www.w3.org/2002/07/owl#"),
-    /**RDFS namespace*/
+    /** RDFS namespace */
     RDFS("http://www.w3.org/2000/01/rdf-schema#"),
-    /**RDF namespace*/
+    /** RDF namespace */
     RDF("http://www.w3.org/1999/02/22-rdf-syntax-ns#"),
-    /**XSD namespace*/
+    /** XSD namespace */
     XSD("http://www.w3.org/2001/XMLSchema#"),
-    /**XML namespace*/
+    /** XML namespace */
     XML("http://www.w3.org/XML/1998/namespace"),
-    /**SWRL namespace*/
+    /** SWRL namespace */
     SWRL("http://www.w3.org/2003/11/swrl#"),
-    /**SWRLB namespace*/
+    /** SWRLB namespace */
     SWRLB("http://www.w3.org/2003/11/swrlb#"),
-    /**SKOS namespace*/
+    /** SKOS namespace */
     SKOS("http://www.w3.org/2004/02/skos/core#");
-
     final String ns;
-
 
     Namespaces(String ns) {
         this.ns = ns;
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         return ns;
     }
 }

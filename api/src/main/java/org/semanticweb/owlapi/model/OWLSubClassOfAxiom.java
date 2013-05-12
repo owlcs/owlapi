@@ -36,38 +36,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <p/>
- * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Subclass_Axioms">SubClassOf</a> axiom in the OWL 2 Specification.
- */
-public interface OWLSubClassOfAxiom extends OWLClassAxiom {
 
-    /**
-     * Gets the subclass in this axiom
-     * @return The class expression that represents the subclass in this axiom.
-     */
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group Date: 24-Oct-2006
+ * <p/>
+ * Represents an <a
+ * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Subclass_Axioms"
+ * >SubClassOf</a> axiom in the OWL 2 Specification. */
+public interface OWLSubClassOfAxiom extends OWLClassAxiom {
+    /** Gets the subclass in this axiom
+     * 
+     * @return The class expression that represents the subclass in this axiom. */
     OWLClassExpression getSubClass();
 
-    /**
-     * Gets the superclass in this axiom.
-     * @return The class expression that represents the superclass in this axiom.
-     */
+    /** Gets the superclass in this axiom.
+     * 
+     * @return The class expression that represents the superclass in this
+     *         axiom. */
     OWLClassExpression getSuperClass();
 
-
-    /**
-     * Determines if this subclass axiom has a subclass that is anonymous.
-     * (if the subclass is anonymous then the subclass axiom is known as
-     * a General Concept Inclusion - GCI).
-     *
-     * @return <code>true</code> if this axiom is a GCI, other wise <code>false</code>.
-     */
+    /** Determines if this subclass axiom has a subclass that is anonymous. (if
+     * the subclass is anonymous then the subclass axiom is known as a General
+     * Concept Inclusion - GCI).
+     * 
+     * @return <code>true</code> if this axiom is a GCI, other wise
+     *         <code>false</code>. */
     boolean isGCI();
 
     @Override

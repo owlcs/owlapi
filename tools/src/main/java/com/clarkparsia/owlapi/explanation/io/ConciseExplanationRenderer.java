@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clarkparsia.owlapi.explanation.io;
 
 import java.io.IOException;
@@ -48,49 +47,36 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
-/**
- * Explanation renderer in concise form
- *
- */
+/** Explanation renderer in concise form */
 public class ConciseExplanationRenderer implements ExplanationRenderer {
-
     private static final String INDENT = "   ";
-
     private final SimpleRenderer renderer = new SimpleRenderer();
-
     private PrintWriter writer;
-
 
     @Override
     public void startRendering(Writer w) {
         writer = w instanceof PrintWriter ? (PrintWriter) w : new PrintWriter(w);
     }
 
-
     @Override
-    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) throws OWLException, IOException {
+    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations)
+            throws OWLException, IOException {
         writer.println("Axiom: " + renderer.render(axiom));
-
         int expSize = explanations.size();
-
         if (expSize == 0) {
             writer.println("Explanation: AXIOM IS NOT ENTAILED!");
             return;
         }
-
         if (expSize == 1) {
             writer.println("Explanation: ");
             Set<OWLAxiom> explanation = explanations.iterator().next();
             renderSingleExplanation(INDENT, explanation);
-        }
-        else {
+        } else {
             writer.println("Explanations (" + expSize + "): ");
             renderMultipleExplanations(explanations);
         }
-
         writer.println();
     }
-
 
     private void renderMultipleExplanations(Set<Set<OWLAxiom>> explanations) {
         int count = 1;
@@ -99,7 +85,6 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
             renderSingleExplanation(header, exp);
         }
     }
-
 
     private void renderSingleExplanation(String header, Set<OWLAxiom> axioms) {
         boolean first = true;
@@ -112,7 +97,6 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
             writer.println(header + renderer.render(axiom));
         }
     }
-
 
     @Override
     public void endRendering() {

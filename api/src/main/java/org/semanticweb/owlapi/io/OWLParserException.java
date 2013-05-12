@@ -36,117 +36,111 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- *
- * Indicates that a parse error happened when trying to parse an ontology.
- */
+ * Date: 13-Apr-2007<br>
+ * <br>
+ * Indicates that a parse error happened when trying to parse an ontology. */
 public class OWLParserException extends OWLException {
-
-
-	private static final long serialVersionUID = 30402L;
-
+    private static final long serialVersionUID = 30402L;
     private final int lineNumber;
-
     private final int columnNumber;
 
     @SuppressWarnings("javadoc")
-	public OWLParserException() {
+    public OWLParserException() {
         this.lineNumber = -1;
-        this.columnNumber=-1;
+        this.columnNumber = -1;
     }
 
-    /**
-     * @param message the message
-     */
+    /** @param message
+     *            the message */
     public OWLParserException(String message) {
         super(message);
         lineNumber = -1;
-        this.columnNumber=-1;
+        this.columnNumber = -1;
     }
 
-    /**
-     * @param message the message
-     * @param cause the cause
-     */
+    /** @param message
+     *            the message
+     * @param cause
+     *            the cause */
     public OWLParserException(String message, Throwable cause) {
         super(message, cause);
         lineNumber = -1;
-        this.columnNumber=-1;
+        this.columnNumber = -1;
     }
 
-    /**
-     * @param cause the cause
-     */
+    /** @param cause
+     *            the cause */
     public OWLParserException(Throwable cause) {
         super(cause);
         lineNumber = -1;
-        this.columnNumber=-1;
+        this.columnNumber = -1;
     }
 
-    /**
-     * @param message the message
-     * @param lineNumber the line number
-     * @param columnNumber the column number
-     */
+    /** @param message
+     *            the message
+     * @param lineNumber
+     *            the line number
+     * @param columnNumber
+     *            the column number */
     public OWLParserException(String message, int lineNumber, int columnNumber) {
         super(message);
         this.lineNumber = lineNumber;
         this.columnNumber = columnNumber;
     }
-    /**
-     * @param cause the cause
-     * @param lineNumber the line number
-     * @param columnNumber the column number
-     */
+
+    /** @param cause
+     *            the cause
+     * @param lineNumber
+     *            the line number
+     * @param columnNumber
+     *            the column number */
     public OWLParserException(Throwable cause, int lineNumber, int columnNumber) {
         super(cause);
         this.lineNumber = lineNumber;
         this.columnNumber = columnNumber;
     }
 
-    /**
-     * @param cause the cause
-     * @param message the message
-     * @param lineNumber the line number
-     * @param columnNumber the column number
-     */
-    public OWLParserException(String message, Throwable cause, int lineNumber, int columnNumber) {
+    /** @param cause
+     *            the cause
+     * @param message
+     *            the message
+     * @param lineNumber
+     *            the line number
+     * @param columnNumber
+     *            the column number */
+    public OWLParserException(String message, Throwable cause, int lineNumber,
+            int columnNumber) {
         super(message, cause);
         this.lineNumber = lineNumber;
         this.columnNumber = columnNumber;
     }
 
-    /**
-     * Gets the line number of the line that the parser
-     * was parsing when the error occurred.
-     * @return A positive integer which represents the line
-     * number, or -1 if the line number could not be determined.
-     */
+    /** Gets the line number of the line that the parser was parsing when the
+     * error occurred.
+     * 
+     * @return A positive integer which represents the line number, or -1 if the
+     *         line number could not be determined. */
     public int getLineNumber() {
         return lineNumber;
     }
 
-    /**@return the column number*/
+    /** @return the column number */
     public int getColumnNumber() {
         return columnNumber;
     }
 
     @Override
-	public String getMessage() {
+    public String getMessage() {
         if (lineNumber != -1) {
             return super.getMessage() + " (Line " + lineNumber + ")";
-        }
-        else {
+        } else {
             return super.getMessage();
         }
     }

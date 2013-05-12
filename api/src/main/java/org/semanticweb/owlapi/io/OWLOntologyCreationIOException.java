@@ -36,45 +36,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
 
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 11-Apr-2008<br><br>
- *
- * Indicates an {@link java.io.IOException} happened during ontology creation.  The cause of this exception will
- * be an {@link java.io.IOException}.
- */
+ * Date: 11-Apr-2008<br>
+ * <br>
+ * Indicates an {@link java.io.IOException} happened during ontology creation.
+ * The cause of this exception will be an {@link java.io.IOException}. */
 public class OWLOntologyCreationIOException extends OWLOntologyCreationException {
-
-
     private static final long serialVersionUID = 30402L;
 
-    /**
-     * @param ioException the cause
-     */
+    /** @param ioException
+     *            the cause */
     public OWLOntologyCreationIOException(IOException ioException) {
-        super(ioException.getClass().getSimpleName() + ": " + ioException.getMessage(), ioException);
+        super(ioException.getClass().getSimpleName() + ": " + ioException.getMessage(),
+                ioException);
     }
-
 
     @Override
     public synchronized IOException getCause() {
         return (IOException) super.getCause();
     }
 
-    /**
-     * Delegates to the getMessage() method of the contained <code>IOException</code>.
-     * @return The message of the IOException
-     */
+    /** Delegates to the getMessage() method of the contained
+     * <code>IOException</code>.
+     * 
+     * @return The message of the IOException */
     @Override
     public String getMessage() {
         return getCause().getMessage();

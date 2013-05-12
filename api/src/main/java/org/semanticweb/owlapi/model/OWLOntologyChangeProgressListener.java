@@ -36,30 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 12-Mar-2009
- * </p>
- * Objects that want to listen to the progress of applying changes to an ontology should implement this interface
- * and add themselves as listener to a manager.
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 12-Mar-2009 </p> Objects that want to listen to the progress of
+ * applying changes to an ontology should implement this interface and add
+ * themselves as listener to a manager. */
 public interface OWLOntologyChangeProgressListener {
-
-    /**
-     * @param size the start size
-     */
+    /** @param size
+     *            the start size */
     void begin(int size);
 
-    /**
-     * @param change the change just applied
-     */
+    /** @param change
+     *            the change just applied */
     void appliedChange(OWLOntologyChange change);
 
-    /**
-     * end of the progress
-     */
+    /** end of the progress */
     void end();
 }

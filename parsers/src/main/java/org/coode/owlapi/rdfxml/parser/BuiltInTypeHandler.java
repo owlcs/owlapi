@@ -36,22 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
- */
+ * Date: 08-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public abstract class BuiltInTypeHandler extends TriplePredicateHandler {
-
     private IRI typeIRI;
 
     public BuiltInTypeHandler(OWLRDFConsumer consumer, IRI typeIRI) {
@@ -60,18 +57,18 @@ public abstract class BuiltInTypeHandler extends TriplePredicateHandler {
     }
 
     @Override
-    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException{
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         return true;
     }
 
     @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-        return predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI()) && object.equals(typeIRI);
+        return predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI())
+                && object.equals(typeIRI);
     }
-
 
     public IRI getTypeIRI() {
         return typeIRI;
     }
-
 }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -53,20 +52,19 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLFunctionalObjectPropertyAxiom {
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLFunctionalObjectPropertyAxiomImpl extends
+        OWLObjectPropertyCharacteristicAxiomImpl implements
+        OWLFunctionalObjectPropertyAxiom {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-
-	@SuppressWarnings("javadoc")
-    public OWLFunctionalObjectPropertyAxiomImpl(OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+    @SuppressWarnings("javadoc")
+    public OWLFunctionalObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
+            Collection<? extends OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -79,13 +77,15 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLFunctionalObjectPropertyAxiom;
     }
 
     @Override
-    public OWLFunctionalObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
+    public OWLFunctionalObjectPropertyAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(getProperty(),
+                mergeAnnos(annotations));
     }
 
     @Override
@@ -103,7 +103,6 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -114,10 +113,10 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         return AxiomType.FUNCTIONAL_OBJECT_PROPERTY;
     }
 
-
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
-        return df.getOWLSubClassOfAxiom(df.getOWLThing(), df.getOWLObjectMaxCardinality(1, getProperty()));
+        return df.getOWLSubClassOfAxiom(df.getOWLThing(),
+                df.getOWLObjectMaxCardinality(1, getProperty()));
     }
 }

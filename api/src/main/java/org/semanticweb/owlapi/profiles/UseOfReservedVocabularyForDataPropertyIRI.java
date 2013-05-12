@@ -36,25 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfReservedVocabularyForDataPropertyIRI extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+public class UseOfReservedVocabularyForDataPropertyIRI extends OWLProfileViolation
+        implements OWL2DLProfileViolation {
     private final OWLDataProperty property;
 
-    public UseOfReservedVocabularyForDataPropertyIRI(OWLOntology ontology, OWLAxiom axiom, OWLDataProperty property) {
+    public UseOfReservedVocabularyForDataPropertyIRI(OWLOntology ontology,
+            OWLAxiom axiom, OWLDataProperty property) {
         super(ontology, axiom);
         this.property = property;
     }
@@ -68,9 +66,8 @@ public class UseOfReservedVocabularyForDataPropertyIRI extends OWLProfileViolati
         visitor.visit(this);
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of reserved vocabulary for data property IRI: ");
         sb.append(property);

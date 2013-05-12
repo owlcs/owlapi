@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;/*
 
 
@@ -46,9 +45,9 @@ package org.semanticweb.owlapi.model;/*
  * </p>
  * An interface to an object that can accept visits from {@link org.semanticweb.owlapi.model.OWLDataRange}s.
  */
+
 @SuppressWarnings("javadoc")
 public interface OWLDataRangeVisitor {
-
     void visit(OWLDatatype node);
 
     void visit(OWLDataOneOf node);

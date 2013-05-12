@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -47,38 +46,31 @@ import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007<br><br>
- */
-public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLIndividualArgument {
-
-
-	private static final long serialVersionUID = 30402L;
-	private final OWLIndividual individual;
-
+ * Date: 15-Jan-2007<br>
+ * <br> */
+public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
+        SWRLIndividualArgument {
+    private static final long serialVersionUID = 30402L;
+    private final OWLIndividual individual;
 
     @SuppressWarnings("javadoc")
-	public SWRLIndividualArgumentImpl(OWLIndividual individual) {
+    public SWRLIndividualArgumentImpl(OWLIndividual individual) {
         super();
         this.individual = individual;
     }
-
 
     @Override
     public OWLIndividual getIndividual() {
         return individual;
     }
 
-
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(SWRLObjectVisitor visitor) {
@@ -90,14 +82,13 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLInd
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -108,9 +99,8 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLInd
         return other.getIndividual().equals(getIndividual());
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         return individual.compareTo(((SWRLIndividualArgument) object).getIndividual());
     }
 }

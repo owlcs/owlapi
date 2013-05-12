@@ -36,40 +36,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 09-Dec-2009
- * </p>
- * The policy of how a reasoner will return <code>NodeSet</code>s of individuals for queries that return node sets of
+ * Date: 09-Dec-2009 </p> The policy of how a reasoner will return
+ * <code>NodeSet</code>s of individuals for queries that return node sets of
  * named individuals such as
- * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getTypes(org.semanticweb.owlapi.model.OWLNamedIndividual, boolean)} 
- * or {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getInstances(org.semanticweb.owlapi.model.OWLClassExpression, boolean)}.
- */
+ * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getTypes(org.semanticweb.owlapi.model.OWLNamedIndividual, boolean)}
+ * or
+ * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getInstances(org.semanticweb.owlapi.model.OWLClassExpression, boolean)}
+ * . */
 public enum IndividualNodeSetPolicy {
-
-    /**
-     * Indicates that <code>NodeSet</code>s of named individuals returned by the reasoner will contain <code>Node</code>s
-     * that group individuals which are entailed to be the same as each other.  For example, if <code>i</code>,
-     * <code>j</code> and <code>k</code> are individuals, and they are instances of <code>C</code>, and <code>i</code>
-     * is entailed to be the same as <code>j</code> then asking for the instances of <code>A</code> will return a
-     * <code>NodeSet</code> containing two <code>Node</code>s, one containing <code>i</code> and <code>j</code> and the
-     * other containing <code>k</code>.
-     */
+    /** Indicates that <code>NodeSet</code>s of named individuals returned by the
+     * reasoner will contain <code>Node</code>s that group individuals which are
+     * entailed to be the same as each other. For example, if <code>i</code>,
+     * <code>j</code> and <code>k</code> are individuals, and they are instances
+     * of <code>C</code>, and <code>i</code> is entailed to be the same as
+     * <code>j</code> then asking for the instances of <code>A</code> will
+     * return a <code>NodeSet</code> containing two <code>Node</code>s, one
+     * containing <code>i</code> and <code>j</code> and the other containing
+     * <code>k</code>. */
     BY_SAME_AS,
-
-    /**
-     * Indicates that <code>NodeSet</code>s of named individuals will always contain singleton <code>Node</code>s and
-     * individuals that are the same as each other will not be grouped together in one <code>Node</code> within the
-     * <code>NodeSet</code>.For example, if <code>i</code>,
-     * <code>j</code> and <code>k</code> are individuals, and they are instances of <code>C</code>, and <code>i</code>
-     * is entailed to be the same as <code>j</code> then asking for the instances of <code>A</code> will return a
-     * <code>NodeSet</code> containing <i>three</i> <code>Node</code>s, one containing <code>i</code>, one containing
-     * <code>j</code> and the third containing <code>k</code>.
-     */
+    /** Indicates that <code>NodeSet</code>s of named individuals will always
+     * contain singleton <code>Node</code>s and individuals that are the same as
+     * each other will not be grouped together in one <code>Node</code> within
+     * the <code>NodeSet</code>.For example, if <code>i</code>, <code>j</code>
+     * and <code>k</code> are individuals, and they are instances of
+     * <code>C</code>, and <code>i</code> is entailed to be the same as
+     * <code>j</code> then asking for the instances of <code>A</code> will
+     * return a <code>NodeSet</code> containing <i>three</i> <code>Node</code>s,
+     * one containing <code>i</code>, one containing <code>j</code> and the
+     * third containing <code>k</code>. */
     BY_NAME,
-
 }

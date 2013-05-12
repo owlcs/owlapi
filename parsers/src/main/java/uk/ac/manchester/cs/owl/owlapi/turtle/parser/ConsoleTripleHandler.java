@@ -36,61 +36,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 24-Feb-2008<br><br>
- */
+ * Date: 24-Feb-2008<br>
+ * <br> */
 public class ConsoleTripleHandler implements TripleHandler {
-
-
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
         System.out.println(subject + " --> " + predicate + " --> " + object);
     }
-
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object) {
         System.out.println(subject + " --> " + predicate + " --> " + object);
     }
 
-
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
         System.out.println(subject + " --> " + predicate + " --> " + object + "@" + lang);
     }
 
-
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
-        System.out.println(subject + " --> " + predicate + " --> " + object + "^^" + datatype);
+        System.out.println(subject + " --> " + predicate + " --> " + object + "^^"
+                + datatype);
     }
-
 
     @Override
     public void handlePrefixDirective(String prefixName, String prefix) {
         System.out.println("PREFIX: " + prefixName + " -> " + prefix);
     }
 
-
     @Override
     public void handleBaseDirective(String base) {
         System.out.println("BASE: " + base);
     }
 
-
     @Override
     public void handleComment(String comment) {
         System.out.println("COMMENT: " + comment);
     }
-
 
     @Override
     public void handleEnd() {

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;/*
 
 /**
@@ -45,9 +44,9 @@ package org.semanticweb.owlapi.model;/*
  * </p>
  * A visitor that visits values of {@link OWLAnnotation}s and {@link org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom}s.
  */
+
 @SuppressWarnings("javadoc")
 public interface OWLAnnotationValueVisitor {
-
     void visit(IRI iri);
 
     void visit(OWLAnonymousIndividual individual);

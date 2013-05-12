@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
@@ -53,20 +52,20 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual> implements OWLObjectPropertyAssertionAxiom {
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLObjectPropertyAssertionAxiomImpl extends
+        OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
+        implements OWLObjectPropertyAssertionAxiom {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-
-	@SuppressWarnings("javadoc")
-    public OWLObjectPropertyAssertionAxiomImpl(OWLIndividual subject, OWLObjectPropertyExpression property, OWLIndividual object, Set<? extends OWLAnnotation> annotations) {
+    @SuppressWarnings("javadoc")
+    public OWLObjectPropertyAssertionAxiomImpl(OWLIndividual subject,
+            OWLObjectPropertyExpression property, OWLIndividual object,
+            Set<? extends OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
@@ -75,21 +74,26 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
+        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(),
+                getSubject(), getObject());
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLObjectOneOf(getSubject()), getOWLDataFactory().getOWLObjectHasValue(getProperty(), getObject()));
+        return getOWLDataFactory().getOWLSubClassOfAxiom(
+                getOWLDataFactory().getOWLObjectOneOf(getSubject()),
+                getOWLDataFactory().getOWLObjectHasValue(getProperty(), getObject()));
     }
 
     @Override
-    public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
+    public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(),
+                getSubject(), getObject(), mergeAnnos(annotations));
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLObjectPropertyAssertionAxiom;
     }
 
@@ -97,11 +101,11 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
     public OWLObjectPropertyAssertionAxiom getSimplified() {
         if (!getProperty().isAnonymous()) {
             return this;
-        }
-        else {
+        } else {
             OWLObjectInverseOf property = (OWLObjectInverseOf) getProperty();
             OWLObjectPropertyExpression invProp = property.getInverse();
-            return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(invProp, getObject(), getSubject());
+            return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(invProp,
+                    getObject(), getSubject());
         }
     }
 
@@ -115,24 +119,20 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         visitor.visit(this);
     }
 
-
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public AxiomType<?> getAxiomType() {

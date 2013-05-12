@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import java.io.IOException;
@@ -48,29 +47,23 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2007<br><br>
- *
- * An implementation of the OWLObjectRenderer interface.  (Renders
- * standalone class class expressions and axioms in the manchester syntax).
- */
+ * Date: 25-Nov-2007<br>
+ * <br>
+ * An implementation of the OWLObjectRenderer interface. (Renders standalone
+ * class class expressions and axioms in the manchester syntax). */
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRenderer {
-
     private ManchesterOWLSyntaxObjectRenderer ren;
-
     private WriterDelegate writerDelegate;
-
 
     public ManchesterOWLSyntaxOWLObjectRendererImpl() {
         writerDelegate = new WriterDelegate();
-        ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate, new SimpleShortFormProvider());
+        ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate,
+                new SimpleShortFormProvider());
     }
-
 
     @Override
     public synchronized String render(OWLObject object) {
@@ -79,45 +72,37 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
         return writerDelegate.toString();
     }
 
-
     @Override
     public synchronized void setShortFormProvider(ShortFormProvider shortFormProvider) {
         ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate, shortFormProvider);
     }
 
     private static class WriterDelegate extends Writer {
-
         private StringWriter delegate;
 
-        public WriterDelegate() {
-		}
-
+        public WriterDelegate() {}
 
         protected void reset() {
             delegate = new StringWriter();
         }
 
-
         @Override
-		public String toString() {
+        public String toString() {
             return delegate.getBuffer().toString();
         }
 
-
         @Override
-		public void close() throws IOException {
+        public void close() throws IOException {
             delegate.close();
         }
 
-
         @Override
-		public void flush() throws IOException {
+        public void flush() throws IOException {
             delegate.flush();
         }
 
-
         @Override
-		public void write(char cbuf[], int off, int len) throws IOException {
+        public void write(char cbuf[], int off, int len) throws IOException {
             delegate.write(cbuf, off, len);
         }
     }

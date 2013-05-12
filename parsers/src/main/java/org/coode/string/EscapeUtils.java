@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.string;
 
 /** Author: Matthew Horridge<br>
@@ -48,17 +47,16 @@ package org.coode.string;
  * @deprecated use EscapeUtils from the api util package. */
 @Deprecated
 public class EscapeUtils {
-
-    /**
-     * Escapes quotes and backslashes in a string.  Double
-     * quotes are replaced with a backslash followed by a double
-     * quote, and backslashes are replaced with a double backslash.
-     * @param s The string to be escaped
-     * @return The escaped string.
-     */
+    /** Escapes quotes and backslashes in a string. Double quotes are replaced
+     * with a backslash followed by a double quote, and backslashes are replaced
+     * with a double backslash.
+     * 
+     * @param s
+     *            The string to be escaped
+     * @return The escaped string. */
     public static String escapeString(String s) {
         // We replace double quotes with a back slash followed
-        // by a double quote.  We replace backslashes with a double
+        // by a double quote. We replace backslashes with a double
         // backslash
         if (s.indexOf('\"') == -1 && s.indexOf('\\') == -1) {
             return s;
@@ -69,23 +67,19 @@ public class EscapeUtils {
             if (ch == '\\') {
                 sb.append('\\');
                 sb.append('\\');
-            }
-            else if (ch == '\"') {
+            } else if (ch == '\"') {
                 sb.append('\\');
                 sb.append('\"');
-            }
-            else {
+            } else {
                 sb.append(ch);
             }
         }
         return sb.toString();
     }
 
-
-    /**
-     * @param s string to unescape
-     * @return the unescaped string
-     */
+    /** @param s
+     *            string to unescape
+     * @return the unescaped string */
     public static String unescapeString(String s) {
         if (s.indexOf('\\') == -1) {
             return s;
@@ -101,18 +95,15 @@ public class EscapeUtils {
                         i++;
                         sb.append(escCh);
                     }
-                }
-                else {
+                } else {
                     sb.append('\\');
                 }
-            }
-            else {
+            } else {
                 sb.append(ch);
             }
         }
         return sb.toString();
     }
-
 
     /** @param s
      * @return escaped string
@@ -121,35 +112,29 @@ public class EscapeUtils {
     @Deprecated
     public static String escapeXML(String s) {
         // double quote -- quot
-        // ampersand    -- amp
-        // less than    -- lt
+        // ampersand -- amp
+        // less than -- lt
         // greater than -- gt
-        // apostrophe   -- apos
+        // apostrophe -- apos
         StringBuilder sb = new StringBuilder(s.length() * 2);
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
             if (ch == '<') {
                 sb.append("&lt;");
-            }
-            else if (ch == '>') {
+            } else if (ch == '>') {
                 sb.append("&gt;");
-            }
-            else if (ch == '\"') {
+            } else if (ch == '\"') {
                 sb.append("&quot;");
-            }
-            else if (ch == '&') {
+            } else if (ch == '&') {
                 sb.append("&amp;");
-            }
-            else if (ch == '\'') {
+            } else if (ch == '\'') {
                 sb.append("&#");
                 sb.append(Integer.toString(ch, 10));
                 sb.append(';');
-            }
-            else {
+            } else {
                 sb.append(ch);
             }
         }
-
         return sb.toString();
     }
 }

@@ -36,20 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
- */
+ * Date: 08-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public abstract class TriplePredicateHandler extends AbstractResourceTripleHandler {
-
     private IRI predicateIRI;
 
     public TriplePredicateHandler(OWLRDFConsumer consumer, IRI predicateIRI) {
@@ -57,17 +54,13 @@ public abstract class TriplePredicateHandler extends AbstractResourceTripleHandl
         this.predicateIRI = predicateIRI;
     }
 
-
     @Override
-	public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-    	inferTypes(subject, object);
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        inferTypes(subject, object);
         return predicate.equals(predicateIRI);
     }
-
 
     public IRI getPredicateIRI() {
         return predicateIRI;
     }
-
-
 }

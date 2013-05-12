@@ -36,28 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 29-Nov-2009
- * An implementation of a progress monitor that does nothing when it receives notification of progress events.
- */
+ * Date: 29-Nov-2009 An implementation of a progress monitor that does nothing
+ * when it receives notification of progress events. */
 public class NullReasonerProgressMonitor implements ReasonerProgressMonitor {
-	  @Override
-    public void reasonerTaskStarted(String taskName) {
-    }
+    @Override
+    public void reasonerTaskStarted(String taskName) {}
 
     @Override
-    public void reasonerTaskStopped() {
-    }
-    @Override
-    public void reasonerTaskProgressChanged(int value, int max) {
-    }
+    public void reasonerTaskStopped() {}
 
     @Override
-    public void reasonerTaskBusy() {
-    }
+    public void reasonerTaskProgressChanged(int value, int max) {}
+
+    @Override
+    public void reasonerTaskBusy() {}
 }

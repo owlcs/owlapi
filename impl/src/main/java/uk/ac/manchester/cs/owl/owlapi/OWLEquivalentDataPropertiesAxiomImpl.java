@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
@@ -55,19 +54,20 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements OWLEquivalentDataPropertiesAxiom {
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLEquivalentDataPropertiesAxiomImpl extends
+        OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
+        OWLEquivalentDataPropertiesAxiom {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-	@SuppressWarnings("javadoc")
-    public OWLEquivalentDataPropertiesAxiomImpl(Set<? extends OWLDataPropertyExpression> properties, Collection<? extends OWLAnnotation> annotations) {
+    @SuppressWarnings("javadoc")
+    public OWLEquivalentDataPropertiesAxiomImpl(
+            Set<? extends OWLDataPropertyExpression> properties,
+            Collection<? extends OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 
@@ -80,12 +80,14 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
     }
 
     @Override
-    public OWLEquivalentDataPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(getProperties(), mergeAnnos(annotations));
+    public OWLEquivalentDataPropertiesAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(getProperties(),
+                mergeAnnos(annotations));
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLEquivalentDataPropertiesAxiom;
     }
 
@@ -104,7 +106,6 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -118,11 +119,13 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
     @Override
     public Set<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms() {
         Set<OWLSubDataPropertyOfAxiom> result = new HashSet<OWLSubDataPropertyOfAxiom>();
-        List<OWLDataPropertyExpression> props = new ArrayList<OWLDataPropertyExpression>(getProperties());
+        List<OWLDataPropertyExpression> props = new ArrayList<OWLDataPropertyExpression>(
+                getProperties());
         for (int i = 0; i < props.size(); i++) {
             for (int j = 0; j < props.size(); j++) {
                 if (i != j) {
-                    result.add(getOWLDataFactory().getOWLSubDataPropertyOfAxiom(                            props.get(i), props.get(j)));
+                    result.add(getOWLDataFactory().getOWLSubDataPropertyOfAxiom(
+                            props.get(i), props.get(j)));
                 }
             }
         }

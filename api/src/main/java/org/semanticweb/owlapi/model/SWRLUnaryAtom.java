@@ -36,23 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br><br>
+ * Date: Jan 15, 2007<br>
+ * <br>
  * <p/>
  * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br><br>
- * @param <A> the type of argument
- */
+ * www.cs.man.ac.uk/~horridgm<br>
+ * <br>
+ * 
+ * @param <A>
+ *            the type of argument */
 public interface SWRLUnaryAtom<A extends SWRLArgument> extends SWRLAtom {
-
-    /**
-     * @return the argument
-     */
+    /** @return the argument */
     A getArgument();
 }

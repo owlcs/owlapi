@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ONE_OF;
@@ -47,15 +46,13 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
- */
+ * Date: 08-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class ObjectOneOfTranslator extends AbstractClassExpressionTranslator {
-
     public ObjectOneOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -74,7 +71,8 @@ public class ObjectOneOfTranslator extends AbstractClassExpressionTranslator {
     @Override
     public OWLObjectOneOf translate(IRI mainNode) {
         IRI oneOfObject = getConsumer().getResourceObject(mainNode, OWL_ONE_OF, true);
-        Set<OWLIndividual> individuals = getConsumer().translateToIndividualSet(oneOfObject);
+        Set<OWLIndividual> individuals = getConsumer().translateToIndividualSet(
+                oneOfObject);
         return getDataFactory().getOWLObjectOneOf(individuals);
     }
 }

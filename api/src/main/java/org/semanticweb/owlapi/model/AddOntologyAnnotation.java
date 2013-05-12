@@ -36,25 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 24-Mar-2009
- * </p>
- * Represents an ontology change where an annotation is added to an ontology.
- */
+ * Date: 24-Mar-2009 </p> Represents an ontology change where an annotation is
+ * added to an ontology. */
 public class AddOntologyAnnotation extends AnnotationChange {
-
-    /**
-     * @param ont the ontology to which the change is to be applied
-     * @param annotation the annotation
-     */
+    /** @param ont
+     *            the ontology to which the change is to be applied
+     * @param annotation
+     *            the annotation */
     public AddOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
         super(ont, annotation);
     }
@@ -65,22 +60,22 @@ public class AddOntologyAnnotation extends AnnotationChange {
     }
 
     @Override
-	public void accept(OWLOntologyChangeVisitor visitor) {
+    public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
-    	return visitor.visit(this);
+        return visitor.visit(this);
     }
 
     @Override
-	public int hashCode() {
+    public int hashCode() {
         return getAnnotation().hashCode() + getOntology().hashCode() + 317;
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -93,7 +88,7 @@ public class AddOntologyAnnotation extends AnnotationChange {
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("AddOntologyAnnotation(");
         sb.append(getAnnotation().toString());

@@ -36,25 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfIllegalAxiom extends OWLProfileViolation implements OWL2ELProfileViolation, OWL2QLProfileViolation, OWL2RLProfileViolation {
-
+public class UseOfIllegalAxiom extends OWLProfileViolation implements
+        OWL2ELProfileViolation, OWL2QLProfileViolation, OWL2RLProfileViolation {
     public UseOfIllegalAxiom(OWLOntology ontology, OWLAxiom axiom) {
         super(ontology, axiom);
     }
-
 
     @Override
     public void accept(OWL2ELProfileViolationVisitor visitor) {
@@ -72,7 +68,7 @@ public class UseOfIllegalAxiom extends OWLProfileViolation implements OWL2ELProf
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getAxiom().getAxiomType());
         sb.append(" axioms are not allowed in profile. ");

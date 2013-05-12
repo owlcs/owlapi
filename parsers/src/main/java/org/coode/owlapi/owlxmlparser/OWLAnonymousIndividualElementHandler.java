@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -44,14 +43,13 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 17-May-2009
- */@SuppressWarnings("javadoc")
-public class OWLAnonymousIndividualElementHandler extends AbstractOWLElementHandler<OWLAnonymousIndividual> {
-
+ * Date: 17-May-2009 */
+@SuppressWarnings("javadoc")
+public class OWLAnonymousIndividualElementHandler extends
+        AbstractOWLElementHandler<OWLAnonymousIndividual> {
     private OWLAnonymousIndividual ind;
 
     public OWLAnonymousIndividualElementHandler(OWLXMLParserHandler handler) {
@@ -64,11 +62,10 @@ public class OWLAnonymousIndividualElementHandler extends AbstractOWLElementHand
     }
 
     @Override
-	public void attribute(String localName, String value) throws OWLParserException {
-        if(localName.equals(OWLXMLVocabulary.NODE_ID.getShortName())) {
+    public void attribute(String localName, String value) throws OWLParserException {
+        if (localName.equals(OWLXMLVocabulary.NODE_ID.getShortName())) {
             ind = getOWLDataFactory().getOWLAnonymousIndividual(value.trim());
-        }
-        else {
+        } else {
             super.attribute(localName, value);
         }
     }

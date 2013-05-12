@@ -36,26 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.xml;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 17-Dec-2009
- * </p>
- * An exception which indicates that a caller tried to write an XML Element with a name that is not a QName.
- */
+ * Date: 17-Dec-2009 </p> An exception which indicates that a caller tried to
+ * write an XML Element with a name that is not a QName. */
 @SuppressWarnings("javadoc")
 public class IllegalElementNameException extends OWLRuntimeException {
-
-
-	private static final long serialVersionUID = 30402L;
-	private String elementName;
+    private static final long serialVersionUID = 30402L;
+    private String elementName;
 
     public IllegalElementNameException(String elementName) {
         super("Illegal Element Name (Element Is Not A QName): " + elementName);
@@ -65,5 +58,4 @@ public class IllegalElementNameException extends OWLRuntimeException {
     public String getElementName() {
         return elementName;
     }
-
 }

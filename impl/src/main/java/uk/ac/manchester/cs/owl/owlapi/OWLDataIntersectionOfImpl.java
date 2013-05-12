@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
@@ -52,15 +51,15 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
- */
-public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements OWLDataIntersectionOf {
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 17-Jan-2009 */
+public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements
+        OWLDataIntersectionOf {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-	@SuppressWarnings("javadoc")
+    @SuppressWarnings("javadoc")
     public OWLDataIntersectionOfImpl(Set<? extends OWLDataRange> operands) {
         super(operands);
     }
@@ -71,13 +70,13 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements O
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLDataIntersectionOf other = (OWLDataIntersectionOf) object;
         return compareSets(getOperands(), other.getOperands());
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

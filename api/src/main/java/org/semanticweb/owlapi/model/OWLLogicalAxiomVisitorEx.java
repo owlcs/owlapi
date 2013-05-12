@@ -36,111 +36,77 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 17-Jan-2009 */
 @SuppressWarnings("javadoc")
 public interface OWLLogicalAxiomVisitorEx<O> {
-
     O visit(OWLSubClassOfAxiom axiom);
-
 
     O visit(OWLNegativeObjectPropertyAssertionAxiom axiom);
 
-
     O visit(OWLAsymmetricObjectPropertyAxiom axiom);
-
 
     O visit(OWLReflexiveObjectPropertyAxiom axiom);
 
-
     O visit(OWLDisjointClassesAxiom axiom);
-
 
     O visit(OWLDataPropertyDomainAxiom axiom);
 
-
     O visit(OWLObjectPropertyDomainAxiom axiom);
-
 
     O visit(OWLEquivalentObjectPropertiesAxiom axiom);
 
-
     O visit(OWLNegativeDataPropertyAssertionAxiom axiom);
-
 
     O visit(OWLDifferentIndividualsAxiom axiom);
 
-
     O visit(OWLDisjointDataPropertiesAxiom axiom);
-
 
     O visit(OWLDisjointObjectPropertiesAxiom axiom);
 
-
     O visit(OWLObjectPropertyRangeAxiom axiom);
-
 
     O visit(OWLObjectPropertyAssertionAxiom axiom);
 
-
     O visit(OWLFunctionalObjectPropertyAxiom axiom);
-
 
     O visit(OWLSubObjectPropertyOfAxiom axiom);
 
-
     O visit(OWLDisjointUnionAxiom axiom);
-
 
     O visit(OWLSymmetricObjectPropertyAxiom axiom);
 
-
     O visit(OWLDataPropertyRangeAxiom axiom);
-
 
     O visit(OWLFunctionalDataPropertyAxiom axiom);
 
-
     O visit(OWLEquivalentDataPropertiesAxiom axiom);
-
 
     O visit(OWLClassAssertionAxiom axiom);
 
-
     O visit(OWLEquivalentClassesAxiom axiom);
-
 
     O visit(OWLDataPropertyAssertionAxiom axiom);
 
-
     O visit(OWLTransitiveObjectPropertyAxiom axiom);
-
 
     O visit(OWLIrreflexiveObjectPropertyAxiom axiom);
 
-
     O visit(OWLSubDataPropertyOfAxiom axiom);
-
 
     O visit(OWLInverseFunctionalObjectPropertyAxiom axiom);
 
-
     O visit(OWLSameIndividualAxiom axiom);
-
 
     O visit(OWLSubPropertyChainOfAxiom axiom);
 
-
     O visit(OWLInverseObjectPropertiesAxiom axiom);
 
-
     O visit(OWLHasKeyAxiom axiom);
-
 
     O visit(SWRLRule rule);
 }

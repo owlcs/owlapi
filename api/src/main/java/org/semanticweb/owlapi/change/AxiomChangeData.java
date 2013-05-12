@@ -36,42 +36,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.change;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 27/04/2012
  * <p>
- *     Represent the common non-ontology data required by instances of
- *     {@link org.semanticweb.owlapi.model.OWLAxiomChange}.
- * </p>
- */
+ * Represent the common non-ontology data required by instances of
+ * {@link org.semanticweb.owlapi.model.OWLAxiomChange}.
+ * </p> */
 public abstract class AxiomChangeData extends OWLOntologyChangeData {
     private static final long serialVersionUID = 30402L;
-
     private final OWLAxiom axiom;
 
-    /**
-     * Constructs an {@link AxiomChangeData} object that describes a change involving the specified {@code axiom}.
-     * @param axiom The {@link OWLAxiom} involved in a change.
-     * @throws NullPointerException if {@code axiom} is {@code null}.
-     */
+    /** Constructs an {@link AxiomChangeData} object that describes a change
+     * involving the specified {@code axiom}.
+     * 
+     * @param axiom
+     *            The {@link OWLAxiom} involved in a change.
+     * @throws NullPointerException
+     *             if {@code axiom} is {@code null}. */
     public AxiomChangeData(OWLAxiom axiom) {
-        if(axiom == null) {
+        if (axiom == null) {
             throw new NullPointerException("axiom must not be null");
         }
         this.axiom = axiom;
     }
 
-    /**
-     * Gets the {@link OWLAxiom} that is associated with this change data.
-     * @return The {@link OWLAxiom}.  Not {@code null}.
-     */
+    /** Gets the {@link OWLAxiom} that is associated with this change data.
+     * 
+     * @return The {@link OWLAxiom}. Not {@code null}. */
     public OWLAxiom getAxiom() {
         return axiom;
     }

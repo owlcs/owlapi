@@ -43,47 +43,39 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.reasoner.Node;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 05-Dec-2009 A node set of OWL classes
- */
+ * Date: 05-Dec-2009 A node set of OWL classes */
 public class OWLClassNodeSet extends DefaultNodeSet<OWLClass> {
-	/** empty set */
-	public OWLClassNodeSet() {}
+    /** empty set */
+    public OWLClassNodeSet() {}
 
-	/**
-	 * @param entity
-	 *            the entity to be contained
-	 */
-	public OWLClassNodeSet(OWLClass entity) {
-		super(entity);
-	}
+    /** @param entity
+     *            the entity to be contained */
+    public OWLClassNodeSet(OWLClass entity) {
+        super(entity);
+    }
 
-	/**
-	 * @param owlClassNode
-	 *            the node to be contained
-	 */
-	public OWLClassNodeSet(Node<OWLClass> owlClassNode) {
-		super(owlClassNode);
-	}
+    /** @param owlClassNode
+     *            the node to be contained */
+    public OWLClassNodeSet(Node<OWLClass> owlClassNode) {
+        super(owlClassNode);
+    }
 
-	/**
-	 * @param nodes
-	 *            the set of nodes to be contained
-	 */
-	public OWLClassNodeSet(Set<Node<OWLClass>> nodes) {
-		super(nodes);
-	}
+    /** @param nodes
+     *            the set of nodes to be contained */
+    public OWLClassNodeSet(Set<Node<OWLClass>> nodes) {
+        super(nodes);
+    }
 
-	@Override
-	protected DefaultNode<OWLClass> getNode(OWLClass entity) {
-		return NodeFactory.getOWLClassNode(entity);
-	}
+    @Override
+    protected DefaultNode<OWLClass> getNode(OWLClass entity) {
+        return NodeFactory.getOWLClassNode(entity);
+    }
 
-	@Override
-	protected DefaultNode<OWLClass> getNode(Set<OWLClass> entities) {
-		return NodeFactory.getOWLClassNode(entities);
-	}
+    @Override
+    protected DefaultNode<OWLClass> getNode(Set<OWLClass> entities) {
+        return NodeFactory.getOWLClassNode(entities);
+    }
 }

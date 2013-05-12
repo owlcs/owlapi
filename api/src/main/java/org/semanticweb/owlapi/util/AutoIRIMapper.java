@@ -76,7 +76,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * files to ontologies. The mapper is only capable of mapping ontologies in
  * RDF/XML and OWL/XML (other serialisations are not supported). */
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper,
-Serializable {
+        Serializable {
     private static final long serialVersionUID = 30402L;
     private final Set<String> fileExtensions;
     private boolean mapped;
@@ -334,7 +334,7 @@ Serializable {
     /** A handler to handle RDF/XML files. The xml:base (if present) is taken to
      * be the ontology URI of the ontology document being parsed. */
     private static class RDFXMLOntologyRootElementHandler implements
-    OntologyRootElementHandler, Serializable {
+            OntologyRootElementHandler, Serializable {
         private static final long serialVersionUID = 30402L;
 
         public RDFXMLOntologyRootElementHandler() {}
@@ -351,7 +351,7 @@ Serializable {
 
     /** A handler that can handle OWL/XML files. */
     private static class OWLXMLOntologyRootElementHandler implements
-    OntologyRootElementHandler, Serializable {
+            OntologyRootElementHandler, Serializable {
         private static final long serialVersionUID = 30402L;
 
         public OWLXMLOntologyRootElementHandler() {}

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -54,27 +53,22 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2006<br><br>
- */
+ * Date: 25-Nov-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWLAnnotationAssertionAxiom {
-
-
-	private static final long serialVersionUID = 30402L;
-
-	private final OWLAnnotationSubject subject;
-
+public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
+        OWLAnnotationAssertionAxiom {
+    private static final long serialVersionUID = 30402L;
+    private final OWLAnnotationSubject subject;
     private final OWLAnnotationProperty property;
-
     private final OWLAnnotationValue value;
 
-
-	public OWLAnnotationAssertionAxiomImpl(OWLAnnotationSubject subject, OWLAnnotationProperty property, OWLAnnotationValue value, Collection<? extends OWLAnnotation> annotations) {
+    public OWLAnnotationAssertionAxiomImpl(OWLAnnotationSubject subject,
+            OWLAnnotationProperty property, OWLAnnotationValue value,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.subject = subject;
         this.property = property;
@@ -86,15 +80,18 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(getProperty(), getSubject(), getValue());
+        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(getProperty(),
+                getSubject(), getValue());
     }
 
-    /**
-     * Determines if this annotation assertion deprecates the IRI that is the subject of the annotation.
-     * @return <code>true</code> if this annotation assertion deprecates the subject IRI of the assertion, otherwise
-     *         <code>false</code>.
-     * @see{@link org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()}
-     */
+    /** Determines if this annotation assertion deprecates the IRI that is the
+     * subject of the annotation.
+     * 
+     * @return <code>true</code> if this annotation assertion deprecates the
+     *         subject IRI of the assertion, otherwise <code>false</code>.
+     * @see{@link 
+     *            org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation
+     *            ()} */
     @Override
     public boolean isDeprecatedIRIAssertion() {
         return property.isDeprecated() && getAnnotation().isDeprecatedIRIAnnotation();
@@ -102,7 +99,8 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
 
     @Override
     public OWLAnnotationAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(getProperty(), getSubject(), getValue(), mergeAnnos(annotations));
+        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(getProperty(),
+                getSubject(), getValue(), mergeAnnos(annotations));
     }
 
     @Override
@@ -155,7 +153,6 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         visitor.visit(this);
     }
 
-
     @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
@@ -165,7 +162,6 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
@@ -177,19 +173,19 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         return AxiomType.ANNOTATION_ASSERTION;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-    	if(super.equals(obj)) {
-    		// superclass is responsible for null, identity, owlaxiom type and annotations
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            // superclass is responsible for null, identity, owlaxiom type and
+            // annotations
             if (!(obj instanceof OWLAnnotationAssertionAxiom)) {
                 return false;
             }
             OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
-            return subject.equals(other.getSubject()) && property.equals(other.getProperty()) && value.equals(other.getValue());
-    	}
-    	return false;
+            return subject.equals(other.getSubject())
+                    && property.equals(other.getProperty())
+                    && value.equals(other.getValue());
+        }
+        return false;
     }
-
-
 }

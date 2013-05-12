@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -48,76 +47,71 @@ import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- *
- * @param <P> the property expression
- * @param <O> the object
- */
-public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression<?,?>, O extends OWLPropertyAssertionObject> extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
-
-
-	private static final long serialVersionUID = 30402L;
-
-	private final OWLIndividual subject;
-
+ * Date: 26-Oct-2006<br>
+ * <br>
+ * 
+ * @param <P>
+ *            the property expression
+ * @param <O>
+ *            the object */
+public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression<?, ?>, O extends OWLPropertyAssertionObject>
+        extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
+    private static final long serialVersionUID = 30402L;
+    private final OWLIndividual subject;
     private final P property;
-
     private final O object;
 
-
-    /**
-     * @param subject the subject
-     * @param property the property
-     * @param object the object
-     * @param annotations the annotations
-     */
-    public OWLIndividualRelationshipAxiomImpl(OWLIndividual subject, P property, O object, Collection<? extends OWLAnnotation> annotations) {
+    /** @param subject
+     *            the subject
+     * @param property
+     *            the property
+     * @param object
+     *            the object
+     * @param annotations
+     *            the annotations */
+    public OWLIndividualRelationshipAxiomImpl(OWLIndividual subject, P property,
+            O object, Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.subject = subject;
         this.property = property;
         this.object = object;
     }
 
-
     @Override
     public OWLIndividual getSubject() {
         return subject;
     }
-
 
     @Override
     public P getProperty() {
         return property;
     }
 
-
     @Override
     public O getObject() {
         return object;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLPropertyAssertionAxiom)) {
                 return false;
             }
-            OWLPropertyAssertionAxiom<?,?> other = (OWLPropertyAssertionAxiom<?,?>) obj;
-            return other.getSubject().equals(subject) && other.getProperty().equals(property) && other.getObject().equals(object);
+            OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) obj;
+            return other.getSubject().equals(subject)
+                    && other.getProperty().equals(property)
+                    && other.getObject().equals(object);
         }
         return false;
     }
 
-
     @Override
-	final protected int compareObjectOfSameType(OWLObject o) {
-        OWLPropertyAssertionAxiom<?,?> other = (OWLPropertyAssertionAxiom<?,?>) o;
+    final protected int compareObjectOfSameType(OWLObject o) {
+        OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) o;
         int diff = subject.compareTo(other.getSubject());
         if (diff != 0) {
             return diff;

@@ -36,22 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 17-May-2009
- */
+ * Date: 17-May-2009 */
 @SuppressWarnings("javadoc")
 public class IRIElementHandler extends AbstractIRIElementHandler {
-
     public IRIElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -59,10 +55,9 @@ public class IRIElementHandler extends AbstractIRIElementHandler {
     private IRI iri;
 
     @Override
-	public boolean isTextContentPossible() {
+    public boolean isTextContentPossible() {
         return true;
     }
-
 
     @Override
     public IRI getOWLObject() throws OWLXMLParserException {

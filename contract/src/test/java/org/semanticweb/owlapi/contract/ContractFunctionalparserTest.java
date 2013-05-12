@@ -266,6 +266,7 @@ public class ContractFunctionalparserTest {
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
         String result1 = testSubject0.toString();
     }
+
     @Test
     public void shouldTestInterfaceOWLFunctionalSyntaxParserTreeConstants()
             throws Exception {

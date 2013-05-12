@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.Set;
@@ -45,19 +44,18 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br><br>
- * @param <A> the axiom type
- */
-public abstract class InferredObjectPropertyAxiomGenerator<A extends OWLObjectPropertyAxiom> extends InferredEntityAxiomGenerator<OWLObjectProperty, A> {
-
-
+ * Date: 27-Jul-2007<br>
+ * <br>
+ * 
+ * @param <A>
+ *            the axiom type */
+public abstract class InferredObjectPropertyAxiomGenerator<A extends OWLObjectPropertyAxiom>
+        extends InferredEntityAxiomGenerator<OWLObjectProperty, A> {
     @Override
-	protected Set<OWLObjectProperty> getEntities(OWLOntology ont) {
+    protected Set<OWLObjectProperty> getEntities(OWLOntology ont) {
         return ont.getObjectPropertiesInSignature();
     }
 }

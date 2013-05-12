@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collections;
@@ -48,41 +47,34 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.NNF;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpressionImpl implements OWLAnonymousClassExpression {
+public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpressionImpl
+        implements OWLAnonymousClassExpression {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-	public OWLAnonymousClassExpressionImpl() {
+    public OWLAnonymousClassExpressionImpl() {
         super();
     }
-
 
     @Override
     public boolean isAnonymous() {
         return true;
     }
 
-
     @Override
     public boolean isOWLThing() {
         return false;
     }
 
-
     @Override
     public boolean isOWLNothing() {
         return false;
     }
-
 
     @Override
     public OWLClassExpression getNNF() {
@@ -103,9 +95,9 @@ public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpression
 
     @Override
     public OWLClass asOWLClass() {
-        throw new OWLRuntimeException("Not an OWLClass.  This method should only be called if the isAnonymous method returns false!");
+        throw new OWLRuntimeException(
+                "Not an OWLClass.  This method should only be called if the isAnonymous method returns false!");
     }
-
 
     @Override
     public Set<OWLClassExpression> asConjunctSet() {

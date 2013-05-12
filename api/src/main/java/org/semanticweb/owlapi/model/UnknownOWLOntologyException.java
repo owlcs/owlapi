@@ -36,22 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- */
+ * Date: 13-Apr-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class UnknownOWLOntologyException extends OWLRuntimeException {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-	public UnknownOWLOntologyException(OWLOntologyID ontologyID) {
+    public UnknownOWLOntologyException(OWLOntologyID ontologyID) {
         super("Unknown ontology: " + ontologyID);
     }
 }

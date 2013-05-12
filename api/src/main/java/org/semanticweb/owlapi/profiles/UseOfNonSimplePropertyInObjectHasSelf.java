@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -44,18 +43,17 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation implements
+        OWL2DLProfileViolation {
     private final OWLObjectHasSelf hasSelf;
 
-    public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology, OWLAxiom axiom, OWLObjectHasSelf hasSelf) {
+    public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology, OWLAxiom axiom,
+            OWLObjectHasSelf hasSelf) {
         super(ontology, axiom);
         this.hasSelf = hasSelf;
     }
@@ -70,7 +68,7 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation i
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-simple property in ");
         sb.append(ClassExpressionType.OBJECT_HAS_SELF.getName());

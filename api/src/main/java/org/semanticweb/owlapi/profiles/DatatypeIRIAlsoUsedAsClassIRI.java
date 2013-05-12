@@ -36,24 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- *
- * Specifies that an IRI that is used for a datatype is also used for a class IRI
- */
+ * Date: 03-Aug-2009 Specifies that an IRI that is used for a datatype is also
+ * used for a class IRI */
 @SuppressWarnings("javadoc")
-public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation implements
+        OWL2DLProfileViolation {
     private final IRI iri;
 
     public DatatypeIRIAlsoUsedAsClassIRI(OWLOntology ontology, OWLAxiom axiom, IRI iri) {
@@ -69,8 +65,9 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation implement
     public IRI getIRI() {
         return iri;
     }
+
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Datatype IRI also used as Class IRI: ");
         sb.append(iri);

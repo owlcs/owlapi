@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

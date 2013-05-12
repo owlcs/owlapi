@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.ArrayList;
@@ -141,49 +140,41 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 29-Jul-2008<br><br>
- * @param <O>  the returned type
- */
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Information Management Group<br>
+ * Date: 29-Jul-2008<br>
+ * <br>
+ * 
+ * @param <O>
+ *            the returned type */
 public class OWLObjectWalker<O extends OWLObject> {
-
     protected OWLOntology ontology;
-
     private final Collection<O> objects;
-
     protected OWLObjectVisitorEx<?> visitor;
-
     protected final boolean visitDuplicates;
-
     protected OWLAxiom ax;
-
     protected OWLAnnotation annotation;
-
     private final List<OWLClassExpression> classExpressionPath = new ArrayList<OWLClassExpression>();
-
     private final List<OWLDataRange> dataRangePath = new ArrayList<OWLDataRange>();
 
-
-    /**
-     * @param objects the set of objects to visit
-     */
+    /** @param objects
+     *            the set of objects to visit */
     public OWLObjectWalker(Set<O> objects) {
         this(objects, true);
     }
-    /**
-     * @param visitDuplicates true if duplicates should be visited
-     * @param objects the set of objects to visit
-     */
+
+    /** @param visitDuplicates
+     *            true if duplicates should be visited
+     * @param objects
+     *            the set of objects to visit */
     public OWLObjectWalker(Set<O> objects, boolean visitDuplicates) {
         this.objects = new ArrayList<O>(objects);
         this.visitDuplicates = visitDuplicates;
     }
 
-    /**
-     * @param v visitor to use over the objects
-     */
+    /** @param v
+     *            visitor to use over the objects */
     public void walkStructure(OWLObjectVisitorEx<?> v) {
         this.visitor = v;
         StructureWalker walker = new StructureWalker();
@@ -192,107 +183,102 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
     }
 
-    /**
-     * Gets the last ontology to be visited.
-     * @return The last ontology to be visited
-     */
+    /** Gets the last ontology to be visited.
+     * 
+     * @return The last ontology to be visited */
     public OWLOntology getOntology() {
         return ontology;
     }
 
-    /**
-     * Gets the last axiom to be visited.
-     * @return The last axiom to be visited, or <code>null</code> if an axiom has not be visited
-     */
+    /** Gets the last axiom to be visited.
+     * 
+     * @return The last axiom to be visited, or <code>null</code> if an axiom
+     *         has not be visited */
     public OWLAxiom getAxiom() {
         return ax;
     }
 
-    /**
-     * Gets the last annotation to be visited.
-     * @return The last annotation to be visited (may be <code>null</code>)
-     */
+    /** Gets the last annotation to be visited.
+     * 
+     * @return The last annotation to be visited (may be <code>null</code>) */
     public OWLAnnotation getAnnotation() {
         return annotation;
     }
 
-    /**
-     * Gets the current class expression path.  The current class expression path is a list of class expressions
-     * that represents the containing expressions for the current class expressions.  The first item in the path (list)
-     * is the root class expression that was visited.  For 0 < i < pathLength, the item at index i+1
-     * is a direct sub-expression of the item at index i.  The last item in the path is the current class expression
-     * being visited.
-     * @return A list of class expressions that represents the path of class expressions, with the root of
-     *         the class expression being the first element in the list.
-     */
+    /** Gets the current class expression path. The current class expression path
+     * is a list of class expressions that represents the containing expressions
+     * for the current class expressions. The first item in the path (list) is
+     * the root class expression that was visited. For 0 < i < pathLength, the
+     * item at index i+1 is a direct sub-expression of the item at index i. The
+     * last item in the path is the current class expression being visited.
+     * 
+     * @return A list of class expressions that represents the path of class
+     *         expressions, with the root of the class expression being the
+     *         first element in the list. */
     public List<OWLClassExpression> getClassExpressionPath() {
         return new ArrayList<OWLClassExpression>(classExpressionPath);
     }
 
-    /**
-     * Determines if a particular class expression is the first (or root) class expression in the
-     * current class expression path
-     * @param classExpression The class expression
-     * @return <code>true</code> if the specified class expression is the first class expression
-     * in the current class expression path, otherwise <code>false</code> (<code>false</code> if the
-     * path is empty)
-     */
+    /** Determines if a particular class expression is the first (or root) class
+     * expression in the current class expression path
+     * 
+     * @param classExpression
+     *            The class expression
+     * @return <code>true</code> if the specified class expression is the first
+     *         class expression in the current class expression path, otherwise
+     *         <code>false</code> (<code>false</code> if the path is empty) */
     public boolean isFirstClassExpressionInPath(OWLClassExpression classExpression) {
-        return !classExpressionPath.isEmpty() && classExpressionPath.get(0).equals(classExpression);
+        return !classExpressionPath.isEmpty()
+                && classExpressionPath.get(0).equals(classExpression);
     }
 
-    /**
-     * Pushes a class expression onto the class expression path
-     * @param ce The class expression to be pushed onto the path
-     */
+    /** Pushes a class expression onto the class expression path
+     * 
+     * @param ce
+     *            The class expression to be pushed onto the path */
     protected void pushClassExpression(OWLClassExpression ce) {
         classExpressionPath.add(ce);
     }
 
-    /**
-     * Pops a class expression from the class expression path.  If the path
-     * is empty then this method has no effect.
-     */
+    /** Pops a class expression from the class expression path. If the path is
+     * empty then this method has no effect. */
     protected void popClassExpression() {
         if (!classExpressionPath.isEmpty()) {
             classExpressionPath.remove(classExpressionPath.size() - 1);
         }
     }
 
-    /**
-     * Gets the current data range path.  The current data range path is a list of data ranges
-     * that represents the containing expressions for the current data ranges.  The first item in the path (list)
-     * is the root data range that was visited.  For 0 < i < pathLength, the item at index i+1
-     * is a direct sub-expression of the item at index i.  The last item in the path is the current data range
-     * being visited.
-     * @return A list of data ranges that represents the path of data ranges, with the root of
-     *         the data range being the first element in the list.
-     */
+    /** Gets the current data range path. The current data range path is a list
+     * of data ranges that represents the containing expressions for the current
+     * data ranges. The first item in the path (list) is the root data range
+     * that was visited. For 0 < i < pathLength, the item at index i+1 is a
+     * direct sub-expression of the item at index i. The last item in the path
+     * is the current data range being visited.
+     * 
+     * @return A list of data ranges that represents the path of data ranges,
+     *         with the root of the data range being the first element in the
+     *         list. */
     public List<OWLDataRange> getDataRangePath() {
         return new ArrayList<OWLDataRange>(dataRangePath);
     }
 
-    /**
-     * Pushes a data range on to the data range path
-     * @param dr The data range to be pushed onto the path
-     */
+    /** Pushes a data range on to the data range path
+     * 
+     * @param dr
+     *            The data range to be pushed onto the path */
     protected void pushDataRange(OWLDataRange dr) {
         dataRangePath.add(dr);
     }
 
-    /**
-     * Pops a data range from the data range expression path.  If the path
-     * is empty then this method has no effect.
-     */
+    /** Pops a data range from the data range expression path. If the path is
+     * empty then this method has no effect. */
     protected void popDataRange() {
         if (!dataRangePath.isEmpty()) {
             dataRangePath.remove(dataRangePath.size() - 1);
         }
     }
 
-
     private class StructureWalker implements OWLObjectVisitor {
-
         private final Set<OWLObject> visited = new HashSet<OWLObject>();
 
         public StructureWalker() {}
@@ -303,8 +289,7 @@ public class OWLObjectWalker<O extends OWLObject> {
                     visited.add(object);
                     object.accept(visitor);
                 }
-            }
-            else {
+            } else {
                 object.accept(visitor);
             }
         }
@@ -327,14 +312,12 @@ public class OWLObjectWalker<O extends OWLObject> {
             }
         }
 
-
         @Override
         public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
             process(axiom);
             OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
-
 
         @Override
         public void visit(OWLClassAssertionAxiom axiom) {
@@ -343,7 +326,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getIndividual().accept(this);
             axiom.getClassExpression().accept(this);
         }
-
 
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
@@ -354,7 +336,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getObject().accept(this);
         }
 
-
         @Override
         public void visit(OWLDataPropertyDomainAxiom axiom) {
             process(axiom);
@@ -362,7 +343,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getDomain().accept(this);
             axiom.getProperty().accept(this);
         }
-
 
         @Override
         public void visit(OWLDataPropertyRangeAxiom axiom) {
@@ -372,7 +352,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getProperty().accept(this);
         }
 
-
         @Override
         public void visit(OWLSubDataPropertyOfAxiom axiom) {
             process(axiom);
@@ -381,14 +360,12 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getSuperProperty().accept(this);
         }
 
-
         @Override
         public void visit(OWLDeclarationAxiom axiom) {
             process(axiom);
             OWLObjectWalker.this.ax = axiom;
             axiom.getEntity().accept(this);
         }
-
 
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
@@ -399,7 +376,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             }
         }
 
-
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
             process(axiom);
@@ -408,7 +384,6 @@ public class OWLObjectWalker<O extends OWLObject> {
                 desc.accept(this);
             }
         }
-
 
         @Override
         public void visit(OWLDisjointDataPropertiesAxiom axiom) {
@@ -419,7 +394,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             }
         }
 
-
         @Override
         public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
             process(axiom);
@@ -428,7 +402,6 @@ public class OWLObjectWalker<O extends OWLObject> {
                 prop.accept(this);
             }
         }
-
 
         @Override
         public void visit(OWLDisjointUnionAxiom axiom) {
@@ -439,7 +412,6 @@ public class OWLObjectWalker<O extends OWLObject> {
                 desc.accept(this);
             }
         }
-
 
         @Override
         public void visit(OWLAnnotationAssertionAxiom axiom) {
@@ -490,7 +462,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             }
         }
 
-
         @Override
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
             process(axiom);
@@ -499,7 +470,6 @@ public class OWLObjectWalker<O extends OWLObject> {
                 prop.accept(this);
             }
         }
-
 
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
@@ -510,14 +480,12 @@ public class OWLObjectWalker<O extends OWLObject> {
             }
         }
 
-
         @Override
         public void visit(OWLFunctionalDataPropertyAxiom axiom) {
             process(axiom);
             OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
-
 
         @Override
         public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
@@ -533,7 +501,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getProperty().accept(this);
         }
 
-
         @Override
         public void visit(OWLInverseObjectPropertiesAxiom axiom) {
             process(axiom);
@@ -542,14 +509,12 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getSecondProperty().accept(this);
         }
 
-
         @Override
         public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
             process(axiom);
             OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
-
 
         @Override
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
@@ -560,7 +525,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getObject().accept(this);
         }
 
-
         @Override
         public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
             process(axiom);
@@ -570,7 +534,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getObject().accept(this);
         }
 
-
         @Override
         public void visit(OWLObjectPropertyAssertionAxiom axiom) {
             process(axiom);
@@ -579,7 +542,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getProperty().accept(this);
             axiom.getObject().accept(this);
         }
-
 
         @Override
         public void visit(OWLSubPropertyChainOfAxiom axiom) {
@@ -591,7 +553,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getSuperProperty().accept(this);
         }
 
-
         @Override
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
             process(axiom);
@@ -599,7 +560,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getDomain().accept(this);
             axiom.getProperty().accept(this);
         }
-
 
         @Override
         public void visit(OWLObjectPropertyRangeAxiom axiom) {
@@ -609,7 +569,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getRange().accept(this);
         }
 
-
         @Override
         public void visit(OWLSubObjectPropertyOfAxiom axiom) {
             process(axiom);
@@ -618,14 +577,12 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getSuperProperty().accept(this);
         }
 
-
         @Override
         public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
             process(axiom);
             OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
-
 
         @Override
         public void visit(OWLSameIndividualAxiom axiom) {
@@ -635,7 +592,6 @@ public class OWLObjectWalker<O extends OWLObject> {
                 ind.accept(this);
             }
         }
-
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
@@ -647,7 +603,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getSuperClass().accept(this);
         }
 
-
         @Override
         public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
             process(axiom);
@@ -655,14 +610,12 @@ public class OWLObjectWalker<O extends OWLObject> {
             axiom.getProperty().accept(this);
         }
 
-
         @Override
         public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
             process(axiom);
             OWLObjectWalker.this.ax = axiom;
             axiom.getProperty().accept(this);
         }
-
 
         @Override
         public void visit(SWRLRule rule) {
@@ -697,7 +650,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             popClassExpression();
         }
 
-
         @Override
         public void visit(OWLDataAllValuesFrom desc) {
             pushClassExpression(desc);
@@ -706,7 +658,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             desc.getFiller().accept(this);
             popClassExpression();
         }
-
 
         @Override
         public void visit(OWLDataExactCardinality desc) {
@@ -717,7 +668,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             popClassExpression();
         }
 
-
         @Override
         public void visit(OWLDataMaxCardinality desc) {
             pushClassExpression(desc);
@@ -726,7 +676,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             desc.getFiller().accept(this);
             popClassExpression();
         }
-
 
         @Override
         public void visit(OWLDataMinCardinality desc) {
@@ -737,7 +686,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             popClassExpression();
         }
 
-
         @Override
         public void visit(OWLDataSomeValuesFrom desc) {
             pushClassExpression(desc);
@@ -746,7 +694,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             desc.getFiller().accept(this);
             popClassExpression();
         }
-
 
         @Override
         public void visit(OWLDataHasValue desc) {
@@ -757,7 +704,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             popClassExpression();
         }
 
-
         @Override
         public void visit(OWLObjectAllValuesFrom desc) {
             pushClassExpression(desc);
@@ -767,7 +713,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             popClassExpression();
         }
 
-
         @Override
         public void visit(OWLObjectComplementOf desc) {
             pushClassExpression(desc);
@@ -775,7 +720,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             desc.getOperand().accept(this);
             popClassExpression();
         }
-
 
         @Override
         public void visit(OWLObjectExactCardinality desc) {
@@ -786,18 +730,15 @@ public class OWLObjectWalker<O extends OWLObject> {
             popClassExpression();
         }
 
-
         @Override
         public void visit(OWLObjectIntersectionOf desc) {
             pushClassExpression(desc);
             process(desc);
-
             for (OWLClassExpression op : desc.getOperands()) {
                 op.accept(this);
             }
             popClassExpression();
         }
-
 
         @Override
         public void visit(OWLObjectMaxCardinality desc) {
@@ -808,7 +749,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             popClassExpression();
         }
 
-
         @Override
         public void visit(OWLObjectMinCardinality desc) {
             pushClassExpression(desc);
@@ -817,7 +757,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             desc.getFiller().accept(this);
             popClassExpression();
         }
-
 
         @Override
         public void visit(OWLObjectOneOf desc) {
@@ -829,7 +768,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             popClassExpression();
         }
 
-
         @Override
         public void visit(OWLObjectHasSelf desc) {
             pushClassExpression(desc);
@@ -837,7 +775,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             desc.getProperty().accept(this);
             popClassExpression();
         }
-
 
         @Override
         public void visit(OWLObjectSomeValuesFrom desc) {
@@ -847,7 +784,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             desc.getFiller().accept(this);
             popClassExpression();
         }
-
 
         @Override
         public void visit(OWLObjectUnionOf desc) {
@@ -859,7 +795,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             popClassExpression();
         }
 
-
         @Override
         public void visit(OWLObjectHasValue desc) {
             pushClassExpression(desc);
@@ -869,7 +804,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             popClassExpression();
         }
 
-
         @Override
         public void visit(OWLDataComplementOf node) {
             pushDataRange(node);
@@ -877,7 +811,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             node.getDataRange().accept(this);
             popDataRange();
         }
-
 
         @Override
         public void visit(OWLDataOneOf node) {
@@ -915,7 +848,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             node.getFacetValue().accept(this);
         }
 
-
         @Override
         public void visit(OWLDatatypeRestriction node) {
             pushDataRange(node);
@@ -926,7 +858,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             }
             popDataRange();
         }
-
 
         @Override
         public void visit(OWLDatatype node) {
@@ -954,20 +885,17 @@ public class OWLObjectWalker<O extends OWLObject> {
             property.getIRI().accept(this);
         }
 
-
         @Override
         public void visit(OWLObjectProperty property) {
             process(property);
             property.getIRI().accept(this);
         }
 
-
         @Override
         public void visit(OWLObjectInverseOf property) {
             process(property);
             property.getInverse().accept(this);
         }
-
 
         @Override
         public void visit(OWLNamedIndividual individual) {
@@ -986,19 +914,16 @@ public class OWLObjectWalker<O extends OWLObject> {
             node.getLiteral().accept(this);
         }
 
-
         @Override
         public void visit(SWRLVariable node) {
             process(node);
         }
-
 
         @Override
         public void visit(SWRLIndividualArgument node) {
             process(node);
             node.getIndividual().accept(this);
         }
-
 
         @Override
         public void visit(SWRLBuiltInAtom node) {
@@ -1008,7 +933,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             }
         }
 
-
         @Override
         public void visit(SWRLClassAtom node) {
             process(node);
@@ -1016,14 +940,12 @@ public class OWLObjectWalker<O extends OWLObject> {
             node.getPredicate().accept(this);
         }
 
-
         @Override
         public void visit(SWRLDataRangeAtom node) {
             process(node);
             node.getArgument().accept(this);
             node.getPredicate().accept(this);
         }
-
 
         @Override
         public void visit(SWRLDataPropertyAtom node) {
@@ -1033,14 +955,12 @@ public class OWLObjectWalker<O extends OWLObject> {
             node.getSecondArgument().accept(this);
         }
 
-
         @Override
         public void visit(SWRLDifferentIndividualsAtom node) {
             process(node);
             node.getFirstArgument().accept(this);
             node.getSecondArgument().accept(this);
         }
-
 
         @Override
         public void visit(SWRLObjectPropertyAtom node) {
@@ -1050,14 +970,12 @@ public class OWLObjectWalker<O extends OWLObject> {
             node.getSecondArgument().accept(this);
         }
 
-
         @Override
         public void visit(SWRLSameIndividualAtom node) {
             process(node);
             node.getFirstArgument().accept(this);
             node.getSecondArgument().accept(this);
         }
-
 
         @Override
         public void visit(OWLDatatypeDefinitionAxiom axiom) {

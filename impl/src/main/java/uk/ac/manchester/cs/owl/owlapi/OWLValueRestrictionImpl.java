@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLHasValueRestriction;
@@ -44,37 +43,35 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- * @param <R> the range
- * @param <P> the property expression
- * @param <V> the value
- */
-public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject> extends OWLRestrictionImpl<R, P, P> implements OWLHasValueRestriction<R, P, V> {
-
-
-	private static final long serialVersionUID = 30402L;
-	private final V value;
-
+ * Date: 26-Oct-2006<br>
+ * <br>
+ * 
+ * @param <R>
+ *            the range
+ * @param <P>
+ *            the property expression
+ * @param <V>
+ *            the value */
+public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject>
+        extends OWLRestrictionImpl<R, P, P> implements OWLHasValueRestriction<R, P, V> {
+    private static final long serialVersionUID = 30402L;
+    private final V value;
 
     protected OWLValueRestrictionImpl(P property, V value) {
         super(property);
         this.value = value;
     }
 
-
     @Override
     public V getValue() {
         return value;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLHasValueRestriction<?, ?, ?>)) {
                 return false;
@@ -84,9 +81,8 @@ public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P exte
         return false;
     }
 
-
     @Override
-	final protected int compareObjectOfSameType(OWLObject object) {
+    final protected int compareObjectOfSameType(OWLObject object) {
         OWLHasValueRestriction<?, ?, ?> other = (OWLHasValueRestriction<?, ?, ?>) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {

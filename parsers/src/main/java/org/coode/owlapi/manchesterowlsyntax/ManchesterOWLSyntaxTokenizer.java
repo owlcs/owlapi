@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.manchesterowlsyntax;
 
 import java.util.ArrayList;
@@ -44,44 +43,27 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 19-May-2008<br><br>
- */
+ * Date: 19-May-2008<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxTokenizer {
-
     public static final String EOF = "|EOF|";
-
     protected Set<Character> skip = new HashSet<Character>();
-
     protected Set<Character> commentDelimiters = new HashSet<Character>();
-
     protected Set<Character> delims = new HashSet<Character>();
-
     private String buffer;
-
     private int pos;
-
     private int col;
-
     private int row;
-
     int startPos = 0;
-
     int startCol = 1;
-
     int startRow = 1;
-
     List<Token> tokens = new ArrayList<Token>();
-
     private StringBuilder sb;
-
     private static final char ESCAPE_CHAR = '\\';
-
 
     public ManchesterOWLSyntaxTokenizer(String buffer) {
         this.buffer = buffer;
@@ -106,7 +88,6 @@ public class ManchesterOWLSyntaxTokenizer {
         delims.add('?');
     }
 
-
     private void reset() {
         sb = new StringBuilder();
         tokens.clear();
@@ -117,7 +98,6 @@ public class ManchesterOWLSyntaxTokenizer {
         row = 1;
         col = 1;
     }
-
 
     public List<Token> tokenize() {
         reset();
@@ -131,29 +111,23 @@ public class ManchesterOWLSyntaxTokenizer {
             }
             if (ch == '\"' && lastChar != '\\') {
                 readString('\"', true);
-            }
-            else if (ch == '\'' && lastChar != '\\') {
+            } else if (ch == '\'' && lastChar != '\\') {
                 readString('\'', true);
-            }
-            else if (ch == '<') {
+            } else if (ch == '<') {
                 // Potentially the start of an IRI
                 readIRI();
-            }
-            else if (skip.contains(ch)) {
+            } else if (skip.contains(ch)) {
                 consumeToken();
-            }
-            else if (commentDelimiters.contains(ch)) {
+            } else if (commentDelimiters.contains(ch)) {
                 consumeToken();
                 readComment();
-            }
-            else if (delims.contains(ch)) {
+            } else if (delims.contains(ch)) {
                 consumeToken();
                 sb.append(ch);
                 if (ch != '@') {
                     consumeToken();
                 }
-            }
-            else {
+            } else {
                 sb.append(ch);
             }
             lastChar = ch;
@@ -162,7 +136,6 @@ public class ManchesterOWLSyntaxTokenizer {
         tokens.add(new Token(EOF, pos, col, row));
         return new ArrayList<Token>(tokens);
     }
-
 
     private void consumeToken() {
         if (sb.length() > 0) {
@@ -176,7 +149,7 @@ public class ManchesterOWLSyntaxTokenizer {
 
     private void readComment() {
         char ch = '#';
-        while(ch != '\n' && pos < buffer.length()) {
+        while (ch != '\n' && pos < buffer.length()) {
             ch = readChar();
         }
         consumeToken();
@@ -194,23 +167,19 @@ public class ManchesterOWLSyntaxTokenizer {
                     char escapedChar = readChar();
                     if (escapedChar == '\"' || escapedChar == '\'' || escapedChar == '\\') {
                         sb.append(escapedChar);
-                    }
-                    else {
+                    } else {
                         sb.append(ch);
                         sb.append(escapedChar);
                     }
-                }
-                else {
+                } else {
                     sb.append('\\');
                 }
-            }
-            else if (ch == terminator) {
+            } else if (ch == terminator) {
                 if (appendTerminator) {
                     sb.append(ch);
                 }
                 break;
-            }
-            else {
+            } else {
                 sb.append(ch);
             }
         }
@@ -222,25 +191,22 @@ public class ManchesterOWLSyntaxTokenizer {
         int startPos1 = pos;
         while (pos < buffer.length()) {
             char ch = readChar();
-            if(Character.isWhitespace(ch)) {
+            if (Character.isWhitespace(ch)) {
                 // Not an IRI -- go back to where we started
                 pos = startPos1;
                 sb = new StringBuilder("<");
                 consumeToken();
                 break;
-            }
-            else if(ch == '>') {
+            } else if (ch == '>') {
                 // End of IRI
                 sb.append(">");
                 consumeToken();
                 break;
-            }
-            else {
+            } else {
                 sb.append(ch);
             }
         }
     }
-
 
     private char readChar() {
         char ch = buffer.charAt(pos);
@@ -253,17 +219,11 @@ public class ManchesterOWLSyntaxTokenizer {
         return ch;
     }
 
-
     public static class Token {
-
         private String token;
-
         private int pos;
-
         private int col;
-
         private int row;
-
 
         public Token(String token, int pos, int col, int row) {
             this.token = token;
@@ -272,29 +232,24 @@ public class ManchesterOWLSyntaxTokenizer {
             this.row = row;
         }
 
-
         public String getToken() {
             return token;
         }
-
 
         public int getPos() {
             return pos;
         }
 
-
         public int getCol() {
             return col;
         }
-
 
         public int getRow() {
             return row;
         }
 
-
         @Override
-		public String toString() {
+        public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append(token);
             sb.append(" [");

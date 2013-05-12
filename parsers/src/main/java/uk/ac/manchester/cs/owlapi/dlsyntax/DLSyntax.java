@@ -36,72 +36,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owlapi.dlsyntax;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Feb-2008<br><br>
- */
+ * Date: 10-Feb-2008<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public enum DLSyntax {
-
-    SUBCLASS("\u2291"),
-
-    EQUIVALENT_TO("\u2261"),
-
-    NOT("\u00AC"),
-
-    DISJOINT_WITH(SUBCLASS + " " + NOT),
-
-    EXISTS("\u2203"),
-
-    FORALL("\u2200"),
-
-    IN("\u2208"),
-
-    MIN("\u2265"),
-
-    EQUAL("="),
-
-    NOT_EQUAL("\u2260"),
-
-    MAX("\u2264"),
-
-    INVERSE("\u207B"),  // Superscript minus
-
-    AND("\u2293"),
-
-    TOP("\u22A4"),
-
-    BOTTOM("\u22A5"),
-
-    OR("\u2294"),
-
-    COMP("\u2218"),
-
-    WEDGE("\u22C0"),
-
-    IMPLIES("\u2190"),
-
-    COMMA(","),
-
-    SELF("self");
-
-
-
-
+    SUBCLASS("\u2291"), EQUIVALENT_TO("\u2261"), NOT("\u00AC"), DISJOINT_WITH(SUBCLASS
+            + " " + NOT), EXISTS("\u2203"), FORALL("\u2200"), IN("\u2208"), MIN("\u2265"), EQUAL(
+            "="), NOT_EQUAL("\u2260"), MAX("\u2264"), INVERSE("\u207B"),  // Superscript
+                                                                         // minus
+    AND("\u2293"), TOP("\u22A4"), BOTTOM("\u22A5"), OR("\u2294"), COMP("\u2218"), WEDGE(
+            "\u22C0"), IMPLIES("\u2190"), COMMA(","), SELF("self");
     private String unicodeSymbol;
-
 
     DLSyntax(String unicode) {
         this.unicodeSymbol = unicode;
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         return unicodeSymbol;
     }
 }

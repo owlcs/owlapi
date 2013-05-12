@@ -36,25 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends OWLProfileViolation
+        implements OWL2DLProfileViolation {
     private final OWLObjectPropertyExpression prop;
 
-    public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology, OWLDisjointObjectPropertiesAxiom axiom, OWLObjectPropertyExpression prop) {
+    public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology,
+            OWLDisjointObjectPropertiesAxiom axiom, OWLObjectPropertyExpression prop) {
         super(ontology, axiom);
         this.prop = prop;
     }
@@ -69,7 +67,7 @@ public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends OWLProfileV
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-simple property in ");
         sb.append(getAxiom().getAxiomType().getName());

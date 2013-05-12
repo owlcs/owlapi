@@ -36,29 +36,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
  * Date: 13-Jan-2009
  * <p/>
- * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Subproperties">SubAnnotationPropertyOf</a> axiom in the OWL 2 Specification.
- */
+ * Represents an <a href=
+ * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Subproperties"
+ * >SubAnnotationPropertyOf</a> axiom in the OWL 2 Specification. */
 public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
-
-    /**
-     * Gets the subproperty of this axiom.
-     * @return The annotation property that represents the subproperty in this axiom.
-     */
+    /** Gets the subproperty of this axiom.
+     * 
+     * @return The annotation property that represents the subproperty in this
+     *         axiom. */
     OWLAnnotationProperty getSubProperty();
 
-    /**
-     * Gets the superproperty of this axiom.
-     * @return The annotation property that represents the superproperty in this axiom.
-     */
+    /** Gets the superproperty of this axiom.
+     * 
+     * @return The annotation property that represents the superproperty in this
+     *         axiom. */
     OWLAnnotationProperty getSuperProperty();
-
 
     @Override
     OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations();

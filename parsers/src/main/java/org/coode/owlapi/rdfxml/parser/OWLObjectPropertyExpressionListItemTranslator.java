@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.logging.Logger;
@@ -45,26 +44,21 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
- */
+ * Date: 08-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public class OWLObjectPropertyExpressionListItemTranslator implements ListItemTranslator<OWLObjectPropertyExpression> {
-
-    private static final Logger logger = Logger.getLogger(OWLObjectPropertyExpressionListItemTranslator.class.getName());
-
-
+public class OWLObjectPropertyExpressionListItemTranslator implements
+        ListItemTranslator<OWLObjectPropertyExpression> {
+    private static final Logger logger = Logger
+            .getLogger(OWLObjectPropertyExpressionListItemTranslator.class.getName());
     private OWLRDFConsumer consumer;
-
 
     public OWLObjectPropertyExpressionListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
-
 
     @Override
     public OWLObjectPropertyExpression translate(IRI IRI) {

@@ -36,15 +36,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 07-Dec-2009
- */
-class OWLXMLParserException2SAXExceptionTranslation {
-
-
-}
+ * Date: 07-Dec-2009 */
+class OWLXMLParserException2SAXExceptionTranslation {}

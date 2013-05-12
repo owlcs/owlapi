@@ -36,23 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 23-Apr-2007<br><br>
- */
+ * Date: 23-Apr-2007<br>
+ * <br> */
 public interface OWLAxiomFilter {
-
-    /**
-     * @param axiom axiom to filter
-     * @return true if check passed
-     */
+    /** @param axiom
+     *            axiom to filter
+     * @return true if check passed */
     boolean passes(OWLAxiom axiom);
 }

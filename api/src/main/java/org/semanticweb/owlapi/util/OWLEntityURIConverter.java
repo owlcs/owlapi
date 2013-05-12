@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.ArrayList;
@@ -60,58 +59,47 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2007<br><br>
+ * Date: 25-Nov-2007<br>
+ * <br>
  * <p/>
- * Performs a bulk conversion/translation of entity URIs.  This utility class
- * can be used to replace entity names with IDs for example.  The
- * entity converter is supplied with a set of ontologies and a conversion
- * strategy.  All of the entities that are referenced in the specified
- * ontologies will have their URIs converted according the specified conversion
- * strategy.
- */
+ * Performs a bulk conversion/translation of entity URIs. This utility class can
+ * be used to replace entity names with IDs for example. The entity converter is
+ * supplied with a set of ontologies and a conversion strategy. All of the
+ * entities that are referenced in the specified ontologies will have their URIs
+ * converted according the specified conversion strategy. */
 public class OWLEntityURIConverter {
-
     private final OWLOntologyManager manager;
-
     // The ontologies that reference the
     // entities whose names will be converted
     private final Collection<OWLOntology> ontologies;
-
     private Map<OWLEntity, IRI> replacementMap;
-
     private List<OWLOntologyChange> changes;
-
     private Set<OWLEntity> processedEntities;
-
     private final OWLEntityURIConverterStrategy strategy;
 
-
-    /**
-     * Creates a converter that will convert the URIs of entities in the specified ontologies
-     * using the specified conversion strategy.
-     *
-     * @param manager    The manager which managers the specified ontologies.
-     * @param ontologies The ontologies whose entity URIs will be converted
-     * @param strategy   The conversion strategy to be used.
-     */
-    public OWLEntityURIConverter(OWLOntologyManager manager, Set<OWLOntology> ontologies, OWLEntityURIConverterStrategy strategy) {
+    /** Creates a converter that will convert the URIs of entities in the
+     * specified ontologies using the specified conversion strategy.
+     * 
+     * @param manager
+     *            The manager which managers the specified ontologies.
+     * @param ontologies
+     *            The ontologies whose entity URIs will be converted
+     * @param strategy
+     *            The conversion strategy to be used. */
+    public OWLEntityURIConverter(OWLOntologyManager manager, Set<OWLOntology> ontologies,
+            OWLEntityURIConverterStrategy strategy) {
         this.manager = manager;
         this.ontologies = new ArrayList<OWLOntology>(ontologies);
         this.strategy = strategy;
     }
 
-
-    /**
-     * Gets the changes required to perform the conversion.
-     *
-     * @return A list of ontology changes that should be applied in order
-     *         to convert the URI of entities in the specified ontologies.
-     */
+    /** Gets the changes required to perform the conversion.
+     * 
+     * @return A list of ontology changes that should be applied in order to
+     *         convert the URI of entities in the specified ontologies. */
     public List<OWLOntologyChange> getChanges() {
         replacementMap = new HashMap<OWLEntity, IRI>();
         processedEntities = new HashSet<OWLEntity>();
@@ -132,7 +120,8 @@ public class OWLEntityURIConverter {
                 processEntity(ind);
             }
         }
-        OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap, manager.getOWLDataFactory());
+        OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap,
+                manager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
             for (OWLAxiom ax : ont.getAxioms()) {
                 OWLAxiom dupAx = dup.duplicateObject(ax);
@@ -158,5 +147,4 @@ public class OWLEntityURIConverter {
     private IRI getTinyURI(OWLEntity ent) {
         return strategy.getConvertedIRI(ent);
     }
-
 }

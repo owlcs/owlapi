@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -51,19 +50,20 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLSubObjectPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLObjectPropertyExpression> implements OWLSubObjectPropertyOfAxiom {
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLSubObjectPropertyOfAxiomImpl extends
+        OWLSubPropertyAxiomImpl<OWLObjectPropertyExpression> implements
+        OWLSubObjectPropertyOfAxiom {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-	@SuppressWarnings("javadoc")
-    public OWLSubObjectPropertyOfAxiomImpl(OWLObjectPropertyExpression subProperty, OWLObjectPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
+    @SuppressWarnings("javadoc")
+    public OWLSubObjectPropertyOfAxiomImpl(OWLObjectPropertyExpression subProperty,
+            OWLObjectPropertyExpression superProperty,
+            Collection<? extends OWLAnnotation> annotations) {
         super(subProperty, superProperty, annotations);
     }
 
@@ -72,16 +72,18 @@ public class OWLSubObjectPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWL
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(getSubProperty(), getSuperProperty());
+        return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(getSubProperty(),
+                getSuperProperty());
     }
 
     @Override
     public OWLSubObjectPropertyOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(getSubProperty(), getSuperProperty(), mergeAnnos(annotations));
+        return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(getSubProperty(),
+                getSuperProperty(), mergeAnnos(annotations));
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLSubObjectPropertyOfAxiom;
     }
 
@@ -99,7 +101,6 @@ public class OWLSubObjectPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWL
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

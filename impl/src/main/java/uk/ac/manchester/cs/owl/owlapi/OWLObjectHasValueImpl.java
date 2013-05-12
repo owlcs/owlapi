@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -49,19 +48,18 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLIndividual> implements OWLObjectHasValue {
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLObjectHasValueImpl
+        extends
+        OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLIndividual>
+        implements OWLObjectHasValue {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-
-	@SuppressWarnings("javadoc")
+    @SuppressWarnings("javadoc")
     public OWLObjectHasValueImpl(OWLObjectPropertyExpression property, OWLIndividual value) {
         super(property, value);
     }
@@ -72,7 +70,7 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLClassExpre
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectHasValue;
         }
@@ -91,9 +89,9 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLClassExpre
 
     @Override
     public OWLClassExpression asSomeValuesFrom() {
-        return getOWLDataFactory().getOWLObjectSomeValuesFrom(getProperty(), getOWLDataFactory().getOWLObjectOneOf(getValue()));
+        return getOWLDataFactory().getOWLObjectSomeValuesFrom(getProperty(),
+                getOWLDataFactory().getOWLObjectOneOf(getValue()));
     }
-
 
     @Override
     public void accept(OWLClassExpressionVisitor visitor) {
@@ -109,7 +107,6 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLClassExpre
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

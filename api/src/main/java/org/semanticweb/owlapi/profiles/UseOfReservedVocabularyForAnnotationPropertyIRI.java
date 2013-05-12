@@ -36,25 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfReservedVocabularyForAnnotationPropertyIRI extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+public class UseOfReservedVocabularyForAnnotationPropertyIRI extends OWLProfileViolation
+        implements OWL2DLProfileViolation {
     private final OWLAnnotationProperty property;
 
-    public UseOfReservedVocabularyForAnnotationPropertyIRI(OWLOntology ontology, OWLAxiom axiom, OWLAnnotationProperty property) {
+    public UseOfReservedVocabularyForAnnotationPropertyIRI(OWLOntology ontology,
+            OWLAxiom axiom, OWLAnnotationProperty property) {
         super(ontology, axiom);
         this.property = property;
     }
@@ -69,7 +67,7 @@ public class UseOfReservedVocabularyForAnnotationPropertyIRI extends OWLProfileV
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of reserved vocabulary for annotation property IRI: ");
         sb.append(property);

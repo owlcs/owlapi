@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import java.io.IOException;
@@ -54,84 +53,82 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br><br>
- */
+ * Date: 10-Jan-2007<br>
+ * <br> */
 public class OWLOBOParser extends AbstractOWLParser {
-
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology) throws OWLParserException, IOException,
+            UnloadableImportException {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }
 
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+            throws OWLParserException, IOException, OWLOntologyChangeException,
+            UnloadableImportException {
         OBOParser parser;
         Reader reader = null;
         InputStream is = null;
         if (documentSource.isReaderAvailable()) {
             reader = documentSource.getReader();
             parser = new OBOParser(reader);
-        }
-        else if (documentSource.isInputStreamAvailable()) {
+        } else if (documentSource.isInputStreamAvailable()) {
             is = documentSource.getInputStream();
             parser = new OBOParser(is);
-        }
-        else {
+        } else {
             is = getInputStream(documentSource.getDocumentIRI(), configuration);
             parser = new OBOParser(is);
         }
         RawFrameHandler rawFrameHandler = new RawFrameHandler();
-
-        OBOConsumer oboConsumer = new OBOConsumer(ontology, configuration, documentSource.getDocumentIRI());
+        OBOConsumer oboConsumer = new OBOConsumer(ontology, configuration,
+                documentSource.getDocumentIRI());
         parser.setHandler(rawFrameHandler);
         try {
             parser.parse();
             parseFrames(rawFrameHandler, oboConsumer);
-        }
-        catch (ParseException e) {
-            if (e.getCause() != null && e.getCause() instanceof OWLOntologyChangeException) {
+        } catch (ParseException e) {
+            if (e.getCause() != null
+                    && e.getCause() instanceof OWLOntologyChangeException) {
                 throw (OWLOntologyChangeException) e.getCause();
             }
-            if (e.getCause() != null && e.getCause() instanceof OWLOntologyAlreadyExistsException) {
-                OWLOntologyAlreadyExistsException ex = (OWLOntologyAlreadyExistsException) e.getCause();
-                throw new UnloadableImportException(ex, ontology.getOWLOntologyManager().getOWLDataFactory().getOWLImportsDeclaration(ex.getOntologyID().getOntologyIRI()));
+            if (e.getCause() != null
+                    && e.getCause() instanceof OWLOntologyAlreadyExistsException) {
+                OWLOntologyAlreadyExistsException ex = (OWLOntologyAlreadyExistsException) e
+                        .getCause();
+                throw new UnloadableImportException(ex, ontology.getOWLOntologyManager()
+                        .getOWLDataFactory()
+                        .getOWLImportsDeclaration(ex.getOntologyID().getOntologyIRI()));
             }
             Token currentToken = e.currentToken;
             if (currentToken != null) {
                 int beginLine = currentToken.beginLine;
                 int beginColumn = currentToken.beginColumn;
                 throw new OWLParserException(e, beginLine, beginColumn);
-            }
-            else {
+            } else {
                 throw new OWLParserException(e);
             }
-        }
-        catch (TokenMgrError e) {
+        } catch (TokenMgrError e) {
             throw new OWLParserException(e);
-        }
-        finally {
+        } finally {
             if (is != null) {
                 is.close();
-            }
-            else if (reader != null) {
+            } else if (reader != null) {
                 reader.close();
             }
         }
         return new OBOOntologyFormat(oboConsumer.getIdSpaceManager());
     }
 
-
     private void parseFrames(RawFrameHandler rawFrameHandler, OBOConsumer oboConsumer) {
         parseHeaderFrame(rawFrameHandler, oboConsumer);
         parseFrames(oboConsumer, rawFrameHandler.getTypeDefFrames());
         parseFrames(oboConsumer, rawFrameHandler.getNonTypeDefFrames());
     }
-
 
     private void parseHeaderFrame(RawFrameHandler rawFrameHandler, OBOConsumer consumer) {
         consumer.startHeader();
@@ -140,9 +137,9 @@ public class OWLOBOParser extends AbstractOWLParser {
     }
 
     private void parseFrames(OBOConsumer oboConsumer, List<OBOFrame> frames) {
-        for(OBOFrame frame : frames) {
-        parseFrame(oboConsumer, frame);
-    }
+        for (OBOFrame frame : frames) {
+            parseFrame(oboConsumer, frame);
+        }
     }
 
     private void parseFrame(OBOConsumer oboConsumer, OBOFrame frame) {
@@ -152,8 +149,10 @@ public class OWLOBOParser extends AbstractOWLParser {
     }
 
     private void parseFrameTagValuePairs(OBOConsumer oboConsumer, OBOFrame frame) {
-        for(OBOTagValuePair tagValuePair : frame.getTagValuePairs()) {
-        oboConsumer.handleTagValue(tagValuePair.getTagName(), tagValuePair.getValue(), tagValuePair.getQualifier(), tagValuePair.getComment());
-    }
+        for (OBOTagValuePair tagValuePair : frame.getTagValuePairs()) {
+            oboConsumer.handleTagValue(tagValuePair.getTagName(),
+                    tagValuePair.getValue(), tagValuePair.getQualifier(),
+                    tagValuePair.getComment());
+        }
     }
 }

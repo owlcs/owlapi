@@ -36,36 +36,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 09-Dec-2009
- * </p>
- * A simple utility class that describes the version of a piece of software e.g. reasoner version.
- * </p>
- * A version number is assumed to be the following format: <b>major.minor.patch.build</b>.
- * </p>
- */
+ * Date: 09-Dec-2009 </p> A simple utility class that describes the version of a
+ * piece of software e.g. reasoner version. </p> A version number is assumed to
+ * be the following format: <b>major.minor.patch.build</b>. </p> */
 public class Version {
-
     private final int major;
-
     private final int minor;
-
     private final int patch;
-
     private final int build;
 
-
-    /**
-     * @param major major version number
-     * @param minor minor version number
-     * @param patch patch number
-     * @param build build number
-     */
+    /** @param major
+     *            major version number
+     * @param minor
+     *            minor version number
+     * @param patch
+     *            patch number
+     * @param build
+     *            build number */
     public Version(int major, int minor, int patch, int build) {
         this.major = major;
         this.minor = minor;
@@ -73,29 +65,22 @@ public class Version {
         this.build = build;
     }
 
-    /**
-     * @return major version
-     */
+    /** @return major version */
     public int getMajor() {
         return major;
     }
-    /**
-     * @return minor version
-     */
+
+    /** @return minor version */
     public int getMinor() {
         return minor;
     }
 
-    /**
-     * @return patch version
-     */
+    /** @return patch version */
     public int getPatch() {
         return patch;
     }
 
-    /**
-     * @return build version
-     */
+    /** @return build version */
     public int getBuild() {
         return build;
     }

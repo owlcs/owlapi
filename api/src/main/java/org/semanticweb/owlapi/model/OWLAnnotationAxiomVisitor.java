@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;/*
 
 /**
@@ -45,9 +44,9 @@ package org.semanticweb.owlapi.model;/*
  * </p>
  * A visitor which visits the different kinds of annotation axioms.
  */
+
 @SuppressWarnings("javadoc")
 public interface OWLAnnotationAxiomVisitor {
-
     void visit(OWLAnnotationAssertionAxiom axiom);
 
     void visit(OWLSubAnnotationPropertyOfAxiom axiom);

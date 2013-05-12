@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.Set;
@@ -44,33 +43,25 @@ import java.util.Set;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- */
+ * Bio-Health Informatics Group Date: 25-Oct-2006 */
 public abstract class OWLOntologyChange {
-
     private final OWLOntology ont;
 
-    /**
-     * @param ont the ontology to which the change is to be applied
-     */
+    /** @param ont
+     *            the ontology to which the change is to be applied */
     public OWLOntologyChange(OWLOntology ont) {
         this.ont = ont;
     }
 
-
-    /**
-     * Determines if the change will cause the addition or
-     * removal of an axiom from an ontology.
-     *
-     * @return {@code true} if the change is an {@code OWLAddAxiomChange}
-     *         or {@code OWLRemoveAxiomChange} otherwise {@code false}.
-     */
+    /** Determines if the change will cause the addition or removal of an axiom
+     * from an ontology.
+     * 
+     * @return {@code true} if the change is an {@code OWLAddAxiomChange} or
+     *         {@code OWLRemoveAxiomChange} otherwise {@code false}. */
     public abstract boolean isAxiomChange();
-    
+
     /** Determines if the change will add an axiom to an ontology.
      * 
      * @return <code>true</code> if the change is an AddAxiom change and it will
@@ -95,53 +86,49 @@ public abstract class OWLOntologyChange {
      *             {@code isAxiomChange} method first). */
     public abstract OWLAxiom getAxiom();
 
-
-    /**
-     * Determines if this change is an import change and hence causes a change to the imports closure of an ontology.
-     *
-     * @return {@code true} if this change is an import change, otherwise {@code false}.
-     */
+    /** Determines if this change is an import change and hence causes a change
+     * to the imports closure of an ontology.
+     * 
+     * @return {@code true} if this change is an import change, otherwise
+     *         {@code false}. */
     public abstract boolean isImportChange();
 
-    /**
-     * Gets the ontology that the change is/was applied to
-     *
-     * @return The ontology that the change is applicable to
-     */
+    /** Gets the ontology that the change is/was applied to
+     * 
+     * @return The ontology that the change is applicable to */
     public OWLOntology getOntology() {
         return ont;
     }
 
-    /**
-     * Gets the data (independent of the ontology) associated with this specific change.
-     *
-     * @return The {@link OWLOntologyChangeData} associated with this {@link OWLOntologyChange}.  Not {@code null}.
-     */
+    /** Gets the data (independent of the ontology) associated with this specific
+     * change.
+     * 
+     * @return The {@link OWLOntologyChangeData} associated with this
+     *         {@link OWLOntologyChange}. Not {@code null}. */
     public abstract OWLOntologyChangeData getChangeData();
 
-    /**
-     * Gets a {@link OWLOntologyChangeRecord} that is derived from this {@link OWLOntologyChange}'s {@link
-     * OWLOntologyID} and it's {@link OWLOntologyChangeData}.
-     *
-     * @return An {@link OWLOntologyChangeRecord} containing an {@link OWLOntologyID} equal to the {@link
-     *         OWLOntologyID} of this {@link OWLOntologyChange}'s {@link OWLOntology}.  Not {@code null}.
-     */
+    /** Gets a {@link OWLOntologyChangeRecord} that is derived from this
+     * {@link OWLOntologyChange}'s {@link OWLOntologyID} and it's
+     * {@link OWLOntologyChangeData}.
+     * 
+     * @return An {@link OWLOntologyChangeRecord} containing an
+     *         {@link OWLOntologyID} equal to the {@link OWLOntologyID} of this
+     *         {@link OWLOntologyChange}'s {@link OWLOntology}. Not {@code null}
+     *         . */
     public OWLOntologyChangeRecord getChangeRecord() {
         return new OWLOntologyChangeRecord(ont.getOntologyID(), getChangeData());
     }
 
-    /**
-     * Gets the signature of this ontology change.  That is, the set of entities appearing in objects in this change.
-     * @return A set of entities that correspond to the
-     *         signature of this object. The set is a copy, changes are not reflected back.
-     */
+    /** Gets the signature of this ontology change. That is, the set of entities
+     * appearing in objects in this change.
+     * 
+     * @return A set of entities that correspond to the signature of this
+     *         object. The set is a copy, changes are not reflected back. */
     public abstract Set<OWLEntity> getSignature();
-
 
     @SuppressWarnings("javadoc")
     public abstract void accept(OWLOntologyChangeVisitor visitor);
 
     @SuppressWarnings("javadoc")
     public abstract <O> O accept(OWLOntologyChangeVisitorEx<O> visitor);
-
 }

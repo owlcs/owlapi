@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdf.rdfxml;
 
 import java.io.IOException;
@@ -51,20 +50,15 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 03-Jan-2007<br><br>
- */
+ * Date: 03-Jan-2007<br>
+ * <br> */
 public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-
-	@Override
+    @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat instanceof RDFXMLOntologyFormat;
     }
@@ -81,14 +75,13 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
                     sb.append(entity.toStringID());
                     sb.append("\n");
                 }
-                throw new OWLOntologyStorageException(sb.toString().trim(), new IllegalElementNameException(sb.toString().trim()));
+                throw new OWLOntologyStorageException(sb.toString().trim(),
+                        new IllegalElementNameException(sb.toString().trim()));
             }
             renderer.render();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
-        }
-        catch (IllegalElementNameException e) {
+        } catch (IllegalElementNameException e) {
             throw new OWLOntologyStorageException(e);
         }
     }

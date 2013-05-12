@@ -36,30 +36,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi;/*
-* Copyright (C) 2007, University of Manchester
-*
-* Modifications to the initial code base are copyright of their
-* respective authors, or their employers as appropriate.  Authorship
-* of the modifications may be determined from the ChangeLog placed at
-* the end of this file.
-*
-* This library is free software; you can redistribute it and/or
-* modify it under the terms of the GNU Lesser General Public
-* License as published by the Free Software Foundation; either
-* version 2.1 of the License, or (at your option) any later version.
+ * Copyright (C) 2007, University of Manchester
+ *
+ * Modifications to the initial code base are copyright of their
+ * respective authors, or their employers as appropriate.  Authorship
+ * of the modifications may be determined from the ChangeLog placed at
+ * the end of this file.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
 
-* This library is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* Lesser General Public License for more details.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
 
-* You should have received a copy of the GNU Lesser General Public
-* License along with this library; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -79,48 +77,45 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 23-Jul-2007<br><br>
+ * Date: 23-Jul-2007<br>
+ * <br>
  * <p/>
- * Given a set of ontologies, this composite change will convert all property assertion
- * axioms whose subject is a 'punned' individual (i.e. an individual that shares a name
- * with a class), removes these axioms and replaces them with annotations on the class
- * that shares the same name as the individual.  For example for a class A and an individual
- * A, the data property assertion hasX(A, "Val") would be converted to an entity annotation on
- * the class A with an annotation URI of "hasX" and a value of "Val".
+ * Given a set of ontologies, this composite change will convert all property
+ * assertion axioms whose subject is a 'punned' individual (i.e. an individual
+ * that shares a name with a class), removes these axioms and replaces them with
+ * annotations on the class that shares the same name as the individual. For
+ * example for a class A and an individual A, the data property assertion
+ * hasX(A, "Val") would be converted to an entity annotation on the class A with
+ * an annotation URI of "hasX" and a value of "Val".
  * <p/>
- * This composite change supports refactoring an ontology where punning was used to simulate
- * annotations on a class rather than using actual annotations on a class.
- */
-public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOntologyChange {
-
+ * This composite change supports refactoring an ontology where punning was used
+ * to simulate annotations on a class rather than using actual annotations on a
+ * class. */
+public class ConvertPropertyAssertionsToAnnotations extends
+        AbstractCompositeOntologyChange {
     private final Set<OWLOntology> ontologies;
-
     private List<OWLOntologyChange> changes;
 
-
-    /**
-     * @param dataFactory factory to use
-     * @param ontologies ontologies to change
-     */
-    public ConvertPropertyAssertionsToAnnotations(OWLDataFactory dataFactory, Set<OWLOntology> ontologies) {
+    /** @param dataFactory
+     *            factory to use
+     * @param ontologies
+     *            ontologies to change */
+    public ConvertPropertyAssertionsToAnnotations(OWLDataFactory dataFactory,
+            Set<OWLOntology> ontologies) {
         super(dataFactory);
         this.ontologies = ontologies;
         generateChanges();
     }
 
-
     private void generateChanges() {
         changes = new ArrayList<OWLOntologyChange>();
         Set<OWLNamedIndividual> individuals = new HashSet<OWLNamedIndividual>();
-
         for (OWLOntology ont : ontologies) {
             individuals.addAll(ont.getIndividualsInSignature());
         }
-
         Set<OWLDataProperty> convertedDataProperties = new HashSet<OWLDataProperty>();
         for (OWLNamedIndividual ind : individuals) {
             boolean punned = false;
@@ -134,15 +129,17 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
                 // Next individual
                 continue;
             }
-
             for (OWLOntology ont : ontologies) {
-                for (OWLDataPropertyAssertionAxiom ax : ont.getDataPropertyAssertionAxioms(ind)) {
+                for (OWLDataPropertyAssertionAxiom ax : ont
+                        .getDataPropertyAssertionAxioms(ind)) {
                     if (!ax.getProperty().isAnonymous()) {
                         changes.add(new RemoveAxiom(ont, ax));
                         OWLDataFactory df = getDataFactory();
-                        OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(ax.getProperty().asOWLDataProperty().getIRI()),
-                                ax.getObject());
-                        OWLAnnotationAssertionAxiom annoAx = df.getOWLAnnotationAssertionAxiom(ind.getIRI(), anno);
+                        OWLAnnotation anno = df.getOWLAnnotation(
+                                df.getOWLAnnotationProperty(ax.getProperty()
+                                        .asOWLDataProperty().getIRI()), ax.getObject());
+                        OWLAnnotationAssertionAxiom annoAx = df
+                                .getOWLAnnotationAssertionAxiom(ind.getIRI(), anno);
                         changes.add(new AddAxiom(ont, annoAx));
                         convertedDataProperties.add((OWLDataProperty) ax.getProperty());
                     }
@@ -168,7 +165,6 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
             }
         }
     }
-
 
     @Override
     public List<OWLOntologyChange> getChanges() {

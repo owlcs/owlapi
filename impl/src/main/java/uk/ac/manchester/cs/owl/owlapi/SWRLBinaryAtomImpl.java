@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
@@ -48,21 +47,16 @@ import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007<br><br>
- */
+ * Date: 15-Jan-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtomImpl implements SWRLBinaryAtom<A, B> {
-
-
-	private static final long serialVersionUID = 30402L;
-
-	private final A arg0;
-
+public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument>
+        extends SWRLAtomImpl implements SWRLBinaryAtom<A, B> {
+    private static final long serialVersionUID = 30402L;
+    private final A arg0;
     private final B arg1;
 
     protected SWRLBinaryAtomImpl(SWRLPredicate predicate, A arg0, B arg1) {
@@ -70,7 +64,6 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
         this.arg0 = arg0;
         this.arg1 = arg1;
     }
-
 
     @Override
     public Collection<SWRLArgument> getAllArguments() {
@@ -80,23 +73,21 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
         return objs;
     }
 
-
     @Override
     public A getFirstArgument() {
         return arg0;
     }
-
 
     @Override
     public B getSecondArgument() {
         return arg1;
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
-        SWRLBinaryAtom<?,?> other = (SWRLBinaryAtom<?,?>) object;
-        int diff = ((OWLObject) getPredicate()).compareTo((OWLObject) other.getPredicate());
+    protected int compareObjectOfSameType(OWLObject object) {
+        SWRLBinaryAtom<?, ?> other = (SWRLBinaryAtom<?, ?>) object;
+        int diff = ((OWLObject) getPredicate()).compareTo((OWLObject) other
+                .getPredicate());
         if (diff != 0) {
             return diff;
         }

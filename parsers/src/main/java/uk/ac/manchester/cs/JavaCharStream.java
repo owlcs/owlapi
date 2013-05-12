@@ -127,29 +127,26 @@ public class JavaCharStream {
         char[] newbuffer = new char[bufsize + 2048];
         int newbufline[] = new int[bufsize + 2048];
         int newbufcolumn[] = new int[bufsize + 2048];
-            if (wrapAround) {
-                System.arraycopy(buffer, tokenBegin, newbuffer, 0, bufsize - tokenBegin);
-                System.arraycopy(buffer, 0, newbuffer, bufsize - tokenBegin, bufpos);
-                buffer = newbuffer;
-                System.arraycopy(bufline, tokenBegin, newbufline, 0, bufsize - tokenBegin);
-                System.arraycopy(bufline, 0, newbufline, bufsize - tokenBegin, bufpos);
-                bufline = newbufline;
-                System.arraycopy(bufcolumn, tokenBegin, newbufcolumn, 0, bufsize
-                        - tokenBegin);
-                System.arraycopy(bufcolumn, 0, newbufcolumn, bufsize - tokenBegin, bufpos);
-                bufcolumn = newbufcolumn;
-                bufpos += bufsize - tokenBegin;
-            } else {
-                System.arraycopy(buffer, tokenBegin, newbuffer, 0, bufsize - tokenBegin);
-                buffer = newbuffer;
-                System.arraycopy(bufline, tokenBegin, newbufline, 0, bufsize - tokenBegin);
-                bufline = newbufline;
-                System.arraycopy(bufcolumn, tokenBegin, newbufcolumn, 0, bufsize
-                        - tokenBegin);
-                bufcolumn = newbufcolumn;
-                bufpos -= tokenBegin;
-            }
-
+        if (wrapAround) {
+            System.arraycopy(buffer, tokenBegin, newbuffer, 0, bufsize - tokenBegin);
+            System.arraycopy(buffer, 0, newbuffer, bufsize - tokenBegin, bufpos);
+            buffer = newbuffer;
+            System.arraycopy(bufline, tokenBegin, newbufline, 0, bufsize - tokenBegin);
+            System.arraycopy(bufline, 0, newbufline, bufsize - tokenBegin, bufpos);
+            bufline = newbufline;
+            System.arraycopy(bufcolumn, tokenBegin, newbufcolumn, 0, bufsize - tokenBegin);
+            System.arraycopy(bufcolumn, 0, newbufcolumn, bufsize - tokenBegin, bufpos);
+            bufcolumn = newbufcolumn;
+            bufpos += bufsize - tokenBegin;
+        } else {
+            System.arraycopy(buffer, tokenBegin, newbuffer, 0, bufsize - tokenBegin);
+            buffer = newbuffer;
+            System.arraycopy(bufline, tokenBegin, newbufline, 0, bufsize - tokenBegin);
+            bufline = newbufline;
+            System.arraycopy(bufcolumn, tokenBegin, newbufcolumn, 0, bufsize - tokenBegin);
+            bufcolumn = newbufcolumn;
+            bufpos -= tokenBegin;
+        }
         available = bufsize += 2048;
         tokenBegin = 0;
     }
@@ -328,7 +325,6 @@ public class JavaCharStream {
         }
     }
 
-
     /** Get end column. */
     public int getEndColumn() {
         return bufcolumn[bufpos];
@@ -401,8 +397,8 @@ public class JavaCharStream {
     protected JavaCharStream(InputStream dstream, String encoding, int startline,
             int startcolumn, int buffersize) throws UnsupportedEncodingException {
         this(encoding == null ? new InputStreamReader(dstream, "UTF-8")
-        : new InputStreamReader(dstream, encoding), startline, startcolumn,
-        buffersize);
+                : new InputStreamReader(dstream, encoding), startline, startcolumn,
+                buffersize);
     }
 
     /** Constructor. */
@@ -415,8 +411,8 @@ public class JavaCharStream {
     private void ReInit(InputStream dstream, String encoding, int startline,
             int startcolumn, int buffersize) throws UnsupportedEncodingException {
         ReInit(encoding == null ? new InputStreamReader(dstream, "UTF-8")
-        : new InputStreamReader(dstream, encoding), startline, startcolumn,
-        buffersize);
+                : new InputStreamReader(dstream, encoding), startline, startcolumn,
+                buffersize);
     }
 
     /** Reinitialise. */
@@ -425,16 +421,13 @@ public class JavaCharStream {
         ReInit(dstream, encoding, startline, startcolumn, 4096);
     }
 
-
     /** @return token image as String */
     public String GetImage() {
         if (bufpos >= tokenBegin) {
             return new String(buffer, tokenBegin, bufpos - tokenBegin + 1);
         } else {
             return new String(buffer, tokenBegin, bufsize - tokenBegin)
-            + new String(buffer, 0, bufpos + 1);
+                    + new String(buffer, 0, bufpos + 1);
         }
     }
-
-
 }

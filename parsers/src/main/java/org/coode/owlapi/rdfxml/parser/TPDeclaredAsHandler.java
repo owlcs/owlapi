@@ -36,48 +36,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 21-Feb-2007<br><br>
- */
-@SuppressWarnings({"deprecation","javadoc"})
+ * Date: 21-Feb-2007<br>
+ * <br> */
+@SuppressWarnings({ "deprecation", "javadoc" })
 public class TPDeclaredAsHandler extends TriplePredicateHandler {
-
     public TPDeclaredAsHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DECLARED_AS.getIRI());
     }
 
-
     @Override
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return true;
     }
-
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
         if (object.equals(OWLRDFVocabulary.OWL_CLASS.getIRI())) {
-            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLClass(subject), getPendingAnnotations()));
-        }
-        else if (object.equals(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI())) {
-            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLObjectProperty(subject), getPendingAnnotations()));
-        }
-        else if (object.equals(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI())) {
-            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDataProperty(subject), getPendingAnnotations()));
-        }
-        else if (object.equals(OWLRDFVocabulary.OWL_DATATYPE.getIRI())) {
-            addAxiom(getDataFactory().getOWLDeclarationAxiom(getDataFactory().getOWLDatatype(subject), getPendingAnnotations()));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(
+                    getDataFactory().getOWLClass(subject), getPendingAnnotations()));
+        } else if (object.equals(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI())) {
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(
+                    getDataFactory().getOWLObjectProperty(subject),
+                    getPendingAnnotations()));
+        } else if (object.equals(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI())) {
+            addAxiom(getDataFactory()
+                    .getOWLDeclarationAxiom(getDataFactory().getOWLDataProperty(subject),
+                            getPendingAnnotations()));
+        } else if (object.equals(OWLRDFVocabulary.OWL_DATATYPE.getIRI())) {
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(
+                    getDataFactory().getOWLDatatype(subject), getPendingAnnotations()));
         }
     }
 }

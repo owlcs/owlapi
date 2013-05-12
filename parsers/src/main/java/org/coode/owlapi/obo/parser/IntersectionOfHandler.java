@@ -36,25 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 06-Mar-2007<br><br>
- */
+ * Date: 06-Mar-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class IntersectionOfHandler extends AbstractTagValueHandler {
-
     public IntersectionOfHandler(OBOConsumer consumer) {
         super("intersection_of", consumer);
     }
 
-
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         getConsumer().addIntersectionOfOperand(getOWLClassOrRestriction(value));
     }
 }

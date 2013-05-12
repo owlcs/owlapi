@@ -47,59 +47,44 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/**
- * @author ignazio
- *
- *         Mutable state in an OWLDataFactory is encapsulated by this interface
- */
+/** @author ignazio Mutable state in an OWLDataFactory is encapsulated by this
+ *         interface */
 public interface OWLDataFactoryInternals {
-    /**
-     * @param iri
+    /** @param iri
      *            new class IRI
-     * @return a new OWLClass object, or a cached one depending on policies
-     */
+     * @return a new OWLClass object, or a cached one depending on policies */
     OWLClass getOWLClass(IRI iri);
 
     /** purge any caches */
     void purge();
 
-    /**
-     * @param iri
+    /** @param iri
      *            new object property IRI
      * @return a new OWLObjectProperty object, or a cached one depending on
-     *         policies
-     */
+     *         policies */
     OWLObjectProperty getOWLObjectProperty(IRI iri);
 
-    /**
-     * @param iri
+    /** @param iri
      *            new OWLDataProperty IRI
      * @return a new OWLDataProperty object, or a cached one depending on
-     *         policies
-     */
+     *         policies */
     OWLDataProperty getOWLDataProperty(IRI iri);
 
-    /**
-     * @param iri
+    /** @param iri
      *            new OWLNamedIndividual IRI
      * @return a new OWLNamedIndividual object, or a cached one depending on
-     *         policies
-     */
+     *         policies */
     OWLNamedIndividual getOWLNamedIndividual(IRI iri);
 
-    /**
-     * @param iri
+    /** @param iri
      *            new OWLDatatype IRI
-     * @return a new OWLDatatype object, or a cached one depending on policies
-     */
+     * @return a new OWLDatatype object, or a cached one depending on policies */
     OWLDatatype getOWLDatatype(IRI iri);
 
-    /**
-     * @param iri
+    /** @param iri
      *            new OWLAnnotationProperty IRI
      * @return a new OWLAnnotationProperty object, or a cached one depending on
-     *         policies
-     */
+     *         policies */
     OWLAnnotationProperty getOWLAnnotationProperty(IRI iri);
 
     /** @param lexicalValue
@@ -109,12 +94,10 @@ public interface OWLDataFactoryInternals {
 
     /** @param value
      * @return new literal */
-
     public OWLLiteral getOWLLiteral(int value);
 
     /** @param value
      * @return new literal */
-
     public OWLLiteral getOWLLiteral(boolean value);
 
     /** @param value
@@ -151,5 +134,4 @@ public interface OWLDataFactoryInternals {
 
     /** @return plain literal datatype */
     public OWLDatatype getRDFPlainLiteral();
-
 }

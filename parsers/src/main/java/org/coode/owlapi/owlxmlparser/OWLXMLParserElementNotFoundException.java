@@ -36,20 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- */@SuppressWarnings("javadoc")
+ * Date: 13-Apr-2007<br>
+ * <br> */
+@SuppressWarnings("javadoc")
 public class OWLXMLParserElementNotFoundException extends OWLXMLParserException {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-    public OWLXMLParserElementNotFoundException(int lineNumber, int columnNumber, String elementType) {
+    public OWLXMLParserElementNotFoundException(int lineNumber, int columnNumber,
+            String elementType) {
         super("Element not found: " + elementType, lineNumber, columnNumber);
     }
 }

@@ -36,89 +36,80 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br><br>
- */
+ * Date: 13-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public interface OWLElementHandler<O> {
-
     public void startElement(String name) throws OWLXMLParserException;
-
 
     public void attribute(String localName, String value) throws OWLParserException;
 
-
     public void endElement() throws OWLParserException, UnloadableImportException;
-
 
     public O getOWLObject() throws OWLXMLParserException;
 
+    public void setParentHandler(OWLElementHandler<?> handler)
+            throws OWLXMLParserException;
 
-    public void setParentHandler(OWLElementHandler<?> handler) throws OWLXMLParserException;
+    public void handleChild(AbstractOWLAxiomElementHandler handler)
+            throws OWLXMLParserException;
 
+    public void handleChild(AbstractClassExpressionElementHandler handler)
+            throws OWLXMLParserException;
 
-    public void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException;
+    public void handleChild(AbstractOWLObjectPropertyElementHandler handler)
+            throws OWLXMLParserException;
 
+    public void handleChild(OWLDataPropertyElementHandler handler)
+            throws OWLXMLParserException;
 
-    public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException;
+    public void handleChild(OWLIndividualElementHandler handler)
+            throws OWLXMLParserException;
 
+    public void handleChild(AbstractOWLDataRangeHandler handler)
+            throws OWLXMLParserException;
 
-    public void handleChild(AbstractOWLObjectPropertyElementHandler handler) throws OWLXMLParserException;
+    public void handleChild(OWLLiteralElementHandler handler)
+            throws OWLXMLParserException;
 
+    public void handleChild(OWLAnnotationElementHandler handler)
+            throws OWLXMLParserException;
 
-    public void handleChild(OWLDataPropertyElementHandler handler) throws OWLXMLParserException;
+    public void handleChild(OWLAnonymousIndividualElementHandler handler)
+            throws OWLXMLParserException;
 
+    public void handleChild(OWLSubObjectPropertyChainElementHandler handler)
+            throws OWLXMLParserException;
 
-    public void handleChild(OWLIndividualElementHandler handler) throws OWLXMLParserException;
+    public void handleChild(OWLDatatypeFacetRestrictionElementHandler handler)
+            throws OWLXMLParserException;
 
+    public void handleChild(OWLAnnotationPropertyElementHandler handler)
+            throws OWLXMLParserException;
 
-    public void handleChild(AbstractOWLDataRangeHandler handler) throws OWLXMLParserException;
+    public void handleChild(AbstractIRIElementHandler handler)
+            throws OWLXMLParserException;
 
+    public void handleChars(char[] chars, int start, int length)
+            throws OWLXMLParserException;
 
-    public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException;
-
-
-    public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException;
-
-
-    public void handleChild(OWLAnonymousIndividualElementHandler handler) throws OWLXMLParserException;
-
-
-    public void handleChild(OWLSubObjectPropertyChainElementHandler handler) throws OWLXMLParserException;
-
-
-    public void handleChild(OWLDatatypeFacetRestrictionElementHandler handler) throws OWLXMLParserException;
-
-
-    public void handleChild(OWLAnnotationPropertyElementHandler handler) throws OWLXMLParserException;
-
-
-    public void handleChild(AbstractIRIElementHandler handler) throws OWLXMLParserException;
-
-
-    public void handleChars(char[] chars, int start, int length) throws OWLXMLParserException;
-
-
-    public void handleChild(SWRLVariableElementHandler handler) throws OWLXMLParserException;
-
+    public void handleChild(SWRLVariableElementHandler handler)
+            throws OWLXMLParserException;
 
     public void handleChild(SWRLAtomElementHandler handler) throws OWLXMLParserException;
 
-
-    public void handleChild(SWRLAtomListElementHandler handler) throws OWLXMLParserException;
-
+    public void handleChild(SWRLAtomListElementHandler handler)
+            throws OWLXMLParserException;
 
     public String getText();
-
 
     public boolean isTextContentPossible();
 }

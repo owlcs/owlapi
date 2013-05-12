@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INTERSECTION_OF;
@@ -47,27 +46,27 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
+ * Date: 08-Dec-2006<br>
+ * <br>
  * <p/>
- * A class expression translator which produces an <code>OWLIntersectionOf</code>.  
- * This relies on the main node having an intersectionOf
- * triple.
- */
+ * A class expression translator which produces an
+ * <code>OWLIntersectionOf</code>. This relies on the main node having an
+ * intersectionOf triple. */
 @SuppressWarnings("javadoc")
 public class ObjectIntersectionOfTranslator extends AbstractClassExpressionTranslator {
-
     public ObjectIntersectionOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
     @Override
     public boolean matchesStrict(IRI mainNode) {
-        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_INTERSECTION_OF, false);
-        return isClassExpressionStrict(mainNode) && isClassExpressionListStrict(listNode, 2);
+        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_INTERSECTION_OF,
+                false);
+        return isClassExpressionStrict(mainNode)
+                && isClassExpressionListStrict(listNode, 2);
     }
 
     @Override
@@ -77,8 +76,10 @@ public class ObjectIntersectionOfTranslator extends AbstractClassExpressionTrans
 
     @Override
     public OWLObjectIntersectionOf translate(IRI mainNode) {
-        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_INTERSECTION_OF, true);
-        Set<OWLClassExpression> classExpressions = getConsumer().translateToClassExpressionSet(listNode);
+        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_INTERSECTION_OF,
+                true);
+        Set<OWLClassExpression> classExpressions = getConsumer()
+                .translateToClassExpressionSet(listNode);
         return getDataFactory().getOWLObjectIntersectionOf(classExpressions);
     }
 }

@@ -36,25 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 07-Dec-2006<br><br>
- */
+ * Date: 07-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public interface AnonymousNodeChecker {
-
     public boolean isAnonymousNode(IRI iri);
 
-
     public boolean isAnonymousNode(String iri);
-
 
     public boolean isAnonymousSharedNode(String iri);
 }

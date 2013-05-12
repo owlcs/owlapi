@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
@@ -53,26 +52,24 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLClassExpression> implements OWLObjectPropertyRangeAxiom {
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLObjectPropertyRangeAxiomImpl extends
+        OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLClassExpression>
+        implements OWLObjectPropertyRangeAxiom {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-
-	@SuppressWarnings("javadoc")
-    public OWLObjectPropertyRangeAxiomImpl(OWLObjectPropertyExpression property, OWLClassExpression range, Set<? extends OWLAnnotation> annotations) {
+    @SuppressWarnings("javadoc")
+    public OWLObjectPropertyRangeAxiomImpl(OWLObjectPropertyExpression property,
+            OWLClassExpression range, Set<? extends OWLAnnotation> annotations) {
         super(property, range, annotations);
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLObjectPropertyRangeAxiom;
     }
 
@@ -81,12 +78,14 @@ public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<O
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(getProperty(), getRange());
+        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(getProperty(),
+                getRange());
     }
 
     @Override
     public OWLObjectPropertyRangeAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(getProperty(), getRange(), mergeAnnos(annotations));
+        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(getProperty(),
+                getRange(), mergeAnnos(annotations));
     }
 
     @Override
@@ -104,7 +103,6 @@ public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<O
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -114,7 +112,6 @@ public class OWLObjectPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<O
     public AxiomType<?> getAxiomType() {
         return AxiomType.OBJECT_PROPERTY_RANGE;
     }
-
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {

@@ -36,34 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- */
+ * Date: 13-Apr-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class OWLRDFXMLParserException extends OWLParserException {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-
-	public OWLRDFXMLParserException(String message) {
+    public OWLRDFXMLParserException(String message) {
         super(message);
     }
-
 
     public OWLRDFXMLParserException(String message, Throwable cause) {
         super(message, cause);
     }
-
 
     public OWLRDFXMLParserException(Throwable cause) {
         super(cause);

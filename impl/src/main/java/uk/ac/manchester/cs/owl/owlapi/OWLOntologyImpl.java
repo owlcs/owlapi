@@ -129,24 +129,21 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
- * <br>
- */
+ * <br> */
 public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology,
-Serializable {
-
+        Serializable {
     private static final long serialVersionUID = 30402L;
     private final OWLOntologyManager manager;
     protected OWLOntologyID ontologyID;
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Sets of different kinds of axioms
     //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     protected Internals internals;
 
     @SuppressWarnings("javadoc")
@@ -384,12 +381,12 @@ Serializable {
 
     @Override
     public boolean containsClassInSignature(IRI owlClassIRI) {
-        return containsReference(getOWLDataFactory()
-                .getOWLClass(owlClassIRI));
+        return containsReference(getOWLDataFactory().getOWLClass(owlClassIRI));
     }
 
     @Override
-    public boolean containsClassInSignature(IRI owlClassIRI, boolean includeImportsClosure) {
+    public boolean
+            containsClassInSignature(IRI owlClassIRI, boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return containsClassInSignature(owlClassIRI);
         }
@@ -403,8 +400,7 @@ Serializable {
 
     @Override
     public boolean containsObjectPropertyInSignature(IRI propIRI) {
-        return containsReference(
-                getOWLDataFactory().getOWLObjectProperty(propIRI));
+        return containsReference(getOWLDataFactory().getOWLObjectProperty(propIRI));
     }
 
     @Override
@@ -423,8 +419,7 @@ Serializable {
 
     @Override
     public boolean containsDataPropertyInSignature(IRI propIRI) {
-        return containsReference(
-                getOWLDataFactory().getOWLDataProperty(propIRI));
+        return containsReference(getOWLDataFactory().getOWLDataProperty(propIRI));
     }
 
     @Override
@@ -445,8 +440,7 @@ Serializable {
     public boolean containsAnnotationPropertyInSignature(IRI propIRI) {
         final OWLAnnotationProperty owlAnnotationProperty = getOWLDataFactory()
                 .getOWLAnnotationProperty(propIRI);
-        boolean b = containsReference(
-                owlAnnotationProperty);
+        boolean b = containsReference(owlAnnotationProperty);
         if (b) {
             return true;
         } else {
@@ -475,8 +469,7 @@ Serializable {
 
     @Override
     public boolean containsIndividualInSignature(IRI individualIRI) {
-        return containsReference(
-                getOWLDataFactory().getOWLNamedIndividual(individualIRI));
+        return containsReference(getOWLDataFactory().getOWLNamedIndividual(individualIRI));
     }
 
     @Override
@@ -495,8 +488,7 @@ Serializable {
 
     @Override
     public boolean containsDatatypeInSignature(IRI datatypeIRI) {
-        return containsReference(
-                getOWLDataFactory().getOWLDatatype(datatypeIRI));
+        return containsReference(getOWLDataFactory().getOWLDatatype(datatypeIRI));
     }
 
     @Override
@@ -610,7 +602,6 @@ Serializable {
     }
 
     OWLAxiomSearchFilter<OWLDatatypeDefinitionAxiom, OWLDatatype> datatypeDefFilter = new OWLAxiomSearchFilter<OWLDatatypeDefinitionAxiom, OWLDatatype>() {
-
         private static final long serialVersionUID = 30402L;
 
         @Override
@@ -624,11 +615,11 @@ Serializable {
         }
     };
     OWLAxiomSearchFilter<OWLSubAnnotationPropertyOfAxiom, OWLAnnotationProperty> subAnnPropertyFilter = new OWLAxiomSearchFilter<OWLSubAnnotationPropertyOfAxiom, OWLAnnotationProperty>() {
-
         private static final long serialVersionUID = 30402L;
 
         @Override
-        public boolean pass(OWLSubAnnotationPropertyOfAxiom axiom, OWLAnnotationProperty p) {
+        public boolean
+                pass(OWLSubAnnotationPropertyOfAxiom axiom, OWLAnnotationProperty p) {
             return axiom.getSubProperty().equals(p);
         }
 
@@ -638,11 +629,11 @@ Serializable {
         }
     };
     OWLAxiomSearchFilter<OWLAnnotationPropertyRangeAxiom, OWLAnnotationProperty> apRangeFilter = new OWLAxiomSearchFilter<OWLAnnotationPropertyRangeAxiom, OWLAnnotationProperty>() {
-
         private static final long serialVersionUID = 30402L;
 
         @Override
-        public boolean pass(OWLAnnotationPropertyRangeAxiom axiom, OWLAnnotationProperty p) {
+        public boolean
+                pass(OWLAnnotationPropertyRangeAxiom axiom, OWLAnnotationProperty p) {
             return axiom.getProperty().equals(p);
         }
 
@@ -652,7 +643,6 @@ Serializable {
         }
     };
     OWLAxiomSearchFilter<OWLAnnotationPropertyDomainAxiom, OWLAnnotationProperty> apDomainFilter = new OWLAxiomSearchFilter<OWLAnnotationPropertyDomainAxiom, OWLAnnotationProperty>() {
-
         private static final long serialVersionUID = 30402L;
 
         @Override
@@ -726,7 +716,8 @@ Serializable {
     }
 
     @Override
-    public boolean containsEntityInSignature(IRI entityIRI, boolean includeImportsClosure) {
+    public boolean
+            containsEntityInSignature(IRI entityIRI, boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return containsEntityInSignature(entityIRI);
         }
@@ -921,7 +912,8 @@ Serializable {
     }
 
     @Override
-    public Set<OWLDataProperty> getDataPropertiesInSignature(boolean includeImportsClosure) {
+    public Set<OWLDataProperty>
+            getDataPropertiesInSignature(boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return getDataPropertiesInSignature();
         }
@@ -933,7 +925,8 @@ Serializable {
     }
 
     @Override
-    public Set<OWLNamedIndividual> getIndividualsInSignature(boolean includeImportsClosure) {
+    public Set<OWLNamedIndividual>
+            getIndividualsInSignature(boolean includeImportsClosure) {
         if (!includeImportsClosure) {
             return getIndividualsInSignature();
         }
@@ -970,7 +963,6 @@ Serializable {
         }
         return props;
     }
-
 
     @Override
     public Set<OWLImportsDeclaration> getImportsDeclarations() {
@@ -1088,8 +1080,9 @@ Serializable {
     }
 
     @Override
-    public Set<OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+    public
+            Set<OWLInverseFunctionalObjectPropertyAxiom>
+            getInverseFunctionalObjectPropertyAxioms(OWLObjectPropertyExpression property) {
         return internals.getValues(
                 internals.getInverseFunctionalPropertyAxiomsByProperty(), property);
     }
@@ -1203,16 +1196,16 @@ Serializable {
     }
 
     @Override
-    public Set<OWLNegativeObjectPropertyAssertionAxiom> getNegativeObjectPropertyAssertionAxioms(
-            OWLIndividual individual) {
+    public Set<OWLNegativeObjectPropertyAssertionAxiom>
+            getNegativeObjectPropertyAssertionAxioms(OWLIndividual individual) {
         return internals.getValues(
                 internals.getNegativeObjectPropertyAssertionAxiomsByIndividual(),
                 individual);
     }
 
     @Override
-    public Set<OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxioms(
-            OWLIndividual individual) {
+    public Set<OWLNegativeDataPropertyAssertionAxiom>
+            getNegativeDataPropertyAssertionAxioms(OWLIndividual individual) {
         return internals.getValues(
                 internals.getNegativeDataPropertyAssertionAxiomsByIndividual(),
                 individual);
@@ -1231,13 +1224,13 @@ Serializable {
                 individual);
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///
-    /// Ontology Change handling mechanism
-    ///
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // /
+    // / Ontology Change handling mechanism
+    // /
+    // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public List<OWLOntologyChange> applyChange(OWLOntologyChange change) {
         List<OWLOntologyChange> appliedChanges = new ArrayList<OWLOntologyChange>(2);
@@ -1267,6 +1260,7 @@ Serializable {
     private final class ReferencedAxiomsCollector implements
             OWLEntityVisitorEx<Set<OWLAxiom>> {
         public ReferencedAxiomsCollector() {}
+
         @Override
         public Set<OWLAxiom> visit(OWLClass cls) {
             return internals.getValues(internals.getOwlClassReferences(), cls);
@@ -1302,11 +1296,8 @@ Serializable {
         }
     }
 
-
-
     protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitor,
-    Serializable {
-
+            Serializable {
         private static final long serialVersionUID = 30402L;
         private final List<OWLOntologyChange> appliedChanges;
 
@@ -1347,7 +1338,7 @@ Serializable {
 
         @Override
         public void visit(AddImport change) {
-            //TODO change this to be done inside
+            // TODO change this to be done inside
             if (internals.addImportsDeclaration(change.getImportDeclaration())) {
                 appliedChanges.add(change);
             }
@@ -1375,18 +1366,20 @@ Serializable {
         }
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    // Handlers for when axioms are added/removed, which perform various global indexing
+    // Handlers for when axioms are added/removed, which perform various global
+    // indexing
     // housekeeping tasks.
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////
     //
-    // Add/Remove axiom mechanism.  Each axiom gets visited by a visitor, which adds the axiom
+    // Add/Remove axiom mechanism. Each axiom gets visited by a visitor, which
+    // adds the axiom
     // to the appropriate index.
     //
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
@@ -1402,13 +1395,13 @@ Serializable {
         return visitor.visit(this);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///
-    /// Utility methods for getting/setting various values in maps and sets
-    ///
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // /
+    // / Utility methods for getting/setting various values in maps and sets
+    // /
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -1427,12 +1420,11 @@ Serializable {
     }
 
     private class OWLEntityReferenceChecker implements OWLEntityVisitor, Serializable {
-
         private static final long serialVersionUID = 30402L;
-
         private boolean ref;
 
         public OWLEntityReferenceChecker() {}
+
         public boolean containsReference(OWLEntity entity) {
             ref = false;
             entity.accept(this);

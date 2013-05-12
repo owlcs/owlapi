@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -44,20 +43,18 @@ import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfIllegalFacetRestriction extends OWLProfileViolation implements OWL2ProfileViolation {
-
+public class UseOfIllegalFacetRestriction extends OWLProfileViolation implements
+        OWL2ProfileViolation {
     private final OWLDatatypeRestriction datatypeRestriction;
-
     private final OWLFacet facet;
 
-    public UseOfIllegalFacetRestriction(OWLOntology ontology, OWLAxiom axiom, OWLDatatypeRestriction dtr, OWLFacet facet) {
+    public UseOfIllegalFacetRestriction(OWLOntology ontology, OWLAxiom axiom,
+            OWLDatatypeRestriction dtr, OWLFacet facet) {
         super(ontology, axiom);
         this.datatypeRestriction = dtr;
         this.facet = facet;
@@ -77,7 +74,7 @@ public class UseOfIllegalFacetRestriction extends OWLProfileViolation implements
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Facet in datatype restriction does not belong to restricted datatype: ");
         sb.append(facet);

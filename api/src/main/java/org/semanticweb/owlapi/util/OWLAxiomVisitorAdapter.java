@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -80,169 +79,126 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 17-Nov-2006<br><br>
- */
+ * Date: 17-Nov-2006<br>
+ * <br> */
 public class OWLAxiomVisitorAdapter implements OWLAxiomVisitor {
+    @Override
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {}
 
     @Override
-    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-    }
+    public void visit(OWLClassAssertionAxiom axiom) {}
 
     @Override
-    public void visit(OWLClassAssertionAxiom axiom) {
-    }
+    public void visit(OWLDataPropertyAssertionAxiom axiom) {}
 
     @Override
-    public void visit(OWLDataPropertyAssertionAxiom axiom) {
-    }
+    public void visit(OWLDataPropertyDomainAxiom axiom) {}
 
     @Override
-    public void visit(OWLDataPropertyDomainAxiom axiom) {
-    }
+    public void visit(OWLDataPropertyRangeAxiom axiom) {}
 
     @Override
-    public void visit(OWLDataPropertyRangeAxiom axiom) {
-    }
+    public void visit(OWLDeclarationAxiom axiom) {}
 
     @Override
-    public void visit(OWLDeclarationAxiom axiom) {
-    }
+    public void visit(OWLDifferentIndividualsAxiom axiom) {}
 
     @Override
-    public void visit(OWLDifferentIndividualsAxiom axiom) {
-    }
+    public void visit(OWLDisjointClassesAxiom axiom) {}
 
     @Override
-    public void visit(OWLDisjointClassesAxiom axiom) {
-    }
+    public void visit(OWLDisjointDataPropertiesAxiom axiom) {}
 
     @Override
-    public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-    }
+    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {}
 
     @Override
-    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-    }
+    public void visit(OWLDisjointUnionAxiom axiom) {}
 
     @Override
-    public void visit(OWLDisjointUnionAxiom axiom) {
-    }
+    public void visit(OWLEquivalentClassesAxiom axiom) {}
 
     @Override
-    public void visit(OWLEquivalentClassesAxiom axiom) {
-    }
+    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {}
 
     @Override
-    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-    }
+    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {}
 
     @Override
-    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-    }
+    public void visit(OWLFunctionalDataPropertyAxiom axiom) {}
 
     @Override
-    public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-    }
+    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {}
 
     @Override
-    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-    }
+    public void visit(OWLHasKeyAxiom axiom) {}
 
     @Override
-    public void visit(OWLHasKeyAxiom axiom) {
-    }
+    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {}
 
     @Override
-    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-    }
+    public void visit(OWLInverseObjectPropertiesAxiom axiom) {}
 
     @Override
-    public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-    }
+    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {}
 
     @Override
-    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-    }
+    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {}
 
     @Override
-    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-    }
+    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {}
 
     @Override
-    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-    }
+    public void visit(OWLObjectPropertyAssertionAxiom axiom) {}
 
     @Override
-    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-    }
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {}
 
     @Override
-    public void visit(OWLSubPropertyChainOfAxiom axiom) {
-    }
+    public void visit(OWLObjectPropertyDomainAxiom axiom) {}
 
     @Override
-    public void visit(OWLObjectPropertyDomainAxiom axiom) {
-    }
+    public void visit(OWLObjectPropertyRangeAxiom axiom) {}
 
     @Override
-    public void visit(OWLObjectPropertyRangeAxiom axiom) {
-    }
+    public void visit(OWLReflexiveObjectPropertyAxiom axiom) {}
 
     @Override
-    public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-    }
+    public void visit(OWLSameIndividualAxiom axiom) {}
 
     @Override
-    public void visit(OWLSameIndividualAxiom axiom) {
-    }
+    public void visit(OWLSubClassOfAxiom axiom) {}
 
     @Override
-    public void visit(OWLSubClassOfAxiom axiom) {
-    }
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {}
 
     @Override
-    public void visit(OWLSubDataPropertyOfAxiom axiom) {
-    }
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {}
 
     @Override
-    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-    }
+    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {}
 
     @Override
-    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-    }
+    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {}
 
     @Override
-    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-    }
+    public void visit(SWRLRule rule) {}
 
     @Override
-    public void visit(SWRLRule rule) {
-    }
+    public void visit(OWLAnnotationAssertionAxiom axiom) {}
 
     @Override
-    public void visit(OWLAnnotationAssertionAxiom axiom) {
-    }
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {}
 
     @Override
-    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-    }
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {}
 
     @Override
-    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-    }
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {}
 
     @Override
-    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-    }
-
-
-    @Override
-    public void visit(OWLDatatypeDefinitionAxiom axiom) {
-    }
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {}
 }

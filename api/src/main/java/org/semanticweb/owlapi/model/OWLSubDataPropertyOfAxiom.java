@@ -36,18 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <p/>
- * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Data_Subproperties">SubDataPropertyOf</a> axiom in the OWL 2 Specification.
- */
-public interface OWLSubDataPropertyOfAxiom extends OWLSubPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group Date: 24-Oct-2006
+ * <p/>
+ * Represents an <a href=
+ * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Data_Subproperties"
+ * >SubDataPropertyOf</a> axiom in the OWL 2 Specification. */
+public interface OWLSubDataPropertyOfAxiom extends
+        OWLSubPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
     @Override
     OWLSubDataPropertyOfAxiom getAxiomWithoutAnnotations();
 }

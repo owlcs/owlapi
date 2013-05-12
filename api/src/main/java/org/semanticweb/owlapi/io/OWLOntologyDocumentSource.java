@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.InputStream;
@@ -44,73 +43,62 @@ import java.io.Reader;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 24-Apr-2007<br><br>
- * A document source provides a point for loading an ontology.
- * A document source may provide three ways of obtaining an ontology document:
+ * Date: 24-Apr-2007<br>
+ * <br>
+ * A document source provides a point for loading an ontology. A document source
+ * may provide three ways of obtaining an ontology document:
  * <ol>
  * <li>From a {@link java.io.Reader}
  * <li>From an {@link java.io.InputStream}
- * <li> From an ontology document {@link org.semanticweb.owlapi.model.IRI}
+ * <li>From an ontology document {@link org.semanticweb.owlapi.model.IRI}
  * </ol>
- * Consumers that use a document source will attempt
- * to obtain a concrete representation of an ontology in the above
- * order.
- * </p>
- * Note that while an ontology document source may appear similar to a SAX input
- * source, an important difference is that the getReader and getInputStream
- * methods return new instances each time the method is called.  This allows
- * multiple attempts at loading an ontology.
- */
+ * Consumers that use a document source will attempt to obtain a concrete
+ * representation of an ontology in the above order. </p> Note that while an
+ * ontology document source may appear similar to a SAX input source, an
+ * important difference is that the getReader and getInputStream methods return
+ * new instances each time the method is called. This allows multiple attempts
+ * at loading an ontology. */
 public interface OWLOntologyDocumentSource {
-
-    /**
-     * Determines if a reader is available which an ontology document can be
+    /** Determines if a reader is available which an ontology document can be
      * parsed from.
-     * @return <code>true</code> if a reader can be obtained from this
-     *         document source, or <code>false</code> if a reader cannot be obtained
-     *         from this document source.
-     */
+     * 
+     * @return <code>true</code> if a reader can be obtained from this document
+     *         source, or <code>false</code> if a reader cannot be obtained from
+     *         this document source. */
     boolean isReaderAvailable();
 
-
-    /**
-     * Gets a reader which an ontology document can be read from.  This
-     * method may be called multiple times.  Each invocation will return
-     * a new <code>Reader</code>. This method should not be called if the
-     * <code>isReaderAvailable</code> method returns false.  A <code>Runtime</code> execption will be
-     * thrown if this happens.
-     * @return A new <code>Reader</code> which the ontology can be read from.
-     */
+    /** Gets a reader which an ontology document can be read from. This method
+     * may be called multiple times. Each invocation will return a new
+     * <code>Reader</code>. This method should not be called if the
+     * <code>isReaderAvailable</code> method returns false. A
+     * <code>Runtime</code> execption will be thrown if this happens.
+     * 
+     * @return A new <code>Reader</code> which the ontology can be read from. */
     Reader getReader();
 
-    /**
-     * Determines if an input stream is available which an ontology document can be parsed from.
+    /** Determines if an input stream is available which an ontology document can
+     * be parsed from.
+     * 
      * @return <code>true</code> if an input stream can be obtained,
      *         <code>false</code> if an input stream cannot be obtained from
-     *         this document source.
-     */
+     *         this document source. */
     boolean isInputStreamAvailable();
 
-
-    /**
-     * If an input stream can be obtained from this document source then this method creates it.
-     * This method may be called multiple times.  Each invocation will return a new input stream.
-     * This method should not be called if the <code>isInputStreamAvailable</code>
-     * method returns <code>false</code>.
-     * @return A new input stream which the ontology can be read from.
-     */
+    /** If an input stream can be obtained from this document source then this
+     * method creates it. This method may be called multiple times. Each
+     * invocation will return a new input stream. This method should not be
+     * called if the <code>isInputStreamAvailable</code> method returns
+     * <code>false</code>.
+     * 
+     * @return A new input stream which the ontology can be read from. */
     InputStream getInputStream();
 
-
-    /**
-     * Gets the IRI of the ontology document.
-     * @return An IRI which represents the ontology document IRI - this will never be <code>null</code>.
-     */
+    /** Gets the IRI of the ontology document.
+     * 
+     * @return An IRI which represents the ontology document IRI - this will
+     *         never be <code>null</code>. */
     IRI getDocumentIRI();
-
-
 }

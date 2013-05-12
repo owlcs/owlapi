@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 /** Author: Matthew Horridge<br>
@@ -45,28 +44,19 @@ package org.coode.owlapi.obo.parser;
  * Date: 10-Jan-2007<br>
  * <br> */
 public class OBOParserHandlerAdapter implements OBOParserHandler {
+    @Override
+    public void endHeader() {}
 
     @Override
-    public void endHeader() {
-    }
-
+    public void endFrame() {}
 
     @Override
-    public void endFrame() {
-    }
-
-
-    @Override
-    public void handleTagValue(String tag, String value, String qualifierBlock, String comment) {
-    }
-
+    public void handleTagValue(String tag, String value, String qualifierBlock,
+            String comment) {}
 
     @Override
-    public void startHeader() {
-    }
-
+    public void startHeader() {}
 
     @Override
-    public void startFrame(String name) {
-    }
+    public void startFrame(String name) {}
 }

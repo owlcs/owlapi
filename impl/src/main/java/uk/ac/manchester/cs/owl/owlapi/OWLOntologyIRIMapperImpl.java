@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Map;
@@ -45,17 +44,13 @@ import java.util.TreeMap;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 14-Nov-2006<br><br>
- *
- * Manual IRI mapper
- */
+ * Date: 14-Nov-2006<br>
+ * <br>
+ * Manual IRI mapper */
 public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
-
     private final Map<IRI, IRI> iriMap;
 
     @SuppressWarnings("javadoc")
@@ -63,22 +58,20 @@ public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
         iriMap = new TreeMap<IRI, IRI>();
     }
 
-
     @Override
     public IRI getDocumentIRI(IRI ontologyIRI) {
         IRI iri = iriMap.get(ontologyIRI);
         if (iri != null) {
             return iri;
-        }
-        else {
+        } else {
             return ontologyIRI;
         }
     }
 
-    /**
-     * @param ontologyIRI new ontology iri
-     * @param documentIRI new document iri
-     */
+    /** @param ontologyIRI
+     *            new ontology iri
+     * @param documentIRI
+     *            new document iri */
     public void addMapping(IRI ontologyIRI, IRI documentIRI) {
         iriMap.put(ontologyIRI, documentIRI);
     }

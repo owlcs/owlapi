@@ -36,30 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 18-Feb-2007<br><br>
- */
+ * Date: 18-Feb-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class TypeSWRLClassAtomHandler extends BuiltInTypeHandler {
-
     public TypeSWRLClassAtomHandler(OWLRDFConsumer consumer) {
         super(consumer, SWRLVocabulary.CLASS_ATOM.getIRI());
     }
 
-
     @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         getConsumer().addSWRLClassAtom(subject);
         consumeTriple(subject, predicate, object);
     }

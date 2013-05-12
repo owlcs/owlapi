@@ -36,30 +36,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 20/12/2010
- */
+ * Date: 20/12/2010 */
 @SuppressWarnings("javadoc")
 public class TPOnDataRangeHandler extends TriplePredicateHandler {
-
     public TPOnDataRangeHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ON_DATA_RANGE.getIRI());
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-
-    }
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {}
 
     @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
@@ -67,7 +62,8 @@ public class TPOnDataRangeHandler extends TriplePredicateHandler {
     }
 
     @Override
-    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         getConsumer().addDataRange(object, true);
         return false;
     }

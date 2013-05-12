@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -49,26 +48,25 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- * @param <P> the property expression
- */
-public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression<?,?>> extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
-
-
-	private static final long serialVersionUID = 30402L;
-	private final Set<P> properties;
+ * Date: 26-Oct-2006<br>
+ * <br>
+ * 
+ * @param <P>
+ *            the property expression */
+public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression<?, ?>>
+        extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
+    private static final long serialVersionUID = 30402L;
+    private final Set<P> properties;
 
     @SuppressWarnings("javadoc")
-    public OWLNaryPropertyAxiomImpl(Set<? extends P> properties, Collection<? extends OWLAnnotation> annotations) {
+    public OWLNaryPropertyAxiomImpl(Set<? extends P> properties,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.properties = new TreeSet<P>(properties);
     }
-
 
     @Override
     public Set<P> getProperties() {
@@ -83,7 +81,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression<?
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLNaryPropertyAxiom)) {
                 return false;
@@ -93,9 +91,8 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression<?
         return false;
     }
 
-
     @Override
-	final protected int compareObjectOfSameType(OWLObject object) {
+    final protected int compareObjectOfSameType(OWLObject object) {
         return compareSets(properties, ((OWLNaryPropertyAxiom<?>) object).getProperties());
     }
 }

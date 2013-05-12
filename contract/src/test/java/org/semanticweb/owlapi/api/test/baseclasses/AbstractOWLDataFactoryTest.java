@@ -38,7 +38,6 @@
  */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006

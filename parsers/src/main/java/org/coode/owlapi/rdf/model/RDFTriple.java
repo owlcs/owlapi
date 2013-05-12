@@ -36,63 +36,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdf.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br><br>
- *
- * Represents an RDF triple (S, P, O)
- */
+ * Date: 06-Dec-2006<br>
+ * <br>
+ * Represents an RDF triple (S, P, O) */
 public class RDFTriple {
-
     private RDFResourceNode subject;
-
     private RDFResourceNode property;
-
     private RDFNode object;
-
     private int hashCode = 0;
 
-
-    /**
-     * @param subject subject of triple
-     * @param property property of triple
-     * @param object object of triple
-     */
+    /** @param subject
+     *            subject of triple
+     * @param property
+     *            property of triple
+     * @param object
+     *            object of triple */
     public RDFTriple(RDFResourceNode subject, RDFResourceNode property, RDFNode object) {
         this.object = object;
         this.property = property;
         this.subject = subject;
     }
 
-
-    /**
-     * @return subject
-     */
+    /** @return subject */
     public RDFResourceNode getSubject() {
         return subject;
     }
 
-    /**
-     * @return property
-     */
+    /** @return property */
     public RDFResourceNode getProperty() {
         return property;
     }
 
-     /**
-      * @return object
-      */
-     public RDFNode getObject() {
+    /** @return object */
+    public RDFNode getObject() {
         return object;
     }
 
-
     @Override
-	public int hashCode() {
+    public int hashCode() {
         if (hashCode == 0) {
             hashCode = 17;
             hashCode = hashCode * 37 + subject.hashCode();
@@ -102,21 +88,18 @@ public class RDFTriple {
         return hashCode;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-        if(!(obj instanceof RDFTriple)) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof RDFTriple)) {
             return false;
         }
         RDFTriple other = (RDFTriple) obj;
-        return other.subject.equals(subject) &&
-                other.property.equals(property) &&
-                other.object.equals(object);
+        return other.subject.equals(subject) && other.property.equals(property)
+                && other.object.equals(object);
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(subject.toString());
         sb.append(" -> ");

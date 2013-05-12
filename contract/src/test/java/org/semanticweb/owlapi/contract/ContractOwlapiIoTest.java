@@ -197,7 +197,6 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestIRIDocumentSource() throws Exception {
         IRIDocumentSource testSubject0 = new IRIDocumentSource(IRI("urn:aFake"));
-
         boolean result2 = testSubject0.isReaderAvailable();
         if (result2) {
             Reader result3 = testSubject0.getReader();
@@ -726,7 +725,6 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestWriterDocumentTarget() throws Exception {
         WriterDocumentTarget testSubject0 = new WriterDocumentTarget(mock(Writer.class));
-
         boolean result2 = testSubject0.isWriterAvailable();
         if (result2) {
             Writer result3 = testSubject0.getWriter();
@@ -735,7 +733,7 @@ public class ContractOwlapiIoTest {
         if (result4) {
             OutputStream result0 = testSubject0.getOutputStream();
         }
-            boolean result5 = testSubject0.isDocumentIRIAvailable();
+        boolean result5 = testSubject0.isDocumentIRIAvailable();
         if (result5) {
             IRI result1 = testSubject0.getDocumentIRI();
         }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
@@ -47,50 +46,46 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression<?,?>, R extends OWLPropertyRange> extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyRangeAxiom<P, R> {
+public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression<?, ?>, R extends OWLPropertyRange>
+        extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyRangeAxiom<P, R> {
+    private static final long serialVersionUID = 30402L;
+    private final R range;
 
-
-	private static final long serialVersionUID = 30402L;
-	private final R range;
-
-
-    public OWLPropertyRangeAxiomImpl(P property, R range, Set<? extends OWLAnnotation> annotations) {
+    public OWLPropertyRangeAxiomImpl(P property, R range,
+            Set<? extends OWLAnnotation> annotations) {
         super(property, annotations);
         this.range = range;
     }
-
 
     @Override
     public R getRange() {
         return range;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLPropertyRangeAxiom)) {
                 return false;
             }
-            return ((OWLPropertyRangeAxiom<?,?>) obj).getRange().equals(range);
+            return ((OWLPropertyRangeAxiom<?, ?>) obj).getRange().equals(range);
         }
         return false;
     }
 
     @Override
-	final protected int compareObjectOfSameType(OWLObject object) {
-        int diff = getProperty().compareTo(((OWLPropertyRangeAxiom<?,?>) object).getProperty());
+    final protected int compareObjectOfSameType(OWLObject object) {
+        int diff = getProperty().compareTo(
+                ((OWLPropertyRangeAxiom<?, ?>) object).getProperty());
         if (diff != 0) {
             return diff;
         }
-        return getRange().compareTo(((OWLPropertyRangeAxiom<?,?>) object).getRange());
+        return getRange().compareTo(((OWLPropertyRangeAxiom<?, ?>) object).getRange());
     }
 }

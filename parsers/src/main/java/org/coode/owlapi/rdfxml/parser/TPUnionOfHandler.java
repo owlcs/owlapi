@@ -36,29 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006<br><br>
- */
+ * Date: 11-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class TPUnionOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
-
     public TPUnionOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_UNION_OF.getIRI());
     }
 
-
     @Override
-	protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
-        return getDataFactory().getOWLObjectUnionOf(getConsumer().translateToClassExpressionSet(mainNode));
+    protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
+        return getDataFactory().getOWLObjectUnionOf(
+                getConsumer().translateToClassExpressionSet(mainNode));
     }
 }

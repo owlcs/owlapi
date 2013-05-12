@@ -36,23 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 29-Dec-2009
- */
-public abstract class OWLClassExpressionImpl extends OWLObjectImpl implements OWLClassExpression {
+ * Date: 29-Dec-2009 */
+public abstract class OWLClassExpressionImpl extends OWLObjectImpl implements
+        OWLClassExpression {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-	protected OWLClassExpressionImpl() {
+    protected OWLClassExpressionImpl() {
         super();
     }
 }

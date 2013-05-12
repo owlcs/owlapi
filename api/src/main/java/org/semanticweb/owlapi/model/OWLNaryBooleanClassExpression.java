@@ -36,29 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.List;
 import java.util.Set;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- */
+ * Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression {
-
-    /**
-     * @return the class expressions
-     */
+    /** @return the class expressions */
     Set<OWLClassExpression> getOperands();
 
-    /**
-     * Gets the class expressions returned by {@link #getOperands()} as a list of class expressions.
-     * @return The class expressions as a list.
-     */
+    /** Gets the class expressions returned by {@link #getOperands()} as a list
+     * of class expressions.
+     * 
+     * @return The class expressions as a list. */
     List<OWLClassExpression> getOperandsAsList();
 }

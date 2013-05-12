@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.turtle;
 
 import java.io.IOException;
@@ -47,19 +46,13 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Jan-2008<br><br>
- */
+ * Date: 26-Jan-2008<br>
+ * <br> */
 public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
-
-
-
-	private static final long serialVersionUID = 30402L;
-
+    private static final long serialVersionUID = 30402L;
 
     @Override
     protected void storeOntology(OWLOntology ontology, Writer writer,
@@ -67,12 +60,10 @@ public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
         try {
             TurtleRenderer ren = new TurtleRenderer(ontology, writer, format);
             ren.render();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
         }
     }
-
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {

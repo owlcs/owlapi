@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
@@ -49,18 +48,15 @@ import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl implements OWLNaryBooleanClassExpression {
-
-
-	private static final long serialVersionUID = 30402L;
-	private final Set<OWLClassExpression> operands;
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public abstract class OWLNaryBooleanClassExpressionImpl extends
+        OWLAnonymousClassExpressionImpl implements OWLNaryBooleanClassExpression {
+    private static final long serialVersionUID = 30402L;
+    private final Set<OWLClassExpression> operands;
 
     @SuppressWarnings("javadoc")
     public OWLNaryBooleanClassExpressionImpl(Set<? extends OWLClassExpression> operands) {
@@ -78,15 +74,13 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(operands);
     }
 
-
     @Override
     public boolean isClassExpressionLiteral() {
         return false;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLNaryBooleanClassExpression)) {
                 return false;
@@ -96,9 +90,9 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
         return false;
     }
 
-
     @Override
-	final protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(operands, ((OWLNaryBooleanClassExpression) object).getOperands());
+    final protected int compareObjectOfSameType(OWLObject object) {
+        return compareSets(operands,
+                ((OWLNaryBooleanClassExpression) object).getOperands());
     }
 }

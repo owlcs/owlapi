@@ -36,29 +36,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
  * Date: 14-Mar-2009
  * <p/>
- * A change broadcast strategy which broadcasts all ontology changes in the Swing Even Dispatch Thread (EDT).
- */
+ * A change broadcast strategy which broadcasts all ontology changes in the
+ * Swing Even Dispatch Thread (EDT). */
 public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
-
     private static final long serialVersionUID = 30402L;
 
     @Override
-    public void broadcastChanges(final OWLOntologyChangeListener listener, final List<? extends OWLOntologyChange> changes) throws OWLException {
+    public void broadcastChanges(final OWLOntologyChangeListener listener,
+            final List<? extends OWLOntologyChange> changes) throws OWLException {
         if (SwingUtilities.isEventDispatchThread()) {
             listener.ontologiesChanged(changes);
-        }
-        else {
+        } else {
             try {
                 Runnable r = new Runnable() {
                     @Override
@@ -80,7 +79,6 @@ public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStr
     /** bit of a roundabout way to wrap an exception as a runtime exception, for
      * unwrapping later on */
     private static class BroadcastException extends RuntimeException {
-
         private static final long serialVersionUID = 30402L;
 
         BroadcastException(OWLException cause) {

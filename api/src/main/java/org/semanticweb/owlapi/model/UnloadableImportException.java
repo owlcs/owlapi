@@ -36,27 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 07-Dec-2009
- */
+ * Date: 07-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class UnloadableImportException extends OWLOntologyCreationException {
-
-
-	private static final long serialVersionUID = 30402L;
-
-	private final OWLImportsDeclaration importsDeclaration;
-
+    private static final long serialVersionUID = 30402L;
+    private final OWLImportsDeclaration importsDeclaration;
     private final OWLOntologyCreationException ontologyCreationException;
 
-    public UnloadableImportException(OWLOntologyCreationException e, OWLImportsDeclaration importsDeclaration) {
-        super("Could not load imported ontology: " + importsDeclaration.getIRI().toQuotedString() + " Cause: " + e.getMessage(), e);
+    public UnloadableImportException(OWLOntologyCreationException e,
+            OWLImportsDeclaration importsDeclaration) {
+        super("Could not load imported ontology: "
+                + importsDeclaration.getIRI().toQuotedString() + " Cause: "
+                + e.getMessage(), e);
         this.importsDeclaration = importsDeclaration;
         this.ontologyCreationException = e;
     }
@@ -68,5 +64,4 @@ public class UnloadableImportException extends OWLOntologyCreationException {
     public OWLOntologyCreationException getOntologyCreationException() {
         return ontologyCreationException;
     }
-
 }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.impl;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -82,17 +81,13 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 01-Aug-2009
- */
+ * Date: 01-Aug-2009 */
 @SuppressWarnings("javadoc")
 public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpression> {
-
     private final OWLDataFactory df;
-
 
     public SatisfiabilityReducer(OWLDataFactory dataFactory) {
         df = dataFactory;
@@ -100,7 +95,8 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpressi
 
     @Override
     public OWLClassExpression visit(OWLSubClassOfAxiom axiom) {
-        return df.getOWLObjectIntersectionOf(axiom.getSubClass(), df.getOWLObjectComplementOf(axiom.getSuperClass()));
+        return df.getOWLObjectIntersectionOf(axiom.getSubClass(),
+                df.getOWLObjectComplementOf(axiom.getSuperClass()));
     }
 
     @Override
@@ -272,7 +268,6 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpressi
     public OWLClassExpression visit(SWRLRule rule) {
         return null;
     }
-
 
     @Override
     public OWLClassExpression visit(OWLAnnotationAssertionAxiom axiom) {

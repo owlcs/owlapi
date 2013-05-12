@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.renderer;
 
 import java.io.Writer;
@@ -47,23 +46,18 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-/**
- * Author: Nick Drummond<br>
+/** Author: Nick Drummond<br>
  * The University Of Manchester<br>
  * Bio Health Informatics Group<br>
- * Date: Dec 17, 2008<br><br>
- */
+ * Date: Dec 17, 2008<br>
+ * <br> */
 public class OBOFlatFileOntologyStorer extends AbstractOWLOntologyStorer {
-
-
-	private static final long serialVersionUID = 30402L;
-
+    private static final long serialVersionUID = 30402L;
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new OBOOntologyFormat());
     }
-
 
     @Override
     protected void storeOntology(OWLOntology ontology, Writer writer,

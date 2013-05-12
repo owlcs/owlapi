@@ -33,7 +33,7 @@ public class WeakIndexCache<K, V> implements Serializable {
     }
 
     private void readObject(ObjectInputStream in) throws IOException,
-    ClassNotFoundException {
+            ClassNotFoundException {
         in.defaultReadObject();
         prefixCache = new WeakHashMap<K, WeakReference<V>>();
     }
@@ -50,14 +50,16 @@ public class WeakIndexCache<K, V> implements Serializable {
         return null;
     }
 
-    /**
-     * @param k the key to check
-     * @return true if the cache contains k as a key; note that, due to the nature of this cache, by the time the method returns the key may no longer be in the map.*/
+    /** @param k
+     *            the key to check
+     * @return true if the cache contains k as a key; note that, due to the
+     *         nature of this cache, by the time the method returns the key may
+     *         no longer be in the map. */
     public boolean contains(K k) {
         WeakReference<V> w = prefixCache.get(k);
         if (w != null) {
             V toReturn = w.get();
-            if(toReturn!=null) {
+            if (toReturn != null) {
                 return true;
             }
         }

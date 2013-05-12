@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
@@ -56,18 +55,14 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
-
-
-	private static final long serialVersionUID = 30402L;
-	private final Set<OWLLiteral> values;
+    private static final long serialVersionUID = 30402L;
+    private final Set<OWLLiteral> values;
 
     @SuppressWarnings("javadoc")
     public OWLDataOneOfImpl(Set<? extends OWLLiteral> values) {
@@ -85,27 +80,23 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(values);
     }
 
-
     @Override
     public boolean isDatatype() {
         return false;
     }
-
 
     @Override
     public boolean isTopDatatype() {
         return false;
     }
 
-
     @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLDataOneOf)) {
                 return false;
@@ -115,12 +106,10 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
         return false;
     }
 
-
     @Override
     public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(OWLObjectVisitor visitor) {
@@ -131,7 +120,6 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
@@ -149,7 +137,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         return compareSets(values, ((OWLDataOneOf) object).getValues());
     }
 }

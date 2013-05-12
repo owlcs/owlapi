@@ -36,34 +36,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 20-May-2007<br><br>
- */
+ * Date: 20-May-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class DomainHandler extends AbstractTagValueHandler {
-
     public DomainHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DOMAIN.getName(), consumer);
     }
 
-
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         OWLObjectProperty prop = getOWLObjectProperty(getConsumer().getCurrentId());
         OWLClass cls = getOWLClass(value);
-        applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLObjectPropertyDomainAxiom(prop, cls)));
+        applyChange(new AddAxiom(getOntology(), getDataFactory()
+                .getOWLObjectPropertyDomainAxiom(prop, cls)));
     }
-
-
 }

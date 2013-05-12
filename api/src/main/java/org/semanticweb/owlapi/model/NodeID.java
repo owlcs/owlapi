@@ -36,20 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
  * Date: 15-Jan-2009
  * <p/>
- * Represents the Node ID for anonymous individuals
- */
+ * Represents the Node ID for anonymous individuals */
 public abstract class NodeID implements Comparable<NodeID>, Serializable {
-
     private static final long serialVersionUID = 30402L;
     private static final AtomicLong counter = new AtomicLong();
     private static final String NODE_ID_PREFIX = "genid";
@@ -104,10 +102,10 @@ public abstract class NodeID implements Comparable<NodeID>, Serializable {
     public static boolean isAnonymousNodeID(String iri) {
         return iri != null && iri.indexOf(NodeID.SHARED_NODE_ID_PREFIX) > -1;
     }
-    /**
-     * Gets the string representation of the node ID.  This will begin with _:
-     * @return The string representation of the node ID.
-     */
+
+    /** Gets the string representation of the node ID. This will begin with _:
+     * 
+     * @return The string representation of the node ID. */
     public abstract String getID();
 
     /** Gets a NodeID with a specific identifier string
@@ -131,12 +129,10 @@ public abstract class NodeID implements Comparable<NodeID>, Serializable {
         public NodeIDImpl(String id) {
             if (id.startsWith(PREFIX)) {
                 this.id = id;
-            }
-            else {
+            } else {
                 this.id = PREFIX + id;
             }
         }
-
 
         @Override
         public String toString() {

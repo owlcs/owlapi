@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.HashSet;
@@ -53,69 +52,57 @@ import org.semanticweb.owlapi.reasoner.Node;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 05-Dec-2009
- * @param <E> the type of entities in the node
- */
+ * 
+ * @param <E>
+ *            the type of entities in the node */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
-
-	private static final OWLDataFactory DF = new OWLDataFactoryImpl(false, false);
-
-	protected static final OWLClass TOP_CLASS = DF.getOWLThing();
-
+    private static final OWLDataFactory DF = new OWLDataFactoryImpl(false, false);
+    protected static final OWLClass TOP_CLASS = DF.getOWLThing();
     protected static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
-
     protected static final OWLClass BOTTOM_CLASS = DF.getOWLNothing();
-
     protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
-
     protected static final OWLDataProperty TOP_DATA_PROPERTY = DF.getOWLTopDataProperty();
-
-    protected static final OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(TOP_DATA_PROPERTY);
-
-    protected static final OWLDataProperty BOTTOM_DATA_PROPERTY = DF.getOWLBottomDataProperty();
-
-    protected static final OWLDataPropertyNode BOTTOM_DATA_NODE = new OWLDataPropertyNode(BOTTOM_DATA_PROPERTY);
-
+    protected static final OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(
+            TOP_DATA_PROPERTY);
+    protected static final OWLDataProperty BOTTOM_DATA_PROPERTY = DF
+            .getOWLBottomDataProperty();
+    protected static final OWLDataPropertyNode BOTTOM_DATA_NODE = new OWLDataPropertyNode(
+            BOTTOM_DATA_PROPERTY);
     protected static final OWLDatatype TOP_DATATYPE = DF.getTopDatatype();
-
-    protected static final OWLObjectProperty TOP_OBJECT_PROPERTY = DF.getOWLTopObjectProperty();
-
-    protected static final OWLObjectPropertyNode TOP_OBJECT_NODE = new OWLObjectPropertyNode(TOP_OBJECT_PROPERTY);
-
-    protected static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = DF.getOWLBottomObjectProperty();
-
-    protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(BOTTOM_OBJECT_PROPERTY);
-
+    protected static final OWLObjectProperty TOP_OBJECT_PROPERTY = DF
+            .getOWLTopObjectProperty();
+    protected static final OWLObjectPropertyNode TOP_OBJECT_NODE = new OWLObjectPropertyNode(
+            TOP_OBJECT_PROPERTY);
+    protected static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = DF
+            .getOWLBottomObjectProperty();
+    protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(
+            BOTTOM_OBJECT_PROPERTY);
     private final Set<E> entities = new HashSet<E>(4);
 
-    /**
-     * @param entity the entity to add
-     */
+    /** @param entity
+     *            the entity to add */
     public DefaultNode(E entity) {
         this.entities.add(entity);
     }
 
-    /**
-     * @param entities the set of entities to add
-     */
+    /** @param entities
+     *            the set of entities to add */
     public DefaultNode(Set<E> entities) {
         this.entities.addAll(entities);
     }
 
-    protected DefaultNode() {
-    }
+    protected DefaultNode() {}
 
     protected abstract E getTopEntity();
 
     protected abstract E getBottomEntity();
 
-    /**
-     * @param entity entity to be added
-     */
+    /** @param entity
+     *            entity to be added */
     public void add(E entity) {
         entities.add(entity);
     }
@@ -171,8 +158,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
     public E getRepresentativeElement() {
         if (!entities.isEmpty()) {
             return entities.iterator().next();
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -196,9 +182,9 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     @Override
     public boolean equals(Object obj) {
-    	if (obj == null) {
-			return false;
-		}
+        if (obj == null) {
+            return false;
+        }
         if (obj == this) {
             return true;
         }

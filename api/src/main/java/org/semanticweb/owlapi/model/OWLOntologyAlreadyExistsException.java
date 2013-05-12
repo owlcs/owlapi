@@ -36,90 +36,96 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
  * Date: 18-Jan-2009
  * <p/>
- * Indicates that an ontology with the given ontology IRI (and possible version IRI) exists.
- */
+ * Indicates that an ontology with the given ontology IRI (and possible version
+ * IRI) exists. */
 public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationException {
-
-
-	private static final long serialVersionUID = 30402L;
-
+    private static final long serialVersionUID = 30402L;
     private static final String ONTOLOGY_ALREADY_EXISTS = "Ontology already exists. ";
-
-	private final OWLOntologyID ontologyID;
-
+    private final OWLOntologyID ontologyID;
     private final IRI documentIRI;
 
-    /**
-     * Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe the situation where an attempt to
-     * create an ontology failed because the manager already contained an ontology with specified ontology ID.
-     *
-     * @param id The ID of the ontology (not <code>null</code>) that was already contained in the manager.
-     */
+    /** Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe
+     * the situation where an attempt to create an ontology failed because the
+     * manager already contained an ontology with specified ontology ID.
+     * 
+     * @param id
+     *            The ID of the ontology (not <code>null</code>) that was
+     *            already contained in the manager. */
     public OWLOntologyAlreadyExistsException(OWLOntologyID id) {
         super(ONTOLOGY_ALREADY_EXISTS + id);
         this.ontologyID = id;
-        documentIRI=null;
+        documentIRI = null;
     }
 
-    /**
-     * Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe the situation where an attempt to
-     * load an ontology failed because the manager already contained an ontology with the ID that was the same as
+    /** Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe
+     * the situation where an attempt to load an ontology failed because the
+     * manager already contained an ontology with the ID that was the same as
      * the ontology being loaded
-     * @param ontologyID The ontology ID
-     * @param documentIRI The IRI of the document where the load attempt occurred from
-     */
+     * 
+     * @param ontologyID
+     *            The ontology ID
+     * @param documentIRI
+     *            The IRI of the document where the load attempt occurred from */
     public OWLOntologyAlreadyExistsException(OWLOntologyID ontologyID, IRI documentIRI) {
-        super(ONTOLOGY_ALREADY_EXISTS + ontologyID + " (New ontology loaded from " + documentIRI.toQuotedString() + ")");
+        super(ONTOLOGY_ALREADY_EXISTS + ontologyID + " (New ontology loaded from "
+                + documentIRI.toQuotedString() + ")");
         this.ontologyID = ontologyID;
         this.documentIRI = documentIRI;
     }
-    /**
-     * Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe the situation where an attempt to
-     * create an ontology failed because the manager already contained an ontology with specified ontology ID.
-     *
-     * @param id The ID of the ontology (not <code>null</code>) that was already contained in the manager.
-     * @param t the cause
-     */
+
+    /** Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe
+     * the situation where an attempt to create an ontology failed because the
+     * manager already contained an ontology with specified ontology ID.
+     * 
+     * @param id
+     *            The ID of the ontology (not <code>null</code>) that was
+     *            already contained in the manager.
+     * @param t
+     *            the cause */
     public OWLOntologyAlreadyExistsException(OWLOntologyID id, Throwable t) {
-        super(ONTOLOGY_ALREADY_EXISTS + id,t);
+        super(ONTOLOGY_ALREADY_EXISTS + id, t);
         this.ontologyID = id;
-        documentIRI=null;
+        documentIRI = null;
     }
 
-    /**
-     * Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe the situation where an attempt to
-     * load an ontology failed because the manager already contained an ontology with the ID that was the same as
+    /** Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe
+     * the situation where an attempt to load an ontology failed because the
+     * manager already contained an ontology with the ID that was the same as
      * the ontology being loaded
-     * @param ontologyID The ontology ID
-     * @param documentIRI The IRI of the document where the load attempt occurred from
-     * @param t the cause
-     */
-    public OWLOntologyAlreadyExistsException(OWLOntologyID ontologyID, IRI documentIRI, Throwable t) {
-        super(ONTOLOGY_ALREADY_EXISTS + ontologyID + " (New ontology loaded from " + documentIRI.toQuotedString() + ")", t);
+     * 
+     * @param ontologyID
+     *            The ontology ID
+     * @param documentIRI
+     *            The IRI of the document where the load attempt occurred from
+     * @param t
+     *            the cause */
+    public OWLOntologyAlreadyExistsException(OWLOntologyID ontologyID, IRI documentIRI,
+            Throwable t) {
+        super(ONTOLOGY_ALREADY_EXISTS + ontologyID + " (New ontology loaded from "
+                + documentIRI.toQuotedString() + ")", t);
         this.ontologyID = ontologyID;
         this.documentIRI = documentIRI;
     }
 
-    /**
-     * Gets the ID of the ontology that already exists
-     * @return The ontology ID.
-     */
+    /** Gets the ID of the ontology that already exists
+     * 
+     * @return The ontology ID. */
     public OWLOntologyID getOntologyID() {
         return ontologyID;
     }
 
-    /**
-     * Gets the document IRI where the ontology was loaded from
-     * @return The IRI of the document where the ontology was loaded from.  If the ontology was created without
-     * loading it from an ontology document then the return value will be <code>null</code>.
-     */
+    /** Gets the document IRI where the ontology was loaded from
+     * 
+     * @return The IRI of the document where the ontology was loaded from. If
+     *         the ontology was created without loading it from an ontology
+     *         document then the return value will be <code>null</code>. */
     public IRI getDocumentIRI() {
         return documentIRI;
     }

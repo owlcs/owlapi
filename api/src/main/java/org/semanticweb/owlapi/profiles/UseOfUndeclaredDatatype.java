@@ -36,28 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- *
- * Specifies that a datatype is not declared
- *
- */
+ * Date: 03-Aug-2009 Specifies that a datatype is not declared */
 @SuppressWarnings("javadoc")
-public class UseOfUndeclaredDatatype extends OWLProfileViolation implements OWL2ProfileViolation {
-
+public class UseOfUndeclaredDatatype extends OWLProfileViolation implements
+        OWL2ProfileViolation {
     private final OWLDatatype datatype;
 
-    public UseOfUndeclaredDatatype(OWLOntology ontology, OWLAxiom axiom, OWLDatatype datatype) {
+    public UseOfUndeclaredDatatype(OWLOntology ontology, OWLAxiom axiom,
+            OWLDatatype datatype) {
         super(ontology, axiom);
         this.datatype = datatype;
     }
@@ -72,7 +67,7 @@ public class UseOfUndeclaredDatatype extends OWLProfileViolation implements OWL2
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of undeclared datatype: ");
         sb.append(datatype);

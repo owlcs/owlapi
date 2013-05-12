@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.BufferedInputStream;
@@ -50,60 +49,55 @@ import java.io.UnsupportedEncodingException;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 17-Nov-2007<br>
  * <br>
- *
- * A convenience class which will prepare an input source from a file.
- */
+ * A convenience class which will prepare an input source from a file. */
 public class FileDocumentSource implements OWLOntologyDocumentSource {
-	private final File file;
+    private final File file;
 
-	/**
-	 * Constructs an ontology input source using the specified file.
-	 *
-	 * @param file
-	 *            The file from which a concrete representation of an ontology
-	 *            will be obtained.
-	 */
-	public FileDocumentSource(File file) {
-		this.file = file;
-	}
+    /** Constructs an ontology input source using the specified file.
+     * 
+     * @param file
+     *            The file from which a concrete representation of an ontology
+     *            will be obtained. */
+    public FileDocumentSource(File file) {
+        this.file = file;
+    }
 
     @Override
     public IRI getDocumentIRI() {
-		return IRI.create(file);
-	}
+        return IRI.create(file);
+    }
 
     @Override
     public boolean isInputStreamAvailable() {
-		return true;
-	}
+        return true;
+    }
 
     @Override
     public InputStream getInputStream() {
-		try {
-			return new BufferedInputStream(new FileInputStream(file));
-		} catch (FileNotFoundException e) {
-			throw new OWLOntologyInputSourceException(e);
-		}
-	}
+        try {
+            return new BufferedInputStream(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            throw new OWLOntologyInputSourceException(e);
+        }
+    }
 
     @Override
     public boolean isReaderAvailable() {
-		return true;
-	}
+        return true;
+    }
 
     @Override
     public Reader getReader() {
-		try {
-			return new InputStreamReader(getInputStream(), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// it cannot not support UTF-8
-			throw new OWLOntologyInputSourceException(e);
-		}
-	}
+        try {
+            return new InputStreamReader(getInputStream(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // it cannot not support UTF-8
+            throw new OWLOntologyInputSourceException(e);
+        }
+    }
 }

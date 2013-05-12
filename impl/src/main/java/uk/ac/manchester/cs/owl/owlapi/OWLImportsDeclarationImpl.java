@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.io.Serializable;
@@ -45,18 +44,15 @@ import java.net.URI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
+    private static final long serialVersionUID = 30402L;
+    private final IRI iri;
 
-
-	private static final long serialVersionUID = 30402L;
-	private final IRI iri;
     @SuppressWarnings("javadoc")
     public OWLImportsDeclarationImpl(IRI iri) {
         this.iri = iri;
@@ -67,21 +63,18 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Seriali
         return iri;
     }
 
-
     @Override
     public URI getURI() {
         return iri.toURI();
     }
 
-
     @Override
-	public int hashCode() {
+    public int hashCode() {
         return iri.hashCode();
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -91,7 +84,6 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Seriali
         OWLImportsDeclaration other = (OWLImportsDeclaration) obj;
         return iri.equals(other.getIRI());
     }
-
 
     @Override
     public int compareTo(OWLImportsDeclaration o) {

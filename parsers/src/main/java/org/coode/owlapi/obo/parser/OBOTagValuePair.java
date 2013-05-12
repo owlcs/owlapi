@@ -36,23 +36,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 19/04/2012
- */
+ * Date: 19/04/2012 */
 public class OBOTagValuePair {
-
     private String tagName;
-    
     private String value;
-    
     private String qualifier;
-    
     private String comment;
 
     /** @param tagName

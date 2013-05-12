@@ -58,9 +58,8 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     private static final long serialVersionUID = 30402L;
 
     protected class BuildableWeakIndexCache<V extends OWLEntity> extends
-    WeakIndexCache<IRI, V> {
+            WeakIndexCache<IRI, V> {
         private static final long serialVersionUID = 30402L;
-
         protected final OWLDataFactory f;
 
         public BuildableWeakIndexCache(OWLDataFactory f) {
@@ -72,9 +71,8 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
             if (w != null) {
                 V toReturn = w.get();
                 if (toReturn == null) {
-                    //entry removed - move on
-                }
-                else {
+                    // entry removed - move on
+                } else {
                     return toReturn;
                 }
             }
@@ -87,28 +85,19 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     }
 
     private final BuildableWeakIndexCache<OWLClass> classesByURI;
-
     private final BuildableWeakIndexCache<OWLObjectProperty> objectPropertiesByURI;
-
     private final BuildableWeakIndexCache<OWLDataProperty> dataPropertiesByURI;
-
     private final BuildableWeakIndexCache<OWLDatatype> datatypesByURI;
-
     private final BuildableWeakIndexCache<OWLNamedIndividual> individualsByURI;
-
     private final BuildableWeakIndexCache<OWLAnnotationProperty> annotationPropertiesByURI;
-
     private final WeakIndexCache<Integer, OWLLiteral> intCache = new WeakIndexCache<Integer, OWLLiteral>();
-
     private final WeakIndexCache<Double, OWLLiteral> doubleCache = new WeakIndexCache<Double, OWLLiteral>();
-
     private final WeakIndexCache<Float, OWLLiteral> floatCache = new WeakIndexCache<Float, OWLLiteral>();
-
     private final WeakIndexCache<String, OWLLiteral> stringCache = new WeakIndexCache<String, OWLLiteral>();
-
     private final WeakCache<OWLLiteral> litCache = new WeakCache<OWLLiteral>();
 
-    protected <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache(OWLDataFactory f) {
+    protected <V extends OWLEntity> BuildableWeakIndexCache<V>
+            buildCache(OWLDataFactory f) {
         return new BuildableWeakIndexCache<V>(f);
     }
 
@@ -205,7 +194,6 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
                 return new OWLAnnotationPropertyImpl(iri);
             }
         };
-
         abstract <K extends OWLEntity> K build(IRI iri);
     }
 

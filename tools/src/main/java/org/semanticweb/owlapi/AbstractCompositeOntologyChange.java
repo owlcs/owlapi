@@ -36,20 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi;
-
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 23-Jul-2007<br><br>
- */
-public abstract class AbstractCompositeOntologyChange implements OWLCompositeOntologyChange {
-
+ * Date: 23-Jul-2007<br>
+ * <br> */
+public abstract class AbstractCompositeOntologyChange implements
+        OWLCompositeOntologyChange {
     private final OWLDataFactory dataFactory;
 
     protected AbstractCompositeOntologyChange(OWLDataFactory dataFactory) {

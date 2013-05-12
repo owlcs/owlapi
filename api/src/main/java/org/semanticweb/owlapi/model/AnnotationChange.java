@@ -36,19 +36,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 18-Mar-2009
- */
+ * Date: 18-Mar-2009 */
 public abstract class AnnotationChange extends OWLOntologyChange {
-
     private final OWLAnnotation annotation;
 
     /** @param ont
@@ -73,7 +69,7 @@ public abstract class AnnotationChange extends OWLOntologyChange {
     }
 
     @Override
-	public boolean isImportChange() {
+    public boolean isImportChange() {
         return false;
     }
 
@@ -86,6 +82,7 @@ public abstract class AnnotationChange extends OWLOntologyChange {
     public boolean isAddAxiom() {
         return false;
     }
+
     @Override
     public OWLAxiom getAxiom() {
         return null;

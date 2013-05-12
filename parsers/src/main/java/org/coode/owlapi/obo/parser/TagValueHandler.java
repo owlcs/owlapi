@@ -36,69 +36,74 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br><br>
+ * Date: 10-Jan-2007<br>
+ * <br>
  * <p/>
- * Concrete implementations of this interface allow specific behaviour for processing specific tag value pairs in an
- * OBO
- * file to be specified.
+ * Concrete implementations of this interface allow specific behaviour for
+ * processing specific tag value pairs in an OBO file to be specified.
  * <p>
  * <h3>Tag-Value Pairs (From the OBO 1.4 Guide)</h3>
  * <p/>
- * Tag-value pairs consist of a tag name, an unescaped colon, the tag value, and a newline:
+ * Tag-value pairs consist of a tag name, an unescaped colon, the tag value, and
+ * a newline:
  * <p/>
- * &lt;tag&gt;: &lt;value&gt; {&lt;trailing modifiers&gt;} ! &lt;comment&gt;
- * The tag name is always a string. The value is always a string, but the value string may require special parsing
- * depending on the tag with which it is associated.
+ * &lt;tag&gt;: &lt;value&gt; {&lt;trailing modifiers&gt;} ! &lt;comment&gt; The
+ * tag name is always a string. The value is always a string, but the value
+ * string may require special parsing depending on the tag with which it is
+ * associated.
  * <p/>
- * In general, tag-value pairs occur on a single line. Multi-line values are possible using escape characters (see
- * escape characters).
+ * In general, tag-value pairs occur on a single line. Multi-line values are
+ * possible using escape characters (see escape characters).
  * <p/>
- * In general, each stanza type expects a particular set of pre-defined tags. However, a stanza may contain any tag. If
- * a parser does not recognize a tag name for a particular stanza, no error will be generated. This allows new
- * experimental tags to be added without breaking existing parsers. See handling unrecognized tags for specifics.
+ * In general, each stanza type expects a particular set of pre-defined tags.
+ * However, a stanza may contain any tag. If a parser does not recognize a tag
+ * name for a particular stanza, no error will be generated. This allows new
+ * experimental tags to be added without breaking existing parsers. See handling
+ * unrecognized tags for specifics.
  * <p/>
  * <h3>Trailing Modifiers</h3>
  * <p/>
- * Any tag-value pair may be followed by a trailing modifier. Trailing modifiers have been introduced into the OBO 1.2
- * Specification to allow the graceful addition of new features to existing tags.
+ * Any tag-value pair may be followed by a trailing modifier. Trailing modifiers
+ * have been introduced into the OBO 1.2 Specification to allow the graceful
+ * addition of new features to existing tags.
  * <p/>
  * A trailing modifier has the following structure:
  * <p/>
- * {&lt;name&gt;=&lt;value&gt;, &lt;name=value&gt;, &lt;name=value&gt;}
- * That is, trailing modifiers are lists of name-value pairs.
+ * {&lt;name&gt;=&lt;value&gt;, &lt;name=value&gt;, &lt;name=value&gt;} That is,
+ * trailing modifiers are lists of name-value pairs.
  * <p/>
- * Parser implementations may choose to decode and/or round-trip these trailing modifiers. However, this is not
- * required. A parser may choose to ignore or strip away trailing modifiers.
+ * Parser implementations may choose to decode and/or round-trip these trailing
+ * modifiers. However, this is not required. A parser may choose to ignore or
+ * strip away trailing modifiers.
  * <p/>
- * For this reason, trailing modifiers should only include information that is optional or experimental.
+ * For this reason, trailing modifiers should only include information that is
+ * optional or experimental.
  * <p/>
- * Trailing modifiers may also occur within dbxref definitions (see dbxref formatting).
+ * Trailing modifiers may also occur within dbxref definitions (see dbxref
+ * formatting).
  * <p/>
- * </p>
- */
+ * </p> */
 public interface TagValueHandler {
-
-    /**
-     * Gets the name of the tag handled by this tag value handler
-     * @return The name of the tag
-     */
+    /** Gets the name of the tag handled by this tag value handler
+     * 
+     * @return The name of the tag */
     String getTagName();
 
-    /**
-     * Handles a tag.  This is called by the OBOConsumer during parsing to handle tags that match the value returned
-     * by the {@link #getTagName()} method.
-     * @param currentId The id of the current frame.
-     * @param value The value of the tag
+    /** Handles a tag. This is called by the OBOConsumer during parsing to handle
+     * tags that match the value returned by the {@link #getTagName()} method.
+     * 
+     * @param currentId
+     *            The id of the current frame.
+     * @param value
+     *            The value of the tag
      * @param qualifierBlock
-     * @param comment The hidden comment.  This is made up of any characters between ! and the end of line.
-     */
+     * @param comment
+     *            The hidden comment. This is made up of any characters between
+     *            ! and the end of line. */
     void handle(String currentId, String value, String qualifierBlock, String comment);
 }

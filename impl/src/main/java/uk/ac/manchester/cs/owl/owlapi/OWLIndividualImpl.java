@@ -65,11 +65,10 @@ import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
  * Date: 25-Oct-2006<br>
  * <br> */
 public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
-
-	private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30402L;
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         // XXX this is broken
         return obj instanceof OWLIndividual;
     }

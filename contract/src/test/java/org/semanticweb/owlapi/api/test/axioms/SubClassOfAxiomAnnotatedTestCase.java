@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.axioms;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 
 import java.util.Set;
 

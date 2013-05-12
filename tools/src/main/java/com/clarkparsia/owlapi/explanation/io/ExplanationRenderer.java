@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clarkparsia.owlapi.explanation.io;
 
 import java.io.IOException;
@@ -46,31 +45,32 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 
-/**
- * Renderer for explanations
- */
+/** Renderer for explanations */
 public interface ExplanationRenderer {
-
-    /**
-     * @param writer the writer to use
-     * @throws OWLException OWL troubles
-     * @throws IOException IO troubles
-     */
+    /** @param writer
+     *            the writer to use
+     * @throws OWLException
+     *             OWL troubles
+     * @throws IOException
+     *             IO troubles */
     public void startRendering(Writer writer) throws OWLException, IOException;
 
-    /**
-     * @param axiom the axiom to render
-     * @param explanations the explanations to render
-     * @throws OWLException OWL troubles
-     * @throws IOException IO troubles
-     */
-    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) throws OWLException, IOException;
+    /** @param axiom
+     *            the axiom to render
+     * @param explanations
+     *            the explanations to render
+     * @throws OWLException
+     *             OWL troubles
+     * @throws IOException
+     *             IO troubles */
+    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations)
+            throws OWLException, IOException;
 
-
-    /**
-     * end of rendering
-     * @throws OWLException OWL troubles
-     * @throws IOException IO troubles
-     */
+    /** end of rendering
+     * 
+     * @throws OWLException
+     *             OWL troubles
+     * @throws IOException
+     *             IO troubles */
     public void endRendering() throws OWLException, IOException;
 }

@@ -36,56 +36,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 17-Apr-2008<br><br>
- */
+ * Date: 17-Apr-2008<br>
+ * <br> */
 public class NullTripleHandler implements TripleHandler {
-
+    @Override
+    public void handlePrefixDirective(String prefixName, String prefix) {}
 
     @Override
-    public void handlePrefixDirective(String prefixName, String prefix) {
-    }
-
+    public void handleBaseDirective(String base) {}
 
     @Override
-    public void handleBaseDirective(String base) {
-    }
-
+    public void handleComment(String comment) {}
 
     @Override
-    public void handleComment(String comment) {
-    }
-
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {}
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
-    }
-
+    public void handleTriple(IRI subject, IRI predicate, String object) {}
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object) {
-    }
-
+    public void handleTriple(IRI subject, IRI predicate, String object, String lang) {}
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
-    }
-
+    public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {}
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
-    }
-
-
-    @Override
-    public void handleEnd() {
-    }
+    public void handleEnd() {}
 }

@@ -36,61 +36,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLClass;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 05-Dec-2009
- */
+ * Date: 05-Dec-2009 */
 public class OWLClassNode extends DefaultNode<OWLClass> {
-
-
-    /**
-     * @param entity the class to be contained
-     */
+    /** @param entity
+     *            the class to be contained */
     public OWLClassNode(OWLClass entity) {
         super(entity);
     }
-    /**
-     * @param entities the classes to be contained
-     */
+
+    /** @param entities
+     *            the classes to be contained */
     public OWLClassNode(Set<OWLClass> entities) {
         super(entities);
     }
 
-    /**
-     * empty constructor
-     */
-    public OWLClassNode() {
-    }
+    /** empty constructor */
+    public OWLClassNode() {}
 
     @Override
-	protected OWLClass getTopEntity() {
+    protected OWLClass getTopEntity() {
         return TOP_CLASS;
     }
 
     @Override
-	protected OWLClass getBottomEntity() {
+    protected OWLClass getBottomEntity() {
         return BOTTOM_CLASS;
     }
 
-    /**
-     * @return singleton top node
-     */
+    /** @return singleton top node */
     public static OWLClassNode getTopNode() {
         return TOP_NODE;
     }
 
-    /**
-     * @return singleton bottom node
-     */
+    /** @return singleton bottom node */
     public static OWLClassNode getBottomNode() {
         return BOTTOM_NODE;
     }

@@ -36,21 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 19/12/2010
- */
+ * Date: 19/12/2010 */
 @SuppressWarnings("javadoc")
 public interface TriplePatternMatcher {
-
     boolean matches(OWLRDFConsumer consumer, IRI mainNode);
 
     OWLObject createObject(OWLRDFConsumer consumer);

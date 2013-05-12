@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -46,18 +45,15 @@ import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLUnaryAtom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007<br><br>
- */
+ * Date: 15-Jan-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl implements SWRLUnaryAtom<A> {
-
-
-	private static final long serialVersionUID = 30402L;
+public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl
+        implements SWRLUnaryAtom<A> {
+    private static final long serialVersionUID = 30402L;
     private final A arg;
 
     public SWRLUnaryAtomImpl(SWRLPredicate predicate, A arg) {
@@ -65,12 +61,10 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtom
         this.arg = arg;
     }
 
-
     @Override
     public A getArgument() {
         return arg;
     }
-
 
     @Override
     public Collection<SWRLArgument> getAllArguments() {

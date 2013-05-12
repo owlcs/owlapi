@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import java.util.HashMap;
@@ -49,62 +48,50 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- *
- * Describes a violation of an OWLProfile by an axiom.  Ultimately, there may
- * be part of the axiom that violates the profile rather than the complete axiom.
- */
+ * Date: 03-Aug-2009 Describes a violation of an OWLProfile by an axiom.
+ * Ultimately, there may be part of the axiom that violates the profile rather
+ * than the complete axiom. */
 public class OWLProfileViolation {
-
     private final OWLOntologyID ontologyID;
-
     private final Map<OWLOntologyID, IRI> importsClosureMap = new HashMap<OWLOntologyID, IRI>();
-
     private final OWLAxiom axiom;
 
-    /**
-     * @param ontology the ontology with the violation
-     * @param axiom the axiom with the violation
-     */
+    /** @param ontology
+     *            the ontology with the violation
+     * @param axiom
+     *            the axiom with the violation */
     public OWLProfileViolation(OWLOntology ontology, OWLAxiom axiom) {
         this.axiom = axiom;
         this.ontologyID = ontology.getOntologyID();
-        for(OWLOntology ont : ontology.getImportsClosure()) {
-            importsClosureMap.put(ont.getOntologyID(), ont.getOWLOntologyManager().getOntologyDocumentIRI(ont));
+        for (OWLOntology ont : ontology.getImportsClosure()) {
+            importsClosureMap.put(ont.getOntologyID(), ont.getOWLOntologyManager()
+                    .getOntologyDocumentIRI(ont));
         }
     }
 
-    /**
-     * @return the offending axiom
-     */
+    /** @return the offending axiom */
     public OWLAxiom getAxiom() {
         return axiom;
     }
 
-    /**
-     * @return the ontology id
-     */
+    /** @return the ontology id */
     public OWLOntologyID getOntologyID() {
         return ontologyID;
     }
 
-    /**
-     * @param ontID the id to look for
-     * @return the document IRI for an id
-     */
+    /** @param ontID
+     *            the id to look for
+     * @return the document IRI for an id */
     public IRI getDocumentIRI(OWLOntologyID ontID) {
         return importsClosureMap.get(ontID);
     }
 
-    /**
-     * @return the imports closure set of ids. The set is a copy and the map will not be altered by changes to it.
-     */
+    /** @return the imports closure set of ids. The set is a copy and the map
+     *         will not be altered by changes to it. */
     public Set<OWLOntologyID> getImportsClosure() {
         return new HashSet<OWLOntologyID>(importsClosureMap.keySet());
     }
-
 }

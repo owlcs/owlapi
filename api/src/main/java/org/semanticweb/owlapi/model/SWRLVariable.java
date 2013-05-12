@@ -36,27 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br><br>
+ * Date: Jan 15, 2007<br>
+ * <br>
  * <p/>
  * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br><br>
- *
- * Represents a variable that can appear in an atom. Variable can either be place holders for individuals
- * or literals. Variables are named with IRIs.
- */
+ * www.cs.man.ac.uk/~horridgm<br>
+ * <br>
+ * Represents a variable that can appear in an atom. Variable can either be
+ * place holders for individuals or literals. Variables are named with IRIs. */
 public interface SWRLVariable extends SWRLIArgument, SWRLDArgument {
-
-    /**
-     * Gets the variable IRI that names the variable
-     * @return The IRI that represents the name of the variable
-     */
+    /** Gets the variable IRI that names the variable
+     * 
+     * @return The IRI that represents the name of the variable */
     IRI getIRI();
-
 }

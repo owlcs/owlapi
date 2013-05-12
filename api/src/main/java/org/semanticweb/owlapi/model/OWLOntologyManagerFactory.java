@@ -36,30 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16-Mar-2007<br><br>
- */
+ * Date: 16-Mar-2007<br>
+ * <br> */
 public interface OWLOntologyManagerFactory {
-
-    /**
-     * @return a new ontology manager
-     */
+    /** @return a new ontology manager */
     public OWLOntologyManager buildOWLOntologyManager();
-    /**
-     * @param f the data factory the new manager will use
-     * @return a new ontology manager
-     */
+
+    /** @param f
+     *            the data factory the new manager will use
+     * @return a new ontology manager */
     public OWLOntologyManager buildOWLOntologyManager(OWLDataFactory f);
-    /**
-     * @return a data factory
-     */
+
+    /** @return a data factory */
     public OWLDataFactory getFactory();
 }

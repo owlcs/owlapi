@@ -36,32 +36,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 22-Jan-2008<br><br>
- */
+ * Date: 22-Jan-2008<br>
+ * <br> */
 public class ExplanationTree extends MutableTree<OWLAxiom> {
-
-    /**
-     * @param userObject the axiom to wrap
-     */
+    /** @param userObject
+     *            the axiom to wrap */
     public ExplanationTree(OWLAxiom userObject) {
         super(userObject);
     }
 
-    /**
-     * @return true if entailed
-     */
+    /** @return true if entailed */
     public boolean isEntailed() {
         return false;
     }

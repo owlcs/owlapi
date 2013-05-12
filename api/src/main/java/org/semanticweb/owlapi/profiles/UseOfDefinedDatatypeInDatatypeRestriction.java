@@ -36,25 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolation implements OWL2ProfileViolation {
-
+public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolation
+        implements OWL2ProfileViolation {
     private final OWLDatatypeRestriction restriction;
 
-    public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology, OWLAxiom axiom, OWLDatatypeRestriction restriction) {
+    public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology,
+            OWLAxiom axiom, OWLDatatypeRestriction restriction) {
         super(ontology, axiom);
         this.restriction = restriction;
     }
@@ -69,7 +67,7 @@ public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolati
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of defined datatype in datatype restriction: ");
         sb.append(getAxiom());

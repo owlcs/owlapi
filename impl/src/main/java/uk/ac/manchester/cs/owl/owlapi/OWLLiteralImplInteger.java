@@ -48,22 +48,18 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
- * <br>
- */
+ * <br> */
 public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
-
     private static final long serialVersionUID = 30402L;
     private final int literal;
     private final OWLDatatype datatype;
 
     @SuppressWarnings("javadoc")
-    public OWLLiteralImplInteger(int literal,
-            OWLDatatype datatype) {
+    public OWLLiteralImplInteger(int literal, OWLDatatype datatype) {
         super();
         this.literal = literal;
         this.datatype = datatype;

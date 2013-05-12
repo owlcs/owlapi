@@ -36,17 +36,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
 public interface OWL2DLProfileViolationVisitor {
     void visit(IllegalPunning violation);
+
     void visit(CycleInDatatypeDefinition violation);
 
     void visit(UseOfBuiltInDatatypeInDatatypeDefinition violation);
@@ -96,9 +95,10 @@ public interface OWL2DLProfileViolationVisitor {
     void visit(UseOfUndeclaredObjectProperty violation);
 
     void visit(InsufficientPropertyExpressions violation);
+
     void visit(InsufficientIndividuals violation);
+
     void visit(InsufficientOperands violation);
+
     void visit(EmptyOneOfAxiom violation);
-
-
 }

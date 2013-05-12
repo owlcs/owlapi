@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
@@ -46,35 +45,38 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
- */
+ * Date: 08-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class ObjectHasValueTranslator extends AbstractClassExpressionTranslator {
-
     public ObjectHasValueTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
     @Override
     public boolean matchesStrict(IRI mainNode) {
-        return isRestrictionStrict(mainNode) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode, OWL_HAS_VALUE);
+        return isRestrictionStrict(mainNode)
+                && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY)
+                && isResourcePresent(mainNode, OWL_HAS_VALUE);
     }
 
     @Override
     public boolean matchesLax(IRI mainNode) {
-        return isResourcePresent(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode, OWL_HAS_VALUE);
+        return isResourcePresent(mainNode, OWL_ON_PROPERTY)
+                && isResourcePresent(mainNode, OWL_HAS_VALUE);
     }
 
     @Override
     public OWLObjectHasValue translate(IRI mainNode) {
         IRI value = getConsumer().getResourceObject(mainNode, OWL_HAS_VALUE, true);
         OWLIndividual individual = getConsumer().translateIndividual(value);
-        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
-        OWLObjectPropertyExpression property = getConsumer().translateObjectPropertyExpression(propertyIRI);
+        IRI propertyIRI = getConsumer()
+                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLObjectPropertyExpression property = getConsumer()
+                .translateObjectPropertyExpression(propertyIRI);
         return getDataFactory().getOWLObjectHasValue(property, individual);
     }
 }

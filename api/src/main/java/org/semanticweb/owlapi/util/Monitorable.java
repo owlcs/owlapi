@@ -36,40 +36,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 04-Jan-2007<br><br>
- *
- * Certain tasks or algorithms may take some time to accomplish.  For example
- * parsing, saving etc.  In some situations, it is desirable to monitor the
+ * Date: 04-Jan-2007<br>
+ * <br>
+ * Certain tasks or algorithms may take some time to accomplish. For example
+ * parsing, saving etc. In some situations, it is desirable to monitor the
  * progress of such tasks, for example to provide feedback in user interfaces.
  * Interfaces which represent long tasks can implement this progress monitor
- * interface to provide a hook for a progress monitor.
- */
+ * interface to provide a hook for a progress monitor. */
 public interface Monitorable {
-
-    /**
-     * Sets the progress monitor which receives information about the
-     * progress of the this object which represents a long running task.
-     * @param progressMonitor
-     */
+    /** Sets the progress monitor which receives information about the progress
+     * of the this object which represents a long running task.
+     * 
+     * @param progressMonitor */
     void setProgressMonitor(ProgressMonitor progressMonitor);
 
-
-    /**
-     * Interrupts the long running task (if possible).
-     * @throws InterruptedException
-     */
+    /** Interrupts the long running task (if possible).
+     * 
+     * @throws InterruptedException */
     void interrupt() throws InterruptedException;
 
-
-    /**
-     * @return true if this long running task can be cancelled.
-     */
+    /** @return true if this long running task can be cancelled. */
     boolean canInterrupt();
-
 }

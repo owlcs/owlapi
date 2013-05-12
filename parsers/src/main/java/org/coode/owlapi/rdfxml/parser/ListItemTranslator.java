@@ -36,32 +36,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
+ * Date: 08-Dec-2006<br>
+ * <br>
  * <p/>
- * Translates and consumes an item in an RDF list.
- */
+ * Translates and consumes an item in an RDF list. */
 @SuppressWarnings("javadoc")
 public interface ListItemTranslator<O extends OWLObject> {
-
-    /**
-     * The rdf:first triple that represents the item to be translated.  This triple
-     * will point to something like a class expression, individual.
-     * @param firstObject The rdf:first triple that points to the item to be translated.
-     * @return The translated item.
-     */
+    /** The rdf:first triple that represents the item to be translated. This
+     * triple will point to something like a class expression, individual.
+     * 
+     * @param firstObject
+     *            The rdf:first triple that points to the item to be translated.
+     * @return The translated item. */
     O translate(IRI firstObject);
-
 
     O translate(OWLLiteral firstObject);
 }

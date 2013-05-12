@@ -36,70 +36,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.vocab;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- * A vocabulary for XML Schema Data Types (XSD)
- */
+ * Bio-Health Informatics Group Date: 25-Oct-2006 A vocabulary for XML Schema
+ * Data Types (XSD) */
 @SuppressWarnings("javadoc")
 public enum XSDVocabulary {
-
-    ANY_TYPE("anyType"),
-    ANY_SIMPLE_TYPE("anySimpleType"),
-    STRING("string"),
-    INTEGER("integer"),
-    LONG("long"),
-    INT("int"),
-    SHORT("short"),
-    BYTE("byte"),
-    DECIMAL("decimal"),
-    FLOAT("float"),
-    BOOLEAN("boolean"),
-    DOUBLE("double"),
-    NON_POSITIVE_INTEGER("nonPositiveInteger"),
-    NEGATIVE_INTEGER("negativeInteger"),
-    NON_NEGATIVE_INTEGER("nonNegativeInteger"),
-    UNSIGNED_LONG("unsignedLong"),
-    UNSIGNED_INT("unsignedInt"),
-    POSITIVE_INTEGER("positiveInteger"),
-    BASE_64_BINARY("base64Binary"),
-    HEX_BINARY("hexBinary"),
-    ANY_URI("anyURI"),
-    Q_NAME("QName"),
-    NOTATION("NOTATION"),
-    NORMALIZED_STRING("normalizedString"),
-    TOKEN("token"),
-    LANGUAGE("language"),
-    NAME("Name"),
-    NCNAME("NCName"),
-    NMTOKEN("NMTOKEN"),
-    ID("ID"),
-    IDREF("IDREF"),
-    IDREFS("IDREFS"),
-    ENTITY("ENTITY"),
-    ENTITIES("ENTITIES"),
-    DURATION("duration"),
-    DATE_TIME("dateTime"),
-    DATE_TIME_STAMP("dateTimeStamp"),
-    TIME("time"),
-    DATE("date"),
-    G_YEAR_MONTH("gYearMonth"),
-    G_YEAR("gYear"),
-    G_MONTH_DAY("gMonthYear"),
-    G_DAY("gDay"),
-    G_MONTH("gMonth"),
-    UNSIGNED_SHORT("unsignedShort"),
-    UNSIGNED_BYTE("unsignedByte");
-
+    ANY_TYPE("anyType"), ANY_SIMPLE_TYPE("anySimpleType"), STRING("string"), INTEGER(
+            "integer"), LONG("long"), INT("int"), SHORT("short"), BYTE("byte"), DECIMAL(
+            "decimal"), FLOAT("float"), BOOLEAN("boolean"), DOUBLE("double"), NON_POSITIVE_INTEGER(
+            "nonPositiveInteger"), NEGATIVE_INTEGER("negativeInteger"), NON_NEGATIVE_INTEGER(
+            "nonNegativeInteger"), UNSIGNED_LONG("unsignedLong"), UNSIGNED_INT(
+            "unsignedInt"), POSITIVE_INTEGER("positiveInteger"), BASE_64_BINARY(
+            "base64Binary"), HEX_BINARY("hexBinary"), ANY_URI("anyURI"), Q_NAME("QName"), NOTATION(
+            "NOTATION"), NORMALIZED_STRING("normalizedString"), TOKEN("token"), LANGUAGE(
+            "language"), NAME("Name"), NCNAME("NCName"), NMTOKEN("NMTOKEN"), ID("ID"), IDREF(
+            "IDREF"), IDREFS("IDREFS"), ENTITY("ENTITY"), ENTITIES("ENTITIES"), DURATION(
+            "duration"), DATE_TIME("dateTime"), DATE_TIME_STAMP("dateTimeStamp"), TIME(
+            "time"), DATE("date"), G_YEAR_MONTH("gYearMonth"), G_YEAR("gYear"), G_MONTH_DAY(
+            "gMonthYear"), G_DAY("gDay"), G_MONTH("gMonth"), UNSIGNED_SHORT(
+            "unsignedShort"), UNSIGNED_BYTE("unsignedByte");
     private final String shortName;
-
     private final IRI iri;
 
     XSDVocabulary(String name) {
@@ -107,32 +68,27 @@ public enum XSDVocabulary {
         iri = IRI.create(Namespaces.XSD + name);
     }
 
-
     public String getShortName() {
         return shortName;
     }
 
-
-//    public URI getURI() {
-//        return iri.toURI();
-//    }
-
+    // public URI getURI() {
+    // return iri.toURI();
+    // }
     public IRI getIRI() {
         return iri;
     }
 
-//    public static final Set<URI> ALL_DATATYPES;
-//
-//    static {
-//        ALL_DATATYPES = new HashSet<URI>();
-//        for(XSDVocabulary v : XSDVocabulary.values()) {
-//            ALL_DATATYPES.add(v.getURI());
-//        }
-//    }
-
-
+    // public static final Set<URI> ALL_DATATYPES;
+    //
+    // static {
+    // ALL_DATATYPES = new HashSet<URI>();
+    // for(XSDVocabulary v : XSDVocabulary.values()) {
+    // ALL_DATATYPES.add(v.getURI());
+    // }
+    // }
     @Override
-	public String toString() {
+    public String toString() {
         return iri.toString();
     }
 }

@@ -36,31 +36,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassExpression implements OWL2ELProfileViolation {
-
+public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassExpression
+        implements OWL2ELProfileViolation {
     private final OWLObjectOneOf oneOf;
 
-    public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology, OWLAxiom axiom, OWLObjectOneOf oneOf) {
+    public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology, OWLAxiom axiom,
+            OWLObjectOneOf oneOf) {
         super(ontology, axiom, oneOf);
         this.oneOf = oneOf;
     }
 
     @Override
-	public void accept(OWL2ELProfileViolationVisitor visitor) {
+    public void accept(OWL2ELProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -69,7 +67,7 @@ public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassEx
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of ObjectOneOf with multiple individuals: ");
         sb.append(getAxiom());

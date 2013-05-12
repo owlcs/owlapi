@@ -36,35 +36,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.change;
 
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 27/04/2012
  * <p>
- *     Represents the specific non-ontology data required by an {@link AddOntologyAnnotation} change.
+ * Represents the specific non-ontology data required by an
+ * {@link AddOntologyAnnotation} change.
  * </p>
  * <p>
- *     Instances of this class are immutable.
+ * Instances of this class are immutable.
  * </p>
- * @since 3.5
- */
+ * 
+ * @since 3.5 */
 public final class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
     private static final long serialVersionUID = 30402L;
 
-    /**
-     * Constructs an {@link AddOntologyAnnotationData} object that describes an {@link AddOntologyAnnotation} change
-     * for the {@link OWLAnnotation} specified by the {@code annotation} parameter.
-     * @param annotation The {@link OWLAnnotation} that is the focus of some change.  Not {@code null}.
-     * @throws NullPointerException if {@code annotation} is {@code null}.
-     */
+    /** Constructs an {@link AddOntologyAnnotationData} object that describes an
+     * {@link AddOntologyAnnotation} change for the {@link OWLAnnotation}
+     * specified by the {@code annotation} parameter.
+     * 
+     * @param annotation
+     *            The {@link OWLAnnotation} that is the focus of some change.
+     *            Not {@code null}.
+     * @throws NullPointerException
+     *             if {@code annotation} is {@code null}. */
     public AddOntologyAnnotationData(OWLAnnotation annotation) {
         super(annotation);
     }
@@ -75,16 +77,17 @@ public final class AddOntologyAnnotationData extends OntologyAnnotationChangeDat
     }
 
     @Override
-    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
+    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
+            throws E {
         return visitor.visit(this);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof AddOntologyAnnotationData)) {
+        if (!(obj instanceof AddOntologyAnnotationData)) {
             return false;
         }
         AddOntologyAnnotationData other = (AddOntologyAnnotationData) obj;

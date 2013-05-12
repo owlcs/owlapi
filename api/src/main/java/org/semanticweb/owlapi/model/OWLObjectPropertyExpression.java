@@ -36,140 +36,118 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group Date: 24-Oct-2006
- */
-public interface OWLObjectPropertyExpression extends OWLPropertyExpression<OWLClassExpression, OWLObjectPropertyExpression>, SWRLPredicate {
-
-    /**
-     * Determines if the specified ontology specifies that this property is inverse functional.
-     *
-     * @param ontology The ontology to be tested for an inverse functional property axiom.
-     * @return <code>true</code> if the property is inverse functional, or <code>false</code> if the property is not
-     *         inverse functional.
-     */
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group Date: 24-Oct-2006 */
+public interface OWLObjectPropertyExpression extends
+        OWLPropertyExpression<OWLClassExpression, OWLObjectPropertyExpression>,
+        SWRLPredicate {
+    /** Determines if the specified ontology specifies that this property is
+     * inverse functional.
+     * 
+     * @param ontology
+     *            The ontology to be tested for an inverse functional property
+     *            axiom.
+     * @return <code>true</code> if the property is inverse functional, or
+     *         <code>false</code> if the property is not inverse functional. */
     boolean isInverseFunctional(OWLOntology ontology);
 
-
-    /**
-     * @param ontologies the ontologies to check
-     * @return true if the property is defined as inverse functional
-     */
+    /** @param ontologies
+     *            the ontologies to check
+     * @return true if the property is defined as inverse functional */
     boolean isInverseFunctional(Set<OWLOntology> ontologies);
 
-
-    /**
-     * @param ontology the ontology to check
-     * @return true if symmetric
-     */
+    /** @param ontology
+     *            the ontology to check
+     * @return true if symmetric */
     boolean isSymmetric(OWLOntology ontology);
 
-    /**
-     * @param ontologies the ontologies to check
-     * @return true if symmetric
-     */
+    /** @param ontologies
+     *            the ontologies to check
+     * @return true if symmetric */
     boolean isSymmetric(Set<OWLOntology> ontologies);
 
-    /**
-     * @param ontology the ontology to check
-     * @return true if asymmetric
-     */
+    /** @param ontology
+     *            the ontology to check
+     * @return true if asymmetric */
     boolean isAsymmetric(OWLOntology ontology);
 
-    /**
-     * @param ontologies the ontologies to check
-     * @return true if asymmetric
-     */
+    /** @param ontologies
+     *            the ontologies to check
+     * @return true if asymmetric */
     boolean isAsymmetric(Set<OWLOntology> ontologies);
 
-    /**
-     * @param ontology the ontology to check
-     * @return true if reflexive
-     */
+    /** @param ontology
+     *            the ontology to check
+     * @return true if reflexive */
     boolean isReflexive(OWLOntology ontology);
 
-    /**
-     * @param ontologies the ontologies to check
-     * @return true if reflexive
-     */
+    /** @param ontologies
+     *            the ontologies to check
+     * @return true if reflexive */
     boolean isReflexive(Set<OWLOntology> ontologies);
 
-    /**
-     * @param ontology the ontology to check
-     * @return true if irreflexive
-     */
+    /** @param ontology
+     *            the ontology to check
+     * @return true if irreflexive */
     boolean isIrreflexive(OWLOntology ontology);
 
-    /**
-     * @param ontologies the ontologies to check
-     * @return true if irreflexive
-     */
+    /** @param ontologies
+     *            the ontologies to check
+     * @return true if irreflexive */
     boolean isIrreflexive(Set<OWLOntology> ontologies);
 
-    /**
-     * @param ontology the ontology to check
-     * @return true if transitive
-     */
+    /** @param ontology
+     *            the ontology to check
+     * @return true if transitive */
     boolean isTransitive(OWLOntology ontology);
 
-    /**
-     * @param ontologies the ontologies to check
-     * @return true if transitive
-     */
+    /** @param ontologies
+     *            the ontologies to check
+     * @return true if transitive */
     boolean isTransitive(Set<OWLOntology> ontologies);
 
-    /**
-     * @param ontology the ontology to check
-     * @return the inverse properties
-     */
+    /** @param ontology
+     *            the ontology to check
+     * @return the inverse properties */
     Set<OWLObjectPropertyExpression> getInverses(OWLOntology ontology);
 
-    /**
-     * @param ontologies the ontologies to check
-     * @return the inverse properties
-     */
+    /** @param ontologies
+     *            the ontologies to check
+     * @return the inverse properties */
     Set<OWLObjectPropertyExpression> getInverses(Set<OWLOntology> ontologies);
 
-
-    /**
-     * If the property is a named object property then this method will obtain the property as such.  The general
-     * pattern of use is that the <code>isAnonymous</code> method should first be used to determine if the property is
-     * named (i.e. not an object property expression such as inv(p)).  If the property is named then this method may be
-     * used to obtain the property as a named property without casting.
-     *
+    /** If the property is a named object property then this method will obtain
+     * the property as such. The general pattern of use is that the
+     * <code>isAnonymous</code> method should first be used to determine if the
+     * property is named (i.e. not an object property expression such as
+     * inv(p)). If the property is named then this method may be used to obtain
+     * the property as a named property without casting.
+     * 
      * @return The property as an <code>OWLObjectProperty</code> if possible.
-     * @throws OWLRuntimeException if the property is not a named property.
-     */
+     * @throws OWLRuntimeException
+     *             if the property is not a named property. */
     OWLObjectProperty asOWLObjectProperty();
 
-
-    /**
-     * Obtains the property that corresponds to the inverse of this property.
-     *
-     * @return The inverse of this property.  Note that this property will not necessarily be in the simplest form.
-     */
+    /** Obtains the property that corresponds to the inverse of this property.
+     * 
+     * @return The inverse of this property. Note that this property will not
+     *         necessarily be in the simplest form. */
     OWLObjectPropertyExpression getInverseProperty();
 
-
-    /**
-     * Returns this property in its simplified form.
-     *
-     * @return Let p be a property name and PE an object property expression. The simplification, 'simp', is defined as
-     *         follows: simp(p) = p simp(inv(p)) = inv(p) simp(inv(inv(PE)) = simp(PE)
-     */
+    /** Returns this property in its simplified form.
+     * 
+     * @return Let p be a property name and PE an object property expression.
+     *         The simplification, 'simp', is defined as follows: simp(p) = p
+     *         simp(inv(p)) = inv(p) simp(inv(inv(PE)) = simp(PE) */
     OWLObjectPropertyExpression getSimplified();
 
-
-    /**
-     * Get the named object property used in this property expression.
-     *
-     * @return P if simp(PE) = inv(P) or P if simp(PE) = P.
-     */
+    /** Get the named object property used in this property expression.
+     * 
+     * @return P if simp(PE) = inv(P) or P if simp(PE) = P. */
     OWLObjectProperty getNamedProperty();
 }

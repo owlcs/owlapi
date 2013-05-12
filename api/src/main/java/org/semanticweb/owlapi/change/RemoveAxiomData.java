@@ -36,57 +36,62 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.change;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 27/04/2012
  * <p>
- * Represents the specific non-ontology data required by an {@link RemoveAxiom} change.
+ * Represents the specific non-ontology data required by an {@link RemoveAxiom}
+ * change.
  * </p>
  * <p>
  * Instances of this class are immutable.
  * </p>
- * @since 3.5
- */
+ * 
+ * @since 3.5 */
 public final class RemoveAxiomData extends AxiomChangeData {
     private static final long serialVersionUID = 30402L;
 
-    /**
-     * Constructs an {@link RemoveAxiomData} object which specifies the removal of an axiom from "some ontology".
-     * @param axiom The {@link OWLAxiom} being added.  Not {@code null}.
-     * @throws NullPointerException if {@code axiom} is {@code null}.
-     */
+    /** Constructs an {@link RemoveAxiomData} object which specifies the removal
+     * of an axiom from "some ontology".
+     * 
+     * @param axiom
+     *            The {@link OWLAxiom} being added. Not {@code null}.
+     * @throws NullPointerException
+     *             if {@code axiom} is {@code null}. */
     public RemoveAxiomData(OWLAxiom axiom) {
         super(axiom);
     }
 
-    /**
-     * Creates the {@link org.semanticweb.owlapi.model.RemoveAxiom} change that describes an removal of an {@link
-     * org.semanticweb.owlapi.model.OWLAxiom} from an {@link OWLOntology} specified by the {@code ontology} parameter.
-     * @param ontology The {@link OWLOntology} that the change should apply to.  Not {@code null}.
-     * @return The {@link org.semanticweb.owlapi.model.RemoveAxiom} change for the {@link OWLOntology} specified by
-     *         {@code ontology} and the
-     *         {@link org.semanticweb.owlapi.model.OWLAxiom} associated with this {@link RemoveAxiomData} object.
-     * @throws NullPointerException if {@code ontology} is {@code null}.
-     */
+    /** Creates the {@link org.semanticweb.owlapi.model.RemoveAxiom} change that
+     * describes an removal of an {@link org.semanticweb.owlapi.model.OWLAxiom}
+     * from an {@link OWLOntology} specified by the {@code ontology} parameter.
+     * 
+     * @param ontology
+     *            The {@link OWLOntology} that the change should apply to. Not
+     *            {@code null}.
+     * @return The {@link org.semanticweb.owlapi.model.RemoveAxiom} change for
+     *         the {@link OWLOntology} specified by {@code ontology} and the
+     *         {@link org.semanticweb.owlapi.model.OWLAxiom} associated with
+     *         this {@link RemoveAxiomData} object.
+     * @throws NullPointerException
+     *             if {@code ontology} is {@code null}. */
     @Override
     public RemoveAxiom createOntologyChange(OWLOntology ontology) {
         return new RemoveAxiom(ontology, getAxiom());
     }
 
     @Override
-    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
+    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
+            throws E {
         return visitor.visit(this);
     }
-
 
     @Override
     public int hashCode() {

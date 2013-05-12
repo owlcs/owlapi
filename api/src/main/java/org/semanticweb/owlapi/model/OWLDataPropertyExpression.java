@@ -36,28 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- *
- * A high level interface to describe different types of data properties.
- */
-public interface OWLDataPropertyExpression extends OWLPropertyExpression<OWLDataRange, OWLDataPropertyExpression>, SWRLPredicate {
-
-    /**
-     * If the property is a named data property then this method will
-     * obtain the property as such.  The general pattern of use is that
-     * the <code>isAnonymous</code> method should first be used to determine
-     * if the property is named (i.e. not an object property expression such
-     * as inv(p)).  If the property is named then this method may be used
-     * to obtain the property as a named property without casting.
+ * Bio-Health Informatics Group Date: 24-Oct-2006 A high level interface to
+ * describe different types of data properties. */
+public interface OWLDataPropertyExpression extends
+        OWLPropertyExpression<OWLDataRange, OWLDataPropertyExpression>, SWRLPredicate {
+    /** If the property is a named data property then this method will obtain the
+     * property as such. The general pattern of use is that the
+     * <code>isAnonymous</code> method should first be used to determine if the
+     * property is named (i.e. not an object property expression such as
+     * inv(p)). If the property is named then this method may be used to obtain
+     * the property as a named property without casting.
+     * 
      * @return The property as an <code>OWLDataProperty</code> if possible.
-     * @throws OWLRuntimeException if the property is not a named property.
-     */
+     * @throws OWLRuntimeException
+     *             if the property is not a named property. */
     OWLDataProperty asOWLDataProperty();
 }

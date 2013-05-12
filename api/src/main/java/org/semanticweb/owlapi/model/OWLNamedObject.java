@@ -36,26 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
+ * Bio-Health Informatics Group Date: 24-Oct-2006
  * <p/>
- * Represents a named object for example, class, property,
- * ontology etc. - i.e. anything that has an IRI as its name.
- */
+ * Represents a named object for example, class, property, ontology etc. - i.e.
+ * anything that has an IRI as its name. */
 public interface OWLNamedObject extends OWLObject {
-
-    /**
-     * Gets the IRI of this object
-     *
-     * @return The IRI of this object
-     */
+    /** Gets the IRI of this object
+     * 
+     * @return The IRI of this object */
     public IRI getIRI();
+
     @SuppressWarnings("javadoc")
     void accept(OWLNamedObjectVisitor visitor);
 }

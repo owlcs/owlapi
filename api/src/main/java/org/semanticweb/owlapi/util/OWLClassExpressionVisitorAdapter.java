@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLClass;
@@ -59,101 +58,63 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 22-Nov-2006<br><br>
- */
+ * Date: 22-Nov-2006<br>
+ * <br> */
 public class OWLClassExpressionVisitorAdapter implements OWLClassExpressionVisitor {
+    @Override
+    public void visit(OWLClass desc) {}
 
     @Override
-    public void visit(OWLClass desc) {
-    }
-
+    public void visit(OWLObjectIntersectionOf desc) {}
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
-    }
-
+    public void visit(OWLObjectUnionOf desc) {}
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
-    }
-
+    public void visit(OWLObjectComplementOf desc) {}
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
-    }
-
+    public void visit(OWLObjectSomeValuesFrom desc) {}
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
-    }
-
+    public void visit(OWLObjectAllValuesFrom desc) {}
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
-    }
-
+    public void visit(OWLObjectHasValue desc) {}
 
     @Override
-    public void visit(OWLObjectHasValue desc) {
-    }
-
+    public void visit(OWLObjectMinCardinality desc) {}
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
-    }
-
+    public void visit(OWLObjectExactCardinality desc) {}
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
-    }
-
+    public void visit(OWLObjectMaxCardinality desc) {}
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
-    }
-
+    public void visit(OWLObjectHasSelf desc) {}
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
-    }
-
+    public void visit(OWLObjectOneOf desc) {}
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
-    }
-
+    public void visit(OWLDataSomeValuesFrom desc) {}
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
-    }
-
+    public void visit(OWLDataAllValuesFrom desc) {}
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
-    }
-
+    public void visit(OWLDataHasValue desc) {}
 
     @Override
-    public void visit(OWLDataHasValue desc) {
-    }
-
+    public void visit(OWLDataMinCardinality desc) {}
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
-    }
-
+    public void visit(OWLDataExactCardinality desc) {}
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
-    }
-
-
-    @Override
-    public void visit(OWLDataMaxCardinality desc) {
-    }
+    public void visit(OWLDataMaxCardinality desc) {}
 }

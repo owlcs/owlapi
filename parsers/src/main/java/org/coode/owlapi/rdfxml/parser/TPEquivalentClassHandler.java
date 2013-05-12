@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.HashSet;
@@ -49,49 +48,47 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
- */
+ * Date: 08-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class TPEquivalentClassHandler extends TriplePredicateHandler {
-
     public TPEquivalentClassHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_EQUIVALENT_CLASS.getIRI());
     }
 
     @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-    	inferTypes(subject, object);
-        return super.canHandle(subject, predicate, object) && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject, object);
+        inferTypes(subject, object);
+        return super.canHandle(subject, predicate, object)
+                && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject,
+                        object);
     }
-
-
 
     @Override
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         inferTypes(subject, object);
-        return !isStrict() && !isSubjectOrObjectAnonymous(subject, object) && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject, object);
+        return !isStrict()
+                && !isSubjectOrObjectAnonymous(subject, object)
+                && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject,
+                        object);
     }
 
-	@Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        if(isStrict()) {
-            if(isClassExpressionStrict(subject) && isClassExpressionStrict(object)) {
+    @Override
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
+        if (isStrict()) {
+            if (isClassExpressionStrict(subject) && isClassExpressionStrict(object)) {
                 translateEquivalentClasses(subject, predicate, object);
-            }
-            else if(isDataRangeStrict(subject) && isDataRangeStrict(object)) {
+            } else if (isDataRangeStrict(subject) && isDataRangeStrict(object)) {
                 translateEquivalentDataRanges(subject, predicate, object);
             }
-        }
-        else {
-            if(isClassExpressionLax(subject) && isClassExpressionLax(object)) {
+        } else {
+            if (isClassExpressionLax(subject) && isClassExpressionLax(object)) {
                 translateEquivalentClasses(subject, predicate, object);
-            }
-            else if(isDataRangeLax(subject) || isDataRangeLax(object)) {
+            } else if (isDataRangeLax(subject) || isDataRangeLax(object)) {
                 translateEquivalentDataRanges(subject, predicate, object);
             }
         }
@@ -100,7 +97,8 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
     private void translateEquivalentDataRanges(IRI subject, IRI predicate, IRI object) {
         OWLDatatype datatype = getDataFactory().getOWLDatatype(subject);
         OWLDataRange dataRange = getConsumer().translateDataRange(object);
-        addAxiom(getDataFactory().getOWLDatatypeDefinitionAxiom(datatype, dataRange, getPendingAnnotations()));
+        addAxiom(getDataFactory().getOWLDatatypeDefinitionAxiom(datatype, dataRange,
+                getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 
@@ -108,7 +106,8 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateClassExpression(subject));
         operands.add(translateClassExpression(object));
-        addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands, getPendingAnnotations()));
+        addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands,
+                getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -125,132 +124,113 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 29-Jul-2008<br><br>
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Information Management Group<br>
+ * Date: 29-Jul-2008<br>
+ * <br>
  * <p/>
- * A delegating visitor.  This utility class can be used to override visiting
- * a particular type of object.
- * @param <O>  the returned type
- */
+ * A delegating visitor. This utility class can be used to override visiting a
+ * particular type of object.
+ * 
+ * @param <O>
+ *            the returned type */
 public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
-
     private final OWLObjectVisitorEx<O> delegate;
 
-
-    /**
-     * Constructs a visitor where the specified delegate will be used to
-     * visit all objects unless one of the visit methods in this visitor
-     * is overriden.
-     * @param delegate The delegate.
-     */
+    /** Constructs a visitor where the specified delegate will be used to visit
+     * all objects unless one of the visit methods in this visitor is overriden.
+     * 
+     * @param delegate
+     *            The delegate. */
     public DelegatingObjectVisitorEx(OWLObjectVisitorEx<O> delegate) {
         this.delegate = delegate;
     }
-
 
     @Override
     public O visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLClassAssertionAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLDataPropertyAssertionAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLDataPropertyDomainAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLDataPropertyRangeAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLSubDataPropertyOfAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLDeclarationAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLDifferentIndividualsAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLDisjointClassesAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLDisjointDataPropertiesAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLDisjointObjectPropertiesAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLDisjointUnionAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLAnnotationAssertionAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLEquivalentClassesAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLEquivalentDataPropertiesAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLFunctionalDataPropertyAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLFunctionalObjectPropertyAxiom axiom) {
@@ -262,54 +242,45 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLInverseObjectPropertiesAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLObjectPropertyAssertionAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLSubPropertyChainOfAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLObjectPropertyDomainAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLObjectPropertyRangeAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLSubObjectPropertyOfAxiom axiom) {
@@ -321,174 +292,145 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLSameIndividualAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLSubClassOfAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(OWLSymmetricObjectPropertyAxiom axiom) {
         return delegate.visit(axiom);
     }
-
 
     @Override
     public O visit(OWLTransitiveObjectPropertyAxiom axiom) {
         return delegate.visit(axiom);
     }
 
-
     @Override
     public O visit(SWRLRule rule) {
         return delegate.visit(rule);
     }
-
 
     @Override
     public O visit(OWLClass desc) {
         return delegate.visit(desc);
     }
 
-
     @Override
     public O visit(OWLDataAllValuesFrom desc) {
         return delegate.visit(desc);
     }
-
 
     @Override
     public O visit(OWLDataExactCardinality desc) {
         return delegate.visit(desc);
     }
 
-
     @Override
     public O visit(OWLDataMaxCardinality desc) {
         return delegate.visit(desc);
     }
-
 
     @Override
     public O visit(OWLDataMinCardinality desc) {
         return delegate.visit(desc);
     }
 
-
     @Override
     public O visit(OWLDataSomeValuesFrom desc) {
         return delegate.visit(desc);
     }
-
 
     @Override
     public O visit(OWLDataHasValue desc) {
         return delegate.visit(desc);
     }
 
-
     @Override
     public O visit(OWLObjectAllValuesFrom desc) {
         return delegate.visit(desc);
     }
-
 
     @Override
     public O visit(OWLObjectComplementOf desc) {
         return delegate.visit(desc);
     }
 
-
     @Override
     public O visit(OWLObjectExactCardinality desc) {
         return delegate.visit(desc);
     }
-
 
     @Override
     public O visit(OWLObjectIntersectionOf desc) {
         return delegate.visit(desc);
     }
 
-
     @Override
     public O visit(OWLObjectMaxCardinality desc) {
         return delegate.visit(desc);
     }
-
 
     @Override
     public O visit(OWLObjectMinCardinality desc) {
         return delegate.visit(desc);
     }
 
-
     @Override
     public O visit(OWLObjectOneOf desc) {
         return delegate.visit(desc);
     }
-
 
     @Override
     public O visit(OWLObjectHasSelf desc) {
         return delegate.visit(desc);
     }
 
-
     @Override
     public O visit(OWLObjectSomeValuesFrom desc) {
         return delegate.visit(desc);
     }
-
 
     @Override
     public O visit(OWLObjectUnionOf desc) {
         return delegate.visit(desc);
     }
 
-
     @Override
     public O visit(OWLObjectHasValue desc) {
         return delegate.visit(desc);
     }
-
 
     @Override
     public O visit(OWLDataComplementOf node) {
         return delegate.visit(node);
     }
 
-
     @Override
     public O visit(OWLDataOneOf node) {
         return delegate.visit(node);
     }
-
 
     @Override
     public O visit(OWLFacetRestriction node) {
         return delegate.visit(node);
     }
 
-
     @Override
     public O visit(OWLDatatypeRestriction node) {
         return delegate.visit(node);
     }
 
-
     @Override
     public O visit(OWLDatatype node) {
         return delegate.visit(node);
     }
-
 
     @Override
     public O visit(OWLLiteral node) {
@@ -500,30 +442,25 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
         return delegate.visit(property);
     }
 
-
     @Override
     public O visit(OWLObjectProperty property) {
         return delegate.visit(property);
     }
-
 
     @Override
     public O visit(OWLObjectInverseOf property) {
         return delegate.visit(property);
     }
 
-
     @Override
     public O visit(SWRLLiteralArgument node) {
         return delegate.visit(node);
     }
 
-
     @Override
     public O visit(SWRLVariable node) {
         return delegate.visit(node);
     }
-
 
     @Override
     public O visit(SWRLIndividualArgument node) {
@@ -535,42 +472,35 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
         return delegate.visit(node);
     }
 
-
     @Override
     public O visit(SWRLClassAtom node) {
         return delegate.visit(node);
     }
-
 
     @Override
     public O visit(SWRLDataRangeAtom node) {
         return delegate.visit(node);
     }
 
-
     @Override
     public O visit(SWRLDataPropertyAtom node) {
         return delegate.visit(node);
     }
-
 
     @Override
     public O visit(SWRLDifferentIndividualsAtom node) {
         return delegate.visit(node);
     }
 
-
     @Override
     public O visit(SWRLObjectPropertyAtom node) {
         return delegate.visit(node);
     }
 
-
     @Override
     public O visit(SWRLSameIndividualAtom node) {
         return delegate.visit(node);
     }
-
 
     @Override
     public O visit(OWLOntology ontology) {
@@ -631,7 +561,6 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     public O visit(IRI iri) {
         return delegate.visit(iri);
     }
-
 
     @Override
     public O visit(OWLDatatypeDefinitionAxiom axiom) {

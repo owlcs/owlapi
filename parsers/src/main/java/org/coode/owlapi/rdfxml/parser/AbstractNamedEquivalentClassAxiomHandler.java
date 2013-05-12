@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.HashSet;
@@ -46,39 +45,36 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006<br><br>
+ * Date: 11-Dec-2006<br>
+ * <br>
  * <p/>
- * A base handler for equivalent class axioms where the axiom is stated in
- * a direct way without an equivalent class triple.  For example
- * A intersectionOf (C or C)
- */
+ * A base handler for equivalent class axioms where the axiom is stated in a
+ * direct way without an equivalent class triple. For example A intersectionOf
+ * (C or C) */
 @SuppressWarnings("javadoc")
-public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePredicateHandler {
-
-    public AbstractNamedEquivalentClassAxiomHandler(OWLRDFConsumer consumer, IRI predicateIRI) {
+public abstract class AbstractNamedEquivalentClassAxiomHandler extends
+        TriplePredicateHandler {
+    public AbstractNamedEquivalentClassAxiomHandler(OWLRDFConsumer consumer,
+            IRI predicateIRI) {
         super(consumer, predicateIRI);
     }
 
-
     @Override
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return false;
     }
 
-
     @Override
-	public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         return super.canHandle(subject, predicate, object) && !isAnonymous(subject);
     }
 
-
     @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateClassExpression(subject));
@@ -87,5 +83,4 @@ public abstract class AbstractNamedEquivalentClassAxiomHandler extends TriplePre
     }
 
     protected abstract OWLClassExpression translateEquivalentClass(IRI mainNode);
-
 }

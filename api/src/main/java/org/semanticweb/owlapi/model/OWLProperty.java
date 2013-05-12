@@ -36,19 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 23-Jan-2007<br><br>
- *
- * A marker interface for properties that aren't expression i.e. named properties.
- * By definition, properties are either data properties or object properties.
- * @param <R> range
- * @param <P> property expression
- */
-public interface OWLProperty<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>> extends OWLPropertyExpression<R, P>, OWLLogicalEntity, OWLNamedObject {
-
-}
+ * Date: 23-Jan-2007<br>
+ * <br>
+ * A marker interface for properties that aren't expression i.e. named
+ * properties. By definition, properties are either data properties or object
+ * properties.
+ * 
+ * @param <R>
+ *            range
+ * @param <P>
+ *            property expression */
+public interface OWLProperty<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>>
+        extends OWLPropertyExpression<R, P>, OWLLogicalEntity, OWLNamedObject {}

@@ -71,7 +71,6 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     private boolean writeEnitiesAsURIs;
     private OWLObject focusedObject;
 
-
     public OWLObjectRenderer(OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = writer;
@@ -157,7 +156,6 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLOntology ontology1) {
-
         writePrefixes();
         write("\n\n");
         write(ONTOLOGY);
@@ -297,6 +295,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         alreadyWrittenAxioms.addAll(axioms);
         return axioms;
     }
+
     /** Writes of the annotation for the specified entity
      * 
      * @param entity

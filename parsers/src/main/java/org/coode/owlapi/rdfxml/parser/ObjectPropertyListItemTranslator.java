@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.logging.Logger;
@@ -45,33 +44,28 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Jan-2007<br><br>
- */
+ * Date: 25-Jan-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public class ObjectPropertyListItemTranslator implements ListItemTranslator<OWLObjectPropertyExpression> {
-
-    private static final Logger logger = Logger.getLogger(ObjectPropertyListItemTranslator.class.getName());
-
-
+public class ObjectPropertyListItemTranslator implements
+        ListItemTranslator<OWLObjectPropertyExpression> {
+    private static final Logger logger = Logger
+            .getLogger(ObjectPropertyListItemTranslator.class.getName());
     private OWLRDFConsumer consumer;
-
 
     public ObjectPropertyListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
 
-
-    /**
-     * The rdf:first triple that represents the item to be translated.  This triple
-     * will point to something like a class expression, individual.
-     * @param firstObject The rdf:first triple that points to the item to be translated.
-     * @return The translated item.
-     */
+    /** The rdf:first triple that represents the item to be translated. This
+     * triple will point to something like a class expression, individual.
+     * 
+     * @param firstObject
+     *            The rdf:first triple that points to the item to be translated.
+     * @return The translated item. */
     @Override
     public OWLObjectPropertyExpression translate(IRI firstObject) {
         consumer.addObjectProperty(firstObject, false);

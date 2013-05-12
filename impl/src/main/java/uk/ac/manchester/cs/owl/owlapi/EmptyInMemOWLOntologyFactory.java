@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Bio-Health Informatics Group<br>
  * Date: 15-Nov-2006<br>
  * <br> */
-
 public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
     private static final long serialVersionUID = 30402L;
 
@@ -67,7 +66,7 @@ public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactor
     public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
             OWLOntologyCreationHandler handler,
             OWLOntologyLoaderConfiguration configuration)
-                    throws OWLOntologyCreationException {
+            throws OWLOntologyCreationException {
         return loadOWLOntology(documentSource, handler);
     }
 

@@ -36,29 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * @param <P> property expression
- */
-public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression<?,?>> extends OWLPropertyAxiom {
-
-    /**
-     * @return all of the properties that appear in this axiom
-     */
+ * Bio-Health Informatics Group Date: 24-Oct-2006
+ * 
+ * @param <P>
+ *            property expression */
+public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression<?, ?>> extends
+        OWLPropertyAxiom {
+    /** @return all of the properties that appear in this axiom */
     public Set<P> getProperties();
 
-    /**
-     * @param property the property to skip
-     * @return the set of properties minus property
-     */
+    /** @param property
+     *            the property to skip
+     * @return the set of properties minus property */
     Set<P> getPropertiesMinus(P property);
 }

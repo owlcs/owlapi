@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
@@ -52,29 +51,27 @@ import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements OWLNaryClassAxiom {
-
-
-	private static final long serialVersionUID = 30402L;
-	private final Set<OWLClassExpression> classExpressions;
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
+        OWLNaryClassAxiom {
+    private static final long serialVersionUID = 30402L;
+    private final Set<OWLClassExpression> classExpressions;
 
     @SuppressWarnings("javadoc")
-    public OWLNaryClassAxiomImpl(Set<? extends OWLClassExpression> classExpressions, Collection<? extends OWLAnnotation> annotations) {
+    public OWLNaryClassAxiomImpl(Set<? extends OWLClassExpression> classExpressions,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
     }
 
-
     @Override
     public Set<OWLClassExpression> getClassExpressions() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(classExpressions);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(classExpressions);
     }
 
     @Override
@@ -87,7 +84,6 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         return classExpressions.contains(ce);
     }
 
-
     @Override
     public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... descs) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>(classExpressions);
@@ -97,21 +93,21 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         return result;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLNaryClassAxiom)) {
                 return false;
             }
-            return ((OWLNaryClassAxiom) obj).getClassExpressions().equals(classExpressions);
+            return ((OWLNaryClassAxiom) obj).getClassExpressions().equals(
+                    classExpressions);
         }
         return false;
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(classExpressions, ((OWLNaryClassAxiom) object).getClassExpressions());
+    protected int compareObjectOfSameType(OWLObject object) {
+        return compareSets(classExpressions,
+                ((OWLNaryClassAxiom) object).getClassExpressions());
     }
 }

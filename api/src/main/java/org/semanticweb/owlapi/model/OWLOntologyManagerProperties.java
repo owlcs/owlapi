@@ -36,79 +36,73 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Apr-2008<br><br>
- */
+ * Date: 10-Apr-2008<br>
+ * <br> */
 public class OWLOntologyManagerProperties implements Serializable {
-
-
-	private static final long serialVersionUID = 30402L;
-
-	private boolean loadAnnotationAxioms = true;
-
+    private static final long serialVersionUID = 30402L;
+    private boolean loadAnnotationAxioms = true;
     private boolean treatDublinCoreVocabularyAsBuiltInVocabulary = true;
 
     @SuppressWarnings("javadoc")
-	public OWLOntologyManagerProperties() {
+    public OWLOntologyManagerProperties() {
         restoreDefaults();
     }
 
-    /**
-     * Restores the various properties to their default values.
-     */
+    /** Restores the various properties to their default values. */
     public void restoreDefaults() {
         loadAnnotationAxioms = true;
         treatDublinCoreVocabularyAsBuiltInVocabulary = true;
     }
 
-    /**
-     * Determines if annotation axioms should be loaded or discarded.
-     * @return <code>true</code> if annotation axioms should be loaded
-     *         or <code>false</code> if annotation axioms should be ignored.
-     */
+    /** Determines if annotation axioms should be loaded or discarded.
+     * 
+     * @return <code>true</code> if annotation axioms should be loaded or
+     *         <code>false</code> if annotation axioms should be ignored. */
     public boolean isLoadAnnotationAxioms() {
         return loadAnnotationAxioms;
     }
 
-
-    /**
-     * Specifies whether annotation axioms should be loaded or ignored.
-     * @param loadAnnotationAxioms <code>true</code> if annotation axioms should be
-     * loaded (default) or <code>false</code> if annotation axioms should be ignored.  Note that
-     * this is merely a hint to parsers and loaders - a setting of <code>false</code>
-     * does not guarentee that annotations won't be loaded.
-     */
+    /** Specifies whether annotation axioms should be loaded or ignored.
+     * 
+     * @param loadAnnotationAxioms
+     *            <code>true</code> if annotation axioms should be loaded
+     *            (default) or <code>false</code> if annotation axioms should be
+     *            ignored. Note that this is merely a hint to parsers and
+     *            loaders - a setting of <code>false</code> does not guarentee
+     *            that annotations won't be loaded. */
     public void setLoadAnnotationAxioms(boolean loadAnnotationAxioms) {
         this.loadAnnotationAxioms = loadAnnotationAxioms;
     }
 
-    /**
-     * Determines if the various parsers, for formats such as RDF based formats that do not require strong typing,
-     * should treat Dublin Core Vocabulary as built in vocabulary, so that
-     * Dublin Core metadata properties are interpreted as annotation properties.
-     * @return <code>true</code> if the Dublin Core Vocabulary should be treated as built in vocabulary and
-     *         Dublin Core properties are interpreted as annotation properties, otherwise <code>false</code>.  The
-     *         defaut is <code>true</code>.
-     */
+    /** Determines if the various parsers, for formats such as RDF based formats
+     * that do not require strong typing, should treat Dublin Core Vocabulary as
+     * built in vocabulary, so that Dublin Core metadata properties are
+     * interpreted as annotation properties.
+     * 
+     * @return <code>true</code> if the Dublin Core Vocabulary should be treated
+     *         as built in vocabulary and Dublin Core properties are interpreted
+     *         as annotation properties, otherwise <code>false</code>. The
+     *         defaut is <code>true</code>. */
     public boolean isTreatDublinCoreVocabularyAsBuiltInVocabulary() {
         return treatDublinCoreVocabularyAsBuiltInVocabulary;
     }
 
-    /**
-     * Specifies if the various parsers, for formats such as RDF based formats that do not require strong typing,
-     * should treat Dublin Core Vocabulary as built in vocabulary, so that
-     * Dublin Core metadata properties are interpreted as annotation properties.
-     * @param treatDublinCoreVocabularyAsBuiltInVocabulary the new value
-     */
-    public void setTreatDublinCoreVocabularyAsBuiltInVocabulary(boolean treatDublinCoreVocabularyAsBuiltInVocabulary) {
+    /** Specifies if the various parsers, for formats such as RDF based formats
+     * that do not require strong typing, should treat Dublin Core Vocabulary as
+     * built in vocabulary, so that Dublin Core metadata properties are
+     * interpreted as annotation properties.
+     * 
+     * @param treatDublinCoreVocabularyAsBuiltInVocabulary
+     *            the new value */
+    public void setTreatDublinCoreVocabularyAsBuiltInVocabulary(
+            boolean treatDublinCoreVocabularyAsBuiltInVocabulary) {
         this.treatDublinCoreVocabularyAsBuiltInVocabulary = treatDublinCoreVocabularyAsBuiltInVocabulary;
     }
 }

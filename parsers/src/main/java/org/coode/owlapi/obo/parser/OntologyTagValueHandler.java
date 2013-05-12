@@ -36,25 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 03/02/2011
- */
+ * Date: 03/02/2011 */
 @SuppressWarnings("javadoc")
 public class OntologyTagValueHandler extends AbstractTagValueHandler {
-
     public OntologyTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ONTOLOGY.getName(), consumer);
     }
 
-
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         getConsumer().setOntologyTagValue(value);
     }
 }

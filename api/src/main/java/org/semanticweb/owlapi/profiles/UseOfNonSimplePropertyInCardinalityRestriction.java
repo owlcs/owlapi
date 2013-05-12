@@ -36,25 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfNonSimplePropertyInCardinalityRestriction extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+public class UseOfNonSimplePropertyInCardinalityRestriction extends OWLProfileViolation
+        implements OWL2DLProfileViolation {
     private final OWLObjectCardinalityRestriction restriction;
 
-    public UseOfNonSimplePropertyInCardinalityRestriction(OWLOntology ontology, OWLAxiom axiom, OWLObjectCardinalityRestriction restriction) {
+    public UseOfNonSimplePropertyInCardinalityRestriction(OWLOntology ontology,
+            OWLAxiom axiom, OWLObjectCardinalityRestriction restriction) {
         super(ontology, axiom);
         this.restriction = restriction;
     }
@@ -69,7 +67,7 @@ public class UseOfNonSimplePropertyInCardinalityRestriction extends OWLProfileVi
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-simple property in ");
         sb.append(restriction.getClassExpressionType().getName());

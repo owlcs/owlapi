@@ -36,62 +36,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdf.model;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br><br>
- */
+ * Date: 06-Dec-2006<br>
+ * <br> */
 public class RDFResourceNode extends RDFNode {
-
     private IRI iri;
-
     private int anonId;
 
-
-    /**
-     * Constructs a named resource (i.e. a resource with
-     * a IRI).
-     * @param iri the IRI
-     */
+    /** Constructs a named resource (i.e. a resource with a IRI).
+     * 
+     * @param iri
+     *            the IRI */
     public RDFResourceNode(IRI iri) {
         this.iri = iri;
     }
 
-
-    /**
-     * Constructs an anonymous node, which has the specified ID.
-     * @param anonId The id of the node
-     */
+    /** Constructs an anonymous node, which has the specified ID.
+     * 
+     * @param anonId
+     *            The id of the node */
     public RDFResourceNode(int anonId) {
         this.anonId = anonId;
     }
-
 
     @Override
     public IRI getIRI() {
         return iri;
     }
 
-
     @Override
     public boolean isLiteral() {
         return false;
     }
 
-
     @Override
     public boolean isAnonymous() {
         return iri == null;
     }
-
 
     @Override
     public int hashCode() {
@@ -99,7 +87,6 @@ public class RDFResourceNode extends RDFNode {
         hashCode = hashCode * 37 + (iri == null ? anonId : iri.hashCode());
         return hashCode;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -110,16 +97,13 @@ public class RDFResourceNode extends RDFNode {
         if (iri != null) {
             if (other.iri != null) {
                 return other.iri.equals(iri);
-            }
-            else {
+            } else {
                 return false;
             }
-        }
-        else {
+        } else {
             return other.anonId == anonId;
         }
     }
-
 
     @Override
     public String toString() {

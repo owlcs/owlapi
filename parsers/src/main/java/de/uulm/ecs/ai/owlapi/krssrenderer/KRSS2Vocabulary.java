@@ -36,60 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.uulm.ecs.ai.owlapi.krssrenderer;
-/**
- * Vocabulary of KRSS2 syntax.
- *
- * Author: Olaf Noppens<br>
+
+/** Vocabulary of KRSS2 syntax. Author: Olaf Noppens<br>
  * Ulm University<br>
- * Institute of Artificial Intelligence<br>
- */
+ * Institute of Artificial Intelligence<br> */
 @SuppressWarnings("javadoc")
 public enum KRSS2Vocabulary {
-
-    ALL("all"),
-    AND("and"),
-    AT_LEAST("at-least"),
-    AT_MOST("at-most"),
-    COMPOSE("compose"),
-    DEFINE_CONCEPT("define-concept"),
-    DEFINE_INDIVIDUAL("define-individual"),
-    DEFINE_PRIMITIVE_CONCEPT("define-primitive-concept"),
-    DEFINE_PRIMITIVE_ROLE("define-primitive-role"),
-    DEFINE_ROLE("define-role"),
-    DISJOINT("disjoint"),
-    DISJOINT_ROLES("disjoint-roles"),
-    DISTINCT("distinct"),
-    DOMAIN("domain"),
-    DOMAIN_ATTR(":domain"),
-    EQUIVALENT("equivalent"),
-    EXACTLY("exactly"),
-    IMPLIES("implies"),
-    IMPLIES_ROLE("implies-role"),
-    INSTANCE("instace"),
-    INV("inv"),
-    INVERSE("inverse"),
-    INVERSE_ATTR(":inverse"),
-    LEFTIDENTITY_ATTR(":left-identity"),
-    NIL("nil"),
-    NOT("not"),
-    OR("or"),
-    ONE_OF("one-of"),
-    PARENTS_ATTR(":parents"),
-    PARENT_ATTR(":parent"),
-    RANGE_ATTR(":range"),
-    REFLEXIVE_ATTR(":reflexive"),
-    RELATED("related"),
-    RIGHTIDENTITY_ATTR(":right-identity"),
-    ROLES_EQUIVALENT("roles-equivalent"),
-    ROLE_INCLUSTION("role-inclusion"),
-    SOME("some"),
-    SUBROLE("subrole"),
-    SYMMETRIC_ATTR(":symmetric"),
-    TRUE("t"),
-    TRANSITIVE_ATTR(":transitive");
-
+    ALL("all"), AND("and"), AT_LEAST("at-least"), AT_MOST("at-most"), COMPOSE("compose"), DEFINE_CONCEPT(
+            "define-concept"), DEFINE_INDIVIDUAL("define-individual"), DEFINE_PRIMITIVE_CONCEPT(
+            "define-primitive-concept"), DEFINE_PRIMITIVE_ROLE("define-primitive-role"), DEFINE_ROLE(
+            "define-role"), DISJOINT("disjoint"), DISJOINT_ROLES("disjoint-roles"), DISTINCT(
+            "distinct"), DOMAIN("domain"), DOMAIN_ATTR(":domain"), EQUIVALENT(
+            "equivalent"), EXACTLY("exactly"), IMPLIES("implies"), IMPLIES_ROLE(
+            "implies-role"), INSTANCE("instace"), INV("inv"), INVERSE("inverse"), INVERSE_ATTR(
+            ":inverse"), LEFTIDENTITY_ATTR(":left-identity"), NIL("nil"), NOT("not"), OR(
+            "or"), ONE_OF("one-of"), PARENTS_ATTR(":parents"), PARENT_ATTR(":parent"), RANGE_ATTR(
+            ":range"), REFLEXIVE_ATTR(":reflexive"), RELATED("related"), RIGHTIDENTITY_ATTR(
+            ":right-identity"), ROLES_EQUIVALENT("roles-equivalent"), ROLE_INCLUSTION(
+            "role-inclusion"), SOME("some"), SUBROLE("subrole"), SYMMETRIC_ATTR(
+            ":symmetric"), TRUE("t"), TRANSITIVE_ATTR(":transitive");
     private String shortName;
 
     KRSS2Vocabulary(String name) {
@@ -101,7 +67,7 @@ public enum KRSS2Vocabulary {
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         return shortName;
     }
 }

@@ -36,22 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends OWLProfileViolation implements OWL2DLProfileViolation {
-
-    public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(OWLOntology ontology, OWLSubDataPropertyOfAxiom axiom) {
+public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends
+        OWLProfileViolation implements OWL2DLProfileViolation {
+    public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(OWLOntology ontology,
+            OWLSubDataPropertyOfAxiom axiom) {
         super(ontology, axiom);
     }
 
@@ -61,7 +59,7 @@ public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends OWLProf
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of owl:topDataProperty as sub-property in SubDataPropertyOf axiom: ");
         sb.append(" [");

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
@@ -51,24 +50,19 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>> extends OWLObjectImpl implements OWLPropertyExpression<R, P> {
+public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>>
+        extends OWLObjectImpl implements OWLPropertyExpression<R, P> {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-
-	public OWLPropertyExpressionImpl() {
+    public OWLPropertyExpressionImpl() {
         super();
     }
-
 
     @Override
     public Set<R> getRanges(OWLOntology ontology) {
@@ -79,7 +73,6 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         return result;
     }
 
-
     @Override
     public Set<R> getRanges(Set<OWLOntology> ontologies) {
         Set<R> result = new TreeSet<R>();
@@ -88,7 +81,6 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         }
         return result;
     }
-
 
     @Override
     public Set<OWLClassExpression> getDomains(OWLOntology ontology) {
@@ -99,7 +91,6 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         return result;
     }
 
-
     @Override
     public Set<OWLClassExpression> getDomains(Set<OWLOntology> ontologies) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
@@ -108,7 +99,6 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         }
         return result;
     }
-
 
     @Override
     public Set<P> getSuperProperties(OWLOntology ontology) {
@@ -119,7 +109,6 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         return result;
     }
 
-
     @Override
     public Set<P> getSuperProperties(Set<OWLOntology> ontologies) {
         Set<P> results = new TreeSet<P>();
@@ -128,7 +117,6 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         }
         return results;
     }
-
 
     @Override
     public Set<P> getSubProperties(OWLOntology ontology) {
@@ -139,7 +127,6 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         return results;
     }
 
-
     @Override
     public Set<P> getSubProperties(Set<OWLOntology> ontologies) {
         Set<P> result = new TreeSet<P>();
@@ -149,15 +136,13 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         return result;
     }
 
-
-    protected abstract Set<? extends OWLSubPropertyAxiom<P>> getSubPropertyAxiomsForRHS(OWLOntology ont);
-
+    protected abstract Set<? extends OWLSubPropertyAxiom<P>> getSubPropertyAxiomsForRHS(
+            OWLOntology ont);
 
     @Override
     public Set<P> getEquivalentProperties(OWLOntology ontology) {
         return getProperties(getEquivalentPropertiesAxioms(ontology));
     }
-
 
     @Override
     public Set<P> getEquivalentProperties(Set<OWLOntology> ontologies) {
@@ -168,12 +153,10 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         return result;
     }
 
-
     @Override
     public Set<P> getDisjointProperties(OWLOntology ontology) {
         return getProperties(getDisjointPropertiesAxioms(ontology));
     }
-
 
     @Override
     public Set<P> getDisjointProperties(Set<OWLOntology> ontologies) {
@@ -184,18 +167,23 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         return result;
     }
 
+    protected abstract Set<? extends OWLPropertyDomainAxiom<?>> getDomainAxioms(
+            OWLOntology ontology);
 
-    protected abstract Set<? extends OWLPropertyDomainAxiom<?>> getDomainAxioms(OWLOntology ontology);
+    protected abstract Set<? extends OWLPropertyRangeAxiom<P, R>> getRangeAxioms(
+            OWLOntology ontology);
 
-    protected abstract Set<? extends OWLPropertyRangeAxiom<P, R>> getRangeAxioms(OWLOntology ontology);
+    protected abstract Set<? extends OWLSubPropertyAxiom<P>> getSubPropertyAxioms(
+            OWLOntology ontology);
 
-    protected abstract Set<? extends OWLSubPropertyAxiom<P>> getSubPropertyAxioms(OWLOntology ontology);
+    protected abstract Set<? extends OWLNaryPropertyAxiom<P>>
+            getEquivalentPropertiesAxioms(OWLOntology ontology);
 
-    protected abstract Set<? extends OWLNaryPropertyAxiom<P>> getEquivalentPropertiesAxioms(OWLOntology ontology);
+    protected abstract Set<? extends OWLNaryPropertyAxiom<P>>
+            getDisjointPropertiesAxioms(OWLOntology ontology);
 
-    protected abstract Set<? extends OWLNaryPropertyAxiom<P>> getDisjointPropertiesAxioms(OWLOntology ontology);
-
-    private <Prop extends OWLPropertyExpression<?,?>> Set<Prop> getProperties(Set<? extends OWLNaryPropertyAxiom<Prop>> axioms) {
+    private <Prop extends OWLPropertyExpression<?, ?>> Set<Prop> getProperties(
+            Set<? extends OWLNaryPropertyAxiom<Prop>> axioms) {
         Set<Prop> result = new TreeSet<Prop>();
         for (OWLNaryPropertyAxiom<Prop> axiom : axioms) {
             result.addAll(axiom.getProperties());
@@ -204,13 +192,11 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         return result;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLPropertyExpression;
         }
         return false;
     }
-
 }

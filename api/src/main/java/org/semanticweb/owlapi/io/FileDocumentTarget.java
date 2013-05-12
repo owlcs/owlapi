@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.BufferedOutputStream;
@@ -50,23 +49,21 @@ import java.io.Writer;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16/12/2010
- * <br>
- * An <code>OWLOntologyDocumentTarget</code> that supports writing out to a <code>File</code>.
- * @since 3.2
- */
+ * Date: 16/12/2010 <br>
+ * An <code>OWLOntologyDocumentTarget</code> that supports writing out to a
+ * <code>File</code>.
+ * 
+ * @since 3.2 */
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {
-
     private final File file;
 
-    /**
-     * Constructs the document target, with the target being the specified file.
-     * @param file The file that is the target.
-     */
+    /** Constructs the document target, with the target being the specified file.
+     * 
+     * @param file
+     *            The file that is the target. */
     public FileDocumentTarget(File file) {
         this.file = file;
     }

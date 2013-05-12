@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -52,25 +51,21 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarationAxiom {
-
-
-	private static final long serialVersionUID = 30402L;
-	private final OWLEntity entity;
+    private static final long serialVersionUID = 30402L;
+    private final OWLEntity entity;
 
     @SuppressWarnings("javadoc")
-    public OWLDeclarationAxiomImpl(OWLEntity entity, Collection<? extends OWLAnnotation> annotations) {
+    public OWLDeclarationAxiomImpl(OWLEntity entity,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.entity = entity;
     }
-
 
     @Override
     public boolean isLogicalAxiom() {
@@ -92,7 +87,8 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
 
     @Override
     public OWLDeclarationAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDeclarationAxiom(getEntity(), mergeAnnos(annotations));
+        return getOWLDataFactory().getOWLDeclarationAxiom(getEntity(),
+                mergeAnnos(annotations));
     }
 
     @Override
@@ -101,9 +97,10 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
     }
 
     @Override
-	public boolean equals(Object obj) {
-    	if(super.equals(obj)) {
-    		// superclass is responsible for null, identity, owlaxiom type and annotations
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            // superclass is responsible for null, identity, owlaxiom type and
+            // annotations
             if (obj instanceof OWLDeclarationAxiom) {
                 return ((OWLDeclarationAxiom) obj).getEntity().equals(entity);
             }
@@ -111,12 +108,10 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
         return false;
     }
 
-
     @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(OWLObjectVisitor visitor) {
@@ -128,7 +123,6 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -139,9 +133,8 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
         return AxiomType.DECLARATION;
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         return entity.compareTo(((OWLDeclarationAxiom) object).getEntity());
     }
 }

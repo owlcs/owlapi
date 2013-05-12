@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.HashSet;
@@ -48,23 +47,21 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br><br>
- */
-public class InferredEquivalentObjectPropertyAxiomGenerator extends InferredObjectPropertyAxiomGenerator<OWLEquivalentObjectPropertiesAxiom> {
-
-
+ * Date: 27-Jul-2007<br>
+ * <br> */
+public class InferredEquivalentObjectPropertyAxiomGenerator extends
+        InferredObjectPropertyAxiomGenerator<OWLEquivalentObjectPropertiesAxiom> {
     @Override
-	protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLEquivalentObjectPropertiesAxiom> result) {
-        Set<OWLObjectPropertyExpression> equivProps = new HashSet<OWLObjectPropertyExpression>(reasoner.getEquivalentObjectProperties(entity).getEntities());
+    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
+            OWLDataFactory dataFactory, Set<OWLEquivalentObjectPropertiesAxiom> result) {
+        Set<OWLObjectPropertyExpression> equivProps = new HashSet<OWLObjectPropertyExpression>(
+                reasoner.getEquivalentObjectProperties(entity).getEntities());
         equivProps.add(entity);
         result.add(dataFactory.getOWLEquivalentObjectPropertiesAxiom(equivProps));
     }
-
 
     @Override
     public String getLabel() {

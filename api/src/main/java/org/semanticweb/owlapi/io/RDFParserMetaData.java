@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.util.HashSet;
@@ -44,52 +43,45 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 21/12/2010
- * @since 3.2
- */
+ * 
+ * @since 3.2 */
 public class RDFParserMetaData implements OWLOntologyLoaderMetaData {
-
     private final int tripleCount;
-
     private final RDFOntologyHeaderStatus headerStatus;
-
     private final Set<RDFTriple> unparsedTriples = new HashSet<RDFTriple>();
 
-    /**
-     * @param headerStatus the header status
-     * @param tripleCount the triple count
-     * @param unparsedTriples the set of triples not parsed
-     */
-    public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount, Set<RDFTriple> unparsedTriples) {
+    /** @param headerStatus
+     *            the header status
+     * @param tripleCount
+     *            the triple count
+     * @param unparsedTriples
+     *            the set of triples not parsed */
+    public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount,
+            Set<RDFTriple> unparsedTriples) {
         this.tripleCount = tripleCount;
         this.headerStatus = headerStatus;
         this.unparsedTriples.addAll(unparsedTriples);
     }
 
-    /**
-     * Gets a count of the triples process during loading.
-     * @return The number of triples process during loading.
-     */
+    /** Gets a count of the triples process during loading.
+     * 
+     * @return The number of triples process during loading. */
     public int getTripleCount() {
         return tripleCount;
     }
 
-    /**
-     * @return the header status
-     */
+    /** @return the header status */
     public RDFOntologyHeaderStatus getHeaderState() {
         return headerStatus;
     }
 
-    /**
-     * @return the set of unparsed triples, as a copy
-     */
+    /** @return the set of unparsed triples, as a copy */
     public Set<RDFTriple> getUnparsedTriples() {
-        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(unparsedTriples);
+        return CollectionFactory
+                .getCopyOnRequestSetFromMutableCollection(unparsedTriples);
     }
-
 }

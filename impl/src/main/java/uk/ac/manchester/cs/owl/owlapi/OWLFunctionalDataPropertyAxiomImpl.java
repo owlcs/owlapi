@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -54,20 +53,18 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacteristicAxiomImpl implements OWLFunctionalDataPropertyAxiom {
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLFunctionalDataPropertyAxiomImpl extends
+        OWLDataPropertyCharacteristicAxiomImpl implements OWLFunctionalDataPropertyAxiom {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-
-	@SuppressWarnings("javadoc")
-    public OWLFunctionalDataPropertyAxiomImpl(OWLDataPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+    @SuppressWarnings("javadoc")
+    public OWLFunctionalDataPropertyAxiomImpl(OWLDataPropertyExpression property,
+            Collection<? extends OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -80,12 +77,14 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
     }
 
     @Override
-    public OWLFunctionalDataPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(getProperty(), mergeAnnos(annotations));
+    public OWLFunctionalDataPropertyAxiom
+            getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(getProperty(),
+                mergeAnnos(annotations));
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLFunctionalDataPropertyAxiom;
     }
 
@@ -104,7 +103,6 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -115,16 +113,16 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
         return AxiomType.FUNCTIONAL_DATA_PROPERTY;
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
-        return getProperty().compareTo(((OWLFunctionalDataPropertyAxiom) object).getProperty());
+    protected int compareObjectOfSameType(OWLObject object) {
+        return getProperty().compareTo(
+                ((OWLFunctionalDataPropertyAxiom) object).getProperty());
     }
-
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
-        return df.getOWLSubClassOfAxiom(df.getOWLThing(), df.getOWLDataMaxCardinality(1, getProperty()));
+        return df.getOWLSubClassOfAxiom(df.getOWLThing(),
+                df.getOWLDataMaxCardinality(1, getProperty()));
     }
 }

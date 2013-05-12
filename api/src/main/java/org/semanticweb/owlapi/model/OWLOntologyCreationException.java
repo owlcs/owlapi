@@ -36,36 +36,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- * An exception which describes an error during the creation of
- * an ontology.  If an ontology cannot be created then subclasses
- * of this class will describe the reasons.
- */
+ * Date: 13-Apr-2007<br>
+ * <br>
+ * An exception which describes an error during the creation of an ontology. If
+ * an ontology cannot be created then subclasses of this class will describe the
+ * reasons. */
 @SuppressWarnings("javadoc")
 public class OWLOntologyCreationException extends OWLException {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-
-    public OWLOntologyCreationException() {
-    }
+    public OWLOntologyCreationException() {}
 
     public OWLOntologyCreationException(String message) {
         super(message);
     }
 
-
     public OWLOntologyCreationException(String message, Throwable cause) {
         super(message, cause);
     }
-
 
     public OWLOntologyCreationException(Throwable cause) {
         super(cause);

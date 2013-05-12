@@ -36,24 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 18-Dec-2007<br><br>
- *
- * A short form provider that produces short forms for URIs.
- */
+ * Date: 18-Dec-2007<br>
+ * <br>
+ * A short form provider that produces short forms for URIs. */
 public interface IRIShortFormProvider {
-
-    /**
-     * @param iri the IRI to shorten
-     * @return the short form
-     */
+    /** @param iri
+     *            the IRI to shorten
+     * @return the short form */
     String getShortForm(IRI iri);
 }

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.individuals;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLEntityTestCase;
 import org.semanticweb.owlapi.model.IRI;

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 
 import java.util.Collections;
 import java.util.HashSet;

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import java.util.HashSet;
@@ -44,15 +43,13 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLIndividual;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br><br>
- */@SuppressWarnings("javadoc")
+ * Date: 14-Dec-2006<br>
+ * <br> */
+@SuppressWarnings("javadoc")
 public class OWLObjectOneOfElementHandler extends AbstractClassExpressionElementHandler {
-
     private Set<OWLIndividual> individuals;
 
     public OWLObjectOneOfElementHandler(OWLXMLParserHandler handler) {
@@ -60,17 +57,16 @@ public class OWLObjectOneOfElementHandler extends AbstractClassExpressionElement
         individuals = new HashSet<OWLIndividual>();
     }
 
-
     @Override
-	public void handleChild(OWLIndividualElementHandler handler) {
+    public void handleChild(OWLIndividualElementHandler handler) {
         individuals.add(handler.getOWLObject());
     }
 
-
     @Override
-	protected void endClassExpressionElement() throws OWLXMLParserException {
+    protected void endClassExpressionElement() throws OWLXMLParserException {
         if (individuals.size() < 1) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "Expected at least one individual in object oneOf");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
+                    getColumnNumber(), "Expected at least one individual in object oneOf");
         }
         setClassExpression(getOWLDataFactory().getOWLObjectOneOf(individuals));
     }

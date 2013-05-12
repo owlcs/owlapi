@@ -36,34 +36,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 19/12/2010
- */
+ * Date: 19/12/2010 */
 @SuppressWarnings("javadoc")
 public class TPAnnotatedTargetHandler extends TriplePredicateHandler {
-
     public TPAnnotatedTargetHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     }
 
     @Override
-    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         getConsumer().addAnnotatedSource(object, subject);
         getConsumer().checkForAndProcessAnnotatedDeclaration(subject);
         return false;
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-    }
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {}
 }

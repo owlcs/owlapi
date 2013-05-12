@@ -36,32 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 21/12/2010
- * @since 3.2
- */
+ * 
+ * @since 3.2 */
 public class RDFLiteral extends RDFNode {
-
     private final OWLLiteral literal;
 
-    /**
-     * @param literal the wrapped literal
-     */
+    /** @param literal
+     *            the wrapped literal */
     public RDFLiteral(OWLLiteral literal) {
         this.literal = literal;
     }
 
-    /**
-     * @return the OWLLiteral
-     */
+    /** @return the OWLLiteral */
     public OWLLiteral getLiteral() {
         return literal;
     }

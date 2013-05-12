@@ -40,7 +40,7 @@ package org.semanticweb.owlapi.api.test.dataproperties;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.api.test.TestUtils.createOWLLiteral;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataOneOf;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataFactoryTest;

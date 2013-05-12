@@ -36,23 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.uulm.ecs.ai.owlapi.krssparser;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/**
- *
- * Author: Olaf Noppens<br>
+/** Author: Olaf Noppens<br>
  * Ulm University<br>
- * Institute of Artificial Intelligence<br>
- */
+ * Institute of Artificial Intelligence<br> */
 @SuppressWarnings("javadoc")
 public class KRSS2OntologyFormat extends OWLOntologyFormat {
     public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
 
     @Override
-	public String toString() {
+    public String toString() {
         return "KRSS2 Syntax";
     }
 

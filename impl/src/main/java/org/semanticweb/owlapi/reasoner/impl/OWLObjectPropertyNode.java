@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
@@ -44,17 +43,13 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 05-Dec-2009
- */
+ * Date: 05-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
-
-    public OWLObjectPropertyNode() {
-    }
+    public OWLObjectPropertyNode() {}
 
     public OWLObjectPropertyNode(OWLObjectPropertyExpression entity) {
         super(entity);
@@ -65,12 +60,12 @@ public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpressi
     }
 
     @Override
-	protected OWLObjectProperty getTopEntity() {
+    protected OWLObjectProperty getTopEntity() {
         return TOP_OBJECT_PROPERTY;
     }
 
     @Override
-	protected OWLObjectProperty getBottomEntity() {
+    protected OWLObjectProperty getBottomEntity() {
         return BOTTOM_OBJECT_PROPERTY;
     }
 

@@ -81,7 +81,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * <br> */
 @SuppressWarnings("javadoc")
 public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
-Serializable {
+        Serializable {
     private static final long serialVersionUID = 30402L;
     private final IRI iri;
     private final boolean isThing;
@@ -151,7 +151,7 @@ Serializable {
 
     @Override
     public Set<OWLAxiom>
-    getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
         return ontology.getReferencingAxioms(this, includeImports);
     }
 

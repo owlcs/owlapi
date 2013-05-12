@@ -36,21 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- * @param <R> range
- * @param <P> property expression
- * @param <F> value
- */
-public interface OWLQuantifiedRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLRestriction<R, P, F> {
 
-    /**
-     * @return the filler
-     */
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group Date: 25-Oct-2006
+ * 
+ * @param <R>
+ *            range
+ * @param <P>
+ *            property expression
+ * @param <F>
+ *            value */
+public interface OWLQuantifiedRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
+        extends OWLRestriction<R, P, F> {
+    /** @return the filler */
     F getFiller();
 }

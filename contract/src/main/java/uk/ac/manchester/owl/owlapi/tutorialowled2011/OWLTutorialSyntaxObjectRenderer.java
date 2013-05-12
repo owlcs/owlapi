@@ -639,8 +639,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void writeRestriction(String str, OWLPropertyExpression<?, ?> prop,
-            OWLObject filler)
-            throws OWLRuntimeException {
+            OWLObject filler) throws OWLRuntimeException {
         write(str);
         writeOpenBracket();
         prop.accept(this);

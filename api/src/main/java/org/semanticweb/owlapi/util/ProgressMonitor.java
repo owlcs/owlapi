@@ -36,55 +36,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 04-Jan-2007<br><br>
+ * Date: 04-Jan-2007<br>
+ * <br>
  * <p/>
- * A general interface for things whose progress can be monitored.
- */
+ * A general interface for things whose progress can be monitored. */
 public interface ProgressMonitor {
-
-
-    /**
-     * start of the process
-     */
+    /** start of the process */
     void setStarted();
 
-    /**
-     * @param size size of the process
-     */
+    /** @param size
+     *            size of the process */
     void setSize(long size);
 
-
-    /**
-     * @param progress new progress
-     */
+    /** @param progress
+     *            new progress */
     void setProgress(long progress);
 
-    /**
-     * @param message the message to be displayed
-     */
+    /** @param message
+     *            the message to be displayed */
     void setMessage(String message);
 
-
-    /**
-     * @param b true if the state is indeterminate
-     */
+    /** @param b
+     *            true if the state is indeterminate */
     void setIndeterminate(boolean b);
 
-
-    /**
-     * progress completed
-     */
+    /** progress completed */
     void setFinished();
 
-
-    /**
-     * @return true if the process has been cancelled
-     */
+    /** @return true if the process has been cancelled */
     boolean isCancelled();
 }

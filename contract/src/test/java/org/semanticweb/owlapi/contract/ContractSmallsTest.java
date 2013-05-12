@@ -121,7 +121,7 @@ public class ContractSmallsTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestConciseExplanationRenderer() throws Exception {
         ConciseExplanationRenderer testSubject0 = new ConciseExplanationRenderer();
         testSubject0.render(mock(OWLAxiom.class), Utils.mockSetSetAxiom());
@@ -320,7 +320,7 @@ public class ContractSmallsTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestRDFXMLOntologyStorer() throws Exception {
         RDFXMLOntologyStorer testSubject0 = new RDFXMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
@@ -332,7 +332,7 @@ public class ContractSmallsTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestRDFXMLRenderer() throws Exception {
         RDFXMLRenderer testSubject0 = new RDFXMLRenderer(Utils.getMockOntology(),
                 mock(Writer.class));
@@ -348,7 +348,7 @@ public class ContractSmallsTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestMutableTree() throws Exception {
         MutableTree<Object> testSubject0 = new MutableTree<Object>(mock(Object.class));
         String result0 = testSubject0.toString();
@@ -459,7 +459,7 @@ public class ContractSmallsTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestTurtleOntologyStorer() throws Exception {
         TurtleOntologyStorer testSubject0 = new TurtleOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
@@ -471,7 +471,7 @@ public class ContractSmallsTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestTurtleRenderer() throws Exception {
         TurtleRenderer testSubject0 = new TurtleRenderer(Utils.getMockOntology(),
                 mock(Writer.class), mock(OWLOntologyFormat.class));
@@ -535,7 +535,7 @@ public class ContractSmallsTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestOWLXMLOntologyStorer() throws Exception {
         OWLXMLOntologyStorer testSubject0 = new OWLXMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
@@ -557,7 +557,7 @@ public class ContractSmallsTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestOWLXMLWriter() throws Exception {
         OWLXMLWriter testSubject0 = new OWLXMLWriter(mock(Writer.class),
                 Utils.getMockOntology());
@@ -612,7 +612,7 @@ public class ContractSmallsTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestBlackBoxOWLDebugger() throws Exception {
         BlackBoxOWLDebugger testSubject0 = new BlackBoxOWLDebugger(
                 Utils.getRealMockManager(), Utils.getMockOntology(),

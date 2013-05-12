@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -54,25 +53,21 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWLClassAssertionAxiom {
-
-
-	private static final long serialVersionUID = 30402L;
-
-	private final OWLIndividual individual;
-
+public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements
+        OWLClassAssertionAxiom {
+    private static final long serialVersionUID = 30402L;
+    private final OWLIndividual individual;
     private final OWLClassExpression classExpression;
 
-
-    public OWLClassAssertionImpl(OWLIndividual individual, OWLClassExpression classExpression, Collection<? extends OWLAnnotation> annotations) {
+    public OWLClassAssertionImpl(OWLIndividual individual,
+            OWLClassExpression classExpression,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.individual = individual;
         this.classExpression = classExpression;
@@ -83,12 +78,14 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(), getIndividual());
+        return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(),
+                getIndividual());
     }
 
     @Override
     public OWLClassAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(), getIndividual(), mergeAnnos(annotations));
+        return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(),
+                getIndividual(), mergeAnnos(annotations));
     }
 
     @Override
@@ -96,28 +93,29 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         return classExpression;
     }
 
-
     @Override
     public OWLIndividual getIndividual() {
         return individual;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLClassAssertionAxiom)) {
                 return false;
             }
             OWLClassAssertionAxiom other = (OWLClassAssertionAxiom) obj;
-            return other.getIndividual().equals(individual) && other.getClassExpression().equals(classExpression);
+            return other.getIndividual().equals(individual)
+                    && other.getClassExpression().equals(classExpression);
         }
         return false;
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLObjectOneOf(getIndividual()), getClassExpression());
+        return getOWLDataFactory().getOWLSubClassOfAxiom(
+                getOWLDataFactory().getOWLObjectOneOf(getIndividual()),
+                getClassExpression());
     }
 
     @Override
@@ -135,7 +133,6 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -147,15 +144,13 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLClassAssertionAxiom otherAx = (OWLClassAssertionAxiom) object;
         int diff = getIndividual().compareTo(otherAx.getIndividual());
         if (diff != 0) {
             return diff;
-        }
-        else {
+        } else {
             return getClassExpression().compareTo(otherAx.getClassExpression());
         }
     }
-
 }

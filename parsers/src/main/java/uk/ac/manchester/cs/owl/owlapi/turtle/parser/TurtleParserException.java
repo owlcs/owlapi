@@ -36,35 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 23-Feb-2008<br><br>
- */
+ * Date: 23-Feb-2008<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class TurtleParserException extends OWLParserException {
+    private static final long serialVersionUID = 30402L;
 
-
-
-	private static final long serialVersionUID = 30402L;
-
-
-	public TurtleParserException(String message) {
+    public TurtleParserException(String message) {
         super(message);
     }
-
 
     public TurtleParserException(String message, Throwable cause) {
         super(message, cause);
     }
-
 
     public TurtleParserException(Throwable cause) {
         super(cause);

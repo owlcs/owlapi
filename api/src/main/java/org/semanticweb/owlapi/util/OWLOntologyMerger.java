@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.ArrayList;
@@ -52,69 +51,63 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group<br> Date:
- * 29-Apr-2007<br><br>
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 29-Apr-2007<br>
+ * <br>
  * <p/>
- * A very very simple merger, which just creates an ontology which contains the union of axioms from a set of
- * ontologies.
- */
+ * A very very simple merger, which just creates an ontology which contains the
+ * union of axioms from a set of ontologies. */
 public class OWLOntologyMerger implements OWLAxiomFilter {
-
     private final OWLOntologySetProvider setProvider;
-
     private final OWLAxiomFilter axiomFilter;
-
     private final boolean mergeOnlyLogicalAxioms;
 
-
-    /**
-     * @param setProvider the ontology provider
-     */
+    /** @param setProvider
+     *            the ontology provider */
     public OWLOntologyMerger(OWLOntologySetProvider setProvider) {
         this.setProvider = setProvider;
         axiomFilter = this;
         mergeOnlyLogicalAxioms = false;
     }
 
-
-    /**
-     * @param setProvider the ontology provider
-     * @param mergeOnlyLogicalAxioms true if only logical axioms should be included
-     */
-    public OWLOntologyMerger(OWLOntologySetProvider setProvider, boolean mergeOnlyLogicalAxioms) {
+    /** @param setProvider
+     *            the ontology provider
+     * @param mergeOnlyLogicalAxioms
+     *            true if only logical axioms should be included */
+    public OWLOntologyMerger(OWLOntologySetProvider setProvider,
+            boolean mergeOnlyLogicalAxioms) {
         this.setProvider = setProvider;
         this.mergeOnlyLogicalAxioms = mergeOnlyLogicalAxioms;
         axiomFilter = this;
     }
 
-    /**
-     * @param setProvider the ontology provider
-     * @param axiomFilter the filter to use
-     */
-
-    public OWLOntologyMerger(OWLOntologySetProvider setProvider, OWLAxiomFilter axiomFilter) {
+    /** @param setProvider
+     *            the ontology provider
+     * @param axiomFilter
+     *            the filter to use */
+    public OWLOntologyMerger(OWLOntologySetProvider setProvider,
+            OWLAxiomFilter axiomFilter) {
         this.setProvider = setProvider;
         this.axiomFilter = axiomFilter;
         mergeOnlyLogicalAxioms = false;
     }
 
-
-    /**
-     * @param ontologyManager the manager containing the ontologies
-     * @param ontologyIRI the new ontology IRI
+    /** @param ontologyManager
+     *            the manager containing the ontologies
+     * @param ontologyIRI
+     *            the new ontology IRI
      * @return the new ontology
-     * @throws OWLOntologyCreationException if any creation exception arises
-     */
-    public OWLOntology createMergedOntology(OWLOntologyManager ontologyManager, IRI ontologyIRI) throws
-                                                                                                 OWLOntologyCreationException {
+     * @throws OWLOntologyCreationException
+     *             if any creation exception arises */
+    public OWLOntology createMergedOntology(OWLOntologyManager ontologyManager,
+            IRI ontologyIRI) throws OWLOntologyCreationException {
         OWLOntology ontology;
-        if(ontologyIRI != null) {
-            ontology =  ontologyManager.createOntology(ontologyIRI);
-        }
-        else {
-             ontology = ontologyManager.createOntology();
+        if (ontologyIRI != null) {
+            ontology = ontologyManager.createOntology(ontologyIRI);
+        } else {
+            ontology = ontologyManager.createOntology();
         }
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         for (OWLOntology ont : setProvider.getOntologies()) {
@@ -128,12 +121,10 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
         return ontology;
     }
 
-
     private Set<? extends OWLAxiom> getAxioms(OWLOntology ont) {
         if (mergeOnlyLogicalAxioms) {
             return ont.getLogicalAxioms();
-        }
-        else {
+        } else {
             return ont.getAxioms();
         }
     }

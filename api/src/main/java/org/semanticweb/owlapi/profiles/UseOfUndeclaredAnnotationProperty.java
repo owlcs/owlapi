@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -44,21 +43,18 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation implements OWL2DLProfileViolation {
-
-
+public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation implements
+        OWL2DLProfileViolation {
     private final OWLAnnotationProperty property;
-
     private final OWLAnnotation annotation;
 
-    public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, OWLAxiom axiom, OWLAnnotation annotation, OWLAnnotationProperty prop) {
+    public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, OWLAxiom axiom,
+            OWLAnnotation annotation, OWLAnnotationProperty prop) {
         super(ontology, axiom);
         this.property = prop;
         this.annotation = annotation;
@@ -78,7 +74,7 @@ public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation imple
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of undeclared annotation property: ");
         sb.append(property);

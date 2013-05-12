@@ -36,28 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 04-Dec-2009
- * </p>
- * Used to indicate the buffering mode of a reasoner. See {@link OWLReasoner#getBufferingMode()}.
- */
+ * Date: 04-Dec-2009 </p> Used to indicate the buffering mode of a reasoner. See
+ * {@link OWLReasoner#getBufferingMode()}. */
 public enum BufferingMode {
-
-    /**
-     * Represents a mode where ontology changes are buffered inside an OWLReasoner. The reasoner only considers the
-     * changes when the buffer is flushed with the {@link OWLReasoner#flush()} method. 
-     */
+    /** Represents a mode where ontology changes are buffered inside an
+     * OWLReasoner. The reasoner only considers the changes when the buffer is
+     * flushed with the {@link OWLReasoner#flush()} method. */
     BUFFERING,
-
-    /**
-     * Represents a mode where ontology changes are not buffered inside an OWLReasoner. The reasoner considers all
-     * changes immediately.
-     */
+    /** Represents a mode where ontology changes are not buffered inside an
+     * OWLReasoner. The reasoner considers all changes immediately. */
     NON_BUFFERING
 }
-

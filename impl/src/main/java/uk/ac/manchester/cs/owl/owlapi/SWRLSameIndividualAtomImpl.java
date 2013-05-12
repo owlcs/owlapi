@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -48,29 +47,27 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 18-Feb-2007<br><br>
- */
-public class SWRLSameIndividualAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements SWRLSameIndividualAtom {
-
-
-	private static final long serialVersionUID = 30402L;
+ * Date: 18-Feb-2007<br>
+ * <br> */
+public class SWRLSameIndividualAtomImpl extends
+        SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
+        SWRLSameIndividualAtom {
+    private static final long serialVersionUID = 30402L;
 
     @SuppressWarnings("javadoc")
-	public SWRLSameIndividualAtomImpl(OWLDataFactory dataFactory,SWRLIArgument arg0, SWRLIArgument arg1) {
-        super(dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS.getIRI()), arg0, arg1);
+    public SWRLSameIndividualAtomImpl(OWLDataFactory dataFactory, SWRLIArgument arg0,
+            SWRLIArgument arg1) {
+        super(dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS.getIRI()),
+                arg0, arg1);
     }
-
 
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(SWRLObjectVisitor visitor) {
@@ -82,14 +79,13 @@ public class SWRLSameIndividualAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

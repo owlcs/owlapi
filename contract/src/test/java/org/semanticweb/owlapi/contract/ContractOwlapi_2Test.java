@@ -1713,8 +1713,8 @@ public class ContractOwlapi_2Test {
     public void shouldTestOWLLiteralImpl() throws Exception {
         OWLLiteralImpl testSubject0 = new OWLLiteralImpl("", "", mock(OWLDatatype.class));
         boolean result0 = testSubject0.parseBoolean();
-            float result1 = testSubject0.parseFloat();
-            double result2 = testSubject0.parseDouble();
+        float result1 = testSubject0.parseFloat();
+        double result2 = testSubject0.parseDouble();
         Object result3 = testSubject0.accept(Utils.mockObject());
         testSubject0.accept(mock(OWLDataVisitor.class));
         Object result4 = testSubject0.accept(Utils.mockData());

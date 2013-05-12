@@ -36,29 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br><br>
- */
+ * Date: 10-Jan-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public interface OBOParserHandler {
-
     void startHeader();
-
 
     void endHeader();
 
-
     void startFrame(String name);
 
-
     void endFrame();
-
 
     void handleTagValue(String tag, String value, String qualifierBlock, String comment);
 }

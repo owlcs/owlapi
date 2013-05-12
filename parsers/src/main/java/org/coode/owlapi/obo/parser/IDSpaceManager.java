@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import java.util.HashMap;
@@ -58,21 +57,21 @@ import java.util.Map;
  * prefix of an IRI that is the result of translating an OBO id to an IRI.
  * </p> */
 public class IDSpaceManager {
-    
     private Map<String, String> idPrefix2IRIPrefixMap = new HashMap<String, String>();
 
     /**
      * 
      */
-    public IDSpaceManager() {
-    }
+    public IDSpaceManager() {}
 
-    /**
-     * Creates an IDSpaceManager and copying the id prefix to IRI prefix mappings contained in some other IDSpaceManager.
-     * @param idSpaceManager The other IDSpaceManager from where id prefix to IRI prefix mappings will be copied. Not
-     * null.
-     * @throws NullPointerException if idSpaceManager is null.
-     */
+    /** Creates an IDSpaceManager and copying the id prefix to IRI prefix
+     * mappings contained in some other IDSpaceManager.
+     * 
+     * @param idSpaceManager
+     *            The other IDSpaceManager from where id prefix to IRI prefix
+     *            mappings will be copied. Not null.
+     * @throws NullPointerException
+     *             if idSpaceManager is null. */
     public IDSpaceManager(IDSpaceManager idSpaceManager) {
         if (idSpaceManager == null) {
             throw new NullPointerException("idSpaceManager must not be null");
@@ -80,43 +79,46 @@ public class IDSpaceManager {
         idPrefix2IRIPrefixMap.putAll(idSpaceManager.idPrefix2IRIPrefixMap);
     }
 
-    /**
-     * Gets the default IRI prefix (which is returned by the {@link #getIRIPrefix(String)} for unregistered id prefixes.
-     * @return The default prefix.  This is actually defined by {@link OBOPrefix#OBO}.
-     */
+    /** Gets the default IRI prefix (which is returned by the
+     * {@link #getIRIPrefix(String)} for unregistered id prefixes.
+     * 
+     * @return The default prefix. This is actually defined by
+     *         {@link OBOPrefix#OBO}. */
     public String getDefaultIRIPrefix() {
         return OBOPrefix.OBO.getPrefix();
     }
-    
-    /**
-     * Gets an IRI prefix from an id prefix.
-     * @param idPrefix The id prefix.  May be null.
-     * @return The IRI prefix for the given id prefix. Not null.  If the specified id prefix is not registered/set with
-     * this manager, or it is null, then the default prefix will be returned, which is defined by {@link OBOPrefix#OBO}.
-     */
+
+    /** Gets an IRI prefix from an id prefix.
+     * 
+     * @param idPrefix
+     *            The id prefix. May be null.
+     * @return The IRI prefix for the given id prefix. Not null. If the
+     *         specified id prefix is not registered/set with this manager, or
+     *         it is null, then the default prefix will be returned, which is
+     *         defined by {@link OBOPrefix#OBO}. */
     public String getIRIPrefix(String idPrefix) {
         String iriPrefix = idPrefix2IRIPrefixMap.get(idPrefix);
-        if(iriPrefix != null) {
+        if (iriPrefix != null) {
             return iriPrefix;
-        }
-        else {
+        } else {
             return getDefaultIRIPrefix();
         }
     }
 
-    /**
-     * Sets the IRI prefix for a given id prefix.  This clears any previously set IRI prefix for the given id prefix.
-     * @param idPrefix The id prefix to set.
-     * @param iriPrefix The IRI prefix that the id prefix maps to.
-     */
+    /** Sets the IRI prefix for a given id prefix. This clears any previously set
+     * IRI prefix for the given id prefix.
+     * 
+     * @param idPrefix
+     *            The id prefix to set.
+     * @param iriPrefix
+     *            The IRI prefix that the id prefix maps to. */
     public void setIRIPrefix(String idPrefix, String iriPrefix) {
-        if(idPrefix == null) {
+        if (idPrefix == null) {
             throw new NullPointerException("idPrefix must not be null");
         }
-        if(iriPrefix == null) {
+        if (iriPrefix == null) {
             throw new NullPointerException("iriPrefix must not be null");
         }
         idPrefix2IRIPrefixMap.put(idPrefix, iriPrefix);
     }
-    
 }

@@ -36,25 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfNonSuperClassExpression extends OWLProfileViolation implements OWL2QLProfileViolation, OWL2RLProfileViolation {
-
+public class UseOfNonSuperClassExpression extends OWLProfileViolation implements
+        OWL2QLProfileViolation, OWL2RLProfileViolation {
     private final OWLClassExpression classExpression;
 
-    public UseOfNonSuperClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
+    public UseOfNonSuperClassExpression(OWLOntology ontology, OWLAxiom axiom,
+            OWLClassExpression classExpression) {
         super(ontology, axiom);
         this.classExpression = classExpression;
     }
@@ -74,7 +72,7 @@ public class UseOfNonSuperClassExpression extends OWLProfileViolation implements
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-superclass expression in position that requires a superclass expression: ");
         sb.append(classExpression);

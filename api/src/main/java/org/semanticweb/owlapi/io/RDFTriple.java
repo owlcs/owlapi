@@ -36,85 +36,84 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 21/12/2010
- * @since 3.2
- */
+ * 
+ * @since 3.2 */
 public class RDFTriple {
-
     private final RDFResource subject;
-
     private final RDFResource predicate;
-
     private final RDFNode object;
 
-    /**
-     * @param subject the subject
-     * @param predicate the predicate
-     * @param object the object
-     */
+    /** @param subject
+     *            the subject
+     * @param predicate
+     *            the predicate
+     * @param object
+     *            the object */
     public RDFTriple(RDFResource subject, RDFResource predicate, RDFNode object) {
         this.subject = subject;
         this.predicate = predicate;
         this.object = object;
     }
 
-    /**
-     * @param subject the subject
-     * @param subjectAnon whether the subject is anonymous
-     * @param predicate the predicate
-     * @param predicateAnon whether the predicate is anon
-     * @param object the object
-     * @param objectAnon whether the object is anonymous
-     */
-    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, boolean predicateAnon, IRI object, boolean objectAnon) {
+    /** @param subject
+     *            the subject
+     * @param subjectAnon
+     *            whether the subject is anonymous
+     * @param predicate
+     *            the predicate
+     * @param predicateAnon
+     *            whether the predicate is anon
+     * @param object
+     *            the object
+     * @param objectAnon
+     *            whether the object is anonymous */
+    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate,
+            boolean predicateAnon, IRI object, boolean objectAnon) {
         this.subject = new RDFResource(subject, subjectAnon);
         this.predicate = new RDFResource(predicate, predicateAnon);
         this.object = new RDFResource(object, objectAnon);
     }
 
-    /**
-     * @param subject the subject
-     * @param subjectAnon whether the subject is anonymous
-     * @param predicate the predicate
-     * @param predicateAnon whether the predicate is anon
-     * @param object the object
-     */
-    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, boolean predicateAnon, OWLLiteral object) {
+    /** @param subject
+     *            the subject
+     * @param subjectAnon
+     *            whether the subject is anonymous
+     * @param predicate
+     *            the predicate
+     * @param predicateAnon
+     *            whether the predicate is anon
+     * @param object
+     *            the object */
+    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate,
+            boolean predicateAnon, OWLLiteral object) {
         this.subject = new RDFResource(subject, subjectAnon);
         this.predicate = new RDFResource(predicate, predicateAnon);
         this.object = new RDFLiteral(object);
     }
 
-    /**
-     * @return the subject
-     */
+    /** @return the subject */
     public RDFResource getSubject() {
         return subject;
     }
-    /**
-     * @return the predicate
-     */
+
+    /** @return the predicate */
     public RDFResource getPredicate() {
         return predicate;
     }
-    /**
-     * @return the object
-     */
+
+    /** @return the object */
     public RDFNode getObject() {
         return object;
     }
-
 
     @Override
     public int hashCode() {
@@ -123,15 +122,15 @@ public class RDFTriple {
 
     @Override
     public boolean equals(Object o) {
-        if(o == this) {
+        if (o == this) {
             return true;
         }
-
-        if(!(o instanceof RDFTriple)) {
+        if (!(o instanceof RDFTriple)) {
             return false;
         }
         RDFTriple other = (RDFTriple) o;
-        return subject.equals(other.subject) && predicate.equals(other.predicate) && object.equals(other.object);
+        return subject.equals(other.subject) && predicate.equals(other.predicate)
+                && object.equals(other.object);
     }
 
     @Override

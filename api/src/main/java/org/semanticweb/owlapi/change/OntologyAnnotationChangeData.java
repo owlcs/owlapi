@@ -36,47 +36,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.change;
 
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 27/04/2012
  * <p>
- *     Represents the specific non-ontology data required by an {@link AddOntologyAnnotation} change.
+ * Represents the specific non-ontology data required by an
+ * {@link AddOntologyAnnotation} change.
  * </p>
  * <p>
- *     Instances of this class are immutable.
+ * Instances of this class are immutable.
  * </p>
- * @since 3.5
- */
+ * 
+ * @since 3.5 */
 public abstract class OntologyAnnotationChangeData extends OWLOntologyChangeData {
     private static final long serialVersionUID = 30402L;
-
     private final OWLAnnotation annotation;
 
-    /**
-     * Constructs an {@link OntologyAnnotationChangeData} object that describes an {@link AddOntologyAnnotation} change
-     * for the {@link OWLAnnotation} specified by the {@code annotation} parameter.
-     * @param annotation The {@link OWLAnnotation} that is the focus of some change.  Not {@code null}.
-     * @throws NullPointerException if {@code annotation} is {@code null}.
-     */
+    /** Constructs an {@link OntologyAnnotationChangeData} object that describes
+     * an {@link AddOntologyAnnotation} change for the {@link OWLAnnotation}
+     * specified by the {@code annotation} parameter.
+     * 
+     * @param annotation
+     *            The {@link OWLAnnotation} that is the focus of some change.
+     *            Not {@code null}.
+     * @throws NullPointerException
+     *             if {@code annotation} is {@code null}. */
     public OntologyAnnotationChangeData(OWLAnnotation annotation) {
-        if(annotation == null) {
+        if (annotation == null) {
             throw new NullPointerException("annotation must not be null");
         }
         this.annotation = annotation;
     }
 
-    /**
-     * Gets the {@link OWLAnnotation} that is the focus of some {@link AddOntologyAnnotation} change.
-     * @return The {@link OWLAnnotation}.  Not {@code null}.
-     */
+    /** Gets the {@link OWLAnnotation} that is the focus of some
+     * {@link AddOntologyAnnotation} change.
+     * 
+     * @return The {@link OWLAnnotation}. Not {@code null}. */
     public OWLAnnotation getAnnotation() {
         return annotation;
     }

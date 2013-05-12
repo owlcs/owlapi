@@ -36,26 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
-
- * @param <P> property expression
- */
-public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression<?,?>> extends OWLPropertyAxiom {
-
-    /**
-     * @return the sub property
-     */
+ * Bio-Health Informatics Group Date: 24-Oct-2006
+ * 
+ * @param <P>
+ *            property expression */
+public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression<?, ?>> extends
+        OWLPropertyAxiom {
+    /** @return the sub property */
     public P getSubProperty();
 
-    /**
-     * @return the super property
-     */
+    /** @return the super property */
     public P getSuperProperty();
-
 }

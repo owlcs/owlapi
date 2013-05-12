@@ -36,46 +36,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006<br><br>
+ * Date: 11-Dec-2006<br>
+ * <br>
  * <p/>
- * A handler for top level intersection classes.
- */
+ * A handler for top level intersection classes. */
 @SuppressWarnings("javadoc")
 public class TPIntersectionOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
-
     public TPIntersectionOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_INTERSECTION_OF.getIRI());
     }
 
-
     @Override
-	protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
-        return getDataFactory().getOWLObjectIntersectionOf(getConsumer().translateToClassExpressionSet(mainNode));
+    protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
+        return getDataFactory().getOWLObjectIntersectionOf(
+                getConsumer().translateToClassExpressionSet(mainNode));
     }
 
     @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-        if(getConsumer().isClassExpression(subject)) {
+        if (getConsumer().isClassExpression(subject)) {
             getConsumer().addClassExpression(object, false);
-        }
-        else if (getConsumer().isClassExpression(object)) {
+        } else if (getConsumer().isClassExpression(object)) {
             getConsumer().addClassExpression(subject, false);
-        }
-        else if (getConsumer().isDataRange(subject)) {
+        } else if (getConsumer().isDataRange(subject)) {
             getConsumer().addDataRange(object, false);
-        }
-        else if( getConsumer().isDataRange(object)) {
+        } else if (getConsumer().isDataRange(object)) {
             getConsumer().addDataRange(subject, false);
         }
         return super.canHandleStreaming(subject, predicate, object);

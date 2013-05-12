@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import java.util.regex.Matcher;
@@ -50,53 +49,50 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 18/04/2012
- */
+ * Date: 18/04/2012 */
 public class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
-
     private static final Pattern PATTERN = Pattern
             .compile("([^\\s]*)\\s+\"([^\"]*)\"(\\s*([^\\s]*)\\s*)?");
-    
     private static final int ID_GROUP = 1;
-    
     private static final int NAME_GROUP = 2;
-    
-    
+
     /** @param consumer */
     public SynonymTypeDefTagHandler(OBOConsumer consumer) {
         super(OBOVocabulary.SYNONYM_TYPE_DEF.getName(), consumer);
     }
 
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         Matcher matcher = PATTERN.matcher(value);
-        if(matcher.matches()) {
+        if (matcher.matches()) {
             String id = matcher.group(ID_GROUP);
             IRI annotationPropertyIRI = getIRIFromOBOId(id);
             String name = matcher.group(NAME_GROUP);
             OWLDataFactory df = getDataFactory();
-            OWLAnnotationProperty annotationProperty = df.getOWLAnnotationProperty(annotationPropertyIRI);
-            applyChange(new AddAxiom(getOntology(), df.getOWLDeclarationAxiom(annotationProperty)));
-
+            OWLAnnotationProperty annotationProperty = df
+                    .getOWLAnnotationProperty(annotationPropertyIRI);
+            applyChange(new AddAxiom(getOntology(),
+                    df.getOWLDeclarationAxiom(annotationProperty)));
             IRI subsetdefIRI = getTagIRI(OBOVocabulary.SUBSETDEF.getName());
-            OWLAnnotationProperty subsetdefAnnotationProperty = df.getOWLAnnotationProperty(subsetdefIRI);
-            applyChange(new AddAxiom(getOntology(), df.getOWLSubAnnotationPropertyOfAxiom(annotationProperty, subsetdefAnnotationProperty)));
-
+            OWLAnnotationProperty subsetdefAnnotationProperty = df
+                    .getOWLAnnotationProperty(subsetdefIRI);
+            applyChange(new AddAxiom(getOntology(),
+                    df.getOWLSubAnnotationPropertyOfAxiom(annotationProperty,
+                            subsetdefAnnotationProperty)));
             OWLLiteral nameLiteral = df.getOWLLiteral(name);
-            applyChange(new AddAxiom(getOntology(), df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(), annotationPropertyIRI, nameLiteral)));
-        }
-        else {
-            OWLAnnotation annotation = getAnnotationForTagValuePair(OBOVocabulary.SYNONYM_TYPE_DEF.getName(), value);
+            applyChange(new AddAxiom(getOntology(), df.getOWLAnnotationAssertionAxiom(
+                    df.getRDFSLabel(), annotationPropertyIRI, nameLiteral)));
+        } else {
+            OWLAnnotation annotation = getAnnotationForTagValuePair(
+                    OBOVocabulary.SYNONYM_TYPE_DEF.getName(), value);
             applyChange(new AddOntologyAnnotation(getOntology(), annotation));
         }
         // ID QuotedString [Scope]
-        
         // 18th April 2012
-        
         // AnnotationProperty(T(ID))
         // SubAnnotationPropertyOf(T(ID) T(subsetdef))
         // AnnotationAssertion(T(name) T(ID) ID)

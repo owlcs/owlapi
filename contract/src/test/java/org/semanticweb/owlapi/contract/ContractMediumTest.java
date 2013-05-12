@@ -345,7 +345,7 @@ public class ContractMediumTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestXMLWriterImpl() throws Exception {
         XMLWriterImpl testSubject0 = new XMLWriterImpl(mock(Writer.class),
                 mock(XMLWriterNamespaceManager.class), "");
@@ -499,7 +499,7 @@ public class ContractMediumTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestDLSyntaxParser() throws Exception {
         DLSyntaxParser testSubject0 = new DLSyntaxParser(mock(InputStream.class));
         DLSyntaxParser testSubject1 = new DLSyntaxParser(

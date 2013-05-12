@@ -36,26 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 03-Aug-2009
- */
+ * Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfUndeclaredObjectProperty extends OWLProfileViolation implements OWL2DLProfileViolation {
-
-
+public class UseOfUndeclaredObjectProperty extends OWLProfileViolation implements
+        OWL2DLProfileViolation {
     private final OWLObjectProperty property;
 
-    public UseOfUndeclaredObjectProperty(OWLOntology ontology, OWLAxiom axiom, OWLObjectProperty prop) {
+    public UseOfUndeclaredObjectProperty(OWLOntology ontology, OWLAxiom axiom,
+            OWLObjectProperty prop) {
         super(ontology, axiom);
         this.property = prop;
     }
@@ -70,7 +67,7 @@ public class UseOfUndeclaredObjectProperty extends OWLProfileViolation implement
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of undeclared object property: ");
         sb.append(property);

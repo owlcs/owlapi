@@ -36,25 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 02-Feb-2009
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 02-Feb-2009 */
 @SuppressWarnings("javadoc")
 public class DataRangeListItemTranslator implements ListItemTranslator<OWLDataRange> {
-
     private OWLRDFConsumer consumer;
 
     public DataRangeListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
+
     @Override
     public OWLDataRange translate(OWLLiteral firstObject) {
         return null;

@@ -36,33 +36,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 09-Dec-2006<br><br>
- */
+ * Date: 09-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public abstract class AbstractResourceTripleHandler extends AbstractTripleHandler {
-
-
     public AbstractResourceTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
-
 
     protected boolean isSubjectOrObjectAnonymous(IRI subject, IRI object) {
         return isAnonymous(subject) || isAnonymous(object);
     }
 
-    protected boolean isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(IRI subject, IRI object) {
-        return (isSubjectAndObjectClassExpression(subject, object) || isSubjectAndObjectDataRange(subject, object));
+    protected boolean isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(
+            IRI subject, IRI object) {
+        return (isSubjectAndObjectClassExpression(subject, object) || isSubjectAndObjectDataRange(
+                subject, object));
     }
 
     protected boolean isSubjectAndObjectDataRange(IRI subject, IRI object) {
@@ -70,29 +67,27 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
     }
 
     protected boolean isSubjectAndObjectClassExpression(IRI subject, IRI object) {
-        return (getConsumer().isClassExpression(subject) && getConsumer().isClassExpression(object));
+        return (getConsumer().isClassExpression(subject) && getConsumer()
+                .isClassExpression(object));
     }
 
+    public abstract void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException;
 
-    public abstract void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException;
-
-    public abstract boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException;
+    public abstract boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException;
 
     public abstract boolean canHandle(IRI subject, IRI predicate, IRI object);
 
     public void inferTypes(IRI subject, IRI object) {
-		if(getConsumer().isClassExpression(object)) {
+        if (getConsumer().isClassExpression(object)) {
             getConsumer().addClassExpression(subject, false);
-        }
-        else if(getConsumer().isDataRange(object)) {
+        } else if (getConsumer().isDataRange(object)) {
             getConsumer().addDataRange(subject, false);
-        }
-        else if(getConsumer().isClassExpression(subject)) {
+        } else if (getConsumer().isClassExpression(subject)) {
             getConsumer().addClassExpression(object, false);
-        }
-        else if(getConsumer().isDataRange(subject)) {
+        } else if (getConsumer().isDataRange(subject)) {
             getConsumer().addDataRange(object, false);
         }
-	}
-
+    }
 }

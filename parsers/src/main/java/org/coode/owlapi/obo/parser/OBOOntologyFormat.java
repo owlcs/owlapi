@@ -36,46 +36,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br><br>
- */
+ * Date: 10-Jan-2007<br>
+ * <br> */
 public class OBOOntologyFormat extends OWLOntologyFormat {
-
     private IDSpaceManager idSpaceManager = new IDSpaceManager();
 
     /**
      * 
      */
-    public OBOOntologyFormat() {
-    }
+    public OBOOntologyFormat() {}
 
-    /**
-     * Constructs an OBOOntologyFormat object.
-     * @param idSpaceManager An {@link IDSpaceManager} which specifies mappings between id prefixes and IRI prefixes.
-     */
+    /** Constructs an OBOOntologyFormat object.
+     * 
+     * @param idSpaceManager
+     *            An {@link IDSpaceManager} which specifies mappings between id
+     *            prefixes and IRI prefixes. */
     public OBOOntologyFormat(IDSpaceManager idSpaceManager) {
         this.idSpaceManager = idSpaceManager;
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         return "OBO Format";
     }
 
-    /**
-     * Gets the OBO id-space manager.  This is NOT the same as a prefix manager.
-     * @return The {@link IDSpaceManager} for this format.  For ontologies parsed from an OBO file this will contain
-     * any id prefix to IRI prefix mappings that were parsed out of the file (from id-space tags).  Not null.
-     */
+    /** Gets the OBO id-space manager. This is NOT the same as a prefix manager.
+     * 
+     * @return The {@link IDSpaceManager} for this format. For ontologies parsed
+     *         from an OBO file this will contain any id prefix to IRI prefix
+     *         mappings that were parsed out of the file (from id-space tags).
+     *         Not null. */
     public IDSpaceManager getIdSpaceManager() {
         return idSpaceManager;
     }

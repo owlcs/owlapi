@@ -36,45 +36,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public abstract class OWLQuantifiedRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLRestrictionImpl<R, P, F> implements OWLQuantifiedRestriction<R, P, F> {
-
-
-	private static final long serialVersionUID = 30402L;
-	private final F filler;
-
+public abstract class OWLQuantifiedRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
+        extends OWLRestrictionImpl<R, P, F> implements OWLQuantifiedRestriction<R, P, F> {
+    private static final long serialVersionUID = 30402L;
+    private final F filler;
 
     public OWLQuantifiedRestrictionImpl(P property, F filler) {
         super(property);
         this.filler = filler;
     }
 
-
     @Override
     public F getFiller() {
         return filler;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (obj instanceof OWLQuantifiedRestriction) {
-                return ((OWLQuantifiedRestriction<?,?,?>) obj).getFiller().equals(filler);
+                return ((OWLQuantifiedRestriction<?, ?, ?>) obj).getFiller().equals(
+                        filler);
             }
         }
         return false;

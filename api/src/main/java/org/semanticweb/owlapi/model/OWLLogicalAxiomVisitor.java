@@ -36,112 +36,77 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 17-Jan-2009 */
 @SuppressWarnings("javadoc")
 public interface OWLLogicalAxiomVisitor {
-
-
     void visit(OWLSubClassOfAxiom axiom);
-
 
     void visit(OWLNegativeObjectPropertyAssertionAxiom axiom);
 
-
     void visit(OWLAsymmetricObjectPropertyAxiom axiom);
-
 
     void visit(OWLReflexiveObjectPropertyAxiom axiom);
 
-
     void visit(OWLDisjointClassesAxiom axiom);
-
 
     void visit(OWLDataPropertyDomainAxiom axiom);
 
-
     void visit(OWLObjectPropertyDomainAxiom axiom);
-
 
     void visit(OWLEquivalentObjectPropertiesAxiom axiom);
 
-
     void visit(OWLNegativeDataPropertyAssertionAxiom axiom);
-
 
     void visit(OWLDifferentIndividualsAxiom axiom);
 
-
     void visit(OWLDisjointDataPropertiesAxiom axiom);
-
 
     void visit(OWLDisjointObjectPropertiesAxiom axiom);
 
-
     void visit(OWLObjectPropertyRangeAxiom axiom);
-
 
     void visit(OWLObjectPropertyAssertionAxiom axiom);
 
-
     void visit(OWLFunctionalObjectPropertyAxiom axiom);
-
 
     void visit(OWLSubObjectPropertyOfAxiom axiom);
 
-
     void visit(OWLDisjointUnionAxiom axiom);
-
 
     void visit(OWLSymmetricObjectPropertyAxiom axiom);
 
-
     void visit(OWLDataPropertyRangeAxiom axiom);
-
 
     void visit(OWLFunctionalDataPropertyAxiom axiom);
 
-
     void visit(OWLEquivalentDataPropertiesAxiom axiom);
-
 
     void visit(OWLClassAssertionAxiom axiom);
 
-
     void visit(OWLEquivalentClassesAxiom axiom);
-
 
     void visit(OWLDataPropertyAssertionAxiom axiom);
 
-
     void visit(OWLTransitiveObjectPropertyAxiom axiom);
-
 
     void visit(OWLIrreflexiveObjectPropertyAxiom axiom);
 
-
     void visit(OWLSubDataPropertyOfAxiom axiom);
-
 
     void visit(OWLInverseFunctionalObjectPropertyAxiom axiom);
 
-
     void visit(OWLSameIndividualAxiom axiom);
-
 
     void visit(OWLSubPropertyChainOfAxiom axiom);
 
-
     void visit(OWLInverseObjectPropertiesAxiom axiom);
 
-
     void visit(OWLHasKeyAxiom axiom);
-
 
     void visit(SWRLRule rule);
 }

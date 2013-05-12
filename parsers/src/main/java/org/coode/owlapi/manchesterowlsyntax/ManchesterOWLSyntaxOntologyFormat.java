@@ -36,25 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.manchesterowlsyntax;
 
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-May-2007<br><br>
- */
+ * Date: 10-May-2007<br>
+ * <br> */
 public class ManchesterOWLSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
-
-
-	private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30402L;
 
     @Override
-	public String toString() {
+    public String toString() {
         return "Manchester OWL Syntax";
     }
 }

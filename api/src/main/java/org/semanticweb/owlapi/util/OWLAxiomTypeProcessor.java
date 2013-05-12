@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.model.AxiomType.*;
@@ -83,15 +82,12 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br><br>
- */
+ * Date: 27-Jul-2007<br>
+ * <br> */
 public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
-
     protected abstract void process(OWLAxiom axiom, AxiomType<?> type);
 
     @Override
@@ -99,30 +95,25 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
         process(axiom, SUBCLASS_OF);
     }
 
-
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         process(axiom, NEGATIVE_OBJECT_PROPERTY_ASSERTION);
     }
-
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         process(axiom, ASYMMETRIC_OBJECT_PROPERTY);
     }
 
-
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         process(axiom, REFLEXIVE_OBJECT_PROPERTY);
     }
 
-
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         process(axiom, DISJOINT_CLASSES);
     }
-
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
@@ -134,72 +125,60 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
         process(axiom, OBJECT_PROPERTY_DOMAIN);
     }
 
-
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         process(axiom, EQUIVALENT_OBJECT_PROPERTIES);
     }
-
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         process(axiom, NEGATIVE_DATA_PROPERTY_ASSERTION);
     }
 
-
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         process(axiom, DIFFERENT_INDIVIDUALS);
     }
-
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         process(axiom, DISJOINT_DATA_PROPERTIES);
     }
 
-
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         process(axiom, DISJOINT_OBJECT_PROPERTIES);
     }
-
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         process(axiom, OBJECT_PROPERTY_RANGE);
     }
 
-
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         process(axiom, DATA_PROPERTY_ASSERTION);
     }
-
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         process(axiom, FUNCTIONAL_OBJECT_PROPERTY);
     }
 
-
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         process(axiom, SUB_OBJECT_PROPERTY);
     }
-
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         process(axiom, DISJOINT_UNION);
     }
 
-
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
         process(axiom, DECLARATION);
     }
-
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
@@ -231,85 +210,70 @@ public abstract class OWLAxiomTypeProcessor implements OWLAxiomVisitor {
         process(axiom, SYMMETRIC_OBJECT_PROPERTY);
     }
 
-
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         process(axiom, DATA_PROPERTY_RANGE);
     }
-
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         process(axiom, FUNCTIONAL_DATA_PROPERTY);
     }
 
-
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         process(axiom, EQUIVALENT_DATA_PROPERTIES);
     }
 
-
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
         process(axiom, CLASS_ASSERTION);
-
     }
-
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         process(axiom, EQUIVALENT_CLASSES);
     }
 
-
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         process(axiom, DATA_PROPERTY_ASSERTION);
     }
-
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         process(axiom, TRANSITIVE_OBJECT_PROPERTY);
     }
 
-
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         process(axiom, IRREFLEXIVE_OBJECT_PROPERTY);
     }
-
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         process(axiom, SUB_DATA_PROPERTY);
     }
 
-
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         process(axiom, INVERSE_FUNCTIONAL_OBJECT_PROPERTY);
     }
-
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         process(axiom, SAME_INDIVIDUAL);
     }
 
-
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         process(axiom, SUB_PROPERTY_CHAIN_OF);
     }
 
-
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         process(axiom, INVERSE_OBJECT_PROPERTIES);
     }
-
 
     @Override
     public void visit(SWRLRule rule) {

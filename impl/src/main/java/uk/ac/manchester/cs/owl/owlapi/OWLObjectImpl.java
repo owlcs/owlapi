@@ -69,7 +69,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * Date: 25-Oct-2006<br>
  * <br> */
 public abstract class OWLObjectImpl implements OWLObject, Serializable {
-
     private static final long serialVersionUID = 30402L;
     private int hashCode = 0;
     private WeakReference<Set<OWLEntity>> signature = null;

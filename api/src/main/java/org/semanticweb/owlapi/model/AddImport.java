@@ -36,26 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.change.AddImportData;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 18-Mar-2009
- * </p>
- * Represents an ontology change where an import statement is added to an ontology.
- */
+ * Date: 18-Mar-2009 </p> Represents an ontology change where an import
+ * statement is added to an ontology. */
 public class AddImport extends ImportChange {
-    /**
-     * @param ont the ontology to which the change is to be applied
-     * @param importDeclaration the import declaration
-     */
-    public AddImport(OWLOntology ont,
-                     OWLImportsDeclaration importDeclaration) {
+    /** @param ont
+     *            the ontology to which the change is to be applied
+     * @param importDeclaration
+     *            the import declaration */
+    public AddImport(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);
     }
 
@@ -65,26 +60,24 @@ public class AddImport extends ImportChange {
     }
 
     @Override
-	public int hashCode() {
+    public int hashCode() {
         return getOntology().hashCode() * 37 + getImportDeclaration().hashCode();
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-        if(obj == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof AddImport)) {
+        if (!(obj instanceof AddImport)) {
             return false;
         }
         AddImport other = (AddImport) obj;
         return getImportDeclaration().equals(other.getImportDeclaration());
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("AddImport(");
         sb.append(getImportDeclaration().toString());
@@ -96,12 +89,12 @@ public class AddImport extends ImportChange {
     }
 
     @Override
-	public void accept(OWLOntologyChangeVisitor visitor) {
+    public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
-    	return visitor.visit(this);
+        return visitor.visit(this);
     }
 }

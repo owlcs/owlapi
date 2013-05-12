@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
@@ -47,35 +46,30 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression<?,?>> extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P> {
+public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression<?, ?>>
+        extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P> {
+    private static final long serialVersionUID = 30402L;
+    private final OWLClassExpression domain;
 
-
-	private static final long serialVersionUID = 30402L;
-	private final OWLClassExpression domain;
-
-
-    public OWLPropertyDomainAxiomImpl(P property, OWLClassExpression domain, Set<? extends OWLAnnotation> annotations) {
+    public OWLPropertyDomainAxiomImpl(P property, OWLClassExpression domain,
+            Set<? extends OWLAnnotation> annotations) {
         super(property, annotations);
         this.domain = domain;
     }
-
 
     @Override
     public OWLClassExpression getDomain() {
         return domain;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLPropertyDomainAxiom)) {
                 return false;
@@ -85,9 +79,8 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
         return false;
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLPropertyDomainAxiom<?> other = (OWLPropertyDomainAxiom<?>) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {

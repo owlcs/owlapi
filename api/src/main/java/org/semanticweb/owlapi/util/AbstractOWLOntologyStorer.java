@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.io.BufferedReader;
@@ -63,17 +62,14 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 04-Dec-2007<br><br>
- */
+ * Date: 04-Dec-2007<br>
+ * <br> */
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
-
-	private static final long serialVersionUID = 30402L;
-	private static final String UTF_8 = "UTF-8";
+    private static final long serialVersionUID = 30402L;
+    private static final String UTF_8 = "UTF-8";
     protected final static Logger LOGGER = Logger.getLogger(OWLOntologyStorer.class
             .getName());
 
@@ -83,7 +79,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             throws OWLOntologyStorageException {
         storeOntology(ontology, documentIRI, ontologyFormat);
     }
-	@Override
+
+    @Override
     public final void storeOntology(OWLOntology ontology, IRI documentIRI,
             OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException {
         try {
@@ -92,13 +89,13 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                         + documentIRI);
             }
             File tempFile = null;
-            FileOutputStream tempOutputStream=null;
-            FileInputStream tempInputStream=null;
-            InputStreamReader inputStreamReader=null;
-            OutputStreamWriter outputStreamWriter=null;
-            BufferedReader br=null;
-            BufferedWriter w=null;
-            OutputStream os=null;
+            FileOutputStream tempOutputStream = null;
+            FileInputStream tempInputStream = null;
+            InputStreamReader inputStreamReader = null;
+            OutputStreamWriter outputStreamWriter = null;
+            BufferedReader br = null;
+            BufferedWriter w = null;
+            OutputStream os = null;
             try {
                 // prepare actual output
                 os = prepareActualOutput(documentIRI);
@@ -107,43 +104,43 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                         .toString());
                 if (useTemp) {
                     tempFile = File.createTempFile("owlapi", ".owl");
-                tempOutputStream = new FileOutputStream(tempFile);
+                    tempOutputStream = new FileOutputStream(tempFile);
                     store(ontology, ontologyFormat, tempOutputStream);
-                // Now copy across
-                tempInputStream = new FileInputStream(tempFile);
-                inputStreamReader = new InputStreamReader(tempInputStream, UTF_8);
-                br = new BufferedReader(inputStreamReader);
-                outputStreamWriter = new OutputStreamWriter(os, UTF_8);
-                w = new BufferedWriter(outputStreamWriter);
-                String line = br.readLine();
-                while(line != null) {
-                    w.write(line);
-                    w.write("\n");
-                    line = br.readLine();
-                }
+                    // Now copy across
+                    tempInputStream = new FileInputStream(tempFile);
+                    inputStreamReader = new InputStreamReader(tempInputStream, UTF_8);
+                    br = new BufferedReader(inputStreamReader);
+                    outputStreamWriter = new OutputStreamWriter(os, UTF_8);
+                    w = new BufferedWriter(outputStreamWriter);
+                    String line = br.readLine();
+                    while (line != null) {
+                        w.write(line);
+                        w.write("\n");
+                        line = br.readLine();
+                    }
                 } else {
                     store(ontology, ontologyFormat, os);
-            }
+                }
             } finally {
-                if (br != null){
+                if (br != null) {
                     br.close();
                 }
-                if (w != null){
+                if (w != null) {
                     w.close();
                 }
-                if(os!=null) {
-                	os.close();
+                if (os != null) {
+                    os.close();
                 }
-                if (tempOutputStream != null){
+                if (tempOutputStream != null) {
                     tempOutputStream.close();
                 }
-                if (tempInputStream != null){
+                if (tempInputStream != null) {
                     tempInputStream.close();
                 }
-                if (inputStreamReader != null){
+                if (inputStreamReader != null) {
                     inputStreamReader.close();
                 }
-                if (outputStreamWriter != null){
+                if (outputStreamWriter != null) {
                     outputStreamWriter.close();
                 }
                 if (tempFile != null && !tempFile.delete()) {
@@ -170,7 +167,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             os = conn.getOutputStream();
         }
         return os;
-        }
+    }
 
     private void store(OWLOntology ontology, OWLOntologyFormat ontologyFormat,
             OutputStream tempOutputStream) throws OWLOntologyStorageException,
@@ -202,7 +199,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                 throw new OWLOntologyStorageException(e);
             }
         } else if (target.isOutputStreamAvailable()) {
-            Writer writer=null;
+            Writer writer = null;
             try {
                 writer = new BufferedWriter(new OutputStreamWriter(
                         target.getOutputStream(), UTF_8));
@@ -218,7 +215,6 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                     "Neither a Writer, OutputStream or Document IRI could be obtained to store the ontology");
         }
     }
-
 
     protected abstract void storeOntology(OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException;

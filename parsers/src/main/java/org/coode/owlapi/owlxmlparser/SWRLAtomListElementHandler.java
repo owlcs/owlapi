@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import java.util.ArrayList;
@@ -46,14 +45,11 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 02-Oct-2009
- */
+ * Date: 02-Oct-2009 */
 public class SWRLAtomListElementHandler extends AbstractOWLElementHandler<List<SWRLAtom>> {
-
     private List<SWRLAtom> atoms = new ArrayList<SWRLAtom>();
 
     protected SWRLAtomListElementHandler(OWLXMLParserHandler handler) {

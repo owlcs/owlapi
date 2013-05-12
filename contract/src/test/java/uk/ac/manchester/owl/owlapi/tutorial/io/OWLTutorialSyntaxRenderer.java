@@ -50,8 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 24-April-2007<br>
  * <br> */
- public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
-
+public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
     @Override
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererIOException {
         try {

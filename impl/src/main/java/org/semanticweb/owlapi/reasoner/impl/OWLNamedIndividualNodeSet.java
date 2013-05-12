@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
@@ -44,17 +43,13 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.reasoner.Node;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 05-Dec-2009
- */
+ * Date: 05-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class OWLNamedIndividualNodeSet extends DefaultNodeSet<OWLNamedIndividual> {
-
-    public OWLNamedIndividualNodeSet() {
-    }
+    public OWLNamedIndividualNodeSet() {}
 
     public OWLNamedIndividualNodeSet(OWLNamedIndividual entity) {
         super(entity);
@@ -69,12 +64,12 @@ public class OWLNamedIndividualNodeSet extends DefaultNodeSet<OWLNamedIndividual
     }
 
     @Override
-	protected DefaultNode<OWLNamedIndividual> getNode(OWLNamedIndividual entity) {
+    protected DefaultNode<OWLNamedIndividual> getNode(OWLNamedIndividual entity) {
         return NodeFactory.getOWLNamedIndividualNode(entity);
     }
 
     @Override
-	protected DefaultNode<OWLNamedIndividual> getNode(Set<OWLNamedIndividual> entities) {
+    protected DefaultNode<OWLNamedIndividual> getNode(Set<OWLNamedIndividual> entities) {
         return NodeFactory.getOWLNamedIndividualNode(entities);
     }
 }

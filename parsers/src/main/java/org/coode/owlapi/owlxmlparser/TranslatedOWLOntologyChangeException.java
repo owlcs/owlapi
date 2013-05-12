@@ -36,25 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.xml.sax.SAXException;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 07-Dec-2009
- */
+ * Date: 07-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class TranslatedOWLOntologyChangeException extends SAXException {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-	public TranslatedOWLOntologyChangeException(OWLOntologyChangeException e) {
+    public TranslatedOWLOntologyChangeException(OWLOntologyChangeException e) {
         super(e);
     }
 

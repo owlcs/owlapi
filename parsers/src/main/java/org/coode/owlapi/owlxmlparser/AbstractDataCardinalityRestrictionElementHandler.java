@@ -36,42 +36,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br><br>
- */
+ * Date: 14-Dec-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public abstract class AbstractDataCardinalityRestrictionElementHandler extends AbstractDataRangeFillerRestrictionElementHandler {
-
+public abstract class AbstractDataCardinalityRestrictionElementHandler extends
+        AbstractDataRangeFillerRestrictionElementHandler {
     private int cardinality;
-
 
     public AbstractDataCardinalityRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
-
     @Override
-	public void attribute(String localName, String value) throws OWLParserException {
+    public void attribute(String localName, String value) throws OWLParserException {
         if (localName.equals("cardinality")) {
             cardinality = Integer.parseInt(value);
         }
     }
 
-
     @Override
-	public void startElement(String name) throws OWLXMLParserException {
+    public void startElement(String name) throws OWLXMLParserException {
         super.startElement(name);
         setFiller(getOWLDataFactory().getTopDatatype());
     }
-
 
     protected int getCardinality() {
         return cardinality;

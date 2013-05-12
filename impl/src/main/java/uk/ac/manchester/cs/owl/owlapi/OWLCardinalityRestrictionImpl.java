@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
@@ -44,25 +43,23 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- * @param <R> the range
- * @param <P> the property expression
- * @param <F> the value
- */
-public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLRestrictionImpl<R, P, F> implements OWLCardinalityRestriction<R, P, F> {
-
-
+ * Date: 26-Oct-2006<br>
+ * <br>
+ * 
+ * @param <R>
+ *            the range
+ * @param <P>
+ *            the property expression
+ * @param <F>
+ *            the value */
+public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
+        extends OWLRestrictionImpl<R, P, F> implements OWLCardinalityRestriction<R, P, F> {
     private static final long serialVersionUID = 30402L;
-
     private final int cardinality;
-
     private final F filler;
-
 
     protected OWLCardinalityRestrictionImpl(P property, int cardinality, F filler) {
         super(property);
@@ -70,33 +67,29 @@ public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, 
         this.filler = filler;
     }
 
-
     @Override
     public int getCardinality() {
         return cardinality;
     }
-
 
     @Override
     public F getFiller() {
         return filler;
     }
 
-
     @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object obj) {
-        if(super.equals(obj)) {
-            if(!(obj instanceof OWLCardinalityRestriction)) {
+        if (super.equals(obj)) {
+            if (!(obj instanceof OWLCardinalityRestriction)) {
                 return false;
             }
             OWLCardinalityRestriction<R, P, F> other = (OWLCardinalityRestriction<R, P, F>) obj;
-            return other.getCardinality() == cardinality &&
-                    other.getFiller().equals(filler);
+            return other.getCardinality() == cardinality
+                    && other.getFiller().equals(filler);
         }
         return false;
     }
-
 
     @SuppressWarnings("unchecked")
     @Override

@@ -36,34 +36,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- *
- * The root of runtime exceptions in the OWL API.
- */
+ * Date: 13-Apr-2007<br>
+ * <br>
+ * The root of runtime exceptions in the OWL API. */
 @SuppressWarnings("javadoc")
 public class OWLRuntimeException extends RuntimeException {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-	public OWLRuntimeException() {
-    }
-
+    public OWLRuntimeException() {}
 
     public OWLRuntimeException(String message) {
         super(message);
     }
 
-
     public OWLRuntimeException(String message, Throwable cause) {
         super(message, cause);
     }
-
 
     public OWLRuntimeException(Throwable cause) {
         super(cause);

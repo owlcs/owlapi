@@ -36,62 +36,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 05-Dec-2009
- */
+ * Date: 05-Dec-2009 */
 public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
+    /** empty node */
+    public OWLDataPropertyNode() {}
 
-
-
-    /**
-     * empty node
-     */
-    public OWLDataPropertyNode() {
-    }
-
-    /**
-     * @param entity the entity to be contained
-     */
+    /** @param entity
+     *            the entity to be contained */
     public OWLDataPropertyNode(OWLDataProperty entity) {
         super(entity);
     }
 
-    /**
-     * @param entities the entities to be contained
-     */
+    /** @param entities
+     *            the entities to be contained */
     public OWLDataPropertyNode(Set<OWLDataProperty> entities) {
         super(entities);
     }
 
     @Override
-	protected OWLDataProperty getTopEntity() {
+    protected OWLDataProperty getTopEntity() {
         return TOP_DATA_PROPERTY;
     }
 
     @Override
-	protected OWLDataProperty getBottomEntity() {
+    protected OWLDataProperty getBottomEntity() {
         return BOTTOM_DATA_PROPERTY;
     }
 
-    /**
-     * @return singleton top node
-     */
+    /** @return singleton top node */
     public static OWLDataPropertyNode getTopNode() {
         return TOP_DATA_NODE;
     }
-    /**
-     * @return singleton bottom node
-     */
+
+    /** @return singleton bottom node */
     public static OWLDataPropertyNode getBottomNode() {
         return BOTTOM_DATA_NODE;
     }

@@ -36,37 +36,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 18/03/2011
- */
+ * Date: 18/03/2011 */
 @SuppressWarnings("javadoc")
 public class GTPLiteralTripleHandler extends AbstractLiteralTripleHandler {
-
     public GTPLiteralTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
-        if(isStrict()) {
-
-        }
-        else {
-            if(isAnnotationPropertyLax(predicate)) {
-
-            }
-            else {
-                
-            }
+        if (isStrict()) {} else {
+            if (isAnnotationPropertyLax(predicate)) {} else {}
         }
     }
 
@@ -74,8 +62,7 @@ public class GTPLiteralTripleHandler extends AbstractLiteralTripleHandler {
     public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
         if (isStrict()) {
             return false;
-        }
-        else {
+        } else {
             return isAnnotationPropertyLax(predicate);
         }
     }
@@ -84,14 +71,10 @@ public class GTPLiteralTripleHandler extends AbstractLiteralTripleHandler {
     public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
         if (isAnnotationPropertyStrict(predicate)) {
             return true;
-        }
-        else if (isDataPropertyStrict(predicate)) {
+        } else if (isDataPropertyStrict(predicate)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
-
-
 }

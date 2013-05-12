@@ -57,6 +57,7 @@ public class Utils {
     static final IRI fakeiri1 = IRI.create("urn:aFake1");
     static final IRI fakeiri2 = IRI.create("urn:aFake2");
     static final IRI fakeiriproperty = IRI.create("urn:aFakeproperty");
+
     public static AxiomType<OWLAnnotationAssertionAxiom> mockAxiomType() {
         return AxiomType.ANNOTATION_ASSERTION;
     }
@@ -1081,32 +1082,30 @@ public class Utils {
     public static OWLRDFConsumer mockOWLRDFConsumer() {
         try {
             OWLOntologyManager man = Factory.getManager();
-            OWLOntology mockOntology = man.createOntology(
-                new OWLOntologyID(IRI.create("urn:test:test"), IRI
-                        .create("urn:test:othertest")));
-        OWLRDFConsumer c = new OWLRDFConsumer(mockOntology, new AnonymousNodeChecker() {
-            @Override
-            public boolean isAnonymousSharedNode(String iri) {
-                return false;
-            }
+            OWLOntology mockOntology = man.createOntology(new OWLOntologyID(IRI
+                    .create("urn:test:test"), IRI.create("urn:test:othertest")));
+            OWLRDFConsumer c = new OWLRDFConsumer(mockOntology,
+                    new AnonymousNodeChecker() {
+                        @Override
+                        public boolean isAnonymousSharedNode(String iri) {
+                            return false;
+                        }
 
-            @Override
-            public boolean isAnonymousNode(String iri) {
-                return false;
-            }
+                        @Override
+                        public boolean isAnonymousNode(String iri) {
+                            return false;
+                        }
 
-            @Override
-            public boolean isAnonymousNode(IRI iri) {
-                return false;
-            }
-        }, new OWLOntologyLoaderConfiguration());
-        c.setOntologyFormat(new RDFOntologyFormat() {
-            private static final long serialVersionUID = 30402L;
-        });
-            c.addTriple(fakeiri1,
-                    OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(),
- fakeiri2);
-        return c;
+                        @Override
+                        public boolean isAnonymousNode(IRI iri) {
+                            return false;
+                        }
+                    }, new OWLOntologyLoaderConfiguration());
+            c.setOntologyFormat(new RDFOntologyFormat() {
+                private static final long serialVersionUID = 30402L;
+            });
+            c.addTriple(fakeiri1, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), fakeiri2);
+            return c;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

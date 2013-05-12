@@ -36,45 +36,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- *
- * The root of checked exceptions in the OWL API.
- */
+ * Bio-Health Informatics Group Date: 24-Oct-2006 The root of checked exceptions
+ * in the OWL API. */
 public abstract class OWLException extends Exception {
+    private static final long serialVersionUID = 30402L;
 
+    protected OWLException() {}
 
-	private static final long serialVersionUID = 30402L;
-
-
-    protected OWLException() {
-    }
-
-    /**
-     * @param message the message
-     */
+    /** @param message
+     *            the message */
     public OWLException(String message) {
         super(message);
     }
 
-
-    /**
-     * @param message the message
-     * @param cause the cause
-     */
+    /** @param message
+     *            the message
+     * @param cause
+     *            the cause */
     public OWLException(String message, Throwable cause) {
         super(message, cause);
     }
 
-
-    /**
-     * @param cause the cause
-     */
+    /** @param cause
+     *            the cause */
     public OWLException(Throwable cause) {
         super(cause);
     }

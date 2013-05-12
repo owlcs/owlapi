@@ -36,30 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- */
+ * Date: 13-Apr-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class OWLOntologyStorageException extends OWLException {
+    private static final long serialVersionUID = 30402L;
 
-
-	private static final long serialVersionUID = 30402L;
-
-
-	public OWLOntologyStorageException(String message) {
+    public OWLOntologyStorageException(String message) {
         super(message);
     }
-
 
     public OWLOntologyStorageException(String message, Throwable cause) {
         super(message, cause);
     }
-
 
     public OWLOntologyStorageException(Throwable cause) {
         super(cause);

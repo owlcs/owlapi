@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.OutputStream;
@@ -45,58 +44,49 @@ import java.io.Writer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Jan-2008<br><br>
- */
+ * Date: 25-Jan-2008<br>
+ * <br> */
 public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
-
     private final OutputStream os;
 
-
-    /**
-     * @param os the actual output stream
-     */
+    /** @param os
+     *            the actual output stream */
     public StreamDocumentTarget(OutputStream os) {
         this.os = os;
     }
-
 
     @Override
     public boolean isWriterAvailable() {
         return false;
     }
 
-
     @Override
     public Writer getWriter() {
-        throw new OWLRuntimeException("Writer not available.  getWriter() should not be called if isWriterAvailable() returns false.");
+        throw new OWLRuntimeException(
+                "Writer not available.  getWriter() should not be called if isWriterAvailable() returns false.");
     }
-
 
     @Override
     public boolean isOutputStreamAvailable() {
         return true;
     }
 
-
     @Override
     public OutputStream getOutputStream() {
         return os;
     }
-
 
     @Override
     public boolean isDocumentIRIAvailable() {
         return false;
     }
 
-
     @Override
     public IRI getDocumentIRI() {
-        throw new OWLRuntimeException("IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
+        throw new OWLRuntimeException(
+                "IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }
 }

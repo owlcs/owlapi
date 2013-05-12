@@ -36,22 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.renderer;
 
 import java.util.List;
 
-/**
- * Author: Nick Drummond<br>
+/** Author: Nick Drummond<br>
  * The University Of Manchester<br>
  * Bio Health Informatics Group<br>
- * Date: Dec 19, 2008<br><br>
- */
+ * Date: Dec 19, 2008<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public interface OBOExceptionHandler {
-
     public void addException(OBOStorageException exception);
 
     public List<OBOStorageException> getExceptions();
-
 }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.HashSet;
@@ -50,19 +49,16 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionImpl implements OWLObjectIntersectionOf {
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionImpl
+        implements OWLObjectIntersectionOf {
+    private static final long serialVersionUID = 30402L;
 
-	private static final long serialVersionUID = 30402L;
-
-
-	@SuppressWarnings("javadoc")
+    @SuppressWarnings("javadoc")
     public OWLObjectIntersectionOfImpl(Set<? extends OWLClassExpression> operands) {
         super(operands);
     }
@@ -73,7 +69,7 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectIntersectionOf;
         }
@@ -90,7 +86,6 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
         visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -101,16 +96,14 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
         return visitor.visit(this);
     }
 
-
     @Override
-	public Set<OWLClassExpression> asConjunctSet() {
+    public Set<OWLClassExpression> asConjunctSet() {
         Set<OWLClassExpression> conjuncts = new HashSet<OWLClassExpression>();
         for (OWLClassExpression op : getOperands()) {
             conjuncts.addAll(op.asConjunctSet());
         }
         return conjuncts;
     }
-
 
     @Override
     public boolean containsConjunct(OWLClassExpression ce) {

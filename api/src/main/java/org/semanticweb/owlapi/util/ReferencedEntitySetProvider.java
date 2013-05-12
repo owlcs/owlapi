@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.HashSet;
@@ -45,30 +44,24 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 28-Nov-2007<br><br>
- */
+ * Date: 28-Nov-2007<br>
+ * <br> */
 public class ReferencedEntitySetProvider implements OWLEntitySetProvider<OWLEntity> {
-
     private final Set<OWLOntology> ontologies;
 
-
-    /**
-     * @param ontologies ontologies to use
-     */
+    /** @param ontologies
+     *            ontologies to use */
     public ReferencedEntitySetProvider(Set<OWLOntology> ontologies) {
         this.ontologies = ontologies;
     }
 
-
     @Override
     public Set<OWLEntity> getEntities() {
         Set<OWLEntity> entities = new HashSet<OWLEntity>();
-        for(OWLOntology ont : ontologies) {
+        for (OWLOntology ont : ontologies) {
             entities.addAll(ont.getClassesInSignature());
             entities.addAll(ont.getObjectPropertiesInSignature());
             entities.addAll(ont.getDataPropertiesInSignature());

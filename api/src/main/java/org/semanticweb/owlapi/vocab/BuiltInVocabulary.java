@@ -36,21 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.vocab;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15/12/2010
- */
+ * Date: 15/12/2010 */
 public enum BuiltInVocabulary {
-
     /** Dublin core */
     DUBLIN_CORE,
-    /**SKOS*/
+    /** SKOS */
     SKOS,
-    /**SWRL*/
+    /** SWRL */
     SWRL
 }

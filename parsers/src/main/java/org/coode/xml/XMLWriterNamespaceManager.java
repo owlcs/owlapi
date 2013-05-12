@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.xml;
 
 import java.util.HashMap;
@@ -44,28 +43,22 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
- * Date: 30-May-2006<br><br>
+ * Date: 30-May-2006<br>
+ * <br>
  * <p/>
  * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br><br>
- * Developed as part of the CO-ODE project
- * http://www.co-ode.org
- */
+ * www.cs.man.ac.uk/~horridgm<br>
+ * <br>
+ * Developed as part of the CO-ODE project http://www.co-ode.org */
 @SuppressWarnings("javadoc")
 public class XMLWriterNamespaceManager {
-
     private Map<String, String> prefixNamespaceMap;
-
     private Map<String, String> namespacePrefixMap;
-
     private Map<String, String> wellknownNamespaces;
-
     private String defaultNamespace;
-
 
     public XMLWriterNamespaceManager(String defaultNamespace) {
         prefixNamespaceMap = new HashMap<String, String>();
@@ -83,7 +76,6 @@ public class XMLWriterNamespaceManager {
         namespacePrefixMap.put(namespace, prefix);
     }
 
-
     public String getPrefixForNamespace(String namespace) {
         return namespacePrefixMap.get(namespace);
     }
@@ -91,7 +83,6 @@ public class XMLWriterNamespaceManager {
     public void setDefaultNamespace(String namespace) {
         defaultNamespace = namespace;
     }
-
 
     public String getNamespaceForPrefix(String prefix) {
         return prefixNamespaceMap.get(prefix);
@@ -101,8 +92,8 @@ public class XMLWriterNamespaceManager {
      * 
      * @param name
      *            The name which represents the full name.
-     * @return The QName representation or <code>null</code> if a QName could not
-     *         be generated. */
+     * @return The QName representation or <code>null</code> if a QName could
+     *         not be generated. */
     public String getQName(String name) {
         if (name.startsWith(defaultNamespace)) {
             return name.substring(defaultNamespace.length(), name.length());
@@ -115,7 +106,6 @@ public class XMLWriterNamespaceManager {
         }
         return name;
     }
-
 
     public void createPrefixForNamespace(String namespace) {
         if (namespace.equals(defaultNamespace)) {
@@ -133,31 +123,25 @@ public class XMLWriterNamespaceManager {
         }
     }
 
-
     public String getDefaultNamespace() {
         return defaultNamespace;
     }
-
 
     public Set<String> getPrefixes() {
         return new HashSet<String>(prefixNamespaceMap.keySet());
     }
 
-
     public Set<String> getNamespaces() {
         return new HashSet<String>(namespacePrefixMap.keySet());
     }
-
 
     public Map<String, String> getPrefixNamespaceMap() {
         return new HashMap<String, String>(prefixNamespaceMap);
     }
 
-
-    /**
-     * Search for a prefix other than "" for the default namespace
-     * @return the first prefix found for the default namespace that is not ""
-     */
+    /** Search for a prefix other than "" for the default namespace
+     * 
+     * @return the first prefix found for the default namespace that is not "" */
     public String getDefaultPrefix() {
         for (String prefix : prefixNamespaceMap.keySet()) {
             if (!prefix.equals("")) {

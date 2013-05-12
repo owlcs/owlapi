@@ -36,14 +36,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
  * Date: 15-Jan-2009
  * <p/>
- * A marker interface for the values (objects) of annotations.
- */
-public interface OWLAnnotationObject extends OWLObject {
-}
+ * A marker interface for the values (objects) of annotations. */
+public interface OWLAnnotationObject extends OWLObject {}

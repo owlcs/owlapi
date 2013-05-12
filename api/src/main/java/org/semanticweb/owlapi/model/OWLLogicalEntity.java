@@ -36,15 +36,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 25-Nov-2009
- *
- * An <code>OWLLogicalEntity</code> is an <code>OWLEntity</code> that is not an <code>OWLAnnotationProperty</code>.
- */
-public interface OWLLogicalEntity extends OWLEntity {
-}
+ * Date: 25-Nov-2009 An <code>OWLLogicalEntity</code> is an
+ * <code>OWLEntity</code> that is not an <code>OWLAnnotationProperty</code>. */
+public interface OWLLogicalEntity extends OWLEntity {}

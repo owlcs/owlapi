@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
@@ -48,13 +47,11 @@ import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
  * Date: 24-Mar-2009 Represents an ontology change where an annotation is
  * removed from an ontology. */
 public class RemoveOntologyAnnotation extends AnnotationChange {
-
-    /**
-     * @param ont the ontology to which the change is to be applied
-     * @param annotation the annotation
-     */
-    public RemoveOntologyAnnotation(OWLOntology ont,
-                                    OWLAnnotation annotation) {
+    /** @param ont
+     *            the ontology to which the change is to be applied
+     * @param annotation
+     *            the annotation */
+    public RemoveOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
         super(ont, annotation);
     }
 
@@ -64,34 +61,35 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
     }
 
     @Override
-	public void accept(OWLOntologyChangeVisitor visitor) {
+    public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
-    	return visitor.visit(this);
+        return visitor.visit(this);
     }
 
     @Override
-	public int hashCode() {
+    public int hashCode() {
         return 23 + getOntology().hashCode() + getAnnotation().hashCode();
     }
 
     @Override
-	public boolean equals(Object obj) {
-        if(obj == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RemoveOntologyAnnotation)) {
+        if (!(obj instanceof RemoveOntologyAnnotation)) {
             return false;
         }
         RemoveOntologyAnnotation other = (RemoveOntologyAnnotation) obj;
-        return getAnnotation().equals(other.getAnnotation()) && getOntology().equals(other.getOntology());
+        return getAnnotation().equals(other.getAnnotation())
+                && getOntology().equals(other.getOntology());
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("RemoveOntologyAnnotation(");
         sb.append(getAnnotation().toString());

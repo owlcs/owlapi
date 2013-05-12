@@ -36,19 +36,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 18-Mar-2009
- *
  * <p>
- * A marker interface for the types of property assertion objects (individuals and literals) that are the objects
- * of property assertions.
- * </p>
- */
-public interface OWLPropertyAssertionObject extends OWLObject {
-
-}
+ * A marker interface for the types of property assertion objects (individuals
+ * and literals) that are the objects of property assertions.
+ * </p> */
+public interface OWLPropertyAssertionObject extends OWLObject {}

@@ -36,23 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 11-Apr-2008<br><br>
- * </p>
- * An interface for objects that listen to missing imports events.
+ * Date: 11-Apr-2008<br>
+ * <br>
+ * </p> An interface for objects that listen to missing imports events.
+ * 
  * @see MissingImportEvent
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#addMissingImportListener(MissingImportListener)
- * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener)
- */
+ * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener) */
 public interface MissingImportListener {
-
-    /**
-     * @param event the missing import event
-     */
+    /** @param event
+     *            the missing import event */
     void importMissing(MissingImportEvent event);
 }

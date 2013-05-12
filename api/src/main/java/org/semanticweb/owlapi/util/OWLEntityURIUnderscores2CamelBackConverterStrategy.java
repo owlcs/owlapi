@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.HashMap;
@@ -45,33 +44,28 @@ import java.util.Map;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2007<br><br>
- *
- * Converts the entity URI fragment or last path element if the
- * fragment is not present to Camel Case.  For example, if
- * the URI is http://another.com/pathA/pathB#has_part then this will
- * be converted to http://another.com/pathA/pathB#hasPart
- */
-public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEntityURIConverterStrategy {
-
+ * Date: 25-Nov-2007<br>
+ * <br>
+ * Converts the entity URI fragment or last path element if the fragment is not
+ * present to Camel Case. For example, if the URI is
+ * http://another.com/pathA/pathB#has_part then this will be converted to
+ * http://another.com/pathA/pathB#hasPart */
+public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
+        OWLEntityURIConverterStrategy {
     private final Map<IRI, IRI> iriMap;
 
-
     @SuppressWarnings("javadoc")
-	public OWLEntityURIUnderscores2CamelBackConverterStrategy() {
+    public OWLEntityURIUnderscores2CamelBackConverterStrategy() {
         iriMap = new HashMap<IRI, IRI>();
     }
-
 
     @Override
     public IRI getConvertedIRI(OWLEntity entity) {
         IRI convIRI = iriMap.get(entity.getIRI());
-        if(convIRI == null) {
+        if (convIRI == null) {
             convIRI = convert(entity.getIRI());
             iriMap.put(entity.getIRI(), convIRI);
         }
@@ -81,13 +75,13 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEn
     private static IRI convert(IRI iri) {
         String iriString = iri.toString();
         String fragment = iri.toURI().getFragment();
-        if(fragment != null) {
+        if (fragment != null) {
             String base = iriString.substring(0, iriString.length() - fragment.length());
             String camelCaseFragment = toCamelCase(fragment);
             return IRI.create(base + camelCaseFragment);
         }
         String path = iri.toURI().getPath();
-        if(path.length() > 0) {
+        if (path.length() > 0) {
             int index = path.lastIndexOf('/');
             String lastPathElement = path.substring(index + 1, path.length());
             String camelCaseElement = toCamelCase(lastPathElement);
@@ -97,29 +91,22 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEn
         return iri;
     }
 
-
-
     private static String toCamelCase(String s) {
         StringBuilder sb = new StringBuilder();
         boolean nextIsUpperCase = false;
-        for(int i = 0; i < s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
-            if(ch == '_') {
+            if (ch == '_') {
                 nextIsUpperCase = true;
-            }
-            else {
-                if(nextIsUpperCase) {
+            } else {
+                if (nextIsUpperCase) {
                     sb.append(Character.toUpperCase(ch));
                     nextIsUpperCase = false;
-                }
-                else {
+                } else {
                     sb.append(ch);
                 }
-
             }
         }
         return sb.toString();
     }
-
-
 }

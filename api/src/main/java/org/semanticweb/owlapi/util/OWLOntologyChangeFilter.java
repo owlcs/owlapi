@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.List;
@@ -49,27 +48,30 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 17-Dec-2006<br><br>
+ * Date: 17-Dec-2006<br>
+ * <br>
  * <p/>
- * Provides a convenient method to filter add/remove axiom changes based
- * on the type of axiom that is being added or removed from an ontology.
+ * Provides a convenient method to filter add/remove axiom changes based on the
+ * type of axiom that is being added or removed from an ontology.
  * <p/>
- * The general pattern of use is to simply create an instance of the <code>OWLOntologyChangeFilter</code>
- * and override the appropriate visit methods corresponding to the types of axioms that are of interest.
- * Each visit corresponds to a single change and the <code>isAdd</code> or <code>isRemove</code> methods can
- * be used to determine if the axiom corresponding to the change is being added or removed from an ontology
- * - the ontology can be obtained via the <code>getOntology</code> method.
+ * The general pattern of use is to simply create an instance of the
+ * <code>OWLOntologyChangeFilter</code> and override the appropriate visit
+ * methods corresponding to the types of axioms that are of interest. Each visit
+ * corresponds to a single change and the <code>isAdd</code> or
+ * <code>isRemove</code> methods can be used to determine if the axiom
+ * corresponding to the change is being added or removed from an ontology - the
+ * ontology can be obtained via the <code>getOntology</code> method.
  * <p/>
- * Example:  Suppose we are interested in changes that alter the domain of an object property.  We receive
- * a list of changes, <code>ontChanges</code>, from an ontology change listener.  We can use the
- * <code>OWLOntologyChangeFilter</code> to filter out the changes that alter the domain of an object
- * property in the following way:
+ * Example: Suppose we are interested in changes that alter the domain of an
+ * object property. We receive a list of changes, <code>ontChanges</code>, from
+ * an ontology change listener. We can use the
+ * <code>OWLOntologyChangeFilter</code> to filter out the changes that alter the
+ * domain of an object property in the following way:
  * <p/>
+ * 
  * <pre>
  * OWLOntologyChangeFilter filter = new OWLOntologyChangeFilter() {
  * <p/>
@@ -85,45 +87,37 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * }
  * // Process the list of changes
  * filter.processChanges(ontChanges);
- * </pre>
- */
-public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements OWLAxiomVisitor {
-
+ * </pre> */
+public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
+        OWLAxiomVisitor {
     protected boolean add;
-
     protected OWLOntology ontology;
-
     protected final OWLOntologyChangeVisitor changeVisitor;
 
-
     @SuppressWarnings("javadoc")
-	public OWLOntologyChangeFilter() {
+    public OWLOntologyChangeFilter() {
         changeVisitor = new OWLOntologyChangeVisitorAdapter() {
             @Override
-			public void visit(AddAxiom change) {
+            public void visit(AddAxiom change) {
                 add = true;
                 processChange(change);
             }
 
-
             @Override
-			public void visit(RemoveAxiom change) {
+            public void visit(RemoveAxiom change) {
                 add = false;
                 processChange(change);
             }
         };
     }
 
-
-    /**
-     * @param changes changes to process
-     */
+    /** @param changes
+     *            changes to process */
     final public void processChanges(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
             change.accept(changeVisitor);
         }
     }
-
 
     protected void processChange(OWLAxiomChange change) {
         ontology = change.getOntology();
@@ -131,30 +125,24 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements O
         ontology = null;
     }
 
-
-    /**
-     * Determines if the current change caused an axiom to be added to an ontology.
-     */
+    /** Determines if the current change caused an axiom to be added to an
+     * ontology. */
     final protected boolean isAdd() {
         return add;
     }
 
-
-    /**
-     * Determines if the current change caused an axiom to be removed from an ontology.
-     */
+    /** Determines if the current change caused an axiom to be removed from an
+     * ontology. */
     final protected boolean isRemove() {
         return !add;
     }
 
-
-    /**
-     * Gets the ontology which the current change being visited was applied to.
-     *
-     * @return The ontology or <code>null</code> if the filter is not in a change
-     *         visit cycle.  When called from within a <code>visit</code> method, the
-     *         return value is guarenteed not to be <code>null</code>.
-     */
+    /** Gets the ontology which the current change being visited was applied to.
+     * 
+     * @return The ontology or <code>null</code> if the filter is not in a
+     *         change visit cycle. When called from within a <code>visit</code>
+     *         method, the return value is guarenteed not to be
+     *         <code>null</code>. */
     final protected OWLOntology getOntology() {
         return ontology;
     }

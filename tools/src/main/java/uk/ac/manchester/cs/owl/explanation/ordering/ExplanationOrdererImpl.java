@@ -252,6 +252,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     private static AtomicLong randomstart = new AtomicLong(System.currentTimeMillis());
+
     private void buildIndices() {
         reset();
         AxiomMapBuilder builder = new AxiomMapBuilder();
@@ -319,6 +320,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     private static final class PropertiesFirstComparator implements Comparator<OWLObject> {
         public PropertiesFirstComparator() {}
+
         @Override
         public int compare(OWLObject o1, OWLObject o2) {
             if (o1 instanceof OWLProperty) {

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -44,17 +43,15 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br><br>
- */@SuppressWarnings("javadoc")
-public class OWLObjectPropertyRangeAxiomElementHandler extends AbstractOWLAxiomElementHandler {
-
+ * Date: 14-Dec-2006<br>
+ * <br> */
+@SuppressWarnings("javadoc")
+public class OWLObjectPropertyRangeAxiomElementHandler extends
+        AbstractOWLAxiomElementHandler {
     private OWLClassExpression range;
-
     private OWLObjectPropertyExpression property;
 
     public OWLObjectPropertyRangeAxiomElementHandler(OWLXMLParserHandler handler) {
@@ -62,25 +59,26 @@ public class OWLObjectPropertyRangeAxiomElementHandler extends AbstractOWLAxiomE
     }
 
     @Override
-	public void handleChild(AbstractClassExpressionElementHandler handler) {
+    public void handleChild(AbstractClassExpressionElementHandler handler) {
         range = handler.getOWLObject();
     }
 
-
     @Override
-	public void handleChild(AbstractOWLObjectPropertyElementHandler handler) {
+    public void handleChild(AbstractOWLObjectPropertyElementHandler handler) {
         property = handler.getOWLObject();
     }
 
-
     @Override
-	protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() throws OWLXMLParserException {
         if (property == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), OWLXMLVocabulary.OBJECT_PROPERTY.getShortName());
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
+                    getColumnNumber(), OWLXMLVocabulary.OBJECT_PROPERTY.getShortName());
         }
         if (range == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "OWL class expression element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
+                    getColumnNumber(), "OWL class expression element");
         }
-        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range, getAnnotations());
+        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range,
+                getAnnotations());
     }
 }

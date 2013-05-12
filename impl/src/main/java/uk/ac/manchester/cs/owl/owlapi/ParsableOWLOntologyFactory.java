@@ -106,7 +106,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 throw new NullPointerException();
             }
             parsers.add(parser);
-            }
+        }
         return new ArrayList<OWLParser>(parsers);
     }
 

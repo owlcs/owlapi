@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
@@ -55,20 +54,18 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl implements OWLDifferentIndividualsAxiom {
-
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
+        implements OWLDifferentIndividualsAxiom {
     private static final long serialVersionUID = 30402L;
 
-
     @SuppressWarnings("javadoc")
-    public OWLDifferentIndividualsAxiomImpl(Set<? extends OWLIndividual> individuals, Set<? extends OWLAnnotation> annotations) {
+    public OWLDifferentIndividualsAxiomImpl(Set<? extends OWLIndividual> individuals,
+            Set<? extends OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
 
@@ -82,7 +79,8 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     @Override
     public OWLDifferentIndividualsAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getIndividuals(), mergeAnnos(annotations));
+        return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getIndividuals(),
+                mergeAnnos(annotations));
     }
 
     @Override
@@ -93,7 +91,8 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
             for (int j = i + 1; j < individuals.size(); j++) {
                 OWLIndividual indI = individuals.get(i);
                 OWLIndividual indJ = individuals.get(j);
-                result.add(getOWLDataFactory().getOWLDifferentIndividualsAxiom(indI, indJ));
+                result.add(getOWLDataFactory()
+                        .getOWLDifferentIndividualsAxiom(indI, indJ));
             }
         }
         return result;
@@ -136,7 +135,6 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         visitor.visit(this);
     }
 
-
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
@@ -147,12 +145,10 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public AxiomType<?> getAxiomType() {

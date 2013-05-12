@@ -39,7 +39,7 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 
 import java.util.ArrayList;
 import java.util.HashSet;

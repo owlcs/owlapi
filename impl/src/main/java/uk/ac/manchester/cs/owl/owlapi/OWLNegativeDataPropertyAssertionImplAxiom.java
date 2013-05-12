@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
@@ -54,26 +53,29 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
-public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLNegativeDataPropertyAssertionAxiom {
-
+ * Date: 26-Oct-2006<br>
+ * <br> */
+public class OWLNegativeDataPropertyAssertionImplAxiom extends
+        OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
+        implements OWLNegativeDataPropertyAssertionAxiom {
     private static final long serialVersionUID = 30402L;
 
     @SuppressWarnings("javadoc")
-    public OWLNegativeDataPropertyAssertionImplAxiom(OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral object, Set<? extends OWLAnnotation> annotations) {
+    public OWLNegativeDataPropertyAssertionImplAxiom(OWLIndividual subject,
+            OWLDataPropertyExpression property, OWLLiteral object,
+            Set<? extends OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         OWLDataFactory df = getOWLDataFactory();
-        return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getSubject()), df.getOWLObjectComplementOf(df.getOWLDataHasValue(getProperty(), getObject())));
+        return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getSubject()), df
+                .getOWLObjectComplementOf(df.getOWLDataHasValue(getProperty(),
+                        getObject())));
     }
 
     @Override
@@ -81,12 +83,15 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRela
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
+        return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(
+                getProperty(), getSubject(), getObject());
     }
 
     @Override
-    public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
+    public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(
+                getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
     }
 
     @Override
@@ -113,7 +118,6 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends OWLIndividualRela
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

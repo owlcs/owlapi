@@ -100,7 +100,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
     private class AxiomLocalityVisitor extends OWLAxiomVisitorAdapter implements
-    OWLAxiomVisitor {
+            OWLAxiomVisitor {
         private boolean isLocal;
 
         public AxiomLocalityVisitor() {}
@@ -159,7 +159,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
     private class BottomReplacer extends OWLAxiomVisitorAdapter implements
-    OWLAxiomVisitor, OWLClassExpressionVisitor {
+            OWLAxiomVisitor, OWLClassExpressionVisitor {
         private OWLAxiom newAxiom;
         private OWLClassExpression newClassExpression;
         private Set<? extends OWLEntity> signature;

@@ -36,39 +36,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- *
- * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Assertions">Assertion</a> in the OWL 2
- * specification.
-
- * @param <P> property expression
- * @param <O> object
- */
-public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression<?,?>, O extends OWLPropertyAssertionObject> extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut {
-
-    /**
-     * Gets the individual that is the subject of this assertion.
-     * @return The individual that represents the subject of this assertion.
-     */
+ * Bio-Health Informatics Group Date: 24-Oct-2006 Represents an <a
+ * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Assertions"
+ * >Assertion</a> in the OWL 2 specification.
+ * 
+ * @param <P>
+ *            property expression
+ * @param <O>
+ *            object */
+public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression<?, ?>, O extends OWLPropertyAssertionObject>
+        extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut {
+    /** Gets the individual that is the subject of this assertion.
+     * 
+     * @return The individual that represents the subject of this assertion. */
     public OWLIndividual getSubject();
 
-
-    /**
-     * Gets the property that this assertion acts along
-     * @return The property
-     */
+    /** Gets the property that this assertion acts along
+     * 
+     * @return The property */
     public P getProperty();
 
-
-    /**
-     * Gets the object of this assertion
-     * @return The object that this assertion points to.
-     */
+    /** Gets the object of this assertion
+     * 
+     * @return The object that this assertion points to. */
     public O getObject();
 }

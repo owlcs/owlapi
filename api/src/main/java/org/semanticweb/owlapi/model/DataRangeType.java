@@ -36,63 +36,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group
-
- * Represents the different types of OWL 2 data ranges.
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group Represents the different types of OWL 2 data
+ * ranges. */
 public enum DataRangeType implements Serializable {
-
-    /**
-     * Represents {@link org.semanticweb.owlapi.model.OWLDatatype}
-     */
+    /** Represents {@link org.semanticweb.owlapi.model.OWLDatatype} */
     DATATYPE("Datatype"),
-
-
-    /**
-     * Represents {@link OWLDataOneOf}
-     */
+    /** Represents {@link OWLDataOneOf} */
     DATA_ONE_OF("DataOneOf"),
-
-
-    /**
-     * Represents {@link OWLDatatypeRestriction}
-     */
+    /** Represents {@link OWLDatatypeRestriction} */
     DATATYPE_RESTRICTION("DatatypeRestriction"),
-
-
-    /**
-     * Represents {@link OWLDataComplementOf}
-     */
+    /** Represents {@link OWLDataComplementOf} */
     DATA_COMPLEMENT_OF("DataComplementOf"),
-
-
-    /**
-     * Represents {@link OWLDataUnionOf}
-     */
+    /** Represents {@link OWLDataUnionOf} */
     DATA_UNION_OF("DataUnionOf"),
-
-
-    /**
-     * Represents {@link OWLDataIntersectionOf}
-     */
+    /** Represents {@link OWLDataIntersectionOf} */
     DATA_INTERSECTION_OF("DataIntersectionOf");
-
-
     private final String name;
 
     DataRangeType(String name) {
         this.name = name;
     }
 
-    /**
-     * @return the name
-     */
+    /** @return the name */
     public String getName() {
         return name;
     }

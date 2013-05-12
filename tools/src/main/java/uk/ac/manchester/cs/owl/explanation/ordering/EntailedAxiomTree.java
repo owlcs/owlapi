@@ -36,23 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 22-Jan-2008<br><br>
- */
+ * Date: 22-Jan-2008<br>
+ * <br> */
 public class EntailedAxiomTree extends ExplanationTree {
-
-    /**
-     * @param userObject the axiom to wrap
-     */
+    /** @param userObject
+     *            the axiom to wrap */
     public EntailedAxiomTree(OWLAxiom userObject) {
         super(userObject);
     }

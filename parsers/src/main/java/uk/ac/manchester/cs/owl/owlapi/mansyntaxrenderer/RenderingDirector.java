@@ -36,21 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 11-Mar-2010
- */
+ * Date: 11-Mar-2010 */
 @SuppressWarnings("javadoc")
 public interface RenderingDirector {
-
-    boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword, OWLOntology ... ontologies);
-
+    boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword,
+            OWLOntology... ontologies);
 }

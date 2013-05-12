@@ -36,20 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 24-Feb-2008<br><br>
- */
+ * Date: 24-Feb-2008<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public interface TripleHandler {
-
     void handlePrefixDirective(String prefixName, String prefix);
 
     void handleBaseDirective(String base);

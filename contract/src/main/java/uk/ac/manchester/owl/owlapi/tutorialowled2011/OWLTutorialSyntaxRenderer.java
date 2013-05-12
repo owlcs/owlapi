@@ -51,7 +51,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Date: 24-April-2007<br>
  * <br> */
 public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
-
     @Override
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererIOException {
         try {

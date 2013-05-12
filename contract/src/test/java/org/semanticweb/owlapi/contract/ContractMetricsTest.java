@@ -76,7 +76,7 @@ public class ContractMetricsTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestAverageAssertedNamedSuperclassCount() throws Exception {
         AverageAssertedNamedSuperclassCount testSubject0 = new AverageAssertedNamedSuperclassCount(
                 Utils.getMockManager());
@@ -96,7 +96,7 @@ public class ContractMetricsTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestAxiomCount() throws Exception {
         AxiomCount testSubject0 = new AxiomCount(Utils.getMockManager());
         String result0 = testSubject0.getName();
@@ -152,7 +152,7 @@ public class ContractMetricsTest {
     }
 
     @Ignore
-@Test
+    @Test
     public void shouldTestAxiomTypeMetric() throws Exception {
         AxiomTypeMetric testSubject0 = new AxiomTypeMetric(Utils.getMockManager(),
                 mock(AxiomType.class));
