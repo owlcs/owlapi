@@ -50,7 +50,7 @@ import org.xml.sax.SAXException;
 /** Throws if an RDF error is encountered while parsing RDF. */
 @SuppressWarnings("javadoc")
 public class RDFParserException extends SAXException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     protected String m_publicId;
     protected String m_systemId;
     protected int m_lineNumber;

@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  * Date: 26-Jan-2008<br>
  * <br> */
 public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @Override
     protected void storeOntology(OWLOntology ontology, Writer writer,

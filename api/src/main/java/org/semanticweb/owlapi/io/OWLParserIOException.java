@@ -47,7 +47,7 @@ import java.io.IOException;
  * <br>
  * Describes a parse exception which was caused by an <code>IOException</code> */
 public class OWLParserIOException extends OWLParserException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     /** @param cause
      *            the cause */

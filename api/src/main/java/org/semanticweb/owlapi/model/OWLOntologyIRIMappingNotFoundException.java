@@ -48,7 +48,7 @@ package org.semanticweb.owlapi.model;
  * really ensure that a mapping exists before attempting to load an ontology. */
 @SuppressWarnings("javadoc")
 public class OWLOntologyIRIMappingNotFoundException extends OWLRuntimeException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     public OWLOntologyIRIMappingNotFoundException(IRI ontologyIRI) {
         super("Could not find ontology document mapping for "

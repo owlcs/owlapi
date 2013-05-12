@@ -49,7 +49,7 @@ import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OntologyFormat;
 
 /** @author Olaf Noppens */
 public class KRSS2OWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {

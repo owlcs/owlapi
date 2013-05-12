@@ -962,19 +962,19 @@ public class ContractOwlapiModel_2Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
         };
         OWLException testSubject1 = new OWLException("", new RuntimeException()) {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
         };
         OWLException testSubject2 = new OWLException(new RuntimeException()) {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
         };
         Throwable result1 = testSubject0.getCause();
         String result3 = testSubject0.toString();

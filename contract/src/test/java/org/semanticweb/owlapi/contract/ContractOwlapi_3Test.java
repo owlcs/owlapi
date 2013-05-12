@@ -131,7 +131,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public ClassExpressionType getClassExpressionType() {
@@ -194,7 +194,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -279,7 +279,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public DataRangeType getDataRangeType() {
@@ -348,7 +348,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -431,7 +431,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -620,7 +620,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public ClassExpressionType getClassExpressionType() {
@@ -829,7 +829,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLObjectVisitor visitor) {}
@@ -1126,7 +1126,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -1228,7 +1228,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public OWLObjectProperty asOWLObjectProperty() {
@@ -1635,7 +1635,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -1707,7 +1707,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -1780,7 +1780,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public boolean isFunctional(OWLOntology ontology) {
@@ -1918,7 +1918,7 @@ public class ContractOwlapi_3Test {
         OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLPropertyRange> testSubject0 = new OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLPropertyRange>(
                 Utils.mockObjectProperty(), mock(OWLPropertyRange.class),
                 Utils.mockSet(mock(OWLAnnotation.class))) {
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -1989,7 +1989,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public boolean isObjectRestriction() {
@@ -2061,7 +2061,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public boolean isObjectRestriction() {
@@ -2133,7 +2133,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public boolean isObjectRestriction() {
@@ -2246,7 +2246,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public boolean isObjectRestriction() {
@@ -2499,7 +2499,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -2669,7 +2669,7 @@ public class ContractOwlapi_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}

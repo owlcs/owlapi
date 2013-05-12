@@ -73,7 +73,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
         OWLAnnotationProperty {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final IRI iri;
 
     public OWLAnnotationPropertyImpl(IRI i) {

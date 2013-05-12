@@ -1102,7 +1102,7 @@ public class Utils {
                         }
                     }, new OWLOntologyLoaderConfiguration());
             c.setOntologyFormat(new RDFOntologyFormat() {
-                private static final long serialVersionUID = 30402L;
+                private static final long serialVersionUID = 40000L;
             });
             c.addTriple(fakeiri1, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), fakeiri2);
             return c;

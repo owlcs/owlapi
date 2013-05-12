@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Information Management Group<br>
  * Date: 17-Jan-2009 */
 public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final OWLClassExpression expression;
     private final Set<OWLPropertyExpression<?, ?>> propertyExpressions;
 

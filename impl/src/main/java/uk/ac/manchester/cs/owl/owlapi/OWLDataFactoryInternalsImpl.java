@@ -55,11 +55,11 @@ import org.semanticweb.owlapi.util.WeakIndexCache;
 
 @SuppressWarnings("javadoc")
 public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     protected class BuildableWeakIndexCache<V extends OWLEntity> extends
             WeakIndexCache<IRI, V> {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 40000L;
         protected final OWLDataFactory f;
 
         public BuildableWeakIndexCache(OWLDataFactory f) {

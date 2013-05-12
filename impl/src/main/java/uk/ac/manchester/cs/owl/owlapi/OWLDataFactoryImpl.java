@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * <br> */
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     private static final String ANNOTATIONS = "annotations";
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private static final String ABBREVIATED_IRI = "abbreviatedIRI";
     private static final String ID2 = "id";
     private static final String CURI2 = "curi";

@@ -136,7 +136,7 @@ public class ContractOwlapi_1Test {
     @Test
     public void shouldTestAbstractInMemOWLOntologyFactory() throws Exception {
         AbstractInMemOWLOntologyFactory testSubject0 = new AbstractInMemOWLOntologyFactory() {
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
@@ -177,7 +177,7 @@ public class ContractOwlapi_1Test {
     @Test
     public void shouldTestAbstractInternalsImpl() throws Exception {
         AbstractInternalsImpl testSubject0 = new AbstractInternalsImpl() {
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public Pointer<AxiomType<?>, OWLAxiom> getAxiomsByType() {
@@ -1096,7 +1096,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public ClassExpressionType getClassExpressionType() {
@@ -1266,7 +1266,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -1350,7 +1350,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public boolean isQualified() {
@@ -1468,7 +1468,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -1540,7 +1540,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public ClassExpressionType getClassExpressionType() {
@@ -1801,7 +1801,7 @@ public class ContractOwlapi_1Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public ClassExpressionType getClassExpressionType() {

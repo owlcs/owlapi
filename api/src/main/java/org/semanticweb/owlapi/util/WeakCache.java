@@ -10,7 +10,7 @@ import java.util.WeakHashMap;
  * 
  * @param <K> */
 public class WeakCache<K> implements Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private transient WeakHashMap<K, WeakReference<K>> prefixCache = new WeakHashMap<K, WeakReference<K>>();
 
     private void readObject(ObjectInputStream in) throws IOException,

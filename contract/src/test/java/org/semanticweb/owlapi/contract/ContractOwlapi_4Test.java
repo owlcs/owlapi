@@ -79,7 +79,7 @@ public class ContractOwlapi_4Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public OWLClassExpression asSomeValuesFrom() {
@@ -174,7 +174,7 @@ public class ContractOwlapi_4Test {
     @Test
     public void shouldTestSWRLAtomImpl() throws Exception {
         SWRLAtomImpl testSubject0 = new SWRLAtomImpl(mock(SWRLPredicate.class)) {
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public Collection<SWRLArgument> getAllArguments() {
@@ -228,7 +228,7 @@ public class ContractOwlapi_4Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(SWRLObjectVisitor visitor) {}
@@ -535,7 +535,7 @@ public class ContractOwlapi_4Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(SWRLObjectVisitor visitor) {}
@@ -580,7 +580,7 @@ public class ContractOwlapi_4Test {
     @Test
     public void shouldTestSWRLVariableImpl() throws Exception {
         SWRLVariableImpl testSubject0 = new SWRLVariableImpl(IRI("urn:aFake")) {
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
         };
         testSubject0.accept(mock(OWLObjectVisitor.class));
         Object result0 = testSubject0.accept(Utils.mockObject());

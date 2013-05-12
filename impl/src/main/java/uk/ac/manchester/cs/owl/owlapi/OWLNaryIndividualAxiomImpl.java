@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * <br> */
 public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements
         OWLNaryIndividualAxiom {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final Set<OWLIndividual> individuals;
 
     @SuppressWarnings("javadoc")

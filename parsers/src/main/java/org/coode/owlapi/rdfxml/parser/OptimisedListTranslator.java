@@ -99,6 +99,7 @@ public class OptimisedListTranslator<O extends OWLObject> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public List<O> translateList(IRI mainNode) {
         boolean shared = consumer.isSharedAnonymousNode(mainNode);
         List<O> list;

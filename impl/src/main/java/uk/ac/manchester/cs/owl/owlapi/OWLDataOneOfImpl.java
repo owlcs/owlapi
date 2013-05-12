@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Date: 26-Oct-2006<br>
  * <br> */
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final Set<OWLLiteral> values;
 
     @SuppressWarnings("javadoc")

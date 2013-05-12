@@ -710,7 +710,7 @@ public abstract class RDFRendererBase {
     }
 
     public static class TripleComparator implements Comparator<RDFTriple>, Serializable {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 40000L;
         private static final List<IRI> orderedURIs = Arrays.asList(RDF_TYPE.getIRI(),
                 RDFS_LABEL.getIRI(), OWL_EQUIVALENT_CLASS.getIRI(),
                 RDFS_SUBCLASS_OF.getIRI(), OWL_DISJOINT_WITH.getIRI(),

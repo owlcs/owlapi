@@ -942,6 +942,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     protected abstract void addTriple(RESOURCE subject, PREDICATE pred, NODE object);
 
+    @SuppressWarnings("unchecked")
     private RESOURCE getResourceNode(OWLObject object) {
         RESOURCE r = (RESOURCE) nodeMap.get(object);
         if (r == null) {
@@ -954,6 +955,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         return r;
     }
 
+    @SuppressWarnings("unchecked")
     private PREDICATE getPredicateNode(OWLObject object) {
         PREDICATE p = (PREDICATE) nodeMap.get(object);
         if (p == null) {

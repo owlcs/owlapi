@@ -52,7 +52,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * bundle identifying information of an ontology together. If an ontology
  * doesn't have an ontology IRI then we say that it is "anonymous". */
 public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private static final AtomicInteger counter = new AtomicInteger();
     private static final String ANON_PREFIX = "Anonymous-";
     private String internalID;

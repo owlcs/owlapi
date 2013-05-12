@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * <br> */
 @SuppressWarnings({ "unused", "javadoc" })
 public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     protected ShortFormProvider sfp;
 
     public DLSyntaxHTMLOntologyStorer() {

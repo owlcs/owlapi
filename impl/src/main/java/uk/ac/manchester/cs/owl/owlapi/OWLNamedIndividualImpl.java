@@ -71,7 +71,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Date: 15-Jan-2009 */
 public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
         OWLNamedIndividual {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final IRI iri;
 
     /** @param iri

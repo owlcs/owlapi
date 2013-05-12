@@ -46,7 +46,7 @@ package org.semanticweb.owlapi.model;
  * The root of runtime exceptions in the OWL API. */
 @SuppressWarnings("javadoc")
 public class OWLRuntimeException extends RuntimeException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     public OWLRuntimeException() {}
 

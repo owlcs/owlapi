@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * would have a short form of "B". 3) If the entity URI does not have a path
  * then the full URI is returned as a string. */
 public class SimpleShortFormProvider implements ShortFormProvider, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final SimpleIRIShortFormProvider uriShortFormProvider = new SimpleIRIShortFormProvider();
 
     @Override

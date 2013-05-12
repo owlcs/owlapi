@@ -47,7 +47,7 @@ package org.semanticweb.owlapi.model;
  * of this class may provide more information about why the change was vetoed. */
 @SuppressWarnings("javadoc")
 public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     public OWLOntologyChangeVetoException(OWLOntologyChange change, String message) {
         super(change, message);

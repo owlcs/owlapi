@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * Information Management Group<br>
  * Date: 28-Jun-2009 */
 public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private boolean addMissingTypes = true;
     private final Set<RDFResourceParseError> errors = new HashSet<RDFResourceParseError>();
 

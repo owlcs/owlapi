@@ -70,7 +70,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 public class OWLObjectPropertyManager {
     static final class SetSizeComparator implements
             Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 40000L;
 
         @Override
         public int compare(Set<OWLObjectPropertyExpression> o1,

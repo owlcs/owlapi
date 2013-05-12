@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.coode.owl.krssparser.NameResolverStrategy;
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -26,7 +27,7 @@ import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 // Suppress warnings in auto-generated code
-@SuppressWarnings("unchecked")
+@SuppressWarnings("javadoc")
 public class KRSS2Parser implements KRSS2ParserConstants {
     private OWLOntology ontology;
     private OWLDataFactory dataFactory;
@@ -45,15 +46,15 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     public void setOntology(OWLOntology ontology, OWLDataFactory dataFactory) {
         this.ontology = ontology;
         this.dataFactory = dataFactory;
-        this.string2IRI = new HashMap<String, IRI>();
+        string2IRI = new HashMap<String, IRI>();
         OWLOntologyID id = ontology.getOntologyID();
         if (!id.isAnonymous()) {
-            this.base = id.getOntologyIRI().toString() + "#";
+            base = id.getOntologyIRI().toString() + "#";
         } else {
-            this.base = id.toString() + "#";
+            base = id.toString() + "#";
         }
-        this.utils = new NamespaceUtil();
-        this.nameResolution = NameResolverStrategy.CHECK;
+        utils = new NamespaceUtil();
+        nameResolution = NameResolverStrategy.CHECK;
     }
 
     protected void addAxiom(OWLAxiom ax) throws KRSS2OWLParserException {
@@ -69,30 +70,30 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         if (IRI == null) {
             switch (nameResolution) {
                 case IRI: {
-                    IRI = IRI.create(s);
+                    IRI = org.semanticweb.owlapi.model.IRI.create(s);
                     break;
                 }
                 case NAME: {
-                    IRI = IRI.create(base + s);
+                    IRI = org.semanticweb.owlapi.model.IRI.create(base + s);
                     break;
                 }
                 case ADAPTIVE: {
                     if (adaptiveMaxRuns <= 1) {
-                        if (alwaysIRIs && !alwaysNames)
-                            this.nameResolution = NameResolverStrategy.IRI;
-                        else if (alwaysNames && !alwaysIRIs)
-                            this.nameResolution = NameResolverStrategy.NAME;
-                        else
-                            this.nameResolution = NameResolverStrategy.CHECK;
+                        if (alwaysIRIs && !alwaysNames) {
+                            nameResolution = NameResolverStrategy.IRI;
+                        } else if (alwaysNames && !alwaysIRIs) {
+                            nameResolution = NameResolverStrategy.NAME;
+                        } else {
+                            nameResolution = NameResolverStrategy.CHECK;
+                        }
                     }
                     adaptiveMaxRuns--;
                 }
                 case CHECK: {
-                    splitted = utils.split(s, splitted);
-                    if (splitted[0] == "") {
-                        IRI = IRI.create(base + s);
+                    if (XMLUtils.getNCNamePrefix(s).isEmpty()) {
+                        IRI = org.semanticweb.owlapi.model.IRI.create(base + s);
                     } else {
-                        IRI = IRI.create(s);
+                        IRI = org.semanticweb.owlapi.model.IRI.create(s);
                     }
                     break;
                 }
@@ -189,11 +190,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             ;
         }
         jj_consume_token(CLOSEPAR);
-        if (superClass == null)
+        if (superClass == null) {
             addAxiom(dataFactory.getOWLSubClassOfAxiom(subClass,
                     dataFactory.getOWLThing()));
-        else
+        } else {
             addAxiom(dataFactory.getOWLSubClassOfAxiom(subClass, superClass));
+        }
     }
 
     final public void DefineConcept() throws ParseException, KRSS2OWLParserException {
@@ -204,7 +206,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         clsA = ConceptName();
         clsB = ConceptExpression();
         jj_consume_token(CLOSEPAR);
-        if (clsB == null) clsB = dataFactory.getOWLThing();
+        if (clsB == null) {
+            clsB = dataFactory.getOWLThing();
+        }
         addAxiom(dataFactory.getOWLEquivalentClassesAxiom(clsA, clsB));
     }
 
@@ -266,7 +270,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         jj_consume_token(OPENPAR);
         jj_consume_token(DEFINEPRIMITIVEROLE);
         subProp = RoleName();
-        if (subProp != null) addAxiom(dataFactory.getOWLDeclarationAxiom(subProp));
+        if (subProp != null) {
+            addAxiom(dataFactory.getOWLDeclarationAxiom(subProp));
+        }
         Parent(subProp);
         RightIdentity(subProp);
         Parents(subProp);
@@ -333,7 +339,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                 jj_consume_token(OPENPAR);
                 label_3: while (true) {
                     desc = ConceptExpression();
-                    if (desc != null) descs.add(desc);
+                    if (desc != null) {
+                        descs.add(desc);
+                    }
                     if (jj_2_23(2)) {
                         ;
                     } else {
@@ -348,9 +356,10 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                 jj_consume_token(-1);
                 throw new ParseException();
             }
-            for (OWLClassExpression eachDescription : descs)
+            for (OWLClassExpression eachDescription : descs) {
                 addAxiom(dataFactory.getOWLObjectPropertyDomainAxiom(subProp,
                         eachDescription));
+            }
         } else {
             ;
         }
@@ -366,7 +375,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                 jj_consume_token(OPENPAR);
                 label_4: while (true) {
                     desc = ConceptExpression();
-                    if (desc != null) descs.add(desc);
+                    if (desc != null) {
+                        descs.add(desc);
+                    }
                     if (jj_2_27(2)) {
                         ;
                     } else {
@@ -457,11 +468,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                     jj_consume_token(OPENPAR);
                     roles = RoleNameSet();
                     jj_consume_token(CLOSEPAR);
-                    if (roles != null)
+                    if (roles != null) {
                         for (OWLObjectProperty prop : roles) {
                             addAxiom(dataFactory.getOWLSubObjectPropertyOfAxiom(subProp,
                                     prop));
                         }
+                    }
                 } else {
                     jj_consume_token(-1);
                     throw new ParseException();
@@ -575,7 +587,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return chain;
+            if (true) {
+                return chain;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -626,7 +640,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             throw new ParseException();
         }
         {
-            if (true) return desc;
+            if (true) {
+                return desc;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -636,7 +652,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         IRI IRI;
         IRI = Name();
         {
-            if (true) return dataFactory.getOWLClass(IRI);
+            if (true) {
+                return dataFactory.getOWLClass(IRI);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -655,7 +673,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             }
         }
         {
-            if (true) return descs;
+            if (true) {
+                return descs;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -667,7 +687,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         operands = ConceptSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectIntersectionOf(operands);
+            if (true) {
+                return dataFactory.getOWLObjectIntersectionOf(operands);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -679,7 +701,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         operands = ConceptSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectUnionOf(operands);
+            if (true) {
+                return dataFactory.getOWLObjectUnionOf(operands);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -691,7 +715,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         operand = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectComplementOf(operand);
+            if (true) {
+                return dataFactory.getOWLObjectComplementOf(operand);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -705,7 +731,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
+            if (true) {
+                return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -719,7 +747,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         filler = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
+            if (true) {
+                return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -740,10 +770,14 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
-            if (true) return dataFactory.getOWLObjectMinCardinality(card, prop);
+            if (true) {
+                return dataFactory.getOWLObjectMinCardinality(card, prop);
+            }
         }
         {
-            if (true) return dataFactory.getOWLObjectMinCardinality(card, prop, filler);
+            if (true) {
+                return dataFactory.getOWLObjectMinCardinality(card, prop, filler);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -764,10 +798,14 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
-            if (true) return dataFactory.getOWLObjectMaxCardinality(card, prop);
+            if (true) {
+                return dataFactory.getOWLObjectMaxCardinality(card, prop);
+            }
         }
         {
-            if (true) return dataFactory.getOWLObjectMaxCardinality(card, prop, filler);
+            if (true) {
+                return dataFactory.getOWLObjectMaxCardinality(card, prop, filler);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -788,11 +826,14 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
-            if (true) return dataFactory.getOWLObjectExactCardinality(card, prop);
+            if (true) {
+                return dataFactory.getOWLObjectExactCardinality(card, prop);
+            }
         }
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLObjectExactCardinality(card, prop, filler);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -802,10 +843,14 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         IRI IRI;
         IRI = Name();
         if (IRI == null) {
-            if (true) return null;
+            if (true) {
+                return null;
+            }
         }
         {
-            if (true) return dataFactory.getOWLObjectProperty(IRI);
+            if (true) {
+                return dataFactory.getOWLObjectProperty(IRI);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -824,7 +869,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             }
         }
         {
-            if (true) return roles;
+            if (true) {
+                return roles;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -838,12 +885,16 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             exp = RoleExpression();
             jj_consume_token(CLOSEPAR);
             {
-                if (true) return dataFactory.getOWLObjectInverseOf(exp);
+                if (true) {
+                    return dataFactory.getOWLObjectInverseOf(exp);
+                }
             }
         } else if (jj_2_65(2)) {
             exp = RoleName();
             {
-                if (true) return exp;
+                if (true) {
+                    return exp;
+                }
             }
         } else {
             jj_consume_token(-1);
@@ -922,7 +973,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         IRI name;
         name = Name();
         {
-            if (true) return dataFactory.getOWLNamedIndividual(name);
+            if (true) {
+                return dataFactory.getOWLNamedIndividual(name);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -931,7 +984,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         Token t;
         t = jj_consume_token(INT);
         {
-            if (true) return Integer.parseInt(t.image);
+            if (true) {
+                return Integer.parseInt(t.image);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -940,12 +995,16 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         if (jj_2_70(2)) {
             jj_consume_token(TRUE);
             {
-                if (true) return true;
+                if (true) {
+                    return true;
+                }
             }
         } else if (jj_2_71(2)) {
             jj_consume_token(NIL);
             {
-                if (true) return false;
+                if (true) {
+                    return false;
+                }
             }
         } else {
             jj_consume_token(-1);
@@ -967,23 +1026,31 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             }
             try {
                 {
-                    if (true) return getIRI(t.image);
+                    if (true) {
+                        return getIRI(t.image);
+                    }
                 }
             } catch (URISyntaxException e) {
                 {
-                    if (true) return null;
+                    if (true) {
+                        return null;
+                    }
                 }
             }
         } else if (jj_2_77(2)) {
             if (jj_2_74(2)) {
                 t = jj_consume_token(TOP);
                 {
-                    if (true) return OWLRDFVocabulary.OWL_THING.getIRI();
+                    if (true) {
+                        return OWLRDFVocabulary.OWL_THING.getIRI();
+                    }
                 }
             } else if (jj_2_75(2)) {
                 t = jj_consume_token(BOTTOM);
                 {
-                    if (true) return OWLRDFVocabulary.OWL_NOTHING.getIRI();
+                    if (true) {
+                        return OWLRDFVocabulary.OWL_NOTHING.getIRI();
+                    }
                 }
             } else {
                 jj_consume_token(-1);
@@ -1921,184 +1988,274 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     private boolean jj_3_19() {
-        if (jj_3R_23()) return true;
+        if (jj_3R_23()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_9() {
-        if (jj_3R_13()) return true;
+        if (jj_3R_13()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_36() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(EXACTLY)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(EXACTLY)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_13() {
-        if (jj_3R_17()) return true;
+        if (jj_3R_17()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_19() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(IMPLIESROLE)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(IMPLIESROLE)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_25() {
-        if (jj_3R_23()) return true;
+        if (jj_3R_23()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_43() {
-        if (jj_3R_24()) return true;
+        if (jj_3R_24()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_11() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(IMPLIES)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(IMPLIES)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_42() {
-        if (jj_scan_token(NIL)) return true;
+        if (jj_scan_token(NIL)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_57() {
-        if (jj_3R_35()) return true;
+        if (jj_3R_35()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_8() {
-        if (jj_3R_12()) return true;
+        if (jj_3R_12()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_35() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(ATMOST)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(ATMOST)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_17() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(DISJOINTROLES)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(DISJOINTROLES)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_12() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(EQUIVALENT)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(EQUIVALENT)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_12() {
-        if (jj_3R_16()) return true;
+        if (jj_3R_16()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_45() {
-        if (jj_scan_token(PARENT)) return true;
+        if (jj_scan_token(PARENT)) {
+            return true;
+        }
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3_42()) {
             jj_scanpos = xsp;
-            if (jj_3_43()) return true;
+            if (jj_3_43()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3_7() {
-        if (jj_3R_11()) return true;
+        if (jj_3R_11()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_4() {
-        if (jj_scan_token(ENDABOX)) return true;
+        if (jj_scan_token(ENDABOX)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_47() {
-        if (jj_3R_24()) return true;
+        if (jj_3R_24()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_13() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(DISJOINT)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(DISJOINT)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_56() {
-        if (jj_3R_34()) return true;
+        if (jj_3R_34()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_34() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(ATLEAST)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(ATLEAST)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_18() {
-        if (jj_3R_22()) return true;
+        if (jj_3R_22()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_38() {
-        if (jj_scan_token(TRUE)) return true;
+        if (jj_scan_token(TRUE)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_41() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_3R_26()) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_3R_26()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_49() {
-        if (jj_3R_25()) return true;
+        if (jj_3R_25()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_75() {
-        if (jj_scan_token(BOTTOM)) return true;
+        if (jj_scan_token(BOTTOM)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_73() {
-        if (jj_scan_token(INT)) return true;
+        if (jj_scan_token(INT)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_71() {
-        if (jj_scan_token(NIL)) return true;
+        if (jj_scan_token(NIL)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_17() {
-        if (jj_3R_21()) return true;
+        if (jj_3R_21()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_74() {
-        if (jj_scan_token(TOP)) return true;
+        if (jj_scan_token(TOP)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_33() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(SOME)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(SOME)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_10() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(DEFINECONCEPT)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(DEFINECONCEPT)) {
+            return true;
+        }
         return false;
     }
 
@@ -2107,48 +2264,66 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         xsp = jj_scanpos;
         if (jj_3_74()) {
             jj_scanpos = xsp;
-            if (jj_3_75()) return true;
+            if (jj_3_75()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3_37() {
-        if (jj_scan_token(NIL)) return true;
+        if (jj_scan_token(NIL)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_40() {
-        if (jj_scan_token(NIL)) return true;
+        if (jj_scan_token(NIL)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_55() {
-        if (jj_3R_33()) return true;
+        if (jj_3R_33()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_6() {
-        if (jj_3R_10()) return true;
+        if (jj_3R_10()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_11() {
-        if (jj_3R_15()) return true;
+        if (jj_3R_15()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_35() {
-        if (jj_scan_token(TRUE)) return true;
+        if (jj_scan_token(TRUE)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_3() {
-        if (jj_3R_8()) return true;
+        if (jj_3R_8()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_72() {
-        if (jj_scan_token(NAME)) return true;
+        if (jj_scan_token(NAME)) {
+            return true;
+        }
         return false;
     }
 
@@ -2157,7 +2332,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         xsp = jj_scanpos;
         if (jj_3_72()) {
             jj_scanpos = xsp;
-            if (jj_3_73()) return true;
+            if (jj_3_73()) {
+                return true;
+            }
         }
         return false;
     }
@@ -2167,23 +2344,31 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         xsp = jj_scanpos;
         if (jj_3_76()) {
             jj_scanpos = xsp;
-            if (jj_3_77()) return true;
+            if (jj_3_77()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3_34() {
-        if (jj_scan_token(NIL)) return true;
+        if (jj_scan_token(NIL)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_44() {
-        if (jj_scan_token(PARENTS)) return true;
+        if (jj_scan_token(PARENTS)) {
+            return true;
+        }
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3_40()) {
             jj_scanpos = xsp;
-            if (jj_3_41()) return true;
+            if (jj_3_41()) {
+                return true;
+            }
         }
         return false;
     }
@@ -2193,92 +2378,132 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         xsp = jj_scanpos;
         if (jj_3_44()) {
             jj_scanpos = xsp;
-            if (jj_3_45()) return true;
+            if (jj_3_45()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3R_32() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(ALL)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(ALL)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_16() {
-        if (jj_3R_20()) return true;
+        if (jj_3R_20()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_32() {
-        if (jj_scan_token(TRUE)) return true;
+        if (jj_scan_token(TRUE)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_9() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(DEFINEPRIMITIVECONCEPT)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(DEFINEPRIMITIVECONCEPT)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_54() {
-        if (jj_3R_32()) return true;
+        if (jj_3R_32()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_31() {
-        if (jj_scan_token(NIL)) return true;
+        if (jj_scan_token(NIL)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_2() {
-        if (jj_scan_token(ENDTBOX)) return true;
+        if (jj_scan_token(ENDTBOX)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_70() {
-        if (jj_scan_token(TRUE)) return true;
+        if (jj_scan_token(TRUE)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_31() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(NOT)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(NOT)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_39() {
-        if (jj_scan_token(REFLEXIVE_ATTRIBUTE)) return true;
+        if (jj_scan_token(REFLEXIVE_ATTRIBUTE)) {
+            return true;
+        }
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3_37()) {
             jj_scanpos = xsp;
-            if (jj_3_38()) return true;
+            if (jj_3_38()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3_27() {
-        if (jj_3R_23()) return true;
+        if (jj_3R_23()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_15() {
-        if (jj_3R_19()) return true;
+        if (jj_3R_19()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_53() {
-        if (jj_3R_31()) return true;
+        if (jj_3R_31()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_10() {
-        if (jj_3R_14()) return true;
+        if (jj_3R_14()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_5() {
-        if (jj_3R_9()) return true;
+        if (jj_3R_9()) {
+            return true;
+        }
         return false;
     }
 
@@ -2311,7 +2536,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                                                         jj_scanpos = xsp;
                                                         if (jj_3_17()) {
                                                             jj_scanpos = xsp;
-                                                            if (jj_3_18()) return true;
+                                                            if (jj_3_18()) {
+                                                                return true;
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -2329,26 +2556,38 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     private boolean jj_3_36() {
-        if (jj_scan_token(SYMMETRIC_ATTRIBUTE)) return true;
+        if (jj_scan_token(SYMMETRIC_ATTRIBUTE)) {
+            return true;
+        }
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3_34()) {
             jj_scanpos = xsp;
-            if (jj_3_35()) return true;
+            if (jj_3_35()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3R_30() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(OR)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(OR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_28() {
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         Token xsp;
-        if (jj_3_27()) return true;
+        if (jj_3_27()) {
+            return true;
+        }
         while (true) {
             xsp = jj_scanpos;
             if (jj_3_27()) {
@@ -2360,41 +2599,59 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     private boolean jj_3_1() {
-        if (jj_3R_7()) return true;
+        if (jj_3R_7()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_23() {
-        if (jj_3R_23()) return true;
+        if (jj_3R_23()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_52() {
-        if (jj_3R_30()) return true;
+        if (jj_3R_30()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_33() {
-        if (jj_scan_token(TRANSITIVE_ATTRIBUTE)) return true;
+        if (jj_scan_token(TRANSITIVE_ATTRIBUTE)) {
+            return true;
+        }
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3_31()) {
             jj_scanpos = xsp;
-            if (jj_3_32()) return true;
+            if (jj_3_32()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3R_29() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(AND)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(AND)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_24() {
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         Token xsp;
-        if (jj_3_23()) return true;
+        if (jj_3_23()) {
+            return true;
+        }
         while (true) {
             xsp = jj_scanpos;
             if (jj_3_23()) {
@@ -2406,66 +2663,94 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     private boolean jj_3_48() {
-        if (jj_3R_27()) return true;
+        if (jj_3R_27()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_59() {
-        if (jj_3R_23()) return true;
+        if (jj_3R_23()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_30() {
-        if (jj_scan_token(RANGE_ATTRIBUTE)) return true;
+        if (jj_scan_token(RANGE_ATTRIBUTE)) {
+            return true;
+        }
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3_28()) {
             jj_scanpos = xsp;
-            if (jj_3_29()) return true;
+            if (jj_3_29()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3_51() {
-        if (jj_3R_29()) return true;
+        if (jj_3R_29()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_40() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(DISTINCT)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(DISTINCT)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_28() {
-        if (jj_3R_41()) return true;
+        if (jj_3R_41()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_69() {
-        if (jj_3R_40()) return true;
+        if (jj_3R_40()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_39() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(EQUAL)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(EQUAL)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_26() {
-        if (jj_scan_token(DOMAIN_ATTRIBUTE)) return true;
+        if (jj_scan_token(DOMAIN_ATTRIBUTE)) {
+            return true;
+        }
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3_24()) {
             jj_scanpos = xsp;
-            if (jj_3_25()) return true;
+            if (jj_3_25()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3_50() {
-        if (jj_3R_28()) return true;
+        if (jj_3R_28()) {
+            return true;
+        }
         return false;
     }
 
@@ -2488,7 +2773,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                                     jj_scanpos = xsp;
                                     if (jj_3_57()) {
                                         jj_scanpos = xsp;
-                                        if (jj_3_58()) return true;
+                                        if (jj_3_58()) {
+                                            return true;
+                                        }
                                     }
                                 }
                             }
@@ -2501,58 +2788,90 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     private boolean jj_3_68() {
-        if (jj_3R_39()) return true;
+        if (jj_3R_39()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_38() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(RELATED)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(RELATED)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_22() {
-        if (jj_scan_token(INVERSE_ATTRIBUTE)) return true;
-        if (jj_3R_25()) return true;
+        if (jj_scan_token(INVERSE_ATTRIBUTE)) {
+            return true;
+        }
+        if (jj_3R_25()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_21() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(RANGE)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(RANGE)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_67() {
-        if (jj_3R_38()) return true;
+        if (jj_3R_38()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_37() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(INSTANCE)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(INSTANCE)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_21() {
-        if (jj_scan_token(LEFT_IDENTITY_ATTRIBUTE)) return true;
-        if (jj_3R_24()) return true;
+        if (jj_scan_token(LEFT_IDENTITY_ATTRIBUTE)) {
+            return true;
+        }
+        if (jj_3R_24()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_62() {
-        if (jj_3R_23()) return true;
+        if (jj_3R_23()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_22() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(TRANSITIVE)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(TRANSITIVE)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_66() {
-        if (jj_3R_37()) return true;
+        if (jj_3R_37()) {
+            return true;
+        }
         return false;
     }
 
@@ -2565,7 +2884,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                 jj_scanpos = xsp;
                 if (jj_3_68()) {
                     jj_scanpos = xsp;
-                    if (jj_3_69()) return true;
+                    if (jj_3_69()) {
+                        return true;
+                    }
                 }
             }
         }
@@ -2573,30 +2894,46 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     private boolean jj_3_20() {
-        if (jj_scan_token(RIGHT_IDENTITY_ATTRIBUTE)) return true;
-        if (jj_3R_24()) return true;
+        if (jj_scan_token(RIGHT_IDENTITY_ATTRIBUTE)) {
+            return true;
+        }
+        if (jj_3R_24()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_27() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(COMPOSE)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(COMPOSE)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_61() {
-        if (jj_3R_23()) return true;
+        if (jj_3R_23()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_65() {
-        if (jj_3R_24()) return true;
+        if (jj_3R_24()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_64() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(INV)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(INV)) {
+            return true;
+        }
         return false;
     }
 
@@ -2605,36 +2942,52 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         xsp = jj_scanpos;
         if (jj_3_64()) {
             jj_scanpos = xsp;
-            if (jj_3_65()) return true;
+            if (jj_3_65()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3R_14() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(ROLE_INCLUSION)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(ROLE_INCLUSION)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_15() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(DEFINEPRIMITIVEROLE)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(DEFINEPRIMITIVEROLE)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_60() {
-        if (jj_3R_23()) return true;
+        if (jj_3R_23()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_63() {
-        if (jj_3R_24()) return true;
+        if (jj_3R_24()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_26() {
         Token xsp;
-        if (jj_3_63()) return true;
+        if (jj_3_63()) {
+            return true;
+        }
         while (true) {
             xsp = jj_scanpos;
             if (jj_3_63()) {
@@ -2646,40 +2999,60 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     private boolean jj_3R_18() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(ROLESEQUIVALENT)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(ROLESEQUIVALENT)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_14() {
-        if (jj_3R_18()) return true;
+        if (jj_3R_18()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_24() {
-        if (jj_3R_41()) return true;
+        if (jj_3R_41()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_16() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(DEFINEROLE)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(DEFINEROLE)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_29() {
-        if (jj_3R_23()) return true;
+        if (jj_3R_23()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_20() {
-        if (jj_scan_token(OPENPAR)) return true;
-        if (jj_scan_token(INVERSE)) return true;
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        if (jj_scan_token(INVERSE)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_58() {
-        if (jj_3R_36()) return true;
+        if (jj_3R_36()) {
+            return true;
+        }
         return false;
     }
 
@@ -2736,10 +3109,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++)
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
             jj_2_rtns[i] = new JJCalls();
+        }
     }
 
     /** Reinitialise. */
@@ -2758,10 +3133,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++)
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
             jj_2_rtns[i] = new JJCalls();
+        }
     }
 
     /** Constructor. */
@@ -2771,10 +3148,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++)
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
             jj_2_rtns[i] = new JJCalls();
+        }
     }
 
     /** Reinitialise. */
@@ -2784,10 +3163,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++)
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
             jj_2_rtns[i] = new JJCalls();
+        }
     }
 
     /** Constructor with generated Token Manager. */
@@ -2796,10 +3177,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++)
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
             jj_2_rtns[i] = new JJCalls();
+        }
     }
 
     /** Reinitialise. */
@@ -2808,18 +3191,21 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++)
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
             jj_2_rtns[i] = new JJCalls();
+        }
     }
 
     private Token jj_consume_token(int kind) throws ParseException {
         Token oldToken;
-        if ((oldToken = token).next != null)
+        if ((oldToken = token).next != null) {
             token = token.next;
-        else
+        } else {
             token = token.next = token_source.getNextToken();
+        }
         jj_ntk = -1;
         if (token.kind == kind) {
             jj_gen++;
@@ -2828,7 +3214,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                 for (int i = 0; i < jj_2_rtns.length; i++) {
                     JJCalls c = jj_2_rtns[i];
                     while (c != null) {
-                        if (c.gen < jj_gen) c.first = null;
+                        if (c.gen < jj_gen) {
+                            c.first = null;
+                        }
                         c = c.next;
                     }
                 }
@@ -2862,19 +3250,26 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                 i++;
                 tok = tok.next;
             }
-            if (tok != null) jj_add_error_token(kind, i);
+            if (tok != null) {
+                jj_add_error_token(kind, i);
+            }
         }
-        if (jj_scanpos.kind != kind) return true;
-        if (jj_la == 0 && jj_scanpos == jj_lastpos) throw jj_ls;
+        if (jj_scanpos.kind != kind) {
+            return true;
+        }
+        if (jj_la == 0 && jj_scanpos == jj_lastpos) {
+            throw jj_ls;
+        }
         return false;
     }
 
     /** Get the next Token. */
     final public Token getNextToken() {
-        if (token.next != null)
+        if (token.next != null) {
             token = token.next;
-        else
+        } else {
             token = token.next = token_source.getNextToken();
+        }
         jj_ntk = -1;
         jj_gen++;
         return token;
@@ -2884,19 +3279,21 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     final public Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
-            if (t.next != null)
+            if (t.next != null) {
                 t = t.next;
-            else
+            } else {
                 t = t.next = token_source.getNextToken();
+            }
         }
         return t;
     }
 
     private int jj_ntk() {
-        if ((jj_nt = token.next) == null)
-            return (jj_ntk = (token.next = token_source.getNextToken()).kind);
-        else
-            return (jj_ntk = jj_nt.kind);
+        if ((jj_nt = token.next) == null) {
+            return jj_ntk = (token.next = token_source.getNextToken()).kind;
+        } else {
+            return jj_ntk = jj_nt.kind;
+        }
     }
 
     private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
@@ -2906,7 +3303,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     private int jj_endpos;
 
     private void jj_add_error_token(int kind, int pos) {
-        if (pos >= 100) return;
+        if (pos >= 100) {
+            return;
+        }
         if (pos == jj_endpos + 1) {
             jj_lasttokens[jj_endpos++] = kind;
         } else if (jj_endpos != 0) {
@@ -2916,7 +3315,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             }
             jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries.iterator(); it
                     .hasNext();) {
-                int[] oldentry = (int[]) (it.next());
+                int[] oldentry = (int[]) it.next();
                 if (oldentry.length == jj_expentry.length) {
                     for (int i = 0; i < jj_expentry.length; i++) {
                         if (oldentry[i] != jj_expentry[i]) {
@@ -2927,7 +3326,9 @@ public class KRSS2Parser implements KRSS2ParserConstants {
                     break jj_entries_loop;
                 }
             }
-            if (pos != 0) jj_lasttokens[(jj_endpos = pos) - 1] = kind;
+            if (pos != 0) {
+                jj_lasttokens[(jj_endpos = pos) - 1] = kind;
+            }
         }
     }
 
@@ -2942,13 +3343,13 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         for (int i = 0; i < 0; i++) {
             if (jj_la1[i] == jj_gen) {
                 for (int j = 0; j < 32; j++) {
-                    if ((jj_la1_0[i] & (1 << j)) != 0) {
+                    if ((jj_la1_0[i] & 1 << j) != 0) {
                         la1tokens[j] = true;
                     }
-                    if ((jj_la1_1[i] & (1 << j)) != 0) {
+                    if ((jj_la1_1[i] & 1 << j) != 0) {
                         la1tokens[32 + j] = true;
                     }
-                    if ((jj_la1_2[i] & (1 << j)) != 0) {
+                    if ((jj_la1_2[i] & 1 << j) != 0) {
                         la1tokens[64 + j] = true;
                     }
                 }

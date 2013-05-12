@@ -48,7 +48,7 @@ import org.xml.sax.SAXException;
  * <code>OWLParserException</code>. Parser implementers should use this class or
  * subclasses of this class to wrap <code>SAXException</code>s. */
 public class OWLParserSAXException extends OWLParserException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     /** @param cause
      *            the cause */

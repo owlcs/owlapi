@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * write an XML Element with a name that is not a QName. */
 @SuppressWarnings("javadoc")
 public class IllegalElementNameException extends OWLRuntimeException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private String elementName;
 
     public IllegalElementNameException(String elementName) {

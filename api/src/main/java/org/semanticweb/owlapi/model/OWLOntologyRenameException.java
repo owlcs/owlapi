@@ -46,7 +46,7 @@ package org.semanticweb.owlapi.model;
  * contained an ontology with the same name. */
 @SuppressWarnings("javadoc")
 public class OWLOntologyRenameException extends OWLOntologyChangeException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final OWLOntologyID ontologyID;
 
     public OWLOntologyRenameException(OWLOntologyChange change, OWLOntologyID ontologyID) {

@@ -47,7 +47,7 @@ import java.util.List;
  * Date: 04-Jul-2010 */
 public class DefaultImpendingChangeBroadcastStrategy implements
         ImpendingOWLOntologyChangeBroadcastStrategy, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public void broadcastChanges(ImpendingOWLOntologyChangeListener listener,

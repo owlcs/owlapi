@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * <br> */
 public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestrictionImpl
         implements OWLObjectExactCardinality {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
     public OWLObjectExactCardinalityImpl(OWLObjectPropertyExpression property,

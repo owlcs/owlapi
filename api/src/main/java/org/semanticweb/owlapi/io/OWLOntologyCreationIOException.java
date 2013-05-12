@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * Indicates an {@link java.io.IOException} happened during ontology creation.
  * The cause of this exception will be an {@link java.io.IOException}. */
 public class OWLOntologyCreationIOException extends OWLOntologyCreationException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     /** @param ioException
      *            the cause */

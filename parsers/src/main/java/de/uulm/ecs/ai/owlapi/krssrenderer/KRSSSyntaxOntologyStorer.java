@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  * Ulm University<br>
  * Institute of Artificial Intelligence<br> */
 public class KRSSSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {

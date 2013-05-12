@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
  * Date: 15-Jan-2007<br>
  * <br> */
 public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     final SWRLPredicate predicate;
 
     protected SWRLAtomImpl(SWRLPredicate predicate) {

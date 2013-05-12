@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  * Date: 26-Oct-2006<br>
  * <br> */
 public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final IRI iri;
 
     @SuppressWarnings("javadoc")

@@ -50,7 +50,7 @@ import java.util.List;
  * all ontologies. */
 public class DefaultChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public void broadcastChanges(OWLOntologyChangeListener listener,

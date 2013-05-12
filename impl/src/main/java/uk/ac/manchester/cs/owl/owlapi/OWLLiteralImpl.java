@@ -72,7 +72,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * also {@link OWLLiteralImplNoCompression}
  * </p> */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
     private final OWLDatatype datatype;
@@ -283,7 +283,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final class LiteralWrapper implements Serializable {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 40000L;
         String l;
         byte[] bytes;
 

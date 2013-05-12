@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * Date: 17-Dec-2009 </p> An <code>OWLOntologyStorageException</code> that was
  * caused by an IOException. */
 public class OWLOntologyStorageIOException extends OWLOntologyStorageException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final IOException ioException;
 
     /** @param ioException

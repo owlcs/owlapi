@@ -399,6 +399,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
         tvpList.addPair(OBOVocabulary.RELATIONSHIP, sb.toString());
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private <P extends OWLProperty> OBOTagValuePairList handleCommonTypeDefStanza(
             P property, OWLOntology ontology, Writer writer) {
         write("\n[", writer);

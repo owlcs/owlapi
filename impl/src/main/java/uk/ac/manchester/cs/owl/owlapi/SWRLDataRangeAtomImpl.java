@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
  * <br> */
 public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> implements
         SWRLDataRangeAtom {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
     public SWRLDataRangeAtomImpl(OWLDataRange predicate, SWRLDArgument arg) {

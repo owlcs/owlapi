@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Date: 10-Feb-2008<br>
  * <br> */
 public class DLSyntaxOntologyStorer extends DLSyntaxOntologyStorerBase {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {

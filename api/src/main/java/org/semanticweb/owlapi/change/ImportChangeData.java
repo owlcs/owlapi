@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  * to/from an ontology.
  * </p> */
 public abstract class ImportChangeData extends OWLOntologyChangeData {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final OWLImportsDeclaration declaration;
 
     /** Constructs an {@link ImportChangeData} object that describes an

@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 11-Oct-2009 </p> Represents the different types of OWL 2 Entities. */
 @SuppressWarnings("javadoc")
 public final class EntityType<E extends OWLEntity> implements Serializable {
+    private static final long serialVersionUID = 40000L;
     public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class",
             OWLRDFVocabulary.OWL_CLASS);
     public static final EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<OWLObjectProperty>(

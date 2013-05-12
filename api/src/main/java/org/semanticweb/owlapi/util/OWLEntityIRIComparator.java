@@ -7,7 +7,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 /** Comparator that uses IRI ordering to order entities. */
 public class OWLEntityIRIComparator implements Comparator<OWLEntity>, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public int compare(OWLEntity o1, OWLEntity o2) {

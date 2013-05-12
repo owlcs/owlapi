@@ -260,7 +260,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     // //
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private static WeakCache<String> prefixCache = new WeakCache<String>();
     private final String remainder;
     private final String prefix;

@@ -55,7 +55,7 @@ package org.semanticweb.owlapi.model;
  * (or care) how to handle situations where network/database connections fail. */
 @SuppressWarnings("javadoc")
 public class OWLOntologyResourceAccessException extends OWLRuntimeException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     public OWLOntologyResourceAccessException(String message) {
         super(message);

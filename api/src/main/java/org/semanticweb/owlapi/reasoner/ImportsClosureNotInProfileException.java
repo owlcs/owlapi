@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.profiles.OWLProfile;
  * exception which profile it expects the axioms to be in. */
 @SuppressWarnings("javadoc")
 public class ImportsClosureNotInProfileException extends OWLReasonerRuntimeException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final OWLProfile profile;
 
     public ImportsClosureNotInProfileException(OWLProfile profile) {

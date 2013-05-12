@@ -47,7 +47,7 @@ package org.semanticweb.owlapi.model;
  * applying changes to ontologies. */
 @SuppressWarnings("javadoc")
 public abstract class OWLOntologyChangeException extends OWLRuntimeException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final OWLOntologyChange change;
 
     public OWLOntologyChangeException(OWLOntologyChange change, String message) {

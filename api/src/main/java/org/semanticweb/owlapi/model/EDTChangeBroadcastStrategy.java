@@ -50,7 +50,7 @@ import javax.swing.SwingUtilities;
  * A change broadcast strategy which broadcasts all ontology changes in the
  * Swing Even Dispatch Thread (EDT). */
 public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public void broadcastChanges(final OWLOntologyChangeListener listener,
@@ -79,7 +79,7 @@ public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStr
     /** bit of a roundabout way to wrap an exception as a runtime exception, for
      * unwrapping later on */
     private static class BroadcastException extends RuntimeException {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 40000L;
 
         BroadcastException(OWLException cause) {
             super(cause);

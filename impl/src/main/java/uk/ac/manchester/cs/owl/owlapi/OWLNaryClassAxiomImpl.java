@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * <br> */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         OWLNaryClassAxiom {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final Set<OWLClassExpression> classExpressions;
 
     @SuppressWarnings("javadoc")

@@ -57,7 +57,7 @@ public class OWLObjectHasSelfImpl
         extends
         OWLRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObjectPropertyExpression>
         implements OWLObjectHasSelf {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
     public OWLObjectHasSelfImpl(OWLObjectPropertyExpression property) {

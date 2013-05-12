@@ -45,7 +45,7 @@ import java.net.URISyntaxException;
  * Information Management Group<br>
  * Date: 07-Dec-2009 */
 public class OWLParserURISyntaxException extends OWLParserException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     /** @param cause
      *            the cause

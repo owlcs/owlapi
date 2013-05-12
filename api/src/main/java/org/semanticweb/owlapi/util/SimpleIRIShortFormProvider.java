@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.IRI;
  * A URI short form provider that generates short forms from the URI fragment if
  * there is one, followed by the URI last path component if there is one. */
 public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public String getShortForm(IRI iri) {

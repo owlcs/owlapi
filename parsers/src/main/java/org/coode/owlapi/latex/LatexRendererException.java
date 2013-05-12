@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.io.OWLRendererException;
  * <br> */
 @SuppressWarnings("javadoc")
 public abstract class LatexRendererException extends OWLRendererException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     public LatexRendererException(Throwable cause) {
         super(cause);

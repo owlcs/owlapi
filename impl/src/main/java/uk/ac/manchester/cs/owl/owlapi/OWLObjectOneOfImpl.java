@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * <br> */
 public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implements
         OWLObjectOneOf {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final Set<OWLIndividual> values;
 
     @SuppressWarnings("javadoc")

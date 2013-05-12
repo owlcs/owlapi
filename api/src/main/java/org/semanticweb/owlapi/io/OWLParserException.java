@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLException;
  * <br>
  * Indicates that a parse error happened when trying to parse an ontology. */
 public class OWLParserException extends OWLException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final int lineNumber;
     private final int columnNumber;
 

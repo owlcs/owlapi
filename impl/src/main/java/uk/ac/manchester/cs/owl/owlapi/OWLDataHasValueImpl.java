@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 public class OWLDataHasValueImpl extends
         OWLValueRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLLiteral>
         implements OWLDataHasValue {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     public OWLDataHasValueImpl(OWLDataPropertyExpression property, OWLLiteral value) {
         super(property, value);

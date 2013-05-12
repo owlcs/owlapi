@@ -84,11 +84,12 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * 
  * @since 3.5 */
 public final class OWLOntologyChangeRecord implements Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final OWLOntologyID ontologyID;
     private final OWLOntologyChangeData data;
 
     /** Default constructor for serialization purposes only. */
+    @SuppressWarnings("unused")
     private OWLOntologyChangeRecord() {
         ontologyID = null;
         data = null;

@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
  * <br> */
 public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
         SWRLIndividualArgument {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final OWLIndividual individual;
 
     @SuppressWarnings("javadoc")

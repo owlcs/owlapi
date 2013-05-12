@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * <br> */
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         IRIShortFormProvider {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final Map<String, String> prefix2NamespaceMap = new TreeMap<String, String>(
             new StringLengthComparator());
 

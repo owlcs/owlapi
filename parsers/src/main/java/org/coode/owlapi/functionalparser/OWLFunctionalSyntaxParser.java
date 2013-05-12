@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.coode.string.EscapeUtils;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -70,9 +69,11 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
+@SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     private OWLOntologyManager man;
     private OWLOntologyLoaderConfiguration configuration;
@@ -84,18 +85,12 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     private boolean ignoreAnnotationsAndDeclarations = false;
     private Set<OWLAnnotation> currentAnnotations;
 
-    @Deprecated
-    public void setUp(OWLOntologyManager man, OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) {
-        setUp(ontology, configuration);
-    }
-
     public void setUp(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
-        this.man = ontology.getOWLOntologyManager();
+        man = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         this.configuration = configuration;
-        this.dataFactory = man.getOWLDataFactory();
-        this.currentAnnotations = new HashSet<OWLAnnotation>();
+        dataFactory = man.getOWLDataFactory();
+        currentAnnotations = new HashSet<OWLAnnotation>();
         if (prefixMap == null) {
             prefixMap = new HashMap<String, String>();
             prefixMap.put("owl:", Namespaces.OWL.toString());
@@ -170,7 +165,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             format.setPrefix(pn, prefixMap.get(pn));
         }
         {
-            if (true) return format;
+            if (true) {
+                return format;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -251,7 +248,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return iri;
+            if (true) {
+                return iri;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -260,7 +259,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         Token t;
         t = jj_consume_token(FULLIRI);
         {
-            if (true) return getIRI(t.image);
+            if (true) {
+                return getIRI(t.image);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -269,7 +270,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         Token t;
         t = jj_consume_token(PNAME_LN);
         {
-            if (true) return getIRI(t.image);
+            if (true) {
+                return getIRI(t.image);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -278,7 +281,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         Token t;
         t = jj_consume_token(PNAME_NS);
         {
-            if (true) return t.image;
+            if (true) {
+                return t.image;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -331,7 +336,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return desc;
+            if (true) {
+                return desc;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -340,7 +347,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         IRI iri;
         iri = IRI();
         {
-            if (true) return dataFactory.getOWLClass(iri);
+            if (true) {
+                return dataFactory.getOWLClass(iri);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -362,7 +371,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             classExpressions.add(desc);
         }
         {
-            if (true) return classExpressions;
+            if (true) {
+                return classExpressions;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -382,7 +393,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             individuals.add(ind);
         }
         {
-            if (true) return individuals;
+            if (true) {
+                return individuals;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -394,7 +407,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectUnionOf(classExpressions);
+            if (true) {
+                return dataFactory.getOWLObjectUnionOf(classExpressions);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -406,7 +421,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectIntersectionOf(classExpressions);
+            if (true) {
+                return dataFactory.getOWLObjectIntersectionOf(classExpressions);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -418,7 +435,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         operand = ClassExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectComplementOf(operand);
+            if (true) {
+                return dataFactory.getOWLObjectComplementOf(operand);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -430,7 +449,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         individuals = IndividualMinOneSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectOneOf(individuals);
+            if (true) {
+                return dataFactory.getOWLObjectOneOf(individuals);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -444,7 +465,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         filler = ClassExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
+            if (true) {
+                return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -458,7 +481,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         filler = ClassExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
+            if (true) {
+                return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -472,7 +497,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         ind = Individual();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectHasValue(prop, ind);
+            if (true) {
+                return dataFactory.getOWLObjectHasValue(prop, ind);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -484,7 +511,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectHasSelf(prop);
+            if (true) {
+                return dataFactory.getOWLObjectHasSelf(prop);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -505,14 +534,16 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
             {
-                if (true)
+                if (true) {
                     return dataFactory.getOWLObjectMinCardinality(cardinality, prop);
+                }
             }
         } else {
             {
-                if (true)
+                if (true) {
                     return dataFactory.getOWLObjectMinCardinality(cardinality, prop,
                             filler);
+                }
             }
         }
         throw new Error("Missing return statement in function");
@@ -534,14 +565,16 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
             {
-                if (true)
+                if (true) {
                     return dataFactory.getOWLObjectExactCardinality(cardinality, prop);
+                }
             }
         } else {
             {
-                if (true)
+                if (true) {
                     return dataFactory.getOWLObjectExactCardinality(cardinality, prop,
                             filler);
+                }
             }
         }
         throw new Error("Missing return statement in function");
@@ -563,14 +596,16 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
             {
-                if (true)
+                if (true) {
                     return dataFactory.getOWLObjectMaxCardinality(cardinality, prop);
+                }
             }
         } else {
             {
-                if (true)
+                if (true) {
                     return dataFactory.getOWLObjectMaxCardinality(cardinality, prop,
                             filler);
+                }
             }
         }
         throw new Error("Missing return statement in function");
@@ -585,7 +620,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         dataRange = DataRange();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLDataAllValuesFrom(prop, dataRange);
+            if (true) {
+                return dataFactory.getOWLDataAllValuesFrom(prop, dataRange);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -599,7 +636,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         dataRange = DataRange();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLDataSomeValuesFrom(prop, dataRange);
+            if (true) {
+                return dataFactory.getOWLDataSomeValuesFrom(prop, dataRange);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -613,7 +652,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         literal = Literal();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLDataHasValue(prop, literal);
+            if (true) {
+                return dataFactory.getOWLDataHasValue(prop, literal);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -634,12 +675,15 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
             {
-                if (true) return dataFactory.getOWLDataMinCardinality(cardinality, prop);
+                if (true) {
+                    return dataFactory.getOWLDataMinCardinality(cardinality, prop);
+                }
             }
         } else {
             {
-                if (true)
+                if (true) {
                     return dataFactory.getOWLDataMinCardinality(cardinality, prop, rng);
+                }
             }
         }
         throw new Error("Missing return statement in function");
@@ -661,13 +705,15 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
             {
-                if (true)
+                if (true) {
                     return dataFactory.getOWLDataExactCardinality(cardinality, prop);
+                }
             }
         } else {
             {
-                if (true)
+                if (true) {
                     return dataFactory.getOWLDataExactCardinality(cardinality, prop, rng);
+                }
             }
         }
         throw new Error("Missing return statement in function");
@@ -689,12 +735,15 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
             {
-                if (true) return dataFactory.getOWLDataMaxCardinality(cardinality, prop);
+                if (true) {
+                    return dataFactory.getOWLDataMaxCardinality(cardinality, prop);
+                }
             }
         } else {
             {
-                if (true)
+                if (true) {
                     return dataFactory.getOWLDataMaxCardinality(cardinality, prop, rng);
+                }
             }
         }
         throw new Error("Missing return statement in function");
@@ -707,7 +756,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         cls = ClassIRI();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return cls;
+            if (true) {
+                return cls;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -724,7 +775,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return prop;
+            if (true) {
+                return prop;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -737,7 +790,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLObjectInverseOf(prop);
+            if (true) {
+                return dataFactory.getOWLObjectInverseOf(prop);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -749,7 +804,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyIRI();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return prop;
+            if (true) {
+                return prop;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -758,7 +815,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         OWLDataPropertyExpression prop;
         prop = DataPropertyIRI();
         {
-            if (true) return prop;
+            if (true) {
+                return prop;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -767,7 +826,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         IRI iri;
         iri = IRI();
         {
-            if (true) return dataFactory.getOWLDataProperty(iri);
+            if (true) {
+                return dataFactory.getOWLDataProperty(iri);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -779,7 +840,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = DataPropertyIRI();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return prop;
+            if (true) {
+                return prop;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -791,7 +854,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = AnnotationPropertyIRI();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return prop;
+            if (true) {
+                return prop;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -800,7 +865,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         IRI iri;
         iri = IRI();
         {
-            if (true) return dataFactory.getOWLAnnotationProperty(iri);
+            if (true) {
+                return dataFactory.getOWLAnnotationProperty(iri);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -812,7 +879,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         ind = IndividualIRI();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return ind;
+            if (true) {
+                return ind;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -822,7 +891,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         t = jj_consume_token(NODEID);
         String id = t.image.substring(2, t.image.length());
         {
-            if (true) return dataFactory.getOWLAnonymousIndividual(id);
+            if (true) {
+                return dataFactory.getOWLAnonymousIndividual(id);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -834,7 +905,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         dt = DatatypeIRI();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dt;
+            if (true) {
+                return dt;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -843,7 +916,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         IRI iri;
         iri = IRI();
         {
-            if (true) return dataFactory.getOWLDatatype(iri);
+            if (true) {
+                return dataFactory.getOWLDatatype(iri);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -852,7 +927,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         int card = 0;
         card = Integer();
         {
-            if (true) return card;
+            if (true) {
+                return card;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -862,7 +939,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         t = jj_consume_token(INT);
         int i = Integer.parseInt(t.image);
         {
-            if (true) return i;
+            if (true) {
+                return i;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -879,8 +958,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         dr = DataRange();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLDatatypeDefinitionAxiom(datatype, dr, axAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -904,7 +984,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return rng;
+            if (true) {
+                return rng;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -916,7 +998,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         rng = DataRange();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLDataComplementOf(rng);
+            if (true) {
+                return dataFactory.getOWLDataComplementOf(rng);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -938,7 +1022,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLDataOneOf(values);
+            if (true) {
+                return dataFactory.getOWLDataOneOf(values);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -959,7 +1045,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLDataUnionOf(ranges);
+            if (true) {
+                return dataFactory.getOWLDataUnionOf(ranges);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -980,7 +1068,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLDataIntersectionOf(ranges);
+            if (true) {
+                return dataFactory.getOWLDataIntersectionOf(ranges);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1004,8 +1094,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLDatatypeRestriction(rng, facetRestrictions);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1017,7 +1108,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         con = Literal();
         OWLFacet v = OWLFacet.getFacetByShortName(iri.getFragment());
         {
-            if (true) return dataFactory.getOWLFacetRestriction(v, con);
+            if (true) {
+                return dataFactory.getOWLFacetRestriction(v, con);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1052,7 +1145,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return ax;
+            if (true) {
+                return ax;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1077,7 +1172,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return ax;
+            if (true) {
+                return ax;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1093,9 +1190,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         superClass = ClassExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory
                         .getOWLSubClassOfAxiom(subClass, superClass, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1109,9 +1207,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLEquivalentClassesAxiom(classExpressions,
                         axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1125,9 +1224,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLDisjointClassesAxiom(classExpressions,
                         axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1143,9 +1243,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLDisjointUnionAxiom(cls, classExpressions,
                         axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1188,7 +1289,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return ax;
+            if (true) {
+                return ax;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1212,7 +1315,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return props;
+            if (true) {
+                return props;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1237,19 +1342,23 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(CLOSEPAR);
         if (subProperty != null) {
             {
-                if (true)
+                if (true) {
                     return dataFactory.getOWLSubObjectPropertyOfAxiom(subProperty,
                             superProperty, axiomAnnos);
+                }
             }
         } else if (chain != null) {
             {
-                if (true)
+                if (true) {
                     return dataFactory.getOWLSubPropertyChainOfAxiom(chain,
                             superProperty, axiomAnnos);
+                }
             }
         } else {
             {
-                if (true) return null;
+                if (true) {
+                    return null;
+                }
             }
         }
         throw new Error("Missing return statement in function");
@@ -1264,9 +1373,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         props = ObjectPropertySet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLEquivalentObjectPropertiesAxiom(props,
                         axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1280,8 +1390,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         props = ObjectPropertySet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLDisjointObjectPropertiesAxiom(props, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1304,7 +1415,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             props.add(prop);
         }
         {
-            if (true) return props;
+            if (true) {
+                return props;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1320,9 +1433,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         range = ClassExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory
                         .getOWLObjectPropertyRangeAxiom(prop, range, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1338,9 +1452,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         desc = ClassExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory
                         .getOWLObjectPropertyDomainAxiom(prop, desc, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1354,8 +1469,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLFunctionalObjectPropertyAxiom(prop, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1371,9 +1487,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         propB = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLInverseObjectPropertiesAxiom(propA, propB,
                         axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1387,9 +1504,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(prop,
                         axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1403,8 +1521,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLSymmetricObjectPropertyAxiom(prop, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1418,8 +1537,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLAsymmetricObjectPropertyAxiom(prop, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1433,8 +1553,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLReflexiveObjectPropertyAxiom(prop, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1448,8 +1569,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLIrreflexiveObjectPropertyAxiom(prop, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1463,8 +1585,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLTransitiveObjectPropertyAxiom(prop, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1493,7 +1616,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return ax;
+            if (true) {
+                return ax;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1509,9 +1634,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         superProperty = DataPropertyExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLSubDataPropertyOfAxiom(subProperty,
                         superProperty, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1525,8 +1651,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         props = DataPropertySet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLEquivalentDataPropertiesAxiom(props, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1540,8 +1667,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         props = DataPropertySet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLDisjointDataPropertiesAxiom(props, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1563,7 +1691,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             props.add(prop);
         }
         {
-            if (true) return props;
+            if (true) {
+                return props;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1579,9 +1709,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         domain = ClassExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory
                         .getOWLDataPropertyDomainAxiom(prop, domain, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1597,8 +1728,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         rng = DataRange();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLDataPropertyRangeAxiom(prop, rng, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1612,8 +1744,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = DataPropertyExpression();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLFunctionalDataPropertyAxiom(prop, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1644,7 +1777,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return ax;
+            if (true) {
+                return ax;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1666,7 +1801,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             individuals.add(ind);
         }
         {
-            if (true) return individuals;
+            if (true) {
+                return individuals;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1680,8 +1817,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         individuals = IndividualSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLSameIndividualAxiom(individuals, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1695,9 +1833,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         individuals = IndividualSet();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLDifferentIndividualsAxiom(individuals,
                         axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1713,8 +1852,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         ind = Individual();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLClassAssertionAxiom(desc, ind, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1732,9 +1872,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         obj = Individual();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj,
                         axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1753,9 +1894,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         obj = Individual();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(prop, subj,
                         obj, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1773,9 +1915,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         obj = Literal();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLDataPropertyAssertionAxiom(prop, subj, obj,
                         axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1793,9 +1936,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         obj = Literal();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLNegativeDataPropertyAssertionAxiom(prop, subj,
                         obj, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1804,7 +1948,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         IRI iri;
         iri = IRI();
         {
-            if (true) return dataFactory.getOWLNamedIndividual(iri);
+            if (true) {
+                return dataFactory.getOWLNamedIndividual(iri);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1820,7 +1966,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return ind;
+            if (true) {
+                return ind;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1829,7 +1977,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         IRI iri;
         iri = IRI();
         {
-            if (true) return dataFactory.getOWLObjectProperty(iri);
+            if (true) {
+                return dataFactory.getOWLObjectProperty(iri);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1854,7 +2004,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return axiom;
+            if (true) {
+                return axiom;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1880,7 +2032,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         val = AnnotationValue();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLAnnotation(prop, val, annos);
+            if (true) {
+                return dataFactory.getOWLAnnotation(prop, val, annos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1896,7 +2050,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return subj;
+            if (true) {
+                return subj;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1914,7 +2070,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return value;
+            if (true) {
+                return value;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1938,7 +2096,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             annos = Collections.emptySet();
         }
         {
-            if (true) return annos;
+            if (true) {
+                return annos;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1952,7 +2112,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         OWLImportsDeclaration importsDeclaration = dataFactory
                 .getOWLImportsDeclaration(iri);
         {
-            if (true) return importsDeclaration;
+            if (true) {
+                return importsDeclaration;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1970,9 +2132,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         val = AnnotationValue();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLAnnotationAssertionAxiom(prop, subj, val,
                         axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -1989,9 +2152,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         superProperty = AnnotationPropertyIRI();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLSubAnnotationPropertyOfAxiom(subProp,
                         superProperty, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2008,9 +2172,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         domain = IRI();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLAnnotationPropertyDomainAxiom(prop, domain,
                         axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2027,9 +2192,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         range = IRI();
         jj_consume_token(CLOSEPAR);
         {
-            if (true)
+            if (true) {
                 return dataFactory.getOWLAnnotationPropertyRangeAxiom(prop, range,
                         axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2067,7 +2233,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(CLOSEPAR);
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getOWLHasKeyAxiom(ce, props, axiomAnnos);
+            if (true) {
+                return dataFactory.getOWLHasKeyAxiom(ce, props, axiomAnnos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2084,11 +2252,15 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(CLOSEPAR);
         if (ignoreAnnotationsAndDeclarations) {
             {
-                if (true) return null;
+                if (true) {
+                    return null;
+                }
             }
         } else {
             {
-                if (true) return dataFactory.getOWLDeclarationAxiom(entity, axiomAnnos);
+                if (true) {
+                    return dataFactory.getOWLDeclarationAxiom(entity, axiomAnnos);
+                }
             }
         }
         throw new Error("Missing return statement in function");
@@ -2113,7 +2285,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return entity;
+            if (true) {
+                return entity;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2146,7 +2320,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
         if (plain) {
             {
-                if (true) return dataFactory.getOWLLiteral(literal, lang);
+                if (true) {
+                    return dataFactory.getOWLLiteral(literal, lang);
+                }
             }
         } else {
             // a float value in this syntax has an extra 'f' or 'F' character
@@ -2156,7 +2332,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                 literal = literal.substring(0, literal.length() - 1);
             }
             {
-                if (true) return dataFactory.getOWLLiteral(literal, datatype);
+                if (true) {
+                    return dataFactory.getOWLLiteral(literal, datatype);
+                }
             }
         }
         throw new Error("Missing return statement in function");
@@ -2167,7 +2345,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         t = jj_consume_token(STRINGLITERAL);
         String raw = t.image.substring(1, t.image.length() - 1);
         {
-            if (true) return EscapeUtils.unescapeString(raw);
+            if (true) {
+                return EscapeUtils.unescapeString(raw);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2178,7 +2358,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         t = jj_consume_token(PN_LOCAL);
         lang += t.image;
         {
-            if (true) return lang;
+            if (true) {
+                return lang;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2224,7 +2406,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(CLOSEPAR);
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getSWRLRule(body, head, annos);
+            if (true) {
+                return dataFactory.getSWRLRule(body, head, annos);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2250,7 +2434,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             throw new ParseException();
         }
         {
-            if (true) return atom;
+            if (true) {
+                return atom;
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2264,7 +2450,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         arg0 = IArg();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getSWRLClassAtom(ce, arg0);
+            if (true) {
+                return dataFactory.getSWRLClassAtom(ce, arg0);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2278,7 +2466,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         arg0 = DArg();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getSWRLDataRangeAtom(rng, arg0);
+            if (true) {
+                return dataFactory.getSWRLDataRangeAtom(rng, arg0);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2294,7 +2484,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         arg1 = IArg();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getSWRLObjectPropertyAtom(prop, arg0, arg1);
+            if (true) {
+                return dataFactory.getSWRLObjectPropertyAtom(prop, arg0, arg1);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2310,7 +2502,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         arg1 = DArg();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getSWRLDataPropertyAtom(prop, arg0, arg1);
+            if (true) {
+                return dataFactory.getSWRLDataPropertyAtom(prop, arg0, arg1);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2337,7 +2531,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getSWRLBuiltInAtom(iri, args);
+            if (true) {
+                return dataFactory.getSWRLBuiltInAtom(iri, args);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2351,7 +2547,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         arg1 = IArg();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getSWRLSameIndividualAtom(arg0, arg1);
+            if (true) {
+                return dataFactory.getSWRLSameIndividualAtom(arg0, arg1);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2366,7 +2564,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         arg1 = IArg();
         jj_consume_token(CLOSEPAR);
         {
-            if (true) return dataFactory.getSWRLDifferentIndividualsAtom(arg0, arg1);
+            if (true) {
+                return dataFactory.getSWRLDifferentIndividualsAtom(arg0, arg1);
+            }
         }
         throw new Error("Missing return statement in function");
     }
@@ -2381,12 +2581,16 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             iri = IRI();
             jj_consume_token(CLOSEPAR);
             {
-                if (true) return dataFactory.getSWRLVariable(iri);
+                if (true) {
+                    return dataFactory.getSWRLVariable(iri);
+                }
             }
         } else if (jj_2_128(2)) {
             ind = IndividualIRI();
             {
-                if (true) return dataFactory.getSWRLIndividualArgument(ind);
+                if (true) {
+                    return dataFactory.getSWRLIndividualArgument(ind);
+                }
             }
         } else {
             jj_consume_token(-1);
@@ -2404,12 +2608,16 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             iri = IRI();
             jj_consume_token(CLOSEPAR);
             {
-                if (true) return dataFactory.getSWRLVariable(iri);
+                if (true) {
+                    return dataFactory.getSWRLVariable(iri);
+                }
             }
         } else if (jj_2_130(2)) {
             literal = Literal();
             {
-                if (true) return dataFactory.getSWRLLiteralArgument(literal);
+                if (true) {
+                    return dataFactory.getSWRLLiteralArgument(literal);
+                }
             }
         } else {
             jj_consume_token(-1);
@@ -3979,84 +4187,128 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     private boolean jj_3_84() {
-        if (jj_3R_93()) return true;
+        if (jj_3R_93()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_116() {
-        if (jj_scan_token(DATARANGEATOM)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATARANGEATOM)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_58() {
-        if (jj_3R_69()) return true;
+        if (jj_3R_69()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_41() {
-        if (jj_scan_token(DATAALLVALUESFROM)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAALLVALUESFROM)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_113() {
-        if (jj_3R_112()) return true;
+        if (jj_3R_112()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_68() {
-        if (jj_scan_token(SUBCLASSOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(SUBCLASSOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_95() {
-        if (jj_scan_token(DIFFERENTINDIVIDUALS)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DIFFERENTINDIVIDUALS)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_115() {
-        if (jj_scan_token(CLASSATOM)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(CLASSATOM)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_90() {
-        if (jj_3R_99()) return true;
+        if (jj_3R_99()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_43() {
-        if (jj_3R_56()) return true;
+        if (jj_3R_56()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_39() {
-        if (jj_scan_token(OBJECTMAXCARDINALITY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTMAXCARDINALITY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_57() {
-        if (jj_3R_68()) return true;
+        if (jj_3R_68()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_86() {
-        if (jj_3R_95()) return true;
+        if (jj_3R_95()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_125() {
-        if (jj_3R_121()) return true;
+        if (jj_3R_121()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_94() {
-        if (jj_scan_token(SAMEINDIVIDUAL)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(SAMEINDIVIDUAL)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
@@ -4069,7 +4321,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                 jj_scanpos = xsp;
                 if (jj_3_59()) {
                     jj_scanpos = xsp;
-                    if (jj_3_60()) return true;
+                    if (jj_3_60()) {
+                        return true;
+                    }
                 }
             }
         }
@@ -4077,37 +4331,51 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     private boolean jj_3_124() {
-        if (jj_3R_120()) return true;
+        if (jj_3R_120()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_123() {
-        if (jj_3R_119()) return true;
+        if (jj_3R_119()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_112() {
-        if (jj_3R_111()) return true;
+        if (jj_3R_111()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_122() {
-        if (jj_3R_118()) return true;
+        if (jj_3R_118()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_121() {
-        if (jj_3R_117()) return true;
+        if (jj_3R_117()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_120() {
-        if (jj_3R_116()) return true;
+        if (jj_3R_116()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_119() {
-        if (jj_3R_115()) return true;
+        if (jj_3R_115()) {
+            return true;
+        }
         return false;
     }
 
@@ -4126,7 +4394,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                             jj_scanpos = xsp;
                             if (jj_3_124()) {
                                 jj_scanpos = xsp;
-                                if (jj_3_125()) return true;
+                                if (jj_3_125()) {
+                                    return true;
+                                }
                             }
                         }
                     }
@@ -4137,74 +4407,106 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     private boolean jj_3_47() {
-        if (jj_3R_58()) return true;
+        if (jj_3R_58()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_56() {
-        if (jj_3R_67()) return true;
+        if (jj_3R_67()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_38() {
-        if (jj_scan_token(OBJECTEXACTCARDINALITY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTEXACTCARDINALITY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_55() {
-        if (jj_3R_66()) return true;
+        if (jj_3R_66()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_54() {
-        if (jj_3R_65()) return true;
+        if (jj_3R_65()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_67() {
-        if (jj_scan_token(DLSAFERULE)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DLSAFERULE)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_53() {
-        if (jj_3R_64()) return true;
+        if (jj_3R_64()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_52() {
-        if (jj_3R_63()) return true;
+        if (jj_3R_63()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_51() {
-        if (jj_3R_62()) return true;
+        if (jj_3R_62()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_50() {
-        if (jj_3R_61()) return true;
+        if (jj_3R_61()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_49() {
-        if (jj_3R_60()) return true;
+        if (jj_3R_60()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_42() {
-        if (jj_3R_55()) return true;
+        if (jj_3R_55()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_85() {
-        if (jj_3R_94()) return true;
+        if (jj_3R_94()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_89() {
-        if (jj_3R_98()) return true;
+        if (jj_3R_98()) {
+            return true;
+        }
         return false;
     }
 
@@ -4223,7 +4525,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                             jj_scanpos = xsp;
                             if (jj_3_90()) {
                                 jj_scanpos = xsp;
-                                if (jj_3_91()) return true;
+                                if (jj_3_91()) {
+                                    return true;
+                                }
                             }
                         }
                     }
@@ -4234,7 +4538,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     private boolean jj_3_48() {
-        if (jj_3R_59()) return true;
+        if (jj_3R_59()) {
+            return true;
+        }
         return false;
     }
 
@@ -4257,7 +4563,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                                     jj_scanpos = xsp;
                                     if (jj_3_55()) {
                                         jj_scanpos = xsp;
-                                        if (jj_3_56()) return true;
+                                        if (jj_3_56()) {
+                                            return true;
+                                        }
                                     }
                                 }
                             }
@@ -4270,108 +4578,168 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     private boolean jj_3_111() {
-        if (jj_3R_110()) return true;
+        if (jj_3R_110()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_37() {
-        if (jj_scan_token(OBJECTMINCARDINALITY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTMINCARDINALITY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_113() {
-        if (jj_scan_token(PN_LOCAL)) return true;
+        if (jj_scan_token(PN_LOCAL)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_92() {
-        if (jj_scan_token(FUNCTIONALDATAPROPERTY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(FUNCTIONALDATAPROPERTY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_46() {
-        if (jj_3R_48()) return true;
+        if (jj_3R_48()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_36() {
-        if (jj_scan_token(OBJECTHASSELF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTHASSELF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_58() {
-        if (jj_3R_22()) return true;
-        if (jj_3R_57()) return true;
+        if (jj_3R_22()) {
+            return true;
+        }
+        if (jj_3R_57()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_123() {
-        if (jj_scan_token(STRINGLITERAL)) return true;
+        if (jj_scan_token(STRINGLITERAL)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_90() {
-        if (jj_scan_token(DATAPROPERTYRANGE)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAPROPERTYRANGE)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_41() {
-        if (jj_3R_54()) return true;
+        if (jj_3R_54()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_110() {
-        if (jj_3R_109()) return true;
+        if (jj_3R_109()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_35() {
-        if (jj_scan_token(OBJECTHASVALUE)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTHASVALUE)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_54() {
-        if (jj_scan_token(DATATYPERESTRICTION)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATATYPERESTRICTION)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_45() {
-        if (jj_3R_48()) return true;
+        if (jj_3R_48()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_91() {
-        if (jj_scan_token(DATAPROPERTYDOMAIN)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAPROPERTYDOMAIN)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_80() {
-        if (jj_3R_89()) return true;
+        if (jj_3R_89()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_115() {
-        if (jj_scan_token(LANGIDENTIFIER)) return true;
-        if (jj_3R_113()) return true;
+        if (jj_scan_token(LANGIDENTIFIER)) {
+            return true;
+        }
+        if (jj_3R_113()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_33() {
-        if (jj_scan_token(OBJECTSOMEVALUESFROM)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTSOMEVALUESFROM)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_114() {
-        if (jj_scan_token(DATATYPEIDENTIFIER)) return true;
-        if (jj_3R_51()) return true;
+        if (jj_scan_token(DATATYPEIDENTIFIER)) {
+            return true;
+        }
+        if (jj_3R_51()) {
+            return true;
+        }
         return false;
     }
 
@@ -4380,168 +4748,254 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         xsp = jj_scanpos;
         if (jj_3_114()) {
             jj_scanpos = xsp;
-            if (jj_3_115()) return true;
+            if (jj_3_115()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3_14() {
-        if (jj_3R_32()) return true;
+        if (jj_3R_32()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_44() {
-        if (jj_3R_57()) return true;
+        if (jj_3R_57()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_83() {
-        if (jj_3R_92()) return true;
+        if (jj_3R_92()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_55() {
-        if (jj_scan_token(DATAINTERSECTIONOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAINTERSECTIONOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_57() {
-        if (jj_3R_123()) return true;
+        if (jj_3R_123()) {
+            return true;
+        }
         Token xsp;
         xsp = jj_scanpos;
-        if (jj_3_116()) jj_scanpos = xsp;
+        if (jj_3_116()) {
+            jj_scanpos = xsp;
+        }
         return false;
     }
 
     private boolean jj_3R_34() {
-        if (jj_scan_token(OBJECTALLVALUESFROM)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTALLVALUESFROM)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_40() {
-        if (jj_3R_53()) return true;
+        if (jj_3R_53()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_109() {
-        if (jj_3R_108()) return true;
+        if (jj_3R_108()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_56() {
-        if (jj_scan_token(DATAUNIONOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAUNIONOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_18() {
-        if (jj_3R_36()) return true;
+        if (jj_3R_36()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_89() {
-        if (jj_scan_token(DISJOINTDATAPROPERTIES)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DISJOINTDATAPROPERTIES)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_25() {
-        if (jj_3R_43()) return true;
+        if (jj_3R_43()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_32() {
-        if (jj_scan_token(OBJECTONEOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTONEOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_52() {
-        if (jj_scan_token(DATAONEOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAONEOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_39() {
-        if (jj_3R_52()) return true;
+        if (jj_3R_52()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_13() {
-        if (jj_3R_31()) return true;
+        if (jj_3R_31()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_79() {
-        if (jj_3R_88()) return true;
+        if (jj_3R_88()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_82() {
-        if (jj_3R_91()) return true;
+        if (jj_3R_91()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_108() {
-        if (jj_3R_107()) return true;
+        if (jj_3R_107()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_31() {
-        if (jj_scan_token(OBJECTCOMPLEMENTOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTCOMPLEMENTOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_88() {
-        if (jj_scan_token(EQUIVALENTDATAPROPERTIES)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(EQUIVALENTDATAPROPERTIES)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_21() {
-        if (jj_3R_39()) return true;
+        if (jj_3R_39()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_53() {
-        if (jj_scan_token(DATACOMPLEMENTOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATACOMPLEMENTOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_17() {
-        if (jj_3R_35()) return true;
+        if (jj_3R_35()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_30() {
-        if (jj_scan_token(OBJECTINTERSECTIONOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTINTERSECTIONOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_87() {
-        if (jj_scan_token(SUBDATAPROPERTYOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(SUBDATAPROPERTYOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_24() {
-        if (jj_3R_42()) return true;
+        if (jj_3R_42()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_63() {
-        if (jj_scan_token(DECLARATION)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DECLARATION)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_38() {
-        if (jj_3R_51()) return true;
+        if (jj_3R_51()) {
+            return true;
+        }
         return false;
     }
 
@@ -4558,7 +5012,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                         jj_scanpos = xsp;
                         if (jj_3_42()) {
                             jj_scanpos = xsp;
-                            if (jj_3_43()) return true;
+                            if (jj_3_43()) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -4568,28 +5024,40 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     private boolean jj_3_107() {
-        if (jj_3R_93()) return true;
+        if (jj_3R_93()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_29() {
-        if (jj_scan_token(OBJECTUNIONOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTUNIONOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_106() {
-        if (jj_3R_85()) return true;
+        if (jj_3R_85()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_78() {
-        if (jj_3R_87()) return true;
+        if (jj_3R_87()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_81() {
-        if (jj_3R_90()) return true;
+        if (jj_3R_90()) {
+            return true;
+        }
         return false;
     }
 
@@ -4606,7 +5074,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                         jj_scanpos = xsp;
                         if (jj_3_82()) {
                             jj_scanpos = xsp;
-                            if (jj_3_83()) return true;
+                            if (jj_3_83()) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -4616,124 +5086,184 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     private boolean jj_3R_65() {
-        if (jj_scan_token(DATATYPEDEFINITION)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATATYPEDEFINITION)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_12() {
-        if (jj_3R_30()) return true;
+        if (jj_3R_30()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_29() {
-        if (jj_3R_47()) return true;
+        if (jj_3R_47()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_64() {
-        if (jj_scan_token(HASKEY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(HASKEY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_27() {
-        if (jj_3R_45()) return true;
+        if (jj_3R_45()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_20() {
-        if (jj_3R_38()) return true;
+        if (jj_3R_38()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_16() {
-        if (jj_3R_34()) return true;
+        if (jj_3R_34()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_23() {
-        if (jj_3R_41()) return true;
+        if (jj_3R_41()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_83() {
-        if (jj_scan_token(TRANSITIVEOBJECTPROPERTY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(TRANSITIVEOBJECTPROPERTY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_28() {
-        if (jj_3R_46()) return true;
+        if (jj_3R_46()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_105() {
-        if (jj_scan_token(ANNOTATIONPROPERTYRANGE)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(ANNOTATIONPROPERTYRANGE)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_11() {
-        if (jj_3R_29()) return true;
+        if (jj_3R_29()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_82() {
-        if (jj_scan_token(IRREFLEXIVEOBJECTPROPERTY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(IRREFLEXIVEOBJECTPROPERTY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_77() {
-        if (jj_3R_85()) return true;
+        if (jj_3R_85()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_28() {
-        if (jj_3R_22()) return true;
+        if (jj_3R_22()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_104() {
-        if (jj_scan_token(ANNOTATIONPROPERTYDOMAIN)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(ANNOTATIONPROPERTYDOMAIN)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_81() {
-        if (jj_scan_token(REFLEXIVEOBJECTPROPERTY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(REFLEXIVEOBJECTPROPERTY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_51() {
-        if (jj_3R_22()) return true;
+        if (jj_3R_22()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_26() {
-        if (jj_3R_44()) return true;
+        if (jj_3R_44()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_22() {
-        if (jj_3R_40()) return true;
+        if (jj_3R_40()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_19() {
-        if (jj_3R_37()) return true;
+        if (jj_3R_37()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_15() {
-        if (jj_3R_33()) return true;
+        if (jj_3R_33()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_10() {
-        if (jj_3R_28()) return true;
+        if (jj_3R_28()) {
+            return true;
+        }
         return false;
     }
 
@@ -4774,8 +5304,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                                                                         jj_scanpos = xsp;
                                                                         if (jj_3_26()) {
                                                                             jj_scanpos = xsp;
-                                                                            if (jj_3_27())
+                                                                            if (jj_3_27()) {
                                                                                 return true;
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
@@ -4797,122 +5328,186 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     private boolean jj_3R_106() {
-        if (jj_scan_token(SUBANNOTATIONPROPERTYOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(SUBANNOTATIONPROPERTYOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_111() {
-        if (jj_scan_token(DATATYPE)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATATYPE)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_80() {
-        if (jj_scan_token(ASYMMETRICOBJECTPROPERTY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(ASYMMETRICOBJECTPROPERTY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_104() {
-        if (jj_3R_57()) return true;
+        if (jj_3R_57()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_103() {
-        if (jj_scan_token(ANNOTATIONASSERTION)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(ANNOTATIONASSERTION)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_102() {
-        if (jj_scan_token(NODEID)) return true;
+        if (jj_scan_token(NODEID)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_79() {
-        if (jj_scan_token(SYMMETRICOBJECTPROPERTY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(SYMMETRICOBJECTPROPERTY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_99() {
-        if (jj_3R_24()) return true;
+        if (jj_3R_24()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_76() {
-        if (jj_3R_86()) return true;
+        if (jj_3R_86()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_110() {
-        if (jj_scan_token(NAMEDINDIVIDUAL)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(NAMEDINDIVIDUAL)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_78() {
-        if (jj_scan_token(INVERSEFUNCTIONALOBJECTPROPERTY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(INVERSEFUNCTIONALOBJECTPROPERTY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_27() {
-        if (jj_scan_token(PNAME_LN)) return true;
+        if (jj_scan_token(PNAME_LN)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_23() {
-        if (jj_scan_token(IMPORT)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(IMPORT)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_9() {
-        if (jj_3R_27()) return true;
+        if (jj_3R_27()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_84() {
-        if (jj_scan_token(INVERSEOBJECTPROPERTIES)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(INVERSEOBJECTPROPERTIES)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_26() {
-        if (jj_scan_token(FULLIRI)) return true;
+        if (jj_scan_token(FULLIRI)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_118() {
-        if (jj_3R_114()) return true;
+        if (jj_3R_114()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_103() {
-        if (jj_3R_102()) return true;
+        if (jj_3R_102()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_35() {
-        if (jj_3R_48()) return true;
+        if (jj_3R_48()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_112() {
-        if (jj_scan_token(ANNOTATIONPROPERTY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(ANNOTATIONPROPERTY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_8() {
-        if (jj_3R_26()) return true;
+        if (jj_3R_26()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_105() {
-        if (jj_3R_24()) return true;
+        if (jj_3R_24()) {
+            return true;
+        }
         return false;
     }
 
@@ -4921,143 +5516,211 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         xsp = jj_scanpos;
         if (jj_3_8()) {
             jj_scanpos = xsp;
-            if (jj_3_9()) return true;
+            if (jj_3_9()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3R_77() {
-        if (jj_scan_token(FUNCTIONALOBJECTPROPERTY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(FUNCTIONALOBJECTPROPERTY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_74() {
-        if (jj_3R_85()) return true;
+        if (jj_3R_85()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_101() {
-        if (jj_3R_102()) return true;
+        if (jj_3R_102()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_73() {
-        if (jj_3R_84()) return true;
+        if (jj_3R_84()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_2() {
-        if (jj_3R_22()) return true;
+        if (jj_3R_22()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_109() {
-        if (jj_scan_token(DATAPROP)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAPROP)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_102() {
-        if (jj_3R_22()) return true;
+        if (jj_3R_22()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_76() {
-        if (jj_scan_token(OBJECTPROPERTYDOMAIN)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTPROPERTYDOMAIN)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_34() {
-        if (jj_3R_48()) return true;
+        if (jj_3R_48()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_75() {
-        if (jj_3R_85()) return true;
+        if (jj_3R_85()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_21() {
-        if (jj_scan_token(PREFIX)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(PREFIX)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_126() {
-        if (jj_3R_122()) return true;
+        if (jj_3R_122()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_124() {
-        if (jj_3R_22()) return true;
+        if (jj_3R_22()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_100() {
-        if (jj_3R_22()) return true;
+        if (jj_3R_22()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_75() {
-        if (jj_scan_token(OBJECTPROPERTYRANGE)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTPROPERTYRANGE)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_37() {
-        if (jj_3R_50()) return true;
+        if (jj_3R_50()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_3() {
-        if (jj_3R_22()) return true;
+        if (jj_3R_22()) {
+            return true;
+        }
         Token xsp;
         xsp = jj_scanpos;
-        if (jj_3_2()) jj_scanpos = xsp;
+        if (jj_3_2()) {
+            jj_scanpos = xsp;
+        }
         return false;
     }
 
     private boolean jj_3_7() {
-        if (jj_3R_25()) return true;
+        if (jj_3R_25()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_93() {
-        if (jj_3R_124()) return true;
+        if (jj_3R_124()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_33() {
-        if (jj_3R_48()) return true;
+        if (jj_3R_48()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_24() {
-        if (jj_scan_token(ANNOTATION)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(ANNOTATION)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_69() {
-        if (jj_3R_80()) return true;
+        if (jj_3R_80()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_6() {
-        if (jj_3R_24()) return true;
+        if (jj_3R_24()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_108() {
-        if (jj_scan_token(OBJECTPROP)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTPROP)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_72() {
-        if (jj_3R_83()) return true;
+        if (jj_3R_83()) {
+            return true;
+        }
         return false;
     }
 
@@ -5066,44 +5729,62 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         xsp = jj_scanpos;
         if (jj_3_5()) {
             jj_scanpos = xsp;
-            if (jj_3_6()) return true;
+            if (jj_3_6()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3_5() {
-        if (jj_3R_23()) return true;
+        if (jj_3R_23()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_63() {
-        if (jj_3R_74()) return true;
+        if (jj_3R_74()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_98() {
-        if (jj_3R_106()) return true;
+        if (jj_3R_106()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_97() {
-        if (jj_3R_105()) return true;
+        if (jj_3R_105()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_96() {
-        if (jj_3R_104()) return true;
+        if (jj_3R_104()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_95() {
-        if (jj_3R_103()) return true;
+        if (jj_3R_103()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_74() {
-        if (jj_scan_token(DISJOINTOBJECTPROPERTIES)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DISJOINTOBJECTPROPERTIES)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
@@ -5116,7 +5797,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                 jj_scanpos = xsp;
                 if (jj_3_97()) {
                     jj_scanpos = xsp;
-                    if (jj_3_98()) return true;
+                    if (jj_3_98()) {
+                        return true;
+                    }
                 }
             }
         }
@@ -5124,23 +5807,33 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     private boolean jj_3R_49() {
-        if (jj_scan_token(OBJECTINVERSEOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTINVERSEOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_66() {
-        if (jj_3R_77()) return true;
+        if (jj_3R_77()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_94() {
-        if (jj_3R_102()) return true;
+        if (jj_3R_102()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_36() {
-        if (jj_3R_49()) return true;
+        if (jj_3R_49()) {
+            return true;
+        }
         return false;
     }
 
@@ -5149,45 +5842,65 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         xsp = jj_scanpos;
         if (jj_3_36()) {
             jj_scanpos = xsp;
-            if (jj_3_37()) return true;
+            if (jj_3_37()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3R_73() {
-        if (jj_scan_token(EQUIVALENTOBJECTPROPERTIES)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(EQUIVALENTOBJECTPROPERTIES)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_50() {
-        if (jj_3R_22()) return true;
+        if (jj_3R_22()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_1() {
-        if (jj_3R_21()) return true;
+        if (jj_3R_21()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_68() {
-        if (jj_3R_79()) return true;
+        if (jj_3R_79()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_107() {
-        if (jj_scan_token(CLASS)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(CLASS)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_71() {
-        if (jj_3R_82()) return true;
+        if (jj_3R_82()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_93() {
-        if (jj_3R_101()) return true;
+        if (jj_3R_101()) {
+            return true;
+        }
         return false;
     }
 
@@ -5196,13 +5909,17 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         xsp = jj_scanpos;
         if (jj_3_93()) {
             jj_scanpos = xsp;
-            if (jj_3_94()) return true;
+            if (jj_3_94()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3_130() {
-        if (jj_3R_57()) return true;
+        if (jj_3R_57()) {
+            return true;
+        }
         return false;
     }
 
@@ -5211,121 +5928,181 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         xsp = jj_scanpos;
         if (jj_3_129()) {
             jj_scanpos = xsp;
-            if (jj_3_130()) return true;
+            if (jj_3_130()) {
+                return true;
+            }
         }
         return false;
     }
 
     private boolean jj_3_129() {
-        if (jj_scan_token(VARIABLE)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(VARIABLE)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_72() {
-        if (jj_scan_token(SUBOBJECTPROPERTYOF)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(SUBOBJECTPROPERTYOF)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_32() {
-        if (jj_3R_46()) return true;
+        if (jj_3R_46()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_65() {
-        if (jj_3R_76()) return true;
+        if (jj_3R_76()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_62() {
-        if (jj_3R_73()) return true;
+        if (jj_3R_73()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_101() {
-        if (jj_3R_22()) return true;
+        if (jj_3R_22()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_45() {
-        if (jj_scan_token(DATAMAXCARDINALITY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAMAXCARDINALITY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_117() {
-        if (jj_3R_114()) return true;
+        if (jj_3R_114()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_128() {
-        if (jj_3R_101()) return true;
+        if (jj_3R_101()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_127() {
-        if (jj_scan_token(VARIABLE)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(VARIABLE)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_86() {
-        if (jj_scan_token(SUBOBJECTPROPERTYCHAIN)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(SUBOBJECTPROPERTYCHAIN)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_31() {
-        if (jj_3R_46()) return true;
+        if (jj_3R_46()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_100() {
-        if (jj_scan_token(NEGATIVEDATAPROPERTYASSERTION)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(NEGATIVEDATAPROPERTYASSERTION)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_92() {
-        if (jj_3R_47()) return true;
+        if (jj_3R_47()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_121() {
-        if (jj_scan_token(DIFFERENTINDIVIDUALSATOM)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DIFFERENTINDIVIDUALSATOM)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_44() {
-        if (jj_scan_token(DATAEXACTCARDINALITY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAEXACTCARDINALITY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_60() {
-        if (jj_3R_71()) return true;
+        if (jj_3R_71()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_70() {
-        if (jj_3R_81()) return true;
+        if (jj_3R_81()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_67() {
-        if (jj_3R_78()) return true;
+        if (jj_3R_78()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_64() {
-        if (jj_3R_75()) return true;
+        if (jj_3R_75()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_61() {
-        if (jj_3R_72()) return true;
+        if (jj_3R_72()) {
+            return true;
+        }
         return false;
     }
 
@@ -5356,7 +6133,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                                                     jj_scanpos = xsp;
                                                     if (jj_3_72()) {
                                                         jj_scanpos = xsp;
-                                                        if (jj_3_73()) return true;
+                                                        if (jj_3_73()) {
+                                                            return true;
+                                                        }
                                                     }
                                                 }
                                             }
@@ -5373,111 +6152,177 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     private boolean jj_3R_98() {
-        if (jj_scan_token(DATAPROPERTYASSERTION)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAPROPERTYASSERTION)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_120() {
-        if (jj_scan_token(SAMEINDIVIDUALATOM)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(SAMEINDIVIDUALATOM)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_30() {
-        if (jj_3R_46()) return true;
+        if (jj_3R_46()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_43() {
-        if (jj_scan_token(DATAMINCARDINALITY)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAMINCARDINALITY)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_88() {
-        if (jj_3R_97()) return true;
+        if (jj_3R_97()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_119() {
-        if (jj_scan_token(BUILTINATOM)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(BUILTINATOM)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_99() {
-        if (jj_scan_token(NEGATIVEOBJECTPROPERTYASSERTION)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(NEGATIVEOBJECTPROPERTYASSERTION)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_71() {
-        if (jj_scan_token(DISJOINTUNION)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DISJOINTUNION)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_91() {
-        if (jj_3R_100()) return true;
+        if (jj_3R_100()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_59() {
-        if (jj_3R_70()) return true;
+        if (jj_3R_70()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_42() {
-        if (jj_scan_token(DATAHASVALUE)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAHASVALUE)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_118() {
-        if (jj_scan_token(DATAPROPERTYATOM)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATAPROPERTYATOM)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_97() {
-        if (jj_scan_token(OBJECTPROPERTYASSERTION)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTPROPERTYASSERTION)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_70() {
-        if (jj_scan_token(DISJOINTCLASSES)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DISJOINTCLASSES)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_117() {
-        if (jj_scan_token(OBJECTPROPERTYATOM)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(OBJECTPROPERTYATOM)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_40() {
-        if (jj_scan_token(DATASOMEVALUESFROM)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(DATASOMEVALUESFROM)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3_87() {
-        if (jj_3R_96()) return true;
+        if (jj_3R_96()) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_96() {
-        if (jj_scan_token(CLASSASSERTION)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(CLASSASSERTION)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
     private boolean jj_3R_69() {
-        if (jj_scan_token(EQUIVALENTCLASSES)) return true;
-        if (jj_scan_token(OPENPAR)) return true;
+        if (jj_scan_token(EQUIVALENTCLASSES)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
         return false;
     }
 
@@ -5546,10 +6391,12 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++)
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
             jj_2_rtns[i] = new JJCalls();
+        }
     }
 
     /** Reinitialise. */
@@ -5568,10 +6415,12 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++)
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
             jj_2_rtns[i] = new JJCalls();
+        }
     }
 
     /** Constructor. */
@@ -5581,10 +6430,12 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++)
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
             jj_2_rtns[i] = new JJCalls();
+        }
     }
 
     /** Reinitialise. */
@@ -5594,10 +6445,12 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++)
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
             jj_2_rtns[i] = new JJCalls();
+        }
     }
 
     /** Constructor with generated Token Manager. */
@@ -5606,10 +6459,12 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++)
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
             jj_2_rtns[i] = new JJCalls();
+        }
     }
 
     /** Reinitialise. */
@@ -5618,18 +6473,21 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
-        for (int i = 0; i < 0; i++)
+        for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
-        for (int i = 0; i < jj_2_rtns.length; i++)
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
             jj_2_rtns[i] = new JJCalls();
+        }
     }
 
     private Token jj_consume_token(int kind) throws ParseException {
         Token oldToken;
-        if ((oldToken = token).next != null)
+        if ((oldToken = token).next != null) {
             token = token.next;
-        else
+        } else {
             token = token.next = token_source.getNextToken();
+        }
         jj_ntk = -1;
         if (token.kind == kind) {
             jj_gen++;
@@ -5638,7 +6496,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                 for (int i = 0; i < jj_2_rtns.length; i++) {
                     JJCalls c = jj_2_rtns[i];
                     while (c != null) {
-                        if (c.gen < jj_gen) c.first = null;
+                        if (c.gen < jj_gen) {
+                            c.first = null;
+                        }
                         c = c.next;
                     }
                 }
@@ -5672,19 +6532,26 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                 i++;
                 tok = tok.next;
             }
-            if (tok != null) jj_add_error_token(kind, i);
+            if (tok != null) {
+                jj_add_error_token(kind, i);
+            }
         }
-        if (jj_scanpos.kind != kind) return true;
-        if (jj_la == 0 && jj_scanpos == jj_lastpos) throw jj_ls;
+        if (jj_scanpos.kind != kind) {
+            return true;
+        }
+        if (jj_la == 0 && jj_scanpos == jj_lastpos) {
+            throw jj_ls;
+        }
         return false;
     }
 
     /** Get the next Token. */
     final public Token getNextToken() {
-        if (token.next != null)
+        if (token.next != null) {
             token = token.next;
-        else
+        } else {
             token = token.next = token_source.getNextToken();
+        }
         jj_ntk = -1;
         jj_gen++;
         return token;
@@ -5694,19 +6561,21 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     final public Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
-            if (t.next != null)
+            if (t.next != null) {
                 t = t.next;
-            else
+            } else {
                 t = t.next = token_source.getNextToken();
+            }
         }
         return t;
     }
 
     private int jj_ntk() {
-        if ((jj_nt = token.next) == null)
-            return (jj_ntk = (token.next = token_source.getNextToken()).kind);
-        else
-            return (jj_ntk = jj_nt.kind);
+        if ((jj_nt = token.next) == null) {
+            return jj_ntk = (token.next = token_source.getNextToken()).kind;
+        } else {
+            return jj_ntk = jj_nt.kind;
+        }
     }
 
     private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
@@ -5716,7 +6585,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     private int jj_endpos;
 
     private void jj_add_error_token(int kind, int pos) {
-        if (pos >= 100) return;
+        if (pos >= 100) {
+            return;
+        }
         if (pos == jj_endpos + 1) {
             jj_lasttokens[jj_endpos++] = kind;
         } else if (jj_endpos != 0) {
@@ -5726,7 +6597,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             }
             jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries.iterator(); it
                     .hasNext();) {
-                int[] oldentry = (int[]) (it.next());
+                int[] oldentry = (int[]) it.next();
                 if (oldentry.length == jj_expentry.length) {
                     for (int i = 0; i < jj_expentry.length; i++) {
                         if (oldentry[i] != jj_expentry[i]) {
@@ -5737,7 +6608,9 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                     break jj_entries_loop;
                 }
             }
-            if (pos != 0) jj_lasttokens[(jj_endpos = pos) - 1] = kind;
+            if (pos != 0) {
+                jj_lasttokens[(jj_endpos = pos) - 1] = kind;
+            }
         }
     }
 
@@ -5752,19 +6625,19 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         for (int i = 0; i < 0; i++) {
             if (jj_la1[i] == jj_gen) {
                 for (int j = 0; j < 32; j++) {
-                    if ((jj_la1_0[i] & (1 << j)) != 0) {
+                    if ((jj_la1_0[i] & 1 << j) != 0) {
                         la1tokens[j] = true;
                     }
-                    if ((jj_la1_1[i] & (1 << j)) != 0) {
+                    if ((jj_la1_1[i] & 1 << j) != 0) {
                         la1tokens[32 + j] = true;
                     }
-                    if ((jj_la1_2[i] & (1 << j)) != 0) {
+                    if ((jj_la1_2[i] & 1 << j) != 0) {
                         la1tokens[64 + j] = true;
                     }
-                    if ((jj_la1_3[i] & (1 << j)) != 0) {
+                    if ((jj_la1_3[i] & 1 << j) != 0) {
                         la1tokens[96 + j] = true;
                     }
-                    if ((jj_la1_4[i] & (1 << j)) != 0) {
+                    if ((jj_la1_4[i] & 1 << j) != 0) {
                         la1tokens[128 + j] = true;
                     }
                 }

@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Information Management Group<br>
  * Date: 17-Jan-2009 */
 public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataUnionOf {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
     public OWLDataUnionOfImpl(Set<? extends OWLDataRange> operands) {

@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Date: 17-Nov-2007<br>
  * <br> */
 public class OWLOntologyInputSourceException extends OWLRuntimeException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
     public OWLOntologyInputSourceException() {}

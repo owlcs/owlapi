@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * 
  * @since 3.5 */
 public final class AddAxiomData extends AxiomChangeData {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     /** Constructs an {@link AddAxiomData} object which specifies the addition of
      * an axiom to "some ontology".

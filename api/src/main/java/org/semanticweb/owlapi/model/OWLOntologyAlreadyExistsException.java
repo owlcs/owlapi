@@ -46,7 +46,7 @@ package org.semanticweb.owlapi.model;
  * Indicates that an ontology with the given ontology IRI (and possible version
  * IRI) exists. */
 public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private static final String ONTOLOGY_ALREADY_EXISTS = "Ontology already exists. ";
     private final OWLOntologyID ontologyID;
     private final IRI documentIRI;

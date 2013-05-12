@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * <br> */
 public class ManchesterOWLSyntaxOntologyStorerException extends
         OWLOntologyStorageException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     /** @param message
      *            the message */

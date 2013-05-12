@@ -50,7 +50,7 @@ import java.util.List;
  * a specific ontology. */
 public class SpecificOntologyChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final OWLOntology ontology;
 
     /** Constructs a change broadcast strategy which only causes changes that

@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * </p> A class that describes how ontology parsing failed. This class collects
  * parse errors and the parsers that generated the errors. */
 public class UnparsableOntologyException extends OWLOntologyCreationException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private static boolean includeStackTraceInMessage = false;
     private final IRI documentIRI;
     private final Map<OWLParser, OWLParserException> exceptions;

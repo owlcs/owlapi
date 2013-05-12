@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  * An ontology URI mapper that simply returns the ontology URI without
  * performing any mapping operation. */
 public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public IRI getDocumentIRI(IRI ontologyIRI) {

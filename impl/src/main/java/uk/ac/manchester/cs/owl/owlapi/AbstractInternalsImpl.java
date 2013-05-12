@@ -90,7 +90,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** this class encapsulates all lazily built indexes */
 public abstract class AbstractInternalsImpl implements Internals, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t,
             OWLAxiomVisitorEx<?> v) {

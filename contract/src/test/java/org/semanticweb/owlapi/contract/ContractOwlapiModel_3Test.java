@@ -1257,21 +1257,21 @@ public class ContractOwlapiModel_3Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
         };
         OWLOntologyChangeException testSubject1 = new OWLOntologyChangeException(
                 mock(OWLOntologyChange.class), "", new RuntimeException()) {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
         };
         OWLOntologyChangeException testSubject2 = new OWLOntologyChangeException(
                 mock(OWLOntologyChange.class), new RuntimeException()) {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
         };
         OWLOntologyChange result0 = testSubject0.getChange();
         Throwable result2 = testSubject0.getCause();

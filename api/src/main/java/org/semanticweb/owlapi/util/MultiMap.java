@@ -51,7 +51,7 @@ import java.util.Set;
  * @author ignazio palmisano */
 @SuppressWarnings("javadoc")
 public class MultiMap<Key, Value> implements Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final Map<Key, Collection<Value>> map;
     private int size = 0;
     private boolean useSets = true;

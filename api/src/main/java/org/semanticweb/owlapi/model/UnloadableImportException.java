@@ -44,7 +44,7 @@ package org.semanticweb.owlapi.model;
  * Date: 07-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class UnloadableImportException extends OWLOntologyCreationException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final OWLImportsDeclaration importsDeclaration;
     private final OWLOntologyCreationException ontologyCreationException;
 

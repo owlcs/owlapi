@@ -136,7 +136,7 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
  * <br> */
 public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology,
         Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final OWLOntologyManager manager;
     protected OWLOntologyID ontologyID;
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -602,7 +602,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     OWLAxiomSearchFilter<OWLDatatypeDefinitionAxiom, OWLDatatype> datatypeDefFilter = new OWLAxiomSearchFilter<OWLDatatypeDefinitionAxiom, OWLDatatype>() {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 40000L;
 
         @Override
         public boolean pass(OWLDatatypeDefinitionAxiom axiom, OWLDatatype p) {
@@ -615,7 +615,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
     };
     OWLAxiomSearchFilter<OWLSubAnnotationPropertyOfAxiom, OWLAnnotationProperty> subAnnPropertyFilter = new OWLAxiomSearchFilter<OWLSubAnnotationPropertyOfAxiom, OWLAnnotationProperty>() {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 40000L;
 
         @Override
         public boolean
@@ -629,7 +629,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
     };
     OWLAxiomSearchFilter<OWLAnnotationPropertyRangeAxiom, OWLAnnotationProperty> apRangeFilter = new OWLAxiomSearchFilter<OWLAnnotationPropertyRangeAxiom, OWLAnnotationProperty>() {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 40000L;
 
         @Override
         public boolean
@@ -643,7 +643,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
     };
     OWLAxiomSearchFilter<OWLAnnotationPropertyDomainAxiom, OWLAnnotationProperty> apDomainFilter = new OWLAxiomSearchFilter<OWLAnnotationPropertyDomainAxiom, OWLAnnotationProperty>() {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 40000L;
 
         @Override
         public boolean pass(OWLAnnotationPropertyDomainAxiom axiom,
@@ -1298,7 +1298,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitor,
             Serializable {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 40000L;
         private final List<OWLOntologyChange> appliedChanges;
 
         public OWLOntologyChangeFilter() {
@@ -1420,7 +1420,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     private class OWLEntityReferenceChecker implements OWLEntityVisitor, Serializable {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 40000L;
         private boolean ref;
 
         public OWLEntityReferenceChecker() {}

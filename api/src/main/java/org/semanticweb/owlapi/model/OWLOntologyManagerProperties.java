@@ -46,7 +46,7 @@ import java.io.Serializable;
  * Date: 10-Apr-2008<br>
  * <br> */
 public class OWLOntologyManagerProperties implements Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private boolean loadAnnotationAxioms = true;
     private boolean treatDublinCoreVocabularyAsBuiltInVocabulary = true;
 

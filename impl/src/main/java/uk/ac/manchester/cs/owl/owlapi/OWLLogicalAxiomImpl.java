@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLLogicalAxiom;
  * Date: 05-Dec-2006<br>
  * <br> */
 public abstract class OWLLogicalAxiomImpl extends OWLAxiomImpl implements OWLLogicalAxiom {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     protected OWLLogicalAxiomImpl(Collection<? extends OWLAnnotation> annotations) {
         super(annotations);

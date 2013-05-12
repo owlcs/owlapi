@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
  * @since 3.5 */
 public abstract class OWLOntologyChangeData implements Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     /** Default constructor for serialization purposes. */
     protected OWLOntologyChangeData() {}

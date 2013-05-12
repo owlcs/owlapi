@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
  *            the value */
 public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
         extends OWLRestrictionImpl<R, P, F> implements OWLCardinalityRestriction<R, P, F> {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final int cardinality;
     private final F filler;
 

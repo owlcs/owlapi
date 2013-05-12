@@ -45,7 +45,7 @@ package org.semanticweb.owlapi.model;
  * <br> */
 @SuppressWarnings("javadoc")
 public class OWLOntologyFactoryNotFoundException extends OWLRuntimeException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     public OWLOntologyFactoryNotFoundException(IRI documentIRI) {
         super(

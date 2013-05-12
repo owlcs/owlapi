@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class OWLNegativeObjectPropertyAssertionAxiomImpl extends
         OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
         implements OWLNegativeObjectPropertyAssertionAxiom {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
     public OWLNegativeObjectPropertyAssertionAxiomImpl(OWLIndividual subject,

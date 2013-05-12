@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * <br> */
 public abstract class OWLNaryBooleanClassExpressionImpl extends
         OWLAnonymousClassExpressionImpl implements OWLNaryBooleanClassExpression {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final Set<OWLClassExpression> operands;
 
     @SuppressWarnings("javadoc")

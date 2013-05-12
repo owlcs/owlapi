@@ -56,7 +56,7 @@ package org.semanticweb.owlapi.reasoner;
  * reasoner may be corrupt. */
 @SuppressWarnings("javadoc")
 public class ReasonerInternalException extends OWLReasonerRuntimeException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     public ReasonerInternalException(Throwable cause) {
         super(cause);

@@ -15,12 +15,13 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.util.*;
 import org.coode.owl.krssparser.NameResolverStrategy;
+import org.semanticweb.owlapi.io.XMLUtils;
 
 import java.net.*;
 import java.util.*;
 
 // Suppress warnings in auto-generated code
-@SuppressWarnings("unchecked")
+@SuppressWarnings("javadoc")
 public class KRSS2Parser {
 
     private OWLOntology ontology;
@@ -91,8 +92,7 @@ public class KRSS2Parser {
                         adaptiveMaxRuns--;
                     }
                     case CHECK: {
-                        splitted = utils.split(s, splitted);
-                        if (splitted[0]=="") {
+                        if (XMLUtils.getNCNamePrefix(s).isEmpty()) {
                             IRI = IRI.create(base + s);
                         } else {
                             IRI = IRI.create(s);

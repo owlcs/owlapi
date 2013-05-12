@@ -13,12 +13,12 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.*;
 import java.net.*;
 import java.util.*;
-import org.coode.string.EscapeUtils;
+import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import java.io.IOException;
 import org.semanticweb.owlapi.io.OWLParserException;
 
-
+@SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxParser {
 
     private OWLOntologyManager man;
@@ -38,11 +38,6 @@ public class OWLFunctionalSyntaxParser {
     private boolean ignoreAnnotationsAndDeclarations = false;
 
     private Set<OWLAnnotation> currentAnnotations;
-
-    @Deprecated
-    public void setUp(OWLOntologyManager man, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
-        setUp(ontology, configuration);
-    }
 
     public void setUp(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         this.man = ontology.getOWLOntologyManager();

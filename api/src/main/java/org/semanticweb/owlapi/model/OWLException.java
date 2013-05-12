@@ -43,7 +43,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group Date: 24-Oct-2006 The root of checked exceptions
  * in the OWL API. */
 public abstract class OWLException extends Exception {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     protected OWLException() {}
 

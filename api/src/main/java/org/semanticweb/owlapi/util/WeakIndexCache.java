@@ -11,7 +11,7 @@ import java.util.WeakHashMap;
  * @param <K>
  * @param <V> */
 public class WeakIndexCache<K, V> implements Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     protected transient WeakHashMap<K, WeakReference<V>> prefixCache = new WeakHashMap<K, WeakReference<V>>();
 
     /** @param s

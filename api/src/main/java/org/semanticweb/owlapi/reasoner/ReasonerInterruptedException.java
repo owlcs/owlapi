@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Date: 29-Oct-2009 */
 @SuppressWarnings("javadoc")
 public class ReasonerInterruptedException extends OWLRuntimeException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     public ReasonerInterruptedException() {}
 

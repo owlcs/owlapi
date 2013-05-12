@@ -47,7 +47,7 @@ import org.xml.sax.SAXException;
  * Date: 07-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class TranslatedUnloadedImportException extends SAXException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     public TranslatedUnloadedImportException(UnloadableImportException e) {
         super(e);

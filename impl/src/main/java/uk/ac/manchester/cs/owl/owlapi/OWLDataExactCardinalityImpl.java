@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 @SuppressWarnings("javadoc")
 public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionImpl
         implements OWLDataExactCardinality {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
 
     public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property,
             int cardinality, OWLDataRange filler) {

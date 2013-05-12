@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * {@link org.semanticweb.owlapi.model.OWLAxiomChange}.
  * </p> */
 public abstract class AxiomChangeData extends OWLOntologyChangeData {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 40000L;
     private final OWLAxiom axiom;
 
     /** Constructs an {@link AxiomChangeData} object that describes a change

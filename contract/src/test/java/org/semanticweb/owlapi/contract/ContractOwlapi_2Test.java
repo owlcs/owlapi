@@ -398,7 +398,7 @@ public class ContractOwlapi_2Test {
         OWLDataPropertyCharacteristicAxiomImpl testSubject0 = new OWLDataPropertyCharacteristicAxiomImpl(
                 mock(OWLDataPropertyExpression.class),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -1359,7 +1359,7 @@ public class ContractOwlapi_2Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -1431,7 +1431,7 @@ public class ContractOwlapi_2Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public boolean isNamed() {
@@ -1542,7 +1542,7 @@ public class ContractOwlapi_2Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
@@ -1804,7 +1804,7 @@ public class ContractOwlapi_2Test {
     public void shouldTestOWLLogicalAxiomImpl() throws Exception {
         OWLLogicalAxiomImpl testSubject0 = new OWLLogicalAxiomImpl(
                 new ArrayList<OWLAnnotation>()) {
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 40000L;
 
             @Override
             public void accept(OWLAxiomVisitor visitor) {}
