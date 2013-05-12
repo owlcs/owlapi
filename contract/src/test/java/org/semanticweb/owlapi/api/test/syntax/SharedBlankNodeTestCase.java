@@ -1,8 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
@@ -28,7 +27,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 /** test for 3294629 - currently disabled. Not clear whether structure sharing is
  * allowed or disallowed. Data is equivalent, ontology annotations are not */
 @SuppressWarnings("javadoc")
-@Ignore
 public class SharedBlankNodeTestCase {
     @Test
     public void verify() throws OWLOntologyCreationException {
