@@ -57,6 +57,7 @@ import java.util.zip.ZipInputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.xml.sax.InputSource;
@@ -112,7 +113,8 @@ public abstract class AbstractOWLParser implements OWLParser {
      * @throws IOException
      *             if there was an <code>IOException</code> in obtaining the
      *             input stream from the URI. */
-    protected InputStream getInputStream(IRI documentIRI) throws IOException {
+    protected InputStream getInputStream(IRI documentIRI,
+            OWLOntologyLoaderConfiguration config) throws IOException {
         String requestType = getRequestTypes();
         URL originalURL = documentIRI.toURI().toURL();
         String originalProtocol = originalURL.getProtocol();
@@ -122,7 +124,7 @@ public abstract class AbstractOWLParser implements OWLParser {
             conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
         }
         conn.setConnectTimeout(IOProperties.getInstance().getConnectionTimeout());
-        if (conn instanceof HttpURLConnection) {
+        if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
             // follow redirects to HTTPS
             HttpURLConnection con = (HttpURLConnection) conn;
             con.setInstanceFollowRedirects(false);
@@ -212,7 +214,8 @@ public abstract class AbstractOWLParser implements OWLParser {
         return fileName.toLowerCase(Locale.getDefault()).endsWith(ZIP_FILE_EXTENSION);
     }
 
-    protected InputSource getInputSource(OWLOntologyDocumentSource documentSource)
+    protected InputSource getInputSource(OWLOntologyDocumentSource documentSource,
+            OWLOntologyLoaderConfiguration config)
             throws IOException {
         InputSource is;
         if (documentSource.isReaderAvailable()) {
@@ -220,7 +223,7 @@ public abstract class AbstractOWLParser implements OWLParser {
         } else if (documentSource.isInputStreamAvailable()) {
             is = new InputSource(documentSource.getInputStream());
         } else {
-            is = new InputSource(getInputStream(documentSource.getDocumentIRI()));
+            is = new InputSource(getInputStream(documentSource.getDocumentIRI(), config));
         }
         is.setSystemId(documentSource.getDocumentIRI().toString());
         return is;

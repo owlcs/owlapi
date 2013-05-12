@@ -80,7 +80,9 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     br = new BufferedReader(new InputStreamReader(documentSource.getInputStream(), DEFAULT_FILE_ENCODING));
                 }
                 else {
-                    br = new BufferedReader(new InputStreamReader(getInputStream(documentSource.getDocumentIRI()), DEFAULT_FILE_ENCODING));
+                    br = new BufferedReader(new InputStreamReader(getInputStream(
+                            documentSource.getDocumentIRI(), configuration),
+                            DEFAULT_FILE_ENCODING));
                 }
                 StringBuilder sb = new StringBuilder();
                 String line;

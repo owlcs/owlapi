@@ -82,7 +82,7 @@ public class OWLOBOParser extends AbstractOWLParser {
             parser = new OBOParser(is);
         }
         else {
-            is = getInputStream(documentSource.getDocumentIRI());
+            is = getInputStream(documentSource.getDocumentIRI(), configuration);
             parser = new OBOParser(is);
         }
         RawFrameHandler rawFrameHandler = new RawFrameHandler();

@@ -94,6 +94,7 @@ public final class OWLOntologyLoaderConfiguration {
     private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = DEFAULT_MISSING_ONTOLOGY_HEADER_STRATEGY;
 
     private boolean strict = false;
+    private boolean followRedirects = true;
 
     private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
 
@@ -134,6 +135,10 @@ public final class OWLOntologyLoaderConfiguration {
      * @return a copy of this configuration object with a different strategy
      */
     public OWLOntologyLoaderConfiguration setMissingOntologyHeaderStrategy(MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
+        // do not make copies if setting the same value
+        if (missingOntologyHeaderStrategy == this.missingOntologyHeaderStrategy) {
+            return this;
+        }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
         copy.missingOntologyHeaderStrategy = missingOntologyHeaderStrategy;
         return copy;
@@ -148,6 +153,10 @@ public final class OWLOntologyLoaderConfiguration {
      * @return An <code>OWLOntologyLoaderConfiguration</code> object with the option set.
      */
     public OWLOntologyLoaderConfiguration setLoadAnnotationAxioms(boolean b) {
+        // do not make copies if setting the same value
+        if (loadAnnotations == b) {
+            return this;
+        }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
         copy.loadAnnotations = b;
         return copy;
@@ -163,14 +172,51 @@ public final class OWLOntologyLoaderConfiguration {
         return loadAnnotations;
     }
 
-    /**
-     * Sets the strategy that is used for missing imports handling.  See {@link MissingImportHandlingStrategy} for the
-     * strategies and their descriptions.
-     * @param missingImportHandlingStrategy The strategy to be used.
-     * @return An <code>OWLOntologyLoaderConfiguration</code> object with the strategy set.
-     * @since 3.3
-     */
+    /** When loading an ontology, a parser might connect to a remote URL. If the
+     * remote URL is a 302 redirect and the protocol is different, e.g., http to
+     * https, the parser needs to decide whether to follow the redirect and
+     * download the ontology from an alternate source, or stop with an
+     * UnloadableOntologyError. By default this is true, meaning redirects will
+     * be followed across protocols. If set to false, redirects will be followed
+     * only within the same protocol (URLConnection limits this to five
+     * redirects).
+     * 
+     * @return true if redirects should be followed when importing ontologies
+     *         from remote URLs */
+    public boolean isFollowRedirects() {
+        return followRedirects;
+    }
+
+    /** @param value
+     *            true if redirects should be followed across protocols, false
+     *            otherwise.
+     * @return a copy of the current object with followRedirects set to the new
+     *         value. */
+    public OWLOntologyLoaderConfiguration setFollowRedirects(boolean value) {
+        // as the objects are immutable, setting to the same value returns the
+        // same object
+        if (value == followRedirects) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration copy = copyConfiguration();
+        copy.followRedirects = value;
+        return copy;
+    }
+
+    /** Sets the strategy that is used for missing imports handling. See
+     * {@link MissingImportHandlingStrategy} for the strategies and their
+     * descriptions.
+     * 
+     * @param missingImportHandlingStrategy
+     *            The strategy to be used.
+     * @return An <code>OWLOntologyLoaderConfiguration</code> object with the
+     *         strategy set.
+     * @since 3.3 */
     public OWLOntologyLoaderConfiguration setMissingImportHandlingStrategy(MissingImportHandlingStrategy missingImportHandlingStrategy) {
+        // do not make copies if setting the same value
+        if (this.missingImportHandlingStrategy == missingImportHandlingStrategy) {
+            return this;
+        }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
         copy.missingImportHandlingStrategy = missingImportHandlingStrategy;
         return copy;
@@ -224,6 +270,10 @@ public final class OWLOntologyLoaderConfiguration {
      * @return copy of the configuration with new strict value
      */
     public OWLOntologyLoaderConfiguration setStrict(boolean strict) {
+        // do not make copies if setting the same value
+        if (this.strict == strict) {
+            return this;
+        }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
         copy.strict = strict;
         return copy;
@@ -294,6 +344,10 @@ public final class OWLOntologyLoaderConfiguration {
         copy.loadAnnotations = loadAnnotations;
         copy.ignoredImports.clear();
         copy.ignoredImports.addAll(ignoredImports);
+        copy.strict = strict;
+        copy.missingImportHandlingStrategy = missingImportHandlingStrategy;
+        copy.missingOntologyHeaderStrategy = missingOntologyHeaderStrategy;
+        copy.followRedirects = followRedirects;
         return copy;
     }
 
