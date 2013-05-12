@@ -115,7 +115,7 @@ public class RDFXMLParser extends AbstractOWLParser {
             }, configuration);
             consumer.setIRIProvider(prov);
             consumer.setOntologyFormat(format);
-            is = getInputSource(documentSource);
+            is = getInputSource(documentSource, configuration);
             parser.parse(is, consumer);
             return format;
         }

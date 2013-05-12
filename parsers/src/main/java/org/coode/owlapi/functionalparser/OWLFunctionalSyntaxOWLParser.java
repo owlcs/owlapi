@@ -81,7 +81,7 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
                 parser = new OWLFunctionalSyntaxParser(is);
             }
             else {
-                is = getInputStream(documentSource.getDocumentIRI());
+                is = getInputStream(documentSource.getDocumentIRI(), configuration);
                 parser = new OWLFunctionalSyntaxParser(is);
             }
             parser.setUp(ontology, configuration);

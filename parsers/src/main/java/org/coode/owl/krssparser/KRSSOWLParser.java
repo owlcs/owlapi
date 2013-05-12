@@ -61,7 +61,17 @@ public class KRSSOWLParser extends AbstractOWLParser {
 
 
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology) throws OWLParserException, IOException,
+            OWLOntologyChangeException, UnloadableImportException {
+        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+    }
+
+    @Override
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+            throws OWLParserException, IOException, OWLOntologyChangeException,
+            UnloadableImportException {
         try {
             KRSSOntologyFormat format = new KRSSOntologyFormat();
             KRSSParser parser;
@@ -72,7 +82,8 @@ public class KRSSOWLParser extends AbstractOWLParser {
                 parser = new KRSSParser(documentSource.getInputStream());
             }
             else {
-                parser = new KRSSParser(getInputStream(documentSource.getDocumentIRI()));
+                parser = new KRSSParser(getInputStream(documentSource.getDocumentIRI(),
+                        configuration));
             }
             parser.setOntology(ontology, ontology.getOWLOntologyManager().getOWLDataFactory());
             parser.parse();
@@ -81,11 +92,5 @@ public class KRSSOWLParser extends AbstractOWLParser {
         catch (ParseException e) {
             throw new KRSSOWLParserException(e);
         }
-    }
-
-    @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
-        // We ignore the configuration information
-        return parse(documentSource, ontology);
     }
 }

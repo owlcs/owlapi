@@ -84,7 +84,7 @@ public class OWLXMLParser extends AbstractOWLParser {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             factory.setNamespaceAware(true);
             SAXParser parser = factory.newSAXParser();
-            isrc = getInputSource(documentSource);
+            isrc = getInputSource(documentSource, configuration);
             OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology, configuration);
             parser.parse(isrc, handler);
             Map<String, String> prefix2NamespaceMap = handler.getPrefixName2PrefixMap();
