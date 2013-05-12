@@ -11,7 +11,6 @@ import java.util.Set;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.expression.ParserException;
@@ -50,7 +49,8 @@ public class ManchesterOWLSyntaxParserTestCase {
         // given
         IRI iri = IRI("http://protege.org/ontologies" + "#p");
         OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager.createOntology(IRI("http://protege.org/ontologies"));
+        OWLOntology ontology = manager
+                .createOntology(IRI("http://protege.org/ontologies"));
         manager.addAxiom(ontology, Declaration(DataProperty(iri)));
         StringDocumentTarget target = new StringDocumentTarget();
         ontology.getOWLOntologyManager().saveOntology(ontology, target);
@@ -62,20 +62,27 @@ public class ManchesterOWLSyntaxParserTestCase {
         assertTrue(ontology.containsDataPropertyInSignature(iri));
     }
 
-    @Ignore
     @Test
     public void shouldRoundtripDisjointUnion() throws Exception {
         OWLOntology o = Factory.getManager().createOntology();
-        OWLDisjointUnionAxiom axiom = DisjointUnion(Class(IRI("http://iri/#a")),
-                Class(IRI("http://iri/#b")), Class(IRI("http://iri/#c")),
-                Class(IRI("http://iri/#d")));
+        OWLClass a = Class(IRI("http://iri/#a"));
+        OWLClass b = Class(IRI("http://iri/#b"));
+        OWLClass c = Class(IRI("http://iri/#c"));
+        OWLClass d = Class(IRI("http://iri/#d"));
+        OWLDisjointUnionAxiom axiom = DisjointUnion(a, b, c, d);
         o.getOWLOntologyManager().addAxiom(o, axiom);
+        o.getOWLOntologyManager().addAxiom(o, Declaration(a));
+        o.getOWLOntologyManager().addAxiom(o, Declaration(b));
+        o.getOWLOntologyManager().addAxiom(o, Declaration(c));
+        o.getOWLOntologyManager().addAxiom(o, Declaration(d));
         StringDocumentTarget target = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o,
                 new ManchesterOWLSyntaxOntologyFormat(), target);
+        String string = target.toString();
+        System.out.println(string);
         OWLOntology roundtripped = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(target.toString()));
-        assertEquals(o.getLogicalAxioms(), roundtripped.getLogicalAxioms());
+                new StringDocumentSource(string));
+        assertEquals(o.getAxioms(), roundtripped.getAxioms());
     }
 
     @Test(expected = UnparsableOntologyException.class)
@@ -177,7 +184,6 @@ public class ManchesterOWLSyntaxParserTestCase {
     }
 
     public static final String NS = "http://protege.org/ontologies/Test.owl";
-    OWLClass a;
     OWLDataProperty p;
     OWLDatatype date_time;
     OWLDataFactory factory;
@@ -185,7 +191,6 @@ public class ManchesterOWLSyntaxParserTestCase {
     @Before
     public void setUp() {
         factory = Factory.getFactory();
-        a = Class(IRI(NS + "#A"));
         p = DataProperty(IRI(NS + "#p"));
         date_time = factory.getOWLDatatype(XSDVocabulary.DATE_TIME.getIRI());
     }
@@ -194,6 +199,7 @@ public class ManchesterOWLSyntaxParserTestCase {
     public void shouldParseCorrectly() throws ParserException,
             OWLOntologyCreationException {
         // given
+        OWLClass a = Class(IRI(NS + "#A"));
         String text1 = "'GWAS study' and  has_publication_date some dateTime[< \"2009-01-01T00:00:00+00:00\"^^dateTime]";
         OWLClassExpression expected = factory.getOWLObjectIntersectionOf(a, factory
                 .getOWLDataSomeValuesFrom(p, factory.getOWLDatatypeRestriction(date_time,

@@ -5,12 +5,12 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -18,7 +18,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 @SuppressWarnings("javadoc")
-@Ignore
 public class DisjointClassesRoundTripTestCase {
     String NS = "http://ns.owl";
     OWLClass C;
@@ -51,8 +50,8 @@ public class DisjointClassesRoundTripTestCase {
                 + "\n" + "        Ontology: <http://ns.owl>\n" + "        Class: piz:F\n"
                 + "        Class: piz:E\n" + "        Class: piz:D\n"
                 + "        Class: piz:C\n" + "        DisjointClasses: \n"
-                + "             or piz:D,piz:C,\n" + "             or piz:E,piz:C,\n"
-                + "             or piz:F,piz:C";
+                + "             ( piz:D or piz:C),\n"
+                + "             (piz:E or piz:C),\n" + "             (piz:F or piz:C)";
         OWLOntology roundtripped = loadOntology(input);
         assertEquals(input, ontology.getLogicalAxioms(), roundtripped.getLogicalAxioms());
     }
@@ -62,10 +61,9 @@ public class DisjointClassesRoundTripTestCase {
             OWLOntologyStorageException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = manager.createOntology(IRI(NS));
-        manager.addAxiom(
-                ontology,
-                DisjointClasses(ObjectUnionOf(C, D), ObjectUnionOf(C, E),
-                        ObjectUnionOf(C, F)));
+        OWLDisjointClassesAxiom disjointClasses = DisjointClasses(ObjectUnionOf(C, D),
+                ObjectUnionOf(C, E), ObjectUnionOf(C, F));
+        manager.addAxiom(ontology, disjointClasses);
         String s = saveOntology(ontology);
         OWLOntology roundtripped = loadOntology(s);
         assertEquals(s, ontology.getLogicalAxioms(), roundtripped.getLogicalAxioms());

@@ -215,12 +215,13 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(OWLObjectUnionOf desc) {
         boolean first = true;
+        write("(");
         for (Iterator<? extends OWLClassExpression> it = desc.getOperands().iterator(); it.hasNext();) {
             OWLClassExpression op = it.next();
             if (!first) {
-                if (isUseWrapping()) {
-                    writeNewLine();
-                }
+                // if (isUseWrapping()) {
+                // writeNewLine();
+                // }
                 write(" ", OR, " ");
             }
 
@@ -232,8 +233,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             if (op.isAnonymous()) {
                 write(")");
             }
-
         }
+        write(")");
     }
 
 
