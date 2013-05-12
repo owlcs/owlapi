@@ -42,6 +42,8 @@ package org.semanticweb.owlapi.io;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLConnection;
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -105,12 +107,38 @@ public abstract class AbstractOWLParser implements OWLParser {
      */
     protected InputStream getInputStream(IRI documentIRI) throws IOException {
         String requestType = getRequestTypes();
-        URLConnection conn = documentIRI.toURI().toURL().openConnection();
+        URL originalURL = documentIRI.toURI().toURL();
+        String originalProtocol = originalURL.getProtocol();
+        URLConnection conn = originalURL.openConnection();
         conn.addRequestProperty("Accept", requestType);
         if (IOProperties.getInstance().isConnectionAcceptHTTPCompression()) {
             conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
         }
         conn.setConnectTimeout(IOProperties.getInstance().getConnectionTimeout());
+        if (conn instanceof HttpURLConnection) {
+            // follow redirects to HTTPS
+            HttpURLConnection con = (HttpURLConnection) conn;
+            con.setInstanceFollowRedirects(false);
+            con.connect();
+            int responseCode = con.getResponseCode();
+            // redirect
+            if (responseCode == 302) {
+                String location = con.getHeaderField("Location");
+                URL newURL = new URL(location);
+                String newProtocol = newURL.getProtocol();
+                if (!originalProtocol.equals(newProtocol)) {
+                    // then different protocols: redirect won't follow
+                    // automatically
+                    conn = newURL.openConnection();
+                    conn.addRequestProperty("Accept", requestType);
+                    if (IOProperties.getInstance().isConnectionAcceptHTTPCompression()) {
+                        conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
+                    }
+                    conn.setConnectTimeout(IOProperties.getInstance()
+                            .getConnectionTimeout());
+                }
+            }
+        }
         String contentEncoding = conn.getContentEncoding();
         InputStream is = getInputStreamFromContentEncoding(conn, contentEncoding);
         if (isZipName(documentIRI, conn)) {
@@ -120,8 +148,7 @@ public abstract class AbstractOWLParser implements OWLParser {
                 ZipEntry nextEntry = zis.getNextEntry();
                 if (nextEntry != null) {
                     entry = nextEntry;
-                }
-                else {
+                } else {
                     break;
                 }
             }
