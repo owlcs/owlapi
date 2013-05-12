@@ -2614,6 +2614,18 @@ public class ManchesterOWLSyntaxEditorParser {
                     ontologyAnnotations.add(new AddOntologyAnnotation(ont, anno));
                 }
                 ontologyID = header.getOntologyID();
+            } else if (section.equalsIgnoreCase(DISJOINT_CLASSES)) {
+                axioms.addAll(parseDisjointClasses());
+            } else if (section.equalsIgnoreCase(EQUIVALENT_CLASSES)) {
+                axioms.addAll(parseNaryEquivalentClasses());
+            } else if (section.equalsIgnoreCase(EQUIVALENT_PROPERTIES)) {
+                axioms.addAll(parseNaryEquivalentProperties());
+            } else if (section.equalsIgnoreCase(DISJOINT_PROPERTIES)) {
+                axioms.addAll(parseDisjointProperties());
+            } else if (section.equalsIgnoreCase(DIFFERENT_INDIVIDUALS)) {
+                axioms.addAll(parseDifferentIndividuals());
+            } else if (section.equalsIgnoreCase(SAME_INDIVIDUAL)) {
+                axioms.addAll(parseSameIndividual());
             } else if (section.equalsIgnoreCase(CLASS)) {
                 axioms.addAll(parseClassFrame());
             } else if (section.equalsIgnoreCase(OBJECT_PROPERTY)) {
@@ -2644,18 +2656,6 @@ public class ManchesterOWLSyntaxEditorParser {
                 for (String ns : nsMap.keySet()) {
                     pm.setPrefix(ns, nsMap.get(ns).toString());
                 }
-            } else if (section.equalsIgnoreCase(DISJOINT_CLASSES)) {
-                axioms.addAll(parseDisjointClasses());
-            } else if (section.equalsIgnoreCase(EQUIVALENT_CLASSES)) {
-                axioms.addAll(parseNaryEquivalentClasses());
-            } else if (section.equalsIgnoreCase(EQUIVALENT_PROPERTIES)) {
-                axioms.addAll(parseNaryEquivalentProperties());
-            } else if (section.equalsIgnoreCase(DISJOINT_PROPERTIES)) {
-                axioms.addAll(parseDisjointProperties());
-            } else if (section.equalsIgnoreCase(DIFFERENT_INDIVIDUALS)) {
-                axioms.addAll(parseDifferentIndividuals());
-            } else if (section.equalsIgnoreCase(SAME_INDIVIDUAL)) {
-                axioms.addAll(parseSameIndividual());
             } else if (section.equalsIgnoreCase(RULE)) {
                 axioms.addAll(parseRuleFrame());
             } else if (section.equals(ManchesterOWLSyntaxTokenizer.EOF)) {
@@ -3331,7 +3331,7 @@ public class ManchesterOWLSyntaxEditorParser {
         @Override
         public OWLAxiom createAxiom(OWLClass subject, Set<OWLClassExpression> object,
                 Set<OWLAnnotation> annotations) {
-            object.add(subject);
+            // object.add(subject);
             return dataFactory.getOWLDisjointClassesAxiom(object, annotations);
         }
 
