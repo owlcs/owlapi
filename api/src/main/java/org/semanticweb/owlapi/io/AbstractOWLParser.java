@@ -127,11 +127,12 @@ public abstract class AbstractOWLParser implements OWLParser {
         if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
             // follow redirects to HTTPS
             HttpURLConnection con = (HttpURLConnection) conn;
-            con.setInstanceFollowRedirects(false);
             con.connect();
             int responseCode = con.getResponseCode();
             // redirect
-            if (responseCode == 302) {
+            if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
+                    || responseCode == HttpURLConnection.HTTP_MOVED_PERM
+                    || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
                 String location = con.getHeaderField("Location");
                 URL newURL = new URL(location);
                 String newProtocol = newURL.getProtocol();
