@@ -36,61 +36,69 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 11-Oct-2009
- * </p>
- * Represents the different types of OWL 2 Entities.
- */
-@SuppressWarnings("javadoc")
+ * Date: 11-Oct-2009 </p> Represents the different types of OWL 2 Entities.
+ * 
+ * @param <E> */
+
 public final class EntityType<E extends OWLEntity> implements Serializable {
-
-    public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class", OWLRDFVocabulary.OWL_CLASS);
-
-    public static final EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<OWLObjectProperty>("ObjectProperty", OWLRDFVocabulary.OWL_OBJECT_PROPERTY);
-
-    public static final EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<OWLDataProperty>("DataProperty", OWLRDFVocabulary.OWL_DATA_PROPERTY);
-
-    public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<OWLAnnotationProperty>("AnnotationProperty", OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY);
-
-    public static final EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<OWLNamedIndividual>("NamedIndividual", OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL);
-
-    public static final EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>("Datatype", OWLRDFVocabulary.RDFS_DATATYPE);
-
-
-    private static List<EntityType<?>> values;
-
-    static {
-    	List<EntityType<?>> l=new ArrayList<EntityType<?>>();
-    	l.add(CLASS);l.add(OBJECT_PROPERTY);l.add( DATA_PROPERTY);l.add( ANNOTATION_PROPERTY);l.add( NAMED_INDIVIDUAL);l.add( DATATYPE);
-        values = Collections.unmodifiableList(l);
-    }
-
+    private static final long serialVersionUID = 30402L;
+    /** class entity */
+    public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class",
+            "Class", "Classes", OWL_CLASS);
+    /** object property entity */
+    public static final EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<OWLObjectProperty>(
+            "ObjectProperty", "Object property", "Object properties", OWL_OBJECT_PROPERTY);
+    /** data property entity */
+    public static final EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<OWLDataProperty>(
+            "DataProperty", "Data property", "Data properties", OWL_DATA_PROPERTY);
+    /** annotation property entity */
+    public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<OWLAnnotationProperty>(
+            "AnnotationProperty", "Annotation property", "Annotation properties",
+            OWL_ANNOTATION_PROPERTY);
+    /** named individual entity */
+    public static final EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<OWLNamedIndividual>(
+            "NamedIndividual", "Named individual", "Named individuals",
+            OWL_NAMED_INDIVIDUAL);
+    /** datatype entity */
+    public static final EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>(
+            "Datatype", "Datatype", "Datatypes", RDFS_DATATYPE);
+    @SuppressWarnings("unchecked")
+    private static List<EntityType<?>> values = Collections.unmodifiableList(Arrays
+            .asList(CLASS, OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY,
+                    NAMED_INDIVIDUAL, DATATYPE));
     private final String name;
-
     private final OWLRDFVocabulary vocabulary;
+    private final String printName;
+    private final String pluralPrintName;
 
-    private EntityType(String name, OWLRDFVocabulary vocabulary) {
+    private EntityType(String name, String print, String pluralPrint,
+            OWLRDFVocabulary vocabulary) {
         this.name = name;
         this.vocabulary = vocabulary;
+        printName = print;
+        pluralPrintName = pluralPrint;
     }
 
+    /** @return toe vocabulary enum corresponding to this entity */
     public OWLRDFVocabulary getVocabulary() {
         return vocabulary;
     }
 
+    /** @return this entity tipe name */
     public String getName() {
         return name;
     }
@@ -100,8 +108,18 @@ public final class EntityType<E extends OWLEntity> implements Serializable {
         return name;
     }
 
+    /** @return the list of known entity types */
     public static List<EntityType<?>> values() {
         return values;
     }
 
+    /** @return printable name */
+    public String getPrintName() {
+        return printName;
+    }
+
+    /** @return plural printable name */
+    public String getPluralPrintName() {
+        return pluralPrintName;
+    }
 }
