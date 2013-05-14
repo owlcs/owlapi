@@ -4,21 +4,20 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
-import java.util.Collections;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 /** A weakly linked cache - elements in the cache can be garbage collected
  * 
  * @param <K> */
 public class WeakCache<K> implements Serializable {
     private static final long serialVersionUID = 30402L;
-    private transient Map<K, WeakReference<K>> prefixCache = Collections.synchronizedMap(new WeakHashMap<K, WeakReference<K>>());
+    private transient Map<K, WeakReference<K>> prefixCache = CollectionFactory
+            .createSyncWeakMap();
 
     private void readObject(ObjectInputStream in) throws IOException,
     ClassNotFoundException {
         in.defaultReadObject();
-        prefixCache = Collections.synchronizedMap(new WeakHashMap<K, WeakReference<K>>());
+        prefixCache = CollectionFactory.createSyncWeakMap();
     }
 
     /** @param s

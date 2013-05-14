@@ -38,6 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -47,6 +48,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
@@ -110,6 +112,11 @@ public class CollectionFactory {
     /** @return fresh map */
     public static <K, V> Map<K, V> createMap() {
         return new HashMap<K, V>();
+    }
+
+    /** @return a new weak hashmap wrapped as a synchronized map */
+    public static <K, V> Map<K, WeakReference<V>> createSyncWeakMap() {
+        return Collections.synchronizedMap(new WeakHashMap<K, WeakReference<V>>());
     }
 
     /**

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
-import java.util.WeakHashMap;
+import java.util.Map;
 
 /** A weakly linked cache - elements in the cache can be garbage collected
  * 
@@ -12,7 +12,8 @@ import java.util.WeakHashMap;
  * @param <V> */
 public class WeakIndexCache<K, V> implements Serializable {
     private static final long serialVersionUID = 30402L;
-    protected transient WeakHashMap<K, WeakReference<V>> prefixCache = new WeakHashMap<K, WeakReference<V>>();
+    protected transient Map<K, WeakReference<V>> prefixCache = CollectionFactory
+            .createSyncWeakMap();
 
     /** @param s
      *            the cache key
@@ -35,7 +36,7 @@ public class WeakIndexCache<K, V> implements Serializable {
     private void readObject(ObjectInputStream in) throws IOException,
     ClassNotFoundException {
         in.defaultReadObject();
-        prefixCache = new WeakHashMap<K, WeakReference<V>>();
+        prefixCache = CollectionFactory.createSyncWeakMap();
     }
 
     /** @param k
@@ -64,7 +65,7 @@ public class WeakIndexCache<K, V> implements Serializable {
         return false;
     }
 
-    /** chlear the cache */
+    /** empty the cache */
     public void clear() {
         prefixCache.clear();
     }
