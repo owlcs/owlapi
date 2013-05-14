@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
+import java.util.Collections;
+import java.util.Map;
 import java.util.WeakHashMap;
 
 /** A weakly linked cache - elements in the cache can be garbage collected
@@ -11,12 +13,12 @@ import java.util.WeakHashMap;
  * @param <K> */
 public class WeakCache<K> implements Serializable {
     private static final long serialVersionUID = 30402L;
-    private transient WeakHashMap<K, WeakReference<K>> prefixCache = new WeakHashMap<K, WeakReference<K>>();
+    private transient Map<K, WeakReference<K>> prefixCache = Collections.synchronizedMap(new WeakHashMap<K, WeakReference<K>>());
 
     private void readObject(ObjectInputStream in) throws IOException,
     ClassNotFoundException {
         in.defaultReadObject();
-        prefixCache = new WeakHashMap<K, WeakReference<K>>();
+        prefixCache = Collections.synchronizedMap(new WeakHashMap<K, WeakReference<K>>());
     }
 
     /** @param s
