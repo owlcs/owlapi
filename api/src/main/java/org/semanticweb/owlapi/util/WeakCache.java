@@ -5,19 +5,19 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 /** A weakly linked cache - elements in the cache can be garbage collected
  * 
  * @param <K> */
 public class WeakCache<K> implements Serializable {
     private static final long serialVersionUID = 30402L;
-    private transient Map<K, WeakReference<K>> prefixCache = CollectionFactory
-            .createSyncWeakMap();
+    private transient Map<K, WeakReference<K>> prefixCache = new WeakHashMap<K, WeakReference<K>>();
 
     private void readObject(ObjectInputStream in) throws IOException,
     ClassNotFoundException {
         in.defaultReadObject();
-        prefixCache = CollectionFactory.createSyncWeakMap();
+        prefixCache = new WeakHashMap<K, WeakReference<K>>();
     }
 
     /** @param s

@@ -106,7 +106,12 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
 
     private final WeakIndexCache<String, OWLLiteral> stringCache = new WeakIndexCache<String, OWLLiteral>();
 
-    private final WeakCache<OWLLiteral> litCache = new WeakCache<OWLLiteral>();
+    private final ThreadLocal<WeakCache<OWLLiteral>> litCache = new ThreadLocal<WeakCache<OWLLiteral>>() {
+        @Override
+        protected WeakCache<OWLLiteral> initialValue() {
+            return new WeakCache<OWLLiteral>();
+        }
+    };
 
     protected <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache(OWLDataFactory f) {
         return new BuildableWeakIndexCache<V>(f);
@@ -164,7 +169,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         if (datatype.isString()) {
             return stringCache.cache(literal.getLiteral(), literal);
         }
-        return litCache.cache(literal);
+        return litCache.get().cache(literal);
     }
 
     @SuppressWarnings("unchecked")
@@ -216,7 +221,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
 
     @Override
     public void purge() {
-        litCache.clear();
+        litCache.get().clear();
         classesByURI.clear();
         objectPropertiesByURI.clear();
         dataPropertiesByURI.clear();
