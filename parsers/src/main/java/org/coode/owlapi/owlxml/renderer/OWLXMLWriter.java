@@ -144,17 +144,15 @@ public class OWLXMLWriter {
      * @param iri The IRI
      * @return Either the compact version of the IRI or the full IRI.
      */
-    public String getIRIString(URI iri) {
-        String fullIRI = iri.toString();
-        for (String prefixName : iriPrefixMap.keySet()) {
-            if (fullIRI.startsWith(prefixName)) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(iriPrefixMap.get(prefixName));
-                sb.append(fullIRI.substring(prefixName.length()));
-                return sb.toString();
-            }
+    public String getIRIString(IRI iri) {
+        String prefixName = iriPrefixMap.get(iri.getNamespace());
+        if (prefixName == null) {
+            return iri.toString();
         }
-        return fullIRI;
+       if(iri.getFragment()==null){
+           return prefixName;
+       }
+        return prefixName + iri.getFragment();
     }
 
 
@@ -220,7 +218,7 @@ public class OWLXMLWriter {
 
     public void writeNodeIDAttribute(NodeID nodeID) {
         try {
-            writer.writeAttribute(OWLXMLVocabulary.NODE_ID.getIRI().toString(), nodeID.toString());
+            writer.writeAttribute(OWLXMLVocabulary.NODE_ID.getIRI().toString(), nodeID.getID());
         }
         catch (IOException e) {
             throw new OWLRuntimeException(e);
@@ -235,7 +233,7 @@ public class OWLXMLWriter {
                 writer.writeAttribute(attName, value.substring(writer.getXMLBase().length(), value.length()));
             }
             else {
-                String val = getIRIString(iri.toURI());
+                String val = getIRIString(iri);
                 if (!val.equals(iri.toString())) {
                     writer.writeAttribute(OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE.getIRI().toString(), val);
                 }
@@ -265,7 +263,7 @@ public class OWLXMLWriter {
                 writeEndElement();
             }
             else {
-                String val = getIRIString(iri.toURI());
+                String val = getIRIString(iri);
                 if (!val.equals(iriString)) {
                     writeStartElement(OWLXMLVocabulary.ABBREVIATED_IRI_ELEMENT);
                     writer.writeTextContent(val);

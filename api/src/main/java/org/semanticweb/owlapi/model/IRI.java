@@ -45,6 +45,7 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Set;
 
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.util.WeakCache;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -96,8 +97,14 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         return prefix.substring(0, colonIndex);
     }
 
-    /** @return the prefix. Can be null. */
+    /** @return the prefix. Can be null.
+     * @deprecated use getNamespace instead - better name */
+    @Deprecated
     public String getStart() {
+        return prefix;
+    }
+    /** @return the prefix. Can be null. */
+    public String getNamespace() {
         return prefix;
     }
 
@@ -277,20 +284,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     protected IRI(String s) {
-        int fragmentSeparatorIndex = s.lastIndexOf('#');
-        if (fragmentSeparatorIndex != -1 && fragmentSeparatorIndex < s.length()) {
-            remainder = s.substring(fragmentSeparatorIndex + 1);
-            prefix = prefixCache.get().cache(s.substring(0, fragmentSeparatorIndex + 1));
-        } else {
-            int pathSeparatorIndex = s.lastIndexOf('/');
-            if (pathSeparatorIndex != -1 && pathSeparatorIndex < s.length()) {
-                remainder = s.substring(pathSeparatorIndex + 1);
-                prefix = prefixCache.get().cache(s.substring(0, pathSeparatorIndex + 1));
-            } else {
-                remainder = null;
-                prefix = prefixCache.get().cache(s);
-            }
-        }
+        this(XMLUtils.getNCNamePrefix(s), XMLUtils.getNCNameSuffix(s));
     }
 
     protected IRI(URI uri) {

@@ -299,6 +299,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     }
 
     private IRI resolveFromDelegate(IRI iri, String value) {
+        if (NodeID.isAnonymousNodeIRI(value)) {
+            return IRI.create(value, null);
+        }
         // cache the delegate URI if not there already
         if (!m_baseURICache.containsKey(m_baseIRI)) {
             m_baseURICache.put(m_baseIRI, m_baseIRI.toURI());

@@ -40,9 +40,6 @@ import static org.junit.Assert.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Timeout;
@@ -107,7 +104,6 @@ public class IRITest
         openLatch.countDown(); // release the latch
         // all threads are now running concurrently.
         closeLatch.await();
-        System.out.println("count: " + count.get());
         assertEquals(threadCount, count.get());
     }
     
@@ -157,7 +153,6 @@ public class IRITest
         openLatch.countDown(); // release the latch
         // all threads are now running concurrently.
         closeLatch.await();
-        System.out.println("count: " + count.get());
         assertEquals(threadCount, count.get());
     }
     

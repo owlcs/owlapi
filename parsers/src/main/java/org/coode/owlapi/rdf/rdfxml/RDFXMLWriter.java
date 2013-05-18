@@ -94,11 +94,10 @@ public class RDFXMLWriter {
     }
 
     public void writeNodeIDAttribute(RDFResourceNode node) throws IOException  {
-        writeAttribute(Namespaces.RDF + "nodeID", IRI.create(node.toString()));
+        writer.writeAttribute(Namespaces.RDF + "nodeID", node.toString());
     }
 
     private void writeAttribute(String attributeName, IRI value) throws IOException  {
-//            URI s = writer.getXMLBaseAsURI().relativize(value);
             writer.writeAttribute(attributeName, value.toString());
     }
     @SuppressWarnings("unused")

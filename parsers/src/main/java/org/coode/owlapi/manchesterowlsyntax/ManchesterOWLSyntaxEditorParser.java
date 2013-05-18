@@ -1512,6 +1512,7 @@ public class ManchesterOWLSyntaxEditorParser {
         if (prop == null) {
             throw createException(false, false, true, false);
         }
+        axioms.add(new OntologyAxiomPair(defaultOntology, dataFactory.getOWLDeclarationAxiom(prop)));
         parseFrameSections(false, axioms, prop, dataPropertyFrameSections);
         return axioms;
     }

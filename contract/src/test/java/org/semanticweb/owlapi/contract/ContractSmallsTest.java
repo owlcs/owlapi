@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -590,7 +590,7 @@ public class ContractSmallsTest {
         testSubject0.writeDatatypeAttribute(mock(OWLDatatype.class));
         Map<String, String> result0 = testSubject0.getIRIPrefixMap();
         XMLWriterNamespaceManager result1 = testSubject0.getNamespaceManager();
-        String result2 = testSubject0.getIRIString(mock(URI.class));
+        String result2 = testSubject0.getIRIString(IRI.create("urn:test", null));
         testSubject0.writeAnnotationURIAttribute(mock(URI.class));
     }
 

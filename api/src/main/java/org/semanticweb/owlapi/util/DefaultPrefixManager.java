@@ -48,7 +48,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -146,12 +145,11 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @Override
     public String getPrefixIRI(IRI iri) {
-        String iriString = iri.toString();
-        String ns = XMLUtils.getNCNamePrefix(iriString);
+        String ns = iri.getNamespace();
         for (String prefixName : prefix2NamespaceMap.keySet()) {
             String prefix = prefix2NamespaceMap.get(prefixName);
             if (ns.equals(prefix)) {
-                String ncNameSuffix = XMLUtils.getNCNameSuffix(iriString);
+                String ncNameSuffix = iri.getFragment();
                 if (ncNameSuffix == null) {
                     ncNameSuffix = "";
                 }
@@ -192,7 +190,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
             }
             String prefix = getPrefix(prefixName);
             String localName = curie.substring(sep + 1);
-            return IRI.create(prefix + localName);
+            return IRI.create(prefix, localName);
         }
     }
 
