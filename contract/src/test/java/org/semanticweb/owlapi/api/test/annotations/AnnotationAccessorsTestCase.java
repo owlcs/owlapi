@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -122,5 +123,15 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
         OWLDatatype cls = Datatype(SUBJECT);
         assertTrue(cls.getAnnotationAssertionAxioms(ont).contains(ax));
         assertTrue(cls.getAnnotations(ont).contains(ax.getAnnotation()));
+    }
+    @Test
+    public void testAnonAccessor() {
+        OWLOntology ont = getOWLOntology("ontology");
+        OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));
+        OWLAnnotationValue value = Literal("value");
+        OWLAnonymousIndividual a = AnonymousIndividual();
+        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, a, value);
+        getManager().addAxiom(ont, ax);
+        assertTrue(ont.getAnnotationAssertionAxioms(a).contains(ax));
     }
 }
