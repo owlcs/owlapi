@@ -199,7 +199,7 @@ public enum OWL2Datatype {
     private Pattern pattern;
 
     OWL2Datatype(Namespaces namespace, String shortName, Category category, boolean finite, String regEx) {
-        iri = IRI.create(namespace + shortName);
+        iri = IRI.create(namespace.toString(), shortName);
         this.shortName = shortName;
         this.category = category;
         this.finite = finite;

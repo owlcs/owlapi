@@ -266,7 +266,7 @@ public enum OWLXMLVocabulary {
 
 
     OWLXMLVocabulary(String name) {
-        this.iri = IRI.create(Namespaces.OWL + name);
+        iri = IRI.create(Namespaces.OWL.toString(), name);
         shortName = name;
     }
 

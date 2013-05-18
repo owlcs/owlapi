@@ -36,21 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.vocab;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 25-Oct-2006
- * A vocabulary for XML Schema Data Types (XSD)
- */
+ * Bio-Health Informatics Group Date: 25-Oct-2006 A vocabulary for XML Schema
+ * Data Types (XSD) */
 @SuppressWarnings("javadoc")
 public enum XSDVocabulary {
-
+    // @formatter:off
     ANY_TYPE("anyType"),
     ANY_SIMPLE_TYPE("anySimpleType"),
     STRING("string"),
@@ -97,42 +93,25 @@ public enum XSDVocabulary {
     G_MONTH("gMonth"),
     UNSIGNED_SHORT("unsignedShort"),
     UNSIGNED_BYTE("unsignedByte");
-
+    // @formatter:on
     private final String shortName;
-
     private final IRI iri;
 
     XSDVocabulary(String name) {
-        this.shortName = name;
-        iri = IRI.create(Namespaces.XSD + name);
+        shortName = name;
+        iri = IRI.create(Namespaces.XSD.toString(), name);
     }
-
 
     public String getShortName() {
         return shortName;
     }
 
-
-//    public URI getURI() {
-//        return iri.toURI();
-//    }
-
     public IRI getIRI() {
         return iri;
     }
 
-//    public static final Set<URI> ALL_DATATYPES;
-//
-//    static {
-//        ALL_DATATYPES = new HashSet<URI>();
-//        for(XSDVocabulary v : XSDVocabulary.values()) {
-//            ALL_DATATYPES.add(v.getURI());
-//        }
-//    }
-
-
     @Override
-	public String toString() {
+    public String toString() {
         return iri.toString();
     }
 }

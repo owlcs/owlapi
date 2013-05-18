@@ -101,7 +101,7 @@ public enum OWLFacet {
 
 
     OWLFacet(Namespaces ns, String shortName, String symbolicForm) {
-        this.iri = IRI.create(ns + shortName);
+        iri = IRI.create(ns.toString(), shortName);
         this.shortName = shortName;
         this.symbolicForm = symbolicForm;
     }

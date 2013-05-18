@@ -262,7 +262,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             if (ont != null) {
                 man.removeOntology(ont);
             }
-            ont = man.createOntology(IRI.create("http://www.semanticweb.org/ontology"
+            ont = man.createOntology(IRI.create("http://www.semanticweb.org/", "ontology"
                     + randomstart.incrementAndGet()));
             List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
             for (OWLAxiom ax : currentExplanation) {

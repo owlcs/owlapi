@@ -110,7 +110,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         // extra URI object
         URI uri = URI.create(s);
         if (uri.isAbsolute() || uri.isOpaque()) {
-            return IRI.create(uri.toString());
+            return IRI.create(uri);
         }
         return IRI.create(toURI().resolve(uri).toString());
     }

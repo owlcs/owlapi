@@ -512,6 +512,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
     private static IRI createIRI() {
-        return IRI.create("http://debugging.blackbox#" + System.nanoTime());
+        return IRI.create("http://debugging.blackbox#", "A" + System.nanoTime());
     }
 }

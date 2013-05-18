@@ -82,8 +82,8 @@ public enum SWRLVocabulary {
     private final IRI iri;
 
     SWRLVocabulary(String name) {
-        this.shortName = name;
-        this.iri = IRI.create(Namespaces.SWRL + name);
+        shortName = name;
+        iri = IRI.create(Namespaces.SWRL.toString(), name);
     }
 
 

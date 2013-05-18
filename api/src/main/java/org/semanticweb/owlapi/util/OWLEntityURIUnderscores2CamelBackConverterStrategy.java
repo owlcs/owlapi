@@ -79,12 +79,13 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEn
     }
 
     private static IRI convert(IRI iri) {
+        // TODO this should use XMLUtils.getNCNamePrefix
         String iriString = iri.toString();
         String fragment = iri.toURI().getFragment();
         if(fragment != null) {
             String base = iriString.substring(0, iriString.length() - fragment.length());
             String camelCaseFragment = toCamelCase(fragment);
-            return IRI.create(base + camelCaseFragment);
+            return IRI.create(base, camelCaseFragment);
         }
         String path = iri.toURI().getPath();
         if(path.length() > 0) {
@@ -92,7 +93,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEn
             String lastPathElement = path.substring(index + 1, path.length());
             String camelCaseElement = toCamelCase(lastPathElement);
             String base = iriString.substring(0, iriString.lastIndexOf('/') + 1);
-            return IRI.create(base + camelCaseElement);
+            return IRI.create(base, camelCaseElement);
         }
         return iri;
     }

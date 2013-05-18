@@ -83,7 +83,7 @@ public enum DublinCoreVocabulary {
     DublinCoreVocabulary(String name) {
         shortName = name;
         qname = "dc:" + name;
-        iri = IRI.create(NAME_SPACE + name);
+        iri = IRI.create(NAME_SPACE, name);
     }
 
     public String getShortName() {

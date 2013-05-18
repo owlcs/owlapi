@@ -174,9 +174,9 @@ public enum SKOSVocabulary {
     private final EntityType<?> entityType;
 
     SKOSVocabulary(String localname, EntityType<?> entityType) {
-        this.localName = localname;
+        localName = localname;
         this.entityType = entityType;
-        this.iri = IRI.create(Namespaces.SKOS.toString() + localname);
+        iri = IRI.create(Namespaces.SKOS.toString(), localname);
     }
 
     public EntityType<?> getEntityType() {

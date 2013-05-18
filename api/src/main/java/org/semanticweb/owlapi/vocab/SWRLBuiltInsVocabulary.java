@@ -141,8 +141,8 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
     }
 
     SWRLBuiltInsVocabulary(String name, int minArity, int maxArity) {
-        this.shortName = name;
-        this.iri = IRI.create(Namespaces.SWRLB + name);
+        shortName = name;
+        iri = IRI.create(Namespaces.SWRLB.toString(), name);
         this.minArity = minArity;
         this.maxArity = maxArity;
     }

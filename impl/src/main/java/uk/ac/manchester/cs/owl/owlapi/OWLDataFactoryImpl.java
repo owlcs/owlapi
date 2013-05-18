@@ -1452,7 +1452,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         checkNull(body, "body");
         checkNull(head, "head");
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(2);
-        annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/owlapi#iri")), getOWLLiteral(iri.toQuotedString())));
+        annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/owlapi#", "iri")), getOWLLiteral(iri.toQuotedString())));
         return new SWRLRuleImpl(body, head, annos);
     }
 
@@ -1469,7 +1469,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         checkNull(body, "body");
         checkNull(nodeID, "nodeID");
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(2);
-        annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/owlapi#nodeID")), getOWLLiteral(nodeID.toString())));
+        annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI.create("http://www.semanticweb.org/owlapi#", "nodeID")), getOWLLiteral(nodeID.toString())));
         return new SWRLRuleImpl(body, head, annos);
     }
 
