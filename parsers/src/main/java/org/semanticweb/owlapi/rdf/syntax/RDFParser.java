@@ -308,7 +308,6 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
         // get hold of the delegate URI
         URI delegateURI = m_baseURICache.get(m_baseIRI);
-        // TODO 28% object creation here
         // resolve against delegate
         return IRI.create(delegateURI.resolve(value));
     }
@@ -866,7 +865,6 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
                         m_innerNode.getSubjectIRI(), m_reificationID);
             } else {
                 statementWithLiteralValue(m_nodeElement.getSubjectIRI(), m_propertyIRI,
-                // TODO 33% of object creations here
                         m_text.toString(), m_datatype, m_reificationID);
             }
             popState();

@@ -80,8 +80,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         }
     }
 
+    private static final StringLengthComparator STRING_LENGTH_COMPARATOR = new StringLengthComparator();
+
     private final Map<String, String> prefix2NamespaceMap = new TreeMap<String, String>(
-            new StringLengthComparator());
+            STRING_LENGTH_COMPARATOR);
 
     /** Creates a namespace manager that does not have a default namespace. */
     public DefaultPrefixManager() {
@@ -224,14 +226,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         if (!prefixName.endsWith(":")) {
             throw new IllegalArgumentException("Prefix names must end with a colon (:)");
         }
-        // XXX on Java 6 all is fine, on Java 5 this code will print the results
-        // of a strange switch between default values
-        // String p = prefix2NamespaceMap.get(prefixName);
-        // if (prefixName.equals(":") && p!=null && !p.equals(prefix)) {
-        // System.out.println("DefaultPrefixManager.setPrefix() Replacing value for '"
-        // + prefixName + "' : '" + p + "' replaced with '" + prefix + "'");
-        // new Exception().printStackTrace(System.out);
-        // }
         prefix2NamespaceMap.put(prefixName, prefix);
     }
 

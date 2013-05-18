@@ -443,12 +443,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectAllValuesFrom desc) {
-        if (isTop(desc.getFiller())) {
-            constructs.add(AL);
-        } else {
-            // TODO: DOUBLE CHECK
-            constructs.add(AL);
-        }
+        constructs.add(AL);
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
     }

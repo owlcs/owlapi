@@ -408,7 +408,6 @@ public abstract class RDFRendererBase {
                 }
             }
             if (anonRoot) {
-                //TODO check this: in some cases it seems to cause a StackOverflow error.
                 createGraph(axioms);
                 renderAnonRoots();
             }
@@ -665,7 +664,7 @@ public abstract class RDFRendererBase {
 
 
     private static <N extends OWLEntity> Set<N> toSortedSet(Set<N> entities) {
-        Set<N> results = new TreeSet<N>(new OWLEntityIRIComparator());
+        Set<N> results = new TreeSet<N>(OWL_ENTITY_IRI_COMPARATOR);
         results.addAll(entities);
         return results;
     }
@@ -738,7 +737,6 @@ public abstract class RDFRendererBase {
 
     /**
      * Comparator that uses IRI ordering to order entities.
-     * XXX stateless, might be used through a singleton
      */
     private static final class OWLEntityIRIComparator implements Comparator<OWLEntity>, Serializable {
 
@@ -751,6 +749,7 @@ public abstract class RDFRendererBase {
         }
     }
 
+    private static final OWLEntityIRIComparator OWL_ENTITY_IRI_COMPARATOR = new OWLEntityIRIComparator();
 
     public static class TripleComparator implements Comparator<RDFTriple>, Serializable {
 

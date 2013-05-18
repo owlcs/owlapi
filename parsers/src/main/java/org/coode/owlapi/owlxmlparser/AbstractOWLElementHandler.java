@@ -133,7 +133,6 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
         return handler.getColumnNumber();
     }
 
-    // TODO: Make final
     @Override
     public void startElement(String name) throws OWLXMLParserException {
         sb = null;

@@ -87,7 +87,6 @@ public class CollectionFactory {
      * @return fresh non threadsafe list
      */
     public static <T> List<T> createList() {
-        //TODO large number of sets stay very small, wasting space
         return new ArrayList<T>();
     }
 

@@ -727,7 +727,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                         for (SWRLAtom atom : rule.getHead()) {
                             if (atom.getPredicate().equals(property)) {
                                 rules.add(rule);
-                                // XXX attempted patching
                                 writeSection(RULE, rules, ",", true, ontology);
                                 break;
                             }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.HashSet;
@@ -46,43 +45,34 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16-Feb-2007<br><br>
+ * Date: 16-Feb-2007<br>
+ * <br>
  * <p/>
- * A utility class which checks if a class expression has a named conjunct or
- * a specific named conjunct.
- */
+ * A utility class which checks if a class expression has a named conjunct or a
+ * specific named conjunct. */
 public class NamedConjunctChecker {
-
     OWLClass conjunct;
-
     boolean found;
-
     boolean collect;
-
     final Set<OWLClass> conjuncts;
-
     private final NamedConjunctCheckerVisitor visitor;
 
-
     @SuppressWarnings("javadoc")
-	public NamedConjunctChecker() {
+    public NamedConjunctChecker() {
         visitor = new NamedConjunctCheckerVisitor();
         conjuncts = new HashSet<OWLClass>();
     }
 
-
-    /**
-     * @return true ifa named class is a conjunct in a given class expression.
-     * For class expressions which aren't named classes or object intersections this
-     * method will always return false.
-     * @param conj The conjunct to check for
-     * @param classExpression The expression to be checked
-     */
+    /** @return true ifa named class is a conjunct in a given class expression.
+     *         For class expressions which aren't named classes or object
+     *         intersections this method will always return false.
+     * @param conj
+     *            The conjunct to check for
+     * @param classExpression
+     *            The expression to be checked */
     public boolean isNamedConjunct(OWLClass conj, OWLClassExpression classExpression) {
         reset();
         conjunct = conj;
@@ -90,16 +80,16 @@ public class NamedConjunctChecker {
         return found;
     }
 
-
-    /**
-     * Checks whether the specified expression has a named conjunct.  For
-     * For class expressions which aren't named classes or object intersections this
+    /** Checks whether the specified expression has a named conjunct. For For
+     * class expressions which aren't named classes or object intersections this
      * method will always return false.
-     * @param classExpression The expression to be checked.
-     * @return <code>true</code> if the expression is in fact a named class (<code>OWLClass</code>)
-     *         or if the expression is an intersection that has a named operand (included nested intersections),
-     *         otherwise <code>false</code>
-     */
+     * 
+     * @param classExpression
+     *            The expression to be checked.
+     * @return <code>true</code> if the expression is in fact a named class (
+     *         <code>OWLClass</code>) or if the expression is an intersection
+     *         that has a named operand (included nested intersections),
+     *         otherwise <code>false</code> */
     public boolean hasNamedConjunct(OWLClassExpression classExpression) {
         reset();
         conjunct = null;
@@ -107,20 +97,18 @@ public class NamedConjunctChecker {
         return found;
     }
 
-
     private void reset() {
         found = false;
         collect = false;
     }
 
-
-    /**
-     * Gets the named conjuncts for the specified expression.
-     * @param classExpression The expression whose conjuncts are to be retrieved.
-     * @return A set containing the named conjuncts of the specified expression.  If
-     *         the expression is not a named class or an intersection then the set will
-     *         definitely be empty.
-     */
+    /** Gets the named conjuncts for the specified expression.
+     * 
+     * @param classExpression
+     *            The expression whose conjuncts are to be retrieved.
+     * @return A set containing the named conjuncts of the specified expression.
+     *         If the expression is not a named class or an intersection then
+     *         the set will definitely be empty. */
     public Set<OWLClass> getNamedConjuncts(OWLClassExpression classExpression) {
         conjuncts.clear();
         reset();
@@ -129,23 +117,17 @@ public class NamedConjunctChecker {
         return conjuncts;
     }
 
-
     private class NamedConjunctCheckerVisitor extends OWLClassExpressionVisitorAdapter {
+        public NamedConjunctCheckerVisitor() {}
 
-        public NamedConjunctCheckerVisitor() {
-			// TODO Auto-generated constructor stub
-		}
-
-
-		@Override
-		public void visit(OWLClass desc) {
+        @Override
+        public void visit(OWLClass desc) {
             if (conjunct == null) {
                 found = true;
                 if (collect) {
                     conjuncts.add(desc);
                 }
-            }
-            else if (desc.equals(conjunct)) {
+            } else if (desc.equals(conjunct)) {
                 found = true;
                 if (collect) {
                     conjuncts.add(desc);
@@ -153,9 +135,8 @@ public class NamedConjunctChecker {
             }
         }
 
-
         @Override
-		public void visit(OWLObjectIntersectionOf desc) {
+        public void visit(OWLObjectIntersectionOf desc) {
             for (OWLClassExpression op : desc.getOperands()) {
                 op.accept(this);
                 // Early termination if we have found a named conjunct
