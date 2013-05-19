@@ -122,16 +122,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         }
     }
 
-    /** @return singleton instance
-     * @deprecated Do not create data factories directly; use
-     *             OWLOntologyManager::getOWLDataFactory() */
-    @Deprecated
-    public static OWLDataFactory getInstance() {
-        System.err
-                .println("OWLDataFactoryImpl.getInstance() WARNING: you should not use the implementation directly; this static method is here for backwards compatibility only");
-        return instance;
-    }
-
     @Override
     public void purge() {
         data.purge();
@@ -1578,13 +1568,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     @Override
     public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
             OWLAnnotationSubject subject, OWLAnnotation annotation) {
-        // PATCH: return
-        // getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject,
-        // annotation.getValue(), annotation.getAnnotations());
-        // ORIG: return getOWLAnnotationAssertionAxiom(annotation.getProperty(),
-        // subject, annotation.getValue());
-        // The patch makes a difference for the owl, owlfs, rdfxml and turtle
-        // serializations of Annotation2.
         checkNull(annotation, "annotation");
         return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject,
                 annotation.getValue(), annotation.getAnnotations());
@@ -1663,42 +1646,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     // SWRL
     //
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** @deprecated Use either
-     *             {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)}
-     *             or {@link #getSWRLRule(java.util.Set, java.util.Set)}
-     *             instead. Gets a SWRL rule which is named with a URI */
-    @Override
-    @Deprecated
-    public SWRLRule getSWRLRule(IRI iri, Set<? extends SWRLAtom> body,
-            Set<? extends SWRLAtom> head) {
-        checkNull(iri, "iri");
-        checkNull(body, "body");
-        checkNull(head, "head");
-        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(2);
-        annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI
-                .create("http://www.semanticweb.org/owlapi#iri")), getOWLLiteral(iri
-                .toQuotedString())));
-        return new SWRLRuleImpl(body, head, annos);
-    }
-
-    /** @deprecated Use either
-     *             {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)}
-     *             or {@link #getSWRLRule(java.util.Set, java.util.Set)}
-     *             instead. */
-    @Override
-    @Deprecated
-    public SWRLRule getSWRLRule(NodeID nodeID, Set<? extends SWRLAtom> body,
-            Set<? extends SWRLAtom> head) {
-        checkNull(head, "head");
-        checkNull(body, "body");
-        checkNull(nodeID, "nodeID");
-        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(2);
-        annos.add(getOWLAnnotation(getOWLAnnotationProperty(IRI
-                .create("http://www.semanticweb.org/owlapi#nodeID")),
-                getOWLLiteral(nodeID.toString())));
-        return new SWRLRuleImpl(body, head, annos);
-    }
-
+  
     @Override
     public SWRLRule getSWRLRule(Set<? extends SWRLAtom> body,
             Set<? extends SWRLAtom> head, Set<OWLAnnotation> annotations) {

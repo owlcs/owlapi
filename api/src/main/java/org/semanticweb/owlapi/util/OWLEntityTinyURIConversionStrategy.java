@@ -102,7 +102,7 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
             return entity.getIRI();
         }
         String name = fragmentProvider.getName(entity);
-        iri = IRI.create(base + name);
+        iri = IRI.create(base, name);
         entityNameMap.put(entity, iri);
         return iri;
     }

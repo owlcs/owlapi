@@ -52,36 +52,6 @@ import java.util.Set;
  * <br>
  * An interface to a factory that can create SWRL objects */
 public interface SWRLDataFactory {
-    /** @deprecated Use either
-     *             {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)}
-     *             or {@link #getSWRLRule(java.util.Set, java.util.Set)}
-     *             instead.
-     * @param iri
-     *            The iri of the rule - NOTE THAT THIS PARAMETER WILL BE IGNORED
-     * @param body
-     *            The atoms that make up the body of the rule
-     * @param head
-     *            The atoms that make up the head of the rule
-     * @return A rule with the specified body and head */
-    @Deprecated
-    SWRLRule getSWRLRule(IRI iri, Set<? extends SWRLAtom> body,
-            Set<? extends SWRLAtom> head);
-
-    /** @deprecated Use either
-     *             {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)}
-     *             or {@link #getSWRLRule(java.util.Set, java.util.Set)}
-     *             instead.
-     * @param nodeID
-     *            The node ID - NOTE THAT THIS PARAMETER WILL BE IGNORED
-     * @param body
-     *            The atoms that make up the body of the rule
-     * @param head
-     *            The atoms that make up the head of the rule
-     * @return A rule with the specified body and heat */
-    @Deprecated
-    SWRLRule getSWRLRule(NodeID nodeID, Set<? extends SWRLAtom> body,
-            Set<? extends SWRLAtom> head);
-
     /** Gets an anonymous SWRL Rule
      * 
      * @param body

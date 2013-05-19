@@ -53,20 +53,34 @@ import org.semanticweb.owlapi.model.IRI;
  * <br> */
 @SuppressWarnings("javadoc")
 public enum SWRLVocabulary {
-    IMP("Imp"), INDIVIDUAL_PROPERTY_ATOM("IndividualPropertyAtom"), DATAVALUED_PROPERTY_ATOM(
-            "DatavaluedPropertyAtom"), CLASS_ATOM("ClassAtom"), DATA_RANGE_ATOM(
-            "DataRangeAtom"), VARIABLE("Variable"), ATOM_LIST("AtomList"), SAME_INDIVIDUAL_ATOM(
-            "SameIndividualAtom"), DIFFERENT_INDIVIDUALS_ATOM("DifferentIndividualsAtom"), BUILT_IN_ATOM(
-            "BuiltinAtom"), HEAD("head"), BODY("body"), CLASS_PREDICATE("classPredicate"), DATA_RANGE(
-            "dataRange"), PROPERTY_PREDICATE("propertyPredicate"), BUILT_IN("builtin"), BUILT_IN_CLASS(
-            "Builtin"), ARGUMENTS("arguments"), ARGUMENT_1("argument1"), ARGUMENT_2(
-            "argument2");
+//@formatter:off
+    IMP("Imp"),
+    INDIVIDUAL_PROPERTY_ATOM("IndividualPropertyAtom"),
+    DATAVALUED_PROPERTY_ATOM("DatavaluedPropertyAtom"),
+    CLASS_ATOM("ClassAtom"),
+    DATA_RANGE_ATOM("DataRangeAtom"),
+    VARIABLE("Variable"),
+    ATOM_LIST("AtomList"),
+    SAME_INDIVIDUAL_ATOM("SameIndividualAtom"),
+    DIFFERENT_INDIVIDUALS_ATOM("DifferentIndividualsAtom"),
+    BUILT_IN_ATOM("BuiltinAtom"),
+    HEAD("head"),
+    BODY("body"),
+    CLASS_PREDICATE("classPredicate"),
+    DATA_RANGE("dataRange"),
+    PROPERTY_PREDICATE("propertyPredicate"),
+    BUILT_IN("builtin"),
+    BUILT_IN_CLASS("Builtin"),
+    ARGUMENTS("arguments"),
+    ARGUMENT_1("argument1"),
+    ARGUMENT_2("argument2");
+//@formatter:on
     private final String shortName;
     private final IRI iri;
 
     SWRLVocabulary(String name) {
-        this.shortName = name;
-        this.iri = IRI.create(Namespaces.SWRL + name);
+        shortName = name;
+        iri = IRI.create(Namespaces.SWRL.toString(), name);
     }
 
     public String getShortName() {

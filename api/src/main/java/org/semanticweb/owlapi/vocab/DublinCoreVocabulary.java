@@ -51,10 +51,23 @@ import org.semanticweb.owlapi.model.IRI;
  * <br> */
 @SuppressWarnings("javadoc")
 public enum DublinCoreVocabulary {
-    CONTRIBUTOR("contributor"), COVERAGE("coverage"), CREATOR("creator"), DATE("date"), DESCRIPTION(
-            "description"), FORMAT("format"), IDENTIFIER("identifier"), LANGUAGE(
-            "language"), PUBLISHER("publisher"), RELATION("relation"), RIGHTS("rights"), SOURCE(
-            "source"), SUBJECT("subject"), TITLE("title"), TYPE("type");
+//@formatter:off
+    CONTRIBUTOR("contributor"),
+    COVERAGE("coverage"),
+    CREATOR("creator"),
+    DATE("date"),
+    DESCRIPTION("description"),
+    FORMAT("format"),
+    IDENTIFIER("identifier"),
+    LANGUAGE("language"),
+    PUBLISHER("publisher"),
+    RELATION("relation"),
+    RIGHTS("rights"),
+    SOURCE("source"),
+    SUBJECT("subject"),
+    TITLE("title"),
+    TYPE("type");
+//@formatter:on
     private final String shortName;
     private final String qname;
     private final IRI iri;
@@ -63,7 +76,7 @@ public enum DublinCoreVocabulary {
     DublinCoreVocabulary(String name) {
         shortName = name;
         qname = "dc:" + name;
-        iri = IRI.create(NAME_SPACE + name);
+        iri = IRI.create(NAME_SPACE, name);
     }
 
     public String getShortName() {

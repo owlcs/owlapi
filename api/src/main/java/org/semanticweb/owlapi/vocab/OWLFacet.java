@@ -54,14 +54,20 @@ import org.semanticweb.owlapi.model.IRI;
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction */
 @SuppressWarnings("javadoc")
 public enum OWLFacet {
-    LENGTH(Namespaces.XSD, "length", "length"), MIN_LENGTH(Namespaces.XSD, "minLength",
-            "minLength"), MAX_LENGTH(Namespaces.XSD, "maxLength", "maxLength"), PATTERN(
-            Namespaces.XSD, "pattern", "pattern"), MIN_INCLUSIVE(Namespaces.XSD,
-            "minInclusive", ">="), MIN_EXCLUSIVE(Namespaces.XSD, "minExclusive", ">"), MAX_INCLUSIVE(
-            Namespaces.XSD, "maxInclusive", "<="), MAX_EXCLUSIVE(Namespaces.XSD,
-            "maxExclusive", "<"), TOTAL_DIGITS(Namespaces.XSD, "totalDigits",
-            "totalDigits"), FRACTION_DIGITS(Namespaces.XSD, "fractionDigits",
-            "fractionDigits"), LANG_RANGE(Namespaces.RDF, "langRange", "langRange");
+//@formatter:off
+    LENGTH(Namespaces.XSD, "length", "length"),
+    MIN_LENGTH(Namespaces.XSD, "minLength", "minLength"),
+    MAX_LENGTH(Namespaces.XSD, "maxLength", "maxLength"),
+    PATTERN(Namespaces.XSD, "pattern", "pattern"),
+    MIN_INCLUSIVE(Namespaces.XSD, "minInclusive", ">="),
+    MIN_EXCLUSIVE(Namespaces.XSD, "minExclusive", ">"),
+    MAX_INCLUSIVE(Namespaces.XSD, "maxInclusive", "<="),
+    MAX_EXCLUSIVE(Namespaces.XSD, "maxExclusive", "<"),
+    TOTAL_DIGITS(Namespaces.XSD, "totalDigits", "totalDigits"),
+    FRACTION_DIGITS(Namespaces.XSD, "fractionDigits", "fractionDigits"),
+    LANG_RANGE(Namespaces.RDF, "langRange", "langRange");
+//@formatter:on
+
     public final static Set<IRI> FACET_IRIS;
     static {
         Set<IRI> iris = new HashSet<IRI>();
@@ -75,7 +81,7 @@ public enum OWLFacet {
     private final String symbolicForm;
 
     OWLFacet(Namespaces ns, String shortName, String symbolicForm) {
-        this.iri = IRI.create(ns + shortName);
+        iri = IRI.create(ns.toString(), shortName);
         this.shortName = shortName;
         this.symbolicForm = symbolicForm;
     }
