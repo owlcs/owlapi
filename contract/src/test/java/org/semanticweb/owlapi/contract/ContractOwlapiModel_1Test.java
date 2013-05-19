@@ -191,7 +191,7 @@ public class ContractOwlapiModel_1Test {
         IRI result2 = testSubject0.resolve("");
         String result3 = testSubject0.getScheme();
         String result4 = testSubject0.getFragment();
-        String result10 = testSubject0.getStart();
+        String result10 = testSubject0.getNamespace();
         boolean result11 = testSubject0.isReservedVocabulary();
         boolean result12 = testSubject0.isThing();
         boolean result13 = testSubject0.isNothing();

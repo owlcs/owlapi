@@ -183,11 +183,6 @@ public class RDFXMLRenderer extends RDFRendererBase {
     @Override
     public void render(RDFResourceNode node) throws IOException {
         if (pending.contains(node)) {
-            // We essentially remove all structure sharing during parsing - any
-            // cycles therefore indicate a bug!
-            // throw new
-            // IllegalStateException("Rendering cycle!  This indicates structure sharing and should not happen! (Node: "
-            // + node.toString() + ")");
             return;
         }
         pending.add(node);
@@ -203,9 +198,6 @@ public class RDFXMLRenderer extends RDFRendererBase {
                         candidatePrettyPrintTypeTriple = triple;
                     }
                 }
-                // else {
-                // candidatePrettyPrintTypeTriple = triple;
-                // }
             }
         }
         if (candidatePrettyPrintTypeTriple == null) {
@@ -216,6 +208,10 @@ public class RDFXMLRenderer extends RDFRendererBase {
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
         }
+        // XXX this call looks like it should be made, but doing so breaks tests
+        // else {
+        // writer.writeNodeIDAttribute(node);
+        // }
         for (RDFTriple triple : triples) {
             if (candidatePrettyPrintTypeTriple != null
                     && candidatePrettyPrintTypeTriple.equals(triple)) {

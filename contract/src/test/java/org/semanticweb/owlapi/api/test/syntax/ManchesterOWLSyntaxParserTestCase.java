@@ -79,7 +79,6 @@ public class ManchesterOWLSyntaxParserTestCase {
         o.getOWLOntologyManager().saveOntology(o,
                 new ManchesterOWLSyntaxOntologyFormat(), target);
         String string = target.toString();
-        System.out.println(string);
         OWLOntology roundtripped = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(string));
         assertEquals(o.getAxioms(), roundtripped.getAxioms());

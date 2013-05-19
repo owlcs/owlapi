@@ -1251,7 +1251,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
     private void append(IRI i, StringBuilder b) {
-        b.append(i.getStart());
+        b.append(i.getNamespace());
         if (i.getFragment() != null) {
             b.append(i.getFragment());
         }
@@ -2128,8 +2128,8 @@ public class OWLRDFConsumer implements RDFConsumer {
     protected boolean isGeneralPredicate(IRI predicate) {
         return !predicate.isReservedVocabulary()
                 || OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS.contains(predicate)
-                || predicate.getStart().indexOf(Namespaces.SWRL.toString()) != -1
-                || predicate.getStart().indexOf(Namespaces.SWRLB.toString()) != -1;
+                || predicate.getNamespace().indexOf(Namespaces.SWRL.toString()) != -1
+                || predicate.getNamespace().indexOf(Namespaces.SWRLB.toString()) != -1;
     }
 
     public boolean isTriplePresent(IRI subject, IRI predicate, OWLLiteral object,

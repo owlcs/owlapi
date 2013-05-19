@@ -233,6 +233,9 @@ public class XMLUtils {
      *         character sequence <code>s</code> does not have a suffix that is
      *         an NCName. */
     public static String getNCNameSuffix(CharSequence s) {
+        if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
+            return null;
+        }
         int localPartStartIndex = getNCNameSuffixIndex(s);
         if (localPartStartIndex != -1) {
             return s.toString().substring(localPartStartIndex);
@@ -248,6 +251,9 @@ public class XMLUtils {
      * @return the prefix split at the last non-ncname character, or the whole
      *         input if no ncname is found */
     public static String getNCNamePrefix(CharSequence s) {
+        if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
+            return s.toString();
+        }
         int localPartStartIndex = getNCNameSuffixIndex(s);
         if (localPartStartIndex != -1) {
             return s.toString().substring(0, localPartStartIndex);

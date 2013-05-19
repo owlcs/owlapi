@@ -39,8 +39,10 @@
 package org.coode.owlapi.owlxml.renderer;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.Writer;
 import java.net.URI;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -72,9 +74,29 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * encoded using 'prefix' elements. */
 @SuppressWarnings("javadoc")
 public class OWLXMLWriter {
+
+    /**
+     * String comparator that takes length into account before natural ordering.
+     * XXX stateless, might be used through a singleton
+     */
+    private static final class StringLengthComparator implements Comparator<String>, Serializable {
+        private static final long serialVersionUID = 30402L;
+
+        public StringLengthComparator() {}
+		@Override
+        public int compare(String o1, String o2) {
+            int diff = o1.length() - o2.length();
+            if (diff != 0) {
+                return diff;
+            }
+            return o1.compareTo(o2);
+        }
+    }
+
+
     private XMLWriter writer;
-    private Map<String, String> iriPrefixMap = new TreeMap<String, String>(
-            new StringLengthComparator());
+    
+    private Map<String, String> iriPrefixMap = new TreeMap<String, String>(new StringLengthComparator());
 
     public OWLXMLWriter(Writer writer, OWLOntology ontology) {
         XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(
@@ -120,24 +142,21 @@ public class OWLXMLWriter {
         iriPrefixMap.put(iri, prefixName);
     }
 
-    /** Gets an IRI attribute value for a full IRI. If the IRI has a prefix that
-     * coincides with a written prefix then the compact IRI will be returned,
-     * otherwise the full IRI will be returned.
-     * 
-     * @param iri
-     *            The IRI
-     * @return Either the compact version of the IRI or the full IRI. */
-    public String getIRIString(URI iri) {
-        String fullIRI = iri.toString();
-        for (String prefixName : iriPrefixMap.keySet()) {
-            if (fullIRI.startsWith(prefixName)) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(iriPrefixMap.get(prefixName));
-                sb.append(fullIRI.substring(prefixName.length()));
-                return sb.toString();
+    /**
+     * Gets an IRI attribute value for a full IRI.  If the IRI has a prefix that coincides with
+     * a written prefix then the compact IRI will be returned, otherwise the full IRI will be returned.
+     * @param iri The IRI
+     * @return Either the compact version of the IRI or the full IRI.
+     */
+    public String getIRIString(IRI iri) {
+        String prefixName = iriPrefixMap.get(iri.getNamespace());
+        if (prefixName == null) {
+            return iri.toString();
             }
+       if(iri.getFragment()==null){
+           return prefixName;
         }
-        return fullIRI;
+        return prefixName + iri.getFragment();
     }
 
     public void startDocument(OWLOntology ontology) throws OWLRendererException {
@@ -197,9 +216,9 @@ public class OWLXMLWriter {
 
     public void writeNodeIDAttribute(NodeID nodeID) {
         try {
-            writer.writeAttribute(OWLXMLVocabulary.NODE_ID.getIRI().toString(),
-                    nodeID.toString());
-        } catch (IOException e) {
+            writer.writeAttribute(OWLXMLVocabulary.NODE_ID.getIRI().toString(), nodeID.getID());
+        }
+        catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
     }
@@ -209,10 +228,10 @@ public class OWLXMLWriter {
             String attName = OWLXMLVocabulary.IRI_ATTRIBUTE.getIRI().toString();
             String value = iri.toString();
             if (value.startsWith(writer.getXMLBase())) {
-                writer.writeAttribute(attName,
-                        value.substring(writer.getXMLBase().length(), value.length()));
-            } else {
-                String val = getIRIString(iri.toURI());
+                writer.writeAttribute(attName, value.substring(writer.getXMLBase().length(), value.length()));
+            }
+            else {
+                String val = getIRIString(iri);
                 if (!val.equals(iri.toString())) {
                     writer.writeAttribute(OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE
                             .getIRI().toString(), val);
@@ -240,7 +259,7 @@ public class OWLXMLWriter {
                         iriString.length()));
                 writeEndElement();
             } else {
-                String val = getIRIString(iri.toURI());
+                String val = getIRIString(iri);
                 if (!val.equals(iriString)) {
                     writeStartElement(OWLXMLVocabulary.ABBREVIATED_IRI_ELEMENT);
                     writer.writeTextContent(val);

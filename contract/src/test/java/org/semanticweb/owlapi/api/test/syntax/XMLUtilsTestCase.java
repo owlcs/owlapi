@@ -90,4 +90,10 @@ public class XMLUtilsTestCase {
         assertEquals("ABC",
                 XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology:ABC"));
     }
+
+    @Test
+    public void testParsesBNode() {
+        assertEquals("_:test", XMLUtils.getNCNamePrefix("_:test"));
+        assertEquals(null, XMLUtils.getNCNameSuffix("_:test"));
+    }
 }

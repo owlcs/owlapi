@@ -63,6 +63,7 @@ import org.semanticweb.owlapi.normalform.NegationalNormalFormConverter;
 import org.semanticweb.owlapi.normalform.NormalFormRewriter;
 import org.semanticweb.owlapi.normalform.OWLObjectComplementOfExtractor;
 import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
+import org.semanticweb.owlapi.rdf.syntax.RDFParser;
 import org.semanticweb.owlapi.rdf.syntax.RDFParserException;
 import org.semanticweb.owlapi.rdf.util.RDFConstants;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
@@ -71,7 +72,11 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
+import org.xml.sax.Attributes;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
+import org.xml.sax.SAXParseException;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
 import uk.ac.manchester.cs.bhig.util.NodeRenderer;
@@ -576,7 +581,6 @@ public class ContractSmallsTest {
         testSubject0.writeDatatypeAttribute(mock(OWLDatatype.class));
         Map<String, String> result0 = testSubject0.getIRIPrefixMap();
         XMLWriterNamespaceManager result1 = testSubject0.getNamespaceManager();
-        String result2 = testSubject0.getIRIString(mock(URI.class));
         testSubject0.writeAnnotationURIAttribute(mock(URI.class));
     }
 

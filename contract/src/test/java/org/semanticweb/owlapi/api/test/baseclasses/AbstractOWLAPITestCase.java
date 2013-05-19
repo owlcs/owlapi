@@ -155,17 +155,19 @@ public abstract class AbstractOWLAPITestCase {
         OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
                 target.toString()));
         if (!ont.isAnonymous() && !ont2.isAnonymous()) {
-            assertEquals("Ontologies supposed to be the same", ont, ont2);
+            assertEquals("Ontologies supposed to be the same", ont.getOntologyID(), ont2.getOntologyID());
         }
+        Set<OWLAxiom> parsedAxioms = ont2.getAxioms();
+        Set<OWLAxiom> axioms = ont.getAxioms();
         Set<OWLAxiom> axioms1;
         Set<OWLAxiom> axioms2;
         if (!isIgnoreDeclarationAxioms(format)) {
-            axioms1 = ont.getAxioms();
-            axioms2 = ont2.getAxioms();
+            axioms1 = axioms;
+            axioms2 = parsedAxioms;
         } else {
-            axioms1 = AxiomType.getAxiomsWithoutTypes(ont.getAxioms(),
+            axioms1 = AxiomType.getAxiomsWithoutTypes(axioms,
                     AxiomType.DECLARATION);
-            axioms2 = AxiomType.getAxiomsWithoutTypes(ont2.getAxioms(),
+            axioms2 = AxiomType.getAxiomsWithoutTypes(parsedAxioms,
                     AxiomType.DECLARATION);
         }
         // This isn't great - we normalise axioms by changing the ids of
