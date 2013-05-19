@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.ArrayList;
@@ -10,6 +9,7 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -44,14 +44,14 @@ public class AnonymousTestCase {
         String saved = saveOntology(ontology);
         OWLOntology ontologyReloaded = loadOntology(saved);
         saved = saveOntology(ontologyReloaded);
-        assertEquals(asString(ontology), asString(ontologyReloaded));
+        AbstractOWLAPITestCase.equal(ontology, ontologyReloaded);
+        // assertEquals(asString(ontology), asString(ontologyReloaded));
     }
 
     public static Set<String> asString(OWLOntology o) {
         Set<String> set = new HashSet<String>();
         for (OWLAxiom ax : o.getLogicalAxioms()) {
-            OWLAxiom ax2 = ax;
-            set.add(ax2.toString().replaceAll("\\_\\:genid[0-9]+", "genid"));
+            set.add(ax.toString().replaceAll("\\_\\:genid[0-9]+", "genid"));
         }
         return set;
     }

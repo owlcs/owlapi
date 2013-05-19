@@ -56,6 +56,7 @@ import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -70,6 +71,50 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * <br> */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLAPITestCase {
+    public static boolean equal(OWLOntology ont1, OWLOntology ont2) {
+        if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
+            assertEquals("Ontologies supposed to be the same", ont1.getOntologyID(),
+                    ont2.getOntologyID());
+        }
+        assertEquals("Annotations supposed to be the same", ont1.getAnnotations(),
+                ont2.getAnnotations());
+        Set<OWLAxiom> axioms1 = ont1.getAxioms();
+        Set<OWLAxiom> axioms2 = ont2.getAxioms();
+        // This isn't great - we normalise axioms by changing the ids of
+        // individuals. This relies on the fact that
+        // we iterate over objects in the same order for the same set of axioms!
+        OWLDataFactory df = ont1.getOWLOntologyManager().getOWLDataFactory();
+        AnonymousIndividualsNormaliser normaliser1 = new AnonymousIndividualsNormaliser(
+                df);
+        axioms1 = normaliser1.getNormalisedAxioms(axioms1);
+        AnonymousIndividualsNormaliser normaliser2 = new AnonymousIndividualsNormaliser(
+                df);
+        axioms2 = normaliser2.getNormalisedAxioms(axioms2);
+        if (!axioms1.equals(axioms2)) {
+            StringBuilder sb = new StringBuilder();
+            for (OWLAxiom ax : axioms1) {
+                if (!axioms2.contains(ax)) {
+                    sb.append("Rem axiom: ");
+                    sb.append(ax);
+                    sb.append("\n");
+                }
+            }
+            for (OWLAxiom ax : axioms2) {
+                if (!axioms1.contains(ax)) {
+                    sb.append("Add axiom: ");
+                    sb.append(ax);
+                    sb.append("\n");
+                }
+            }
+            System.out
+                    .println("AbstractOWLAPITestCase.roundTripOntology() Failing to match axioms: "
+                            + sb.toString());
+            return false;
+        }
+        assertEquals(axioms1, axioms2);
+        return true;
+    }
+
     private OWLOntologyManager manager;
     private String uriBase;
 
@@ -154,56 +199,7 @@ public abstract class AbstractOWLAPITestCase {
         OWLOntologyManager man = Factory.getManager();
         OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
                 target.toString()));
-        if (!ont.isAnonymous() && !ont2.isAnonymous()) {
-            assertEquals("Ontologies supposed to be the same", ont.getOntologyID(), ont2.getOntologyID());
-        }
-        Set<OWLAxiom> parsedAxioms = ont2.getAxioms();
-        Set<OWLAxiom> axioms = ont.getAxioms();
-        Set<OWLAxiom> axioms1;
-        Set<OWLAxiom> axioms2;
-        if (!isIgnoreDeclarationAxioms(format)) {
-            axioms1 = axioms;
-            axioms2 = parsedAxioms;
-        } else {
-            axioms1 = AxiomType.getAxiomsWithoutTypes(axioms,
-                    AxiomType.DECLARATION);
-            axioms2 = AxiomType.getAxiomsWithoutTypes(parsedAxioms,
-                    AxiomType.DECLARATION);
-        }
-        // This isn't great - we normalise axioms by changing the ids of
-        // individuals. This relies on the fact that
-        // we iterate over objects in the same order for the same set of axioms!
-        AnonymousIndividualsNormaliser normaliser1 = new AnonymousIndividualsNormaliser(
-                manager.getOWLDataFactory());
-        axioms1 = normaliser1.getNormalisedAxioms(axioms1);
-        AnonymousIndividualsNormaliser normaliser2 = new AnonymousIndividualsNormaliser(
-                manager.getOWLDataFactory());
-        axioms2 = normaliser2.getNormalisedAxioms(axioms2);
-        if (!axioms1.equals(axioms2)) {
-            StringBuilder sb = new StringBuilder();
-            for (OWLAxiom ax : axioms1) {
-                if (!axioms2.contains(ax)) {
-                    sb.append("Rem axiom: ");
-                    sb.append(ax);
-                    sb.append("\n");
-                }
-            }
-            for (OWLAxiom ax : axioms2) {
-                if (!axioms1.contains(ax)) {
-                    sb.append("Add axiom: ");
-                    sb.append(ax);
-                    sb.append("\n");
-                }
-            }
-            System.out
-                    .println("AbstractOWLAPITestCase.roundTripOntology() Failing to match axioms: "
-                            + sb.toString());
-            // some cases of mismatches due to different anonymous names are not
-            // being recoginzed, see AnonymousturtleassertionTestCase
-            // fail(sb.toString());
-        }
-        assertEquals("Annotations supposed to be the same", ont.getAnnotations(),
-                ont2.getAnnotations());
+        equal(ont, ont2);
         return ont2;
     }
 

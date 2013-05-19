@@ -65,7 +65,7 @@ public abstract class NodeID implements Comparable<NodeID>, Serializable {
      * @param nodeID
      * @return absolute IRI */
     public static String getIRIFromNodeID(String nodeID) {
-        return PREFIX + SHARED_NODE_ID_PREFIX + nodeID;
+        return PREFIX + SHARED_NODE_ID_PREFIX + nodeID.replace("genid", "");
     }
 
     /** Generates next anonymous IRI.

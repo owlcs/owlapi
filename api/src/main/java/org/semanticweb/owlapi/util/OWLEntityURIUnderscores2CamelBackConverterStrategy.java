@@ -74,12 +74,14 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
 
     private static IRI convert(IRI iri) {
         String iriString = iri.toString();
-        String fragment = iri.toURI().getFragment();
+        String fragment = iri.getFragment();
         if (fragment != null) {
-            String base = iriString.substring(0, iriString.length() - fragment.length());
+            String base = iri.getNamespace();
             String camelCaseFragment = toCamelCase(fragment);
             return IRI.create(base, camelCaseFragment);
         }
+        // for an IRI without fragment, the part to modify is the previous
+        // fragment of the path.
         String path = iri.toURI().getPath();
         if (path.length() > 0) {
             int index = path.lastIndexOf('/');

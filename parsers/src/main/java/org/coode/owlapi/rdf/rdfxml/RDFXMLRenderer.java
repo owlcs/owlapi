@@ -208,7 +208,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
         }
-        // XXX this call looks like it should be made, but doing so breaks tests
+        // XXX this call looks like it should be made, but only when the node id
+        // is necessary
         // else {
         // writer.writeNodeIDAttribute(node);
         // }

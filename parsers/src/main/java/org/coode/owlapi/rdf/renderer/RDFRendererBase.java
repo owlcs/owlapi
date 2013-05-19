@@ -645,7 +645,7 @@ public abstract class RDFRendererBase {
     protected abstract void writeBanner(String name) throws IOException;
 
     private static <N extends OWLEntity> Set<N> toSortedSet(Set<N> entities) {
-        Set<N> results = new TreeSet<N>(entityComparator);
+        Set<N> results = new TreeSet<N>(OWL_ENTITY_IRI_COMPARATOR);
         results.addAll(entities);
         return results;
     }
@@ -709,12 +709,26 @@ public abstract class RDFRendererBase {
         }
     }
 
+    /**
+     * Comparator that uses IRI ordering to order entities.
+     */
+    private static final class OWLEntityIRIComparator implements Comparator<OWLEntity>, Serializable {
+
+        private static final long serialVersionUID = 30402L;
+
+        public OWLEntityIRIComparator() {}
+        @Override
+        public int compare(OWLEntity o1, OWLEntity o2) {
+            return o1.getIRI().compareTo(o2.getIRI());
+        }
+    }
+
+    private static final OWLEntityIRIComparator OWL_ENTITY_IRI_COMPARATOR = new OWLEntityIRIComparator();
+    
     public static class TripleComparator implements Comparator<RDFTriple>, Serializable {
         private static final long serialVersionUID = 40000L;
-        private static final List<IRI> orderedURIs = Arrays.asList(RDF_TYPE.getIRI(),
-                RDFS_LABEL.getIRI(), OWL_EQUIVALENT_CLASS.getIRI(),
-                RDFS_SUBCLASS_OF.getIRI(), OWL_DISJOINT_WITH.getIRI(),
-                OWL_ON_PROPERTY.getIRI(), OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
+
+        private static final List<IRI> orderedURIs = Arrays.asList(RDF_TYPE.getIRI(), RDFS_LABEL.getIRI(), OWL_EQUIVALENT_CLASS.getIRI(), RDFS_SUBCLASS_OF.getIRI(), OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(), OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
 
         public TripleComparator() {}
 

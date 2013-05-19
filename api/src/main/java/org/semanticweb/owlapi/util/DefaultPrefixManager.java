@@ -80,8 +80,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         }
     }
 
+    private static final StringLengthComparator STRING_LENGTH_COMPARATOR = new StringLengthComparator();
+
     private final Map<String, String> prefix2NamespaceMap = new TreeMap<String, String>(
-            new StringLengthComparator());
+            STRING_LENGTH_COMPARATOR);
 
     /** Creates a namespace manager that does not have a default namespace. */
     public DefaultPrefixManager() {

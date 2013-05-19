@@ -77,7 +77,6 @@ public class OWLXMLWriter {
 
     /**
      * String comparator that takes length into account before natural ordering.
-     * XXX stateless, might be used through a singleton
      */
     private static final class StringLengthComparator implements Comparator<String>, Serializable {
         private static final long serialVersionUID = 30402L;
@@ -93,14 +92,14 @@ public class OWLXMLWriter {
         }
     }
 
+    private static final StringLengthComparator STRING_LENGTH_COMPARATOR = new StringLengthComparator();
 
     private XMLWriter writer;
     
-    private Map<String, String> iriPrefixMap = new TreeMap<String, String>(new StringLengthComparator());
+    private Map<String, String> iriPrefixMap = new TreeMap<String, String>(STRING_LENGTH_COMPARATOR);
 
     public OWLXMLWriter(Writer writer, OWLOntology ontology) {
-        XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(
-                Namespaces.OWL.toString());
+        XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(Namespaces.OWL.toString());
         nsm.setPrefix("xsd", Namespaces.XSD.toString());
         nsm.setPrefix("rdf", Namespaces.RDF.toString());
         nsm.setPrefix("rdfs", Namespaces.RDFS.toString());

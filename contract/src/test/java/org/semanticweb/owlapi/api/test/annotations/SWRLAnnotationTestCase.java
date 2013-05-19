@@ -30,22 +30,25 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 public class SWRLAnnotationTestCase {
     String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
     OWLClass A;
+    OWLClass B;
     OWLAxiom AXIOM;
 
     @Before
     public void setUp() {
         OWLDataFactory factory = Factory.getFactory();
         A = Class(IRI(NS + "#A"));
+        B = Class(IRI(NS + "#B"));
         SWRLVariable x = factory.getSWRLVariable(IRI(NS + "#x"));
-        SWRLAtom atom = factory.getSWRLClassAtom(A, x);
+        SWRLAtom atom1 = factory.getSWRLClassAtom(A, x);
+        SWRLAtom atom2 = factory.getSWRLClassAtom(B, x);
         Set<SWRLAtom> consequent = new TreeSet<SWRLAtom>();
-        consequent.add(atom);
+        consequent.add(atom1);
         OWLAnnotation annotation = factory.getOWLAnnotation(RDFSComment(),
                 Literal("Not a great rule"));
         Set<OWLAnnotation> annotations = new TreeSet<OWLAnnotation>();
         annotations.add(annotation);
         Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
-        body.add(atom);
+        body.add(atom2);
         AXIOM = factory.getSWRLRule(body, consequent, annotations);
         // System.out.println("Using " + AXIOM + " as a rule");
     }

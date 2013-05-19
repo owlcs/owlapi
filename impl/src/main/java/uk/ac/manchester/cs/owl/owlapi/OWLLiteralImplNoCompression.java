@@ -202,8 +202,6 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     public boolean hasLang(String l) {
-        // XXX this was missing null checks: a null lang is still valid in the
-        // factory, where it becomes a ""
         if (l == null && lang == null) {
             return true;
         }
