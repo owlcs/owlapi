@@ -1,3 +1,41 @@
+3.4.4 19 May 2013
+
+Features and updates implemented:
+feature 103 - Add methods to get EntityType names.
+Updated IRI prefix caching to use thread local caches rather than synchronized caches.
+added test for annotation retrieval for anonymous individuals.
+WeakIndexCache vulnerability fixed.
+Improved redirect following.
+Added method to OWLOntologyLoaderConfiguration to disable cross protocol redirects on URLConnections.
+Added parameter to OWLOntologyFormat for temp files, default disabled.
+Update all JavaCharStream versions to fix the UTF BOM issue.
+Travis Integration (on github).
+Update KE interface with getBlocker method.
+OSGI compatible build.
+Removed IRI.toString() call when checking blank nodes.
+Change logging of remaining triples to use less memory.
+updates for javadoc.
+Update Mockito to 1.9.5.
+
+Bugs fixed:
+
+Bug #369 IRI.create(String) uses / and # to look for namespace and fragments. 
+Bug #348 ManchesterOWLSyntax round trip problem with disjoint classes.
+Bug #269 single anonymous individual split in two on save to RDF.
+Bug #319 redirects from http to https are not followed.
+Bug #367 Serving ontologies from github as well.
+Bug 4 (github) Missing method in OWLIndividual.
+Bug 359 Incorrect Javadoc in OWL2DatatypeImpl and redundant javadoc.
+Bug 360 - Axiom annotations are not parsed correctly.
+Bug 364 Null pointer checking for containment of anonymous ontologies.
+Bug #363 Turtle parser fails when loading valid Turtle document.
+Bug 362 - owlapi files in temp folder.
+Bug 357 duplicate axioms saving in OWL functional syntax.
+Bug 355 - added assertions. Ability to parse 1+e7 as 10000000.
+Bug 355 - Turtle Parser + Integer format Problem.
+OntologyAlreadyExist bug when calls are made too fast.
+
+
 3.4.3 26 Jan 2013
 
 Features implemented:
