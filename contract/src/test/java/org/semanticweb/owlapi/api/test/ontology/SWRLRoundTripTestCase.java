@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
@@ -58,7 +57,6 @@ public class SWRLRoundTripTestCase {
         assertEquals(onto1, onto2);
     }
 
-    @Ignore
     @Test
     public void shouldDoCompleteRoundtripManchesterOWLSyntax()
             throws OWLOntologyCreationException, OWLOntologyStorageException {
