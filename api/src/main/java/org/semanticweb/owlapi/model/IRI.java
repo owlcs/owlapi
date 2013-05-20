@@ -261,12 +261,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final long serialVersionUID = 30402L;
-    private static ThreadLocal<WeakCache<String>> prefixCache = new ThreadLocal<WeakCache<String>>() {
-        @Override
-        protected WeakCache<String> initialValue() {
-            return new WeakCache<String>();
-        }
-    };
+    private static WeakCache<String> prefixCache = new WeakCache<String>();
     private final String remainder;
     private final String prefix;
     private int hashCode = 0;
@@ -279,7 +274,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @param fragment
      *            The suffix. */
     protected IRI(String prefix, String fragment) {
-        this.prefix = prefixCache.get().cache(prefix);
+        this.prefix = prefixCache.cache(prefix);
         remainder = fragment;
     }
 
