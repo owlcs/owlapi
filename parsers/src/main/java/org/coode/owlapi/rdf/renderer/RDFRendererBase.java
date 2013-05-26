@@ -84,12 +84,10 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
-import org.semanticweb.owlapi.util.OWLEntityIRIComparator;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /** Author: Matthew Horridge<br>
@@ -116,17 +114,6 @@ public abstract class RDFRendererBase {
 
     public RDFRendererBase(OWLOntology ontology) {
         this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
-    }
-
-    @Deprecated
-    public RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager) {
-        this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
-    }
-
-    @Deprecated
-    protected RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager,
-            OWLOntologyFormat format) {
-        this(ontology, format);
     }
 
     protected RDFRendererBase(OWLOntology ontology, OWLOntologyFormat format) {

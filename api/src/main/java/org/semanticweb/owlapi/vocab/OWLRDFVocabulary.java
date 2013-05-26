@@ -56,6 +56,7 @@ public enum OWLRDFVocabulary {
     // OWL Vocab
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////
+
     /** http://www.w3.org/2002/07/owl#Thing **/
     OWL_THING(Namespaces.OWL, "Thing"),
     /** http://www.w3.org/2002/07/owl#Nothing **/
@@ -64,9 +65,6 @@ public enum OWLRDFVocabulary {
     OWL_CLASS(Namespaces.OWL, "Class"),
     /** http://www.w3.org/2002/07/owl#Ontology **/
     OWL_ONTOLOGY(Namespaces.OWL, "Ontology"),
-    /** http://www.w3.org/2002/07/owl#OntologyProperty **/
-    @Deprecated
-    OWL_ONTOLOGY_PROPERTY(Namespaces.OWL, "OntologyProperty"),
     /** http://www.w3.org/2002/07/owl#imports **/
     OWL_IMPORTS(Namespaces.OWL, "imports"),
     /** http://www.w3.org/2002/07/owl#versionIRI **/
@@ -83,21 +81,12 @@ public enum OWLRDFVocabulary {
     OWL_FUNCTIONAL_PROPERTY(Namespaces.OWL, "FunctionalProperty"),
     /** http://www.w3.org/2002/07/owl#InverseFunctionalProperty **/
     OWL_INVERSE_FUNCTIONAL_PROPERTY(Namespaces.OWL, "InverseFunctionalProperty"),
-    /** http://www.w3.org/2002/07/owl#AntisymmetricProperty **/
-    @Deprecated
-    OWL_ANTI_SYMMETRIC_PROPERTY(Namespaces.OWL, "AntisymmetricProperty"),
     /** http://www.w3.org/2002/07/owl#AsymmetricProperty **/
     OWL_ASYMMETRIC_PROPERTY(Namespaces.OWL, "AsymmetricProperty"),
     /** http://www.w3.org/2002/07/owl#SymmetricProperty **/
     OWL_SYMMETRIC_PROPERTY(Namespaces.OWL, "SymmetricProperty"),
     /** http://www.w3.org/2002/07/owl#Restriction **/
     OWL_RESTRICTION(Namespaces.OWL, "Restriction"),
-    /** http://www.w3.org/2002/07/owl#DataRestriction **/
-    @Deprecated
-    OWL_DATA_RESTRICTION(Namespaces.OWL, "DataRestriction"),
-    /** http://www.w3.org/2002/07/owl#ObjectRestriction **/
-    @Deprecated
-    OWL_OBJECT_RESTRICTION(Namespaces.OWL, "ObjectRestriction"),
     /** http://www.w3.org/2002/07/owl#onProperty **/
     OWL_ON_PROPERTY(Namespaces.OWL, "onProperty"),
     /** http://www.w3.org/2002/07/owl#intersectionOf **/
@@ -114,13 +103,12 @@ public enum OWLRDFVocabulary {
     OWL_DISJOINT_WITH(Namespaces.OWL, "disjointWith"),
     /** http://www.w3.org/2002/07/owl#oneOf **/
     OWL_ONE_OF(Namespaces.OWL, "oneOf"),
-    /** http://www.w3.org/2002/07/owl#SelfRestriction **/
-    @Deprecated
-    OWL_SELF_RESTRICTION(Namespaces.OWL, "SelfRestriction"),
     /** http://www.w3.org/2002/07/owl#hasSelf **/
     OWL_HAS_SELF(Namespaces.OWL, "hasSelf"),
     /** http://www.w3.org/2002/07/owl#disjointUnionOf **/
     OWL_DISJOINT_UNION_OF(Namespaces.OWL, "disjointUnionOf"),
+    /** http://www.w3.org/2002/07/owl#propertyDisjointWith **/
+    OWL_PROPERTY_DISJOINT_WITH(Namespaces.OWL, "propertyDisjointWith"),
     /** http://www.w3.org/2002/07/owl#minCardinality **/
     OWL_MIN_CARDINALITY(Namespaces.OWL, "minCardinality"),
     /** http://www.w3.org/2002/07/owl#minQualifiedCardinality **/
@@ -133,9 +121,6 @@ public enum OWLRDFVocabulary {
     OWL_ANNOTATION_PROPERTY(Namespaces.OWL, "AnnotationProperty"),
     /** http://www.w3.org/2002/07/owl#Annotation **/
     OWL_ANNOTATION(Namespaces.OWL, "Annotation"),
-    /** http://www.w3.org/2002/07/owl#declaredAs **/
-    @Deprecated
-    OWL_DECLARED_AS(Namespaces.OWL, "declaredAs"),
     /** http://www.w3.org/2002/07/owl#Individual **/
     OWL_INDIVIDUAL(Namespaces.OWL, "Individual"),
     /** http://www.w3.org/2002/07/owl#NamedIndividual **/
@@ -160,13 +145,6 @@ public enum OWLRDFVocabulary {
     OWL_MAX_CARDINALITY(Namespaces.OWL, "maxCardinality"),
     /** http://www.w3.org/2002/07/owl#maxQualifiedCardinality **/
     OWL_MAX_QUALIFIED_CARDINALITY(Namespaces.OWL, "maxQualifiedCardinality"),
-    /** http://www.w3.org/2002/07/owl#NegativeObjectPropertyAssertion **/
-    @Deprecated
-    OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION(Namespaces.OWL,
-            "NegativeObjectPropertyAssertion"),
-    /** http://www.w3.org/2002/07/owl#NegativeDataPropertyAssertion **/
-    @Deprecated
-    OWL_NEGATIVE_DATA_PROPERTY_ASSERTION(Namespaces.OWL, "NegativeDataPropertyAssertion"),
     /** http://www.w3.org/2002/07/owl#NegativePropertyAssertion **/
     OWL_NEGATIVE_PROPERTY_ASSERTION(Namespaces.OWL, "NegativePropertyAssertion"),
     /** http://www.w3.org/2000/01/rdf-schema#label **/
@@ -221,24 +199,6 @@ public enum OWLRDFVocabulary {
     RDFS_CLASS(Namespaces.RDFS, "Class"),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#Property **/
     RDF_PROPERTY(Namespaces.RDF, "Property"),
-    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#subject **/
-    @Deprecated
-    RDF_SUBJECT(Namespaces.RDF, "subject"),
-    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate **/
-    @Deprecated
-    RDF_PREDICATE(Namespaces.RDF, "predicate"),
-    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#object **/
-    @Deprecated
-    RDF_OBJECT(Namespaces.RDF, "object"),
-    /** http://www.w3.org/2002/07/owl#subject **/
-    @Deprecated
-    OWL_SUBJECT(Namespaces.OWL, "subject"),
-    /** http://www.w3.org/2002/07/owl#predicate **/
-    @Deprecated
-    OWL_PREDICATE(Namespaces.OWL, "predicate"),
-    /** http://www.w3.org/2002/07/owl#object **/
-    @Deprecated
-    OWL_OBJECT(Namespaces.OWL, "object"),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#Description **/
     RDF_DESCRIPTION(Namespaces.RDF, "Description"),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral **/
@@ -251,44 +211,6 @@ public enum OWLRDFVocabulary {
     OWL_BACKWARD_COMPATIBLE_WITH(Namespaces.OWL, "backwardCompatibleWith"),
     /** http://www.w3.org/2002/07/owl#incompatibleWith **/
     OWL_INCOMPATIBLE_WITH(Namespaces.OWL, "incompatibleWith"),
-    /** http://www.w3.org/2002/07/owl#objectPropertyDomain **/
-    @Deprecated
-    OWL_OBJECT_PROPERTY_DOMAIN(Namespaces.OWL, "objectPropertyDomain"),
-    /** http://www.w3.org/2002/07/owl#dataPropertyDomain **/
-    @Deprecated
-    OWL_DATA_PROPERTY_DOMAIN(Namespaces.OWL, "dataPropertyDomain"),
-    /** http://www.w3.org/2002/07/owl#dataPropertyRange **/
-    @Deprecated
-    OWL_DATA_PROPERTY_RANGE(Namespaces.OWL, "dataPropertyRange"),
-    /** http://www.w3.org/2002/07/owl#objectPropertyRange **/
-    @Deprecated
-    OWL_OBJECT_PROPERTY_RANGE(Namespaces.OWL, "objectPropertyRange"),
-    /** http://www.w3.org/2002/07/owl#subObjectPropertyOf **/
-    @Deprecated
-    OWL_SUB_OBJECT_PROPERTY_OF(Namespaces.OWL, "subObjectPropertyOf"),
-    /** http://www.w3.org/2002/07/owl#subDataPropertyOf **/
-    @Deprecated
-    OWL_SUB_DATA_PROPERTY_OF(Namespaces.OWL, "subDataPropertyOf"),
-    /** http://www.w3.org/2002/07/owl#disjointDataProperties **/
-    @Deprecated
-    OWL_DISJOINT_DATA_PROPERTIES(Namespaces.OWL, "disjointDataProperties"),
-    /** http://www.w3.org/2002/07/owl#disjointObjectProperties **/
-    @Deprecated
-    OWL_DISJOINT_OBJECT_PROPERTIES(Namespaces.OWL, "disjointObjectProperties"),
-    /** http://www.w3.org/2002/07/owl#propertyDisjointWith **/
-    OWL_PROPERTY_DISJOINT_WITH(Namespaces.OWL, "propertyDisjointWith"),
-    /** http://www.w3.org/2002/07/owl#equivalentDataProperty **/
-    @Deprecated
-    OWL_EQUIVALENT_DATA_PROPERTIES(Namespaces.OWL, "equivalentDataProperty"),
-    /** http://www.w3.org/2002/07/owl#equivalentObjectProperty **/
-    @Deprecated
-    OWL_EQUIVALENT_OBJECT_PROPERTIES(Namespaces.OWL, "equivalentObjectProperty"),
-    /** http://www.w3.org/2002/07/owl#FunctionalDataProperty **/
-    @Deprecated
-    OWL_FUNCTIONAL_DATA_PROPERTY(Namespaces.OWL, "FunctionalDataProperty"),
-    /** http://www.w3.org/2002/07/owl#FunctionalObjectProperty **/
-    @Deprecated
-    OWL_FUNCTIONAL_OBJECT_PROPERTY(Namespaces.OWL, "FunctionalObjectProperty"),
     /** http://www.w3.org/2002/07/owl#onClass **/
     OWL_ON_CLASS(Namespaces.OWL, "onClass"),
     /** http://www.w3.org/2002/07/owl#onDataRange **/
@@ -302,9 +224,6 @@ public enum OWLRDFVocabulary {
             "inverseObjectPropertyExpression"),
     /** http://www.w3.org/2002/07/owl#Axiom **/
     OWL_AXIOM(Namespaces.OWL, "Axiom"),
-    /** http://www.w3.org/2002/07/owl#propertyChain **/
-    @Deprecated
-    OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain"),
     /** http://www.w3.org/2002/07/owl#propertyChainAxiom **/
     OWL_PROPERTY_CHAIN_AXIOM(Namespaces.OWL, "propertyChainAxiom"),
     /** http://www.w3.org/2002/07/owl#AllDisjointClasses **/

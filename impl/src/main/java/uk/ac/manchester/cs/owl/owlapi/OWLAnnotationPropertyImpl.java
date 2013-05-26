@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -89,11 +88,6 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     @Override
     public EntityType<?> getEntityType() {
         return EntityType.ANNOTATION_PROPERTY;
-    }
-
-    @Override
-    public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
-        return getOWLDataFactory().getOWLEntity(entityType, getIRI());
     }
 
     @Override

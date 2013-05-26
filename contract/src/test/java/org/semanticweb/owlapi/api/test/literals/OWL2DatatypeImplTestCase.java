@@ -109,21 +109,6 @@ public class OWL2DatatypeImplTestCase {
     }
 
     @Test
-    public void getOWLEntity() {
-        assertEquals(plainLiteral, plainLiteral.getOWLEntity(EntityType.DATATYPE));
-        assertEquals(plainLiteral.getIRI(), plainLiteral.getOWLEntity(EntityType.CLASS)
-                .getIRI());
-        assertEquals(plainLiteral.getIRI(),
-                plainLiteral.getOWLEntity(EntityType.OBJECT_PROPERTY).getIRI());
-        assertEquals(plainLiteral.getIRI(),
-                plainLiteral.getOWLEntity(EntityType.DATA_PROPERTY).getIRI());
-        assertEquals(plainLiteral.getIRI(),
-                plainLiteral.getOWLEntity(EntityType.ANNOTATION_PROPERTY).getIRI());
-        assertEquals(plainLiteral.getIRI(),
-                plainLiteral.getOWLEntity(EntityType.NAMED_INDIVIDUAL).getIRI());
-    }
-
-    @Test
     public void isType() {
         assertTrue(plainLiteral.isType(EntityType.DATATYPE));
         assertFalse(plainLiteral.isType(EntityType.CLASS));

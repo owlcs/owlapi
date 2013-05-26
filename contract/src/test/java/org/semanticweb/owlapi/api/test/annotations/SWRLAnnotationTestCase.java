@@ -50,7 +50,6 @@ public class SWRLAnnotationTestCase {
         Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
         body.add(atom2);
         AXIOM = factory.getSWRLRule(body, consequent, annotations);
-        // System.out.println("Using " + AXIOM + " as a rule");
     }
 
     @Test

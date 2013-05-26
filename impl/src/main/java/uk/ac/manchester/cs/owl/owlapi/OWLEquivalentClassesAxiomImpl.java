@@ -80,12 +80,12 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLEquivalentClassesAxiom(getClassExpressions());
+        return df.getOWLEquivalentClassesAxiom(getClassExpressions());
     }
 
     @Override
     public OWLEquivalentClassesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLEquivalentClassesAxiom(getClassExpressions(),
+        return df.getOWLEquivalentClassesAxiom(getClassExpressions(),
                 mergeAnnos(annotations));
     }
 
@@ -97,7 +97,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             OWLClassExpression ceI = classExpressions.get(i);
             OWLClassExpression ceJ = classExpressions.get(i + 1);
-            result.add(getOWLDataFactory().getOWLEquivalentClassesAxiom(ceI, ceJ));
+            result.add(df.getOWLEquivalentClassesAxiom(ceI, ceJ));
         }
         return result;
     }
@@ -149,8 +149,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         for (int i = 0; i < classExpressions.size(); i++) {
             for (int j = 0; j < classExpressions.size(); j++) {
                 if (i != j) {
-                    result.add(getOWLDataFactory().getOWLSubClassOfAxiom(
-                            classExpressions.get(i), classExpressions.get(j)));
+                    result.add(df.getOWLSubClassOfAxiom(classExpressions.get(i),
+                            classExpressions.get(j)));
                 }
             }
         }

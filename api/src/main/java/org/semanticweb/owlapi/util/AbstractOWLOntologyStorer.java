@@ -58,7 +58,6 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
@@ -72,13 +71,6 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     private static final String UTF_8 = "UTF-8";
     protected final static Logger LOGGER = Logger.getLogger(OWLOntologyStorer.class
             .getName());
-
-    @Override
-    public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
-            IRI documentIRI, OWLOntologyFormat ontologyFormat)
-            throws OWLOntologyStorageException {
-        storeOntology(ontology, documentIRI, ontologyFormat);
-    }
 
     @Override
     public final void storeOntology(OWLOntology ontology, IRI documentIRI,
@@ -177,13 +169,6 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
         storeOntology(ontology, tempWriter, ontologyFormat);
         tempWriter.flush();
         tempWriter.close();
-    }
-
-    @Override
-    public final void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
-            OWLOntologyDocumentTarget target, OWLOntologyFormat format)
-            throws OWLOntologyStorageException {
-        storeOntology(ontology, target, format);
     }
 
     @Override

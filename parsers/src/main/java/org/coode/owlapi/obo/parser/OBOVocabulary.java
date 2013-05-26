@@ -85,12 +85,6 @@ public enum OBOVocabulary {
             "cardinality"), MAX_CARDINALITY("maxCardinality"), MIN_CARDINALITY(
             "minCardinality"), INSTANCE("Instance"), INSTANCE_OF("instance_of"), PROPERTY_VALUE(
             "property_value"), IS_ANONYMOUS("is_anonymous");
-    /** @deprecated Use {@link #OBO_IRI_BASE} */
-    @Deprecated
-    public static final String ONTOLOGY_URI_BASE = "http://purl.org/obo/owl";
-    /** @deprecated Use {@link #OBO_IRI_BASE} */
-    @Deprecated
-    public static final String ANNOTATION_URI_BASE = OBOPrefix.OBO_IN_OWL.getPrefix();
     public static final String OBO_IRI_BASE = OBOPrefix.OBO.getPrefix();
     public static final String LEGACY_OBO_IRI_BASE = "http://purl.org/obo/owl/";//
     /** The pattern for OBO IDs. Specified at <a
@@ -98,9 +92,9 @@ public enum OBOVocabulary {
      * >http://www.obofoundry.org/id-policy.shtml</a> */
     public static final Pattern OBO_ID_PATTERN = Pattern.compile("(([^:]+):)?(.+)");
     private static final String bases = Pattern.quote(OBO_IRI_BASE) + "|"
-            + Pattern.quote(ONTOLOGY_URI_BASE + "/") + "|"
+            + Pattern.quote("http://purl.org/obo/owl/") + "|"
             + Pattern.quote(LEGACY_OBO_IRI_BASE) + "|"
-            + Pattern.quote(ANNOTATION_URI_BASE);
+            + Pattern.quote(OBOPrefix.OBO_IN_OWL.getPrefix());
     public static final Pattern OBO_IRI_PATTERN = Pattern.compile("(" + bases + ")"
             + "(([^\\_]*)\\_)?([A-Za-z0-9\\_\\-]*)");
 
@@ -204,17 +198,17 @@ public enum OBOVocabulary {
 
     OBOVocabulary(String name) {
         this.name = name;
-        this.iri = IRI.create(OBOPrefix.OBO.getPrefix() + name);
+        iri = IRI.create(OBOPrefix.OBO.getPrefix() + name);
     }
 
     OBOVocabulary(String name, OBOPrefix prefix) {
         this.name = name;
-        this.iri = IRI.create(prefix.getPrefix() + name);
+        iri = IRI.create(prefix.getPrefix() + name);
     }
 
     OBOVocabulary(String name, OBOPrefix prefix, String localName) {
         this.name = name;
-        this.iri = IRI.create(prefix.getPrefix() + localName);
+        iri = IRI.create(prefix.getPrefix() + localName);
     }
 
     OBOVocabulary(String name, IRI iri) {

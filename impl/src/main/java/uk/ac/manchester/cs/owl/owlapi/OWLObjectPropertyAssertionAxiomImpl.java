@@ -74,22 +74,21 @@ public class OWLObjectPropertyAssertionAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(),
-                getSubject(), getObject());
+        return df.getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(),
+                getObject());
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(
-                getOWLDataFactory().getOWLObjectOneOf(getSubject()),
-                getOWLDataFactory().getOWLObjectHasValue(getProperty(), getObject()));
+        return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getSubject()),
+                df.getOWLObjectHasValue(getProperty(), getObject()));
     }
 
     @Override
     public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(
             Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(),
-                getSubject(), getObject(), mergeAnnos(annotations));
+        return df.getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(),
+                getObject(), mergeAnnos(annotations));
     }
 
     @Override
@@ -104,8 +103,8 @@ public class OWLObjectPropertyAssertionAxiomImpl extends
         } else {
             OWLObjectInverseOf property = (OWLObjectInverseOf) getProperty();
             OWLObjectPropertyExpression invProp = property.getInverse();
-            return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(invProp,
-                    getObject(), getSubject());
+            return df.getOWLObjectPropertyAssertionAxiom(invProp, getObject(),
+                    getSubject());
         }
     }
 

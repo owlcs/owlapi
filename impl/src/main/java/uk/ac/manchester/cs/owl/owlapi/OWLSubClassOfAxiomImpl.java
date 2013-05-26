@@ -72,8 +72,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public OWLSubClassOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass,
-                mergeAnnos(annotations));
+        return df.getOWLSubClassOfAxiom(subClass, superClass, mergeAnnos(annotations));
     }
 
     @Override
@@ -81,7 +80,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass);
+        return df.getOWLSubClassOfAxiom(subClass, superClass);
     }
 
     @Override

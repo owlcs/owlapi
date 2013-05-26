@@ -77,21 +77,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     /** */
     public OWLObjectImpl() {}
 
-    // XXX there should be no datafactory here at all
-    @Deprecated
-    private static OWLDataFactory f = new OWLDataFactoryImpl(false, false);
-
-    /** @return this object's data factory */
-    @Deprecated
-    public static OWLDataFactory getOWLDataFactory() {
-        return f;
-    }
-
-    @SuppressWarnings("javadoc")
-    @Deprecated
-    public static void setOWLDataFactory(OWLDataFactory factory) {
-        f = factory;
-    }
+    protected static OWLDataFactory df = new OWLDataFactoryImpl();
 
     @Override
     public Set<OWLEntity> getSignature() {

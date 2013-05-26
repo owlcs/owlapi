@@ -45,59 +45,46 @@ import org.junit.Test;
 import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Unit tests for the {@link IRI} class.
+/** Unit tests for the {@link IRI} class.
  * 
- * @author Peter Ansell p_ansell@yahoo.com
- */
-public class IRITest
-{
-    /**
-     * All of the unit tests individually timeout after 60 seconds.
-     */
+ * @author Peter Ansell p_ansell@yahoo.com */
+public class IRITest {
+    /** All of the unit tests individually timeout after 60 seconds. */
     @Rule
     public Timeout timeout = new Timeout(60000);
-    
-    /**
-     * Test method for {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}.
-     */
+
+    /** Test method for
+     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
     @Test
-    public void testIRIStringConcurrentWithCacheUse() throws Exception
-    {
+    public void testIRIStringConcurrentWithCacheUse() throws Exception {
         final AtomicInteger count = new AtomicInteger(0);
         final CountDownLatch openLatch = new CountDownLatch(1);
         final int threadCount = 37;
         final CountDownLatch closeLatch = new CountDownLatch(threadCount);
-        for(int i = 0; i < threadCount; i++)
-        {
+        for (int i = 0; i < threadCount; i++) {
             final int number = i;
-            Runnable runner = new Runnable()
-                {
-                    public void run()
-                    {
-                        try
-                        {
-                            openLatch.await();
-                            for(int j = 0; j < 1000000; j++)
-                            {
-                                final int k = j % 371;
-                                // final String nextPrefix = "urn:test" + k + "#";
-                                // IRI.create(nextPrefix, "test");
-                                final String nextUri = "urn:test" + k + "#test" + j;
-                                final IRI result = IRI.create(nextUri);
-                                result.hashCode();
-                                // count.addAndGet(result.length());
-                            }
-                            count.incrementAndGet();
-                            closeLatch.countDown();
+            Runnable runner = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        openLatch.await();
+                        for (int j = 0; j < 1000000; j++) {
+                            final int k = j % 371;
+                            // final String nextPrefix = "urn:test" + k + "#";
+                            // IRI.create(nextPrefix, "test");
+                            final String nextUri = "urn:test" + k + "#test" + j;
+                            final IRI result = IRI.create(nextUri);
+                            result.hashCode();
+                            // count.addAndGet(result.length());
                         }
-                        catch(InterruptedException ie)
-                        {
-                            ie.printStackTrace();
-                            fail("Failed in test: " + number);
-                        }
+                        count.incrementAndGet();
+                        closeLatch.countDown();
+                    } catch (InterruptedException ie) {
+                        ie.printStackTrace();
+                        fail("Failed in test: " + number);
                     }
-                };
+                }
+            };
             new Thread(runner, "TestThread" + number).start();
         }
         // all threads are waiting on the latch.
@@ -106,47 +93,39 @@ public class IRITest
         closeLatch.await();
         assertEquals(threadCount, count.get());
     }
-    
-    /**
-     * Test method for {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}.
-     */
+
+    /** Test method for
+     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
     @Test
-    public void testIRIStringConcurrentNoCacheUse() throws Exception
-    {
+    public void testIRIStringConcurrentNoCacheUse() throws Exception {
         final AtomicInteger count = new AtomicInteger(0);
         final CountDownLatch openLatch = new CountDownLatch(1);
         final int threadCount = 37;
         final CountDownLatch closeLatch = new CountDownLatch(threadCount);
-        for(int i = 0; i < threadCount; i++)
-        {
+        for (int i = 0; i < threadCount; i++) {
             final int number = i;
-            Runnable runner = new Runnable()
-                {
-                    public void run()
-                    {
-                        try
-                        {
-                            openLatch.await();
-                            for(int j = 0; j < 1000000; j++)
-                            {
-                                final int k = j % 371;
-                                // final String nextPrefix = "urn:test" + k + "#";
-                                // IRI.create(nextPrefix, "test");
-                                final String nextUri = "urn:test#" + k + "test" + j;
-                                final IRI result = IRI.create(nextUri);
-                                result.hashCode();
-                                // count.addAndGet(result.length());
-                            }
-                            count.incrementAndGet();
-                            closeLatch.countDown();
+            Runnable runner = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        openLatch.await();
+                        for (int j = 0; j < 1000000; j++) {
+                            final int k = j % 371;
+                            // final String nextPrefix = "urn:test" + k + "#";
+                            // IRI.create(nextPrefix, "test");
+                            final String nextUri = "urn:test#" + k + "test" + j;
+                            final IRI result = IRI.create(nextUri);
+                            result.hashCode();
+                            // count.addAndGet(result.length());
                         }
-                        catch(InterruptedException ie)
-                        {
-                            ie.printStackTrace();
-                            fail("Failed in test: " + number);
-                        }
+                        count.incrementAndGet();
+                        closeLatch.countDown();
+                    } catch (InterruptedException ie) {
+                        ie.printStackTrace();
+                        fail("Failed in test: " + number);
                     }
-                };
+                }
+            };
             new Thread(runner, "TestThread" + number).start();
         }
         // all threads are waiting on the latch.
@@ -155,31 +134,24 @@ public class IRITest
         closeLatch.await();
         assertEquals(threadCount, count.get());
     }
-    
-    /**
-     * Test method for {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}.
-     */
+
+    /** Test method for
+     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
     @Test
-    public void testIRIStringSerialWithCacheUse()
-    {
-        for(int i = 0; i < 1000000; i++)
-        {
+    public void testIRIStringSerialWithCacheUse() {
+        for (int i = 0; i < 1000000; i++) {
             final int k = i % 371;
             IRI.create("urn:test" + k + "#test");
         }
     }
-    
-    /**
-     * Test method for {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}.
-     */
+
+    /** Test method for
+     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
     @Test
-    public void testIRIStringSerialNoCacheUse()
-    {
-        for(int i = 0; i < 1000000; i++)
-        {
+    public void testIRIStringSerialNoCacheUse() {
+        for (int i = 0; i < 1000000; i++) {
             final int k = i % 371;
             IRI.create("urn:test#" + k + "test");
         }
     }
-    
 }

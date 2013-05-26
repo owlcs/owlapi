@@ -2,6 +2,8 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import java.util.Set;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
@@ -33,11 +35,9 @@ public class SharedBlankNodeTestCase {
     public void verify() throws OWLOntologyCreationException {
         String input = "Ontology:\n" + "    \n" + "    DataProperty: xsd:a\n"
                 + "        Range: {1.2}";
-        for (OWLAxiom ax : Factory.getManager()
+        Set<OWLAxiom> axioms = Factory.getManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(input))
-                .getAxioms()) {
-            System.out.println("HasKeyTestCase.verify() " + ax);
-        }
+                .getAxioms();
     }
 
     @Test
@@ -45,7 +45,6 @@ public class SharedBlankNodeTestCase {
         OWLOntology ontology = createOntology();
         testAnnotation(ontology);
         String s = saveOntology(ontology);
-        System.out.println(s);
         ontology = loadOntology(s);
         testAnnotation(ontology);
     }
@@ -88,7 +87,6 @@ public class SharedBlankNodeTestCase {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
         manager.saveOntology(ontology, format, new SystemOutDocumentTarget());
-        System.out.println();
     }
 
     public static void testAnnotation(OWLOntology ontology) {

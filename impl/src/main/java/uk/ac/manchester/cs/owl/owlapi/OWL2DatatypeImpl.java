@@ -45,14 +45,15 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     // dependency and caused initialisation
     // problems with static methods.
     private static final long serialVersionUID = 40000L;
-    private static final EnumMap<OWL2Datatype, OWLDatatype> instanceMap;
-    static {
-        final EnumMap<OWL2Datatype, OWLDatatype> map = new EnumMap<OWL2Datatype, OWLDatatype>(
+    private static final EnumMap<OWL2Datatype, OWLDatatype> instanceMap = initInstanceMap();
+
+    private static final EnumMap<OWL2Datatype, OWLDatatype> initInstanceMap() {
+        EnumMap<OWL2Datatype, OWLDatatype> map = new EnumMap<OWL2Datatype, OWLDatatype>(
                 OWL2Datatype.class);
         for (OWL2Datatype datatype : OWL2Datatype.values()) {
             map.put(datatype, new OWL2DatatypeImpl(datatype));
         }
-        instanceMap = map;
+        return map;
     }
 
     /** Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
@@ -161,12 +162,6 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     @Override
     public EntityType<?> getEntityType() {
         return EntityType.DATATYPE;
-    }
-
-    @Override
-    public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
-        return OWLObjectImpl.getOWLDataFactory().getOWLEntity(entityType,
-                OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override

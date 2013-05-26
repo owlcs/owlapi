@@ -1001,7 +1001,6 @@ public class ContractOwlapi_1Test {
         IRI result8 = testSubject0.getIRI();
         boolean result9 = testSubject0.isBuiltIn();
         EntityType<?> result10 = testSubject0.getEntityType();
-        OWLEntity result11 = testSubject0.getOWLEntity(EntityType.CLASS);
         if (testSubject0.isOWLClass()) {
             OWLClass result13 = testSubject0.asOWLClass();
         }
@@ -1688,7 +1687,6 @@ public class ContractOwlapi_1Test {
         IRI result17 = testSubject0.getIRI();
         boolean result18 = testSubject0.isBuiltIn();
         EntityType<?> result19 = testSubject0.getEntityType();
-        OWLEntity result20 = testSubject0.getOWLEntity(EntityType.CLASS);
         boolean result21 = !testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {
             if (!testSubject0.isAnonymous()) {

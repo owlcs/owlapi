@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -107,11 +106,6 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     @Override
     public EntityType<?> getEntityType() {
         return EntityType.DATATYPE;
-    }
-
-    @Override
-    public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
-        return getOWLDataFactory().getOWLEntity(entityType, iri);
     }
 
     @Override

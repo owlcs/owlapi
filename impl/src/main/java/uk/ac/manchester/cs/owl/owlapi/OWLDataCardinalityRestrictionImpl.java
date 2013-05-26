@@ -60,7 +60,7 @@ public abstract class OWLDataCardinalityRestrictionImpl
 
     @Override
     public boolean isQualified() {
-        return !getFiller().equals(getOWLDataFactory().getTopDatatype());
+        return !getFiller().equals(df.getTopDatatype());
     }
 
     @Override

@@ -76,8 +76,8 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
 
     @Override
     public OWLSubPropertyChainOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLSubPropertyChainOfAxiom(getPropertyChain(),
-                getSuperProperty(), mergeAnnos(annotations));
+        return df.getOWLSubPropertyChainOfAxiom(getPropertyChain(), getSuperProperty(),
+                mergeAnnos(annotations));
     }
 
     @Override
@@ -85,8 +85,7 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLSubPropertyChainOfAxiom(getPropertyChain(),
-                getSuperProperty());
+        return df.getOWLSubPropertyChainOfAxiom(getPropertyChain(), getSuperProperty());
     }
 
     @Override

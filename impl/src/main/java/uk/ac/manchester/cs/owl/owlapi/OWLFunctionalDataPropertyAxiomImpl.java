@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -73,13 +72,13 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(getProperty());
+        return df.getOWLFunctionalDataPropertyAxiom(getProperty());
     }
 
     @Override
     public OWLFunctionalDataPropertyAxiom
             getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(getProperty(),
+        return df.getOWLFunctionalDataPropertyAxiom(getProperty(),
                 mergeAnnos(annotations));
     }
 
@@ -121,7 +120,6 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLDataFactory df = getOWLDataFactory();
         return df.getOWLSubClassOfAxiom(df.getOWLThing(),
                 df.getOWLDataMaxCardinality(1, getProperty()));
     }

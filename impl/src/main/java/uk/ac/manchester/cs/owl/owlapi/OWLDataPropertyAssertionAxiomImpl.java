@@ -71,9 +71,8 @@ public class OWLDataPropertyAssertionAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(
-                getOWLDataFactory().getOWLObjectOneOf(getSubject()),
-                getOWLDataFactory().getOWLDataHasValue(getProperty(), getObject()));
+        return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getSubject()),
+                df.getOWLDataHasValue(getProperty(), getObject()));
     }
 
     @Override
@@ -81,15 +80,15 @@ public class OWLDataPropertyAssertionAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(getProperty(),
-                getSubject(), getObject());
+        return df.getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(),
+                getObject());
     }
 
     @Override
     public OWLDataPropertyAssertionAxiom
             getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(getProperty(),
-                getSubject(), getObject(), mergeAnnos(annotations));
+        return df.getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(),
+                getObject(), mergeAnnos(annotations));
     }
 
     @Override

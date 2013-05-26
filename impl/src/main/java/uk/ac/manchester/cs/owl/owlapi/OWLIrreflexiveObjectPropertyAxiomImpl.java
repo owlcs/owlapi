@@ -72,22 +72,20 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(getProperty());
+        return df.getOWLIrreflexiveObjectPropertyAxiom(getProperty());
     }
 
     @Override
     public OWLIrreflexiveObjectPropertyAxiom getAnnotatedAxiom(
             Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(getProperty(),
+        return df.getOWLIrreflexiveObjectPropertyAxiom(getProperty(),
                 mergeAnnos(annotations));
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(
-                getOWLDataFactory().getOWLThing(),
-                getOWLDataFactory().getOWLObjectComplementOf(
-                        getOWLDataFactory().getOWLObjectHasSelf(getProperty())));
+        return df.getOWLSubClassOfAxiom(df.getOWLThing(),
+                df.getOWLObjectComplementOf(df.getOWLObjectHasSelf(getProperty())));
     }
 
     @Override

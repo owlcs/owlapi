@@ -45,9 +45,9 @@ public class ContractDlsyntaxTest {
     public void shouldTestDLSyntaxHTMLOntologyStorer() throws Exception {
         DLSyntaxHTMLOntologyStorer testSubject0 = new DLSyntaxHTMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
     }
@@ -77,9 +77,9 @@ public class ContractDlsyntaxTest {
     public void shouldTestDLSyntaxOntologyStorer() throws Exception {
         DLSyntaxOntologyStorer testSubject0 = new DLSyntaxOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
     }
@@ -96,9 +96,9 @@ public class ContractDlsyntaxTest {
                 return false;
             }
         };
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result0 = testSubject0.toString();
         boolean result1 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));

@@ -123,18 +123,6 @@ public abstract class CachingBidirectionalShortFormProvider implements
         }
     }
 
-    /** If the short form for a cached entity has changed then this method may be
-     * used to update the cached short form mapping for the entity.
-     * 
-     * @param entity
-     *            The entity whose short form should be updated. */
-    // XXX not in the interface
-    @Deprecated
-    public void update(OWLEntity entity) {
-        remove(entity);
-        add(entity);
-    }
-
     @Override
     public Set<OWLEntity> getEntities(String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);

@@ -48,9 +48,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 17/12/2010 */
 @SuppressWarnings("javadoc")
 public class TypeOntologyPropertyHandler extends BuiltInTypeHandler {
-    @SuppressWarnings("deprecation")
     public TypeOntologyPropertyHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_ONTOLOGY_PROPERTY.getIRI());
+        super(consumer, DeprecatedVocabulary.OWL_ONTOLOGY_PROPERTY);
     }
 
     @Override

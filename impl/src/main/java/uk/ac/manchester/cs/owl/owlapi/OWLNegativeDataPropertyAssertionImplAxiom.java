@@ -44,7 +44,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -72,7 +71,6 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLDataFactory df = getOWLDataFactory();
         return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getSubject()), df
                 .getOWLObjectComplementOf(df.getOWLDataHasValue(getProperty(),
                         getObject())));
@@ -83,15 +81,15 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(
-                getProperty(), getSubject(), getObject());
+        return df.getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(),
+                getObject());
     }
 
     @Override
     public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(
             Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(
-                getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
+        return df.getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(),
+                getObject(), mergeAnnos(annotations));
     }
 
     @Override

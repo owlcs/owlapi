@@ -134,33 +134,12 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         return getConsumer().getLastAddedAxiom();
     }
 
-    // private Set<OWLAnnotation> translateAnnotations(IRI subject) {
-    // Set<IRI> predicates = getConsumer().getPredicatesBySubject(subject);
-    // predicates.remove(getSourceTriplePredicate());
-    // predicates.remove(getPropertyTriplePredicate());
-    // predicates.remove(getTargetTriplePredicate());
-    // // We don't handle rdf:subject, rdf:predicate and rdf:object as synonymns
-    // - they might be genuinely in the
-    // // ontology.
-    // predicates.remove(OWLRDFVocabulary.RDF_SUBJECT.getIRI());
-    // predicates.remove(OWLRDFVocabulary.RDF_PREDICATE.getIRI());
-    // predicates.remove(OWLRDFVocabulary.RDF_OBJECT.getIRI());
-    // predicates.remove(OWLRDFVocabulary.RDF_TYPE.getIRI());
-    //
-    // Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
-    // for (IRI candidatePredicate : predicates) {
-    // getConsumer().isAnnotationProperty(candidatePredicate);
-    // annotations.addAll(getConsumer().translateAnnotations(subject));
-    // }
-    // return annotations;
-    // }
-    @SuppressWarnings("deprecation")
     private OWLLiteral getTargetLiteral(IRI subject) {
         OWLLiteral con = getConsumer().getLiteralObject(subject,
                 getTargetTriplePredicate(), true);
         if (con == null) {
             con = getConsumer().getLiteralObject(subject,
-                    OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
+                    DeprecatedVocabulary.RDF_OBJECT, true);
         }
         return con;
     }
@@ -175,28 +154,27 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
      *         backwards compatibility, a search will also be performed for
      *         triples whos subject is the specified mainNode and predicate
      *         rdf:object */
-    @SuppressWarnings("deprecation")
+
     private IRI getObjectOfTargetTriple(IRI mainNode) {
         IRI objectTripleObject = getConsumer().getResourceObject(mainNode,
                 getTargetTriplePredicate(), true);
         if (objectTripleObject == null) {
             objectTripleObject = getConsumer().getResourceObject(mainNode,
-                    OWLRDFVocabulary.RDF_OBJECT, true);
+                    DeprecatedVocabulary.RDF_OBJECT, true);
         }
         if (objectTripleObject == null) {
             objectTripleObject = getConsumer().getResourceObject(mainNode,
-                    OWLRDFVocabulary.OWL_PROPERTY_CHAIN, true);
+                    DeprecatedVocabulary.OWL_PROPERTY_CHAIN, true);
         }
         return objectTripleObject;
     }
 
-    @SuppressWarnings("deprecation")
     private IRI getObjectOfPropertyTriple(IRI subject) {
         IRI predicateTripleObject = getConsumer().getResourceObject(subject,
                 getPropertyTriplePredicate(), true);
         if (predicateTripleObject == null) {
             predicateTripleObject = getConsumer().getResourceObject(subject,
-                    OWLRDFVocabulary.RDF_PREDICATE, true);
+                    DeprecatedVocabulary.RDF_PREDICATE, true);
         }
         return predicateTripleObject;
     }
@@ -207,13 +185,12 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
      *            The main node of the triple
      * @return The source object
      * @throws OWLRDFXMLParserMalformedNodeException */
-    @SuppressWarnings("deprecation")
     private IRI getObjectOfSourceTriple(IRI mainNode) {
         IRI subjectTripleObject = getConsumer().getResourceObject(mainNode,
                 getSourceTriplePredicate(), true);
         if (subjectTripleObject == null) {
             subjectTripleObject = getConsumer().getResourceObject(mainNode,
-                    OWLRDFVocabulary.RDF_SUBJECT, true);
+                    DeprecatedVocabulary.RDF_SUBJECT, true);
         }
         return subjectTripleObject;
     }

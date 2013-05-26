@@ -169,15 +169,6 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
         return maxArity;
     }
 
-    /** Returns the minimum arity of this built in.
-     * 
-     * @return The minimum arity of this built in.
-     * @deprecated Use getMinArity and getMaxArity instead */
-    @Deprecated
-    public int getArity() {
-        return minArity;
-    }
-
     /** Gets a builtin vocabulary value for a given IRI
      * 
      * @param iri

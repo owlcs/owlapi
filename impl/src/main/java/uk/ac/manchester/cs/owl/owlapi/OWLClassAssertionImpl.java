@@ -78,14 +78,13 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(),
-                getIndividual());
+        return df.getOWLClassAssertionAxiom(getClassExpression(), getIndividual());
     }
 
     @Override
     public OWLClassAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(),
-                getIndividual(), mergeAnnos(annotations));
+        return df.getOWLClassAssertionAxiom(getClassExpression(), getIndividual(),
+                mergeAnnos(annotations));
     }
 
     @Override
@@ -113,8 +112,7 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(
-                getOWLDataFactory().getOWLObjectOneOf(getIndividual()),
+        return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getIndividual()),
                 getClassExpression());
     }
 

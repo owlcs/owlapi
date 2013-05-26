@@ -63,7 +63,6 @@ import org.semanticweb.owlapi.normalform.NegationalNormalFormConverter;
 import org.semanticweb.owlapi.normalform.NormalFormRewriter;
 import org.semanticweb.owlapi.normalform.OWLObjectComplementOfExtractor;
 import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
-import org.semanticweb.owlapi.rdf.syntax.RDFParser;
 import org.semanticweb.owlapi.rdf.syntax.RDFParserException;
 import org.semanticweb.owlapi.rdf.util.RDFConstants;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
@@ -72,11 +71,7 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
-import org.xml.sax.Attributes;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
-import org.xml.sax.SAXParseException;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
 import uk.ac.manchester.cs.bhig.util.NodeRenderer;
@@ -329,9 +324,9 @@ public class ContractSmallsTest {
     public void shouldTestRDFXMLOntologyStorer() throws Exception {
         RDFXMLOntologyStorer testSubject0 = new RDFXMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
     }
@@ -468,9 +463,9 @@ public class ContractSmallsTest {
     public void shouldTestTurtleOntologyStorer() throws Exception {
         TurtleOntologyStorer testSubject0 = new TurtleOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
     }
@@ -544,9 +539,9 @@ public class ContractSmallsTest {
     public void shouldTestOWLXMLOntologyStorer() throws Exception {
         OWLXMLOntologyStorer testSubject0 = new OWLXMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
     }

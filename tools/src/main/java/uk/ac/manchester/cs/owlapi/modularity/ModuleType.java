@@ -48,14 +48,6 @@ public enum ModuleType {
     TOP("top"),
     /** Module type representing bottom modules (aka upper modules). */
     BOT("bottom"),
-    /** @deprecated Module type representing bottom-of-top modules (aka
-     *             upper-of-lower modules). */
-    @Deprecated
-    BOT_OF_TOP("bottom-of-top"),
-    /** @deprecated Module type representing top-of-bottom modules (aka
-     *             lower-of-upper modules). */
-    @Deprecated
-    TOP_OF_BOT("top-of-bottom"),
     /** Module type representing fixpoint-nested modules
      * (top-of-bottom-of-top-of-...). */
     STAR("nested");

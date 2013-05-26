@@ -82,13 +82,12 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDeclarationAxiom(getEntity());
+        return df.getOWLDeclarationAxiom(getEntity());
     }
 
     @Override
     public OWLDeclarationAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDeclarationAxiom(getEntity(),
-                mergeAnnos(annotations));
+        return df.getOWLDeclarationAxiom(getEntity(), mergeAnnos(annotations));
     }
 
     @Override

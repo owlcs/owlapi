@@ -94,10 +94,10 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     private final WeakIndexCache<Double, OWLLiteral> doubleCache = new WeakIndexCache<Double, OWLLiteral>();
     private final WeakIndexCache<Float, OWLLiteral> floatCache = new WeakIndexCache<Float, OWLLiteral>();
     private final WeakIndexCache<String, OWLLiteral> stringCache = new WeakIndexCache<String, OWLLiteral>();
-
     private final WeakCache<OWLLiteral> litCache = new WeakCache<OWLLiteral>();
 
-    protected <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache(OWLDataFactory f) {
+    protected <V extends OWLEntity> BuildableWeakIndexCache<V>
+            buildCache(OWLDataFactory f) {
         return new BuildableWeakIndexCache<V>(f);
     }
 

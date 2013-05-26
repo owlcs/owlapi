@@ -97,12 +97,12 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getSWRLRule(getBody(), getHead());
+        return df.getSWRLRule(getBody(), getHead());
     }
 
     @Override
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getSWRLRule(getBody(), getHead());
+        return df.getSWRLRule(getBody(), getHead());
     }
 
     @SuppressWarnings("javadoc")
@@ -259,7 +259,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
             for (SWRLAtom atom : node.getHead()) {
                 nodehead.add((SWRLAtom) atom.accept(this));
             }
-            return getOWLDataFactory().getSWRLRule(nodebody, nodehead);
+            return df.getSWRLRule(nodebody, nodehead);
         }
 
         @Override

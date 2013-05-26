@@ -78,19 +78,19 @@ public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpression
 
     @Override
     public OWLClassExpression getNNF() {
-        NNF nnf = new NNF(getOWLDataFactory());
+        NNF nnf = new NNF(df);
         return accept(nnf);
     }
 
     @Override
     public OWLClassExpression getComplementNNF() {
-        NNF nnf = new NNF(getOWLDataFactory());
-        return getOWLDataFactory().getOWLObjectComplementOf(this).accept(nnf);
+        NNF nnf = new NNF(df);
+        return df.getOWLObjectComplementOf(this).accept(nnf);
     }
 
     @Override
     public OWLClassExpression getObjectComplementOf() {
-        return getOWLDataFactory().getOWLObjectComplementOf(this);
+        return df.getOWLObjectComplementOf(this);
     }
 
     @Override

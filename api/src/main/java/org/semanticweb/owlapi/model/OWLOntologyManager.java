@@ -1009,25 +1009,6 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /** Requests that the manager loads an imported ontology that is described by
      * an imports statement. This method is generally used by parsers and other
      * kinds of loaders. For simply loading an ontology, use the loadOntologyXXX
-     * methods.
-     * 
-     * @param declaration
-     *            The declaration that describes the import to be loaded.
-     * @throws UnloadableImportException
-     *             if there was a problem creating and loading the import and
-     *             silent missing imports handling is not turned on. If silent
-     *             missing import handling is turned on then this exception will
-     *             not be thrown.
-     * @deprecated use
-     *             {@link OWLOntologyManager#makeLoadImportRequest(OWLImportsDeclaration, OWLOntologyLoaderConfiguration)}
-     *             instead. */
-    @Deprecated
-    void makeLoadImportRequest(OWLImportsDeclaration declaration)
-            throws UnloadableImportException;
-
-    /** Requests that the manager loads an imported ontology that is described by
-     * an imports statement. This method is generally used by parsers and other
-     * kinds of loaders. For simply loading an ontology, use the loadOntologyXXX
      * methods. The method respects the list of ignored imports in the specified
      * configuration. In other words, if this methods is called for an ignored
      * import as specified by the configuration object then the import won't be
@@ -1046,31 +1027,6 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     void makeLoadImportRequest(OWLImportsDeclaration declaration,
             OWLOntologyLoaderConfiguration configuration)
             throws UnloadableImportException;
-
-    /** The default behaviour when an import cannot be loaded is to throw an
-     * exception. This completely stops the loading process. If it is desired
-     * that loading continues then this option can be set with this method.
-     * 
-     * @param b
-     *            <code>true</code> if loading should continue when an imported
-     *            ontology cannot be loaded, other wise <code>false</code>. The
-     *            default value is <code>false</code>.
-     * @deprecated set it on the {@link OWLOntologyLoaderConfiguration} object
-     *             instead using
-     *             {@link OWLOntologyLoaderConfiguration#setMissingImportHandlingStrategy(MissingImportHandlingStrategy)}
-     *             . */
-    @Deprecated
-    void setSilentMissingImportsHandling(boolean b);
-
-    /** Determines if silent missing imports handling is enabled.
-     * 
-     * @return <code>true</code> if silent missing imports handler is enabled,
-     *         otherwise <code>false</code>.
-     * @deprecated check it on the {@link OWLOntologyLoaderConfiguration} object
-     *             instead using
-     *             {@link org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration#getMissingImportHandlingStrategy()} */
-    @Deprecated
-    boolean isSilentMissingImportsHandling();
 
     /** In the case where silent missing imports handling is enabled, a listener
      * can be attached via this method so that there is a mechanism that allows

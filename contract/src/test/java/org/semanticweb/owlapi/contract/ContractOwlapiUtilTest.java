@@ -129,13 +129,6 @@ public class ContractOwlapiUtilTest {
         String result1 = testSubject0.toString();
     }
 
-    @SuppressWarnings("deprecation")
-    @Test
-    public void shouldTestAxiomTypeProvider() throws Exception {
-        AxiomTypeProvider testSubject0 = new AxiomTypeProvider();
-        AxiomType<?> result0 = testSubject0.getAxiomType(mock(OWLAxiom.class));
-        String result1 = testSubject0.toString();
-    }
 
     @Test
     public void shouldTestInterfaceBidirectionalShortFormProvider() throws Exception {

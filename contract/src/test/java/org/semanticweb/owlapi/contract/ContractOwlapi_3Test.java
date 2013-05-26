@@ -1379,7 +1379,6 @@ public class ContractOwlapi_3Test {
         IRI result12 = testSubject0.getIRI();
         boolean result13 = testSubject0.isBuiltIn();
         EntityType<?> result14 = testSubject0.getEntityType();
-        OWLEntity result15 = testSubject0.getOWLEntity(EntityType.CLASS);
         boolean result16 = !testSubject0.isAnonymous();
         if (testSubject0.isOWLClass()) {
             OWLClass result17 = testSubject0.asOWLClass();

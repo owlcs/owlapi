@@ -63,29 +63,6 @@ public interface OWLOntologyStorer extends Serializable {
     /** Stores an ontology to the specified ontology document IRI in the
      * specified format
      * 
-     * @param manager
-     *            The manager
-     * @param ontology
-     *            The ontology to be stored
-     * @param documentIRI
-     *            The ontology document IRI where the ontology will be saved to
-     * @param ontologyFormat
-     *            The format that the ontology should be stored in @throws
-     *            OWLOntologyStorageException if there was a problem storing the
-     *            ontology.
-     * @throws IOException
-     *             if there was an IOException when storing the ontology
-     * @throws OWLOntologyStorageException
-     *             if there was a problem storing the ontology
-     * @deprecated use storeOntology(ontology, documentIRI, ontologyFormat) */
-    @Deprecated
-    void storeOntology(OWLOntologyManager manager, OWLOntology ontology, IRI documentIRI,
-            OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException,
-            IOException;
-
-    /** Stores an ontology to the specified ontology document IRI in the
-     * specified format
-     * 
      * @param ontology
      *            The ontology to be stored
      * @param documentIRI
@@ -101,27 +78,6 @@ public interface OWLOntologyStorer extends Serializable {
     void storeOntology(OWLOntology ontology, IRI documentIRI,
             OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException,
             IOException;
-
-    /** Stores an ontology to the specified target. This method assumes the
-     * storer can write the ontology to some stream.
-     * 
-     * @param manager
-     *            The manager
-     * @param ontology
-     *            The ontology to be stored
-     * @param target
-     *            The target which describes the ontology document where the
-     *            ontology should be stored
-     * @param format
-     *            The format in which to store the ontology
-     * @throws OWLOntologyStorageException
-     *             if there was a problem storing the ontology.
-     * @throws IOException
-     *             if there was an IOException when storing the ontology. */
-    @Deprecated
-    void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
-            OWLOntologyDocumentTarget target, OWLOntologyFormat format)
-            throws OWLOntologyStorageException, IOException;
 
     /** Stores an ontology to the specified target. This method assumes the
      * storer can write the ontology to some stream.

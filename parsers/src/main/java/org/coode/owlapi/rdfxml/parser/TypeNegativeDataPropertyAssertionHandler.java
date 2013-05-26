@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings({ "deprecation", "javadoc" })
 public class TypeNegativeDataPropertyAssertionHandler extends BuiltInTypeHandler {
     public TypeNegativeDataPropertyAssertionHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getIRI());
+        super(consumer, DeprecatedVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION);
     }
 
     @Override
@@ -71,31 +71,31 @@ public class TypeNegativeDataPropertyAssertionHandler extends BuiltInTypeHandler
                 OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL.getIRI(), true);
         if (source == null) {
             source = getConsumer().getResourceObject(subject,
-                    OWLRDFVocabulary.OWL_SUBJECT.getIRI(), true);
+                    DeprecatedVocabulary.OWL_SUBJECT, true);
         }
         if (source == null) {
             source = getConsumer().getResourceObject(subject,
-                    OWLRDFVocabulary.RDF_SUBJECT.getIRI(), true);
+                    DeprecatedVocabulary.RDF_SUBJECT, true);
         }
         IRI property = getConsumer().getResourceObject(subject,
                 OWLRDFVocabulary.OWL_ASSERTION_PROPERTY.getIRI(), true);
         if (property == null) {
             property = getConsumer().getResourceObject(subject,
-                    OWLRDFVocabulary.OWL_PREDICATE.getIRI(), true);
+                    DeprecatedVocabulary.OWL_PREDICATE, true);
         }
         if (property == null) {
             property = getConsumer().getResourceObject(subject,
-                    OWLRDFVocabulary.RDF_PREDICATE.getIRI(), true);
+                    DeprecatedVocabulary.RDF_PREDICATE, true);
         }
         OWLLiteral target = getConsumer().getLiteralObject(subject,
                 OWLRDFVocabulary.OWL_TARGET_VALUE.getIRI(), true);
         if (target == null) {
             target = getConsumer().getLiteralObject(subject,
-                    OWLRDFVocabulary.OWL_OBJECT.getIRI(), true);
+                    DeprecatedVocabulary.OWL_OBJECT, true);
         }
         if (target == null) {
             target = getConsumer().getLiteralObject(subject,
-                    OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
+                    DeprecatedVocabulary.RDF_OBJECT, true);
         }
         OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
         OWLDataPropertyExpression prop = getConsumer().translateDataPropertyExpression(

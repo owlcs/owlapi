@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -82,14 +81,14 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(getFirstProperty(),
+        return df.getOWLInverseObjectPropertiesAxiom(getFirstProperty(),
                 getSecondProperty());
     }
 
     @Override
     public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(
             Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(getFirstProperty(),
+        return df.getOWLInverseObjectPropertiesAxiom(getFirstProperty(),
                 getSecondProperty(), mergeAnnos(annotations));
     }
 
@@ -136,7 +135,6 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<OWLSubObjectPropertyOfAxiom>();
-        OWLDataFactory df = getOWLDataFactory();
         axs.add(df.getOWLSubObjectPropertyOfAxiom(first, second.getInverseProperty()
                 .getSimplified()));
         axs.add(df.getOWLSubObjectPropertyOfAxiom(second, first.getInverseProperty()

@@ -73,7 +73,7 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
     @Override
     public OWLSubAnnotationPropertyOfAxiom getAnnotatedAxiom(
             Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLSubAnnotationPropertyOfAxiom(getSubProperty(),
+        return df.getOWLSubAnnotationPropertyOfAxiom(getSubProperty(),
                 getSuperProperty(), mergeAnnos(annotations));
     }
 
@@ -82,8 +82,8 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLSubAnnotationPropertyOfAxiom(getSubProperty(),
-                getSuperProperty());
+        return df
+                .getOWLSubAnnotationPropertyOfAxiom(getSubProperty(), getSuperProperty());
     }
 
     @Override

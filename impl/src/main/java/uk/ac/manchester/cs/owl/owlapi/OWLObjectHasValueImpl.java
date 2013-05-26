@@ -89,8 +89,8 @@ public class OWLObjectHasValueImpl
 
     @Override
     public OWLClassExpression asSomeValuesFrom() {
-        return getOWLDataFactory().getOWLObjectSomeValuesFrom(getProperty(),
-                getOWLDataFactory().getOWLObjectOneOf(getValue()));
+        return df.getOWLObjectSomeValuesFrom(getProperty(),
+                df.getOWLObjectOneOf(getValue()));
     }
 
     @Override

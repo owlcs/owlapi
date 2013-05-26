@@ -38,7 +38,6 @@
  */
 package org.semanticweb.owlapi.vocab;
 
-import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -165,11 +164,6 @@ public enum OWLXMLVocabulary {
 
     public IRI getIRI() {
         return iri;
-    }
-
-    @Deprecated
-    public URI getURI() {
-        return iri.toURI();
     }
 
     public String getShortName() {

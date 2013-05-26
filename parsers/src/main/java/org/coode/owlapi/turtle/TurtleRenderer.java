@@ -61,7 +61,6 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.util.VersionInfo;
@@ -80,12 +79,6 @@ public class TurtleRenderer extends RDFRendererBase {
     private Set<RDFResourceNode> pending;
     private DefaultPrefixManager pm;
     private String base;
-
-    @Deprecated
-    public TurtleRenderer(OWLOntology ontology, OWLOntologyManager manager,
-            Writer writer, OWLOntologyFormat format) {
-        this(ontology, writer, format);
-    }
 
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLOntologyFormat format) {
         super(ontology, format);

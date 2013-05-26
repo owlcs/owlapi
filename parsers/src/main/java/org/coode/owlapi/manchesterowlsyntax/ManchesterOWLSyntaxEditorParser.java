@@ -92,7 +92,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -827,7 +826,7 @@ public class ManchesterOWLSyntaxEditorParser {
             OWLDataRange rng = parseDataRange();
             return dataFactory.getOWLDataAllValuesFrom(prop, rng);
         } else if (kw.equalsIgnoreCase(VALUE)) {
-            OWLLiteral con = parseConstant();
+            OWLLiteral con = parseLiteral();
             return dataFactory.getOWLDataHasValue(prop, con);
         } else if (kw.equalsIgnoreCase(MIN)) {
             int card = parseInteger();
@@ -937,7 +936,7 @@ public class ManchesterOWLSyntaxEditorParser {
                         throw createException(OWLFacet.getFacets().toArray(
                                 new String[OWLFacet.getFacetIRIs().size()]));
                     }
-                    OWLLiteral con = parseConstant();
+                    OWLLiteral con = parseLiteral();
                     facetRestrictions.add(dataFactory.getOWLFacetRestriction(fv, con));
                     sep = consumeToken();
                 }
@@ -985,7 +984,7 @@ public class ManchesterOWLSyntaxEditorParser {
         Set<OWLLiteral> cons = new HashSet<OWLLiteral>();
         String sep = ",";
         while (sep.equals(",")) {
-            OWLLiteral con = parseConstant();
+            OWLLiteral con = parseLiteral();
             cons.add(con);
             sep = consumeToken();
         }
@@ -1060,12 +1059,6 @@ public class ManchesterOWLSyntaxEditorParser {
         throw createException(false, false, false, false, false, false, "true", "false",
                 "$integer$", "$float$", "$double$", "\"$Literal$\"",
                 "\"$Literal$\"^^<datatype>", "\"$Literal$\"@<lang>");
-    }
-
-    /** @deprecated Use {@link #parseLiteral()} instead */
-    @Deprecated
-    public OWLLiteral parseConstant() throws ParserException {
-        return parseLiteral();
     }
 
     public int parseInteger() throws ParserException {
@@ -1565,7 +1558,7 @@ public class ManchesterOWLSyntaxEditorParser {
         String prop = peekToken();
         if (isDataPropertyName(prop)) {
             OWLDataProperty p = parseDataProperty();
-            OWLLiteral con = parseConstant();
+            OWLLiteral con = parseLiteral();
             if (!negative) {
                 return dataFactory.getOWLDataPropertyAssertionAxiom(p, ind, con);
             } else {
@@ -2579,12 +2572,6 @@ public class ManchesterOWLSyntaxEditorParser {
         while (matcher.find()) {
             names.add(matcher.group(2));
         }
-    }
-
-    @Deprecated
-    public ManchesterOWLSyntaxOntologyFormat parseOntology(OWLOntologyManager manager,
-            OWLOntology ont) throws ParserException, UnloadableImportException {
-        return parseOntology(ont);
     }
 
     public ManchesterOWLSyntaxOntologyFormat parseOntology(OWLOntology ont)

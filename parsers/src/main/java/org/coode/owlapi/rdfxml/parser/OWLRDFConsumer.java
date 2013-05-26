@@ -352,12 +352,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-    @Deprecated
-    public OWLRDFConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
-            AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
-        this(ontology, checker, configuration);
-    }
-
     public void setIRIProvider(IRIProvider iriProvider) {
         this.iriProvider = iriProvider;
     }
@@ -454,10 +448,10 @@ public class OWLRDFConsumer implements RDFConsumer {
                 OWL_DATA_PROPERTY.getIRI());
     }
 
+
     /** There may be some ontologies floating about that use early versions of
      * the OWL 1.1 vocabulary. We can map early versions of the vocabulary to
      * the current OWL 1.1 vocabulary. */
-    @SuppressWarnings("deprecation")
     private void addIntermediateOWLSpecVocabulary() {
         for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
             addLegacyMapping(v);
@@ -474,46 +468,54 @@ public class OWLRDFConsumer implements RDFConsumer {
             synonymMap.put(IRI.create(Namespaces.OWL2.toString() + v.getShortName()),
                     v.getIRI());
         }
-        synonymMap.put(OWLRDFVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getIRI(),
+        synonymMap.put(DeprecatedVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION,
                 OWLRDFVocabulary.OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
-        synonymMap.put(OWLRDFVocabulary.OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIRI(),
+        synonymMap.put(DeprecatedVocabulary.OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION,
                 OWLRDFVocabulary.OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
         // Intermediate OWL 2 spec
-        synonymMap.put(OWL_SUBJECT.getIRI(), OWL_ANNOTATED_SOURCE.getIRI());
-        synonymMap.put(OWL_PREDICATE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI());
-        synonymMap.put(OWL_OBJECT.getIRI(), OWL_ANNOTATED_TARGET.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_SUBJECT, OWL_ANNOTATED_SOURCE.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_PREDICATE,
+                OWL_ANNOTATED_PROPERTY.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_OBJECT, OWL_ANNOTATED_TARGET.getIRI());
         // Preliminary OWL 1.1 Vocab
-        synonymMap.put(IRI.create(Namespaces.OWL + "cardinalityType"),
+        synonymMap.put(IRI.create(Namespaces.OWL.toString(), "cardinalityType"),
                 OWL_ON_CLASS.getIRI());
-        synonymMap.put(IRI.create(Namespaces.OWL + "dataComplementOf"),
+        synonymMap.put(IRI.create(Namespaces.OWL.toString(), "dataComplementOf"),
                 OWL_COMPLEMENT_OF.getIRI());
-        synonymMap.put(OWL_ANTI_SYMMETRIC_PROPERTY.getIRI(),
+        synonymMap.put(DeprecatedVocabulary.OWL_ANTI_SYMMETRIC_PROPERTY,
                 OWL_ASYMMETRIC_PROPERTY.getIRI());
-        synonymMap.put(OWL_FUNCTIONAL_DATA_PROPERTY.getIRI(),
+        synonymMap.put(DeprecatedVocabulary.OWL_FUNCTIONAL_DATA_PROPERTY,
                 OWL_FUNCTIONAL_PROPERTY.getIRI());
-        synonymMap.put(OWL_FUNCTIONAL_OBJECT_PROPERTY.getIRI(),
+        synonymMap.put(DeprecatedVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY,
                 OWL_FUNCTIONAL_PROPERTY.getIRI());
-        synonymMap.put(OWL_SUB_DATA_PROPERTY_OF.getIRI(), RDFS_SUB_PROPERTY_OF.getIRI());
-        synonymMap
-                .put(OWL_SUB_OBJECT_PROPERTY_OF.getIRI(), RDFS_SUB_PROPERTY_OF.getIRI());
-        synonymMap.put(OWL_OBJECT_PROPERTY_RANGE.getIRI(), RDFS_RANGE.getIRI());
-        synonymMap.put(OWL_DATA_PROPERTY_RANGE.getIRI(), RDFS_RANGE.getIRI());
-        synonymMap.put(OWL_OBJECT_PROPERTY_DOMAIN.getIRI(), RDFS_DOMAIN.getIRI());
-        synonymMap.put(OWL_DATA_PROPERTY_DOMAIN.getIRI(), RDFS_DOMAIN.getIRI());
-        synonymMap.put(OWL_DISJOINT_DATA_PROPERTIES.getIRI(),
+        synonymMap.put(DeprecatedVocabulary.OWL_SUB_DATA_PROPERTY_OF,
+                RDFS_SUB_PROPERTY_OF.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_SUB_OBJECT_PROPERTY_OF,
+                RDFS_SUB_PROPERTY_OF.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_OBJECT_PROPERTY_RANGE,
+                RDFS_RANGE.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_DATA_PROPERTY_RANGE, RDFS_RANGE.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_OBJECT_PROPERTY_DOMAIN,
+                RDFS_DOMAIN.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_DATA_PROPERTY_DOMAIN,
+                RDFS_DOMAIN.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_DISJOINT_DATA_PROPERTIES,
                 OWL_PROPERTY_DISJOINT_WITH.getIRI());
-        synonymMap.put(OWL_DISJOINT_OBJECT_PROPERTIES.getIRI(),
+        synonymMap.put(DeprecatedVocabulary.OWL_DISJOINT_OBJECT_PROPERTIES,
                 OWL_PROPERTY_DISJOINT_WITH.getIRI());
-        synonymMap.put(OWL_EQUIVALENT_DATA_PROPERTIES.getIRI(),
+        synonymMap.put(DeprecatedVocabulary.OWL_EQUIVALENT_DATA_PROPERTIES,
                 OWL_EQUIVALENT_PROPERTY.getIRI());
-        synonymMap.put(OWL_EQUIVALENT_OBJECT_PROPERTIES.getIRI(),
+        synonymMap.put(DeprecatedVocabulary.OWL_EQUIVALENT_OBJECT_PROPERTIES,
                 OWL_EQUIVALENT_PROPERTY.getIRI());
-        synonymMap.put(OWL_OBJECT_RESTRICTION.getIRI(), OWL_RESTRICTION.getIRI());
-        synonymMap.put(OWL_DATA_RESTRICTION.getIRI(), OWL_RESTRICTION.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_OBJECT_RESTRICTION,
+                OWL_RESTRICTION.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_DATA_RESTRICTION,
+                OWL_RESTRICTION.getIRI());
         synonymMap.put(OWL_DATA_RANGE.getIRI(), RDFS_DATATYPE.getIRI());
-        synonymMap.put(OWL_SUBJECT.getIRI(), OWL_ANNOTATED_SOURCE.getIRI());
-        synonymMap.put(OWL_PREDICATE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI());
-        synonymMap.put(OWL_OBJECT.getIRI(), OWL_ANNOTATED_TARGET.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_SUBJECT, OWL_ANNOTATED_SOURCE.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_PREDICATE,
+                OWL_ANNOTATED_PROPERTY.getIRI());
+        synonymMap.put(DeprecatedVocabulary.OWL_OBJECT, OWL_ANNOTATED_TARGET.getIRI());
     }
 
     private void addLegacyMapping(OWLRDFVocabulary v) {

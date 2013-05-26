@@ -38,9 +38,9 @@ public class ContractOboRendererTest {
     public void shouldTestOBOFlatFileOntologyStorer() throws Exception {
         OBOFlatFileOntologyStorer testSubject0 = new OBOFlatFileOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
+        testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
     }

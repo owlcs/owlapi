@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
 public class OWLOrTestCase extends AbstractOWLDataFactoryTest {
+    @Override
     @Test
     public void testCreation() throws Exception {
         OWLObject obj = ObjectUnionOf(Class(createIRI()), Class(createIRI()),
@@ -58,6 +59,7 @@ public class OWLOrTestCase extends AbstractOWLDataFactoryTest {
         assertNotNull("object should not be null", obj);
     }
 
+    @Override
     @Test
     public void testEqualsPositive() throws Exception {
         OWLClassExpression a = Class(createIRI());
@@ -68,6 +70,7 @@ public class OWLOrTestCase extends AbstractOWLDataFactoryTest {
         assertEquals(objA, objB);
     }
 
+    @Override
     @Test
     public void testEqualsNegative() throws Exception {
         OWLClassExpression a = Class(createIRI());
@@ -78,6 +81,7 @@ public class OWLOrTestCase extends AbstractOWLDataFactoryTest {
         assertFalse(objA.equals(objB));
     }
 
+    @Override
     @Test
     public void testHashCode() throws Exception {
         OWLClassExpression a = Class(createIRI());

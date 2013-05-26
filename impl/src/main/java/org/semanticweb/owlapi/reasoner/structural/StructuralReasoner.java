@@ -710,7 +710,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
         printIndent(level);
         OWLClass representative = cls.getRepresentativeElement();
-        System.out.println(getEquivalentClasses(representative));
+        // System.out.println(getEquivalentClasses(representative));
         for (Node<OWLClass> subCls : getSubClasses(representative, true)) {
             dumpClassHierarchy(subCls, level + 1, showBottomNode);
         }
@@ -729,7 +729,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
         printIndent(level);
         OWLObjectPropertyExpression representative = cls.getRepresentativeElement();
-        System.out.println(getEquivalentObjectProperties(representative));
+        // System.out.println(getEquivalentObjectProperties(representative));
         for (Node<OWLObjectPropertyExpression> subProp : getSubObjectProperties(
                 representative, true)) {
             dumpObjectPropertyHierarchy(subProp, level + 1, showBottomNode);
@@ -749,7 +749,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
         printIndent(level);
         OWLDataProperty representative = cls.getRepresentativeElement();
-        System.out.println(getEquivalentDataProperties(representative));
+        // System.out.println(getEquivalentDataProperties(representative));
         for (Node<OWLDataProperty> subProp : getSubDataProperties(representative, true)) {
             dumpDataPropertyHierarchy(subProp, level + 1, showBottomNode);
         }

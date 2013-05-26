@@ -43,6 +43,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.junit.Before;
@@ -53,10 +54,10 @@ import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -80,6 +81,19 @@ public abstract class AbstractOWLAPITestCase {
                 ont2.getAnnotations());
         Set<OWLAxiom> axioms1 = ont1.getAxioms();
         Set<OWLAxiom> axioms2 = ont2.getAxioms();
+        // drop declaration of builtin entities
+        for (OWLAxiom ax : new ArrayList<OWLAxiom>(axioms1)) {
+            if (ax instanceof OWLDeclarationAxiom
+                    && ((OWLDeclarationAxiom) ax).getEntity().isBuiltIn()) {
+                axioms1.remove(ax);
+            }
+        }
+        for (OWLAxiom ax : new ArrayList<OWLAxiom>(axioms2)) {
+            if (ax instanceof OWLDeclarationAxiom
+                    && ((OWLDeclarationAxiom) ax).getEntity().isBuiltIn()) {
+                axioms2.remove(ax);
+            }
+        }
         // This isn't great - we normalise axioms by changing the ids of
         // individuals. This relies on the fact that
         // we iterate over objects in the same order for the same set of axioms!
@@ -100,15 +114,17 @@ public abstract class AbstractOWLAPITestCase {
                 }
             }
             for (OWLAxiom ax : axioms2) {
-                if (!axioms1.contains(ax)) {
+                if (!axioms1.contains(ax) && !(ax instanceof OWLDeclarationAxiom)) {
                     sb.append("Add axiom: ");
                     sb.append(ax);
                     sb.append("\n");
                 }
             }
-            System.out
-                    .println("AbstractOWLAPITestCase.roundTripOntology() Failing to match axioms: "
-                            + sb.toString());
+            if (!sb.toString().isEmpty()) {
+                System.out
+                        .println("AbstractOWLAPITestCase.roundTripOntology() Failing to match axioms: "
+                                + sb.toString());
+            }
             return false;
         }
         assertEquals(axioms1, axioms2);
@@ -209,7 +225,5 @@ public abstract class AbstractOWLAPITestCase {
     }
 
     @SuppressWarnings("unused")
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
-        // System.out.println(target.toString());
-    }
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {}
 }

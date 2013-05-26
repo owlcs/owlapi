@@ -92,21 +92,6 @@ public class RDFGraph {
     }
 
     /** @param subject
-     *            node to search
-     * @return triples which have subject as subject
-     * @deprecated this method makes a defensive copy for each element in the
-     *             map, but most uses of this only iterate over the results. Use
-     *             getSortedTriplesForResult instead */
-    @Deprecated
-    public Set<RDFTriple> getTriplesForSubject(RDFNode subject) {
-        if (triplesBySubject.containsKey(subject)) {
-            return new HashSet<RDFTriple>(triplesBySubject.get(subject));
-        } else {
-            return Collections.emptySet();
-        }
-    }
-
-    /** @param subject
      * @param sort
      * @return sorted triples */
     public List<RDFTriple> getSortedTriplesForSubject(RDFNode subject, boolean sort) {

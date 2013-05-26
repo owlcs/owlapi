@@ -72,14 +72,13 @@ public class OWLSubDataPropertyOfAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLSubDataPropertyOfAxiom(getSubProperty(),
-                getSuperProperty());
+        return df.getOWLSubDataPropertyOfAxiom(getSubProperty(), getSuperProperty());
     }
 
     @Override
     public OWLSubDataPropertyOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLSubDataPropertyOfAxiom(getSubProperty(),
-                getSuperProperty(), mergeAnnos(annotations));
+        return df.getOWLSubDataPropertyOfAxiom(getSubProperty(), getSuperProperty(),
+                mergeAnnos(annotations));
     }
 
     @Override

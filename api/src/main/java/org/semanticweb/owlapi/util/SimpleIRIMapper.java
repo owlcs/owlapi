@@ -38,8 +38,6 @@
  */
 package org.semanticweb.owlapi.util;
 
-import java.net.URI;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
@@ -59,15 +57,6 @@ public class SimpleIRIMapper implements OWLOntologyIRIMapper {
     public SimpleIRIMapper(final IRI ontologyIRI, final IRI documentIRI) {
         this.ontologyIRI = ontologyIRI;
         this.documentIRI = documentIRI;
-    }
-
-    /** @param ontologyURI
-     *            ontology IRI
-     * @param documentIRI
-     *            document IRI */
-    @Deprecated
-    public SimpleIRIMapper(final URI ontologyURI, final IRI documentIRI) {
-        this(IRI.create(ontologyURI), documentIRI);
     }
 
     @Override

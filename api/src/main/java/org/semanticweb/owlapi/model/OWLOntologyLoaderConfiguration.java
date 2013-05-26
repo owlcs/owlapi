@@ -214,30 +214,6 @@ public final class OWLOntologyLoaderConfiguration {
         return missingImportHandlingStrategy;
     }
 
-    /** @param b
-     *            new value for missing imports
-     * @deprecated Do not use because this method mutates the
-     *             OWLOntologyLoaderConfiguration instance that it is called on.
-     *             Use
-     *             {@link #setMissingImportHandlingStrategy(MissingImportHandlingStrategy)}
-     * @since 3.2.4 */
-    @Deprecated
-    public void setSilentMissingImportsHandling(boolean b) {
-        if (b) {
-            missingImportHandlingStrategy = MissingImportHandlingStrategy.SILENT;
-        } else {
-            missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
-        }
-    }
-
-    /** @return true if a missing import does not raise an error.
-     * @deprecated Use {@link #getMissingImportHandlingStrategy()}.
-     * @since 3.2.4 */
-    @Deprecated
-    public boolean isSilentMissingImportsHandling() {
-        return missingImportHandlingStrategy == MissingImportHandlingStrategy.SILENT;
-    }
-
     /** @return true if parsing should be strict */
     public boolean isStrict() {
         return strict;

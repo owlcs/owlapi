@@ -64,7 +64,6 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -79,19 +78,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private Set<RDFResourceNode> pending;
     private RDFXMLNamespaceManager qnameManager;
 
-    @Deprecated
-    public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w) {
-        this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
-    }
-
     public RDFXMLRenderer(OWLOntology ontology, Writer w) {
         this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
-    }
-
-    @Deprecated
-    public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w,
-            OWLOntologyFormat format) {
-        this(ontology, w, format);
     }
 
     public RDFXMLRenderer(OWLOntology ontology, Writer w, OWLOntologyFormat format) {

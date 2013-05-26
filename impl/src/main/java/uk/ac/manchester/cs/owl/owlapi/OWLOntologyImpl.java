@@ -381,7 +381,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean containsClassInSignature(IRI owlClassIRI) {
-        return containsReference(getOWLDataFactory().getOWLClass(owlClassIRI));
+        return containsReference(df.getOWLClass(owlClassIRI));
     }
 
     @Override
@@ -400,7 +400,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean containsObjectPropertyInSignature(IRI propIRI) {
-        return containsReference(getOWLDataFactory().getOWLObjectProperty(propIRI));
+        return containsReference(df.getOWLObjectProperty(propIRI));
     }
 
     @Override
@@ -419,7 +419,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean containsDataPropertyInSignature(IRI propIRI) {
-        return containsReference(getOWLDataFactory().getOWLDataProperty(propIRI));
+        return containsReference(df.getOWLDataProperty(propIRI));
     }
 
     @Override
@@ -438,7 +438,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean containsAnnotationPropertyInSignature(IRI propIRI) {
-        final OWLAnnotationProperty owlAnnotationProperty = getOWLDataFactory()
+        final OWLAnnotationProperty owlAnnotationProperty = df
                 .getOWLAnnotationProperty(propIRI);
         boolean b = containsReference(owlAnnotationProperty);
         if (b) {
@@ -469,7 +469,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean containsIndividualInSignature(IRI individualIRI) {
-        return containsReference(getOWLDataFactory().getOWLNamedIndividual(individualIRI));
+        return containsReference(df.getOWLNamedIndividual(individualIRI));
     }
 
     @Override
@@ -488,7 +488,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean containsDatatypeInSignature(IRI datatypeIRI) {
-        return containsReference(getOWLDataFactory().getOWLDatatype(datatypeIRI));
+        return containsReference(df.getOWLDatatype(datatypeIRI));
     }
 
     @Override
@@ -509,22 +509,22 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public Set<OWLEntity> getEntitiesInSignature(IRI iri) {
         Set<OWLEntity> result = createSet(6);
         if (containsClassInSignature(iri)) {
-            result.add(manager.getOWLDataFactory().getOWLClass(iri));
+            result.add(df.getOWLClass(iri));
         }
         if (containsObjectPropertyInSignature(iri)) {
-            result.add(manager.getOWLDataFactory().getOWLObjectProperty(iri));
+            result.add(df.getOWLObjectProperty(iri));
         }
         if (containsDataPropertyInSignature(iri)) {
-            result.add(manager.getOWLDataFactory().getOWLDataProperty(iri));
+            result.add(df.getOWLDataProperty(iri));
         }
         if (containsIndividualInSignature(iri)) {
-            result.add(manager.getOWLDataFactory().getOWLNamedIndividual(iri));
+            result.add(df.getOWLNamedIndividual(iri));
         }
         if (containsDatatypeInSignature(iri)) {
-            result.add(manager.getOWLDataFactory().getOWLDatatype(iri));
+            result.add(df.getOWLDatatype(iri));
         }
         if (containsAnnotationPropertyInSignature(iri)) {
-            result.add(manager.getOWLDataFactory().getOWLAnnotationProperty(iri));
+            result.add(df.getOWLAnnotationProperty(iri));
         }
         return result;
     }
@@ -575,7 +575,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean isDeclared(OWLEntity entity) {
-        return internals.isDeclared(getOWLDataFactory().getOWLDeclarationAxiom(entity));
+        return internals.isDeclared(df.getOWLDeclarationAxiom(entity));
     }
 
     @Override

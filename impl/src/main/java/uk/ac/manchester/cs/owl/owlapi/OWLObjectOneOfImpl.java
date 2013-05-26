@@ -90,9 +90,9 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
         } else {
             Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : values) {
-                ops.add(getOWLDataFactory().getOWLObjectOneOf(ind));
+                ops.add(df.getOWLObjectOneOf(ind));
             }
-            return getOWLDataFactory().getOWLObjectUnionOf(ops);
+            return df.getOWLObjectUnionOf(ops);
         }
     }
 

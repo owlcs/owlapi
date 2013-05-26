@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -74,14 +73,13 @@ public class OWLDataPropertyDomainAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDataPropertyDomainAxiom(getProperty(),
-                getDomain());
+        return df.getOWLDataPropertyDomainAxiom(getProperty(), getDomain());
     }
 
     @Override
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDataPropertyDomainAxiom(getProperty(),
-                getDomain(), mergeAnnos(annotations));
+        return df.getOWLDataPropertyDomainAxiom(getProperty(), getDomain(),
+                mergeAnnos(annotations));
     }
 
     @Override
@@ -116,7 +114,6 @@ public class OWLDataPropertyDomainAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLDataFactory df = getOWLDataFactory();
         OWLClassExpression sub = df.getOWLDataSomeValuesFrom(getProperty(),
                 df.getTopDatatype());
         return df.getOWLSubClassOfAxiom(sub, getDomain());

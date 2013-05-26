@@ -74,13 +74,13 @@ public class SWRLObjectPropertyAtomImpl extends
             return this;
         } else if (prop.isAnonymous()) {
             // Flip
-            return getOWLDataFactory().getSWRLObjectPropertyAtom(
+            return df.getSWRLObjectPropertyAtom(
                     prop.getInverseProperty().getSimplified(), getSecondArgument(),
                     getFirstArgument());
         } else {
             // No need to flip
-            return getOWLDataFactory().getSWRLObjectPropertyAtom(prop,
-                    getFirstArgument(), getSecondArgument());
+            return df.getSWRLObjectPropertyAtom(prop, getFirstArgument(),
+                    getSecondArgument());
         }
     }
 

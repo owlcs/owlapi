@@ -70,7 +70,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     private static final String VALUES2 = "values";
     private static final String DATA_RANGES = "dataRanges";
     private static final String DATA_RANGE = "dataRange";
-    private static final OWLDataFactory instance = new OWLDataFactoryImpl(false, false);
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //
@@ -340,64 +339,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     @Override
     public OWLLiteral getOWLLiteral(boolean value) {
         return data.getOWLLiteral(value);
-    }
-
-    @Override
-    @Deprecated
-    public OWLLiteral getOWLTypedLiteral(String literal, OWLDatatype datatype) {
-        checkNull(literal, LITERAL2);
-        checkNull(datatype, DATATYPE2);
-        return getOWLLiteral(literal, datatype);
-    }
-
-    @Override
-    @Deprecated
-    public OWLLiteral getOWLTypedLiteral(String literal, OWL2Datatype datatype) {
-        checkNull(literal, LITERAL2);
-        checkNull(datatype, DATATYPE2);
-        return getOWLLiteral(literal, datatype);
-    }
-
-    @Override
-    @Deprecated
-    public OWLLiteral getOWLTypedLiteral(int value) {
-        return getOWLLiteral(value);
-    }
-
-    @Override
-    @Deprecated
-    public OWLLiteral getOWLTypedLiteral(double value) {
-        return getOWLLiteral(value);
-    }
-
-    @Override
-    @Deprecated
-    public OWLLiteral getOWLTypedLiteral(boolean value) {
-        return getOWLLiteral(value);
-    }
-
-    @Override
-    @Deprecated
-    public OWLLiteral getOWLTypedLiteral(float value) {
-        return getOWLLiteral(value);
-    }
-
-    @Override
-    @Deprecated
-    public OWLLiteral getOWLTypedLiteral(String value) {
-        return getOWLLiteral(value);
-    }
-
-    @Override
-    @Deprecated
-    public OWLLiteral getOWLStringLiteral(String literal, String lang) {
-        return getOWLLiteral(literal, lang);
-    }
-
-    @Override
-    @Deprecated
-    public OWLLiteral getOWLStringLiteral(String literal) {
-        return getOWLLiteral(literal, "");
     }
 
     @Override
@@ -1646,7 +1587,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     // SWRL
     //
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  
     @Override
     public SWRLRule getSWRLRule(Set<? extends SWRLAtom> body,
             Set<? extends SWRLAtom> head, Set<OWLAnnotation> annotations) {

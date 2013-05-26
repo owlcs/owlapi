@@ -956,20 +956,6 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    @Test
-    public void shouldTestTPDeclaredAsHandler() throws Exception {
-        TPDeclaredAsHandler testSubject0 = new TPDeclaredAsHandler(
-                Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
-                IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
-        testSubject0.inferTypes(IRI("urn:aFake"), IRI("urn:aFake"));
-        OWLRDFConsumer result3 = testSubject0.getConsumer();
-        String result4 = testSubject0.toString();
-    }
 
     public void shouldTestTPDifferentFromHandler() throws Exception {
         TPDifferentFromHandler testSubject0 = new TPDifferentFromHandler(

@@ -76,14 +76,13 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDatatypeDefinitionAxiom(getDatatype(),
-                getDataRange());
+        return df.getOWLDatatypeDefinitionAxiom(getDatatype(), getDataRange());
     }
 
     @Override
     public OWLDatatypeDefinitionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDatatypeDefinitionAxiom(getDatatype(),
-                getDataRange(), mergeAnnos(annotations));
+        return df.getOWLDatatypeDefinitionAxiom(getDatatype(), getDataRange(),
+                mergeAnnos(annotations));
     }
 
     @Override

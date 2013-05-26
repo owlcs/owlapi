@@ -66,20 +66,19 @@ public class TypeNegativePropertyAssertionHandler extends BuiltInTypeHandler {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
         IRI source = getConsumer().getResourceObject(subject,
                 OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL.getIRI(), true);
         if (source == null) {
             source = getConsumer().getResourceObject(subject,
-                    OWLRDFVocabulary.RDF_SUBJECT.getIRI(), true);
+                    DeprecatedVocabulary.RDF_SUBJECT, true);
         }
         IRI property = getConsumer().getResourceObject(subject,
                 OWLRDFVocabulary.OWL_ASSERTION_PROPERTY.getIRI(), true);
         if (property == null) {
             property = getConsumer().getResourceObject(subject,
-                    OWLRDFVocabulary.RDF_PREDICATE.getIRI(), true);
+                    DeprecatedVocabulary.RDF_PREDICATE, true);
         }
         Object target = getConsumer().getResourceObject(subject,
                 OWLRDFVocabulary.OWL_TARGET_INDIVIDUAL.getIRI(), true);
@@ -89,11 +88,11 @@ public class TypeNegativePropertyAssertionHandler extends BuiltInTypeHandler {
         }
         if (target == null) {
             target = getConsumer().getResourceObject(subject,
-                    OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
+                    DeprecatedVocabulary.RDF_OBJECT, true);
         }
         if (target == null) {
             target = getConsumer().getLiteralObject(subject,
-                    OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
+                    DeprecatedVocabulary.RDF_OBJECT, true);
         }
         Set<OWLAnnotation> annos = getConsumer().translateAnnotations(subject);
         if (target instanceof OWLLiteral

@@ -74,13 +74,12 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLSameIndividualAxiom(getIndividuals());
+        return df.getOWLSameIndividualAxiom(getIndividuals());
     }
 
     @Override
     public OWLSameIndividualAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLSameIndividualAxiom(getIndividuals(),
-                mergeAnnos(annotations));
+        return df.getOWLSameIndividualAxiom(getIndividuals(), mergeAnnos(annotations));
     }
 
     @Override
@@ -90,7 +89,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         for (int i = 0; i < inds.size() - 1; i++) {
             OWLIndividual indI = inds.get(i);
             OWLIndividual indJ = inds.get(i + 1);
-            result.add(getOWLDataFactory().getOWLSameIndividualAxiom(indI, indJ));
+            result.add(df.getOWLSameIndividualAxiom(indI, indJ));
         }
         return result;
     }
@@ -109,24 +108,16 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<OWLClassExpression>();
         for (OWLIndividual individual : getIndividuals()) {
-            nominalsList.add(getOWLDataFactory().getOWLObjectOneOf(individual));
+            nominalsList.add(df.getOWLObjectOneOf(individual));
         }
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {
             OWLClassExpression ceI = nominalsList.get(i);
             OWLClassExpression ceJ = nominalsList.get(i + 1);
-            result.add(getOWLDataFactory().getOWLSubClassOfAxiom(ceI, ceJ));
-            result.add(getOWLDataFactory().getOWLSubClassOfAxiom(ceJ, ceI));
+            result.add(df.getOWLSubClassOfAxiom(ceI, ceJ));
+            result.add(df.getOWLSubClassOfAxiom(ceJ, ceI));
         }
         return result;
-    }
-
-    @SuppressWarnings("javadoc")
-    @Deprecated
-    // XXX not in the interface
-            public
-            Set<OWLSameIndividualAxiom> asPairwiseSameIndividualAxioms() {
-        return asPairwiseAxioms();
     }
 
     @Override

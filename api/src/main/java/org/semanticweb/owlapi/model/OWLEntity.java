@@ -51,15 +51,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @return The entity type */
     EntityType<?> getEntityType();
 
-    /** Gets an entity that has the same IRI as this entity but is of the
-     * specified type.
-     * 
-     * @param entityType
-     *            The type of the entity to obtain. This entity is not affected
-     *            in any way.
-     * @return An entity that has the same IRI as this entity and is of the
-     *         specified type */
-    <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType);
 
     /** Tests to see if this entity is of the specified type
      * 

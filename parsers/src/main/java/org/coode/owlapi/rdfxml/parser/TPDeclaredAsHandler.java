@@ -45,12 +45,12 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 21-Feb-2007<br>
- * <br> */
-@SuppressWarnings({ "deprecation", "javadoc" })
+ * Date: 21-Feb-2007<br> */
+@Deprecated
+@SuppressWarnings("javadoc")
 public class TPDeclaredAsHandler extends TriplePredicateHandler {
     public TPDeclaredAsHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_DECLARED_AS.getIRI());
+        super(consumer, DeprecatedVocabulary.OWL_DECLARED_AS);
     }
 
     @Override

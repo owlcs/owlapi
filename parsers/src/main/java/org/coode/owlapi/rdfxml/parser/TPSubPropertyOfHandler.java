@@ -77,16 +77,15 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
         // First check for object property chain
         if (!isStrict()
                 && getConsumer().hasPredicate(subject,
-                        OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getIRI())) {
+                        DeprecatedVocabulary.OWL_PROPERTY_CHAIN)) {
             // Property chain
             IRI chainList = getConsumer().getResourceObject(subject,
-                    OWLRDFVocabulary.OWL_PROPERTY_CHAIN.getIRI(), true);
+                    DeprecatedVocabulary.OWL_PROPERTY_CHAIN, true);
             List<OWLObjectPropertyExpression> properties = getConsumer()
                     .translateToObjectPropertyList(chainList);
             addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(properties,

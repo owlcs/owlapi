@@ -71,13 +71,13 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(getProperty());
+        return df.getOWLAsymmetricObjectPropertyAxiom(getProperty());
     }
 
     @Override
     public OWLAsymmetricObjectPropertyAxiom getAnnotatedAxiom(
             Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(getProperty(),
+        return df.getOWLAsymmetricObjectPropertyAxiom(getProperty(),
                 mergeAnnos(annotations));
     }
 

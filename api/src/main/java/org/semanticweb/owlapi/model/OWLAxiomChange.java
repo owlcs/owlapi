@@ -76,15 +76,4 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
     public OWLAxiom getAxiom() {
         return axiom;
     }
-
-    /** A convenience method that obtains the entities which are referenced in
-     * the axiom contained within this change.
-     * 
-     * @return A <code>Set</code> of entities which are referenced by the axiom
-     *         contained within this change.
-     * @deprecated use getSignature() instead */
-    @Deprecated
-    public Set<OWLEntity> getEntities() {
-        return axiom.getSignature();
-    }
 }

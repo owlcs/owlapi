@@ -58,7 +58,6 @@ import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
@@ -111,17 +110,12 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
 
     @Override
     public OWLClassExpression getObjectComplementOf() {
-        return getOWLDataFactory().getOWLObjectComplementOf(this);
+        return df.getOWLObjectComplementOf(this);
     }
 
     @Override
     public EntityType<?> getEntityType() {
         return EntityType.CLASS;
-    }
-
-    @Override
-    public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
-        return getOWLDataFactory().getOWLEntity(entityType, getIRI());
     }
 
     @Override
@@ -202,7 +196,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
 
     @Override
     public OWLClassExpression getComplementNNF() {
-        return getOWLDataFactory().getOWLObjectComplementOf(this);
+        return df.getOWLObjectComplementOf(this);
     }
 
     @Override

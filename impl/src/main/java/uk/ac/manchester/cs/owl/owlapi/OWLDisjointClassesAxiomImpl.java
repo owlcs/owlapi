@@ -73,12 +73,12 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions());
+        return df.getOWLDisjointClassesAxiom(getClassExpressions());
     }
 
     @Override
     public OWLDisjointClassesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions(),
+        return df.getOWLDisjointClassesAxiom(getClassExpressions(),
                 mergeAnnos(annotations));
     }
 
@@ -118,8 +118,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         List<OWLClassExpression> list = getClassExpressionsAsList();
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
-                result.add(getOWLDataFactory().getOWLDisjointClassesAxiom(list.get(i),
-                        list.get(j)));
+                result.add(df.getOWLDisjointClassesAxiom(list.get(i), list.get(j)));
             }
         }
         return result;
@@ -131,8 +130,8 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         List<OWLClassExpression> list = getClassExpressionsAsList();
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
-                result.add(getOWLDataFactory().getOWLSubClassOfAxiom(list.get(i),
-                        list.get(j).getObjectComplementOf()));
+                result.add(df.getOWLSubClassOfAxiom(list.get(i), list.get(j)
+                        .getObjectComplementOf()));
             }
         }
         return result;

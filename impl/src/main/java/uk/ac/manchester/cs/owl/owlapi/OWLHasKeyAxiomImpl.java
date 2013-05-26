@@ -80,14 +80,13 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLHasKeyAxiom(getClassExpression(),
-                getPropertyExpressions());
+        return df.getOWLHasKeyAxiom(getClassExpression(), getPropertyExpressions());
     }
 
     @Override
     public OWLHasKeyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLHasKeyAxiom(getClassExpression(),
-                getPropertyExpressions(), mergeAnnos(annotations));
+        return df.getOWLHasKeyAxiom(getClassExpression(), getPropertyExpressions(),
+                mergeAnnos(annotations));
     }
 
     @Override

@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -75,14 +74,13 @@ public class OWLDataPropertyRangeAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory()
-                .getOWLDataPropertyRangeAxiom(getProperty(), getRange());
+        return df.getOWLDataPropertyRangeAxiom(getProperty(), getRange());
     }
 
     @Override
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDataPropertyRangeAxiom(getProperty(),
-                getRange(), mergeAnnos(annotations));
+        return df.getOWLDataPropertyRangeAxiom(getProperty(), getRange(),
+                mergeAnnos(annotations));
     }
 
     @Override
@@ -117,7 +115,6 @@ public class OWLDataPropertyRangeAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLDataFactory df = getOWLDataFactory();
         OWLClassExpression sup = df.getOWLDataAllValuesFrom(getProperty(), getRange());
         return df.getOWLSubClassOfAxiom(df.getOWLThing(), sup);
     }

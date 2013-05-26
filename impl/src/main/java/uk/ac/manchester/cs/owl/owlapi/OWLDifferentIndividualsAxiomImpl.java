@@ -74,12 +74,12 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getIndividuals());
+        return df.getOWLDifferentIndividualsAxiom(getIndividuals());
     }
 
     @Override
     public OWLDifferentIndividualsAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDifferentIndividualsAxiom(getIndividuals(),
+        return df.getOWLDifferentIndividualsAxiom(getIndividuals(),
                 mergeAnnos(annotations));
     }
 
@@ -91,8 +91,7 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
             for (int j = i + 1; j < individuals.size(); j++) {
                 OWLIndividual indI = individuals.get(i);
                 OWLIndividual indJ = individuals.get(j);
-                result.add(getOWLDataFactory()
-                        .getOWLDifferentIndividualsAxiom(indI, indJ));
+                result.add(df.getOWLDifferentIndividualsAxiom(indI, indJ));
             }
         }
         return result;
@@ -117,14 +116,14 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<OWLClassExpression>();
         for (OWLIndividual individual : getIndividuals()) {
-            nominalsList.add(getOWLDataFactory().getOWLObjectOneOf(individual));
+            nominalsList.add(df.getOWLObjectOneOf(individual));
         }
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {
             for (int j = i + 1; j < nominalsList.size(); j++) {
                 OWLClassExpression ceI = nominalsList.get(i);
                 OWLClassExpression ceJ = nominalsList.get(j).getObjectComplementOf();
-                result.add(getOWLDataFactory().getOWLSubClassOfAxiom(ceI, ceJ));
+                result.add(df.getOWLSubClassOfAxiom(ceI, ceJ));
             }
         }
         return result;

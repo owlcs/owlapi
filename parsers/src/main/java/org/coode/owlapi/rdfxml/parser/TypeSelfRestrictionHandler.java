@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class TypeSelfRestrictionHandler extends BuiltInTypeHandler {
     public TypeSelfRestrictionHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_SELF_RESTRICTION.getIRI());
+        super(consumer, DeprecatedVocabulary.OWL_SELF_RESTRICTION);
     }
 
     @Override

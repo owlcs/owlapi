@@ -72,10 +72,6 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
             Set<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.owlClass = owlClass;
-        // if(classExpressions==null || classExpressions.isEmpty()) {
-        // throw new
-        // IllegalArgumentException("the classExpressions set must contain at least one value");
-        // }
         this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
     }
 
@@ -90,14 +86,13 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDisjointUnionAxiom(getOWLClass(),
-                getClassExpressions());
+        return df.getOWLDisjointUnionAxiom(getOWLClass(), getClassExpressions());
     }
 
     @Override
     public OWLDisjointUnionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDisjointUnionAxiom(getOWLClass(),
-                getClassExpressions(), mergeAnnos(annotations));
+        return df.getOWLDisjointUnionAxiom(getOWLClass(), getClassExpressions(),
+                mergeAnnos(annotations));
     }
 
     @Override
@@ -145,13 +140,13 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
-        return getOWLDataFactory().getOWLEquivalentClassesAxiom(owlClass,
-                getOWLDataFactory().getOWLObjectUnionOf(getClassExpressions()));
+        return df.getOWLEquivalentClassesAxiom(owlClass,
+                df.getOWLObjectUnionOf(getClassExpressions()));
     }
 
     @Override
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom() {
-        return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions());
+        return df.getOWLDisjointClassesAxiom(getClassExpressions());
     }
 
     @Override

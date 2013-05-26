@@ -220,41 +220,6 @@ public class NullCheckTestCase {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLTypedLiteral0_2_0() {
-        f.getOWLTypedLiteral(null, owldatatype);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLTypedLiteral1_2_0() {
-        f.getOWLTypedLiteral(string, (OWLDatatype) null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLTypedLiteral0_2() {
-        f.getOWLTypedLiteral(null, owl2datatype);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLTypedLiteral1_2() {
-        f.getOWLTypedLiteral(string, (OWL2Datatype) null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLTypedLiteral0_1_0() {
-        f.getOWLTypedLiteral(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLStringLiteral0_2() {
-        f.getOWLStringLiteral(null, string);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLStringLiteral0_1() {
-        f.getOWLStringLiteral(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLDataOneOf0_1_0() {
         f.getOWLDataOneOf((OWLLiteral) null);
     }

@@ -89,8 +89,7 @@ public class OWLDataHasValueImpl extends
 
     @Override
     public OWLClassExpression asSomeValuesFrom() {
-        return getOWLDataFactory().getOWLDataSomeValuesFrom(getProperty(),
-                getOWLDataFactory().getOWLDataOneOf(getValue()));
+        return df.getOWLDataSomeValuesFrom(getProperty(), df.getOWLDataOneOf(getValue()));
     }
 
     @Override

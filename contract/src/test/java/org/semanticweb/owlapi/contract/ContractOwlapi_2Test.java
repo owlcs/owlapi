@@ -529,7 +529,6 @@ public class ContractOwlapi_2Test {
         IRI result12 = testSubject0.getIRI();
         boolean result13 = testSubject0.isBuiltIn();
         EntityType<?> result14 = testSubject0.getEntityType();
-        OWLEntity result15 = testSubject0.getOWLEntity(EntityType.CLASS);
         boolean result16 = !testSubject0.isAnonymous();
         if (testSubject0.isOWLClass()) {
             OWLClass result17 = testSubject0.asOWLClass();
@@ -734,7 +733,6 @@ public class ContractOwlapi_2Test {
         IRI result12 = testSubject0.getIRI();
         boolean result13 = testSubject0.isBuiltIn();
         EntityType<?> result14 = testSubject0.getEntityType();
-        OWLEntity result15 = testSubject0.getOWLEntity(EntityType.CLASS);
         boolean result16 = !testSubject0.isOWLClass();
         if (testSubject0.isOWLClass()) {
             OWLClass result17 = testSubject0.asOWLClass();
@@ -1893,7 +1891,6 @@ public class ContractOwlapi_2Test {
                 .getAnnotationAssertionAxioms(Utils.getMockOntology());
         IRI result10 = testSubject0.getIRI();
         EntityType<?> result11 = testSubject0.getEntityType();
-        OWLEntity result12 = testSubject0.getOWLEntity(EntityType.CLASS);
         boolean result13 = testSubject0.isOWLNamedIndividual();
         if (testSubject0.isOWLNamedIndividual()) {
             OWLNamedIndividual result14 = testSubject0.asOWLNamedIndividual();
