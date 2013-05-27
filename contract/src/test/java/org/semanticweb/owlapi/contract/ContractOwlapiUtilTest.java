@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.Writer;
 import java.util.ArrayList;
@@ -196,7 +196,7 @@ public class ContractOwlapiUtilTest {
                 .getCopyOnRequestSetFromMutableCollection(Utils.mockCollection());
         Set<Object> result2 = CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(Utils.mockCollection());
-        CollectionFactory.setExpectedThreads(0);
+        CollectionFactory.setExpectedThreads(8);
         Set<Object> result3 = CollectionFactory.createSet(Utils.mockCollection());
         Set<OWLClass> result4 = CollectionFactory.createSet(0);
         Set<Object> result5 = CollectionFactory.createSet(new Object());
