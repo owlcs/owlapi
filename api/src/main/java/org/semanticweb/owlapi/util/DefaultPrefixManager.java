@@ -81,12 +81,19 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     private static final StringLengthComparator STRING_LENGTH_COMPARATOR = new StringLengthComparator();
-
-    private final Map<String, String> prefix2NamespaceMap = new TreeMap<String, String>(
-            STRING_LENGTH_COMPARATOR);
+    private final Map<String, String> prefix2NamespaceMap;
 
     /** Creates a namespace manager that does not have a default namespace. */
     public DefaultPrefixManager() {
+        this(STRING_LENGTH_COMPARATOR);
+    }
+
+    /** Creates a namespace manager that does not have a default namespace.
+     * 
+     * @param c
+     *            comparator to sort prefixes */
+    public DefaultPrefixManager(Comparator<String> c) {
+        prefix2NamespaceMap = new TreeMap<String, String>(c);
         setupDefaultPrefixes();
     }
 
@@ -94,6 +101,20 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      *            the prefix manager to copy */
     public DefaultPrefixManager(PrefixManager pm) {
         this();
+        for (String prefixName : pm.getPrefixNames()) {
+            String prefix = pm.getPrefix(prefixName);
+            if (prefix != null) {
+                prefix2NamespaceMap.put(prefixName, prefix);
+            }
+        }
+    }
+
+    /** @param pm
+     *            the prefix manager to copy
+     * @param c
+     *            comparator to sort prefixes */
+    public DefaultPrefixManager(PrefixManager pm, Comparator<String> c) {
+        this(c);
         for (String prefixName : pm.getPrefixNames()) {
             String prefix = pm.getPrefix(prefixName);
             if (prefix != null) {
@@ -120,6 +141,19 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      *            The namespace to be used as the default namespace. */
     public DefaultPrefixManager(String defaultPrefix) {
         this();
+        if (defaultPrefix != null) {
+            setDefaultPrefix(defaultPrefix);
+        }
+    }
+
+    /** Creates a namespace manager that has the specified default namespace.
+     * 
+     * @param defaultPrefix
+     *            The namespace to be used as the default namespace.
+     * @param c
+     *            comparator to sort prefixes */
+    public DefaultPrefixManager(String defaultPrefix, Comparator<String> c) {
+        this(c);
         if (defaultPrefix != null) {
             setDefaultPrefix(defaultPrefix);
         }
