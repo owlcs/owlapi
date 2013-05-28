@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
@@ -70,7 +71,7 @@ public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer
             OWLObjectRenderer ren = new OWLObjectRenderer(ontology, writer);
             if (format instanceof PrefixOWLOntologyFormat) {
                 PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
-                DefaultPrefixManager man = new DefaultPrefixManager();
+                PrefixManager man = new DefaultPrefixManager();
                 Map<String, String> map = prefixFormat.getPrefixName2PrefixMap();
                 for (Map.Entry<String, String> e : map.entrySet()) {
                     man.setPrefix(e.getKey(), e.getValue());

@@ -63,7 +63,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * <br> */
 @SuppressWarnings("javadoc")
 public class OWLObjectRenderer implements OWLObjectVisitor {
-    private DefaultPrefixManager prefixManager;
+    private PrefixManager prefixManager;
     protected OWLOntology ontology;
     private Writer writer;
     private int pos;
@@ -93,7 +93,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
                 .getOWLThing();
     }
 
-    public void setPrefixManager(DefaultPrefixManager prefixManager) {
+    public void setPrefixManager(PrefixManager prefixManager) {
         this.prefixManager = prefixManager;
     }
 

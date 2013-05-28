@@ -52,8 +52,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -97,7 +97,7 @@ public class TurtleOntologyParser extends AbstractOWLParser {
             consumer.setOntologyFormat(format);
             parser.setTripleHandler(consumer);
             parser.parseDocument();
-            DefaultPrefixManager prefixManager = parser.getPrefixManager();
+            PrefixManager prefixManager = parser.getPrefixManager();
             for (String prefixName : prefixManager.getPrefixNames()) {
                 format.setPrefix(prefixName, prefixManager.getPrefix(prefixName));
             }

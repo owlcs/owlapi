@@ -17,7 +17,6 @@ import java.util.*;
 import java.io.Reader;
 import java.io.InputStream;
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 
 @SuppressWarnings("javadoc")
@@ -31,7 +30,7 @@ public class TurtleParser implements AnonymousNodeChecker {
 
     private TripleHandler handler;
 
-    private DefaultPrefixManager pm = new DefaultPrefixManager();
+    private PrefixManager pm = new DefaultPrefixManager();
 
 
     public TurtleParser(Reader reader, TripleHandler handler, String base) {
@@ -52,7 +51,7 @@ public class TurtleParser implements AnonymousNodeChecker {
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
-    public DefaultPrefixManager getPrefixManager() {
+    public PrefixManager getPrefixManager() {
         return pm;
     }
 
