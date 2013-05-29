@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
@@ -18,7 +19,6 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants {
     private Map<String, IRI> string2IRI;
     private String base;
-    private int blankNodeId;
     private TripleHandler handler;
     private PrefixManager pm = new DefaultPrefixManager();
 
@@ -27,7 +27,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         this.handler = handler;
         this.base = base;
         string2IRI = new HashMap<String, IRI>();
-        blankNodeId = 0;
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
@@ -36,7 +35,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         this.handler = handler;
         this.base = base;
         string2IRI = new HashMap<String, IRI>();
-        blankNodeId = 0;
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
@@ -48,25 +46,36 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         this.handler = handler;
     }
 
+    @Override
     public boolean isAnonymousNode(String iri) {
-        return iri.indexOf("genid") != -1;
+        return NodeID.isAnonymousNodeIRI(iri);
     }
 
+    @Override
     public boolean isAnonymousNode(IRI iri) {
-        return iri.toString().indexOf("genid") != -1;
+        return NodeID.isAnonymousNodeIRI(iri);
     }
 
+    @Override
     public boolean isAnonymousSharedNode(String iri) {
-        return iri.indexOf("genid-nodeid") != -1;
+        return NodeID.isAnonymousNodeID(iri);
     }
 
     protected IRI getNextBlankNode(String id) {
-        IRI iri;
+        String string;
         if (id == null) {
-            iri = getIRI("genid" + blankNodeId);
-            blankNodeId++;
+            string = NodeID.nextAnonymousIRI();
         } else {
-            iri = getIRI("genid-nodeid-" + id);
+            if (NodeID.isAnonymousNodeID(id)) {
+                string = id;
+            } else {
+                string = NodeID.getIRIFromNodeID(id);
+            }
+        }
+        IRI iri = string2IRI.get(string);
+        if (iri == null) {
+            iri = IRI.create(string);
+            string2IRI.put(string, iri);
         }
         return iri;
     }

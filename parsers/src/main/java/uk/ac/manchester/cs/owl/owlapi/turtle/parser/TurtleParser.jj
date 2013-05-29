@@ -26,8 +26,6 @@ public class TurtleParser implements AnonymousNodeChecker {
 
     private String base;
 
-    private int blankNodeId;
-
     private TripleHandler handler;
 
     private PrefixManager pm = new DefaultPrefixManager();
@@ -59,29 +57,37 @@ public class TurtleParser implements AnonymousNodeChecker {
         this.handler = handler;
     }
 
+    @Override
     public boolean isAnonymousNode(String iri) {
-        return iri.indexOf("genid") != -1;
+        return NodeID.isAnonymousNodeIRI(iri);
     }
 
-
+    @Override
     public boolean isAnonymousNode(IRI iri) {
-        return iri.toString().indexOf("genid") != -1;
+        return NodeID.isAnonymousNodeIRI(iri);
     }
 
+    @Override
     public boolean isAnonymousSharedNode(String iri) {
-        return iri.indexOf("genid-nodeid") != -1;
+        return NodeID.isAnonymousNodeID(iri);
     }
 
     protected IRI getNextBlankNode(String id) {
-        IRI iri;
-        if(id == null) {
-            iri = getIRI("genid" + blankNodeId);
-            blankNodeId++;
+        String string;
+        if (id == null) {
+            string = NodeID.nextAnonymousIRI();
+        } else {
+            if (NodeID.isAnonymousNodeID(id)) {
+                string = id;
+            } else {
+                string = NodeID.getIRIFromNodeID(id);
+            }
         }
-        else {
-            iri = getIRI("genid-nodeid-" + id);
+        IRI iri = string2IRI.get(string);
+        if (iri == null) {
+            iri = IRI.create(string);
+            string2IRI.put(string, iri);
         }
-
         return iri;
     }
 
