@@ -73,10 +73,10 @@
 						<configuration>
 							<!-- switch on dependency-driven aggregation -->
 							<includeDependencySources>true</includeDependencySources>
-							<dependencySourceExcludes>
+							<dependencySourceIncludes>
 								<!-- include ONLY owlapi artifacts -->
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-*</dependencySourceInclude>
-							</dependencySourceExcludes>
+							</dependencySourceIncludes>
 						</configuration>
 					</execution>
 				</executions>
