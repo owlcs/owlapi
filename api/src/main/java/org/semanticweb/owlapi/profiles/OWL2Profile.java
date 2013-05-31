@@ -61,7 +61,10 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * <br>
  * Checks to see if an ontology and its imports closure fall into the OWL 2 DL
  * profile. An ontology is OWL Full if any of the global structural restrictions
- * are violated, if there is punning between object and data properties */
+ * are violated. Violations checked are:
+ * UseOfDefinedDatatypeInDatatypeRestriction, OntologyIRINotAbsolute,
+ * OntologyVersionIRINotAbsolute, UseOfNonAbsoluteIRI, LexicalNotInLexicalSpace,
+ * UseOfIllegalFacetRestriction, UseOfUndeclaredDatatype */
 public class OWL2Profile implements OWLProfile {
     @Override
     public String getName() {
