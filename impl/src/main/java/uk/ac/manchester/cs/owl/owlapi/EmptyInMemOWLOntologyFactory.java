@@ -38,8 +38,8 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.io.DefaultOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -74,7 +74,7 @@ public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactor
     public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI,
             OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
         OWLOntology ont = super.createOWLOntology(ontologyID, documentIRI, handler);
-        handler.setOntologyFormat(ont, new DefaultOntologyFormat());
+        handler.setOntologyFormat(ont, new RDFXMLOntologyFormat());
         return ont;
     }
 

@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
@@ -80,7 +82,8 @@ public interface OWLParser {
      * @throws UnloadableImportException
      *             if loading this ontology prompted the loading of an import
      *             and the import could not be loaded. */
-    OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)
+    @Nonnull
+    OWLOntologyFormat parse(@Nonnull IRI documentIRI, @Nonnull OWLOntology ontology)
             throws OWLParserException, IOException, OWLOntologyChangeException,
             UnloadableImportException;
 
@@ -113,8 +116,9 @@ public interface OWLParser {
      * @throws UnloadableImportException
      *             if loading this ontology prompted the loading of an import
      *             and the import could not be loaded. */
-    OWLOntologyFormat
-            parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology)
+    @Nonnull
+    OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntology ontology)
                     throws OWLParserException, IOException, OWLOntologyChangeException,
                     UnloadableImportException;
 
@@ -150,8 +154,10 @@ public interface OWLParser {
      * @throws UnloadableImportException
      *             if loading this ontology prompted the loading of an import
      *             and the import could not be loaded. */
-    OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+    @Nonnull
+    OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws OWLParserException, IOException, OWLOntologyChangeException,
             UnloadableImportException;
 }

@@ -54,6 +54,8 @@ import java.util.zip.InflaterInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -96,8 +98,9 @@ public abstract class AbstractOWLParser implements OWLParser {
      * @throws IOException
      *             if there was an <code>IOException</code> in obtaining the
      *             input stream from the URI. */
-    protected InputStream getInputStream(IRI documentIRI,
-            OWLOntologyLoaderConfiguration config) throws IOException {
+    @Nonnull
+    protected InputStream getInputStream(@Nonnull IRI documentIRI,
+            @Nonnull OWLOntologyLoaderConfiguration config) throws IOException {
         String requestType = getRequestTypes();
         URL originalURL = documentIRI.toURI().toURL();
         String originalProtocol = originalURL.getProtocol();
@@ -150,14 +153,13 @@ public abstract class AbstractOWLParser implements OWLParser {
         return is;
     }
 
-    private boolean couldBeOntology(ZipEntry zipEntry) {
-        String name = zipEntry.getName();
-        Matcher matcher = ZIP_ENTRY_ONTOLOGY_NAME_PATTERN.matcher(name);
-        return matcher.matches();
+    private boolean couldBeOntology(@Nonnull ZipEntry zipEntry) {
+        return ZIP_ENTRY_ONTOLOGY_NAME_PATTERN.matcher(zipEntry.getName()).matches();
     }
 
-    private InputStream getInputStreamFromContentEncoding(URLConnection conn,
-            String contentEncoding) throws IOException {
+    @Nonnull
+    private InputStream getInputStreamFromContentEncoding(@Nonnull URLConnection conn,
+            @Nonnull String contentEncoding) throws IOException {
         InputStream is;
         if ("gzip".equals(contentEncoding)) {
             logger.fine("URL connection input stream is compressed using gzip");

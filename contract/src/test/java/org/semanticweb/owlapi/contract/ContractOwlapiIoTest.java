@@ -19,7 +19,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
-import org.semanticweb.owlapi.io.DefaultOntologyFormat;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.FileDocumentTarget;
 import org.semanticweb.owlapi.io.IOProperties;
@@ -115,38 +114,6 @@ public class ContractOwlapiIoTest {
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         String result0 = testSubject0.toString();
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestDefaultOntologyFormat() throws Exception {
-        DefaultOntologyFormat testSubject0 = new DefaultOntologyFormat();
-        String result0 = testSubject0.toString();
-        RDFParserMetaData result1 = testSubject0.getOntologyLoaderMetaData();
-        OWLOntologyLoaderMetaData result2 = testSubject0.getOntologyLoaderMetaData();
-        boolean result3 = testSubject0.isAddMissingTypes();
-        boolean result4 = RDFOntologyFormat.isMissingType(Utils.mockOWLEntity(),
-                Utils.getMockOntology());
-        testSubject0.setAddMissingTypes(false);
-        testSubject0.addError(mock(RDFResourceParseError.class));
-        String result5 = testSubject0.getPrefix("");
-        IRI result6 = testSubject0.getIRI("");
-        testSubject0.setPrefix("", "");
-        testSubject0.clear();
-        testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
-        testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
-        Map<String, String> result7 = testSubject0.getPrefixName2PrefixMap();
-        Set<String> result8 = testSubject0.getPrefixNames();
-        testSubject0.setDefaultPrefix("");
-        boolean result9 = testSubject0.containsPrefixMapping("");
-        String result10 = testSubject0.getDefaultPrefix();
-        String result11 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
-        testSubject0.setParameter(mock(Object.class), mock(Object.class));
-        Object result12 = testSubject0.getParameter(mock(Object.class),
-                mock(Object.class));
-        boolean result13 = testSubject0.isPrefixOWLOntologyFormat();
-        PrefixOWLOntologyFormat result14 = testSubject0.asPrefixOWLOntologyFormat();
-        testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
     @Ignore
