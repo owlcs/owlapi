@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.change;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** Author: Matthew Horridge<br>
@@ -48,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Represent the common non-ontology data required by instances of
  * {@link org.semanticweb.owlapi.model.OWLAxiomChange}.
  * </p> */
-public abstract class AxiomChangeData extends OWLOntologyChangeData {
+public abstract class AxiomChangeData extends OWLOntologyChangeData<OWLAxiom> {
     private static final long serialVersionUID = 40000L;
     private final OWLAxiom axiom;
 
@@ -56,20 +60,21 @@ public abstract class AxiomChangeData extends OWLOntologyChangeData {
      * involving the specified {@code axiom}.
      * 
      * @param axiom
-     *            The {@link OWLAxiom} involved in a change.
-     * @throws NullPointerException
-     *             if {@code axiom} is {@code null}. */
-    public AxiomChangeData(OWLAxiom axiom) {
-        if (axiom == null) {
-            throw new NullPointerException("axiom must not be null");
-        }
-        this.axiom = axiom;
+     *            The {@link OWLAxiom} involved in a change. **/
+    public AxiomChangeData(@Nonnull OWLAxiom axiom) {
+        this.axiom = checkNotNull(axiom, "axiom must not be null");
     }
 
     /** Gets the {@link OWLAxiom} that is associated with this change data.
      * 
-     * @return The {@link OWLAxiom}. Not {@code null}. */
+     * @return The {@link OWLAxiom}. */
+    @Nonnull
     public OWLAxiom getAxiom() {
         return axiom;
+    }
+
+    @Override
+    public OWLAxiom getItem() {
+        return getAxiom();
     }
 }

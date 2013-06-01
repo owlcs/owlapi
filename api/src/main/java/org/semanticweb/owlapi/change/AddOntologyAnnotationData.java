@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.change;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -55,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * </p>
  * 
  * @since 3.5 */
-public final class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
+public class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
     private static final long serialVersionUID = 40000L;
 
     /** Constructs an {@link AddOntologyAnnotationData} object that describes an
@@ -63,11 +65,8 @@ public final class AddOntologyAnnotationData extends OntologyAnnotationChangeDat
      * specified by the {@code annotation} parameter.
      * 
      * @param annotation
-     *            The {@link OWLAnnotation} that is the focus of some change.
-     *            Not {@code null}.
-     * @throws NullPointerException
-     *             if {@code annotation} is {@code null}. */
-    public AddOntologyAnnotationData(OWLAnnotation annotation) {
+     *            The {@link OWLAnnotation} that is the focus of some change. */
+    public AddOntologyAnnotationData(@Nonnull OWLAnnotation annotation) {
         super(annotation);
     }
 
@@ -80,17 +79,5 @@ public final class AddOntologyAnnotationData extends OntologyAnnotationChangeDat
     public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
             throws E {
         return visitor.visit(this);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof AddOntologyAnnotationData)) {
-            return false;
-        }
-        AddOntologyAnnotationData other = (AddOntologyAnnotationData) obj;
-        return getAnnotation().equals(other.getAnnotation());
     }
 }

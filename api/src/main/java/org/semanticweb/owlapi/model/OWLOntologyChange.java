@@ -38,21 +38,28 @@
  */
 package org.semanticweb.owlapi.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 25-Oct-2006 */
-public abstract class OWLOntologyChange {
+ * Bio-Health Informatics Group Date: 25-Oct-2006
+ * 
+ * @param <T>
+ *            type of changed object */
+public abstract class OWLOntologyChange<T> {
     private final OWLOntology ont;
 
     /** @param ont
      *            the ontology to which the change is to be applied */
-    public OWLOntologyChange(OWLOntology ont) {
-        this.ont = ont;
+    public OWLOntologyChange(@Nonnull OWLOntology ont) {
+        this.ont = checkNotNull(ont, "ontology must not be null");
     }
 
     /** Determines if the change will cause the addition or removal of an axiom
@@ -84,6 +91,7 @@ public abstract class OWLOntologyChange {
      * @throws UnsupportedOperationException
      *             If the change is not an axiom change (check with the
      *             {@code isAxiomChange} method first). */
+    @Nonnull
     public abstract OWLAxiom getAxiom();
 
     /** Determines if this change is an import change and hence causes a change
@@ -96,6 +104,7 @@ public abstract class OWLOntologyChange {
     /** Gets the ontology that the change is/was applied to
      * 
      * @return The ontology that the change is applicable to */
+    @Nonnull
     public OWLOntology getOntology() {
         return ont;
     }
@@ -104,8 +113,9 @@ public abstract class OWLOntologyChange {
      * change.
      * 
      * @return The {@link OWLOntologyChangeData} associated with this
-     *         {@link OWLOntologyChange}. Not {@code null}. */
-    public abstract OWLOntologyChangeData getChangeData();
+     *         {@link OWLOntologyChange}. */
+    @Nonnull
+    public abstract OWLOntologyChangeData<T> getChangeData();
 
     /** Gets a {@link OWLOntologyChangeRecord} that is derived from this
      * {@link OWLOntologyChange}'s {@link OWLOntologyID} and it's
@@ -115,6 +125,7 @@ public abstract class OWLOntologyChange {
      *         {@link OWLOntologyID} equal to the {@link OWLOntologyID} of this
      *         {@link OWLOntologyChange}'s {@link OWLOntology}. Not {@code null}
      *         . */
+    @Nonnull
     public OWLOntologyChangeRecord getChangeRecord() {
         return new OWLOntologyChangeRecord(ont.getOntologyID(), getChangeData());
     }
@@ -124,6 +135,7 @@ public abstract class OWLOntologyChange {
      * 
      * @return A set of entities that correspond to the signature of this
      *         object. The set is a copy, changes are not reflected back. */
+    @Nonnull
     public abstract Set<OWLEntity> getSignature();
 
     @SuppressWarnings("javadoc")

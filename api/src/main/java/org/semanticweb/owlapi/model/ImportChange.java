@@ -45,7 +45,7 @@ import java.util.Set;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 18-Mar-2009 */
-public abstract class ImportChange extends OWLOntologyChange {
+public abstract class ImportChange extends OWLOntologyChange<OWLImportsDeclaration> {
     private final OWLImportsDeclaration declaration;
 
     /** @param ont

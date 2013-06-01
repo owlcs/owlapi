@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collections;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.change.SetOntologyIDData;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -48,7 +52,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 01-Apr-2009 */
-public class SetOntologyID extends OWLOntologyChange {
+public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
     private final OWLOntologyID ontologyID;
     private final OWLOntologyID newOntologyID;
 
@@ -59,10 +63,10 @@ public class SetOntologyID extends OWLOntologyChange {
      *            The ontology whose id is to be changed
      * @param ontologyID
      *            The ontology ID */
-    public SetOntologyID(OWLOntology ont, OWLOntologyID ontologyID) {
+    public SetOntologyID(@Nonnull OWLOntology ont, @Nonnull OWLOntologyID ontologyID) {
         super(ont);
-        this.ontologyID = ont.getOntologyID();
-        newOntologyID = ontologyID;
+        this.ontologyID = checkNotNull(ont.getOntologyID(), "ontology id cannot be null");
+        newOntologyID = checkNotNull(ontologyID, "ontology id cannot be null");
     }
 
     /** Creates a set ontology id change using the ontologyIRI, which will set
@@ -72,16 +76,18 @@ public class SetOntologyID extends OWLOntologyChange {
      *            The ontology whose id is to be changed
      * @param ontologyIRI
      *            The ontology iri */
-    public SetOntologyID(OWLOntology ont, IRI ontologyIRI) {
+    public SetOntologyID(@Nonnull OWLOntology ont, @Nonnull IRI ontologyIRI) {
         this(ont, new OWLOntologyID(ontologyIRI));
     }
 
     @Override
+    @Nonnull
     public SetOntologyIDData getChangeData() {
         return new SetOntologyIDData(newOntologyID);
     }
 
     @Override
+    @Nonnull
     public Set<OWLEntity> getSignature() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
                 .<OWLEntity> emptySet());
@@ -110,12 +116,14 @@ public class SetOntologyID extends OWLOntologyChange {
     /** Gets the original ID of the ontology whose URI was changed
      * 
      * @return The original ID */
+    @Nonnull
     public OWLOntologyID getOriginalOntologyID() {
         return ontologyID;
     }
 
     /** @return the new URI - i.e. the URI of the ontology after the change was
      *         applied. */
+    @Nonnull
     public OWLOntologyID getNewOntologyID() {
         return newOntologyID;
     }

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.change;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -55,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * </p>
  * 
  * @since 3.5 */
-public final class AddImportData extends ImportChangeData {
+public class AddImportData extends ImportChangeData {
     private static final long serialVersionUID = 40000L;
 
     /** Constructs an {@link AddImportData} object that describes an
@@ -64,31 +66,13 @@ public final class AddImportData extends ImportChangeData {
      * 
      * @param declaration
      *            The {@link OWLImportsDeclaration} that is the focus of some
-     *            change. Not {@code null}.
-     * @throws NullPointerException
-     *             if {@code declaration} is {@code null}. */
-    public AddImportData(OWLImportsDeclaration declaration) {
+     *            change. */
+    public AddImportData(@Nonnull OWLImportsDeclaration declaration) {
         super(declaration);
     }
 
-    /** Creates the {@link AddImport} change that describes an addition of an
-     * {@link OWLImportsDeclaration} to an {@link OWLOntology} specified by the
-     * {@code ontology} parameter.
-     * 
-     * @param ontology
-     *            The {@link OWLOntology} that the change should apply to. Not
-     *            {@code null}.
-     * @return The {@link AddImport} change for the {@link OWLOntology}
-     *         specified by {@code ontology} and the
-     *         {@link OWLImportsDeclaration} associated with this
-     *         {@link ImportChangeData} object.
-     * @throws NullPointerException
-     *             if {@code ontology} is {@code null}. */
     @Override
     public AddImport createOntologyChange(OWLOntology ontology) {
-        if (ontology == null) {
-            throw new NullPointerException("ontology must not be null");
-        }
         return new AddImport(ontology, getDeclaration());
     }
 
@@ -96,31 +80,5 @@ public final class AddImportData extends ImportChangeData {
     public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
             throws E {
         return visitor.visit(this);
-    }
-
-    @Override
-    public int hashCode() {
-        return "AddImportData".hashCode() + getDeclaration().hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof AddImportData)) {
-            return false;
-        }
-        AddImportData other = (AddImportData) obj;
-        return getDeclaration().equals(other.getDeclaration());
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("AddImportData(");
-        sb.append(getDeclaration());
-        sb.append(")");
-        return sb.toString();
     }
 }

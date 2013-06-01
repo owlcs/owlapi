@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.change;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
@@ -59,31 +61,16 @@ public final class RemoveAxiomData extends AxiomChangeData {
     private static final long serialVersionUID = 40000L;
 
     /** Constructs an {@link RemoveAxiomData} object which specifies the removal
-     * of an axiom from "some ontology".
+     * of an axiom from an ontology.
      * 
      * @param axiom
-     *            The {@link OWLAxiom} being added. Not {@code null}.
-     * @throws NullPointerException
-     *             if {@code axiom} is {@code null}. */
-    public RemoveAxiomData(OWLAxiom axiom) {
+     *            The {@link OWLAxiom} being added. */
+    public RemoveAxiomData(@Nonnull OWLAxiom axiom) {
         super(axiom);
     }
 
-    /** Creates the {@link org.semanticweb.owlapi.model.RemoveAxiom} change that
-     * describes an removal of an {@link org.semanticweb.owlapi.model.OWLAxiom}
-     * from an {@link OWLOntology} specified by the {@code ontology} parameter.
-     * 
-     * @param ontology
-     *            The {@link OWLOntology} that the change should apply to. Not
-     *            {@code null}.
-     * @return The {@link org.semanticweb.owlapi.model.RemoveAxiom} change for
-     *         the {@link OWLOntology} specified by {@code ontology} and the
-     *         {@link org.semanticweb.owlapi.model.OWLAxiom} associated with
-     *         this {@link RemoveAxiomData} object.
-     * @throws NullPointerException
-     *             if {@code ontology} is {@code null}. */
     @Override
-    public RemoveAxiom createOntologyChange(OWLOntology ontology) {
+    public RemoveAxiom createOntologyChange(@Nonnull OWLOntology ontology) {
         return new RemoveAxiom(ontology, getAxiom());
     }
 
@@ -91,32 +78,5 @@ public final class RemoveAxiomData extends AxiomChangeData {
     public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
             throws E {
         return visitor.visit(this);
-    }
-
-    @Override
-    public int hashCode() {
-        return "RemoveAxiomData".hashCode() + getAxiom().hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof RemoveAxiomData)) {
-            return false;
-        }
-        RemoveAxiomData other = (RemoveAxiomData) obj;
-        return getAxiom().equals(other.getAxiom());
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("RemoveAxiomData");
-        sb.append("(");
-        sb.append(getAxiom());
-        sb.append(")");
-        return sb.toString();
     }
 }

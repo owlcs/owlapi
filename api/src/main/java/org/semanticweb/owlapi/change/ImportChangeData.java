@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.change;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
 /** Author: Matthew Horridge<br>
@@ -49,7 +53,8 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  * that that are specific to the addition or removal of import statements
  * to/from an ontology.
  * </p> */
-public abstract class ImportChangeData extends OWLOntologyChangeData {
+public abstract class ImportChangeData extends
+        OWLOntologyChangeData<OWLImportsDeclaration> {
     private static final long serialVersionUID = 40000L;
     private final OWLImportsDeclaration declaration;
 
@@ -60,20 +65,21 @@ public abstract class ImportChangeData extends OWLOntologyChangeData {
      * 
      * @param declaration
      *            The {@link OWLImportsDeclaration} that is the focus of some
-     *            change. Not {@code null}.
-     * @throws NullPointerException
-     *             if {@code declaration} is {@code null}. */
-    protected ImportChangeData(OWLImportsDeclaration declaration) {
-        if (declaration == null) {
-            throw new NullPointerException("declaration must not be null");
-        }
-        this.declaration = declaration;
+     *            change. */
+    protected ImportChangeData(@Nonnull OWLImportsDeclaration declaration) {
+        this.declaration = checkNotNull(declaration, "declaration must not be null");
     }
 
     /** Gets the {@link OWLImportsDeclaration} that this change data describes.
      * 
-     * @return The {@link OWLImportsDeclaration}. Not {@code null}. */
+     * @return The {@link OWLImportsDeclaration}. */
+    @Nonnull
     public OWLImportsDeclaration getDeclaration() {
         return declaration;
+    }
+
+    @Override
+    public OWLImportsDeclaration getItem() {
+        return getDeclaration();
     }
 }

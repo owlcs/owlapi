@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.change;
 
 import java.io.Serializable;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
@@ -56,9 +58,11 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * Instances of this class are immutable
  * </p>
  * 
+ * @param <T>
+ *            changed object type
  * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
  * @since 3.5 */
-public abstract class OWLOntologyChangeData implements Serializable {
+public abstract class OWLOntologyChangeData<T> implements Serializable {
     private static final long serialVersionUID = 40000L;
 
     /** Default constructor for serialization purposes. */
@@ -77,20 +81,55 @@ public abstract class OWLOntologyChangeData implements Serializable {
      * @throws E
      *             The exception thrown by the visitor's visit methods. */
     public abstract <R, E extends Exception> R accept(
-            OWLOntologyChangeDataVisitor<R, E> visitor) throws E;
+            @Nonnull OWLOntologyChangeDataVisitor<R, E> visitor) throws E;
 
     /** Creates an {@link OWLOntologyChange} object that pertains to the
      * specified {@code ontology}, which when applied to the specified ontology
      * enacts the change described by this info object.
      * 
      * @param ontology
-     *            The {@link OWLOntology} that the change should apply to. Not
-     *            {@code null}.
+     *            The {@link OWLOntology} that the change should apply to.
      * @return An {@link OWLOntologyChange} object that applies to
-     *         {@code ontology} and changes {@code ontology} is a way that is
+     *         {@code ontology} and changes {@code ontology} in a way that is
      *         consistent with this the information held in this
-     *         {@link OWLOntologyChangeData} object.
-     * @throws NullPointerException
-     *             if {@code ontology} is {@code null}. */
-    public abstract OWLOntologyChange createOntologyChange(OWLOntology ontology);
+     *         {@link OWLOntologyChangeData} object. **/
+    @Nonnull
+    public abstract OWLOntologyChange<T> createOntologyChange(
+            @Nonnull OWLOntology ontology);
+
+    protected String getTemplate() {
+        return getClass().getSimpleName() + "(%s)";
+    }
+
+    protected String toString(Object o) {
+        return String.format(getTemplate(), o);
+    }
+
+    @Override
+    public String toString() {
+        return toString(getItem());
+    }
+
+    /** @return the object this change is adding or removing */
+    @Nonnull
+    public abstract T getItem();
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode() + getItem().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!getClass().isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        return getItem().equals(((OWLOntologyChangeData<?>) obj).getItem());
+    }
 }

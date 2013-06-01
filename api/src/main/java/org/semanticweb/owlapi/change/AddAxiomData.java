@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.change;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -55,36 +57,20 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * </p>
  * 
  * @since 3.5 */
-public final class AddAxiomData extends AxiomChangeData {
+public class AddAxiomData extends AxiomChangeData {
     private static final long serialVersionUID = 40000L;
 
     /** Constructs an {@link AddAxiomData} object which specifies the addition of
      * an axiom to "some ontology".
      * 
      * @param axiom
-     *            The {@link OWLAxiom} being added. Not {@code null}.
-     * @throws NullPointerException
-     *             if {@code axiom} is {@code null}. */
-    public AddAxiomData(OWLAxiom axiom) {
+     *            The {@link OWLAxiom} being added. */
+    public AddAxiomData(@Nonnull OWLAxiom axiom) {
         super(axiom);
     }
 
-    /** Creates an {@link AddAxiom} change that will add the {@link OWLAxiom}
-     * described by this data to the {@link OWLOntology} specified by the
-     * {@code ontology} parameter.
-     * 
-     * @param ontology
-     *            The {@link OWLOntology} that the change should apply to. Not
-     *            {@code null}.
-     * @return The {@link AddAxiom} change for the specified {@link OWLOntology}
-     *         . Not {@code null}.
-     * @throws NullPointerException
-     *             if {@link OWLOntology} is {@code null}. */
     @Override
-    public AddAxiom createOntologyChange(OWLOntology ontology) {
-        if (ontology == null) {
-            throw new NullPointerException("ontology must not be null");
-        }
+    public AddAxiom createOntologyChange(@Nonnull OWLOntology ontology) {
         return new AddAxiom(ontology, getAxiom());
     }
 
@@ -92,32 +78,5 @@ public final class AddAxiomData extends AxiomChangeData {
     public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
             throws E {
         return visitor.visit(this);
-    }
-
-    @Override
-    public int hashCode() {
-        return "AddAxiomData".hashCode() + getAxiom().hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof AddAxiomData)) {
-            return false;
-        }
-        AddAxiomData other = (AddAxiomData) obj;
-        return getAxiom().equals(other.getAxiom());
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("AddAxiomData");
-        sb.append("(");
-        sb.append(getAxiom().toString());
-        sb.append(")");
-        return sb.toString();
     }
 }

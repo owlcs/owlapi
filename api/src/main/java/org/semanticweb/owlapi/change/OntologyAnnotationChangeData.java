@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.change;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 
@@ -54,7 +58,8 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
  * </p>
  * 
  * @since 3.5 */
-public abstract class OntologyAnnotationChangeData extends OWLOntologyChangeData {
+public abstract class OntologyAnnotationChangeData extends
+        OWLOntologyChangeData<OWLAnnotation> {
     private static final long serialVersionUID = 40000L;
     private final OWLAnnotation annotation;
 
@@ -63,37 +68,22 @@ public abstract class OntologyAnnotationChangeData extends OWLOntologyChangeData
      * specified by the {@code annotation} parameter.
      * 
      * @param annotation
-     *            The {@link OWLAnnotation} that is the focus of some change.
-     *            Not {@code null}.
-     * @throws NullPointerException
-     *             if {@code annotation} is {@code null}. */
-    public OntologyAnnotationChangeData(OWLAnnotation annotation) {
-        if (annotation == null) {
-            throw new NullPointerException("annotation must not be null");
-        }
-        this.annotation = annotation;
+     *            The {@link OWLAnnotation} that is the focus of some change. */
+    public OntologyAnnotationChangeData(@Nonnull OWLAnnotation annotation) {
+        this.annotation = checkNotNull(annotation, "annotation must not be null");
     }
 
     /** Gets the {@link OWLAnnotation} that is the focus of some
      * {@link AddOntologyAnnotation} change.
      * 
-     * @return The {@link OWLAnnotation}. Not {@code null}. */
+     * @return The {@link OWLAnnotation}. */
+    @Nonnull
     public OWLAnnotation getAnnotation() {
         return annotation;
     }
 
     @Override
-    public int hashCode() {
-        return getClass().getSimpleName().hashCode() + annotation.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append("(");
-        sb.append(annotation);
-        sb.append(")");
-        return sb.toString();
+    public OWLAnnotation getItem() {
+        return getAnnotation();
     }
 }

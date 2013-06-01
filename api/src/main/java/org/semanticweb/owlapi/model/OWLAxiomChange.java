@@ -38,23 +38,27 @@
  */
 package org.semanticweb.owlapi.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 12-Dec-2006<br>
  * <br> */
-public abstract class OWLAxiomChange extends OWLOntologyChange {
+public abstract class OWLAxiomChange extends OWLOntologyChange<OWLAxiom> {
     private final OWLAxiom axiom;
 
     /** @param ont
      *            the ontology to which the change is to be applied
      * @param axiom
      *            the axiom to be changed */
-    public OWLAxiomChange(OWLOntology ont, OWLAxiom axiom) {
+    public OWLAxiomChange(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
         super(ont);
-        this.axiom = axiom;
+        this.axiom = checkNotNull(axiom, "axiom cannot be null");
     }
 
     @Override
@@ -73,6 +77,7 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
     }
 
     @Override
+    @Nonnull
     public OWLAxiom getAxiom() {
         return axiom;
     }

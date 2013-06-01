@@ -1194,7 +1194,8 @@ public class ContractOwlapiModel_3Test {
 
     @Test
     public void shouldTestOWLOntologyChange() throws Exception {
-        OWLOntologyChange testSubject0 = new OWLOntologyChange(Utils.getMockOntology()) {
+        OWLOntologyChange<OWLAxiom> testSubject0 = new OWLOntologyChange<OWLAxiom>(
+                Utils.getMockOntology()) {
             @Override
             public boolean isAxiomChange() {
                 return false;
@@ -1206,7 +1207,7 @@ public class ContractOwlapiModel_3Test {
             }
 
             @Override
-            public OWLOntologyChangeData getChangeData() {
+            public OWLOntologyChangeData<OWLAxiom> getChangeData() {
                 return null;
             }
 
