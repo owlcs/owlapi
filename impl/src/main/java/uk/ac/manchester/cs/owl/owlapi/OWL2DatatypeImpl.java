@@ -1,8 +1,12 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
+
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
@@ -41,45 +45,15 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * Date: 24/10/2012 </p> An optimised implementation of OWLDatatype for
  * OWL2Datatypes. */
 public class OWL2DatatypeImpl implements OWLDatatype {
-    // NOTE: This class did extend OWLObjectImpl but this created a circular
-    // dependency and caused initialisation
-    // problems with static methods.
     private static final long serialVersionUID = 40000L;
-    private static final EnumMap<OWL2Datatype, OWLDatatype> instanceMap = initInstanceMap();
-
-    private static final EnumMap<OWL2Datatype, OWLDatatype> initInstanceMap() {
-        EnumMap<OWL2Datatype, OWLDatatype> map = new EnumMap<OWL2Datatype, OWLDatatype>(
-                OWL2Datatype.class);
-        for (OWL2Datatype datatype : OWL2Datatype.values()) {
-            map.put(datatype, new OWL2DatatypeImpl(datatype));
-        }
-        return map;
-    }
 
     /** Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
      * specified {@link OWL2Datatype}
      * 
      * @param owl2Datatype
-     *            The datatype. Not {@code null}.
-     * @throws NullPointerException
-     *             if {@code owl2Datatype} is {@code null}. */
-    private OWL2DatatypeImpl(OWL2Datatype owl2Datatype) {
-        if (owl2Datatype == null) {
-            throw new NullPointerException("owl2Datatype must not be null");
-        }
-        this.owl2Datatype = owl2Datatype;
-    }
-
-    /** A factory method which gets an instance of {@link OWLDatatype} for an
-     * instance of {@link OWL2Datatype} specified by the {@code owl2Datatype}
-     * parameter.
-     * 
-     * @param owl2Datatype
-     *            The datatype to be retrieved.
-     * @return A {@link OWLDatatype} that has the same IRI as the IRI returned
-     *         by {@code owl2Datatype#getIRI()}. */
-    public static OWLDatatype getDatatype(OWL2Datatype owl2Datatype) {
-        return instanceMap.get(owl2Datatype);
+     *            The datatype. */
+    public OWL2DatatypeImpl(@Nonnull OWL2Datatype owl2Datatype) {
+        this.owl2Datatype = checkNotNull(owl2Datatype, "owl2Datatype must not be null");
     }
 
     private final OWL2Datatype owl2Datatype;
@@ -91,32 +65,32 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public boolean isString() {
-        return owl2Datatype == OWL2Datatype.XSD_STRING;
+        return owl2Datatype == XSD_STRING;
     }
 
     @Override
     public boolean isInteger() {
-        return owl2Datatype == OWL2Datatype.XSD_INTEGER;
+        return owl2Datatype == XSD_INTEGER;
     }
 
     @Override
     public boolean isFloat() {
-        return owl2Datatype == OWL2Datatype.XSD_FLOAT;
+        return owl2Datatype == XSD_FLOAT;
     }
 
     @Override
     public boolean isDouble() {
-        return owl2Datatype == OWL2Datatype.XSD_DOUBLE;
+        return owl2Datatype == XSD_DOUBLE;
     }
 
     @Override
     public boolean isBoolean() {
-        return owl2Datatype == OWL2Datatype.XSD_BOOLEAN;
+        return owl2Datatype == XSD_BOOLEAN;
     }
 
     @Override
     public boolean isRDFPlainLiteral() {
-        return owl2Datatype == OWL2Datatype.RDF_PLAIN_LITERAL;
+        return owl2Datatype == RDF_PLAIN_LITERAL;
     }
 
     @Override
@@ -126,7 +100,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public boolean isTopDatatype() {
-        return owl2Datatype == OWL2Datatype.RDFS_LITERAL;
+        return owl2Datatype == RDFS_LITERAL;
     }
 
     @Override
@@ -360,7 +334,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public boolean isTopEntity() {
-        return owl2Datatype == OWL2Datatype.RDF_PLAIN_LITERAL;
+        return owl2Datatype == RDF_PLAIN_LITERAL;
     }
 
     @Override

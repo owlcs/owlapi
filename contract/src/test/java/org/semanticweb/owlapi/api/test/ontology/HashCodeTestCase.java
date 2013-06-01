@@ -66,7 +66,7 @@ public class HashCodeTestCase {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(OWL2Datatype.XSD_BOOLEAN.getIRI());
         OWLLiteral litNoComp = new OWLLiteralImplNoCompression("true", null, datatype);
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("true", null, datatype);
-        OWLLiteral litIntImpl = new OWLLiteralImplBoolean(true);
+        OWLLiteral litIntImpl = new OWLLiteralImplBoolean(true, datatype);
         assertEquals(litNoComp, litIntImpl);
         Set<OWLLiteral> lncset = new HashSet<OWLLiteral>();
         lncset.add(litNoComp);

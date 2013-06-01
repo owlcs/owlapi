@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.DataRangeType;
@@ -1745,7 +1746,8 @@ public class ContractOwlapi_2Test {
     @Ignore
     @Test
     public void shouldTestOWLLiteralImplBoolean() throws Exception {
-        OWLLiteralImplBoolean testSubject0 = new OWLLiteralImplBoolean(false);
+        OWLLiteralImplBoolean testSubject0 = new OWLLiteralImplBoolean(false, Factory
+                .getFactory().getBooleanOWLDatatype());
         boolean result1 = testSubject0.parseBoolean();
         float result2 = testSubject0.parseFloat();
         double result3 = testSubject0.parseDouble();

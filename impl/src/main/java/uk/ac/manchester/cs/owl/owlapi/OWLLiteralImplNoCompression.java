@@ -61,8 +61,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 40000L;
     static final String utf_8 = "UTF-8";
-    private static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl
-            .getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
+            OWL2Datatype.RDF_PLAIN_LITERAL);
     private final byte[] literal;
     private final OWLDatatype datatype;
     private final String lang;
@@ -87,11 +87,10 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         super();
         literal = new byte[bytes.length];
         System.arraycopy(bytes, 0, literal, 0, bytes.length);
-        OWLDatatype rdfplainlit = RDF_PLAIN_LITERAL;
         if (lang == null || lang.length() == 0) {
             this.lang = "";
             if (datatype == null) {
-                this.datatype = rdfplainlit;
+                this.datatype = RDF_PLAIN_LITERAL;
             } else {
                 this.datatype = datatype;
             }
@@ -103,7 +102,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
                         + datatype.getIRI() + " and language: " + lang);
             }
             this.lang = lang;
-            this.datatype = rdfplainlit;
+            this.datatype = RDF_PLAIN_LITERAL;
         }
         hashcode = getHashCode();
     }

@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -60,9 +59,9 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
     private final OWLDatatype datatype;
 
     @SuppressWarnings("javadoc")
-    public OWLLiteralImplBoolean(boolean literal) {
+    public OWLLiteralImplBoolean(boolean literal, OWLDatatype datatype) {
         super();
-        datatype = OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_BOOLEAN);
+        this.datatype = datatype;
         this.literal = literal;
         hashcode = getHashCode();
     }

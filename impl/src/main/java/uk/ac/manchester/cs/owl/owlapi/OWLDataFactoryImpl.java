@@ -333,7 +333,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     public OWLLiteral getOWLLiteral(String lexicalValue, OWL2Datatype datatype) {
         checkNull(lexicalValue, "lexicalValue");
         checkNull(datatype, DATATYPE2);
-        return getOWLLiteral(lexicalValue, OWL2DatatypeImpl.getDatatype(datatype));
+        return getOWLLiteral(lexicalValue, getOWLDatatype(datatype.getIRI()));
     }
 
     @Override

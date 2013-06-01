@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Locale;
@@ -51,24 +53,17 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** @author ignazio no cache used */
 public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     private static final long serialVersionUID = 40000L;
-    private static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl
-            .getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);
-    private static final OWLDatatype XSD_BOOLEAN = OWL2DatatypeImpl
-            .getDatatype(OWL2Datatype.XSD_BOOLEAN);
-    private static final OWLDatatype XSD_DOUBLE = OWL2DatatypeImpl
-            .getDatatype(OWL2Datatype.XSD_DOUBLE);
-    private static final OWLDatatype XSD_FLOAT = OWL2DatatypeImpl
-            .getDatatype(OWL2Datatype.XSD_FLOAT);
-    private static final OWLDatatype XSD_INTEGER = OWL2DatatypeImpl
-            .getDatatype(OWL2Datatype.XSD_INTEGER);
-    private static final OWLDatatype RDFS_LITERAL = OWL2DatatypeImpl
-            .getDatatype(OWL2Datatype.RDFS_LITERAL);
+    private static final OWLDatatype PLAIN = new OWL2DatatypeImpl(RDF_PLAIN_LITERAL);
+    private static final OWLDatatype XSDBOOLEAN = new OWL2DatatypeImpl(XSD_BOOLEAN);
+    private static final OWLDatatype XSDDOUBLE = new OWL2DatatypeImpl(XSD_DOUBLE);
+    private static final OWLDatatype XSDFLOAT = new OWL2DatatypeImpl(XSD_FLOAT);
+    private static final OWLDatatype XSDINTEGER = new OWL2DatatypeImpl(XSD_INTEGER);
+    private static final OWLDatatype RDFSLITERAL = new OWL2DatatypeImpl(RDFS_LITERAL);
     private final OWLDataFactory factory;
     private final OWLLiteral trueLiteral;
     private final OWLLiteral falseLiteral;
@@ -81,8 +76,8 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
      *            true if compression of literals should be used */
     public InternalsNoCache(OWLDataFactory f, boolean useCompression) {
         factory = f;
-        trueLiteral = new OWLLiteralImplBoolean(true);
-        falseLiteral = new OWLLiteralImplBoolean(false);
+        trueLiteral = new OWLLiteralImplBoolean(true, XSDBOOLEAN);
+        falseLiteral = new OWLLiteralImplBoolean(false, XSDBOOLEAN);
         this.useCompression = useCompression;
     }
 
@@ -193,7 +188,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                         // according to some W3C test, this needs to be
                         // different from 0.0; Java floats disagree
                         if (negativeFloatZero == null) {
-                            negativeFloatZero = getBasicLiteral("-0.0", XSD_FLOAT);
+                            negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
                         }
                         literal = negativeFloatZero;
                     } else {
@@ -256,31 +251,31 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     @Override
     public OWLDatatype getTopDatatype() {
-        return RDFS_LITERAL;
+        return RDFSLITERAL;
     }
 
     @Override
     public OWLDatatype getIntegerOWLDatatype() {
-        return XSD_INTEGER;
+        return XSDINTEGER;
     }
 
     @Override
     public OWLDatatype getFloatOWLDatatype() {
-        return XSD_FLOAT;
+        return XSDFLOAT;
     }
 
     @Override
     public OWLDatatype getDoubleOWLDatatype() {
-        return XSD_DOUBLE;
+        return XSDDOUBLE;
     }
 
     @Override
     public OWLDatatype getBooleanOWLDatatype() {
-        return XSD_BOOLEAN;
+        return XSDBOOLEAN;
     }
 
     @Override
     public OWLDatatype getRDFPlainLiteral() {
-        return RDF_PLAIN_LITERAL;
+        return PLAIN;
     }
 }
