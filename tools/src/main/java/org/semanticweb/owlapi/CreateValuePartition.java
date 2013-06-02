@@ -90,7 +90,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * MediumSize and LargeSize and these classes which represent the values will be
  * made disjoint with eachother. */
 public class CreateValuePartition extends AbstractCompositeOntologyChange {
-    private List<OWLOntologyChange> changes;
+    private List<OWLOntologyChange<?>> changes;
     private final OWLOntology targetOntology;
     private final Set<OWLClass> valuePartionClasses;
     private final OWLClass valuePartitionClass;
@@ -124,7 +124,7 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
     }
 
     private void generateChanges() {
-        changes = new ArrayList<OWLOntologyChange>();
+        changes = new ArrayList<OWLOntologyChange<?>>();
         // To create a value partition from a set of classes which represent the
         // values,
         // a value partition class, a property we...
@@ -152,7 +152,7 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
     }
 
     @Override
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         return changes;
     }
 }

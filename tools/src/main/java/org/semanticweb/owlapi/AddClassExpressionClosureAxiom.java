@@ -77,7 +77,7 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
     protected final OWLObjectPropertyExpression property;
     private final Set<OWLOntology> ontologies;
     private final OWLOntology targetOntology;
-    private final List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+    private final List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
 
     /** Creates a composite change that will add a closure axiom for a given
      * class along a specified property.
@@ -128,7 +128,7 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
     }
 
     @Override
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         return changes;
     }
 

@@ -49,7 +49,8 @@ public class OWLOntologyRenameException extends OWLOntologyChangeException {
     private static final long serialVersionUID = 40000L;
     private final OWLOntologyID ontologyID;
 
-    public OWLOntologyRenameException(OWLOntologyChange change, OWLOntologyID ontologyID) {
+    public OWLOntologyRenameException(OWLOntologyChange<?> change,
+            OWLOntologyID ontologyID) {
         super(change,
                 "Could not rename ontology. An ontology with this ID already exists: "
                         + ontologyID);

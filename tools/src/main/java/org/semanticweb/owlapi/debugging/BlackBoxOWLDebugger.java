@@ -62,7 +62,6 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -396,7 +395,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         owlOntologyManager.addIRIMapper(mapper);
         debuggingOntology = owlOntologyManager.createOntology(iri);
         owlOntologyManager.removeIRIMapper(mapper);
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        List<AddAxiom> changes = new ArrayList<AddAxiom>();
         for (OWLAxiom ax : debuggingAxioms) {
             changes.add(new AddAxiom(debuggingOntology, ax));
         }

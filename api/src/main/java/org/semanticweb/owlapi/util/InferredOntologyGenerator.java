@@ -44,7 +44,6 @@ import java.util.List;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -129,7 +128,7 @@ public class InferredOntologyGenerator {
      *             specified ontology. */
     public void fillOntology(OWLOntologyManager manager, OWLOntology ontology)
             throws OWLOntologyChangeException {
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        List<AddAxiom> changes = new ArrayList<AddAxiom>();
         for (InferredAxiomGenerator<? extends OWLAxiom> axiomGenerator : axiomGenerators) {
             for (OWLAxiom ax : axiomGenerator.createAxioms(manager, reasoner)) {
                 changes.add(new AddAxiom(ontology, ax));

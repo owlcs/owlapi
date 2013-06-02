@@ -48,26 +48,26 @@ package org.semanticweb.owlapi.model;
 @SuppressWarnings("javadoc")
 public abstract class OWLOntologyChangeException extends OWLRuntimeException {
     private static final long serialVersionUID = 40000L;
-    private final OWLOntologyChange change;
+    private final OWLOntologyChange<?> change;
 
-    public OWLOntologyChangeException(OWLOntologyChange change, String message) {
+    public OWLOntologyChangeException(OWLOntologyChange<?> change, String message) {
         super(message);
         this.change = change;
     }
 
-    public OWLOntologyChangeException(OWLOntologyChange change, String message,
+    public OWLOntologyChangeException(OWLOntologyChange<?> change, String message,
             Throwable cause) {
         super(message, cause);
         this.change = change;
     }
 
-    public OWLOntologyChangeException(OWLOntologyChange change, Throwable cause) {
+    public OWLOntologyChangeException(OWLOntologyChange<?> change, Throwable cause) {
         super(cause);
         this.change = change;
     }
 
     /** Gets the ontology change that caused the exception. */
-    public OWLOntologyChange getChange() {
+    public OWLOntologyChange<?> getChange() {
         return change;
     }
 }

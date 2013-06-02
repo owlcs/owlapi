@@ -126,8 +126,8 @@ public abstract class OWLOntologyChange<T> {
      *         {@link OWLOntologyChange}'s {@link OWLOntology}. Not {@code null}
      *         . */
     @Nonnull
-    public OWLOntologyChangeRecord getChangeRecord() {
-        return new OWLOntologyChangeRecord(ont.getOntologyID(), getChangeData());
+    public OWLOntologyChangeRecord<T> getChangeRecord() {
+        return new OWLOntologyChangeRecord<T>(ont.getOntologyID(), getChangeData());
     }
 
     /** Gets the signature of this ontology change. That is, the set of entities

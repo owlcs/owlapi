@@ -2656,7 +2656,8 @@ public class ManchesterOWLSyntaxEditorParser {
                         DIFFERENT_INDIVIDUALS, SAME_INDIVIDUAL);
             }
         }
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>(axioms.size());
+        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>(
+                axioms.size());
         changes.addAll(imports);
         changes.addAll(ontologyAnnotations);
         for (OntologyAxiomPair pair : axioms) {

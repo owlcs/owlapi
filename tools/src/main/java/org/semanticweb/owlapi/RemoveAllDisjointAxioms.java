@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * classes axioms from these ontologies. */
 public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
     private final Set<OWLOntology> ontologies;
-    private List<OWLOntologyChange> changes;
+    private List<OWLOntologyChange<?>> changes;
 
     /** @param dataFactory
      *            factory to use
@@ -71,7 +71,7 @@ public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
     }
 
     private void generateChanges() {
-        changes = new ArrayList<OWLOntologyChange>();
+        changes = new ArrayList<OWLOntologyChange<?>>();
         for (OWLOntology ont : ontologies) {
             for (OWLClassAxiom ax : ont.getAxioms(AxiomType.DISJOINT_CLASSES)) {
                 changes.add(new RemoveAxiom(ont, ax));
@@ -80,7 +80,7 @@ public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
     }
 
     @Override
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         return changes;
     }
 }

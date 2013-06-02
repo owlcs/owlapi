@@ -51,7 +51,7 @@ public class DefaultImpendingChangeBroadcastStrategy implements
 
     @Override
     public void broadcastChanges(ImpendingOWLOntologyChangeListener listener,
-            List<? extends OWLOntologyChange> changes) {
+            List<? extends OWLOntologyChange<?>> changes) {
         listener.handleImpendingOntologyChanges(changes);
     }
 }

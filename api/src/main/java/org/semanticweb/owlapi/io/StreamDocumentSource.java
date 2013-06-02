@@ -38,11 +38,16 @@
  */
 package org.semanticweb.owlapi.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.concurrent.atomic.AtomicLong;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -54,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * <br>
  * An ontology document source which can read from a stream. */
 public class StreamDocumentSource implements OWLOntologyDocumentSource {
-    private static int counter = 0;
+    private static final AtomicLong counter = new AtomicLong();
     private final IRI documentIRI;
     private byte[] buffer;
 
@@ -63,14 +68,13 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
      * 
      * @param is
      *            The stream that the ontology representation will be read from. */
-    public StreamDocumentSource(InputStream is) {
+    public StreamDocumentSource(@Nonnull InputStream is) {
         this(is, getNextDocumentIRI());
     }
 
     /** @return a fresh IRI */
-    public static synchronized IRI getNextDocumentIRI() {
-        counter = counter + 1;
-        return IRI.create("inputstream:ontology" + counter);
+    public static IRI getNextDocumentIRI() {
+        return IRI.create("inputstream:ontology" + counter.incrementAndGet());
     }
 
     /** Constructs an input source which will read an ontology from a
@@ -80,9 +84,9 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
      *            The stream that the ontology representation will be read from.
      * @param documentIRI
      *            The document IRI */
-    public StreamDocumentSource(InputStream stream, IRI documentIRI) {
-        this.documentIRI = documentIRI;
-        readIntoBuffer(stream);
+    public StreamDocumentSource(@Nonnull InputStream stream, @Nonnull IRI documentIRI) {
+        this.documentIRI = checkNotNull(documentIRI, "document iri cannot be null");
+        readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
     }
 
     /** Reads all the bytes from the specified stream into a temporary buffer,
@@ -91,21 +95,7 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
      * 
      * @param stream
      *            The stream to be "cached" */
-    // private void readIntoBuffer(InputStream stream) {
-    // try {
-    // byte [] tempBuffer = new byte [4096];
-    // ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    // int read;
-    // while((read = stream.read(tempBuffer)) != -1) {
-    // bos.write(tempBuffer, 0, read);
-    // }
-    // buffer = bos.toByteArray();
-    // }
-    // catch (IOException e) {
-    // throw new OWLOntologyInputSourceException(e);
-    // }
-    // }
-    private void readIntoBuffer(InputStream reader) {
+    private void readIntoBuffer(@Nonnull InputStream reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             final int length = 100000;

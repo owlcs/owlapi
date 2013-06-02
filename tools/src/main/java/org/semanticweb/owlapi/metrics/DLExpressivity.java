@@ -71,8 +71,8 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        for (OWLOntologyChange change : changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange<?>> changes) {
+        for (OWLOntologyChange<?> change : changes) {
             if (change.isAxiomChange() && change.getAxiom().isLogicalAxiom()) {
                 return true;
             }

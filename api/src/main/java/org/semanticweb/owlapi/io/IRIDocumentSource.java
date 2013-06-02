@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.InputStream;
 import java.io.Reader;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -54,8 +58,8 @@ public class IRIDocumentSource implements OWLOntologyDocumentSource {
 
     /** @param documentIRI
      *            the source document IRI */
-    public IRIDocumentSource(IRI documentIRI) {
-        this.documentIRI = documentIRI;
+    public IRIDocumentSource(@Nonnull IRI documentIRI) {
+        this.documentIRI = checkNotNull(documentIRI, "document iri cannot be null");
     }
 
     @Override

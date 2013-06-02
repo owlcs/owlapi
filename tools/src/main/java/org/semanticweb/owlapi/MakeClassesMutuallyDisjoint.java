@@ -63,7 +63,7 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
     private final Set<? extends OWLClassExpression> classExpressions;
     private final boolean usePairwiseDisjointAxioms;
     private final OWLOntology targetOntology;
-    private List<OWLOntologyChange> changes;
+    private List<OWLOntologyChange<?>> changes;
 
     /** Creates a composite change which makes a set of classes mutually disjoint
      * 
@@ -90,7 +90,7 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
     }
 
     private void generateChanges() {
-        changes = new ArrayList<OWLOntologyChange>();
+        changes = new ArrayList<OWLOntologyChange<?>>();
         if (usePairwiseDisjointAxioms) {
             List<OWLClassExpression> descList = new ArrayList<OWLClassExpression>(
                     classExpressions);
@@ -109,7 +109,7 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
     }
 
     @Override
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         return changes;
     }
 }

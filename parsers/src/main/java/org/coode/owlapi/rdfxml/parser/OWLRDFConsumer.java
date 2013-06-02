@@ -820,7 +820,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                 || iri.equals(OWL_NAMED_INDIVIDUAL.getIRI());
     }
 
-    protected void applyChange(OWLOntologyChange change) {
+    protected void applyChange(OWLOntologyChange<?> change) {
         owlOntologyManager.applyChange(change);
     }
 

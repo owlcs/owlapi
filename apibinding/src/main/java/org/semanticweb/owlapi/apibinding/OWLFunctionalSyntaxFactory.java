@@ -777,6 +777,10 @@ public class OWLFunctionalSyntaxFactory {
         return IRI.create(iri);
     }
 
+    public static IRI IRI(String ns, String fragment) {
+        return IRI.create(ns, fragment);
+    }
+
     public static OWLLiteral PlainLiteral(String literal) {
         return dataFactory.getOWLLiteral(literal, "");
     }

@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.io;
 import java.io.InputStream;
 import java.io.Reader;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /** Author: Matthew Horridge<br>
@@ -77,6 +79,7 @@ public interface OWLOntologyDocumentSource {
      * <code>Runtime</code> execption will be thrown if this happens.
      * 
      * @return A new <code>Reader</code> which the ontology can be read from. */
+    @Nonnull
     Reader getReader();
 
     /** Determines if an input stream is available which an ontology document can
@@ -94,6 +97,7 @@ public interface OWLOntologyDocumentSource {
      * <code>false</code>.
      * 
      * @return A new input stream which the ontology can be read from. */
+    @Nonnull
     InputStream getInputStream();
 
     /** Gets the IRI of the ontology document.

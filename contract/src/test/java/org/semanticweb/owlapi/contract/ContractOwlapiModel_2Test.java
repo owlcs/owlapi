@@ -4,6 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -1495,10 +1496,10 @@ public class ContractOwlapiModel_2Test {
     @Test
     public void shouldTestInterfaceOWLMutableOntology() throws Exception {
         OWLMutableOntology testSubject0 = mock(OWLMutableOntology.class);
-        List<OWLOntologyChange> result0 = testSubject0.applyChanges(Utils
-                .mockList(mock(OWLOntologyChange.class)));
-        List<OWLOntologyChange> result1 = testSubject0
-                .applyChange(mock(OWLOntologyChange.class));
+        List<AddAxiom> addAxioms = new ArrayList<AddAxiom>();
+        List<OWLOntologyChange<?>> result0 = testSubject0.applyChanges(addAxioms);
+        OWLOntologyChange<OWLAxiom> result1 = testSubject0
+                .applyChange(mock(AddAxiom.class));
         boolean result2 = testSubject0.isEmpty();
         Set<OWLAnnotation> result3 = testSubject0.getAnnotations();
         Set<OWLEntity> result4 = testSubject0.getSignature(false);

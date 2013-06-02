@@ -76,7 +76,7 @@ public class OWLEntityURIConverter {
     // entities whose names will be converted
     private final Collection<OWLOntology> ontologies;
     private Map<OWLEntity, IRI> replacementMap;
-    private List<OWLOntologyChange> changes;
+    private List<OWLOntologyChange<?>> changes;
     private Set<OWLEntity> processedEntities;
     private final OWLEntityURIConverterStrategy strategy;
 
@@ -100,10 +100,10 @@ public class OWLEntityURIConverter {
      * 
      * @return A list of ontology changes that should be applied in order to
      *         convert the URI of entities in the specified ontologies. */
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         replacementMap = new HashMap<OWLEntity, IRI>();
         processedEntities = new HashSet<OWLEntity>();
-        changes = new ArrayList<OWLOntologyChange>();
+        changes = new ArrayList<OWLOntologyChange<?>>();
         for (OWLOntology ont : ontologies) {
             for (OWLClass cls : ont.getClassesInSignature()) {
                 if (!cls.isOWLThing() && !cls.isOWLNothing()) {
@@ -139,12 +139,12 @@ public class OWLEntityURIConverter {
             return;
         }
         // Add label?
-        IRI rep = getTinyURI(ent);
+        IRI rep = getTinyIRI(ent);
         replacementMap.put(ent, rep);
         processedEntities.add(ent);
     }
 
-    private IRI getTinyURI(OWLEntity ent) {
+    private IRI getTinyIRI(OWLEntity ent) {
         return strategy.getConvertedIRI(ent);
     }
 }

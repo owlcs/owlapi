@@ -98,7 +98,7 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
     private final OWLOntology targetOntology;
     private final OWLClass cls;
     private final Set<OWLOntology> ontologies;
-    private List<OWLOntologyChange> changes;
+    private List<OWLOntologyChange<?>> changes;
 
     /** @param dataFactory
      *            A data factory which can be used to create the appropriate
@@ -123,7 +123,7 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
     private void generateChanges() {
         // We remove the existing superclasses and then combine these
         // into an intersection which is made equivalent.
-        changes = new ArrayList<OWLOntologyChange>();
+        changes = new ArrayList<OWLOntologyChange<?>>();
         Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
             for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(cls)) {
@@ -141,7 +141,7 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
     }
 
     @Override
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         return changes;
     }
 }

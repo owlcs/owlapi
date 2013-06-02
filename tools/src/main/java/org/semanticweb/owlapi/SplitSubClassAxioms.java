@@ -84,7 +84,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * example, A subClassOf (B and C), would be replaced with two subclass axioms,
  * A subClassOf B, and A subClassOf C. */
 public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
-    private final List<OWLOntologyChange> changes;
+    private final List<OWLOntologyChange<?>> changes;
 
     /** Creates a composite change to split subclass axioms into multiple more
      * fine grained subclass axioms.
@@ -95,7 +95,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
      *            The data factory which should be used to create new axioms. */
     public SplitSubClassAxioms(Set<OWLOntology> ontologies, OWLDataFactory dataFactory) {
         super(dataFactory);
-        changes = new ArrayList<OWLOntologyChange>();
+        changes = new ArrayList<OWLOntologyChange<?>>();
         for (OWLOntology ont : ontologies) {
             for (OWLSubClassOfAxiom ax : ont.getAxioms(AxiomType.SUBCLASS_OF)) {
                 ConjunctSplitter splitter = new ConjunctSplitter();
@@ -113,7 +113,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
     }
 
     @Override
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         return changes;
     }
 

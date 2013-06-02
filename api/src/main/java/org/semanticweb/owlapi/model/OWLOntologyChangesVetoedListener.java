@@ -51,6 +51,6 @@ public interface OWLOntologyChangesVetoedListener {
      *            The changes that were vetoed.
      * @param veto
      *            The cause of the veto. */
-    void ontologyChangesVetoed(List<? extends OWLOntologyChange> changes,
+    void ontologyChangesVetoed(List<? extends OWLOntologyChange<?>> changes,
             OWLOntologyChangeVetoException veto);
 }

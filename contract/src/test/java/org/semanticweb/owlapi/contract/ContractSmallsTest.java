@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
+import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -44,7 +45,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.modularity.OntologySegmenter;
@@ -208,7 +208,7 @@ public class ContractSmallsTest {
         DefinitionTracker testSubject0 = new DefinitionTracker(Utils.getMockOntology());
         boolean result0 = testSubject0.isDefined(Utils.mockOWLEntity());
         boolean result1 = testSubject0.isDefined(Utils.mockAnonClass());
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils.mockList(mock(AddAxiom.class)));
         String result2 = testSubject0.toString();
     }
 

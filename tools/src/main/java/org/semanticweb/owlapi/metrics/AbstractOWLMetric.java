@@ -107,7 +107,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
             throws OWLException {
         if (isMetricInvalidated(changes)) {
             setDirty(true);
@@ -148,7 +148,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
      *         specified list of changes, or <code>false</code> if the list of
      *         changes do not cause the value of this metric to be invalidated. */
     protected abstract boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange> changes);
+            List<? extends OWLOntologyChange<?>> changes);
 
     protected abstract void disposeMetric();
 

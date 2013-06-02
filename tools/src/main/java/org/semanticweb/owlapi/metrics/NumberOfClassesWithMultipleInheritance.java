@@ -94,8 +94,8 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        for (OWLOntologyChange change : changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange<?>> changes) {
+        for (OWLOntologyChange<?> change : changes) {
             if (change.isAxiomChange()) {
                 if (change.getAxiom() instanceof OWLSubClassOfAxiom) {
                     return true;

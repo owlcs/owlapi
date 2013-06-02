@@ -54,5 +54,5 @@ public interface OWLCompositeOntologyChange {
      * has been invoked, it will <i>always<i> return the same list of changes.
      * 
      * @return A list of ontology changes. */
-    List<OWLOntologyChange> getChanges();
+    List<OWLOntologyChange<?>> getChanges();
 }

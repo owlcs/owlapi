@@ -90,8 +90,8 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        for (OWLOntologyChange chg : changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange<?>> changes) {
+        for (OWLOntologyChange<?> chg : changes) {
             if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;
             }

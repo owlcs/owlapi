@@ -3,17 +3,16 @@ package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.io.ReaderDocumentSource;
+import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
@@ -30,7 +29,6 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * @author Peter Ansell p_ansell@yahoo.com */
 @SuppressWarnings("javadoc")
 public class MultipleOntologyLoadsTest {
-    private static final IRI EXAMPLE = IRI("http://base.example.com/");
     private static final IRI CREATEv1 = IRI("http://test.example.org/ontology/0139/version:1");
     private static final IRI CREATEv2 = IRI("http://test.example.org/ontology/0139/version:2");
     private static final IRI CREATE0139 = IRI("http://test.example.org/ontology/0139");
@@ -45,7 +43,7 @@ public class MultipleOntologyLoadsTest {
     public void testMultipleVersionLoadChangeIRI() throws OWLOntologyCreationException,
             OWLOntologyChangeException, OWLParserException, IOException {
         // given
-        ReaderDocumentSource initialDocumentSource = getDocumentSource();
+        OWLOntologyDocumentSource initialDocumentSource = getDocumentSource();
         OWLOntologyID expected = new OWLOntologyID(CREATE0139, CREATEv2);
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(CREATE0139, CREATEv2);
         OWLOntology initialOntology = manager.createOntology(initialUniqueOWLOntologyID);
@@ -64,7 +62,7 @@ public class MultipleOntologyLoadsTest {
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testMultipleVersionLoadNoChange() throws Exception {
         // given
-        ReaderDocumentSource documentSource = getDocumentSource();
+        OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID expected = new OWLOntologyID(CREATE0139, CREATEv1);
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(CREATE0139, CREATEv1);
         OWLOntology initialOntology = manager.createOntology(initialUniqueOWLOntologyID);
@@ -83,9 +81,9 @@ public class MultipleOntologyLoadsTest {
     @Test
     public void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
         // given
-        ReaderDocumentSource documentSource = getDocumentSource();
+        OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(CREATE0139, CREATEv1);
-        ReaderDocumentSource secondDocumentSource = getDocumentSource();
+        OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(CREATE0139, CREATEv2);
         // when
         OWLOntology initialOntology = manager.createOntology(initialUniqueOWLOntologyID);
@@ -102,8 +100,8 @@ public class MultipleOntologyLoadsTest {
     @Test
     public void testMultipleVersionLoadsNoOntologyIDFirstTime() throws Exception {
         // given
-        ReaderDocumentSource documentSource = getDocumentSource();
-        ReaderDocumentSource secondDocumentSource = getDocumentSource();
+        OWLOntologyDocumentSource documentSource = getDocumentSource();
+        OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(CREATE0139, CREATEv2);
         // when
         OWLOntology initialOntology = manager.createOntology();
@@ -120,9 +118,9 @@ public class MultipleOntologyLoadsTest {
     @Test
     public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() throws Exception {
         // given
-        ReaderDocumentSource documentSource = getDocumentSource();
+        OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(CREATE0139);
-        ReaderDocumentSource secondDocumentSource = getDocumentSource();
+        OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(CREATE0139, CREATEv2);
         // when
         OWLOntology initialOntology = manager.createOntology(initialUniqueOWLOntologyID);
@@ -139,7 +137,7 @@ public class MultipleOntologyLoadsTest {
     @Test
     public void testSingleVersionLoadChangeIRI() throws Exception {
         // given
-        ReaderDocumentSource secondDocumentSource = getDocumentSource();
+        OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(CREATE0139, CREATEv2);
         // when
         OWLOntology secondOntology = manager.createOntology(secondUniqueOWLOntologyID);
@@ -152,7 +150,7 @@ public class MultipleOntologyLoadsTest {
     @Test
     public void testSingleVersionLoadNoChange() throws Exception {
         // given
-        ReaderDocumentSource documentSource = getDocumentSource();
+        OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(CREATE0139, CREATEv1);
         // when
         OWLOntology initialOntology = manager.createOntology(initialUniqueOWLOntologyID);
@@ -162,18 +160,16 @@ public class MultipleOntologyLoadsTest {
         Assert.assertEquals(CREATEv1, initialOntology.getOntologyID().getVersionIRI());
     }
 
-    private void parseOnto(ReaderDocumentSource initialDocumentSource,
+    private void parseOnto(OWLOntologyDocumentSource initialDocumentSource,
             OWLOntology initialOntology) throws OWLParserException, IOException,
             UnloadableImportException {
         OWLParser initialParser = new RDFXMLParserFactory().createParser(manager);
         initialParser.parse(initialDocumentSource, initialOntology);
     }
 
-    private ReaderDocumentSource getDocumentSource() {
-        Reader initialInputReader = new InputStreamReader(this.getClass()
+    private OWLOntologyDocumentSource getDocumentSource() {
+        StreamDocumentSource documentSource = new StreamDocumentSource(this.getClass()
                 .getResourceAsStream("/owlapi/multipleOntologyLoadsTest.rdf"));
-        ReaderDocumentSource documentSource = new ReaderDocumentSource(
-                initialInputReader, EXAMPLE);
         return documentSource;
     }
 }

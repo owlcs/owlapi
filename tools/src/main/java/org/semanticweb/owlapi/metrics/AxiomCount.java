@@ -66,7 +66,7 @@ public class AxiomCount extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange<?>> changes) {
         return true;
     }
 

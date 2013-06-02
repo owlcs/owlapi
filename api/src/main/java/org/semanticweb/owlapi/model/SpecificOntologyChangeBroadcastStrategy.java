@@ -64,9 +64,9 @@ public class SpecificOntologyChangeBroadcastStrategy implements
 
     @Override
     public void broadcastChanges(OWLOntologyChangeListener listener,
-            List<? extends OWLOntologyChange> changes) throws OWLException {
-        List<OWLOntologyChange> broadcastChanges = new ArrayList<OWLOntologyChange>();
-        for (OWLOntologyChange change : changes) {
+            List<? extends OWLOntologyChange<?>> changes) throws OWLException {
+        List<OWLOntologyChange<?>> broadcastChanges = new ArrayList<OWLOntologyChange<?>>();
+        for (OWLOntologyChange<?> change : changes) {
             if (change.getOntology().equals(ontology)) {
                 broadcastChanges.add(change);
             }

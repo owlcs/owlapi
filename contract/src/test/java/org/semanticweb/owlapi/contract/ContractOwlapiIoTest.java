@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.ReaderDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -515,23 +514,6 @@ public class ContractOwlapiIoTest {
         boolean result13 = testSubject0.isPrefixOWLOntologyFormat();
         PrefixOWLOntologyFormat result14 = testSubject0.asPrefixOWLOntologyFormat();
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
-    }
-
-    @Test
-    public void shouldTestReaderDocumentSource() throws Exception {
-        ReaderDocumentSource testSubject0 = new ReaderDocumentSource(mock(Reader.class),
-                IRI("urn:aFake"));
-        ReaderDocumentSource testSubject1 = new ReaderDocumentSource(mock(Reader.class));
-        boolean result3 = testSubject0.isInputStreamAvailable();
-        if (result3) {
-            InputStream result0 = testSubject0.getInputStream();
-        }
-        boolean result1 = testSubject0.isReaderAvailable();
-        if (result1) {
-            Reader result2 = testSubject0.getReader();
-        }
-        IRI result4 = testSubject0.getDocumentIRI();
-        IRI result5 = ReaderDocumentSource.getNextDocumentIRI();
     }
 
     @Test

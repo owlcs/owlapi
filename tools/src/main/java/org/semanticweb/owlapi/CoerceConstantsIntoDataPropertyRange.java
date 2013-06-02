@@ -78,7 +78,7 @@ import org.semanticweb.owlapi.util.OWLObjectDuplicator;
  * would be typed with the range of p. */
 public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntologyChange {
     protected final Map<OWLDataPropertyExpression, OWLDatatype> map;
-    private final List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+    private final List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
 
     /** @param ontologies
      *            the ontologies to use
@@ -109,7 +109,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
     }
 
     @Override
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         return changes;
     }
 

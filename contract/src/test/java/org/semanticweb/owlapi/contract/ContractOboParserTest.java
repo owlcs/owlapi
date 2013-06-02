@@ -70,7 +70,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -79,7 +78,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOboParserTest {
     private OBOConsumer mock;
-    private OWLOntologyChange mockChange;
+    private AddAxiom mockChange;
     private OWLOntology mockonto;
     private OWLDataFactory df;
     private OWLOntologyManager manager;

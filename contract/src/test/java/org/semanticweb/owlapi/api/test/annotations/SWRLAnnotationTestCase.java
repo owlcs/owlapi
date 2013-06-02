@@ -19,7 +19,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -65,7 +64,7 @@ public class SWRLAnnotationTestCase {
     public OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager.createOntology(IRI(NS));
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        List<AddAxiom> changes = new ArrayList<AddAxiom>();
         changes.add(new AddAxiom(ontology, AXIOM));
         manager.applyChanges(changes);
         return ontology;

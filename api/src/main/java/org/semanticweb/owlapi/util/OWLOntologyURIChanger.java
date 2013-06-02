@@ -77,8 +77,8 @@ public class OWLOntologyURIChanger {
      * @return A list of changes, which when applied will change the URI of the
      *         specified ontology, and also update the imports declarations in
      *         any ontologies which import the specified ontology. */
-    public List<OWLOntologyChange> getChanges(OWLOntology ontology, IRI newIRI) {
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+    public List<OWLOntologyChange<?>> getChanges(OWLOntology ontology, IRI newIRI) {
+        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
         changes.add(new SetOntologyID(ontology, new OWLOntologyID(newIRI, ontology
                 .getOntologyID().getVersionIRI())));
         for (OWLOntology ont : owlOntologyManager.getOntologies()) {

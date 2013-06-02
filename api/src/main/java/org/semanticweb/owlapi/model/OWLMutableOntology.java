@@ -49,7 +49,7 @@ public interface OWLMutableOntology extends OWLOntology {
      * @return the list of ontology changes NOT applied
      * @throws OWLOntologyChangeException
      *             if errors happen */
-    public List<OWLOntologyChange> applyChange(OWLOntologyChange change)
+    public <T> OWLOntologyChange<T> applyChange(OWLOntologyChange<T> change)
             throws OWLOntologyChangeException;
 
     /** @param changes
@@ -57,6 +57,7 @@ public interface OWLMutableOntology extends OWLOntology {
      * @return the list of ontology changes NOT applied
      * @throws OWLOntologyChangeException
      *             if errors happen */
-    public List<OWLOntologyChange> applyChanges(List<OWLOntologyChange> changes)
+    public List<OWLOntologyChange<?>> applyChanges(
+            List<? extends OWLOntologyChange<?>> changes)
             throws OWLOntologyChangeException;
 }

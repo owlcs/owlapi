@@ -66,10 +66,10 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
             throws OWLException {
         entities.clear();
-        for (OWLOntologyChange change : changes) {
+        for (OWLOntologyChange<?> change : changes) {
             if (change.isAxiomChange()) {
                 OWLAxiomChange axiomChange = (OWLAxiomChange) change;
                 entities.addAll(axiomChange.getSignature());

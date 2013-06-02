@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
@@ -109,7 +108,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
         } else {
             ontology = ontologyManager.createOntology();
         }
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        List<AddAxiom> changes = new ArrayList<AddAxiom>();
         for (OWLOntology ont : setProvider.getOntologies()) {
             for (OWLAxiom ax : getAxioms(ont)) {
                 if (axiomFilter.passes(ax)) {

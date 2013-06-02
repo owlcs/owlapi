@@ -11,6 +11,8 @@ import java.util.Set;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.semanticweb.owlapi.change.AddAxiomData;
+import org.semanticweb.owlapi.change.AddImportData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -102,7 +104,7 @@ public class ContractOwlapiModel_1Test {
     public void shouldTestDefaultChangeBroadcastStrategy() throws Exception {
         DefaultChangeBroadcastStrategy testSubject0 = new DefaultChangeBroadcastStrategy();
         testSubject0.broadcastChanges(mock(OWLOntologyChangeListener.class),
-                Utils.mockList(mock(OWLOntologyChange.class)));
+                Utils.mockList(mock(AddAxiom.class)));
         String result0 = testSubject0.toString();
     }
 
@@ -110,7 +112,7 @@ public class ContractOwlapiModel_1Test {
     public void shouldTestDefaultImpendingChangeBroadcastStrategy() throws Exception {
         DefaultImpendingChangeBroadcastStrategy testSubject0 = new DefaultImpendingChangeBroadcastStrategy();
         testSubject0.broadcastChanges(mock(ImpendingOWLOntologyChangeListener.class),
-                Utils.mockList(mock(OWLOntologyChange.class)));
+                Utils.mockList(mock(AddAxiom.class)));
         String result0 = testSubject0.toString();
     }
 
@@ -118,7 +120,7 @@ public class ContractOwlapiModel_1Test {
     public void shouldTestEDTChangeBroadcastStrategy() throws Exception {
         EDTChangeBroadcastStrategy testSubject0 = new EDTChangeBroadcastStrategy();
         testSubject0.broadcastChanges(mock(OWLOntologyChangeListener.class),
-                Utils.mockList(mock(OWLOntologyChange.class)));
+                Utils.mockList(mock(AddAxiom.class)));
         String result0 = testSubject0.toString();
     }
 
@@ -135,7 +137,7 @@ public class ContractOwlapiModel_1Test {
     public void shouldTestImmutableOWLOntologyChangeException() throws Exception {
         ImmutableOWLOntologyChangeException testSubject0 = new ImmutableOWLOntologyChangeException(
                 mock(OWLOntologyChange.class));
-        OWLOntologyChange result0 = testSubject0.getChange();
+        OWLOntologyChange<?> result0 = testSubject0.getChange();
         Throwable result2 = testSubject0.getCause();
         String result4 = testSubject0.toString();
         String result5 = testSubject0.getMessage();
@@ -147,14 +149,14 @@ public class ContractOwlapiModel_1Test {
             throws Exception {
         ImpendingOWLOntologyChangeBroadcastStrategy testSubject0 = mock(ImpendingOWLOntologyChangeBroadcastStrategy.class);
         testSubject0.broadcastChanges(mock(ImpendingOWLOntologyChangeListener.class),
-                Utils.mockList(mock(OWLOntologyChange.class)));
+                Utils.mockList(mock(AddAxiom.class)));
     }
 
     @Test
     public void shouldTestInterfaceImpendingOWLOntologyChangeListener() throws Exception {
         ImpendingOWLOntologyChangeListener testSubject0 = mock(ImpendingOWLOntologyChangeListener.class);
         testSubject0.handleImpendingOntologyChanges(Utils
-                .mockList(mock(OWLOntologyChange.class)));
+.mockList(mock(AddAxiom.class)));
     }
 
     @Test
@@ -170,8 +172,8 @@ public class ContractOwlapiModel_1Test {
             }
 
             @Override
-            public OWLOntologyChangeData getChangeData() {
-                return mock(OWLOntologyChangeData.class);
+            public AddImportData getChangeData() {
+                return mock(AddImportData.class);
             }
         };
         boolean result1 = testSubject0.isAxiomChange();
@@ -742,8 +744,8 @@ public class ContractOwlapiModel_1Test {
             }
 
             @Override
-            public OWLOntologyChangeData getChangeData() {
-                return mock(OWLOntologyChangeData.class);
+            public OWLOntologyChangeData<OWLAxiom> getChangeData() {
+                return mock(AddAxiomData.class);
             }
 
             @Override

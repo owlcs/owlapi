@@ -101,11 +101,11 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms2.add(AnnotationAssertion(annoProp, clsAIRI2.getIRI(), Literal("X")));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(),
                 Collections.singleton(ont));
-        List<OWLOntologyChange> changes = entityRenamer.changeIRI(clsAIRI1,
+        List<OWLOntologyChange<?>> changes = entityRenamer.changeIRI(clsAIRI1,
                 clsAIRI2.getIRI());
         getManager().applyChanges(changes);
         assertEquals(ont.getAxioms(), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(clsAIRI2.getIRI(),
+        List<OWLOntologyChange<?>> changes2 = entityRenamer.changeIRI(clsAIRI2.getIRI(),
                 clsAIRI1.getIRI());
         getManager().applyChanges(changes2);
         assertEquals(ont.getAxioms(), axioms1);
@@ -157,10 +157,11 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms2.add(AnnotationAssertion(annoProp, propA2.getIRI(), Literal("X")));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(),
                 Collections.singleton(ont));
-        List<OWLOntologyChange> changes = entityRenamer.changeIRI(propA, propA2.getIRI());
+        List<OWLOntologyChange<?>> changes = entityRenamer.changeIRI(propA,
+                propA2.getIRI());
         getManager().applyChanges(changes);
         assertEquals(ont.getAxioms(), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(propA2.getIRI(),
+        List<OWLOntologyChange<?>> changes2 = entityRenamer.changeIRI(propA2.getIRI(),
                 propA.getIRI());
         getManager().applyChanges(changes2);
         assertEquals(ont.getAxioms(), axioms1);
@@ -198,10 +199,11 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms2.add(AnnotationAssertion(annoProp, propA2.getIRI(), Literal("X")));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(),
                 Collections.singleton(ont));
-        List<OWLOntologyChange> changes = entityRenamer.changeIRI(propA, propA2.getIRI());
+        List<OWLOntologyChange<?>> changes = entityRenamer.changeIRI(propA,
+                propA2.getIRI());
         getManager().applyChanges(changes);
         assertEquals(ont.getAxioms(), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(propA2.getIRI(),
+        List<OWLOntologyChange<?>> changes2 = entityRenamer.changeIRI(propA2.getIRI(),
                 propA.getIRI());
         getManager().applyChanges(changes2);
         assertEquals(ont.getAxioms(), axioms1);
@@ -233,10 +235,10 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms2.add(NegativeObjectPropertyAssertion(propB, indB, indB));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(),
                 Collections.singleton(ont));
-        List<OWLOntologyChange> changes = entityRenamer.changeIRI(indA, indB.getIRI());
+        List<OWLOntologyChange<?>> changes = entityRenamer.changeIRI(indA, indB.getIRI());
         getManager().applyChanges(changes);
         assertEquals(ont.getAxioms(), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(indB.getIRI(),
+        List<OWLOntologyChange<?>> changes2 = entityRenamer.changeIRI(indB.getIRI(),
                 indA.getIRI());
         getManager().applyChanges(changes2);
         assertEquals(ont.getAxioms(), axioms1);
@@ -266,10 +268,10 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms2.add(DataPropertyRange(propB, rng3R));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(),
                 Collections.singleton(ont));
-        List<OWLOntologyChange> changes = entityRenamer.changeIRI(dtA, dtC.getIRI());
+        List<OWLOntologyChange<?>> changes = entityRenamer.changeIRI(dtA, dtC.getIRI());
         getManager().applyChanges(changes);
         assertEquals(ont.getAxioms(), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(dtC.getIRI(),
+        List<OWLOntologyChange<?>> changes2 = entityRenamer.changeIRI(dtC.getIRI(),
                 dtA.getIRI());
         getManager().applyChanges(changes2);
         assertEquals(ont.getAxioms(), axioms1);
@@ -298,11 +300,11 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
         axioms2.add(AnnotationPropertyDomain(annoPropR, indA.getIRI()));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(getManager(),
                 Collections.singleton(ont));
-        List<OWLOntologyChange> changes = entityRenamer.changeIRI(annoProp,
+        List<OWLOntologyChange<?>> changes = entityRenamer.changeIRI(annoProp,
                 annoPropR.getIRI());
         getManager().applyChanges(changes);
         assertEquals(ont.getAxioms(), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(annoPropR.getIRI(),
+        List<OWLOntologyChange<?>> changes2 = entityRenamer.changeIRI(annoPropR.getIRI(),
                 annoProp.getIRI());
         getManager().applyChanges(changes2);
         assertEquals(ont.getAxioms(), axioms1);

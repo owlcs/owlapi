@@ -64,7 +64,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * remove these two axioms and replace them by adding one subclass axiom, A
  * subClassOf (B and C). */
 public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
-    private final List<OWLOntologyChange> changes;
+    private final List<OWLOntologyChange<?>> changes;
 
     /** @param ontologies
      *            the ontologies to use
@@ -73,7 +73,7 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
     public AmalgamateSubClassAxioms(Set<OWLOntology> ontologies,
             OWLDataFactory dataFactory) {
         super(dataFactory);
-        changes = new ArrayList<OWLOntologyChange>();
+        changes = new ArrayList<OWLOntologyChange<?>>();
         for (OWLOntology ont : ontologies) {
             for (OWLClass cls : ont.getClassesInSignature()) {
                 Set<OWLSubClassOfAxiom> axioms = ont.getSubClassAxiomsForSubClass(cls);
@@ -93,7 +93,7 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
     }
 
     @Override
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         return changes;
     }
 }

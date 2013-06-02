@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,6 +48,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 
@@ -63,8 +67,8 @@ public class FileDocumentSource implements OWLOntologyDocumentSource {
      * @param file
      *            The file from which a concrete representation of an ontology
      *            will be obtained. */
-    public FileDocumentSource(File file) {
-        this.file = file;
+    public FileDocumentSource(@Nonnull File file) {
+        this.file = checkNotNull(file, "file cannot be null");
     }
 
     @Override

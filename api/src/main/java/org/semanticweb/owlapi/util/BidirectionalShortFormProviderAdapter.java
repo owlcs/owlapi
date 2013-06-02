@@ -65,7 +65,7 @@ public class BidirectionalShortFormProviderAdapter extends
     private OWLOntologyManager man;
     private final OWLOntologyChangeListener changeListener = new OWLOntologyChangeListener() {
         @Override
-        public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+        public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
                 throws OWLException {
             handleChanges(changes);
         }
@@ -130,12 +130,12 @@ public class BidirectionalShortFormProviderAdapter extends
         }
     }
 
-    void handleChanges(List<? extends OWLOntologyChange> changes) {
+    void handleChanges(List<? extends OWLOntologyChange<?>> changes) {
         if (ontologies == null) {
             return;
         }
         Set<OWLEntity> processed = new HashSet<OWLEntity>();
-        for (OWLOntologyChange chg : changes) {
+        for (OWLOntologyChange<?> chg : changes) {
             if (ontologies.contains(chg.getOntology())) {
                 if (chg.isAddAxiom()) {
                     AddAxiom addAx = (AddAxiom) chg;

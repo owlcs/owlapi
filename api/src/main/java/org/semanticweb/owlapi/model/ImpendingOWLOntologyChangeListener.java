@@ -59,6 +59,6 @@ public interface ImpendingOWLOntologyChangeListener {
      *             prevent all of the changes being applied. */
     void
             handleImpendingOntologyChanges(
-                    List<? extends OWLOntologyChange> impendingChanges)
+            List<? extends OWLOntologyChange<?>> impendingChanges)
                     throws OWLOntologyChangeVetoException;
 }

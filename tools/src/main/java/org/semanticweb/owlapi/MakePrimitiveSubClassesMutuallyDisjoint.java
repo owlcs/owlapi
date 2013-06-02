@@ -74,7 +74,7 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
     private final Set<OWLOntology> ontologies;
     private final OWLOntology targetOntology;
     private final boolean usePairwiseDisjointAxioms;
-    private List<OWLOntologyChange> changes;
+    private List<OWLOntologyChange<?>> changes;
 
     /** @param dataFactory
      *            the datafactory to use
@@ -111,7 +111,7 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
     }
 
     private void generateChanges() {
-        changes = new ArrayList<OWLOntologyChange>();
+        changes = new ArrayList<OWLOntologyChange<?>>();
         Set<OWLClass> subclasses = new HashSet<OWLClass>();
         for (OWLOntology ont : ontologies) {
             for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSuperClass(cls)) {
@@ -127,7 +127,7 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
     }
 
     @Override
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         return changes;
     }
 }

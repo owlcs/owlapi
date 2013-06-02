@@ -111,7 +111,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
+import org.semanticweb.owlapi.model.OWLOntologyChangeVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
@@ -1232,27 +1232,21 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public List<OWLOntologyChange> applyChange(OWLOntologyChange change) {
-        List<OWLOntologyChange> appliedChanges = new ArrayList<OWLOntologyChange>(2);
-        OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
-        change.accept(changeFilter);
-        List<OWLOntologyChange> applied = changeFilter.getAppliedChanges();
-        if (applied.size() == 1) {
-            appliedChanges.add(change);
-        } else {
-            appliedChanges.addAll(applied);
-        }
-        return appliedChanges;
+    public <T> OWLOntologyChange<T> applyChange(OWLOntologyChange<T> change) {
+        OWLOntologyChangeFilter<OWLOntologyChange<T>> changeFilter = new OWLOntologyChangeFilter<OWLOntologyChange<T>>();
+        return change.accept(changeFilter);
     }
 
     @Override
-    public List<OWLOntologyChange> applyChanges(List<OWLOntologyChange> changes) {
-        List<OWLOntologyChange> appliedChanges = new ArrayList<OWLOntologyChange>();
-        OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
-        for (OWLOntologyChange change : changes) {
-            change.accept(changeFilter);
-            appliedChanges.addAll(changeFilter.getAppliedChanges());
-            changeFilter.reset();
+    public List<OWLOntologyChange<?>> applyChanges(
+            List<? extends OWLOntologyChange<?>> changes) {
+        List<OWLOntologyChange<?>> appliedChanges = new ArrayList<OWLOntologyChange<?>>();
+        OWLOntologyChangeFilter<OWLOntologyChange<?>> changeFilter = new OWLOntologyChangeFilter<OWLOntologyChange<?>>();
+        for (OWLOntologyChange<?> change : changes) {
+            OWLOntologyChange<?> applied = change.accept(changeFilter);
+            if (applied != null) {
+                appliedChanges.add(applied);
+            }
         }
         return appliedChanges;
     }
@@ -1296,73 +1290,68 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         }
     }
 
-    protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitor,
+    protected class OWLOntologyChangeFilter<T extends OWLOntologyChange<?>> implements
+            OWLOntologyChangeVisitorEx<T>,
             Serializable {
         private static final long serialVersionUID = 40000L;
-        private final List<OWLOntologyChange> appliedChanges;
-
-        public OWLOntologyChangeFilter() {
-            appliedChanges = new ArrayList<OWLOntologyChange>();
-        }
-
-        public List<OWLOntologyChange> getAppliedChanges() {
-            return appliedChanges;
-        }
-
-        public void reset() {
-            appliedChanges.clear();
-        }
 
         @Override
-        public void visit(RemoveAxiom change) {
+        public T visit(RemoveAxiom change) {
             if (internals.removeAxiom(change.getAxiom())) {
-                appliedChanges.add(change);
+                return (T) change;
             }
+            return null;
         }
 
         @Override
-        public void visit(SetOntologyID change) {
+        public T visit(SetOntologyID change) {
             OWLOntologyID id = change.getNewOntologyID();
             if (!id.equals(ontologyID)) {
-                appliedChanges.add(change);
                 ontologyID = id;
+                return (T) change;
             }
+            return null;
         }
 
         @Override
-        public void visit(AddAxiom change) {
+        public T visit(AddAxiom change) {
             if (internals.addAxiom(change.getAxiom())) {
-                appliedChanges.add(change);
+                return (T) change;
             }
+            return null;
         }
 
         @Override
-        public void visit(AddImport change) {
+        public T visit(AddImport change) {
             // TODO change this to be done inside
             if (internals.addImportsDeclaration(change.getImportDeclaration())) {
-                appliedChanges.add(change);
+                return (T) change;
             }
+            return null;
         }
 
         @Override
-        public void visit(RemoveImport change) {
+        public T visit(RemoveImport change) {
             if (internals.removeImportsDeclaration(change.getImportDeclaration())) {
-                appliedChanges.add(change);
+                return (T) change;
             }
+            return null;
         }
 
         @Override
-        public void visit(AddOntologyAnnotation change) {
+        public T visit(AddOntologyAnnotation change) {
             if (internals.addOntologyAnnotation(change.getAnnotation())) {
-                appliedChanges.add(change);
+                return (T) change;
             }
+            return null;
         }
 
         @Override
-        public void visit(RemoveOntologyAnnotation change) {
+        public T visit(RemoveOntologyAnnotation change) {
             if (internals.removeOntologyAnnotation(change.getAnnotation())) {
-                appliedChanges.add(change);
+                return (T) change;
             }
+            return null;
         }
     }
 

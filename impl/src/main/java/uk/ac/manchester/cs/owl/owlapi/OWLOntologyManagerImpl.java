@@ -399,7 +399,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    private boolean isChangeApplicable(OWLOntologyChange change) {
+    private boolean isChangeApplicable(OWLOntologyChange<?> change) {
         if (!properties.isLoadAnnotationAxioms() && change.isAddAxiom()) {
             if (change.getAxiom() instanceof OWLAnnotationAxiom) {
                 return false;
@@ -415,7 +415,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      *            The change to be applied.
      * @return A list of changes that were actually applied.
      * @throws OWLOntologyChangeException */
-    private List<OWLOntologyChange> enactChangeApplication(OWLOntologyChange change) {
+    private <T> List<OWLOntologyChange<T>> enactChangeApplication(
+            OWLOntologyChange<T> change) {
         if (!isChangeApplicable(change)) {
             return Collections.emptyList();
         }
@@ -424,15 +425,18 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             throw new ImmutableOWLOntologyChangeException(change);
         }
         checkForOntologyIDChange(change);
-        List<OWLOntologyChange> appliedChanges = ((OWLMutableOntology) ont)
+        OWLOntologyChange<T> appliedChange = ((OWLMutableOntology) ont)
                 .applyChange(change);
         checkForImportsChange(change);
-        return appliedChanges;
+        if (appliedChange == null) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(appliedChange);
     }
 
     @Override
-    public List<OWLOntologyChange>
-            applyChanges(List<? extends OWLOntologyChange> changes) {
+    public List<OWLOntologyChange<?>> applyChanges(
+            List<? extends OWLOntologyChange<?>> changes) {
         try {
             broadcastImpendingChanges(changes);
         } catch (OWLOntologyChangeVetoException e) {
@@ -440,10 +444,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             broadcastOntologyChangesVetoed(changes, e);
             return Collections.emptyList();
         }
-        List<OWLOntologyChange> appliedChanges = new ArrayList<OWLOntologyChange>(
+        List<OWLOntologyChange<?>> appliedChanges = new ArrayList<OWLOntologyChange<?>>(
                 changes.size() + 2);
         fireBeginChanges(changes.size());
-        for (OWLOntologyChange change : changes) {
+        for (OWLOntologyChange<?> change : changes) {
             appliedChanges.addAll(enactChangeApplication(change));
             fireChangeApplied(change);
         }
@@ -453,14 +457,14 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public List<OWLOntologyChange> addAxiom(OWLOntology ont, OWLAxiom axiom) {
+    public List<OWLOntologyChange<?>> addAxiom(OWLOntology ont, OWLAxiom axiom) {
         return addAxioms(ont, Collections.singleton(axiom));
     }
 
     @Override
-    public List<OWLOntologyChange> addAxioms(OWLOntology ont,
+    public List<OWLOntologyChange<?>> addAxioms(OWLOntology ont,
             Set<? extends OWLAxiom> axioms) {
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>(
+        List<AddAxiom> changes = new ArrayList<AddAxiom>(
                 axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
             changes.add(new AddAxiom(ont, ax));
@@ -469,14 +473,15 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public List<OWLOntologyChange> removeAxiom(OWLOntology ont, OWLAxiom axiom) {
+    public List<OWLOntologyChange<?>> removeAxiom(OWLOntology ont, OWLAxiom axiom) {
         return removeAxioms(ont, Collections.singleton(axiom));
     }
 
     @Override
-    public List<OWLOntologyChange> removeAxioms(OWLOntology ont,
+    public List<OWLOntologyChange<?>>
+            removeAxioms(OWLOntology ont,
             Set<? extends OWLAxiom> axioms) {
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>(
+        List<RemoveAxiom> changes = new ArrayList<RemoveAxiom>(
                 axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
             changes.add(new RemoveAxiom(ont, ax));
@@ -485,11 +490,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public List<OWLOntologyChange> applyChange(OWLOntologyChange change) {
+    public List<OWLOntologyChange<?>> applyChange(OWLOntologyChange<?> change) {
         return applyChanges(Arrays.asList(change));
     }
 
-    private void checkForImportsChange(OWLOntologyChange change) {
+    private void checkForImportsChange(OWLOntologyChange<?> change) {
         if (change.isImportChange()) {
             resetImportsClosureCache();
             if (change instanceof AddImport) {
@@ -525,7 +530,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    private void checkForOntologyIDChange(OWLOntologyChange change) {
+    private void checkForOntologyIDChange(OWLOntologyChange<?> change) {
         if (change instanceof SetOntologyID) {
             SetOntologyID setID = (SetOntologyID) change;
             OWLOntology existingOntology = ontologiesByID.get(((SetOntologyID) change)
@@ -1070,7 +1075,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * 
      * @param changes
      *            The ontology changes to broadcast */
-    protected void broadcastChanges(List<? extends OWLOntologyChange> changes) {
+    protected void broadcastChanges(List<? extends OWLOntologyChange<?>> changes) {
         if (!broadcastChanges) {
             return;
         }
@@ -1097,7 +1102,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    protected void broadcastImpendingChanges(List<? extends OWLOntologyChange> changes)
+    protected void
+            broadcastImpendingChanges(List<? extends OWLOntologyChange<?>> changes)
             throws OWLOntologyChangeVetoException {
         if (!broadcastChanges) {
             return;
@@ -1158,7 +1164,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     private void
-            broadcastOntologyChangesVetoed(List<? extends OWLOntologyChange> changes,
+ broadcastOntologyChangesVetoed(
+            List<? extends OWLOntologyChange<?>> changes,
                     OWLOntologyChangeVetoException veto) {
         for (OWLOntologyChangesVetoedListener listener : new ArrayList<OWLOntologyChangesVetoedListener>(
                 vetoListeners)) {
@@ -1298,7 +1305,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    protected void fireChangeApplied(OWLOntologyChange change) {
+    protected void fireChangeApplied(OWLOntologyChange<?> change) {
         try {
             if (!broadcastChanges) {
                 return;

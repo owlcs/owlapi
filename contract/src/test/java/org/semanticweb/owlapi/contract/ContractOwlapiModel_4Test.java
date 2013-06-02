@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
+import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.EntityType;
@@ -39,7 +40,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -1055,7 +1055,7 @@ public class ContractOwlapiModel_4Test {
         SpecificOntologyChangeBroadcastStrategy testSubject0 = new SpecificOntologyChangeBroadcastStrategy(
                 Utils.getMockOntology());
         testSubject0.broadcastChanges(mock(OWLOntologyChangeListener.class),
-                Utils.mockList(mock(OWLOntologyChange.class)));
+                Utils.mockList(mock(AddAxiom.class)));
         String result0 = testSubject0.toString();
     }
 

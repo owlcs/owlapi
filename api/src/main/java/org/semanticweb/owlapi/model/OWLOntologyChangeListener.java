@@ -53,5 +53,6 @@ public interface OWLOntologyChangeListener {
      *            A list of changes that have occurred. Each change may be
      *            examined to determine which ontology it was applied to.
      * @throws OWLException */
-    void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException;
+    void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
+            throws OWLException;
 }

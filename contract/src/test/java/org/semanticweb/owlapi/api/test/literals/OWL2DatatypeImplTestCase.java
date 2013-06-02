@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -252,7 +251,6 @@ public class OWL2DatatypeImplTestCase {
 
     @Test
     public void contains() {
-        IRI iri = OWL2Datatype.XSD_BYTE.getIRI();
         Set<OWLDatatype> datatypes = new HashSet<OWLDatatype>();
         OWLDatatype dt2Impl = Factory.getFactory().getOWLDatatype(
                 OWL2Datatype.XSD_BYTE.getIRI());

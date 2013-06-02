@@ -113,8 +113,8 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
 
     /** @param changes
      *            changes to process */
-    final public void processChanges(List<? extends OWLOntologyChange> changes) {
-        for (OWLOntologyChange change : changes) {
+    public void processChanges(List<? extends OWLOntologyChange<?>> changes) {
+        for (OWLOntologyChange<?> change : changes) {
             change.accept(changeVisitor);
         }
     }

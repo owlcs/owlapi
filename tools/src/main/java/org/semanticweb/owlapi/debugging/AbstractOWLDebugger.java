@@ -51,7 +51,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -86,7 +85,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        List<AddAxiom> changes = new ArrayList<AddAxiom>();
         for (OWLOntology ont : owlOntologyManager.getImportsClosure(originalOntology)) {
             for (OWLAxiom ax : ont.getLogicalAxioms()) {
                 changes.add(new AddAxiom(ontology, ax));

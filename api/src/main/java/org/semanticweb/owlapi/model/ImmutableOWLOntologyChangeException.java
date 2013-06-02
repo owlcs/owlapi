@@ -52,7 +52,7 @@ public class ImmutableOWLOntologyChangeException extends OWLOntologyChangeExcept
      * 
      * @param change
      *            The change. */
-    public ImmutableOWLOntologyChangeException(OWLOntologyChange change) {
+    public ImmutableOWLOntologyChangeException(OWLOntologyChange<?> change) {
         super(change, "Cannot apply changes to immutable ontology: "
                 + change.getOntology());
     }

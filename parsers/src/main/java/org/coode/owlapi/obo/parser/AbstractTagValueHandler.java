@@ -82,7 +82,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         return consumer.getOntology();
     }
 
-    public void applyChange(OWLOntologyChange change) {
+    public void applyChange(OWLOntologyChange<?> change) {
         consumer.getOWLOntologyManager().applyChange(change);
     }
 

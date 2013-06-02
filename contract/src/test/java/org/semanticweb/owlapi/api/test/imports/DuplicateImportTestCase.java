@@ -12,7 +12,6 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
@@ -43,7 +42,7 @@ public class DuplicateImportTestCase {
                 .create(importsBothNameAndVersion));
         OWLOntology ontology2 = manager.createOntology(IRI
                 .create(importsBothNameAndOther));
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        List<AddImport> changes = new ArrayList<AddImport>();
         changes.add(new AddImport(ontology1, factory.getOWLImportsDeclaration(IRI
                 .create(ontologyByName))));
         changes.add(new AddImport(ontology1, factory.getOWLImportsDeclaration(IRI

@@ -51,7 +51,7 @@ public interface OWLOntologyChangeProgressListener {
 
     /** @param change
      *            the change just applied */
-    void appliedChange(OWLOntologyChange change);
+    void appliedChange(OWLOntologyChange<?> change);
 
     /** end of the progress */
     void end();

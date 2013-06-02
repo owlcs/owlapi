@@ -6,6 +6,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -1247,33 +1248,24 @@ public class ContractOwlapiModel_3Test {
     public void shouldTestInterfaceOWLOntologyChangeBroadcastStrategy() throws Exception {
         OWLOntologyChangeBroadcastStrategy testSubject0 = mock(OWLOntologyChangeBroadcastStrategy.class);
         testSubject0.broadcastChanges(mock(OWLOntologyChangeListener.class),
-                Utils.mockList(mock(OWLOntologyChange.class)));
+                Utils.mockList(mock(AddAxiom.class)));
     }
 
     @Test
     public void shouldTestOWLOntologyChangeException() throws Exception {
         OWLOntologyChangeException testSubject0 = new OWLOntologyChangeException(
                 mock(OWLOntologyChange.class), "") {
-            /**
-             * 
-             */
             private static final long serialVersionUID = 40000L;
         };
         OWLOntologyChangeException testSubject1 = new OWLOntologyChangeException(
                 mock(OWLOntologyChange.class), "", new RuntimeException()) {
-            /**
-             * 
-             */
             private static final long serialVersionUID = 40000L;
         };
         OWLOntologyChangeException testSubject2 = new OWLOntologyChangeException(
                 mock(OWLOntologyChange.class), new RuntimeException()) {
-            /**
-             * 
-             */
             private static final long serialVersionUID = 40000L;
         };
-        OWLOntologyChange result0 = testSubject0.getChange();
+        OWLOntologyChange<?> result0 = testSubject0.getChange();
         Throwable result2 = testSubject0.getCause();
         String result4 = testSubject0.toString();
         String result5 = testSubject0.getMessage();
@@ -1283,7 +1275,7 @@ public class ContractOwlapiModel_3Test {
     @Test
     public void shouldTestInterfaceOWLOntologyChangeListener() throws Exception {
         OWLOntologyChangeListener testSubject0 = mock(OWLOntologyChangeListener.class);
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils.mockList(mock(AddAxiom.class)));
     }
 
     @Test
@@ -1297,7 +1289,7 @@ public class ContractOwlapiModel_3Test {
     @Test
     public void shouldTestInterfaceOWLOntologyChangesVetoedListener() throws Exception {
         OWLOntologyChangesVetoedListener testSubject0 = mock(OWLOntologyChangesVetoedListener.class);
-        testSubject0.ontologyChangesVetoed(Utils.mockList(mock(OWLOntologyChange.class)),
+        testSubject0.ontologyChangesVetoed(Utils.mockList(mock(AddAxiom.class)),
                 mock(OWLOntologyChangeVetoException.class));
     }
 
@@ -1309,7 +1301,7 @@ public class ContractOwlapiModel_3Test {
                 mock(OWLOntologyChange.class), "", new RuntimeException());
         OWLOntologyChangeVetoException testSubject2 = new OWLOntologyChangeVetoException(
                 mock(OWLOntologyChange.class), new RuntimeException());
-        OWLOntologyChange result0 = testSubject0.getChange();
+        OWLOntologyChange<?> result0 = testSubject0.getChange();
         Throwable result2 = testSubject0.getCause();
         String result4 = testSubject0.toString();
         String result5 = testSubject0.getMessage();
@@ -1474,17 +1466,18 @@ public class ContractOwlapiModel_3Test {
                 .getImportedOntology(mock(OWLImportsDeclaration.class));
         List<OWLOntology> result12 = testSubject0.getSortedImportsClosure(Utils
                 .getMockOntology());
-        List<OWLOntologyChange> result13 = testSubject0.applyChanges(Utils
-                .mockList(mock(OWLOntologyChange.class)));
-        List<OWLOntologyChange> result14 = testSubject0.addAxioms(
+        List<AddAxiom> addAxioms = new ArrayList<AddAxiom>();
+        List<OWLOntologyChange<?>> result13 = testSubject0.applyChanges(addAxioms);
+        List<OWLOntologyChange<?>> result14 = testSubject0.addAxioms(
                 Utils.getMockOntology(), Utils.mockSet(mock(OWLAxiom.class)));
-        List<OWLOntologyChange> result15 = testSubject0.addAxiom(Utils.getMockOntology(),
+        List<OWLOntologyChange<?>> result15 = testSubject0.addAxiom(
+                Utils.getMockOntology(),
                 mock(OWLAxiom.class));
-        List<OWLOntologyChange> result16 = testSubject0.removeAxiom(
+        List<OWLOntologyChange<?>> result16 = testSubject0.removeAxiom(
                 Utils.getMockOntology(), mock(OWLAxiom.class));
-        List<OWLOntologyChange> result17 = testSubject0.removeAxioms(
+        List<OWLOntologyChange<?>> result17 = testSubject0.removeAxioms(
                 Utils.getMockOntology(), Utils.mockSet(mock(OWLAxiom.class)));
-        List<OWLOntologyChange> result18 = testSubject0
+        List<OWLOntologyChange<?>> result18 = testSubject0
                 .applyChange(mock(OWLOntologyChange.class));
         OWLOntology result19 = testSubject0.createOntology();
         OWLOntology result20 = testSubject0.createOntology(Utils
@@ -1587,7 +1580,7 @@ public class ContractOwlapiModel_3Test {
         OWLOntologyRenameException testSubject0 = new OWLOntologyRenameException(
                 mock(OWLOntologyChange.class), new OWLOntologyID());
         OWLOntologyID result0 = testSubject0.getOntologyID();
-        OWLOntologyChange result1 = testSubject0.getChange();
+        OWLOntologyChange<?> result1 = testSubject0.getChange();
         Throwable result3 = testSubject0.getCause();
         String result5 = testSubject0.toString();
         String result6 = testSubject0.getMessage();

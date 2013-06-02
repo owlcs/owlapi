@@ -86,10 +86,10 @@ public class OWLEntityRenamer {
      *            The IRI that the IRI should be changed to.
      * @return A list of ontology changes that should be applied to change the
      *         specified IRI. */
-    public List<OWLOntologyChange> changeIRI(IRI uri, IRI newIRI) {
+    public List<OWLOntologyChange<?>> changeIRI(IRI uri, IRI newIRI) {
         Map<IRI, IRI> uriMap = new HashMap<IRI, IRI>();
         uriMap.put(uri, newIRI);
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
         OWLObjectDuplicator dup = new OWLObjectDuplicator(
                 owlOntologyManager.getOWLDataFactory(), uriMap);
         for (OWLOntology ont : ontologies) {
@@ -106,10 +106,10 @@ public class OWLEntityRenamer {
      *            The new IRI
      * @return A list of ontology changes that should be applied to change the
      *         specified entity IRI. */
-    public List<OWLOntologyChange> changeIRI(OWLEntity entity, IRI newIRI) {
+    public List<OWLOntologyChange<?>> changeIRI(OWLEntity entity, IRI newIRI) {
         Map<OWLEntity, IRI> iriMap = new HashMap<OWLEntity, IRI>();
         iriMap.put(entity, newIRI);
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap,
                 owlOntologyManager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
@@ -121,8 +121,8 @@ public class OWLEntityRenamer {
     /** @param entity2IRIMap
      *            map of IRIs to rename
      * @return list of changes */
-    public List<OWLOntologyChange> changeIRI(Map<OWLEntity, IRI> entity2IRIMap) {
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+    public List<OWLOntologyChange<?>> changeIRI(Map<OWLEntity, IRI> entity2IRIMap) {
+        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap,
                 owlOntologyManager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
@@ -172,7 +172,7 @@ public class OWLEntityRenamer {
      *            The ontology to which the changed should be applied
      * @param duplicator
      *            The duplicator that will do the duplicating */
-    private static void fillListWithTransformChanges(List<OWLOntologyChange> changes,
+    private static void fillListWithTransformChanges(List<OWLOntologyChange<?>> changes,
             Set<OWLAxiom> axioms, OWLOntology ont, OWLObjectDuplicator duplicator) {
         for (OWLAxiom ax : axioms) {
             changes.add(new RemoveAxiom(ont, ax));

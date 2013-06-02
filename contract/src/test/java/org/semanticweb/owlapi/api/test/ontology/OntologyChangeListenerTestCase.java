@@ -76,8 +76,8 @@ public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
                 new ImpendingOWLOntologyChangeListener() {
                     @Override
                     public void handleImpendingOntologyChanges(
-                            List<? extends OWLOntologyChange> impendingChanges) {
-                        for (OWLOntologyChange change : impendingChanges) {
+                            List<? extends OWLOntologyChange<?>> impendingChanges) {
+                        for (OWLOntologyChange<?> change : impendingChanges) {
                             if (change.isAddAxiom()) {
                                 impendingAdditions.add(change.getAxiom());
                             } else if (change.isRemoveAxiom()) {
@@ -88,9 +88,9 @@ public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
                 });
         getManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
             @Override
-            public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+            public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
                     throws OWLException {
-                for (OWLOntologyChange change : changes) {
+                for (OWLOntologyChange<?> change : changes) {
                     if (change.isAddAxiom()) {
                         additions.add(change.getAxiom());
                     } else if (change.isRemoveAxiom()) {

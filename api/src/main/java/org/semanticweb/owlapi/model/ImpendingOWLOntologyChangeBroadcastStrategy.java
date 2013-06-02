@@ -52,5 +52,5 @@ public interface ImpendingOWLOntologyChangeBroadcastStrategy {
      * @param listener
      *            The listeners that the changes should be broadcast to */
     void broadcastChanges(ImpendingOWLOntologyChangeListener listener,
-            List<? extends OWLOntologyChange> changes);
+            List<? extends OWLOntologyChange<?>> changes);
 }

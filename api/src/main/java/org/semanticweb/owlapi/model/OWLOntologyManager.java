@@ -228,7 +228,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             {@link org.semanticweb.owlapi.model.SetOntologyID} where the
      *             new {@link org.semanticweb.owlapi.model.OWLOntologyID}
      *             already belongs to an ontology managed by this manager. */
-    List<OWLOntologyChange> applyChanges(List<? extends OWLOntologyChange> changes)
+    List<OWLOntologyChange<?>> applyChanges(List<? extends OWLOntologyChange<?>> changes)
             throws OWLOntologyRenameException;
 
     /** A convenience method that adds a set of axioms to an ontology. The
@@ -242,7 +242,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *         place in order to add the axioms.
      * @throws OWLOntologyChangeException
      *             if there was a problem adding the axioms */
-    List<OWLOntologyChange> addAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms);
+    List<OWLOntologyChange<?>> addAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms);
 
     /** A convenience method that adds a single axiom to an ontology. The
      * appropriate AddAxiom change object is automatically generated.
@@ -255,7 +255,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *         actually took place.
      * @throws OWLOntologyChangeException
      *             if there was a problem adding the axiom */
-    List<OWLOntologyChange> addAxiom(OWLOntology ont, OWLAxiom axiom);
+    List<OWLOntologyChange<?>> addAxiom(OWLOntology ont, OWLAxiom axiom);
 
     /** A convenience method that removes a single axiom from an ontology. The
      * appropriate RemoveAxiom change object is automatically generated.
@@ -268,7 +268,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *         actually took place.
      * @throws OWLOntologyChangeException
      *             if there was a problem removing the axiom */
-    List<OWLOntologyChange> removeAxiom(OWLOntology ont, OWLAxiom axiom);
+    List<OWLOntologyChange<?>> removeAxiom(OWLOntology ont, OWLAxiom axiom);
 
     /** A convenience method that removes a set of axioms from an ontology. The
      * appropriate RemoveAxiom change objects are automatically generated.
@@ -281,7 +281,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *         place in order to remove the axioms.
      * @throws OWLOntologyChangeException
      *             if there was a problem removing the axioms */
-    List<OWLOntologyChange> removeAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms);
+    List<OWLOntologyChange<?>> removeAxioms(OWLOntology ont,
+            Set<? extends OWLAxiom> axioms);
 
     /** A convenience method that applies just one change to an ontology that is
      * managed by this manager.
@@ -297,7 +298,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             {@link org.semanticweb.owlapi.model.SetOntologyID} where the
      *             new {@link org.semanticweb.owlapi.model.OWLOntologyID}
      *             already belongs to an ontology managed by this manager. */
-    List<OWLOntologyChange> applyChange(OWLOntologyChange change)
+    List<OWLOntologyChange<?>> applyChange(OWLOntologyChange<?> change)
             throws OWLOntologyRenameException;
 
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -102,7 +102,7 @@ public class ConvertEquivalentClassesToSuperClasses extends
     private final OWLClass cls;
     private final Set<OWLOntology> ontologies;
     private final boolean splitIntersections;
-    private List<OWLOntologyChange> changes;
+    private List<OWLOntologyChange<?>> changes;
 
     /** @param ontologies
      *            the ontologies to use
@@ -126,7 +126,7 @@ public class ConvertEquivalentClassesToSuperClasses extends
     }
 
     private void generateChanges() {
-        changes = new ArrayList<OWLOntologyChange>();
+        changes = new ArrayList<OWLOntologyChange<?>>();
         Set<OWLClassExpression> supers = new HashSet<OWLClassExpression>();
         for (OWLOntology o : ontologies) {
             for (OWLEquivalentClassesAxiom ax : o.getEquivalentClassesAxioms(cls)) {
@@ -162,7 +162,7 @@ public class ConvertEquivalentClassesToSuperClasses extends
     }
 
     @Override
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         return changes;
     }
 }

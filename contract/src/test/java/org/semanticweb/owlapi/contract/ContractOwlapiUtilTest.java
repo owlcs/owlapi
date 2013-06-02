@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -72,6 +73,7 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.*;
@@ -285,8 +287,8 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestFilteringOWLOntologyChangeListener() throws Exception {
         FilteringOWLOntologyChangeListener testSubject0 = new FilteringOWLOntologyChangeListener();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
-        testSubject0.processChanges(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils.mockList(mock(AddAxiom.class)));
+        testSubject0.processChanges(Utils.mockList(mock(AddAxiom.class)));
         String result0 = testSubject0.toString();
     }
 
@@ -711,7 +713,7 @@ public class ContractOwlapiUtilTest {
             public void ontologiesChanged() throws OWLException {}
         };
         Set<OWLEntity> result0 = testSubject0.getEntities();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils.mockList(mock(AddAxiom.class)));
         testSubject0.ontologiesChanged();
         String result1 = testSubject0.toString();
     }
@@ -743,7 +745,7 @@ public class ContractOwlapiUtilTest {
         OWLEntityRemover testSubject0 = new OWLEntityRemover(Utils.getMockManager(),
                 Utils.mockSet(Utils.getMockOntology()));
         testSubject0.reset();
-        List<OWLOntologyChange> result0 = testSubject0.getChanges();
+        List<RemoveAxiom> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
 
@@ -751,11 +753,12 @@ public class ContractOwlapiUtilTest {
     public void shouldTestOWLEntityRenamer() throws Exception {
         OWLEntityRenamer testSubject0 = new OWLEntityRenamer(Utils.getMockManager(),
                 Utils.mockSet(Utils.getMockOntology()));
-        List<OWLOntologyChange> result0 = testSubject0.changeIRI(IRI("urn:aFake"),
+        List<OWLOntologyChange<?>> result0 = testSubject0.changeIRI(IRI("urn:aFake"),
                 IRI("urn:aFake"));
-        List<OWLOntologyChange> result1 = testSubject0.changeIRI(Utils.mockOWLEntity(),
+        List<OWLOntologyChange<?>> result1 = testSubject0.changeIRI(
+                Utils.mockOWLEntity(),
                 IRI("urn:aFake"));
-        List<OWLOntologyChange> result2 = testSubject0.changeIRI(mock(Map.class));
+        List<OWLOntologyChange<?>> result2 = testSubject0.changeIRI(mock(Map.class));
         String result3 = testSubject0.toString();
     }
 
@@ -779,7 +782,7 @@ public class ContractOwlapiUtilTest {
         OWLEntityURIConverter testSubject0 = new OWLEntityURIConverter(
                 Utils.getMockManager(), Utils.mockSet(Utils.getMockOntology()),
                 mock(OWLEntityURIConverterStrategy.class));
-        List<OWLOntologyChange> result0 = testSubject0.getChanges();
+        List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
 
@@ -921,7 +924,7 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestOWLOntologyChangeFilter() throws Exception {
         OWLOntologyChangeFilter testSubject0 = new OWLOntologyChangeFilter();
-        testSubject0.processChanges(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.processChanges(Utils.mockList(mock(AddAxiom.class)));
         String result0 = testSubject0.toString();
     }
 
@@ -970,7 +973,7 @@ public class ContractOwlapiUtilTest {
     public void shouldTestOWLOntologyURIChanger() throws Exception {
         OWLOntologyURIChanger testSubject0 = new OWLOntologyURIChanger(
                 Utils.getMockManager());
-        List<OWLOntologyChange> result0 = testSubject0.getChanges(
+        List<OWLOntologyChange<?>> result0 = testSubject0.getChanges(
                 Utils.getMockOntology(), IRI("urn:aFake"));
         String result1 = testSubject0.toString();
     }

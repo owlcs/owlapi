@@ -101,10 +101,10 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
     }
 
     @Override
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         ImportsStructureEntitySorter sorter = new ImportsStructureEntitySorter(ontology,
                 ontologyManager);
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
         Map<OWLOntology, Set<OWLEntity>> ontology2EntityMap = sorter.getObjects();
         for (OWLOntology ont : ontology2EntityMap.keySet()) {
             for (OWLEntity ent : ontology2EntityMap.get(ont)) {
@@ -117,7 +117,7 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
                     con = ontologyManager.getOWLDataFactory().getOWLLiteral(shortForm);
                 }
                 if (ontology.containsEntityInSignature(ent)) {
-                    OWLOntologyChange chg = new AddAxiom(ont, ontologyManager
+                    OWLOntologyChange<?> chg = new AddAxiom(ont, ontologyManager
                             .getOWLDataFactory().getOWLAnnotationAssertionAxiom(
                                     ontologyManager.getOWLDataFactory()
                                             .getOWLAnnotationProperty(annotationIRI),

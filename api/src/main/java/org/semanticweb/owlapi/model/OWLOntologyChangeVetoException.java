@@ -49,16 +49,16 @@ package org.semanticweb.owlapi.model;
 public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
     private static final long serialVersionUID = 40000L;
 
-    public OWLOntologyChangeVetoException(OWLOntologyChange change, String message) {
+    public OWLOntologyChangeVetoException(OWLOntologyChange<?> change, String message) {
         super(change, message);
     }
 
-    public OWLOntologyChangeVetoException(OWLOntologyChange change, String message,
+    public OWLOntologyChangeVetoException(OWLOntologyChange<?> change, String message,
             Throwable cause) {
         super(change, message, cause);
     }
 
-    public OWLOntologyChangeVetoException(OWLOntologyChange change, Throwable cause) {
+    public OWLOntologyChangeVetoException(OWLOntologyChange<?> change, Throwable cause) {
         super(change, cause);
     }
 }

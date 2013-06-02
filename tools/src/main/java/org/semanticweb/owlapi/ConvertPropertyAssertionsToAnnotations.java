@@ -97,7 +97,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 public class ConvertPropertyAssertionsToAnnotations extends
         AbstractCompositeOntologyChange {
     private final Set<OWLOntology> ontologies;
-    private List<OWLOntologyChange> changes;
+    private List<OWLOntologyChange<?>> changes;
 
     /** @param dataFactory
      *            factory to use
@@ -111,7 +111,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
     }
 
     private void generateChanges() {
-        changes = new ArrayList<OWLOntologyChange>();
+        changes = new ArrayList<OWLOntologyChange<?>>();
         Set<OWLNamedIndividual> individuals = new HashSet<OWLNamedIndividual>();
         for (OWLOntology ont : ontologies) {
             individuals.addAll(ont.getIndividualsInSignature());
@@ -167,7 +167,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
     }
 
     @Override
-    public List<OWLOntologyChange> getChanges() {
+    public List<OWLOntologyChange<?>> getChanges() {
         return changes;
     }
 }

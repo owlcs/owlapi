@@ -54,7 +54,7 @@ public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStr
 
     @Override
     public void broadcastChanges(final OWLOntologyChangeListener listener,
-            final List<? extends OWLOntologyChange> changes) throws OWLException {
+            final List<? extends OWLOntologyChange<?>> changes) throws OWLException {
         if (SwingUtilities.isEventDispatchThread()) {
             listener.ontologiesChanged(changes);
         } else {

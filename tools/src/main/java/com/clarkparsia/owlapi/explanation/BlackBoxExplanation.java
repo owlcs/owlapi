@@ -62,7 +62,6 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -377,7 +376,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
             owlOntologyManager.removeOntology(debuggingOntology);
         }
         debuggingOntology = owlOntologyManager.createOntology();
-        List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+        List<AddAxiom> changes = new ArrayList<AddAxiom>();
         for (OWLAxiom ax : debuggingAxioms) {
             changes.add(new AddAxiom(debuggingOntology, ax));
         }

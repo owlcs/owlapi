@@ -93,7 +93,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLProperty;
@@ -265,7 +264,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             }
             ont = man.createOntology(IRI.create("http://www.semanticweb.org/", "ontology"
                     + randomstart.incrementAndGet()));
-            List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
+            List<AddAxiom> changes = new ArrayList<AddAxiom>();
             for (OWLAxiom ax : currentExplanation) {
                 changes.add(new AddAxiom(ont, ax));
                 ax.accept(builder);
