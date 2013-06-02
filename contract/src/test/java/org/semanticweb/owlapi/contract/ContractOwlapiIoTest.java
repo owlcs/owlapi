@@ -531,7 +531,6 @@ public class ContractOwlapiIoTest {
             Reader result2 = testSubject0.getReader();
         }
         IRI result4 = testSubject0.getDocumentIRI();
-        IRI result5 = StreamDocumentSource.getNextDocumentIRI();
     }
 
     @Test
