@@ -81,4 +81,9 @@ public class AddImportData extends ImportChangeData {
             throws E {
         return visitor.visit(this);
     }
+
+    @Override
+    protected String getName() {
+        return "AddImportData";
+    }
 }

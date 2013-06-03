@@ -80,4 +80,9 @@ public class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
             throws E {
         return visitor.visit(this);
     }
+
+    @Override
+    protected String getName() {
+        return "AddOntologyAnnotationData";
+    }
 }

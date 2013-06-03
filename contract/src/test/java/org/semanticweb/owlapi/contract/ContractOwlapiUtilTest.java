@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
@@ -42,14 +41,12 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
@@ -79,7 +76,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.*;
 import org.semanticweb.owlapi.util.DLExpressivityChecker.Construct;
 import org.semanticweb.owlapi.util.ImportsStructureObjectSorter.ObjectSelector;
-import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractOwlapiUtilTest {
@@ -678,32 +674,6 @@ public class ContractOwlapiUtilTest {
                 .isFirstClassExpressionInPath(Utils.mockAnonClass());
         List<OWLDataRange> result7 = testSubject0.getDataRangePath();
         String result8 = testSubject0.toString();
-    }
-
-    public void shouldTestOWLDataUtil() throws Exception {
-        OWLDataUtil testSubject0 = new OWLDataUtil();
-        OWLDatatype result1 = OWLDataUtil.getIntDatatype(mock(OWLDataFactory.class));
-        OWLDatatype result2 = OWLDataUtil.getLongDatatype(mock(OWLDataFactory.class));
-        OWLDatatype result3 = OWLDataUtil.getFloatDatatype(mock(OWLDataFactory.class));
-        OWLDatatype result4 = OWLDataUtil.getDoubleDatatype(mock(OWLDataFactory.class));
-        Set<OWLFacetRestriction> result5 = OWLDataUtil.getFacetRestrictionSet(
-                mock(OWLDataFactory.class), OWLFacet.MAX_INCLUSIVE,
-                mock(OWLLiteral.class));
-        OWLLiteral result6 = OWLDataUtil.getTypedConstant(mock(OWLDataFactory.class),
-                mock(Number.class));
-        OWLDataRange result7 = OWLDataUtil.getMinInclusiveRestrictedInt(
-                mock(OWLDataFactory.class), mock(Number.class));
-        OWLDataRange result8 = OWLDataUtil.getMinExclusiveRestrictedInt(
-                mock(OWLDataFactory.class), mock(Number.class));
-        OWLDataRange result9 = OWLDataUtil.getMaxInclusiveRestrictedInteger(
-                mock(OWLDataFactory.class), mock(Number.class));
-        OWLDataRange result10 = OWLDataUtil.getMaxExclusiveRestrictedInteger(
-                mock(OWLDataFactory.class), mock(Number.class));
-        OWLDataRange result11 = OWLDataUtil.getMinMaxInclusiveRestrictedInteger(
-                mock(OWLDataFactory.class), mock(Number.class), mock(Number.class));
-        OWLDataRange result12 = OWLDataUtil.getMinMaxExclusiveRestrictedInteger(
-                mock(OWLDataFactory.class), mock(Number.class), mock(Number.class));
-        String result13 = testSubject0.toString();
     }
 
     @Test

@@ -62,6 +62,11 @@ import org.xml.sax.SAXException;
  * <br> */
 public class RDFXMLParser extends AbstractOWLParser {
     @Override
+    public String getName() {
+        return "RDFXMLParser";
+    }
+
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {

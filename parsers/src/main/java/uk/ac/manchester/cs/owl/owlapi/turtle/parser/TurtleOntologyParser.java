@@ -62,6 +62,11 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * <br> */
 public class TurtleOntologyParser extends AbstractOWLParser {
     @Override
+    public String getName() {
+        return "TurtleOntologyParser";
+    }
+
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, UnloadableImportException,
             IOException {

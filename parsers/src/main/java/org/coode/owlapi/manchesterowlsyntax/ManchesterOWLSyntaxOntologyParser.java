@@ -63,6 +63,11 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     private static final String DEFAULT_FILE_ENCODING = "UTF-8";
 
     @Override
+    public String getName() {
+        return "ManchesterOWLSyntaxOntologyParser";
+    }
+
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
             throws OWLParserException, IOException, OWLOntologyChangeException,

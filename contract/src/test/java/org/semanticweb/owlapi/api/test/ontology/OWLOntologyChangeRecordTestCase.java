@@ -32,6 +32,11 @@ public class OWLOntologyChangeRecordTestCase {
         mockOntologyID = new OWLOntologyID();
         mockChangeData = new OWLOntologyChangeData<OWLAxiom>() {
             @Override
+            protected String getName() {
+                return "test";
+            }
+
+            @Override
             public OWLAxiom getItem() {
                 return null;
             }

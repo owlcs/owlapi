@@ -58,6 +58,10 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * <br> */
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
     @Override
+    public String getName() {
+        return "OWLFunctionalSyntaxOWLParser";
+    }
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {

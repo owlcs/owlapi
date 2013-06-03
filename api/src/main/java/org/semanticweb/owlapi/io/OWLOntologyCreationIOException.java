@@ -55,7 +55,7 @@ public class OWLOntologyCreationIOException extends OWLOntologyCreationException
     /** @param ioException
      *            the cause */
     public OWLOntologyCreationIOException(IOException ioException) {
-        super(ioException.getClass().getSimpleName() + ": " + ioException.getMessage(),
+        super("OWLOntologyCreationIOException: " + ioException.getMessage(),
                 ioException);
     }
 

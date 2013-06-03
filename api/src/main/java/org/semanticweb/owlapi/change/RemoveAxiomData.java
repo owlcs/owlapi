@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * </p>
  * 
  * @since 3.5 */
-public final class RemoveAxiomData extends AxiomChangeData {
+public class RemoveAxiomData extends AxiomChangeData {
     private static final long serialVersionUID = 40000L;
 
     /** Constructs an {@link RemoveAxiomData} object which specifies the removal
@@ -78,5 +78,10 @@ public final class RemoveAxiomData extends AxiomChangeData {
     public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
             throws E {
         return visitor.visit(this);
+    }
+
+    @Override
+    protected String getName() {
+        return "RemoveAxiomData";
     }
 }

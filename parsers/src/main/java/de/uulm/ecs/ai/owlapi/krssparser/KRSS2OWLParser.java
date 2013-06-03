@@ -293,6 +293,11 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Institute of Artificial Intelligence<br> */
 public class KRSS2OWLParser extends AbstractOWLParser {
     @Override
+    public String getName() {
+        return "KRSS2OWLParser";
+    }
+
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {

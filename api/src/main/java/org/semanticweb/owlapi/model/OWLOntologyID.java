@@ -51,7 +51,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * optionally also have a version IRI. Instances of this OWLOntologyID class
  * bundle identifying information of an ontology together. If an ontology
  * doesn't have an ontology IRI then we say that it is "anonymous". */
-public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
+public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     private static final long serialVersionUID = 40000L;
     private static final AtomicInteger counter = new AtomicInteger();
     private static final String ANON_PREFIX = "Anonymous-";
@@ -113,8 +113,8 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
      * @see org.semanticweb.owlapi.model.IRI#isReservedVocabulary() */
     public boolean isOWL2DLOntologyID() {
         return ontologyIRI == null
-                || (!ontologyIRI.isReservedVocabulary() && (versionIRI == null || !versionIRI
-                        .isReservedVocabulary()));
+                || !ontologyIRI.isReservedVocabulary() && (versionIRI == null || !versionIRI
+                        .isReservedVocabulary());
     }
 
     @Override
@@ -206,11 +206,11 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
             return false;
         }
         OWLOntologyID other = (OWLOntologyID) obj;
-        if (this.isAnonymous() && other.isAnonymous()) {
+        if (isAnonymous() && other.isAnonymous()) {
             // both anonymous: check the anon version
             return internalID.equals(other.internalID);
         }
-        if (this.isAnonymous() != other.isAnonymous()) {
+        if (isAnonymous() != other.isAnonymous()) {
             // one anonymous, one not: equals is false
             return false;
         }

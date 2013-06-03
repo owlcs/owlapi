@@ -79,4 +79,9 @@ public class AddAxiomData extends AxiomChangeData {
             throws E {
         return visitor.visit(this);
     }
+
+    @Override
+    protected String getName() {
+        return "AddAxiomData";
+    }
 }

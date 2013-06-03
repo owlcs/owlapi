@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.RemoveImport;
  * </p>
  * 
  * @since 3.5 */
-public final class RemoveImportData extends ImportChangeData {
+public class RemoveImportData extends ImportChangeData {
     private static final long serialVersionUID = 40000L;
 
     /** Constructs a {@link RemoveImportData} object that describes a
@@ -81,5 +81,10 @@ public final class RemoveImportData extends ImportChangeData {
     public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
             throws E {
         return visitor.visit(this);
+    }
+
+    @Override
+    protected String getName() {
+        return "RemoveImportData";
     }
 }

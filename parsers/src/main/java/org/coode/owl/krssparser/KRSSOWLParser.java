@@ -56,6 +56,11 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * <br> */
 public class KRSSOWLParser extends AbstractOWLParser {
     @Override
+    public String getName() {
+        return "KRSSOWLParser";
+    }
+
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             OWLOntologyChangeException, UnloadableImportException {

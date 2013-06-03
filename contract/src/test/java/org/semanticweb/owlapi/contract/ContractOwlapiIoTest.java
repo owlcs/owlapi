@@ -79,6 +79,11 @@ public class ContractOwlapiIoTest {
     public void shouldTestAbstractOWLParser() throws Exception {
         AbstractOWLParser testSubject0 = new AbstractOWLParser() {
             @Override
+            public String getName() {
+                return "mockparser";
+            }
+
+            @Override
             public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
                     OWLOntology ontology) throws OWLParserException, IOException,
                     OWLOntologyChangeException, UnloadableImportException {

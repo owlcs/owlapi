@@ -83,7 +83,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
         for (OWLParser parser : exceptions.keySet()) {
             msg.append(counter);
             msg.append(") ");
-            msg.append(parser.getClass().getSimpleName());
+            msg.append(parser.getName());
             msg.append("\n");
             counter++;
         }
@@ -92,7 +92,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
             Throwable exception = exceptions.get(parser);
             msg.append("--------------------------------------------------------------------------------\n");
             msg.append("Parser: ");
-            msg.append(parser.getClass().getSimpleName());
+            msg.append(parser.getName());
             msg.append("\n");
             msg.append(exception.getMessage());
             msg.append("\n\n");

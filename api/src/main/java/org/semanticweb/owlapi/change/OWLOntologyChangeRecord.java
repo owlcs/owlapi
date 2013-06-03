@@ -208,6 +208,11 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "(" + ontologyID + " " + data + ")";
+        return getName() + "(" + ontologyID + " " + data + ")";
+    }
+
+    /** @return a name for the object class */
+    public String getName() {
+        return "OWLOntologyChangeRecord";
     }
 }

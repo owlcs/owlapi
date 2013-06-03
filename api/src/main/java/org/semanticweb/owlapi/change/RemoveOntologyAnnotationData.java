@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
  * </p>
  * 
  * @since 3.5 */
-public final class RemoveOntologyAnnotationData extends OntologyAnnotationChangeData {
+public class RemoveOntologyAnnotationData extends OntologyAnnotationChangeData {
     private static final long serialVersionUID = 40000L;
 
     /** Constructs a {@link RemoveOntologyAnnotationData} object that describes a
@@ -79,5 +79,10 @@ public final class RemoveOntologyAnnotationData extends OntologyAnnotationChange
     public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
             throws E {
         return visitor.visit(this);
+    }
+
+    @Override
+    protected String getName() {
+        return "RemoveOntologyAnnotationData";
     }
 }

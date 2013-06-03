@@ -66,6 +66,11 @@ import org.xml.sax.SAXException;
  * <br> */
 public class OWLXMLParser extends AbstractOWLParser {
     @Override
+    public String getName() {
+        return "OWLXMLParser";
+    }
+
+    @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {

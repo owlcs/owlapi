@@ -97,8 +97,11 @@ public abstract class OWLOntologyChangeData<T> implements Serializable {
     public abstract OWLOntologyChange<T> createOntologyChange(
             @Nonnull OWLOntology ontology);
 
+    /** @return a name for the object class */
+    protected abstract String getName();
+
     protected String getTemplate() {
-        return getClass().getSimpleName() + "(%s)";
+        return getName() + "(%s)";
     }
 
     protected String toString(Object o) {
@@ -127,7 +130,7 @@ public abstract class OWLOntologyChangeData<T> implements Serializable {
         if (obj == null) {
             return false;
         }
-        if (!getClass().isAssignableFrom(obj.getClass())) {
+        if (!getClass().equals(obj.getClass())) {
             return false;
         }
         return getItem().equals(((OWLOntologyChangeData<?>) obj).getItem());

@@ -160,4 +160,7 @@ public interface OWLParser {
             @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws OWLParserException, IOException, OWLOntologyChangeException,
             UnloadableImportException;
+
+    /** @return a name for the parser, typically the simple class name */
+    String getName();
 }
