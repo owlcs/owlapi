@@ -134,6 +134,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     private boolean broadcastChanges;
     protected int loadCount = 0;
     protected int importsLoadCount = 0;
+    protected Set<IRI> importedIRIs = new HashSet<IRI>();
     protected final OWLDataFactory dataFactory;
     protected Map<OWLOntologyID, Set<OWLOntology>> importsClosureCache;
     protected final OWLOntologyManagerProperties properties;
@@ -464,8 +465,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public List<OWLOntologyChange<?>> addAxioms(OWLOntology ont,
             Set<? extends OWLAxiom> axioms) {
-        List<AddAxiom> changes = new ArrayList<AddAxiom>(
-                axioms.size() + 2);
+        List<AddAxiom> changes = new ArrayList<AddAxiom>(axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
             changes.add(new AddAxiom(ont, ax));
         }
@@ -478,11 +478,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public List<OWLOntologyChange<?>>
-            removeAxioms(OWLOntology ont,
+    public List<OWLOntologyChange<?>> removeAxioms(OWLOntology ont,
             Set<? extends OWLAxiom> axioms) {
-        List<RemoveAxiom> changes = new ArrayList<RemoveAxiom>(
-                axioms.size() + 2);
+        List<RemoveAxiom> changes = new ArrayList<RemoveAxiom>(axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
             changes.add(new RemoveAxiom(ont, ax));
         }
@@ -665,6 +663,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public OWLOntology loadOntology(IRI ontologyIRI) throws OWLOntologyCreationException {
+        importedIRIs.clear();
         return loadOntology(ontologyIRI, false, new OWLOntologyLoaderConfiguration());
     }
 
@@ -725,6 +724,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     public OWLOntology loadOntologyFromOntologyDocument(IRI documentIRI)
             throws OWLOntologyCreationException {
         // Ontology URI not known in advance
+        importedIRIs.clear();
         return loadOntology(null, new IRIDocumentSource(documentIRI),
                 new OWLOntologyLoaderConfiguration());
     }
@@ -733,6 +733,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     public OWLOntology loadOntologyFromOntologyDocument(
             OWLOntologyDocumentSource documentSource) throws OWLOntologyCreationException {
         // Ontology URI not known in advance
+        importedIRIs.clear();
         return loadOntology(null, documentSource, new OWLOntologyLoaderConfiguration());
     }
 
@@ -740,6 +741,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     public OWLOntology loadOntologyFromOntologyDocument(
             OWLOntologyDocumentSource documentSource,
             OWLOntologyLoaderConfiguration config) throws OWLOntologyCreationException {
+        importedIRIs.clear();
         return loadOntology(null, documentSource, config);
     }
 
@@ -1104,7 +1106,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     protected void
             broadcastImpendingChanges(List<? extends OWLOntologyChange<?>> changes)
-            throws OWLOntologyChangeVetoException {
+                    throws OWLOntologyChangeVetoException {
         if (!broadcastChanges) {
             return;
         }
@@ -1163,10 +1165,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         vetoListeners.remove(listener);
     }
 
-    private void
- broadcastOntologyChangesVetoed(
+    private void broadcastOntologyChangesVetoed(
             List<? extends OWLOntologyChange<?>> changes,
-                    OWLOntologyChangeVetoException veto) {
+            OWLOntologyChangeVetoException veto) {
         for (OWLOntologyChangesVetoedListener listener : new ArrayList<OWLOntologyChangesVetoedListener>(
                 vetoListeners)) {
             listener.ontologyChangesVetoed(changes, veto);
@@ -1203,15 +1204,20 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     public void makeLoadImportRequest(OWLImportsDeclaration declaration,
             OWLOntologyLoaderConfiguration configuration)
             throws UnloadableImportException {
-        if (!configuration.isIgnoredImport(declaration.getIRI())) {
-            try {
-                OWLOntology ont = loadImports(declaration, configuration);
-                if (ont != null) {
-                    ontologyIDsByImportsDeclaration.put(declaration, ont.getOntologyID());
+        IRI iri = declaration.getIRI();
+        if (!importedIRIs.contains(iri)) {
+            importedIRIs.add(iri);
+            if (!configuration.isIgnoredImport(iri)) {
+                try {
+                    OWLOntology ont = loadImports(declaration, configuration);
+                    if (ont != null) {
+                        ontologyIDsByImportsDeclaration.put(declaration,
+                                ont.getOntologyID());
+                    }
+                } catch (OWLOntologyCreationException e) {
+                    // Wrap as UnloadableImportException and throw
+                    throw new UnloadableImportException(e, declaration);
                 }
-            } catch (OWLOntologyCreationException e) {
-                // Wrap as UnloadableImportException and throw
-                throw new UnloadableImportException(e, declaration);
             }
         }
     }
