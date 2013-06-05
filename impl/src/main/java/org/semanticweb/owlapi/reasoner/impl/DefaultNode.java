@@ -182,9 +182,6 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
         if (obj == this) {
             return true;
         }

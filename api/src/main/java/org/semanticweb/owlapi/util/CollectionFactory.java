@@ -242,9 +242,6 @@ public class CollectionFactory {
         @SuppressWarnings("rawtypes")
         @Override
         public boolean equals(Object obj) {
-            if (obj == null) {
-                return false;
-            }
             if (this == obj) {
                 return true;
             }
@@ -342,9 +339,6 @@ public class CollectionFactory {
         @SuppressWarnings("rawtypes")
         @Override
         public boolean equals(Object obj) {
-            if (obj == null) {
-                return false;
-            }
             if (this == obj) {
                 return true;
             }
@@ -502,9 +496,6 @@ public class CollectionFactory {
         public boolean equals(Object obj) {
             try {
                 readLock.lock();
-                if (obj == null) {
-                    return false;
-                }
                 if (this == obj) {
                     return true;
                 }

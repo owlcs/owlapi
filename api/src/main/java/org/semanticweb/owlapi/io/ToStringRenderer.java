@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
  * does not allow for independent rendering; in a multithreaded situation, the
  * rendere may change mid execution because of the static singleton instance */
 public class ToStringRenderer {
-    private static ToStringRenderer instance;
+    private static ToStringRenderer instance = new ToStringRenderer();
     private OWLObjectRenderer renderer;
 
     private ToStringRenderer() {
@@ -60,10 +60,7 @@ public class ToStringRenderer {
     }
 
     /** @return the singleton instance */
-    public static synchronized ToStringRenderer getInstance() {
-        if (instance == null) {
-            instance = new ToStringRenderer();
-        }
+    public static ToStringRenderer getInstance() {
         return instance;
     }
 

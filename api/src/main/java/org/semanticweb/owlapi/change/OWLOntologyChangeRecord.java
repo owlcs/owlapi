@@ -191,9 +191,6 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
         if (obj == this) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
         if (!(obj instanceof OWLOntologyChangeRecord)) {
             return false;
         }
