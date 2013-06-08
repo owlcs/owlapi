@@ -1008,12 +1008,12 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestPropertyAssertionValueShortFormProvider() throws Exception {
         PropertyAssertionValueShortFormProvider testSubject0 = new PropertyAssertionValueShortFormProvider(
-                new ArrayList<OWLPropertyExpression<?, ?>>(), mock(Map.class),
+                new ArrayList<OWLPropertyExpression>(), mock(Map.class),
                 mock(OWLOntologySetProvider.class));
         PropertyAssertionValueShortFormProvider testSubject1 = new PropertyAssertionValueShortFormProvider(
-                new ArrayList<OWLPropertyExpression<?, ?>>(), mock(Map.class),
+                new ArrayList<OWLPropertyExpression>(), mock(Map.class),
                 mock(OWLOntologySetProvider.class), mock(ShortFormProvider.class));
-        List<OWLPropertyExpression<?, ?>> result0 = testSubject0.getProperties();
+        List<OWLPropertyExpression> result0 = testSubject0.getProperties();
         testSubject0.dispose();
         String result1 = testSubject0.getShortForm(Utils.mockOWLEntity());
         Map<OWLDataPropertyExpression, List<String>> result2 = testSubject0

@@ -44,7 +44,7 @@ package org.semanticweb.owlapi.model;
  * 
  * @param <P>
  *            property expression */
-public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression<?, ?>> extends
+public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression> extends
         OWLPropertyAxiom {
     /** @return the property expression that this axiom describes. */
     P getProperty();

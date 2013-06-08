@@ -66,7 +66,7 @@ public class QCRTestCase extends AbstractRendererAndParser {
                 TestUtils.createIRI());
         OWLClassExpression filler = getDataFactory().getOWLObjectIntersectionOf(
                 CollectionFactory.createSet(clsB, clsC));
-        OWLCardinalityRestriction<?, ?, ?> restriction = getDataFactory()
+        OWLCardinalityRestriction<?> restriction = getDataFactory()
                 .getOWLObjectMinCardinality(3, prop, filler);
         assertTrue(restriction.isQualified());
         OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(clsA, restriction);

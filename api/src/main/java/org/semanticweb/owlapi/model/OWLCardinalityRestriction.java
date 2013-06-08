@@ -48,8 +48,8 @@ package org.semanticweb.owlapi.model;
  *            property expression
  * @param <F>
  *            value */
-public interface OWLCardinalityRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
-        extends OWLQuantifiedRestriction<R, P, F> {
+public interface OWLCardinalityRestriction<F extends OWLPropertyRange> extends
+        OWLQuantifiedRestriction<F> {
     /** Gets the cardinality of this restriction
      * 
      * @return The cardinality of this restriction */

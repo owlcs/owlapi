@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
  * Date: 26-Oct-2006<br>
  * <br> */
 @SuppressWarnings("javadoc")
-public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression<?, ?>>
+public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression>
         extends OWLPropertyAxiomImpl implements OWLSubPropertyAxiom<P> {
     private static final long serialVersionUID = 40000L;
     private final P subProperty;

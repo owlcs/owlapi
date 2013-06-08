@@ -39,9 +39,11 @@
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 
 import static de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2Vocabulary.*;
+import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -226,7 +228,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         ind.accept(this);
     }
 
-    public final void write(OWLPropertyExpression<?, ?> obj) {
+    public final void write(OWLPropertyExpression obj) {
         writeSpace();
         obj.accept(this);
     }
@@ -236,7 +238,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         obj.accept(this);
     }
 
-    private final void flatten(Set<OWLClassExpression> classExpressions) {
+    private final void flatten(Collection<OWLClassExpression> classExpressions) {
         if (classExpressions.isEmpty()) {
             return;
         }
@@ -328,18 +330,20 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 writeSpace();
                 write(TRUE);
             }
-            final Set<OWLClassExpression> domains = property.getDomains(onto);
+            final Collection<OWLClassExpression> domains = find().in(onto)
+                    .domains(property).asCollection();
             if (!domains.isEmpty()) {
                 writeAttribute(DOMAIN);
                 flatten(domains);
             }
-            final Set<OWLClassExpression> ranges = property.getDomains(onto);
+            final Collection<OWLClassExpression> ranges = find().in(onto)
+                    .ranges(property).asCollection();
             if (!ranges.isEmpty()) {
                 writeAttribute(RANGE_ATTR);
                 flatten(ranges);
             }
-            final Set<OWLObjectPropertyExpression> superProperties = property
-                    .getSuperProperties(onto);
+            final Collection<OWLObjectPropertyExpression> superProperties = find()
+                    .in(onto).sup().propertiesOf(property).asCollection();
             if (!superProperties.isEmpty()) {
                 writeAttribute(PARENTS_ATTR);
                 writeOpenBracket();

@@ -564,29 +564,6 @@ public class ContractOwlapi_2Test {
         boolean result34 = testSubject0.isOWLBottomObjectProperty();
         boolean result35 = testSubject0.isOWLTopDataProperty();
         boolean result36 = testSubject0.isOWLBottomDataProperty();
-        Set<OWLDataPropertyExpression> result37 = testSubject0.getSubProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLDataPropertyExpression> result38 = testSubject0.getSubProperties(Utils
-                .getMockOntology());
-        Set<OWLDataPropertyExpression> result39 = testSubject0.getSuperProperties(Utils
-                .getMockOntology());
-        Set<OWLDataPropertyExpression> result40 = testSubject0.getSuperProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLClassExpression> result41 = testSubject0.getDomains(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result42 = testSubject0.getDomains(Utils
-                .getMockOntology());
-        Set<OWLDataRange> result43 = testSubject0.getRanges(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLDataRange> result44 = testSubject0.getRanges(Utils.getMockOntology());
-        Set<OWLDataPropertyExpression> result45 = testSubject0
-                .getEquivalentProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLDataPropertyExpression> result46 = testSubject0
-                .getEquivalentProperties(Utils.getMockOntology());
-        Set<OWLDataPropertyExpression> result47 = testSubject0
-                .getDisjointProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLDataPropertyExpression> result48 = testSubject0
-                .getDisjointProperties(Utils.getMockOntology());
         String result49 = testSubject0.toString();
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
@@ -1305,7 +1282,7 @@ public class ContractOwlapi_2Test {
     @Test
     public void shouldTestOWLHasKeyAxiomImpl() throws Exception {
         OWLHasKeyAxiomImpl testSubject0 = new OWLHasKeyAxiomImpl(Utils.mockAnonClass(),
-                new HashSet<OWLPropertyExpression<?, ?>>(),
+                new HashSet<OWLPropertyExpression>(),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
         Object result0 = testSubject0.accept(Utils.mockObject());
         testSubject0.accept(mock(OWLObjectVisitor.class));
@@ -1316,7 +1293,7 @@ public class ContractOwlapi_2Test {
         boolean result6 = testSubject0.isLogicalAxiom();
         AxiomType<?> result7 = testSubject0.getAxiomType();
         OWLClassExpression result8 = testSubject0.getClassExpression();
-        Set<OWLPropertyExpression<?, ?>> result9 = testSubject0.getPropertyExpressions();
+        Set<OWLPropertyExpression> result9 = testSubject0.getPropertyExpressions();
         Set<OWLObjectPropertyExpression> result10 = testSubject0
                 .getObjectPropertyExpressions();
         Set<OWLDataPropertyExpression> result11 = testSubject0

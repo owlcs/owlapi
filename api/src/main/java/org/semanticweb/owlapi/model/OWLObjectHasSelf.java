@@ -47,4 +47,4 @@ package org.semanticweb.owlapi.model;
  * >ObjectHasSelf</a> class expression in the OWL 2 Specification. */
 public interface OWLObjectHasSelf
         extends
-        OWLRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLObjectPropertyExpression> {}
+ OWLRestriction, OWLObjectRestriction {}

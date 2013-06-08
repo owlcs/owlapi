@@ -56,14 +56,12 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** Author: Matthew Horridge<br>
@@ -177,11 +175,6 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
         return this;
     }
 
-    @Override
-    protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>>
-            getSubPropertyAxiomsForRHS(OWLOntology ont) {
-        return ont.getObjectSubPropertyAxiomsForSuperProperty(this);
-    }
 
     @Override
     public Set<OWLAnnotation> getAnnotations(OWLOntology ontology) {

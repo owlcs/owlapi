@@ -51,5 +51,5 @@ package org.semanticweb.owlapi.model;
  *            range
  * @param <P>
  *            property expression */
-public interface OWLProperty<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>>
-        extends OWLPropertyExpression<R, P>, OWLLogicalEntity, OWLNamedObject {}
+public interface OWLProperty extends OWLPropertyExpression, OWLLogicalEntity,
+        OWLNamedObject {}

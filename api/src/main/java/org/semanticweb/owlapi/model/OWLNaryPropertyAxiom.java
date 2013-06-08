@@ -46,7 +46,7 @@ import java.util.Set;
  * 
  * @param <P>
  *            property expression */
-public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression<?, ?>> extends
+public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression> extends
         OWLPropertyAxiom {
     /** @return all of the properties that appear in this axiom */
     public Set<P> getProperties();

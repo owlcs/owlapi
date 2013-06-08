@@ -40,25 +40,32 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
+import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
 
 @SuppressWarnings("javadoc")
 public abstract class OWLQuantifiedDataRestrictionImpl
         extends
-        OWLQuantifiedRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> {
+        OWLQuantifiedRestrictionImpl<OWLDataRange> implements OWLDataRestriction {
     private static final long serialVersionUID = 40000L;
+    private OWLDataPropertyExpression property;
 
     public OWLQuantifiedDataRestrictionImpl(OWLDataPropertyExpression property,
             OWLDataRange filler) {
-        super(property, filler);
+        super(filler);
+        this.property = property;
+    }
+
+    @Override
+    public OWLDataPropertyExpression getProperty() {
+        return property;
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        @SuppressWarnings("unchecked")
-        OWLQuantifiedRestriction<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> other = (OWLQuantifiedRestriction<OWLDataRange, OWLDataPropertyExpression, OWLDataRange>) object;
-        OWLDataPropertyExpression p1 = this.getProperty();
+        OWLQuantifiedDataRestriction other = (OWLQuantifiedDataRestriction) object;
+        OWLDataPropertyExpression p1 = getProperty();
         OWLDataPropertyExpression p2 = other.getProperty();
         int diff = p1.compareTo(p2);
         if (diff != 0) {

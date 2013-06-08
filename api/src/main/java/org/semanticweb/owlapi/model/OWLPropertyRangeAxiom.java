@@ -50,7 +50,7 @@ package org.semanticweb.owlapi.model;
  *            range
  * @param <P>
  *            property expression */
-public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression<?, ?>, R extends OWLPropertyRange>
+public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extends OWLPropertyRange>
         extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut {
     /** Gets the range specified by this axiom
      * 

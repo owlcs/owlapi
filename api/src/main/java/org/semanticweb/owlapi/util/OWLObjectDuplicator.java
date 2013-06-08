@@ -772,7 +772,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public void visit(OWLHasKeyAxiom axiom) {
         axiom.getClassExpression().accept(this);
         OWLClassExpression ce = (OWLClassExpression) obj;
-        Set<OWLPropertyExpression<?, ?>> props = duplicateSet(axiom
+        Set<OWLPropertyExpression> props = duplicateSet(axiom
                 .getPropertyExpressions());
         obj = dataFactory.getOWLHasKeyAxiom(ce, props, duplicateAxiomAnnotations(axiom));
     }

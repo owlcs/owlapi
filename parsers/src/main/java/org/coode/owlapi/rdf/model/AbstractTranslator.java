@@ -180,17 +180,17 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
      * @param desc
      *            The restriction */
     private
-            <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
-            void addRestrictionCommonTriplePropertyRange(OWLRestriction<R, P, F> desc) {
+            <R extends OWLPropertyRange, P extends OWLPropertyExpression, F extends OWLPropertyRange>
+            void addRestrictionCommonTriplePropertyRange(OWLRestriction desc) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), desc.getProperty());
     }
 
     private
-            <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyExpression<R, P>>
+            <R extends OWLPropertyRange, P extends OWLPropertyExpression, F extends OWLPropertyExpression>
             void
-            addRestrictionCommonTriplePropertyExpression(OWLRestriction<R, P, F> desc) {
+ addRestrictionCommonTriplePropertyExpression(OWLRestriction desc) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), desc.getProperty());
@@ -199,7 +199,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     private
             void
             addObjectCardinalityRestrictionTriples(
-                    OWLCardinalityRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> ce,
+            OWLCardinalityRestriction<OWLClassExpression> ce,
                     OWLRDFVocabulary cardiPredicate) {
         addRestrictionCommonTriplePropertyRange(ce);
         addTriple(ce, cardiPredicate.getIRI(), toTypedConstant(ce.getCardinality()));
@@ -215,7 +215,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     private
             void
             addDataCardinalityRestrictionTriples(
-                    OWLCardinalityRestriction<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> ce,
+            OWLCardinalityRestriction<OWLDataRange> ce,
                     OWLRDFVocabulary cardiPredicate) {
         addRestrictionCommonTriplePropertyRange(ce);
         addTriple(ce, cardiPredicate.getIRI(), toTypedConstant(ce.getCardinality()));

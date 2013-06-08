@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -406,7 +407,7 @@ public class ContractMediumTest {
         NodeSet<OWLNamedIndividual> result1 = testSubject0.getObjectPropertyValues(
                 mock(OWLNamedIndividual.class), Utils.mockObjectProperty());
         Set<OWLLiteral> result2 = testSubject0.getDataPropertyValues(
-                mock(OWLNamedIndividual.class), mock(OWLDataProperty.class));
+                mock(OWLNamedIndividual.class), DataProperty(IRI("urn:p")));
         Node<OWLNamedIndividual> result3 = testSubject0
                 .getSameIndividuals(mock(OWLNamedIndividual.class));
         NodeSet<OWLNamedIndividual> result4 = testSubject0
@@ -455,15 +456,15 @@ public class ContractMediumTest {
         Node<OWLDataProperty> result32 = testSubject0.getTopDataPropertyNode();
         Node<OWLDataProperty> result33 = testSubject0.getBottomDataPropertyNode();
         NodeSet<OWLDataProperty> result34 = testSubject0.getSubDataProperties(
-                mock(OWLDataProperty.class), false);
+                DataProperty(IRI("urn:p")), false);
         NodeSet<OWLDataProperty> result35 = testSubject0.getSuperDataProperties(
-                mock(OWLDataProperty.class), false);
+                DataProperty(IRI("urn:p")), false);
         Node<OWLDataProperty> result36 = testSubject0
-                .getEquivalentDataProperties(mock(OWLDataProperty.class));
+                .getEquivalentDataProperties(DataProperty(IRI("urn:p")));
         NodeSet<OWLDataProperty> result37 = testSubject0
-                .getDisjointDataProperties(mock(OWLDataPropertyExpression.class));
+                .getDisjointDataProperties(DataProperty(IRI("urn:p")));
         NodeSet<OWLClass> result38 = testSubject0.getDataPropertyDomains(
-                mock(OWLDataProperty.class), false);
+                DataProperty(IRI("urn:p")), false);
         NodeSet<OWLNamedIndividual> result39 = testSubject0.getInstances(
                 Utils.mockAnonClass(), false);
         testSubject0.prepareReasoner();

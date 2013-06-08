@@ -39,9 +39,11 @@
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 
 import static de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2Vocabulary.*;
+import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -417,14 +419,14 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 }
             }
             writeOpenBracket();
-            final Set<OWLObjectPropertyExpression> properties = property
-                    .getEquivalentProperties(ontology1);
+            Collection<OWLObjectPropertyExpression> properties = find().in(ontology1)
+                    .equivalent().propertiesOf(property).asCollection();
             final boolean isPrimitive = properties.isEmpty();
             if (isPrimitive) {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
-                Set<OWLObjectPropertyExpression> superProperties = property
-                        .getSuperProperties(ontology1);
+                Collection<OWLObjectPropertyExpression> superProperties = find()
+                        .in(ontology1).sup().propertiesOf(property).asCollection();
                 if (superProperties.size() == 1) {
                     writeSpace();
                     write(PARENT_ATTR);
@@ -495,13 +497,14 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 write(INVERSE_ATTR);
                 write(inverses.next());
             }
-            Set<OWLClassExpression> desc = property.getDomains(ontology1);
+            Collection<OWLClassExpression> desc = find().in(ontology1).domains(property)
+                    .asCollection();
             if (!desc.isEmpty()) {
                 writeSpace();
                 write(DOMAIN_ATTR);
                 flatten(desc, KRSSVocabulary.AND);
             }
-            desc = property.getRanges(ontology1);
+            desc = find().in(ontology).ranges(property).asCollection();
             if (!desc.isEmpty()) {
                 writeSpace();
                 write(RANGE_ATTR);
@@ -824,7 +827,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     protected Set<OWLSubPropertyChainOfAxiom> getPropertyChainSubPropertyAxiomsFor(
-            OWLPropertyExpression<?, ?> property) {
+            OWLPropertyExpression property) {
         Set<OWLSubPropertyChainOfAxiom> axioms = new HashSet<OWLSubPropertyChainOfAxiom>();
         for (OWLSubPropertyChainOfAxiom axiom : ontology
                 .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {

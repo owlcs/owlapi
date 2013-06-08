@@ -1624,7 +1624,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *            Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments */
     OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-            Set<? extends OWLPropertyExpression<?, ?>> properties);
+            Set<? extends OWLPropertyExpression> properties);
 
     /** @param ce
      *            Cannot be null.
@@ -1632,7 +1632,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *            Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments */
     OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-            OWLPropertyExpression<?, ?>... properties);
+            OWLPropertyExpression... properties);
 
     /** @param ce
      *            Cannot be null.
@@ -1642,7 +1642,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *            Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments and annotations */
     OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-            Set<? extends OWLPropertyExpression<?, ?>> objectProperties,
+            Set<? extends OWLPropertyExpression> objectProperties,
             Set<? extends OWLAnnotation> annotations);
 
     /** @param datatype

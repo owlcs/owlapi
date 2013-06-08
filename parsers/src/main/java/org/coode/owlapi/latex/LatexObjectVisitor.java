@@ -949,7 +949,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     public void visit(OWLHasKeyAxiom axiom) {
         write("HasKey");
         axiom.getClassExpression().accept(this);
-        for (OWLPropertyExpression<?, ?> p : axiom.getPropertyExpressions()) {
+        for (OWLPropertyExpression p : axiom.getPropertyExpressions()) {
             writeSpace();
             p.accept(this);
         }

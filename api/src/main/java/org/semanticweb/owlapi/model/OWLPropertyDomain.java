@@ -36,57 +36,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.manchester.cs.owl.owlapi;
-
-import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
-import org.semanticweb.owlapi.model.OWLPropertyRange;
+package org.semanticweb.owlapi.model;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br>
- * 
- * @param <R>
- *            the range
- * @param <P>
- *            the property expression
- * @param <F>
- *            the value */
-public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> extends
-        OWLRestrictionImpl implements OWLCardinalityRestriction<F> {
-    private static final long serialVersionUID = 40000L;
-    private final int cardinality;
-    private final F filler;
-
-    protected OWLCardinalityRestrictionImpl( int cardinality, F filler) {
-        super();
-        this.cardinality = cardinality;
-        this.filler = filler;
-    }
-
-    @Override
-    public int getCardinality() {
-        return cardinality;
-    }
-
-    @Override
-    public F getFiller() {
-        return filler;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLCardinalityRestriction)) {
-                return false;
-            }
-            OWLCardinalityRestriction<F> other = (OWLCardinalityRestriction<F>) obj;
-            return other.getCardinality() == cardinality
-                    && other.getFiller().equals(filler);
-        }
-        return false;
-    }
-
-}
+ * Bio-Health Informatics Group Date: 24-Oct-2006 A marker interface, for
+ * objects that can be the ranges of properties */
+public interface OWLPropertyDomain extends OWLObject {}

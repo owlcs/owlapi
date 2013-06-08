@@ -41,7 +41,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
 import org.semanticweb.owlapi.model.OWLNaryAxiom;
-import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -52,22 +51,18 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionObject;
-import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
-import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
@@ -936,30 +931,6 @@ public class ContractOwlapi_3Test {
                 .getMockOntology()));
         boolean result28 = testSubject0.isDataPropertyExpression();
         boolean result29 = testSubject0.isObjectPropertyExpression();
-        Set<OWLObjectPropertyExpression> result30 = testSubject0.getSubProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result31 = testSubject0.getSubProperties(Utils
-                .getMockOntology());
-        Set<OWLObjectPropertyExpression> result32 = testSubject0.getSuperProperties(Utils
-                .getMockOntology());
-        Set<OWLObjectPropertyExpression> result33 = testSubject0.getSuperProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLClassExpression> result34 = testSubject0.getDomains(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result35 = testSubject0.getDomains(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result36 = testSubject0.getRanges(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result37 = testSubject0
-                .getRanges(Utils.getMockOntology());
-        Set<OWLObjectPropertyExpression> result38 = testSubject0
-                .getEquivalentProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result39 = testSubject0
-                .getEquivalentProperties(Utils.getMockOntology());
-        Set<OWLObjectPropertyExpression> result40 = testSubject0
-                .getDisjointProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result41 = testSubject0
-                .getDisjointProperties(Utils.getMockOntology());
         String result42 = testSubject0.toString();
         Set<OWLEntity> result45 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result46 = testSubject0.getAnonymousIndividuals();
@@ -1276,11 +1247,6 @@ public class ContractOwlapi_3Test {
                 return null;
             }
 
-            @Override
-            protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>>
-                    getSubPropertyAxiomsForRHS(OWLOntology ont) {
-                return null;
-            }
 
             @Override
             protected int compareObjectOfSameType(OWLObject object) {
@@ -1314,26 +1280,6 @@ public class ContractOwlapi_3Test {
                 .getMockOntology()));
         boolean result19 = testSubject0.isDataPropertyExpression();
         boolean result20 = testSubject0.isObjectPropertyExpression();
-        Set<OWLObjectPropertyExpression> result21 = testSubject0.getSubProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result24 = testSubject0.getSuperProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLClassExpression> result25 = testSubject0.getDomains(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result26 = testSubject0.getDomains(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result27 = testSubject0.getRanges(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result28 = testSubject0
-                .getRanges(Utils.getMockOntology());
-        Set<OWLObjectPropertyExpression> result29 = testSubject0
-                .getEquivalentProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result30 = testSubject0
-                .getEquivalentProperties(Utils.getMockOntology());
-        Set<OWLObjectPropertyExpression> result31 = testSubject0
-                .getDisjointProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result32 = testSubject0
-                .getDisjointProperties(Utils.getMockOntology());
         String result33 = testSubject0.toString();
         Set<OWLEntity> result36 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result37 = testSubject0.getAnonymousIndividuals();
@@ -1442,30 +1388,6 @@ public class ContractOwlapi_3Test {
                 .getMockOntology()));
         boolean result52 = testSubject0.isDataPropertyExpression();
         boolean result53 = testSubject0.isObjectPropertyExpression();
-        Set<OWLObjectPropertyExpression> result54 = testSubject0.getSubProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result55 = testSubject0.getSubProperties(Utils
-                .getMockOntology());
-        Set<OWLObjectPropertyExpression> result56 = testSubject0.getSuperProperties(Utils
-                .getMockOntology());
-        Set<OWLObjectPropertyExpression> result57 = testSubject0.getSuperProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLClassExpression> result58 = testSubject0.getDomains(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result59 = testSubject0.getDomains(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result60 = testSubject0.getRanges(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result61 = testSubject0
-                .getRanges(Utils.getMockOntology());
-        Set<OWLObjectPropertyExpression> result62 = testSubject0
-                .getEquivalentProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result63 = testSubject0
-                .getEquivalentProperties(Utils.getMockOntology());
-        Set<OWLObjectPropertyExpression> result64 = testSubject0
-                .getDisjointProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result65 = testSubject0
-                .getDisjointProperties(Utils.getMockOntology());
         String result66 = testSubject0.toString();
         Set<OWLEntity> result69 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result70 = testSubject0.getAnonymousIndividuals();
@@ -1775,119 +1697,7 @@ public class ContractOwlapi_3Test {
 
     @Test
     public void shouldTestOWLPropertyExpressionImpl() throws Exception {
-        OWLPropertyExpressionImpl<OWLClassExpression, OWLObjectPropertyExpression> testSubject0 = new OWLPropertyExpressionImpl<OWLClassExpression, OWLObjectPropertyExpression>() {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 40000L;
-
-            @Override
-            public boolean isFunctional(OWLOntology ontology) {
-                return false;
-            }
-
-            @Override
-            public boolean isFunctional(Set<OWLOntology> ontologies) {
-                return false;
-            }
-
-            @Override
-            public boolean isAnonymous() {
-                return false;
-            }
-
-            @Override
-            public void accept(OWLPropertyExpressionVisitor visitor) {}
-
-            @Override
-            public <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
-                return null;
-            }
-
-            @Override
-            public boolean isDataPropertyExpression() {
-                return false;
-            }
-
-            @Override
-            public boolean isObjectPropertyExpression() {
-                return false;
-            }
-
-            @Override
-            public boolean isOWLTopObjectProperty() {
-                return false;
-            }
-
-            @Override
-            public boolean isOWLBottomObjectProperty() {
-                return false;
-            }
-
-            @Override
-            public boolean isOWLTopDataProperty() {
-                return false;
-            }
-
-            @Override
-            public boolean isOWLBottomDataProperty() {
-                return false;
-            }
-
-            @Override
-            public void accept(OWLObjectVisitor visitor) {}
-
-            @Override
-            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
-                return null;
-            }
-
-            @Override
-            protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>>
-                    getSubPropertyAxiomsForRHS(OWLOntology ont) {
-                return null;
-            }
-
-            @Override
-            protected Set<? extends OWLPropertyDomainAxiom<?>> getDomainAxioms(
-                    OWLOntology ontology) {
-                return null;
-            }
-
-            @Override
-            protected
-                    Set<? extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>>
-                    getRangeAxioms(OWLOntology ontology) {
-                return null;
-            }
-
-            @Override
-            protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>>
-                    getSubPropertyAxioms(OWLOntology ontology) {
-                return null;
-            }
-
-            @Override
-            protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>>
-                    getEquivalentPropertiesAxioms(OWLOntology ontology) {
-                return null;
-            }
-
-            @Override
-            protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>>
-                    getDisjointPropertiesAxioms(OWLOntology ontology) {
-                return null;
-            }
-
-            @Override
-            protected int compareObjectOfSameType(OWLObject object) {
-                return 0;
-            }
-        };
-        Set<OWLObjectPropertyExpression> result0 = testSubject0.getSubProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLClassExpression> result4 = testSubject0.getDomains(Utils.mockSet(Utils
-                .getMockOntology()));
+        OWLPropertyExpressionImpl testSubject0 = mock(OWLPropertyExpressionImpl.class);
         String result12 = testSubject0.toString();
         Set<OWLEntity> result15 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result16 = testSubject0.getAnonymousIndividuals();
@@ -2127,51 +1937,8 @@ public class ContractOwlapi_3Test {
 
     @Test
     public void shouldTestOWLQuantifiedRestrictionImpl() throws Exception {
-        OWLQuantifiedRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> testSubject0 = new OWLQuantifiedRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression>(
-                Utils.mockObjectProperty(), Utils.mockAnonClass()) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 40000L;
-
-            @Override
-            public boolean isObjectRestriction() {
-                return false;
-            }
-
-            @Override
-            public boolean isDataRestriction() {
-                return false;
-            }
-
-            @Override
-            public ClassExpressionType getClassExpressionType() {
-                return null;
-            }
-
-            @Override
-            public void accept(OWLClassExpressionVisitor visitor) {}
-
-            @Override
-            public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
-                return null;
-            }
-
-            @Override
-            public void accept(OWLObjectVisitor visitor) {}
-
-            @Override
-            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
-                return null;
-            }
-
-            @Override
-            protected int compareObjectOfSameType(OWLObject object) {
-                return 0;
-            }
-        };
+        OWLQuantifiedRestrictionImpl<OWLClassExpression> testSubject0 = mock(OWLQuantifiedRestrictionImpl.class);
         OWLPropertyRange result0 = testSubject0.getFiller();
-        OWLObjectPropertyExpression result1 = testSubject0.getProperty();
         boolean result2 = testSubject0.isClassExpressionLiteral();
         boolean result3 = testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {
@@ -2240,50 +2007,7 @@ public class ContractOwlapi_3Test {
 
     @Test
     public void shouldTestOWLRestrictionImpl() throws Exception {
-        OWLRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObject> testSubject0 = new OWLRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObject>(
-                Utils.mockObjectProperty()) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 40000L;
-
-            @Override
-            public boolean isObjectRestriction() {
-                return false;
-            }
-
-            @Override
-            public boolean isDataRestriction() {
-                return false;
-            }
-
-            @Override
-            public ClassExpressionType getClassExpressionType() {
-                return null;
-            }
-
-            @Override
-            public void accept(OWLClassExpressionVisitor visitor) {}
-
-            @Override
-            public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
-                return null;
-            }
-
-            @Override
-            public void accept(OWLObjectVisitor visitor) {}
-
-            @Override
-            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
-                return null;
-            }
-
-            @Override
-            protected int compareObjectOfSameType(OWLObject object) {
-                return 0;
-            }
-        };
-        OWLObjectPropertyExpression result0 = testSubject0.getProperty();
+        OWLRestrictionImpl testSubject0 = mock(OWLRestrictionImpl.class);
         boolean result1 = testSubject0.isClassExpressionLiteral();
         boolean result2 = testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {

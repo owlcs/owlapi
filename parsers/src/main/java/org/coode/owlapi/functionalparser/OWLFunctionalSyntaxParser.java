@@ -2202,8 +2202,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
     final public OWLHasKeyAxiom HasKey() throws ParseException {
         OWLClassExpression ce;
-        OWLPropertyExpression<?, ?> prop;
-        Set<OWLPropertyExpression<?, ?>> props = new HashSet<OWLPropertyExpression<?, ?>>();
+        OWLPropertyExpression prop;
+        Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(HASKEY);
         jj_consume_token(OPENPAR);

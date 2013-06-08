@@ -1344,52 +1344,9 @@ public class ContractOwlapi_1Test {
 
     @Test
     public void shouldTestOWLCardinalityRestrictionImpl() throws Exception {
-        OWLCardinalityRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> testSubject0 = new OWLCardinalityRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression>(
-                Utils.mockObjectProperty(), 0, Utils.mockAnonClass()) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 40000L;
-
-            @Override
-            public boolean isQualified() {
-                return false;
-            }
-
-            @Override
-            public boolean isObjectRestriction() {
-                return false;
-            }
-
-            @Override
-            public boolean isDataRestriction() {
-                return false;
-            }
-
-            @Override
-            public ClassExpressionType getClassExpressionType() {
-                return null;
-            }
-
-            @Override
-            public void accept(OWLClassExpressionVisitor visitor) {}
-
-            @Override
-            public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
-                return null;
-            }
-
-            @Override
-            public void accept(OWLObjectVisitor visitor) {}
-
-            @Override
-            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
-                return null;
-            }
-        };
+        OWLCardinalityRestrictionImpl<OWLClassExpression> testSubject0 = mock(OWLCardinalityRestrictionImpl.class);
         int result0 = testSubject0.getCardinality();
         OWLPropertyRange result1 = testSubject0.getFiller();
-        OWLObjectPropertyExpression result2 = testSubject0.getProperty();
         boolean result3 = testSubject0.isClassExpressionLiteral();
         boolean result4 = testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {

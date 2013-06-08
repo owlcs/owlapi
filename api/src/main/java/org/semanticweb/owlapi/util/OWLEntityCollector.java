@@ -501,7 +501,7 @@ public class OWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
         axiom.getClassExpression().accept(this);
-        for (OWLPropertyExpression<?, ?> prop : axiom.getPropertyExpressions()) {
+        for (OWLPropertyExpression prop : axiom.getPropertyExpressions()) {
             prop.accept(this);
         }
         processAxiomAnnotations(axiom);

@@ -41,4 +41,4 @@ package org.semanticweb.owlapi.model;
 /** A quantified object restriction */
 public interface OWLQuantifiedObjectRestriction
         extends
-        OWLQuantifiedRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> {}
+        OWLQuantifiedRestriction<OWLClassExpression>, OWLObjectRestriction {}

@@ -36,57 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.manchester.cs.owl.owlapi;
-
-import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
-import org.semanticweb.owlapi.model.OWLPropertyRange;
+package org.semanticweb.owlapi.model;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br>
- * 
- * @param <R>
- *            the range
- * @param <P>
- *            the property expression
- * @param <F>
- *            the value */
-public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> extends
-        OWLRestrictionImpl implements OWLCardinalityRestriction<F> {
-    private static final long serialVersionUID = 40000L;
-    private final int cardinality;
-    private final F filler;
-
-    protected OWLCardinalityRestrictionImpl( int cardinality, F filler) {
-        super();
-        this.cardinality = cardinality;
-        this.filler = filler;
-    }
-
-    @Override
-    public int getCardinality() {
-        return cardinality;
-    }
-
-    @Override
-    public F getFiller() {
-        return filler;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLCardinalityRestriction)) {
-                return false;
-            }
-            OWLCardinalityRestriction<F> other = (OWLCardinalityRestriction<F>) obj;
-            return other.getCardinality() == cardinality
-                    && other.getFiller().equals(filler);
-        }
-        return false;
-    }
+ * Bio-Health Informatics Group Date: 24-Oct-2006 Represents a restriction (<a
+ * href=
+ * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Object_Property_Restrictions"
+ * >Object Property Restriction</a> or <a href=
+ * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Data_Property_Restrictions"
+ * >Data Property Restriction</a>) in the OWL 2 specification. */
+public interface OWLObjectRestriction {
+    /** Gets the property/properties that the restriction acts along depending on
+     * R being a scalar or collection type.
+     * 
+     * @return The property */
+    public OWLObjectPropertyExpression getProperty();
 
 }

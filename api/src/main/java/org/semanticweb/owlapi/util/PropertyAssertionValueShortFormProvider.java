@@ -66,7 +66,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * form provider came from the SKOS community, which have individuals that have
  * preferredLabel property assertions). */
 public class PropertyAssertionValueShortFormProvider implements ShortFormProvider {
-    private final List<OWLPropertyExpression<?, ?>> properties;
+    private final List<OWLPropertyExpression> properties;
     private final Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap;
     private final OWLOntologySetProvider ontologySetProvider;
     private final ShortFormProvider alternateShortFormProvider;
@@ -82,7 +82,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      * @param ontologySetProvider
      *            the ontology container */
     public PropertyAssertionValueShortFormProvider(
-            List<OWLPropertyExpression<?, ?>> properties,
+            List<OWLPropertyExpression> properties,
             Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
             OWLOntologySetProvider ontologySetProvider) {
         this(properties, preferredLanguageMap, ontologySetProvider,
@@ -116,7 +116,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      *            <code>OWLIndividual</code> for providing the short form of the
      *            individual. */
     public PropertyAssertionValueShortFormProvider(
-            List<OWLPropertyExpression<?, ?>> properties,
+            List<OWLPropertyExpression> properties,
             Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
             OWLOntologySetProvider ontologySetProvider,
             ShortFormProvider alternateShortFormProvider) {
@@ -207,7 +207,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     }
 
     /** @return the properties */
-    public List<OWLPropertyExpression<?, ?>> getProperties() {
+    public List<OWLPropertyExpression> getProperties() {
         return properties;
     }
 

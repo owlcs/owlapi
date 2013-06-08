@@ -38,19 +38,15 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -82,12 +78,6 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
             return ((OWLObjectInverseOf) obj).getInverse().equals(inverseProperty);
         }
         return false;
-    }
-
-    @Override
-    protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>>
-            getSubPropertyAxiomsForRHS(OWLOntology ont) {
-        return ont.getObjectSubPropertyAxiomsForSuperProperty(this);
     }
 
     @Override

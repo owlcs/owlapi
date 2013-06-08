@@ -849,7 +849,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         if (includeImportsClosure) {
             for (OWLOntology ont : getImportsClosure()) {
                 if (!ont.equals(this)) {
-                    entities.addAll(ont.getSignature());
+                    entities.addAll(ont.getSignature(includeImportsClosure));
                 }
             }
         }

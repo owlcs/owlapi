@@ -40,6 +40,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.search.Searcher.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
@@ -234,7 +235,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getObjectPropertyDomainAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(propP.getDomains(ont).contains(clsA));
+        assertTrue(find().in(ont).domains(propP).asCollection().contains(clsA));
     }
 
     @Test
@@ -247,8 +248,8 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getObjectPropertyRangeAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(propP.getRanges(ont).contains(clsA));
+        assertTrue(describe(propP).in(ont).asCollection().contains(ax));
+        assertTrue(find().in(ont).ranges(propP).asCollection().contains(clsA));
     }
 
     @Test
@@ -404,7 +405,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getDataPropertyDomainAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(propP.getDomains(ont).contains(clsA));
+        assertTrue(find().in(ont).domains(propP).asCollection().contains(clsA));
     }
 
     @Test
@@ -417,8 +418,8 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getDataPropertyRangeAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(propP.getRanges(ont).contains(dt));
+        assertTrue(describe(propP).in(ont).asCollection().contains(ax));
+        assertTrue(find().in(ont).ranges(propP).asCollection().contains(dt));
     }
 
     @Test

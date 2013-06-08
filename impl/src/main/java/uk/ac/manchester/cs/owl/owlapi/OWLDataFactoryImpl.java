@@ -1408,7 +1408,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
 
     @Override
     public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-            Set<? extends OWLPropertyExpression<?, ?>> properties,
+            Set<? extends OWLPropertyExpression> properties,
             Set<? extends OWLAnnotation> annotations) {
         checkNull(ce, "ce");
         checkNull(properties, "properties");
@@ -1418,13 +1418,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
 
     @Override
     public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-            Set<? extends OWLPropertyExpression<?, ?>> properties) {
+            Set<? extends OWLPropertyExpression> properties) {
         return getOWLHasKeyAxiom(ce, properties, EMPTY_ANNOTATIONS_SET);
     }
 
     @Override
     public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-            OWLPropertyExpression<?, ?>... properties) {
+            OWLPropertyExpression... properties) {
         checkNull(ce, "ce");
         checkNull(properties, "properties");
         return getOWLHasKeyAxiom(ce, CollectionFactory.createSet(properties));

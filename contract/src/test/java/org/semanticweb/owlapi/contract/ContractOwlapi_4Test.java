@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -74,51 +73,8 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 public class ContractOwlapi_4Test {
     @Test
     public void shouldTestOWLValueRestrictionImpl() throws Exception {
-        OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObject> testSubject0 = new OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObject>(
-                Utils.mockObjectProperty(), mock(OWLObject.class)) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 40000L;
-
-            @Override
-            public OWLClassExpression asSomeValuesFrom() {
-                return null;
-            }
-
-            @Override
-            public boolean isObjectRestriction() {
-                return false;
-            }
-
-            @Override
-            public boolean isDataRestriction() {
-                return false;
-            }
-
-            @Override
-            public ClassExpressionType getClassExpressionType() {
-                return null;
-            }
-
-            @Override
-            public void accept(OWLClassExpressionVisitor visitor) {}
-
-            @Override
-            public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
-                return null;
-            }
-
-            @Override
-            public void accept(OWLObjectVisitor visitor) {}
-
-            @Override
-            public <O> O accept(OWLObjectVisitorEx<O> visitor) {
-                return null;
-            }
-        };
+        OWLValueRestrictionImpl<OWLObject> testSubject0 = mock(OWLValueRestrictionImpl.class);
         OWLObject result0 = testSubject0.getValue();
-        OWLObjectPropertyExpression result1 = testSubject0.getProperty();
         boolean result2 = testSubject0.isClassExpressionLiteral();
         boolean result3 = testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {

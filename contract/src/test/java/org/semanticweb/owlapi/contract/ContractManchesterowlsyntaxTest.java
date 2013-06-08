@@ -144,7 +144,7 @@ public class ContractManchesterowlsyntaxTest {
                 .parseObjectPropertyExpression(false);
         OWLObjectPropertyExpression result32 = testSubject0
                 .parseObjectPropertyExpression();
-        OWLPropertyExpression<?, ?> result33 = testSubject0.parsePropertyExpression();
+        OWLPropertyExpression result33 = testSubject0.parsePropertyExpression();
         OWLDataProperty result34 = testSubject0.parseDataProperty();
         OWLClassExpression result35 = testSubject0.parseRestriction();
         OWLClassExpression result36 = testSubject0.parseObjectRestriction();
@@ -174,7 +174,7 @@ public class ContractManchesterowlsyntaxTest {
         Set<OntologyAxiomPair> result61 = testSubject0.parseRuleFrame();
         Set<OntologyAxiomPair> result62 = testSubject0.parseNaryEquivalentClasses();
         Set<OntologyAxiomPair> result63 = testSubject0.parseNaryEquivalentProperties();
-        Set<OWLPropertyExpression<?, ?>> result64 = testSubject0.parsePropertyList();
+        Set<OWLPropertyExpression> result64 = testSubject0.parsePropertyList();
         OWLAnnotationProperty result65 = testSubject0.parseAnnotationProperty();
         IRI result66 = testSubject0.parseIRI();
         testSubject0.setDefaultOntology(Utils.getMockOntology());
@@ -210,7 +210,7 @@ public class ContractManchesterowlsyntaxTest {
         Map<OWLDataProperty, Set<OWLAnnotation>> result92 = testSubject0
                 .parseAnnotatedDataPropertyList();
         Set<OWLAnnotationProperty> result93 = testSubject0.parseAnnotationPropertyList();
-        Map<OWLPropertyExpression<?, ?>, Set<OWLAnnotation>> result94 = testSubject0
+        Map<OWLPropertyExpression, Set<OWLAnnotation>> result94 = testSubject0
                 .parseAnnotatedPropertyList();
         Set<OWLObjectPropertyExpression> result95 = testSubject0
                 .parseObjectPropertyList();

@@ -44,7 +44,7 @@ import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -56,12 +56,18 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * <br> */
 @SuppressWarnings("javadoc")
 public class OWLDataHasValueImpl extends
-        OWLValueRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLLiteral>
-        implements OWLDataHasValue {
+ OWLValueRestrictionImpl<OWLLiteral> implements
+        OWLDataHasValue, OWLDataRestriction {
     private static final long serialVersionUID = 40000L;
+    private OWLDataPropertyExpression property;
 
     public OWLDataHasValueImpl(OWLDataPropertyExpression property, OWLLiteral value) {
-        super(property, value);
+        super(value);
+        this.property = property;
+    }
+    @Override
+    public OWLDataPropertyExpression getProperty() {
+        return property;
     }
 
     @Override

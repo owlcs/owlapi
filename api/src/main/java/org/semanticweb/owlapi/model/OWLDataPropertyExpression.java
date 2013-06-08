@@ -43,7 +43,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group Date: 24-Oct-2006 A high level interface to
  * describe different types of data properties. */
 public interface OWLDataPropertyExpression extends
-        OWLPropertyExpression<OWLDataRange, OWLDataPropertyExpression>, SWRLPredicate {
+ OWLPropertyExpression, SWRLPredicate {
     /** If the property is a named data property then this method will obtain the
      * property as such. The general pattern of use is that the
      * <code>isAnonymous</code> method should first be used to determine if the

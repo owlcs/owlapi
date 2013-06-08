@@ -370,7 +370,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     public void writePropertyCharacteristic(String str, OWLAxiom ax,
-            OWLPropertyExpression<?, ?> prop) throws OWLRuntimeException {
+            OWLPropertyExpression prop) throws OWLRuntimeException {
         write(keyword(str));
         writeSpace();
         prop.accept(this);
@@ -615,9 +615,9 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private
-            <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
+            <R extends OWLPropertyRange, P extends OWLPropertyExpression, F extends OWLPropertyRange>
             void writeRestriction(String str,
-                    OWLCardinalityRestriction<R, P, F> restriction) {
+ OWLCardinalityRestriction<F> restriction) {
         write(str);
         writeOpenBracket();
         write(Integer.toString(restriction.getCardinality()));
@@ -638,7 +638,8 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         writeRestriction(str, restriction.getProperty(), restriction.getFiller());
     }
 
-    private void writeRestriction(String str, OWLPropertyExpression<?, ?> prop,
+    private void
+            writeRestriction(String str, OWLPropertyExpression prop,
             OWLObject filler) throws OWLRuntimeException {
         write(str);
         writeOpenBracket();

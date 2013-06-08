@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.reasoner.structural;
 
+import static org.semanticweb.owlapi.search.Searcher.find;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -1451,8 +1453,8 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public Collection<OWLDataProperty> getParents(OWLDataProperty child) {
             Set<OWLDataProperty> properties = new HashSet<OWLDataProperty>();
-            for (OWLDataPropertyExpression prop : child
-                    .getSuperProperties(getRootOntology().getImportsClosure())) {
+            for (OWLDataPropertyExpression prop : find().in(getRootOntology()).sup()
+                    .propertiesOf(child).asCollection(OWLDataPropertyExpression.class)) {
                 properties.add(prop.asOWLDataProperty());
             }
             return properties;
@@ -1461,8 +1463,8 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public Collection<OWLDataProperty> getChildren(OWLDataProperty parent) {
             Set<OWLDataProperty> properties = new HashSet<OWLDataProperty>();
-            for (OWLDataPropertyExpression prop : parent
-                    .getSubProperties(getRootOntology().getImportsClosure())) {
+            for (OWLDataPropertyExpression prop : find().in(getRootOntology()).sub()
+                    .propertiesOf(parent).asCollection(OWLDataPropertyExpression.class)) {
                 properties.add(prop.asOWLDataProperty());
             }
             return properties;

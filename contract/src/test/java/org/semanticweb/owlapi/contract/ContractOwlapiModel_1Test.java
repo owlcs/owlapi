@@ -850,11 +850,10 @@ public class ContractOwlapiModel_1Test {
 
     @Test
     public void shouldTestInterfaceOWLCardinalityRestriction() throws Exception {
-        OWLCardinalityRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> testSubject0 = mock(OWLCardinalityRestriction.class);
+        OWLCardinalityRestriction<OWLClassExpression> testSubject0 = mock(OWLCardinalityRestriction.class);
         int result0 = testSubject0.getCardinality();
         boolean result1 = testSubject0.isQualified();
         OWLPropertyRange result2 = testSubject0.getFiller();
-        OWLObjectPropertyExpression result3 = testSubject0.getProperty();
         boolean result4 = testSubject0.isObjectRestriction();
         boolean result5 = testSubject0.isDataRestriction();
         Object result6 = testSubject0.accept(Utils.mockClassExpression());
@@ -1566,12 +1565,12 @@ public class ContractOwlapiModel_1Test {
         OWLFunctionalDataPropertyAxiom result166 = testSubject0
                 .getOWLFunctionalDataPropertyAxiom(mock(OWLDataPropertyExpression.class));
         OWLHasKeyAxiom result167 = testSubject0.getOWLHasKeyAxiom(Utils.mockAnonClass(),
-                new HashSet<OWLPropertyExpression<?, ?>>(),
+                new HashSet<OWLPropertyExpression>(),
                 Utils.mockSet(mock(OWLAnnotation.class)));
         OWLHasKeyAxiom result168 = testSubject0.getOWLHasKeyAxiom(Utils.mockAnonClass(),
                 mock(OWLPropertyExpression[].class));
         OWLHasKeyAxiom result169 = testSubject0.getOWLHasKeyAxiom(Utils.mockAnonClass(),
-                new HashSet<OWLPropertyExpression<?, ?>>());
+                new HashSet<OWLPropertyExpression>());
         OWLDatatypeDefinitionAxiom result170 = testSubject0
                 .getOWLDatatypeDefinitionAxiom(mock(OWLDatatype.class),
                         mock(OWLDataRange.class));
@@ -1720,7 +1719,6 @@ public class ContractOwlapiModel_1Test {
         OWLDataHasValue testSubject0 = mock(OWLDataHasValue.class);
         OWLObject result0 = testSubject0.getValue();
         OWLClassExpression result1 = testSubject0.asSomeValuesFrom();
-        OWLDataPropertyExpression result2 = testSubject0.getProperty();
         boolean result3 = testSubject0.isObjectRestriction();
         boolean result4 = testSubject0.isDataRestriction();
         Object result5 = testSubject0.accept(Utils.mockClassExpression());

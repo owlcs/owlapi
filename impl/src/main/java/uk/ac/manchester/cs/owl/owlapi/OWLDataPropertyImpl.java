@@ -49,25 +49,19 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
-import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** Author: Matthew Horridge<br>
@@ -77,7 +71,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * <br> */
 @SuppressWarnings("javadoc")
 public class OWLDataPropertyImpl extends
-        OWLPropertyExpressionImpl<OWLDataRange, OWLDataPropertyExpression> implements
+ OWLPropertyExpressionImpl implements
         OWLDataProperty {
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
@@ -150,42 +144,6 @@ public class OWLDataPropertyImpl extends
         return false;
     }
 
-    @Override
-    protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>>
-            getDisjointPropertiesAxioms(OWLOntology ontology) {
-        return ontology.getDisjointDataPropertiesAxioms(this);
-    }
-
-    @Override
-    protected Set<? extends OWLPropertyDomainAxiom<?>> getDomainAxioms(
-            OWLOntology ontology) {
-        return ontology.getDataPropertyDomainAxioms(this);
-    }
-
-    @Override
-    protected
-            Set<? extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>>
-            getRangeAxioms(OWLOntology ontology) {
-        return ontology.getDataPropertyRangeAxioms(this);
-    }
-
-    @Override
-    protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>>
-            getSubPropertyAxioms(OWLOntology ontology) {
-        return ontology.getDataSubPropertyAxiomsForSubProperty(this);
-    }
-
-    @Override
-    protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>>
-            getEquivalentPropertiesAxioms(OWLOntology ontology) {
-        return ontology.getEquivalentDataPropertiesAxioms(this);
-    }
-
-    @Override
-    protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>>
-            getSubPropertyAxiomsForRHS(OWLOntology ont) {
-        return ont.getDataSubPropertyAxiomsForSuperProperty(this);
-    }
 
     @Override
     public boolean equals(Object obj) {

@@ -53,13 +53,13 @@ package org.semanticweb.owlapi.model;
  *            property expression
  * @param <F>
  *            range */
-public interface OWLRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F>
+public interface OWLRestriction
         extends OWLAnonymousClassExpression {
     /** Gets the property/properties that the restriction acts along depending on
      * R being a scalar or collection type.
      * 
      * @return The property */
-    public P getProperty();
+ OWLPropertyExpression getProperty();
 
     /** Determines if this is an object restriction.
      * 

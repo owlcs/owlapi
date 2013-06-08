@@ -168,16 +168,16 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     private
-            <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject>
-            void writeRestriction(OWLHasValueRestriction<R, P, V> restriction) {
+            <R extends OWLPropertyRange, P extends OWLPropertyExpression, V extends OWLObject>
+            void writeRestriction(OWLHasValueRestriction<V> restriction) {
         restriction.getProperty().accept(this);
         write(VALUE);
         restriction.getValue().accept(this);
     }
 
     private
-            <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
-            void writeRestriction(OWLCardinalityRestriction<R, P, F> restriction,
+            <R extends OWLPropertyRange, P extends OWLPropertyExpression, F extends OWLPropertyRange>
+            void writeRestriction(OWLCardinalityRestriction<F> restriction,
                     ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);

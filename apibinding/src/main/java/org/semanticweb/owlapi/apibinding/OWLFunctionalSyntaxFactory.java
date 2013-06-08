@@ -654,16 +654,17 @@ public class OWLFunctionalSyntaxFactory {
     }
 
     public static OWLHasKeyAxiom HasKey(OWLClassExpression classExpression,
-            OWLPropertyExpression<?, ?>... propertyExpressions) {
+            OWLPropertyExpression... propertyExpressions) {
         return dataFactory.getOWLHasKeyAxiom(classExpression, propertyExpressions);
     }
 
     public static OWLHasKeyAxiom HasKey(Set<OWLAnnotation> a,
             OWLClassExpression classExpression,
-            OWLPropertyExpression<?, ?>... propertyExpressions) {
+            OWLPropertyExpression... propertyExpressions) {
         return dataFactory.getOWLHasKeyAxiom(
                 classExpression,
-                new HashSet<OWLPropertyExpression<?, ?>>(Arrays
+ new HashSet<OWLPropertyExpression>(
+                        Arrays
                         .asList(propertyExpressions)), a);
     }
 

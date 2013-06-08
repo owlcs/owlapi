@@ -326,7 +326,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writePropertyAssertion(axiom);
     }
 
-    private void writeFunctionalProperty(OWLPropertyExpression<?, ?> property) {
+    private void writeFunctionalProperty(OWLPropertyExpression property) {
         write(TOP);
         writeSpace();
         write(SUBCLASS);
@@ -588,8 +588,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     private
-            <R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject>
-            void writeValueRestriction(OWLHasValueRestriction<R, P, V> restriction) {
+            <R extends OWLPropertyRange, P extends OWLPropertyExpression, V extends OWLObject>
+            void writeValueRestriction(OWLHasValueRestriction<V> restriction) {
         write(EXISTS);
         writeSpace();
         restriction.getProperty().accept(this);

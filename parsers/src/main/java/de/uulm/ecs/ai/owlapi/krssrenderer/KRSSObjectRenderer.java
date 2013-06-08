@@ -39,6 +39,7 @@
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 
 import static de.uulm.ecs.ai.owlapi.krssrenderer.KRSSVocabulary.*;
+import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -403,7 +404,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         ind.accept(this);
     }
 
-    public final void write(OWLPropertyExpression<?, ?> obj) {
+    public final void write(OWLPropertyExpression obj) {
         writeSpace();
         obj.accept(this);
     }
@@ -413,7 +414,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         obj.accept(this);
     }
 
-    protected void flattenProperties(final Set<OWLObjectPropertyExpression> properties,
+    protected void flattenProperties(Collection<OWLObjectPropertyExpression> properties,
             KRSSVocabulary junctor) {
         if (properties.isEmpty()) {
             return;
@@ -440,7 +441,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    protected void flatten(final Set<OWLClassExpression> description,
+    protected void flatten(Collection<OWLClassExpression> description,
             KRSSVocabulary junctor) {
         if (description.isEmpty()) {
             return;
@@ -492,8 +493,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         for (final OWLObjectProperty property : sort(ontology1
                 .getObjectPropertiesInSignature())) {
             writeOpenBracket();
-            Set<OWLObjectPropertyExpression> properties = property
-                    .getEquivalentProperties(ontology1);
+            Collection<OWLObjectPropertyExpression> properties = find().in(ontology1)
+                    .equivalent().propertiesOf(property).asCollection();
             boolean isDefined = !properties.isEmpty();
             if (isDefined) {
                 write(DEFINE_ROLE);
@@ -507,7 +508,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
                 writeSpace();
-                properties = property.getSuperProperties(ontology1);
+                properties = find().in(ontology1).sup().propertiesOf(property)
+                        .asCollection();
                 if (!properties.isEmpty()) {
                     write(properties.iterator().next());
                 }

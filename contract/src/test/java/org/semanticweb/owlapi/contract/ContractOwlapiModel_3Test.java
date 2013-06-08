@@ -364,30 +364,6 @@ public class ContractOwlapiModel_3Test {
         testSubject0.accept(mock(OWLPropertyExpressionVisitor.class));
         Object result19 = testSubject0.accept(Utils.mockPropertyExpression());
         boolean result20 = testSubject0.isAnonymous();
-        Set<OWLObjectPropertyExpression> result21 = testSubject0.getSubProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result22 = testSubject0.getSubProperties(Utils
-                .getMockOntology());
-        Set<OWLObjectPropertyExpression> result23 = testSubject0.getSuperProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result24 = testSubject0.getSuperProperties(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result25 = testSubject0.getDomains(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result26 = testSubject0.getDomains(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result27 = testSubject0
-                .getRanges(Utils.getMockOntology());
-        Set<OWLClassExpression> result28 = testSubject0.getRanges(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLObjectPropertyExpression> result29 = testSubject0
-                .getEquivalentProperties(Utils.getMockOntology());
-        Set<OWLObjectPropertyExpression> result30 = testSubject0
-                .getEquivalentProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result31 = testSubject0
-                .getDisjointProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result32 = testSubject0
-                .getDisjointProperties(Utils.getMockOntology());
         boolean result33 = testSubject0.isFunctional(Utils.mockSet(Utils
                 .getMockOntology()));
         boolean result34 = testSubject0.isFunctional(Utils.getMockOntology());
@@ -554,30 +530,6 @@ public class ContractOwlapiModel_3Test {
         testSubject0.accept(mock(OWLPropertyExpressionVisitor.class));
         Object result18 = testSubject0.accept(Utils.mockPropertyExpression());
         boolean result19 = testSubject0.isAnonymous();
-        Set<OWLObjectPropertyExpression> result20 = testSubject0.getSubProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result21 = testSubject0.getSubProperties(Utils
-                .getMockOntology());
-        Set<OWLObjectPropertyExpression> result22 = testSubject0.getSuperProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result23 = testSubject0.getSuperProperties(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result24 = testSubject0.getDomains(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result25 = testSubject0.getDomains(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result26 = testSubject0
-                .getRanges(Utils.getMockOntology());
-        Set<OWLClassExpression> result27 = testSubject0.getRanges(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLObjectPropertyExpression> result28 = testSubject0
-                .getEquivalentProperties(Utils.getMockOntology());
-        Set<OWLObjectPropertyExpression> result29 = testSubject0
-                .getEquivalentProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result30 = testSubject0
-                .getDisjointProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result31 = testSubject0
-                .getDisjointProperties(Utils.getMockOntology());
         boolean result32 = testSubject0.isFunctional(Utils.mockSet(Utils
                 .getMockOntology()));
         boolean result33 = testSubject0.isFunctional(Utils.getMockOntology());
@@ -808,30 +760,7 @@ public class ContractOwlapiModel_3Test {
         testSubject0.accept(mock(OWLPropertyExpressionVisitor.class));
         Object result18 = testSubject0.accept(Utils.mockPropertyExpression());
         boolean result19 = testSubject0.isAnonymous();
-        Set<OWLObjectPropertyExpression> result20 = testSubject0.getSubProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result21 = testSubject0.getSubProperties(Utils
-                .getMockOntology());
-        Set<OWLObjectPropertyExpression> result22 = testSubject0.getSuperProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result23 = testSubject0.getSuperProperties(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result24 = testSubject0.getDomains(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result25 = testSubject0.getDomains(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result26 = testSubject0
-                .getRanges(Utils.getMockOntology());
-        Set<OWLClassExpression> result27 = testSubject0.getRanges(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLObjectPropertyExpression> result28 = testSubject0
-                .getEquivalentProperties(Utils.getMockOntology());
-        Set<OWLObjectPropertyExpression> result29 = testSubject0
-                .getEquivalentProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result30 = testSubject0
-                .getDisjointProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result31 = testSubject0
-                .getDisjointProperties(Utils.getMockOntology());
+
         boolean result32 = testSubject0.isFunctional(Utils.mockSet(Utils
                 .getMockOntology()));
         boolean result33 = testSubject0.isFunctional(Utils.getMockOntology());

@@ -41,16 +41,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
 
 /** Author: Matthew Horridge<br>
@@ -59,17 +54,11 @@ import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
  * Date: 26-Oct-2006<br>
  * <br> */
 public abstract class OWLObjectPropertyExpressionImpl extends
-        OWLPropertyExpressionImpl<OWLClassExpression, OWLObjectPropertyExpression>
+ OWLPropertyExpressionImpl
         implements OWLObjectPropertyExpression {
     private static final long serialVersionUID = 40000L;
     private OWLObjectPropertyExpression simplestForm;
     private OWLObjectPropertyExpression inverse;
-
-    @Override
-    protected Set<? extends OWLPropertyDomainAxiom<?>> getDomainAxioms(
-            OWLOntology ontology) {
-        return ontology.getObjectPropertyDomainAxioms(this);
-    }
 
     @Override
     public boolean isObjectPropertyExpression() {
@@ -186,30 +175,6 @@ public abstract class OWLObjectPropertyExpressionImpl extends
         return false;
     }
 
-    @Override
-    protected
-            Set<? extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>>
-            getRangeAxioms(OWLOntology ontology) {
-        return ontology.getObjectPropertyRangeAxioms(this);
-    }
-
-    @Override
-    protected Set<? extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>>
-            getSubPropertyAxioms(OWLOntology ontology) {
-        return ontology.getObjectSubPropertyAxiomsForSubProperty(this);
-    }
-
-    @Override
-    protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>>
-            getEquivalentPropertiesAxioms(OWLOntology ontology) {
-        return ontology.getEquivalentObjectPropertiesAxioms(this);
-    }
-
-    @Override
-    protected Set<? extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>>
-            getDisjointPropertiesAxioms(OWLOntology ontology) {
-        return ontology.getDisjointObjectPropertiesAxioms(this);
-    }
 
     @Override
     public Set<OWLObjectPropertyExpression> getInverses(OWLOntology ontology) {

@@ -46,18 +46,26 @@ import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 @SuppressWarnings("javadoc")
 public abstract class OWLQuantifiedObjectRestrictionImpl
         extends
-        OWLQuantifiedRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> {
+        OWLQuantifiedRestrictionImpl<OWLClassExpression> {
     private static final long serialVersionUID = 40000L;
+    private OWLObjectPropertyExpression property;
 
     public OWLQuantifiedObjectRestrictionImpl(OWLObjectPropertyExpression property,
             OWLClassExpression filler) {
-        super(property, filler);
+        super(filler);
+        this.property = property;
     }
+
+    @Override
+    public OWLObjectPropertyExpression getProperty() {
+        return property;
+    }
+
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         @SuppressWarnings("unchecked")
-        OWLQuantifiedRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> other = (OWLQuantifiedRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression>) object;
+        OWLQuantifiedRestriction<OWLClassExpression> other = (OWLQuantifiedRestriction<OWLClassExpression>) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {
             return diff;

@@ -44,7 +44,7 @@ import java.util.Set;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLObjectPropertyExpression extends
-        OWLPropertyExpression<OWLClassExpression, OWLObjectPropertyExpression>,
+ OWLPropertyExpression,
         SWRLPredicate {
     /** Determines if the specified ontology specifies that this property is
      * inverse functional.

@@ -435,9 +435,9 @@ public class ContractRdfxmlParserTest {
     public void shouldTestHasKeyListItemTranslator() throws Exception {
         HasKeyListItemTranslator testSubject0 = new HasKeyListItemTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLPropertyExpression<?, ?> result0 = testSubject0
+        OWLPropertyExpression result0 = testSubject0
                 .translate(mock(OWLLiteral.class));
-        OWLPropertyExpression<?, ?> result1 = testSubject0.translate(IRI("urn:aFake"));
+        OWLPropertyExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         OWLObject result2 = testSubject0.translate(IRI("urn:aFake"));
         OWLObject result3 = testSubject0.translate(mock(OWLLiteral.class));
         String result4 = testSubject0.toString();

@@ -63,15 +63,15 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
     private static final long serialVersionUID = 40000L;
     private final OWLClassExpression expression;
-    private final Set<OWLPropertyExpression<?, ?>> propertyExpressions;
+    private final Set<OWLPropertyExpression> propertyExpressions;
 
     @SuppressWarnings("javadoc")
     public OWLHasKeyAxiomImpl(OWLClassExpression expression,
-            Set<? extends OWLPropertyExpression<?, ?>> propertyExpressions,
+            Set<? extends OWLPropertyExpression> propertyExpressions,
             Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.expression = expression;
-        this.propertyExpressions = new TreeSet<OWLPropertyExpression<?, ?>>(
+        this.propertyExpressions = new TreeSet<OWLPropertyExpression>(
                 propertyExpressions);
     }
 
@@ -105,7 +105,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     }
 
     @Override
-    public Set<OWLPropertyExpression<?, ?>> getPropertyExpressions() {
+    public Set<OWLPropertyExpression> getPropertyExpressions() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(propertyExpressions);
     }

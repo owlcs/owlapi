@@ -41,6 +41,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLObject;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -49,13 +50,21 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * <br> */
 public abstract class OWLDataCardinalityRestrictionImpl
         extends
-        OWLCardinalityRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLDataRange>
-        implements OWLDataCardinalityRestriction {
+        OWLCardinalityRestrictionImpl<OWLDataRange>
+ implements
+        OWLDataCardinalityRestriction {
     private static final long serialVersionUID = 40000L;
+    private OWLDataPropertyExpression property;
 
     protected OWLDataCardinalityRestrictionImpl(OWLDataPropertyExpression property,
             int cardinality, OWLDataRange filler) {
-        super(property, cardinality, filler);
+        super(cardinality, filler);
+        this.property = property;
+    }
+
+    @Override
+    public OWLDataPropertyExpression getProperty() {
+        return property;
     }
 
     @Override
@@ -76,8 +85,25 @@ public abstract class OWLDataCardinalityRestrictionImpl
     @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
-            return obj instanceof OWLDataCardinalityRestriction;
+            if (obj instanceof OWLDataCardinalityRestriction) {
+                return getProperty().equals(
+                        ((OWLDataCardinalityRestriction) obj).getProperty());
+            }
         }
         return false;
     }
+    @Override
+    final protected int compareObjectOfSameType(OWLObject object) {
+        OWLDataCardinalityRestriction other = (OWLDataCardinalityRestriction) object;
+        int diff = getProperty().compareTo(other.getProperty());
+        if (diff != 0) {
+            return diff;
+        }
+        diff = getCardinality() - other.getCardinality();
+        if (diff != 0) {
+            return diff;
+        }
+        return getFiller().compareTo(other.getFiller());
+    }
+
 }

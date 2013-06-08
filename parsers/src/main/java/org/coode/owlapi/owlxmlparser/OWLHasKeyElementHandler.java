@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 @SuppressWarnings("javadoc")
 public class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLClassExpression ce;
-    private Set<OWLPropertyExpression<?, ?>> props = new HashSet<OWLPropertyExpression<?, ?>>();
+    private Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
 
     public OWLHasKeyElementHandler(OWLXMLParserHandler handler) {
         super(handler);

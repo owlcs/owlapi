@@ -38,11 +38,14 @@
  */
 package org.coode.owlapi.obo.renderer;
 
+import static org.semanticweb.owlapi.search.Searcher.find;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -408,7 +411,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
         OBOTagValuePairList tvpList = new OBOTagValuePairList(
                 OBOVocabulary.getTypeDefStanzaTags());
         handleEntityBase(property, ontology, tvpList);
-        Set<OWLClassExpression> domains = property.getDomains(ontology);
+        Collection<OWLClassExpression> domains = find().in(ontology).domains(property)
+                .asCollection();
         for (OWLClassExpression domain : domains) {
             if (!domain.isAnonymous()) {
                 tvpList.addPair(OBOVocabulary.DOMAIN, getID(domain.asOWLClass()));
@@ -417,8 +421,9 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
                         "Anonymous domain that cannot be represented in OBO"));
             }
         }
-        final Set<OWLPropertyExpression<?, ?>> sp = property.getSuperProperties(ontology);
-        for (OWLPropertyExpression<?, ?> superProp : sp) {
+        final Collection<OWLPropertyExpression> sp = find().in(ontology).sup()
+                .propertiesOf(property).asCollection(OWLPropertyExpression.class);
+        for (OWLPropertyExpression superProp : sp) {
             if (!superProp.isAnonymous()) {
                 tvpList.addPair(OBOVocabulary.IS_A, getID((OWLProperty) superProp));
             } else {
@@ -436,7 +441,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
             Writer writer) {
         OBOTagValuePairList tvpList = handleCommonTypeDefStanza(property, ontology,
                 writer);
-        for (OWLClassExpression range : property.getRanges(ontology)) {
+        for (OWLClassExpression range : find().in(ontology).ranges(property)
+                .asCollection(OWLClassExpression.class)) {
             if (!range.isAnonymous()) {
                 tvpList.addPair(OBOVocabulary.RANGE, getID(range.asOWLClass()));
             } else {
@@ -487,7 +493,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
             Writer writer) {
         OBOTagValuePairList tvpList = handleCommonTypeDefStanza(property, ontology,
                 writer);
-        for (OWLDataRange range : property.getRanges(ontology)) {
+        for (OWLDataRange range : find().in(ontology).ranges(property)
+                .asCollection(OWLDataRange.class)) {
             if (range.isDatatype()) {
                 tvpList.addPair(OBOVocabulary.RANGE, range.asOWLDatatype().getIRI()
                         .toString());

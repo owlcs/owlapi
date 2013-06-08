@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * Date: 14-Dec-2006<br>
  * <br> */
 @SuppressWarnings("javadoc")
-public abstract class AbstractOWLAssertionAxiomElementHandler<P extends OWLPropertyExpression<?, ?>, O extends OWLObject>
+public abstract class AbstractOWLAssertionAxiomElementHandler<P extends OWLPropertyExpression, O extends OWLObject>
         extends AbstractOWLAxiomElementHandler {
     private OWLIndividual subject;
     private P property;

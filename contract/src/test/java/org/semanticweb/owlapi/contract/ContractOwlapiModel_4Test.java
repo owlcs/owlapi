@@ -145,33 +145,10 @@ public class ContractOwlapiModel_4Test {
 
     @Test
     public void shouldTestInterfaceOWLProperty() throws Exception {
-        OWLProperty<OWLClassExpression, OWLObjectPropertyExpression> testSubject0 = mock(OWLProperty.class);
+        OWLProperty testSubject0 = mock(OWLProperty.class);
         testSubject0.accept(mock(OWLPropertyExpressionVisitor.class));
         Object result0 = testSubject0.accept(Utils.mockPropertyExpression());
         boolean result1 = testSubject0.isAnonymous();
-        Set<OWLObjectPropertyExpression> result2 = testSubject0.getSubProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result3 = testSubject0.getSubProperties(Utils
-                .getMockOntology());
-        Set<OWLObjectPropertyExpression> result4 = testSubject0.getSuperProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result5 = testSubject0.getSuperProperties(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result6 = testSubject0.getDomains(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result7 = testSubject0
-                .getDomains(Utils.getMockOntology());
-        Set<OWLClassExpression> result8 = testSubject0.getRanges(Utils.getMockOntology());
-        Set<OWLClassExpression> result9 = testSubject0.getRanges(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLObjectPropertyExpression> result10 = testSubject0
-                .getEquivalentProperties(Utils.getMockOntology());
-        Set<OWLObjectPropertyExpression> result11 = testSubject0
-                .getEquivalentProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result12 = testSubject0
-                .getDisjointProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result13 = testSubject0
-                .getDisjointProperties(Utils.getMockOntology());
         boolean result14 = testSubject0.isFunctional(Utils.mockSet(Utils
                 .getMockOntology()));
         boolean result15 = testSubject0.isFunctional(Utils.getMockOntology());
@@ -350,33 +327,10 @@ public class ContractOwlapiModel_4Test {
 
     @Test
     public void shouldTestInterfaceOWLPropertyExpression() throws Exception {
-        OWLPropertyExpression<OWLClassExpression, OWLObjectPropertyExpression> testSubject0 = mock(OWLPropertyExpression.class);
+        OWLPropertyExpression testSubject0 = mock(OWLPropertyExpression.class);
         testSubject0.accept(mock(OWLPropertyExpressionVisitor.class));
         Object result0 = testSubject0.accept(Utils.mockPropertyExpression());
         boolean result1 = testSubject0.isAnonymous();
-        Set<OWLObjectPropertyExpression> result2 = testSubject0.getSubProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result3 = testSubject0.getSubProperties(Utils
-                .getMockOntology());
-        Set<OWLObjectPropertyExpression> result4 = testSubject0.getSuperProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result5 = testSubject0.getSuperProperties(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result6 = testSubject0.getDomains(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result7 = testSubject0
-                .getDomains(Utils.getMockOntology());
-        Set<OWLClassExpression> result8 = testSubject0.getRanges(Utils.getMockOntology());
-        Set<OWLClassExpression> result9 = testSubject0.getRanges(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLObjectPropertyExpression> result10 = testSubject0
-                .getEquivalentProperties(Utils.getMockOntology());
-        Set<OWLObjectPropertyExpression> result11 = testSubject0
-                .getEquivalentProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result12 = testSubject0
-                .getDisjointProperties(Utils.mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result13 = testSubject0
-                .getDisjointProperties(Utils.getMockOntology());
         boolean result14 = testSubject0.isFunctional(Utils.mockSet(Utils
                 .getMockOntology()));
         boolean result15 = testSubject0.isFunctional(Utils.getMockOntology());
@@ -532,9 +486,8 @@ public class ContractOwlapiModel_4Test {
 
     @Test
     public void shouldTestInterfaceOWLQuantifiedRestriction() throws Exception {
-        OWLQuantifiedRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLPropertyRange> testSubject0 = mock(OWLQuantifiedRestriction.class);
+        OWLQuantifiedRestriction<OWLPropertyRange> testSubject0 = mock(OWLQuantifiedRestriction.class);
         OWLPropertyRange result0 = testSubject0.getFiller();
-        OWLObjectPropertyExpression result1 = testSubject0.getProperty();
         boolean result2 = testSubject0.isObjectRestriction();
         boolean result3 = testSubject0.isDataRestriction();
         Object result4 = testSubject0.accept(Utils.mockClassExpression());
@@ -601,8 +554,7 @@ public class ContractOwlapiModel_4Test {
 
     @Test
     public void shouldTestInterfaceOWLRestriction() throws Exception {
-        OWLRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLPropertyRange> testSubject0 = mock(OWLRestriction.class);
-        OWLObjectPropertyExpression result0 = testSubject0.getProperty();
+        OWLRestriction testSubject0 = mock(OWLRestriction.class);
         boolean result1 = testSubject0.isObjectRestriction();
         boolean result2 = testSubject0.isDataRestriction();
         Object result3 = testSubject0.accept(Utils.mockClassExpression());

@@ -40,8 +40,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLHasValueRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLPropertyRange;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -55,13 +53,13 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
  *            the property expression
  * @param <V>
  *            the value */
-public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject>
-        extends OWLRestrictionImpl<R, P, P> implements OWLHasValueRestriction<R, P, V> {
+public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
+        OWLRestrictionImpl implements OWLHasValueRestriction<V> {
     private static final long serialVersionUID = 40000L;
     private final V value;
 
-    protected OWLValueRestrictionImpl(P property, V value) {
-        super(property);
+    protected OWLValueRestrictionImpl(V value) {
+        super();
         this.value = value;
     }
 
@@ -73,17 +71,19 @@ public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P exte
     @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
-            if (!(obj instanceof OWLHasValueRestriction<?, ?, ?>)) {
+            if (!(obj instanceof OWLHasValueRestriction<?>)) {
                 return false;
             }
-            return ((OWLHasValueRestriction<?, ?, ?>) obj).getValue().equals(value);
+            return ((OWLHasValueRestriction<?>) obj).getValue().equals(value)
+                    && getProperty().equals(
+                            ((OWLHasValueRestriction<?>) obj).getProperty());
         }
         return false;
     }
 
     @Override
     final protected int compareObjectOfSameType(OWLObject object) {
-        OWLHasValueRestriction<?, ?, ?> other = (OWLHasValueRestriction<?, ?, ?>) object;
+        OWLHasValueRestriction<?> other = (OWLHasValueRestriction<?>) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {
             return diff;

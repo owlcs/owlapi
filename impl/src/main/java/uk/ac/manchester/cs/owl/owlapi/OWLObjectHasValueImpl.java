@@ -45,6 +45,7 @@ import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectRestriction;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
@@ -55,13 +56,21 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * <br> */
 public class OWLObjectHasValueImpl
         extends
-        OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLIndividual>
-        implements OWLObjectHasValue {
+ OWLValueRestrictionImpl<OWLIndividual>
+ implements
+        OWLObjectHasValue, OWLObjectRestriction {
     private static final long serialVersionUID = 40000L;
+    private OWLObjectPropertyExpression property;
 
     @SuppressWarnings("javadoc")
     public OWLObjectHasValueImpl(OWLObjectPropertyExpression property, OWLIndividual value) {
-        super(property, value);
+        super(value);
+        this.property = property;
+    }
+
+    @Override
+    public OWLObjectPropertyExpression getProperty() {
+        return property;
     }
 
     @Override
@@ -87,7 +96,7 @@ public class OWLObjectHasValueImpl
         return false;
     }
 
-    @Override
+    @Deprecated
     public OWLClassExpression asSomeValuesFrom() {
         return df.getOWLObjectSomeValuesFrom(getProperty(),
                 df.getOWLObjectOneOf(getValue()));

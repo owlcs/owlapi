@@ -666,7 +666,7 @@ public class ManchesterOWLSyntaxEditorParser {
         return parseObjectPropertyExpression(false);
     }
 
-    public OWLPropertyExpression<?, ?> parsePropertyExpression() throws ParserException {
+    public OWLPropertyExpression parsePropertyExpression() throws ParserException {
         String tok = peekToken();
         if (isObjectPropertyName(tok)) {
             return parseObjectPropertyExpression();
@@ -1275,7 +1275,7 @@ public class ManchesterOWLSyntaxEditorParser {
         } else {
             annotations = Collections.emptySet();
         }
-        Set<OWLPropertyExpression<?, ?>> properties = parsePropertyList();
+        Set<OWLPropertyExpression> properties = parsePropertyList();
         OWLAxiom propertyAxiom;
         if (properties.iterator().next().isObjectPropertyExpression()) {
             Set<OWLObjectPropertyExpression> ope = new HashSet<OWLObjectPropertyExpression>();
@@ -1936,7 +1936,7 @@ public class ManchesterOWLSyntaxEditorParser {
         } else {
             annotations = Collections.emptySet();
         }
-        Set<OWLPropertyExpression<?, ?>> props = parsePropertyList();
+        Set<OWLPropertyExpression> props = parsePropertyList();
         Set<OntologyAxiomPair> pairs = new HashSet<OntologyAxiomPair>();
         OWLAxiom propertiesAxiom;
         if (props.iterator().next().isObjectPropertyExpression()) {
@@ -2166,9 +2166,9 @@ public class ManchesterOWLSyntaxEditorParser {
         return props;
     }
 
-    public Map<OWLPropertyExpression<?, ?>, Set<OWLAnnotation>>
+    public Map<OWLPropertyExpression, Set<OWLAnnotation>>
             parseAnnotatedPropertyList() throws ParserException {
-        Map<OWLPropertyExpression<?, ?>, Set<OWLAnnotation>> props = new HashMap<OWLPropertyExpression<?, ?>, Set<OWLAnnotation>>();
+        Map<OWLPropertyExpression, Set<OWLAnnotation>> props = new HashMap<OWLPropertyExpression, Set<OWLAnnotation>>();
         String sep = ",";
         while (sep.equals(",")) {
             String next = peekToken();
@@ -2179,7 +2179,7 @@ public class ManchesterOWLSyntaxEditorParser {
             } else {
                 annos = Collections.emptySet();
             }
-            OWLPropertyExpression<?, ?> prop = parsePropertyExpression();
+            OWLPropertyExpression prop = parsePropertyExpression();
             props.put(prop, annos);
             sep = peekToken();
             if (sep.equals(",")) {
@@ -2189,11 +2189,11 @@ public class ManchesterOWLSyntaxEditorParser {
         return props;
     }
 
-    public Set<OWLPropertyExpression<?, ?>> parsePropertyList() throws ParserException {
-        Set<OWLPropertyExpression<?, ?>> props = new HashSet<OWLPropertyExpression<?, ?>>();
+    public Set<OWLPropertyExpression> parsePropertyList() throws ParserException {
+        Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
         String sep = ",";
         while (sep.equals(",")) {
-            OWLPropertyExpression<?, ?> prop = parsePropertyExpression();
+            OWLPropertyExpression prop = parsePropertyExpression();
             props.add(prop);
             sep = peekToken();
             if (sep.equals(",")) {
@@ -3231,11 +3231,11 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     private abstract class AnnotatedPropertyListListItemParser<F> implements
-            AnnotatedListItemParser<F, Set<OWLPropertyExpression<?, ?>>> {
+            AnnotatedListItemParser<F, Set<OWLPropertyExpression>> {
         public AnnotatedPropertyListListItemParser() {}
 
         @Override
-        public Set<OWLPropertyExpression<?, ?>> parseItem(F subject)
+        public Set<OWLPropertyExpression> parseItem(F subject)
                 throws ParserException {
             return parsePropertyList();
         }
@@ -3352,7 +3352,8 @@ public class ManchesterOWLSyntaxEditorParser {
 
         @Override
         public OWLAxiom createAxiom(OWLClass subject,
-                Set<OWLPropertyExpression<?, ?>> object, Set<OWLAnnotation> annotations) {
+ Set<OWLPropertyExpression> object,
+                Set<OWLAnnotation> annotations) {
             return dataFactory.getOWLHasKeyAxiom(subject, object, annotations);
         }
 
