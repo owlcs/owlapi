@@ -615,14 +615,14 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private
-            <R extends OWLPropertyRange, P extends OWLPropertyExpression, F extends OWLPropertyRange>
+ <F extends OWLPropertyRange>
             void writeRestriction(String str,
- OWLCardinalityRestriction<F> restriction) {
+            OWLCardinalityRestriction<F> restriction, OWLPropertyExpression p) {
         write(str);
         writeOpenBracket();
         write(Integer.toString(restriction.getCardinality()));
         writeSpace();
-        restriction.getProperty().accept(this);
+        p.accept(this);
         if (restriction.isQualified()) {
             writeSpace();
             restriction.getFiller().accept(this);
@@ -656,17 +656,17 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataExactCardinality desc) {
-        writeRestriction("exact", desc);
+        writeRestriction("exact", desc, desc.getProperty());
     }
 
     @Override
     public void visit(OWLDataMaxCardinality desc) {
-        writeRestriction("atmost", desc);
+        writeRestriction("atmost", desc, desc.getProperty());
     }
 
     @Override
     public void visit(OWLDataMinCardinality desc) {
-        writeRestriction("atleast", desc);
+        writeRestriction("atleast", desc, desc.getProperty());
     }
 
     @Override
@@ -691,7 +691,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectExactCardinality desc) {
-        writeRestriction("exact", desc);
+        writeRestriction("exact", desc, desc.getProperty());
     }
 
     @Override
@@ -703,12 +703,12 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectMaxCardinality desc) {
-        writeRestriction("atmost", desc);
+        writeRestriction("atmost", desc, desc.getProperty());
     }
 
     @Override
     public void visit(OWLObjectMinCardinality desc) {
-        writeRestriction("atleast", desc);
+        writeRestriction("atleast", desc, desc.getProperty());
     }
 
     @Override

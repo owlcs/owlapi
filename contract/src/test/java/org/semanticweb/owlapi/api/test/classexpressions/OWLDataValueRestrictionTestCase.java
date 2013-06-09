@@ -38,34 +38,44 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
-import static org.semanticweb.owlapi.api.test.TestUtils.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLRestrictionWithFillerTestCase;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataRestriction;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLRestriction;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectRestriction;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
-@SuppressWarnings("rawtypes")
+
 public class OWLDataValueRestrictionTestCase extends
         AbstractOWLRestrictionWithFillerTestCase<OWLDataProperty, OWLLiteral> {
-    @Override
-    protected OWLRestriction createRestriction(OWLDataProperty prop, OWLLiteral filler)
-            throws Exception {
+    protected OWLDataRestriction createDataRestriction(OWLDataProperty prop,
+            OWLLiteral filler) {
         return DataHasValue(prop, filler);
     }
-
-    @Override
-    protected OWLDataProperty createProperty() throws OWLException {
-        return DataProperty(createIRI());
+    protected OWLObjectRestriction createObjectRestriction(OWLObjectProperty prop,
+            OWLIndividual filler) {
+        return ObjectHasValue(prop, filler);
     }
 
     @Override
-    protected OWLLiteral createFiller() throws OWLException {
-        return createOWLLiteral();
+    protected OWLObjectRestriction createObjectRestriction(OWLObjectProperty prop,
+            OWLClassExpression filler) {
+        return createObjectRestriction(prop, createIndividualFiller(filler.asOWLClass()
+                .getIRI()));
     }
+
+    @Override
+    protected OWLDataRestriction createDataRestriction(OWLDataProperty prop,
+            OWLDataRange filler) {
+        return createDataRestriction(prop, Literal("test", filler.asOWLDatatype()));
+    }
+
 }

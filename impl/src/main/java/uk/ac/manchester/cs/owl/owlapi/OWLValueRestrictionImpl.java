@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
         OWLRestrictionImpl implements OWLHasValueRestriction<V> {
     private static final long serialVersionUID = 40000L;
-    private final V value;
+    protected final V value;
 
     protected OWLValueRestrictionImpl(V value) {
         super();
@@ -75,19 +75,10 @@ public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
                 return false;
             }
             return ((OWLHasValueRestriction<?>) obj).getValue().equals(value)
-                    && getProperty().equals(
-                            ((OWLHasValueRestriction<?>) obj).getProperty());
+;
         }
         return false;
     }
 
-    @Override
-    final protected int compareObjectOfSameType(OWLObject object) {
-        OWLHasValueRestriction<?> other = (OWLHasValueRestriction<?>) object;
-        int diff = getProperty().compareTo(other.getProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        return value.compareTo(other.getValue());
-    }
+
 }

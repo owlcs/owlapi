@@ -42,45 +42,67 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParser;
 import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OWLParser;
 
+@SuppressWarnings("javadoc")
 public class NamesTestCase {
     @Test
     public void shoudReturnRightName() {
         assertEquals("AddAxiomData", new AddAxiomData(mock(OWLAxiom.class)) {
+            private static final long serialVersionUID = 6721581006563915342L;
+
+            @Override
             public String getName() {
                 return super.getName();
             }
         }.getName());
         assertEquals("AddImportData",
                 new AddImportData(mock(OWLImportsDeclaration.class)) {
+                    private static final long serialVersionUID = 2561394366351548647L;
+
+                    @Override
                     public String getName() {
                         return super.getName();
                     }
                 }.getName());
         assertEquals("AddOntologyAnnotationData", new AddOntologyAnnotationData(
                 mock(OWLAnnotation.class)) {
+            private static final long serialVersionUID = 7438496788137119984L;
+
+            @Override
             public String getName() {
                 return super.getName();
             }
         }.getName());
-        assertEquals("OWLOntologyChangeRecord", new OWLOntologyChangeRecord(
+        assertEquals("OWLOntologyChangeRecord", new OWLOntologyChangeRecord<OWLAxiom>(
                 mock(OWLOntologyID.class), mock(OWLOntologyChangeData.class)) {
+            private static final long serialVersionUID = 1738715002719055965L;
+
+            @Override
             public String getName() {
                 return super.getName();
             }
         }.getName());
         assertEquals("RemoveAxiomData", new RemoveAxiomData(mock(OWLAxiom.class)) {
+            private static final long serialVersionUID = 3509217375432737384L;
+
+            @Override
             public String getName() {
                 return super.getName();
             }
         }.getName());
         assertEquals("RemoveImportData", new RemoveImportData(
                 mock(OWLImportsDeclaration.class)) {
+            private static final long serialVersionUID = 2566579395436954130L;
+
+            @Override
             public String getName() {
                 return super.getName();
             }
         }.getName());
         assertEquals("RemoveOntologyAnnotationData", new RemoveOntologyAnnotationData(
                 mock(OWLAnnotation.class)) {
+            private static final long serialVersionUID = 3019208333794944242L;
+
+            @Override
             public String getName() {
                 return super.getName();
             }
@@ -89,6 +111,9 @@ public class NamesTestCase {
                 "SetOntologyIDData",
                 new SetOntologyIDData(new OWLOntologyID(IRI.create("urn:test1"), IRI
                         .create("urn:test2"))) {
+                    private static final long serialVersionUID = 7310142638187830473L;
+
+                    @Override
                     public String getName() {
                         return super.getName();
                     }

@@ -39,25 +39,62 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataRestriction;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectRestriction;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLRestriction;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
-@SuppressWarnings({ "rawtypes", "javadoc" })
+@SuppressWarnings("javadoc")
 public abstract class AbstractOWLRestrictionTestCase<P extends OWLPropertyExpression>
         extends AbstractOWLDataFactoryTest {
-    protected abstract OWLRestriction createRestriction(P prop) throws Exception;
+    protected abstract OWLObjectRestriction
+            createObjectRestriction(OWLObjectProperty prop);
 
-    protected abstract P createProperty() throws Exception;
+    protected abstract OWLDataRestriction createDataRestriction(OWLDataProperty prop);
+
+    protected final OWLDataProperty createDataProperty() {
+        return DataProperty(createIRI());
+    }
+
+    protected final OWLObjectProperty createObjectProperty() {
+        return ObjectProperty(createIRI());
+    }
+
+    protected final OWLDataRange createDataFiller() {
+        return Datatype(createIRI());
+    }
+
+    protected final OWLClassExpression createObjectFiller() {
+        return Class(createIRI());
+    }
+
+    protected final OWLNamedIndividual createIndividualFiller() {
+        return NamedIndividual(createIRI());
+    }
+
+    protected final OWLNamedIndividual createIndividualFiller(IRI i) {
+        return NamedIndividual(i);
+    }
 
     @Test
-    public void testPropertyGetter() throws Exception {
-        P prop = createProperty();
-        OWLRestriction rest = createRestriction(prop);
+    public void testPropertyGetter() {
+        OWLObjectProperty prop = createObjectProperty();
+        OWLObjectRestriction rest = createObjectRestriction(prop);
         assertEquals(rest.getProperty(), prop);
+        OWLDataProperty dprop = createDataProperty();
+        OWLDataRestriction drest = createDataRestriction(dprop);
+        assertEquals(drest.getProperty(), dprop);
     }
 }

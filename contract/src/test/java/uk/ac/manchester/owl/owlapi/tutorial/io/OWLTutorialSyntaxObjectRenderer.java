@@ -116,7 +116,6 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
 import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
@@ -614,15 +613,14 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write("<span class='cl'>" + labelFor(desc) + "</span>");
     }
 
-    private
-            <R extends OWLPropertyRange, P extends OWLPropertyExpression, F extends OWLPropertyRange>
-            void writeRestriction(String str,
- OWLCardinalityRestriction restriction) {
+    private void writeRestriction(String str,
+ OWLCardinalityRestriction restriction,
+                    OWLPropertyExpression property) {
         write(str);
         writeOpenBracket();
         write(Integer.toString(restriction.getCardinality()));
         writeSpace();
-        restriction.getProperty().accept(this);
+        property.accept(this);
         if (restriction.isQualified()) {
             writeSpace();
             restriction.getFiller().accept(this);
@@ -656,17 +654,17 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataExactCardinality desc) {
-        writeRestriction("exact", desc);
+        writeRestriction("exact", desc, desc.getProperty());
     }
 
     @Override
     public void visit(OWLDataMaxCardinality desc) {
-        writeRestriction("atmost", desc);
+        writeRestriction("atmost", desc, desc.getProperty());
     }
 
     @Override
     public void visit(OWLDataMinCardinality desc) {
-        writeRestriction("atleast", desc);
+        writeRestriction("atleast", desc, desc.getProperty());
     }
 
     @Override
@@ -691,7 +689,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectExactCardinality desc) {
-        writeRestriction("exact", desc);
+        writeRestriction("exact", desc, desc.getProperty());
     }
 
     @Override
@@ -703,12 +701,12 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectMaxCardinality desc) {
-        writeRestriction("atmost", desc);
+        writeRestriction("atmost", desc, desc.getProperty());
     }
 
     @Override
     public void visit(OWLObjectMinCardinality desc) {
-        writeRestriction("atleast", desc);
+        writeRestriction("atleast", desc, desc.getProperty());
     }
 
     @Override

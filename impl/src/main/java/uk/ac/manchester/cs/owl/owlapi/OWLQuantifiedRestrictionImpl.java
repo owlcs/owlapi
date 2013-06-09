@@ -68,8 +68,7 @@ public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange> e
             if (obj instanceof OWLQuantifiedRestriction) {
                 return ((OWLQuantifiedRestriction<?>) obj).getFiller().equals(
 filler)
-                        && getProperty().equals(
-                                ((OWLQuantifiedRestriction<?>) obj).getProperty());
+;
             }
         }
         return false;

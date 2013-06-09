@@ -41,40 +41,89 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectRestriction;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLRestriction;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
-@SuppressWarnings({ "rawtypes", "javadoc" })
+@SuppressWarnings("javadoc")
 public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLPropertyExpression, F extends OWLObject>
         extends AbstractOWLRestrictionTestCase<P> {
-    protected abstract OWLRestriction createRestriction(P prop, F filler)
-            throws Exception;
+    protected abstract OWLObjectRestriction createObjectRestriction(
+            OWLObjectProperty prop, OWLClassExpression filler);
+
+    protected abstract OWLDataRestriction createDataRestriction(OWLDataProperty prop,
+            OWLDataRange filler);
 
     @Override
-    protected OWLRestriction createRestriction(P prop) throws Exception {
-        return createRestriction(prop, createFiller());
+    protected OWLObjectRestriction createObjectRestriction(OWLObjectProperty prop) {
+        return createObjectRestriction(prop, createObjectFiller());
     }
 
-    protected abstract F createFiller() throws Exception;
+    @Override
+    protected OWLDataRestriction createDataRestriction(OWLDataProperty prop) {
+        return createDataRestriction(prop, createDataFiller());
+    }
+
+    @Test
+    public void testDataCreation() {
+        assertNotNull("restriction should not be null",
+                createDataRestriction(createDataProperty(), createDataFiller()));
+    }
+
+    @Test
+    public void testDataEqualsPositive() {
+        OWLDataProperty prop = createDataProperty();
+        OWLDataRange filler = createDataFiller();
+        OWLDataRestriction restA = createDataRestriction(prop, filler);
+        OWLDataRestriction restB = createDataRestriction(prop, filler);
+        assertEquals(restA, restB);
+    }
+
+    @Test
+    public void testDataEqualsNegative() {
+        // Different filler
+        OWLDataProperty prop = createDataProperty();
+        OWLDataRestriction restA = createDataRestriction(prop, createDataFiller());
+        OWLDataRestriction restB = createDataRestriction(prop, createDataFiller());
+        assertFalse(restA.equals(restB));
+        // Different property
+        OWLDataRange filler = createDataFiller();
+        OWLDataRestriction restC = createDataRestriction(createDataProperty(), filler);
+        OWLDataRestriction restD = createDataRestriction(createDataProperty(), filler);
+        assertFalse(restC.equals(restD));
+    }
+
+    @Test
+    public void testDataHashCode() {
+        OWLDataProperty prop = createDataProperty();
+        OWLDataRange filler = createDataFiller();
+        OWLDataRestriction restA = createDataRestriction(prop, filler);
+        OWLDataRestriction restB = createDataRestriction(prop, filler);
+        assertEquals(restA.hashCode(), restB.hashCode());
+    }
 
     @Override
     @Test
     public void testCreation() throws Exception {
         assertNotNull("restriction should not be null",
-                createRestriction(createProperty(), createFiller()));
+                createObjectRestriction(createObjectProperty(), createObjectFiller()));
     }
 
     @Override
     @Test
     public void testEqualsPositive() throws Exception {
-        P prop = createProperty();
-        F filler = createFiller();
-        OWLRestriction restA = createRestriction(prop, filler);
-        OWLRestriction restB = createRestriction(prop, filler);
+        OWLObjectProperty prop = createObjectProperty();
+        OWLClassExpression filler = createObjectFiller();
+        OWLObjectRestriction restA = createObjectRestriction(prop, filler);
+        OWLObjectRestriction restB = createObjectRestriction(prop, filler);
         assertEquals(restA, restB);
     }
 
@@ -82,24 +131,26 @@ public abstract class AbstractOWLRestrictionWithFillerTestCase<P extends OWLProp
     @Test
     public void testEqualsNegative() throws Exception {
         // Different filler
-        P prop = createProperty();
-        OWLRestriction restA = createRestriction(prop, createFiller());
-        OWLRestriction restB = createRestriction(prop, createFiller());
+        OWLObjectProperty prop = createObjectProperty();
+        OWLObjectRestriction restA = createObjectRestriction(prop, createObjectFiller());
+        OWLObjectRestriction restB = createObjectRestriction(prop, createObjectFiller());
         assertFalse(restA.equals(restB));
         // Different property
-        F filler = createFiller();
-        OWLRestriction restC = createRestriction(createProperty(), filler);
-        OWLRestriction restD = createRestriction(createProperty(), filler);
+        OWLClassExpression filler = createObjectFiller();
+        OWLObjectRestriction restC = createObjectRestriction(createObjectProperty(),
+                filler);
+        OWLObjectRestriction restD = createObjectRestriction(createObjectProperty(),
+                filler);
         assertFalse(restC.equals(restD));
     }
 
     @Override
     @Test
     public void testHashCode() throws Exception {
-        P prop = createProperty();
-        F filler = createFiller();
-        OWLRestriction restA = createRestriction(prop, filler);
-        OWLRestriction restB = createRestriction(prop, filler);
+        OWLObjectProperty prop = createObjectProperty();
+        OWLClassExpression filler = createObjectFiller();
+        OWLObjectRestriction restA = createObjectRestriction(prop, filler);
+        OWLObjectRestriction restB = createObjectRestriction(prop, filler);
         assertEquals(restA.hashCode(), restB.hashCode());
     }
 }

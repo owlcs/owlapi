@@ -38,33 +38,30 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
-import static org.semanticweb.owlapi.api.test.TestUtils.createIRI;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLRestrictionWithFillerTestCase;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataRestriction;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLRestriction;
+import org.semanticweb.owlapi.model.OWLObjectRestriction;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
 public class OWLObjectSomeRestrictionTestCase extends
         AbstractOWLRestrictionWithFillerTestCase<OWLObjectProperty, OWLClassExpression> {
-    @SuppressWarnings("rawtypes")
     @Override
-    protected OWLRestriction createRestriction(OWLObjectProperty prop,
-            OWLClassExpression filler) throws Exception {
+    protected OWLObjectRestriction createObjectRestriction(OWLObjectProperty prop,
+            OWLClassExpression filler) {
         return ObjectSomeValuesFrom(prop, filler);
     }
-
     @Override
-    protected OWLObjectProperty createProperty() throws Exception {
-        return ObjectProperty(createIRI());
+    protected OWLDataRestriction createDataRestriction(OWLDataProperty prop,
+            OWLDataRange filler) {
+        return DataSomeValuesFrom(prop, filler);
     }
 
-    @Override
-    protected OWLClassExpression createFiller() throws Exception {
-        return Class(createIRI());
-    }
 }

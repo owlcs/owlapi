@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
@@ -88,9 +89,20 @@ public class OWLDataHasValueImpl extends
     @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
-            return obj instanceof OWLDataHasValue;
+            return obj instanceof OWLDataHasValue
+                    && getProperty().equals(((OWLDataHasValue) obj).getProperty());
         }
         return false;
+    }
+
+    @Override
+    final protected int compareObjectOfSameType(OWLObject object) {
+        OWLDataHasValue other = (OWLDataHasValue) object;
+        int diff = getProperty().compareTo(other.getProperty());
+        if (diff != 0) {
+            return diff;
+        }
+        return value.compareTo(other.getValue());
     }
 
     @Override

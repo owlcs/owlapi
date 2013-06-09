@@ -589,10 +589,11 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     private
             <R extends OWLPropertyRange, P extends OWLPropertyExpression, V extends OWLObject>
-            void writeValueRestriction(OWLHasValueRestriction<V> restriction) {
+            void writeValueRestriction(OWLHasValueRestriction<V> restriction,
+                    OWLPropertyExpression p) {
         write(EXISTS);
         writeSpace();
-        restriction.getProperty().accept(this);
+        p.accept(this);
         writeRestrictionSeparator();
         write("{");
         restriction.getValue().accept(this);
@@ -601,7 +602,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void visit(OWLObjectHasValue desc) {
-        writeValueRestriction(desc);
+        writeValueRestriction(desc, desc.getProperty());
     }
 
     @Override
@@ -654,7 +655,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void visit(OWLDataHasValue desc) {
-        writeValueRestriction(desc);
+        writeValueRestriction(desc, desc.getProperty());
     }
 
     @Override

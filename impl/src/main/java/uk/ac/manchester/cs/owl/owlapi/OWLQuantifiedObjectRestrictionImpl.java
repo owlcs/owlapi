@@ -41,12 +41,13 @@ package uk.ac.manchester.cs.owl.owlapi;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
+import org.semanticweb.owlapi.model.OWLObjectRestriction;
+import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
 
 @SuppressWarnings("javadoc")
 public abstract class OWLQuantifiedObjectRestrictionImpl
         extends
-        OWLQuantifiedRestrictionImpl<OWLClassExpression> {
+        OWLQuantifiedRestrictionImpl<OWLClassExpression> implements OWLObjectRestriction {
     private static final long serialVersionUID = 40000L;
     private OWLObjectPropertyExpression property;
 
@@ -64,12 +65,20 @@ public abstract class OWLQuantifiedObjectRestrictionImpl
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        @SuppressWarnings("unchecked")
-        OWLQuantifiedRestriction<OWLClassExpression> other = (OWLQuantifiedRestriction<OWLClassExpression>) object;
+        OWLQuantifiedObjectRestriction other = (OWLQuantifiedObjectRestriction) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {
             return diff;
         }
         return getFiller().compareTo(other.getFiller());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            return obj instanceof OWLObjectRestriction
+                    && getProperty().equals(((OWLObjectRestriction) obj).getProperty());
+        }
+        return false;
     }
 }

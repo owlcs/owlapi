@@ -41,9 +41,12 @@ package org.semanticweb.owlapi.api.test.dataproperties;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLDataCardinalityRestrictionTestCase;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -51,14 +54,30 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 public class OWLDataExactCardinalityTestCase extends
         AbstractOWLDataCardinalityRestrictionTestCase {
     @Override
-    protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop,
-            int cardinality) throws Exception {
+    protected OWLDataCardinalityRestriction createDataRestriction(OWLDataProperty prop,
+            int cardinality) {
         return DataExactCardinality(cardinality, prop, TopDatatype());
     }
 
     @Override
-    protected OWLDataCardinalityRestriction createRestriction(OWLDataProperty prop,
-            int cardinality, OWLDataRange dataRange) throws Exception {
+    protected OWLDataCardinalityRestriction createDataRestriction(OWLDataProperty prop,
+            int cardinality, OWLDataRange dataRange) {
         return DataExactCardinality(cardinality, prop, dataRange);
+    }
+
+    @Override
+    protected OWLObjectCardinalityRestriction createObjectRestriction(
+            OWLObjectProperty prop) {
+        return ObjectExactCardinality(1, prop, OWLThing());
+    }
+
+    protected OWLObjectCardinalityRestriction createObjectRestriction(
+            OWLObjectProperty prop, int cardinality) {
+        return ObjectExactCardinality(cardinality, prop, OWLThing());
+    }
+
+    protected OWLObjectCardinalityRestriction createObjectRestriction(
+            OWLObjectProperty prop, int cardinality, OWLClassExpression dataRange) {
+        return ObjectExactCardinality(cardinality, prop, dataRange);
     }
 }

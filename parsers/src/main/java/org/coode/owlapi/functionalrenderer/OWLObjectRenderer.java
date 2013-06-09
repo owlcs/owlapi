@@ -683,14 +683,14 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
     private
-            <R extends OWLPropertyRange, P extends OWLPropertyExpression, F extends OWLPropertyRange>
+ <F extends OWLPropertyRange>
             void writeRestriction(OWLXMLVocabulary v,
-                    OWLCardinalityRestriction<F> restriction) {
+            OWLCardinalityRestriction<F> restriction, OWLPropertyExpression p) {
         write(v);
         writeOpenBracket();
         write(Integer.toString(restriction.getCardinality()));
         writeSpace();
-        restriction.getProperty().accept(this);
+        p.accept(this);
         if (restriction.isQualified()) {
             writeSpace();
             restriction.getFiller().accept(this);
@@ -725,17 +725,17 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataExactCardinality desc) {
-        writeRestriction(DATA_EXACT_CARDINALITY, desc);
+        writeRestriction(DATA_EXACT_CARDINALITY, desc, desc.getProperty());
     }
 
     @Override
     public void visit(OWLDataMaxCardinality desc) {
-        writeRestriction(DATA_MAX_CARDINALITY, desc);
+        writeRestriction(DATA_MAX_CARDINALITY, desc, desc.getProperty());
     }
 
     @Override
     public void visit(OWLDataMinCardinality desc) {
-        writeRestriction(DATA_MIN_CARDINALITY, desc);
+        writeRestriction(DATA_MIN_CARDINALITY, desc, desc.getProperty());
     }
 
     @Override
@@ -760,7 +760,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectExactCardinality desc) {
-        writeRestriction(OBJECT_EXACT_CARDINALITY, desc);
+        writeRestriction(OBJECT_EXACT_CARDINALITY, desc, desc.getProperty());
     }
 
     @Override
@@ -773,12 +773,12 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectMaxCardinality desc) {
-        writeRestriction(OBJECT_MAX_CARDINALITY, desc);
+        writeRestriction(OBJECT_MAX_CARDINALITY, desc, desc.getProperty());
     }
 
     @Override
     public void visit(OWLObjectMinCardinality desc) {
-        writeRestriction(OBJECT_MIN_CARDINALITY, desc);
+        writeRestriction(OBJECT_MIN_CARDINALITY, desc, desc.getProperty());
     }
 
     @Override

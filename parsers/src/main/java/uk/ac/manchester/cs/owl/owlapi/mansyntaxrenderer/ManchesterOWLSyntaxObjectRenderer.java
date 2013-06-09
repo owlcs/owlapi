@@ -169,8 +169,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     private
             <R extends OWLPropertyRange, P extends OWLPropertyExpression, V extends OWLObject>
-            void writeRestriction(OWLHasValueRestriction<V> restriction) {
-        restriction.getProperty().accept(this);
+            void writeRestriction(OWLHasValueRestriction<V> restriction,
+                    OWLPropertyExpression p) {
+        p.accept(this);
         write(VALUE);
         restriction.getValue().accept(this);
     }
@@ -178,8 +179,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     private
             <R extends OWLPropertyRange, P extends OWLPropertyExpression, F extends OWLPropertyRange>
             void writeRestriction(OWLCardinalityRestriction<F> restriction,
-                    ManchesterOWLSyntax keyword) {
-        restriction.getProperty().accept(this);
+                    ManchesterOWLSyntax keyword, OWLPropertyExpression p) {
+        p.accept(this);
         write(keyword);
         write(Integer.toString(restriction.getCardinality()));
         // if(restriction.isQualified()) {
@@ -258,22 +259,22 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     @Override
     public void visit(OWLObjectHasValue desc) {
-        writeRestriction(desc);
+        writeRestriction(desc, desc.getProperty());
     }
 
     @Override
     public void visit(OWLObjectMinCardinality desc) {
-        writeRestriction(desc, MIN);
+        writeRestriction(desc, MIN, desc.getProperty());
     }
 
     @Override
     public void visit(OWLObjectExactCardinality desc) {
-        writeRestriction(desc, EXACTLY);
+        writeRestriction(desc, EXACTLY, desc.getProperty());
     }
 
     @Override
     public void visit(OWLObjectMaxCardinality desc) {
-        writeRestriction(desc, MAX);
+        writeRestriction(desc, MAX, desc.getProperty());
     }
 
     @Override
@@ -302,22 +303,22 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     @Override
     public void visit(OWLDataHasValue desc) {
-        writeRestriction(desc);
+        writeRestriction(desc, desc.getProperty());
     }
 
     @Override
     public void visit(OWLDataMinCardinality desc) {
-        writeRestriction(desc, MIN);
+        writeRestriction(desc, MIN, desc.getProperty());
     }
 
     @Override
     public void visit(OWLDataExactCardinality desc) {
-        writeRestriction(desc, EXACTLY);
+        writeRestriction(desc, EXACTLY, desc.getProperty());
     }
 
     @Override
     public void visit(OWLDataMaxCardinality desc) {
-        writeRestriction(desc, MAX);
+        writeRestriction(desc, MAX, desc.getProperty());
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////

@@ -43,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectRestriction;
@@ -81,9 +82,20 @@ public class OWLObjectHasValueImpl
     @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
-            return obj instanceof OWLObjectHasValue;
+            return obj instanceof OWLObjectHasValue
+                    && getProperty().equals(((OWLObjectHasValue) obj).getProperty());
         }
         return false;
+    }
+
+    @Override
+    final protected int compareObjectOfSameType(OWLObject object) {
+        OWLObjectHasValue other = (OWLObjectHasValue) object;
+        int diff = getProperty().compareTo(other.getProperty());
+        if (diff != 0) {
+            return diff;
+        }
+        return value.compareTo(other.getValue());
     }
 
     @Override

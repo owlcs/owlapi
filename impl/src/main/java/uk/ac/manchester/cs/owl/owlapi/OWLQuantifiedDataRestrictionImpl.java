@@ -73,4 +73,13 @@ public abstract class OWLQuantifiedDataRestrictionImpl
         }
         return getFiller().compareTo(other.getFiller());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            return obj instanceof OWLDataRestriction
+                    && getProperty().equals(((OWLDataRestriction) obj).getProperty());
+        }
+        return false;
+    }
 }
