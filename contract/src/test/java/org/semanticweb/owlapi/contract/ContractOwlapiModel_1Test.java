@@ -392,18 +392,6 @@ public class ContractOwlapiModel_1Test {
         boolean result1 = testSubject0.isComment();
         boolean result2 = testSubject0.isLabel();
         boolean result3 = testSubject0.isDeprecated();
-        Set<OWLAnnotationProperty> result4 = testSubject0.getSubProperties(
-                Utils.getMockOntology(), false);
-        Set<OWLAnnotationProperty> result5 = testSubject0.getSubProperties(Utils
-                .getMockOntology());
-        Set<OWLAnnotationProperty> result6 = testSubject0.getSubProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLAnnotationProperty> result7 = testSubject0.getSuperProperties(Utils
-                .getMockOntology());
-        Set<OWLAnnotationProperty> result8 = testSubject0.getSuperProperties(
-                Utils.getMockOntology(), false);
-        Set<OWLAnnotationProperty> result9 = testSubject0.getSuperProperties(Utils
-                .mockSet(Utils.getMockOntology()));
         Set<OWLAnnotation> result10 = testSubject0
                 .getAnnotations(Utils.getMockOntology());
         Set<OWLAnnotation> result11 = testSubject0.getAnnotations(

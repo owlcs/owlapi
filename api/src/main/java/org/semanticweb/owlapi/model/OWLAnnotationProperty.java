@@ -38,7 +38,6 @@
  */
 package org.semanticweb.owlapi.model;
 
-import java.util.Set;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -75,117 +74,5 @@ public interface OWLAnnotationProperty extends OWLEntity {
      *         the usual prefix, otherwise <code>false</code>. */
     boolean isDeprecated();
 
-    /** Gets the annotation properties which are asserted to be sub-properties of
-     * this annotation property in the specified ontology.
-     * 
-     * @param ontology
-     *            The ontology to be examined for
-     *            <code>SubAnnotationPropertyOf</code> axioms.
-     * @return A set of annotation properties such that for each property
-     *         <code>p</code> in the set, it is the case that
-     *         <code>ontology</code> contains an
-     *         <code>SubAnnotationPropertyOf(p, this)</code> axiom where
-     *         <code>this</code> refers to this annotation property.
-     * @since 3.2 */
-    Set<OWLAnnotationProperty> getSubProperties(OWLOntology ontology);
 
-    /** Gets the annotation properties which are asserted to be sub-properties of
-     * this annotation property in the specified ontology and potentially its
-     * imports closure.
-     * 
-     * @param ontology
-     *            The ontology to be examined for
-     *            <code>SubAnnotationPropertyOf</code> axioms.
-     * @param includeImportsClosure
-     *            if <code>true</code> then the imports closure of this ontology
-     *            is searched for <code>SubAnnotationPropertyOf</code> axioms
-     *            that assert this property is the super property of some other
-     *            annotation property. If <code>false</code> then only
-     *            <code>ontology</code> is searched.
-     * @return If <code>includeImportsClosure</code> is <code>true</code>, a set
-     *         of annotation properties such that for each property
-     *         <code>p</code> in the set, it is the case that at least one
-     *         <code>ontology</code> in the imports closure contains a
-     *         <code>SubAnnotationPropertyOf(p, this)</code> axiom where
-     *         <code>this</code> refers to this annotation property. If
-     *         <code>includeImportsClosure</code> is <code>false</code>, a set
-     *         of annotation properties such that for each property
-     *         <code>p</code> in the set, it is the case that
-     *         <code>ontology</code> contains a
-     *         <code>SubAnnotationPropertyOf(p, this)</code> axiom where
-     *         <code>this</code> refers to this annotation property.
-     * @since 3.2 */
-    Set<OWLAnnotationProperty> getSubProperties(OWLOntology ontology,
-            boolean includeImportsClosure);
-
-    /** Gets the annotation properties which are asserted to be sub-properties of
-     * this annotation property in the specified set of ontologies.
-     * 
-     * @param ontologies
-     *            The set of ontologies to be examined for
-     *            <code>SubAnnotationPropertyOf</code> axioms.
-     * @return A set of annotation properties such that for each property
-     *         <code>p</code> in the set, it is the case that at least one
-     *         <code>ontology</code> in <code>ontologies</code> contains a
-     *         <code>SubAnnotationPropertyOf(p, this)</code> axiom where
-     *         <code>this</code> refers to this annotation property.
-     * @since 3.2 */
-    Set<OWLAnnotationProperty> getSubProperties(Set<OWLOntology> ontologies);
-
-    /** Gets the annotation properties which are asserted to be super-properties
-     * of this annotation property in the specified ontology.
-     * 
-     * @param ontology
-     *            The ontology to be examined for
-     *            <code>SubAnnotationPropertyOf</code> axioms.
-     * @return A set of annotation properties such that for each property
-     *         <code>p</code> in the set, it is the case that
-     *         <code>ontology</code> contains an
-     *         <code>SubAnnotationPropertyOf(this, p)</code> axiom where
-     *         <code>this</code> refers to this annotation property.
-     * @since 3.2 */
-    Set<OWLAnnotationProperty> getSuperProperties(OWLOntology ontology);
-
-    /** Gets the annotation properties which are asserted to be super-properties
-     * of this annotation property in the specified ontology and potentially its
-     * imports closure.
-     * 
-     * @param ontology
-     *            The ontology to be examined for
-     *            <code>SubAnnotationPropertyOf</code> axioms.
-     * @param includeImportsClosure
-     *            if <code>true</code> then the imports closure of this ontology
-     *            is searched for <code>SubAnnotationPropertyOf</code> axioms
-     *            that assert this property is the super property of some other
-     *            annotation property. If <code>false</code> then only
-     *            <code>ontology</code> is searched.
-     * @return If <code>includeImportsClosure</code> is <code>true</code>, a set
-     *         of annotation properties such that for each property
-     *         <code>p</code> in the set, it is the case that at least one
-     *         <code>ontology</code> in the imports closure contains a
-     *         <code>SuperAnnotationPropertyOf(this, p)</code> axiom where
-     *         <code>this</code> refers to this annotation property. If
-     *         <code>includeImportsClosure</code> is <code>false</code>, a set
-     *         of annotation properties such that for each property
-     *         <code>p</code> in the set, it is the case that
-     *         <code>ontology</code> contains a
-     *         <code>SuperAnnotationPropertyOf(this, p)</code> axiom where
-     *         <code>this</code> refers to this annotation property.
-     * @since 3.2 */
-    Set<OWLAnnotationProperty> getSuperProperties(OWLOntology ontology,
-            boolean includeImportsClosure);
-
-    /** Gets the annotation properties which are asserted to be super-properties
-     * of this annotation property in the specified set of ontologies.
-     * 
-     * @param ontologies
-     *            The set of ontologies to be examined for
-     *            <code>SubAnnotationPropertyOf</code> axioms.
-     * @return A set of annotation properties such that for each property
-     *         <code>p</code> in the set, it is the case that at least one
-     *         <code>ontology</code> in <code>ontologies</code> contains a
-     *         <code>SubAnnotationPropertyOf(this, p)</code> axiom where
-     *         <code>this</code> refers to this annotation property.
-     * @since 3.2 */
-    Set<OWLAnnotationProperty> getSuperProperties(Set<OWLOntology> ontologies);
 }

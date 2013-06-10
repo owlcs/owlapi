@@ -1028,18 +1028,6 @@ public class ContractOwlapi_1Test {
         boolean result25 = testSubject0.isComment();
         boolean result26 = testSubject0.isLabel();
         boolean result27 = testSubject0.isDeprecated();
-        Set<OWLAnnotationProperty> result28 = testSubject0.getSubProperties(Utils
-                .getMockOntology());
-        Set<OWLAnnotationProperty> result29 = testSubject0.getSubProperties(
-                Utils.getMockOntology(), false);
-        Set<OWLAnnotationProperty> result30 = testSubject0.getSubProperties(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLAnnotationProperty> result31 = testSubject0.getSuperProperties(Utils
-                .getMockOntology());
-        Set<OWLAnnotationProperty> result32 = testSubject0.getSuperProperties(
-                Utils.getMockOntology(), false);
-        Set<OWLAnnotationProperty> result33 = testSubject0.getSuperProperties(Utils
-                .mockSet(Utils.getMockOntology()));
         String result34 = testSubject0.toString();
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();

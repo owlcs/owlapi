@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
@@ -181,7 +180,7 @@ public class Searcher {
     }
 
     enum Direction {
-        SUPER, SUB, EQUIVALENT
+        SUPER, SUB, EQUIVALENT, DISJOINT
     }
 
     public static Searcher find() {
@@ -192,7 +191,7 @@ public class Searcher {
         return find().task(Tasks.DESCRIBE).entity(c);
     }
 
-    private OWLOntology o;
+    protected OWLOntology o;
     private Searches search;
     private Tasks task;
     private AxiomType type;
@@ -329,21 +328,88 @@ public class Searcher {
         return this;
     }
 
-    public Searcher propertiesOf(OWLProperty d) {
+    public Searcher disjoint() {
+        direction = Direction.DISJOINT;
+        return this;
+    }
+
+    public Searcher propertiesOf(OWLEntity d) {
         search = Searches.PROPERTIES;
         entity = d;
         return this;
     }
 
-    public Searcher domains(OWLProperty property) {
+    public Searcher domains(OWLEntity property) {
         search = Searches.DOMAINS;
         entity = property;
         return this;
     }
 
-    public Searcher ranges(OWLProperty property) {
+    public Searcher ranges(OWLEntity property) {
         search = Searches.RANGES;
         entity = property;
         return this;
     }
+    // @Override
+    // public Set<OWLAnnotationProperty> getSubProperties(OWLOntology ontology)
+    // {
+    // return getSubProperties(Collections.singleton(ontology));
+    // }
+    //
+    // @Override
+    // public Set<OWLAnnotationProperty> getSubProperties(OWLOntology ontology,
+    // boolean includeImportsClosure) {
+    // if (includeImportsClosure) {
+    // return getSubProperties(ontology.getImportsClosure());
+    // } else {
+    // return getSubProperties(Collections.singleton(ontology));
+    // }
+    // }
+    //
+    // @Override
+    // public Set<OWLAnnotationProperty> getSubProperties(Set<OWLOntology>
+    // ontologies) {
+    // Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
+    // for (OWLOntology ont : ontologies) {
+    // for (OWLSubAnnotationPropertyOfAxiom ax : ont
+    // .getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
+    // if (ax.getSuperProperty().equals(this)) {
+    // result.add(ax.getSubProperty());
+    // }
+    // }
+    // }
+    // return result;
+    // }
+    //
+    // @Override
+    // public Set<OWLAnnotationProperty> getSuperProperties(OWLOntology
+    // ontology) {
+    // return getSuperProperties(Collections.singleton(ontology));
+    // }
+    //
+    // @Override
+    // public Set<OWLAnnotationProperty> getSuperProperties(OWLOntology
+    // ontology,
+    // boolean includeImportsClosure) {
+    // if (includeImportsClosure) {
+    // return getSuperProperties(ontology.getImportsClosure());
+    // } else {
+    // return getSuperProperties(Collections.singleton(ontology));
+    // }
+    // }
+    //
+    // @Override
+    // public Set<OWLAnnotationProperty> getSuperProperties(Set<OWLOntology>
+    // ontologies) {
+    // Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
+    // for (OWLOntology ont : ontologies) {
+    // for (OWLSubAnnotationPropertyOfAxiom ax : ont
+    // .getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
+    // if (ax.getSubProperty().equals(this)) {
+    // result.add(ax.getSuperProperty());
+    // }
+    // }
+    // }
+    // return result;
+    // }
 }

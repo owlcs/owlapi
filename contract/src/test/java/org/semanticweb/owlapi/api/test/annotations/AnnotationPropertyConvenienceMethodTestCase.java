@@ -40,8 +40,7 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
-
-import java.util.Collections;
+import static org.semanticweb.owlapi.search.Searcher.find;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
@@ -66,14 +65,13 @@ public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPIT
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
-        assertTrue(propP.getSuperProperties(ont).contains(propQ));
-        assertTrue(propP.getSuperProperties(Collections.singleton(ont)).contains(propQ));
-        assertTrue(propP.getSuperProperties(ont, true).contains(propQ));
-        assertTrue(propP.getSuperProperties(ont, false).contains(propQ));
-        assertTrue(propP.getSuperProperties(ont).contains(propR));
-        assertTrue(propP.getSuperProperties(Collections.singleton(ont)).contains(propR));
-        assertTrue(propP.getSuperProperties(ont, true).contains(propR));
-        assertTrue(propP.getSuperProperties(ont, false).contains(propR));
+        assertTrue(find().sup().propertiesOf(propP).in(ont).asCollection() .contains(propQ));
+        assertTrue(find().sup().propertiesOf(propP).in(ont).excludeImports()
+                .asCollection().contains(propQ));
+        assertTrue(find().sup().propertiesOf(propP).in(ont).asCollection()
+                .contains(propR));
+        assertTrue(find().sup().propertiesOf(propP).in(ont).excludeImports()
+                .asCollection().contains(propR));
     }
 
     @Test
@@ -87,13 +85,13 @@ public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPIT
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
-        assertTrue(propQ.getSubProperties(ont).contains(propP));
-        assertTrue(propQ.getSubProperties(Collections.singleton(ont)).contains(propP));
-        assertTrue(propQ.getSubProperties(ont, true).contains(propP));
-        assertTrue(propQ.getSubProperties(ont, false).contains(propP));
-        assertTrue(propR.getSubProperties(ont).contains(propP));
-        assertTrue(propR.getSubProperties(Collections.singleton(ont)).contains(propP));
-        assertTrue(propR.getSubProperties(ont, true).contains(propP));
-        assertTrue(propR.getSubProperties(ont, false).contains(propP));
+        assertTrue(find().sub().propertiesOf(propQ).in(ont).asCollection()
+                .contains(propP));
+        assertTrue(find().sub().propertiesOf(propQ).in(ont).excludeImports()
+                .asCollection().contains(propP));
+        assertTrue(find().sub().propertiesOf(propR).in(ont).asCollection()
+                .contains(propP));
+        assertTrue(find().sub().propertiesOf(propR).in(ont).excludeImports()
+                .asCollection().contains(propP));
     }
 }

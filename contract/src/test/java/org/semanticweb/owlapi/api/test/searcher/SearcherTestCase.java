@@ -97,4 +97,21 @@ public class SearcherTestCase {
         assertTrue(find().equivalent().propertiesOf(c).in(o).asCollection().contains(e));
     }
 
+    // Set<P> getDisjointProperties(OWLOntology ontology);
+    //
+    // Set<P> getDisjointProperties(Set<OWLOntology> ontologies);
+    // Set<OWLAnnotationProperty> getSubProperties(OWLOntology ontology);
+    //
+    // Set<OWLAnnotationProperty> getSubProperties(OWLOntology ontology,
+    // boolean includeImportsClosure);
+    //
+    // Set<OWLAnnotationProperty> getSubProperties(Set<OWLOntology> ontologies);
+    //
+    // Set<OWLAnnotationProperty> getSuperProperties(OWLOntology ontology);
+    //
+    // Set<OWLAnnotationProperty> getSuperProperties(OWLOntology ontology,
+    // boolean includeImportsClosure);
+    //
+    // Set<OWLAnnotationProperty> getSuperProperties(Set<OWLOntology>
+    // ontologies);
 }
