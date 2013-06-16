@@ -57,8 +57,7 @@ public interface ImpendingOWLOntologyChangeListener {
      * @throws OWLOntologyChangeVetoException
      *             The listener may throw a change veto exception, which will
      *             prevent all of the changes being applied. */
-    void
-            handleImpendingOntologyChanges(
+    void handleImpendingOntologyChanges(
             List<? extends OWLOntologyChange<?>> impendingChanges)
-                    throws OWLOntologyChangeVetoException;
+            throws OWLOntologyChangeVetoException;
 }

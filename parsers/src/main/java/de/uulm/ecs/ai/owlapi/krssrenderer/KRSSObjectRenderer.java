@@ -47,6 +47,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -144,6 +145,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.search.Searcher;
 
 /** A <code>KRSSObjectRenderer</code> renderes an OWLOntology in the original
  * KRSS syntax. Note that only a subset of OWL can be expressed in KRSS.
@@ -343,6 +345,15 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         return sortedDescriptions;
     }
 
+    protected <T extends OWLObject> List<T> sort(Iterable<T> objects) {
+        List<T> sortedDescriptions = new ArrayList<T>();
+        for (T t : objects) {
+            sortedDescriptions.add(t);
+        }
+        Collections.sort(sortedDescriptions);
+        return sortedDescriptions;
+    }
+
     protected final void writeOpenBracket() {
         write(OPEN_BRACKET);
     }
@@ -414,12 +425,14 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         obj.accept(this);
     }
 
-    protected void flattenProperties(Collection<OWLObjectPropertyExpression> properties,
+    protected void flattenProperties(Iterable<OWLObjectPropertyExpression> properties,
             KRSSVocabulary junctor) {
-        if (properties.isEmpty()) {
+        List<OWLObjectPropertyExpression> props = sort(properties);
+        final int size = props.size();
+        if (size == 0) {
             return;
         }
-        if (properties.size() == 1) {
+        if (size == 1) {
             write(properties.iterator().next());
             return;
         }
@@ -427,9 +440,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
             writeOpenBracket();
             write(junctor);
         }
-        List<OWLObjectPropertyExpression> props = sort(properties);
         write(props.get(0));
-        final int size = props.size();
         final int indent = getIndent();
         for (int i = 1; i < size; i++) {
             writeln();
@@ -441,20 +452,19 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    protected void flatten(Collection<OWLClassExpression> description,
+    protected void flatten(Iterable<OWLClassExpression> description,
             KRSSVocabulary junctor) {
-        if (description.isEmpty()) {
+        List<OWLClassExpression> descs = sort(description);
+        final int size = descs.size();
+        if (size == 0) {
             return;
         }
-        if (description.size() == 1) {
-            write(description.iterator().next());
+        write(descs.get(0));
+        if (size == 1) {
             return;
         }
         writeOpenBracket();
         write(junctor);
-        List<OWLClassExpression> descs = sort(description);
-        write(descs.get(0));
-        final int size = descs.size();
         final int indent = getIndent();
         for (int i = 1; i < size; i++) {
             writeln();
@@ -472,20 +482,25 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         classes.remove(ontology1.getOWLOntologyManager().getOWLDataFactory()
                 .getOWLNothing());
         for (final OWLClass eachClass : sort(classes)) {
-            final boolean primitive = !eachClass.isDefined(ontology1);
+            final boolean primitive = !find().in(ontology1).isDefined(eachClass);
             if (primitive) {
                 writeOpenBracket();
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(eachClass.getSuperClasses(ontology1), KRSSVocabulary.AND);
+                Iterable<OWLClassExpression> supclasses = find(OWLClassExpression.class)
+                        .in(ontology1).equivalent().classes(eachClass);
+                flatten(supclasses, KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
             } else {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                flatten(eachClass.getEquivalentClasses(ontology1), KRSSVocabulary.AND);
+                Iterable<OWLClassExpression> equivalentClasses = find(
+                        OWLClassExpression.class).in(ontology1).equivalent()
+                        .classes(eachClass);
+                flatten(equivalentClasses, KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
             }
@@ -493,9 +508,14 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         for (final OWLObjectProperty property : sort(ontology1
                 .getObjectPropertiesInSignature())) {
             writeOpenBracket();
-            Collection<OWLObjectPropertyExpression> properties = find().in(ontology1)
-                    .equivalent().propertiesOf(property).asCollection();
-            boolean isDefined = !properties.isEmpty();
+            Searcher<OWLObjectPropertyExpression> props = find(
+                    OWLObjectPropertyExpression.class).in(ontology1).equivalent()
+                    .propertiesOf(property);
+            Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
+            for (OWLObjectPropertyExpression p : props) {
+                properties.add(p);
+            }
+            boolean isDefined = !props.isEmpty();
             if (isDefined) {
                 write(DEFINE_ROLE);
                 write(property);
@@ -508,9 +528,13 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
                 writeSpace();
-                properties = find().in(ontology1).sup().propertiesOf(property)
-                        .asCollection();
-                if (!properties.isEmpty()) {
+                props = find(OWLObjectPropertyExpression.class).in(ontology1).sup()
+                        .propertiesOf(property);
+                properties = new HashSet<OWLObjectPropertyExpression>();
+                for (OWLObjectPropertyExpression p : props) {
+                    properties.add(p);
+                }
+                if (!props.isEmpty()) {
                     write(properties.iterator().next());
                 }
             }

@@ -42,7 +42,6 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -50,10 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 27-Jul-2007<br>
  * <br> */
 public class ReferencedClassCount extends ObjectCountMetric<OWLClass> {
-    /** @param owlOntologyManager
-     *            manager to use */
-    public ReferencedClassCount(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    /** @param o
+     *            ontology to use */
+    public ReferencedClassCount(OWLOntology o) {
+        super(o);
     }
 
     @Override

@@ -201,8 +201,7 @@ public abstract class AbstractOWLParser implements OWLParser {
     }
 
     protected InputSource getInputSource(OWLOntologyDocumentSource documentSource,
-            OWLOntologyLoaderConfiguration config)
-            throws IOException {
+            OWLOntologyLoaderConfiguration config) throws IOException {
         InputSource is;
         if (documentSource.isReaderAvailable()) {
             is = new InputSource(documentSource.getReader());

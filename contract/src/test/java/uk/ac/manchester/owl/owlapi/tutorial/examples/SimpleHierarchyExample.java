@@ -38,8 +38,9 @@
  */
 package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
+import static org.semanticweb.owlapi.search.Searcher.find;
+
 import java.io.PrintStream;
-import java.util.Set;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
@@ -95,8 +96,8 @@ public class SimpleHierarchyExample {
          * Use a visitor to extract label annotations
          */
         LabelExtractor le = new LabelExtractor();
-        Set<OWLAnnotation> annotations = clazz.getAnnotations(ontology);
-        for (OWLAnnotation anno : annotations) {
+        for (OWLAnnotation anno : find(OWLAnnotation.class).in(ontology).annotations(
+                clazz)) {
             anno.accept(le);
         }
         /* Print out the label if there is one. If not, just use the class URI */

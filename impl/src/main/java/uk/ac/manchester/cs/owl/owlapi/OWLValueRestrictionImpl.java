@@ -74,11 +74,8 @@ public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
             if (!(obj instanceof OWLHasValueRestriction<?>)) {
                 return false;
             }
-            return ((OWLHasValueRestriction<?>) obj).getValue().equals(value)
-;
+            return ((OWLHasValueRestriction<?>) obj).getValue().equals(value);
         }
         return false;
     }
-
-
 }

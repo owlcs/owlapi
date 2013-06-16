@@ -65,13 +65,12 @@ public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPIT
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
-        assertTrue(find().sup().propertiesOf(propP).in(ont).asCollection() .contains(propQ));
+        assertTrue(find().sup().propertiesOf(propP).in(ont).contains(propQ));
         assertTrue(find().sup().propertiesOf(propP).in(ont).excludeImports()
-                .asCollection().contains(propQ));
-        assertTrue(find().sup().propertiesOf(propP).in(ont).asCollection()
+                .contains(propQ));
+        assertTrue(find().sup().propertiesOf(propP).in(ont).contains(propR));
+        assertTrue(find().sup().propertiesOf(propP).in(ont).excludeImports()
                 .contains(propR));
-        assertTrue(find().sup().propertiesOf(propP).in(ont).excludeImports()
-                .asCollection().contains(propR));
     }
 
     @Test
@@ -85,13 +84,11 @@ public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPIT
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
-        assertTrue(find().sub().propertiesOf(propQ).in(ont).asCollection()
-                .contains(propP));
+        assertTrue(find().sub().propertiesOf(propQ).in(ont).contains(propP));
         assertTrue(find().sub().propertiesOf(propQ).in(ont).excludeImports()
-                .asCollection().contains(propP));
-        assertTrue(find().sub().propertiesOf(propR).in(ont).asCollection()
                 .contains(propP));
+        assertTrue(find().sub().propertiesOf(propR).in(ont).contains(propP));
         assertTrue(find().sub().propertiesOf(propR).in(ont).excludeImports()
-                .asCollection().contains(propP));
+                .contains(propP));
     }
 }

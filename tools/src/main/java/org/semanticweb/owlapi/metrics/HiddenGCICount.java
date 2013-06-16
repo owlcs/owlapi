@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** Author: Matthew Horridge<br>
@@ -61,10 +60,10 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * axiom is nameed. For example, A equivalentTo p some C, A subClassOf B results
  * in a "hidden" GCI. */
 public class HiddenGCICount extends IntegerValuedMetric {
-    /** @param owlOntologyManager
-     *            manager to use */
-    public HiddenGCICount(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    /** @param o
+     *            ontology to use */
+    public HiddenGCICount(OWLOntology o) {
+        super(o);
     }
 
     @Override

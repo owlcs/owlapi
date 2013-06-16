@@ -38,34 +38,11 @@
  */
 package org.semanticweb.owlapi.model;
 
-import java.util.Set;
-
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 Represents a property or the
  * inverse of a property. */
-public interface OWLPropertyExpression
-        extends OWLObject {
-
-    /** Determines if this property is functional in the specified ontology
-     * 
-     * @param ontology
-     *            The ontology to be tested for a functional property axiom.
-     * @return <code>true</code> if the specified ontology contains an axiom
-     *         stating that the property is functional, other wise
-     *         <code>false</code>. */
-    boolean isFunctional(OWLOntology ontology);
-
-    /** Determines if the property is functional because there is an axiom in one
-     * of the specified ontologies that assert this to be the case.
-     * 
-     * @param ontologies
-     *            The ontologies which will be searched for axioms which specify
-     *            that this property is fuctional.
-     * @return <code>true</code> if the property is functional, or
-     *         <code>false</code> if the property is not functional. */
-    boolean isFunctional(Set<OWLOntology> ontologies);
-
+public interface OWLPropertyExpression extends OWLObject {
     /** Determines if this property expression is anonymous.
      * 
      * @return <code>true</code> if the property expression is anonymous

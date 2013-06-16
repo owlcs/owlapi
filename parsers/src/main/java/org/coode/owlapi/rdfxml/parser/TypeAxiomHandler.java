@@ -154,7 +154,6 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
      *         backwards compatibility, a search will also be performed for
      *         triples whos subject is the specified mainNode and predicate
      *         rdf:object */
-
     private IRI getObjectOfTargetTriple(IRI mainNode) {
         IRI objectTripleObject = getConsumer().getResourceObject(mainNode,
                 getTargetTriplePredicate(), true);

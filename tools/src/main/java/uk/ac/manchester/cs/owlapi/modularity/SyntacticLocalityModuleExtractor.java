@@ -38,6 +38,9 @@
  */
 package uk.ac.manchester.cs.owlapi.modularity;
 
+import static org.semanticweb.owlapi.search.Searcher.find;
+
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -426,8 +429,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                                 + minusOntologyURI(declarationAxiom.toString()));
                     }
                 }
-                Set<OWLAnnotationAssertionAxiom> entityAnnotationAxioms = entity
-                        .getAnnotationAssertionAxioms(ontology);
+                Collection<OWLAnnotationAssertionAxiom> entityAnnotationAxioms = find()
+                        .annotationAxioms(entity).in(ontology).asCollection();
                 enrichedModule.addAll(entityAnnotationAxioms);
                 if (verbose) {
                     for (OWLAnnotationAssertionAxiom entityAnnotationAxiom : entityAnnotationAxioms) {

@@ -38,89 +38,10 @@
  */
 package org.semanticweb.owlapi.model;
 
-import java.util.Set;
-
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 */
-public interface OWLObjectPropertyExpression extends
- OWLPropertyExpression,
-        SWRLPredicate {
-    /** Determines if the specified ontology specifies that this property is
-     * inverse functional.
-     * 
-     * @param ontology
-     *            The ontology to be tested for an inverse functional property
-     *            axiom.
-     * @return <code>true</code> if the property is inverse functional, or
-     *         <code>false</code> if the property is not inverse functional. */
-    boolean isInverseFunctional(OWLOntology ontology);
-
-    /** @param ontologies
-     *            the ontologies to check
-     * @return true if the property is defined as inverse functional */
-    boolean isInverseFunctional(Set<OWLOntology> ontologies);
-
-    /** @param ontology
-     *            the ontology to check
-     * @return true if symmetric */
-    boolean isSymmetric(OWLOntology ontology);
-
-    /** @param ontologies
-     *            the ontologies to check
-     * @return true if symmetric */
-    boolean isSymmetric(Set<OWLOntology> ontologies);
-
-    /** @param ontology
-     *            the ontology to check
-     * @return true if asymmetric */
-    boolean isAsymmetric(OWLOntology ontology);
-
-    /** @param ontologies
-     *            the ontologies to check
-     * @return true if asymmetric */
-    boolean isAsymmetric(Set<OWLOntology> ontologies);
-
-    /** @param ontology
-     *            the ontology to check
-     * @return true if reflexive */
-    boolean isReflexive(OWLOntology ontology);
-
-    /** @param ontologies
-     *            the ontologies to check
-     * @return true if reflexive */
-    boolean isReflexive(Set<OWLOntology> ontologies);
-
-    /** @param ontology
-     *            the ontology to check
-     * @return true if irreflexive */
-    boolean isIrreflexive(OWLOntology ontology);
-
-    /** @param ontologies
-     *            the ontologies to check
-     * @return true if irreflexive */
-    boolean isIrreflexive(Set<OWLOntology> ontologies);
-
-    /** @param ontology
-     *            the ontology to check
-     * @return true if transitive */
-    boolean isTransitive(OWLOntology ontology);
-
-    /** @param ontologies
-     *            the ontologies to check
-     * @return true if transitive */
-    boolean isTransitive(Set<OWLOntology> ontologies);
-
-    /** @param ontology
-     *            the ontology to check
-     * @return the inverse properties */
-    Set<OWLObjectPropertyExpression> getInverses(OWLOntology ontology);
-
-    /** @param ontologies
-     *            the ontologies to check
-     * @return the inverse properties */
-    Set<OWLObjectPropertyExpression> getInverses(Set<OWLOntology> ontologies);
-
+public interface OWLObjectPropertyExpression extends OWLPropertyExpression, SWRLPredicate {
     /** If the property is a named object property then this method will obtain
      * the property as such. The general pattern of use is that the
      * <code>isAnonymous</code> method should first be used to determine if the

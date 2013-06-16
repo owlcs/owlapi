@@ -38,6 +38,7 @@
  */
 package org.coode.owlapi.functionalrenderer;
 
+import static org.semanticweb.owlapi.search.Searcher.find;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.io.IOException;
@@ -303,7 +304,8 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
      * @return The set of axioms that were written out */
     public Set<OWLAxiom> writeAnnotations(OWLEntity entity) {
         Set<OWLAxiom> annotationAssertions = new HashSet<OWLAxiom>();
-        for (OWLAnnotationAxiom ax : entity.getAnnotationAssertionAxioms(ontology)) {
+        for (OWLAnnotationAxiom ax : find(OWLAnnotationAssertionAxiom.class)
+                .annotationAxioms(entity).in(ontology)) {
             ax.accept(this);
             annotationAssertions.add(ax);
             write("\n");
@@ -682,9 +684,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    private
- <F extends OWLPropertyRange>
-            void writeRestriction(OWLXMLVocabulary v,
+    private <F extends OWLPropertyRange> void writeRestriction(OWLXMLVocabulary v,
             OWLCardinalityRestriction<F> restriction, OWLPropertyExpression p) {
         write(v);
         writeOpenBracket();

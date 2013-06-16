@@ -56,7 +56,6 @@ public enum OWLRDFVocabulary {
     // OWL Vocab
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////
-
     /** http://www.w3.org/2002/07/owl#Thing **/
     OWL_THING(Namespaces.OWL, "Thing"),
     /** http://www.w3.org/2002/07/owl#Nothing **/

@@ -185,8 +185,7 @@ public class TurtleRenderer extends RDFRendererBase {
     private void write(RDFNode node) {
         if (node.isLiteral()) {
             write((RDFLiteral) node);
-        }
-        else {
+        } else {
             write((RDFResource) node);
         }
     }

@@ -195,11 +195,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), property);
     }
 
-    private
-            void
-            addObjectCardinalityRestrictionTriples(
+    private void addObjectCardinalityRestrictionTriples(
             OWLCardinalityRestriction<OWLClassExpression> ce, OWLPropertyExpression p,
-                    OWLRDFVocabulary cardiPredicate) {
+            OWLRDFVocabulary cardiPredicate) {
         addRestrictionCommonTriplePropertyRange(ce, p);
         addTriple(ce, cardiPredicate.getIRI(), toTypedConstant(ce.getCardinality()));
         if (ce.isQualified()) {
@@ -211,11 +209,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         }
     }
 
-    private
-            void
-            addDataCardinalityRestrictionTriples(
+    private void addDataCardinalityRestrictionTriples(
             OWLCardinalityRestriction<OWLDataRange> ce, OWLPropertyExpression p,
-                    OWLRDFVocabulary cardiPredicate) {
+            OWLRDFVocabulary cardiPredicate) {
         addRestrictionCommonTriplePropertyRange(ce, p);
         addTriple(ce, cardiPredicate.getIRI(), toTypedConstant(ce.getCardinality()));
         if (ce.isQualified()) {

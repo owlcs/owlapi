@@ -45,8 +45,7 @@ import org.semanticweb.owlapi.model.OWLObjectRestriction;
 import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
 
 @SuppressWarnings("javadoc")
-public abstract class OWLQuantifiedObjectRestrictionImpl
-        extends
+public abstract class OWLQuantifiedObjectRestrictionImpl extends
         OWLQuantifiedRestrictionImpl<OWLClassExpression> implements OWLObjectRestriction {
     private static final long serialVersionUID = 40000L;
     private OWLObjectPropertyExpression property;
@@ -61,7 +60,6 @@ public abstract class OWLQuantifiedObjectRestrictionImpl
     public OWLObjectPropertyExpression getProperty() {
         return property;
     }
-
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {

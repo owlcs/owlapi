@@ -95,7 +95,6 @@ public enum OWL2Datatype {
     XSD_DATE_TIME(XSDVocabulary.DATE_TIME, Category.TIME, false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"),
     XSD_DATE_TIME_STAMP(XSDVocabulary.DATE_TIME_STAMP, Category.TIME, false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
 //@formatter:on
-
     private static final Set<IRI> ALL_IRIS;
     static {
         Set<IRI> uris = new HashSet<IRI>();
@@ -156,7 +155,8 @@ public enum OWL2Datatype {
     private final boolean finite;
     private Pattern pattern;
 
-    OWL2Datatype(Namespaces namespace, String shortName, Category category, boolean finite, String regEx) {
+    OWL2Datatype(Namespaces namespace, String shortName, Category category,
+            boolean finite, String regEx) {
         iri = IRI.create(namespace.toString(), shortName);
         this.shortName = shortName;
         this.category = category;
@@ -235,23 +235,17 @@ public enum OWL2Datatype {
     }
 
     public enum Category {
-
-    	UNIVERSAL("Universal literal"),
-
-        NUMBER("Number", OWLFacet.MIN_INCLUSIVE, OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE, OWLFacet.MAX_EXCLUSIVE),
-
-        STRING_WITH_LANGUAGE_TAG("String with a language tag", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH, OWLFacet.LENGTH, OWLFacet.PATTERN, OWLFacet.LANG_RANGE),
-
-        STRING_WITHOUT_LANGUAGE_TAG("String without a language tag", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH, OWLFacet.LENGTH, OWLFacet.PATTERN),
-
-        BOOLEAN("Boolean value"),
-
-        BINARY("Binary data", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH, OWLFacet.LENGTH),
-
-        URI("URI", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH, OWLFacet.PATTERN),
-
-        TIME("Time instant", OWLFacet.MIN_INCLUSIVE, OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE, OWLFacet.MAX_EXCLUSIVE);
-
+        UNIVERSAL("Universal literal"), NUMBER("Number", OWLFacet.MIN_INCLUSIVE,
+                OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE, OWLFacet.MAX_EXCLUSIVE), STRING_WITH_LANGUAGE_TAG(
+                "String with a language tag", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH,
+                OWLFacet.LENGTH, OWLFacet.PATTERN, OWLFacet.LANG_RANGE), STRING_WITHOUT_LANGUAGE_TAG(
+                "String without a language tag", OWLFacet.MIN_LENGTH,
+                OWLFacet.MAX_LENGTH, OWLFacet.LENGTH, OWLFacet.PATTERN), BOOLEAN(
+                "Boolean value"), BINARY("Binary data", OWLFacet.MIN_LENGTH,
+                OWLFacet.MAX_LENGTH, OWLFacet.LENGTH), URI("URI", OWLFacet.MIN_LENGTH,
+                OWLFacet.MAX_LENGTH, OWLFacet.PATTERN), TIME("Time instant",
+                OWLFacet.MIN_INCLUSIVE, OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE,
+                OWLFacet.MAX_EXCLUSIVE);
         private final String name;
         private final Set<OWLFacet> facets;
 

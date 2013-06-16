@@ -85,7 +85,6 @@ public class NamespaceUtil {
         return Character.isDigit(ch);
     }
 
-
     /** Gets a prefix for the given namespace. If a mapping has not been
      * specified then a prefix will be computed and stored for the specified
      * namespace.

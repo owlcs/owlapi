@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.metrics;
 
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * <br>
  * An <code>OWLMetric</code> that returns an integer value */
 public abstract class IntegerValuedMetric extends AbstractOWLMetric<Integer> {
-    protected IntegerValuedMetric(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    protected IntegerValuedMetric(OWLOntology o) {
+        super(o);
     }
 }

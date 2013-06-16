@@ -190,7 +190,8 @@ public class OWL2DatatypeImplTestCase {
     @Test
     public void equals() {
         assertEquals(plainLiteral, plainLiteral);
-        assertEquals(plainLiteral,
+        assertEquals(
+                plainLiteral,
                 Factory.getFactory().getOWLDatatype(
                         OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()));
         assertNotEquals(plainLiteral,
@@ -237,11 +238,9 @@ public class OWL2DatatypeImplTestCase {
     @Test
     public void isTopEntity() {
         assertTrue(Factory.getFactory()
-                .getOWLDatatype(OWL2Datatype.RDFS_LITERAL.getIRI())
-                .isTopDatatype());
+                .getOWLDatatype(OWL2Datatype.RDFS_LITERAL.getIRI()).isTopDatatype());
         assertFalse(Factory.getFactory()
-                .getOWLDatatype(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI())
-                .isTopDatatype());
+                .getOWLDatatype(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()).isTopDatatype());
     }
 
     @Test

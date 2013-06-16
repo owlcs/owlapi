@@ -59,6 +59,7 @@ public class OWLObjectValueRestrictionTestCase extends
             OWLClassExpression filler) {
         return ObjectHasValue(prop, createIndividualFiller(filler.asOWLClass().getIRI()));
     }
+
     @Override
     protected OWLDataRestriction createDataRestriction(OWLDataProperty prop,
             OWLDataRange filler) {

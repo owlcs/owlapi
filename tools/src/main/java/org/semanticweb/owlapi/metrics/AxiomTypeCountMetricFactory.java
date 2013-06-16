@@ -42,7 +42,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -50,13 +50,13 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 27-Jul-2007<br>
  * <br> */
 public class AxiomTypeCountMetricFactory {
-    /** @param manager
-     *            manager to use
+    /** @param o
+     *            ontology to use
      * @return set of metrics */
-    public static Set<OWLMetric<?>> createMetrics(OWLOntologyManager manager) {
+    public static Set<OWLMetric<?>> createMetrics(OWLOntology o) {
         Set<OWLMetric<?>> metrics = new HashSet<OWLMetric<?>>();
         for (AxiomType<?> axiomType : AxiomType.AXIOM_TYPES) {
-            metrics.add(new AxiomTypeMetric(manager, axiomType));
+            metrics.add(new AxiomTypeMetric(o, axiomType));
         }
         return metrics;
     }

@@ -53,13 +53,13 @@ import org.semanticweb.owlapi.model.OWLObjectRestriction;
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
-
 public class OWLDataValueRestrictionTestCase extends
         AbstractOWLRestrictionWithFillerTestCase<OWLDataProperty, OWLLiteral> {
     protected OWLDataRestriction createDataRestriction(OWLDataProperty prop,
             OWLLiteral filler) {
         return DataHasValue(prop, filler);
     }
+
     protected OWLObjectRestriction createObjectRestriction(OWLObjectProperty prop,
             OWLIndividual filler) {
         return ObjectHasValue(prop, filler);
@@ -77,5 +77,4 @@ public class OWLDataValueRestrictionTestCase extends
             OWLDataRange filler) {
         return createDataRestriction(prop, Literal("test", filler.asOWLDatatype()));
     }
-
 }

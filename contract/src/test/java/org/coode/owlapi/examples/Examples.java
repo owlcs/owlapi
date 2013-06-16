@@ -38,6 +38,7 @@
  */
 package org.coode.owlapi.examples;
 
+import static org.semanticweb.owlapi.search.Searcher.find;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 
 import java.io.ByteArrayOutputStream;
@@ -547,7 +548,8 @@ public class Examples {
             System.out.println("Referenced class: " + cls);
         }
         // We should also find that B is an ASSERTED superclass of A
-        Set<OWLClassExpression> superClasses = clsA.getSuperClasses(ontology);
+        Iterable<OWLClassExpression> superClasses = find(OWLClassExpression.class).sup()
+                .classes(clsA).in(ontology);
         System.out.println("Asserted superclasses of " + clsA + ":");
         for (OWLClassExpression desc : superClasses) {
             System.out.println(desc);
@@ -1253,7 +1255,8 @@ public class Examples {
                 .getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI());
         for (OWLClass cls : ont.getClassesInSignature()) {
             // Get the annotations on the class that use the label property
-            for (OWLAnnotation annotation : cls.getAnnotations(ont, label)) {
+            for (OWLAnnotation annotation : find(OWLAnnotation.class).in(ont)
+                    .annotations(cls).forProperty(label)) {
                 if (annotation.getValue() instanceof OWLLiteral) {
                     OWLLiteral val = (OWLLiteral) annotation.getValue();
                     if (val.hasLang("pt")) {

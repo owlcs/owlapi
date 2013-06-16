@@ -59,7 +59,7 @@ public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> 
     private final int cardinality;
     private final F filler;
 
-    protected OWLCardinalityRestrictionImpl( int cardinality, F filler) {
+    protected OWLCardinalityRestrictionImpl(int cardinality, F filler) {
         super();
         this.cardinality = cardinality;
         this.filler = filler;
@@ -88,5 +88,4 @@ public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> 
         }
         return false;
     }
-
 }

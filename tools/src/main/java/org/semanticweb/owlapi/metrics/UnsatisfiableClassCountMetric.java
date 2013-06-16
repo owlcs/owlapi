@@ -41,7 +41,6 @@ package org.semanticweb.owlapi.metrics;
 import java.util.List;
 
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /** Author: Matthew Horridge<br>
@@ -52,13 +51,10 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
     private final OWLReasoner reasoner;
 
-    /** @param owlOntologyManager
-     *            manager to use
-     * @param reasoner
+    /** @param reasoner
      *            the reasoner */
-    public UnsatisfiableClassCountMetric(OWLReasoner reasoner,
-            OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    public UnsatisfiableClassCountMetric(OWLReasoner reasoner) {
+        super(reasoner.getRootOntology());
         this.reasoner = reasoner;
     }
 

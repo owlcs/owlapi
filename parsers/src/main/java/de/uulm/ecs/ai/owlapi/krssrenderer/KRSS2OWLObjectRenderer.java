@@ -43,9 +43,9 @@ import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -140,6 +140,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.search.Searcher;
 
 /** @author Olaf Noppens */
 @SuppressWarnings({ "unused", "javadoc" })
@@ -238,42 +239,44 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         obj.accept(this);
     }
 
-    private final void flatten(Collection<OWLClassExpression> classExpressions) {
-        if (classExpressions.isEmpty()) {
+    private final void flatten(Iterable<OWLClassExpression> classExpressions) {
+        List<OWLClassExpression> list = new ArrayList<OWLClassExpression>();
+        for (OWLClassExpression c : classExpressions) {
+            list.add(c);
+        }
+        if (list.isEmpty()) {
             return;
         }
-        final OWLClassExpression desc = classExpressions.iterator().next();
-        if (classExpressions.size() == 1) {
+        final OWLClassExpression desc = list.iterator().next();
+        if (list.size() == 1) {
             write(desc);
             return;
         }
-        classExpressions.remove(desc);
+        list.remove(0);
         writeOpenBracket();
         write(AND);
         write(desc);
-        flatten(classExpressions);
+        flatten(list);
         writeCloseBracket();
     }
 
     @Override
     public final void visit(OWLOntology onto) {
         for (final OWLClass eachClass : onto.getClassesInSignature()) {
-            final boolean primitive = !eachClass.isDefined(onto);// !eachClass.getSuperClasses(ontology).isEmpty();
+            final boolean primitive = !find().in(onto).isDefined(eachClass);
             if (primitive) {
                 writeOpenBracket();
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Set<OWLClassExpression> superClasses = eachClass.getSuperClasses(onto);
-                if (superClasses.size() == 1) {
-                    write(superClasses.iterator().next());
-                } else {
-                    flatten(superClasses);
-                }
+                Searcher<OWLClassExpression> superClasses = find(OWLClassExpression.class)
+                        .sup().classes(eachClass).in(onto);
+                flatten(superClasses);
                 writeCloseBracket(); // ==> end definition of primitive-concept
                 writeln();
-                for (OWLClassExpression classExpression : eachClass
-                        .getEquivalentClasses(onto)) {
+                Searcher<OWLClassExpression> classes = find(OWLClassExpression.class)
+                        .in(onto).equivalent().classes(eachClass);
+                for (OWLClassExpression classExpression : classes) {
                     writeOpenBracket();
                     write(eachClass);
                     write(EQUIVALENT);
@@ -286,18 +289,18 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Set<OWLClassExpression> equivalentClasses = eachClass
-                        .getEquivalentClasses(onto);
-                if (equivalentClasses.isEmpty()) {
+                Searcher<OWLClassExpression> classes = find(OWLClassExpression.class)
+                        .in(onto).equivalent().classes(eachClass);
+                if (classes.isEmpty()) {
                     // ?
                     writeCloseBracket();
                     writeln();
-                } else if (equivalentClasses.size() == 1) {
-                    write(equivalentClasses.iterator().next());
+                } else if (classes.size() == 1) {
+                    write(classes.iterator().next());
                     writeCloseBracket();
                     writeln();
                 } else {
-                    Iterator<OWLClassExpression> iter = equivalentClasses.iterator();
+                    Iterator<OWLClassExpression> iter = classes.iterator();
                     write(iter.next());
                     writeCloseBracket();
                     writeln();
@@ -320,30 +323,31 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);
-            if (property.isTransitive(onto)) {
+            if (find().in(onto).isTransitive(property)) {
                 writeAttribute(TRANSITIVE_ATTR);
                 writeSpace();
                 write(TRUE);
             }
-            if (property.isSymmetric(onto)) {
+            if (find().in(ontology).isSymmetric(property)) {
                 writeAttribute(SYMMETRIC_ATTR);
                 writeSpace();
                 write(TRUE);
             }
-            final Collection<OWLClassExpression> domains = find().in(onto)
-                    .domains(property).asCollection();
+            Searcher<OWLClassExpression> domains = find(OWLClassExpression.class)
+                    .in(onto).domains(property);
             if (!domains.isEmpty()) {
                 writeAttribute(DOMAIN);
                 flatten(domains);
             }
-            final Collection<OWLClassExpression> ranges = find().in(onto)
-                    .ranges(property).asCollection();
+            Searcher<OWLClassExpression> ranges = find(OWLClassExpression.class).in(onto)
+                    .ranges(property);
             if (!ranges.isEmpty()) {
                 writeAttribute(RANGE_ATTR);
                 flatten(ranges);
             }
-            final Collection<OWLObjectPropertyExpression> superProperties = find()
-                    .in(onto).sup().propertiesOf(property).asCollection();
+            Searcher<OWLObjectPropertyExpression> superProperties = find(
+                    OWLObjectPropertyExpression.class).in(onto).sup()
+                    .propertiesOf(property);
             if (!superProperties.isEmpty()) {
                 writeAttribute(PARENTS_ATTR);
                 writeOpenBracket();

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.metrics;
 
+import static org.semanticweb.owlapi.search.Searcher.find;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.NamedConjunctChecker;
 
@@ -56,10 +57,10 @@ import org.semanticweb.owlapi.util.NamedConjunctChecker;
  * Date: 27-Jul-2007<br>
  * <br> */
 public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric {
-    /** @param owlOntologyManager
-     *            manager to use */
-    public NumberOfClassesWithMultipleInheritance(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    /** @param o
+     *            ontology to use */
+    public NumberOfClassesWithMultipleInheritance(OWLOntology o) {
+        super(o);
     }
 
     @Override
@@ -79,7 +80,8 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
                 }
                 processed.add(cls);
                 int count = 0;
-                for (OWLClassExpression sup : cls.getSubClasses(getOntologies())) {
+                for (OWLClassExpression sup : find(OWLClassExpression.class).in(ont)
+                        .equivalent().classes(cls)) {
                     if (checker.hasNamedConjunct(sup)) {
                         count++;
                     }

@@ -118,8 +118,8 @@ public class ContractMansyntaxrendererTest {
     public void shouldTestManchesterOWLSyntaxOntologyStorer() throws Exception {
         ManchesterOWLSyntaxOntologyStorer testSubject0 = new ManchesterOWLSyntaxOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockOntology(),
-                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
+                mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();

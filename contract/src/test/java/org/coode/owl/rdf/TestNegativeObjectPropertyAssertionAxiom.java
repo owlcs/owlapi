@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owl.rdf;
 
 import java.util.Collections;
@@ -46,27 +45,25 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 09-May-2007<br><br>
- */
-public class TestNegativeObjectPropertyAssertionAxiom extends AbstractRendererAndParserTestCase {
-
+ * Date: 09-May-2007<br>
+ * <br> */
+public class TestNegativeObjectPropertyAssertionAxiom extends
+        AbstractRendererAndParserTestCase {
     @Override
-	protected String getClassExpression() {
+    protected String getClassExpression() {
         return "Negative object property assertion test case";
     }
 
-
     @Override
-	protected Set<OWLAxiom> getAxioms() {
+    protected Set<OWLAxiom> getAxioms() {
         OWLIndividual subj = createIndividual();
         OWLObjectProperty prop = createObjectProperty();
         OWLIndividual obj = createIndividual();
-        OWLAxiom ax = getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(prop, subj, obj);
+        OWLAxiom ax = getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(prop,
+                subj, obj);
         return Collections.singleton(ax);
     }
 }

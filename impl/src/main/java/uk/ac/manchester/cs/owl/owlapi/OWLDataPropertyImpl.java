@@ -38,15 +38,9 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Collections;
-import java.util.Set;
-
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -58,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -70,8 +63,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 26-Oct-2006<br>
  * <br> */
 @SuppressWarnings("javadoc")
-public class OWLDataPropertyImpl extends
- OWLPropertyExpressionImpl implements
+public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
         OWLDataProperty {
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
@@ -130,22 +122,6 @@ public class OWLDataPropertyImpl extends
     }
 
     @Override
-    public boolean isFunctional(OWLOntology ontology) {
-        return ontology.getFunctionalDataPropertyAxioms(this).size() > 0;
-    }
-
-    @Override
-    public boolean isFunctional(Set<OWLOntology> ontologies) {
-        for (OWLOntology ont : ontologies) {
-            if (isFunctional(ont)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLDataProperty)) {
@@ -155,24 +131,6 @@ public class OWLDataPropertyImpl extends
             return otherIRI.equals(iri);
         }
         return false;
-    }
-
-    @Override
-    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology) {
-        return ImplUtils.getAnnotations(this, Collections.singleton(ontology));
-    }
-
-    @Override
-    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
-            OWLOntology ontology) {
-        return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
-    }
-
-    @Override
-    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology,
-            OWLAnnotationProperty annotationProperty) {
-        return ImplUtils.getAnnotations(this, annotationProperty,
-                Collections.singleton(ontology));
     }
 
     @Override
@@ -293,17 +251,6 @@ public class OWLDataPropertyImpl extends
     @Override
     public boolean isOWLAnnotationProperty() {
         return false;
-    }
-
-    @Override
-    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
-        return ontology.getReferencingAxioms(this);
-    }
-
-    @Override
-    public Set<OWLAxiom>
-            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
-        return ontology.getReferencingAxioms(this, includeImports);
     }
 
     @Override

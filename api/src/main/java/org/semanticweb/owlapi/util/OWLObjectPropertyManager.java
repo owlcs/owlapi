@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.search.Searcher.find;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -161,16 +163,18 @@ public class OWLObjectPropertyManager {
                 for (OWLTransitiveObjectPropertyAxiom ax : ont
                         .getAxioms(AxiomType.TRANSITIVE_OBJECT_PROPERTY)) {
                     markComposite(ax.getProperty());
-                    for (OWLObjectPropertyExpression namedInv : ax.getProperty()
-                            .getInverses(ontology)) {
+                    for (OWLObjectPropertyExpression namedInv : find(
+                            OWLObjectPropertyExpression.class).inverse(ax.getProperty())
+                            .in(ontology)) {
                         markComposite(namedInv);
                     }
                 }
                 for (OWLSubPropertyChainOfAxiom ax : ont
                         .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
                     markComposite(ax.getSuperProperty());
-                    for (OWLObjectPropertyExpression namedInv : ax.getSuperProperty()
-                            .getInverses(ontology)) {
+                    for (OWLObjectPropertyExpression namedInv : find(
+                            OWLObjectPropertyExpression.class).inverse(
+                            ax.getSuperProperty()).in(ontology)) {
                         markComposite(namedInv);
                     }
                 }

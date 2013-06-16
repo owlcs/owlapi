@@ -40,8 +40,8 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.List;
 
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -49,15 +49,15 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 17-Jan-2008<br>
  * <br> */
 public class ImportClosureSize extends IntegerValuedMetric {
-    /** @param owlOntologyManager
-     *            manager to use */
-    public ImportClosureSize(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    /** @param o
+     *            ontology to use */
+    public ImportClosureSize(OWLOntology o) {
+        super(o);
     }
 
     @Override
     protected Integer recomputeMetric() {
-        return getManager().getImportsClosure(getOntology()).size();
+        return getOntology().getImportsClosure().size();
     }
 
     @Override

@@ -43,5 +43,4 @@ package org.semanticweb.owlapi.model;
  * Bio-Health Informatics Group Date: 24-Oct-2006 </p> Represents a <a
  * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Datatypes">Data
  * Property</a> in the OWL 2 Specification. */
-public interface OWLDataProperty extends OWLDataPropertyExpression,
- OWLProperty {}
+public interface OWLDataProperty extends OWLDataPropertyExpression, OWLProperty {}

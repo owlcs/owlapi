@@ -40,8 +40,8 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.List;
 
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
 
 /** Author: Matthew Horridge<br>
@@ -50,10 +50,10 @@ import org.semanticweb.owlapi.util.DLExpressivityChecker;
  * Date: 27-Jul-2007<br>
  * <br> */
 public class DLExpressivity extends AbstractOWLMetric<String> {
-    /** @param owlOntologyManager
-     *            manager to use */
-    public DLExpressivity(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    /** @param o
+     *            ontology to use */
+    public DLExpressivity(OWLOntology o) {
+        super(o);
     }
 
     @Override

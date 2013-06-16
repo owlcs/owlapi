@@ -41,7 +41,7 @@ package org.semanticweb.owlapi.metrics;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -49,10 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 20-Dec-2007<br>
  * <br> */
 public abstract class AxiomCountMetric extends ObjectCountMetric<OWLAxiom> {
-    /** @param owlOntologyManager
-     *            manager to use */
-    public AxiomCountMetric(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    /** @param o
+     *            ontology to use */
+    public AxiomCountMetric(OWLOntology o) {
+        super(o);
     }
 
     /** @return the set of axioms */

@@ -43,7 +43,6 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -53,12 +52,12 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class AxiomTypeMetric extends AxiomCountMetric {
     private final AxiomType<?> axiomType;
 
-    /** @param owlOntologyManager
-     *            manager to use
+    /** @param o
+     *            ontology to use
      * @param axiomType
      *            type of axioms */
-    public AxiomTypeMetric(OWLOntologyManager owlOntologyManager, AxiomType<?> axiomType) {
-        super(owlOntologyManager);
+    public AxiomTypeMetric(OWLOntology o, AxiomType<?> axiomType) {
+        super(o);
         this.axiomType = axiomType;
     }
 

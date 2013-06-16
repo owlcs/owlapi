@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.IRI;
  * <br>
  * An ontology document source which reads an ontology from a reader. */
 public class ReaderDocumentSource extends StreamDocumentSourceBase {
-
     /** Constructs and ontology input source which will read an ontology from a
      * reader.
      * 

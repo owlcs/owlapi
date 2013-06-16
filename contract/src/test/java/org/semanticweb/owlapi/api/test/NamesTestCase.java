@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 import org.coode.owl.krssparser.KRSSOWLParser;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxOWLParser;
@@ -30,8 +30,9 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWL2ELProfile;
 import org.semanticweb.owlapi.profiles.OWL2Profile;
@@ -45,7 +46,7 @@ import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OWLParser;
 @SuppressWarnings("javadoc")
 public class NamesTestCase {
     @Test
-    public void shoudReturnRightName() {
+    public void shoudReturnRightName() throws OWLOntologyCreationException {
         assertEquals("AddAxiomData", new AddAxiomData(mock(OWLAxiom.class)) {
             private static final long serialVersionUID = 6721581006563915342L;
 
@@ -133,22 +134,20 @@ public class NamesTestCase {
         assertEquals("OWLXMLParser", new OWLXMLParser().getName());
         assertEquals("RDFXMLParser", new RDFXMLParser().getName());
         assertEquals("TurtleOntologyParser", new TurtleOntologyParser().getName());
+        OWLOntology createOntology = Factory.getManager().createOntology();
         assertEquals("Average number of named superclasses",
-                new AverageAssertedNamedSuperclassCount(mock(OWLOntologyManager.class))
-                        .getName());
-        assertEquals("Axiom", new AxiomCount(mock(OWLOntologyManager.class)).getName());
-        assertEquals("Hidden GCI Count", new HiddenGCICount(
-                mock(OWLOntologyManager.class)).getName());
-        assertEquals("Imports closure size", new ImportClosureSize(
-                mock(OWLOntologyManager.class)).getName());
+                new AverageAssertedNamedSuperclassCount(createOntology).getName());
+        assertEquals("Axiom", new AxiomCount(createOntology).getName());
+        assertEquals("Hidden GCI Count", new HiddenGCICount(createOntology).getName());
+        assertEquals("Imports closure size",
+                new ImportClosureSize(createOntology).getName());
         assertEquals("Maximum number of asserted named superclasses",
-                new MaximumNumberOfNamedSuperclasses(mock(OWLOntologyManager.class))
-                        .getName());
-        assertEquals(
-                "Number of classes with asserted multiple inheritance",
-                new NumberOfClassesWithMultipleInheritance(mock(OWLOntologyManager.class))
-                        .getName());
-        assertEquals("Unsatisfiable class count", new UnsatisfiableClassCountMetric(
-                mock(OWLReasoner.class), mock(OWLOntologyManager.class)).getName());
+                new MaximumNumberOfNamedSuperclasses(createOntology).getName());
+        assertEquals("Number of classes with asserted multiple inheritance",
+                new NumberOfClassesWithMultipleInheritance(createOntology).getName());
+        OWLReasoner mock = mock(OWLReasoner.class);
+        when(mock.getRootOntology()).thenReturn(createOntology);
+        assertEquals("Unsatisfiable class count",
+                new UnsatisfiableClassCountMetric(mock).getName());
     }
 }

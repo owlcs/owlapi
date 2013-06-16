@@ -58,7 +58,6 @@ public abstract class OWLPropertyExpressionImpl extends OWLObjectImpl implements
         super();
     }
 
-
     private <Prop extends OWLPropertyExpression> Set<Prop> getProperties(
             Set<? extends OWLNaryPropertyAxiom<Prop>> axioms) {
         Set<Prop> result = new TreeSet<Prop>();

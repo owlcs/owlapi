@@ -38,15 +38,9 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Collections;
-import java.util.Set;
-
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -58,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -163,24 +156,6 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
-            OWLOntology ontology) {
-        return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
-    }
-
-    @Override
-    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology) {
-        return ImplUtils.getAnnotations(this, Collections.singleton(ontology));
-    }
-
-    @Override
-    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology,
-            OWLAnnotationProperty annotationProperty) {
-        return ImplUtils.getAnnotations(this, annotationProperty,
-                Collections.singleton(ontology));
-    }
-
-    @Override
     public boolean isBuiltIn() {
         return OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS.contains(getIRI());
     }
@@ -224,18 +199,6 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
-
-    @Override
-    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
-        return ontology.getReferencingAxioms(this);
-    }
-
-    @Override
-    public Set<OWLAxiom>
-            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
-        return ontology.getReferencingAxioms(this, includeImports);
-    }
-
 
     @Override
     public boolean equals(Object obj) {

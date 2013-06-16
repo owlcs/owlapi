@@ -1505,7 +1505,8 @@ public class ManchesterOWLSyntaxEditorParser {
         if (prop == null) {
             throw createException(false, false, true, false);
         }
-        axioms.add(new OntologyAxiomPair(defaultOntology, dataFactory.getOWLDeclarationAxiom(prop)));
+        axioms.add(new OntologyAxiomPair(defaultOntology, dataFactory
+                .getOWLDeclarationAxiom(prop)));
         parseFrameSections(false, axioms, prop, dataPropertyFrameSections);
         return axioms;
     }
@@ -2166,8 +2167,8 @@ public class ManchesterOWLSyntaxEditorParser {
         return props;
     }
 
-    public Map<OWLPropertyExpression, Set<OWLAnnotation>>
-            parseAnnotatedPropertyList() throws ParserException {
+    public Map<OWLPropertyExpression, Set<OWLAnnotation>> parseAnnotatedPropertyList()
+            throws ParserException {
         Map<OWLPropertyExpression, Set<OWLAnnotation>> props = new HashMap<OWLPropertyExpression, Set<OWLAnnotation>>();
         String sep = ",";
         while (sep.equals(",")) {
@@ -3235,8 +3236,7 @@ public class ManchesterOWLSyntaxEditorParser {
         public AnnotatedPropertyListListItemParser() {}
 
         @Override
-        public Set<OWLPropertyExpression> parseItem(F subject)
-                throws ParserException {
+        public Set<OWLPropertyExpression> parseItem(F subject) throws ParserException {
             return parsePropertyList();
         }
     }
@@ -3351,8 +3351,7 @@ public class ManchesterOWLSyntaxEditorParser {
         public ClassHasKeyListItemParser() {}
 
         @Override
-        public OWLAxiom createAxiom(OWLClass subject,
- Set<OWLPropertyExpression> object,
+        public OWLAxiom createAxiom(OWLClass subject, Set<OWLPropertyExpression> object,
                 Set<OWLAnnotation> annotations) {
             return dataFactory.getOWLHasKeyAxiom(subject, object, annotations);
         }

@@ -125,7 +125,8 @@ public enum SKOSVocabulary {
         return iri.toURI();
     }
 
-    public static Set<OWLAnnotationProperty> getAnnotationProperties(OWLDataFactory dataFactory) {
+    public static Set<OWLAnnotationProperty> getAnnotationProperties(
+            OWLDataFactory dataFactory) {
         Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
         for (SKOSVocabulary v : values()) {
             if (v.entityType.equals(EntityType.ANNOTATION_PROPERTY)) {

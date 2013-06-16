@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owl.rdfxml.parser.tests;
 
 import java.io.File;
@@ -53,27 +52,23 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16-Mar-2007<br><br>
- */
+ * Date: 16-Mar-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public class RDFParserTestCase {
-
     private OWLOntologyManager man;
-
 
     @Before
     public void setUp() {
         // Use the reference implementation
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
+        OWLParserFactoryRegistry.getInstance().registerParserFactory(
+                new RDFXMLParserFactory());
         ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory();
         man.addOntologyFactory(factory);
-
     }
 
     @Test
@@ -84,12 +79,13 @@ public class RDFParserTestCase {
     private void parseFiles(String base) throws Exception {
         URL url = getClass().getResource(base);
         File file = new File(url.toURI());
-
         for (File testSuiteFolder : file.listFiles()) {
             if (testSuiteFolder.isDirectory()) {
                 for (File ontologyFile : testSuiteFolder.listFiles()) {
-                    if (ontologyFile.getName().endsWith(".rdf") || ontologyFile.getName().endsWith(".owlapi")) {
-                        OWLOntology ont = man.loadOntologyFromOntologyDocument(ontologyFile);
+                    if (ontologyFile.getName().endsWith(".rdf")
+                            || ontologyFile.getName().endsWith(".owlapi")) {
+                        OWLOntology ont = man
+                                .loadOntologyFromOntologyDocument(ontologyFile);
                         man.removeOntology(ont);
                     }
                 }

@@ -88,14 +88,14 @@ public class RDFXMLWriter {
         writeAttribute(Namespaces.RDF + "about", value);
     }
 
-    public void writeNodeIDAttribute(RDFResource node) throws IOException  {
+    public void writeNodeIDAttribute(RDFResource node) throws IOException {
         writer.writeAttribute(Namespaces.RDF + "nodeID", node.toString());
     }
 
     private void writeAttribute(String attributeName, IRI value) throws IOException {
         writer.writeAttribute(attributeName, value.toString());
     }
-    
+
     @SuppressWarnings("unused")
     public void writeOWLObject(OWLObject owlObject) {}
 

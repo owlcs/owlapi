@@ -44,11 +44,9 @@ import org.semanticweb.owlapi.model.IRI;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 21/12/2010
- * @since 3.2
- */
+ * 
+ * @since 3.2 */
 public abstract class RDFResource extends RDFNode {
-    
     /** @return the resource IRI */
     public abstract IRI getResource();
-    
 }

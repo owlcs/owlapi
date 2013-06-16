@@ -55,11 +55,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
  * <br> */
-public class OWLObjectHasValueImpl
-        extends
- OWLValueRestrictionImpl<OWLIndividual>
- implements
-        OWLObjectHasValue, OWLObjectRestriction {
+public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual>
+        implements OWLObjectHasValue, OWLObjectRestriction {
     private static final long serialVersionUID = 40000L;
     private OWLObjectPropertyExpression property;
 

@@ -38,7 +38,6 @@
  */
 package org.semanticweb.owlapi.model;
 
-
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
@@ -73,6 +72,4 @@ public interface OWLAnnotationProperty extends OWLEntity {
      *         <code>owl:deprecated</code>, where <code>owl:</code> expands to
      *         the usual prefix, otherwise <code>false</code>. */
     boolean isDeprecated();
-
-
 }

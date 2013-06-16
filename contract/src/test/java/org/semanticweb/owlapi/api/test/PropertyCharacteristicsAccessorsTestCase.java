@@ -40,6 +40,7 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.search.Searcher.find;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
@@ -58,79 +59,79 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
     public void testTransitive() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
-        assertFalse(prop.isTransitive(ont));
+        assertFalse(find().in(ont).isTransitive(prop));
         OWLAxiom ax = TransitiveObjectProperty(prop);
         getManager().addAxiom(ont, ax);
-        assertTrue(prop.isTransitive(ont));
+        assertTrue(find().in(ont).isTransitive(prop));
     }
 
     @Test
     public void testSymmetric() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
-        assertFalse(prop.isSymmetric(ont));
+        assertFalse(find().in(ont).isSymmetric(prop));
         OWLAxiom ax = SymmetricObjectProperty(prop);
         getManager().addAxiom(ont, ax);
-        assertTrue(prop.isSymmetric(ont));
+        assertTrue(find().in(ont).isSymmetric(prop));
     }
 
     @Test
     public void testAsymmetric() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
-        assertFalse(prop.isAsymmetric(ont));
+        assertFalse(find().in(ont).isAsymmetric(prop));
         OWLAxiom ax = AsymmetricObjectProperty(prop);
         getManager().addAxiom(ont, ax);
-        assertTrue(prop.isAsymmetric(ont));
+        assertTrue(find().in(ont).isAsymmetric(prop));
     }
 
     @Test
     public void testReflexive() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
-        assertFalse(prop.isReflexive(ont));
+        assertFalse(find().in(ont).isReflexive(prop));
         OWLAxiom ax = ReflexiveObjectProperty(prop);
         getManager().addAxiom(ont, ax);
-        assertTrue(prop.isReflexive(ont));
+        assertTrue(find().in(ont).isReflexive(prop));
     }
 
     @Test
     public void testIrreflexive() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
-        assertFalse(prop.isIrreflexive(ont));
+        assertFalse(find().in(ont).isIrreflexive(prop));
         OWLAxiom ax = IrreflexiveObjectProperty(prop);
         getManager().addAxiom(ont, ax);
-        assertTrue(prop.isIrreflexive(ont));
+        assertTrue(find().in(ont).isIrreflexive(prop));
     }
 
     @Test
     public void testFunctional() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
-        assertFalse(prop.isFunctional(ont));
+        assertFalse(find().in(ont).isFunctional(prop));
         OWLAxiom ax = FunctionalObjectProperty(prop);
         getManager().addAxiom(ont, ax);
-        assertTrue(prop.isFunctional(ont));
+        assertTrue(find().in(ont).isFunctional(prop));
     }
 
     @Test
     public void testInverseFunctional() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
-        assertFalse(prop.isInverseFunctional(ont));
+        assertFalse(find().in(ont).isInverseFunctional(prop));
         OWLAxiom ax = InverseFunctionalObjectProperty(prop);
         getManager().addAxiom(ont, ax);
-        assertTrue(prop.isInverseFunctional(ont));
+        assertTrue(find().in(ont).isInverseFunctional(prop));
     }
 
     @Test
     public void testFunctionalDataProperty() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLDataProperty prop = DataProperty(getIRI("prop"));
-        assertFalse(prop.isFunctional(ont));
+        assertFalse(find().in(ont).isFunctional(prop));
         OWLAxiom ax = FunctionalDataProperty(prop);
         getManager().addAxiom(ont, ax);
-        assertTrue(prop.isFunctional(ont));
+        assertTrue(find().in(ont).isFunctional(prop));
     }
 }

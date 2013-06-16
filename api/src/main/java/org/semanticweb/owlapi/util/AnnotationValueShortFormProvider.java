@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.search.Searcher.find;
+
 import java.util.List;
 import java.util.Map;
 
@@ -207,8 +209,9 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             AnnotationLanguageFilter checker = new AnnotationLanguageFilter(prop,
                     preferredLanguageMap.get(prop));
             for (OWLOntology ontology : ontologySetProvider.getOntologies()) {
-                for (OWLAnnotationAssertionAxiom ax : entity
-                        .getAnnotationAssertionAxioms(ontology)) {
+                for (OWLAnnotationAssertionAxiom ax : find(
+                        OWLAnnotationAssertionAxiom.class).annotationAxioms(entity).in(
+                        ontology)) {
                     ax.accept(checker);
                 }
             }

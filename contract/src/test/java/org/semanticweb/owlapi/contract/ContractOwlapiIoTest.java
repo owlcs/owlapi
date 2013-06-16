@@ -478,7 +478,6 @@ public class ContractOwlapiIoTest {
         String result3 = testSubject0.toString();
     }
 
-
     @Test
     public void shouldTestRDFResourceParseError() throws Exception {
         RDFResourceParseError testSubject0 = new RDFResourceParseError(

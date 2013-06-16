@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owl.rdf;
 
 import static org.junit.Assert.assertTrue;
@@ -51,31 +50,28 @@ import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Aug-2007<br><br>
- */
+ * Date: 10-Aug-2007<br>
+ * <br> */
 public class TestQCR extends AbstractRendererAndParserTestCase {
-
-
     @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLClass clsA = getDataFactory().getOWLClass(TestUtils.createIRI());
         OWLClass clsB = getDataFactory().getOWLClass(TestUtils.createIRI());
         OWLClass clsC = getDataFactory().getOWLClass(TestUtils.createIRI());
-        //Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
-        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(TestUtils.createIRI());
-        OWLClassExpression filler = getDataFactory().getOWLObjectIntersectionOf(CollectionFactory.createSet(clsB, clsC));
+        // Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
+        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
+                TestUtils.createIRI());
+        OWLClassExpression filler = getDataFactory().getOWLObjectIntersectionOf(
+                CollectionFactory.createSet(clsB, clsC));
         OWLObjectMinCardinality restriction = getDataFactory()
                 .getOWLObjectMinCardinality(3, prop, filler);
         assertTrue(restriction.isQualified());
         OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(clsA, restriction);
         return Collections.singleton(ax);
     }
-
 
     @Override
     protected String getClassExpression() {

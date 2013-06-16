@@ -106,7 +106,7 @@ public class DLQueryExample {
         while (true) {
             // Prompt the user to enter a class expression
             System.out
-            .println("Please type a class expression in Manchester Syntax and press Enter (or press x to exit):");
+                    .println("Please type a class expression in Manchester Syntax and press Enter (or press x to exit):");
             System.out.println("");
             String classExpression = readInput();
             // Check for exit condition

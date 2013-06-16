@@ -51,8 +51,7 @@ public class MultipleDistinctOntologyLoadsTest {
 
     private OWLOntologyDocumentSource getDocument() {
         StreamDocumentSource initialDocumentSource = new StreamDocumentSource(this
-                .getClass()
-                .getResourceAsStream("/owlapi/multipleOntologyLoadsTest.rdf"));
+                .getClass().getResourceAsStream("/owlapi/multipleOntologyLoadsTest.rdf"));
         return initialDocumentSource;
     }
 

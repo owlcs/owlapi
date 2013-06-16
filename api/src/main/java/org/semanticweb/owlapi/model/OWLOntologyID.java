@@ -112,9 +112,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      *         otherwise <code>false</code>
      * @see org.semanticweb.owlapi.model.IRI#isReservedVocabulary() */
     public boolean isOWL2DLOntologyID() {
-        return ontologyIRI == null
-                || !ontologyIRI.isReservedVocabulary() && (versionIRI == null || !versionIRI
-                        .isReservedVocabulary());
+        return ontologyIRI == null || !ontologyIRI.isReservedVocabulary()
+                && (versionIRI == null || !versionIRI.isReservedVocabulary());
     }
 
     @Override

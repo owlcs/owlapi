@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owl.rdf;
 
 import static org.junit.Assert.assertTrue;
@@ -67,27 +66,23 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 09-May-2007<br><br>
- */
+ * Date: 09-May-2007<br>
+ * <br> */
 @SuppressWarnings("javadoc")
 public abstract class AbstractRendererAndParserTestCase {
-
     private OWLOntologyManager man;
-
 
     @Before
     public void setUp() {
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
+        OWLParserFactoryRegistry.getInstance().registerParserFactory(
+                new RDFXMLParserFactory());
         man.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         man.addOntologyFactory(new ParsableOWLOntologyFactory());
         man.addOntologyStorer(new RDFXMLOntologyStorer());
-
     }
 
     public OWLClass createClass() {
@@ -95,7 +90,8 @@ public abstract class AbstractRendererAndParserTestCase {
     }
 
     public OWLAnnotationProperty createAnnotationProperty() {
-        return getManager().getOWLDataFactory().getOWLAnnotationProperty(TestUtils.createIRI());
+        return getManager().getOWLDataFactory().getOWLAnnotationProperty(
+                TestUtils.createIRI());
     }
 
     public OWLObjectProperty createObjectProperty() {
@@ -110,11 +106,9 @@ public abstract class AbstractRendererAndParserTestCase {
         return man.getOWLDataFactory().getOWLNamedIndividual(TestUtils.createIRI());
     }
 
-
     public OWLOntologyManager getManager() {
         return man;
     }
-
 
     protected OWLDataFactory getDataFactory() {
         return man.getOWLDataFactory();
@@ -126,19 +120,19 @@ public abstract class AbstractRendererAndParserTestCase {
         for (OWLAxiom ax : getAxioms()) {
             man.applyChange(new AddAxiom(ontA, ax));
         }
-        //        OWLOntologyAnnotationAxiom anno = getDataFactory().getOWLOntologyAnnotationAxiom(ontA, getDataFactory().getCommentAnnotation(getClassExpression()));
-        //        man.applyChange(new AddAxiom(ontA, anno));
+        // OWLOntologyAnnotationAxiom anno =
+        // getDataFactory().getOWLOntologyAnnotationAxiom(ontA,
+        // getDataFactory().getCommentAnnotation(getClassExpression()));
+        // man.applyChange(new AddAxiom(ontA, anno));
         File tempFile = File.createTempFile("Ontology", ".owlapi");
         man.saveOntology(ontA, IRI.create(tempFile.toURI()));
         man.removeOntology(ontA);
-        OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI.create(tempFile.toURI()));
-
+        OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI.create(tempFile
+                .toURI()));
         Set<OWLLogicalAxiom> AminusB = ontA.getLogicalAxioms();
         AminusB.removeAll(ontB.getAxioms());
-
         Set<OWLLogicalAxiom> BminusA = ontB.getLogicalAxioms();
         BminusA.removeAll(ontA.getAxioms());
-
         StringBuilder msg = new StringBuilder();
         if (AminusB.isEmpty() && BminusA.isEmpty()) {
             msg.append("Ontology save/load roundtripp OK.\n");
@@ -159,5 +153,4 @@ public abstract class AbstractRendererAndParserTestCase {
     protected abstract Set<OWLAxiom> getAxioms();
 
     protected abstract String getClassExpression();
-
 }

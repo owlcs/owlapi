@@ -64,5 +64,4 @@ public class OWLObjectAllRestrictionTestCase extends
             OWLDataRange filler) {
         return DataSomeValuesFrom(prop, filler);
     }
-
 }

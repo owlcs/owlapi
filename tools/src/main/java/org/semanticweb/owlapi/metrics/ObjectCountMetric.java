@@ -44,7 +44,6 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -55,10 +54,10 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * @param <E>
  *            the entity type */
 public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedMetric {
-    /** @param owlOntologyManager
-     *            manager to use */
-    public ObjectCountMetric(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    /** @param o
+     *            ontology to use */
+    public ObjectCountMetric(OWLOntology o) {
+        super(o);
     }
 
     protected abstract String getObjectTypeName();

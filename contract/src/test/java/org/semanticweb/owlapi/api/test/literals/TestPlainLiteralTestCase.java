@@ -86,7 +86,8 @@ public class TestPlainLiteralTestCase {
         OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input));
         IRI i = IRI("urn:test#ind");
-        assertEquals(o.getAnnotationAssertionAxioms(i).iterator().next(),
+        assertEquals(
+                o.getAnnotationAssertionAxioms(i).iterator().next(),
                 AnnotationAssertion(RDFSComment(), i,
                         Literal("test", OWL2Datatype.RDF_PLAIN_LITERAL)));
     }
@@ -134,7 +135,6 @@ public class TestPlainLiteralTestCase {
         String expected = "<rdfs:comment>test</rdfs:comment>";
         assertTrue(out.toString(), out.toString().contains(expected));
     }
-
 
     @Test
     public void testPlainLiteralSerializationComments2() throws Exception {

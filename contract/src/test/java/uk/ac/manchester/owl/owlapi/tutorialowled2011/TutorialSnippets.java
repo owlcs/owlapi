@@ -39,6 +39,7 @@
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -104,6 +105,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
+import org.semanticweb.owlapi.search.Searcher;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
@@ -244,11 +246,11 @@ public class TutorialSnippets {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(example_iri);
         OWLClass clsA = df.getOWLClass(IRI.create(example_iri + "#A"));
-        Set<OWLClassExpression> superClasses = clsA.getSuperClasses(o);
+        Searcher classes = find().in(o).equivalent().classes(clsA);
         // for each superclass there will be a corresponding axiom
         // the ontology indexes axioms in a variety of ways
         Set<OWLSubClassOfAxiom> sameSuperClasses = o.getSubClassAxiomsForSubClass(clsA);
-        assertEquals(superClasses.size(), sameSuperClasses.size());
+        assertEquals(classes.size(), sameSuperClasses.size());
     }
 
     @Test
@@ -562,7 +564,8 @@ public class TutorialSnippets {
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         for (OWLClass cls : o.getClassesInSignature()) {
             // Get the annotations on the class that use the label property
-            for (OWLAnnotation annotation : cls.getAnnotations(o, df.getRDFSLabel())) {
+            for (OWLAnnotation annotation : find(OWLAnnotation.class).in(o)
+                    .annotations(cls).forProperty(df.getRDFSLabel())) {
                 if (annotation.getValue() instanceof OWLLiteral) {
                     OWLLiteral val = (OWLLiteral) annotation.getValue();
                     // look for portuguese labels
@@ -843,7 +846,8 @@ public class TutorialSnippets {
 
     @SuppressWarnings("unused")
     private String labelFor(OWLEntity clazz, OWLOntology o) {
-        Set<OWLAnnotation> annotations = clazz.getAnnotations(o);
+        Iterable<OWLAnnotation> annotations = find(OWLAnnotation.class).in(o)
+                .annotations(clazz);
         for (OWLAnnotation anno : annotations) {
             String result = anno.accept(le);
             if (result != null) {

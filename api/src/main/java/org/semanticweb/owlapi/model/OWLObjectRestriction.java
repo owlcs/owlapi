@@ -52,5 +52,4 @@ public interface OWLObjectRestriction {
      * 
      * @return The property */
     public OWLObjectPropertyExpression getProperty();
-
 }

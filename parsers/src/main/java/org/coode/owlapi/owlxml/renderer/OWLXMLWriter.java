@@ -56,7 +56,6 @@ import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.util.StringLengthComparator;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -74,15 +73,14 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * encoded using 'prefix' elements. */
 @SuppressWarnings("javadoc")
 public class OWLXMLWriter {
-
-    /**
-     * String comparator that takes length into account before natural ordering.
-     */
-    private static final class StringLengthComparator implements Comparator<String>, Serializable {
+    /** String comparator that takes length into account before natural ordering. */
+    private static final class StringLengthComparator implements Comparator<String>,
+            Serializable {
         private static final long serialVersionUID = 30402L;
 
         public StringLengthComparator() {}
-		@Override
+
+        @Override
         public int compare(String o1, String o2) {
             int diff = o1.length() - o2.length();
             if (diff != 0) {
@@ -93,13 +91,13 @@ public class OWLXMLWriter {
     }
 
     private static final StringLengthComparator STRING_LENGTH_COMPARATOR = new StringLengthComparator();
-
     private XMLWriter writer;
-    
-    private Map<String, String> iriPrefixMap = new TreeMap<String, String>(STRING_LENGTH_COMPARATOR);
+    private Map<String, String> iriPrefixMap = new TreeMap<String, String>(
+            STRING_LENGTH_COMPARATOR);
 
     public OWLXMLWriter(Writer writer, OWLOntology ontology) {
-        XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(Namespaces.OWL.toString());
+        XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(
+                Namespaces.OWL.toString());
         nsm.setPrefix("xsd", Namespaces.XSD.toString());
         nsm.setPrefix("rdf", Namespaces.RDF.toString());
         nsm.setPrefix("rdfs", Namespaces.RDFS.toString());
@@ -141,19 +139,20 @@ public class OWLXMLWriter {
         iriPrefixMap.put(iri, prefixName);
     }
 
-    /**
-     * Gets an IRI attribute value for a full IRI.  If the IRI has a prefix that coincides with
-     * a written prefix then the compact IRI will be returned, otherwise the full IRI will be returned.
-     * @param iri The IRI
-     * @return Either the compact version of the IRI or the full IRI.
-     */
+    /** Gets an IRI attribute value for a full IRI. If the IRI has a prefix that
+     * coincides with a written prefix then the compact IRI will be returned,
+     * otherwise the full IRI will be returned.
+     * 
+     * @param iri
+     *            The IRI
+     * @return Either the compact version of the IRI or the full IRI. */
     public String getIRIString(IRI iri) {
         String prefixName = iriPrefixMap.get(iri.getNamespace());
         if (prefixName == null) {
             return iri.toString();
-            }
-       if(iri.getFragment()==null){
-           return prefixName;
+        }
+        if (iri.getFragment() == null) {
+            return prefixName;
         }
         return prefixName + iri.getFragment();
     }
@@ -215,9 +214,9 @@ public class OWLXMLWriter {
 
     public void writeNodeIDAttribute(NodeID nodeID) {
         try {
-            writer.writeAttribute(OWLXMLVocabulary.NODE_ID.getIRI().toString(), nodeID.getID());
-        }
-        catch (IOException e) {
+            writer.writeAttribute(OWLXMLVocabulary.NODE_ID.getIRI().toString(),
+                    nodeID.getID());
+        } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
     }
@@ -227,9 +226,9 @@ public class OWLXMLWriter {
             String attName = OWLXMLVocabulary.IRI_ATTRIBUTE.getIRI().toString();
             String value = iri.toString();
             if (value.startsWith(writer.getXMLBase())) {
-                writer.writeAttribute(attName, value.substring(writer.getXMLBase().length(), value.length()));
-            }
-            else {
+                writer.writeAttribute(attName,
+                        value.substring(writer.getXMLBase().length(), value.length()));
+            } else {
                 String val = getIRIString(iri);
                 if (!val.equals(iri.toString())) {
                     writer.writeAttribute(OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE

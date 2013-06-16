@@ -175,7 +175,6 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         EL("EL"),
         ELPLUSPLUS("EL++");
       //@formatter:on
-
         Construct(String s) {
             this.s = s;
         }

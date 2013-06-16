@@ -38,6 +38,7 @@
  */
 package org.coode.owlapi.rdf.renderer;
 
+import static org.semanticweb.owlapi.search.Searcher.find;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.IOException;
@@ -456,8 +457,9 @@ public abstract class RDFRendererBase {
         addVersionIRIToOntologyHeader(ontologyHeaderNode);
         addImportsDeclarationsToOntologyHeader(ontologyHeaderNode);
         addAnnotationsToOntologyHeader(ontologyHeaderNode);
-        if(!ontID.isAnonymous() || !graph.isEmpty()) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(RDF_TYPE.getIRI()), new RDFResourceIRI(OWL_ONTOLOGY.getIRI())));
+        if (!ontID.isAnonymous() || !graph.isEmpty()) {
+            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(RDF_TYPE
+                    .getIRI()), new RDFResourceIRI(OWL_ONTOLOGY.getIRI())));
         }
         if (!graph.isEmpty()) {
             render(ontologyHeaderNode);
@@ -466,10 +468,9 @@ public abstract class RDFRendererBase {
 
     private RDFResource createOntologyHeaderNode() {
         OWLOntologyID ontID = ontology.getOntologyID();
-        if(ontID.isAnonymous()) {
+        if (ontID.isAnonymous()) {
             return new RDFResourceBlankNode(System.identityHashCode(ontology));
-        }
-        else {
+        } else {
             return new RDFResourceIRI(ontID.getOntologyIRI());
         }
     }
@@ -477,13 +478,15 @@ public abstract class RDFRendererBase {
     private void addVersionIRIToOntologyHeader(RDFResource ontologyHeaderNode) {
         OWLOntologyID ontID = ontology.getOntologyID();
         if (ontID.getVersionIRI() != null) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(OWL_VERSION_IRI.getIRI()), new RDFResourceIRI(ontID.getVersionIRI())));
+            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(
+                    OWL_VERSION_IRI.getIRI()), new RDFResourceIRI(ontID.getVersionIRI())));
         }
     }
 
     private void addImportsDeclarationsToOntologyHeader(RDFResource ontologyHeaderNode) {
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(OWL_IMPORTS.getIRI()), new RDFResourceIRI(decl.getIRI())));
+            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(
+                    OWL_IMPORTS.getIRI()), new RDFResourceIRI(decl.getIRI())));
         }
     }
 
@@ -506,7 +509,8 @@ public abstract class RDFRendererBase {
                 }
             };
             RDFNode node = anno.getValue().accept(valVisitor);
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(anno.getProperty().getIRI()), node));
+            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(anno
+                    .getProperty().getIRI()), node));
         }
     }
 
@@ -514,7 +518,8 @@ public abstract class RDFRendererBase {
         final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         // Don't write out duplicates for punned annotations!
         if (!isIndividualAndClass(entity)) {
-            axioms.addAll(entity.getAnnotationAssertionAxioms(ontology));
+            axioms.addAll(find().annotationAxioms(entity).in(ontology)
+                    .asCollection(OWLAnnotationAssertionAxiom.class));
         }
         axioms.addAll(ontology.getDeclarationAxioms(entity));
         entity.accept(new OWLEntityVisitor() {
@@ -633,12 +638,13 @@ public abstract class RDFRendererBase {
         }
     }
 
-    /**
-     * Renders the triples in the current graph into a concrete format.  Subclasses of this class decide upon
-     * how the triples get rendered.
-     * @param node The main node to be rendered
-     * @throws IOException If there was a problem rendering the triples.
-     */
+    /** Renders the triples in the current graph into a concrete format.
+     * Subclasses of this class decide upon how the triples get rendered.
+     * 
+     * @param node
+     *            The main node to be rendered
+     * @throws IOException
+     *             If there was a problem rendering the triples. */
     public abstract void render(RDFResource node) throws IOException;
 
     protected boolean isObjectList(RDFResource node) {
@@ -676,12 +682,11 @@ public abstract class RDFRendererBase {
                             // End of list
                             currentNode = null;
                         }
-                    }
-                    else {
-                        if(triple.getObject() instanceof RDFResource) {
+                    } else {
+                        if (triple.getObject() instanceof RDFResource) {
                             // Should be another list
                             currentNode = triple.getObject();
-//                        toJavaList(triple.getObject(), list);
+                            // toJavaList(triple.getObject(), list);
                         }
                     }
                 }
@@ -689,14 +694,13 @@ public abstract class RDFRendererBase {
         }
     }
 
-    /**
-     * Comparator that uses IRI ordering to order entities.
-     */
-    private static final class OWLEntityIRIComparator implements Comparator<OWLEntity>, Serializable {
-
+    /** Comparator that uses IRI ordering to order entities. */
+    private static final class OWLEntityIRIComparator implements Comparator<OWLEntity>,
+            Serializable {
         private static final long serialVersionUID = 30402L;
 
         public OWLEntityIRIComparator() {}
+
         @Override
         public int compare(OWLEntity o1, OWLEntity o2) {
             return o1.getIRI().compareTo(o2.getIRI());
@@ -704,11 +708,13 @@ public abstract class RDFRendererBase {
     }
 
     private static final OWLEntityIRIComparator OWL_ENTITY_IRI_COMPARATOR = new OWLEntityIRIComparator();
-    
+
     public static class TripleComparator implements Comparator<RDFTriple>, Serializable {
         private static final long serialVersionUID = 40000L;
-
-        private static final List<IRI> orderedURIs = Arrays.asList(RDF_TYPE.getIRI(), RDFS_LABEL.getIRI(), OWL_EQUIVALENT_CLASS.getIRI(), RDFS_SUBCLASS_OF.getIRI(), OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(), OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
+        private static final List<IRI> orderedURIs = Arrays.asList(RDF_TYPE.getIRI(),
+                RDFS_LABEL.getIRI(), OWL_EQUIVALENT_CLASS.getIRI(),
+                RDFS_SUBCLASS_OF.getIRI(), OWL_DISJOINT_WITH.getIRI(),
+                OWL_ON_PROPERTY.getIRI(), OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
 
         public TripleComparator() {}
 

@@ -661,11 +661,9 @@ public class OWLFunctionalSyntaxFactory {
     public static OWLHasKeyAxiom HasKey(Set<OWLAnnotation> a,
             OWLClassExpression classExpression,
             OWLPropertyExpression... propertyExpressions) {
-        return dataFactory.getOWLHasKeyAxiom(
-                classExpression,
- new HashSet<OWLPropertyExpression>(
-                        Arrays
-                        .asList(propertyExpressions)), a);
+        return dataFactory
+                .getOWLHasKeyAxiom(classExpression, new HashSet<OWLPropertyExpression>(
+                        Arrays.asList(propertyExpressions)), a);
     }
 
     public static OWLSameIndividualAxiom SameIndividual(OWLIndividual... individuals) {

@@ -56,8 +56,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * 
  * @param <P>
  *            the property expression */
-public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
+public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends
+        OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
     private static final long serialVersionUID = 40000L;
     private final Set<P> properties;
 

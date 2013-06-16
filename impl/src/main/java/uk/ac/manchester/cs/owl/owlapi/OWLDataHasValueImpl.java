@@ -56,8 +56,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Date: 26-Oct-2006<br>
  * <br> */
 @SuppressWarnings("javadoc")
-public class OWLDataHasValueImpl extends
- OWLValueRestrictionImpl<OWLLiteral> implements
+public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral> implements
         OWLDataHasValue, OWLDataRestriction {
     private static final long serialVersionUID = 40000L;
     private OWLDataPropertyExpression property;
@@ -66,6 +65,7 @@ public class OWLDataHasValueImpl extends
         super(value);
         this.property = property;
     }
+
     @Override
     public OWLDataPropertyExpression getProperty() {
         return property;

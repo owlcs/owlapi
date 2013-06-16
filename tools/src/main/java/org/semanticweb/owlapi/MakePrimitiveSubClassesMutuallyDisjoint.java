@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi;
 
+import static org.semanticweb.owlapi.search.Searcher.find;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -48,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.search.Searcher;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -71,7 +73,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class MakePrimitiveSubClassesMutuallyDisjoint extends
         AbstractCompositeOntologyChange {
     private final OWLClass cls;
-    private final Set<OWLOntology> ontologies;
     private final OWLOntology targetOntology;
     private final boolean usePairwiseDisjointAxioms;
     private List<OWLOntologyChange<?>> changes;
@@ -80,31 +81,25 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
      *            the datafactory to use
      * @param cls
      *            the class to convert
-     * @param ontologies
-     *            the ontologies to work on
      * @param targetOntology
      *            the target ontology */
     public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory,
-            OWLClass cls, Set<OWLOntology> ontologies, OWLOntology targetOntology) {
-        this(dataFactory, cls, ontologies, targetOntology, false);
+            OWLClass cls, OWLOntology targetOntology) {
+        this(dataFactory, cls, targetOntology, false);
     }
 
     /** @param dataFactory
      *            the datafactory to use
      * @param cls
      *            the class to convert
-     * @param ontologies
-     *            the ontologies to work on
      * @param targetOntology
      *            the target ontology
      * @param usePairwiseDisjointAxioms
      *            true if pairwise disjoint axioms should be used */
     public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory,
-            OWLClass cls, Set<OWLOntology> ontologies, OWLOntology targetOntology,
-            boolean usePairwiseDisjointAxioms) {
+            OWLClass cls, OWLOntology targetOntology, boolean usePairwiseDisjointAxioms) {
         super(dataFactory);
         this.cls = cls;
-        this.ontologies = ontologies;
         this.targetOntology = targetOntology;
         this.usePairwiseDisjointAxioms = usePairwiseDisjointAxioms;
         generateChanges();
@@ -113,12 +108,11 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
     private void generateChanges() {
         changes = new ArrayList<OWLOntologyChange<?>>();
         Set<OWLClass> subclasses = new HashSet<OWLClass>();
-        for (OWLOntology ont : ontologies) {
-            for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSuperClass(cls)) {
-                OWLClassExpression subCls = ax.getSubClass();
-                if (!subCls.isAnonymous() && !subCls.asOWLClass().isDefined(ontologies)) {
-                    subclasses.add(subCls.asOWLClass());
-                }
+        Searcher finder = find().in(targetOntology);
+        for (OWLClassExpression subCls : find(OWLClassExpression.class)
+                .in(targetOntology).sub().classes(cls)) {
+            if (!subCls.isAnonymous() && !finder.isDefined(subCls.asOWLClass())) {
+                subclasses.add(subCls.asOWLClass());
             }
         }
         MakeClassesMutuallyDisjoint makeClassesMutuallyDisjoint = new MakeClassesMutuallyDisjoint(

@@ -61,6 +61,7 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
     public String getName() {
         return "OWLFunctionalSyntaxOWLParser";
     }
+
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,

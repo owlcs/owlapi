@@ -40,10 +40,10 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
@@ -67,6 +67,7 @@ import org.semanticweb.owlapi.profiles.OWL2QLProfile;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
+import org.semanticweb.owlapi.search.Searcher;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -105,8 +106,9 @@ public class ProfileValidationTestCase {
         for (OWLClassAssertionAxiom ax : testCasesOntology
                 .getClassAssertionAxioms(profileIdentificationTestClass)) {
             OWLIndividual ind = ax.getIndividual();
-            Set<OWLLiteral> vals = ind.getDataPropertyValues(
-                    rdfXMLPremiseOntologyProperty, testCasesOntology);
+            Searcher<OWLLiteral> vals = find(OWLLiteral.class)
+                    .values(rdfXMLPremiseOntologyProperty).individual(ind)
+                    .in(testCasesOntology);
             if (vals.size() != 1) {
                 continue;
             }
@@ -115,39 +117,43 @@ public class ProfileValidationTestCase {
                     .loadOntologyFromOntologyDocument(new StringDocumentSource(
                             ontologySerialisation));
             // FULL?
-            if (ind.hasObjectPropertyValue(speciesProperty, FULL, testCasesOntology)) {
+            Searcher<OWLIndividual> finder = find(OWLIndividual.class)
+                    .values(speciesProperty).individual(ind).in(testCasesOntology);
+            if (finder.contains(FULL)) {
                 checkProfile(ontology, new OWL2Profile(), true);
             }
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, FULL,
-                    testCasesOntology)) {
+            Searcher<OWLIndividual> negativeFinder = find(OWLIndividual.class)
+                    .negativeValues(speciesProperty).individual(ind)
+                    .in(testCasesOntology);
+            if (negativeFinder.contains(FULL)) {
                 checkProfile(ontology, new OWL2Profile(), false);
             }
             // DL?
-            if (ind.hasObjectPropertyValue(speciesProperty, DL, testCasesOntology)) {
+            if (finder.contains(DL)) {
                 checkProfile(ontology, new OWL2DLProfile(), true);
             }
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, DL, testCasesOntology)) {
+            if (negativeFinder.contains(DL)) {
                 checkProfile(ontology, new OWL2DLProfile(), false);
             }
             // EL?
-            if (ind.hasObjectPropertyValue(speciesProperty, EL, testCasesOntology)) {
+            if (finder.contains(EL)) {
                 checkProfile(ontology, new OWL2ELProfile(), true);
             }
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, EL, testCasesOntology)) {
+            if (negativeFinder.contains(EL)) {
                 checkProfile(ontology, new OWL2ELProfile(), false);
             }
             // QL?
-            if (ind.hasObjectPropertyValue(speciesProperty, QL, testCasesOntology)) {
+            if (finder.contains(QL)) {
                 checkProfile(ontology, new OWL2QLProfile(), true);
             }
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, QL, testCasesOntology)) {
+            if (negativeFinder.contains(QL)) {
                 checkProfile(ontology, new OWL2QLProfile(), false);
             }
             // RL?
-            if (ind.hasObjectPropertyValue(speciesProperty, RL, testCasesOntology)) {
+            if (finder.contains(RL)) {
                 checkProfile(ontology, new OWL2RLProfile(), true);
             }
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, RL, testCasesOntology)) {
+            if (negativeFinder.contains(RL)) {
                 checkProfile(ontology, new OWL2RLProfile(), false);
             }
             man.removeOntology(ontology);

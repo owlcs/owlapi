@@ -54,7 +54,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 14-Jan-2009 Represents International Resource Identifiers */
-public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence {
+public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate,
+        CharSequence {
     /** Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
      * so there is no loss during this translation.
      * 
@@ -81,7 +82,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         }
         for (int i = 0; i < colonIndex; i++) {
             char ch = prefix.charAt(i);
-            if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+' && ch != '-') {
+            if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.'
+                    && ch != '+' && ch != '-') {
                 return false;
             }
         }
@@ -126,7 +128,10 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return <code>true</code> if the IRI is in the reserved vocabulary,
      *         otherwise <code>false</code>. */
     public boolean isReservedVocabulary() {
-        return prefix.startsWith(Namespaces.OWL.toString()) || prefix.startsWith(Namespaces.RDF.toString()) || prefix.startsWith(Namespaces.RDFS.toString()) || prefix.startsWith(Namespaces.XSD.toString());
+        return prefix.startsWith(Namespaces.OWL.toString())
+                || prefix.startsWith(Namespaces.RDF.toString())
+                || prefix.startsWith(Namespaces.RDFS.toString())
+                || prefix.startsWith(Namespaces.XSD.toString());
     }
 
     /** Determines if this IRI is equal to the IRI that <code>owl:Thing</code> is
@@ -136,7 +141,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *         &lt;http://www.w3.org/2002/07/owl#Thing&gt; and otherwise
      *         <code>false</code> */
     public boolean isThing() {
-        return remainder != null && remainder.equals("Thing") && prefix.equals(Namespaces.OWL.toString());
+        return remainder != null && remainder.equals("Thing")
+                && prefix.equals(Namespaces.OWL.toString());
     }
 
     /** Determines if this IRI is equal to the IRI that <code>owl:Nothing</code>
@@ -156,7 +162,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
      *         otherwise <code>false</code> */
     public boolean isPlainLiteral() {
-        return remainder != null && remainder.equals("PlainLiteral") && prefix.equals(Namespaces.RDF.toString());
+        return remainder != null && remainder.equals("PlainLiteral")
+                && prefix.equals(Namespaces.RDF.toString());
     }
 
     /** Gets the fragment of the IRI.
@@ -449,7 +456,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         if (remainder == null) {
             return otherRemainder == null && prefix.equals(other.prefix);
         } else {
-            return otherRemainder != null && remainder.equals(otherRemainder) && other.prefix.equals(prefix);
+            return otherRemainder != null && remainder.equals(otherRemainder)
+                    && other.prefix.equals(prefix);
         }
     }
 }

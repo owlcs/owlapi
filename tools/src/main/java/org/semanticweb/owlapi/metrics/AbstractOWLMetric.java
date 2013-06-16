@@ -58,17 +58,16 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  *            the metric type */
 public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         OWLOntologyChangeListener {
-    private final OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;
     private boolean dirty;
     private boolean importsClosureUsed;
     private M value;
 
-    /** @param owlOntologyManager
-     *            the manager to use */
-    public AbstractOWLMetric(OWLOntologyManager owlOntologyManager) {
-        this.owlOntologyManager = owlOntologyManager;
-        owlOntologyManager.addOntologyChangeListener(this);
+    /** @param o
+     *            the ontology to use */
+    public AbstractOWLMetric(OWLOntology o) {
+        this.ontology = o;
+        ontology.getOWLOntologyManager().addOntologyChangeListener(this);
         dirty = true;
     }
 
@@ -79,7 +78,9 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
 
     @Override
     final public void setOntology(OWLOntology ontology) {
+        this.ontology.getOWLOntologyManager().removeOntologyChangeListener(this);
         this.ontology = ontology;
+        this.ontology.getOWLOntologyManager().addOntologyChangeListener(this);
         setDirty(true);
     }
 
@@ -100,7 +101,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     /** @return ontologies as a set */
     public Set<OWLOntology> getOntologies() {
         if (importsClosureUsed) {
-            return owlOntologyManager.getImportsClosure(ontology);
+            return ontology.getImportsClosure();
         } else {
             return Collections.singleton(ontology);
         }
@@ -116,12 +117,12 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
 
     @Override
     public OWLOntologyManager getManager() {
-        return owlOntologyManager;
+        return ontology.getOWLOntologyManager();
     }
 
     @Override
     public void dispose() {
-        owlOntologyManager.removeOntologyChangeListener(this);
+        ontology.getOWLOntologyManager().removeOntologyChangeListener(this);
         disposeMetric();
     }
 

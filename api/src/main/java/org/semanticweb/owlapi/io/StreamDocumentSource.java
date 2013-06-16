@@ -51,7 +51,6 @@ import org.semanticweb.owlapi.model.IRI;
  * <br>
  * An ontology document source which can read from a stream. */
 public class StreamDocumentSource extends StreamDocumentSourceBase {
-
     /** Constructs an input source which will read an ontology from a
      * representation from the specified stream.
      * 
@@ -71,6 +70,4 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
     public StreamDocumentSource(@Nonnull InputStream stream, @Nonnull IRI documentIRI) {
         super(stream, documentIRI);
     }
-
-
 }

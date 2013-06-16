@@ -614,9 +614,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write("<span class='cl'>" + labelFor(desc) + "</span>");
     }
 
-    private
- <F extends OWLPropertyRange>
-            void writeRestriction(String str,
+    private <F extends OWLPropertyRange> void writeRestriction(String str,
             OWLCardinalityRestriction<F> restriction, OWLPropertyExpression p) {
         write(str);
         writeOpenBracket();
@@ -639,8 +637,8 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void
-            writeRestriction(String str, OWLPropertyExpression prop,
-            OWLObject filler) throws OWLRuntimeException {
+            writeRestriction(String str, OWLPropertyExpression prop, OWLObject filler)
+                    throws OWLRuntimeException {
         write(str);
         writeOpenBracket();
         prop.accept(this);

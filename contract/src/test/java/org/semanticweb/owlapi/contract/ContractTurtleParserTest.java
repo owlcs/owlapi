@@ -68,11 +68,9 @@ public class ContractTurtleParserTest {
     @Test
     public void shouldTestOWLRDFConsumerAdapter() throws Exception {
         OWLRDFConsumerAdapter testSubject0 = new OWLRDFConsumerAdapter(
-                Utils.getMockOntology(),
-                new OWLOntologyLoaderConfiguration());
+                Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
         OWLRDFConsumerAdapter testSubject1 = new OWLRDFConsumerAdapter(
-                Utils.getMockOntology(),
-                new OWLOntologyLoaderConfiguration());
+                Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "");
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "", "");

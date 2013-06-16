@@ -15,7 +15,6 @@ import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -902,33 +901,8 @@ public class ContractOwlapi_3Test {
         boolean result6 = testSubject0.isOWLTopDataProperty();
         boolean result7 = testSubject0.isOWLBottomDataProperty();
         OWLObjectPropertyExpression result8 = testSubject0.getInverse();
-        boolean result9 = testSubject0.isInverseFunctional(Utils.getMockOntology());
-        boolean result10 = testSubject0.isInverseFunctional(Utils.mockSet(Utils
-                .getMockOntology()));
-        boolean result11 = testSubject0
-                .isSymmetric(Utils.mockSet(Utils.getMockOntology()));
-        boolean result12 = testSubject0.isSymmetric(Utils.getMockOntology());
-        boolean result13 = testSubject0.isAsymmetric(Utils.mockSet(Utils
-                .getMockOntology()));
-        boolean result14 = testSubject0.isAsymmetric(Utils.getMockOntology());
-        boolean result15 = testSubject0.isReflexive(Utils.getMockOntology());
-        boolean result16 = testSubject0
-                .isReflexive(Utils.mockSet(Utils.getMockOntology()));
-        boolean result17 = testSubject0.isIrreflexive(Utils.getMockOntology());
-        boolean result18 = testSubject0.isIrreflexive(Utils.mockSet(Utils
-                .getMockOntology()));
-        boolean result19 = testSubject0.isTransitive(Utils.getMockOntology());
-        boolean result20 = testSubject0.isTransitive(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLObjectPropertyExpression> result21 = testSubject0.getInverses(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result22 = testSubject0.getInverses(Utils
-                .getMockOntology());
         OWLObjectPropertyExpression result23 = testSubject0.getInverseProperty();
         OWLObjectPropertyExpression result24 = testSubject0.getSimplified();
-        boolean result26 = testSubject0.isFunctional(Utils.getMockOntology());
-        boolean result27 = testSubject0.isFunctional(Utils.mockSet(Utils
-                .getMockOntology()));
         boolean result28 = testSubject0.isDataPropertyExpression();
         boolean result29 = testSubject0.isObjectPropertyExpression();
         String result42 = testSubject0.toString();
@@ -1247,37 +1221,11 @@ public class ContractOwlapi_3Test {
                 return null;
             }
 
-
             @Override
             protected int compareObjectOfSameType(OWLObject object) {
                 return 0;
             }
         };
-        boolean result0 = testSubject0.isInverseFunctional(Utils.getMockOntology());
-        boolean result1 = testSubject0.isInverseFunctional(Utils.mockSet(Utils
-                .getMockOntology()));
-        boolean result2 = testSubject0
-                .isSymmetric(Utils.mockSet(Utils.getMockOntology()));
-        boolean result3 = testSubject0.isSymmetric(Utils.getMockOntology());
-        boolean result4 = testSubject0
-                .isAsymmetric(Utils.mockSet(Utils.getMockOntology()));
-        boolean result5 = testSubject0.isAsymmetric(Utils.getMockOntology());
-        boolean result6 = testSubject0.isReflexive(Utils.getMockOntology());
-        boolean result7 = testSubject0
-                .isReflexive(Utils.mockSet(Utils.getMockOntology()));
-        boolean result8 = testSubject0.isIrreflexive(Utils.getMockOntology());
-        boolean result9 = testSubject0.isIrreflexive(Utils.mockSet(Utils
-                .getMockOntology()));
-        boolean result10 = testSubject0.isTransitive(Utils.getMockOntology());
-        boolean result11 = testSubject0.isTransitive(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLObjectPropertyExpression> result12 = testSubject0.getInverses(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result13 = testSubject0.getInverses(Utils
-                .getMockOntology());
-        boolean result17 = testSubject0.isFunctional(Utils.getMockOntology());
-        boolean result18 = testSubject0.isFunctional(Utils.mockSet(Utils
-                .getMockOntology()));
         boolean result19 = testSubject0.isDataPropertyExpression();
         boolean result20 = testSubject0.isObjectPropertyExpression();
         String result33 = testSubject0.toString();
@@ -1305,9 +1253,6 @@ public class ContractOwlapi_3Test {
     @Test
     public void shouldTestOWLObjectPropertyImpl() throws Exception {
         OWLObjectPropertyImpl testSubject0 = new OWLObjectPropertyImpl(IRI("urn:aFake"));
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations(Utils.getMockOntology(),
-                mock(OWLAnnotationProperty.class));
-        Set<OWLAnnotation> result1 = testSubject0.getAnnotations(Utils.getMockOntology());
         testSubject0.accept(mock(OWLEntityVisitor.class));
         testSubject0.accept(mock(OWLPropertyExpressionVisitor.class));
         testSubject0.accept(mock(OWLObjectVisitor.class));
@@ -1316,12 +1261,6 @@ public class ContractOwlapi_3Test {
         Object result3 = testSubject0.accept(Utils.mockPropertyExpression());
         Object result4 = testSubject0.accept(Utils.mockObject());
         boolean result5 = testSubject0.isType(EntityType.CLASS);
-        Set<OWLAxiom> result9 = testSubject0
-                .getReferencingAxioms(Utils.getMockOntology());
-        Set<OWLAxiom> result10 = testSubject0.getReferencingAxioms(
-                Utils.getMockOntology(), false);
-        Set<OWLAnnotationAssertionAxiom> result11 = testSubject0
-                .getAnnotationAssertionAxioms(Utils.getMockOntology());
         IRI result12 = testSubject0.getIRI();
         boolean result13 = testSubject0.isBuiltIn();
         EntityType<?> result14 = testSubject0.getEntityType();
@@ -1358,34 +1297,9 @@ public class ContractOwlapi_3Test {
         boolean result30 = testSubject0.isOWLBottomObjectProperty();
         boolean result31 = testSubject0.isOWLTopDataProperty();
         boolean result32 = testSubject0.isOWLBottomDataProperty();
-        boolean result33 = testSubject0.isInverseFunctional(Utils.getMockOntology());
-        boolean result34 = testSubject0.isInverseFunctional(Utils.mockSet(Utils
-                .getMockOntology()));
-        boolean result35 = testSubject0
-                .isSymmetric(Utils.mockSet(Utils.getMockOntology()));
-        boolean result36 = testSubject0.isSymmetric(Utils.getMockOntology());
-        boolean result37 = testSubject0.isAsymmetric(Utils.mockSet(Utils
-                .getMockOntology()));
-        boolean result38 = testSubject0.isAsymmetric(Utils.getMockOntology());
-        boolean result39 = testSubject0.isReflexive(Utils.getMockOntology());
-        boolean result40 = testSubject0
-                .isReflexive(Utils.mockSet(Utils.getMockOntology()));
-        boolean result41 = testSubject0.isIrreflexive(Utils.getMockOntology());
-        boolean result42 = testSubject0.isIrreflexive(Utils.mockSet(Utils
-                .getMockOntology()));
-        boolean result43 = testSubject0.isTransitive(Utils.getMockOntology());
-        boolean result44 = testSubject0.isTransitive(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLObjectPropertyExpression> result45 = testSubject0.getInverses(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLObjectPropertyExpression> result46 = testSubject0.getInverses(Utils
-                .getMockOntology());
         OWLObjectPropertyExpression result47 = testSubject0.getInverseProperty();
         OWLObjectPropertyExpression result48 = testSubject0.getSimplified();
         OWLObjectProperty result49 = testSubject0.getNamedProperty();
-        boolean result50 = testSubject0.isFunctional(Utils.getMockOntology());
-        boolean result51 = testSubject0.isFunctional(Utils.mockSet(Utils
-                .getMockOntology()));
         boolean result52 = testSubject0.isDataPropertyExpression();
         boolean result53 = testSubject0.isObjectPropertyExpression();
         String result66 = testSubject0.toString();
@@ -1711,9 +1625,6 @@ public class ContractOwlapi_3Test {
         testSubject0.accept(mock(OWLPropertyExpressionVisitor.class));
         Object result27 = testSubject0.accept(Utils.mockPropertyExpression());
         boolean result28 = testSubject0.isAnonymous();
-        boolean result29 = testSubject0.isFunctional(Utils.mockSet(Utils
-                .getMockOntology()));
-        boolean result30 = testSubject0.isFunctional(Utils.getMockOntology());
         boolean result31 = testSubject0.isDataPropertyExpression();
         boolean result32 = testSubject0.isObjectPropertyExpression();
         boolean result33 = testSubject0.isOWLTopObjectProperty();

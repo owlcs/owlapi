@@ -118,9 +118,8 @@ public interface OWLParser {
      *             and the import could not be loaded. */
     @Nonnull
     OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntology ontology)
-                    throws OWLParserException, IOException, OWLOntologyChangeException,
-                    UnloadableImportException;
+            @Nonnull OWLOntology ontology) throws OWLParserException, IOException,
+            OWLOntologyChangeException, UnloadableImportException;
 
     /** Parses the ontology that has a concrete representation which is pointed
      * to by the specified input source. Implementors of this method should load

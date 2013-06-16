@@ -1291,8 +1291,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     protected class OWLOntologyChangeFilter<T extends OWLOntologyChange<?>> implements
-            OWLOntologyChangeVisitorEx<T>,
-            Serializable {
+            OWLOntologyChangeVisitorEx<T>, Serializable {
         private static final long serialVersionUID = 40000L;
 
         @Override

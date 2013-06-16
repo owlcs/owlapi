@@ -71,8 +71,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
             Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.expression = expression;
-        this.propertyExpressions = new TreeSet<OWLPropertyExpression>(
-                propertyExpressions);
+        this.propertyExpressions = new TreeSet<OWLPropertyExpression>(propertyExpressions);
     }
 
     @Override

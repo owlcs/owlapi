@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         IRIShortFormProvider {
     private static final long serialVersionUID = 40000L;
-    
+
     /** String comparator that takes length into account before natural ordering. */
     private static final class StringLengthComparator implements Comparator<String>,
             Serializable {

@@ -116,8 +116,7 @@ public class ContractOwlapiTest {
                 Factory.getFactory().getOWLClass(IRI.create("urn:test:c1")), Factory
                         .getFactory().getOWLClass(IRI.create("urn:test:c2"))));
         MakeClassesMutuallyDisjoint testSubject0 = new MakeClassesMutuallyDisjoint(
-                Factory.getFactory(), classes, false,
-                Utils.getMockOntology());
+                Factory.getFactory(), classes, false, Utils.getMockOntology());
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
@@ -125,11 +124,11 @@ public class ContractOwlapiTest {
     @Test
     public void shouldTestMakePrimitiveSubClassesMutuallyDisjoint() throws Exception {
         MakePrimitiveSubClassesMutuallyDisjoint testSubject0 = new MakePrimitiveSubClassesMutuallyDisjoint(
-                Factory.getFactory(), mock(OWLClass.class), Utils.mockSet(Utils
-                        .getMockOntology()), Utils.getMockOntology());
+                Factory.getFactory(), Factory.getFactory().getOWLClass(
+                        IRI.create("urn:test:c")), Utils.getMockOntology());
         MakePrimitiveSubClassesMutuallyDisjoint testSubject1 = new MakePrimitiveSubClassesMutuallyDisjoint(
-                Factory.getFactory(), mock(OWLClass.class), Utils.mockSet(Utils
-                        .getMockOntology()), Utils.getMockOntology(), false);
+                Factory.getFactory(), Factory.getFactory().getOWLClass(
+                        IRI.create("urn:test:c")), Utils.getMockOntology(), false);
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }

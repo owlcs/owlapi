@@ -52,8 +52,8 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * Date: 26-Oct-2006<br>
  * <br> */
 @SuppressWarnings("javadoc")
-public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P> {
+public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression> extends
+        OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P> {
     private static final long serialVersionUID = 40000L;
     private final OWLClassExpression domain;
 

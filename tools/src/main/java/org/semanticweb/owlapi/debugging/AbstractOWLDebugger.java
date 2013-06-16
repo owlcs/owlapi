@@ -80,9 +80,9 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     private void mergeImportsClosure() {
         OWLOntology originalOntology = ontology;
         try {
-            ontology = owlOntologyManager.createOntology(IRI.create("http://debugger.semanticweb.org/", "ontolog" + System.nanoTime()));
-        }
-        catch (OWLOntologyCreationException e) {
+            ontology = owlOntologyManager.createOntology(IRI.create(
+                    "http://debugger.semanticweb.org/", "ontolog" + System.nanoTime()));
+        } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
         List<AddAxiom> changes = new ArrayList<AddAxiom>();

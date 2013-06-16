@@ -58,10 +58,10 @@ public class OWLDataAllRestrictionTestCase extends
             OWLDataRange filler) {
         return DataAllValuesFrom(prop, filler);
     }
+
     @Override
     protected OWLObjectRestriction createObjectRestriction(OWLObjectProperty prop,
             OWLClassExpression filler) {
         return ObjectAllValuesFrom(prop, filler);
     }
-
 }

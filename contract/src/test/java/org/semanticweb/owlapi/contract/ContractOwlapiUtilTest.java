@@ -127,7 +127,6 @@ public class ContractOwlapiUtilTest {
         String result1 = testSubject0.toString();
     }
 
-
     @Test
     public void shouldTestInterfaceBidirectionalShortFormProvider() throws Exception {
         BidirectionalShortFormProvider testSubject0 = mock(BidirectionalShortFormProvider.class);
@@ -726,8 +725,7 @@ public class ContractOwlapiUtilTest {
         List<OWLOntologyChange<?>> result0 = testSubject0.changeIRI(IRI("urn:aFake"),
                 IRI("urn:aFake"));
         List<OWLOntologyChange<?>> result1 = testSubject0.changeIRI(
-                Utils.mockOWLEntity(),
-                IRI("urn:aFake"));
+                Utils.mockOWLEntity(), IRI("urn:aFake"));
         List<OWLOntologyChange<?>> result2 = testSubject0.changeIRI(mock(Map.class));
         String result3 = testSubject0.toString();
     }

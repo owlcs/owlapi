@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.util.Set;
 
@@ -73,17 +74,22 @@ public class SharedBlankNodeTestCase {
         return ontology;
     }
 
-    public static String saveOntology(OWLOntology ontology) throws OWLOntologyStorageException {
+    public static String saveOntology(OWLOntology ontology)
+            throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
-        ontology.getOWLOntologyManager().saveOntology(ontology, new RDFXMLOntologyFormat(), target);
+        ontology.getOWLOntologyManager().saveOntology(ontology,
+                new RDFXMLOntologyFormat(), target);
         return target.toString();
     }
 
-    public static OWLOntology loadOntology(String ontology) throws OWLOntologyCreationException {
-        return Factory.getManager().loadOntologyFromOntologyDocument(new StringDocumentSource(ontology));
+    public static OWLOntology loadOntology(String ontology)
+            throws OWLOntologyCreationException {
+        return Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(ontology));
     }
 
-    public static void displayOntology(OWLOntology ontology) throws OWLOntologyStorageException {
+    public static void displayOntology(OWLOntology ontology)
+            throws OWLOntologyStorageException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
         manager.saveOntology(ontology, format, new SystemOutDocumentTarget());
@@ -93,7 +99,7 @@ public class SharedBlankNodeTestCase {
         for (OWLAnnotation annotation : ontology.getAnnotations()) {
             OWLIndividual i = (OWLIndividual) annotation.getValue();
             System.out.println("Found individual " + i);
-            System.out.println("Property values = " + i.getDataPropertyValues(ontology));
+            System.out.println("Property values = " + find().in(ontology).individual(i));
         }
     }
 }

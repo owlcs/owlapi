@@ -89,8 +89,8 @@ public class OWLProfileViolation {
         return importsClosureMap.get(ontID);
     }
 
-    /** @return the imports closure set of ids. The set is a copy and the map
-     *         will not be altered by changes to it. */
+    /** @return the imports closure set of ids. The set is a copy and the map will
+     *         not be altered by changes to it. */
     public Set<OWLOntologyID> getImportsClosure() {
         return new HashSet<OWLOntologyID>(importsClosureMap.keySet());
     }

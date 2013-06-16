@@ -38,14 +38,9 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Set;
-import java.util.TreeSet;
-
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
 
 /** Author: Matthew Horridge<br>
@@ -53,8 +48,7 @@ import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
  * <br> */
-public abstract class OWLObjectPropertyExpressionImpl extends
- OWLPropertyExpressionImpl
+public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpressionImpl
         implements OWLObjectPropertyExpression {
     private static final long serialVersionUID = 40000L;
     private OWLObjectPropertyExpression simplestForm;
@@ -68,135 +62,6 @@ public abstract class OWLObjectPropertyExpressionImpl extends
     @Override
     public boolean isDataPropertyExpression() {
         return false;
-    }
-
-    @Override
-    public boolean isFunctional(OWLOntology ontology) {
-        return ontology.getFunctionalObjectPropertyAxioms(this).size() > 0;
-    }
-
-    @Override
-    public boolean isFunctional(Set<OWLOntology> ontologies) {
-        for (OWLOntology ont : ontologies) {
-            if (isFunctional(ont)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isInverseFunctional(OWLOntology ontology) {
-        return !ontology.getInverseFunctionalObjectPropertyAxioms(this).isEmpty();
-    }
-
-    @Override
-    public boolean isInverseFunctional(Set<OWLOntology> ontologies) {
-        for (OWLOntology ont : ontologies) {
-            if (isInverseFunctional(ont)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isSymmetric(OWLOntology ontology) {
-        return !ontology.getSymmetricObjectPropertyAxioms(this).isEmpty();
-    }
-
-    @Override
-    public boolean isSymmetric(Set<OWLOntology> ontologies) {
-        for (OWLOntology ont : ontologies) {
-            if (isSymmetric(ont)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isAsymmetric(OWLOntology ontology) {
-        return !ontology.getAsymmetricObjectPropertyAxioms(this).isEmpty();
-    }
-
-    @Override
-    public boolean isAsymmetric(Set<OWLOntology> ontologies) {
-        for (OWLOntology ont : ontologies) {
-            if (isAsymmetric(ont)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isReflexive(OWLOntology ontology) {
-        return !ontology.getReflexiveObjectPropertyAxioms(this).isEmpty();
-    }
-
-    @Override
-    public boolean isReflexive(Set<OWLOntology> ontologies) {
-        for (OWLOntology ont : ontologies) {
-            if (isReflexive(ont)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isIrreflexive(OWLOntology ontology) {
-        return !ontology.getIrreflexiveObjectPropertyAxioms(this).isEmpty();
-    }
-
-    @Override
-    public boolean isIrreflexive(Set<OWLOntology> ontologies) {
-        for (OWLOntology ont : ontologies) {
-            if (isIrreflexive(ont)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isTransitive(OWLOntology ontology) {
-        return !ontology.getTransitiveObjectPropertyAxioms(this).isEmpty();
-    }
-
-    @Override
-    public boolean isTransitive(Set<OWLOntology> ontologies) {
-        for (OWLOntology ont : ontologies) {
-            if (isTransitive(ont)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    @Override
-    public Set<OWLObjectPropertyExpression> getInverses(OWLOntology ontology) {
-        Set<OWLObjectPropertyExpression> result = new TreeSet<OWLObjectPropertyExpression>();
-        for (OWLInverseObjectPropertiesAxiom ax : ontology
-                .getInverseObjectPropertyAxioms(this)) {
-            if (ax.getFirstProperty().equals(this)) {
-                result.add(ax.getSecondProperty());
-            } else {
-                result.add(ax.getFirstProperty());
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLObjectPropertyExpression> getInverses(Set<OWLOntology> ontologies) {
-        Set<OWLObjectPropertyExpression> result = new TreeSet<OWLObjectPropertyExpression>();
-        for (OWLOntology ont : ontologies) {
-            result.addAll(getInverses(ont));
-        }
-        return result;
     }
 
     @Override

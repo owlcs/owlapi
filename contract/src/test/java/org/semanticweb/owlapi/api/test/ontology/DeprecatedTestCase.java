@@ -40,6 +40,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.search.Searcher.find;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
@@ -58,11 +59,11 @@ public class DeprecatedTestCase extends AbstractFileTestCase {
     public void testAnnotationAssertionsPresent() {
         OWLOntology ont = createOntology();
         OWLClass cls = Class(getIRI("http://www.semanticweb.org/owlapi/test#ClsA"));
-        for (OWLAnnotation anno : cls.getAnnotations(ont)) {
+        for (OWLAnnotation anno : find(OWLAnnotation.class).in(ont).annotations(cls)) {
             assertTrue(anno.isDeprecatedIRIAnnotation());
         }
         OWLDataProperty prop = DataProperty(getIRI("http://www.semanticweb.org/owlapi/test#prop"));
-        for (OWLAnnotation anno : prop.getAnnotations(ont)) {
+        for (OWLAnnotation anno : find(OWLAnnotation.class).in(ont).annotations(prop)) {
             assertTrue(anno.isDeprecatedIRIAnnotation());
         }
     }

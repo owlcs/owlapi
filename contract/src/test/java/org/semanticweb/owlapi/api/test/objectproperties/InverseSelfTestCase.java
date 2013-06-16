@@ -40,6 +40,7 @@ package org.semanticweb.owlapi.api.test.objectproperties;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.search.Searcher.find;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
@@ -60,8 +61,8 @@ public class InverseSelfTestCase extends AbstractOWLAPITestCase {
         OWLObjectProperty propQ = ObjectProperty(getIRI("q"));
         OWLAxiom ax = InverseObjectProperties(propP, propQ);
         getManager().addAxiom(ont, ax);
-        assertTrue(propP.getInverses(ont).contains(propQ));
-        assertFalse(propP.getInverses(ont).contains(propP));
+        assertTrue(find().inverse(propP).in(ont).contains(propQ));
+        assertFalse(find().inverse(propP).in(ont).contains(propP));
     }
 
     @Test
@@ -70,6 +71,6 @@ public class InverseSelfTestCase extends AbstractOWLAPITestCase {
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLAxiom ax = InverseObjectProperties(propP, propP);
         getManager().addAxiom(ont, ax);
-        assertTrue(propP.getInverses(ont).contains(propP));
+        assertTrue(find().inverse(propP).in(ont).contains(propP));
     }
 }

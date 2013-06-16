@@ -50,8 +50,8 @@ import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
  * Date: 26-Oct-2006<br>
  * <br> */
 @SuppressWarnings("javadoc")
-public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLPropertyAxiomImpl implements OWLUnaryPropertyAxiom<P> {
+public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends
+        OWLPropertyAxiomImpl implements OWLUnaryPropertyAxiom<P> {
     private static final long serialVersionUID = 40000L;
     private final P property;
 

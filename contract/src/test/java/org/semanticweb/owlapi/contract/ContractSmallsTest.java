@@ -268,8 +268,8 @@ public class ContractSmallsTest {
     public void shouldTestRDFXMLOntologyStorer() throws Exception {
         RDFXMLOntologyStorer testSubject0 = new RDFXMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockOntology(),
-                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
+                mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
@@ -391,8 +391,8 @@ public class ContractSmallsTest {
     public void shouldTestTurtleOntologyStorer() throws Exception {
         TurtleOntologyStorer testSubject0 = new TurtleOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockOntology(),
-                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
+                mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
@@ -452,8 +452,8 @@ public class ContractSmallsTest {
     public void shouldTestOWLXMLOntologyStorer() throws Exception {
         OWLXMLOntologyStorer testSubject0 = new OWLXMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockOntology(),
-                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
+                mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();

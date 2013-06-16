@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.metrics;
 
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -46,9 +46,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Date: 27-Jul-2007<br>
  * <br> */
 public abstract class DoubleValuedMetric extends AbstractOWLMetric<Double> {
-    /** @param owlOntologyManager
-     *            manager to use */
-    public DoubleValuedMetric(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    /** @param o
+     *            ontology to use */
+    public DoubleValuedMetric(OWLOntology o) {
+        super(o);
     }
 }

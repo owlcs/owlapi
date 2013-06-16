@@ -65,7 +65,6 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends
         return createDataRestriction(prop, 3);
     }
 
-
     @Override
     @Test
     public void testCreation() throws Exception {

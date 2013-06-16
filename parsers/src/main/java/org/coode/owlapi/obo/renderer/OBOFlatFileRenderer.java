@@ -45,7 +45,6 @@ import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -65,6 +64,7 @@ import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
@@ -76,6 +76,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -239,22 +240,20 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
         // scan ontology for other constructs that cannot be translated
         for (OWLClassAxiom ax : ontology.getGeneralClassAxioms()) {
             if (ax instanceof OWLSubClassOfAxiom) {
-                exceptions.add(new OBOStorageException(ax, null,
+                addException(new OBOStorageException(ax, null,
                         "Superclass GCI found in ontology cannot be translated to OBO"));
             }
             if (ax instanceof OWLEquivalentClassesAxiom) {
-                exceptions
-                        .add(new OBOStorageException(ax, null,
-                                "Equivalent class GCI found in ontology cannot be translated to OBO"));
+                addException(new OBOStorageException(ax, null,
+                        "Equivalent class GCI found in ontology cannot be translated to OBO"));
             }
             if (ax instanceof OWLDisjointClassesAxiom) {
-                exceptions
-                        .add(new OBOStorageException(ax, null,
-                                "Disjoint axiom contains anonymous classes - cannot be translated to OBO"));
+                addException(new OBOStorageException(ax, null,
+                        "Disjoint axiom contains anonymous classes - cannot be translated to OBO"));
             }
         }
         for (SWRLRule r : ontology.getAxioms(AxiomType.SWRL_RULE)) {
-            exceptions.add(new OBOStorageException(r, null,
+            addException(new OBOStorageException(r, null,
                     "SWRL rules cannot be translated to OBO"));
         }
     }
@@ -268,7 +267,9 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
                 OBOVocabulary.getTermStanzaTags());
         handleEntityBase(cls, ontology, tvpList);
         relationshipHandler.setClass(cls);
-        for (OWLClassExpression superCls : cls.getSuperClasses(ontology)) {
+        Iterable<OWLClassExpression> classes = find(OWLClassExpression.class)
+                .in(ontology).equivalent().classes(cls);
+        for (OWLClassExpression superCls : classes) {
             if (!superCls.isAnonymous()) {
                 String superclassID = getID(superCls.asOWLClass());
                 tvpList.addPair(OBOVocabulary.IS_A, superclassID);
@@ -277,9 +278,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
                 // TODO handle datatype restrictions
                 superCls.accept(relationshipHandler);
             } else {
-                exceptions
-                        .add(new OBOStorageException(cls, superCls,
-                                "OBO format only supports named superclass or someValuesFrom restrictions"));
+                addException(new OBOStorageException(cls, superCls,
+                        "OBO format only supports named superclass or someValuesFrom restrictions"));
             }
         }
         final OWLClass owlThing = factory.getOWLThing();
@@ -288,7 +288,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
         if (!cls.equals(owlThing) && tvpList.getValues(OBOVocabulary.IS_A).isEmpty()) {
             tvpList.addPair(OBOVocabulary.IS_A, getID(owlThing));
         }
-        for (OWLClassExpression equiv : cls.getEquivalentClasses(ontology)) {
+        classes = find(OWLClassExpression.class).in(ontology).equivalent().classes(cls);
+        for (OWLClassExpression equiv : classes) {
             if (equiv instanceof OWLObjectIntersectionOf) {
                 handleIntersection(cls, (OWLObjectIntersectionOf) equiv, tvpList);
             } else if (equiv instanceof OWLObjectUnionOf) {
@@ -304,19 +305,18 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
                 handleIntersection(cls, intersection, tvpList);
             } else {
                 // TODO handle datatype restrictions
-                exceptions
-                        .add(new OBOStorageException(cls, equiv,
-                                "Cannot answer equivalent class that is not intersection or union"));
+                addException(new OBOStorageException(cls, equiv,
+                        "Cannot answer equivalent class that is not intersection or union"));
             }
         }
-        for (OWLClassExpression disjoint : cls.getDisjointClasses(ontology)) {
+        classes = find(OWLClassExpression.class).in(ontology).disjoint().classes(cls);
+        for (OWLClassExpression disjoint : classes) {
             if (!disjoint.isAnonymous()) {
                 tvpList.addPair(OBOVocabulary.DISJOINT_FROM, getID(disjoint.asOWLClass()));
                 // TODO handle namespace and derived
             } else {
-                exceptions
-                        .add(new OBOStorageException(cls, disjoint,
-                                "Found anonymous disjoint class that cannot be represented in OBO"));
+                addException(new OBOStorageException(cls, disjoint,
+                        "Found anonymous disjoint class that cannot be represented in OBO"));
             }
         }
         for (OBORelationship relationship : relationshipHandler.getOBORelationships()) {
@@ -340,7 +340,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
                     OBORelationship rel = relations.iterator().next();
                     tvpList.addPair(OBOVocabulary.INTERSECTION_OF, renderRestriction(rel));
                 } else {
-                    exceptions.add(new OBOStorageException(cls, op,
+                    addException(new OBOStorageException(cls, op,
                             "Found operand in intersection that cannot be represented"));
                 }
             }
@@ -369,7 +369,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
                     OBORelationship rel = relations.iterator().next();
                     tvpList.addPair(OBOVocabulary.UNION_OF, renderRestriction(rel));
                 } else {
-                    exceptions.add(new OBOStorageException(cls, op,
+                    addException(new OBOStorageException(cls, op,
                             "Found operand in union that cannot be represented"));
                 }
             }
@@ -411,23 +411,23 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
         OBOTagValuePairList tvpList = new OBOTagValuePairList(
                 OBOVocabulary.getTypeDefStanzaTags());
         handleEntityBase(property, ontology, tvpList);
-        Collection<OWLClassExpression> domains = find().in(ontology).domains(property)
-                .asCollection();
+        Iterable<OWLClassExpression> domains = find(OWLClassExpression.class)
+                .in(ontology).domains(property);
         for (OWLClassExpression domain : domains) {
             if (!domain.isAnonymous()) {
                 tvpList.addPair(OBOVocabulary.DOMAIN, getID(domain.asOWLClass()));
             } else {
-                exceptions.add(new OBOStorageException(property, domain,
+                addException(new OBOStorageException(property, domain,
                         "Anonymous domain that cannot be represented in OBO"));
             }
         }
-        final Collection<OWLPropertyExpression> sp = find().in(ontology).sup()
-                .propertiesOf(property).asCollection(OWLPropertyExpression.class);
+        Iterable<OWLPropertyExpression> sp = find(OWLPropertyExpression.class)
+                .in(ontology).sup().propertiesOf(property);
         for (OWLPropertyExpression superProp : sp) {
             if (!superProp.isAnonymous()) {
                 tvpList.addPair(OBOVocabulary.IS_A, getID((OWLProperty) superProp));
             } else {
-                exceptions.add(new OBOStorageException(property, superProp,
+                addException(new OBOStorageException(property, superProp,
                         "Anonymous property in superProperty is not supported in OBO"));
             }
         }
@@ -441,32 +441,33 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
             Writer writer) {
         OBOTagValuePairList tvpList = handleCommonTypeDefStanza(property, ontology,
                 writer);
-        for (OWLClassExpression range : find().in(ontology).ranges(property)
-                .asCollection(OWLClassExpression.class)) {
+        for (OWLClassExpression range : find(OWLClassExpression.class).in(ontology)
+                .ranges(property)) {
             if (!range.isAnonymous()) {
                 tvpList.addPair(OBOVocabulary.RANGE, getID(range.asOWLClass()));
             } else {
-                exceptions.add(new OBOStorageException(property, range,
+                addException(new OBOStorageException(property, range,
                         "Anonymous range that cannot be represented in OBO"));
             }
         }
-        if (property.isAsymmetric(ontology)) {
+        if (find().in(ontology).isAsymmetric(property)) {
             tvpList.addPair(OBOVocabulary.IS_ASYMMETRIC, "true");
         }
-        if (property.isReflexive(ontology)) {
+        if (find().in(ontology).isReflexive(property)) {
             tvpList.addPair(OBOVocabulary.IS_REFLEXIVE, "true");
         }
-        if (property.isSymmetric(ontology)) {
+        if (find().in(ontology).isSymmetric(property)) {
             tvpList.addPair(OBOVocabulary.IS_SYMMETRIC, "true");
         }
-        if (property.isTransitive(ontology)) {
+        if (find().in(ontology).isTransitive(property)) {
             tvpList.addPair(OBOVocabulary.IS_TRANSITIVE, "true");
         }
-        for (OWLObjectPropertyExpression inv : property.getInverses(ontology)) {
+        for (OWLObjectPropertyExpression inv : find(OWLObjectPropertyExpression.class)
+                .inverse(property).in(ontology)) {
             if (!inv.isAnonymous()) {
                 tvpList.addPair(OBOVocabulary.INVERSE, getID(inv.asOWLObjectProperty()));
             } else {
-                exceptions.add(new OBOStorageException(property, inv,
+                addException(new OBOStorageException(property, inv,
                         "Anonymous property in inverse is not supported in OBO"));
             }
         }
@@ -480,7 +481,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
                     tvpList.addPair(OBOVocabulary.TRANSITIVE_OVER, getID(chain.get(1)
                             .asOWLObjectProperty()));
                 } else {
-                    exceptions.add(new OBOStorageException(property, ax,
+                    addException(new OBOStorageException(property, ax,
                             "Only property chains of form 'p o q -> p' supported"));
                 }
             }
@@ -493,13 +494,12 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
             Writer writer) {
         OBOTagValuePairList tvpList = handleCommonTypeDefStanza(property, ontology,
                 writer);
-        for (OWLDataRange range : find().in(ontology).ranges(property)
-                .asCollection(OWLDataRange.class)) {
+        for (OWLDataRange range : find(OWLDataRange.class).in(ontology).ranges(property)) {
             if (range.isDatatype()) {
                 tvpList.addPair(OBOVocabulary.RANGE, range.asOWLDatatype().getIRI()
                         .toString());
             } else {
-                exceptions.add(new OBOStorageException(property, range,
+                addException(new OBOStorageException(property, range,
                         "Complex data range cannot be represented in OBO"));
             }
         }
@@ -518,42 +518,45 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
             tvpList.setDefault(OBOVocabulary.IS_ANONYMOUS, "true");
         }
         handleEntityBase(individual, ontology, tvpList);
-        for (OWLClassExpression type : individual.getTypes(ontology)) {
+        Iterable<OWLClassExpression> types = find(OWLClassExpression.class).in(ontology)
+                .types(individual);
+        for (OWLClassExpression type : types) {
             if (!type.isAnonymous()) {
                 tvpList.addPair(OBOVocabulary.INSTANCE_OF, getID(type.asOWLClass()));
             } else {
-                exceptions.add(new OBOStorageException(individual, type,
+                addException(new OBOStorageException(individual, type,
                         "Complex types cannot be represented in OBO"));
             }
         }
-        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> objPropAssertions = individual
-                .getObjectPropertyValues(ontology);
-        for (OWLObjectPropertyExpression p : objPropAssertions.keySet()) {
+        Iterable<OWLObjectPropertyAssertionAxiom> objPropAssertions = find(
+                OWLObjectPropertyAssertionAxiom.class).in(ontology).object()
+                .individual(individual);
+        for (OWLObjectPropertyAssertionAxiom ax : objPropAssertions) {
+            OWLObjectPropertyExpression p = ax.getProperty();
             if (!p.isAnonymous()) {
-                for (OWLIndividual ind : objPropAssertions.get(p)) {
-                    if (!ind.isAnonymous()) {
-                        final String rel = renderRestriction(new OBORelationship(
-                                p.asOWLObjectProperty(), ind.asOWLNamedIndividual()));
-                        tvpList.addPair(OBOVocabulary.PROPERTY_VALUE, rel);
-                    }
-                }
-            } else {
-                exceptions.add(new OBOStorageException(individual, p,
-                        "Anonymous property in assertion is not supported in OBO"));
-            }
-        }
-        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dataPropAssertions = individual
-                .getDataPropertyValues(ontology);
-        for (OWLDataPropertyExpression p : dataPropAssertions.keySet()) {
-            if (!p.isAnonymous()) {
-                for (OWLLiteral literal : dataPropAssertions.get(p)) {
-                    final String rel = renderPropertyAssertion(p.asOWLDataProperty(),
-                            literal);
+                OWLIndividual ind = ax.getObject();
+                if (!ind.isAnonymous()) {
+                    final String rel = renderRestriction(new OBORelationship(
+                            p.asOWLObjectProperty(), ind.asOWLNamedIndividual()));
                     tvpList.addPair(OBOVocabulary.PROPERTY_VALUE, rel);
                 }
             } else {
+                addException(new OBOStorageException(individual, p,
+                        "Anonymous property in assertion is not supported in OBO"));
+            }
+        }
+        Iterable<OWLDataPropertyAssertionAxiom> dataPropAssertions = find(
+                OWLDataPropertyAssertionAxiom.class).in(ontology).data()
+                .individual(individual);
+        for (OWLDataPropertyAssertionAxiom ax : dataPropAssertions) {
+            OWLDataPropertyExpression p = ax.getProperty();
+            if (!p.isAnonymous()) {
+                OWLLiteral literal = ax.getObject();
+                String rel = renderPropertyAssertion(p.asOWLDataProperty(), literal);
+                tvpList.addPair(OBOVocabulary.PROPERTY_VALUE, rel);
+            } else {
                 // no anonymous data properties so this should never occur
-                exceptions.add(new OBOStorageException(individual, p,
+                addException(new OBOStorageException(individual, p,
                         "Anonymous property in assertion is not supported in OBO"));
             }
         }
@@ -564,7 +567,8 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
             OBOTagValuePairList tvpList) {
         tvpList.addPair(OBOVocabulary.ID, getID(entity));
         Set<OWLAnnotation> potentialNames = new HashSet<OWLAnnotation>();
-        for (OWLAnnotation annotation : entity.getAnnotations(ontology)) {
+        for (OWLAnnotation annotation : find(OWLAnnotation.class).in(ontology)
+                .annotations(entity)) {
             if (annotation.getProperty().getIRI()
                     .equals(OWLRDFVocabulary.RDFS_LABEL.getIRI())) {
                 potentialNames.add(annotation);

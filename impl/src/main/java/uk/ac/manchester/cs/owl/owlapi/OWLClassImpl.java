@@ -41,36 +41,26 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** Author: Matthew Horridge<br>
@@ -139,17 +129,6 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     }
 
     @Override
-    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
-        return ontology.getReferencingAxioms(this);
-    }
-
-    @Override
-    public Set<OWLAxiom>
-            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
-        return ontology.getReferencingAxioms(this, includeImports);
-    }
-
-    @Override
     public boolean isAnonymous() {
         return false;
     }
@@ -197,133 +176,6 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     @Override
     public OWLClassExpression getComplementNNF() {
         return df.getOWLObjectComplementOf(this);
-    }
-
-    @Override
-    public Set<OWLClassExpression> getSuperClasses(OWLOntology ontology) {
-        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLSubClassOfAxiom axiom : ontology.getSubClassAxiomsForSubClass(this)) {
-            result.add(axiom.getSuperClass());
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLClassExpression> getSuperClasses(Set<OWLOntology> ontologies) {
-        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLOntology ont : ontologies) {
-            result.addAll(getSuperClasses(ont));
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLClassExpression> getSubClasses(OWLOntology ontology) {
-        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLSubClassOfAxiom axiom : ontology.getSubClassAxiomsForSuperClass(this)) {
-            result.add(axiom.getSubClass());
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLClassExpression> getSubClasses(Set<OWLOntology> ontologies) {
-        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLOntology ont : ontologies) {
-            result.addAll(getSubClasses(ont));
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLClassExpression> getEquivalentClasses(OWLOntology ontology) {
-        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLEquivalentClassesAxiom axiom : ontology.getEquivalentClassesAxioms(this)) {
-            result.addAll(axiom.getClassExpressions());
-        }
-        // Don't have the class equivalent to itself
-        result.remove(this);
-        return result;
-    }
-
-    @Override
-    public Set<OWLClassExpression> getEquivalentClasses(Set<OWLOntology> ontologies) {
-        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLOntology ont : ontologies) {
-            result.addAll(getEquivalentClasses(ont));
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLClassExpression> getDisjointClasses(OWLOntology ontology) {
-        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLDisjointClassesAxiom axiom : ontology.getDisjointClassesAxioms(this)) {
-            result.addAll(axiom.getClassExpressions());
-        }
-        // The disjoint classes will contain this class - remove it!
-        result.remove(this);
-        return result;
-    }
-
-    @Override
-    public Set<OWLClassExpression> getDisjointClasses(Set<OWLOntology> ontologies) {
-        Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLOntology ont : ontologies) {
-            result.addAll(getDisjointClasses(ont));
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLIndividual> getIndividuals(OWLOntology ontology) {
-        Set<OWLIndividual> result = new TreeSet<OWLIndividual>();
-        for (OWLClassAssertionAxiom ax : ontology.getClassAssertionAxioms(this)) {
-            result.add(ax.getIndividual());
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLIndividual> getIndividuals(Set<OWLOntology> ontologies) {
-        Set<OWLIndividual> result = new TreeSet<OWLIndividual>();
-        for (OWLOntology ont : ontologies) {
-            result.addAll(getIndividuals(ont));
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology) {
-        return ImplUtils.getAnnotations(this, Collections.singleton(ontology));
-    }
-
-    @Override
-    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
-            OWLOntology ontology) {
-        return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
-    }
-
-    @Override
-    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology,
-            OWLAnnotationProperty annotationProperty) {
-        return ImplUtils.getAnnotations(this, annotationProperty,
-                Collections.singleton(ontology));
-    }
-
-    @Override
-    public boolean isDefined(OWLOntology ontology) {
-        return !ontology.getEquivalentClassesAxioms(this).isEmpty();
-    }
-
-    @Override
-    public boolean isDefined(Set<OWLOntology> ontologies) {
-        for (OWLOntology ont : ontologies) {
-            if (isDefined(ont)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override

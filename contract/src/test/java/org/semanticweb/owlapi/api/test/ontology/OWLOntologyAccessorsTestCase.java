@@ -126,8 +126,8 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getSubClassAxiomsForSubClass(clsA).contains(ax));
         assertTrue(ont.getSubClassAxiomsForSuperClass(clsB).contains(ax));
         assertTrue(ont.getAxioms(clsA).contains(ax));
-        assertTrue(clsA.getSuperClasses(ont).contains(clsB));
-        assertTrue(clsB.getSubClasses(ont).contains(clsA));
+        assertTrue(find().in(ont).sup().classes(clsA).contains(clsB));
+        assertTrue(find().in(ont).sub().classes(clsB).contains(clsA));
     }
 
     @Test
@@ -235,7 +235,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getObjectPropertyDomainAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(find().in(ont).domains(propP).asCollection().contains(clsA));
+        assertTrue(find().in(ont).domains(propP).contains(clsA));
     }
 
     @Test
@@ -248,8 +248,8 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getObjectPropertyRangeAxioms(propP).contains(ax));
-        assertTrue(describe(propP).in(ont).asCollection().contains(ax));
-        assertTrue(find().in(ont).ranges(propP).asCollection().contains(clsA));
+        assertTrue(describe(propP).in(ont).contains(ax));
+        assertTrue(find().in(ont).ranges(propP).contains(clsA));
     }
 
     @Test
@@ -262,7 +262,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getFunctionalObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(propP.isFunctional(ont));
+        assertTrue(find().in(ont).isFunctional(propP));
     }
 
     @Test
@@ -275,7 +275,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getInverseFunctionalObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(propP.isInverseFunctional(ont));
+        assertTrue(find().in(ont).isInverseFunctional(propP));
     }
 
     @Test
@@ -288,7 +288,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getTransitiveObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(propP.isTransitive(ont));
+        assertTrue(find().in(ont).isTransitive(propP));
     }
 
     @Test
@@ -301,7 +301,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getSymmetricObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(propP.isSymmetric(ont));
+        assertTrue(find().in(ont).isSymmetric(propP));
     }
 
     @Test
@@ -314,7 +314,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getAsymmetricObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(propP.isAsymmetric(ont));
+        assertTrue(find().in(ont).isAsymmetric(propP));
     }
 
     @Test
@@ -327,7 +327,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getReflexiveObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(propP.isReflexive(ont));
+        assertTrue(find().in(ont).isReflexive(propP));
     }
 
     @Test
@@ -340,7 +340,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getIrreflexiveObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(propP.isIrreflexive(ont));
+        assertTrue(find().in(ont).isIrreflexive(propP));
     }
 
     @Test
@@ -405,7 +405,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getDataPropertyDomainAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(find().in(ont).domains(propP).asCollection().contains(clsA));
+        assertTrue(find().in(ont).domains(propP).contains(clsA));
     }
 
     @Test
@@ -418,8 +418,8 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getDataPropertyRangeAxioms(propP).contains(ax));
-        assertTrue(describe(propP).in(ont).asCollection().contains(ax));
-        assertTrue(find().in(ont).ranges(propP).asCollection().contains(dt));
+        assertTrue(describe(propP).in(ont).contains(ax));
+        assertTrue(find().in(ont).ranges(propP).contains(dt));
     }
 
     @Test
@@ -432,7 +432,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getFunctionalDataPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP).contains(ax));
-        assertTrue(propP.isFunctional(ont));
+        assertTrue(find().in(ont).isFunctional(propP));
     }
 
     @Test
@@ -447,8 +447,8 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getClassAssertionAxioms(indA).contains(ax));
         assertTrue(ont.getClassAssertionAxioms(clsA).contains(ax));
         assertTrue(ont.getAxioms(indA).contains(ax));
-        assertTrue(clsA.getIndividuals(ont).contains(indA));
-        assertTrue(indA.getTypes(ont).contains(clsA));
+        assertTrue(find().in(ont).individuals(clsA).contains(indA));
+        assertTrue(find().in(ont).types(indA).contains(clsA));
     }
 
     @Test
@@ -523,8 +523,8 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getSameIndividualAxioms(indB).contains(ax));
         assertTrue(ont.getSameIndividualAxioms(indC).contains(ax));
         assertTrue(ont.getAxioms(indA).contains(ax));
-        assertTrue(indA.getSameIndividuals(ont).contains(indB));
-        assertTrue(indA.getSameIndividuals(ont).contains(indC));
+        assertTrue(find().in(ont).same(indA).contains(indB));
+        assertTrue(find().in(ont).same(indA).contains(indC));
     }
 
     @Test
@@ -541,7 +541,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.getDifferentIndividualAxioms(indB).contains(ax));
         assertTrue(ont.getDifferentIndividualAxioms(indC).contains(ax));
         assertTrue(ont.getAxioms(indA).contains(ax));
-        assertTrue(indA.getDifferentIndividuals(ont).contains(indB));
-        assertTrue(indA.getDifferentIndividuals(ont).contains(indC));
+        assertTrue(find().in(ont).different(indA).contains(indB));
+        assertTrue(find().in(ont).different(indA).contains(indC));
     }
 }

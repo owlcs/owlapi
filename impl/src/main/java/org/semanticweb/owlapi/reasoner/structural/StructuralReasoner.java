@@ -1453,8 +1453,8 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public Collection<OWLDataProperty> getParents(OWLDataProperty child) {
             Set<OWLDataProperty> properties = new HashSet<OWLDataProperty>();
-            for (OWLDataPropertyExpression prop : find().in(getRootOntology()).sup()
-                    .propertiesOf(child).asCollection(OWLDataPropertyExpression.class)) {
+            for (OWLDataPropertyExpression prop : find(OWLDataPropertyExpression.class)
+                    .in(getRootOntology()).sup().propertiesOf(child)) {
                 properties.add(prop.asOWLDataProperty());
             }
             return properties;
@@ -1463,8 +1463,8 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public Collection<OWLDataProperty> getChildren(OWLDataProperty parent) {
             Set<OWLDataProperty> properties = new HashSet<OWLDataProperty>();
-            for (OWLDataPropertyExpression prop : find().in(getRootOntology()).sub()
-                    .propertiesOf(parent).asCollection(OWLDataPropertyExpression.class)) {
+            for (OWLDataPropertyExpression prop : find(OWLDataPropertyExpression.class)
+                    .in(getRootOntology()).sub().propertiesOf(parent)) {
                 properties.add(prop.asOWLDataProperty());
             }
             return properties;

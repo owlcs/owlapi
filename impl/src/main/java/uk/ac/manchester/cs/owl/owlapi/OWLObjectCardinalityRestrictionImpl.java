@@ -48,13 +48,12 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
  * <br> */
-public abstract class OWLObjectCardinalityRestrictionImpl
-        extends
-        OWLCardinalityRestrictionImpl<OWLClassExpression>
- implements
+public abstract class OWLObjectCardinalityRestrictionImpl extends
+        OWLCardinalityRestrictionImpl<OWLClassExpression> implements
         OWLObjectCardinalityRestriction {
     private static final long serialVersionUID = 40000L;
     private OWLObjectPropertyExpression property;
+
     protected OWLObjectCardinalityRestrictionImpl(OWLObjectPropertyExpression property,
             int cardinality, OWLClassExpression filler) {
         super(cardinality, filler);
@@ -91,6 +90,7 @@ public abstract class OWLObjectCardinalityRestrictionImpl
         }
         return false;
     }
+
     @Override
     final protected int compareObjectOfSameType(OWLObject object) {
         OWLObjectCardinalityRestriction other = (OWLObjectCardinalityRestriction) object;
@@ -104,5 +104,4 @@ public abstract class OWLObjectCardinalityRestrictionImpl
         }
         return getFiller().compareTo(other.getFiller());
     }
-
 }

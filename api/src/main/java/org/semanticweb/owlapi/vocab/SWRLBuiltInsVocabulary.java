@@ -125,7 +125,6 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
     RESOLVE_URI("resolveURI", 3),
     ANY_URI("anyURI", 7);
 //@formatter:on
-
     private final String shortName;
     private final IRI iri;
     // Arity of the predicate (-1 if infinite)

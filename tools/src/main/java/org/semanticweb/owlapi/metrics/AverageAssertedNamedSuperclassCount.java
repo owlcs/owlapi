@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.metrics;
 
+import static org.semanticweb.owlapi.search.Searcher.find;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** Author: Matthew Horridge<br>
@@ -55,10 +56,10 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Date: 27-Jul-2007<br>
  * <br> */
 public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
-    /** @param owlOntologyManager
-     *            manager to use */
-    public AverageAssertedNamedSuperclassCount(OWLOntologyManager owlOntologyManager) {
-        super(owlOntologyManager);
+    /** @param o
+     *            ontology to use */
+    public AverageAssertedNamedSuperclassCount(OWLOntology o) {
+        super(o);
     }
 
     @Override
@@ -77,7 +78,8 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
                     count++;
                     int prevTotal = total;
                     processedClasses.add(cls);
-                    for (OWLClassExpression desc : cls.getSuperClasses(ont)) {
+                    for (OWLClassExpression desc : find(OWLClassExpression.class).sup()
+                            .classes(cls).in(ont)) {
                         if (!desc.isAnonymous()) {
                             total++;
                         }

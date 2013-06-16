@@ -16,7 +16,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -149,9 +148,6 @@ public class ContractOwlapiModel_4Test {
         testSubject0.accept(mock(OWLPropertyExpressionVisitor.class));
         Object result0 = testSubject0.accept(Utils.mockPropertyExpression());
         boolean result1 = testSubject0.isAnonymous();
-        boolean result14 = testSubject0.isFunctional(Utils.mockSet(Utils
-                .getMockOntology()));
-        boolean result15 = testSubject0.isFunctional(Utils.getMockOntology());
         boolean result16 = testSubject0.isDataPropertyExpression();
         boolean result17 = testSubject0.isObjectPropertyExpression();
         boolean result18 = testSubject0.isOWLTopObjectProperty();
@@ -169,19 +165,9 @@ public class ContractOwlapiModel_4Test {
         Set<OWLDatatype> result29 = testSubject0.getDatatypesInSignature();
         boolean result31 = testSubject0.isTopEntity();
         boolean result32 = testSubject0.isBottomEntity();
-        Set<OWLAnnotation> result34 = testSubject0
-                .getAnnotations(Utils.getMockOntology());
-        Set<OWLAnnotation> result35 = testSubject0.getAnnotations(
-                Utils.getMockOntology(), mock(OWLAnnotationProperty.class));
         testSubject0.accept(mock(OWLEntityVisitor.class));
         Object result36 = testSubject0.accept(Utils.mockEntity());
         boolean result37 = testSubject0.isType(EntityType.CLASS);
-        Set<OWLAxiom> result38 = testSubject0.getReferencingAxioms(
-                Utils.getMockOntology(), false);
-        Set<OWLAxiom> result39 = testSubject0.getReferencingAxioms(Utils
-                .getMockOntology());
-        Set<OWLAnnotationAssertionAxiom> result40 = testSubject0
-                .getAnnotationAssertionAxioms(Utils.getMockOntology());
         boolean result41 = testSubject0.isBuiltIn();
         EntityType<?> result42 = testSubject0.getEntityType();
         boolean result44 = !testSubject0.isAnonymous();
@@ -331,9 +317,6 @@ public class ContractOwlapiModel_4Test {
         testSubject0.accept(mock(OWLPropertyExpressionVisitor.class));
         Object result0 = testSubject0.accept(Utils.mockPropertyExpression());
         boolean result1 = testSubject0.isAnonymous();
-        boolean result14 = testSubject0.isFunctional(Utils.mockSet(Utils
-                .getMockOntology()));
-        boolean result15 = testSubject0.isFunctional(Utils.getMockOntology());
         boolean result16 = testSubject0.isDataPropertyExpression();
         boolean result17 = testSubject0.isObjectPropertyExpression();
         boolean result18 = testSubject0.isOWLTopObjectProperty();

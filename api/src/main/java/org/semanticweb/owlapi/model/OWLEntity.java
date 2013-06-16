@@ -38,8 +38,6 @@
  */
 package org.semanticweb.owlapi.model;
 
-import java.util.Set;
-
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 </p> Represents <a href=
@@ -51,7 +49,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @return The entity type */
     EntityType<?> getEntityType();
 
-
     /** Tests to see if this entity is of the specified type
      * 
      * @param entityType
@@ -59,35 +56,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @return <code>true</code> if this entity is of the specified type,
      *         otherwise <code>false</code>. */
     boolean isType(EntityType<?> entityType);
-
-    /** Gets the annotations for this entity. These are deemed to be annotations
-     * in annotation assertion axioms that have a subject that is an IRI that is
-     * equal to the IRI of this entity.
-     * 
-     * @param ontology
-     *            The ontology to be examined for annotation assertion axioms
-     * @return The annotations that participate directly in an annotation
-     *         assertion whose subject is an IRI corresponding to the IRI of
-     *         this entity. */
-    Set<OWLAnnotation> getAnnotations(OWLOntology ontology);
-
-    /** Obtains the annotations on this entity where the annotation has the
-     * specified annotation property.
-     * 
-     * @param ontology
-     *            The ontology to examine for annotation axioms
-     * @param annotationProperty
-     *            The annotation property
-     * @return A set of <code>OWLAnnotation</code> objects that have the
-     *         specified URI. */
-    Set<OWLAnnotation> getAnnotations(OWLOntology ontology,
-            OWLAnnotationProperty annotationProperty);
-
-    /** @param ontology
-     *            the ontology to use
-     * @return the annotation assertion axioms about this entity in the provided
-     *         ontology */
-    Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLOntology ontology);
 
     /** Determines if this entity is a built in entity. The entity is a built in
      * entity if it is:
@@ -215,28 +183,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * 
      * @return A string representing the toString of the IRI of this entity. */
     String toStringID();
-
-    /** Gets the axioms in the specified ontology that contain this entity in
-     * their signature.
-     * 
-     * @param ontology
-     *            The ontology that will be searched for axioms
-     * @return The axioms in the specified ontology whose signature contains
-     *         this entity. */
-    Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology);
-
-    /** Gets the axioms in the specified ontology and possibly its imports
-     * closure that contain this entity in their signature.
-     * 
-     * @param ontology
-     *            The ontology that will be searched for axioms
-     * @param includeImports
-     *            If <code>true</code> then axioms in the imports closure will
-     *            also be returned, if <code>false</code> then only the axioms
-     *            in the specified ontology will be returned.
-     * @return The axioms in the specified ontology whose signature contains
-     *         this entity. */
-    Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports);
 
     @SuppressWarnings("javadoc")
     void accept(OWLEntityVisitor visitor);

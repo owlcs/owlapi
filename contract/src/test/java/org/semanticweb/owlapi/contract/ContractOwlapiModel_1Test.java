@@ -6,7 +6,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import java.net.URI;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Ignore;
@@ -155,8 +154,7 @@ public class ContractOwlapiModel_1Test {
     @Test
     public void shouldTestInterfaceImpendingOWLOntologyChangeListener() throws Exception {
         ImpendingOWLOntologyChangeListener testSubject0 = mock(ImpendingOWLOntologyChangeListener.class);
-        testSubject0.handleImpendingOntologyChanges(Utils
-.mockList(mock(AddAxiom.class)));
+        testSubject0.handleImpendingOntologyChanges(Utils.mockList(mock(AddAxiom.class)));
     }
 
     @Test
@@ -392,19 +390,9 @@ public class ContractOwlapiModel_1Test {
         boolean result1 = testSubject0.isComment();
         boolean result2 = testSubject0.isLabel();
         boolean result3 = testSubject0.isDeprecated();
-        Set<OWLAnnotation> result10 = testSubject0
-                .getAnnotations(Utils.getMockOntology());
-        Set<OWLAnnotation> result11 = testSubject0.getAnnotations(
-                Utils.getMockOntology(), mock(OWLAnnotationProperty.class));
         testSubject0.accept(mock(OWLEntityVisitor.class));
         Object result12 = testSubject0.accept(Utils.mockEntity());
         boolean result13 = testSubject0.isType(EntityType.CLASS);
-        Set<OWLAxiom> result14 = testSubject0.getReferencingAxioms(
-                Utils.getMockOntology(), false);
-        Set<OWLAxiom> result15 = testSubject0.getReferencingAxioms(Utils
-                .getMockOntology());
-        Set<OWLAnnotationAssertionAxiom> result16 = testSubject0
-                .getAnnotationAssertionAxioms(Utils.getMockOntology());
         EntityType<?> result17 = testSubject0.getEntityType();
         boolean result19 = !testSubject0.isOWLClass();
         if (testSubject0.isOWLClass()) {
@@ -616,34 +604,6 @@ public class ContractOwlapiModel_1Test {
         if (testSubject0.isAnonymous()) {
             OWLAnonymousIndividual result6 = testSubject0.asOWLAnonymousIndividual();
         }
-        Set<OWLClassExpression> result7 = testSubject0.getTypes(Utils.getMockOntology());
-        Set<OWLClassExpression> result8 = testSubject0.getTypes(Utils.mockSet(Utils
-                .getMockOntology()));
-        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> result9 = testSubject0
-                .getObjectPropertyValues(Utils.getMockOntology());
-        Set<OWLIndividual> result10 = testSubject0.getObjectPropertyValues(
-                Utils.mockObjectProperty(), Utils.getMockOntology());
-        boolean result11 = testSubject0.hasObjectPropertyValue(
-                Utils.mockObjectProperty(), mock(OWLIndividual.class),
-                Utils.getMockOntology());
-        boolean result12 = testSubject0.hasNegativeObjectPropertyValue(
-                Utils.mockObjectProperty(), mock(OWLIndividual.class),
-                Utils.getMockOntology());
-        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> result13 = testSubject0
-                .getNegativeObjectPropertyValues(Utils.getMockOntology());
-        Map<OWLDataPropertyExpression, Set<OWLLiteral>> result14 = testSubject0
-                .getDataPropertyValues(Utils.getMockOntology());
-        Set<OWLLiteral> result15 = testSubject0.getDataPropertyValues(
-                mock(OWLDataPropertyExpression.class), Utils.getMockOntology());
-        Map<OWLDataPropertyExpression, Set<OWLLiteral>> result16 = testSubject0
-                .getNegativeDataPropertyValues(Utils.getMockOntology());
-        boolean result17 = testSubject0.hasNegativeDataPropertyValue(
-                mock(OWLDataPropertyExpression.class), mock(OWLLiteral.class),
-                Utils.getMockOntology());
-        Set<OWLIndividual> result18 = testSubject0.getSameIndividuals(Utils
-                .getMockOntology());
-        Set<OWLIndividual> result19 = testSubject0.getDifferentIndividuals(Utils
-                .getMockOntology());
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -876,28 +836,6 @@ public class ContractOwlapiModel_1Test {
     @Test
     public void shouldTestInterfaceOWLClass() throws Exception {
         OWLClass testSubject0 = mock(OWLClass.class);
-        boolean result0 = testSubject0.isDefined(Utils.mockSet(Utils.getMockOntology()));
-        boolean result1 = testSubject0.isDefined(Utils.getMockOntology());
-        Set<OWLClassExpression> result2 = testSubject0.getSuperClasses(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result3 = testSubject0.getSuperClasses(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLClassExpression> result4 = testSubject0.getSubClasses(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result5 = testSubject0.getSubClasses(Utils.mockSet(Utils
-                .getMockOntology()));
-        Set<OWLClassExpression> result6 = testSubject0.getEquivalentClasses(Utils
-                .getMockOntology());
-        Set<OWLClassExpression> result7 = testSubject0.getEquivalentClasses(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLClassExpression> result8 = testSubject0.getDisjointClasses(Utils
-                .mockSet(Utils.getMockOntology()));
-        Set<OWLClassExpression> result9 = testSubject0.getDisjointClasses(Utils
-                .getMockOntology());
-        Set<OWLIndividual> result10 = testSubject0
-                .getIndividuals(Utils.getMockOntology());
-        Set<OWLIndividual> result11 = testSubject0.getIndividuals(Utils.mockSet(Utils
-                .getMockOntology()));
         Object result12 = testSubject0.accept(Utils.mockClassExpression());
         testSubject0.accept(mock(OWLClassExpressionVisitor.class));
         boolean result13 = testSubject0.isAnonymous();
@@ -925,19 +863,9 @@ public class ContractOwlapiModel_1Test {
         Object result58 = testSubject0.accept(Utils.mockObject());
         boolean result34 = testSubject0.isTopEntity();
         boolean result35 = testSubject0.isBottomEntity();
-        Set<OWLAnnotation> result37 = testSubject0
-                .getAnnotations(Utils.getMockOntology());
-        Set<OWLAnnotation> result38 = testSubject0.getAnnotations(
-                Utils.getMockOntology(), mock(OWLAnnotationProperty.class));
         testSubject0.accept(mock(OWLEntityVisitor.class));
         Object result39 = testSubject0.accept(Utils.mockEntity());
         boolean result40 = testSubject0.isType(EntityType.CLASS);
-        Set<OWLAxiom> result41 = testSubject0.getReferencingAxioms(
-                Utils.getMockOntology(), false);
-        Set<OWLAxiom> result42 = testSubject0.getReferencingAxioms(Utils
-                .getMockOntology());
-        Set<OWLAnnotationAssertionAxiom> result43 = testSubject0
-                .getAnnotationAssertionAxioms(Utils.getMockOntology());
         boolean result44 = testSubject0.isBuiltIn();
         EntityType<?> result45 = testSubject0.getEntityType();
         boolean result47 = !testSubject0.isAnonymous();

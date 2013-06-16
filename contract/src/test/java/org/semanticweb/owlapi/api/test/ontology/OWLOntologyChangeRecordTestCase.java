@@ -68,27 +68,23 @@ public class OWLOntologyChangeRecordTestCase {
     @Test
     public void testEquals() {
         OWLOntologyChangeRecord<OWLAxiom> record1 = new OWLOntologyChangeRecord<OWLAxiom>(
-                mockOntologyID,
-                mockChangeData);
+                mockOntologyID, mockChangeData);
         OWLOntologyChangeRecord<OWLAxiom> record2 = new OWLOntologyChangeRecord<OWLAxiom>(
-                mockOntologyID,
-                mockChangeData);
+                mockOntologyID, mockChangeData);
         assertEquals(record1, record2);
     }
 
     @Test
     public void testGettersNotNull() {
         OWLOntologyChangeRecord<OWLAxiom> record = new OWLOntologyChangeRecord<OWLAxiom>(
-                mockOntologyID,
-                mockChangeData);
+                mockOntologyID, mockChangeData);
         assertNotNull(record.getOntologyID());
     }
 
     @Test
     public void testGetterEqual() {
         OWLOntologyChangeRecord<OWLAxiom> record = new OWLOntologyChangeRecord<OWLAxiom>(
-                mockOntologyID,
-                mockChangeData);
+                mockOntologyID, mockChangeData);
         assertEquals(mockOntologyID, record.getOntologyID());
         assertEquals(mockChangeData, record.getData());
     }
@@ -108,8 +104,7 @@ public class OWLOntologyChangeRecordTestCase {
         OWLOntologyID ontologyID = ontology.getOntologyID();
         AddAxiomData addAxiomData = new AddAxiomData(mockAxiom);
         OWLOntologyChangeRecord<OWLAxiom> changeRecord = new OWLOntologyChangeRecord<OWLAxiom>(
-                ontologyID,
-                addAxiomData);
+                ontologyID, addAxiomData);
         OWLOntologyChange<OWLAxiom> change = changeRecord.createOntologyChange(manager);
         assertNotNull(change);
         assertEquals(change.getOntology().getOntologyID(), ontologyID);

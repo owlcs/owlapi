@@ -98,7 +98,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
@@ -321,8 +320,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         ManchesterOWLSyntaxPrefixNameShortFormProvider prov = (ManchesterOWLSyntaxPrefixNameShortFormProvider) sfp;
         Map<String, String> prefixMap = new HashMap<String, String>();
         PrefixManager prefixManager = prov.getPrefixManager();
-        for (String prefixName : prefixManager.getPrefixName2PrefixMap()
-                .keySet()) {
+        for (String prefixName : prefixManager.getPrefixName2PrefixMap().keySet()) {
             String prefix = prefixManager.getPrefix(prefixName);
             prefixMap.put(prefixName, prefix);
             write(PREFIX.toString());

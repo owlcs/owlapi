@@ -83,7 +83,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
     private Locator locator;
     private Stack<URI> bases;
     private OWLOntologyLoaderConfiguration configuration;
-    
+
     /** Creates an OWLXML handler.
      * 
      * @param ontology

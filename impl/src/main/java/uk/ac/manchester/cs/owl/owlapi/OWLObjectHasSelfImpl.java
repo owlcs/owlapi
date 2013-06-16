@@ -52,10 +52,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
  * <br> */
-public class OWLObjectHasSelfImpl
-        extends
-        OWLRestrictionImpl
-        implements OWLObjectHasSelf {
+public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements OWLObjectHasSelf {
     private static final long serialVersionUID = 40000L;
     private OWLObjectPropertyExpression property;
 
@@ -117,5 +114,4 @@ public class OWLObjectHasSelfImpl
     protected int compareObjectOfSameType(OWLObject object) {
         return getProperty().compareTo(((OWLObjectHasSelf) object).getProperty());
     }
-
 }
