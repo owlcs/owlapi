@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.Internals;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
@@ -145,6 +146,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     protected Internals internals;
+
+    @Override
+    public Internals getInternals() {
+        return internals;
+    }
 
     @SuppressWarnings("javadoc")
     public OWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {

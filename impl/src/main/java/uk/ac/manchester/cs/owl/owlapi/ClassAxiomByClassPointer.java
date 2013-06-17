@@ -39,6 +39,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.Internals;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;

@@ -122,7 +122,9 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
         getManager().addAxiom(ont, ax);
         assertTrue(ont.getAnnotationAssertionAxioms(SUBJECT).contains(ax));
         OWLDatatype cls = Datatype(SUBJECT);
-        assertTrue(find().in(ont).annotationAxioms(cls).contains(ax));
+        assertTrue(find().in(ont).annotationAxioms(cls).asCollection().toString(), find()
+                .in(ont)
+                .annotationAxioms(cls).contains(ax));
         assertTrue(find().in(ont).annotations(cls).contains(ax.getAnnotation()));
     }
 

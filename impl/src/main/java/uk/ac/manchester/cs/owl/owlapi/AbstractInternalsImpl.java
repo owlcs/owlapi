@@ -45,6 +45,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.Internals;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.Internals;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;

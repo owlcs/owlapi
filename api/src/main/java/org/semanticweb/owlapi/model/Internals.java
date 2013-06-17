@@ -36,7 +36,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.manchester.cs.owl.owlapi;
+package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 

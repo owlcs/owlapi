@@ -47,6 +47,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.Internals;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -979,5 +980,15 @@ public class InternalsImpl extends AbstractInternalsImpl {
             // many datatype definitions). This could always be optimised at a
             // later stage.
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder b = new StringBuilder("Internals{");
+        for (OWLAxiom ax : getAxioms()) {
+            b.append(ax).append("\n");
+        }
+        b.append("}");
+        return b.toString();
     }
 }

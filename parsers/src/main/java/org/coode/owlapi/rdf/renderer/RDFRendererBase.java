@@ -518,8 +518,8 @@ public abstract class RDFRendererBase {
         final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         // Don't write out duplicates for punned annotations!
         if (!isIndividualAndClass(entity)) {
-            axioms.addAll(find().annotationAxioms(entity).in(ontology)
-                    .asCollection(OWLAnnotationAssertionAxiom.class));
+            axioms.addAll(find(OWLAnnotationAssertionAxiom.class)
+                    .annotationAxioms(entity).in(ontology).asCollection());
         }
         axioms.addAll(ontology.getDeclarationAxioms(entity));
         entity.accept(new OWLEntityVisitor() {

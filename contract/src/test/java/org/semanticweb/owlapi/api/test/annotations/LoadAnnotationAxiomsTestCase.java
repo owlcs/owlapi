@@ -111,22 +111,24 @@ public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
 
     private void reload(OWLOntology ontology, OWLOntologyFormat format) throws Exception {
         Set<OWLAxiom> annotationAxioms = new HashSet<OWLAxiom>();
-        for (OWLAxiom ax : ontology.getAxioms()) {
+        Set<OWLAxiom> axioms = ontology.getAxioms();
+        for (OWLAxiom ax : axioms) {
             if (ax.isAnnotationAxiom()) {
                 annotationAxioms.add(ax);
             }
         }
         OWLOntologyLoaderConfiguration withAnnosConfig = new OWLOntologyLoaderConfiguration();
         OWLOntology reloadedWithAnnoAxioms = reload(ontology, format, withAnnosConfig);
-        assertEquals(ontology.getAxioms(), reloadedWithAnnoAxioms.getAxioms());
+        Set<OWLAxiom> axioms2 = reloadedWithAnnoAxioms.getAxioms();
+        assertEquals(axioms, axioms2);
         //
         OWLOntologyLoaderConfiguration withoutAnnosConfig = new OWLOntologyLoaderConfiguration()
                 .setLoadAnnotationAxioms(false);
         OWLOntology reloadedWithoutAnnoAxioms = reload(ontology, format,
                 withoutAnnosConfig);
-        assertFalse(ontology.getAxioms().equals(reloadedWithoutAnnoAxioms.getAxioms()));
+        assertFalse(axioms.equals(reloadedWithoutAnnoAxioms.getAxioms()));
         Set<OWLAxiom> axiomsMinusAnnotationAxioms = new HashSet<OWLAxiom>(
-                ontology.getAxioms());
+                axioms);
         axiomsMinusAnnotationAxioms.removeAll(annotationAxioms);
         assertEquals(axiomsMinusAnnotationAxioms, reloadedWithoutAnnoAxioms.getAxioms());
     }
