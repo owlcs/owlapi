@@ -1,5 +1,4 @@
 /*
- /*
  * This file is part of the OWL API.
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.
@@ -39,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.literals;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -47,12 +46,51 @@ import java.util.TreeSet;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
-public class TestBirteW3CWebOnt_oneof_004TestCase {
+public class TestCornerCasesTestCase {
+    @Test
+    public void testFloatZeros() {
+        // +0 and -0 are not equal
+        OWLDataFactory df = Factory.getFactory();
+        OWLDatatype type = df.getFloatOWLDatatype();
+        OWLLiteral lit1 = df.getOWLLiteral("0.0", type);
+        OWLLiteral lit2 = df.getOWLLiteral("-0.0", type);
+        assertFalse(lit1.equals(lit2));
+    }
+
+    @Test
+    public void testIntegerRange2_4() {
+        String expected = "2147483648";
+        OWLDataFactory df = Factory.getFactory();
+        OWLDatatype type = df.getIntegerOWLDatatype();
+        OWLLiteral lit = df.getOWLLiteral(expected, type);
+        assertEquals(expected, lit.getLiteral());
+    }
+
+    @Test
+    public void testEnumInt_5() {
+        OWLDataFactory df = Factory.getFactory();
+        OWLDatatype type = df.getIntegerOWLDatatype();
+        df.getOWLLiteral("1000000000000000000000000000000000000000", type);
+    }
+
+    @Test
+    public void testGetDataPropertyValues() {
+        OWLDataFactory df = Factory.getFactory();
+        OWLDatatype type = df.getIntegerOWLDatatype();
+        OWLLiteral lit1 = df.getOWLLiteral("01", type);
+        OWLLiteral lit2 = df.getOWLLiteral("1", type);
+        assertFalse(lit1.equals(lit2));
+    }
+
     @Test
     public void testWebOnt() throws Exception {
         String s = "<!DOCTYPE rdf:RDF [\n"
@@ -146,5 +184,53 @@ public class TestBirteW3CWebOnt_oneof_004TestCase {
             s2.removeAll(intersection);
         }
         assertEquals("Sets were supposed to be equal", result, expectedResult);
+    }
+
+    @Test
+    public void testMinusInf() throws Exception {
+        String input = "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+                + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
+                + "Prefix(:=<http://test.org/test#>)\n"
+                + "Ontology(\nDeclaration(NamedIndividual(:a))\n"
+                + "Declaration(DataProperty(:dp))\n"
+                + "Declaration(Class(:A))\n"
+                + "SubClassOf(:A DataAllValuesFrom(:dp owl:real))"
+                + "\nSubClassOf(:A \n"
+                + "DataSomeValuesFrom(:dp DataOneOf(\"-INF\"^^xsd:float \"-0\"^^xsd:integer))"
+                + "\n)" + "\n" + "ClassAssertion(:A :a)" + "\n)";
+        StringDocumentSource in = new StringDocumentSource(input);
+        OWLOntologyManager m = Factory.getManager();
+        OWLOntology o = m.loadOntologyFromOntologyDocument(in);
+        StringDocumentTarget t = new StringDocumentTarget();
+        m.saveOntology(o, t);
+        assertTrue(t.toString() + " should contain -INF", t.toString().contains("-INF"));
+        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(t
+                .toString()));
+        assertEquals("Obtologies were supposed to be the same", o.getLogicalAxioms(),
+                o1.getLogicalAxioms());
+    }
+
+    @Test
+    public void testLargeInteger() throws Exception {
+        String input = "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+                + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
+                + "Prefix(:=<http://test.org/test#>)\n"
+                + "Ontology(\nDeclaration(NamedIndividual(:a))\n"
+                + "Declaration(DataProperty(:dp))\n"
+                + "Declaration(Class(:A))\n"
+                + "SubClassOf(:A DataAllValuesFrom(:dp owl:real))"
+                + "\nSubClassOf(:A \n"
+                + "DataSomeValuesFrom(:dp DataOneOf(\"-INF\"^^xsd:float \"-0\"^^xsd:integer))"
+                + "\n)" + "\n" + "ClassAssertion(:A :a)" + "\n)";
+        StringDocumentSource in = new StringDocumentSource(input);
+        OWLOntologyManager m = Factory.getManager();
+        OWLOntology o = m.loadOntologyFromOntologyDocument(in);
+        StringDocumentTarget t = new StringDocumentTarget();
+        m.saveOntology(o, t);
+        assertTrue(t.toString() + " should contain -INF", t.toString().contains("-INF"));
+        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(t
+                .toString()));
+        assertEquals("Obtologies were supposed to be the same", o.getLogicalAxioms(),
+                o1.getLogicalAxioms());
     }
 }

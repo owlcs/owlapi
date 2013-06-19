@@ -211,8 +211,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                             literal = getOWLLiteral(Integer.parseInt(lexicalValue));
                         } catch (NumberFormatException ex) {
                             // try as a big decimal
-                            BigDecimal bigint = new BigDecimal(lexicalValue);
-                            literal = getOWLLiteral(bigint.intValue());
+                            literal = getBasicLiteral(lexicalValue, datatype);
                         }
                     }
                 } else {
