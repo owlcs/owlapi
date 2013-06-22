@@ -74,6 +74,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
@@ -89,7 +90,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractApibindingTest {
-    public void shouldTestOWLFunctionalSyntaxFactory() throws Exception {
+    public void shouldTestOWLFunctionalSyntaxFactory()
+            throws OWLOntologyCreationException {
         OWLDeclarationAxiom result0 = Declaration(Utils.mockOWLEntity());
         OWLEquivalentClassesAxiom result1 = EquivalentClasses(Utils.mockAnonClass());
         OWLSubClassOfAxiom result2 = SubClassOf(Utils.mockAnonClass(),
@@ -223,7 +225,7 @@ public class ContractApibindingTest {
     }
 
     @Test
-    public void shouldTestOWLManager() throws Exception {
+    public void shouldTestOWLManager() {
         OWLManager testSubject0 = new OWLManager();
         OWLDataFactory result0 = testSubject0.getFactory();
         OWLDataFactory result1 = OWLManager.getOWLDataFactory();

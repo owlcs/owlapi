@@ -54,7 +54,7 @@ public class AnonymousTurtle2TestCase extends AbstractFileRoundTrippingTestCase 
 
     @Override
     @Test
-    public void testTurtle() throws Exception {
+    public void testTurtle() {
         // XXX roundtripping is broken but the results seem semantically
         // equivalent
         // super.testTurtle();
@@ -62,17 +62,17 @@ public class AnonymousTurtle2TestCase extends AbstractFileRoundTrippingTestCase 
 
     @Override
     @Test
-    public void testFunctionalSyntax() throws Exception {}
+    public void testFunctionalSyntax() {}
 
     @Override
     @Test
-    public void testManchesterOWLSyntax() throws Exception {}
+    public void testManchesterOWLSyntax() {}
 
     @Override
     @Test
-    public void testOWLXML() throws Exception {}
+    public void testOWLXML() {}
 
     @Override
     @Test
-    public void testRDFXML() throws Exception {}
+    public void testRDFXML() {}
 }

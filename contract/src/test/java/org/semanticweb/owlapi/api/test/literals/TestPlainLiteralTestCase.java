@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -101,7 +102,8 @@ public class TestPlainLiteralTestCase {
     }
 
     @Test
-    public void testPlainLiteralSerialization() throws Exception {
+    public void testPlainLiteralSerialization() throws OWLOntologyCreationException,
+            OWLOntologyStorageException {
         OWLOntologyManager m = Factory.getManager();
         OWLOntology o = m.createOntology();
         OWLDataProperty p = m.getOWLDataFactory().getOWLDataProperty(IRI("urn:test#p"));
@@ -117,7 +119,8 @@ public class TestPlainLiteralTestCase {
     }
 
     @Test
-    public void testPlainLiteralSerializationComments() throws Exception {
+    public void testPlainLiteralSerializationComments()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntologyManager m = Factory.getManager();
         OWLOntology o = m.createOntology();
         OWLIndividual i = m.getOWLDataFactory()
@@ -137,7 +140,8 @@ public class TestPlainLiteralTestCase {
     }
 
     @Test
-    public void testPlainLiteralSerializationComments2() throws Exception {
+    public void testPlainLiteralSerializationComments2()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntologyManager m = Factory.getManager();
         OWLOntology o = m.createOntology();
         OWLLiteral l = m.getOWLDataFactory().getOWLLiteral("test",

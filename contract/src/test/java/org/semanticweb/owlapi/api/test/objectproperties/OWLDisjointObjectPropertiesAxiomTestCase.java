@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class OWLDisjointObjectPropertiesAxiomTestCase extends AbstractOWLDataFactoryTest {
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         OWLObject obj = DisjointObjectProperties(ObjectProperty(createIRI()),
                 ObjectProperty(createIRI()), ObjectProperty(createIRI()));
         assertNotNull("object should not be null", obj);
@@ -61,7 +61,7 @@ public class OWLDisjointObjectPropertiesAxiomTestCase extends AbstractOWLDataFac
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         OWLObjectProperty a = ObjectProperty(createIRI());
         OWLObjectProperty b = ObjectProperty(createIRI());
         OWLObjectProperty c = ObjectProperty(createIRI());
@@ -72,7 +72,7 @@ public class OWLDisjointObjectPropertiesAxiomTestCase extends AbstractOWLDataFac
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         OWLObjectProperty a = ObjectProperty(createIRI());
         OWLObjectProperty b = ObjectProperty(createIRI());
         OWLObject objA = DisjointObjectProperties(a, b);
@@ -83,7 +83,7 @@ public class OWLDisjointObjectPropertiesAxiomTestCase extends AbstractOWLDataFac
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         OWLObjectProperty a = ObjectProperty(createIRI());
         OWLObjectProperty b = ObjectProperty(createIRI());
         OWLObjectProperty c = ObjectProperty(createIRI());

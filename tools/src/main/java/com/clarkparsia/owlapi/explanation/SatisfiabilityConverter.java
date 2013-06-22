@@ -229,7 +229,7 @@ public class SatisfiabilityConverter {
             OWLClassExpression c1 = classes.next();
             OWLClassExpression c2 = classes.next();
             if (classes.hasNext()) {
-                logger.warning("EquivalentClassesAxiom with more than two elements not supported!");
+                LOGGER.warning("EquivalentClassesAxiom with more than two elements not supported!");
             }
             // apply simplification for the cases where either concept is
             // owl:Thing or owlapi:Nothin
@@ -415,7 +415,7 @@ public class SatisfiabilityConverter {
         }
     }
 
-    protected static final Logger logger = Logger.getLogger(SatisfiabilityConverter.class
+    protected static final Logger LOGGER = Logger.getLogger(SatisfiabilityConverter.class
             .getName());
     private final AxiomConverter converter;
     protected final OWLDataFactory factory;

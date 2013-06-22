@@ -67,7 +67,7 @@ public class SubObjectPropertyOfInverseTestCase extends
 
     @Override
     @Test
-    public void testManchesterOWLSyntax() throws Exception {
+    public void testManchesterOWLSyntax() {
         // Can't represent inverse object property frames in Manchester OWL
         // Syntax
         // super.testManchesterOWLSyntax();

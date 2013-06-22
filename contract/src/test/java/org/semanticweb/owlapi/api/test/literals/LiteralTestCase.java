@@ -113,7 +113,7 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     public void tesPlainLiteralWithEmbeddedEmptyLang() {
         OWLLiteral literal = Literal("abc@", PlainLiteral());
-        assertTrue(!literal.hasLang());
+        assertFalse(literal.hasLang());
         assertEquals(literal.getLang(), "");
         assertEquals(literal.getLiteral(), "abc");
         assertEquals(literal.getDatatype(), PlainLiteral());
@@ -136,12 +136,12 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
         assertTrue(trueLiteral.parseBoolean());
         OWLLiteral falseLiteral = Literal("false", OWL2Datatype.XSD_BOOLEAN);
         assertTrue(falseLiteral.isBoolean());
-        assertTrue(!falseLiteral.parseBoolean());
+        assertFalse(falseLiteral.parseBoolean());
         OWLLiteral oneLiteral = Literal("1", OWL2Datatype.XSD_BOOLEAN);
         assertTrue(oneLiteral.isBoolean());
         assertTrue(oneLiteral.parseBoolean());
         OWLLiteral zeroLiteral = Literal("0", OWL2Datatype.XSD_BOOLEAN);
         assertTrue(zeroLiteral.isBoolean());
-        assertTrue(!zeroLiteral.parseBoolean());
+        assertFalse(zeroLiteral.parseBoolean());
     }
 }

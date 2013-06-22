@@ -38,12 +38,13 @@
  */
 package org.semanticweb.owlapi.api.test.individuals;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
@@ -69,12 +70,12 @@ public class AllDifferentTestCase {
             + "</owl:members></owl:AllDifferent></rdf:RDF>";
 
     @Test
-    public void testDistinctMembers() throws Exception {
+    public void testDistinctMembers() throws OWLOntologyCreationException {
         OWLOntologyManager m = Factory.getManager();
         OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(
                 onto1));
         OWLOntology o2 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(
                 onto2));
-        assertTrue(o1.getLogicalAxiomCount() == o2.getLogicalAxiomCount());
+        assertEquals(o2.getLogicalAxiomCount(), o1.getLogicalAxiomCount());
     }
 }

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.axioms;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Set;
 
@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
@@ -63,7 +64,7 @@ public class SubClassOfUntypedOWLClassStrictTestCase extends AbstractFileTestCas
     }
 
     @Test
-    public void testAxioms() {
+    public void testAxioms() throws OWLOntologyCreationException {
         OWLOntology ont = createOntology();
         assertTrue(ont.getAxioms(AxiomType.SUBCLASS_OF).isEmpty());
         OWLOntologyFormat format = getManager().getOntologyFormat(ont);
@@ -71,7 +72,7 @@ public class SubClassOfUntypedOWLClassStrictTestCase extends AbstractFileTestCas
         RDFXMLOntologyFormat rdfxmlFormat = (RDFXMLOntologyFormat) format;
         Set<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData()
                 .getUnparsedTriples();
-        assertTrue(triples.size() == 1);
+        assertEquals(1, triples.size());
     }
 
     @Override

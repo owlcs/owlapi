@@ -27,19 +27,19 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 
 @SuppressWarnings("javadoc")
 public class SWRLAnnotationTestCase {
-    String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
-    OWLClass A;
-    OWLClass B;
-    OWLAxiom AXIOM;
+    private static final String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
+    OWLClass a;
+    OWLClass b;
+    OWLAxiom axiom;
 
     @Before
     public void setUp() {
         OWLDataFactory factory = Factory.getFactory();
-        A = Class(IRI(NS + "#A"));
-        B = Class(IRI(NS + "#B"));
+        a = Class(IRI(NS + "#A"));
+        b = Class(IRI(NS + "#B"));
         SWRLVariable x = factory.getSWRLVariable(IRI(NS + "#x"));
-        SWRLAtom atom1 = factory.getSWRLClassAtom(A, x);
-        SWRLAtom atom2 = factory.getSWRLClassAtom(B, x);
+        SWRLAtom atom1 = factory.getSWRLClassAtom(a, x);
+        SWRLAtom atom2 = factory.getSWRLClassAtom(b, x);
         Set<SWRLAtom> consequent = new TreeSet<SWRLAtom>();
         consequent.add(atom1);
         OWLAnnotation annotation = factory.getOWLAnnotation(RDFSComment(),
@@ -48,24 +48,24 @@ public class SWRLAnnotationTestCase {
         annotations.add(annotation);
         Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
         body.add(atom2);
-        AXIOM = factory.getSWRLRule(body, consequent, annotations);
+        axiom = factory.getSWRLRule(body, consequent, annotations);
     }
 
     @Test
     public void shouldRoundTripAnnotation() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
         OWLOntology ontology = createOntology();
-        assertTrue(ontology.containsAxiom(AXIOM));
+        assertTrue(ontology.containsAxiom(axiom));
         String saved = saveOntology(ontology);
         ontology = loadOntology(saved);
-        assertTrue(ontology.containsAxiom(AXIOM));
+        assertTrue(ontology.containsAxiom(axiom));
     }
 
     public OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager.createOntology(IRI(NS));
         List<AddAxiom> changes = new ArrayList<AddAxiom>();
-        changes.add(new AddAxiom(ontology, AXIOM));
+        changes.add(new AddAxiom(ontology, axiom));
         manager.applyChanges(changes);
         return ontology;
     }

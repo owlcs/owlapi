@@ -64,7 +64,7 @@ import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
  * Date: 17-03-2007<br>
  * <br> */
 public class SimpleHierarchyExample {
-    private static int INDENT = 4;
+    private static final int INDENT = 4;
     private final OWLReasonerFactory reasonerFactory;
     private final OWLOntology ontology;
     private final PrintStream out;

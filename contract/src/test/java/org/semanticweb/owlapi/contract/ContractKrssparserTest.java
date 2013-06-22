@@ -3,12 +3,12 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.Set;
 
 import org.coode.owl.krssparser.KRSSOWLParser;
-import org.coode.owl.krssparser.KRSSOWLParserException;
 import org.coode.owl.krssparser.KRSSOWLParserFactory;
 import org.coode.owl.krssparser.KRSSOntologyFormat;
 import org.coode.owl.krssparser.KRSSParser;
@@ -26,15 +26,17 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractKrssparserTest {
-    public void shouldTestKRSSOntologyFormat() throws Exception {
+    public void shouldTestKRSSOntologyFormat() throws OWLException {
         KRSSOntologyFormat testSubject0 = new KRSSOntologyFormat();
         String result0 = testSubject0.toString();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
@@ -46,7 +48,8 @@ public class ContractKrssparserTest {
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
-    public void shouldTestKRSSOWLParser() throws Exception {
+    public void shouldTestKRSSOWLParser() throws OWLException,
+            OWLOntologyChangeException, IOException {
         KRSSOWLParser testSubject0 = new KRSSOWLParser();
         OWLOntologyFormat result0 = testSubject0.parse(
                 mock(OWLOntologyDocumentSource.class), Utils.getMockOntology());
@@ -58,27 +61,14 @@ public class ContractKrssparserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestKRSSOWLParserException() throws Exception {
-        KRSSOWLParserException testSubject0 = new KRSSOWLParserException(
-                mock(ParseException.class));
-        KRSSOWLParserException testSubject1 = new KRSSOWLParserException(
-                new RuntimeException());
-        String result0 = testSubject0.getMessage();
-        int result1 = testSubject0.getLineNumber();
-        int result2 = testSubject0.getColumnNumber();
-        Throwable result4 = testSubject0.getCause();
-        String result6 = testSubject0.toString();
-        String result7 = testSubject0.getLocalizedMessage();
-    }
-
     @Test
-    public void shouldTestKRSSOWLParserFactory() throws Exception {
+    public void shouldTestKRSSOWLParserFactory() throws OWLException {
         KRSSOWLParserFactory testSubject0 = new KRSSOWLParserFactory();
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
         String result1 = testSubject0.toString();
     }
 
-    public void shouldTestKRSSParser() throws Exception {
+    public void shouldTestKRSSParser() throws OWLException, ParseException {
         KRSSParser testSubject0 = new KRSSParser(mock(KRSSParserTokenManager.class));
         KRSSParser testSubject1 = new KRSSParser(mock(Reader.class));
         KRSSParser testSubject2 = new KRSSParser(mock(InputStream.class), "");
@@ -126,12 +116,12 @@ public class ContractKrssparserTest {
     }
 
     @Test
-    public void shouldTestInterfaceKRSSParserConstants() throws Exception {
+    public void shouldTestInterfaceKRSSParserConstants() throws OWLException {
         KRSSParserConstants testSubject0 = mock(KRSSParserConstants.class);
     }
 
     @Test
-    public void shouldTestNameResolverStrategy() throws Exception {
+    public void shouldTestNameResolverStrategy() throws OWLException {
         NameResolverStrategy testSubject0 = NameResolverStrategy.ADAPTIVE;
         NameResolverStrategy[] result0 = NameResolverStrategy.values();
         String result2 = testSubject0.name();
@@ -139,7 +129,7 @@ public class ContractKrssparserTest {
         int result8 = testSubject0.ordinal();
     }
 
-    public void shouldTestParseException() throws Exception {
+    public void shouldTestParseException() throws OWLException {
         ParseException testSubject0 = new ParseException(mock(Token.class),
                 mock(int[][].class), new String[0]);
         ParseException testSubject1 = new ParseException();
@@ -151,7 +141,7 @@ public class ContractKrssparserTest {
     }
 
     @Test
-    public void shouldTestToken() throws Exception {
+    public void shouldTestToken() throws OWLException {
         Token testSubject0 = new Token();
         Token testSubject1 = new Token(0);
         Token testSubject2 = new Token(0, "");
@@ -161,7 +151,7 @@ public class ContractKrssparserTest {
         Token result3 = Token.newToken(0);
     }
 
-    public void shouldTestTokenMgrError() throws Exception {
+    public void shouldTestTokenMgrError() throws OWLException {
         TokenMgrError testSubject0 = new TokenMgrError();
         TokenMgrError testSubject1 = new TokenMgrError("", 0);
         TokenMgrError testSubject2 = new TokenMgrError(false, 0, 0, 0, "",

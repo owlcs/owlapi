@@ -69,7 +69,7 @@ public class AnnotationPropertyDeclarationWithAnnotationsTestCase extends
 
     @Override
     @Test
-    public void testManchesterOWLSyntax() throws Exception {
+    public void testManchesterOWLSyntax() {
         // Can't represent this in Manchester Syntax
         // super.testManchesterOWLSyntax();
     }

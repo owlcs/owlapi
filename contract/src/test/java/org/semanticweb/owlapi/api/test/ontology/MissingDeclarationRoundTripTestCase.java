@@ -21,33 +21,32 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 /** Test for 3186250 */
 @SuppressWarnings("javadoc")
 public class MissingDeclarationRoundTripTestCase {
-    String NS;
-    OWLClass A;
-    OWLAnnotationProperty P;
+    private static final String NS = "http://test.org/MissingDeclaration.owl";
+    OWLClass a;
+    OWLAnnotationProperty p;
 
     @Before
     public void setUp() {
-        NS = "http://test.org/MissingDeclaration.owl";
-        A = Class(IRI(NS + "#A"));
-        P = AnnotationProperty(IRI(NS + "#p"));
+        a = Class(IRI(NS + "#A"));
+        p = AnnotationProperty(IRI(NS + "#p"));
     }
 
     @Test
     public void shouldFindOneAxiom() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
         OWLOntology ontology = createOntology();
-        assertTrue(ontology.containsAnnotationPropertyInSignature(P.getIRI()));
+        assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI()));
         assertEquals(1, ontology.getAxiomCount());
         String saved = saveOntology(ontology);
         ontology = loadOntology(saved);
-        assertTrue(ontology.containsAnnotationPropertyInSignature(P.getIRI()));
+        assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI()));
         assertEquals(1, ontology.getAxiomCount());
     }
 
     private OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager.createOntology(IRI(NS));
-        OWLAnnotationAssertionAxiom axiom = AnnotationAssertion(P, A.getIRI(),
+        OWLAnnotationAssertionAxiom axiom = AnnotationAssertion(p, a.getIRI(),
                 Literal("Hello"));
         manager.addAxiom(ontology, axiom);
         return ontology;

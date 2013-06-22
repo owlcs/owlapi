@@ -50,23 +50,22 @@ import org.semanticweb.owlapi.model.OWLObject;
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject, R extends OWLObject>
         extends AbstractOWLDataFactoryTest {
-    protected abstract L createLeftOperand() throws Exception;
+    protected abstract L createLeftOperand();
 
-    protected abstract R createRightOperand() throws Exception;
+    protected abstract R createRightOperand();
 
-    protected abstract OWLAxiom createAxiom(L leftOperand, R rightOperand)
-            throws Exception;
+    protected abstract OWLAxiom createAxiom(L leftOperand, R rightOperand);
 
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         assertNotNull("Axiom should not be null",
                 createAxiom(createLeftOperand(), createRightOperand()));
     }
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         L leftOp = createLeftOperand();
         R rightOp = createRightOperand();
         OWLAxiom axiomA = createAxiom(leftOp, rightOp);
@@ -76,7 +75,7 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         L leftOp = createLeftOperand();
         R rightOp = createRightOperand();
         // Different left operand
@@ -91,7 +90,7 @@ public abstract class AbstractOWLBinaryOperandAxiomTestCase<L extends OWLObject,
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         L leftOperand = createLeftOperand();
         R rightOperand = createRightOperand();
         int hashCodeA = createAxiom(leftOperand, rightOperand).hashCode();

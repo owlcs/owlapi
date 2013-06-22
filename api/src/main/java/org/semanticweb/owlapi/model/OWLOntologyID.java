@@ -53,7 +53,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * doesn't have an ontology IRI then we say that it is "anonymous". */
 public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     private static final long serialVersionUID = 40000L;
-    private static final AtomicInteger counter = new AtomicInteger();
+    private static final AtomicInteger COUNTER = new AtomicInteger();
     private static final String ANON_PREFIX = "Anonymous-";
     private String internalID;
     private final IRI ontologyIRI;
@@ -94,7 +94,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
             this.versionIRI = null;
         }
         if (ontologyIRI == null) {
-            internalID = ANON_PREFIX + counter.getAndIncrement();
+            internalID = ANON_PREFIX + COUNTER.getAndIncrement();
             hashCode += 37 * internalID.hashCode();
         }
     }

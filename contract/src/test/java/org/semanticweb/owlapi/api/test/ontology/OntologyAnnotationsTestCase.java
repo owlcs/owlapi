@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -53,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Date: 23-Nov-2009 */
 public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
     @Override
-    protected OWLOntology createOntology() {
+    protected OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("AnnotationOntology");
         OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
         OWLLiteral value = Literal(33);

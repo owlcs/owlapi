@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.annotations;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -62,7 +63,7 @@ public class AnnotatedPropertyAssertionsTestCase extends AbstractFileTestCase {
     }
 
     @Test
-    public void testCorrectAxiomAnnotated() {
+    public void testCorrectAxiomAnnotated() throws OWLOntologyCreationException {
         OWLOntology ontology = createOntology();
         OWLNamedIndividual subject = NamedIndividual(IRI("http://Example.com#myBuilding"));
         OWLObjectProperty predicate = ObjectProperty(IRI("http://Example.com#located_at"));
@@ -70,7 +71,7 @@ public class AnnotatedPropertyAssertionsTestCase extends AbstractFileTestCase {
         OWLAxiom ax = ObjectPropertyAssertion(predicate, subject, object);
         assertTrue(ontology.containsAxiomIgnoreAnnotations(ax));
         Set<OWLAxiom> axioms = ontology.getAxiomsIgnoreAnnotations(ax);
-        assertTrue(axioms.size() == 1);
+        assertEquals(1, axioms.size());
         OWLAxiom theAxiom = axioms.iterator().next();
         assertTrue(theAxiom.isAnnotated());
     }

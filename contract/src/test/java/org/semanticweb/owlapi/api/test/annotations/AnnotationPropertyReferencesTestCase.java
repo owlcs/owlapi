@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** Author: Matthew Horridge<br>
@@ -63,7 +64,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 @SuppressWarnings("javadoc")
 public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testContainsReferenceForAnnotationAssertion() {
+    public void testContainsReferenceForAnnotationAssertion()
+            throws OWLOntologyCreationException {
         OWLAnnotationProperty ap = AnnotationProperty(getIRI("prop"));
         OWLLiteral val = Literal("Test", "");
         OWLAnnotationSubject subject = Class(getIRI("A")).getIRI();
@@ -75,7 +77,8 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
     }
 
     @Test
-    public void testContainsReferenceForAxiomAnnotation() {
+    public void testContainsReferenceForAxiomAnnotation()
+            throws OWLOntologyCreationException {
         OWLAnnotationProperty ap = AnnotationProperty(getIRI("prop"));
         OWLLiteral val = Literal("Test", "");
         OWLAnnotation anno = Factory.getFactory().getOWLAnnotation(ap, val);
@@ -89,7 +92,8 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
     }
 
     @Test
-    public void testContainsReferenceForOntologyAnnotation() throws Exception {
+    public void testContainsReferenceForOntologyAnnotation()
+            throws OWLOntologyCreationException {
         OWLAnnotationProperty ap = AnnotationProperty(getIRI("prop"));
         OWLLiteral val = Literal("Test");
         OWLAnnotation anno = Factory.getFactory().getOWLAnnotation(ap, val);

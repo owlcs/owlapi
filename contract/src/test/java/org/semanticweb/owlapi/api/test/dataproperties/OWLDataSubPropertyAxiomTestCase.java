@@ -51,18 +51,18 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 public class OWLDataSubPropertyAxiomTestCase extends
         AbstractOWLBinaryOperandAxiomTestCase<OWLDataProperty, OWLDataProperty> {
     @Override
-    protected OWLDataProperty createLeftOperand() throws Exception {
+    protected OWLDataProperty createLeftOperand() {
         return DataProperty(createIRI());
     }
 
     @Override
-    protected OWLDataProperty createRightOperand() throws Exception {
+    protected OWLDataProperty createRightOperand() {
         return DataProperty(createIRI());
     }
 
     @Override
     protected OWLAxiom createAxiom(OWLDataProperty leftOperand,
-            OWLDataProperty rightOperand) throws Exception {
+            OWLDataProperty rightOperand) {
         return SubDataPropertyOf(leftOperand, rightOperand);
     }
 }

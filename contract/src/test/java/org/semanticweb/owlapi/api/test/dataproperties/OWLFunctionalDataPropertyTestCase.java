@@ -43,7 +43,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLPropertyCharacteristicTestCase;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 
 /** Author: Matthew Horridge<br>
@@ -52,13 +51,12 @@ import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 public class OWLFunctionalDataPropertyTestCase extends
         AbstractOWLPropertyCharacteristicTestCase<OWLDataProperty> {
     @Override
-    protected OWLDataProperty createProperty() throws Exception {
+    protected OWLDataProperty createProperty() {
         return DataProperty(createIRI());
     }
 
     @Override
-    protected OWLPropertyAxiom createOWLPropertyAxiom(OWLDataProperty property)
-            throws OWLException {
+    protected OWLPropertyAxiom createOWLPropertyAxiom(OWLDataProperty property) {
         return FunctionalDataProperty(property);
     }
 }

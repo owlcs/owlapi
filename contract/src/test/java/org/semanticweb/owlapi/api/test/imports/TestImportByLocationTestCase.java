@@ -42,6 +42,7 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
@@ -51,7 +52,9 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class TestImportByLocationTestCase {
@@ -79,7 +82,9 @@ public class TestImportByLocationTestCase {
         f.delete();
     }
 
-    private OWLOntology createOntologyFile(IRI iri, File f) throws Exception {
+    private OWLOntology createOntologyFile(IRI iri, File f)
+            throws OWLOntologyCreationException, FileNotFoundException,
+            OWLOntologyStorageException {
         OWLOntologyManager mngr = Factory.getManager();
         OWLOntology a = mngr.createOntology(iri);
         OutputStream out = new FileOutputStream(f);

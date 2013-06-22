@@ -50,7 +50,9 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -62,7 +64,8 @@ public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
     public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
 
     @Test
-    public void testRoundTrip() throws Exception {
+    public void testRoundTrip() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager.createOntology(IRI(NS));
         OWLDataFactory factory = manager.getOWLDataFactory();

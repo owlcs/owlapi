@@ -12,17 +12,20 @@ import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxRenderer;
 import org.coode.owlapi.functionalrenderer.OWLObjectRenderer;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
+import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractFunctionalrendererTest {
-    public void shouldTestOWLFunctionalSyntaxOntologyStorer() throws Exception {
+    public void shouldTestOWLFunctionalSyntaxOntologyStorer()
+            throws OWLOntologyStorageException {
         OWLFunctionalSyntaxOntologyStorer testSubject0 = new OWLFunctionalSyntaxOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
@@ -33,14 +36,14 @@ public class ContractFunctionalrendererTest {
     }
 
     @Test
-    public void shouldTestOWLFunctionalSyntaxRenderer() throws Exception {
+    public void shouldTestOWLFunctionalSyntaxRenderer() throws OWLRendererException {
         OWLFunctionalSyntaxRenderer testSubject0 = new OWLFunctionalSyntaxRenderer();
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         String result0 = testSubject0.toString();
     }
 
-    public void shouldTestOWLObjectRenderer() throws Exception {
+    public void shouldTestOWLObjectRenderer() {
         OWLObjectRenderer testSubject0 = new OWLObjectRenderer(Utils.getMockOntology(),
                 mock(Writer.class));
         testSubject0.write(mock(OWLAnnotation.class));

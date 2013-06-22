@@ -1,7 +1,5 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Set;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -540,11 +538,8 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
     public void visit(OWLAnnotation annotation) {
         annotation.getProperty().accept(this);
         annotation.getValue().accept(this);
-        final Set<OWLAnnotation> annotations = annotation.getAnnotations();
-        if (annotations.size() > 0) {
-            for (OWLAnnotation anno : annotations) {
-                anno.accept(this);
-            }
+        for (OWLAnnotation anno : annotation.getAnnotations()) {
+            anno.accept(this);
         }
     }
 

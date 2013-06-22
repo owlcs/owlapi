@@ -43,6 +43,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Collections;
 
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
@@ -62,8 +63,10 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -72,7 +75,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testOntologyContainsPlainAxiom() {
+    public void testOntologyContainsPlainAxiom() throws OWLOntologyCreationException {
         OWLAxiom axiom = SubClassOf(Class(getIRI("A")), Class(getIRI("B")));
         OWLOntology ont = getOWLOntology("testont");
         getManager().addAxiom(ont, axiom);
@@ -81,7 +84,7 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testOntologyContainsAnnotatedAxiom() {
+    public void testOntologyContainsAnnotatedAxiom() throws OWLOntologyCreationException {
         OWLLiteral annoLiteral = Literal("value");
         OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
         OWLAnnotation anno = Annotation(annoProp, annoLiteral);
@@ -96,7 +99,8 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testOntologyContainsAxiomsForRDFXML1() throws Exception {
+    public void testOntologyContainsAxiomsForRDFXML1()
+            throws OWLOntologyStorageException, OWLOntologyCreationException, IOException {
         RDFXMLOntologyFormat format = createRDFXMLFormat();
         runTestOntologyContainsAxioms1(format);
     }
@@ -112,17 +116,20 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testOntologyContainsAxiomsForOWLXML1() throws Exception {
+    public void testOntologyContainsAxiomsForOWLXML1()
+            throws OWLOntologyStorageException, OWLOntologyCreationException, IOException {
         runTestOntologyContainsAxioms1(new OWLXMLOntologyFormat());
     }
 
     @Test
-    public void testOntologyContainsAxiomsForOWLFunctionalSyntax1() throws Exception {
+    public void testOntologyContainsAxiomsForOWLFunctionalSyntax1()
+            throws OWLOntologyStorageException, OWLOntologyCreationException, IOException {
         runTestOntologyContainsAxioms1(new OWLFunctionalSyntaxOntologyFormat());
     }
 
     @Test
-    public void testOntologyContainsAxiomsForTurtleSyntax1() throws Exception {
+    public void testOntologyContainsAxiomsForTurtleSyntax1()
+            throws OWLOntologyStorageException, OWLOntologyCreationException, IOException {
         TurtleOntologyFormat format = createTurtleOntologyFormat();
         runTestOntologyContainsAxioms1(format);
     }
@@ -134,7 +141,7 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
     }
 
     private void runTestOntologyContainsAxioms1(OWLOntologyFormat format)
-            throws Exception {
+            throws OWLOntologyStorageException, OWLOntologyCreationException, IOException {
         OWLOntology ont1 = getOWLOntology("testont1A");
         IRI ont1_iri = ont1.getOntologyID().getOntologyIRI();
         OWLOntology ont2 = getOWLOntology("testont2A");
@@ -201,27 +208,31 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testOntologyContainsAxiomsForRDFXML2() throws Exception {
+    public void testOntologyContainsAxiomsForRDFXML2()
+            throws OWLOntologyStorageException, OWLOntologyCreationException, IOException {
         runTestOntologyContainsAxioms2(createRDFXMLFormat());
     }
 
     @Test
-    public void testOntologyContainsAxiomsForOWLXML2() throws Exception {
+    public void testOntologyContainsAxiomsForOWLXML2()
+            throws OWLOntologyStorageException, OWLOntologyCreationException, IOException {
         runTestOntologyContainsAxioms2(new OWLXMLOntologyFormat());
     }
 
     @Test
-    public void testOntologyContainsAxiomsForOWLFunctionalSyntax2() throws Exception {
+    public void testOntologyContainsAxiomsForOWLFunctionalSyntax2()
+            throws OWLOntologyStorageException, OWLOntologyCreationException, IOException {
         runTestOntologyContainsAxioms2(new OWLFunctionalSyntaxOntologyFormat());
     }
 
     @Test
-    public void testOntologyContainsAxiomsForTurtleSyntax2() throws Exception {
+    public void testOntologyContainsAxiomsForTurtleSyntax2()
+            throws OWLOntologyStorageException, OWLOntologyCreationException, IOException {
         runTestOntologyContainsAxioms2(createTurtleOntologyFormat());
     }
 
     private void runTestOntologyContainsAxioms2(OWLOntologyFormat format)
-            throws Exception {
+            throws OWLOntologyStorageException, OWLOntologyCreationException, IOException {
         OWLOntology ont1 = getOWLOntology("testont1B");
         IRI ont1_iri = ont1.getOntologyID().getOntologyIRI();
         OWLOntology ont2 = getOWLOntology("testont2B");

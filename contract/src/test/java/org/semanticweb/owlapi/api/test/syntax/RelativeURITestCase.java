@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTe
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -54,7 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Date: 08-Jun-2009 */
 public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
-    protected Set<? extends OWLAxiom> createAxioms() {
+    protected Set<? extends OWLAxiom> createAxioms() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("Ont");
         OWLClass cls = Class(IRI(ont.getOntologyID().getOntologyIRI() + "/Office"));
         Set<OWLAxiom> axs = new HashSet<OWLAxiom>();

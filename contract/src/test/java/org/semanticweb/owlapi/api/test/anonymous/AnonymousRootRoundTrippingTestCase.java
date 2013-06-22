@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -55,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * <br> */
 public class AnonymousRootRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
     @Override
-    protected OWLOntology createOntology() {
+    protected OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("OntA");
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         for (int i = 0; i < 10; i++) {

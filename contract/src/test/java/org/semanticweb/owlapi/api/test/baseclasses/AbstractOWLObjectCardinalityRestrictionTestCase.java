@@ -53,15 +53,14 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends
         AbstractOWLDataFactoryTest {
     protected abstract OWLObjectCardinalityRestriction createRestriction(
-            OWLObjectProperty prop, int cardinality) throws Exception;
+            OWLObjectProperty prop, int cardinality);
 
     protected abstract OWLObjectCardinalityRestriction createRestriction(
-            OWLObjectProperty prop, int cardinality, OWLClassExpression classExpression)
-            throws Exception;
+            OWLObjectProperty prop, int cardinality, OWLClassExpression classExpression);
 
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         OWLObjectProperty prop = ObjectProperty(createIRI());
         int cardinality = 3;
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality);
@@ -73,7 +72,7 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         OWLObjectProperty prop = ObjectProperty(createIRI());
         int cardinality = 3;
         OWLObjectCardinalityRestriction restA = createRestriction(prop, cardinality);
@@ -87,7 +86,7 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         OWLObjectProperty prop = ObjectProperty(createIRI());
         // Different cardinality
         OWLObjectCardinalityRestriction restA = createRestriction(prop, 3);
@@ -109,7 +108,7 @@ public abstract class AbstractOWLObjectCardinalityRestrictionTestCase extends
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         OWLObjectProperty prop = ObjectProperty(createIRI());
         int cardinality = 3;
         OWLClassExpression cls = Class(createIRI());

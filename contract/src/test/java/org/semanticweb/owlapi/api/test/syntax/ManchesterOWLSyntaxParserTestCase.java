@@ -63,7 +63,8 @@ public class ManchesterOWLSyntaxParserTestCase {
     }
 
     @Test
-    public void shouldRoundtripDisjointUnion() throws Exception {
+    public void shouldRoundtripDisjointUnion() throws OWLOntologyCreationException,
+            OWLOntologyStorageException {
         OWLOntology o = Factory.getManager().createOntology();
         OWLClass a = Class(IRI("http://iri/#a"));
         OWLClass b = Class(IRI("http://iri/#b"));
@@ -184,14 +185,14 @@ public class ManchesterOWLSyntaxParserTestCase {
 
     public static final String NS = "http://protege.org/ontologies/Test.owl";
     OWLDataProperty p;
-    OWLDatatype date_time;
+    OWLDatatype datetime;
     OWLDataFactory factory;
 
     @Before
     public void setUp() {
         factory = Factory.getFactory();
         p = DataProperty(IRI(NS + "#p"));
-        date_time = factory.getOWLDatatype(XSDVocabulary.DATE_TIME.getIRI());
+        datetime = factory.getOWLDatatype(XSDVocabulary.DATE_TIME.getIRI());
     }
 
     @Test
@@ -201,18 +202,18 @@ public class ManchesterOWLSyntaxParserTestCase {
         OWLClass a = Class(IRI(NS + "#A"));
         String text1 = "'GWAS study' and  has_publication_date some dateTime[< \"2009-01-01T00:00:00+00:00\"^^dateTime]";
         OWLClassExpression expected = factory.getOWLObjectIntersectionOf(a, factory
-                .getOWLDataSomeValuesFrom(p, factory.getOWLDatatypeRestriction(date_time,
+                .getOWLDataSomeValuesFrom(p, factory.getOWLDatatypeRestriction(datetime,
                         OWLFacet.MAX_EXCLUSIVE,
-                        factory.getOWLLiteral("2009-01-01T00:00:00+00:00", date_time))));
+                        factory.getOWLLiteral("2009-01-01T00:00:00+00:00", datetime))));
         // ontology creation including labels - this is the input ontology
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology o = manager.createOntology();
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(a));
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(p));
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(date_time));
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(datetime));
         manager.addAxiom(o, annotation(a, "'GWAS study'"));
         manager.addAxiom(o, annotation(p, "has_publication_date"));
-        manager.addAxiom(o, annotation(date_time, "dateTime"));
+        manager.addAxiom(o, annotation(datetime, "dateTime"));
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 Arrays.asList(factory.getRDFSLabel()),

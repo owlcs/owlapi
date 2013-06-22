@@ -61,7 +61,7 @@ public class OWLDataMaxCardinalityTestCase extends
 
     @Override
     protected OWLDataCardinalityRestriction createDataRestriction(OWLDataProperty prop,
-            int cardinality, OWLDataRange dataRange) throws Exception {
+            int cardinality, OWLDataRange dataRange) {
         return DataMaxCardinality(cardinality, prop, dataRange);
     }
 

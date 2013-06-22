@@ -59,13 +59,7 @@ public class AnonymousInversesTestCase extends AbstractFileRoundTrippingTestCase
      */
     @Override
     @Test
-    public void testManchesterOWLSyntax() throws Exception {
+    public void testManchesterOWLSyntax() {
         // super.testManchesterOWLSyntax();
-    }
-
-    @Override
-    @Test
-    public void testFunctionalSyntax() throws Exception {
-        super.testFunctionalSyntax();
     }
 }

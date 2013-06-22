@@ -41,6 +41,7 @@ package org.coode.owl.rdf;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Set;
 
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
@@ -59,7 +60,9 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
@@ -115,7 +118,8 @@ public abstract class AbstractRendererAndParserTestCase {
     }
 
     @Test
-    public void testSaveAndReload() throws Exception {
+    public void testSaveAndReload() throws OWLOntologyCreationException,
+            OWLOntologyStorageException, IOException {
         OWLOntology ontA = man.createOntology(IRI.create("http://rdfxmltests/ontology"));
         for (OWLAxiom ax : getAxioms()) {
             man.applyChange(new AddAxiom(ontA, ax));

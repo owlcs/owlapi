@@ -43,6 +43,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
 /** Author: Matthew Horridge<br>
@@ -52,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 @SuppressWarnings("javadoc")
 public class OntologyIRITestCase extends AbstractFileTestCase {
     @Test
-    public void testCorrectOntologyIRI() {
+    public void testCorrectOntologyIRI() throws OWLOntologyCreationException {
         OWLOntology ont = createOntology();
         OWLOntologyID id = ont.getOntologyID();
         assertEquals("http://www.test.com/right.owl", id.getOntologyIRI().toString());

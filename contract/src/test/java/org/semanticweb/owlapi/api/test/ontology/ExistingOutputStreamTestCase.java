@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -65,7 +66,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class ExistingOutputStreamTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testOutputStreamRemainsOpen() throws Exception {
+    public void testOutputStreamRemainsOpen() throws OWLOntologyStorageException,
+            IOException, OWLOntologyCreationException {
         OWLOntologyManager manager = getManager();
         OWLOntology ontology = manager.createOntology();
         saveOntology(ontology, new RDFXMLOntologyFormat());

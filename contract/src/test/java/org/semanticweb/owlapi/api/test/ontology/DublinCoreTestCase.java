@@ -43,6 +43,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 
 /** Author: Matthew Horridge<br>
@@ -57,7 +58,7 @@ public class DublinCoreTestCase extends AbstractFileTestCase {
     }
 
     @Test
-    public void testAnnotationProperties() {
+    public void testAnnotationProperties() throws OWLOntologyCreationException {
         OWLOntology ontology = createOntology();
         for (DublinCoreVocabulary vocabulary : DublinCoreVocabulary.values()) {
             assertTrue(ontology

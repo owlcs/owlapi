@@ -57,8 +57,7 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends
             OWLDataProperty prop, int cardinality);
 
     protected abstract OWLDataCardinalityRestriction createDataRestriction(
-            OWLDataProperty prop, int cardinality, OWLDataRange dataRange)
-            throws Exception;
+            OWLDataProperty prop, int cardinality, OWLDataRange dataRange);
 
     @Override
     protected OWLDataRestriction createDataRestriction(OWLDataProperty prop) {
@@ -67,7 +66,7 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends
 
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         OWLDataProperty prop = DataProperty(createIRI());
         int cardinality = 3;
         OWLDataCardinalityRestriction restA = createDataRestriction(prop, cardinality);
@@ -80,7 +79,7 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         OWLDataProperty prop = DataProperty(createIRI());
         int cardinality = 3;
         OWLDataCardinalityRestriction restA = createDataRestriction(prop, cardinality);
@@ -96,7 +95,7 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         OWLDataProperty prop = DataProperty(createIRI());
         // Different cardinality
         OWLDataCardinalityRestriction restA = createDataRestriction(prop, 3);
@@ -118,7 +117,7 @@ public abstract class AbstractOWLDataCardinalityRestrictionTestCase extends
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         OWLDataProperty prop = DataProperty(createIRI());
         int cardinality = 3;
         OWLDataRange dataRange = Datatype(createIRI());

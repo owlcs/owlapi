@@ -54,17 +54,17 @@ public class PrimerFunctionalSyntaxRoundTrippingTestCase extends
 
     @Override
     @Test
-    public void testRDFXML() throws Exception {}
+    public void testRDFXML() {}
 
     @Override
     @Test
-    public void testOWLXML() throws Exception {}
+    public void testOWLXML() {}
 
     @Override
     @Test
-    public void testTurtle() throws Exception {}
+    public void testTurtle() {}
 
     @Override
     @Test
-    public void testManchesterOWLSyntax() throws Exception {}
+    public void testManchesterOWLSyntax() {}
 }

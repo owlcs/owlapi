@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** Author: Matthew Horridge<br>
@@ -60,7 +61,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * <br> */
 public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
     @Override
-    protected OWLOntology createOntology() {
+    protected OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("OntA");
         OWLAnnotationProperty prop = AnnotationProperty(OWLRDFVocabulary.RDFS_LABEL
                 .getIRI());

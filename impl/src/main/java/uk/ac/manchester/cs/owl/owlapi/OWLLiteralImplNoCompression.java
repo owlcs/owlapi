@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * <br> */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 40000L;
-    static final String utf_8 = "UTF-8";
+    static final String UTF8 = "UTF-8";
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
             OWL2Datatype.RDF_PLAIN_LITERAL);
     private final byte[] literal;
@@ -109,7 +109,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     private static byte[] getBytes(String literal) {
         try {
-            return literal.getBytes(utf_8);
+            return literal.getBytes(UTF8);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("Unsupported UTF 8 encoding: broken JVM", e);
         }
@@ -118,7 +118,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     @Override
     public String getLiteral() {
         try {
-            return new String(literal, utf_8);
+            return new String(literal, UTF8);
         } catch (UnsupportedEncodingException e) {
             throw new OWLRuntimeException("Unsupported UTF 8 encoding: broken JVM", e);
         }

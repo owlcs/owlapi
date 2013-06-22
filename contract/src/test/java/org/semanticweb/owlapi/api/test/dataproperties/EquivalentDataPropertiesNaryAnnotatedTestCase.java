@@ -61,13 +61,13 @@ public class EquivalentDataPropertiesNaryAnnotatedTestCase extends
 
     @Override
     @Test
-    public void testRDFXML() throws Exception {
+    public void testRDFXML() {
         // Can't serialise nary equivalent data properties in RDF
     }
 
     @Override
     @Test
-    public void testTurtle() throws Exception {
+    public void testTurtle() {
         // Can't serialise nary equivalent data properties in RDF
     }
 }

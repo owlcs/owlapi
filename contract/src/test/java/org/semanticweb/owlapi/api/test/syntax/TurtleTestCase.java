@@ -123,7 +123,7 @@ public class TurtleTestCase {
     }
 
     @Test
-    public void shouldParse_one() throws OWLOntologyCreationException {
+    public void shouldParseTwo() throws OWLOntologyCreationException {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1 .";
         OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input));
@@ -165,7 +165,8 @@ public class TurtleTestCase {
     }
 
     @Test
-    public void shouldRoundTripAxiomAnnotation() throws Exception {
+    public void shouldRoundTripAxiomAnnotation() throws OWLOntologyCreationException,
+            OWLOntologyStorageException {
         String input = "@prefix : <urn:fm2#> .\n"
                 + "@prefix fm:    <urn:fm2#> .\n"
                 + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
@@ -216,7 +217,7 @@ public class TurtleTestCase {
     }
 
     @Test
-    public void presentDeclaration() throws Exception {
+    public void presentDeclaration() throws OWLOntologyCreationException {
         // given
         String input = "<urn:test#Settlement> rdf:type owl:Class.\n"
                 + "<urn:test#fm2.owl> rdf:type owl:Ontology.\n"
@@ -232,7 +233,7 @@ public class TurtleTestCase {
     }
 
     @Test
-    public void missingDeclaration() throws Exception {
+    public void missingDeclaration() throws OWLOntologyCreationException {
         // given
         String input = "<urn:test#fm2.owl> rdf:type owl:Ontology.\n"
                 + "<urn:test#numberOfPads> rdf:type owl:ObjectProperty ;\n"

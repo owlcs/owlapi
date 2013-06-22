@@ -57,9 +57,4 @@ public class OWLParserURISyntaxException extends OWLParserException {
             int columnNumber) {
         super(cause, lineNumber, columnNumber);
     }
-
-    @Override
-    public synchronized URISyntaxException getCause() {
-        return (URISyntaxException) super.getCause();
-    }
 }

@@ -6,28 +6,26 @@ import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 @SuppressWarnings("javadoc")
 public class TestCreator {
-    public static void _main() throws Exception {
-        Map<String, PrintStream> streams = new HashMap<String, PrintStream>();
-        File[] roots = new File[] { new File("api/src/main/java"),
-                new File("apibinding/src/main/java"), new File("impl/src/main/java"),
-                new File("misc/src/main/java"), new File("parsers/src/main/java"),
-                new File("tutorial2012/src/main/java") };
-        for (File root : roots) {
-            visit(root, null, streams);
-        }
-        for (PrintStream out : streams.values()) {
-            out.println("}");
-            out.close();
-        }
-    }
-
+    // public static void _main() throws OWLException {
+    // Map<String, PrintStream> streams = new HashMap<String, PrintStream>();
+    // File[] roots = new File[] { new File("api/src/main/java"),
+    // new File("apibinding/src/main/java"), new File("impl/src/main/java"),
+    // new File("misc/src/main/java"), new File("parsers/src/main/java"),
+    // new File("tutorial2012/src/main/java") };
+    // for (File root : roots) {
+    // visit(root, null, streams);
+    // }
+    // for (PrintStream out : streams.values()) {
+    // out.println("}");
+    // out.close();
+    // }
+    // }
     private static PrintStream initPrintStream(String _name) throws FileNotFoundException {
         String name = _name.replace("/", "_");
         PrintStream out = new PrintStream(
@@ -62,12 +60,12 @@ public class TestCreator {
             Class<?> theClass = Class.forName(fullyQualifiedName);
             if (theClass.isInterface()) {
                 out.println("@Test\npublic void shouldTestInterface"
-                        + theClass.getSimpleName() + "()throws Exception{");
+                        + theClass.getSimpleName() + "()throws OWLException{");
                 out.println(theClass.getSimpleName() + " testSubject0 = mock("
                         + theClass.getSimpleName() + ".class);");
             } else {
                 out.println("@Test\npublic void shouldTest" + theClass.getSimpleName()
-                        + "()throws Exception{");
+                        + "()throws OWLException{");
                 int counter = 0;
                 Constructor<?>[] constructors = theClass.getConstructors();
                 if (constructors.length > 0) {

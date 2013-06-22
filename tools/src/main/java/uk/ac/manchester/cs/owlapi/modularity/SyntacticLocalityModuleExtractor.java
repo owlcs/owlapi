@@ -430,8 +430,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                     }
                 }
                 Collection<OWLAnnotationAssertionAxiom> entityAnnotationAxioms = find(
-                        OWLAnnotationAssertionAxiom.class)
-                        .annotationAxioms(entity).in(ontology).asCollection();
+                        OWLAnnotationAssertionAxiom.class).annotationAxioms(entity)
+                        .in(ontology).asCollection();
                 enrichedModule.addAll(entityAnnotationAxioms);
                 if (verbose) {
                     for (OWLAnnotationAssertionAxiom entityAnnotationAxiom : entityAnnotationAxioms) {

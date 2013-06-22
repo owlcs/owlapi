@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,6 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxInlineAxiomParser
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyHeader;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyParser;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxParserException;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxParserFactory;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer.Token;
@@ -26,6 +26,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
+import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -42,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -49,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -70,7 +73,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractManchesterowlsyntaxTest {
     @Test
-    public void shouldTestManchesterOWLSyntax() throws Exception {
+    public void shouldTestManchesterOWLSyntax() throws OWLException {
         ManchesterOWLSyntax testSubject0 = ManchesterOWLSyntax.AND;
         String result0 = testSubject0.toString();
         ManchesterOWLSyntax[] result1 = ManchesterOWLSyntax.values();
@@ -84,20 +87,21 @@ public class ContractManchesterowlsyntaxTest {
     }
 
     @Test
-    public void shouldTestManchesterOWLSyntaxClassExpressionParser() throws Exception {
+    public void shouldTestManchesterOWLSyntaxClassExpressionParser() throws OWLException {
         ManchesterOWLSyntaxClassExpressionParser testSubject0 = new ManchesterOWLSyntaxClassExpressionParser(
                 mock(OWLDataFactory.class), mock(OWLEntityChecker.class));
     }
 
     @Test
-    public void shouldTestManchesterOWLSyntaxClassFrameParser() throws Exception {
+    public void shouldTestManchesterOWLSyntaxClassFrameParser() throws OWLException {
         ManchesterOWLSyntaxClassFrameParser testSubject0 = new ManchesterOWLSyntaxClassFrameParser(
                 mock(OWLDataFactory.class), mock(OWLEntityChecker.class));
     }
 
     @Ignore
     @Test
-    public void shouldTestManchesterOWLSyntaxEditorParser() throws Exception {
+    public void shouldTestManchesterOWLSyntaxEditorParser() throws OWLException,
+            ParserException {
         ManchesterOWLSyntaxEditorParser testSubject0 = new ManchesterOWLSyntaxEditorParser(
                 new OWLOntologyLoaderConfiguration(), mock(OWLDataFactory.class), "");
         ManchesterOWLSyntaxEditorParser testSubject1 = new ManchesterOWLSyntaxEditorParser(
@@ -249,7 +253,8 @@ public class ContractManchesterowlsyntaxTest {
     }
 
     @Test
-    public void shouldTestManchesterOWLSyntaxFramesParser() throws Exception {
+    public void shouldTestManchesterOWLSyntaxFramesParser() throws OWLException,
+            ParserException {
         ManchesterOWLSyntaxFramesParser testSubject0 = new ManchesterOWLSyntaxFramesParser(
                 mock(OWLDataFactory.class), mock(OWLEntityChecker.class));
         Set<OntologyAxiomPair> result0 = testSubject0.parse("");
@@ -261,13 +266,13 @@ public class ContractManchesterowlsyntaxTest {
     }
 
     @Test
-    public void shouldTestManchesterOWLSyntaxInlineAxiomParser() throws Exception {
+    public void shouldTestManchesterOWLSyntaxInlineAxiomParser() throws OWLException {
         ManchesterOWLSyntaxInlineAxiomParser testSubject0 = new ManchesterOWLSyntaxInlineAxiomParser(
                 mock(OWLDataFactory.class), mock(OWLEntityChecker.class));
     }
 
     @Test
-    public void shouldTestManchesterOWLSyntaxOntologyFormat() throws Exception {
+    public void shouldTestManchesterOWLSyntaxOntologyFormat() throws OWLException {
         ManchesterOWLSyntaxOntologyFormat testSubject0 = new ManchesterOWLSyntaxOntologyFormat();
         String result0 = testSubject0.toString();
         String result1 = testSubject0.getPrefix("");
@@ -292,7 +297,7 @@ public class ContractManchesterowlsyntaxTest {
     }
 
     @Test
-    public void shouldTestManchesterOWLSyntaxOntologyHeader() throws Exception {
+    public void shouldTestManchesterOWLSyntaxOntologyHeader() throws OWLException {
         Set<OWLAnnotation> mock1 = Utils.mockSet(mock(OWLAnnotation.class));
         Set<OWLImportsDeclaration> mock2 = Utils
                 .mockSet(mock(OWLImportsDeclaration.class));
@@ -304,7 +309,8 @@ public class ContractManchesterowlsyntaxTest {
         String result3 = testSubject0.toString();
     }
 
-    public void shouldTestManchesterOWLSyntaxOntologyParser() throws Exception {
+    public void shouldTestManchesterOWLSyntaxOntologyParser() throws OWLException,
+            OWLOntologyChangeException, IOException {
         ManchesterOWLSyntaxOntologyParser testSubject0 = new ManchesterOWLSyntaxOntologyParser();
         OWLOntologyFormat result0 = testSubject0.parse(
                 mock(OWLOntologyDocumentSource.class), Utils.getMockOntology(),
@@ -317,35 +323,21 @@ public class ContractManchesterowlsyntaxTest {
     }
 
     @Test
-    public void shouldTestManchesterOWLSyntaxParserException() throws Exception {
-        ManchesterOWLSyntaxParserException testSubject0 = new ManchesterOWLSyntaxParserException(
-                "", 0, 0);
-        ManchesterOWLSyntaxParserException testSubject1 = new ManchesterOWLSyntaxParserException(
-                "", new RuntimeException(), 0, 0);
-        String result0 = testSubject0.getMessage();
-        int result1 = testSubject0.getLineNumber();
-        int result2 = testSubject0.getColumnNumber();
-        Throwable result4 = testSubject0.getCause();
-        String result6 = testSubject0.toString();
-        String result7 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestManchesterOWLSyntaxParserFactory() throws Exception {
+    public void shouldTestManchesterOWLSyntaxParserFactory() throws OWLException {
         ManchesterOWLSyntaxParserFactory testSubject0 = new ManchesterOWLSyntaxParserFactory();
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
         String result1 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestManchesterOWLSyntaxTokenizer() throws Exception {
+    public void shouldTestManchesterOWLSyntaxTokenizer() throws OWLException {
         ManchesterOWLSyntaxTokenizer testSubject0 = new ManchesterOWLSyntaxTokenizer("");
         List<Token> result0 = testSubject0.tokenize();
         String result1 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestOntologyAxiomPair() throws Exception {
+    public void shouldTestOntologyAxiomPair() throws OWLException {
         OntologyAxiomPair testSubject0 = new OntologyAxiomPair(Utils.getMockOntology(),
                 mock(OWLAxiom.class));
         String result0 = testSubject0.toString();

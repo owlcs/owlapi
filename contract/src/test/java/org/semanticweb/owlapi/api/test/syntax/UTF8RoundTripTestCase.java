@@ -58,7 +58,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class UTF8RoundTripTestCase {
     @Test
-    public void testRoundTrip() throws Exception {
+    public void testRoundTrip() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         String NS = "http://protege.org/ontologies/UTF8RoundTrip.owl";
         OWLClass C = Class(IRI(NS + "#C"));
         /*

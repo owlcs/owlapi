@@ -78,8 +78,8 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 /** Semantic locality evaluator */
 public class SemanticLocalityEvaluator implements LocalityEvaluator {
-    protected static final Logger log = Logger.getLogger(SemanticLocalityEvaluator.class
-            .getName());
+    protected static final Logger LOGGER = Logger
+            .getLogger(SemanticLocalityEvaluator.class.getName());
     protected final OWLDataFactory df;
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
     private final BottomReplacer bottomReplacer = new BottomReplacer();
@@ -122,12 +122,12 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
             // XXX this seems wrong
-            if (log.isLoggable(Level.FINE)) {
-                log.fine("Calling the Reasoner");
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.fine("Calling the Reasoner");
             }
             isLocal = true;
-            if (log.isLoggable(Level.FINE)) {
-                log.fine("DONE Calling the Reasoner. isLocal = " + isLocal);
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.fine("DONE Calling the Reasoner. isLocal = " + isLocal);
             }
         }
 
@@ -137,23 +137,23 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             if (eqClasses.size() != 2) {
                 return;
             }
-            if (log.isLoggable(Level.FINE)) {
-                log.fine("Calling the Reasoner");
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.fine("Calling the Reasoner");
             }
             isLocal = reasoner.isEntailed(axiom);
-            if (log.isLoggable(Level.FINE)) {
-                log.fine("DONE Calling the Reasoner. isLocal = " + isLocal);
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.fine("DONE Calling the Reasoner. isLocal = " + isLocal);
             }
         }
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
-            if (log.isLoggable(Level.FINE)) {
-                log.fine("Calling the Reasoner");
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.fine("Calling the Reasoner");
             }
             isLocal = reasoner.isEntailed(axiom);
-            if (log.isLoggable(Level.FINE)) {
-                log.fine("DONE Calling the Reasoner. isLocal = " + isLocal);
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.fine("DONE Calling the Reasoner. isLocal = " + isLocal);
             }
         }
     }
@@ -363,12 +363,12 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
     @Override
     public boolean isLocal(OWLAxiom axiom, Set<? extends OWLEntity> signature) {
-        if (log.isLoggable(Level.FINE)) {
-            log.fine("Replacing axiom by Bottom");
+        if (LOGGER.isLoggable(Level.FINE)) {
+            LOGGER.fine("Replacing axiom by Bottom");
         }
         OWLAxiom newAxiom = bottomReplacer.replaceBottom(axiom, signature);
-        if (log.isLoggable(Level.FINE)) {
-            log.fine("DONE Replacing axiom by Bottom. Success: " + (newAxiom != null));
+        if (LOGGER.isLoggable(Level.FINE)) {
+            LOGGER.fine("DONE Replacing axiom by Bottom. Success: " + (newAxiom != null));
         }
         return newAxiom != null && axiomVisitor.isLocal(newAxiom);
     }

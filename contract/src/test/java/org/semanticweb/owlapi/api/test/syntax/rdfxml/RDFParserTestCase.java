@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
@@ -46,6 +47,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
@@ -72,11 +74,12 @@ public class RDFParserTestCase {
     }
 
     @Test
-    public void testOWLAPI() throws Exception {
+    public void testOWLAPI() throws OWLOntologyCreationException, URISyntaxException {
         parseFiles("/owlapi/");
     }
 
-    private void parseFiles(String base) throws Exception {
+    private void parseFiles(String base) throws URISyntaxException,
+            OWLOntologyCreationException {
         URL url = getClass().getResource(base);
         File file = new File(url.toURI());
         for (File testSuiteFolder : file.listFiles()) {

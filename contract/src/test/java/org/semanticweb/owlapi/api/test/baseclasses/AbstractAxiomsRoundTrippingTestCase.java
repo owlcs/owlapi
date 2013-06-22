@@ -47,6 +47,7 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /** Author: Matthew Horridge<br>
@@ -58,7 +59,7 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends
     private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 
     @Override
-    protected OWLOntology createOntology() {
+    protected OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("Ont");
         axioms.clear();
         axioms.addAll(createAxioms());
@@ -71,7 +72,8 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends
         return ont;
     }
 
-    protected abstract Set<? extends OWLAxiom> createAxioms();
+    protected abstract Set<? extends OWLAxiom> createAxioms()
+            throws OWLOntologyCreationException;
 
     @Override
     protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {

@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 public class OWLDifferentIndividualsAxiomTestCase extends AbstractOWLDataFactoryTest {
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         OWLObject obj = DifferentIndividuals(createOWLIndividual(),
                 createOWLIndividual(), createOWLIndividual());
         assertNotNull("object should not be null", obj);
@@ -61,7 +61,7 @@ public class OWLDifferentIndividualsAxiomTestCase extends AbstractOWLDataFactory
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         OWLIndividual a = createOWLIndividual();
         OWLIndividual b = createOWLIndividual();
         OWLIndividual c = createOWLIndividual();
@@ -72,7 +72,7 @@ public class OWLDifferentIndividualsAxiomTestCase extends AbstractOWLDataFactory
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         OWLIndividual a = createOWLIndividual();
         OWLIndividual b = createOWLIndividual();
         OWLObject objA = DifferentIndividuals(a, b);
@@ -83,7 +83,7 @@ public class OWLDifferentIndividualsAxiomTestCase extends AbstractOWLDataFactory
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         OWLIndividual a = createOWLIndividual();
         OWLIndividual b = createOWLIndividual();
         OWLIndividual c = createOWLIndividual();

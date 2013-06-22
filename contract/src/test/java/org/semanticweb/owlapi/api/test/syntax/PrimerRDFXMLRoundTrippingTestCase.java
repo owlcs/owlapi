@@ -53,23 +53,17 @@ public class PrimerRDFXMLRoundTrippingTestCase extends AbstractFileRoundTripping
 
     @Override
     @Test
-    public void testRDFXML() throws Exception {
-        super.testRDFXML();
-    }
+    public void testOWLXML() {}
 
     @Override
     @Test
-    public void testOWLXML() throws Exception {}
+    public void testFunctionalSyntax() {}
 
     @Override
     @Test
-    public void testFunctionalSyntax() throws Exception {}
+    public void testTurtle() {}
 
     @Override
     @Test
-    public void testTurtle() throws Exception {}
-
-    @Override
-    @Test
-    public void testManchesterOWLSyntax() throws Exception {}
+    public void testManchesterOWLSyntax() {}
 }

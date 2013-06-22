@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.axioms;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
@@ -72,10 +73,10 @@ public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
     }
 
     @Test
-    public void testParsedAxioms() {
+    public void testParsedAxioms() throws OWLOntologyCreationException {
         OWLOntology ontology = createOntology();
         Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
-        assertTrue(axioms.size() == 1);
+        assertEquals(1, axioms.size());
         OWLSubClassOfAxiom ax = axioms.iterator().next();
         OWLClass subCls = Class(SUBCLASS_IRI);
         OWLClass supCls = Class(SUPERCLASS_IRI);

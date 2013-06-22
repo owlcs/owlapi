@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
@@ -90,7 +91,7 @@ public class OWLOntologyChangeRecordTestCase {
     }
 
     @Test(expected = UnknownOWLOntologyException.class)
-    public void testCreateOntologyChange() throws Exception {
+    public void testCreateOntologyChange() {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntologyChangeRecord<OWLAxiom> changeRecord = new OWLOntologyChangeRecord<OWLAxiom>(
                 mockOntologyID, mockChangeData);
@@ -98,7 +99,7 @@ public class OWLOntologyChangeRecordTestCase {
     }
 
     @Test
-    public void testCreateOntologyChangeEquals() throws Exception {
+    public void testCreateOntologyChangeEquals() throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = manager.createOntology();
         OWLOntologyID ontologyID = ontology.getOntologyID();

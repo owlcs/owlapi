@@ -41,7 +41,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Locale;
 
 import org.semanticweb.owlapi.model.IRI;

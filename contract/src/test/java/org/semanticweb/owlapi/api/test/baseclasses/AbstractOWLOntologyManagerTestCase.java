@@ -49,25 +49,25 @@ public abstract class AbstractOWLOntologyManagerTestCase extends
         AbstractOWLDataFactoryTest {
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         // Ignore
     }
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         // Ignore
     }
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         // Ignore
     }
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         // Ignore
     }
 }

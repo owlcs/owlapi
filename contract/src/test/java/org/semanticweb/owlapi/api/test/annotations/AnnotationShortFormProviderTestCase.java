@@ -71,7 +71,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 @SuppressWarnings("javadoc")
 public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testLiteralWithoutLanguageValue() throws Exception {
+    public void testLiteralWithoutLanguageValue() throws OWLOntologyCreationException {
         OWLOntologyManager man = Factory.getManager();
         PrefixManager pm = new DefaultPrefixManager("http://org.semanticweb.owlapi/ont#");
         OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
@@ -86,7 +86,7 @@ public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase 
     }
 
     @Test
-    public void testLiteralWithLanguageValue() throws Exception {
+    public void testLiteralWithLanguageValue() throws OWLOntologyCreationException {
         OWLOntologyManager man = Factory.getManager();
         PrefixManager pm = new DefaultPrefixManager("http://org.semanticweb.owlapi/ont#");
         OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
@@ -109,7 +109,7 @@ public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase 
     }
 
     @Test
-    public void testIRIValue() throws Exception {
+    public void testIRIValue() throws OWLOntologyCreationException {
         OWLOntologyManager man = Factory.getManager();
         PrefixManager pm = new DefaultPrefixManager("http://org.semanticweb.owlapi/ont#");
         OWLAnnotationProperty prop = AnnotationProperty("prop", pm);

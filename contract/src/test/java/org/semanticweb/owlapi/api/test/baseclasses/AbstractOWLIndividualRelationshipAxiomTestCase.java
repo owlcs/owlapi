@@ -42,7 +42,6 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.api.test.TestUtils.createOWLIndividual;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -54,23 +53,23 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends OWLPropertyExpression, O extends OWLObject>
         extends AbstractOWLDataFactoryTest {
-    protected abstract P createProperty() throws Exception;
+    protected abstract P createProperty();
 
-    protected abstract O createObject() throws Exception;
+    protected abstract O createObject();
 
     protected abstract OWLIndividualAxiom createAxiom(OWLIndividual subject, P property,
-            O object) throws OWLException;
+            O object);
 
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         assertNotNull("axiom should not be null",
                 createAxiom(createOWLIndividual(), createProperty(), createObject()));
     }
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         OWLIndividual subject = createOWLIndividual();
         P property = createProperty();
         O object = createObject();
@@ -81,7 +80,7 @@ public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends O
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         // Different subject
         P property = createProperty();
         O object = createObject();
@@ -101,7 +100,7 @@ public abstract class AbstractOWLIndividualRelationshipAxiomTestCase<P extends O
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         OWLIndividual subject = createOWLIndividual();
         P property = createProperty();
         O object = createObject();

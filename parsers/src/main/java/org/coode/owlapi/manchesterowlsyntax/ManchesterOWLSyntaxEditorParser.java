@@ -2792,7 +2792,7 @@ public class ManchesterOWLSyntaxEditorParser {
             seq.add(tokens.get(index).getToken());
             index++;
         }
-        if (seq.size() == 0) {
+        if (seq.isEmpty()) {
             seq.add(ManchesterOWLSyntaxTokenizer.EOF);
         }
         return seq;

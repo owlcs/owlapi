@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
@@ -124,7 +125,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapi_2Test {
     @Test
-    public void shouldTestInterfaceOWLDataFactoryInternals() throws Exception {
+    public void shouldTestInterfaceOWLDataFactoryInternals() throws OWLException {
         OWLDataFactoryInternals testSubject0 = mock(OWLDataFactoryInternals.class);
         OWLClass result0 = testSubject0.getOWLClass(IRI("urn:aFake"));
         OWLDatatype result1 = testSubject0.getTopDatatype();
@@ -150,7 +151,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataFactoryInternalsImpl() throws Exception {
+    public void shouldTestOWLDataFactoryInternalsImpl() throws OWLException {
         OWLDataFactoryInternalsImpl testSubject0 = new OWLDataFactoryInternalsImpl(
                 mock(OWLDataFactory.class), false);
         OWLClass result0 = testSubject0.getOWLClass(IRI("urn:aFake"));
@@ -178,7 +179,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataHasValueImpl() throws Exception {
+    public void shouldTestOWLDataHasValueImpl() throws OWLException {
         OWLDataHasValueImpl testSubject0 = new OWLDataHasValueImpl(
                 mock(OWLDataPropertyExpression.class), mock(OWLLiteral.class));
         Object result0 = testSubject0.accept(Utils.mockObject());
@@ -217,7 +218,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataIntersectionOfImpl() throws Exception {
+    public void shouldTestOWLDataIntersectionOfImpl() throws OWLException {
         OWLDataIntersectionOfImpl testSubject0 = new OWLDataIntersectionOfImpl(
                 Utils.mockSet(mock(OWLDatatype.class)));
         Object result0 = testSubject0.accept(Utils.mockDataRange());
@@ -246,7 +247,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataMaxCardinalityImpl() throws Exception {
+    public void shouldTestOWLDataMaxCardinalityImpl() throws OWLException {
         OWLDataMaxCardinalityImpl testSubject0 = new OWLDataMaxCardinalityImpl(
                 mock(OWLDataPropertyExpression.class), 0, mock(OWLDataRange.class));
         testSubject0.accept(mock(OWLClassExpressionVisitor.class));
@@ -286,7 +287,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataMinCardinalityImpl() throws Exception {
+    public void shouldTestOWLDataMinCardinalityImpl() throws OWLException {
         OWLDataMinCardinalityImpl testSubject0 = new OWLDataMinCardinalityImpl(
                 mock(OWLDataPropertyExpression.class), 0, mock(OWLDataRange.class));
         testSubject0.accept(mock(OWLClassExpressionVisitor.class));
@@ -326,7 +327,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataOneOfImpl() throws Exception {
+    public void shouldTestOWLDataOneOfImpl() throws OWLException {
         OWLDataOneOfImpl testSubject0 = new OWLDataOneOfImpl(
                 Utils.mockSet(mock(OWLLiteral.class)));
         testSubject0.accept(mock(OWLDataVisitor.class));
@@ -355,7 +356,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyAssertionAxiomImpl() throws Exception {
+    public void shouldTestOWLDataPropertyAssertionAxiomImpl() throws OWLException {
         OWLDataPropertyAssertionAxiomImpl testSubject0 = new OWLDataPropertyAssertionAxiomImpl(
                 mock(OWLIndividual.class), mock(OWLDataPropertyExpression.class),
                 mock(OWLLiteral.class), Utils.mockSet(mock(OWLAnnotation.class)));
@@ -393,7 +394,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyCharacteristicAxiomImpl() throws Exception {
+    public void shouldTestOWLDataPropertyCharacteristicAxiomImpl() throws OWLException {
         OWLDataPropertyCharacteristicAxiomImpl testSubject0 = new OWLDataPropertyCharacteristicAxiomImpl(
                 mock(OWLDataPropertyExpression.class),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
@@ -466,7 +467,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyDomainAxiomImpl() throws Exception {
+    public void shouldTestOWLDataPropertyDomainAxiomImpl() throws OWLException {
         OWLDataPropertyDomainAxiomImpl testSubject0 = new OWLDataPropertyDomainAxiomImpl(
                 mock(OWLDataPropertyExpression.class), Utils.mockAnonClass(),
                 Utils.mockSet(mock(OWLAnnotation.class)));
@@ -503,7 +504,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyImpl() throws Exception {
+    public void shouldTestOWLDataPropertyImpl() throws OWLException {
         OWLDataPropertyImpl testSubject0 = new OWLDataPropertyImpl(IRI("urn:aFake"));
         Object result2 = testSubject0.accept(Utils.mockObject());
         testSubject0.accept(mock(OWLEntityVisitor.class));
@@ -561,7 +562,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyRangeAxiomImpl() throws Exception {
+    public void shouldTestOWLDataPropertyRangeAxiomImpl() throws OWLException {
         OWLDataPropertyRangeAxiomImpl testSubject0 = new OWLDataPropertyRangeAxiomImpl(
                 mock(OWLDataPropertyExpression.class), mock(OWLDataRange.class),
                 Utils.mockSet(mock(OWLAnnotation.class)));
@@ -598,7 +599,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataSomeValuesFromImpl() throws Exception {
+    public void shouldTestOWLDataSomeValuesFromImpl() throws OWLException {
         OWLDataSomeValuesFromImpl testSubject0 = new OWLDataSomeValuesFromImpl(
                 mock(OWLDataPropertyExpression.class), mock(OWLDataRange.class));
         Object result0 = testSubject0.accept(Utils.mockObject());
@@ -636,7 +637,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDatatypeDefinitionAxiomImpl() throws Exception {
+    public void shouldTestOWLDatatypeDefinitionAxiomImpl() throws OWLException {
         OWLDatatypeDefinitionAxiomImpl testSubject0 = new OWLDatatypeDefinitionAxiomImpl(
                 mock(OWLDatatype.class), mock(OWLDataRange.class),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
@@ -671,7 +672,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDatatypeImpl() throws Exception {
+    public void shouldTestOWLDatatypeImpl() throws OWLException {
         OWLDatatypeImpl testSubject0 = new OWLDatatypeImpl(IRI("urn:aFake"));
         testSubject0.accept(mock(OWLDataRangeVisitor.class));
         Object result2 = testSubject0.accept(Utils.mockDataRange());
@@ -733,7 +734,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDatatypeRestrictionImpl() throws Exception {
+    public void shouldTestOWLDatatypeRestrictionImpl() throws OWLException {
         OWLDatatypeRestrictionImpl testSubject0 = new OWLDatatypeRestrictionImpl(
                 mock(OWLDatatype.class), Utils.mockSet(mock(OWLFacetRestriction.class)));
         testSubject0.accept(mock(OWLObjectVisitor.class));
@@ -763,7 +764,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDataUnionOfImpl() throws Exception {
+    public void shouldTestOWLDataUnionOfImpl() throws OWLException {
         OWLDataUnionOfImpl testSubject0 = new OWLDataUnionOfImpl(
                 Utils.mockSet(mock(OWLDatatype.class)));
         Object result0 = testSubject0.accept(Utils.mockDataRange());
@@ -792,7 +793,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDeclarationAxiomImpl() throws Exception {
+    public void shouldTestOWLDeclarationAxiomImpl() throws OWLException {
         OWLDeclarationAxiomImpl testSubject0 = new OWLDeclarationAxiomImpl(
                 Utils.mockOWLEntity(), Utils.mockCollection(mock(OWLAnnotation.class)));
         testSubject0.accept(mock(OWLAxiomVisitor.class));
@@ -826,7 +827,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDifferentIndividualsAxiomImpl() throws Exception {
+    public void shouldTestOWLDifferentIndividualsAxiomImpl() throws OWLException {
         OWLDifferentIndividualsAxiomImpl testSubject0 = new OWLDifferentIndividualsAxiomImpl(
                 Utils.mockSet(mock(OWLIndividual.class), mock(OWLIndividual.class)),
                 Utils.mockSet(mock(OWLAnnotation.class)));
@@ -865,7 +866,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDisjointClassesAxiomImpl() throws Exception {
+    public void shouldTestOWLDisjointClassesAxiomImpl() throws OWLException {
         OWLDisjointClassesAxiomImpl testSubject0 = new OWLDisjointClassesAxiomImpl(
                 Utils.mockSet(mock(OWLClass.class)),
                 Utils.mockSet(mock(OWLAnnotation.class)));
@@ -906,7 +907,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDisjointDataPropertiesAxiomImpl() throws Exception {
+    public void shouldTestOWLDisjointDataPropertiesAxiomImpl() throws OWLException {
         OWLDisjointDataPropertiesAxiomImpl testSubject0 = new OWLDisjointDataPropertiesAxiomImpl(
                 Utils.mockSet(mock(OWLDataProperty.class)),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
@@ -944,7 +945,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLDisjointObjectPropertiesAxiomImpl() throws Exception {
+    public void shouldTestOWLDisjointObjectPropertiesAxiomImpl() throws OWLException {
         OWLDisjointObjectPropertiesAxiomImpl testSubject0 = new OWLDisjointObjectPropertiesAxiomImpl(
                 Utils.mockSet(Utils.mockObjectProperty()),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
@@ -981,7 +982,7 @@ public class ContractOwlapi_2Test {
         boolean result30 = testSubject0.isBottomEntity();
     }
 
-    public void shouldTestOWLDisjointUnionAxiomImpl() throws Exception {
+    public void shouldTestOWLDisjointUnionAxiomImpl() throws OWLException {
         OWLDisjointUnionAxiomImpl testSubject0 = new OWLDisjointUnionAxiomImpl(
                 mock(OWLClass.class), Utils.mockSet(Utils.mockAnonClass()),
                 Utils.mockSet(mock(OWLAnnotation.class)));
@@ -1019,7 +1020,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLEntityCollectionContainerCollector() throws Exception {
+    public void shouldTestOWLEntityCollectionContainerCollector() throws OWLException {
         OWLEntityCollectionContainerCollector testSubject0 = new OWLEntityCollectionContainerCollector(
                 Utils.mockSet(Utils.mockOWLEntity()),
                 Utils.mockCollection(mock(OWLAnonymousIndividual.class)));
@@ -1035,7 +1036,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLEquivalentClassesAxiomImpl() throws Exception {
+    public void shouldTestOWLEquivalentClassesAxiomImpl() throws OWLException {
         OWLEquivalentClassesAxiomImpl testSubject0 = new OWLEquivalentClassesAxiomImpl(
                 Utils.mockSet(Utils.mockAnonClass()),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
@@ -1080,7 +1081,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLEquivalentDataPropertiesAxiomImpl() throws Exception {
+    public void shouldTestOWLEquivalentDataPropertiesAxiomImpl() throws OWLException {
         OWLEquivalentDataPropertiesAxiomImpl testSubject0 = new OWLEquivalentDataPropertiesAxiomImpl(
                 Utils.mockSet(mock(OWLDataProperty.class)),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
@@ -1119,7 +1120,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLEquivalentObjectPropertiesAxiomImpl() throws Exception {
+    public void shouldTestOWLEquivalentObjectPropertiesAxiomImpl() throws OWLException {
         OWLEquivalentObjectPropertiesAxiomImpl testSubject0 = new OWLEquivalentObjectPropertiesAxiomImpl(
                 Utils.mockSet(Utils.mockObjectProperty()),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
@@ -1159,7 +1160,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLFacetRestrictionImpl() throws Exception {
+    public void shouldTestOWLFacetRestrictionImpl() throws OWLException {
         OWLFacetRestrictionImpl testSubject0 = new OWLFacetRestrictionImpl(
                 OWLFacet.MAX_INCLUSIVE, mock(OWLLiteral.class));
         Object result0 = testSubject0.accept(Utils.mockData());
@@ -1181,7 +1182,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLFunctionalDataPropertyAxiomImpl() throws Exception {
+    public void shouldTestOWLFunctionalDataPropertyAxiomImpl() throws OWLException {
         OWLFunctionalDataPropertyAxiomImpl testSubject0 = new OWLFunctionalDataPropertyAxiomImpl(
                 mock(OWLDataPropertyExpression.class),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
@@ -1219,7 +1220,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLFunctionalObjectPropertyAxiomImpl() throws Exception {
+    public void shouldTestOWLFunctionalObjectPropertyAxiomImpl() throws OWLException {
         OWLFunctionalObjectPropertyAxiomImpl testSubject0 = new OWLFunctionalObjectPropertyAxiomImpl(
                 Utils.mockObjectProperty(),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
@@ -1257,7 +1258,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLHasKeyAxiomImpl() throws Exception {
+    public void shouldTestOWLHasKeyAxiomImpl() throws OWLException {
         OWLHasKeyAxiomImpl testSubject0 = new OWLHasKeyAxiomImpl(Utils.mockAnonClass(),
                 new HashSet<OWLPropertyExpression>(),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
@@ -1297,7 +1298,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLImportsDeclarationImpl() throws Exception {
+    public void shouldTestOWLImportsDeclarationImpl() throws OWLException {
         OWLImportsDeclarationImpl testSubject0 = new OWLImportsDeclarationImpl(
                 IRI("urn:aFake"));
         String result0 = testSubject0.toString();
@@ -1306,7 +1307,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLIndividualAxiomImpl() throws Exception {
+    public void shouldTestOWLIndividualAxiomImpl() throws OWLException {
         OWLIndividualAxiomImpl testSubject0 = new OWLIndividualAxiomImpl(
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
             /**
@@ -1379,7 +1380,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLIndividualImpl() throws Exception {
+    public void shouldTestOWLIndividualImpl() throws OWLException {
         OWLIndividualImpl testSubject0 = new OWLIndividualImpl() {
             /**
              * 
@@ -1459,7 +1460,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLIndividualRelationshipAxiomImpl() throws Exception {
+    public void shouldTestOWLIndividualRelationshipAxiomImpl() throws OWLException {
         OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLPropertyAssertionObject> testSubject0 = new OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLPropertyAssertionObject>(
                 mock(OWLIndividual.class), Utils.mockObjectProperty(),
                 mock(OWLPropertyAssertionObject.class),
@@ -1538,7 +1539,8 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLInverseFunctionalObjectPropertyAxiomImpl() throws Exception {
+    public void shouldTestOWLInverseFunctionalObjectPropertyAxiomImpl()
+            throws OWLException {
         OWLInverseFunctionalObjectPropertyAxiomImpl testSubject0 = new OWLInverseFunctionalObjectPropertyAxiomImpl(
                 Utils.mockObjectProperty(),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
@@ -1554,7 +1556,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLInverseObjectPropertiesAxiomImpl() throws Exception {
+    public void shouldTestOWLInverseObjectPropertiesAxiomImpl() throws OWLException {
         OWLInverseObjectPropertiesAxiomImpl testSubject0 = new OWLInverseObjectPropertiesAxiomImpl(
                 Utils.mockObjectProperty(), Utils.mockObjectProperty(),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
@@ -1596,7 +1598,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLIrreflexiveObjectPropertyAxiomImpl() throws Exception {
+    public void shouldTestOWLIrreflexiveObjectPropertyAxiomImpl() throws OWLException {
         OWLIrreflexiveObjectPropertyAxiomImpl testSubject0 = new OWLIrreflexiveObjectPropertyAxiomImpl(
                 Utils.mockObjectProperty(),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
@@ -1635,7 +1637,7 @@ public class ContractOwlapi_2Test {
 
     @Ignore
     @Test
-    public void shouldTestOWLLiteralImpl() throws Exception {
+    public void shouldTestOWLLiteralImpl() throws OWLException {
         OWLLiteralImpl testSubject0 = new OWLLiteralImpl("", "", mock(OWLDatatype.class));
         boolean result0 = testSubject0.parseBoolean();
         float result1 = testSubject0.parseFloat();
@@ -1671,7 +1673,7 @@ public class ContractOwlapi_2Test {
 
     @Ignore
     @Test
-    public void shouldTestOWLLiteralImplBoolean() throws Exception {
+    public void shouldTestOWLLiteralImplBoolean() throws OWLException {
         OWLLiteralImplBoolean testSubject0 = new OWLLiteralImplBoolean(false, Factory
                 .getFactory().getBooleanOWLDatatype());
         boolean result1 = testSubject0.parseBoolean();
@@ -1707,27 +1709,27 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLLiteralImplDouble() throws Exception {
+    public void shouldTestOWLLiteralImplDouble() throws OWLException {
         OWLLiteralImplDouble testSubject0 = new OWLLiteralImplDouble(0D,
                 mock(OWLDatatype.class));
     }
 
     @Test
-    public void shouldTestOWLLiteralImplFloat() throws Exception {
+    public void shouldTestOWLLiteralImplFloat() throws OWLException {
         OWLLiteralImplFloat testSubject0 = new OWLLiteralImplFloat(0F,
                 mock(OWLDatatype.class));
         float result2 = testSubject0.parseFloat();
     }
 
     @Test
-    public void shouldTestOWLLiteralImplInteger() throws Exception {
+    public void shouldTestOWLLiteralImplInteger() throws OWLException {
         OWLLiteralImplInteger testSubject0 = new OWLLiteralImplInteger(0,
                 mock(OWLDatatype.class));
         boolean result13 = testSubject0.isInteger();
     }
 
     @Test
-    public void shouldTestOWLLogicalAxiomImpl() throws Exception {
+    public void shouldTestOWLLogicalAxiomImpl() throws OWLException {
         OWLLogicalAxiomImpl testSubject0 = new OWLLogicalAxiomImpl(
                 new ArrayList<OWLAnnotation>()) {
             private static final long serialVersionUID = 40000L;
@@ -1797,7 +1799,7 @@ public class ContractOwlapi_2Test {
     }
 
     @Test
-    public void shouldTestOWLNamedIndividualImpl() throws Exception {
+    public void shouldTestOWLNamedIndividualImpl() throws OWLException {
         OWLNamedIndividualImpl testSubject0 = new OWLNamedIndividualImpl(IRI("urn:aFake"));
         Object result2 = testSubject0.accept(Utils.mockIndividual());
         testSubject0.accept(mock(OWLObjectVisitor.class));

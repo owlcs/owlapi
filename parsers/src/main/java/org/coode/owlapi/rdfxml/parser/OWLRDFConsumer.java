@@ -280,7 +280,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         individualListTranslator = new OptimisedListTranslator<OWLIndividual>(this,
                 new IndividualListItemTranslator(this));
         constantListTranslator = new OptimisedListTranslator<OWLLiteral>(this,
-                new TypedConstantListItemTranslator(this));
+                new TypedConstantListItemTranslator());
         objectPropertyListTranslator = new OptimisedListTranslator<OWLObjectPropertyExpression>(
                 this, new ObjectPropertyListItemTranslator(this));
         dataPropertyListTranslator = new OptimisedListTranslator<OWLDataPropertyExpression>(

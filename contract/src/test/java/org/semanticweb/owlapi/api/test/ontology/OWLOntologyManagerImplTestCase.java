@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
@@ -71,7 +72,7 @@ public class OWLOntologyManagerImplTestCase {
     }
 
     @Test
-    public void testContains() throws Exception {
+    public void testContains() throws OWLOntologyCreationException {
         OWLOntology ont = manager.createOntology(TestUtils.createIRI());
         assertTrue(manager.contains(ont.getOntologyID()));
         assertNotNull("ontology should not be null",
@@ -83,7 +84,7 @@ public class OWLOntologyManagerImplTestCase {
     }
 
     @Test
-    public void testImports() throws Exception {
+    public void testImports() throws OWLOntologyCreationException {
         OWLOntology ontA = manager.createOntology(TestUtils.createIRI());
         OWLOntology ontB = manager.createOntology(TestUtils.createIRI());
         OWLImportsDeclaration decl = manager.getOWLDataFactory()

@@ -40,6 +40,7 @@ package com.clarkparsia.owlapi.explanation;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
@@ -95,7 +96,7 @@ public abstract class SingleExplanationGeneratorImpl implements
     @Override
     public void beginTransaction() {
         if (inTransaction) {
-            throw new RuntimeException("Already in transaction");
+            throw new OWLRuntimeException("Already in transaction");
         }
         inTransaction = true;
     }
@@ -103,7 +104,7 @@ public abstract class SingleExplanationGeneratorImpl implements
     @Override
     public void endTransaction() {
         if (!inTransaction) {
-            throw new RuntimeException("Cannot end transaction");
+            throw new OWLRuntimeException("Cannot end transaction");
         }
         inTransaction = false;
     }

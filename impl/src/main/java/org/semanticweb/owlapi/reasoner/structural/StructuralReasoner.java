@@ -117,7 +117,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     private final ClassHierarchyInfo classHierarchyInfo = new ClassHierarchyInfo();
     private final ObjectPropertyHierarchyInfo objectPropertyHierarchyInfo = new ObjectPropertyHierarchyInfo();
     private final DataPropertyHierarchyInfo dataPropertyHierarchyInfo = new DataPropertyHierarchyInfo();
-    private static final Version version = new Version(1, 0, 0, 0);
+    private static final Version VERSION = new Version(1, 0, 0, 0);
     private boolean interrupted = false;
     protected final ReasonerProgressMonitor pm;
     private boolean prepared = false;
@@ -153,7 +153,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     @Override
     public Version getReasonerVersion() {
-        return version;
+        return VERSION;
     }
 
     @Override

@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -56,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ObjectPropertyChainRoundTrippingTestCase extends
         AbstractRoundTrippingTestCase {
     @Override
-    protected OWLOntology createOntology() {
+    protected OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("OntA");
         OWLObjectProperty propA = ObjectProperty(getIRI("propA"));
         OWLObjectProperty propB = ObjectProperty(getIRI("propB"));

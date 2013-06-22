@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
@@ -76,10 +77,10 @@ public class SubClassOfUntypedSomeValuesFromTestCase extends AbstractFileTestCas
     }
 
     @Test
-    public void testParsedAxioms() {
+    public void testParsedAxioms() throws OWLOntologyCreationException {
         OWLOntology ontology = createOntology();
         Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
-        assertTrue(axioms.size() == 1);
+        assertEquals(1, axioms.size());
         OWLSubClassOfAxiom ax = axioms.iterator().next();
         OWLClass subCls = Class(SUBCLASS_IRI);
         assertEquals(subCls, ax.getSubClass());

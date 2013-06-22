@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Author: Matthew Horridge<br>
@@ -65,7 +66,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testOWLClassDeclarationAxiom() throws Exception {
+    public void testOWLClassDeclarationAxiom() throws OWLOntologyCreationException {
         OWLClass cls = Class(TestUtils.createIRI());
         OWLAxiom ax = Declaration(cls);
         OWLOntologyManager man = getManager();
@@ -75,7 +76,8 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase 
     }
 
     @Test
-    public void testOWLObjectPropertyDeclarationAxiom() throws Exception {
+    public void testOWLObjectPropertyDeclarationAxiom()
+            throws OWLOntologyCreationException {
         OWLObjectProperty prop = ObjectProperty(TestUtils.createIRI());
         OWLAxiom ax = Declaration(prop);
         OWLOntologyManager man = getManager();
@@ -85,7 +87,7 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase 
     }
 
     @Test
-    public void testOWLDataPropertyDeclarationAxiom() throws Exception {
+    public void testOWLDataPropertyDeclarationAxiom() throws OWLOntologyCreationException {
         OWLDataProperty prop = DataProperty(TestUtils.createIRI());
         OWLAxiom ax = Declaration(prop);
         OWLOntologyManager man = getManager();
@@ -95,7 +97,7 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase 
     }
 
     @Test
-    public void testOWLIndividualDeclarationAxiom() throws Exception {
+    public void testOWLIndividualDeclarationAxiom() throws OWLOntologyCreationException {
         OWLNamedIndividual ind = NamedIndividual(TestUtils.createIRI());
         OWLAxiom ax = Declaration(ind);
         OWLOntologyManager man = getManager();

@@ -53,7 +53,7 @@ public class TypedConstantListItemTranslator implements ListItemTranslator<OWLLi
     private static final Logger logger = Logger
             .getLogger(TypedConstantListItemTranslator.class.getName());
 
-    public TypedConstantListItemTranslator(OWLRDFConsumer consumer) {}
+    public TypedConstantListItemTranslator() {}
 
     @Override
     public OWLLiteral translate(IRI firstObject) {

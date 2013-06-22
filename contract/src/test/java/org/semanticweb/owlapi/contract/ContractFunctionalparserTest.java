@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -49,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLPropertyAxiom;
@@ -64,11 +67,12 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractFunctionalparserTest {
-    public void shouldTestJJTOWLFunctionalSyntaxParserState() throws Exception {
+    public void shouldTestJJTOWLFunctionalSyntaxParserState() {
         JJTOWLFunctionalSyntaxParserState testSubject0 = new JJTOWLFunctionalSyntaxParserState();
         testSubject0.reset();
         boolean result0 = testSubject0.nodeCreated();
@@ -85,7 +89,7 @@ public class ContractFunctionalparserTest {
     }
 
     @Test
-    public void shouldTestInterfaceNode() throws Exception {
+    public void shouldTestInterfaceNode() {
         Node testSubject0 = mock(Node.class);
         testSubject0.jjtOpen();
         testSubject0.jjtSetParent(mock(Node.class));
@@ -96,7 +100,9 @@ public class ContractFunctionalparserTest {
         int result2 = testSubject0.jjtGetNumChildren();
     }
 
-    public void shouldTestOWLFunctionalSyntaxOWLParser() throws Exception {
+    public void shouldTestOWLFunctionalSyntaxOWLParser()
+            throws OWLOntologyChangeException, UnloadableImportException,
+            OWLParserException, IOException {
         OWLFunctionalSyntaxOWLParser testSubject0 = new OWLFunctionalSyntaxOWLParser();
         OWLOntologyFormat result0 = testSubject0.parse(
                 mock(OWLOntologyDocumentSource.class), Utils.getMockOntology());
@@ -108,7 +114,8 @@ public class ContractFunctionalparserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestOWLFunctionalSyntaxParser() throws Exception {
+    public void shouldTestOWLFunctionalSyntaxParser() throws ParseException,
+            UnloadableImportException, OWLParserException, IOException {
         OWLFunctionalSyntaxParser testSubject0 = new OWLFunctionalSyntaxParser(
                 mock(OWLFunctionalSyntaxParserTokenManager.class));
         OWLFunctionalSyntaxParser testSubject1 = new OWLFunctionalSyntaxParser(
@@ -256,20 +263,19 @@ public class ContractFunctionalparserTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWLFunctionalSyntaxParserConstants() throws Exception {
+    public void shouldTestInterfaceOWLFunctionalSyntaxParserConstants() {
         OWLFunctionalSyntaxParserConstants testSubject0 = mock(OWLFunctionalSyntaxParserConstants.class);
     }
 
     @Test
-    public void shouldTestOWLFunctionalSyntaxParserFactory() throws Exception {
+    public void shouldTestOWLFunctionalSyntaxParserFactory() {
         OWLFunctionalSyntaxParserFactory testSubject0 = new OWLFunctionalSyntaxParserFactory();
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
         String result1 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestInterfaceOWLFunctionalSyntaxParserTreeConstants()
-            throws Exception {
+    public void shouldTestInterfaceOWLFunctionalSyntaxParserTreeConstants() {
         OWLFunctionalSyntaxParserTreeConstants testSubject0 = mock(OWLFunctionalSyntaxParserTreeConstants.class);
     }
 }

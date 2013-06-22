@@ -68,7 +68,7 @@ public class DefaultPrefixManagerTestCase {
         assertTrue(pm.containsPrefixMapping("rdfs:"));
         assertTrue(pm.containsPrefixMapping("xml:"));
         assertTrue(pm.containsPrefixMapping("xsd:"));
-        assertTrue(!pm.containsPrefixMapping(":"));
+        assertFalse(pm.containsPrefixMapping(":"));
         assertNull(pm.getDefaultPrefix());
     }
 

@@ -60,7 +60,9 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
@@ -111,7 +113,8 @@ public abstract class AbstractRendererAndParser {
     }
 
     @Test
-    public void testSaveAndReload() throws Exception {
+    public void testSaveAndReload() throws OWLOntologyCreationException,
+            OWLOntologyStorageException {
         OWLOntology ontA = man.createOntology(IRI("http://rdfxmltests/ontology"));
         for (OWLAxiom ax : getAxioms()) {
             man.applyChange(new AddAxiom(ontA, ax));

@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -55,7 +56,7 @@ import org.semanticweb.owlapi.util.Version;
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractReasonerImplTest {
     @Test
-    public void shouldTestDefaultNode() throws Exception {
+    public void shouldTestDefaultNode() throws OWLException {
         DefaultNode<OWLObject> testSubject0 = new DefaultNode<OWLObject>(
                 mock(OWLObject.class)) {
             @Override
@@ -95,7 +96,7 @@ public class ContractReasonerImplTest {
         OWLObject result11 = testSubject0.getRepresentativeElement();
     }
 
-    public void shouldTestDefaultNodeSet() throws Exception {
+    public void shouldTestDefaultNodeSet() throws OWLException {
         DefaultNodeSet<OWLObject> testSubject0 = new DefaultNodeSet<OWLObject>(
                 mock(OWLObject.class)) {
             @Override
@@ -158,7 +159,7 @@ public class ContractReasonerImplTest {
     }
 
     @Test
-    public void shouldTestNodeFactory() throws Exception {
+    public void shouldTestNodeFactory() throws OWLException {
         NodeFactory testSubject0 = new NodeFactory();
         DefaultNode<OWLClass> result0 = NodeFactory.getOWLClassNode();
         DefaultNode<OWLClass> result1 = NodeFactory.getOWLClassNode(mock(OWLClass.class));
@@ -194,7 +195,7 @@ public class ContractReasonerImplTest {
     }
 
     @Test
-    public void shouldTestOWLClassNode() throws Exception {
+    public void shouldTestOWLClassNode() throws OWLException {
         OWLClassNode testSubject0 = new OWLClassNode(mock(OWLClass.class));
         OWLClassNode testSubject1 = new OWLClassNode();
         OWLClassNode testSubject2 = new OWLClassNode(Utils.mockSet(mock(OWLClass.class)));
@@ -216,7 +217,7 @@ public class ContractReasonerImplTest {
     }
 
     @Test
-    public void shouldTestOWLClassNodeSet() throws Exception {
+    public void shouldTestOWLClassNodeSet() throws OWLException {
         OWLClassNodeSet testSubject0 = new OWLClassNodeSet();
         OWLClassNodeSet testSubject1 = new OWLClassNodeSet(mock(OWLClass.class));
         OWLClassNodeSet testSubject2 = new OWLClassNodeSet(mock(Node.class));
@@ -239,7 +240,7 @@ public class ContractReasonerImplTest {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyNode() throws Exception {
+    public void shouldTestOWLDataPropertyNode() throws OWLException {
         OWLDataPropertyNode testSubject0 = new OWLDataPropertyNode();
         OWLDataPropertyNode testSubject1 = new OWLDataPropertyNode(
                 Utils.mockSet(mock(OWLDataProperty.class)));
@@ -264,7 +265,7 @@ public class ContractReasonerImplTest {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyNodeSet() throws Exception {
+    public void shouldTestOWLDataPropertyNodeSet() throws OWLException {
         OWLDataPropertyNodeSet testSubject0 = new OWLDataPropertyNodeSet();
         OWLDataPropertyNodeSet testSubject1 = new OWLDataPropertyNodeSet(
                 mock(OWLDataProperty.class));
@@ -289,7 +290,7 @@ public class ContractReasonerImplTest {
     }
 
     @Test
-    public void shouldTestOWLDatatypeNode() throws Exception {
+    public void shouldTestOWLDatatypeNode() throws OWLException {
         OWLDatatypeNode testSubject0 = new OWLDatatypeNode();
         OWLDatatypeNode testSubject1 = new OWLDatatypeNode(mock(OWLDatatype.class));
         OWLDatatypeNode testSubject2 = new OWLDatatypeNode(
@@ -310,7 +311,7 @@ public class ContractReasonerImplTest {
     }
 
     @Test
-    public void shouldTestOWLDatatypeNodeSet() throws Exception {
+    public void shouldTestOWLDatatypeNodeSet() throws OWLException {
         OWLDatatypeNodeSet testSubject0 = new OWLDatatypeNodeSet();
         OWLDatatypeNodeSet testSubject1 = new OWLDatatypeNodeSet(mock(OWLDatatype.class));
         OWLDatatypeNodeSet testSubject2 = new OWLDatatypeNodeSet(mock(Node.class));
@@ -333,7 +334,7 @@ public class ContractReasonerImplTest {
     }
 
     @Test
-    public void shouldTestOWLNamedIndividualNode() throws Exception {
+    public void shouldTestOWLNamedIndividualNode() throws OWLException {
         OWLNamedIndividualNode testSubject0 = new OWLNamedIndividualNode();
         OWLNamedIndividualNode testSubject1 = new OWLNamedIndividualNode(
                 mock(OWLNamedIndividual.class));
@@ -356,7 +357,7 @@ public class ContractReasonerImplTest {
     }
 
     @Test
-    public void shouldTestOWLNamedIndividualNodeSet() throws Exception {
+    public void shouldTestOWLNamedIndividualNodeSet() throws OWLException {
         OWLNamedIndividualNodeSet testSubject0 = new OWLNamedIndividualNodeSet();
         OWLNamedIndividualNodeSet testSubject1 = new OWLNamedIndividualNodeSet(
                 mock(OWLNamedIndividual.class));
@@ -382,7 +383,7 @@ public class ContractReasonerImplTest {
     }
 
     @Test
-    public void shouldTestOWLObjectPropertyNode() throws Exception {
+    public void shouldTestOWLObjectPropertyNode() throws OWLException {
         OWLObjectPropertyNode testSubject0 = new OWLObjectPropertyNode();
         OWLObjectPropertyNode testSubject1 = new OWLObjectPropertyNode(
                 Utils.mockSet(Utils.mockObjectProperty()));
@@ -407,7 +408,7 @@ public class ContractReasonerImplTest {
     }
 
     @Test
-    public void shouldTestOWLObjectPropertyNodeSet() throws Exception {
+    public void shouldTestOWLObjectPropertyNodeSet() throws OWLException {
         OWLObjectPropertyNodeSet testSubject0 = new OWLObjectPropertyNodeSet();
         OWLObjectPropertyNodeSet testSubject1 = new OWLObjectPropertyNodeSet(
                 Utils.mockObjectProperty());
@@ -433,7 +434,7 @@ public class ContractReasonerImplTest {
     }
 
     @Test
-    public void shouldTestOWLReasonerBase() throws Exception {
+    public void shouldTestOWLReasonerBase() throws OWLException {
         OWLReasonerBase testSubject0 = new OWLReasonerBase(Utils.getMockOntology(),
                 mock(OWLReasonerConfiguration.class), BufferingMode.NON_BUFFERING) {
             @Override

@@ -101,6 +101,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -116,7 +117,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     protected final LocalityClass localityCls;
     private final AxiomLocalityVisitor axiomVisitor;
-    private static final EnumSet<LocalityClass> supportedLocalityClasses = EnumSet.of(
+    private static final EnumSet<LocalityClass> SUPPORTED_LOCALITY_CLASSES = EnumSet.of(
             LocalityClass.TOP_BOTTOM, LocalityClass.BOTTOM_BOTTOM, LocalityClass.TOP_TOP);
 
     /** Constructs a new locality evaluator for the given locality class.
@@ -126,8 +127,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     public SyntacticLocalityEvaluator(LocalityClass localityClass) {
         localityCls = localityClass;
         axiomVisitor = new AxiomLocalityVisitor();
-        if (!supportedLocalityClasses.contains(localityClass)) {
-            throw new RuntimeException("Unsupported locality class: " + localityClass);
+        if (!SUPPORTED_LOCALITY_CLASSES.contains(localityClass)) {
+            throw new OWLRuntimeException("Unsupported locality class: " + localityClass);
         }
     }
 
@@ -135,7 +136,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * 
      * @return a set containing all supported locality classes */
     public Set<LocalityClass> supportedLocalityClasses() {
-        return supportedLocalityClasses;
+        return SUPPORTED_LOCALITY_CLASSES;
     }
 
     /** This is a convenience method for determining whether a given data range

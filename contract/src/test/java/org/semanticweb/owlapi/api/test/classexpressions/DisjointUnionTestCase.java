@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
@@ -60,11 +60,11 @@ public class DisjointUnionTestCase {
      * @throws OWLOntologyCreationException
      * @throws OWLOntologyStorageException */
     @Test
-    public void testDisjointUnion() throws Exception {
+    public void testDisjointUnion() throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager.createOntology(IRI(NS));
         manager.addAxiom(ontology, DisjointUnion(A, B, C));
-        assertTrue(ontology.getDisjointUnionAxioms(A).size() == 1);
-        assertTrue(ontology.getDisjointUnionAxioms(B).size() == 0);
+        assertEquals(1, ontology.getDisjointUnionAxioms(A).size());
+        assertTrue(ontology.getDisjointUnionAxioms(B).isEmpty());
     }
 }

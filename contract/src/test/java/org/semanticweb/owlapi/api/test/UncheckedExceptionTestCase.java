@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class UncheckedExceptionTestCase {
     @Test(expected = OWLOntologyCreationException.class)
-    public void testLoad() throws Exception {
+    public void testLoad() throws OWLOntologyCreationException {
         OWLOntologyManager m = Factory.getManager();
         m.loadOntology(IRI("http://rest.bioontology.org/bioportal/virtual/download/1005"));
     }

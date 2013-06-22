@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -14,7 +15,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.coode.owlapi.owlxml.renderer.OWLXMLObjectRenderer;
-import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorageException;
 import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
 import org.coode.owlapi.owlxml.renderer.OWLXMLRenderer;
 import org.coode.owlapi.owlxml.renderer.OWLXMLWriter;
@@ -61,6 +61,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
 import uk.ac.manchester.cs.bhig.util.NodeRenderer;
@@ -83,12 +84,12 @@ import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractSmallsTest {
     @Test
-    public void shouldTestInterfaceRDFConstants() throws Exception {
+    public void shouldTestInterfaceRDFConstants() throws OWLException {
         RDFConstants testSubject0 = mock(RDFConstants.class);
     }
 
     @Test
-    public void shouldTestEscapeUtils() throws Exception {
+    public void shouldTestEscapeUtils() throws OWLException {
         EscapeUtils testSubject0 = new EscapeUtils();
         String result1 = EscapeUtils.escapeString("");
         String result2 = EscapeUtils.unescapeString("");
@@ -96,7 +97,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestInterfaceOntologySegmenter() throws Exception {
+    public void shouldTestInterfaceOntologySegmenter() throws OWLException {
         OntologySegmenter testSubject0 = mock(OntologySegmenter.class);
         Set<OWLAxiom> result0 = testSubject0
                 .extract(Utils.mockSet(Utils.mockOWLEntity()));
@@ -111,7 +112,7 @@ public class ContractSmallsTest {
 
     @Ignore
     @Test
-    public void shouldTestConciseExplanationRenderer() throws Exception {
+    public void shouldTestConciseExplanationRenderer() throws OWLException, IOException {
         ConciseExplanationRenderer testSubject0 = new ConciseExplanationRenderer();
         testSubject0.render(mock(OWLAxiom.class), Utils.mockSetSetAxiom());
         testSubject0.startRendering(mock(Writer.class));
@@ -120,7 +121,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestInterfaceExplanationRenderer() throws Exception {
+    public void shouldTestInterfaceExplanationRenderer() throws OWLException, IOException {
         // this test enforces interfaces
         ExplanationRenderer testSubject0 = mock(ExplanationRenderer.class);
         testSubject0.render(mock(OWLAxiom.class), Utils.mockSetSetAxiom());
@@ -129,7 +130,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestSilentExplanationRenderer() throws Exception {
+    public void shouldTestSilentExplanationRenderer() throws OWLException, IOException {
         SilentExplanationRenderer testSubject0 = new SilentExplanationRenderer();
         testSubject0.render(mock(OWLAxiom.class), Utils.mockSetSetAxiom());
         testSubject0.startRendering(mock(Writer.class));
@@ -138,21 +139,21 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestLocalityClass() throws Exception {
+    public void shouldTestLocalityClass() throws OWLException {
         LocalityClass testSubject0 = LocalityClass.BOTTOM_BOTTOM;
         LocalityClass testSubject1 = LocalityClass.TOP_BOTTOM;
         LocalityClass testSubject2 = LocalityClass.TOP_TOP;
     }
 
     @Test
-    public void shouldTestInterfaceLocalityEvaluator() throws Exception {
+    public void shouldTestInterfaceLocalityEvaluator() throws OWLException {
         LocalityEvaluator testSubject0 = mock(LocalityEvaluator.class);
         boolean result0 = testSubject0.isLocal(mock(OWLAxiom.class),
                 Utils.mockSet(Utils.mockOWLEntity()));
     }
 
     @Test
-    public void shouldTestSemanticLocalityEvaluator() throws Exception {
+    public void shouldTestSemanticLocalityEvaluator() throws OWLException {
         SemanticLocalityEvaluator testSubject0 = new SemanticLocalityEvaluator(
                 Utils.getMockManager(), mock(OWLReasonerFactory.class));
         boolean result0 = testSubject0.isLocal(mock(OWLAxiom.class),
@@ -161,7 +162,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestSyntacticLocalityEvaluator() throws Exception {
+    public void shouldTestSyntacticLocalityEvaluator() throws OWLException {
         SyntacticLocalityEvaluator testSubject0 = new SyntacticLocalityEvaluator(
                 LocalityClass.BOTTOM_BOTTOM);
         boolean result0 = testSubject0.isLocal(mock(OWLAxiom.class),
@@ -171,7 +172,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestModuleType() throws Exception {
+    public void shouldTestModuleType() throws OWLException {
         ModuleType testSubject0 = ModuleType.BOT;
         String result0 = testSubject0.toString();
         ModuleType[] result1 = ModuleType.values();
@@ -180,7 +181,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestSyntacticLocalityModuleExtractor() throws Exception {
+    public void shouldTestSyntacticLocalityModuleExtractor() throws OWLException {
         SyntacticLocalityModuleExtractor testSubject0 = new SyntacticLocalityModuleExtractor(
                 Utils.getMockManager(), Utils.getMockOntology(),
                 Utils.mockSet(mock(OWLAxiom.class)), ModuleType.BOT);
@@ -204,7 +205,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestDefinitionTracker() throws Exception {
+    public void shouldTestDefinitionTracker() throws OWLException {
         DefinitionTracker testSubject0 = new DefinitionTracker(Utils.getMockOntology());
         boolean result0 = testSubject0.isDefined(Utils.mockOWLEntity());
         boolean result1 = testSubject0.isDefined(Utils.mockAnonClass());
@@ -213,7 +214,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestInterfaceExplanationProgressMonitor() throws Exception {
+    public void shouldTestInterfaceExplanationProgressMonitor() throws OWLException {
         ExplanationProgressMonitor testSubject0 = mock(ExplanationProgressMonitor.class);
         boolean result0 = testSubject0.isCancelled();
         testSubject0.foundExplanation(Utils.mockSet(mock(OWLAxiom.class)));
@@ -221,7 +222,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestOntologyUtils() throws Exception {
+    public void shouldTestOntologyUtils() throws OWLException {
         OntologyUtils testSubject0 = new OntologyUtils();
         OntologyUtils.addAxiom(mock(OWLAxiom.class),
                 Utils.mockSet(Utils.getMockOntology()), Utils.getMockManager());
@@ -233,7 +234,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestSilentExplanationProgressMonitor() throws Exception {
+    public void shouldTestSilentExplanationProgressMonitor() throws OWLException {
         SilentExplanationProgressMonitor testSubject0 = new SilentExplanationProgressMonitor();
         boolean result0 = testSubject0.isCancelled();
         testSubject0.foundExplanation(Utils.mockSet(mock(OWLAxiom.class)));
@@ -242,7 +243,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestRDFXMLNamespaceManager() throws Exception {
+    public void shouldTestRDFXMLNamespaceManager() throws OWLException {
         RDFXMLNamespaceManager testSubject0 = new RDFXMLNamespaceManager(
                 Utils.getMockManager(), Utils.getMockOntology());
         RDFXMLNamespaceManager testSubject1 = new RDFXMLNamespaceManager(
@@ -265,7 +266,7 @@ public class ContractSmallsTest {
 
     @Ignore
     @Test
-    public void shouldTestRDFXMLOntologyStorer() throws Exception {
+    public void shouldTestRDFXMLOntologyStorer() throws OWLException {
         RDFXMLOntologyStorer testSubject0 = new RDFXMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
@@ -277,7 +278,7 @@ public class ContractSmallsTest {
 
     @Ignore
     @Test
-    public void shouldTestMutableTree() throws Exception {
+    public void shouldTestMutableTree() throws OWLException {
         MutableTree<Object> testSubject0 = new MutableTree<Object>(mock(Object.class));
         String result0 = testSubject0.toString();
         Tree<Object> result1 = testSubject0.getParent();
@@ -301,13 +302,13 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestInterfaceNodeRenderer() throws Exception {
+    public void shouldTestInterfaceNodeRenderer() throws OWLException {
         NodeRenderer<Object> testSubject0 = mock(NodeRenderer.class);
         String result0 = testSubject0.render(mock(Tree.class));
     }
 
     @Test
-    public void shouldTestInterfaceTree() throws Exception {
+    public void shouldTestInterfaceTree() throws OWLException {
         Tree<Object> testSubject0 = mock(Tree.class);
         Tree<Object> result0 = testSubject0.getParent();
         Tree<Object> result1 = testSubject0.getRoot();
@@ -328,7 +329,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestNegationalNormalFormConverter() throws Exception {
+    public void shouldTestNegationalNormalFormConverter() throws OWLException {
         NegationalNormalFormConverter testSubject0 = new NegationalNormalFormConverter(
                 mock(OWLDataFactory.class));
         boolean result0 = testSubject0.isInNormalForm(Utils.mockAnonClass());
@@ -338,7 +339,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestInterfaceNormalFormRewriter() throws Exception {
+    public void shouldTestInterfaceNormalFormRewriter() throws OWLException {
         NormalFormRewriter testSubject0 = mock(NormalFormRewriter.class);
         boolean result0 = testSubject0.isInNormalForm(Utils.mockAnonClass());
         OWLClassExpression result1 = testSubject0.convertToNormalForm(Utils
@@ -346,7 +347,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestOWLObjectComplementOfExtractor() throws Exception {
+    public void shouldTestOWLObjectComplementOfExtractor() throws OWLException {
         OWLObjectComplementOfExtractor testSubject0 = new OWLObjectComplementOfExtractor();
         testSubject0.reset();
         Set<OWLClassExpression> result0 = testSubject0
@@ -356,7 +357,7 @@ public class ContractSmallsTest {
 
     @Ignore
     @Test
-    public void shouldTestTurtleOntologyFormat() throws Exception {
+    public void shouldTestTurtleOntologyFormat() throws OWLException {
         TurtleOntologyFormat testSubject0 = new TurtleOntologyFormat();
         String result0 = testSubject0.toString();
         RDFParserMetaData result1 = testSubject0.getOntologyLoaderMetaData();
@@ -388,7 +389,7 @@ public class ContractSmallsTest {
 
     @Ignore
     @Test
-    public void shouldTestTurtleOntologyStorer() throws Exception {
+    public void shouldTestTurtleOntologyStorer() throws OWLException {
         TurtleOntologyStorer testSubject0 = new TurtleOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
@@ -399,7 +400,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestInterfaceRDFConsumer() throws Exception {
+    public void shouldTestInterfaceRDFConsumer() throws OWLException, SAXException {
         RDFConsumer testSubject0 = mock(RDFConsumer.class);
         testSubject0.startModel("");
         testSubject0.endModel();
@@ -411,7 +412,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestRDFParserException() throws Exception {
+    public void shouldTestRDFParserException() throws OWLException {
         RDFParserException testSubject0 = new RDFParserException("");
         RDFParserException testSubject1 = new RDFParserException("", mock(Locator.class));
         RDFParserException testSubject2 = new RDFParserException("", "", "", 0, 0);
@@ -427,29 +428,15 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestOWLXMLObjectRenderer() throws Exception {
+    public void shouldTestOWLXMLObjectRenderer() throws OWLException {
         OWLXMLObjectRenderer testSubject0 = new OWLXMLObjectRenderer(
                 mock(OWLXMLWriter.class));
         String result0 = testSubject0.toString();
     }
 
-    @Test
-    public void shouldTestOWLXMLOntologyStorageException() throws Exception {
-        OWLXMLOntologyStorageException testSubject0 = new OWLXMLOntologyStorageException(
-                "");
-        OWLXMLOntologyStorageException testSubject1 = new OWLXMLOntologyStorageException(
-                "", new RuntimeException());
-        OWLXMLOntologyStorageException testSubject2 = new OWLXMLOntologyStorageException(
-                new RuntimeException());
-        Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
-        String result4 = testSubject0.getMessage();
-        String result5 = testSubject0.getLocalizedMessage();
-    }
-
     @Ignore
     @Test
-    public void shouldTestOWLXMLOntologyStorer() throws Exception {
+    public void shouldTestOWLXMLOntologyStorer() throws OWLException {
         OWLXMLOntologyStorer testSubject0 = new OWLXMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
@@ -460,7 +447,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestOWLXMLRenderer() throws Exception {
+    public void shouldTestOWLXMLRenderer() throws OWLException {
         OWLXMLRenderer testSubject0 = new OWLXMLRenderer();
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class),
                 mock(OWLOntologyFormat.class));
@@ -471,7 +458,7 @@ public class ContractSmallsTest {
 
     @Ignore
     @Test
-    public void shouldTestOWLXMLWriter() throws Exception {
+    public void shouldTestOWLXMLWriter() throws OWLException, IOException {
         OWLXMLWriter testSubject0 = new OWLXMLWriter(mock(Writer.class),
                 Utils.getMockOntology());
         testSubject0.startDocument(Utils.getMockOntology());
@@ -493,7 +480,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLDebugger() throws Exception {
+    public void shouldTestAbstractOWLDebugger() throws OWLException {
         AbstractOWLDebugger testSubject0 = new AbstractOWLDebugger(
                 Utils.getRealMockManager(), Utils.getMockOntology()) {
             @Override
@@ -525,7 +512,7 @@ public class ContractSmallsTest {
 
     @Ignore
     @Test
-    public void shouldTestBlackBoxOWLDebugger() throws Exception {
+    public void shouldTestBlackBoxOWLDebugger() throws OWLException {
         BlackBoxOWLDebugger testSubject0 = new BlackBoxOWLDebugger(
                 Utils.getRealMockManager(), Utils.getMockOntology(),
                 mock(OWLReasonerFactory.class));
@@ -543,7 +530,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestDebuggerClassExpressionGenerator() throws Exception {
+    public void shouldTestDebuggerClassExpressionGenerator() throws OWLException {
         DebuggerClassExpressionGenerator testSubject0 = new DebuggerClassExpressionGenerator(
                 mock(OWLDataFactory.class));
         OWLClassExpression result0 = testSubject0.getDebuggerClassExpression();
@@ -551,7 +538,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestJustificationMap() throws Exception {
+    public void shouldTestJustificationMap() throws OWLException {
         JustificationMap testSubject0 = new JustificationMap(Utils.mockAnonClass(),
                 Utils.mockSet(mock(OWLAxiom.class)));
         Set<OWLAxiom> result0 = testSubject0.getRootAxioms();
@@ -560,7 +547,7 @@ public class ContractSmallsTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWLDebugger() throws Exception {
+    public void shouldTestInterfaceOWLDebugger() throws OWLException {
         OWLDebugger testSubject0 = mock(OWLDebugger.class);
         testSubject0.dispose();
         OWLOntology result0 = testSubject0.getOWLOntology();

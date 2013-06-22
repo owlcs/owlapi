@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.ArrayList;
@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -63,7 +64,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 @SuppressWarnings("javadoc")
 public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testAddAxiom() {
+    public void testAddAxiom() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("OntA");
         OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange<?>> chgs = new ArrayList<OWLOntologyChange<?>>();
@@ -75,12 +76,12 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
             }
         });
         getManager().addAxiom(ont, ax);
-        assertTrue(chgs.size() == 1);
+        assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
 
     @Test
-    public void testAddAxioms() {
+    public void testAddAxioms() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("OntB");
         OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange<?>> chgs = new ArrayList<OWLOntologyChange<?>>();
@@ -92,12 +93,12 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
             }
         });
         getManager().addAxioms(ont, Collections.singleton(ax));
-        assertTrue(chgs.size() == 1);
+        assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
 
     @Test
-    public void testApplyChange() throws Exception {
+    public void testApplyChange() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("OntC");
         OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange<?>> chgs = new ArrayList<OWLOntologyChange<?>>();
@@ -109,12 +110,12 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
             }
         });
         getManager().applyChange(new AddAxiom(ont, ax));
-        assertTrue(chgs.size() == 1);
+        assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
 
     @Test
-    public void testApplyChanges() throws Exception {
+    public void testApplyChanges() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("OntD");
         OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange<?>> chgs = new ArrayList<OWLOntologyChange<?>>();
@@ -126,7 +127,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
             }
         });
         getManager().applyChanges(Arrays.asList(new AddAxiom(ont, ax)));
-        assertTrue(chgs.size() == 1);
+        assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
 }

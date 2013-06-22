@@ -34,26 +34,26 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings("javadoc")
 public class NullCheckTestCase {
-    private static final OWLDataFactory f = Factory.getFactory();
+    private static final OWLDataFactory DF = Factory.getFactory();
     OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
-    OWLDataPropertyExpression owldpe = f.getOWLDataProperty(IRI("urn:dp"));
-    OWLObjectPropertyExpression ope = f.getOWLObjectProperty(IRI("urn:op"));
+    OWLDataPropertyExpression owldpe = DF.getOWLDataProperty(IRI("urn:dp"));
+    OWLObjectPropertyExpression ope = DF.getOWLObjectProperty(IRI("urn:op"));
     IRI iri = IRI("urn:iri");
-    OWLLiteral lit = f.getOWLLiteral(true);
+    OWLLiteral lit = DF.getOWLLiteral(true);
     OWLAnnotationSubject owlannsubj = IRI("urn:i");
-    OWLDatatype owldatatype = f.getOWLDatatype(owl2datatype.getIRI());
+    OWLDatatype owldatatype = DF.getOWLDatatype(owl2datatype.getIRI());
     OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
-    OWLFacetRestriction[] lowlfacetrestriction = new OWLFacetRestriction[] { f
+    OWLFacetRestriction[] lowlfacetrestriction = new OWLFacetRestriction[] { DF
             .getOWLFacetRestriction(owlfacet, 1) };
-    OWLDataRange owldatarange = f.getOWLDatatypeRestriction(owldatatype,
+    OWLDataRange owldatarange = DF.getOWLDatatypeRestriction(owldatatype,
             lowlfacetrestriction);
-    OWLAnnotationProperty owlap = f.getOWLAnnotationProperty(IRI("urn:ap"));
-    OWLAnnotation owlannotation = f.getOWLAnnotation(owlap, lit);
+    OWLAnnotationProperty owlap = DF.getOWLAnnotationProperty(IRI("urn:ap"));
+    OWLAnnotation owlannotation = DF.getOWLAnnotation(owlap, lit);
     String string = "testString";
-    OWLClass owlclass = f.getOWLClass(IRI("urn:classexpression"));
+    OWLClass owlclass = DF.getOWLClass(IRI("urn:classexpression"));
     OWLClassExpression ce = owlclass;
     PrefixManager prefixmanager = new DefaultPrefixManager();
-    OWLIndividual ind = f.getOWLAnonymousIndividual();
+    OWLIndividual ind = DF.getOWLAnonymousIndividual();
     OWLAnnotationValue owlannvalue = lit;
     Set<OWLObjectPropertyExpression> setowlope = new HashSet<OWLObjectPropertyExpression>();
     Set<OWLObjectPropertyExpression> nullSetOWLOPE = getNullSet();
@@ -69,7 +69,7 @@ public class NullCheckTestCase {
     Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<OWLPropertyExpression>();
     Set<OWLPropertyExpression> nullsetowlpropertyexpression = getNullSet();
     OWLFacetRestriction[] nulllowlfacetrestriction = new OWLFacetRestriction[] {
-            f.getOWLFacetRestriction(owlfacet, 1), null };
+            DF.getOWLFacetRestriction(owlfacet, 1), null };
     Set<OWLClassExpression> setce = new HashSet<OWLClassExpression>();
     Set<OWLClassExpression> nullsetowlclassexpression = getNullSet();
     Set<OWLFacetRestriction> setowlfacetrestriction = new HashSet<OWLFacetRestriction>();
@@ -78,918 +78,918 @@ public class NullCheckTestCase {
     OWLPropertyExpression[] nullowlpropertyexpression = new OWLPropertyExpression[] { null };
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEntity0_2() {
-        f.getOWLEntity(null, iri);
+    public void testgetOWLEntity02() {
+        DF.getOWLEntity(null, iri);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEntity1_2() {
-        f.getOWLEntity(EntityType.CLASS, null);
+    public void testgetOWLEntity12() {
+        DF.getOWLEntity(EntityType.CLASS, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLClass0_1() {
-        f.getOWLClass(null);
+    public void testgetOWLClass01() {
+        DF.getOWLClass(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLClass0_2() {
-        f.getOWLClass(null, prefixmanager);
+    public void testgetOWLClass02() {
+        DF.getOWLClass(null, prefixmanager);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLClass1_2() {
-        f.getOWLClass(string, null);
+    public void testgetOWLClass12() {
+        DF.getOWLClass(string, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectProperty0_1() {
-        f.getOWLObjectProperty(null);
+    public void testgetOWLObjectProperty01() {
+        DF.getOWLObjectProperty(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectProperty0_2() {
-        f.getOWLObjectProperty(null, prefixmanager);
+    public void testgetOWLObjectProperty02() {
+        DF.getOWLObjectProperty(null, prefixmanager);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectProperty1_2() {
-        f.getOWLObjectProperty(string, null);
+    public void testgetOWLObjectProperty12() {
+        DF.getOWLObjectProperty(string, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectInverseOf0_1() {
-        f.getOWLObjectInverseOf(null);
+    public void testgetOWLObjectInverseOf01() {
+        DF.getOWLObjectInverseOf(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataProperty0_1() {
-        f.getOWLDataProperty(null);
+    public void testgetOWLDataProperty01() {
+        DF.getOWLDataProperty(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataProperty0_2() {
-        f.getOWLDataProperty(null, prefixmanager);
+    public void testgetOWLDataProperty02() {
+        DF.getOWLDataProperty(null, prefixmanager);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataProperty1_2() {
-        f.getOWLDataProperty(string, null);
+    public void testgetOWLDataProperty12() {
+        DF.getOWLDataProperty(string, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNamedIndividual0_1() {
-        f.getOWLNamedIndividual(null);
+    public void testgetOWLNamedIndividual01() {
+        DF.getOWLNamedIndividual(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNamedIndividual0_2() {
-        f.getOWLNamedIndividual(null, prefixmanager);
+    public void testgetOWLNamedIndividual02() {
+        DF.getOWLNamedIndividual(null, prefixmanager);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNamedIndividual1_2() {
-        f.getOWLNamedIndividual(string, null);
+    public void testgetOWLNamedIndividual12() {
+        DF.getOWLNamedIndividual(string, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnonymousIndividual0_1() {
-        f.getOWLAnonymousIndividual(null);
+    public void testgetOWLAnonymousIndividual01() {
+        DF.getOWLAnonymousIndividual(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationProperty0_1() {
-        f.getOWLAnnotationProperty(null);
+    public void testgetOWLAnnotationProperty01() {
+        DF.getOWLAnnotationProperty(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationProperty0_2() {
-        f.getOWLAnnotationProperty(null, prefixmanager);
+    public void testgetOWLAnnotationProperty02() {
+        DF.getOWLAnnotationProperty(null, prefixmanager);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationProperty1_2() {
-        f.getOWLAnnotationProperty(string, null);
+    public void testgetOWLAnnotationProperty12() {
+        DF.getOWLAnnotationProperty(string, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatype0_1() {
-        f.getOWLDatatype(null);
+    public void testgetOWLDatatype01() {
+        DF.getOWLDatatype(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatype0_2() {
-        f.getOWLDatatype(null, prefixmanager);
+    public void testgetOWLDatatype02() {
+        DF.getOWLDatatype(null, prefixmanager);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatype1_2() {
-        f.getOWLDatatype(string, null);
+    public void testgetOWLDatatype12() {
+        DF.getOWLDatatype(string, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLLiteral0_2() {
-        f.getOWLLiteral(null, owldatatype);
+    public void testgetOWLLiteral02() {
+        DF.getOWLLiteral(null, owldatatype);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLLiteral1_2_0() {
-        f.getOWLLiteral(string, (OWLDatatype) null);
+    public void testgetOWLLiteral120() {
+        DF.getOWLLiteral(string, (OWLDatatype) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLLiteral0_2_1() {
-        f.getOWLLiteral(null, owl2datatype);
+    public void testgetOWLLiteral021() {
+        DF.getOWLLiteral(null, owl2datatype);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLLiteral1_2_1() {
-        f.getOWLLiteral(string, (OWL2Datatype) null);
+    public void testgetOWLLiteral121() {
+        DF.getOWLLiteral(string, (OWL2Datatype) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLLiteral0_1_0() {
-        f.getOWLLiteral(null);
+    public void testgetOWLLiteral010() {
+        DF.getOWLLiteral(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLLiteral0_2_0() {
-        f.getOWLLiteral(null, string);
+    public void testgetOWLLiteral020() {
+        DF.getOWLLiteral(null, string);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataOneOf0_1_0() {
-        f.getOWLDataOneOf((OWLLiteral) null);
+    public void testgetOWLDataOneOf010() {
+        DF.getOWLDataOneOf((OWLLiteral) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataOneOf0_1_0_1() {
-        f.getOWLDataOneOf(lit, null);
+    public void testgetOWLDataOneOf0101() {
+        DF.getOWLDataOneOf(lit, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataOneOf0_1_1() {
-        f.getOWLDataOneOf((Set<OWLLiteral>) null);
+    public void testgetOWLDataOneOf011() {
+        DF.getOWLDataOneOf((Set<OWLLiteral>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataOneOf0_1_1_1() {
-        f.getOWLDataOneOf(this.<OWLLiteral> getNullSet());
+    public void testgetOWLDataOneOf0111() {
+        DF.getOWLDataOneOf(this.<OWLLiteral> getNullSet());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataComplementOf0_1() {
-        f.getOWLDataComplementOf(null);
+    public void testgetOWLDataComplementOf01() {
+        DF.getOWLDataComplementOf(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeRestriction0_2_0() {
-        f.getOWLDatatypeRestriction(null, setowlfacetrestriction);
+    public void testgetOWLDatatypeRestriction020() {
+        DF.getOWLDatatypeRestriction(null, setowlfacetrestriction);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeRestriction1_2_0() {
-        f.getOWLDatatypeRestriction(owldatatype, (OWLFacetRestriction) null);
+    public void testgetOWLDatatypeRestriction120() {
+        DF.getOWLDatatypeRestriction(owldatatype, (OWLFacetRestriction) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeRestriction1_2_0_1() {
-        f.getOWLDatatypeRestriction(owldatatype, nulllowlfacetrestriction);
+    public void testgetOWLDatatypeRestriction1201() {
+        DF.getOWLDatatypeRestriction(owldatatype, nulllowlfacetrestriction);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeRestriction0_3() {
-        f.getOWLDatatypeRestriction(null, owlfacet, lit);
+    public void testgetOWLDatatypeRestriction03() {
+        DF.getOWLDatatypeRestriction(null, owlfacet, lit);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeRestriction1_3() {
-        f.getOWLDatatypeRestriction(owldatatype, null, lit);
+    public void testgetOWLDatatypeRestriction13() {
+        DF.getOWLDatatypeRestriction(owldatatype, null, lit);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeRestriction2_3() {
-        f.getOWLDatatypeRestriction(owldatatype, owlfacet, null);
+    public void testgetOWLDatatypeRestriction23() {
+        DF.getOWLDatatypeRestriction(owldatatype, owlfacet, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeRestriction0_2() {
-        f.getOWLDatatypeRestriction(null, lowlfacetrestriction);
+    public void testgetOWLDatatypeRestriction02() {
+        DF.getOWLDatatypeRestriction(null, lowlfacetrestriction);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeRestriction1_2() {
-        f.getOWLDatatypeRestriction(owldatatype, (Set<OWLFacetRestriction>) null);
+    public void testgetOWLDatatypeRestriction12() {
+        DF.getOWLDatatypeRestriction(owldatatype, (Set<OWLFacetRestriction>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeRestriction1_2_1() {
-        f.getOWLDatatypeRestriction(owldatatype, nullsetowlfacetrestriction);
+    public void testgetOWLDatatypeRestriction121() {
+        DF.getOWLDatatypeRestriction(owldatatype, nullsetowlfacetrestriction);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFacetRestriction0_2_0() {
-        f.getOWLFacetRestriction(null, 1);
+    public void testgetOWLFacetRestriction020() {
+        DF.getOWLFacetRestriction(null, 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFacetRestriction1_2_0() {
-        f.getOWLFacetRestriction(owlfacet, null);
+    public void testgetOWLFacetRestriction120() {
+        DF.getOWLFacetRestriction(owlfacet, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFacetRestriction0_2_1() {
-        f.getOWLFacetRestriction(null, 1F);
+    public void testgetOWLFacetRestriction021() {
+        DF.getOWLFacetRestriction(null, 1F);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFacetRestriction1_2_1() {
-        f.getOWLFacetRestriction(owlfacet, null);
+    public void testgetOWLFacetRestriction121() {
+        DF.getOWLFacetRestriction(owlfacet, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFacetRestriction0_2_3() {
-        f.getOWLFacetRestriction(null, 1D);
+    public void testgetOWLFacetRestriction023() {
+        DF.getOWLFacetRestriction(null, 1D);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFacetRestriction1_2() {
-        f.getOWLFacetRestriction(owlfacet, null);
+    public void testgetOWLFacetRestriction12() {
+        DF.getOWLFacetRestriction(owlfacet, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFacetRestriction0_2_2() {
-        f.getOWLFacetRestriction(null, lit);
+    public void testgetOWLFacetRestriction022() {
+        DF.getOWLFacetRestriction(null, lit);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFacetRestriction1_2_3() {
-        f.getOWLFacetRestriction(owlfacet, null);
+    public void testgetOWLFacetRestriction123() {
+        DF.getOWLFacetRestriction(owlfacet, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataUnionOf0_1() {
-        f.getOWLDataUnionOf((OWLDataUnionOf) null);
+    public void testgetOWLDataUnionOf01() {
+        DF.getOWLDataUnionOf((OWLDataUnionOf) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataUnionOf0_1_1() {
-        f.getOWLDataUnionOf(owldatarange, null);
+    public void testgetOWLDataUnionOf011() {
+        DF.getOWLDataUnionOf(owldatarange, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataUnionOf0_1_0() {
-        f.getOWLDataUnionOf((Set<OWLDataUnionOf>) null);
+    public void testgetOWLDataUnionOf010() {
+        DF.getOWLDataUnionOf((Set<OWLDataUnionOf>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataUnionOf0_1_0_1() {
-        f.getOWLDataUnionOf(this.<OWLDataUnionOf> getNullSet());
+    public void testgetOWLDataUnionOf0101() {
+        DF.getOWLDataUnionOf(this.<OWLDataUnionOf> getNullSet());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataIntersectionOf0_1_0() {
-        f.getOWLDataIntersectionOf((OWLDataRange) null);
+    public void testgetOWLDataIntersectionOf010() {
+        DF.getOWLDataIntersectionOf((OWLDataRange) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataIntersectionOf0_1_0_1() {
-        f.getOWLDataIntersectionOf(owldatarange, null);
+    public void testgetOWLDataIntersectionOf0101() {
+        DF.getOWLDataIntersectionOf(owldatarange, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataIntersectionOf0_1_1() {
-        f.getOWLDataIntersectionOf((Set<OWLDataRange>) null);
+    public void testgetOWLDataIntersectionOf011() {
+        DF.getOWLDataIntersectionOf((Set<OWLDataRange>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataIntersectionOf0_1_1_1() {
-        f.getOWLDataIntersectionOf(this.<OWLDataRange> getNullSet());
+    public void testgetOWLDataIntersectionOf0111() {
+        DF.getOWLDataIntersectionOf(this.<OWLDataRange> getNullSet());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectIntersectionOf0_1_0() {
-        f.getOWLObjectIntersectionOf((OWLClassExpression) null);
+    public void testgetOWLObjectIntersectionOf010() {
+        DF.getOWLObjectIntersectionOf((OWLClassExpression) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectIntersectionOf0_1_1() {
-        f.getOWLObjectIntersectionOf((Set<OWLClassExpression>) null);
+    public void testgetOWLObjectIntersectionOf011() {
+        DF.getOWLObjectIntersectionOf((Set<OWLClassExpression>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectIntersectionOf0_1_0_1() {
-        f.getOWLObjectIntersectionOf(owlclass, null);
+    public void testgetOWLObjectIntersectionOf0101() {
+        DF.getOWLObjectIntersectionOf(owlclass, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectIntersectionOf0_1_1_1() {
-        f.getOWLObjectIntersectionOf(this.<OWLClassExpression> getNullSet());
+    public void testgetOWLObjectIntersectionOf0111() {
+        DF.getOWLObjectIntersectionOf(this.<OWLClassExpression> getNullSet());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataSomeValuesFrom0_2() {
-        f.getOWLDataSomeValuesFrom(null, owldatarange);
+    public void testgetOWLDataSomeValuesFrom02() {
+        DF.getOWLDataSomeValuesFrom(null, owldatarange);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataSomeValuesFrom1_2() {
-        f.getOWLDataSomeValuesFrom(owldpe, null);
+    public void testgetOWLDataSomeValuesFrom12() {
+        DF.getOWLDataSomeValuesFrom(owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataAllValuesFrom0_2() {
-        f.getOWLDataAllValuesFrom(null, owldatarange);
+    public void testgetOWLDataAllValuesFrom02() {
+        DF.getOWLDataAllValuesFrom(null, owldatarange);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataAllValuesFrom1_2() {
-        f.getOWLDataAllValuesFrom(owldpe, null);
+    public void testgetOWLDataAllValuesFrom12() {
+        DF.getOWLDataAllValuesFrom(owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataExactCardinality0_2() {
-        f.getOWLDataExactCardinality(-1, owldpe);
+    public void testgetOWLDataExactCardinality02() {
+        DF.getOWLDataExactCardinality(-1, owldpe);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataExactCardinality1_2() {
-        f.getOWLDataExactCardinality(1, null);
+    public void testgetOWLDataExactCardinality12() {
+        DF.getOWLDataExactCardinality(1, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataExactCardinality0_3() {
-        f.getOWLDataExactCardinality(-1, owldpe, owldatarange);
+    public void testgetOWLDataExactCardinality03() {
+        DF.getOWLDataExactCardinality(-1, owldpe, owldatarange);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataExactCardinality1_3() {
-        f.getOWLDataExactCardinality(1, null, owldatarange);
+    public void testgetOWLDataExactCardinality13() {
+        DF.getOWLDataExactCardinality(1, null, owldatarange);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataExactCardinality2_3() {
-        f.getOWLDataExactCardinality(1, owldpe, null);
+    public void testgetOWLDataExactCardinality23() {
+        DF.getOWLDataExactCardinality(1, owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataMaxCardinality0_2() {
-        f.getOWLDataMaxCardinality(-1, owldpe);
+    public void testgetOWLDataMaxCardinality02() {
+        DF.getOWLDataMaxCardinality(-1, owldpe);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataMaxCardinality1_2() {
-        f.getOWLDataMaxCardinality(1, null);
+    public void testgetOWLDataMaxCardinality12() {
+        DF.getOWLDataMaxCardinality(1, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataMaxCardinality0_3() {
-        f.getOWLDataMaxCardinality(-1, owldpe, owldatarange);
+    public void testgetOWLDataMaxCardinality03() {
+        DF.getOWLDataMaxCardinality(-1, owldpe, owldatarange);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataMaxCardinality1_3() {
-        f.getOWLDataMaxCardinality(1, null, owldatarange);
+    public void testgetOWLDataMaxCardinality13() {
+        DF.getOWLDataMaxCardinality(1, null, owldatarange);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataMaxCardinality2_3() {
-        f.getOWLDataMaxCardinality(1, owldpe, null);
+    public void testgetOWLDataMaxCardinality23() {
+        DF.getOWLDataMaxCardinality(1, owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataMinCardinality0_2() {
-        f.getOWLDataMinCardinality(-1, owldpe);
+    public void testgetOWLDataMinCardinality02() {
+        DF.getOWLDataMinCardinality(-1, owldpe);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataMinCardinality1_2() {
-        f.getOWLDataMinCardinality(1, null);
+    public void testgetOWLDataMinCardinality12() {
+        DF.getOWLDataMinCardinality(1, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataMinCardinality0_3() {
-        f.getOWLDataMinCardinality(-1, owldpe, owldatarange);
+    public void testgetOWLDataMinCardinality03() {
+        DF.getOWLDataMinCardinality(-1, owldpe, owldatarange);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataMinCardinality1_3() {
-        f.getOWLDataMinCardinality(1, null, owldatarange);
+    public void testgetOWLDataMinCardinality13() {
+        DF.getOWLDataMinCardinality(1, null, owldatarange);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataMinCardinality2_3() {
-        f.getOWLDataMinCardinality(1, owldpe, null);
+    public void testgetOWLDataMinCardinality23() {
+        DF.getOWLDataMinCardinality(1, owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataHasValue0_2() {
-        f.getOWLDataHasValue(null, lit);
+    public void testgetOWLDataHasValue02() {
+        DF.getOWLDataHasValue(null, lit);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataHasValue1_2() {
-        f.getOWLDataHasValue(owldpe, null);
+    public void testgetOWLDataHasValue12() {
+        DF.getOWLDataHasValue(owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectComplementOf0_1() {
-        f.getOWLObjectComplementOf(null);
+    public void testgetOWLObjectComplementOf01() {
+        DF.getOWLObjectComplementOf(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectOneOf0_1() {
-        f.getOWLObjectOneOf((OWLIndividual) null);
+    public void testgetOWLObjectOneOf01() {
+        DF.getOWLObjectOneOf((OWLIndividual) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectOneOf0_1_0() {
-        f.getOWLObjectOneOf((Set<OWLIndividual>) null);
+    public void testgetOWLObjectOneOf010() {
+        DF.getOWLObjectOneOf((Set<OWLIndividual>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectOneOf0_1_1() {
-        f.getOWLObjectOneOf(ind, null);
+    public void testgetOWLObjectOneOf011() {
+        DF.getOWLObjectOneOf(ind, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectOneOf0_1_0_1() {
-        f.getOWLObjectOneOf(this.<OWLIndividual> getNullSet());
+    public void testgetOWLObjectOneOf0101() {
+        DF.getOWLObjectOneOf(this.<OWLIndividual> getNullSet());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectAllValuesFrom0_2() {
-        f.getOWLObjectAllValuesFrom(null, ce);
+    public void testgetOWLObjectAllValuesFrom02() {
+        DF.getOWLObjectAllValuesFrom(null, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectAllValuesFrom1_2() {
-        f.getOWLObjectAllValuesFrom(ope, null);
+    public void testgetOWLObjectAllValuesFrom12() {
+        DF.getOWLObjectAllValuesFrom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectSomeValuesFrom0_2() {
-        f.getOWLObjectSomeValuesFrom(null, ce);
+    public void testgetOWLObjectSomeValuesFrom02() {
+        DF.getOWLObjectSomeValuesFrom(null, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectSomeValuesFrom1_2() {
-        f.getOWLObjectSomeValuesFrom(ope, null);
+    public void testgetOWLObjectSomeValuesFrom12() {
+        DF.getOWLObjectSomeValuesFrom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectExactCardinality0_2() {
-        f.getOWLObjectExactCardinality(-1, ope);
+    public void testgetOWLObjectExactCardinality02() {
+        DF.getOWLObjectExactCardinality(-1, ope);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectExactCardinality1_2() {
-        f.getOWLObjectExactCardinality(1, null);
+    public void testgetOWLObjectExactCardinality12() {
+        DF.getOWLObjectExactCardinality(1, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectExactCardinality0_3() {
-        f.getOWLObjectExactCardinality(-1, ope, ce);
+    public void testgetOWLObjectExactCardinality03() {
+        DF.getOWLObjectExactCardinality(-1, ope, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectExactCardinality1_3() {
-        f.getOWLObjectExactCardinality(1, null, ce);
+    public void testgetOWLObjectExactCardinality13() {
+        DF.getOWLObjectExactCardinality(1, null, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectExactCardinality2_3() {
-        f.getOWLObjectExactCardinality(1, ope, null);
+    public void testgetOWLObjectExactCardinality23() {
+        DF.getOWLObjectExactCardinality(1, ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectMinCardinality0_3() {
-        f.getOWLObjectMinCardinality(-1, ope, ce);
+    public void testgetOWLObjectMinCardinality03() {
+        DF.getOWLObjectMinCardinality(-1, ope, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectMinCardinality1_3() {
-        f.getOWLObjectMinCardinality(1, null, ce);
+    public void testgetOWLObjectMinCardinality13() {
+        DF.getOWLObjectMinCardinality(1, null, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectMinCardinality2_3() {
-        f.getOWLObjectMinCardinality(1, ope, null);
+    public void testgetOWLObjectMinCardinality23() {
+        DF.getOWLObjectMinCardinality(1, ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectMinCardinality0_2() {
-        f.getOWLObjectMinCardinality(-1, ope);
+    public void testgetOWLObjectMinCardinality02() {
+        DF.getOWLObjectMinCardinality(-1, ope);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectMinCardinality1_2() {
-        f.getOWLObjectMinCardinality(1, null);
+    public void testgetOWLObjectMinCardinality12() {
+        DF.getOWLObjectMinCardinality(1, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectMaxCardinality0_2() {
-        f.getOWLObjectMaxCardinality(-1, ope);
+    public void testgetOWLObjectMaxCardinality02() {
+        DF.getOWLObjectMaxCardinality(-1, ope);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectMaxCardinality1_2() {
-        f.getOWLObjectMaxCardinality(1, null);
+    public void testgetOWLObjectMaxCardinality12() {
+        DF.getOWLObjectMaxCardinality(1, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectMaxCardinality0_3() {
-        f.getOWLObjectMaxCardinality(-1, ope, ce);
+    public void testgetOWLObjectMaxCardinality03() {
+        DF.getOWLObjectMaxCardinality(-1, ope, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectMaxCardinality1_3() {
-        f.getOWLObjectMaxCardinality(1, null, ce);
+    public void testgetOWLObjectMaxCardinality13() {
+        DF.getOWLObjectMaxCardinality(1, null, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectMaxCardinality2_3() {
-        f.getOWLObjectMaxCardinality(1, ope, null);
+    public void testgetOWLObjectMaxCardinality23() {
+        DF.getOWLObjectMaxCardinality(1, ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectHasSelf0_1() {
-        f.getOWLObjectHasSelf(null);
+    public void testgetOWLObjectHasSelf01() {
+        DF.getOWLObjectHasSelf(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectHasValue0_2() {
-        f.getOWLObjectHasValue(null, ind);
+    public void testgetOWLObjectHasValue02() {
+        DF.getOWLObjectHasValue(null, ind);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectHasValue1_2() {
-        f.getOWLObjectHasValue(ope, null);
+    public void testgetOWLObjectHasValue12() {
+        DF.getOWLObjectHasValue(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectUnionOf0_1() {
-        f.getOWLObjectUnionOf((OWLClassExpression) null);
+    public void testgetOWLObjectUnionOf01() {
+        DF.getOWLObjectUnionOf((OWLClassExpression) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectUnionOf0_1_0() {
-        f.getOWLObjectUnionOf((Set<OWLClassExpression>) null);
+    public void testgetOWLObjectUnionOf010() {
+        DF.getOWLObjectUnionOf((Set<OWLClassExpression>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectUnionOf0_1_1() {
-        f.getOWLObjectUnionOf(owlclass, null);
+    public void testgetOWLObjectUnionOf011() {
+        DF.getOWLObjectUnionOf(owlclass, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectUnionOf0_1_0_1() {
-        f.getOWLObjectUnionOf(this.<OWLClassExpression> getNullSet());
+    public void testgetOWLObjectUnionOf0101() {
+        DF.getOWLObjectUnionOf(this.<OWLClassExpression> getNullSet());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDeclarationAxiom0_1() {
-        f.getOWLDeclarationAxiom(null);
+    public void testgetOWLDeclarationAxiom01() {
+        DF.getOWLDeclarationAxiom(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDeclarationAxiom0_2() {
-        f.getOWLDeclarationAxiom(null, setowlann);
+    public void testgetOWLDeclarationAxiom02() {
+        DF.getOWLDeclarationAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDeclarationAxiom1_2() {
-        f.getOWLDeclarationAxiom(owlclass, null);
+    public void testgetOWLDeclarationAxiom12() {
+        DF.getOWLDeclarationAxiom(owlclass, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDeclarationAxiom1_2_1() {
-        f.getOWLDeclarationAxiom(owlclass, nullsetowlann);
+    public void testgetOWLDeclarationAxiom121() {
+        DF.getOWLDeclarationAxiom(owlclass, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubClassOfAxiom0_2() {
-        f.getOWLSubClassOfAxiom(null, ce);
+    public void testgetOWLSubClassOfAxiom02() {
+        DF.getOWLSubClassOfAxiom(null, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubClassOfAxiom1_2() {
-        f.getOWLSubClassOfAxiom(ce, null);
+    public void testgetOWLSubClassOfAxiom12() {
+        DF.getOWLSubClassOfAxiom(ce, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubClassOfAxiom0_3() {
-        f.getOWLSubClassOfAxiom(null, ce, setowlann);
+    public void testgetOWLSubClassOfAxiom03() {
+        DF.getOWLSubClassOfAxiom(null, ce, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubClassOfAxiom1_3() {
-        f.getOWLSubClassOfAxiom(ce, null, setowlann);
+    public void testgetOWLSubClassOfAxiom13() {
+        DF.getOWLSubClassOfAxiom(ce, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubClassOfAxiom2_3() {
-        f.getOWLSubClassOfAxiom(ce, ce, null);
+    public void testgetOWLSubClassOfAxiom23() {
+        DF.getOWLSubClassOfAxiom(ce, ce, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubClassOfAxiom2_3_1() {
-        f.getOWLSubClassOfAxiom(ce, ce, nullsetowlann);
+    public void testgetOWLSubClassOfAxiom231() {
+        DF.getOWLSubClassOfAxiom(ce, ce, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentClassesAxiom0_2_0() {
-        f.getOWLEquivalentClassesAxiom(null, ce);
+    public void testgetOWLEquivalentClassesAxiom020() {
+        DF.getOWLEquivalentClassesAxiom(null, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentClassesAxiom1_2_0() {
-        f.getOWLEquivalentClassesAxiom(ce, null);
+    public void testgetOWLEquivalentClassesAxiom120() {
+        DF.getOWLEquivalentClassesAxiom(ce, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentClassesAxiom0_3() {
-        f.getOWLEquivalentClassesAxiom(null, ce, setowlann);
+    public void testgetOWLEquivalentClassesAxiom03() {
+        DF.getOWLEquivalentClassesAxiom(null, ce, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentClassesAxiom1_3() {
-        f.getOWLEquivalentClassesAxiom(ce, null, setowlann);
+    public void testgetOWLEquivalentClassesAxiom13() {
+        DF.getOWLEquivalentClassesAxiom(ce, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentClassesAxiom2_3() {
-        f.getOWLEquivalentClassesAxiom(ce, ce, null);
+    public void testgetOWLEquivalentClassesAxiom23() {
+        DF.getOWLEquivalentClassesAxiom(ce, ce, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentClassesAxiom2_3_1() {
-        f.getOWLEquivalentClassesAxiom(ce, ce, nullsetowlann);
+    public void testgetOWLEquivalentClassesAxiom231() {
+        DF.getOWLEquivalentClassesAxiom(ce, ce, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentClassesAxiom0_1_0() {
-        f.getOWLEquivalentClassesAxiom((OWLClassExpression) null);
+    public void testgetOWLEquivalentClassesAxiom010() {
+        DF.getOWLEquivalentClassesAxiom((OWLClassExpression) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentClassesAxiom0_2_1() {
-        f.getOWLEquivalentClassesAxiom(null, setowlann);
+    public void testgetOWLEquivalentClassesAxiom021() {
+        DF.getOWLEquivalentClassesAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentClassesAxiom0_2_1_1() {
-        f.getOWLEquivalentClassesAxiom(nullsetowlclassexpression, setowlann);
+    public void testgetOWLEquivalentClassesAxiom0211() {
+        DF.getOWLEquivalentClassesAxiom(nullsetowlclassexpression, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentClassesAxiom1_2_1() {
-        f.getOWLEquivalentClassesAxiom(setce, null);
+    public void testgetOWLEquivalentClassesAxiom121() {
+        DF.getOWLEquivalentClassesAxiom(setce, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentClassesAxiom1_2_1_1() {
-        f.getOWLEquivalentClassesAxiom(setce, nullsetowlann);
+    public void testgetOWLEquivalentClassesAxiom1211() {
+        DF.getOWLEquivalentClassesAxiom(setce, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentClassesAxiom0_1_1() {
-        f.getOWLEquivalentClassesAxiom((Set<OWLClassExpression>) null);
+    public void testgetOWLEquivalentClassesAxiom011() {
+        DF.getOWLEquivalentClassesAxiom((Set<OWLClassExpression>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointClassesAxiom0_2() {
-        f.getOWLDisjointClassesAxiom(null, setowlann);
+    public void testgetOWLDisjointClassesAxiom02() {
+        DF.getOWLDisjointClassesAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointClassesAxiom0_2_1() {
-        f.getOWLDisjointClassesAxiom(nullsetowlclassexpression, setowlann);
+    public void testgetOWLDisjointClassesAxiom021() {
+        DF.getOWLDisjointClassesAxiom(nullsetowlclassexpression, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointClassesAxiom1_2() {
-        f.getOWLDisjointClassesAxiom(setce, null);
+    public void testgetOWLDisjointClassesAxiom12() {
+        DF.getOWLDisjointClassesAxiom(setce, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointClassesAxiom1_2_1() {
-        f.getOWLDisjointClassesAxiom(setce, nullsetowlann);
+    public void testgetOWLDisjointClassesAxiom121() {
+        DF.getOWLDisjointClassesAxiom(setce, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointClassesAxiom0_1() {
-        f.getOWLDisjointClassesAxiom((OWLClassExpression) null);
+    public void testgetOWLDisjointClassesAxiom01() {
+        DF.getOWLDisjointClassesAxiom((OWLClassExpression) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointClassesAxiom0_1_0() {
-        f.getOWLDisjointClassesAxiom((Set<OWLClassExpression>) null);
+    public void testgetOWLDisjointClassesAxiom010() {
+        DF.getOWLDisjointClassesAxiom((Set<OWLClassExpression>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointUnionAxiom0_3() {
-        f.getOWLDisjointUnionAxiom(null, setce, setowlann);
+    public void testgetOWLDisjointUnionAxiom03() {
+        DF.getOWLDisjointUnionAxiom(null, setce, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointUnionAxiom1_3() {
-        f.getOWLDisjointUnionAxiom(owlclass, null, setowlann);
+    public void testgetOWLDisjointUnionAxiom13() {
+        DF.getOWLDisjointUnionAxiom(owlclass, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointUnionAxiom1_3_1() {
-        f.getOWLDisjointUnionAxiom(owlclass, nullsetowlclassexpression, setowlann);
+    public void testgetOWLDisjointUnionAxiom131() {
+        DF.getOWLDisjointUnionAxiom(owlclass, nullsetowlclassexpression, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointUnionAxiom2_3() {
-        f.getOWLDisjointUnionAxiom(owlclass, setce, null);
+    public void testgetOWLDisjointUnionAxiom23() {
+        DF.getOWLDisjointUnionAxiom(owlclass, setce, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointUnionAxiom2_3_1() {
-        f.getOWLDisjointUnionAxiom(owlclass, setce, nullsetowlann);
+    public void testgetOWLDisjointUnionAxiom231() {
+        DF.getOWLDisjointUnionAxiom(owlclass, setce, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointUnionAxiom0_2() {
-        f.getOWLDisjointUnionAxiom(null, setce);
+    public void testgetOWLDisjointUnionAxiom02() {
+        DF.getOWLDisjointUnionAxiom(null, setce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointUnionAxiom1_2() {
-        f.getOWLDisjointUnionAxiom(owlclass, null);
+    public void testgetOWLDisjointUnionAxiom12() {
+        DF.getOWLDisjointUnionAxiom(owlclass, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubObjectPropertyOfAxiom0_2() {
-        f.getOWLSubObjectPropertyOfAxiom(null, ope);
+    public void testgetOWLSubObjectPropertyOfAxiom02() {
+        DF.getOWLSubObjectPropertyOfAxiom(null, ope);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubObjectPropertyOfAxiom1_2() {
-        f.getOWLSubObjectPropertyOfAxiom(ope, null);
+    public void testgetOWLSubObjectPropertyOfAxiom12() {
+        DF.getOWLSubObjectPropertyOfAxiom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubObjectPropertyOfAxiom0_3() {
-        f.getOWLSubObjectPropertyOfAxiom(null, ope, setowlann);
+    public void testgetOWLSubObjectPropertyOfAxiom03() {
+        DF.getOWLSubObjectPropertyOfAxiom(null, ope, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubObjectPropertyOfAxiom1_3() {
-        f.getOWLSubObjectPropertyOfAxiom(ope, null, setowlann);
+    public void testgetOWLSubObjectPropertyOfAxiom13() {
+        DF.getOWLSubObjectPropertyOfAxiom(ope, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubObjectPropertyOfAxiom2_3() {
-        f.getOWLSubObjectPropertyOfAxiom(ope, ope, null);
+    public void testgetOWLSubObjectPropertyOfAxiom23() {
+        DF.getOWLSubObjectPropertyOfAxiom(ope, ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubObjectPropertyOfAxiom2_3_1() {
-        f.getOWLSubObjectPropertyOfAxiom(ope, ope, nullsetowlann);
+    public void testgetOWLSubObjectPropertyOfAxiom231() {
+        DF.getOWLSubObjectPropertyOfAxiom(ope, ope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubPropertyChainOfAxiom0_3() {
-        f.getOWLSubPropertyChainOfAxiom(null, ope, setowlann);
+    public void testgetOWLSubPropertyChainOfAxiom03() {
+        DF.getOWLSubPropertyChainOfAxiom(null, ope, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubPropertyChainOfAxiom0_3_1() {
-        f.getOWLSubPropertyChainOfAxiom(nulllistowlope, ope, setowlann);
+    public void testgetOWLSubPropertyChainOfAxiom031() {
+        DF.getOWLSubPropertyChainOfAxiom(nulllistowlope, ope, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubPropertyChainOfAxiom1_3() {
-        f.getOWLSubPropertyChainOfAxiom(listowlope, null, setowlann);
+    public void testgetOWLSubPropertyChainOfAxiom13() {
+        DF.getOWLSubPropertyChainOfAxiom(listowlope, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubPropertyChainOfAxiom2_3() {
-        f.getOWLSubPropertyChainOfAxiom(listowlope, ope, null);
+    public void testgetOWLSubPropertyChainOfAxiom23() {
+        DF.getOWLSubPropertyChainOfAxiom(listowlope, ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubPropertyChainOfAxiom2_3_1() {
-        f.getOWLSubPropertyChainOfAxiom(listowlope, ope, nullsetowlann);
+    public void testgetOWLSubPropertyChainOfAxiom231() {
+        DF.getOWLSubPropertyChainOfAxiom(listowlope, ope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubPropertyChainOfAxiom0_2() {
-        f.getOWLSubPropertyChainOfAxiom(null, ope);
+    public void testgetOWLSubPropertyChainOfAxiom02() {
+        DF.getOWLSubPropertyChainOfAxiom(null, ope);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubPropertyChainOfAxiom0_2_1() {
-        f.getOWLSubPropertyChainOfAxiom(nulllistowlope, ope);
+    public void testgetOWLSubPropertyChainOfAxiom021() {
+        DF.getOWLSubPropertyChainOfAxiom(nulllistowlope, ope);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubPropertyChainOfAxiom1_2() {
-        f.getOWLSubPropertyChainOfAxiom(listowlope, null);
+    public void testgetOWLSubPropertyChainOfAxiom12() {
+        DF.getOWLSubPropertyChainOfAxiom(listowlope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom0_1_0() {
-        f.getOWLEquivalentObjectPropertiesAxiom((OWLObjectPropertyExpression) null);
+    public void testgetOWLEquivalentObjectPropertiesAxiom010() {
+        DF.getOWLEquivalentObjectPropertiesAxiom((OWLObjectPropertyExpression) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom0_2_0() {
-        f.getOWLEquivalentObjectPropertiesAxiom(null, setowlann);
+    public void testgetOWLEquivalentObjectPropertiesAxiom020() {
+        DF.getOWLEquivalentObjectPropertiesAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom0_2_0_1() {
-        f.getOWLEquivalentObjectPropertiesAxiom(nullSetOWLOPE, setowlann);
+    public void testgetOWLEquivalentObjectPropertiesAxiom0201() {
+        DF.getOWLEquivalentObjectPropertiesAxiom(nullSetOWLOPE, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom1_2_0() {
-        f.getOWLEquivalentObjectPropertiesAxiom(setowlope, null);
+    public void testgetOWLEquivalentObjectPropertiesAxiom120() {
+        DF.getOWLEquivalentObjectPropertiesAxiom(setowlope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom1_2_0_2() {
-        f.getOWLEquivalentObjectPropertiesAxiom(setowlope, nullsetowlann);
+    public void testgetOWLEquivalentObjectPropertiesAxiom1202() {
+        DF.getOWLEquivalentObjectPropertiesAxiom(setowlope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom1_2_0_1() {
-        f.getOWLEquivalentObjectPropertiesAxiom(nullSetOWLOPE, null);
+    public void testgetOWLEquivalentObjectPropertiesAxiom1201() {
+        DF.getOWLEquivalentObjectPropertiesAxiom(nullSetOWLOPE, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom0_1_1() {
-        f.getOWLEquivalentObjectPropertiesAxiom((Set<OWLObjectPropertyExpression>) null);
+    public void testgetOWLEquivalentObjectPropertiesAxiom011() {
+        DF.getOWLEquivalentObjectPropertiesAxiom((Set<OWLObjectPropertyExpression>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom0_2_1() {
-        f.getOWLEquivalentObjectPropertiesAxiom(null, ope);
+    public void testgetOWLEquivalentObjectPropertiesAxiom021() {
+        DF.getOWLEquivalentObjectPropertiesAxiom(null, ope);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom1_2_1() {
-        f.getOWLEquivalentObjectPropertiesAxiom(ope, null);
+    public void testgetOWLEquivalentObjectPropertiesAxiom121() {
+        DF.getOWLEquivalentObjectPropertiesAxiom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom0_3() {
-        f.getOWLEquivalentObjectPropertiesAxiom(null, ope, setowlann);
+    public void testgetOWLEquivalentObjectPropertiesAxiom03() {
+        DF.getOWLEquivalentObjectPropertiesAxiom(null, ope, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom1_3() {
-        f.getOWLEquivalentObjectPropertiesAxiom(ope, null, setowlann);
+    public void testgetOWLEquivalentObjectPropertiesAxiom13() {
+        DF.getOWLEquivalentObjectPropertiesAxiom(ope, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom2_3() {
-        f.getOWLEquivalentObjectPropertiesAxiom(ope, ope, null);
+    public void testgetOWLEquivalentObjectPropertiesAxiom23() {
+        DF.getOWLEquivalentObjectPropertiesAxiom(ope, ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentObjectPropertiesAxiom2_3_1() {
-        f.getOWLEquivalentObjectPropertiesAxiom(ope, ope, nullsetowlann);
+    public void testgetOWLEquivalentObjectPropertiesAxiom231() {
+        DF.getOWLEquivalentObjectPropertiesAxiom(ope, ope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointObjectPropertiesAxiom0_1() {
-        f.getOWLDisjointObjectPropertiesAxiom((OWLObjectPropertyExpression) null);
+    public void testgetOWLDisjointObjectPropertiesAxiom01() {
+        DF.getOWLDisjointObjectPropertiesAxiom((OWLObjectPropertyExpression) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointObjectPropertiesAxiom0_1_0() {
-        f.getOWLDisjointObjectPropertiesAxiom((Set<OWLObjectPropertyExpression>) null);
+    public void testgetOWLDisjointObjectPropertiesAxiom010() {
+        DF.getOWLDisjointObjectPropertiesAxiom((Set<OWLObjectPropertyExpression>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointObjectPropertiesAxiom0_2() {
-        f.getOWLDisjointObjectPropertiesAxiom(null, setowlann);
+    public void testgetOWLDisjointObjectPropertiesAxiom02() {
+        DF.getOWLDisjointObjectPropertiesAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointObjectPropertiesAxiom0_2_1() {
-        f.getOWLDisjointObjectPropertiesAxiom(nullSetOWLOPE, setowlann);
+    public void testgetOWLDisjointObjectPropertiesAxiom021() {
+        DF.getOWLDisjointObjectPropertiesAxiom(nullSetOWLOPE, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointObjectPropertiesAxiom1_2() {
-        f.getOWLDisjointObjectPropertiesAxiom(setowlope, null);
+    public void testgetOWLDisjointObjectPropertiesAxiom12() {
+        DF.getOWLDisjointObjectPropertiesAxiom(setowlope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointObjectPropertiesAxiom1_2_2() {
-        f.getOWLDisjointObjectPropertiesAxiom(setowlope, nullsetowlann);
+    public void testgetOWLDisjointObjectPropertiesAxiom122() {
+        DF.getOWLDisjointObjectPropertiesAxiom(setowlope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointObjectPropertiesAxiom1_2_1() {
-        f.getOWLDisjointObjectPropertiesAxiom(nullSetOWLOPE, null);
+    public void testgetOWLDisjointObjectPropertiesAxiom121() {
+        DF.getOWLDisjointObjectPropertiesAxiom(nullSetOWLOPE, null);
     }
 
     public <O> Set<O> getNullSet() {
@@ -999,1017 +999,1017 @@ public class NullCheckTestCase {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLInverseObjectPropertiesAxiom0_2() {
-        f.getOWLInverseObjectPropertiesAxiom(null, ope);
+    public void testgetOWLInverseObjectPropertiesAxiom02() {
+        DF.getOWLInverseObjectPropertiesAxiom(null, ope);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLInverseObjectPropertiesAxiom1_2() {
-        f.getOWLInverseObjectPropertiesAxiom(ope, null);
+    public void testgetOWLInverseObjectPropertiesAxiom12() {
+        DF.getOWLInverseObjectPropertiesAxiom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLInverseObjectPropertiesAxiom0_3() {
-        f.getOWLInverseObjectPropertiesAxiom(null, ope, setowlann);
+    public void testgetOWLInverseObjectPropertiesAxiom03() {
+        DF.getOWLInverseObjectPropertiesAxiom(null, ope, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLInverseObjectPropertiesAxiom1_3() {
-        f.getOWLInverseObjectPropertiesAxiom(ope, null, setowlann);
+    public void testgetOWLInverseObjectPropertiesAxiom13() {
+        DF.getOWLInverseObjectPropertiesAxiom(ope, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLInverseObjectPropertiesAxiom2_3() {
-        f.getOWLInverseObjectPropertiesAxiom(ope, ope, null);
+    public void testgetOWLInverseObjectPropertiesAxiom23() {
+        DF.getOWLInverseObjectPropertiesAxiom(ope, ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLInverseObjectPropertiesAxiom2_3_1() {
-        f.getOWLInverseObjectPropertiesAxiom(ope, ope, nullsetowlann);
+    public void testgetOWLInverseObjectPropertiesAxiom231() {
+        DF.getOWLInverseObjectPropertiesAxiom(ope, ope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyDomainAxiom0_2() {
-        f.getOWLObjectPropertyDomainAxiom(null, ce);
+    public void testgetOWLObjectPropertyDomainAxiom02() {
+        DF.getOWLObjectPropertyDomainAxiom(null, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyDomainAxiom1_2() {
-        f.getOWLObjectPropertyDomainAxiom(ope, null);
+    public void testgetOWLObjectPropertyDomainAxiom12() {
+        DF.getOWLObjectPropertyDomainAxiom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyDomainAxiom0_3() {
-        f.getOWLObjectPropertyDomainAxiom(null, ce, setowlann);
+    public void testgetOWLObjectPropertyDomainAxiom03() {
+        DF.getOWLObjectPropertyDomainAxiom(null, ce, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyDomainAxiom1_3() {
-        f.getOWLObjectPropertyDomainAxiom(ope, null, setowlann);
+    public void testgetOWLObjectPropertyDomainAxiom13() {
+        DF.getOWLObjectPropertyDomainAxiom(ope, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyDomainAxiom2_3() {
-        f.getOWLObjectPropertyDomainAxiom(ope, ce, null);
+    public void testgetOWLObjectPropertyDomainAxiom23() {
+        DF.getOWLObjectPropertyDomainAxiom(ope, ce, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyDomainAxiom2_3_1() {
-        f.getOWLObjectPropertyDomainAxiom(ope, ce, nullsetowlann);
+    public void testgetOWLObjectPropertyDomainAxiom231() {
+        DF.getOWLObjectPropertyDomainAxiom(ope, ce, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyRangeAxiom0_3() {
-        f.getOWLObjectPropertyRangeAxiom(null, ce, setowlann);
+    public void testgetOWLObjectPropertyRangeAxiom03() {
+        DF.getOWLObjectPropertyRangeAxiom(null, ce, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyRangeAxiom1_3() {
-        f.getOWLObjectPropertyRangeAxiom(ope, null, setowlann);
+    public void testgetOWLObjectPropertyRangeAxiom13() {
+        DF.getOWLObjectPropertyRangeAxiom(ope, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyRangeAxiom2_3() {
-        f.getOWLObjectPropertyRangeAxiom(ope, ce, null);
+    public void testgetOWLObjectPropertyRangeAxiom23() {
+        DF.getOWLObjectPropertyRangeAxiom(ope, ce, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyRangeAxiom2_3_1() {
-        f.getOWLObjectPropertyRangeAxiom(ope, ce, nullsetowlann);
+    public void testgetOWLObjectPropertyRangeAxiom231() {
+        DF.getOWLObjectPropertyRangeAxiom(ope, ce, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyRangeAxiom0_2() {
-        f.getOWLObjectPropertyRangeAxiom(null, ce);
+    public void testgetOWLObjectPropertyRangeAxiom02() {
+        DF.getOWLObjectPropertyRangeAxiom(null, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyRangeAxiom1_2() {
-        f.getOWLObjectPropertyRangeAxiom(ope, null);
+    public void testgetOWLObjectPropertyRangeAxiom12() {
+        DF.getOWLObjectPropertyRangeAxiom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFunctionalObjectPropertyAxiom0_1() {
-        f.getOWLFunctionalObjectPropertyAxiom(null);
+    public void testgetOWLFunctionalObjectPropertyAxiom01() {
+        DF.getOWLFunctionalObjectPropertyAxiom(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFunctionalObjectPropertyAxiom0_2() {
-        f.getOWLFunctionalObjectPropertyAxiom(null, setowlann);
+    public void testgetOWLFunctionalObjectPropertyAxiom02() {
+        DF.getOWLFunctionalObjectPropertyAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFunctionalObjectPropertyAxiom1_2() {
-        f.getOWLFunctionalObjectPropertyAxiom(ope, null);
+    public void testgetOWLFunctionalObjectPropertyAxiom12() {
+        DF.getOWLFunctionalObjectPropertyAxiom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFunctionalObjectPropertyAxiom1_2_1() {
-        f.getOWLFunctionalObjectPropertyAxiom(ope, nullsetowlann);
+    public void testgetOWLFunctionalObjectPropertyAxiom121() {
+        DF.getOWLFunctionalObjectPropertyAxiom(ope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLInverseFunctionalObjectPropertyAxiom0_1() {
-        f.getOWLInverseFunctionalObjectPropertyAxiom(null);
+    public void testgetOWLInverseFunctionalObjectPropertyAxiom01() {
+        DF.getOWLInverseFunctionalObjectPropertyAxiom(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLInverseFunctionalObjectPropertyAxiom0_2() {
-        f.getOWLInverseFunctionalObjectPropertyAxiom(null, setowlann);
+    public void testgetOWLInverseFunctionalObjectPropertyAxiom02() {
+        DF.getOWLInverseFunctionalObjectPropertyAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLInverseFunctionalObjectPropertyAxiom1_2() {
-        f.getOWLInverseFunctionalObjectPropertyAxiom(ope, null);
+    public void testgetOWLInverseFunctionalObjectPropertyAxiom12() {
+        DF.getOWLInverseFunctionalObjectPropertyAxiom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLInverseFunctionalObjectPropertyAxiom1_2_1() {
-        f.getOWLInverseFunctionalObjectPropertyAxiom(ope, nullsetowlann);
+    public void testgetOWLInverseFunctionalObjectPropertyAxiom121() {
+        DF.getOWLInverseFunctionalObjectPropertyAxiom(ope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLReflexiveObjectPropertyAxiom0_2() {
-        f.getOWLReflexiveObjectPropertyAxiom(null, setowlann);
+    public void testgetOWLReflexiveObjectPropertyAxiom02() {
+        DF.getOWLReflexiveObjectPropertyAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLReflexiveObjectPropertyAxiom1_2() {
-        f.getOWLReflexiveObjectPropertyAxiom(ope, null);
+    public void testgetOWLReflexiveObjectPropertyAxiom12() {
+        DF.getOWLReflexiveObjectPropertyAxiom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLReflexiveObjectPropertyAxiom1_2_1() {
-        f.getOWLReflexiveObjectPropertyAxiom(ope, nullsetowlann);
+    public void testgetOWLReflexiveObjectPropertyAxiom121() {
+        DF.getOWLReflexiveObjectPropertyAxiom(ope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLReflexiveObjectPropertyAxiom0_1() {
-        f.getOWLReflexiveObjectPropertyAxiom(null);
+    public void testgetOWLReflexiveObjectPropertyAxiom01() {
+        DF.getOWLReflexiveObjectPropertyAxiom(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLIrreflexiveObjectPropertyAxiom0_2() {
-        f.getOWLIrreflexiveObjectPropertyAxiom(null, setowlann);
+    public void testgetOWLIrreflexiveObjectPropertyAxiom02() {
+        DF.getOWLIrreflexiveObjectPropertyAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLIrreflexiveObjectPropertyAxiom1_2() {
-        f.getOWLIrreflexiveObjectPropertyAxiom(ope, null);
+    public void testgetOWLIrreflexiveObjectPropertyAxiom12() {
+        DF.getOWLIrreflexiveObjectPropertyAxiom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLIrreflexiveObjectPropertyAxiom1_2_1() {
-        f.getOWLIrreflexiveObjectPropertyAxiom(ope, nullsetowlann);
+    public void testgetOWLIrreflexiveObjectPropertyAxiom121() {
+        DF.getOWLIrreflexiveObjectPropertyAxiom(ope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLIrreflexiveObjectPropertyAxiom0_1() {
-        f.getOWLIrreflexiveObjectPropertyAxiom(null);
+    public void testgetOWLIrreflexiveObjectPropertyAxiom01() {
+        DF.getOWLIrreflexiveObjectPropertyAxiom(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSymmetricObjectPropertyAxiom0_1() {
-        f.getOWLSymmetricObjectPropertyAxiom(null);
+    public void testgetOWLSymmetricObjectPropertyAxiom01() {
+        DF.getOWLSymmetricObjectPropertyAxiom(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSymmetricObjectPropertyAxiom0_2() {
-        f.getOWLSymmetricObjectPropertyAxiom(null, setowlann);
+    public void testgetOWLSymmetricObjectPropertyAxiom02() {
+        DF.getOWLSymmetricObjectPropertyAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSymmetricObjectPropertyAxiom1_2() {
-        f.getOWLSymmetricObjectPropertyAxiom(ope, null);
+    public void testgetOWLSymmetricObjectPropertyAxiom12() {
+        DF.getOWLSymmetricObjectPropertyAxiom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSymmetricObjectPropertyAxiom1_2_1() {
-        f.getOWLSymmetricObjectPropertyAxiom(ope, nullsetowlann);
+    public void testgetOWLSymmetricObjectPropertyAxiom121() {
+        DF.getOWLSymmetricObjectPropertyAxiom(ope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAsymmetricObjectPropertyAxiom0_2() {
-        f.getOWLAsymmetricObjectPropertyAxiom(null, setowlann);
+    public void testgetOWLAsymmetricObjectPropertyAxiom02() {
+        DF.getOWLAsymmetricObjectPropertyAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAsymmetricObjectPropertyAxiom1_2() {
-        f.getOWLAsymmetricObjectPropertyAxiom(ope, null);
+    public void testgetOWLAsymmetricObjectPropertyAxiom12() {
+        DF.getOWLAsymmetricObjectPropertyAxiom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAsymmetricObjectPropertyAxiom1_2_1() {
-        f.getOWLAsymmetricObjectPropertyAxiom(ope, nullsetowlann);
+    public void testgetOWLAsymmetricObjectPropertyAxiom121() {
+        DF.getOWLAsymmetricObjectPropertyAxiom(ope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAsymmetricObjectPropertyAxiom0_1() {
-        f.getOWLAsymmetricObjectPropertyAxiom(null);
+    public void testgetOWLAsymmetricObjectPropertyAxiom01() {
+        DF.getOWLAsymmetricObjectPropertyAxiom(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLTransitiveObjectPropertyAxiom0_1() {
-        f.getOWLTransitiveObjectPropertyAxiom(null);
+    public void testgetOWLTransitiveObjectPropertyAxiom01() {
+        DF.getOWLTransitiveObjectPropertyAxiom(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLTransitiveObjectPropertyAxiom0_2() {
-        f.getOWLTransitiveObjectPropertyAxiom(null, setowlann);
+    public void testgetOWLTransitiveObjectPropertyAxiom02() {
+        DF.getOWLTransitiveObjectPropertyAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLTransitiveObjectPropertyAxiom1_2() {
-        f.getOWLTransitiveObjectPropertyAxiom(ope, null);
+    public void testgetOWLTransitiveObjectPropertyAxiom12() {
+        DF.getOWLTransitiveObjectPropertyAxiom(ope, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLTransitiveObjectPropertyAxiom1_2_1() {
-        f.getOWLTransitiveObjectPropertyAxiom(ope, nullsetowlann);
+    public void testgetOWLTransitiveObjectPropertyAxiom121() {
+        DF.getOWLTransitiveObjectPropertyAxiom(ope, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubDataPropertyOfAxiom0_2() {
-        f.getOWLSubDataPropertyOfAxiom(null, owldpe);
+    public void testgetOWLSubDataPropertyOfAxiom02() {
+        DF.getOWLSubDataPropertyOfAxiom(null, owldpe);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubDataPropertyOfAxiom1_2() {
-        f.getOWLSubDataPropertyOfAxiom(owldpe, null);
+    public void testgetOWLSubDataPropertyOfAxiom12() {
+        DF.getOWLSubDataPropertyOfAxiom(owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubDataPropertyOfAxiom0_3() {
-        f.getOWLSubDataPropertyOfAxiom(null, owldpe, setowlann);
+    public void testgetOWLSubDataPropertyOfAxiom03() {
+        DF.getOWLSubDataPropertyOfAxiom(null, owldpe, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubDataPropertyOfAxiom1_3() {
-        f.getOWLSubDataPropertyOfAxiom(owldpe, null, setowlann);
+    public void testgetOWLSubDataPropertyOfAxiom13() {
+        DF.getOWLSubDataPropertyOfAxiom(owldpe, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubDataPropertyOfAxiom2_3() {
-        f.getOWLSubDataPropertyOfAxiom(owldpe, owldpe, null);
+    public void testgetOWLSubDataPropertyOfAxiom23() {
+        DF.getOWLSubDataPropertyOfAxiom(owldpe, owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubDataPropertyOfAxiom2_3_1() {
-        f.getOWLSubDataPropertyOfAxiom(owldpe, owldpe, nullsetowlann);
+    public void testgetOWLSubDataPropertyOfAxiom231() {
+        DF.getOWLSubDataPropertyOfAxiom(owldpe, owldpe, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentDataPropertiesAxiom0_2_0() {
-        f.getOWLEquivalentDataPropertiesAxiom(null, owldpe);
+    public void testgetOWLEquivalentDataPropertiesAxiom020() {
+        DF.getOWLEquivalentDataPropertiesAxiom(null, owldpe);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentDataPropertiesAxiom1_2_0() {
-        f.getOWLEquivalentDataPropertiesAxiom(owldpe, null);
+    public void testgetOWLEquivalentDataPropertiesAxiom120() {
+        DF.getOWLEquivalentDataPropertiesAxiom(owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentDataPropertiesAxiom0_1_0() {
-        f.getOWLEquivalentDataPropertiesAxiom((OWLDataPropertyExpression) null);
+    public void testgetOWLEquivalentDataPropertiesAxiom010() {
+        DF.getOWLEquivalentDataPropertiesAxiom((OWLDataPropertyExpression) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentDataPropertiesAxiom0_2_1() {
-        f.getOWLEquivalentDataPropertiesAxiom(null, setowlann);
+    public void testgetOWLEquivalentDataPropertiesAxiom021() {
+        DF.getOWLEquivalentDataPropertiesAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentDataPropertiesAxiom0_2_1_1() {
-        f.getOWLEquivalentDataPropertiesAxiom(nullsetodpe, setowlann);
+    public void testgetOWLEquivalentDataPropertiesAxiom0211() {
+        DF.getOWLEquivalentDataPropertiesAxiom(nullsetodpe, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentDataPropertiesAxiom1_2_1() {
-        f.getOWLEquivalentDataPropertiesAxiom(setowldpe, null);
+    public void testgetOWLEquivalentDataPropertiesAxiom121() {
+        DF.getOWLEquivalentDataPropertiesAxiom(setowldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentDataPropertiesAxiom1_2_1_1() {
-        f.getOWLEquivalentDataPropertiesAxiom(setowldpe, nullsetowlann);
+    public void testgetOWLEquivalentDataPropertiesAxiom1211() {
+        DF.getOWLEquivalentDataPropertiesAxiom(setowldpe, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentDataPropertiesAxiom0_1_1() {
-        f.getOWLEquivalentDataPropertiesAxiom((Set<OWLDataPropertyExpression>) null);
+    public void testgetOWLEquivalentDataPropertiesAxiom011() {
+        DF.getOWLEquivalentDataPropertiesAxiom((Set<OWLDataPropertyExpression>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentDataPropertiesAxiom0_3() {
-        f.getOWLEquivalentDataPropertiesAxiom(null, owldpe, setowlann);
+    public void testgetOWLEquivalentDataPropertiesAxiom03() {
+        DF.getOWLEquivalentDataPropertiesAxiom(null, owldpe, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentDataPropertiesAxiom1_3() {
-        f.getOWLEquivalentDataPropertiesAxiom(owldpe, null, setowlann);
+    public void testgetOWLEquivalentDataPropertiesAxiom13() {
+        DF.getOWLEquivalentDataPropertiesAxiom(owldpe, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentDataPropertiesAxiom2_3() {
-        f.getOWLEquivalentDataPropertiesAxiom(owldpe, owldpe, null);
+    public void testgetOWLEquivalentDataPropertiesAxiom23() {
+        DF.getOWLEquivalentDataPropertiesAxiom(owldpe, owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLEquivalentDataPropertiesAxiom2_3_1() {
-        f.getOWLEquivalentDataPropertiesAxiom(owldpe, owldpe, nullsetowlann);
+    public void testgetOWLEquivalentDataPropertiesAxiom231() {
+        DF.getOWLEquivalentDataPropertiesAxiom(owldpe, owldpe, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointDataPropertiesAxiom0_1() {
-        f.getOWLDisjointDataPropertiesAxiom((OWLDataPropertyExpression) null);
+    public void testgetOWLDisjointDataPropertiesAxiom01() {
+        DF.getOWLDisjointDataPropertiesAxiom((OWLDataPropertyExpression) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointDataPropertiesAxiom0_1_0() {
-        f.getOWLDisjointDataPropertiesAxiom((Set<OWLDataPropertyExpression>) null);
+    public void testgetOWLDisjointDataPropertiesAxiom010() {
+        DF.getOWLDisjointDataPropertiesAxiom((Set<OWLDataPropertyExpression>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointDataPropertiesAxiom0_2() {
-        f.getOWLDisjointDataPropertiesAxiom(null, setowlann);
+    public void testgetOWLDisjointDataPropertiesAxiom02() {
+        DF.getOWLDisjointDataPropertiesAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointDataPropertiesAxiom0_2_1() {
-        f.getOWLDisjointDataPropertiesAxiom(nullsetodpe, setowlann);
+    public void testgetOWLDisjointDataPropertiesAxiom021() {
+        DF.getOWLDisjointDataPropertiesAxiom(nullsetodpe, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointDataPropertiesAxiom1_2() {
-        f.getOWLDisjointDataPropertiesAxiom(setowldpe, null);
+    public void testgetOWLDisjointDataPropertiesAxiom12() {
+        DF.getOWLDisjointDataPropertiesAxiom(setowldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDisjointDataPropertiesAxiom1_2_1() {
-        f.getOWLDisjointDataPropertiesAxiom(setowldpe, nullsetowlann);
+    public void testgetOWLDisjointDataPropertiesAxiom121() {
+        DF.getOWLDisjointDataPropertiesAxiom(setowldpe, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyDomainAxiom0_2() {
-        f.getOWLDataPropertyDomainAxiom(null, ce);
+    public void testgetOWLDataPropertyDomainAxiom02() {
+        DF.getOWLDataPropertyDomainAxiom(null, ce);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyDomainAxiom1_2() {
-        f.getOWLDataPropertyDomainAxiom(owldpe, null);
+    public void testgetOWLDataPropertyDomainAxiom12() {
+        DF.getOWLDataPropertyDomainAxiom(owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyDomainAxiom0_3() {
-        f.getOWLDataPropertyDomainAxiom(null, ce, setowlann);
+    public void testgetOWLDataPropertyDomainAxiom03() {
+        DF.getOWLDataPropertyDomainAxiom(null, ce, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyDomainAxiom1_3() {
-        f.getOWLDataPropertyDomainAxiom(owldpe, null, setowlann);
+    public void testgetOWLDataPropertyDomainAxiom13() {
+        DF.getOWLDataPropertyDomainAxiom(owldpe, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyDomainAxiom2_3() {
-        f.getOWLDataPropertyDomainAxiom(owldpe, ce, null);
+    public void testgetOWLDataPropertyDomainAxiom23() {
+        DF.getOWLDataPropertyDomainAxiom(owldpe, ce, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyDomainAxiom2_3_1() {
-        f.getOWLDataPropertyDomainAxiom(owldpe, ce, nullsetowlann);
+    public void testgetOWLDataPropertyDomainAxiom231() {
+        DF.getOWLDataPropertyDomainAxiom(owldpe, ce, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyRangeAxiom0_3() {
-        f.getOWLDataPropertyRangeAxiom(null, owldatarange, setowlann);
+    public void testgetOWLDataPropertyRangeAxiom03() {
+        DF.getOWLDataPropertyRangeAxiom(null, owldatarange, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyRangeAxiom1_3() {
-        f.getOWLDataPropertyRangeAxiom(owldpe, null, setowlann);
+    public void testgetOWLDataPropertyRangeAxiom13() {
+        DF.getOWLDataPropertyRangeAxiom(owldpe, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyRangeAxiom2_3() {
-        f.getOWLDataPropertyRangeAxiom(owldpe, owldatarange, null);
+    public void testgetOWLDataPropertyRangeAxiom23() {
+        DF.getOWLDataPropertyRangeAxiom(owldpe, owldatarange, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyRangeAxiom2_3_1() {
-        f.getOWLDataPropertyRangeAxiom(owldpe, owldatarange, nullsetowlann);
+    public void testgetOWLDataPropertyRangeAxiom231() {
+        DF.getOWLDataPropertyRangeAxiom(owldpe, owldatarange, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyRangeAxiom0_2() {
-        f.getOWLDataPropertyRangeAxiom(null, owldatarange);
+    public void testgetOWLDataPropertyRangeAxiom02() {
+        DF.getOWLDataPropertyRangeAxiom(null, owldatarange);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyRangeAxiom1_2() {
-        f.getOWLDataPropertyRangeAxiom(owldpe, null);
+    public void testgetOWLDataPropertyRangeAxiom12() {
+        DF.getOWLDataPropertyRangeAxiom(owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFunctionalDataPropertyAxiom0_1() {
-        f.getOWLFunctionalDataPropertyAxiom(null);
+    public void testgetOWLFunctionalDataPropertyAxiom01() {
+        DF.getOWLFunctionalDataPropertyAxiom(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFunctionalDataPropertyAxiom0_2() {
-        f.getOWLFunctionalDataPropertyAxiom(null, setowlann);
+    public void testgetOWLFunctionalDataPropertyAxiom02() {
+        DF.getOWLFunctionalDataPropertyAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFunctionalDataPropertyAxiom1_2() {
-        f.getOWLFunctionalDataPropertyAxiom(owldpe, null);
+    public void testgetOWLFunctionalDataPropertyAxiom12() {
+        DF.getOWLFunctionalDataPropertyAxiom(owldpe, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLFunctionalDataPropertyAxiom1_2_1() {
-        f.getOWLFunctionalDataPropertyAxiom(owldpe, nullsetowlann);
+    public void testgetOWLFunctionalDataPropertyAxiom121() {
+        DF.getOWLFunctionalDataPropertyAxiom(owldpe, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLHasKeyAxiom0_2_0() {
-        f.getOWLHasKeyAxiom(null, setowlpropertyexpression);
+    public void testgetOWLHasKeyAxiom020() {
+        DF.getOWLHasKeyAxiom(null, setowlpropertyexpression);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLHasKeyAxiom1_2_0() {
-        f.getOWLHasKeyAxiom(ce, (OWLPropertyExpression) null);
+    public void testgetOWLHasKeyAxiom120() {
+        DF.getOWLHasKeyAxiom(ce, (OWLPropertyExpression) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLHasKeyAxiom1_2_0_1() {
-        f.getOWLHasKeyAxiom(ce, nullowlpropertyexpression);
+    public void testgetOWLHasKeyAxiom1201() {
+        DF.getOWLHasKeyAxiom(ce, nullowlpropertyexpression);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLHasKeyAxiom0_2_1() {
-        f.getOWLHasKeyAxiom(null, owlpropertyexpression);
+    public void testgetOWLHasKeyAxiom021() {
+        DF.getOWLHasKeyAxiom(null, owlpropertyexpression);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLHasKeyAxiom1_2_1() {
-        f.getOWLHasKeyAxiom(ce, (Set<OWLPropertyExpression>) null);
+    public void testgetOWLHasKeyAxiom121() {
+        DF.getOWLHasKeyAxiom(ce, (Set<OWLPropertyExpression>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLHasKeyAxiom1_2_1_1() {
-        f.getOWLHasKeyAxiom(ce, nullsetowlpropertyexpression);
+    public void testgetOWLHasKeyAxiom1211() {
+        DF.getOWLHasKeyAxiom(ce, nullsetowlpropertyexpression);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLHasKeyAxiom0_3() {
-        f.getOWLHasKeyAxiom(null, setowlpropertyexpression, setowlann);
+    public void testgetOWLHasKeyAxiom03() {
+        DF.getOWLHasKeyAxiom(null, setowlpropertyexpression, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLHasKeyAxiom1_3() {
-        f.getOWLHasKeyAxiom(ce, null, setowlann);
+    public void testgetOWLHasKeyAxiom13() {
+        DF.getOWLHasKeyAxiom(ce, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLHasKeyAxiom1_3_1() {
-        f.getOWLHasKeyAxiom(ce, nullsetowlpropertyexpression, setowlann);
+    public void testgetOWLHasKeyAxiom131() {
+        DF.getOWLHasKeyAxiom(ce, nullsetowlpropertyexpression, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLHasKeyAxiom2_3() {
-        f.getOWLHasKeyAxiom(ce, setowlpropertyexpression, null);
+    public void testgetOWLHasKeyAxiom23() {
+        DF.getOWLHasKeyAxiom(ce, setowlpropertyexpression, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLHasKeyAxiom2_3_1() {
-        f.getOWLHasKeyAxiom(ce, setowlpropertyexpression, nullsetowlann);
+    public void testgetOWLHasKeyAxiom231() {
+        DF.getOWLHasKeyAxiom(ce, setowlpropertyexpression, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeDefinitionAxiom0_2() {
-        f.getOWLDatatypeDefinitionAxiom(null, owldatarange);
+    public void testgetOWLDatatypeDefinitionAxiom02() {
+        DF.getOWLDatatypeDefinitionAxiom(null, owldatarange);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeDefinitionAxiom1_2() {
-        f.getOWLDatatypeDefinitionAxiom(owldatatype, null);
+    public void testgetOWLDatatypeDefinitionAxiom12() {
+        DF.getOWLDatatypeDefinitionAxiom(owldatatype, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeDefinitionAxiom0_3() {
-        f.getOWLDatatypeDefinitionAxiom(null, owldatarange, setowlann);
+    public void testgetOWLDatatypeDefinitionAxiom03() {
+        DF.getOWLDatatypeDefinitionAxiom(null, owldatarange, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeDefinitionAxiom1_3() {
-        f.getOWLDatatypeDefinitionAxiom(owldatatype, null, setowlann);
+    public void testgetOWLDatatypeDefinitionAxiom13() {
+        DF.getOWLDatatypeDefinitionAxiom(owldatatype, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeDefinitionAxiom2_3() {
-        f.getOWLDatatypeDefinitionAxiom(owldatatype, owldatarange, null);
+    public void testgetOWLDatatypeDefinitionAxiom23() {
+        DF.getOWLDatatypeDefinitionAxiom(owldatatype, owldatarange, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDatatypeDefinitionAxiom2_3_1() {
-        f.getOWLDatatypeDefinitionAxiom(owldatatype, owldatarange, nullsetowlann);
+    public void testgetOWLDatatypeDefinitionAxiom231() {
+        DF.getOWLDatatypeDefinitionAxiom(owldatatype, owldatarange, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSameIndividualAxiom0_1() {
-        f.getOWLSameIndividualAxiom((OWLIndividual) null);
+    public void testgetOWLSameIndividualAxiom01() {
+        DF.getOWLSameIndividualAxiom((OWLIndividual) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSameIndividualAxiom0_2() {
-        f.getOWLSameIndividualAxiom(null, setowlann);
+    public void testgetOWLSameIndividualAxiom02() {
+        DF.getOWLSameIndividualAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSameIndividualAxiom0_2_1() {
-        f.getOWLSameIndividualAxiom(nullsetowlindividual, setowlann);
+    public void testgetOWLSameIndividualAxiom021() {
+        DF.getOWLSameIndividualAxiom(nullsetowlindividual, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSameIndividualAxiom1_2() {
-        f.getOWLSameIndividualAxiom(setowlindividual, null);
+    public void testgetOWLSameIndividualAxiom12() {
+        DF.getOWLSameIndividualAxiom(setowlindividual, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSameIndividualAxiom1_2_1() {
-        f.getOWLSameIndividualAxiom(setowlindividual, nullsetowlann);
+    public void testgetOWLSameIndividualAxiom121() {
+        DF.getOWLSameIndividualAxiom(setowlindividual, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSameIndividualAxiom0_1_0() {
-        f.getOWLSameIndividualAxiom((Set<OWLIndividual>) null);
+    public void testgetOWLSameIndividualAxiom010() {
+        DF.getOWLSameIndividualAxiom((Set<OWLIndividual>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDifferentIndividualsAxiom0_2() {
-        f.getOWLDifferentIndividualsAxiom(null, setowlann);
+    public void testgetOWLDifferentIndividualsAxiom02() {
+        DF.getOWLDifferentIndividualsAxiom(null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDifferentIndividualsAxiom0_2_1() {
-        f.getOWLDifferentIndividualsAxiom(nullsetowlindividual, setowlann);
+    public void testgetOWLDifferentIndividualsAxiom021() {
+        DF.getOWLDifferentIndividualsAxiom(nullsetowlindividual, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDifferentIndividualsAxiom1_2() {
-        f.getOWLDifferentIndividualsAxiom(setowlindividual, null);
+    public void testgetOWLDifferentIndividualsAxiom12() {
+        DF.getOWLDifferentIndividualsAxiom(setowlindividual, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDifferentIndividualsAxiom1_2_1() {
-        f.getOWLDifferentIndividualsAxiom(setowlindividual, nullsetowlann);
+    public void testgetOWLDifferentIndividualsAxiom121() {
+        DF.getOWLDifferentIndividualsAxiom(setowlindividual, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDifferentIndividualsAxiom0_1_0() {
-        f.getOWLDifferentIndividualsAxiom((OWLIndividual) null);
+    public void testgetOWLDifferentIndividualsAxiom010() {
+        DF.getOWLDifferentIndividualsAxiom((OWLIndividual) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDifferentIndividualsAxiom0_1() {
-        f.getOWLDifferentIndividualsAxiom((Set<OWLIndividual>) null);
+    public void testgetOWLDifferentIndividualsAxiom01() {
+        DF.getOWLDifferentIndividualsAxiom((Set<OWLIndividual>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLClassAssertionAxiom0_2() {
-        f.getOWLClassAssertionAxiom(null, ind);
+    public void testgetOWLClassAssertionAxiom02() {
+        DF.getOWLClassAssertionAxiom(null, ind);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLClassAssertionAxiom1_2() {
-        f.getOWLClassAssertionAxiom(ce, null);
+    public void testgetOWLClassAssertionAxiom12() {
+        DF.getOWLClassAssertionAxiom(ce, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLClassAssertionAxiom0_3() {
-        f.getOWLClassAssertionAxiom(null, ind, setowlann);
+    public void testgetOWLClassAssertionAxiom03() {
+        DF.getOWLClassAssertionAxiom(null, ind, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLClassAssertionAxiom1_3() {
-        f.getOWLClassAssertionAxiom(ce, null, setowlann);
+    public void testgetOWLClassAssertionAxiom13() {
+        DF.getOWLClassAssertionAxiom(ce, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLClassAssertionAxiom2_3() {
-        f.getOWLClassAssertionAxiom(ce, ind, null);
+    public void testgetOWLClassAssertionAxiom23() {
+        DF.getOWLClassAssertionAxiom(ce, ind, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLClassAssertionAxiom2_3_1() {
-        f.getOWLClassAssertionAxiom(ce, ind, nullsetowlann);
+    public void testgetOWLClassAssertionAxiom231() {
+        DF.getOWLClassAssertionAxiom(ce, ind, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyAssertionAxiom0_3() {
-        f.getOWLObjectPropertyAssertionAxiom(null, ind, ind);
+    public void testgetOWLObjectPropertyAssertionAxiom03() {
+        DF.getOWLObjectPropertyAssertionAxiom(null, ind, ind);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyAssertionAxiom1_3() {
-        f.getOWLObjectPropertyAssertionAxiom(ope, null, ind);
+    public void testgetOWLObjectPropertyAssertionAxiom13() {
+        DF.getOWLObjectPropertyAssertionAxiom(ope, null, ind);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyAssertionAxiom2_3() {
-        f.getOWLObjectPropertyAssertionAxiom(ope, ind, null);
+    public void testgetOWLObjectPropertyAssertionAxiom23() {
+        DF.getOWLObjectPropertyAssertionAxiom(ope, ind, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyAssertionAxiom0_4() {
-        f.getOWLObjectPropertyAssertionAxiom(null, ind, ind, setowlann);
+    public void testgetOWLObjectPropertyAssertionAxiom04() {
+        DF.getOWLObjectPropertyAssertionAxiom(null, ind, ind, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyAssertionAxiom1_4() {
-        f.getOWLObjectPropertyAssertionAxiom(ope, null, ind, setowlann);
+    public void testgetOWLObjectPropertyAssertionAxiom14() {
+        DF.getOWLObjectPropertyAssertionAxiom(ope, null, ind, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyAssertionAxiom2_4() {
-        f.getOWLObjectPropertyAssertionAxiom(ope, ind, null, setowlann);
+    public void testgetOWLObjectPropertyAssertionAxiom24() {
+        DF.getOWLObjectPropertyAssertionAxiom(ope, ind, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyAssertionAxiom3_4() {
-        f.getOWLObjectPropertyAssertionAxiom(ope, ind, ind, null);
+    public void testgetOWLObjectPropertyAssertionAxiom34() {
+        DF.getOWLObjectPropertyAssertionAxiom(ope, ind, ind, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLObjectPropertyAssertionAxiom3_4_1() {
-        f.getOWLObjectPropertyAssertionAxiom(ope, ind, ind, nullsetowlann);
+    public void testgetOWLObjectPropertyAssertionAxiom341() {
+        DF.getOWLObjectPropertyAssertionAxiom(ope, ind, ind, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeObjectPropertyAssertionAxiom0_4() {
-        f.getOWLNegativeObjectPropertyAssertionAxiom(null, ind, ind, setowlann);
+    public void testgetOWLNegativeObjectPropertyAssertionAxiom04() {
+        DF.getOWLNegativeObjectPropertyAssertionAxiom(null, ind, ind, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeObjectPropertyAssertionAxiom1_4() {
-        f.getOWLNegativeObjectPropertyAssertionAxiom(ope, null, ind, setowlann);
+    public void testgetOWLNegativeObjectPropertyAssertionAxiom14() {
+        DF.getOWLNegativeObjectPropertyAssertionAxiom(ope, null, ind, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeObjectPropertyAssertionAxiom2_4() {
-        f.getOWLNegativeObjectPropertyAssertionAxiom(ope, ind, null, setowlann);
+    public void testgetOWLNegativeObjectPropertyAssertionAxiom24() {
+        DF.getOWLNegativeObjectPropertyAssertionAxiom(ope, ind, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeObjectPropertyAssertionAxiom3_4() {
-        f.getOWLNegativeObjectPropertyAssertionAxiom(ope, ind, ind, null);
+    public void testgetOWLNegativeObjectPropertyAssertionAxiom34() {
+        DF.getOWLNegativeObjectPropertyAssertionAxiom(ope, ind, ind, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeObjectPropertyAssertionAxiom3_4_1() {
-        f.getOWLNegativeObjectPropertyAssertionAxiom(ope, ind, ind, nullsetowlann);
+    public void testgetOWLNegativeObjectPropertyAssertionAxiom341() {
+        DF.getOWLNegativeObjectPropertyAssertionAxiom(ope, ind, ind, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeObjectPropertyAssertionAxiom0_3() {
-        f.getOWLNegativeObjectPropertyAssertionAxiom(null, ind, ind);
+    public void testgetOWLNegativeObjectPropertyAssertionAxiom03() {
+        DF.getOWLNegativeObjectPropertyAssertionAxiom(null, ind, ind);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeObjectPropertyAssertionAxiom1_3() {
-        f.getOWLNegativeObjectPropertyAssertionAxiom(ope, null, ind);
+    public void testgetOWLNegativeObjectPropertyAssertionAxiom13() {
+        DF.getOWLNegativeObjectPropertyAssertionAxiom(ope, null, ind);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeObjectPropertyAssertionAxiom2_3() {
-        f.getOWLNegativeObjectPropertyAssertionAxiom(ope, ind, null);
+    public void testgetOWLNegativeObjectPropertyAssertionAxiom23() {
+        DF.getOWLNegativeObjectPropertyAssertionAxiom(ope, ind, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom0_4() {
-        f.getOWLDataPropertyAssertionAxiom(null, ind, lit, setowlann);
+    public void testgetOWLDataPropertyAssertionAxiom04() {
+        DF.getOWLDataPropertyAssertionAxiom(null, ind, lit, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom1_4() {
-        f.getOWLDataPropertyAssertionAxiom(owldpe, null, lit, setowlann);
+    public void testgetOWLDataPropertyAssertionAxiom14() {
+        DF.getOWLDataPropertyAssertionAxiom(owldpe, null, lit, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom2_4() {
-        f.getOWLDataPropertyAssertionAxiom(owldpe, ind, null, setowlann);
+    public void testgetOWLDataPropertyAssertionAxiom24() {
+        DF.getOWLDataPropertyAssertionAxiom(owldpe, ind, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom3_4() {
-        f.getOWLDataPropertyAssertionAxiom(owldpe, ind, lit, null);
+    public void testgetOWLDataPropertyAssertionAxiom34() {
+        DF.getOWLDataPropertyAssertionAxiom(owldpe, ind, lit, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom3_4_1() {
-        f.getOWLDataPropertyAssertionAxiom(owldpe, ind, lit, nullsetowlann);
+    public void testgetOWLDataPropertyAssertionAxiom341() {
+        DF.getOWLDataPropertyAssertionAxiom(owldpe, ind, lit, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom0_3_0() {
-        f.getOWLDataPropertyAssertionAxiom(null, ind, lit);
+    public void testgetOWLDataPropertyAssertionAxiom030() {
+        DF.getOWLDataPropertyAssertionAxiom(null, ind, lit);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom1_3_0() {
-        f.getOWLDataPropertyAssertionAxiom(owldpe, null, lit);
+    public void testgetOWLDataPropertyAssertionAxiom130() {
+        DF.getOWLDataPropertyAssertionAxiom(owldpe, null, lit);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom0_3_1() {
-        f.getOWLDataPropertyAssertionAxiom(null, ind, 1);
+    public void testgetOWLDataPropertyAssertionAxiom031() {
+        DF.getOWLDataPropertyAssertionAxiom(null, ind, 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom1_3_4() {
-        f.getOWLDataPropertyAssertionAxiom(owldpe, null, 1);
+    public void testgetOWLDataPropertyAssertionAxiom134() {
+        DF.getOWLDataPropertyAssertionAxiom(owldpe, null, 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom0_3_4() {
-        f.getOWLDataPropertyAssertionAxiom(null, ind, 1D);
+    public void testgetOWLDataPropertyAssertionAxiom034() {
+        DF.getOWLDataPropertyAssertionAxiom(null, ind, 1D);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom1_3_1() {
-        f.getOWLDataPropertyAssertionAxiom(owldpe, null, 1D);
+    public void testgetOWLDataPropertyAssertionAxiom131() {
+        DF.getOWLDataPropertyAssertionAxiom(owldpe, null, 1D);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom0_3_2() {
-        f.getOWLDataPropertyAssertionAxiom(null, ind, 1F);
+    public void testgetOWLDataPropertyAssertionAxiom032() {
+        DF.getOWLDataPropertyAssertionAxiom(null, ind, 1F);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom1_3_5() {
-        f.getOWLDataPropertyAssertionAxiom(owldpe, null, 1F);
+    public void testgetOWLDataPropertyAssertionAxiom135() {
+        DF.getOWLDataPropertyAssertionAxiom(owldpe, null, 1F);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom2_3_4() {
-        f.getOWLDataPropertyAssertionAxiom(owldpe, ind, (String) null);
+    public void testgetOWLDataPropertyAssertionAxiom234() {
+        DF.getOWLDataPropertyAssertionAxiom(owldpe, ind, (String) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom0_3_5() {
-        f.getOWLDataPropertyAssertionAxiom(null, ind, true);
+    public void testgetOWLDataPropertyAssertionAxiom035() {
+        DF.getOWLDataPropertyAssertionAxiom(null, ind, true);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom1_3_2() {
-        f.getOWLDataPropertyAssertionAxiom(owldpe, null, true);
+    public void testgetOWLDataPropertyAssertionAxiom132() {
+        DF.getOWLDataPropertyAssertionAxiom(owldpe, null, true);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom2_3_2() {
-        f.getOWLDataPropertyAssertionAxiom(owldpe, ind, (OWLLiteral) null);
+    public void testgetOWLDataPropertyAssertionAxiom232() {
+        DF.getOWLDataPropertyAssertionAxiom(owldpe, ind, (OWLLiteral) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom0_3_3() {
-        f.getOWLDataPropertyAssertionAxiom(null, ind, string);
+    public void testgetOWLDataPropertyAssertionAxiom033() {
+        DF.getOWLDataPropertyAssertionAxiom(null, ind, string);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLDataPropertyAssertionAxiom1_3_3() {
-        f.getOWLDataPropertyAssertionAxiom(owldpe, null, string);
+    public void testgetOWLDataPropertyAssertionAxiom133() {
+        DF.getOWLDataPropertyAssertionAxiom(owldpe, null, string);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeDataPropertyAssertionAxiom0_3() {
-        f.getOWLNegativeDataPropertyAssertionAxiom(null, ind, lit);
+    public void testgetOWLNegativeDataPropertyAssertionAxiom03() {
+        DF.getOWLNegativeDataPropertyAssertionAxiom(null, ind, lit);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeDataPropertyAssertionAxiom1_3() {
-        f.getOWLNegativeDataPropertyAssertionAxiom(owldpe, null, lit);
+    public void testgetOWLNegativeDataPropertyAssertionAxiom13() {
+        DF.getOWLNegativeDataPropertyAssertionAxiom(owldpe, null, lit);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeDataPropertyAssertionAxiom2_3() {
-        f.getOWLNegativeDataPropertyAssertionAxiom(owldpe, ind, null);
+    public void testgetOWLNegativeDataPropertyAssertionAxiom23() {
+        DF.getOWLNegativeDataPropertyAssertionAxiom(owldpe, ind, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeDataPropertyAssertionAxiom0_4() {
-        f.getOWLNegativeDataPropertyAssertionAxiom(null, ind, lit, setowlann);
+    public void testgetOWLNegativeDataPropertyAssertionAxiom04() {
+        DF.getOWLNegativeDataPropertyAssertionAxiom(null, ind, lit, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeDataPropertyAssertionAxiom1_4() {
-        f.getOWLNegativeDataPropertyAssertionAxiom(owldpe, null, lit, setowlann);
+    public void testgetOWLNegativeDataPropertyAssertionAxiom14() {
+        DF.getOWLNegativeDataPropertyAssertionAxiom(owldpe, null, lit, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeDataPropertyAssertionAxiom2_4() {
-        f.getOWLNegativeDataPropertyAssertionAxiom(owldpe, ind, null, setowlann);
+    public void testgetOWLNegativeDataPropertyAssertionAxiom24() {
+        DF.getOWLNegativeDataPropertyAssertionAxiom(owldpe, ind, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeDataPropertyAssertionAxiom3_4() {
-        f.getOWLNegativeDataPropertyAssertionAxiom(owldpe, ind, lit, null);
+    public void testgetOWLNegativeDataPropertyAssertionAxiom34() {
+        DF.getOWLNegativeDataPropertyAssertionAxiom(owldpe, ind, lit, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLNegativeDataPropertyAssertionAxiom3_4_1() {
-        f.getOWLNegativeDataPropertyAssertionAxiom(owldpe, ind, lit, nullsetowlann);
+    public void testgetOWLNegativeDataPropertyAssertionAxiom341() {
+        DF.getOWLNegativeDataPropertyAssertionAxiom(owldpe, ind, lit, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotation0_2() {
-        f.getOWLAnnotation(null, owlannvalue);
+    public void testgetOWLAnnotation02() {
+        DF.getOWLAnnotation(null, owlannvalue);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotation1_2() {
-        f.getOWLAnnotation(owlap, null);
+    public void testgetOWLAnnotation12() {
+        DF.getOWLAnnotation(owlap, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotation0_3() {
-        f.getOWLAnnotation(null, owlannvalue, setowlann);
+    public void testgetOWLAnnotation03() {
+        DF.getOWLAnnotation(null, owlannvalue, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotation1_3() {
-        f.getOWLAnnotation(owlap, null, setowlann);
+    public void testgetOWLAnnotation13() {
+        DF.getOWLAnnotation(owlap, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotation2_3() {
-        f.getOWLAnnotation(owlap, owlannvalue, null);
+    public void testgetOWLAnnotation23() {
+        DF.getOWLAnnotation(owlap, owlannvalue, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotation2_3_1() {
-        f.getOWLAnnotation(owlap, owlannvalue, nullsetowlann);
+    public void testgetOWLAnnotation231() {
+        DF.getOWLAnnotation(owlap, owlannvalue, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom0_2() {
-        f.getOWLAnnotationAssertionAxiom(null, owlannotation);
+    public void testgetOWLAnnotationAssertionAxiom02() {
+        DF.getOWLAnnotationAssertionAxiom(null, owlannotation);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom1_2() {
-        f.getOWLAnnotationAssertionAxiom(owlannsubj, null);
+    public void testgetOWLAnnotationAssertionAxiom12() {
+        DF.getOWLAnnotationAssertionAxiom(owlannsubj, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom0_3_0() {
-        f.getOWLAnnotationAssertionAxiom(null, owlannsubj, owlannvalue);
+    public void testgetOWLAnnotationAssertionAxiom030() {
+        DF.getOWLAnnotationAssertionAxiom(null, owlannsubj, owlannvalue);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom1_3_0() {
-        f.getOWLAnnotationAssertionAxiom(owlap, null, owlannvalue);
+    public void testgetOWLAnnotationAssertionAxiom130() {
+        DF.getOWLAnnotationAssertionAxiom(owlap, null, owlannvalue);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom2_3_0() {
-        f.getOWLAnnotationAssertionAxiom(owlap, owlannsubj, null);
+    public void testgetOWLAnnotationAssertionAxiom230() {
+        DF.getOWLAnnotationAssertionAxiom(owlap, owlannsubj, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom0_4() {
-        f.getOWLAnnotationAssertionAxiom(null, owlannsubj, owlannvalue, setowlann);
+    public void testgetOWLAnnotationAssertionAxiom04() {
+        DF.getOWLAnnotationAssertionAxiom(null, owlannsubj, owlannvalue, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom1_4() {
-        f.getOWLAnnotationAssertionAxiom(owlap, null, owlannvalue, setowlann);
+    public void testgetOWLAnnotationAssertionAxiom14() {
+        DF.getOWLAnnotationAssertionAxiom(owlap, null, owlannvalue, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom2_4() {
-        f.getOWLAnnotationAssertionAxiom(owlap, owlannsubj, null, setowlann);
+    public void testgetOWLAnnotationAssertionAxiom24() {
+        DF.getOWLAnnotationAssertionAxiom(owlap, owlannsubj, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom3_4() {
-        f.getOWLAnnotationAssertionAxiom(owlap, owlannsubj, owlannvalue, null);
+    public void testgetOWLAnnotationAssertionAxiom34() {
+        DF.getOWLAnnotationAssertionAxiom(owlap, owlannsubj, owlannvalue, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom3_4_1() {
-        f.getOWLAnnotationAssertionAxiom(owlap, owlannsubj, owlannvalue, nullsetowlann);
+    public void testgetOWLAnnotationAssertionAxiom341() {
+        DF.getOWLAnnotationAssertionAxiom(owlap, owlannsubj, owlannvalue, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom0_3_1() {
-        f.getOWLAnnotationAssertionAxiom(null, owlannotation, setowlann);
+    public void testgetOWLAnnotationAssertionAxiom031() {
+        DF.getOWLAnnotationAssertionAxiom(null, owlannotation, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom1_3_1() {
-        f.getOWLAnnotationAssertionAxiom(owlannsubj, null, setowlann);
+    public void testgetOWLAnnotationAssertionAxiom131() {
+        DF.getOWLAnnotationAssertionAxiom(owlannsubj, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom2_3_1() {
-        f.getOWLAnnotationAssertionAxiom(owlannsubj, owlannotation, null);
+    public void testgetOWLAnnotationAssertionAxiom231() {
+        DF.getOWLAnnotationAssertionAxiom(owlannsubj, owlannotation, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationAssertionAxiom2_3_1_1() {
-        f.getOWLAnnotationAssertionAxiom(owlannsubj, owlannotation, nullsetowlann);
+    public void testgetOWLAnnotationAssertionAxiom2311() {
+        DF.getOWLAnnotationAssertionAxiom(owlannsubj, owlannotation, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLImportsDeclaration0_1() {
-        f.getOWLImportsDeclaration(null);
+    public void testgetOWLImportsDeclaration01() {
+        DF.getOWLImportsDeclaration(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationPropertyDomainAxiom0_2() {
-        f.getOWLAnnotationPropertyDomainAxiom(null, iri);
+    public void testgetOWLAnnotationPropertyDomainAxiom02() {
+        DF.getOWLAnnotationPropertyDomainAxiom(null, iri);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationPropertyDomainAxiom1_2() {
-        f.getOWLAnnotationPropertyDomainAxiom(owlap, null);
+    public void testgetOWLAnnotationPropertyDomainAxiom12() {
+        DF.getOWLAnnotationPropertyDomainAxiom(owlap, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationPropertyDomainAxiom0_3() {
-        f.getOWLAnnotationPropertyDomainAxiom(null, iri, setowlann);
+    public void testgetOWLAnnotationPropertyDomainAxiom03() {
+        DF.getOWLAnnotationPropertyDomainAxiom(null, iri, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationPropertyDomainAxiom1_3() {
-        f.getOWLAnnotationPropertyDomainAxiom(owlap, null, setowlann);
+    public void testgetOWLAnnotationPropertyDomainAxiom13() {
+        DF.getOWLAnnotationPropertyDomainAxiom(owlap, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationPropertyDomainAxiom2_3() {
-        f.getOWLAnnotationPropertyDomainAxiom(owlap, iri, null);
+    public void testgetOWLAnnotationPropertyDomainAxiom23() {
+        DF.getOWLAnnotationPropertyDomainAxiom(owlap, iri, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationPropertyDomainAxiom2_3_1() {
-        f.getOWLAnnotationPropertyDomainAxiom(owlap, iri, nullsetowlann);
+    public void testgetOWLAnnotationPropertyDomainAxiom231() {
+        DF.getOWLAnnotationPropertyDomainAxiom(owlap, iri, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationPropertyRangeAxiom0_2() {
-        f.getOWLAnnotationPropertyRangeAxiom(null, iri);
+    public void testgetOWLAnnotationPropertyRangeAxiom02() {
+        DF.getOWLAnnotationPropertyRangeAxiom(null, iri);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationPropertyRangeAxiom1_2() {
-        f.getOWLAnnotationPropertyRangeAxiom(owlap, null);
+    public void testgetOWLAnnotationPropertyRangeAxiom12() {
+        DF.getOWLAnnotationPropertyRangeAxiom(owlap, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationPropertyRangeAxiom0_3() {
-        f.getOWLAnnotationPropertyRangeAxiom(null, iri, setowlann);
+    public void testgetOWLAnnotationPropertyRangeAxiom03() {
+        DF.getOWLAnnotationPropertyRangeAxiom(null, iri, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationPropertyRangeAxiom1_3() {
-        f.getOWLAnnotationPropertyRangeAxiom(owlap, null, setowlann);
+    public void testgetOWLAnnotationPropertyRangeAxiom13() {
+        DF.getOWLAnnotationPropertyRangeAxiom(owlap, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationPropertyRangeAxiom2_3() {
-        f.getOWLAnnotationPropertyRangeAxiom(owlap, iri, null);
+    public void testgetOWLAnnotationPropertyRangeAxiom23() {
+        DF.getOWLAnnotationPropertyRangeAxiom(owlap, iri, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLAnnotationPropertyRangeAxiom2_3_1() {
-        f.getOWLAnnotationPropertyRangeAxiom(owlap, iri, nullsetowlann);
+    public void testgetOWLAnnotationPropertyRangeAxiom231() {
+        DF.getOWLAnnotationPropertyRangeAxiom(owlap, iri, nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubAnnotationPropertyOfAxiom0_2() {
-        f.getOWLSubAnnotationPropertyOfAxiom(null, owlap);
+    public void testgetOWLSubAnnotationPropertyOfAxiom02() {
+        DF.getOWLSubAnnotationPropertyOfAxiom(null, owlap);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubAnnotationPropertyOfAxiom1_2() {
-        f.getOWLSubAnnotationPropertyOfAxiom(owlap, null);
+    public void testgetOWLSubAnnotationPropertyOfAxiom12() {
+        DF.getOWLSubAnnotationPropertyOfAxiom(owlap, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubAnnotationPropertyOfAxiom0_3() {
-        f.getOWLSubAnnotationPropertyOfAxiom(null, owlap, setowlann);
+    public void testgetOWLSubAnnotationPropertyOfAxiom03() {
+        DF.getOWLSubAnnotationPropertyOfAxiom(null, owlap, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubAnnotationPropertyOfAxiom1_3() {
-        f.getOWLSubAnnotationPropertyOfAxiom(owlap, null, setowlann);
+    public void testgetOWLSubAnnotationPropertyOfAxiom13() {
+        DF.getOWLSubAnnotationPropertyOfAxiom(owlap, null, setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubAnnotationPropertyOfAxiom2_3() {
-        f.getOWLSubAnnotationPropertyOfAxiom(owlap, owlap, null);
+    public void testgetOWLSubAnnotationPropertyOfAxiom23() {
+        DF.getOWLSubAnnotationPropertyOfAxiom(owlap, owlap, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testgetOWLSubAnnotationPropertyOfAxiom2_3_1() {
-        f.getOWLSubAnnotationPropertyOfAxiom(owlap, owlap, nullsetowlann);
+    public void testgetOWLSubAnnotationPropertyOfAxiom231() {
+        DF.getOWLSubAnnotationPropertyOfAxiom(owlap, owlap, nullsetowlann);
     }
 }

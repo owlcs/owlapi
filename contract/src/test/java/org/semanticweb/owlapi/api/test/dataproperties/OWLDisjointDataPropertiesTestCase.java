@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 public class OWLDisjointDataPropertiesTestCase extends AbstractOWLDataFactoryTest {
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         OWLObject obj = DisjointDataProperties(DataProperty(createIRI()),
                 DataProperty(createIRI()), DataProperty(createIRI()));
         assertNotNull("object should not be null", obj);
@@ -61,7 +61,7 @@ public class OWLDisjointDataPropertiesTestCase extends AbstractOWLDataFactoryTes
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         OWLDataProperty a = DataProperty(createIRI());
         OWLDataProperty b = DataProperty(createIRI());
         OWLDataProperty c = DataProperty(createIRI());
@@ -72,7 +72,7 @@ public class OWLDisjointDataPropertiesTestCase extends AbstractOWLDataFactoryTes
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         OWLDataProperty a = DataProperty(createIRI());
         OWLDataProperty b = DataProperty(createIRI());
         OWLObject objA = DisjointDataProperties(a, b);
@@ -83,7 +83,7 @@ public class OWLDisjointDataPropertiesTestCase extends AbstractOWLDataFactoryTes
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         OWLDataProperty a = DataProperty(createIRI());
         OWLDataProperty b = DataProperty(createIRI());
         OWLDataProperty c = DataProperty(createIRI());

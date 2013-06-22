@@ -105,10 +105,8 @@ public class OWL2Profile implements OWLProfile {
                     profileViolations.add(new OntologyIRINotAbsolute(ont));
                 }
                 IRI versionIRI = id.getVersionIRI();
-                if (versionIRI != null) {
-                    if (!versionIRI.isAbsolute()) {
-                        profileViolations.add(new OntologyVersionIRINotAbsolute(ont));
-                    }
+                if (versionIRI != null && !versionIRI.isAbsolute()) {
+                    profileViolations.add(new OntologyVersionIRINotAbsolute(ont));
                 }
             }
             return null;

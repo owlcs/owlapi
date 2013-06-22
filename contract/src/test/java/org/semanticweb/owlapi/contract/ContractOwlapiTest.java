@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -35,7 +36,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiTest {
     @Test
-    public void shouldTestAbstractCompositeOntologyChange() throws Exception {
+    public void shouldTestAbstractCompositeOntologyChange() throws OWLException {
         AbstractCompositeOntologyChange testSubject0 = new AbstractCompositeOntologyChange(
                 mock(OWLDataFactory.class)) {
             @Override
@@ -48,7 +49,7 @@ public class ContractOwlapiTest {
     }
 
     @Test
-    public void shouldTestAddClassExpressionClosureAxiom() throws Exception {
+    public void shouldTestAddClassExpressionClosureAxiom() throws OWLException {
         AddClassExpressionClosureAxiom testSubject0 = new AddClassExpressionClosureAxiom(
                 mock(OWLDataFactory.class), mock(OWLClass.class),
                 Utils.mockObjectProperty(), Utils.mockSet(Utils.getMockOntology()),
@@ -58,7 +59,7 @@ public class ContractOwlapiTest {
     }
 
     @Test
-    public void shouldTestAmalgamateSubClassAxioms() throws Exception {
+    public void shouldTestAmalgamateSubClassAxioms() throws OWLException {
         AmalgamateSubClassAxioms testSubject0 = new AmalgamateSubClassAxioms(
                 Utils.mockSet(Utils.getMockOntology()), mock(OWLDataFactory.class));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
@@ -66,7 +67,7 @@ public class ContractOwlapiTest {
     }
 
     @Test
-    public void shouldTestCoerceConstantsIntoDataPropertyRange() throws Exception {
+    public void shouldTestCoerceConstantsIntoDataPropertyRange() throws OWLException {
         CoerceConstantsIntoDataPropertyRange testSubject0 = new CoerceConstantsIntoDataPropertyRange(
                 mock(OWLDataFactory.class), Utils.mockSet(Utils.getMockOntology()));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
@@ -74,7 +75,7 @@ public class ContractOwlapiTest {
     }
 
     @Test
-    public void shouldTestConvertEquivalentClassesToSuperClasses() throws Exception {
+    public void shouldTestConvertEquivalentClassesToSuperClasses() throws OWLException {
         ConvertEquivalentClassesToSuperClasses testSubject0 = new ConvertEquivalentClassesToSuperClasses(
                 mock(OWLDataFactory.class), mock(OWLClass.class), Utils.mockSet(Utils
                         .getMockOntology()), Utils.getMockOntology(), false);
@@ -83,7 +84,7 @@ public class ContractOwlapiTest {
     }
 
     @Test
-    public void shouldTestConvertPropertyAssertionsToAnnotations() throws Exception {
+    public void shouldTestConvertPropertyAssertionsToAnnotations() throws OWLException {
         ConvertPropertyAssertionsToAnnotations testSubject0 = new ConvertPropertyAssertionsToAnnotations(
                 Factory.getFactory(), Utils.mockSet(Utils.getMockOntology()));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
@@ -91,7 +92,7 @@ public class ContractOwlapiTest {
     }
 
     @Test
-    public void shouldTestConvertSuperClassesToEquivalentClass() throws Exception {
+    public void shouldTestConvertSuperClassesToEquivalentClass() throws OWLException {
         ConvertSuperClassesToEquivalentClass testSubject0 = new ConvertSuperClassesToEquivalentClass(
                 Factory.getFactory(), Factory.getFactory().getOWLClass(
                         IRI.create("urn:test:class")), Utils.mockSet(Utils
@@ -101,7 +102,7 @@ public class ContractOwlapiTest {
     }
 
     @Test
-    public void shouldTestCreateValuePartition() throws Exception {
+    public void shouldTestCreateValuePartition() throws OWLException {
         CreateValuePartition testSubject0 = new CreateValuePartition(
                 Factory.getFactory(), mock(OWLClass.class),
                 Utils.mockSet(mock(OWLClass.class)), mock(OWLObjectProperty.class),
@@ -111,7 +112,7 @@ public class ContractOwlapiTest {
     }
 
     @Test
-    public void shouldTestMakeClassesMutuallyDisjoint() throws Exception {
+    public void shouldTestMakeClassesMutuallyDisjoint() throws OWLException {
         Set<OWLClassExpression> classes = new HashSet<OWLClassExpression>(Arrays.asList(
                 Factory.getFactory().getOWLClass(IRI.create("urn:test:c1")), Factory
                         .getFactory().getOWLClass(IRI.create("urn:test:c2"))));
@@ -122,7 +123,7 @@ public class ContractOwlapiTest {
     }
 
     @Test
-    public void shouldTestMakePrimitiveSubClassesMutuallyDisjoint() throws Exception {
+    public void shouldTestMakePrimitiveSubClassesMutuallyDisjoint() throws OWLException {
         MakePrimitiveSubClassesMutuallyDisjoint testSubject0 = new MakePrimitiveSubClassesMutuallyDisjoint(
                 Factory.getFactory(), Factory.getFactory().getOWLClass(
                         IRI.create("urn:test:c")), Utils.getMockOntology());
@@ -134,20 +135,20 @@ public class ContractOwlapiTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWLCompositeOntologyChange() throws Exception {
+    public void shouldTestInterfaceOWLCompositeOntologyChange() throws OWLException {
         OWLCompositeOntologyChange testSubject0 = mock(OWLCompositeOntologyChange.class);
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
     }
 
     @Test
-    public void shouldTestRemoveAllDisjointAxioms() throws Exception {
+    public void shouldTestRemoveAllDisjointAxioms() throws OWLException {
         RemoveAllDisjointAxioms testSubject0 = new RemoveAllDisjointAxioms(
                 mock(OWLDataFactory.class), Utils.mockSet(Utils.getMockOntology()));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
 
-    public void shouldTestShortForm2AnnotationGenerator() throws Exception {
+    public void shouldTestShortForm2AnnotationGenerator() throws OWLException {
         ShortForm2AnnotationGenerator testSubject0 = new ShortForm2AnnotationGenerator(
                 Utils.getMockManager(), Utils.getMockOntology(),
                 mock(ShortFormProvider.class), IRI("urn:aFake"), "");
@@ -159,7 +160,7 @@ public class ContractOwlapiTest {
     }
 
     @Test
-    public void shouldTestSplitSubClassAxioms() throws Exception {
+    public void shouldTestSplitSubClassAxioms() throws OWLException {
         SplitSubClassAxioms testSubject0 = new SplitSubClassAxioms(Utils.mockSet(Utils
                 .getMockOntology()), mock(OWLDataFactory.class));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();

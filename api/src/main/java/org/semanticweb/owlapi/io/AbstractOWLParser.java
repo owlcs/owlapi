@@ -72,7 +72,7 @@ import org.xml.sax.InputSource;
  * the setting and getting of the <code>OWLOntologyManager</code> that should be
  * associated with the parser */
 public abstract class AbstractOWLParser implements OWLParser {
-    private static final Logger logger = Logger.getLogger(AbstractOWLParser.class
+    private static final Logger LOGGER = Logger.getLogger(AbstractOWLParser.class
             .getName());
     private static final String ZIP_FILE_EXTENSION = ".zip";
     private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
@@ -162,10 +162,10 @@ public abstract class AbstractOWLParser implements OWLParser {
             @Nonnull String contentEncoding) throws IOException {
         InputStream is;
         if ("gzip".equals(contentEncoding)) {
-            logger.fine("URL connection input stream is compressed using gzip");
+            LOGGER.fine("URL connection input stream is compressed using gzip");
             is = new BufferedInputStream(new GZIPInputStream(conn.getInputStream()));
         } else if ("deflate".equals(contentEncoding)) {
-            logger.fine("URL connection input stream is compressed using deflate");
+            LOGGER.fine("URL connection input stream is compressed using deflate");
             is = new BufferedInputStream(new InflaterInputStream(conn.getInputStream(),
                     new Inflater(true)));
         } else {

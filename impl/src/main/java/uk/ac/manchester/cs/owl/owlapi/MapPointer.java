@@ -103,4 +103,8 @@ public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V
     public int size() {
         return map.size();
     }
+
+    public boolean isEmpty() {
+        return map.size() == 0;
+    }
 }

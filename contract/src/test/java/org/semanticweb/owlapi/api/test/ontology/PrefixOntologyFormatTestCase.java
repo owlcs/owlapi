@@ -42,7 +42,9 @@ import static org.junit.Assert.*;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /** Author: Matthew Horridge<br>
@@ -51,7 +53,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * Date: 05/01/2011 */
 public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase {
     @Override
-    protected OWLOntology createOntology() throws Exception {
+    protected OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntology ont = getManager().createOntology();
         PrefixOWLOntologyFormat format = (PrefixOWLOntologyFormat) ont
                 .getOWLOntologyManager().getOntologyFormat(ont);
@@ -63,7 +65,7 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
 
     @Override
     public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormat format)
-            throws Exception {
+            throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology ont2 = super.roundTripOntology(ont, format);
         OWLOntologyFormat ont2Format = ont2.getOWLOntologyManager().getOntologyFormat(
                 ont2);

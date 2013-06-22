@@ -53,7 +53,7 @@ public interface ExplanationRenderer {
      *             OWL troubles
      * @throws IOException
      *             IO troubles */
-    public void startRendering(Writer writer) throws OWLException, IOException;
+    void startRendering(Writer writer) throws OWLException, IOException;
 
     /** @param axiom
      *            the axiom to render
@@ -63,8 +63,8 @@ public interface ExplanationRenderer {
      *             OWL troubles
      * @throws IOException
      *             IO troubles */
-    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations)
-            throws OWLException, IOException;
+    void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) throws OWLException,
+            IOException;
 
     /** end of rendering
      * 
@@ -72,5 +72,5 @@ public interface ExplanationRenderer {
      *             OWL troubles
      * @throws IOException
      *             IO troubles */
-    public void endRendering() throws OWLException, IOException;
+    void endRendering() throws OWLException, IOException;
 }

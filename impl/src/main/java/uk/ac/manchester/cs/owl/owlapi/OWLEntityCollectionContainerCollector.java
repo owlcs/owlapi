@@ -178,7 +178,7 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor,
      *            the set that will contain the results */
     public OWLEntityCollectionContainerCollector(Set<OWLEntity> toReturn) {
         objects = toReturn;
-        anonymousIndividuals = fake;
+        anonymousIndividuals = FAKE;
     }
 
     /** Deprecated default constructor: use one of the other constructors to get
@@ -868,7 +868,7 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor,
         node.getSecondArgument().accept(this);
     }
 
-    private static final List<OWLAnonymousIndividual> fake = new List<OWLAnonymousIndividual>() {
+    private static final List<OWLAnonymousIndividual> FAKE = new List<OWLAnonymousIndividual>() {
         @Override
         public <T> T[] toArray(T[] arg0) {
             return arg0;

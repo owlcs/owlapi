@@ -8,6 +8,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
@@ -22,7 +23,7 @@ import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxOntologyStorerBase;
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractDlsyntaxTest {
     @Test
-    public void shouldTestDLSyntax() throws Exception {
+    public void shouldTestDLSyntax() {
         DLSyntax testSubject0 = DLSyntax.AND;
         String result0 = testSubject0.toString();
         DLSyntax[] result1 = DLSyntax.values();
@@ -30,7 +31,7 @@ public class ContractDlsyntaxTest {
         int result8 = testSubject0.ordinal();
     }
 
-    public void shouldTestDLSyntaxHTMLOntologyFormat() throws Exception {
+    public void shouldTestDLSyntaxHTMLOntologyFormat() {
         DLSyntaxHTMLOntologyFormat testSubject0 = new DLSyntaxHTMLOntologyFormat();
         String result0 = testSubject0.toString();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
@@ -42,7 +43,7 @@ public class ContractDlsyntaxTest {
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
-    public void shouldTestDLSyntaxHTMLOntologyStorer() throws Exception {
+    public void shouldTestDLSyntaxHTMLOntologyStorer() throws OWLOntologyStorageException {
         DLSyntaxHTMLOntologyStorer testSubject0 = new DLSyntaxHTMLOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
@@ -53,7 +54,7 @@ public class ContractDlsyntaxTest {
     }
 
     @Test
-    public void shouldTestDLSyntaxObjectRenderer() throws Exception {
+    public void shouldTestDLSyntaxObjectRenderer() {
         DLSyntaxObjectRenderer testSubject0 = new DLSyntaxObjectRenderer();
         String result0 = testSubject0.render(mock(OWLObject.class));
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
@@ -62,7 +63,7 @@ public class ContractDlsyntaxTest {
         String result2 = testSubject0.toString();
     }
 
-    public void shouldTestDLSyntaxOntologyFormat() throws Exception {
+    public void shouldTestDLSyntaxOntologyFormat() {
         DLSyntaxOntologyFormat testSubject0 = new DLSyntaxOntologyFormat();
         String result0 = testSubject0.toString();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
@@ -74,7 +75,7 @@ public class ContractDlsyntaxTest {
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
-    public void shouldTestDLSyntaxOntologyStorer() throws Exception {
+    public void shouldTestDLSyntaxOntologyStorer() throws OWLOntologyStorageException {
         DLSyntaxOntologyStorer testSubject0 = new DLSyntaxOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
@@ -84,7 +85,7 @@ public class ContractDlsyntaxTest {
         String result1 = testSubject0.toString();
     }
 
-    public void shouldTestDLSyntaxOntologyStorerBase() throws Exception {
+    public void shouldTestDLSyntaxOntologyStorerBase() throws OWLOntologyStorageException {
         DLSyntaxOntologyStorerBase testSubject0 = new DLSyntaxOntologyStorerBase() {
             /**
              * 

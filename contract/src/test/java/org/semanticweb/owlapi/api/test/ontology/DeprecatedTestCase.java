@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -56,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class DeprecatedTestCase extends AbstractFileTestCase {
     @Test
-    public void testAnnotationAssertionsPresent() {
+    public void testAnnotationAssertionsPresent() throws OWLOntologyCreationException {
         OWLOntology ont = createOntology();
         OWLClass cls = Class(getIRI("http://www.semanticweb.org/owlapi/test#ClsA"));
         for (OWLAnnotation anno : find(OWLAnnotation.class).in(ont).annotations(cls)) {

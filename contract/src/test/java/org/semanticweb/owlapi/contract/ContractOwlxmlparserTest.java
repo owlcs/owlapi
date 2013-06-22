@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -36,7 +38,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlxmlparserTest {
     @Test
-    public void shouldTestAbbreviatedIRIElementHandler() throws Exception {
+    public void shouldTestAbbreviatedIRIElementHandler() throws OWLException {
         AbbreviatedIRIElementHandler testSubject0 = new AbbreviatedIRIElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -72,7 +74,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractClassExpressionElementHandler() throws Exception {
+    public void shouldTestAbstractClassExpressionElementHandler() throws OWLException {
         AbstractClassExpressionElementHandler testSubject0 = new AbstractClassExpressionElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -111,7 +113,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractClassExpressionFillerRestriction() throws Exception {
+    public void shouldTestAbstractClassExpressionFillerRestriction() throws OWLException {
         AbstractClassExpressionFillerRestriction testSubject0 = new AbstractClassExpressionFillerRestriction(
                 Utils.mockHandler()) {
             @Override
@@ -153,7 +155,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestAbstractClassExpressionOperandAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         AbstractClassExpressionOperandAxiomElementHandler testSubject0 = new AbstractClassExpressionOperandAxiomElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -197,7 +199,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestAbstractDataCardinalityRestrictionElementHandler()
-            throws Exception {
+            throws OWLException {
         AbstractDataCardinalityRestrictionElementHandler testSubject0 = new AbstractDataCardinalityRestrictionElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -239,7 +241,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestAbstractDataRangeFillerRestrictionElementHandler()
-            throws Exception {
+            throws OWLException {
         AbstractDataRangeFillerRestrictionElementHandler testSubject0 = new AbstractDataRangeFillerRestrictionElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -280,7 +282,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractDataRestrictionElementHandler() throws Exception {
+    public void shouldTestAbstractDataRestrictionElementHandler() throws OWLException {
         AbstractDataRestrictionElementHandler<OWLObject> testSubject0 = new AbstractDataRestrictionElementHandler<OWLObject>(
                 Utils.mockHandler()) {
             @Override
@@ -321,7 +323,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractElementHandlerFactory() throws Exception {
+    public void shouldTestAbstractElementHandlerFactory() throws OWLException {
         AbstractElementHandlerFactory testSubject0 = new AbstractElementHandlerFactory(
                 OWLXMLVocabulary.COMMENT) {
             @Override
@@ -335,7 +337,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractIRIElementHandler() throws Exception {
+    public void shouldTestAbstractIRIElementHandler() throws OWLException {
         AbstractIRIElementHandler testSubject0 = new AbstractIRIElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -379,7 +381,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestAbstractNaryBooleanClassExpressionElementHandler()
-            throws Exception {
+            throws OWLException {
         AbstractNaryBooleanClassExpressionElementHandler testSubject0 = new AbstractNaryBooleanClassExpressionElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -421,7 +423,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractObjectRestrictionElementHandler() throws Exception {
+    public void shouldTestAbstractObjectRestrictionElementHandler() throws OWLException {
         AbstractObjectRestrictionElementHandler<OWLObject> testSubject0 = new AbstractObjectRestrictionElementHandler<OWLObject>(
                 Utils.mockHandler()) {
             @Override
@@ -462,7 +464,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOperandAxiomElementHandler() throws Exception {
+    public void shouldTestAbstractOperandAxiomElementHandler() throws OWLException {
         AbstractOperandAxiomElementHandler<OWLAxiom> testSubject0 = new AbstractOperandAxiomElementHandler<OWLAxiom>(
                 Utils.mockHandler()) {
             @Override
@@ -505,7 +507,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLAssertionAxiomElementHandler() throws Exception {
+    public void shouldTestAbstractOWLAssertionAxiomElementHandler() throws OWLException {
         AbstractOWLAssertionAxiomElementHandler<OWLObjectPropertyExpression, OWLObject> testSubject0 = new AbstractOWLAssertionAxiomElementHandler<OWLObjectPropertyExpression, OWLObject>(
                 Utils.mockHandler()) {
             @Override
@@ -554,7 +556,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLAxiomElementHandler() throws Exception {
+    public void shouldTestAbstractOWLAxiomElementHandler() throws OWLException {
         AbstractOWLAxiomElementHandler testSubject0 = new AbstractOWLAxiomElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -598,7 +600,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestAbstractOWLDataPropertyAssertionAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         AbstractOWLDataPropertyAssertionAxiomElementHandler testSubject0 = new AbstractOWLDataPropertyAssertionAxiomElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -648,7 +650,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestAbstractOWLDataPropertyOperandAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         AbstractOWLDataPropertyOperandAxiomElementHandler testSubject0 = new AbstractOWLDataPropertyOperandAxiomElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -691,7 +693,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLDataRangeHandler() throws Exception {
+    public void shouldTestAbstractOWLDataRangeHandler() throws OWLException {
         AbstractOWLDataRangeHandler testSubject0 = new AbstractOWLDataRangeHandler(
                 Utils.mockHandler()) {
             @Override
@@ -731,7 +733,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLElementHandler() throws Exception {
+    public void shouldTestAbstractOWLElementHandler() throws OWLException {
         AbstractOWLElementHandler<Object> testSubject0 = new AbstractOWLElementHandler<Object>(
                 Utils.mockHandler()) {
             @Override
@@ -776,7 +778,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestAbstractOWLIndividualOperandAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         AbstractOWLIndividualOperandAxiomElementHandler testSubject0 = new AbstractOWLIndividualOperandAxiomElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -819,7 +821,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLObjectCardinalityElementHandler() throws Exception {
+    public void shouldTestAbstractOWLObjectCardinalityElementHandler()
+            throws OWLException {
         AbstractOWLObjectCardinalityElementHandler testSubject0 = new AbstractOWLObjectCardinalityElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -861,7 +864,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestAbstractOWLObjectPropertyAssertionAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         AbstractOWLObjectPropertyAssertionAxiomElementHandler testSubject0 = new AbstractOWLObjectPropertyAssertionAxiomElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -911,7 +914,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestAbstractOWLObjectPropertyCharacteristicAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler testSubject0 = new AbstractOWLObjectPropertyCharacteristicAxiomElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -956,7 +959,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLObjectPropertyElementHandler() throws Exception {
+    public void shouldTestAbstractOWLObjectPropertyElementHandler() throws OWLException {
         AbstractOWLObjectPropertyElementHandler testSubject0 = new AbstractOWLObjectPropertyElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -996,7 +999,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestAbstractOWLObjectPropertyOperandAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         AbstractOWLObjectPropertyOperandAxiomElementHandler testSubject0 = new AbstractOWLObjectPropertyOperandAxiomElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -1040,7 +1043,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestAbstractOWLPropertyCharacteristicAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         AbstractOWLPropertyCharacteristicAxiomElementHandler<OWLAxiom> testSubject0 = new AbstractOWLPropertyCharacteristicAxiomElementHandler<OWLAxiom>(
                 Utils.mockHandler()) {
             @Override
@@ -1085,7 +1088,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractRestrictionElementHandler() throws Exception {
+    public void shouldTestAbstractRestrictionElementHandler() throws OWLException {
         AbstractRestrictionElementHandler<OWLObjectPropertyExpression, OWLClassExpression> testSubject0 = new AbstractRestrictionElementHandler<OWLObjectPropertyExpression, OWLClassExpression>(
                 Utils.mockHandler()) {
             @Override
@@ -1126,7 +1129,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestIRIElementHandler() throws Exception {
+    public void shouldTestIRIElementHandler() throws OWLException {
         IRIElementHandler testSubject0 = new IRIElementHandler(Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.endElement();
@@ -1161,7 +1164,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestLegacyEntityAnnotationElementHandler() throws Exception {
+    public void shouldTestLegacyEntityAnnotationElementHandler() throws OWLException {
         LegacyEntityAnnotationElementHandler testSubject0 = new LegacyEntityAnnotationElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1199,7 +1202,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAnnotationAssertionElementHandler() throws Exception {
+    public void shouldTestOWLAnnotationAssertionElementHandler() throws OWLException {
         OWLAnnotationAssertionElementHandler testSubject0 = new OWLAnnotationAssertionElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1237,7 +1240,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAnnotationElementHandler() throws Exception {
+    public void shouldTestOWLAnnotationElementHandler() throws OWLException {
         OWLAnnotationElementHandler testSubject0 = new OWLAnnotationElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1273,7 +1276,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAnnotationPropertyDomainElementHandler() throws Exception {
+    public void shouldTestOWLAnnotationPropertyDomainElementHandler() throws OWLException {
         OWLAnnotationPropertyDomainElementHandler testSubject0 = new OWLAnnotationPropertyDomainElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1311,7 +1314,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAnnotationPropertyElementHandler() throws Exception {
+    public void shouldTestOWLAnnotationPropertyElementHandler() throws OWLException {
         OWLAnnotationPropertyElementHandler testSubject0 = new OWLAnnotationPropertyElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1347,7 +1350,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAnnotationPropertyRangeElementHandler() throws Exception {
+    public void shouldTestOWLAnnotationPropertyRangeElementHandler() throws OWLException {
         OWLAnnotationPropertyRangeElementHandler testSubject0 = new OWLAnnotationPropertyRangeElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1385,7 +1388,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAnonymousIndividualElementHandler() throws Exception {
+    public void shouldTestOWLAnonymousIndividualElementHandler() throws OWLException {
         OWLAnonymousIndividualElementHandler testSubject0 = new OWLAnonymousIndividualElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1422,7 +1425,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLAsymmetricObjectPropertyAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLAsymmetricObjectPropertyAxiomElementHandler testSubject0 = new OWLAsymmetricObjectPropertyAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1461,7 +1464,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAsymmetricObjectPropertyElementHandler() throws Exception {
+    public void shouldTestOWLAsymmetricObjectPropertyElementHandler() throws OWLException {
         OWLAsymmetricObjectPropertyElementHandler testSubject0 = new OWLAsymmetricObjectPropertyElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1500,7 +1503,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLClassAssertionAxiomElementHandler() throws Exception {
+    public void shouldTestOWLClassAssertionAxiomElementHandler() throws OWLException {
         OWLClassAssertionAxiomElementHandler testSubject0 = new OWLClassAssertionAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1538,7 +1541,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLClassElementHandler() throws Exception {
+    public void shouldTestOWLClassElementHandler() throws OWLException {
         OWLClassElementHandler testSubject0 = new OWLClassElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1575,7 +1578,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataAllValuesFromElementHandler() throws Exception {
+    public void shouldTestOWLDataAllValuesFromElementHandler() throws OWLException {
         OWLDataAllValuesFromElementHandler testSubject0 = new OWLDataAllValuesFromElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1611,7 +1614,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataComplementOfElementHandler() throws Exception {
+    public void shouldTestOWLDataComplementOfElementHandler() throws OWLException {
         OWLDataComplementOfElementHandler testSubject0 = new OWLDataComplementOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1648,7 +1651,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataExactCardinalityElementHandler() throws Exception {
+    public void shouldTestOWLDataExactCardinalityElementHandler() throws OWLException {
         OWLDataExactCardinalityElementHandler testSubject0 = new OWLDataExactCardinalityElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1684,7 +1687,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataHasValueElementHandler() throws Exception {
+    public void shouldTestOWLDataHasValueElementHandler() throws OWLException {
         OWLDataHasValueElementHandler testSubject0 = new OWLDataHasValueElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1720,7 +1723,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataIntersectionOfElementHandler() throws Exception {
+    public void shouldTestOWLDataIntersectionOfElementHandler() throws OWLException {
         OWLDataIntersectionOfElementHandler testSubject0 = new OWLDataIntersectionOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1757,7 +1760,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataMaxCardinalityElementHandler() throws Exception {
+    public void shouldTestOWLDataMaxCardinalityElementHandler() throws OWLException {
         OWLDataMaxCardinalityElementHandler testSubject0 = new OWLDataMaxCardinalityElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1793,7 +1796,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataMinCardinalityElementHandler() throws Exception {
+    public void shouldTestOWLDataMinCardinalityElementHandler() throws OWLException {
         OWLDataMinCardinalityElementHandler testSubject0 = new OWLDataMinCardinalityElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1829,7 +1832,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataOneOfElementHandler() throws Exception {
+    public void shouldTestOWLDataOneOfElementHandler() throws OWLException {
         OWLDataOneOfElementHandler testSubject0 = new OWLDataOneOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1866,7 +1869,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyAssertionAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDataPropertyAssertionAxiomElementHandler()
+            throws OWLException {
         OWLDataPropertyAssertionAxiomElementHandler testSubject0 = new OWLDataPropertyAssertionAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1910,7 +1914,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyDomainAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDataPropertyDomainAxiomElementHandler() throws OWLException {
         OWLDataPropertyDomainAxiomElementHandler testSubject0 = new OWLDataPropertyDomainAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1948,7 +1952,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyElementHandler() throws Exception {
+    public void shouldTestOWLDataPropertyElementHandler() throws OWLException {
         OWLDataPropertyElementHandler testSubject0 = new OWLDataPropertyElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1984,7 +1988,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyRangeAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDataPropertyRangeAxiomElementHandler() throws OWLException {
         OWLDataPropertyRangeAxiomElementHandler testSubject0 = new OWLDataPropertyRangeAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2022,7 +2026,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataRestrictionElementHandler() throws Exception {
+    public void shouldTestOWLDataRestrictionElementHandler() throws OWLException {
         OWLDataRestrictionElementHandler testSubject0 = new OWLDataRestrictionElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2059,7 +2063,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataSomeValuesFromElementHandler() throws Exception {
+    public void shouldTestOWLDataSomeValuesFromElementHandler() throws OWLException {
         OWLDataSomeValuesFromElementHandler testSubject0 = new OWLDataSomeValuesFromElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2095,7 +2099,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDatatypeDefinitionElementHandler() throws Exception {
+    public void shouldTestOWLDatatypeDefinitionElementHandler() throws OWLException {
         OWLDatatypeDefinitionElementHandler testSubject0 = new OWLDatatypeDefinitionElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2133,7 +2137,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDatatypeElementHandler() throws Exception {
+    public void shouldTestOWLDatatypeElementHandler() throws OWLException {
         OWLDatatypeElementHandler testSubject0 = new OWLDatatypeElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2170,7 +2174,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDatatypeFacetRestrictionElementHandler() throws Exception {
+    public void shouldTestOWLDatatypeFacetRestrictionElementHandler() throws OWLException {
         OWLDatatypeFacetRestrictionElementHandler testSubject0 = new OWLDatatypeFacetRestrictionElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2206,7 +2210,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDatatypeRestrictionElementHandler() throws Exception {
+    public void shouldTestOWLDatatypeRestrictionElementHandler() throws OWLException {
         OWLDatatypeRestrictionElementHandler testSubject0 = new OWLDatatypeRestrictionElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2243,7 +2247,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataUnionOfElementHandler() throws Exception {
+    public void shouldTestOWLDataUnionOfElementHandler() throws OWLException {
         OWLDataUnionOfElementHandler testSubject0 = new OWLDataUnionOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2280,7 +2284,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDeclarationAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDeclarationAxiomElementHandler() throws OWLException {
         OWLDeclarationAxiomElementHandler testSubject0 = new OWLDeclarationAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2319,7 +2323,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDifferentIndividualsAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDifferentIndividualsAxiomElementHandler()
+            throws OWLException {
         OWLDifferentIndividualsAxiomElementHandler testSubject0 = new OWLDifferentIndividualsAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2357,7 +2362,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDisjointClassesAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDisjointClassesAxiomElementHandler() throws OWLException {
         OWLDisjointClassesAxiomElementHandler testSubject0 = new OWLDisjointClassesAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2395,7 +2400,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDisjointDataPropertiesAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDisjointDataPropertiesAxiomElementHandler()
+            throws OWLException {
         OWLDisjointDataPropertiesAxiomElementHandler testSubject0 = new OWLDisjointDataPropertiesAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2434,7 +2440,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLDisjointObjectPropertiesAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLDisjointObjectPropertiesAxiomElementHandler testSubject0 = new OWLDisjointObjectPropertiesAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2472,7 +2478,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDisjointUnionElementHandler() throws Exception {
+    public void shouldTestOWLDisjointUnionElementHandler() throws OWLException {
         OWLDisjointUnionElementHandler testSubject0 = new OWLDisjointUnionElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2510,7 +2516,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWLElementHandler() throws Exception {
+    public void shouldTestInterfaceOWLElementHandler() throws OWLException {
         OWLElementHandler<?> testSubject0 = Utils.mockElementHandler();
         testSubject0.startElement("");
         testSubject0.endElement();
@@ -2539,14 +2545,14 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWLElementHandlerFactory() throws Exception {
+    public void shouldTestInterfaceOWLElementHandlerFactory() throws OWLException {
         OWLElementHandlerFactory testSubject0 = mock(OWLElementHandlerFactory.class);
         String result0 = testSubject0.getElementName();
         OWLElementHandler<?> result1 = testSubject0.createHandler(Utils.mockHandler());
     }
 
     @Test
-    public void shouldTestOWLEquivalentClassesAxiomElementHandler() throws Exception {
+    public void shouldTestOWLEquivalentClassesAxiomElementHandler() throws OWLException {
         OWLEquivalentClassesAxiomElementHandler testSubject0 = new OWLEquivalentClassesAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2585,7 +2591,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLEquivalentDataPropertiesAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLEquivalentDataPropertiesAxiomElementHandler testSubject0 = new OWLEquivalentDataPropertiesAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2624,7 +2630,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLEquivalentObjectPropertiesAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLEquivalentObjectPropertiesAxiomElementHandler testSubject0 = new OWLEquivalentObjectPropertiesAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2662,7 +2668,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLFunctionalDataPropertyAxiomElementHandler() throws Exception {
+    public void shouldTestOWLFunctionalDataPropertyAxiomElementHandler()
+            throws OWLException {
         OWLFunctionalDataPropertyAxiomElementHandler testSubject0 = new OWLFunctionalDataPropertyAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2702,7 +2709,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLFunctionalObjectPropertyAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLFunctionalObjectPropertyAxiomElementHandler testSubject0 = new OWLFunctionalObjectPropertyAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2741,7 +2748,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLHasKeyElementHandler() throws Exception {
+    public void shouldTestOWLHasKeyElementHandler() throws OWLException {
         OWLHasKeyElementHandler testSubject0 = new OWLHasKeyElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2779,7 +2786,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLImportsHandler() throws Exception {
+    public void shouldTestOWLImportsHandler() throws OWLException {
         OWLImportsHandler testSubject0 = new OWLImportsHandler(Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         boolean result0 = testSubject0.isTextContentPossible();
@@ -2813,7 +2820,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLIndividualElementHandler() throws Exception {
+    public void shouldTestOWLIndividualElementHandler() throws OWLException {
         OWLIndividualElementHandler testSubject0 = new OWLIndividualElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2850,7 +2857,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLInverseFunctionalObjectPropertyAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLInverseFunctionalObjectPropertyAxiomElementHandler testSubject0 = new OWLInverseFunctionalObjectPropertyAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2889,7 +2896,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLInverseObjectPropertiesAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLInverseObjectPropertiesAxiomElementHandler testSubject0 = new OWLInverseObjectPropertiesAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2926,7 +2933,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLInverseObjectPropertyElementHandler() throws Exception {
+    public void shouldTestOWLInverseObjectPropertyElementHandler() throws OWLException {
         OWLInverseObjectPropertyElementHandler testSubject0 = new OWLInverseObjectPropertyElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2963,7 +2970,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLIrreflexiveObjectPropertyAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLIrreflexiveObjectPropertyAxiomElementHandler testSubject0 = new OWLIrreflexiveObjectPropertyAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3002,7 +3009,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLLiteralElementHandler() throws Exception {
+    public void shouldTestOWLLiteralElementHandler() throws OWLException {
         OWLLiteralElementHandler testSubject0 = new OWLLiteralElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3039,7 +3046,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLNegativeDataPropertyAssertionAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLNegativeDataPropertyAssertionAxiomElementHandler testSubject0 = new OWLNegativeDataPropertyAssertionAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3084,7 +3091,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLNegativeObjectPropertyAssertionAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLNegativeObjectPropertyAssertionAxiomElementHandler testSubject0 = new OWLNegativeObjectPropertyAssertionAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3128,7 +3135,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectAllValuesFromElementHandler() throws Exception {
+    public void shouldTestOWLObjectAllValuesFromElementHandler() throws OWLException {
         OWLObjectAllValuesFromElementHandler testSubject0 = new OWLObjectAllValuesFromElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3164,7 +3171,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectComplementOfElementHandler() throws Exception {
+    public void shouldTestOWLObjectComplementOfElementHandler() throws OWLException {
         OWLObjectComplementOfElementHandler testSubject0 = new OWLObjectComplementOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3200,7 +3207,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectExactCardinalityElementHandler() throws Exception {
+    public void shouldTestOWLObjectExactCardinalityElementHandler() throws OWLException {
         OWLObjectExactCardinalityElementHandler testSubject0 = new OWLObjectExactCardinalityElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3236,7 +3243,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectExistsSelfElementHandler() throws Exception {
+    public void shouldTestOWLObjectExistsSelfElementHandler() throws OWLException {
         OWLObjectExistsSelfElementHandler testSubject0 = new OWLObjectExistsSelfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3272,7 +3279,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectHasValueElementHandler() throws Exception {
+    public void shouldTestOWLObjectHasValueElementHandler() throws OWLException {
         OWLObjectHasValueElementHandler testSubject0 = new OWLObjectHasValueElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3308,7 +3315,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectIntersectionOfElementHandler() throws Exception {
+    public void shouldTestOWLObjectIntersectionOfElementHandler() throws OWLException {
         OWLObjectIntersectionOfElementHandler testSubject0 = new OWLObjectIntersectionOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3344,7 +3351,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectMaxCardinalityElementHandler() throws Exception {
+    public void shouldTestOWLObjectMaxCardinalityElementHandler() throws OWLException {
         OWLObjectMaxCardinalityElementHandler testSubject0 = new OWLObjectMaxCardinalityElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3380,7 +3387,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectMinCardinalityElementHandler() throws Exception {
+    public void shouldTestOWLObjectMinCardinalityElementHandler() throws OWLException {
         OWLObjectMinCardinalityElementHandler testSubject0 = new OWLObjectMinCardinalityElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3416,7 +3423,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectOneOfElementHandler() throws Exception {
+    public void shouldTestOWLObjectOneOfElementHandler() throws OWLException {
         OWLObjectOneOfElementHandler testSubject0 = new OWLObjectOneOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3452,7 +3459,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLObjectPropertyAssertionAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLObjectPropertyAssertionAxiomElementHandler testSubject0 = new OWLObjectPropertyAssertionAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3496,7 +3503,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectPropertyDomainElementHandler() throws Exception {
+    public void shouldTestOWLObjectPropertyDomainElementHandler() throws OWLException {
         OWLObjectPropertyDomainElementHandler testSubject0 = new OWLObjectPropertyDomainElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3534,7 +3541,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectPropertyElementHandler() throws Exception {
+    public void shouldTestOWLObjectPropertyElementHandler() throws OWLException {
         OWLObjectPropertyElementHandler testSubject0 = new OWLObjectPropertyElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3570,7 +3577,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectPropertyRangeAxiomElementHandler() throws Exception {
+    public void shouldTestOWLObjectPropertyRangeAxiomElementHandler() throws OWLException {
         OWLObjectPropertyRangeAxiomElementHandler testSubject0 = new OWLObjectPropertyRangeAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3608,7 +3615,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectSomeValuesFromElementHandler() throws Exception {
+    public void shouldTestOWLObjectSomeValuesFromElementHandler() throws OWLException {
         OWLObjectSomeValuesFromElementHandler testSubject0 = new OWLObjectSomeValuesFromElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3644,7 +3651,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectUnionOfElementHandler() throws Exception {
+    public void shouldTestOWLObjectUnionOfElementHandler() throws OWLException {
         OWLObjectUnionOfElementHandler testSubject0 = new OWLObjectUnionOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3680,7 +3687,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLOntologyHandler() throws Exception {
+    public void shouldTestOWLOntologyHandler() throws OWLException {
         OWLOntologyHandler testSubject0 = new OWLOntologyHandler(Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.startElement("");
@@ -3716,7 +3723,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLReflexiveObjectPropertyAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLReflexiveObjectPropertyAxiomElementHandler testSubject0 = new OWLReflexiveObjectPropertyAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3755,7 +3762,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLSameIndividualsAxiomElementHandler() throws Exception {
+    public void shouldTestOWLSameIndividualsAxiomElementHandler() throws OWLException {
         OWLSameIndividualsAxiomElementHandler testSubject0 = new OWLSameIndividualsAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3793,7 +3800,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLSubAnnotationPropertyOfElementHandler() throws Exception {
+    public void shouldTestOWLSubAnnotationPropertyOfElementHandler() throws OWLException {
         OWLSubAnnotationPropertyOfElementHandler testSubject0 = new OWLSubAnnotationPropertyOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3830,7 +3837,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLSubClassAxiomElementHandler() throws Exception {
+    public void shouldTestOWLSubClassAxiomElementHandler() throws OWLException {
         OWLSubClassAxiomElementHandler testSubject0 = new OWLSubClassAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3868,7 +3875,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLSubDataPropertyOfAxiomElementHandler() throws Exception {
+    public void shouldTestOWLSubDataPropertyOfAxiomElementHandler() throws OWLException {
         OWLSubDataPropertyOfAxiomElementHandler testSubject0 = new OWLSubDataPropertyOfAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3906,7 +3913,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLSubObjectPropertyChainElementHandler() throws Exception {
+    public void shouldTestOWLSubObjectPropertyChainElementHandler() throws OWLException {
         OWLSubObjectPropertyChainElementHandler testSubject0 = new OWLSubObjectPropertyChainElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3942,7 +3949,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLSubObjectPropertyOfAxiomElementHandler() throws Exception {
+    public void shouldTestOWLSubObjectPropertyOfAxiomElementHandler() throws OWLException {
         OWLSubObjectPropertyOfAxiomElementHandler testSubject0 = new OWLSubObjectPropertyOfAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3981,7 +3988,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLSymmetricObjectPropertyAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLSymmetricObjectPropertyAxiomElementHandler testSubject0 = new OWLSymmetricObjectPropertyAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4021,7 +4028,7 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLTransitiveObjectPropertyAxiomElementHandler()
-            throws Exception {
+            throws OWLException {
         OWLTransitiveObjectPropertyAxiomElementHandler testSubject0 = new OWLTransitiveObjectPropertyAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4060,7 +4067,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLUnionOfElementHandler() throws Exception {
+    public void shouldTestOWLUnionOfElementHandler() throws OWLException {
         OWLUnionOfElementHandler testSubject0 = new OWLUnionOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4093,7 +4100,8 @@ public class ContractOwlxmlparserTest {
         String result7 = testSubject0.toString();
     }
 
-    public void shouldTestOWLXMLParser() throws Exception {
+    public void shouldTestOWLXMLParser() throws OWLException, OWLOntologyChangeException,
+            IOException {
         OWLXMLParser testSubject0 = new OWLXMLParser();
         OWLOntologyFormat result1 = testSubject0.parse(new StringDocumentSource(""),
                 Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
@@ -4101,7 +4109,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLXMLParserAttributeNotFoundException() throws Exception {
+    public void shouldTestOWLXMLParserAttributeNotFoundException() throws OWLException {
         OWLXMLParserAttributeNotFoundException testSubject0 = new OWLXMLParserAttributeNotFoundException(
                 0, 0, "");
         String result0 = testSubject0.getMessage();
@@ -4113,7 +4121,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLXMLParserElementNotFoundException() throws Exception {
+    public void shouldTestOWLXMLParserElementNotFoundException() throws OWLException {
         OWLXMLParserElementNotFoundException testSubject0 = new OWLXMLParserElementNotFoundException(
                 0, 0, "");
         String result0 = testSubject0.getMessage();
@@ -4125,7 +4133,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLXMLParserException() throws Exception {
+    public void shouldTestOWLXMLParserException() throws OWLException {
         OWLXMLParserException testSubject0 = new OWLXMLParserException("", 0, 0);
         String result0 = testSubject0.getMessage();
         int result1 = testSubject0.getLineNumber();
@@ -4136,14 +4144,14 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLXMLParserFactory() throws Exception {
+    public void shouldTestOWLXMLParserFactory() throws OWLException {
         OWLXMLParserFactory testSubject0 = new OWLXMLParserFactory();
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
         String result1 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestSWRLAtomElementHandler() throws Exception {
+    public void shouldTestSWRLAtomElementHandler() throws OWLException {
         SWRLAtomElementHandler testSubject0 = new SWRLAtomElementHandler(
                 Utils.mockHandler()) {
             @Override
@@ -4183,7 +4191,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestSWRLAtomListElementHandler() throws Exception {
+    public void shouldTestSWRLAtomListElementHandler() throws OWLException {
         SWRLAtomListElementHandler testSubject0 = new SWRLAtomListElementHandler(
                 Utils.mockHandler()) {};
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4219,7 +4227,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestSWRLBuiltInAtomElementHandler() throws Exception {
+    public void shouldTestSWRLBuiltInAtomElementHandler() throws OWLException {
         SWRLBuiltInAtomElementHandler testSubject0 = new SWRLBuiltInAtomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4256,7 +4264,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestSWRLClassAtomElementHandler() throws Exception {
+    public void shouldTestSWRLClassAtomElementHandler() throws OWLException {
         SWRLClassAtomElementHandler testSubject0 = new SWRLClassAtomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4293,7 +4301,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestSWRLDataPropertyAtomElementHandler() throws Exception {
+    public void shouldTestSWRLDataPropertyAtomElementHandler() throws OWLException {
         SWRLDataPropertyAtomElementHandler testSubject0 = new SWRLDataPropertyAtomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4330,7 +4338,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestSWRLDifferentIndividualsAtomElementHandler() throws Exception {
+    public void shouldTestSWRLDifferentIndividualsAtomElementHandler()
+            throws OWLException {
         SWRLDifferentIndividualsAtomElementHandler testSubject0 = new SWRLDifferentIndividualsAtomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4367,7 +4376,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestSWRLObjectPropertyAtomElementHandler() throws Exception {
+    public void shouldTestSWRLObjectPropertyAtomElementHandler() throws OWLException {
         SWRLObjectPropertyAtomElementHandler testSubject0 = new SWRLObjectPropertyAtomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4404,7 +4413,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestSWRLRuleElementHandler() throws Exception {
+    public void shouldTestSWRLRuleElementHandler() throws OWLException {
         SWRLRuleElementHandler testSubject0 = new SWRLRuleElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4442,7 +4451,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestSWRLSameIndividualAtomElementHandler() throws Exception {
+    public void shouldTestSWRLSameIndividualAtomElementHandler() throws OWLException {
         SWRLSameIndividualAtomElementHandler testSubject0 = new SWRLSameIndividualAtomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4479,7 +4488,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestSWRLVariableElementHandler() throws Exception {
+    public void shouldTestSWRLVariableElementHandler() throws OWLException {
         SWRLVariableElementHandler testSubject0 = new SWRLVariableElementHandler(
                 Utils.mockHandler()) {};
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4515,7 +4524,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestTranslatedOWLOntologyChangeException() throws Exception {
+    public void shouldTestTranslatedOWLOntologyChangeException() throws OWLException {
         TranslatedOWLOntologyChangeException testSubject0 = new TranslatedOWLOntologyChangeException(
                 mock(OWLOntologyChangeException.class));
         OWLOntologyChangeException result0 = testSubject0.getCause();
@@ -4527,7 +4536,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestTranslatedOWLParserException() throws Exception {
+    public void shouldTestTranslatedOWLParserException() throws OWLException {
         TranslatedOWLParserException testSubject0 = new TranslatedOWLParserException(
                 mock(OWLParserException.class));
         OWLParserException result0 = testSubject0.getParserException();
@@ -4539,7 +4548,7 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestTranslatedUnloadableImportException() throws Exception {
+    public void shouldTestTranslatedUnloadableImportException() throws OWLException {
         TranslatedUnloadableImportException testSubject0 = new TranslatedUnloadableImportException(
                 mock(UnloadableImportException.class));
         UnloadableImportException result0 = testSubject0.getUnloadableImportException();

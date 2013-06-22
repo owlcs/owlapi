@@ -50,6 +50,7 @@ import java.util.TreeMap;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
@@ -219,7 +220,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         } else {
             String prefixName = curie.substring(0, sep + 1);
             if (!containsPrefixMapping(prefixName)) {
-                throw new RuntimeException("Prefix not registered for prefix name: "
+                throw new OWLRuntimeException("Prefix not registered for prefix name: "
                         + prefixName);
             }
             String prefix = getPrefix(prefixName);

@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -55,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class RDFSClassTestCase extends AbstractFileTestCase {
     @Test
-    public void testCorrectAxioms() {
+    public void testCorrectAxioms() throws OWLOntologyCreationException {
         OWLOntology ont = createOntology();
         IRI clsIRI = IRI("http://owlapi.sourceforge.net/ontology#ClsA");
         OWLClass cls = Class(clsIRI);

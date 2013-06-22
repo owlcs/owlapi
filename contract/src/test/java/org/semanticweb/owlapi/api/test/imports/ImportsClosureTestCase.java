@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Author: Matthew Horridge<br>
@@ -56,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class ImportsClosureTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testImportsClosureUpdate() throws Exception {
+    public void testImportsClosureUpdate() throws OWLOntologyCreationException {
         OWLOntologyManager manager = getManager();
         IRI aIRI = IRI("http://a.com");
         OWLOntology ontA = manager.createOntology(aIRI);

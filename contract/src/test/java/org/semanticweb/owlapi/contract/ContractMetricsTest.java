@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.metrics.ReferencedObjectPropertyCount;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -41,7 +42,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractMetricsTest {
     @Test
-    public void shouldTestAbstractOWLMetric() throws Exception {
+    public void shouldTestAbstractOWLMetric() throws OWLException {
         AbstractOWLMetric<Object> testSubject0 = new AbstractOWLMetric<Object>(
                 Utils.getMockOntology()) {
             @Override
@@ -78,7 +79,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestAverageAssertedNamedSuperclassCount() throws Exception {
+    public void shouldTestAverageAssertedNamedSuperclassCount() throws OWLException {
         AverageAssertedNamedSuperclassCount testSubject0 = new AverageAssertedNamedSuperclassCount(
                 Utils.getMockOntology());
         String result0 = testSubject0.getName();
@@ -98,7 +99,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestAxiomCount() throws Exception {
+    public void shouldTestAxiomCount() throws OWLException {
         AxiomCount testSubject0 = new AxiomCount(Utils.getMockOntology());
         String result0 = testSubject0.getName();
         String result1 = testSubject0.toString();
@@ -115,7 +116,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestAxiomCountMetric() throws Exception {
+    public void shouldTestAxiomCountMetric() throws OWLException {
         AxiomCountMetric testSubject0 = new AxiomCountMetric(Utils.getMockOntology()) {
             @Override
             protected String getObjectTypeName() {
@@ -145,7 +146,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestAxiomTypeCountMetricFactory() throws Exception {
+    public void shouldTestAxiomTypeCountMetricFactory() throws OWLException {
         AxiomTypeCountMetricFactory testSubject0 = new AxiomTypeCountMetricFactory();
         Set<OWLMetric<?>> result0 = AxiomTypeCountMetricFactory.createMetrics(Utils
                 .getMockOntology());
@@ -154,7 +155,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestAxiomTypeMetric() throws Exception {
+    public void shouldTestAxiomTypeMetric() throws OWLException {
         AxiomTypeMetric testSubject0 = new AxiomTypeMetric(Utils.getMockOntology(),
                 mock(AxiomType.class));
         AxiomType<?> result0 = testSubject0.getAxiomType();
@@ -176,7 +177,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestDLExpressivity() throws Exception {
+    public void shouldTestDLExpressivity() throws OWLException {
         DLExpressivity testSubject0 = new DLExpressivity(Utils.getMockOntology());
         String result0 = testSubject0.getName();
         String result1 = testSubject0.recomputeMetric();
@@ -194,7 +195,7 @@ public class ContractMetricsTest {
     }
 
     @Test
-    public void shouldTestDoubleValuedMetric() throws Exception {
+    public void shouldTestDoubleValuedMetric() throws OWLException {
         DoubleValuedMetric testSubject0 = new DoubleValuedMetric(Utils.getMockOntology()) {
             @Override
             public String getName() {
@@ -230,7 +231,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestGCICount() throws Exception {
+    public void shouldTestGCICount() throws OWLException {
         GCICount testSubject0 = new GCICount(Utils.getMockOntology());
         Set<? extends OWLAxiom> result0 = testSubject0.getAxioms();
         String result1 = testSubject0.getName();
@@ -250,7 +251,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestHiddenGCICount() throws Exception {
+    public void shouldTestHiddenGCICount() throws OWLException {
         HiddenGCICount testSubject0 = new HiddenGCICount(Utils.getMockOntology());
         String result0 = testSubject0.getName();
         String result1 = testSubject0.toString();
@@ -267,7 +268,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestImportClosureSize() throws Exception {
+    public void shouldTestImportClosureSize() throws OWLException {
         ImportClosureSize testSubject0 = new ImportClosureSize(Utils.getMockOntology());
         String result0 = testSubject0.getName();
         String result1 = testSubject0.toString();
@@ -283,7 +284,7 @@ public class ContractMetricsTest {
     }
 
     @Test
-    public void shouldTestIntegerValuedMetric() throws Exception {
+    public void shouldTestIntegerValuedMetric() throws OWLException {
         IntegerValuedMetric testSubject0 = new IntegerValuedMetric(
                 Utils.getMockOntology()) {
             @Override
@@ -320,7 +321,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestLogicalAxiomCount() throws Exception {
+    public void shouldTestLogicalAxiomCount() throws OWLException {
         LogicalAxiomCount testSubject0 = new LogicalAxiomCount(Utils.getMockOntology());
         Set<? extends OWLAxiom> result0 = testSubject0.getAxioms();
         String result1 = testSubject0.getName();
@@ -340,7 +341,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestMaximumNumberOfNamedSuperclasses() throws Exception {
+    public void shouldTestMaximumNumberOfNamedSuperclasses() throws OWLException {
         MaximumNumberOfNamedSuperclasses testSubject0 = new MaximumNumberOfNamedSuperclasses(
                 Utils.getMockOntology());
         String result0 = testSubject0.getName();
@@ -360,7 +361,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestNumberOfClassesWithMultipleInheritance() throws Exception {
+    public void shouldTestNumberOfClassesWithMultipleInheritance() throws OWLException {
         NumberOfClassesWithMultipleInheritance testSubject0 = new NumberOfClassesWithMultipleInheritance(
                 Utils.getMockOntology());
         String result0 = testSubject0.getName();
@@ -380,7 +381,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectCountMetric() throws Exception {
+    public void shouldTestObjectCountMetric() throws OWLException {
         ObjectCountMetric<Object> testSubject0 = new ObjectCountMetric<Object>(Factory
                 .getManager().createOntology()) {
             @Override
@@ -409,7 +410,7 @@ public class ContractMetricsTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWLMetric() throws Exception {
+    public void shouldTestInterfaceOWLMetric() throws OWLException {
         OWLMetric<Object> testSubject0 = mock(OWLMetric.class);
         String result0 = testSubject0.getName();
         Object result1 = testSubject0.getValue();
@@ -422,7 +423,7 @@ public class ContractMetricsTest {
     }
 
     @Test
-    public void shouldTestOWLMetricManager() throws Exception {
+    public void shouldTestOWLMetricManager() throws OWLException {
         OWLMetricManager testSubject0 = new OWLMetricManager(
                 new ArrayList<OWLMetric<?>>());
         String result0 = testSubject0.toString();
@@ -432,7 +433,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestReferencedClassCount() throws Exception {
+    public void shouldTestReferencedClassCount() throws OWLException {
         ReferencedClassCount testSubject0 = new ReferencedClassCount(
                 Utils.getMockOntology());
         String result0 = testSubject0.getName();
@@ -452,7 +453,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestReferencedDataPropertyCount() throws Exception {
+    public void shouldTestReferencedDataPropertyCount() throws OWLException {
         ReferencedDataPropertyCount testSubject0 = new ReferencedDataPropertyCount(
                 Utils.getMockOntology());
         String result0 = testSubject0.getName();
@@ -472,7 +473,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestReferencedIndividualCount() throws Exception {
+    public void shouldTestReferencedIndividualCount() throws OWLException {
         ReferencedIndividualCount testSubject0 = new ReferencedIndividualCount(
                 Utils.getMockOntology());
         String result0 = testSubject0.getName();
@@ -492,7 +493,7 @@ public class ContractMetricsTest {
 
     @Ignore
     @Test
-    public void shouldTestReferencedObjectPropertyCount() throws Exception {
+    public void shouldTestReferencedObjectPropertyCount() throws OWLException {
         ReferencedObjectPropertyCount testSubject0 = new ReferencedObjectPropertyCount(
                 Utils.getMockOntology());
         String result0 = testSubject0.getName();

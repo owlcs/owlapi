@@ -38,13 +38,14 @@
  */
 package org.semanticweb.owlapi.api.test.reasoners;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.Node;
@@ -59,7 +60,7 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 public class StructuralReasonerTestCase extends AbstractOWLAPITestCase {
     @SuppressWarnings("javadoc")
     @Test
-    public void testClassHierarchy() {
+    public void testClassHierarchy() throws OWLOntologyCreationException {
         OWLClass clsX = Class(getIRI("X"));
         OWLClass clsA = Class(getIRI("A"));
         OWLClass clsAp = Class(getIRI("Ap"));
@@ -84,19 +85,19 @@ public class StructuralReasonerTestCase extends AbstractOWLAPITestCase {
         OWLClass clsAp = Class(getIRI("Ap"));
         OWLClass clsB = Class(getIRI("B"));
         NodeSet<OWLClass> subsOfA = reasoner.getSubClasses(clsA, true);
-        assertTrue(subsOfA.getNodes().size() == 1);
+        assertEquals(1, subsOfA.getNodes().size());
         assertTrue(subsOfA.containsEntity(clsB));
         NodeSet<OWLClass> subsOfAp = reasoner.getSubClasses(clsAp, true);
-        assertTrue(subsOfAp.getNodes().size() == 1);
+        assertEquals(1, subsOfAp.getNodes().size());
         assertTrue(subsOfAp.containsEntity(clsB));
         Node<OWLClass> topNode = reasoner.getTopClassNode();
         NodeSet<OWLClass> subsOfTop = reasoner.getSubClasses(
                 topNode.getRepresentativeElement(), true);
-        assertTrue(subsOfTop.getNodes().size() == 1);
+        assertEquals(1, subsOfTop.getNodes().size());
         assertTrue(subsOfTop.containsEntity(clsA));
         NodeSet<OWLClass> descOfTop = reasoner.getSubClasses(
                 topNode.getRepresentativeElement(), false);
-        assertTrue(descOfTop.getNodes().size() == 3);
+        assertEquals(3, descOfTop.getNodes().size());
         assertTrue(descOfTop.containsEntity(clsA));
         assertTrue(descOfTop.containsEntity(clsB));
         assertTrue(descOfTop.containsEntity(OWLNothing()));
@@ -104,10 +105,10 @@ public class StructuralReasonerTestCase extends AbstractOWLAPITestCase {
         assertTrue(supersOfTop.isEmpty());
         NodeSet<OWLClass> supersOfA = reasoner.getSuperClasses(clsA, false);
         assertTrue(supersOfA.isTopSingleton());
-        assertTrue(supersOfA.getNodes().size() == 1);
+        assertEquals(1, supersOfA.getNodes().size());
         assertTrue(supersOfA.containsEntity(OWLThing()));
         Node<OWLClass> equivsOfTop = reasoner.getEquivalentClasses(OWLThing());
-        assertTrue(equivsOfTop.getEntities().size() == 2);
+        assertEquals(2, equivsOfTop.getEntities().size());
         assertTrue(equivsOfTop.getEntities().contains(clsX));
     }
 }

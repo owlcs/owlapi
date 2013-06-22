@@ -44,6 +44,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
@@ -60,7 +61,7 @@ public class StructuralReasonerRecursionTestCase extends AbstractFileTestCase {
     }
 
     @Test
-    public void testRecusion() {
+    public void testRecusion() throws OWLOntologyCreationException {
         OWLOntology ontology = createOntology();
         String ontName = ontology.getOntologyID().getOntologyIRI().toString();
         StructuralReasoner reasoner = new StructuralReasoner(ontology,

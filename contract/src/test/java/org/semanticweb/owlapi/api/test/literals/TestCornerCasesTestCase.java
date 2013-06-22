@@ -52,7 +52,9 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class TestCornerCasesTestCase {
@@ -92,7 +94,7 @@ public class TestCornerCasesTestCase {
     }
 
     @Test
-    public void testWebOnt() throws Exception {
+    public void testWebOnt() throws OWLOntologyCreationException {
         String s = "<!DOCTYPE rdf:RDF [\n"
                 + "   <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\">\n"
                 + "   <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
@@ -187,7 +189,8 @@ public class TestCornerCasesTestCase {
     }
 
     @Test
-    public void testMinusInf() throws Exception {
+    public void testMinusInf() throws OWLOntologyCreationException,
+            OWLOntologyStorageException {
         String input = "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
                 + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
                 + "Prefix(:=<http://test.org/test#>)\n"
@@ -211,7 +214,8 @@ public class TestCornerCasesTestCase {
     }
 
     @Test
-    public void testLargeInteger() throws Exception {
+    public void testLargeInteger() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         String input = "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
                 + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
                 + "Prefix(:=<http://test.org/test#>)\n"

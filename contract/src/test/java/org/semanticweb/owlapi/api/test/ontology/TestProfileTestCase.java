@@ -44,6 +44,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
@@ -51,7 +52,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 @SuppressWarnings("javadoc")
 public class TestProfileTestCase {
     @Test
-    public void testOWLEL() throws Exception {
+    public void testOWLEL() throws OWLOntologyCreationException {
         String onto = "<?xml version=\"1.0\"?>\n"
                 + "<!DOCTYPE rdf:RDF [\n"
                 + "<!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >\n"
@@ -76,6 +77,6 @@ public class TestProfileTestCase {
         OWL2RLProfile p = new OWL2RLProfile();
         OWLProfileReport report = p.checkOntology(o);
         assertTrue("unexpected violations! " + report.getViolations(), report
-                .getViolations().size() == 0);
+                .getViolations().isEmpty());
     }
 }

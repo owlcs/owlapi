@@ -55,9 +55,11 @@ public class IRITest {
     public Timeout timeout = new Timeout(160000);
 
     /** Test method for
-     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
+     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}.
+     * 
+     * @throws InterruptedException */
     @Test
-    public void testIRIStringConcurrentWithCacheUse() throws Exception {
+    public void testIRIStringConcurrentWithCacheUse() throws InterruptedException {
         final AtomicInteger count = new AtomicInteger(0);
         final CountDownLatch openLatch = new CountDownLatch(1);
         final int threadCount = 37;
@@ -96,9 +98,11 @@ public class IRITest {
     }
 
     /** Test method for
-     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
+     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}.
+     * 
+     * @throws InterruptedException */
     @Test
-    public void testIRIStringConcurrentNoCacheUse() throws Exception {
+    public void testIRIStringConcurrentNoCacheUse() throws InterruptedException {
         final AtomicInteger count = new AtomicInteger(0);
         final CountDownLatch openLatch = new CountDownLatch(1);
         final int threadCount = 37;

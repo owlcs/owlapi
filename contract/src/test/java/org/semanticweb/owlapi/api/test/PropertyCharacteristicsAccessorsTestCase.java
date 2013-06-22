@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -56,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testTransitive() {
+    public void testTransitive() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isTransitive(prop));
@@ -66,7 +67,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
     }
 
     @Test
-    public void testSymmetric() {
+    public void testSymmetric() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isSymmetric(prop));
@@ -76,7 +77,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
     }
 
     @Test
-    public void testAsymmetric() {
+    public void testAsymmetric() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isAsymmetric(prop));
@@ -86,7 +87,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
     }
 
     @Test
-    public void testReflexive() {
+    public void testReflexive() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isReflexive(prop));
@@ -96,7 +97,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
     }
 
     @Test
-    public void testIrreflexive() {
+    public void testIrreflexive() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isIrreflexive(prop));
@@ -106,7 +107,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
     }
 
     @Test
-    public void testFunctional() {
+    public void testFunctional() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isFunctional(prop));
@@ -116,7 +117,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
     }
 
     @Test
-    public void testInverseFunctional() {
+    public void testInverseFunctional() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isInverseFunctional(prop));
@@ -126,7 +127,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
     }
 
     @Test
-    public void testFunctionalDataProperty() {
+    public void testFunctionalDataProperty() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("Ont");
         OWLDataProperty prop = DataProperty(getIRI("prop"));
         assertFalse(find().in(ont).isFunctional(prop));

@@ -44,7 +44,7 @@ package org.semanticweb.owlapi.io;
  * Date: 10-Apr-2008<br>
  * <br> */
 public class IOProperties {
-    private static final IOProperties instance = new IOProperties();
+    private static final IOProperties INSTANCE = new IOProperties();
     /** default connection timeout */
     private static final String DEFAULT_CONNECTION_TIME_OUT = "20000";
     /** timeout property name */
@@ -64,7 +64,7 @@ public class IOProperties {
 
     /** @return the instance of IOProperties */
     public static IOProperties getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     /** Gets the connection timeout that is used for sockets when loading

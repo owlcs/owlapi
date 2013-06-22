@@ -55,13 +55,6 @@ public class OWLParserIOException extends OWLParserException {
         super(cause);
     }
 
-    /** Gets the cause of this exception which will be an
-     * <code>IOException</code> */
-    @Override
-    public synchronized IOException getCause() {
-        return (IOException) super.getCause();
-    }
-
     @Override
     public String getMessage() {
         return getCause().getMessage();

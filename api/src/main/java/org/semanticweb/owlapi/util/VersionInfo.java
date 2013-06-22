@@ -45,7 +45,7 @@ package org.semanticweb.owlapi.util;
  * <br>
  * A place holder for the current release number. */
 public class VersionInfo {
-    private static final VersionInfo instance = new VersionInfo();
+    private static final VersionInfo INSTANCE = new VersionInfo();
     private final String version;
 
     private VersionInfo() {
@@ -59,7 +59,7 @@ public class VersionInfo {
 
     /** @return the version info */
     public static VersionInfo getVersionInfo() {
-        return instance;
+        return INSTANCE;
     }
 
     /** Gets a string that contains the version of this build. This is generated

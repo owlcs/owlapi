@@ -60,14 +60,14 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  *        will download the ontologies multiple times too, until parsing fails.
  *        Both issues could be addressed with a local file copy. */
 public abstract class StreamDocumentSourceBase implements OWLOntologyDocumentSource {
-    private static final AtomicLong counter = new AtomicLong();
+    private static final AtomicLong COUNTER = new AtomicLong();
     protected final IRI documentIRI;
     protected byte[] byteBuffer;
     protected char[] charBuffer;
 
     /** @return a fresh IRI */
     protected static IRI getNextDocumentIRI(String prefix) {
-        return IRI.create(prefix + counter.incrementAndGet());
+        return IRI.create(prefix + COUNTER.incrementAndGet());
     }
 
     /** Constructs an input source which will read an ontology from a

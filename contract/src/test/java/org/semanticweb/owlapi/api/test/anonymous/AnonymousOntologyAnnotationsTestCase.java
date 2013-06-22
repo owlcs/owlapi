@@ -55,17 +55,13 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * Date: 14/01/2011 */
 public class AnonymousOntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
     @Override
-    protected OWLOntology createOntology() {
-        try {
-            OWLOntology ont = getManager().createOntology();
-            OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
-            OWLLiteral value = Literal(33);
-            OWLAnnotation annotation = Factory.getFactory().getOWLAnnotation(prop, value);
-            getManager().applyChange(new AddOntologyAnnotation(ont, annotation));
-            getManager().addAxiom(ont, Declaration(prop));
-            return ont;
-        } catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
-        }
+    protected OWLOntology createOntology() throws OWLOntologyCreationException {
+        OWLOntology ont = getManager().createOntology();
+        OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
+        OWLLiteral value = Literal(33);
+        OWLAnnotation annotation = Factory.getFactory().getOWLAnnotation(prop, value);
+        getManager().applyChange(new AddOntologyAnnotation(ont, annotation));
+        getManager().addAxiom(ont, Declaration(prop));
+        return ont;
     }
 }

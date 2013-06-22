@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.io;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -52,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * <br>
  * </p> An ontology input source that wraps a string. */
 public class StringDocumentSource implements OWLOntologyDocumentSource {
-    private static int counter = 0;
+    private static AtomicLong counter = new AtomicLong();
     private final IRI documentIRI;
     private final String string;
 
@@ -64,9 +65,8 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
     }
 
     /** @return a fresh IRI */
-    public static synchronized IRI getNextDocumentIRI() {
-        counter = counter + 1;
-        return IRI.create("string:ontology" + counter);
+    public static IRI getNextDocumentIRI() {
+        return IRI.create("string:ontology" + counter.incrementAndGet());
     }
 
     /** Specifies a string as an ontology document.

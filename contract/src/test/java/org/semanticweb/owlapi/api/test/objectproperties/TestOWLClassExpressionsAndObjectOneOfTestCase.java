@@ -44,12 +44,13 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class TestOWLClassExpressionsAndObjectOneOfTestCase {
     @Test
-    public void testAnonymous() throws Exception {
+    public void testAnonymous() throws OWLOntologyCreationException {
         String text = "Prefix(:=<http://example.org/#>)\n "
                 + "Ontology(<http://example.org/>\n "
                 + "SubClassOf(\n:man\n ObjectSomeValuesFrom(\n :like\n "

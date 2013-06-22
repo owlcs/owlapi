@@ -64,6 +64,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** Author: Matthew Horridge<br>
@@ -80,7 +81,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * are obtained from the <code>OWLParserFactoryRegistry</code>. */
 public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
     private static final long serialVersionUID = 40000L;
-    private static final Logger logger = Logger
+    private static final Logger LOGGER = Logger
             .getLogger(ParsableOWLOntologyFactory.class.getName());
     private final Set<String> parsableSchemes;
 
@@ -103,7 +104,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         for (OWLParserFactory factory : factories) {
             OWLParser parser = factory.createParser(getOWLOntologyManager());
             if (parser == null) {
-                throw new NullPointerException();
+                throw new OWLRuntimeException();
             }
             parsers.add(parser);
         }
@@ -140,13 +141,13 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
             is.close();
             return true;
         } catch (UnknownHostException e) {
-            logger.info("Unknown host: " + e.getMessage());
+            LOGGER.info("Unknown host: " + e.getMessage());
         } catch (MalformedURLException e) {
-            logger.info("Malformed URL: " + e.getMessage());
+            LOGGER.info("Malformed URL: " + e.getMessage());
         } catch (FileNotFoundException e) {
-            logger.info("File not found: " + e.getMessage());
+            LOGGER.info("File not found: " + e.getMessage());
         } catch (IOException e) {
-            logger.info("IO Exception: " + e.getMessage());
+            LOGGER.info("IO Exception: " + e.getMessage());
         }
         return false;
     }

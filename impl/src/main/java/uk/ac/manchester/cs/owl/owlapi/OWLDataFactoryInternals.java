@@ -90,48 +90,48 @@ public interface OWLDataFactoryInternals {
     /** @param lexicalValue
      * @param datatype
      * @return new literal */
-    public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype);
+    OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype);
 
     /** @param value
      * @return new literal */
-    public OWLLiteral getOWLLiteral(int value);
+    OWLLiteral getOWLLiteral(int value);
 
     /** @param value
      * @return new literal */
-    public OWLLiteral getOWLLiteral(boolean value);
+    OWLLiteral getOWLLiteral(boolean value);
 
     /** @param value
      * @return new literal */
-    public OWLLiteral getOWLLiteral(double value);
+    OWLLiteral getOWLLiteral(double value);
 
     /** @param value
      * @return new literal */
-    public OWLLiteral getOWLLiteral(float value);
+    OWLLiteral getOWLLiteral(float value);
 
     /** @param value
      * @return new literal */
-    public OWLLiteral getOWLLiteral(String value);
+    OWLLiteral getOWLLiteral(String value);
 
     /** @param literal
      * @param lang
      * @return new literal */
-    public OWLLiteral getOWLLiteral(String literal, String lang);
+    OWLLiteral getOWLLiteral(String literal, String lang);
 
     /** @return top datatype */
-    public OWLDatatype getTopDatatype();
+    OWLDatatype getTopDatatype();
 
     /** @return integer datatype */
-    public OWLDatatype getIntegerOWLDatatype();
+    OWLDatatype getIntegerOWLDatatype();
 
     /** @return float datatype */
-    public OWLDatatype getFloatOWLDatatype();
+    OWLDatatype getFloatOWLDatatype();
 
     /** @return double datatype */
-    public OWLDatatype getDoubleOWLDatatype();
+    OWLDatatype getDoubleOWLDatatype();
 
     /** @return boolean datatype */
-    public OWLDatatype getBooleanOWLDatatype();
+    OWLDatatype getBooleanOWLDatatype();
 
     /** @return plain literal datatype */
-    public OWLDatatype getRDFPlainLiteral();
+    OWLDatatype getRDFPlainLiteral();
 }

@@ -151,7 +151,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public OWLClass asOWLClass() {
-        throw new RuntimeException("Not an OWLClass");
+        throw new UnsupportedOperationException("Not an OWLClass");
     }
 
     @Override
@@ -161,7 +161,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public OWLObjectProperty asOWLObjectProperty() {
-        throw new RuntimeException("Not an OWLObjectProperty");
+        throw new UnsupportedOperationException("Not an OWLObjectProperty");
     }
 
     @Override
@@ -171,7 +171,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public OWLDataProperty asOWLDataProperty() {
-        throw new RuntimeException("Not an OWLDataProperty");
+        throw new UnsupportedOperationException("Not an OWLDataProperty");
     }
 
     @Override
@@ -181,7 +181,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
-        throw new RuntimeException("Not an OWLNamedIndividual");
+        throw new UnsupportedOperationException("Not an OWLNamedIndividual");
     }
 
     @Override
@@ -196,7 +196,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public OWLAnnotationProperty asOWLAnnotationProperty() {
-        throw new RuntimeException("Not an OWLAnnotationProperty");
+        throw new UnsupportedOperationException("Not an OWLAnnotationProperty");
     }
 
     @Override

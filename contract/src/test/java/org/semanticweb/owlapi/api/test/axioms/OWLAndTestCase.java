@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 public class OWLAndTestCase extends AbstractOWLDataFactoryTest {
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         OWLObject obj = ObjectIntersectionOf(Class(createIRI()), Class(createIRI()),
                 Class(createIRI()));
         assertNotNull("object should not be null", obj);
@@ -61,7 +61,7 @@ public class OWLAndTestCase extends AbstractOWLDataFactoryTest {
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         OWLClassExpression a = Class(createIRI());
         OWLClassExpression b = Class(createIRI());
         OWLClassExpression c = Class(createIRI());
@@ -72,7 +72,7 @@ public class OWLAndTestCase extends AbstractOWLDataFactoryTest {
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         OWLClassExpression a = Class(createIRI());
         OWLClassExpression b = Class(createIRI());
         OWLObject objA = ObjectIntersectionOf(a, b);
@@ -83,7 +83,7 @@ public class OWLAndTestCase extends AbstractOWLDataFactoryTest {
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         OWLClassExpression a = Class(createIRI());
         OWLClassExpression b = Class(createIRI());
         OWLClassExpression c = Class(createIRI());

@@ -52,18 +52,18 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 public class OWLIndividualTypeAxiomTestCase extends
         AbstractOWLBinaryOperandAxiomTestCase<OWLIndividual, OWLClassExpression> {
     @Override
-    protected OWLIndividual createLeftOperand() throws Exception {
+    protected OWLIndividual createLeftOperand() {
         return createOWLIndividual();
     }
 
     @Override
-    protected OWLClassExpression createRightOperand() throws Exception {
+    protected OWLClassExpression createRightOperand() {
         return Class(createIRI());
     }
 
     @Override
     protected OWLAxiom createAxiom(OWLIndividual leftOperand,
-            OWLClassExpression rightOperand) throws Exception {
+            OWLClassExpression rightOperand) {
         return ClassAssertion(rightOperand, leftOperand);
     }
 }

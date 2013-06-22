@@ -58,11 +58,6 @@ public class OWLOntologyCreationIOException extends OWLOntologyCreationException
         super("OWLOntologyCreationIOException: " + ioException.getMessage(), ioException);
     }
 
-    @Override
-    public synchronized IOException getCause() {
-        return (IOException) super.getCause();
-    }
-
     /** Delegates to the getMessage() method of the contained
      * <code>IOException</code>.
      * 

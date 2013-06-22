@@ -55,27 +55,27 @@ public class AnonymousTroublesomeConversionTestCase extends
 
     @Override
     @Test
-    public void testRDFXML() throws Exception {
+    public void testRDFXML() {
         // XXX roundtripping fails because of errors in the check code
         // super.testRDFXML();
     }
 
     @Override
     @Test
-    public void testTurtle() throws Exception {
+    public void testTurtle() {
         // XXX roundtripping fails because of errors in the check code
         // super.testTurtle();
     }
 
     @Override
     @Test
-    public void testFunctionalSyntax() throws Exception {}
+    public void testFunctionalSyntax() {}
 
     @Override
     @Test
-    public void testManchesterOWLSyntax() throws Exception {}
+    public void testManchesterOWLSyntax() {}
 
     @Override
     @Test
-    public void testOWLXML() throws Exception {}
+    public void testOWLXML() {}
 }

@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 
@@ -14,13 +13,12 @@ import org.coode.owlapi.latex.LatexObjectVisitor;
 import org.coode.owlapi.latex.LatexOntologyFormat;
 import org.coode.owlapi.latex.LatexOntologyStorer;
 import org.coode.owlapi.latex.LatexRenderer;
-import org.coode.owlapi.latex.LatexRendererException;
-import org.coode.owlapi.latex.LatexRendererIOException;
 import org.coode.owlapi.latex.LatexWriter;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -28,7 +26,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractLatexTest {
-    public void shouldTestLatexAxiomsListOntologyFormat() throws Exception {
+    public void shouldTestLatexAxiomsListOntologyFormat() throws OWLException {
         LatexAxiomsListOntologyFormat testSubject0 = new LatexAxiomsListOntologyFormat();
         String result0 = testSubject0.toString();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
@@ -41,12 +39,12 @@ public class ContractLatexTest {
     }
 
     @Test
-    public void shouldTestLatexBracketChecker() throws Exception {
+    public void shouldTestLatexBracketChecker() throws OWLException {
         boolean result0 = LatexBracketChecker.requiresBracket(Utils.mockAnonClass());
     }
 
     @Test
-    public void shouldTestLatexObjectVisitor() throws Exception {
+    public void shouldTestLatexObjectVisitor() throws OWLException {
         LatexObjectVisitor testSubject0 = new LatexObjectVisitor(mock(LatexWriter.class),
                 mock(OWLDataFactory.class));
         testSubject0.setSubject(mock(OWLObject.class));
@@ -56,7 +54,7 @@ public class ContractLatexTest {
         String result1 = testSubject0.toString();
     }
 
-    public void shouldTestLatexOntologyFormat() throws Exception {
+    public void shouldTestLatexOntologyFormat() throws OWLException {
         LatexOntologyFormat testSubject0 = new LatexOntologyFormat();
         String result0 = testSubject0.toString();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
@@ -68,7 +66,7 @@ public class ContractLatexTest {
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
-    public void shouldTestLatexOntologyStorer() throws Exception {
+    public void shouldTestLatexOntologyStorer() throws OWLException {
         LatexOntologyStorer testSubject0 = new LatexOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
@@ -79,7 +77,7 @@ public class ContractLatexTest {
     }
 
     @Test
-    public void shouldTestLatexOWLObjectRenderer() throws Exception {
+    public void shouldTestLatexOWLObjectRenderer() throws OWLException {
         LatexOWLObjectRenderer testSubject0 = new LatexOWLObjectRenderer(
                 mock(OWLDataFactory.class));
         String result0 = testSubject0.render(mock(OWLObject.class));
@@ -88,7 +86,7 @@ public class ContractLatexTest {
     }
 
     @Test
-    public void shouldTestLatexRenderer() throws Exception {
+    public void shouldTestLatexRenderer() throws OWLException {
         LatexRenderer testSubject0 = new LatexRenderer();
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
@@ -96,45 +94,7 @@ public class ContractLatexTest {
     }
 
     @Test
-    public void shouldTestLatexRendererException() throws Exception {
-        LatexRendererException testSubject0 = new LatexRendererException(
-                new RuntimeException()) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 40000L;
-        };
-        LatexRendererException testSubject1 = new LatexRendererException("") {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 40000L;
-        };
-        LatexRendererException testSubject2 = new LatexRendererException("",
-                new RuntimeException()) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 40000L;
-        };
-        Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
-        String result4 = testSubject0.getMessage();
-        String result5 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestLatexRendererIOException() throws Exception {
-        LatexRendererIOException testSubject0 = new LatexRendererIOException(
-                mock(IOException.class));
-        Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
-        String result4 = testSubject0.getMessage();
-        String result5 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestLatexWriter() throws Exception {
+    public void shouldTestLatexWriter() throws OWLException {
         LatexWriter testSubject0 = new LatexWriter(mock(Writer.class));
         testSubject0.write(mock(Object.class));
         testSubject0.flush();

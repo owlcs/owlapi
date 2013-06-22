@@ -8,6 +8,8 @@ import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class LatexRendererTestCase {
@@ -23,7 +25,8 @@ public class LatexRendererTestCase {
             + "<owl:ObjectProperty rdf:about=\"http://namespace.owl#p\"/>" + "</rdf:RDF>";
 
     @Test
-    public void shouldRenderEscapingUnderscores() throws Exception {
+    public void shouldRenderEscapingUnderscores() throws OWLOntologyCreationException,
+            OWLOntologyStorageException {
         OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input));
         StringDocumentTarget target = new StringDocumentTarget();

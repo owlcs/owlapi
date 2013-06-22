@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         OWLDatatype rng = Datatype(createIRI());
         OWLLiteral facetValue = Literal("3", Datatype(createIRI()));
         OWLDatatypeRestriction restRng = DatatypeRestriction(rng,
@@ -65,7 +65,7 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         OWLDatatype rng = Datatype(createIRI());
         OWLLiteral facetValue = Literal("3", Datatype(createIRI()));
         OWLDatatypeRestriction restRngA = DatatypeRestriction(rng,
@@ -77,7 +77,7 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         OWLDatatype rng = Datatype(createIRI());
         OWLLiteral facetValue = Literal("3", Datatype(createIRI()));
         OWLDatatypeRestriction restRngA = DatatypeRestriction(rng,
@@ -89,7 +89,7 @@ public class OWLRestrictedDataRangeTestCase extends AbstractOWLDataFactoryTest {
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         OWLDatatype rng = Datatype(createIRI());
         OWLLiteral facetValue = Literal("3", Datatype(createIRI()));
         OWLDatatypeRestriction restRngA = DatatypeRestriction(rng,

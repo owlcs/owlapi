@@ -78,7 +78,7 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
  * on the description of a black box debugger as described in Aditya Kalyanpur's
  * PhD Thesis : "Debugging and Repair of OWL Ontologies". */
 public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
-    private static final Logger logger = Logger.getLogger(BlackBoxOWLDebugger.class
+    private static final Logger LOGGER = Logger.getLogger(BlackBoxOWLDebugger.class
             .getName());
     private final OWLOntologyManager owlOntologyManager;
     private OWLClass currentClass;
@@ -118,7 +118,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         expandedWithReferencingAxioms = new HashSet<OWLAxiom>();
         temporaryAxioms = new HashSet<OWLAxiom>();
         expandedAxiomMap = new HashMap<OWLAxiom, OWLAxiom>();
-        logger.setLevel(Level.INFO);
+        LOGGER.setLevel(Level.INFO);
     }
 
     @Override
@@ -310,14 +310,14 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
     private void performFastPruning() throws OWLException {
-        logger.setLevel(Level.INFO);
+        LOGGER.setLevel(Level.INFO);
         Set<OWLAxiom> axiomWindow = new HashSet<OWLAxiom>();
         Object[] axioms = debuggingAxioms.toArray();
-        if (logger.isLoggable(Level.INFO)) {
-            logger.info("Fast pruning: ");
+        if (LOGGER.isLoggable(Level.INFO)) {
+            LOGGER.info("Fast pruning: ");
         }
-        if (logger.isLoggable(Level.INFO)) {
-            logger.info("     - Window size: " + fastPruningWindowSize);
+        if (LOGGER.isLoggable(Level.INFO)) {
+            LOGGER.info("     - Window size: " + fastPruningWindowSize);
         }
         int windowCount = debuggingAxioms.size() / fastPruningWindowSize;
         for (int currentWindow = 0; currentWindow < windowCount; currentWindow++) {
@@ -348,8 +348,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                 debuggingAxioms.addAll(axiomWindow);
             }
         }
-        if (logger.isLoggable(Level.INFO)) {
-            logger.info("    - End of fast pruning");
+        if (LOGGER.isLoggable(Level.INFO)) {
+            LOGGER.info("    - End of fast pruning");
         }
     }
 
@@ -420,38 +420,38 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         // defining axioms for the class being debugged
         resetSatisfiabilityTestCounter();
         expandWithDefiningAxioms(currentClass, expansionLimit);
-        if (logger.isLoggable(Level.INFO)) {
-            logger.info("Initial axiom count: " + debuggingAxioms.size());
+        if (LOGGER.isLoggable(Level.INFO)) {
+            LOGGER.info("Initial axiom count: " + debuggingAxioms.size());
         }
         int totalAdded = 0;
         int expansionCount = 0;
         while (isSatisfiable()) {
-            if (logger.isLoggable(Level.INFO)) {
-                logger.info("Expanding axioms (expansion " + expansionCount + ")");
+            if (LOGGER.isLoggable(Level.INFO)) {
+                LOGGER.info("Expanding axioms (expansion " + expansionCount + ")");
             }
             expansionCount++;
             int numberAdded = expandAxioms();
             totalAdded += numberAdded;
-            if (logger.isLoggable(Level.INFO)) {
-                logger.info("    ... expanded by " + numberAdded);
+            if (LOGGER.isLoggable(Level.INFO)) {
+                LOGGER.info("    ... expanded by " + numberAdded);
             }
             if (numberAdded == 0) {
-                if (logger.isLoggable(Level.INFO)) {
-                    logger.info("ERROR! Cannot find SOS axioms!");
+                if (LOGGER.isLoggable(Level.INFO)) {
+                    LOGGER.info("ERROR! Cannot find SOS axioms!");
                 }
                 debuggingAxioms.clear();
                 return;
             }
         }
-        if (logger.isLoggable(Level.INFO)) {
-            logger.info("Total number of axioms added: " + totalAdded);
+        if (LOGGER.isLoggable(Level.INFO)) {
+            LOGGER.info("Total number of axioms added: " + totalAdded);
         }
-        if (logger.isLoggable(Level.INFO)) {
-            logger.info("FOUND CLASH! Prunning " + debuggingAxioms.size() + " axioms...");
+        if (LOGGER.isLoggable(Level.INFO)) {
+            LOGGER.info("FOUND CLASH! Prunning " + debuggingAxioms.size() + " axioms...");
         }
         resetSatisfiabilityTestCounter();
-        if (logger.isLoggable(Level.INFO)) {
-            logger.info("Fast pruning...");
+        if (LOGGER.isLoggable(Level.INFO)) {
+            LOGGER.info("Fast pruning...");
         }
         if (performRepeatedFastPruning) {
             // Base the initial fast pruning window size on the number of axioms
@@ -459,14 +459,14 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             if (fastPruningWindowSize < DEFAULT_FAST_PRUNING_WINDOW_SIZE) {
                 fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
             }
-            if (logger.isLoggable(Level.INFO)) {
-                logger.info("    Initial fast prunung window size: "
+            if (LOGGER.isLoggable(Level.INFO)) {
+                LOGGER.info("    Initial fast prunung window size: "
                         + fastPruningWindowSize);
             }
             int fastPruningCounter = 0;
             while (fastPruningWindowSize != 1) {
-                if (logger.isLoggable(Level.INFO)) {
-                    logger.info("    Round: " + fastPruningCounter
+                if (LOGGER.isLoggable(Level.INFO)) {
+                    LOGGER.info("    Round: " + fastPruningCounter
                             + " (axioms to prune: " + debuggingAxioms.size() + ")");
                 }
                 fastPruningCounter++;
@@ -476,36 +476,36 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                     fastPruningWindowSize = 1;
                 }
             }
-            if (logger.isLoggable(Level.INFO)) {
-                logger.info("... end of fast pruning. Axioms remaining: "
+            if (LOGGER.isLoggable(Level.INFO)) {
+                LOGGER.info("... end of fast pruning. Axioms remaining: "
                         + debuggingAxioms.size());
-                logger.info("Performed " + satTestCount
+                LOGGER.info("Performed " + satTestCount
                         + " satisfiability tests during fast pruning");
             }
         } else {
             fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
             performFastPruning();
-            if (logger.isLoggable(Level.INFO)) {
-                logger.info("... end of fast pruning. Axioms remaining: "
+            if (LOGGER.isLoggable(Level.INFO)) {
+                LOGGER.info("... end of fast pruning. Axioms remaining: "
                         + debuggingAxioms.size());
-                logger.info("Performed " + satTestCount
+                LOGGER.info("Performed " + satTestCount
                         + " satisfiability tests during fast pruning");
             }
         }
         int totalSatTests = satTestCount;
         resetSatisfiabilityTestCounter();
-        if (logger.isLoggable(Level.INFO)) {
-            logger.info("Slow pruning...");
+        if (LOGGER.isLoggable(Level.INFO)) {
+            LOGGER.info("Slow pruning...");
         }
         performSlowPruning();
-        if (logger.isLoggable(Level.INFO)) {
-            logger.info("... end of slow pruning");
-            logger.info("Performed " + satTestCount
+        if (LOGGER.isLoggable(Level.INFO)) {
+            LOGGER.info("... end of slow pruning");
+            LOGGER.info("Performed " + satTestCount
                     + " satisfiability tests during slow pruning");
         }
         totalSatTests += satTestCount;
-        if (logger.isLoggable(Level.INFO)) {
-            logger.info("Total number of satisfiability tests performed: "
+        if (LOGGER.isLoggable(Level.INFO)) {
+            LOGGER.info("Total number of satisfiability tests performed: "
                     + totalSatTests);
         }
     }

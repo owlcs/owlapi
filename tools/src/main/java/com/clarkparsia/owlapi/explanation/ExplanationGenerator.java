@@ -52,7 +52,7 @@ public interface ExplanationGenerator {
      *            be generated.
      * @return A single explanation for the given unsatisfiable class, or empty
      *         set if the concept is satisfiable */
-    public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass);
+    Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass);
 
     /** Returns all the explanations for the given unsatisfiable class.
      * 
@@ -61,7 +61,7 @@ public interface ExplanationGenerator {
      *            be generated.
      * @return All explanations for the given unsatisfiable class, or an empty
      *         set if the concept is satisfiable */
-    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass);
+    Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass);
 
     /** Return a specified number of explanations for the given unsatisfiable
      * class. A smaller number of explanations can be returned if there are not
@@ -76,6 +76,6 @@ public interface ExplanationGenerator {
      *            explanations
      * @return A specified number of explanations for the given unsatisfiable
      *         class, or an empty set if the concept is satisfiable */
-    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass,
-            int maxExplanations);
+    Set<Set<OWLAxiom>>
+            getExplanations(OWLClassExpression unsatClass, int maxExplanations);
 }

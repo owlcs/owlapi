@@ -53,7 +53,7 @@ public class TestParser08TestCase extends AbstractFileRoundTrippingTestCase {
 
     @Override
     @Test
-    public void testManchesterOWLSyntax() throws Exception {
+    public void testManchesterOWLSyntax() {
         // Annotation assertion not on an entity - cannot do!
         // super.testManchesterOWLSyntax();
     }

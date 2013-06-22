@@ -45,6 +45,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Author: Matthew Horridge<br>
@@ -54,7 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class OWLOntologyToStringTestCase {
     @Test
-    public void testNamedOntologyToString() throws Exception {
+    public void testNamedOntologyToString() throws OWLOntologyCreationException {
         OWLOntologyManager man = Factory.getManager();
         IRI ontIRI = IRI("http://owlapi.sourceforge.net/ont");
         OWLOntology ont = man.createOntology(ontIRI);

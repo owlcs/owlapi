@@ -117,6 +117,6 @@ public class ImportsStructureObjectSorter<O> {
         /** @param ontology
          *            the ontology to explore
          * @return set of objects selected */
-        public Set<O> getObjects(OWLOntology ontology);
+        Set<O> getObjects(OWLOntology ontology);
     }
 }

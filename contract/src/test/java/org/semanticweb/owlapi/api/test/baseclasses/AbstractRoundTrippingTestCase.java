@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
+import java.net.URISyntaxException;
+
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.junit.Before;
@@ -45,7 +47,9 @@ import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -56,39 +60,45 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 public abstract class AbstractRoundTrippingTestCase extends AbstractOWLAPITestCase {
     private OWLOntology ont;
 
-    protected abstract OWLOntology createOntology() throws Exception;
+    protected abstract OWLOntology createOntology() throws OWLOntologyCreationException,
+            URISyntaxException;
 
     protected OWLOntology getOnt() {
         return ont;
     }
 
     @Before
-    public void setUpOntology() throws Exception {
+    public void setUpOntology() throws OWLOntologyCreationException, URISyntaxException {
         ont = createOntology();
     }
 
     @Test
-    public void testRDFXML() throws Exception {
+    public void testRDFXML() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         roundTripOntology(ont);
     }
 
     @Test
-    public void testOWLXML() throws Exception {
+    public void testOWLXML() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         roundTripOntology(ont, new OWLXMLOntologyFormat());
     }
 
     @Test
-    public void testFunctionalSyntax() throws Exception {
+    public void testFunctionalSyntax() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         roundTripOntology(ont, new OWLFunctionalSyntaxOntologyFormat());
     }
 
     @Test
-    public void testTurtle() throws Exception {
+    public void testTurtle() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         roundTripOntology(ont, new TurtleOntologyFormat());
     }
 
     @Test
-    public void testManchesterOWLSyntax() throws Exception {
+    public void testManchesterOWLSyntax() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         roundTripOntology(ont, new ManchesterOWLSyntaxOntologyFormat());
     }
 

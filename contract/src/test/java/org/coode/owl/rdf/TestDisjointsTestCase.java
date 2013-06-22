@@ -41,6 +41,7 @@ package org.coode.owl.rdf;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -56,7 +57,9 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
@@ -90,7 +93,8 @@ public class TestDisjointsTestCase {
     }
 
     @Test
-    public void testAnonDisjoints() throws Exception {
+    public void testAnonDisjoints() throws OWLOntologyCreationException, IOException,
+            OWLOntologyStorageException {
         OWLOntology ontA = man.createOntology(TestUtils.createIRI());
         OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
         OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());

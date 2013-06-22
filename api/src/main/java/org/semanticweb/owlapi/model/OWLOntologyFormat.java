@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public abstract class OWLOntologyFormat {
     /** if set to "true", an intermediate file will be used for output, even for
      * remote URIs */
-    public static String USE_INTERMEDIATE_OUTPUT_FILE = "USE_INTERMEDIATE_OUTPUT_FILE";
+    public static final String USE_INTERMEDIATE_OUTPUT_FILE = "USE_INTERMEDIATE_OUTPUT_FILE";
     private Map<Object, Object> paramaterMap;
     private OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
 

@@ -62,7 +62,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class AnonymousRoundTripTestCase {
     @Test
-    public void testRoundTrip() throws Exception {
+    public void testRoundTrip() throws OWLOntologyCreationException,
+            OWLOntologyStorageException, IOException {
         AnonymousRoundTrip ma = new AnonymousRoundTrip();
         ma.buildOntology();
         ma.write();

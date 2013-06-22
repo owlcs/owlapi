@@ -19,22 +19,22 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class ThreeEquivalentsRoundTripTestCase {
     private static final String NS = "http://protege.org/ontologies";
-    private OWLClass A;
-    private OWLClass B;
-    private OWLClass C;
+    private OWLClass a;
+    private OWLClass b;
+    private OWLClass c;
     private OWLObjectProperty p;
     private OWLObjectProperty q;
     private OWLAxiom axiomToAdd;
 
     @Before
     public void setUp() {
-        A = Class(IRI(NS + "#A"));
-        B = Class(IRI(NS + "#B"));
-        C = Class(IRI(NS + "#C"));
+        a = Class(IRI(NS + "#A"));
+        b = Class(IRI(NS + "#B"));
+        c = Class(IRI(NS + "#C"));
         p = ObjectProperty(IRI(NS + "#p"));
         q = ObjectProperty(IRI(NS + "#q"));
-        axiomToAdd = EquivalentClasses(A, ObjectSomeValuesFrom(p, B),
-                ObjectSomeValuesFrom(q, C));
+        axiomToAdd = EquivalentClasses(a, ObjectSomeValuesFrom(p, b),
+                ObjectSomeValuesFrom(q, c));
     }
 
     @Test
@@ -51,8 +51,8 @@ public class ThreeEquivalentsRoundTripTestCase {
         saved = saveOntology(ontology);
         assertTrue(ontology.containsObjectPropertyInSignature(p.getIRI()));
         assertTrue(ontology.containsObjectPropertyInSignature(q.getIRI()));
-        assertTrue(ontology.containsClassInSignature(B.getIRI()));
-        assertTrue(ontology.containsClassInSignature(C.getIRI()));
+        assertTrue(ontology.containsClassInSignature(b.getIRI()));
+        assertTrue(ontology.containsClassInSignature(c.getIRI()));
     }
 
     private String saveOntology(OWLOntology o) throws OWLOntologyStorageException {

@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.util.OWLOntologyURIChanger;
 @SuppressWarnings("javadoc")
 public class ChangeOntologyURITestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testChangeURI() throws Exception {
+    public void testChangeURI() throws OWLOntologyCreationException {
         OWLOntologyManager man = getManager();
         IRI oldIRI = IRI("http://www.semanticweb.org/ontologies/ontA");
         IRI newIRI = IRI("http://www.semanticweb.org/ontologies/ontB");

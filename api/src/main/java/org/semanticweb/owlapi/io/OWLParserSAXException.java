@@ -55,9 +55,4 @@ public class OWLParserSAXException extends OWLParserException {
     public OWLParserSAXException(SAXException cause) {
         super(cause);
     }
-
-    @Override
-    public synchronized SAXException getCause() {
-        return (SAXException) super.getCause();
-    }
 }

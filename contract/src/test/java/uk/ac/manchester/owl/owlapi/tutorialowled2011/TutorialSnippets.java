@@ -43,6 +43,7 @@ import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -144,14 +145,14 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testOntologyLoading() throws Exception {
+    public void testOntologyLoading() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         assertNotNull(o);
     }
 
     @Test
-    public void testOntologyLoadingFromStringSource() throws Exception {
+    public void testOntologyLoadingFromStringSource() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         assertNotNull(o);
@@ -164,7 +165,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testOntologyCreation() throws Exception {
+    public void testOntologyCreation() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(example_iri);
         assertNotNull(o);
@@ -172,7 +173,7 @@ public class TutorialSnippets {
 
     @SuppressWarnings("unused")
     @Test
-    public void testShowClasses() throws Exception {
+    public void testShowClasses() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         assertNotNull(o);
@@ -183,7 +184,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testSaveOntology() throws Exception {
+    public void testSaveOntology() throws OWLException, IOException {
         OWLOntologyManager m = create();
         OWLOntology o = m.getOntology(pizza_iri);
         assertNotNull(o);
@@ -202,7 +203,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testIRIMapper() throws Exception {
+    public void testIRIMapper() throws OWLException, IOException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         // map the ontology IRI to a physical IRI (files for example)
         // Create the document IRI for our ontology
@@ -224,7 +225,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testAddAxioms() throws Exception {
+    public void testAddAxioms() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(pizza_iri);
         // class A and class B
@@ -242,7 +243,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testAssertedSuperclasses() throws Exception {
+    public void testAssertedSuperclasses() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(example_iri);
         OWLClass clsA = df.getOWLClass(IRI.create(example_iri + "#A"));
@@ -254,7 +255,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testSWRL() throws Exception {
+    public void testSWRL() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(example_iri);
         // Get hold of references to class A and class B.
@@ -279,7 +280,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testIndividualAssertions() throws Exception {
+    public void testIndividualAssertions() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(example_iri);
         // We want to state that matthew has a father who is peter.
@@ -304,7 +305,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testDelete() throws Exception {
+    public void testDelete() throws OWLException {
         // Delete individuals representing countries
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
@@ -325,7 +326,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testAddSomeRestriction() throws Exception {
+    public void testAddSomeRestriction() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(example_iri);
         // all Heads have parts that are noses (at least one)
@@ -345,7 +346,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testDatatypeRestriction() throws Exception {
+    public void testDatatypeRestriction() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(example_iri);
         // Adults have an age greater than 18.
@@ -365,7 +366,7 @@ public class TutorialSnippets {
 
     @Test
     @SuppressWarnings("unused")
-    public void testUnsatisfiableClasses() throws Exception {
+    public void testUnsatisfiableClasses() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // Create a console progress monitor. This will print the reasoner
@@ -395,7 +396,7 @@ public class TutorialSnippets {
 
     @Test
     @SuppressWarnings("unused")
-    public void testDescendants() throws Exception {
+    public void testDescendants() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // Create a console progress monitor. This will print the reasoner
@@ -424,7 +425,7 @@ public class TutorialSnippets {
 
     @Test
     @SuppressWarnings("unused")
-    public void testPetInstances() throws Exception {
+    public void testPetInstances() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // Create a console progress monitor. This will print the reasoner
@@ -461,7 +462,7 @@ public class TutorialSnippets {
 
     @Test
     @SuppressWarnings("unused")
-    public void testLookupRestrictions() throws Exception {
+    public void testLookupRestrictions() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // We want to examine the restrictions on all classes.
@@ -528,7 +529,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testComment() throws Exception {
+    public void testComment() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // We want to add a comment to the pizza class.
@@ -544,7 +545,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testVersionInfo() throws Exception {
+    public void testVersionInfo() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // We want to add a comment to the pizza class.
@@ -559,7 +560,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testReadAnnotations() throws Exception {
+    public void testReadAnnotations() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         for (OWLClass cls : o.getClassesInSignature()) {
@@ -579,7 +580,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testInferredOntology() throws Exception {
+    public void testInferredOntology() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // Create the reasoner and classify the ontology
@@ -595,7 +596,7 @@ public class TutorialSnippets {
         iog.fillOntology(m, infOnt);
     }
 
-    public void testMergedOntology() throws Exception {
+    public void testMergedOntology() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o1 = m.loadOntology(pizza_iri);
         OWLOntology o2 = m.loadOntology(example_iri);
@@ -612,7 +613,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testOntologyWalker() throws Exception {
+    public void testOntologyWalker() throws OWLException {
         // How to use an ontology walker to walk the asserted structure of an
         // ontology.
         OWLOntologyManager m = create();
@@ -639,7 +640,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testMargherita() throws Exception {
+    public void testMargherita() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // For this particular ontology, we know that all class, properties
@@ -663,9 +664,6 @@ public class TutorialSnippets {
      * @param cls
      *            The class expression */
     private void printProperties(OWLOntology o, OWLReasoner reasoner, OWLClass cls) {
-        if (!o.containsClassInSignature(cls.getIRI())) {
-            throw new RuntimeException("Class not in signature of the ontology");
-        }
         // System.out.println("Properties of " + cls);
         for (OWLObjectPropertyExpression prop : o.getObjectPropertiesInSignature()) {
             // To test whether an instance of A MUST have a property p with a
@@ -686,7 +684,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testModularization() throws Exception {
+    public void testModularization() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // System.out.println("Loaded: " + o.getOntologyID());
@@ -718,7 +716,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testIndividual() throws Exception {
+    public void testIndividual() throws OWLException {
         // :Mary is an instance of the class :Person.
         OWLOntologyManager m = create();
         // The IRIs used here are taken from the OWL 2 Primer
@@ -741,7 +739,7 @@ public class TutorialSnippets {
 
     @SuppressWarnings("unused")
     @Test
-    public void testDataRanges() throws Exception {
+    public void testDataRanges() throws OWLException {
         // Data ranges are used as the types of literals, as the ranges for data
         // properties
         OWLOntologyManager m = create();
@@ -783,7 +781,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testPropertyAssertions() throws Exception {
+    public void testPropertyAssertions() throws OWLException {
         // how to specify various property assertions for individuals
         OWLOntologyManager m = create();
         IRI ontologyIRI = IRI.create("http://example.com/owl/families/");
@@ -875,7 +873,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    public void testHierarchy() throws Exception {
+    public void testHierarchy() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // Get Thing
@@ -885,7 +883,7 @@ public class TutorialSnippets {
         printHierarchy(o, clazz);
     }
 
-    public void testRendering() throws Exception {
+    public void testRendering() throws OWLException {
         // Simple Rendering Example. Reads an ontology and then renders it.
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
@@ -899,7 +897,7 @@ public class TutorialSnippets {
 
     @Test
     @SuppressWarnings("unused")
-    public void testCheckProfile() throws Exception {
+    public void testCheckProfile() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(pizza_iri);
         // Available profiles: DL, EL, QL, RL, OWL2 (Full)

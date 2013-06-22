@@ -44,6 +44,7 @@ import java.io.StringReader;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
+import uk.ac.manchester.cs.owl.owlapi.turtle.parser.ParseException;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParser;
 
@@ -54,7 +55,7 @@ import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParser;
 @SuppressWarnings("javadoc")
 public class BlankNodeTestCase {
     @Test
-    public void testBlankNodes() throws Exception {
+    public void testBlankNodes() throws ParseException {
         Reader input = new StringReader("_:foo <http://example.com/> _:bar .");
         TripleHandler handler = new TripleHandler() {
             @Override

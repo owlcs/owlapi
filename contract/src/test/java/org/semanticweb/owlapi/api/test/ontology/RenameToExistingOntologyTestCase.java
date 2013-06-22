@@ -45,6 +45,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyRenameException;
@@ -57,7 +58,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 @SuppressWarnings("javadoc")
 public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
     @Test(expected = OWLOntologyRenameException.class)
-    public void testRenameToExistingOntology() throws Exception {
+    public void testRenameToExistingOntology() throws OWLOntologyCreationException {
         OWLOntologyManager manager = getManager();
         IRI ontologyAIRI = IRI("http://www.semanticweb.org/ontologies/ontologyA");
         OWLOntology onto = manager.createOntology(ontologyAIRI);

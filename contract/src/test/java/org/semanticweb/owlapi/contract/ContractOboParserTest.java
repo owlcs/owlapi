@@ -36,7 +36,6 @@ import org.coode.owlapi.obo.parser.OBOIdType;
 import org.coode.owlapi.obo.parser.OBOOntologyFormat;
 import org.coode.owlapi.obo.parser.OBOParser;
 import org.coode.owlapi.obo.parser.OBOParserConstants;
-import org.coode.owlapi.obo.parser.OBOParserException;
 import org.coode.owlapi.obo.parser.OBOParserFactory;
 import org.coode.owlapi.obo.parser.OBOParserHandler;
 import org.coode.owlapi.obo.parser.OBOParserHandlerAdapter;
@@ -45,6 +44,7 @@ import org.coode.owlapi.obo.parser.OBOPrefix;
 import org.coode.owlapi.obo.parser.OBOTagValuePair;
 import org.coode.owlapi.obo.parser.OBOVocabulary;
 import org.coode.owlapi.obo.parser.OntologyTagValueHandler;
+import org.coode.owlapi.obo.parser.ParseException;
 import org.coode.owlapi.obo.parser.RawFrameHandler;
 import org.coode.owlapi.obo.parser.ReflexiveHandler;
 import org.coode.owlapi.obo.parser.RelationshipTagValueHandler;
@@ -69,6 +69,7 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -104,7 +105,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestAbstractTagValueHandler() throws Exception {
+    public void shouldTestAbstractTagValueHandler() throws OWLException {
         AbstractTagValueHandler testSubject0 = new AbstractTagValueHandler("", mock) {
             @Override
             public void handle(String currentId, String value, String qualifierBlock,
@@ -127,7 +128,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestAltIdTagValueHandler() throws Exception {
+    public void shouldTestAltIdTagValueHandler() throws OWLException {
         AltIdTagValueHandler testSubject0 = new AltIdTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -146,7 +147,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestAsymmetricHandler() throws Exception {
+    public void shouldTestAsymmetricHandler() throws OWLException {
         AsymmetricHandler testSubject0 = new AsymmetricHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -165,7 +166,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestDataVersionTagValueHandler() throws Exception {
+    public void shouldTestDataVersionTagValueHandler() throws OWLException {
         DataVersionTagValueHandler testSubject0 = new DataVersionTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -184,7 +185,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestDefaultNamespaceTagValueHandler() throws Exception {
+    public void shouldTestDefaultNamespaceTagValueHandler() throws OWLException {
         DefaultNamespaceTagValueHandler testSubject0 = new DefaultNamespaceTagValueHandler(
                 mock);
         testSubject0.handle("", "", "", "");
@@ -204,7 +205,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestDefTagValueHandler() throws Exception {
+    public void shouldTestDefTagValueHandler() throws OWLException {
         DefTagValueHandler testSubject0 = new DefTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -223,7 +224,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestDisjointFromHandler() throws Exception {
+    public void shouldTestDisjointFromHandler() throws OWLException {
         DisjointFromHandler testSubject0 = new DisjointFromHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -242,7 +243,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestDomainHandler() throws Exception {
+    public void shouldTestDomainHandler() throws OWLException {
         DomainHandler testSubject0 = new DomainHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -261,7 +262,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestIDSpaceManager() throws Exception {
+    public void shouldTestIDSpaceManager() throws OWLException {
         IDSpaceManager testSubject0 = new IDSpaceManager();
         IDSpaceManager testSubject1 = new IDSpaceManager(testSubject0);
         testSubject0.setIRIPrefix("", "");
@@ -271,7 +272,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestIDSpaceTagValueHandler() throws Exception {
+    public void shouldTestIDSpaceTagValueHandler() throws OWLException {
         IDSpaceTagValueHandler testSubject0 = new IDSpaceTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -290,7 +291,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestIDTagValueHandler() throws Exception {
+    public void shouldTestIDTagValueHandler() throws OWLException {
         IDTagValueHandler testSubject0 = new IDTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -309,7 +310,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestIntersectionOfHandler() throws Exception {
+    public void shouldTestIntersectionOfHandler() throws OWLException {
         IntersectionOfHandler testSubject0 = new IntersectionOfHandler(mock);
         testSubject0.handle("", "test test", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -328,7 +329,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestInverseHandler() throws Exception {
+    public void shouldTestInverseHandler() throws OWLException {
         InverseHandler testSubject0 = new InverseHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -347,7 +348,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestIsATagValueHandler() throws Exception {
+    public void shouldTestIsATagValueHandler() throws OWLException {
         IsATagValueHandler testSubject0 = new IsATagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -366,7 +367,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestIsObsoleteTagValueHandler() throws Exception {
+    public void shouldTestIsObsoleteTagValueHandler() throws OWLException {
         IsObsoleteTagValueHandler testSubject0 = new IsObsoleteTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -385,7 +386,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestModifiers() throws Exception {
+    public void shouldTestModifiers() throws OWLException {
         Modifiers testSubject0 = new Modifiers();
         Modifiers result0 = Modifiers.parseModifiers("");
         testSubject0.addModifier("", "");
@@ -395,7 +396,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestNameTagValueHandler() throws Exception {
+    public void shouldTestNameTagValueHandler() throws OWLException {
         NameTagValueHandler testSubject0 = new NameTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -414,7 +415,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestOBOConsumer() throws Exception {
+    public void shouldTestOBOConsumer() throws OWLException {
         OBOConsumer testSubject0 = new OBOConsumer(manager, mockonto,
                 new OWLOntologyLoaderConfiguration(), IRI("urn:aFake"));
         testSubject0.setCurrentId("");
@@ -453,7 +454,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestOBOFrame() throws Exception {
+    public void shouldTestOBOFrame() throws OWLException {
         OBOFrame testSubject0 = new OBOFrame(Utils.mockList(mock(OBOTagValuePair.class)));
         OBOFrame testSubject1 = new OBOFrame("",
                 Utils.mockList(mock(OBOTagValuePair.class)));
@@ -465,7 +466,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestOBOIdTranslator() throws Exception {
+    public void shouldTestOBOIdTranslator() throws OWLException {
         OBOIdTranslator testSubject0 = new OBOIdTranslator();
         IRI result0 = testSubject0.getIRIFromOBOId("");
         String result1 = testSubject0.getOBOIdFromIRI();
@@ -473,7 +474,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestOBOIdType() throws Exception {
+    public void shouldTestOBOIdType() throws OWLException {
         OBOIdType testSubject0 = OBOIdType.CANONICAL_PREFIXED_ID;
         OBOIdType[] result0 = OBOIdType.values();
         Pattern result2 = testSubject0.getPattern();
@@ -486,7 +487,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestOBOOntologyFormat() throws Exception {
+    public void shouldTestOBOOntologyFormat() throws OWLException {
         OBOOntologyFormat testSubject0 = new OBOOntologyFormat();
         OBOOntologyFormat testSubject1 = new OBOOntologyFormat(mock(IDSpaceManager.class));
         String result0 = testSubject0.toString();
@@ -500,7 +501,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestOBOParser() throws Exception {
+    public void shouldTestOBOParser() throws OWLException, ParseException {
         StringDocumentTarget target = new StringDocumentTarget();
         mockonto.getOWLOntologyManager().addAxiom(mockonto,
                 df.getOWLDeclarationAxiom(Class(IRI("urn:c:test"))));
@@ -524,33 +525,19 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestInterfaceOBOParserConstants() throws Exception {
+    public void shouldTestInterfaceOBOParserConstants() throws OWLException {
         OBOParserConstants testSubject0 = mock(OBOParserConstants.class);
     }
 
     @Test
-    public void shouldTestOBOParserException() throws Exception {
-        OBOParserException testSubject0 = new OBOParserException("");
-        OBOParserException testSubject1 = new OBOParserException("",
-                new RuntimeException());
-        OBOParserException testSubject2 = new OBOParserException(new RuntimeException());
-        String result0 = testSubject0.getMessage();
-        int result1 = testSubject0.getLineNumber();
-        int result2 = testSubject0.getColumnNumber();
-        Throwable result4 = testSubject0.getCause();
-        String result6 = testSubject0.toString();
-        String result7 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestOBOParserFactory() throws Exception {
+    public void shouldTestOBOParserFactory() throws OWLException {
         OBOParserFactory testSubject0 = new OBOParserFactory();
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
         String result1 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestInterfaceOBOParserHandler() throws Exception {
+    public void shouldTestInterfaceOBOParserHandler() throws OWLException {
         OBOParserHandler testSubject0 = mock(OBOParserHandler.class);
         testSubject0.startHeader();
         testSubject0.endHeader();
@@ -560,7 +547,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestOBOParserHandlerAdapter() throws Exception {
+    public void shouldTestOBOParserHandlerAdapter() throws OWLException {
         OBOParserHandlerAdapter testSubject0 = new OBOParserHandlerAdapter();
         testSubject0.startHeader();
         testSubject0.endHeader();
@@ -571,7 +558,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestOBOPrefix() throws Exception {
+    public void shouldTestOBOPrefix() throws OWLException {
         OBOPrefix testSubject0 = OBOPrefix.IAO;
         OBOPrefix[] result0 = OBOPrefix.values();
         String result2 = testSubject0.getPrefix();
@@ -581,7 +568,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestOBOTagValuePair() throws Exception {
+    public void shouldTestOBOTagValuePair() throws OWLException {
         OBOTagValuePair testSubject0 = new OBOTagValuePair("", "", "", "");
         String result0 = testSubject0.getValue();
         String result1 = testSubject0.getComment();
@@ -591,7 +578,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestOBOVocabulary() throws Exception {
+    public void shouldTestOBOVocabulary() throws OWLException {
         OBOVocabulary testSubject0 = OBOVocabulary.ALT_ID;
         String result0 = testSubject0.toString();
         OBOVocabulary[] result1 = OBOVocabulary.values();
@@ -607,7 +594,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestOntologyTagValueHandler() throws Exception {
+    public void shouldTestOntologyTagValueHandler() throws OWLException {
         OntologyTagValueHandler testSubject0 = new OntologyTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -626,7 +613,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestRawFrameHandler() throws Exception {
+    public void shouldTestRawFrameHandler() throws OWLException {
         RawFrameHandler testSubject0 = new RawFrameHandler();
         testSubject0.startHeader();
         testSubject0.endHeader();
@@ -640,7 +627,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestReflexiveHandler() throws Exception {
+    public void shouldTestReflexiveHandler() throws OWLException {
         ReflexiveHandler testSubject0 = new ReflexiveHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -659,7 +646,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestRelationshipTagValueHandler() throws Exception {
+    public void shouldTestRelationshipTagValueHandler() throws OWLException {
         RelationshipTagValueHandler testSubject0 = new RelationshipTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -678,7 +665,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestSymmetricTagValueHandler() throws Exception {
+    public void shouldTestSymmetricTagValueHandler() throws OWLException {
         SymmetricTagValueHandler testSubject0 = new SymmetricTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -697,7 +684,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestSynonymScope() throws Exception {
+    public void shouldTestSynonymScope() throws OWLException {
         SynonymScope testSubject0 = SynonymScope.BROAD;
         SynonymScope[] result0 = SynonymScope.values();
         String result2 = testSubject0.name();
@@ -706,7 +693,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestSynonymTagValueHandler() throws Exception {
+    public void shouldTestSynonymTagValueHandler() throws OWLException {
         SynonymTagValueHandler testSubject0 = new SynonymTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -725,7 +712,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestSynonymTypeDefTagHandler() throws Exception {
+    public void shouldTestSynonymTypeDefTagHandler() throws OWLException {
         SynonymTypeDefTagHandler testSubject0 = new SynonymTypeDefTagHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -744,14 +731,14 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestInterfaceTagValueHandler() throws Exception {
+    public void shouldTestInterfaceTagValueHandler() throws OWLException {
         TagValueHandler testSubject0 = mock(TagValueHandler.class);
         testSubject0.handle("", "", "", "");
         String result0 = testSubject0.getTagName();
     }
 
     @Test
-    public void shouldTestToken() throws Exception {
+    public void shouldTestToken() throws OWLException {
         Token testSubject0 = new Token();
         Token testSubject1 = new Token(0);
         Token testSubject2 = new Token(0, "");
@@ -762,7 +749,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestTransitiveOverHandler() throws Exception {
+    public void shouldTestTransitiveOverHandler() throws OWLException {
         TransitiveOverHandler testSubject0 = new TransitiveOverHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -781,7 +768,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestTransitiveTagValueHandler() throws Exception {
+    public void shouldTestTransitiveTagValueHandler() throws OWLException {
         TransitiveTagValueHandler testSubject0 = new TransitiveTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -800,7 +787,7 @@ public class ContractOboParserTest {
     }
 
     @Test
-    public void shouldTestXRefTagHandler() throws Exception {
+    public void shouldTestXRefTagHandler() throws OWLException {
         XRefTagHandler testSubject0 = new XRefTagHandler(mock);
         testSubject0.handle("", "", "", "");
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();

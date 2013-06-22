@@ -108,6 +108,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -1430,7 +1431,7 @@ public class Examples {
     private static void printProperties(OWLOntologyManager man, OWLOntology ont,
             OWLReasoner reasoner, OWLClass cls) {
         if (!ont.containsClassInSignature(cls.getIRI())) {
-            throw new RuntimeException("Class not in signature of the ontology");
+            throw new OWLRuntimeException("Class not in signature of the ontology");
         }
         // Note that the following code could be optimised... if we find that
         // instances of the specified class do not have a property, then we

@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.api.test.imports;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +13,16 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class DuplicateImportTestCase {
     @Test
-    public void shouldLoad() throws Exception {
+    public void shouldLoad() throws OWLOntologyStorageException,
+            OWLOntologyCreationException, IOException {
         File ontologyByName;
         File ontologyByVersion;
         File ontologyByOtherPath;

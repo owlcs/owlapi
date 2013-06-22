@@ -22,7 +22,8 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 @SuppressWarnings("javadoc")
 public class FunctionalSyntaxIRIProblemTestCase {
     @Test
-    public void testmain() throws Exception {
+    public void testmain() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
         OWLOntology ontology = manager.createOntology(IRI("urn:testontology:o1"));

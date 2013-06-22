@@ -54,18 +54,13 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 public abstract class AbstractFileRoundTrippingTestCase extends
         AbstractRoundTrippingTestCase {
     @Override
-    protected OWLOntology createOntology() {
-        try {
-            String fileName = getFileName();
-            URL resource = getClass().getResource("/" + fileName);
-            IRI iri = IRI.create(resource.toURI());
-            UnparsableOntologyException.setIncludeStackTraceInMessage(true);
-            return getManager().loadOntologyFromOntologyDocument(iri);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        } catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
-        }
+    protected OWLOntology createOntology() throws URISyntaxException,
+            OWLOntologyCreationException {
+        String fileName = getFileName();
+        URL resource = getClass().getResource("/" + fileName);
+        IRI iri = IRI.create(resource);
+        UnparsableOntologyException.setIncludeStackTraceInMessage(true);
+        return getManager().loadOntologyFromOntologyDocument(iri);
     }
 
     protected abstract String getFileName();

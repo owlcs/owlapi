@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.ByteArrayInputStream;
@@ -50,7 +50,7 @@ public class UseOfPropertyInChainCausesCycleTestCase {
         assertTrue(manager.isLessThan(uncle, uncle));
         OWL2DLProfile profile = new OWL2DLProfile();
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
-        assertTrue(!violations.isEmpty());
+        assertFalse(violations.isEmpty());
         for (OWLProfileViolation v : violations) {
             assertTrue(v.getAxiom().equals(brokenAxiom1)
                     || v.getAxiom().equals(brokenAxiom2));

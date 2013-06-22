@@ -42,7 +42,8 @@ public class SharedBlankNodeTestCase {
     }
 
     @Test
-    public void shouldSaveOneIndividual() throws Exception {
+    public void shouldSaveOneIndividual() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         OWLOntology ontology = createOntology();
         testAnnotation(ontology);
         String s = saveOntology(ontology);

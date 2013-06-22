@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -29,13 +30,13 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOboRendererTest {
     @Test
-    public void shouldTestInterfaceOBOExceptionHandler() throws Exception {
+    public void shouldTestInterfaceOBOExceptionHandler() throws OWLException {
         OBOExceptionHandler testSubject0 = mock(OBOExceptionHandler.class);
         List<OBOStorageException> result0 = testSubject0.getExceptions();
         testSubject0.addException(mock(OBOStorageException.class));
     }
 
-    public void shouldTestOBOFlatFileOntologyStorer() throws Exception {
+    public void shouldTestOBOFlatFileOntologyStorer() throws OWLException {
         OBOFlatFileOntologyStorer testSubject0 = new OBOFlatFileOntologyStorer();
         boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
@@ -45,7 +46,7 @@ public class ContractOboRendererTest {
         String result1 = testSubject0.toString();
     }
 
-    public void shouldTestOBOFlatFileRenderer() throws Exception {
+    public void shouldTestOBOFlatFileRenderer() throws OWLException {
         OBOFlatFileRenderer testSubject0 = new OBOFlatFileRenderer() {};
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         List<OBOStorageException> result0 = testSubject0.getExceptions();
@@ -55,7 +56,7 @@ public class ContractOboRendererTest {
     }
 
     @Test
-    public void shouldTestOBORelationship() throws Exception {
+    public void shouldTestOBORelationship() throws OWLException {
         OBORelationship testSubject0 = new OBORelationship(mock(OWLObjectProperty.class),
                 mock(OWLNamedIndividual.class));
         OBORelationship testSubject1 = new OBORelationship(mock(OWLObjectProperty.class),
@@ -72,7 +73,7 @@ public class ContractOboRendererTest {
     }
 
     @Test
-    public void shouldTestOBORelationshipGenerator() throws Exception {
+    public void shouldTestOBORelationshipGenerator() throws OWLException {
         OBORelationshipGenerator testSubject0 = new OBORelationshipGenerator(
                 mock(OBOExceptionHandler.class));
         testSubject0.clear();
@@ -82,7 +83,7 @@ public class ContractOboRendererTest {
     }
 
     @Test
-    public void shouldTestOBOStorageException() throws Exception {
+    public void shouldTestOBOStorageException() throws OWLException {
         OBOStorageException testSubject0 = new OBOStorageException(mock(OWLObject.class),
                 mock(OWLObject.class), "");
         Throwable result1 = testSubject0.getCause();
@@ -92,7 +93,7 @@ public class ContractOboRendererTest {
     }
 
     @Test
-    public void shouldTestOBOStorageIncompleteException() throws Exception {
+    public void shouldTestOBOStorageIncompleteException() throws OWLException {
         OBOStorageIncompleteException testSubject0 = new OBOStorageIncompleteException(
                 Utils.mockList(mock(OBOStorageException.class)));
         String result0 = testSubject0.getMessage();
@@ -102,7 +103,7 @@ public class ContractOboRendererTest {
         String result6 = testSubject0.getLocalizedMessage();
     }
 
-    public void shouldTestOBOTagValuePairList() throws Exception {
+    public void shouldTestOBOTagValuePairList() throws OWLException {
         OBOTagValuePairList testSubject0 = new OBOTagValuePairList(
                 Utils.mockList(mock(OBOVocabulary.class)));
         testSubject0.write(mock(Writer.class));

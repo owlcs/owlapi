@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -72,7 +73,7 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapi_4Test {
     @Test
-    public void shouldTestOWLValueRestrictionImpl() throws Exception {
+    public void shouldTestOWLValueRestrictionImpl() throws OWLException {
         OWLValueRestrictionImpl<OWLObject> testSubject0 = mock(OWLValueRestrictionImpl.class);
         OWLObject result0 = testSubject0.getValue();
         boolean result2 = testSubject0.isClassExpressionLiteral();
@@ -108,7 +109,7 @@ public class ContractOwlapi_4Test {
 
     @Ignore
     @Test
-    public void shouldTestParsableOWLOntologyFactory() throws Exception {
+    public void shouldTestParsableOWLOntologyFactory() throws OWLException {
         ParsableOWLOntologyFactory testSubject0 = new ParsableOWLOntologyFactory();
         OWLOntology result1 = testSubject0.loadOWLOntology(
                 mock(OWLOntologyDocumentSource.class),
@@ -128,7 +129,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLAtomImpl() throws Exception {
+    public void shouldTestSWRLAtomImpl() throws OWLException {
         SWRLAtomImpl testSubject0 = new SWRLAtomImpl(mock(SWRLPredicate.class)) {
             private static final long serialVersionUID = 40000L;
 
@@ -177,7 +178,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLBinaryAtomImpl() throws Exception {
+    public void shouldTestSWRLBinaryAtomImpl() throws OWLException {
         SWRLBinaryAtomImpl<SWRLArgument, SWRLArgument> testSubject0 = new SWRLBinaryAtomImpl<SWRLArgument, SWRLArgument>(
                 mock(SWRLPredicate.class), mock(SWRLArgument.class),
                 mock(SWRLArgument.class)) {
@@ -223,7 +224,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLBuiltInAtomImpl() throws Exception {
+    public void shouldTestSWRLBuiltInAtomImpl() throws OWLException {
         SWRLBuiltInAtomImpl testSubject0 = new SWRLBuiltInAtomImpl(IRI("urn:aFake"),
                 Utils.mockList(mock(SWRLDArgument.class)));
         testSubject0.accept(mock(SWRLObjectVisitor.class));
@@ -248,7 +249,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLClassAtomImpl() throws Exception {
+    public void shouldTestSWRLClassAtomImpl() throws OWLException {
         SWRLClassAtomImpl testSubject0 = new SWRLClassAtomImpl(Utils.mockAnonClass(),
                 mock(SWRLIArgument.class));
         testSubject0.accept(mock(OWLObjectVisitor.class));
@@ -272,7 +273,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLDataPropertyAtomImpl() throws Exception {
+    public void shouldTestSWRLDataPropertyAtomImpl() throws OWLException {
         SWRLDataPropertyAtomImpl testSubject0 = new SWRLDataPropertyAtomImpl(
                 mock(OWLDataPropertyExpression.class), mock(SWRLIArgument.class),
                 mock(SWRLDArgument.class));
@@ -298,7 +299,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLDataRangeAtomImpl() throws Exception {
+    public void shouldTestSWRLDataRangeAtomImpl() throws OWLException {
         SWRLDataRangeAtomImpl testSubject0 = new SWRLDataRangeAtomImpl(
                 mock(OWLDataRange.class), mock(SWRLDArgument.class));
         testSubject0.accept(mock(SWRLObjectVisitor.class));
@@ -322,7 +323,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLDifferentIndividualsAtomImpl() throws Exception {
+    public void shouldTestSWRLDifferentIndividualsAtomImpl() throws OWLException {
         SWRLDifferentIndividualsAtomImpl testSubject0 = new SWRLDifferentIndividualsAtomImpl(
                 mock(OWLDataFactory.class), mock(SWRLIArgument.class),
                 mock(SWRLIArgument.class));
@@ -347,7 +348,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLIndividualArgumentImpl() throws Exception {
+    public void shouldTestSWRLIndividualArgumentImpl() throws OWLException {
         SWRLIndividualArgumentImpl testSubject0 = new SWRLIndividualArgumentImpl(
                 mock(OWLIndividual.class));
         testSubject0.accept(mock(SWRLObjectVisitor.class));
@@ -368,7 +369,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLLiteralArgumentImpl() throws Exception {
+    public void shouldTestSWRLLiteralArgumentImpl() throws OWLException {
         SWRLLiteralArgumentImpl testSubject0 = new SWRLLiteralArgumentImpl(
                 mock(OWLLiteral.class));
         testSubject0.accept(mock(SWRLObjectVisitor.class));
@@ -389,7 +390,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLObjectPropertyAtomImpl() throws Exception {
+    public void shouldTestSWRLObjectPropertyAtomImpl() throws OWLException {
         SWRLObjectPropertyAtomImpl testSubject0 = new SWRLObjectPropertyAtomImpl(
                 Utils.mockObjectProperty(), mock(SWRLIArgument.class),
                 mock(SWRLIArgument.class));
@@ -416,7 +417,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLRuleImpl() throws Exception {
+    public void shouldTestSWRLRuleImpl() throws OWLException {
         SWRLRuleImpl testSubject0 = new SWRLRuleImpl(Utils.mockSet(mock(SWRLAtom.class)),
                 Utils.mockSet(mock(SWRLAtom.class)));
         SWRLRuleImpl testSubject1 = new SWRLRuleImpl(Utils.mockSet(mock(SWRLAtom.class)),
@@ -460,7 +461,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLSameIndividualAtomImpl() throws Exception {
+    public void shouldTestSWRLSameIndividualAtomImpl() throws OWLException {
         SWRLSameIndividualAtomImpl testSubject0 = new SWRLSameIndividualAtomImpl(
                 mock(OWLDataFactory.class), mock(SWRLIArgument.class),
                 mock(SWRLIArgument.class));
@@ -485,7 +486,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLUnaryAtomImpl() throws Exception {
+    public void shouldTestSWRLUnaryAtomImpl() throws OWLException {
         SWRLUnaryAtomImpl<SWRLArgument> testSubject0 = new SWRLUnaryAtomImpl<SWRLArgument>(
                 mock(SWRLPredicate.class), mock(SWRLArgument.class)) {
             /**
@@ -534,7 +535,7 @@ public class ContractOwlapi_4Test {
     }
 
     @Test
-    public void shouldTestSWRLVariableImpl() throws Exception {
+    public void shouldTestSWRLVariableImpl() throws OWLException {
         SWRLVariableImpl testSubject0 = new SWRLVariableImpl(IRI("urn:aFake")) {
             private static final long serialVersionUID = 40000L;
         };

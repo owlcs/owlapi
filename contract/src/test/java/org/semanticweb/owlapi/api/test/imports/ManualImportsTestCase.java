@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Author: Matthew Horridge<br>
@@ -58,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class ManualImportsTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testManualImports() throws Exception {
+    public void testManualImports() throws OWLOntologyCreationException {
         OWLOntologyManager manager = getManager();
         OWLOntology baseOnt = manager
                 .createOntology(IRI("http://semanticweb.org/ontologies/base"));

@@ -47,6 +47,8 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /** Author: Matthew Horridge<br>
@@ -58,7 +60,7 @@ public class NumericIRIsTestCase extends AbstractRoundTrippingTestCase {
     private static final String DEFAULT_PREFIX = "http://owlapi.sourceforge.net/ontology/";
 
     @Override
-    protected OWLOntology createOntology() throws Exception {
+    protected OWLOntology createOntology() throws OWLOntologyCreationException {
         DefaultPrefixManager pm = new DefaultPrefixManager(DEFAULT_PREFIX);
         OWLClass cls123 = Class("123", pm);
         cls123.getIRI().toURI();
@@ -78,7 +80,8 @@ public class NumericIRIsTestCase extends AbstractRoundTrippingTestCase {
     @Override
     @Ignore
     @Test
-    public void testRDFXML() throws Exception {
+    public void testRDFXML() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         super.testRDFXML();
     }
 }

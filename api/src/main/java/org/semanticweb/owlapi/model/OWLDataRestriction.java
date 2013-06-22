@@ -51,5 +51,5 @@ public interface OWLDataRestriction extends OWLAnonymousClassExpression {
      * R being a scalar or collection type.
      * 
      * @return The property */
-    public OWLDataPropertyExpression getProperty();
+    OWLDataPropertyExpression getProperty();
 }

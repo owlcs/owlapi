@@ -70,9 +70,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
             WeakReference<V> w = prefixCache.get(s);
             if (w != null) {
                 V toReturn = w.get();
-                if (toReturn == null) {
-                    // entry removed - move on
-                } else {
+                if (toReturn != null) {
                     return toReturn;
                 }
             }

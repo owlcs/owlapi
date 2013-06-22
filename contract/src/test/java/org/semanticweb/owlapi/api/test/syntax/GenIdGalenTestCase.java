@@ -44,6 +44,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
@@ -51,7 +52,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 @SuppressWarnings("javadoc")
 public class GenIdGalenTestCase {
     @Test
-    public void testGenIdGalenFragment() throws Exception {
+    public void testGenIdGalenFragment() throws OWLOntologyCreationException {
         String test = "<?xml version=\"1.0\"?>\n"
                 + "<rdf:RDF \n"
                 + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"

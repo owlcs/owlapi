@@ -57,12 +57,12 @@ public class OWLEquivalentDataPropertiesAxiomTestCase extends AbstractOWLDataFac
         OWLDataProperty a = DataProperty(createIRI());
         OWLDataProperty b = DataProperty(createIRI());
         OWLEquivalentDataPropertiesAxiom objA = EquivalentDataProperties(a, b);
-        assertTrue(objA.asSubDataPropertyOfAxioms().size() == 2);
+        assertEquals(2, objA.asSubDataPropertyOfAxioms().size());
     }
 
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         OWLObject obj = EquivalentDataProperties(DataProperty(createIRI()),
                 DataProperty(createIRI()), DataProperty(createIRI()));
         assertNotNull("object should not be null", obj);
@@ -70,7 +70,7 @@ public class OWLEquivalentDataPropertiesAxiomTestCase extends AbstractOWLDataFac
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         OWLDataProperty a = DataProperty(createIRI());
         OWLDataProperty b = DataProperty(createIRI());
         OWLDataProperty c = DataProperty(createIRI());
@@ -81,7 +81,7 @@ public class OWLEquivalentDataPropertiesAxiomTestCase extends AbstractOWLDataFac
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         OWLDataProperty a = DataProperty(createIRI());
         OWLDataProperty b = DataProperty(createIRI());
         OWLObject objA = EquivalentDataProperties(a, b);
@@ -92,7 +92,7 @@ public class OWLEquivalentDataPropertiesAxiomTestCase extends AbstractOWLDataFac
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         OWLDataProperty a = DataProperty(createIRI());
         OWLDataProperty b = DataProperty(createIRI());
         OWLDataProperty c = DataProperty(createIRI());

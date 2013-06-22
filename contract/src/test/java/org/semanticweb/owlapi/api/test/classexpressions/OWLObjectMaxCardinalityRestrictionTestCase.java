@@ -52,13 +52,13 @@ public class OWLObjectMaxCardinalityRestrictionTestCase extends
         AbstractOWLObjectCardinalityRestrictionTestCase {
     @Override
     protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop,
-            int cardinality) throws Exception {
+            int cardinality) {
         return ObjectMaxCardinality(cardinality, prop, OWLThing());
     }
 
     @Override
     protected OWLObjectCardinalityRestriction createRestriction(OWLObjectProperty prop,
-            int cardinality, OWLClassExpression classExpression) throws Exception {
+            int cardinality, OWLClassExpression classExpression) {
         return ObjectMaxCardinality(cardinality, prop, classExpression);
     }
 }

@@ -45,11 +45,11 @@ package org.semanticweb.owlapi.api.test.baseclasses;
  * The base for test cases that need a data factory. */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLDataFactoryTest extends AbstractOWLAPITestCase {
-    public abstract void testCreation() throws Exception;
+    public abstract void testCreation();
 
-    public abstract void testEqualsPositive() throws Exception;
+    public abstract void testEqualsPositive();
 
-    public abstract void testEqualsNegative() throws Exception;
+    public abstract void testEqualsNegative();
 
-    public abstract void testHashCode() throws Exception;
+    public abstract void testHashCode();
 }

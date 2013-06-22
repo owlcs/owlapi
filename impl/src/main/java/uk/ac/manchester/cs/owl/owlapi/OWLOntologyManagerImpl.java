@@ -106,6 +106,7 @@ import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.model.OWLOntologyStorerNotFoundException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.SetOntologyID;
@@ -122,7 +123,7 @@ import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
     private static final long serialVersionUID = 40000L;
-    private static final Logger logger = Logger.getLogger(OWLOntologyManagerImpl.class
+    private static final Logger LOGGER = Logger.getLogger(OWLOntologyManagerImpl.class
             .getName());
     protected Map<OWLOntologyID, OWLOntology> ontologiesByID;
     protected Map<OWLOntologyID, IRI> documentIRIsByID;
@@ -295,8 +296,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 }
             }
             if (documentIRIsByID.values().contains(documentIRI)) {
-                throw new RuntimeException(new OWLOntologyDocumentAlreadyExistsException(
-                        documentIRI));
+                throw new OWLRuntimeException(
+                        new OWLOntologyDocumentAlreadyExistsException(documentIRI));
             }
         }
         return result;
@@ -1095,7 +1096,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 // to prevent the other listeners from receiving events.
                 strategy.broadcastChanges(listener, changes);
             } catch (Throwable e) {
-                logger.warning("BADLY BEHAVING LISTENER: " + e);
+                LOGGER.warning("BADLY BEHAVING LISTENER: " + e);
                 e.printStackTrace();
             }
         }

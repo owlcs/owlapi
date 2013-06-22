@@ -41,7 +41,6 @@ package org.semanticweb.owlapi.api.test.objectproperties;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLObjectPropertyCharacteristicAxiomTestCase;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 
@@ -51,8 +50,7 @@ import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 public class OWLTransitiveObjectPropertyAxiomTestCase extends
         AbstractOWLObjectPropertyCharacteristicAxiomTestCase {
     @Override
-    protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property)
-            throws OWLException {
+    protected OWLPropertyAxiom createOWLPropertyAxiom(OWLObjectProperty property) {
         return TransitiveObjectProperty(property);
     }
 }

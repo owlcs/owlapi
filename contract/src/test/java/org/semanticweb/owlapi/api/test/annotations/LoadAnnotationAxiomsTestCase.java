@@ -80,7 +80,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 @SuppressWarnings("javadoc")
 public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testIgnoreAnnotations() throws Exception {
+    public void testIgnoreAnnotations() throws OWLOntologyStorageException,
+            OWLOntologyCreationException, IOException {
         OWLOntologyManager man = Factory.getManager();
         OWLOntology ont = man.createOntology();
         OWLDataFactory df = man.getOWLDataFactory();
@@ -109,7 +110,8 @@ public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
         reload(ont, new OWLFunctionalSyntaxOntologyFormat());
     }
 
-    private void reload(OWLOntology ontology, OWLOntologyFormat format) throws Exception {
+    private void reload(OWLOntology ontology, OWLOntologyFormat format)
+            throws OWLOntologyStorageException, OWLOntologyCreationException, IOException {
         Set<OWLAxiom> annotationAxioms = new HashSet<OWLAxiom>();
         Set<OWLAxiom> axioms = ontology.getAxioms();
         for (OWLAxiom ax : axioms) {
@@ -127,8 +129,7 @@ public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
         OWLOntology reloadedWithoutAnnoAxioms = reload(ontology, format,
                 withoutAnnosConfig);
         assertFalse(axioms.equals(reloadedWithoutAnnoAxioms.getAxioms()));
-        Set<OWLAxiom> axiomsMinusAnnotationAxioms = new HashSet<OWLAxiom>(
-                axioms);
+        Set<OWLAxiom> axiomsMinusAnnotationAxioms = new HashSet<OWLAxiom>(axioms);
         axiomsMinusAnnotationAxioms.removeAll(annotationAxioms);
         assertEquals(axiomsMinusAnnotationAxioms, reloadedWithoutAnnoAxioms.getAxioms());
     }

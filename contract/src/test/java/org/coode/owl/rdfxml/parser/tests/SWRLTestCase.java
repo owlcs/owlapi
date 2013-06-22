@@ -47,6 +47,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
@@ -73,7 +74,7 @@ public class SWRLTestCase {
     }
 
     @Test
-    public void testSWRLParser() throws Exception {
+    public void testSWRLParser() throws OWLOntologyCreationException {
         OWLOntology ont = man.loadOntologyFromOntologyDocument(new ByteArrayInputStream(
                 input.getBytes()));
         assertTrue(ont.getIndividualsInSignature().isEmpty());

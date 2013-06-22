@@ -54,17 +54,17 @@ public class AnonymousTurtleAssertionTestCase extends AbstractFileRoundTrippingT
 
     @Override
     @Test
-    public void testFunctionalSyntax() throws Exception {}
+    public void testFunctionalSyntax() {}
 
     @Override
     @Test
-    public void testManchesterOWLSyntax() throws Exception {}
+    public void testManchesterOWLSyntax() {}
 
     @Override
     @Test
-    public void testOWLXML() throws Exception {}
+    public void testOWLXML() {}
 
     @Override
     @Test
-    public void testRDFXML() throws Exception {}
+    public void testRDFXML() {}
 }

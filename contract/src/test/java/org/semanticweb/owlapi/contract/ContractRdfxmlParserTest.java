@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.model.OWLDataMinCardinality;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -51,7 +52,7 @@ import org.xml.sax.SAXException;
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractRdfxmlParserTest {
     @Test
-    public void shouldTestAbstractClassExpressionTranslator() throws Exception {
+    public void shouldTestAbstractClassExpressionTranslator() throws OWLException {
         AbstractClassExpressionTranslator testSubject0 = new AbstractClassExpressionTranslator(
                 Utils.mockOWLRDFConsumer()) {
             @Override
@@ -78,7 +79,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestAbstractLiteralTripleHandler() throws Exception {
+    public void shouldTestAbstractLiteralTripleHandler() throws OWLException {
         AbstractLiteralTripleHandler testSubject0 = new AbstractLiteralTripleHandler(
                 Utils.mockOWLRDFConsumer()) {
             @Override
@@ -105,7 +106,7 @@ public class ContractRdfxmlParserTest {
         String result3 = testSubject0.toString();
     }
 
-    public void shouldTestAbstractNamedEquivalentClassAxiomHandler() throws Exception {
+    public void shouldTestAbstractNamedEquivalentClassAxiomHandler() throws OWLException {
         AbstractNamedEquivalentClassAxiomHandler testSubject0 = new AbstractNamedEquivalentClassAxiomHandler(
                 Utils.mockOWLRDFConsumer(), IRI("urn:aFake")) {
             @Override
@@ -125,7 +126,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestAbstractResourceTripleHandler() throws Exception {
+    public void shouldTestAbstractResourceTripleHandler() throws OWLException {
         AbstractResourceTripleHandler testSubject0 = new AbstractResourceTripleHandler(
                 Utils.mockOWLRDFConsumer()) {
             @Override
@@ -154,7 +155,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestAbstractTripleHandler() throws Exception {
+    public void shouldTestAbstractTripleHandler() throws OWLException {
         AbstractTripleHandler testSubject0 = new AbstractTripleHandler(
                 Utils.mockOWLRDFConsumer());
         OWLRDFConsumer result0 = testSubject0.getConsumer();
@@ -162,7 +163,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestBuiltInTypeHandler() throws Exception {
+    public void shouldTestBuiltInTypeHandler() throws OWLException {
         BuiltInTypeHandler testSubject0 = new BuiltInTypeHandler(
                 Utils.mockOWLRDFConsumer(), IRI("urn:aFake")) {
             @Override
@@ -182,7 +183,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestClassExpressionListItemTranslator() throws Exception {
+    public void shouldTestClassExpressionListItemTranslator() throws OWLException {
         ClassExpressionListItemTranslator testSubject0 = new ClassExpressionListItemTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLClassExpression result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -193,7 +194,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestInterfaceClassExpressionTranslator() throws Exception {
+    public void shouldTestInterfaceClassExpressionTranslator() throws OWLException {
         ClassExpressionTranslator testSubject0 = mock(ClassExpressionTranslator.class);
         boolean result0 = testSubject0.matches(IRI("urn:aFake"), Mode.LAX);
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
@@ -203,7 +204,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestDataAllValuesFromTranslator() throws Exception {
+    public void shouldTestDataAllValuesFromTranslator() throws OWLException {
         DataAllValuesFromTranslator testSubject0 = new DataAllValuesFromTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLDataAllValuesFrom result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -217,7 +218,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestDataCardinalityTranslator() throws Exception {
+    public void shouldTestDataCardinalityTranslator() throws OWLException {
         DataCardinalityTranslator testSubject0 = new DataCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLDataExactCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -231,7 +232,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestDataHasValueTranslator() throws Exception {
+    public void shouldTestDataHasValueTranslator() throws OWLException {
         DataHasValueTranslator testSubject0 = new DataHasValueTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLDataHasValue result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -245,7 +246,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestDataMaxCardinalityTranslator() throws Exception {
+    public void shouldTestDataMaxCardinalityTranslator() throws OWLException {
         DataMaxCardinalityTranslator testSubject0 = new DataMaxCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLDataMaxCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -259,7 +260,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestDataMaxQualifiedCardinalityTranslator() throws Exception {
+    public void shouldTestDataMaxQualifiedCardinalityTranslator() throws OWLException {
         DataMaxQualifiedCardinalityTranslator testSubject0 = new DataMaxQualifiedCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLDataMaxCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -273,7 +274,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestDataMinCardinalityTranslator() throws Exception {
+    public void shouldTestDataMinCardinalityTranslator() throws OWLException {
         DataMinCardinalityTranslator testSubject0 = new DataMinCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLDataMinCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -287,7 +288,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestDataMinQualifiedCardinalityTranslator() throws Exception {
+    public void shouldTestDataMinQualifiedCardinalityTranslator() throws OWLException {
         DataMinQualifiedCardinalityTranslator testSubject0 = new DataMinQualifiedCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLDataMinCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -300,7 +301,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestDataPropertyListItemTranslator() throws Exception {
+    public void shouldTestDataPropertyListItemTranslator() throws OWLException {
         DataPropertyListItemTranslator testSubject0 = new DataPropertyListItemTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLDataPropertyExpression result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -313,7 +314,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestDataQualifiedCardinalityTranslator() throws Exception {
+    public void shouldTestDataQualifiedCardinalityTranslator() throws OWLException {
         DataQualifiedCardinalityTranslator testSubject0 = new DataQualifiedCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLDataExactCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -326,7 +327,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestDataRangeListItemTranslator() throws Exception {
+    public void shouldTestDataRangeListItemTranslator() throws OWLException {
         DataRangeListItemTranslator testSubject0 = new DataRangeListItemTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLDataRange result0 = testSubject0.translate(mock(OWLLiteral.class));
@@ -338,7 +339,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestDataSomeValuesFromTranslator() throws Exception {
+    public void shouldTestDataSomeValuesFromTranslator() throws OWLException {
         DataSomeValuesFromTranslator testSubject0 = new DataSomeValuesFromTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLDataSomeValuesFrom result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -350,7 +351,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
-    public void shouldTestGTPAnnotationLiteralHandler() throws Exception {
+    public void shouldTestGTPAnnotationLiteralHandler() throws OWLException {
         GTPAnnotationLiteralHandler testSubject0 = new GTPAnnotationLiteralHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
@@ -363,7 +364,7 @@ public class ContractRdfxmlParserTest {
         String result3 = testSubject0.toString();
     }
 
-    public void shouldTestGTPAnnotationResourceTripleHandler() throws Exception {
+    public void shouldTestGTPAnnotationResourceTripleHandler() throws OWLException {
         GTPAnnotationResourceTripleHandler testSubject0 = new GTPAnnotationResourceTripleHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -376,7 +377,7 @@ public class ContractRdfxmlParserTest {
         String result3 = testSubject0.toString();
     }
 
-    public void shouldTestGTPDataPropertyAssertionHandler() throws Exception {
+    public void shouldTestGTPDataPropertyAssertionHandler() throws OWLException {
         GTPDataPropertyAssertionHandler testSubject0 = new GTPDataPropertyAssertionHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
@@ -390,7 +391,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestGTPLiteralTripleHandler() throws Exception {
+    public void shouldTestGTPLiteralTripleHandler() throws OWLException {
         GTPLiteralTripleHandler testSubject0 = new GTPLiteralTripleHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
@@ -404,7 +405,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestGTPObjectPropertyAssertionHandler() throws Exception {
+    public void shouldTestGTPObjectPropertyAssertionHandler() throws OWLException {
         GTPObjectPropertyAssertionHandler testSubject0 = new GTPObjectPropertyAssertionHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -418,7 +419,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestGTPResourceTripleHandler() throws Exception {
+    public void shouldTestGTPResourceTripleHandler() throws OWLException {
         GTPResourceTripleHandler testSubject0 = new GTPResourceTripleHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -432,7 +433,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestHasKeyListItemTranslator() throws Exception {
+    public void shouldTestHasKeyListItemTranslator() throws OWLException {
         HasKeyListItemTranslator testSubject0 = new HasKeyListItemTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLPropertyExpression result0 = testSubject0.translate(mock(OWLLiteral.class));
@@ -442,7 +443,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestIndividualListItemTranslator() throws Exception {
+    public void shouldTestIndividualListItemTranslator() throws OWLException {
         IndividualListItemTranslator testSubject0 = new IndividualListItemTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLIndividual result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -453,20 +454,20 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestInterfaceIRIProvider() throws Exception {
+    public void shouldTestInterfaceIRIProvider() throws OWLException {
         IRIProvider testSubject0 = mock(IRIProvider.class);
         IRI result0 = testSubject0.getIRI("");
     }
 
     @Test
-    public void shouldTestInterfaceListItemTranslator() throws Exception {
+    public void shouldTestInterfaceListItemTranslator() throws OWLException {
         ListItemTranslator<OWLObject> testSubject0 = mock(ListItemTranslator.class);
         OWLObject result0 = testSubject0.translate(IRI("urn:aFake"));
         OWLObject result1 = testSubject0.translate(mock(OWLLiteral.class));
     }
 
     @Test
-    public void shouldTestNamedClassTranslator() throws Exception {
+    public void shouldTestNamedClassTranslator() throws OWLException {
         NamedClassTranslator testSubject0 = new NamedClassTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLClass result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -480,7 +481,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectAllValuesFromTranslator() throws Exception {
+    public void shouldTestObjectAllValuesFromTranslator() throws OWLException {
         ObjectAllValuesFromTranslator testSubject0 = new ObjectAllValuesFromTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectAllValuesFrom result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -494,7 +495,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectCardinalityTranslator() throws Exception {
+    public void shouldTestObjectCardinalityTranslator() throws OWLException {
         ObjectCardinalityTranslator testSubject0 = new ObjectCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectExactCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -508,7 +509,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectComplementOfTranslator() throws Exception {
+    public void shouldTestObjectComplementOfTranslator() throws OWLException {
         ObjectComplementOfTranslator testSubject0 = new ObjectComplementOfTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectComplementOf result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -522,7 +523,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectHasSelfTranslator() throws Exception {
+    public void shouldTestObjectHasSelfTranslator() throws OWLException {
         ObjectHasSelfTranslator testSubject0 = new ObjectHasSelfTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectHasSelf result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -536,7 +537,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectHasValueTranslator() throws Exception {
+    public void shouldTestObjectHasValueTranslator() throws OWLException {
         ObjectHasValueTranslator testSubject0 = new ObjectHasValueTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectHasValue result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -550,7 +551,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectMaxCardinalityTranslator() throws Exception {
+    public void shouldTestObjectMaxCardinalityTranslator() throws OWLException {
         ObjectMaxCardinalityTranslator testSubject0 = new ObjectMaxCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectMaxCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -564,7 +565,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectMaxQualifiedCardinalityTranslator() throws Exception {
+    public void shouldTestObjectMaxQualifiedCardinalityTranslator() throws OWLException {
         ObjectMaxQualifiedCardinalityTranslator testSubject0 = new ObjectMaxQualifiedCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectMaxCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -578,7 +579,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectMinCardinalityTranslator() throws Exception {
+    public void shouldTestObjectMinCardinalityTranslator() throws OWLException {
         ObjectMinCardinalityTranslator testSubject0 = new ObjectMinCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectMinCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -592,7 +593,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectMinQualifiedCardinalityTranslator() throws Exception {
+    public void shouldTestObjectMinQualifiedCardinalityTranslator() throws OWLException {
         ObjectMinQualifiedCardinalityTranslator testSubject0 = new ObjectMinQualifiedCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectMinCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -604,7 +605,7 @@ public class ContractRdfxmlParserTest {
         String result6 = testSubject0.toString();
     }
 
-    public void shouldTestObjectPropertyListItemTranslator() throws Exception {
+    public void shouldTestObjectPropertyListItemTranslator() throws OWLException {
         ObjectPropertyListItemTranslator testSubject0 = new ObjectPropertyListItemTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectPropertyExpression result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -617,7 +618,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectQualifiedCardinalityTranslator() throws Exception {
+    public void shouldTestObjectQualifiedCardinalityTranslator() throws OWLException {
         ObjectQualifiedCardinalityTranslator testSubject0 = new ObjectQualifiedCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectExactCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -631,7 +632,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectSomeValuesFromTranslator() throws Exception {
+    public void shouldTestObjectSomeValuesFromTranslator() throws OWLException {
         ObjectSomeValuesFromTranslator testSubject0 = new ObjectSomeValuesFromTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectSomeValuesFrom result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -644,7 +645,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestOptimisedListTranslator() throws Exception {
+    public void shouldTestOptimisedListTranslator() throws OWLException {
         OptimisedListTranslator<OWLObject> testSubject0 = new OptimisedListTranslator<OWLObject>(
                 Utils.mockOWLRDFConsumer(), mock(ListItemTranslator.class)) {};
         List<OWLObject> result0 = testSubject0.translateList(IRI("urn:aFake"));
@@ -653,7 +654,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestOWLFacetRestrictionListItemTranslator() throws Exception {
+    public void shouldTestOWLFacetRestrictionListItemTranslator() throws OWLException {
         OWLFacetRestrictionListItemTranslator testSubject0 = new OWLFacetRestrictionListItemTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLFacetRestriction result0 = testSubject0.translate(mock(OWLLiteral.class));
@@ -664,7 +665,7 @@ public class ContractRdfxmlParserTest {
     }
 
     public void shouldTestOWLObjectPropertyExpressionListItemTranslator()
-            throws Exception {
+            throws OWLException {
         OWLObjectPropertyExpressionListItemTranslator testSubject0 = new OWLObjectPropertyExpressionListItemTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLObjectPropertyExpression result0 = testSubject0.translate(IRI("urn:aFake"));
@@ -676,7 +677,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestOWLRDFConsumer() throws Exception {
+    public void shouldTestOWLRDFConsumer() throws OWLException, SAXException {
         OWLRDFConsumer testSubject0 = new OWLRDFConsumer(Utils.getMockOntology(),
                 new OWLOntologyLoaderConfiguration());
         testSubject0.handle(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -771,54 +772,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestOWLRDFParserException() throws Exception {
-        OWLRDFParserException testSubject0 = new OWLRDFParserException();
-        OWLRDFParserException testSubject1 = new OWLRDFParserException("");
-        OWLRDFParserException testSubject2 = new OWLRDFParserException("",
-                new RuntimeException());
-        OWLRDFParserException testSubject3 = new OWLRDFParserException(
-                new RuntimeException());
-        String result0 = testSubject0.getMessage();
-        int result1 = testSubject0.getLineNumber();
-        int result2 = testSubject0.getColumnNumber();
-        Throwable result4 = testSubject0.getCause();
-        String result6 = testSubject0.toString();
-        String result7 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestOWLRDFXMLParserException() throws Exception {
-        OWLRDFXMLParserException testSubject0 = new OWLRDFXMLParserException("");
-        OWLRDFXMLParserException testSubject1 = new OWLRDFXMLParserException("",
-                new RuntimeException());
-        OWLRDFXMLParserException testSubject2 = new OWLRDFXMLParserException(
-                new RuntimeException());
-        String result0 = testSubject0.getMessage();
-        int result1 = testSubject0.getLineNumber();
-        int result2 = testSubject0.getColumnNumber();
-        Throwable result4 = testSubject0.getCause();
-        String result6 = testSubject0.toString();
-        String result7 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestOWLRDFXMLParserMalformedNodeException() throws Exception {
-        OWLRDFXMLParserMalformedNodeException testSubject0 = new OWLRDFXMLParserMalformedNodeException(
-                new RuntimeException());
-        OWLRDFXMLParserMalformedNodeException testSubject1 = new OWLRDFXMLParserMalformedNodeException(
-                "", new RuntimeException());
-        OWLRDFXMLParserMalformedNodeException testSubject2 = new OWLRDFXMLParserMalformedNodeException(
-                "");
-        String result0 = testSubject0.getMessage();
-        int result1 = testSubject0.getLineNumber();
-        int result2 = testSubject0.getColumnNumber();
-        Throwable result4 = testSubject0.getCause();
-        String result6 = testSubject0.toString();
-        String result7 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestOWLRDFXMLParserSAXException() throws Exception {
+    public void shouldTestOWLRDFXMLParserSAXException() throws OWLException {
         OWLRDFXMLParserSAXException testSubject0 = new OWLRDFXMLParserSAXException(
                 mock(SAXException.class));
         String result0 = testSubject0.getMessage();
@@ -830,13 +784,13 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestRDFXMLParserFactory() throws Exception {
+    public void shouldTestRDFXMLParserFactory() throws OWLException {
         RDFXMLParserFactory testSubject0 = new RDFXMLParserFactory();
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
         String result1 = testSubject0.toString();
     }
 
-    public void shouldTestSKOSClassTripleHandler() throws Exception {
+    public void shouldTestSKOSClassTripleHandler() throws OWLException {
         SKOSClassTripleHandler testSubject0 = new SKOSClassTripleHandler(
                 Utils.mockOWLRDFConsumer(), SKOSVocabulary.ALTLABEL);
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -851,7 +805,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestSWRLRuleTranslator() throws Exception {
+    public void shouldTestSWRLRuleTranslator() throws OWLException {
         SWRLRuleTranslator testSubject0 = new SWRLRuleTranslator(
                 Utils.mockOWLRDFConsumer());
         testSubject0.translateRule(IRI("urn:aFake"));
@@ -859,7 +813,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPAllValuesFromHandler() throws Exception {
+    public void shouldTestTPAllValuesFromHandler() throws OWLException {
         TPAllValuesFromHandler testSubject0 = new TPAllValuesFromHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -874,7 +828,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPAnnotatedPropertyHandler() throws Exception {
+    public void shouldTestTPAnnotatedPropertyHandler() throws OWLException {
         TPAnnotatedPropertyHandler testSubject0 = new TPAnnotatedPropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -889,7 +843,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPAnnotatedSourceHandler() throws Exception {
+    public void shouldTestTPAnnotatedSourceHandler() throws OWLException {
         TPAnnotatedSourceHandler testSubject0 = new TPAnnotatedSourceHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -904,7 +858,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPAnnotatedTargetHandler() throws Exception {
+    public void shouldTestTPAnnotatedTargetHandler() throws OWLException {
         TPAnnotatedTargetHandler testSubject0 = new TPAnnotatedTargetHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -918,7 +872,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPComplementOfHandler() throws Exception {
+    public void shouldTestTPComplementOfHandler() throws OWLException {
         TPComplementOfHandler testSubject0 = new TPComplementOfHandler(
                 Utils.mockOWLRDFConsumer());
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
@@ -933,7 +887,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPDatatypeComplementOfHandler() throws Exception {
+    public void shouldTestTPDatatypeComplementOfHandler() throws OWLException {
         TPDatatypeComplementOfHandler testSubject0 = new TPDatatypeComplementOfHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -947,7 +901,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPDifferentFromHandler() throws Exception {
+    public void shouldTestTPDifferentFromHandler() throws OWLException {
         TPDifferentFromHandler testSubject0 = new TPDifferentFromHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -961,7 +915,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPDisjointUnionHandler() throws Exception {
+    public void shouldTestTPDisjointUnionHandler() throws OWLException {
         TPDisjointUnionHandler testSubject0 = new TPDisjointUnionHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -975,7 +929,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPDisjointWithHandler() throws Exception {
+    public void shouldTestTPDisjointWithHandler() throws OWLException {
         TPDisjointWithHandler testSubject0 = new TPDisjointWithHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -989,7 +943,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPDistinctMembersHandler() throws Exception {
+    public void shouldTestTPDistinctMembersHandler() throws OWLException {
         TPDistinctMembersHandler testSubject0 = new TPDistinctMembersHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1004,7 +958,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPEquivalentClassHandler() throws Exception {
+    public void shouldTestTPEquivalentClassHandler() throws OWLException {
         TPEquivalentClassHandler testSubject0 = new TPEquivalentClassHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1019,7 +973,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPEquivalentPropertyHandler() throws Exception {
+    public void shouldTestTPEquivalentPropertyHandler() throws OWLException {
         TPEquivalentPropertyHandler testSubject0 = new TPEquivalentPropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1034,7 +988,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPFirstLiteralHandler() throws Exception {
+    public void shouldTestTPFirstLiteralHandler() throws OWLException {
         TPFirstLiteralHandler testSubject0 = new TPFirstLiteralHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
@@ -1048,7 +1002,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPFirstResourceHandler() throws Exception {
+    public void shouldTestTPFirstResourceHandler() throws OWLException {
         TPFirstResourceHandler testSubject0 = new TPFirstResourceHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1063,7 +1017,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPHasKeyHandler() throws Exception {
+    public void shouldTestTPHasKeyHandler() throws OWLException {
         TPHasKeyHandler testSubject0 = new TPHasKeyHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
@@ -1077,7 +1031,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPHasValueHandler() throws Exception {
+    public void shouldTestTPHasValueHandler() throws OWLException {
         TPHasValueHandler testSubject0 = new TPHasValueHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
@@ -1092,7 +1046,7 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestTPImportsHandler() throws Exception {
+    public void shouldTestTPImportsHandler() throws OWLException {
         TPImportsHandler testSubject0 = new TPImportsHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
@@ -1105,7 +1059,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPIntersectionOfHandler() throws Exception {
+    public void shouldTestTPIntersectionOfHandler() throws OWLException {
         TPIntersectionOfHandler testSubject0 = new TPIntersectionOfHandler(
                 Utils.mockOWLRDFConsumer());
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
@@ -1120,7 +1074,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPInverseOfHandler() throws Exception {
+    public void shouldTestTPInverseOfHandler() throws OWLException {
         TPInverseOfHandler testSubject0 = new TPInverseOfHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1137,7 +1091,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPOnClassHandler() throws Exception {
+    public void shouldTestTPOnClassHandler() throws OWLException {
         TPOnClassHandler testSubject0 = new TPOnClassHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
@@ -1151,7 +1105,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPOnDataRangeHandler() throws Exception {
+    public void shouldTestTPOnDataRangeHandler() throws OWLException {
         TPOnDataRangeHandler testSubject0 = new TPOnDataRangeHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1165,7 +1119,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPOneOfHandler() throws Exception {
+    public void shouldTestTPOneOfHandler() throws OWLException {
         TPOneOfHandler testSubject0 = new TPOneOfHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
@@ -1179,7 +1133,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPOnPropertyHandler() throws Exception {
+    public void shouldTestTPOnPropertyHandler() throws OWLException {
         TPOnPropertyHandler testSubject0 = new TPOnPropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1193,7 +1147,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPPropertyChainAxiomHandler() throws Exception {
+    public void shouldTestTPPropertyChainAxiomHandler() throws OWLException {
         TPPropertyChainAxiomHandler testSubject0 = new TPPropertyChainAxiomHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1208,7 +1162,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPPropertyDisjointWithHandler() throws Exception {
+    public void shouldTestTPPropertyDisjointWithHandler() throws OWLException {
         TPPropertyDisjointWithHandler testSubject0 = new TPPropertyDisjointWithHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1222,7 +1176,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPPropertyDomainHandler() throws Exception {
+    public void shouldTestTPPropertyDomainHandler() throws OWLException {
         TPPropertyDomainHandler testSubject0 = new TPPropertyDomainHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1236,7 +1190,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPPropertyRangeHandler() throws Exception {
+    public void shouldTestTPPropertyRangeHandler() throws OWLException {
         TPPropertyRangeHandler testSubject0 = new TPPropertyRangeHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1251,7 +1205,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPRestHandler() throws Exception {
+    public void shouldTestTPRestHandler() throws OWLException {
         TPRestHandler testSubject0 = new TPRestHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
@@ -1264,7 +1218,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPSameAsHandler() throws Exception {
+    public void shouldTestTPSameAsHandler() throws OWLException {
         TPSameAsHandler testSubject0 = new TPSameAsHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
@@ -1278,7 +1232,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPSomeValuesFromHandler() throws Exception {
+    public void shouldTestTPSomeValuesFromHandler() throws OWLException {
         TPSomeValuesFromHandler testSubject0 = new TPSomeValuesFromHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1293,7 +1247,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPSubClassOfHandler() throws Exception {
+    public void shouldTestTPSubClassOfHandler() throws OWLException {
         TPSubClassOfHandler testSubject0 = new TPSubClassOfHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1307,7 +1261,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPSubPropertyOfHandler() throws Exception {
+    public void shouldTestTPSubPropertyOfHandler() throws OWLException {
         TPSubPropertyOfHandler testSubject0 = new TPSubPropertyOfHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1321,7 +1275,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPTypeHandler() throws Exception {
+    public void shouldTestTPTypeHandler() throws OWLException {
         TPTypeHandler testSubject0 = new TPTypeHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
@@ -1334,7 +1288,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTPUnionOfHandler() throws Exception {
+    public void shouldTestTPUnionOfHandler() throws OWLException {
         TPUnionOfHandler testSubject0 = new TPUnionOfHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
@@ -1348,7 +1302,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTPVersionIRIHandler() throws Exception {
+    public void shouldTestTPVersionIRIHandler() throws OWLException {
         TPVersionIRIHandler testSubject0 = new TPVersionIRIHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1363,7 +1317,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTranslatedOntologyChangeException() throws Exception {
+    public void shouldTestTranslatedOntologyChangeException() throws OWLException {
         TranslatedOntologyChangeException testSubject0 = new TranslatedOntologyChangeException(
                 mock(OWLOntologyChangeException.class));
         OWLOntologyChangeException result0 = testSubject0.getCause();
@@ -1375,7 +1329,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTranslatedUnloadedImportException() throws Exception {
+    public void shouldTestTranslatedUnloadedImportException() throws OWLException {
         TranslatedUnloadedImportException testSubject0 = new TranslatedUnloadedImportException(
                 mock(UnloadableImportException.class));
         UnloadableImportException result0 = testSubject0.getCause();
@@ -1387,7 +1341,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestInterfaceTriplePatternMatcher() throws Exception {
+    public void shouldTestInterfaceTriplePatternMatcher() throws OWLException {
         TriplePatternMatcher testSubject0 = mock(TriplePatternMatcher.class);
         boolean result0 = testSubject0.matches(Utils.mockOWLRDFConsumer(),
                 IRI("urn:aFake"));
@@ -1395,7 +1349,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTriplePredicateHandler() throws Exception {
+    public void shouldTestTriplePredicateHandler() throws OWLException {
         TriplePredicateHandler testSubject0 = new TriplePredicateHandler(
                 Utils.mockOWLRDFConsumer(), IRI("urn:aFake")) {
             @Override
@@ -1420,7 +1374,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeAllDifferentHandler() throws Exception {
+    public void shouldTestTypeAllDifferentHandler() throws OWLException {
         TypeAllDifferentHandler testSubject0 = new TypeAllDifferentHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1436,7 +1390,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeAllDisjointClassesHandler() throws Exception {
+    public void shouldTestTypeAllDisjointClassesHandler() throws OWLException {
         TypeAllDisjointClassesHandler testSubject0 = new TypeAllDisjointClassesHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1452,7 +1406,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeAnnotationHandler() throws Exception {
+    public void shouldTestTypeAnnotationHandler() throws OWLException {
         TypeAnnotationHandler testSubject0 = new TypeAnnotationHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1467,7 +1421,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeAnnotationPropertyHandler() throws Exception {
+    public void shouldTestTypeAnnotationPropertyHandler() throws OWLException {
         TypeAnnotationPropertyHandler testSubject0 = new TypeAnnotationPropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1483,7 +1437,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeAsymmetricPropertyHandler() throws Exception {
+    public void shouldTestTypeAsymmetricPropertyHandler() throws OWLException {
         TypeAsymmetricPropertyHandler testSubject0 = new TypeAsymmetricPropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1499,7 +1453,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeAxiomHandler() throws Exception {
+    public void shouldTestTypeAxiomHandler() throws OWLException {
         TypeAxiomHandler testSubject0 = new TypeAxiomHandler(Utils.mockOWLRDFConsumer());
         TypeAxiomHandler testSubject1 = new TypeAxiomHandler(Utils.mockOWLRDFConsumer(),
                 IRI("urn:aFake"));
@@ -1515,7 +1469,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeClassHandler() throws Exception {
+    public void shouldTestTypeClassHandler() throws OWLException {
         TypeClassHandler testSubject0 = new TypeClassHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result0 = testSubject0.getTypeIRI();
@@ -1529,7 +1483,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeDataPropertyHandler() throws Exception {
+    public void shouldTestTypeDataPropertyHandler() throws OWLException {
         TypeDataPropertyHandler testSubject0 = new TypeDataPropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1545,7 +1499,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeDataRangeHandler() throws Exception {
+    public void shouldTestTypeDataRangeHandler() throws OWLException {
         TypeDataRangeHandler testSubject0 = new TypeDataRangeHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1560,7 +1514,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeDatatypeHandler() throws Exception {
+    public void shouldTestTypeDatatypeHandler() throws OWLException {
         TypeDatatypeHandler testSubject0 = new TypeDatatypeHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1575,9 +1529,8 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypedConstantListItemTranslator() throws Exception {
-        TypedConstantListItemTranslator testSubject0 = new TypedConstantListItemTranslator(
-                Utils.mockOWLRDFConsumer());
+    public void shouldTestTypedConstantListItemTranslator() throws OWLException {
+        TypedConstantListItemTranslator testSubject0 = new TypedConstantListItemTranslator();
         OWLLiteral result0 = testSubject0.translate(IRI("urn:aFake"));
         OWLLiteral result1 = testSubject0.translate(mock(OWLLiteral.class));
         OWLObject result2 = testSubject0.translate(mock(OWLLiteral.class));
@@ -1585,7 +1538,7 @@ public class ContractRdfxmlParserTest {
         String result4 = testSubject0.toString();
     }
 
-    public void shouldTestTypeDeprecatedClassHandler() throws Exception {
+    public void shouldTestTypeDeprecatedClassHandler() throws OWLException {
         TypeDeprecatedClassHandler testSubject0 = new TypeDeprecatedClassHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1600,7 +1553,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeDeprecatedPropertyHandler() throws Exception {
+    public void shouldTestTypeDeprecatedPropertyHandler() throws OWLException {
         TypeDeprecatedPropertyHandler testSubject0 = new TypeDeprecatedPropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1616,7 +1569,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeFunctionalPropertyHandler() throws Exception {
+    public void shouldTestTypeFunctionalPropertyHandler() throws OWLException {
         TypeFunctionalPropertyHandler testSubject0 = new TypeFunctionalPropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1631,7 +1584,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeInverseFunctionalPropertyHandler() throws Exception {
+    public void shouldTestTypeInverseFunctionalPropertyHandler() throws OWLException {
         TypeInverseFunctionalPropertyHandler testSubject0 = new TypeInverseFunctionalPropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1647,7 +1600,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeIrreflexivePropertyHandler() throws Exception {
+    public void shouldTestTypeIrreflexivePropertyHandler() throws OWLException {
         TypeIrreflexivePropertyHandler testSubject0 = new TypeIrreflexivePropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1663,7 +1616,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeListHandler() throws Exception {
+    public void shouldTestTypeListHandler() throws OWLException {
         TypeListHandler testSubject0 = new TypeListHandler(Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result0 = testSubject0.getTypeIRI();
@@ -1677,7 +1630,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeNamedIndividualHandler() throws Exception {
+    public void shouldTestTypeNamedIndividualHandler() throws OWLException {
         TypeNamedIndividualHandler testSubject0 = new TypeNamedIndividualHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1692,7 +1645,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeNegativeDataPropertyAssertionHandler() throws Exception {
+    public void shouldTestTypeNegativeDataPropertyAssertionHandler() throws OWLException {
         TypeNegativeDataPropertyAssertionHandler testSubject0 = new TypeNegativeDataPropertyAssertionHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1708,7 +1661,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeNegativePropertyAssertionHandler() throws Exception {
+    public void shouldTestTypeNegativePropertyAssertionHandler() throws OWLException {
         TypeNegativePropertyAssertionHandler testSubject0 = new TypeNegativePropertyAssertionHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1723,7 +1676,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeObjectPropertyHandler() throws Exception {
+    public void shouldTestTypeObjectPropertyHandler() throws OWLException {
         TypeObjectPropertyHandler testSubject0 = new TypeObjectPropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1739,7 +1692,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeOntologyHandler() throws Exception {
+    public void shouldTestTypeOntologyHandler() throws OWLException {
         TypeOntologyHandler testSubject0 = new TypeOntologyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1754,7 +1707,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeOntologyPropertyHandler() throws Exception {
+    public void shouldTestTypeOntologyPropertyHandler() throws OWLException {
         TypeOntologyPropertyHandler testSubject0 = new TypeOntologyPropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1770,7 +1723,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypePropertyHandler() throws Exception {
+    public void shouldTestTypePropertyHandler() throws OWLException {
         TypePropertyHandler testSubject0 = new TypePropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1785,7 +1738,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeRDFSClassHandler() throws Exception {
+    public void shouldTestTypeRDFSClassHandler() throws OWLException {
         TypeRDFSClassHandler testSubject0 = new TypeRDFSClassHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1801,7 +1754,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeReflexivePropertyHandler() throws Exception {
+    public void shouldTestTypeReflexivePropertyHandler() throws OWLException {
         TypeReflexivePropertyHandler testSubject0 = new TypeReflexivePropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1817,7 +1770,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeRestrictionHandler() throws Exception {
+    public void shouldTestTypeRestrictionHandler() throws OWLException {
         TypeRestrictionHandler testSubject0 = new TypeRestrictionHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1833,7 +1786,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeSelfRestrictionHandler() throws Exception {
+    public void shouldTestTypeSelfRestrictionHandler() throws OWLException {
         TypeSelfRestrictionHandler testSubject0 = new TypeSelfRestrictionHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1849,7 +1802,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeSWRLAtomListHandler() throws Exception {
+    public void shouldTestTypeSWRLAtomListHandler() throws OWLException {
         TypeSWRLAtomListHandler testSubject0 = new TypeSWRLAtomListHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1865,7 +1818,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeSWRLBuiltInAtomHandler() throws Exception {
+    public void shouldTestTypeSWRLBuiltInAtomHandler() throws OWLException {
         TypeSWRLBuiltInAtomHandler testSubject0 = new TypeSWRLBuiltInAtomHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1881,7 +1834,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeSWRLBuiltInHandler() throws Exception {
+    public void shouldTestTypeSWRLBuiltInHandler() throws OWLException {
         TypeSWRLBuiltInHandler testSubject0 = new TypeSWRLBuiltInHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1897,7 +1850,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeSWRLClassAtomHandler() throws Exception {
+    public void shouldTestTypeSWRLClassAtomHandler() throws OWLException {
         TypeSWRLClassAtomHandler testSubject0 = new TypeSWRLClassAtomHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1913,7 +1866,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeSWRLDataRangeAtomHandler() throws Exception {
+    public void shouldTestTypeSWRLDataRangeAtomHandler() throws OWLException {
         TypeSWRLDataRangeAtomHandler testSubject0 = new TypeSWRLDataRangeAtomHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1929,7 +1882,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeSWRLDataValuedPropertyAtomHandler() throws Exception {
+    public void shouldTestTypeSWRLDataValuedPropertyAtomHandler() throws OWLException {
         TypeSWRLDataValuedPropertyAtomHandler testSubject0 = new TypeSWRLDataValuedPropertyAtomHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1945,7 +1898,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeSWRLDifferentIndividualsAtomHandler() throws Exception {
+    public void shouldTestTypeSWRLDifferentIndividualsAtomHandler() throws OWLException {
         TypeSWRLDifferentIndividualsAtomHandler testSubject0 = new TypeSWRLDifferentIndividualsAtomHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1961,7 +1914,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeSWRLImpHandler() throws Exception {
+    public void shouldTestTypeSWRLImpHandler() throws OWLException {
         TypeSWRLImpHandler testSubject0 = new TypeSWRLImpHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1977,7 +1930,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeSWRLIndividualPropertyAtomHandler() throws Exception {
+    public void shouldTestTypeSWRLIndividualPropertyAtomHandler() throws OWLException {
         TypeSWRLIndividualPropertyAtomHandler testSubject0 = new TypeSWRLIndividualPropertyAtomHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -1993,7 +1946,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeSWRLSameIndividualAtomHandler() throws Exception {
+    public void shouldTestTypeSWRLSameIndividualAtomHandler() throws OWLException {
         TypeSWRLSameIndividualAtomHandler testSubject0 = new TypeSWRLSameIndividualAtomHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -2009,7 +1962,7 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTypeSWRLVariableHandler() throws Exception {
+    public void shouldTestTypeSWRLVariableHandler() throws OWLException {
         TypeSWRLVariableHandler testSubject0 = new TypeSWRLVariableHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -2024,7 +1977,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeSymmetricPropertyHandler() throws Exception {
+    public void shouldTestTypeSymmetricPropertyHandler() throws OWLException {
         TypeSymmetricPropertyHandler testSubject0 = new TypeSymmetricPropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
@@ -2039,7 +1992,7 @@ public class ContractRdfxmlParserTest {
         String result5 = testSubject0.toString();
     }
 
-    public void shouldTestTypeTransitivePropertyHandler() throws Exception {
+    public void shouldTestTypeTransitivePropertyHandler() throws OWLException {
         TypeTransitivePropertyHandler testSubject0 = new TypeTransitivePropertyHandler(
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));

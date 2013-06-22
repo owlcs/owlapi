@@ -1078,32 +1078,22 @@ public class Utils {
         return mock;
     }
 
-    public static OWLRDFConsumer mockOWLRDFConsumer() {
-        try {
-            OWLOntologyManager man = Factory.getManager();
-            OWLOntology mockOntology = man.createOntology(new OWLOntologyID(IRI
-                    .create("urn:test:test"), IRI.create("urn:test:othertest")));
-            OWLRDFConsumer c = new OWLRDFConsumer(mockOntology,
-                    new OWLOntologyLoaderConfiguration());
-            c.setOntologyFormat(new RDFOntologyFormat() {
-                private static final long serialVersionUID = 40000L;
-            });
-            c.addTriple(fakeiri1, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), fakeiri2);
-            return c;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public static OWLRDFConsumer mockOWLRDFConsumer() throws OWLException {
+        OWLOntologyManager man = Factory.getManager();
+        OWLOntology mockOntology = man.createOntology(new OWLOntologyID(IRI
+                .create("urn:test:test"), IRI.create("urn:test:othertest")));
+        OWLRDFConsumer c = new OWLRDFConsumer(mockOntology,
+                new OWLOntologyLoaderConfiguration());
+        c.setOntologyFormat(new RDFOntologyFormat() {
+            private static final long serialVersionUID = 40000L;
+        });
+        c.addTriple(fakeiri1, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), fakeiri2);
+        return c;
     }
 
-    public static OWLReasoner structReasoner() {
-        OWLReasoner r;
-        try {
-            r = new StructuralReasoner(OWLManager.createOWLOntologyManager()
-                    .createOntology(), new SimpleConfiguration(), BufferingMode.BUFFERING);
-        } catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
-        }
-        return r;
+    public static OWLReasoner structReasoner() throws OWLException {
+        return new StructuralReasoner(OWLManager.createOWLOntologyManager()
+                .createOntology(), new SimpleConfiguration(), BufferingMode.BUFFERING);
     }
 
     public static OWLObjectPropertyExpression mockObjectProperty() {

@@ -58,12 +58,12 @@ public class OWLEquivalentObjectPropertiesAxiomTestCase extends
         OWLObjectProperty[] operands = { ObjectProperty(createIRI()),
                 ObjectProperty(createIRI()) };
         OWLEquivalentObjectPropertiesAxiom objA = EquivalentObjectProperties(operands);
-        assertTrue(objA.asSubObjectPropertyOfAxioms().size() == 2);
+        assertEquals(2, objA.asSubObjectPropertyOfAxioms().size());
     }
 
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         OWLObjectProperty[] operands = { ObjectProperty(createIRI()),
                 ObjectProperty(createIRI()), ObjectProperty(createIRI()) };
         OWLObject obj = EquivalentObjectProperties(operands);
@@ -72,7 +72,7 @@ public class OWLEquivalentObjectPropertiesAxiomTestCase extends
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         OWLObjectProperty a = ObjectProperty(createIRI());
         OWLObjectProperty b = ObjectProperty(createIRI());
         OWLObjectProperty c = ObjectProperty(createIRI());
@@ -85,7 +85,7 @@ public class OWLEquivalentObjectPropertiesAxiomTestCase extends
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         OWLObjectProperty a = ObjectProperty(createIRI());
         OWLObjectProperty b = ObjectProperty(createIRI());
         OWLObjectProperty[] operands = { a, b };
@@ -98,7 +98,7 @@ public class OWLEquivalentObjectPropertiesAxiomTestCase extends
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         OWLObjectProperty a = ObjectProperty(createIRI());
         OWLObjectProperty b = ObjectProperty(createIRI());
         OWLObjectProperty c = ObjectProperty(createIRI());

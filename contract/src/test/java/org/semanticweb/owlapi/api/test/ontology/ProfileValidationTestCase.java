@@ -42,7 +42,6 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.junit.Test;
@@ -88,7 +87,7 @@ public class ProfileValidationTestCase {
             + "rdfXmlPremiseOntology");
 
     @Test
-    public void testProfiles() throws OWLOntologyCreationException, URISyntaxException {
+    public void testProfiles() throws OWLOntologyCreationException {
         OWLOntologyManager man = Factory.getManager();
         URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");
         IRI allTestURI = IRI.create(resourceURL);

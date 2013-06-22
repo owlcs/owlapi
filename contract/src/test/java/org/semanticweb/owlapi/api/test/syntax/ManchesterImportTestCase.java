@@ -15,9 +15,9 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 @SuppressWarnings("javadoc")
 public class ManchesterImportTestCase {
-    private static final String str = "http://owlapitestontologies.com/thesuperont";
-    private static final String superpath = "/imports/thesuperont.omn";
-    private static final String subpath = "/imports/thesubont.omn";
+    private String str = "http://owlapitestontologies.com/thesuperont";
+    private String superpath = "/imports/thesuperont.omn";
+    private String subpath = "/imports/thesubont.omn";
     private static final File RESOURCES;
     static {
         File f = new File("contract/src/test/resources/");
@@ -36,7 +36,7 @@ public class ManchesterImportTestCase {
     }
 
     @Test
-    public void testManualImports() throws Exception {
+    public void testManualImports() throws OWLOntologyCreationException {
         OWLOntologyManager manager = getManager();
         manager.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
         assertNotNull(manager.getOntology(IRI(str)));
@@ -50,7 +50,7 @@ public class ManchesterImportTestCase {
     }
 
     @Test
-    public void testRemoteIsParseable() throws Exception {
+    public void testRemoteIsParseable() throws OWLOntologyCreationException {
         OWLOntologyManager manager = getManager();
         IRI iri = IRI(str);
         OWLOntology ontology = manager.loadOntology(iri);
@@ -60,7 +60,7 @@ public class ManchesterImportTestCase {
     }
 
     @Test
-    public void testEquivalentLoading() throws Exception {
+    public void testEquivalentLoading() throws OWLOntologyCreationException {
         OWLOntologyManager managerStart = getManager();
         OWLOntology manualImport = managerStart
                 .loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));

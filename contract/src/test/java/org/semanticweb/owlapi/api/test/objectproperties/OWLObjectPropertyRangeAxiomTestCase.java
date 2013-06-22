@@ -52,18 +52,18 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class OWLObjectPropertyRangeAxiomTestCase extends
         AbstractOWLBinaryOperandAxiomTestCase<OWLObjectProperty, OWLClassExpression> {
     @Override
-    protected OWLObjectProperty createLeftOperand() throws Exception {
+    protected OWLObjectProperty createLeftOperand() {
         return ObjectProperty(createIRI());
     }
 
     @Override
-    protected OWLClassExpression createRightOperand() throws Exception {
+    protected OWLClassExpression createRightOperand() {
         return Class(createIRI());
     }
 
     @Override
     protected OWLAxiom createAxiom(OWLObjectProperty leftOperand,
-            OWLClassExpression rightOperand) throws Exception {
+            OWLClassExpression rightOperand) {
         return ObjectPropertyRange(leftOperand, rightOperand);
     }
 }

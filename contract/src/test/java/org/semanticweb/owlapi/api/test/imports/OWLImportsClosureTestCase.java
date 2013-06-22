@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.RemoveImport;
 
 /** Author: Matthew Horridge<br>
@@ -57,9 +58,11 @@ import org.semanticweb.owlapi.model.RemoveImport;
 @SuppressWarnings("javadoc")
 public class OWLImportsClosureTestCase extends AbstractOWLAPITestCase {
     /** Tests to see if the method which obtains the imports closure behaves
-     * correctly. */
+     * correctly.
+     * 
+     * @throws OWLOntologyCreationException */
     @Test
-    public void testImportsClosure() throws Exception {
+    public void testImportsClosure() throws OWLOntologyCreationException {
         OWLOntology ontA = getManager().createOntology(TestUtils.createIRI());
         OWLOntology ontB = getManager().createOntology(TestUtils.createIRI());
         assertTrue(getManager().getImportsClosure(ontA).contains(ontA));

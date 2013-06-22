@@ -35,7 +35,6 @@ import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxFrame
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxObjectRenderer;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOntologyStorer;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOntologyStorerException;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxRenderer;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.RendererEvent;
@@ -123,20 +122,6 @@ public class ContractMansyntaxrendererTest {
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
-    }
-
-    @Test
-    public void shouldTestManchesterOWLSyntaxOntologyStorerException() throws Exception {
-        ManchesterOWLSyntaxOntologyStorerException testSubject0 = new ManchesterOWLSyntaxOntologyStorerException(
-                "");
-        ManchesterOWLSyntaxOntologyStorerException testSubject1 = new ManchesterOWLSyntaxOntologyStorerException(
-                "", new RuntimeException());
-        ManchesterOWLSyntaxOntologyStorerException testSubject2 = new ManchesterOWLSyntaxOntologyStorerException(
-                new RuntimeException());
-        Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
-        String result4 = testSubject0.getMessage();
-        String result5 = testSubject0.getLocalizedMessage();
     }
 
     @Test

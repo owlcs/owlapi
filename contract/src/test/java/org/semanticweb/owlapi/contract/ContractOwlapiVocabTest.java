@@ -17,6 +17,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.BuiltInVocabulary;
@@ -36,7 +37,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiVocabTest {
     @Test
-    public void shouldTestBuiltInVocabulary() throws Exception {
+    public void shouldTestBuiltInVocabulary() throws OWLException {
         BuiltInVocabulary testSubject0 = BuiltInVocabulary.DUBLIN_CORE;
         BuiltInVocabulary[] result0 = BuiltInVocabulary.values();
         String result2 = testSubject0.name();
@@ -45,7 +46,7 @@ public class ContractOwlapiVocabTest {
     }
 
     @Test
-    public void shouldTestDublinCoreVocabulary() throws Exception {
+    public void shouldTestDublinCoreVocabulary() throws OWLException {
         DublinCoreVocabulary testSubject0 = DublinCoreVocabulary.CONTRIBUTOR;
         String result0 = testSubject0.toString();
         DublinCoreVocabulary[] result1 = DublinCoreVocabulary.values();
@@ -58,7 +59,7 @@ public class ContractOwlapiVocabTest {
     }
 
     @Test
-    public void shouldTestNamespaces() throws Exception {
+    public void shouldTestNamespaces() throws OWLException {
         Namespaces testSubject0 = Namespaces.OWL;
         String result0 = testSubject0.toString();
         Namespaces[] result1 = Namespaces.values();
@@ -67,7 +68,7 @@ public class ContractOwlapiVocabTest {
     }
 
     @Test
-    public void shouldTestOWL2Datatype() throws Exception {
+    public void shouldTestOWL2Datatype() throws OWLException {
         OWL2Datatype testSubject0 = OWL2Datatype.OWL_RATIONAL;
         OWL2Datatype[] result0 = OWL2Datatype.values();
         boolean result2 = testSubject0.isFinite();
@@ -90,7 +91,7 @@ public class ContractOwlapiVocabTest {
     }
 
     @Test
-    public void shouldTestOWLFacet() throws Exception {
+    public void shouldTestOWLFacet() throws OWLException {
         OWLFacet testSubject0 = OWLFacet.FRACTION_DIGITS;
         String result0 = testSubject0.toString();
         OWLFacet[] result1 = OWLFacet.values();
@@ -107,7 +108,7 @@ public class ContractOwlapiVocabTest {
     }
 
     @Test
-    public void shouldTestOWLRDFVocabulary() throws Exception {
+    public void shouldTestOWLRDFVocabulary() throws OWLException {
         OWLRDFVocabulary testSubject0 = OWLRDFVocabulary.OWL_ALL_DIFFERENT;
         String result0 = testSubject0.toString();
         OWLRDFVocabulary[] result1 = OWLRDFVocabulary.values();
@@ -119,7 +120,7 @@ public class ContractOwlapiVocabTest {
     }
 
     @Test
-    public void shouldTestOWLXMLVocabulary() throws Exception {
+    public void shouldTestOWLXMLVocabulary() throws OWLException {
         OWLXMLVocabulary testSubject0 = OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE;
         String result0 = testSubject0.toString();
         OWLXMLVocabulary[] result1 = OWLXMLVocabulary.values();
@@ -130,7 +131,7 @@ public class ContractOwlapiVocabTest {
     }
 
     @Test
-    public void shouldTestPrefixOWLOntologyFormat() throws Exception {
+    public void shouldTestPrefixOWLOntologyFormat() throws OWLException {
         PrefixOWLOntologyFormat testSubject0 = new PrefixOWLOntologyFormat();
         String result0 = testSubject0.getPrefix("");
         IRI result1 = testSubject0.getIRI("");
@@ -155,7 +156,7 @@ public class ContractOwlapiVocabTest {
     }
 
     @Test
-    public void shouldTestSKOSVocabulary() throws Exception {
+    public void shouldTestSKOSVocabulary() throws OWLException {
         SKOSVocabulary testSubject0 = SKOSVocabulary.ALTLABEL;
         SKOSVocabulary[] result0 = SKOSVocabulary.values();
         Set<OWLClass> result2 = SKOSVocabulary.getClasses(mock(OWLDataFactory.class));
@@ -175,7 +176,7 @@ public class ContractOwlapiVocabTest {
     }
 
     @Test
-    public void shouldTestSWRLBuiltInsVocabulary() throws Exception {
+    public void shouldTestSWRLBuiltInsVocabulary() throws OWLException {
         SWRLBuiltInsVocabulary testSubject0 = SWRLBuiltInsVocabulary.ABS;
         SWRLBuiltInsVocabulary[] result0 = SWRLBuiltInsVocabulary.values();
         IRI result2 = testSubject0.getIRI();
@@ -191,7 +192,7 @@ public class ContractOwlapiVocabTest {
     }
 
     @Test
-    public void shouldTestSWRLVocabulary() throws Exception {
+    public void shouldTestSWRLVocabulary() throws OWLException {
         SWRLVocabulary testSubject0 = SWRLVocabulary.ARGUMENT_1;
         SWRLVocabulary[] result0 = SWRLVocabulary.values();
         IRI result2 = testSubject0.getIRI();
@@ -203,7 +204,7 @@ public class ContractOwlapiVocabTest {
     }
 
     @Test
-    public void shouldTestXSDVocabulary() throws Exception {
+    public void shouldTestXSDVocabulary() throws OWLException {
         XSDVocabulary testSubject0 = XSDVocabulary.ANY_SIMPLE_TYPE;
         String result0 = testSubject0.toString();
         XSDVocabulary[] result1 = XSDVocabulary.values();

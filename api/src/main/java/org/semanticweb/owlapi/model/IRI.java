@@ -235,14 +235,16 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
 
     /** @param url
      *            the url to create the IRI from. Cannot be null.
-     * @return an IRI wraopping url.toURI()
-     * @throws URISyntaxException
-     *             if the URL is ill formed */
-    public static IRI create(URL url) throws URISyntaxException {
+     * @return an IRI wraopping url.toURI() if the URL is ill formed */
+    public static IRI create(URL url) {
         if (url == null) {
             throw new IllegalArgumentException("url cannot be null");
         }
-        return new IRI(url.toURI());
+        try {
+            return new IRI(url.toURI());
+        } catch (URISyntaxException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     /** Gets an auto-generated ontology document IRI.

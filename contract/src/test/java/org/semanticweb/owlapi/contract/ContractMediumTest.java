@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
@@ -27,6 +28,7 @@ import org.semanticweb.owlapi.expression.OWLClassExpressionParser;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
+import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -40,6 +42,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -75,18 +78,20 @@ import uk.ac.manchester.cs.owl.explanation.ordering.NullExplanationOrderer;
 import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParser;
 import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParserConstants;
 import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParserTokenManager;
+import uk.ac.manchester.cs.owlapi.dlsyntax.parser.ParseException;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractMediumTest {
     @Test
-    public void shouldTestInterfaceOWLClassExpressionParser() throws Exception {
+    public void shouldTestInterfaceOWLClassExpressionParser() throws OWLException,
+            ParserException {
         OWLClassExpressionParser testSubject0 = mock(OWLClassExpressionParser.class);
         Object result0 = testSubject0.parse("");
         testSubject0.setOWLEntityChecker(mock(OWLEntityChecker.class));
     }
 
     @Test
-    public void shouldTestInterfaceOWLEntityChecker() throws Exception {
+    public void shouldTestInterfaceOWLEntityChecker() throws OWLException {
         OWLEntityChecker testSubject0 = mock(OWLEntityChecker.class);
         OWLClass result0 = testSubject0.getOWLClass("");
         OWLObjectProperty result1 = testSubject0.getOWLObjectProperty("");
@@ -97,20 +102,21 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWLExpressionParser() throws Exception {
+    public void shouldTestInterfaceOWLExpressionParser() throws OWLException,
+            ParserException {
         OWLExpressionParser<OWLObject> testSubject0 = mock(OWLExpressionParser.class);
         Object result0 = testSubject0.parse("");
         testSubject0.setOWLEntityChecker(mock(OWLEntityChecker.class));
     }
 
     @Test
-    public void shouldTestInterfaceOWLOntologyChecker() throws Exception {
+    public void shouldTestInterfaceOWLOntologyChecker() throws OWLException {
         OWLOntologyChecker testSubject0 = mock(OWLOntologyChecker.class);
         OWLOntology result0 = testSubject0.getOntology("");
     }
 
     @Test
-    public void shouldTestShortFormEntityChecker() throws Exception {
+    public void shouldTestShortFormEntityChecker() throws OWLException {
         ShortFormEntityChecker testSubject0 = new ShortFormEntityChecker(
                 mock(BidirectionalShortFormProvider.class));
         OWLClass result0 = testSubject0.getOWLClass("");
@@ -123,7 +129,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestAlphaExplanationOrderer() throws Exception {
+    public void shouldTestAlphaExplanationOrderer() throws OWLException {
         AlphaExplanationOrderer testSubject0 = new AlphaExplanationOrderer(
                 mock(OWLObjectRenderer.class));
         ExplanationTree result0 = testSubject0.getOrderedExplanation(
@@ -132,7 +138,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestEntailedAxiomTree() throws Exception {
+    public void shouldTestEntailedAxiomTree() throws OWLException {
         EntailedAxiomTree testSubject0 = new EntailedAxiomTree(mock(OWLAxiom.class));
         boolean result0 = testSubject0.isEntailed();
         String result1 = testSubject0.toString();
@@ -157,14 +163,14 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestInterfaceExplanationOrderer() throws Exception {
+    public void shouldTestInterfaceExplanationOrderer() throws OWLException {
         ExplanationOrderer testSubject0 = mock(ExplanationOrderer.class);
         ExplanationTree result0 = testSubject0.getOrderedExplanation(
                 mock(OWLAxiom.class), Utils.mockSet(mock(OWLAxiom.class)));
     }
 
     @Test
-    public void shouldTestExplanationTree() throws Exception {
+    public void shouldTestExplanationTree() throws OWLException {
         ExplanationTree testSubject0 = new ExplanationTree(mock(OWLAxiom.class));
         boolean result0 = testSubject0.isEntailed();
         String result1 = testSubject0.toString();
@@ -189,7 +195,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestNullExplanationOrderer() throws Exception {
+    public void shouldTestNullExplanationOrderer() throws OWLException {
         NullExplanationOrderer testSubject0 = new NullExplanationOrderer();
         ExplanationTree result0 = testSubject0.getOrderedExplanation(
                 mock(OWLAxiom.class), Utils.mockSet(mock(OWLAxiom.class)));
@@ -197,7 +203,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWLKnowledgeExplorerReasoner() throws Exception {
+    public void shouldTestInterfaceOWLKnowledgeExplorerReasoner() throws OWLException {
         OWLKnowledgeExplorerReasoner testSubject0 = mock(OWLKnowledgeExplorerReasoner.class);
         RootNode result0 = testSubject0.getRoot(Utils.mockAnonClass());
         Node<? extends OWLObjectPropertyExpression> result1 = testSubject0
@@ -290,7 +296,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestIllegalElementNameException() throws Exception {
+    public void shouldTestIllegalElementNameException() throws OWLException {
         IllegalElementNameException testSubject0 = new IllegalElementNameException("");
         String result0 = testSubject0.getElementName();
         Throwable result2 = testSubject0.getCause();
@@ -300,7 +306,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestOWLOntologyXMLNamespaceManager() throws Exception {
+    public void shouldTestOWLOntologyXMLNamespaceManager() throws OWLException {
         OWLOntologyXMLNamespaceManager testSubject0 = new OWLOntologyXMLNamespaceManager(
                 Utils.getMockManager(), Utils.getMockOntology());
         OWLOntologyXMLNamespaceManager testSubject1 = new OWLOntologyXMLNamespaceManager(
@@ -321,7 +327,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestInterfaceXMLWriter() throws Exception {
+    public void shouldTestInterfaceXMLWriter() throws OWLException, IOException {
         XMLWriter testSubject0 = mock(XMLWriter.class);
         testSubject0.setEncoding("");
         testSubject0.startDocument("");
@@ -337,7 +343,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestXMLWriterFactory() throws Exception {
+    public void shouldTestXMLWriterFactory() throws OWLException {
         XMLWriterFactory testSubject0 = XMLWriterFactory.getInstance();
         XMLWriterFactory result0 = XMLWriterFactory.getInstance();
         XMLWriter result1 = testSubject0.createXMLWriter(mock(Writer.class),
@@ -347,7 +353,7 @@ public class ContractMediumTest {
 
     @Ignore
     @Test
-    public void shouldTestXMLWriterImpl() throws Exception {
+    public void shouldTestXMLWriterImpl() throws OWLException, IOException {
         XMLWriterImpl testSubject0 = new XMLWriterImpl(mock(Writer.class),
                 mock(XMLWriterNamespaceManager.class), "");
         testSubject0.setEncoding("");
@@ -367,7 +373,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestXMLWriterNamespaceManager() throws Exception {
+    public void shouldTestXMLWriterNamespaceManager() throws OWLException {
         XMLWriterNamespaceManager testSubject0 = new XMLWriterNamespaceManager("");
         testSubject0.setPrefix("", "");
         String result0 = testSubject0.getDefaultPrefix();
@@ -385,7 +391,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestXMLWriterPreferences() throws Exception {
+    public void shouldTestXMLWriterPreferences() throws OWLException {
         XMLWriterPreferences testSubject0 = XMLWriterPreferences.getInstance();
         XMLWriterPreferences result0 = XMLWriterPreferences.getInstance();
         boolean result1 = testSubject0.isUseNamespaceEntities();
@@ -398,7 +404,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestStructuralReasoner() throws Exception {
+    public void shouldTestStructuralReasoner() throws OWLException {
         StructuralReasoner testSubject0 = new StructuralReasoner(Utils.getMockOntology(),
                 mock(OWLReasonerConfiguration.class), BufferingMode.NON_BUFFERING);
         testSubject0.interrupt();
@@ -486,7 +492,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestStructuralReasonerFactory() throws Exception {
+    public void shouldTestStructuralReasonerFactory() throws OWLException {
         StructuralReasonerFactory testSubject0 = new StructuralReasonerFactory();
         String result0 = testSubject0.getReasonerName();
         OWLReasoner result1 = testSubject0.createNonBufferingReasoner(Utils
@@ -501,7 +507,7 @@ public class ContractMediumTest {
 
     @Ignore
     @Test
-    public void shouldTestDLSyntaxParser() throws Exception {
+    public void shouldTestDLSyntaxParser() throws OWLException, ParseException {
         DLSyntaxParser testSubject0 = new DLSyntaxParser(mock(InputStream.class));
         DLSyntaxParser testSubject1 = new DLSyntaxParser(
                 mock(DLSyntaxParserTokenManager.class));
@@ -554,7 +560,7 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestInterfaceDLSyntaxParserConstants() throws Exception {
+    public void shouldTestInterfaceDLSyntaxParserConstants() throws OWLException {
         DLSyntaxParserConstants testSubject0 = mock(DLSyntaxParserConstants.class);
     }
 }

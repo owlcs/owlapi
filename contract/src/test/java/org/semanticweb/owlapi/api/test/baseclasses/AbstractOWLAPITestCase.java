@@ -38,10 +38,9 @@
  */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Set;
@@ -62,7 +61,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /** Author: Matthew Horridge<br>
@@ -71,7 +70,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * Date: 10-May-2008<br>
  * <br> */
 @SuppressWarnings("javadoc")
-public abstract class AbstractOWLAPITestCase {
+public class AbstractOWLAPITestCase {
     public static boolean equal(OWLOntology ont1, OWLOntology ont2) {
         if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
             assertEquals("Ontologies supposed to be the same", ont1.getOntologyID(),
@@ -148,30 +147,18 @@ public abstract class AbstractOWLAPITestCase {
         return manager;
     }
 
-    public OWLOntology getOWLOntology(String name) {
-        try {
-            IRI iri = IRI(uriBase + "/" + name);
-            if (manager.contains(iri)) {
-                return manager.getOntology(iri);
-            } else {
-                return manager.createOntology(iri);
-            }
-        } catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
+    protected OWLOntology getOWLOntology(String name) throws OWLOntologyCreationException {
+        IRI iri = IRI(uriBase + "/" + name);
+        if (manager.contains(iri)) {
+            return manager.getOntology(iri);
+        } else {
+            return manager.createOntology(iri);
         }
     }
 
-    public OWLOntology loadOntology(String fileName) {
-        try {
-            URL url = getClass().getResource("/" + fileName);
-            return manager.loadOntologyFromOntologyDocument(IRI.create(url));
-        } catch (OWLOntologyCreationException e) {
-            fail(e.getMessage());
-            throw new OWLRuntimeException(e);
-        } catch (URISyntaxException e) {
-            fail(e.getMessage());
-            throw new OWLRuntimeException(e);
-        }
+    public OWLOntology loadOntology(String fileName) throws OWLOntologyCreationException {
+        URL url = getClass().getResource("/" + fileName);
+        return manager.loadOntologyFromOntologyDocument(IRI.create(url));
     }
 
     public IRI getIRI(String name) {
@@ -182,7 +169,8 @@ public abstract class AbstractOWLAPITestCase {
         manager.addAxiom(ont, ax);
     }
 
-    public void roundTripOntology(OWLOntology ont) throws Exception {
+    public void roundTripOntology(OWLOntology ont) throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         roundTripOntology(ont, new RDFXMLOntologyFormat());
     }
 
@@ -195,9 +183,11 @@ public abstract class AbstractOWLAPITestCase {
      * @param ont
      *            The ontology to be round tripped.
      * @param format
-     *            The format to use when doing the round trip. */
+     *            The format to use when doing the round trip.
+     * @throws OWLOntologyStorageException
+     * @throws OWLOntologyCreationException */
     public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormat format)
-            throws Exception {
+            throws OWLOntologyStorageException, OWLOntologyCreationException {
         UnparsableOntologyException.setIncludeStackTraceInMessage(true);
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyFormat fromFormat = manager.getOntologyFormat(ont);

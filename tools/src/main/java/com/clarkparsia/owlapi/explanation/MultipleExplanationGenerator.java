@@ -47,5 +47,5 @@ public interface MultipleExplanationGenerator extends ExplanationGenerator,
      * 
      * @param progressMonitor
      *            The progress monitor. */
-    public void setProgressMonitor(ExplanationProgressMonitor progressMonitor);
+    void setProgressMonitor(ExplanationProgressMonitor progressMonitor);
 }

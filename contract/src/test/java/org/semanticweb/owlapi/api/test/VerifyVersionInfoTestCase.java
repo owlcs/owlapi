@@ -3,8 +3,10 @@ package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.util.VersionInfo;
@@ -12,11 +14,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 @SuppressWarnings("javadoc")
 public class VerifyVersionInfoTestCase {
     @Test
-    public void checkMatchVersion() throws Exception {
+    public void checkMatchVersion() throws SAXException, IOException,
+            ParserConfigurationException {
         // given
         VersionInfo info = VersionInfo.getVersionInfo();
         Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()

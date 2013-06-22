@@ -56,12 +56,12 @@ public class OWLEquivalentClassesAxiomTestCase extends AbstractOWLDataFactoryTes
     public void testAsSubAxioms() {
         OWLEquivalentClassesAxiom objA = EquivalentClasses(Class(createIRI()),
                 Class(createIRI()));
-        assertTrue(objA.asOWLSubClassOfAxioms().size() == 2);
+        assertEquals(2, objA.asOWLSubClassOfAxioms().size());
     }
 
     @Override
     @Test
-    public void testCreation() throws Exception {
+    public void testCreation() {
         OWLObject obj = EquivalentClasses(Class(createIRI()), Class(createIRI()),
                 Class(createIRI()));
         assertNotNull("object should not be null", obj);
@@ -69,7 +69,7 @@ public class OWLEquivalentClassesAxiomTestCase extends AbstractOWLDataFactoryTes
 
     @Override
     @Test
-    public void testEqualsPositive() throws Exception {
+    public void testEqualsPositive() {
         OWLClassExpression a = Class(createIRI());
         OWLClassExpression b = Class(createIRI());
         OWLClassExpression c = Class(createIRI());
@@ -80,7 +80,7 @@ public class OWLEquivalentClassesAxiomTestCase extends AbstractOWLDataFactoryTes
 
     @Override
     @Test
-    public void testEqualsNegative() throws Exception {
+    public void testEqualsNegative() {
         OWLClassExpression a = Class(createIRI());
         OWLClassExpression b = Class(createIRI());
         OWLObject objA = EquivalentClasses(a, b);
@@ -91,7 +91,7 @@ public class OWLEquivalentClassesAxiomTestCase extends AbstractOWLDataFactoryTes
 
     @Override
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         OWLClassExpression a = Class(createIRI());
         OWLClassExpression b = Class(createIRI());
         OWLClassExpression c = Class(createIRI());

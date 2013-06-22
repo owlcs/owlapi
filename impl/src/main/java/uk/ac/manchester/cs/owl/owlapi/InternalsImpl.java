@@ -291,7 +291,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
     @Override
     public boolean isEmpty() {
-        return axiomsByType.size() == 0 && ontologyAnnotations.isEmpty();
+        return axiomsByType.isEmpty() && ontologyAnnotations.isEmpty();
     }
 
     @Override

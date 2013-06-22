@@ -47,6 +47,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -478,7 +479,7 @@ public class CollectionFactory {
      * @param <T>
      *            the type contained */
     public static class ThreadSafeConditionalCopySet<T> implements Set<T> {
-        private volatile boolean copyDone = false;
+        private AtomicBoolean copyDone = new AtomicBoolean(false);
         private Collection<T> delegate;
         private final ReadWriteLock lock = new ReentrantReadWriteLock();
         private final Lock readLock = lock.readLock();
@@ -525,8 +526,7 @@ public class CollectionFactory {
         public boolean add(T arg0) {
             try {
                 writeLock.lock();
-                if (!copyDone) {
-                    copyDone = true;
+                if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
                 return delegate.add(arg0);
@@ -539,8 +539,7 @@ public class CollectionFactory {
         public boolean addAll(Collection<? extends T> arg0) {
             try {
                 writeLock.lock();
-                if (!copyDone) {
-                    copyDone = true;
+                if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
                 return delegate.addAll(arg0);
@@ -553,8 +552,7 @@ public class CollectionFactory {
         public void clear() {
             try {
                 writeLock.lock();
-                if (!copyDone) {
-                    copyDone = true;
+                if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>();
                 }
                 delegate.clear();
@@ -574,8 +572,8 @@ public class CollectionFactory {
              * optimization would be delayed. This is not an issue, since
              * maxContains is only a rough estimate.
              */
-            if (!copyDone) {
-                if (containsCounter.incrementAndGet() >= maxContains && !copyDone) {
+            if (!copyDone.get()) {
+                if (containsCounter.incrementAndGet() >= maxContains && !copyDone.get()) {
                     try {
                         writeLock.lock();
                         // many calls to contains, inefficient if the delegate
@@ -584,8 +582,8 @@ public class CollectionFactory {
                         // the write
                         // lock as in all other instances in which its value is
                         // changed
-                        if (!copyDone && !(delegate instanceof Set)) {
-                            copyDone = true;
+                        if (!copyDone.get() && !(delegate instanceof Set)) {
+                            copyDone.set(true);
                             delegate = new SyncSet<T>(delegate);
                         }
                         // skip the second portion of the method: no need to
@@ -607,8 +605,8 @@ public class CollectionFactory {
 
         @Override
         public boolean containsAll(Collection<?> arg0) {
-            if (!copyDone) {
-                if (containsCounter.incrementAndGet() >= maxContains && !copyDone) {
+            if (!copyDone.get()) {
+                if (containsCounter.incrementAndGet() >= maxContains && !copyDone.get()) {
                     try {
                         writeLock.lock();
                         // many calls to contains, inefficient if the delegate
@@ -617,8 +615,8 @@ public class CollectionFactory {
                         // the write
                         // lock as in all other instances in which its value is
                         // changed
-                        if (!copyDone && !(delegate instanceof Set)) {
-                            copyDone = true;
+                        if (!copyDone.get() && !(delegate instanceof Set)) {
+                            copyDone.set(true);
                             delegate = new SyncSet<T>(delegate);
                         }
                         // skip the second portion of the method: no need to
@@ -662,8 +660,7 @@ public class CollectionFactory {
         public boolean remove(Object arg0) {
             try {
                 writeLock.lock();
-                if (!copyDone) {
-                    copyDone = true;
+                if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
                 return delegate.remove(arg0);
@@ -676,8 +673,7 @@ public class CollectionFactory {
         public boolean removeAll(Collection<?> arg0) {
             try {
                 writeLock.lock();
-                if (!copyDone) {
-                    copyDone = true;
+                if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
                 return delegate.removeAll(arg0);
@@ -690,8 +686,7 @@ public class CollectionFactory {
         public boolean retainAll(Collection<?> arg0) {
             try {
                 writeLock.lock();
-                if (!copyDone) {
-                    copyDone = true;
+                if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
                 return delegate.retainAll(arg0);

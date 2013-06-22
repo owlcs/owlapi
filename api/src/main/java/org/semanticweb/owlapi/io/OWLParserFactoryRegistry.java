@@ -54,7 +54,7 @@ import java.util.List;
  * loading ontologies whose concrete representations are contained in some kind
  * of document. */
 public class OWLParserFactoryRegistry {
-    private static final OWLParserFactoryRegistry instance = new OWLParserFactoryRegistry();
+    private static final OWLParserFactoryRegistry INSTANCE = new OWLParserFactoryRegistry();
     private final List<OWLParserFactory> parserFactories = new ArrayList<OWLParserFactory>(
             10);
 
@@ -62,7 +62,7 @@ public class OWLParserFactoryRegistry {
 
     /** @return the parser factory registry */
     public static OWLParserFactoryRegistry getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     /** clear all registered parser factories */
