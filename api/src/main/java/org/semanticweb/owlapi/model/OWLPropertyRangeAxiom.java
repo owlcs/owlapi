@@ -55,5 +55,5 @@ public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extend
     /** Gets the range specified by this axiom
      * 
      * @return The range specified by this axiom. */
-    public R getRange();
+    R getRange();
 }

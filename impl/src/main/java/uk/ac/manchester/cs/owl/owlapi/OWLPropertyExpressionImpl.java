@@ -38,10 +38,6 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Set;
-import java.util.TreeSet;
-
-import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /** Author: Matthew Horridge<br>
@@ -56,16 +52,6 @@ public abstract class OWLPropertyExpressionImpl extends OWLObjectImpl implements
 
     public OWLPropertyExpressionImpl() {
         super();
-    }
-
-    private <Prop extends OWLPropertyExpression> Set<Prop> getProperties(
-            Set<? extends OWLNaryPropertyAxiom<Prop>> axioms) {
-        Set<Prop> result = new TreeSet<Prop>();
-        for (OWLNaryPropertyAxiom<Prop> axiom : axioms) {
-            result.addAll(axiom.getProperties());
-        }
-        result.remove(this);
-        return result;
     }
 
     @Override

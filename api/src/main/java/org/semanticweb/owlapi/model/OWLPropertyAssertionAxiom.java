@@ -53,15 +53,15 @@ public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O ex
     /** Gets the individual that is the subject of this assertion.
      * 
      * @return The individual that represents the subject of this assertion. */
-    public OWLIndividual getSubject();
+    OWLIndividual getSubject();
 
     /** Gets the property that this assertion acts along
      * 
      * @return The property */
-    public P getProperty();
+    P getProperty();
 
     /** Gets the object of this assertion
      * 
      * @return The object that this assertion points to. */
-    public O getObject();
+    O getObject();
 }

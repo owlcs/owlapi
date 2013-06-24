@@ -105,7 +105,7 @@ public class IRITest {
     public void testIRIStringConcurrentNoCacheUse() throws InterruptedException {
         final AtomicInteger count = new AtomicInteger(0);
         final CountDownLatch openLatch = new CountDownLatch(1);
-        final int threadCount = 37;
+        int threadCount = 37;
         final CountDownLatch closeLatch = new CountDownLatch(threadCount);
         for (int i = 0; i < threadCount; i++) {
             final int number = i;

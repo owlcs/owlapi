@@ -50,8 +50,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 @SuppressWarnings("javadoc")
 public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
-    public interface RootNode {
-        public <T> T getNode();
+    interface RootNode {
+        <T> T getNode();
     }
 
     /** @param expression

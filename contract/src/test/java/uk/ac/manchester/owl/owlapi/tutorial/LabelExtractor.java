@@ -54,11 +54,7 @@ import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
  * The University Of Manchester, Information Management Group, Date: 17-03-2007 */
 @SuppressWarnings({ "unused", "javadoc" })
 public class LabelExtractor implements OWLAnnotationObjectVisitor {
-    String result;
-
-    public LabelExtractor() {
-        result = null;
-    }
+    String result = null;
 
     @Override
     public void visit(OWLAnonymousIndividual individual) {}

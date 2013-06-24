@@ -110,7 +110,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
     Set<OWLClassExpression> getNestedClassExpressions();
 
     @SuppressWarnings("javadoc")
-    public void accept(OWLObjectVisitor visitor);
+    void accept(OWLObjectVisitor visitor);
 
     @SuppressWarnings("javadoc")
     <O> O accept(OWLObjectVisitorEx<O> visitor);

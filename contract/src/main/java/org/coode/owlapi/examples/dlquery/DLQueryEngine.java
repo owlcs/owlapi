@@ -58,6 +58,20 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * This example shows how to perform a "dlquery". The DLQuery view/tab in
  * Protege 4 works like this. */
 public class DLQueryEngine {
+    public static final boolean isEmpty(String s) {
+        if (s == null) {
+            return true;
+        }
+        if (s.isEmpty()) {
+            return true;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
     private OWLReasoner reasoner;
     private DLQueryParser parser;
 
@@ -87,7 +101,7 @@ public class DLQueryEngine {
      *             If there was a problem parsing the class expression. */
     public Set<OWLClass> getSuperClasses(String classExpressionString, boolean direct)
             throws ParserException {
-        if (classExpressionString.trim().length() == 0) {
+        if (isEmpty(classExpressionString)) {
             return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser
@@ -106,7 +120,7 @@ public class DLQueryEngine {
      *             If there was a problem parsing the class expression. */
     public Set<OWLClass> getEquivalentClasses(String classExpressionString)
             throws ParserException {
-        if (classExpressionString.trim().length() == 0) {
+        if (isEmpty(classExpressionString)) {
             return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser
@@ -132,7 +146,7 @@ public class DLQueryEngine {
      *             If there was a problem parsing the class expression. */
     public Set<OWLClass> getSubClasses(String classExpressionString, boolean direct)
             throws ParserException {
-        if (classExpressionString.trim().length() == 0) {
+        if (isEmpty(classExpressionString)) {
             return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser
@@ -152,7 +166,7 @@ public class DLQueryEngine {
      *             If there was a problem parsing the class expression. */
     public Set<OWLNamedIndividual> getInstances(String classExpressionString,
             boolean direct) throws ParserException {
-        if (classExpressionString.trim().length() == 0) {
+        if (isEmpty(classExpressionString)) {
             return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser

@@ -42,7 +42,7 @@ public class RDFResourceIRI extends RDFResource {
         if (o == this) {
             return true;
         }
-        if (o == null || !(o instanceof RDFResourceIRI)) {
+        if (!(o instanceof RDFResourceIRI)) {
             return false;
         }
         RDFResourceIRI other = (RDFResourceIRI) o;

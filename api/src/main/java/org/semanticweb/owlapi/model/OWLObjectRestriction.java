@@ -51,5 +51,5 @@ public interface OWLObjectRestriction {
      * R being a scalar or collection type.
      * 
      * @return The property */
-    public OWLObjectPropertyExpression getProperty();
+    OWLObjectPropertyExpression getProperty();
 }

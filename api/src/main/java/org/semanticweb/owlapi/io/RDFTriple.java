@@ -134,7 +134,7 @@ public class RDFTriple {
         if (o == this) {
             return true;
         }
-        if (o == null || !(o instanceof RDFTriple)) {
+        if (!(o instanceof RDFTriple)) {
             return false;
         }
         RDFTriple other = (RDFTriple) o;

@@ -48,7 +48,7 @@ public interface OWLPropertyExpression extends OWLObject {
      * @return <code>true</code> if the property expression is anonymous
      *         (because it is the inverse of a property). <code>false</code> if
      *         this property is a named object property or named data property. */
-    public boolean isAnonymous();
+    boolean isAnonymous();
 
     @SuppressWarnings("javadoc")
     void accept(OWLPropertyExpressionVisitor visitor);

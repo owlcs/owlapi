@@ -49,7 +49,7 @@ import java.util.Set;
 public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression> extends
         OWLPropertyAxiom {
     /** @return all of the properties that appear in this axiom */
-    public Set<P> getProperties();
+    Set<P> getProperties();
 
     /** @param property
      *            the property to skip

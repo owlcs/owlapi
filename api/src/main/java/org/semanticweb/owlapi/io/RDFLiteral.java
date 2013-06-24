@@ -95,7 +95,7 @@ public class RDFLiteral extends RDFNode {
         if (o == this) {
             return true;
         }
-        if (o == null || !(o instanceof RDFLiteral)) {
+        if (!(o instanceof RDFLiteral)) {
             return false;
         }
         RDFLiteral other = (RDFLiteral) o;

@@ -51,10 +51,10 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 public interface OWLOntologyFactory extends Serializable {
     /** @param owlOntologyManager
      *            the ontology manager to set. Cannot be null. */
-    public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager);
+    void setOWLOntologyManager(OWLOntologyManager owlOntologyManager);
 
     /** @return the ontology manager */
-    public OWLOntologyManager getOWLOntologyManager();
+    OWLOntologyManager getOWLOntologyManager();
 
     /** Creates an (empty) ontology.
      * 
@@ -69,7 +69,7 @@ public interface OWLOntologyFactory extends Serializable {
      * @return The created ontology
      * @throws OWLOntologyCreationException
      *             if the ontology could not be created. */
-    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI,
+    OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI,
             OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
 
     /** Creates and loads an <code>OWLOntology</code>.
@@ -85,7 +85,7 @@ public interface OWLOntologyFactory extends Serializable {
      * @return The newly created and loaded ontology
      * @throws OWLOntologyCreationException
      *             if the ontology could not be created. */
-    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
+    OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
             OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
 
     /** Creates and loads an <code>OWLOntology</code>.
@@ -104,7 +104,7 @@ public interface OWLOntologyFactory extends Serializable {
      * @return The newly created and loaded ontology.
      * @throws OWLOntologyCreationException
      *             if the ontology could not be created */
-    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
+    OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
             OWLOntologyCreationHandler handler,
             OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyCreationException;
@@ -117,7 +117,7 @@ public interface OWLOntologyFactory extends Serializable {
      * @return <code>true</code> if the factory can create an ontology given the
      *         specified document IRI, or <code>false</code> if the factory
      *         cannot create an ontology given the specified document IRI. */
-    public boolean canCreateFromDocumentIRI(IRI documentIRI);
+    boolean canCreateFromDocumentIRI(IRI documentIRI);
 
     /** Determines if the factory can load an ontology for the specified input
      * souce
@@ -126,7 +126,7 @@ public interface OWLOntologyFactory extends Serializable {
      *            The input source from which to load the ontology
      * @return <code>true</code> if the factory can load from the specified
      *         input source. */
-    public boolean canLoad(OWLOntologyDocumentSource documentSource);
+    boolean canLoad(OWLOntologyDocumentSource documentSource);
 
     /** An <code>OWLOntologyCreationHandler</code> gets notified when the factory
      * has created an empty ontology (during the loading process). This may be

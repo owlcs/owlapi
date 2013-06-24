@@ -48,5 +48,5 @@ public interface OWLObjectVisitor extends OWLAxiomVisitor, OWLClassExpressionVis
         OWLDataVisitor, OWLPropertyExpressionVisitor, OWLEntityVisitor,
         OWLAnnotationAxiomVisitor, OWLIndividualVisitor, OWLAnnotationValueVisitor,
         OWLAnnotationObjectVisitor, SWRLObjectVisitor {
-    public void visit(OWLOntology ontology);
+    void visit(OWLOntology ontology);
 }

@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
 public abstract class OWLQuantifiedObjectRestrictionImpl extends
         OWLQuantifiedRestrictionImpl<OWLClassExpression> implements OWLObjectRestriction {
     private static final long serialVersionUID = 40000L;
-    private OWLObjectPropertyExpression property;
+    private final OWLObjectPropertyExpression property;
 
     public OWLQuantifiedObjectRestrictionImpl(OWLObjectPropertyExpression property,
             OWLClassExpression filler) {

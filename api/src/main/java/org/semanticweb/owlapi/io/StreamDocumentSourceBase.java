@@ -103,7 +103,7 @@ public abstract class StreamDocumentSourceBase implements OWLOntologyDocumentSou
     private void readIntoBuffer(@Nonnull InputStream reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            final int length = 100000;
+            int length = 100000;
             byte[] tempBuffer = new byte[length];
             int read = 0;
             do {
@@ -121,7 +121,7 @@ public abstract class StreamDocumentSourceBase implements OWLOntologyDocumentSou
     private void readIntoBuffer(Reader reader) {
         try {
             StringBuilder builder = new StringBuilder();
-            final int length = 100000;
+            int length = 100000;
             char[] tempBuffer = new char[length];
             int read = 0;
             do {

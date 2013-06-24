@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Date: 22-Jan-2008<br>
  * <br>
  * Orders an explanation in a flat list, sorting axioms alphabetically. */
-public final class AlphaExplanationOrderer implements ExplanationOrderer {
+public class AlphaExplanationOrderer implements ExplanationOrderer {
     protected final OWLObjectRenderer renderer;
 
     /** @param renderer

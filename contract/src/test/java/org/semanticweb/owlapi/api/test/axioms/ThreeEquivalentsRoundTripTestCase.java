@@ -19,7 +19,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class ThreeEquivalentsRoundTripTestCase {
     private static final String NS = "http://protege.org/ontologies";
-    private OWLClass a;
     private OWLClass b;
     private OWLClass c;
     private OWLObjectProperty p;
@@ -28,12 +27,11 @@ public class ThreeEquivalentsRoundTripTestCase {
 
     @Before
     public void setUp() {
-        a = Class(IRI(NS + "#A"));
         b = Class(IRI(NS + "#B"));
         c = Class(IRI(NS + "#C"));
         p = ObjectProperty(IRI(NS + "#p"));
         q = ObjectProperty(IRI(NS + "#q"));
-        axiomToAdd = EquivalentClasses(a, ObjectSomeValuesFrom(p, b),
+        axiomToAdd = EquivalentClasses(Class(IRI(NS + "#A")), ObjectSomeValuesFrom(p, b),
                 ObjectSomeValuesFrom(q, c));
     }
 

@@ -35,7 +35,6 @@ import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.io.OWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
-import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
 import org.semanticweb.owlapi.io.RDFNode;
@@ -297,29 +296,6 @@ public class ContractOwlapiIoTest {
     public void shouldTestInterfaceOWLRenderer() throws OWLException {
         OWLRenderer testSubject0 = mock(OWLRenderer.class);
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
-    }
-
-    @Test
-    public void shouldTestOWLRendererException() throws OWLException {
-        OWLRendererException testSubject0 = new OWLRendererException("");
-        OWLRendererException testSubject1 = new OWLRendererException("",
-                new RuntimeException());
-        OWLRendererException testSubject2 = new OWLRendererException(
-                new RuntimeException());
-        Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
-        String result4 = testSubject0.getMessage();
-        String result5 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestOWLRendererIOException() throws OWLException {
-        OWLRendererIOException testSubject0 = new OWLRendererIOException(
-                mock(IOException.class));
-        Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
-        String result4 = testSubject0.getMessage();
-        String result5 = testSubject0.getLocalizedMessage();
     }
 
     @Test

@@ -129,8 +129,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms;
     private final Set<OWLAxiom> consumedAxioms;
     private final Set<AxiomType<?>> passTypes;
-    private OWLEntity currentSource;
-    private OWLEntity currentTarget;
 
     /** @param m
      *            the manager to use */
@@ -160,9 +158,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         currentExplanation = new HashSet<OWLAxiom>(axioms);
         buildIndices();
         ExplanationTree root = new EntailedAxiomTree(entailment);
-        currentSource = seedExtractor.getSource(entailment);
-        insertChildren(currentSource, root);
-        currentTarget = seedExtractor.getTarget(entailment);
+        insertChildren(seedExtractor.getSource(entailment), root);
+        OWLEntity currentTarget = seedExtractor.getTarget(entailment);
         Set<OWLAxiom> axs = root.getUserObjectClosure();
         final Set<OWLAxiom> targetAxioms = new HashSet<OWLAxiom>();
         if (currentTarget != null) {

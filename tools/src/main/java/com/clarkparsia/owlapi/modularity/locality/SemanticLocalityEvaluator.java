@@ -182,7 +182,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             newClassExpression = null;
             desc.accept(this);
             if (newClassExpression == null) {
-                throw new RuntimeException("Unsupported class expression " + desc);
+                throw new OWLRuntimeException("Unsupported class expression " + desc);
             }
             return newClassExpression;
         }

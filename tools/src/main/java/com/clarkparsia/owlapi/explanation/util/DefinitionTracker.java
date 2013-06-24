@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Tracker for definitions */
 public class DefinitionTracker implements OWLOntologyChangeListener {
@@ -60,22 +59,20 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     private final Map<OWLEntity, Integer> referenceCounts = new HashMap<OWLEntity, Integer>();
     private final OWLOntology ontology;
     private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-    private final OWLOntologyManager manager;
     private final Integer ONE = Integer.valueOf(1);
 
     /** @param ontology
      *            ontology to track */
     public DefinitionTracker(OWLOntology ontology) {
-        manager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         for (OWLOntology ont : ontology.getImportsClosure()) {
-            for (OWLOntology importOnt : manager.getImportsClosure(ont)) {
+            for (OWLOntology importOnt : ontology.getImportsClosure()) {
                 for (OWLAxiom axiom : importOnt.getAxioms()) {
                     addAxiom(axiom);
                 }
             }
         }
-        manager.addOntologyChangeListener(this);
+        ontology.getOWLOntologyManager().addOntologyChangeListener(this);
     }
 
     private void addAxiom(OWLAxiom axiom) {

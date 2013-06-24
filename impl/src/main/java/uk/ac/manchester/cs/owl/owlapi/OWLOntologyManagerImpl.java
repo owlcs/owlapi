@@ -1097,7 +1097,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 strategy.broadcastChanges(listener, changes);
             } catch (Throwable e) {
                 LOGGER.warning("BADLY BEHAVING LISTENER: " + e);
-                e.printStackTrace();
             }
         }
     }
@@ -1288,7 +1287,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 lsnr.begin(size);
             }
         } catch (Throwable e) {
-            e.printStackTrace();
+            LOGGER.warning("BADLY BEHAVING LISTENER: " + e);
         }
     }
 
@@ -1302,7 +1301,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             }
         } catch (Throwable e) {
             // Listener threw an exception
-            e.printStackTrace();
+            LOGGER.warning("BADLY BEHAVING LISTENER: " + e);
         }
     }
 
@@ -1319,7 +1318,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             }
         } catch (Throwable e) {
             // Listener threw an exception
-            e.printStackTrace();
+            LOGGER.warning("BADLY BEHAVING LISTENER: " + e);
         }
     }
 }

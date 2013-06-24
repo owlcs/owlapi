@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.modularity.OntologySegmenter;
 import org.semanticweb.owlapi.reasoner.NodeSet;
@@ -645,7 +646,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 return enrich(moduleAsSet, seedSig, verbose);
             }
             default:
-                throw new RuntimeException("Unsupported module type: " + moduleType);
+                throw new OWLRuntimeException("Unsupported module type: " + moduleType);
         }
     }
 

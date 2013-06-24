@@ -44,8 +44,8 @@ public interface TransactionAwareSingleExpGen extends SingleExplanationGenerator
      * modify the ontology state is starting. Intended to allow the explanation
      * generator to efficiently preserve state when used by
      * {@link HSTExplanationGenerator}. */
-    public void beginTransaction();
+    void beginTransaction();
 
     /** End a transaction. See {@link #beginTransaction()} */
-    public void endTransaction();
+    void endTransaction();
 }

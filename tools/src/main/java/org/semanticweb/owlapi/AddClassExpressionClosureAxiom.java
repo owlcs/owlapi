@@ -133,10 +133,9 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
     }
 
     private class FillerCollector extends OWLClassExpressionVisitorAdapter {
-        private Set<OWLClassExpression> fillers;
+        private final Set<OWLClassExpression> fillers = new HashSet<OWLClassExpression>();
 
         public FillerCollector() {
-            fillers = new HashSet<OWLClassExpression>();
         }
 
         public Set<OWLClassExpression> getFillers() {

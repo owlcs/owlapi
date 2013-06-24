@@ -10,7 +10,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class IllegalPunning extends OWLProfileViolation implements
         OWL2DLProfileViolation, OWL2ELProfileViolation, OWL2ProfileViolation,
         OWL2QLProfileViolation, OWL2RLProfileViolation {
-    private IRI iri;
+    private final IRI iri;
 
     /** @param currentOntology
      * @param node

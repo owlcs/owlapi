@@ -38,12 +38,13 @@
  */
 package org.semanticweb.owlapi.api.test.imports;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 import org.junit.Test;
@@ -59,9 +60,9 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class TestImportByLocationTestCase {
     @Test
-    public void testImportOntologyByLocation() {
-        File f = new File("a.owl");
-        try {
+    public void testImportOntologyByLocation() throws OWLOntologyCreationException,
+            OWLOntologyStorageException, IOException {
+        File f = File.createTempFile("a.owl", ".owl");
             createOntologyFile(IRI("http://a.com"), f);
             OWLOntologyManager mngr = Factory.getManager();
             OWLDataFactory df = mngr.getOWLDataFactory();
@@ -75,10 +76,6 @@ public class TestImportByLocationTestCase {
             mngr.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
             assertEquals(1, b.getImportsDeclarations().size());
             assertEquals(1, b.getImports().size());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
         f.delete();
     }
 

@@ -52,7 +52,7 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends
         OWLCardinalityRestrictionImpl<OWLClassExpression> implements
         OWLObjectCardinalityRestriction {
     private static final long serialVersionUID = 40000L;
-    private OWLObjectPropertyExpression property;
+    private final OWLObjectPropertyExpression property;
 
     protected OWLObjectCardinalityRestrictionImpl(OWLObjectPropertyExpression property,
             int cardinality, OWLClassExpression filler) {

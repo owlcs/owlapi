@@ -45,13 +45,13 @@ package org.semanticweb.owlapi.model;
  * <br> */
 public interface OWLOntologyManagerFactory {
     /** @return a new ontology manager */
-    public OWLOntologyManager buildOWLOntologyManager();
+    OWLOntologyManager buildOWLOntologyManager();
 
     /** @param f
      *            the data factory the new manager will use
      * @return a new ontology manager */
-    public OWLOntologyManager buildOWLOntologyManager(OWLDataFactory f);
+    OWLOntologyManager buildOWLOntologyManager(OWLDataFactory f);
 
     /** @return a data factory */
-    public OWLDataFactory getFactory();
+    OWLDataFactory getFactory();
 }

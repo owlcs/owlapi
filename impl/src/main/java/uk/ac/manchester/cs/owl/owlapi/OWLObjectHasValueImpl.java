@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual>
         implements OWLObjectHasValue, OWLObjectRestriction {
     private static final long serialVersionUID = 40000L;
-    private OWLObjectPropertyExpression property;
+    private final OWLObjectPropertyExpression property;
 
     @SuppressWarnings("javadoc")
     public OWLObjectHasValueImpl(OWLObjectPropertyExpression property, OWLIndividual value) {

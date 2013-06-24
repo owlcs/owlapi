@@ -287,6 +287,7 @@ public enum OWL2Datatype {
                 case COLLAPSE:
                     return REPLACE.getNormalisedString(s).replaceAll("\\s+", " ").trim();
                 case PRESERVE:
+                    return s;
                 default:
                     return s;
             }

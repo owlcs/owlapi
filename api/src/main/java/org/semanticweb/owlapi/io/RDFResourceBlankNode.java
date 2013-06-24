@@ -43,7 +43,7 @@ public class RDFResourceBlankNode extends RDFResource {
         if (o == this) {
             return true;
         }
-        if (o == null || !(o instanceof RDFResourceBlankNode)) {
+        if (!(o instanceof RDFResourceBlankNode)) {
             return false;
         }
         RDFResourceBlankNode other = (RDFResourceBlankNode) o;

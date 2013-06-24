@@ -76,7 +76,6 @@ public class OWLEntityURIConverter {
     // entities whose names will be converted
     private final Collection<OWLOntology> ontologies;
     private Map<OWLEntity, IRI> replacementMap;
-    private List<OWLOntologyChange<?>> changes;
     private Set<OWLEntity> processedEntities;
     private final OWLEntityURIConverterStrategy strategy;
 
@@ -103,7 +102,7 @@ public class OWLEntityURIConverter {
     public List<OWLOntologyChange<?>> getChanges() {
         replacementMap = new HashMap<OWLEntity, IRI>();
         processedEntities = new HashSet<OWLEntity>();
-        changes = new ArrayList<OWLOntologyChange<?>>();
+        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
         for (OWLOntology ont : ontologies) {
             for (OWLClass cls : ont.getClassesInSignature()) {
                 if (!cls.isOWLThing() && !cls.isOWLNothing()) {

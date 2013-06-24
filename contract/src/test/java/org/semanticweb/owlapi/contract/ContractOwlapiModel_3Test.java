@@ -1109,30 +1109,6 @@ public class ContractOwlapiModel_3Test {
         OWLOntologyChangeVisitorEx<OWLObject> testSubject0 = Utils.mockOntologyChange();
     }
 
-    @Test
-    public void shouldTestOWLOntologyCreationException() throws OWLException {
-        OWLOntologyCreationException testSubject0 = new OWLOntologyCreationException();
-        OWLOntologyCreationException testSubject1 = new OWLOntologyCreationException("");
-        OWLOntologyCreationException testSubject2 = new OWLOntologyCreationException("",
-                new RuntimeException());
-        OWLOntologyCreationException testSubject3 = new OWLOntologyCreationException(
-                new RuntimeException());
-        Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
-        String result4 = testSubject0.getMessage();
-        String result5 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestOWLOntologyDocumentAlreadyExistsException() throws OWLException {
-        OWLOntologyDocumentAlreadyExistsException testSubject0 = new OWLOntologyDocumentAlreadyExistsException(
-                IRI("urn:aFake"));
-        IRI result0 = testSubject0.getOntologyDocumentIRI();
-        Throwable result2 = testSubject0.getCause();
-        String result4 = testSubject0.toString();
-        String result5 = testSubject0.getMessage();
-        String result6 = testSubject0.getLocalizedMessage();
-    }
 
     @Test
     public void shouldTestInterfaceOWLOntologyFactory() throws OWLException {
@@ -1365,31 +1341,6 @@ public class ContractOwlapiModel_3Test {
         String result2 = testSubject0.toString();
     }
 
-    @Test
-    public void shouldTestOWLOntologyRenameException() throws OWLException {
-        OWLOntologyRenameException testSubject0 = new OWLOntologyRenameException(
-                mock(OWLOntologyChange.class), new OWLOntologyID());
-        OWLOntologyID result0 = testSubject0.getOntologyID();
-        OWLOntologyChange<?> result1 = testSubject0.getChange();
-        Throwable result3 = testSubject0.getCause();
-        String result5 = testSubject0.toString();
-        String result6 = testSubject0.getMessage();
-        String result7 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestOWLOntologyResourceAccessException() throws OWLException {
-        OWLOntologyResourceAccessException testSubject0 = new OWLOntologyResourceAccessException(
-                "");
-        OWLOntologyResourceAccessException testSubject1 = new OWLOntologyResourceAccessException(
-                "", new RuntimeException());
-        OWLOntologyResourceAccessException testSubject2 = new OWLOntologyResourceAccessException(
-                new RuntimeException());
-        Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
-        String result4 = testSubject0.getMessage();
-        String result5 = testSubject0.getLocalizedMessage();
-    }
 
     @Test
     public void shouldTestInterfaceOWLOntologySetProvider() throws OWLException {
