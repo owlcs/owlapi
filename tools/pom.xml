@@ -32,18 +32,7 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.artifactId}</Bundle-Name>
-						<Export-Package>com.clarkparsia.owlapi.explanation.io</Export-Package>
-						<Export-Package>com.clarkparsia.owlapi.explanation.util</Export-Package>
-						<Export-Package>com.clarkparsia.owlapi.explanation</Export-Package>
-						<Export-Package>com.clarkparsia.owlapi.modularity.locality</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.debugging</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.metrics</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.modularity</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.normalform</Export-Package>
-						<Export-Package>org.semanticweb.owlapi</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.bhig.util</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owl.explanation.ordering</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owlapi.modularity</Export-Package>
+						<Export-Package>{local-packages}</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>

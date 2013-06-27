@@ -32,14 +32,7 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.artifactId}</Bundle-Name>
-						<Export-Package>org.semanticweb.owlapi.api.test.syntax.*</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.api.test.*</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.api.*</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.*</Export-Package>
-						<Export-Package>org.coode.owlapi.*</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owl.explanation.*</Export-Package>
-						<Export-Package>uk.ac.manchester.owl.owlapi.*</Export-Package>
-						<Export-Package>uk.ac.manchester.owl.owlapi.tutorial.*</Export-Package>
+						<Export-Package>{local-packages}</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>

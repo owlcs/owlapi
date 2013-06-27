@@ -32,32 +32,7 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.artifactId}</Bundle-Name>
-						<Export-Package>de.uulm.ecs.ai.owlapi.krssparser</Export-Package>
-						<Export-Package>de.uulm.ecs.ai.owlapi.krssrenderer</Export-Package>
-						<Export-Package>org.coode.owl.krssparser</Export-Package>
-						<Export-Package>org.coode.owlapi.functionalparser</Export-Package>
-						<Export-Package>org.coode.owlapi.functionalrenderer</Export-Package>
-						<Export-Package>org.coode.owlapi.latex</Export-Package>
-						<Export-Package>org.coode.owlapi.manchesterowlsyntax</Export-Package>
-						<Export-Package>org.coode.owlapi.obo.parser</Export-Package>
-						<Export-Package>org.coode.owlapi.obo.renderer</Export-Package>
-						<Export-Package>org.coode.owlapi.owlxml.renderer</Export-Package>
-						<Export-Package>org.coode.owlapi.owlxmlparser</Export-Package>
-						<Export-Package>org.coode.owlapi.rdf.model</Export-Package>
-						<Export-Package>org.coode.owlapi.rdf.rdfxml</Export-Package>
-						<Export-Package>org.coode.owlapi.rdf.renderer</Export-Package>
-						<Export-Package>org.coode.owlapi.rdfxml.parser</Export-Package>
-						<Export-Package>org.coode.owlapi.turtle</Export-Package>
-						<Export-Package>org.coode.string</Export-Package>
-						<Export-Package>org.coode.xml</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.expression</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.rdf.syntax</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.rdf.util</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owl.owlapi.turtle.parser</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owlapi.dlsyntax.parser</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owlapi.dlsyntax</Export-Package>
-						<Export-Package>uk.ac.manchester.cs</Export-Package>
+						<Export-Package>{local-packages}</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>

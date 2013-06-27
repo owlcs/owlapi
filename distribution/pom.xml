@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-distribution</artifactId>
-	<packaging>jar</packaging>
+	<packaging>bundle</packaging>
 	<name>OWLAPI Distribution</name>
 
 	<parent>
@@ -18,7 +18,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-contract</artifactId>
+			<artifactId>owlapi-apibinding</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
@@ -26,7 +26,7 @@
 	<build>
 		<plugins>
 			<!-- Creates binary distribution. -->
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.2</version>
@@ -59,6 +59,35 @@
 					</archive>
 				</configuration>
 			</plugin>
+			 -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
+						<Export-Package>
+							com.clarkparsia.*, 
+							de.uulm.*, 
+							org.coode.*, 
+							org.semanticweb.owlapi.*;-split-package:=merge-first, 
+							uk.ac.manchester.*;-split-package:=merge-first
+						</Export-Package>
+					</instructions>
+					<executions>
+						<execution>
+							<id>bundle-manifest</id>
+							<phase>install</phase>
+							<goals>    
+								<goal>manifest</goal>
+							</goals>   
+						</execution>
+					</executions>
+				</configuration>
+            </plugin>
+			
 			<!-- Javadocs -->
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -73,10 +102,10 @@
 						<configuration>
 							<!-- switch on dependency-driven aggregation -->
 							<includeDependencySources>true</includeDependencySources>
-							<dependencySourceExcludes>
+							<dependencySourceIncludes>
 								<!-- include ONLY owlapi artifacts -->
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-*</dependencySourceInclude>
-							</dependencySourceExcludes>
+							</dependencySourceIncludes>
 						</configuration>
 					</execution>
 				</executions>
