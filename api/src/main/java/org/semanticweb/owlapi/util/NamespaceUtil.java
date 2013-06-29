@@ -78,28 +78,12 @@ public class NamespaceUtil {
     }
 
     /**
-     * @param ch character to check
-     * @return true if ch is a letter
-     */
-    public static boolean isLetter(char ch) {
-        return Character.isLetter(ch);
-    }
-
-    /**
-     * @param ch character to check
-     * @return true if ch is a digit
-     */
-    public static boolean isDigit(char ch) {
-        return Character.isDigit(ch);
-    }
-
-    /**
      * @deprecated Use {@link org.semanticweb.owlapi.io.XMLUtils#isNCNameChar(int)}
      */
     @Deprecated
     public static boolean isNCNameChar(char ch) {
         // No colon in an NCNameChar
-        return isLetter(ch) || isDigit(ch) || ch == '.' || ch == '-' || ch == '_';
+        return Character.isLetter(ch) || Character.isDigit(ch) || ch == '.' || ch == '-' || ch == '_';
     }
 
 
@@ -108,7 +92,7 @@ public class NamespaceUtil {
      */
     @Deprecated
     public static boolean isNCNameStartChar(char ch) {
-        return isLetter(ch) || ch == '_';
+        return Character.isLetter(ch) || ch == '_';
     }
 
 

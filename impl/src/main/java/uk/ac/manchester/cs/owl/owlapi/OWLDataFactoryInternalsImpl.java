@@ -61,12 +61,6 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     WeakIndexCache<IRI, V> {
         private static final long serialVersionUID = 30402L;
 
-        protected final OWLDataFactory f;
-
-        public BuildableWeakIndexCache(OWLDataFactory f) {
-            this.f = f;
-        }
-
         public V cache(IRI s, Buildable v) {
             WeakReference<V> w = prefixCache.get(s);
             if (w != null) {
@@ -108,18 +102,18 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
 
     private final WeakCache<OWLLiteral> litCache = new WeakCache<OWLLiteral>();
 
-    protected <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache(OWLDataFactory f) {
-        return new BuildableWeakIndexCache<V>(f);
+    protected <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache() {
+        return new BuildableWeakIndexCache<V>();
     }
 
     public OWLDataFactoryInternalsImpl(OWLDataFactory f, boolean useCompression) {
         super(f, useCompression);
-        classesByURI = buildCache(f);
-        objectPropertiesByURI = buildCache(f);
-        dataPropertiesByURI = buildCache(f);
-        datatypesByURI = buildCache(f);
-        individualsByURI = buildCache(f);
-        annotationPropertiesByURI = buildCache(f);
+        classesByURI = buildCache();
+        objectPropertiesByURI = buildCache();
+        dataPropertiesByURI = buildCache();
+        datatypesByURI = buildCache();
+        individualsByURI = buildCache();
+        annotationPropertiesByURI = buildCache();
     }
 
     @Override

@@ -93,8 +93,6 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
@@ -301,10 +299,6 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    public void visit(OWLIndividual individual) {
-    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -598,12 +592,6 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         constructs.add(D);
         axiom.getProperty().accept(this);
     }
-
-
-    public void visit(OWLImportsDeclaration axiom) {
-
-    }
-
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
