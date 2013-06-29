@@ -42,7 +42,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -129,10 +128,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         if (maxExplanations < 0) {
             throw new IllegalArgumentException();
         }
-        if (LOGGER.isLoggable(Level.CONFIG)) {
-            LOGGER.config("Get " + (maxExplanations == 0 ? "all" : maxExplanations)
-                    + " explanation(s) for: " + unsatClass);
-        }
+        Object max = maxExplanations == 0 ? "all" : maxExplanations;
+        log("Get %s explanation(s) for: %s", max, unsatClass);
         try {
             Set<OWLAxiom> firstMups = getExplanation(unsatClass);
             if (firstMups.isEmpty()) {
@@ -215,6 +212,18 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return toReturn;
     }
 
+    private static void log(String template, Object... objects) {
+        if (LOGGER.isLoggable(Level.FINE)) {
+            LOGGER.fine(String.format(template, objects));
+        }
+    }
+
+    private static void log(String template, int objects) {
+        if (LOGGER.isLoggable(Level.FINE)) {
+            LOGGER.fine(String.format(template, objects));
+        }
+    }
+
     /** This is a recursive method that builds a hitting set tree to obtain all
      * justifications for an unsatisfiable class.
      * 
@@ -233,9 +242,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     private void constructHittingSetTree(OWLClassExpression unsatClass,
             Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
             Set<OWLAxiom> currentPathContents, int maxExplanations) throws OWLException {
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.fine("MUPS " + allMups.size() + ": " + mups);
-        }
+        log("MUPS %s: %s", allMups.size(), mups);
         if (progressMonitor.isCancelled()) {
             return;
         }
@@ -250,109 +257,132 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             OWLAxiom axiom = orderedMups.get(0);
             orderedMups.remove(0);
             if (allMups.size() == maxExplanations) {
-                if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.fine("Computed " + maxExplanations + "explanations");
-                }
+                log("Computed %s explanations", maxExplanations);
                 return;
             }
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.fine("Removing axiom: " + axiom + " " + currentPathContents.size()
-                        + " more removed: " + currentPathContents);
-            }
-            // Remove the current axiom from all the ontologies it is included
-            // in
-            Set<OWLOntology> ontologies = OntologyUtils.removeAxiom(axiom, getReasoner()
-                    .getRootOntology().getImportsClosure(), getOntologyManager());
+            log("Removing axiom: %s %s more removed: %s", axiom,
+                    currentPathContents.size(), currentPathContents);
             // Removal may have dereferenced some entities, if so declarations
             // are added
-            Set<OWLEntity> sig = getSignature(axiom);
-            List<OWLDeclarationAxiom> temporaryDeclarations = new ArrayList<OWLDeclarationAxiom>(
-                    sig.size());
-            for (OWLEntity e : sig) {
-                boolean referenced = false;
-                for (Iterator<OWLOntology> i = ontologies.iterator(); !referenced
-                        && i.hasNext();) {
-                    for (Iterator<OWLAxiom> j = i.next().getReferencingAxioms(e)
-                            .iterator(); !referenced && j.hasNext();) {
-                        OWLAxiom a = j.next();
-                        referenced = a.isLogicalAxiom()
-                                || a instanceof OWLDeclarationAxiom;
-                    }
-                }
-                if (!referenced) {
-                    OWLDeclarationAxiom declaration = getOntologyManager()
-                            .getOWLDataFactory().getOWLDeclarationAxiom(e);
-                    temporaryDeclarations.add(declaration);
-                }
-            }
-            for (OWLDeclarationAxiom decl : temporaryDeclarations) {
-                OntologyUtils.addAxiom(decl, getReasoner().getRootOntology()
-                        .getImportsClosure(), getOntologyManager());
-            }
+            List<OWLDeclarationAxiom> temporaryDeclarations = new ArrayList<OWLDeclarationAxiom>();
+            Set<OWLOntology> ontologies = removeAxiomAndAddDeclarations(axiom,
+                    temporaryDeclarations);
             currentPathContents.add(axiom);
-            boolean earlyTermination = false;
-            // Early path termination. If our path contents are the superset of
-            // the contents of a path then we can terminate here.
-            for (Set<OWLAxiom> satPath : satPaths) {
-                if (currentPathContents.containsAll(satPath)) {
-                    earlyTermination = true;
-                    if (LOGGER.isLoggable(Level.FINE)) {
-                        LOGGER.fine("Stop - satisfiable (early termination)");
-                    }
-                    break;
-                }
-            }
+            boolean earlyTermination = checkEarlyTermination(satPaths,
+                    currentPathContents);
             if (!earlyTermination) {
-                Set<OWLAxiom> newMUPS = null;
-                for (Set<OWLAxiom> foundMUPS : allMups) {
-                    Set<OWLAxiom> foundMUPSCopy = new HashSet<OWLAxiom>(foundMUPS);
-                    foundMUPSCopy.retainAll(currentPathContents);
-                    if (foundMUPSCopy.isEmpty()) {
-                        newMUPS = foundMUPS;
-                        break;
-                    }
-                }
-                if (newMUPS == null) {
-                    newMUPS = getExplanation(unsatClass);
-                }
-                // Generate a new node - i.e. a new justification set
-                if (newMUPS.contains(axiom)) {
-                    // How can this be the case???
-                    throw new OWLRuntimeException("Explanation contains removed axiom: "
-                            + axiom);
-                }
-                if (!newMUPS.isEmpty()) {
-                    // Note that getting a previous justification does not mean
-                    // we can stop. stopping here causes some justifications to
-                    // be missed
-                    allMups.add(newMUPS);
-                    progressMonitor.foundExplanation(newMUPS);
-                    // Recompute priority here?
-                    constructHittingSetTree(unsatClass, newMUPS, allMups, satPaths,
-                            currentPathContents, maxExplanations);
-                    // We have found a new MUPS, so recalculate the ordering
-                    // axioms in the MUPS at the current level
-                    orderedMups = getOrderedMUPS(orderedMups, allMups);
-                } else {
-                    if (LOGGER.isLoggable(Level.FINE)) {
-                        LOGGER.fine("Stop - satisfiable");
-                    }
-                    // End of current path - add it to the list of paths
-                    satPaths.add(new HashSet<OWLAxiom>(currentPathContents));
-                }
+                orderedMups = recurse(unsatClass, allMups, satPaths, currentPathContents,
+                        maxExplanations, orderedMups, axiom);
             }
-            // Back track - go one level up the tree and run for the next axiom
-            currentPathContents.remove(axiom);
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.fine("Restoring axiom: " + axiom);
-            }
-            // Remove any temporary declarations
-            for (OWLDeclarationAxiom decl : temporaryDeclarations) {
-                OntologyUtils.removeAxiom(decl, getReasoner().getRootOntology()
-                        .getImportsClosure(), getOntologyManager());
-            }
-            // Done with the axiom that was removed. Add it back in
-            OntologyUtils.addAxiom(axiom, ontologies, getOntologyManager());
+            backtrack(currentPathContents, axiom, temporaryDeclarations, ontologies);
         }
+    }
+
+    private boolean checkEarlyTermination(Set<Set<OWLAxiom>> satPaths,
+            Set<OWLAxiom> currentPathContents) {
+        boolean earlyTermination = false;
+        // Early path termination. If our path contents are the superset of
+        // the contents of a path then we can terminate here.
+        for (Set<OWLAxiom> satPath : satPaths) {
+            if (currentPathContents.containsAll(satPath)) {
+                earlyTermination = true;
+                log("Stop - satisfiable (early termination)");
+                break;
+            }
+        }
+        return earlyTermination;
+    }
+
+    private List<OWLAxiom> recurse(OWLClassExpression unsatClass,
+            Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
+            Set<OWLAxiom> currentPathContents, int maxExplanations,
+            List<OWLAxiom> orderedMups, OWLAxiom axiom) throws OWLException {
+        Set<OWLAxiom> newMUPS = getNewMUPS(unsatClass, allMups,
+                currentPathContents);
+        // Generate a new node - i.e. a new justification set
+        if (newMUPS.contains(axiom)) {
+            // How can this be the case???
+            throw new OWLRuntimeException("Explanation contains removed axiom: "
+                    + axiom);
+        }
+        if (!newMUPS.isEmpty()) {
+            // Note that getting a previous justification does not mean
+            // we can stop. stopping here causes some justifications to
+            // be missed
+            allMups.add(newMUPS);
+            progressMonitor.foundExplanation(newMUPS);
+            // Recompute priority here?
+            constructHittingSetTree(unsatClass, newMUPS, allMups, satPaths,
+                    currentPathContents, maxExplanations);
+            // We have found a new MUPS, so recalculate the ordering
+            // axioms in the MUPS at the current level
+            orderedMups = getOrderedMUPS(orderedMups, allMups);
+        } else {
+            log("Stop - satisfiable");
+            // End of current path - add it to the list of paths
+            satPaths.add(new HashSet<OWLAxiom>(currentPathContents));
+        }
+        return orderedMups;
+    }
+
+    private void backtrack(Set<OWLAxiom> currentPathContents, OWLAxiom axiom,
+            List<OWLDeclarationAxiom> temporaryDeclarations, Set<OWLOntology> ontologies) {
+        // Back track - go one level up the tree and run for the next axiom
+        currentPathContents.remove(axiom);
+        log("Restoring axiom: %s", axiom);
+        // Remove any temporary declarations
+        for (OWLDeclarationAxiom decl : temporaryDeclarations) {
+            OntologyUtils.removeAxiom(decl, getReasoner().getRootOntology()
+                    .getImportsClosure(), getOntologyManager());
+        }
+        // Done with the axiom that was removed. Add it back in
+        OntologyUtils.addAxiom(axiom, ontologies, getOntologyManager());
+    }
+
+    private Set<OWLAxiom> getNewMUPS(OWLClassExpression unsatClass,
+            Set<Set<OWLAxiom>> allMups, Set<OWLAxiom> currentPathContents) {
+        Set<OWLAxiom> newMUPS = null;
+        for (Set<OWLAxiom> foundMUPS : allMups) {
+            Set<OWLAxiom> foundMUPSCopy = new HashSet<OWLAxiom>(foundMUPS);
+            foundMUPSCopy.retainAll(currentPathContents);
+            if (foundMUPSCopy.isEmpty()) {
+                newMUPS = foundMUPS;
+                break;
+            }
+        }
+        if (newMUPS == null) {
+            newMUPS = getExplanation(unsatClass);
+        }
+        return newMUPS;
+    }
+
+    private Set<OWLOntology> removeAxiomAndAddDeclarations(OWLAxiom axiom,
+            List<OWLDeclarationAxiom> temporaryDeclarations) {
+        // Remove the current axiom from all the ontologies it is included
+        // in
+        Set<OWLOntology> ontologies = OntologyUtils.removeAxiom(axiom, getReasoner()
+                .getRootOntology().getImportsClosure(), getOntologyManager());
+        collectTemporaryDeclarations(axiom, temporaryDeclarations);
+        for (OWLDeclarationAxiom decl : temporaryDeclarations) {
+            OntologyUtils.addAxiom(decl, getReasoner().getRootOntology()
+                    .getImportsClosure(), getOntologyManager());
+        }
+        return ontologies;
+    }
+
+    private void collectTemporaryDeclarations(OWLAxiom axiom,
+            List<OWLDeclarationAxiom> temporaryDeclarations) {
+        for (OWLEntity e : getSignature(axiom)) {
+            boolean referenced = getReasoner().getRootOntology().isDeclared(e, true);
+            if (!referenced) {
+                temporaryDeclarations.add(getDeclaration(e));
+            }
+        }
+    }
+
+    private OWLDeclarationAxiom getDeclaration(OWLEntity e) {
+        OWLDeclarationAxiom declaration = getOntologyManager().getOWLDataFactory()
+                .getOWLDeclarationAxiom(e);
+        return declaration;
     }
 }

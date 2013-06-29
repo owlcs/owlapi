@@ -173,15 +173,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             // check the four special cases
             try {
                 if (datatype.isBoolean()) {
-                    lexicalValue = lexicalValue.trim();
-                    if (isBooleanTrueValue(lexicalValue)) {
-                        literal = getOWLLiteral(true);
-                    } else if (isBooleanFalseValue(lexicalValue)) {
-                        literal = getOWLLiteral(false);
-                    } else {
-                        literal = factory.getOWLLiteral(Boolean
-                                .parseBoolean(lexicalValue));
-                    }
+                    literal = getOWLLiteral(isBooleanTrueValue(lexicalValue.trim()));
                 } else if (datatype.isFloat()) {
                     if (lexicalValue.trim().equals("-0.0")) {
                         // according to some W3C test, this needs to be

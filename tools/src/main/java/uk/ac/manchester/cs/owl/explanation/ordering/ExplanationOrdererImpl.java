@@ -161,6 +161,20 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         insertChildren(seedExtractor.getSource(entailment), root);
         OWLEntity currentTarget = seedExtractor.getTarget(entailment);
         Set<OWLAxiom> axs = root.getUserObjectClosure();
+        List<OWLAxiom> rootAxioms = new ArrayList<OWLAxiom>();
+        for (OWLAxiom ax : axioms) {
+            if (!axs.contains(ax)) {
+                rootAxioms.add(ax);
+            }
+        }
+        Collections.sort(rootAxioms, new TargetAxiomsComparator(getTargetAxioms(currentTarget)));
+        for (OWLAxiom ax : rootAxioms) {
+            root.addChild(new ExplanationTree(ax));
+        }
+        return root;
+    }
+
+    private Set<OWLAxiom> getTargetAxioms(OWLEntity currentTarget) {
         final Set<OWLAxiom> targetAxioms = new HashSet<OWLAxiom>();
         if (currentTarget != null) {
             if (currentTarget.isOWLClass()) {
@@ -176,28 +190,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                 targetAxioms.addAll(ont.getAxioms(currentTarget.asOWLNamedIndividual()));
             }
         }
-        List<OWLAxiom> rootAxioms = new ArrayList<OWLAxiom>();
-        for (OWLAxiom ax : axioms) {
-            if (!axs.contains(ax)) {
-                rootAxioms.add(ax);
-            }
-        }
-        Collections.sort(rootAxioms, new Comparator<OWLAxiom>() {
-            @Override
-            public int compare(OWLAxiom o1, OWLAxiom o2) {
-                if (targetAxioms.contains(o1)) {
-                    return 1;
-                }
-                if (targetAxioms.contains(o2)) {
-                    return -1;
-                }
-                return 0;
-            }
-        });
-        for (OWLAxiom ax : rootAxioms) {
-            root.addChild(new ExplanationTree(ax));
-        }
-        return root;
+        return targetAxioms;
     }
 
     private List<OWLEntity> getRHSEntitiesSorted(OWLAxiom ax) {
@@ -314,6 +307,25 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         getIndexedSet(axiom, entitiesByAxiomRHS, true).addAll(rhs.getSignature());
     }
 
+    private static class TargetAxiomsComparator implements Comparator<OWLAxiom> {
+        private final Set<OWLAxiom> targetAxioms;
+
+        private TargetAxiomsComparator(Set<OWLAxiom> targetAxioms) {
+            this.targetAxioms = targetAxioms;
+        }
+
+        @Override
+        public int compare(OWLAxiom o1, OWLAxiom o2) {
+            if (targetAxioms.contains(o1)) {
+                return 1;
+            }
+            if (targetAxioms.contains(o2)) {
+                return -1;
+            }
+            return 0;
+        }
+    }
+
     private static final class PropertiesFirstComparator implements Comparator<OWLObject> {
         public PropertiesFirstComparator() {}
 
@@ -355,11 +367,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             if (ax1 instanceof OWLPropertyAxiom) {
                 return -1;
             }
-            int childCount1 = o1.getChildCount();
-            childCount1 = childCount1 > 0 ? 0 : 1;
-            int childCount2 = o2.getChildCount();
-            childCount2 = childCount2 > 0 ? 0 : 1;
-            int diff = childCount1 - childCount2;
+            int diff = childDiff(o1, o2);
             if (diff != 0) {
                 return diff;
             }
@@ -369,6 +377,15 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                 return sc1.getSuperClass().compareTo(sc2.getSuperClass());
             }
             return 1;
+        }
+
+        private int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
+            int childCount1 = o1.getChildCount();
+            childCount1 = childCount1 > 0 ? 0 : 1;
+            int childCount2 = o2.getChildCount();
+            childCount2 = childCount2 > 0 ? 0 : 1;
+            int diff = childCount1 - childCount2;
+            return diff;
         }
     }
 

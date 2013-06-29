@@ -95,7 +95,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Bio-Health Informatics Group<br>
  * Date: 01-Mar-2007<br>
  * <br> */
-@SuppressWarnings("unused")
 public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
     private final OWLDataFactory dataFactory;
     private OWLClassExpression desc;

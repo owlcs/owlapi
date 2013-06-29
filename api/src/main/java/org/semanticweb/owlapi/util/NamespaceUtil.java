@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.util;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
@@ -58,7 +59,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 public class NamespaceUtil {
     private final Map<String, String> namespace2PrefixMap;
     private final Map<String, String> standardNamespacePrefixMappings;
-    private int candidateIndex = 1;
+    private final AtomicInteger candidateIndex = new AtomicInteger(1);
 
     public NamespaceUtil() {
         standardNamespacePrefixMappings = new HashMap<String, String>();
@@ -69,20 +70,6 @@ public class NamespaceUtil {
         namespace2PrefixMap.put(Namespaces.RDFS.toString(), "rdfs");
         namespace2PrefixMap.put(Namespaces.RDF.toString(), "rdf");
         namespace2PrefixMap.put(Namespaces.XSD.toString(), "xsd");
-    }
-
-    /** @param ch
-     *            character to check
-     * @return true if ch is a letter */
-    public static boolean isLetter(char ch) {
-        return Character.isLetter(ch);
-    }
-
-    /** @param ch
-     *            character to check
-     * @return true if ch is a digit */
-    public static boolean isDigit(char ch) {
-        return Character.isDigit(ch);
     }
 
     /** Gets a prefix for the given namespace. If a mapping has not been
@@ -102,11 +89,17 @@ public class NamespaceUtil {
         if (prefix == null) {
             // For some reason, we couldn't generate a decent prefix
             // Compute an auto generated prefix
-            do {
-                prefix = "p" + candidateIndex++;
-            } while (namespace2PrefixMap.containsValue(prefix));
+            prefix = getPIntPrefix();
         }
         namespace2PrefixMap.put(namespace, prefix);
+        return prefix;
+    }
+
+    private String getPIntPrefix() {
+        String prefix;
+        do {
+            prefix = "p" + candidateIndex.getAndIncrement();
+        } while (namespace2PrefixMap.containsValue(prefix));
         return prefix;
     }
 
@@ -123,7 +116,7 @@ public class NamespaceUtil {
      *            generated, where n is an integer.
      * @return The generated prefix. Note that this method will not store the
      *         namespace -> prefix mapping. */
-    public String generatePrefix(String namespace) {
+    private String generatePrefix(String namespace) {
         String prefix = standardNamespacePrefixMappings.get(namespace);
         if (prefix != null) {
             namespace2PrefixMap.put(namespace, prefix);

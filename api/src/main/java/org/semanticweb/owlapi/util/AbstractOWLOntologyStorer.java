@@ -75,74 +75,87 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     @Override
     public final void storeOntology(OWLOntology ontology, IRI documentIRI,
             OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException {
+        if (!documentIRI.isAbsolute()) {
+            throw new OWLOntologyStorageException("Document IRI must be absolute: "
+                    + documentIRI);
+        }
         try {
-            if (!documentIRI.isAbsolute()) {
-                throw new OWLOntologyStorageException("Document IRI must be absolute: "
-                        + documentIRI);
-            }
-            File tempFile = null;
-            FileOutputStream tempOutputStream = null;
-            FileInputStream tempInputStream = null;
-            InputStreamReader inputStreamReader = null;
-            OutputStreamWriter outputStreamWriter = null;
-            BufferedReader br = null;
-            BufferedWriter w = null;
             OutputStream os = null;
             try {
                 // prepare actual output
                 os = prepareActualOutput(documentIRI);
-                boolean useTemp = Boolean.parseBoolean(ontologyFormat.getParameter(
-                        OWLOntologyFormat.USE_INTERMEDIATE_OUTPUT_FILE, Boolean.FALSE)
-                        .toString());
-                if (useTemp) {
-                    tempFile = File.createTempFile("owlapi", ".owl");
-                    tempOutputStream = new FileOutputStream(tempFile);
-                    store(ontology, ontologyFormat, tempOutputStream);
-                    // Now copy across
-                    tempInputStream = new FileInputStream(tempFile);
-                    inputStreamReader = new InputStreamReader(tempInputStream, UTF_8);
-                    br = new BufferedReader(inputStreamReader);
-                    outputStreamWriter = new OutputStreamWriter(os, UTF_8);
-                    w = new BufferedWriter(outputStreamWriter);
-                    String line = br.readLine();
-                    while (line != null) {
-                        w.write(line);
-                        w.write("\n");
-                        line = br.readLine();
-                    }
+                if (useTemp(ontologyFormat)) {
+                    saveWithTempFile(ontology, ontologyFormat, os);
                 } else {
                     store(ontology, ontologyFormat, os);
                 }
             } finally {
-                if (br != null) {
-                    br.close();
-                }
-                if (w != null) {
-                    w.close();
-                }
                 if (os != null) {
                     os.close();
-                }
-                if (tempOutputStream != null) {
-                    tempOutputStream.close();
-                }
-                if (tempInputStream != null) {
-                    tempInputStream.close();
-                }
-                if (inputStreamReader != null) {
-                    inputStreamReader.close();
-                }
-                if (outputStreamWriter != null) {
-                    outputStreamWriter.close();
-                }
-                if (tempFile != null && !tempFile.delete()) {
-                    LOGGER.warning("Temporary file " + tempFile.getAbsolutePath()
-                            + " cannot be deleted.");
                 }
             }
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
         }
+    }
+
+    private void saveWithTempFile(OWLOntology ontology, OWLOntologyFormat ontologyFormat,
+            OutputStream os) throws IOException, OWLOntologyStorageException {
+        InputStreamReader inputStreamReader = null;
+        File tempFile = null;
+        OutputStreamWriter outputStreamWriter = null;
+        FileOutputStream tempOutputStream = null;
+        FileInputStream tempInputStream = null;
+        BufferedReader br = null;
+        BufferedWriter w = null;
+        try {
+            tempFile = File.createTempFile("owlapi", ".owl");
+            tempOutputStream = new FileOutputStream(tempFile);
+            store(ontology, ontologyFormat, tempOutputStream);
+            // Now copy across
+            tempInputStream = new FileInputStream(tempFile);
+            inputStreamReader = new InputStreamReader(tempInputStream, UTF_8);
+            br = new BufferedReader(inputStreamReader);
+            outputStreamWriter = new OutputStreamWriter(os, UTF_8);
+            w = new BufferedWriter(outputStreamWriter);
+            String line = br.readLine();
+            while (line != null) {
+                w.write(line);
+                w.write("\n");
+                line = br.readLine();
+            }
+        } finally {
+            if (tempFile != null && !tempFile.delete()) {
+                LOGGER.warning("Temporary file " + tempFile.getAbsolutePath()
+                        + " cannot be deleted.");
+            }
+            if (outputStreamWriter != null) {
+                outputStreamWriter.close();
+            }
+            if (br != null) {
+                br.close();
+            }
+            if (w != null) {
+                w.close();
+            }
+            if (tempOutputStream != null) {
+                tempOutputStream.close();
+            }
+            if (tempInputStream != null) {
+                tempInputStream.close();
+            }
+            if (inputStreamReader != null) {
+                inputStreamReader.close();
+            }
+        }
+    }
+
+    private boolean useTemp(OWLOntologyFormat ontologyFormat) {
+        boolean useTemp = Boolean
+                .parseBoolean(ontologyFormat.getParameter(
+                        OWLOntologyFormat.USE_INTERMEDIATE_OUTPUT_FILE, Boolean.FALSE)
+                        .toString());
+        return useTemp;
     }
 
     private OutputStream prepareActualOutput(IRI documentIRI)
