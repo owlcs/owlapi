@@ -132,14 +132,13 @@
 							<execution>
 								<id>sign-artifacts</id>
 								<phase>verify</phase>
-
 								<goals>
 									<goal>sign</goal>
 								</goals>
 							</execution>
 						</executions>
 					</plugin>
-			<plugin>
+				<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<version>2.3.7</version>
@@ -148,54 +147,17 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.artifactId}</Bundle-Name>
-							<Export-Package>org.semanticweb.owlapi.*</Export-Package>
-							<Export-Package>org.semanticweb.owlapi.reasoner.*</Export-Package>
-							<Export-Package>org.semanticweb.owlapi.*</Export-Package>
-							<Export-Package>org.coode.owlapi.*</Export-Package>
-							<Export-Package>org.semanticweb.owlapi.*</Export-Package>
-							<Export-Package>org.semanticweb.owlapi.api.*</Export-Package>
-							<Export-Package>org.semanticweb.owlapi.api.test.*</Export-Package>
-							<Export-Package>org.semanticweb.owlapi.api.test.syntax.*</Export-Package>
-							<Export-Package>uk.ac.manchester.cs.owl.explanation.*</Export-Package>
-							<Export-Package>uk.ac.manchester.owl.owlapi.*</Export-Package>
-							<Export-Package>uk.ac.manchester.owl.owlapi.tutorial.*</Export-Package>
-							<Export-Package>org.semanticweb.owlapi.reasoner.*</Export-Package>
-							<Export-Package>uk.ac.manchester.cs.owl.*</Export-Package>
-							<Export-Package>de.uulm.ecs.ai.owlapi.*</Export-Package>
-							<Export-Package>org.coode.*</Export-Package>
-							<Export-Package>org.coode.owl.*</Export-Package>
-							<Export-Package>org.coode.owlapi.*</Export-Package>
-							<Export-Package>org.coode.owlapi.obo.*</Export-Package>
-							<Export-Package>org.coode.owlapi.owlxml.*</Export-Package>
-							<Export-Package>org.coode.owlapi.rdf.*</Export-Package>
-							<Export-Package>org.coode.owlapi.rdfxml.*</Export-Package>
-							<Export-Package>org.semanticweb.owlapi.*</Export-Package>
-							<Export-Package>org.semanticweb.owlapi.rdf.*</Export-Package>
-							<Export-Package>uk.ac.manchester.*</Export-Package>
-							<Export-Package>uk.ac.manchester.cs.owl.owlapi.*</Export-Package>
-							<Export-Package>uk.ac.manchester.cs.owl.owlapi.turtle.*</Export-Package>
-							<Export-Package>uk.ac.manchester.cs.owlapi.*</Export-Package>
-							<Export-Package>uk.ac.manchester.cs.owlapi.dlsyntax.*</Export-Package>
-							<Export-Package>com.clarkparsia.owlapi.*</Export-Package>
-							<Export-Package>com.clarkparsia.owlapi.explanation.*</Export-Package>
-							<Export-Package>com.clarkparsia.owlapi.modularity.*</Export-Package>
-							<Export-Package>org.semanticweb.*</Export-Package>
-							<Export-Package>org.semanticweb.owlapi.*</Export-Package>
-							<Export-Package>uk.ac.manchester.cs.bhig.*</Export-Package>
-							<Export-Package>uk.ac.manchester.cs.owl.explanation.*</Export-Package>
-							<Export-Package>uk.ac.manchester.cs.owlapi.*</Export-Package>
+						<Export-Package>{local-packages}</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>
-		</plugins>
+			</plugins>
 			</build>
 		</profile>
-
 	</profiles>
 
 	<build>
 		<plugins>
-
 			<!-- In the Compiler Plugin we specify the encoding and the compiler version. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

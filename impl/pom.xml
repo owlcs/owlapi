@@ -33,9 +33,7 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.artifactId}</Bundle-Name>
-						<Export-Package>org.semanticweb.owlapi.reasoner.impl</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.reasoner.structural</Export-Package>
-						<Export-Package>uk.ac.manchester.cs.owl.owlapi</Export-Package>
+						<Export-Package>{local-packages},org.semanticweb.owlapi.reasoner.impl</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>

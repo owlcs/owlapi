@@ -28,8 +28,7 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.artifactId}</Bundle-Name>
-						<Export-Package>org.semanticweb.owlapi.reasoner.*</Export-Package>
-						<Export-Package>org.semanticweb.owlapi.*</Export-Package>
+						<Export-Package>{local-packages}</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>
