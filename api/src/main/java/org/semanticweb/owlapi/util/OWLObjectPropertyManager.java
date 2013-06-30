@@ -482,7 +482,6 @@ public class OWLObjectPropertyManager {
         processed.add(prop);
         indexMap.put(prop, index);
         lowlinkMap.put(prop, index);
-        index = index + 1;
         stack.push(prop);
         stackProps.add(prop);
         for (OWLOntology ont : ontologies) {
@@ -491,7 +490,8 @@ public class OWLObjectPropertyManager {
                 if (ax.getSubProperty().equals(prop)) {
                     OWLObjectPropertyExpression supProp = ax.getSuperProperty();
                     if (!indexMap.containsKey(supProp)) {
-                        tarjan(ontologies, supProp, index, stack, indexMap, lowlinkMap,
+                        tarjan(ontologies, supProp, index + 1, stack, indexMap,
+                                lowlinkMap,
                                 result, processed, stackProps);
                         lowlinkMap.put(prop,
                                 Math.min(lowlinkMap.get(prop), lowlinkMap.get(supProp)));
