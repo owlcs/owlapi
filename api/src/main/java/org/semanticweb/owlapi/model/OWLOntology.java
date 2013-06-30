@@ -55,6 +55,9 @@ import java.util.Set;
  * Specification</a>). </p> An ontology cannot be modified directly. Changes
  * must be applied via its <code>OWLOntologyManager</code>. */
 public interface OWLOntology extends OWLObject {
+    /** interim method to access ontology internals for searching purposes
+     * 
+     * @return internals for this ontology */
     Internals getInternals();
 
     /** accept for named object visitor

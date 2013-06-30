@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.model.RemoveImport;
  * Bio-Health Informatics Group<br>
  * Date: 31-Jul-2007<br>
  * <br> */
-@SuppressWarnings("javadoc")
 public class OWLImportsClosureTestCase extends AbstractOWLAPITestCase {
     /** Tests to see if the method which obtains the imports closure behaves
      * correctly.

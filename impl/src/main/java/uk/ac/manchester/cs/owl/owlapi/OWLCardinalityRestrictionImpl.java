@@ -47,10 +47,6 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
  * Date: 26-Oct-2006<br>
  * <br>
  * 
- * @param <R>
- *            the range
- * @param <P>
- *            the property expression
  * @param <F>
  *            the value */
 public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> extends
