@@ -46,7 +46,6 @@ import java.util.Locale;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -63,18 +62,14 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     private static final OWLDatatype XSDFLOAT = new OWL2DatatypeImpl(XSD_FLOAT);
     private static final OWLDatatype XSDINTEGER = new OWL2DatatypeImpl(XSD_INTEGER);
     private static final OWLDatatype RDFSLITERAL = new OWL2DatatypeImpl(RDFS_LITERAL);
-    private final OWLDataFactory factory;
     private final OWLLiteral trueLiteral;
     private final OWLLiteral falseLiteral;
     private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 
-    /** @param f
-     *            the factory to refer to
-     * @param useCompression
+    /** @param useCompression
      *            true if compression of literals should be used */
-    public InternalsNoCache(OWLDataFactory f, boolean useCompression) {
-        factory = f;
+    public InternalsNoCache(boolean useCompression) {
         trueLiteral = new OWLLiteralImplBoolean(true, XSDBOOLEAN);
         falseLiteral = new OWLLiteralImplBoolean(false, XSDBOOLEAN);
         this.useCompression = useCompression;
@@ -229,10 +224,6 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             literal = new OWLLiteralImplNoCompression(lexicalValue, lang, datatype);
         }
         return literal;
-    }
-
-    private boolean isBooleanFalseValue(String lexicalValue) {
-        return lexicalValue.equals("0") || lexicalValue.equals("false");
     }
 
     private boolean isBooleanTrueValue(String lexicalValue) {

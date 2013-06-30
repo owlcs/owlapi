@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
@@ -152,8 +151,7 @@ public class ContractOwlapi_2Test {
 
     @Test
     public void shouldTestOWLDataFactoryInternalsImpl() throws OWLException {
-        OWLDataFactoryInternalsImpl testSubject0 = new OWLDataFactoryInternalsImpl(
-                mock(OWLDataFactory.class), false);
+        OWLDataFactoryInternalsImpl testSubject0 = new OWLDataFactoryInternalsImpl(false);
         OWLClass result0 = testSubject0.getOWLClass(IRI("urn:aFake"));
         OWLObjectProperty result1 = testSubject0.getOWLObjectProperty(IRI("urn:aFake"));
         OWLDataProperty result2 = testSubject0.getOWLDataProperty(IRI("urn:aFake"));

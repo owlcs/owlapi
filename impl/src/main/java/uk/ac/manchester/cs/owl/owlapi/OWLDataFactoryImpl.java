@@ -115,9 +115,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     @SuppressWarnings("javadoc")
     public OWLDataFactoryImpl(boolean cache, boolean useCompression) {
         if (cache) {
-            data = new OWLDataFactoryInternalsImpl(this, useCompression);
+            data = new OWLDataFactoryInternalsImpl(useCompression);
         } else {
-            data = new InternalsNoCache(this, useCompression);
+            data = new InternalsNoCache(useCompression);
         }
     }
 
