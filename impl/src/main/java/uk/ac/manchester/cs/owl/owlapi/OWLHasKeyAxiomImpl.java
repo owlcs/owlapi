@@ -110,10 +110,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
-    // this is necessary to avoid java 6 issues
-            public
-            Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
+    public Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
         Set<OWLDataPropertyExpression> props = new TreeSet<OWLDataPropertyExpression>();
         for (OWLPropertyExpression prop : propertyExpressions) {
             if (prop.isDataPropertyExpression()) {
@@ -124,10 +121,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
-    // this is necessary to avoid java 6 issues
-            public
-            Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
+    public Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
         Set<OWLObjectPropertyExpression> props = new TreeSet<OWLObjectPropertyExpression>();
         for (OWLPropertyExpression prop : propertyExpressions) {
             if (prop.isObjectPropertyExpression()) {
