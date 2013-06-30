@@ -47,7 +47,7 @@ import org.xml.sax.SAXException;
  * Date: 07-Dec-2009 </p> Translates an
  * {@link org.semanticweb.owlapi.io.OWLParserException} to a
  * {@link org.xml.sax.SAXException}. */
-@SuppressWarnings("javadoc")
+
 public class TranslatedOWLParserException extends SAXException {
     private static final long serialVersionUID = 40000L;
     private OWLParserException parserException;

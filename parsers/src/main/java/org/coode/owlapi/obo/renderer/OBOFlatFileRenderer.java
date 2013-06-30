@@ -402,7 +402,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
         tvpList.addPair(OBOVocabulary.RELATIONSHIP, sb.toString());
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings("rawtypes")
     private <P extends OWLProperty> OBOTagValuePairList handleCommonTypeDefStanza(
             P property, OWLOntology ontology, Writer writer) {
         write("\n[", writer);
@@ -431,9 +431,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
                         "Anonymous property in superProperty is not supported in OBO"));
             }
         }
-        tvpList.setDefault(OBOVocabulary.IS_METADATA_TAG, "false"); // annotation
-                                                                    // properties
-                                                                    // only
+        tvpList.setDefault(OBOVocabulary.IS_METADATA_TAG, "false");
         return tvpList;
     }
 

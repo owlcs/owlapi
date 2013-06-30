@@ -48,7 +48,7 @@ import java.util.StringTokenizer;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 03/02/2011 */
-@SuppressWarnings("javadoc")
+
 public class Modifiers {
     private Map<String, Set<String>> modifierNameValuesMap = new LinkedHashMap<String, Set<String>>();
 

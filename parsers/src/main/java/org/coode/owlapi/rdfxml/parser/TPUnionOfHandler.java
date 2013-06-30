@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class TPUnionOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
     public TPUnionOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_UNION_OF.getIRI());

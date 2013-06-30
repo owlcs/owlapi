@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio-Health Informatics Group<br>
  * Date: 10-Jan-2007<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class PartOfTagValueHandler extends AbstractTagValueHandler {
     public PartOfTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.RELATIONSHIP.getName(), consumer);

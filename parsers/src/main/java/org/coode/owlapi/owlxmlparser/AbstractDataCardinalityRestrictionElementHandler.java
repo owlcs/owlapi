@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public abstract class AbstractDataCardinalityRestrictionElementHandler extends
         AbstractDataRangeFillerRestrictionElementHandler {
     private int cardinality;

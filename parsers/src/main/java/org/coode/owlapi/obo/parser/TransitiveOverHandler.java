@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio-Health Informatics Group<br>
  * Date: 06-Mar-2007<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class TransitiveOverHandler extends AbstractTagValueHandler {
     public TransitiveOverHandler(OBOConsumer consumer) {
         super("is_transitive_over", consumer);

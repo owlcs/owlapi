@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.vocab.SWRLVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 18-Feb-2007<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class TypeSWRLDifferentIndividualsAtomHandler extends BuiltInTypeHandler {
     public TypeSWRLDifferentIndividualsAtomHandler(OWLRDFConsumer consumer) {
         super(consumer, SWRLVocabulary.DIFFERENT_INDIVIDUALS_ATOM.getIRI());

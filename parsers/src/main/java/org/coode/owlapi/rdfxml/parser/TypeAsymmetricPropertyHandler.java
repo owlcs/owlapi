@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 07-Sep-2008<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class TypeAsymmetricPropertyHandler extends BuiltInTypeHandler {
     public TypeAsymmetricPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY.getIRI());

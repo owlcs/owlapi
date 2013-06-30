@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
  * <br>
  * An expression parser that parses class expressions written in the Manchester
  * OWL Syntax */
-@SuppressWarnings("javadoc")
+
 public class ManchesterOWLSyntaxClassExpressionParser implements
         OWLExpressionParser<OWLClassExpression> {
     private OWLDataFactory dataFactory;

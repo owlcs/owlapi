@@ -47,7 +47,7 @@ import java.io.UnsupportedEncodingException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** JavaCC generated JavaCharStream with added treatment for BOMs */
-@SuppressWarnings("javadoc")
+
 public class BOMSafeJavaCharStream {
     /** Whether parser is static. */
     public static final boolean staticFlag = false;
@@ -117,11 +117,6 @@ public class BOMSafeJavaCharStream {
     protected int inBuf = 0;
     protected int tabSize = 8;
     private boolean beginning = true;
-
-    @SuppressWarnings("unused")
-    private int getTabSize(int i) {
-        return tabSize;
-    }
 
     private void ExpandBuff(boolean wrapAround) {
         char[] newbuffer = new char[bufsize + 2048];

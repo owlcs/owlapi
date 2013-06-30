@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 08-Oct-2009 */
-@SuppressWarnings("javadoc")
+
 public class SWRLObjectPropertyAtomElementHandler extends SWRLAtomElementHandler {
     private OWLObjectPropertyExpression prop;
     private SWRLIArgument arg0 = null;

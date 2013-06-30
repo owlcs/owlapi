@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 02-Feb-2009 */
-@SuppressWarnings("javadoc")
+
 public class DataRangeListItemTranslator implements ListItemTranslator<OWLDataRange> {
     private OWLRDFConsumer consumer;
 

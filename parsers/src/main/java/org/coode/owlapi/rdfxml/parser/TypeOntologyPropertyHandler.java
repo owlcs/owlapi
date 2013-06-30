@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 17/12/2010 */
-@SuppressWarnings("javadoc")
+
 public class TypeOntologyPropertyHandler extends BuiltInTypeHandler {
     public TypeOntologyPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, DeprecatedVocabulary.OWL_ONTOLOGY_PROPERTY);

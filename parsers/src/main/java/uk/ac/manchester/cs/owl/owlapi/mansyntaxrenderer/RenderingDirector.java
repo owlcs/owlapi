@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 11-Mar-2010 */
-@SuppressWarnings("javadoc")
+
 public interface RenderingDirector {
     boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword,
             OWLOntology... ontologies);

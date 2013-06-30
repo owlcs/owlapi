@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public abstract class TriplePredicateHandler extends AbstractResourceTripleHandler {
     private IRI predicateIRI;
 

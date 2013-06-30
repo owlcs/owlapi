@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 17-May-2009 */
-@SuppressWarnings("javadoc")
+
 public class IRIElementHandler extends AbstractIRIElementHandler {
     public IRIElementHandler(OWLXMLParserHandler handler) {
         super(handler);

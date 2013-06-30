@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 16/12/2010 */
-@SuppressWarnings("javadoc")
+
 public class OWLAnnotationPropertyDomainElementHandler extends
         AbstractOWLAxiomElementHandler {
     private IRI domain;

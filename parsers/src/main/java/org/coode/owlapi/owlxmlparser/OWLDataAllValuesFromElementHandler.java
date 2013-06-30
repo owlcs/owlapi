@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class OWLDataAllValuesFromElementHandler extends
         AbstractDataRangeFillerRestrictionElementHandler {
     public OWLDataAllValuesFromElementHandler(OWLXMLParserHandler handler) {

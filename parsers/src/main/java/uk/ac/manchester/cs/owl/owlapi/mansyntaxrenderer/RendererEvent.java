@@ -44,7 +44,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 15-Jul-2009 */
-@SuppressWarnings("javadoc")
+
 public class RendererEvent {
     private ManchesterOWLSyntaxFrameRenderer frameRenderer;
     private OWLObject frameSubject;

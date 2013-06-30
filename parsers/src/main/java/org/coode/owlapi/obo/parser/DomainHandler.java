@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio-Health Informatics Group<br>
  * Date: 20-May-2007<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class DomainHandler extends AbstractTagValueHandler {
     public DomainHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DOMAIN.getName(), consumer);

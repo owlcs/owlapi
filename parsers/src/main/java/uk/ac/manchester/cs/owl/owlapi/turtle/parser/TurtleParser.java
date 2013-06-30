@@ -14,7 +14,7 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-@SuppressWarnings("javadoc")
+
 public class TurtleParser implements TurtleParserConstants {
     private Map<String, IRI> string2IRI;
     private String base;

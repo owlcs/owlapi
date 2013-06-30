@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 18/03/2011 */
-@SuppressWarnings("javadoc")
+
 public class GTPLiteralTripleHandler extends AbstractLiteralTripleHandler {
     public GTPLiteralTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);

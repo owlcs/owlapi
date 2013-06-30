@@ -71,7 +71,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLOntologyFormat).
  * In the case where the appropriate prefixes and mappings don't exist in the
  * NamespaceManager (OWLOntologyFormat) this manager will create them. */
-@SuppressWarnings("javadoc")
+
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     private OWLOntology ontology;
     private NamespaceUtil namespaceUtil;

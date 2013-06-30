@@ -72,7 +72,7 @@ import org.semanticweb.owlapi.util.VersionInfo;
  * Bio-Health Informatics Group<br>
  * Date: 06-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLWriter writer;
     private Set<RDFResource> pending;

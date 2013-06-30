@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 02-Feb-2009 */
-@SuppressWarnings("javadoc")
+
 public class OWLFacetRestrictionListItemTranslator implements
         ListItemTranslator<OWLFacetRestriction> {
     private OWLRDFConsumer consumer;

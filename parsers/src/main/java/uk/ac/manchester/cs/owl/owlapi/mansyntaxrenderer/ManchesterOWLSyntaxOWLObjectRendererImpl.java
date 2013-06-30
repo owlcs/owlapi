@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * <br>
  * An implementation of the OWLObjectRenderer interface. (Renders standalone
  * class class expressions and axioms in the manchester syntax). */
-@SuppressWarnings("javadoc")
+
 public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRenderer {
     private ManchesterOWLSyntaxObjectRenderer ren;
     private WriterDelegate writerDelegate;

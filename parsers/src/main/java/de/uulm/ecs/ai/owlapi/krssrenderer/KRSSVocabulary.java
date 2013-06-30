@@ -41,7 +41,7 @@ package de.uulm.ecs.ai.owlapi.krssrenderer;
 /** Author: Olaf Noppens<br>
  * Ulm University<br>
  * Institute of Artificial Intelligence<br> */
-@SuppressWarnings("javadoc")
+
 public enum KRSSVocabulary {
     ALL("all"), AND("and"), AT_LEAST("at-least"), AT_MOST("at-most"), DEFINE_CONCEPT(
             "define-concept"), DEFINE_PRIMITIVE_CONCEPT("define-primitive-concept"), DEFINE_PRIMITIVE_ROLE(

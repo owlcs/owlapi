@@ -43,7 +43,7 @@ package uk.ac.manchester.cs.owlapi.dlsyntax;
  * Bio-Health Informatics Group<br>
  * Date: 10-Feb-2008<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public enum DLSyntax {
     SUBCLASS("\u2291"), EQUIVALENT_TO("\u2261"), NOT("\u00AC"), DISJOINT_WITH(SUBCLASS
             + " " + NOT), EXISTS("\u2203"), FORALL("\u2200"), IN("\u2208"), MIN("\u2265"), EQUAL(

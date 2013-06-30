@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 20/12/2010 */
-@SuppressWarnings("javadoc")
+
 public class TPOnDataRangeHandler extends TriplePredicateHandler {
     public TPOnDataRangeHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ON_DATA_RANGE.getIRI());

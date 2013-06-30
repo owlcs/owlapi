@@ -143,7 +143,6 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.search.Searcher;
 
 /** @author Olaf Noppens */
-@SuppressWarnings({ "unused", "javadoc" })
 public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     private final OWLOntology ontology;
     private final Writer writer;

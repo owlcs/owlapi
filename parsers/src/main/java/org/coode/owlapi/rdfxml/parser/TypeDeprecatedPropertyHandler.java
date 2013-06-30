@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 10-Dec-2009 */
-@SuppressWarnings("javadoc")
+
 public class TypeDeprecatedPropertyHandler extends BuiltInTypeHandler {
     public TypeDeprecatedPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DEPRECATED_PROPERTY.getIRI());

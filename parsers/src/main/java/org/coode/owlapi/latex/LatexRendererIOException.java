@@ -45,7 +45,7 @@ import java.io.IOException;
  * Bio-Health Informatics Group<br>
  * Date: 15-Jun-2007<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class LatexRendererIOException extends LatexRendererException {
     private static final long serialVersionUID = 40000L;
 

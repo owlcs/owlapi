@@ -64,7 +64,7 @@ public class RDFGraph {
     private Set<RDFResourceBlankNode> rootAnonymousNodes;
     private Set<RDFTriple> triples;
 
-    @SuppressWarnings("javadoc")
+    
     public RDFGraph() {
         triples = new HashSet<RDFTriple>();
         triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();

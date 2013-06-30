@@ -142,7 +142,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * Bio-Health Informatics Group<br>
  * Date: 12-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     private OWLXMLWriter writer;
 

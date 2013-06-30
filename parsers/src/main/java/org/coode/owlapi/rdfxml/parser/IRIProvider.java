@@ -44,7 +44,7 @@ import org.semanticweb.owlapi.model.IRI;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 09-Mar-2009 */
-@SuppressWarnings("javadoc")
+
 public interface IRIProvider {
     IRI getIRI(String s);
 }

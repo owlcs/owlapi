@@ -43,7 +43,7 @@ import org.coode.owl.krssparser.KRSSOWLParserException;
 /** Author: Olaf Noppens<br>
  * Ulm University<br>
  * Institute of Artificial Intelligence<br> */
-@SuppressWarnings("javadoc")
+
 public class KRSS2OWLParserException extends KRSSOWLParserException {
     private static final long serialVersionUID = 40000L;
 

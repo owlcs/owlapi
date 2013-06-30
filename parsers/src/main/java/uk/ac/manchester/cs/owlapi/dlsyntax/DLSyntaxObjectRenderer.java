@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * <br>
  * <p/>
  * Renders objects in unicode DL syntax */
-@SuppressWarnings("javadoc")
+
 public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisitor {
     private ShortFormProvider shortFormProvider;
     private IRIShortFormProvider iriShortFormProvider;

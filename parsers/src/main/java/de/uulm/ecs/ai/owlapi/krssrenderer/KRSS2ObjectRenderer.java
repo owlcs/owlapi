@@ -340,7 +340,7 @@ import org.semanticweb.owlapi.search.Searcher;
  * Author: Olaf Noppens<br>
  * Ulm University<br>
  * Institute of Artificial Intelligence<br> */
-@SuppressWarnings("javadoc")
+
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;
     /** If declarations are ignored, entities which are only referenced in a

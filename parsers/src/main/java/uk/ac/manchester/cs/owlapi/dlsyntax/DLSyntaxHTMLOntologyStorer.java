@@ -54,7 +54,6 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * Bio-Health Informatics Group<br>
  * Date: 10-Feb-2008<br>
  * <br> */
-@SuppressWarnings({ "unused", "javadoc" })
 public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     private static final long serialVersionUID = 40000L;
     protected ShortFormProvider sfp;

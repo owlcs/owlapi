@@ -78,7 +78,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Bio-Health Informatics Group<br>
  * Date: 10-Jan-2007<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class OBOConsumer implements OBOParserHandler {
     private static final Logger logger = Logger.getLogger(OBOConsumer.class.getName());
     private static final String IMPORT_TAG_NAME = "import";

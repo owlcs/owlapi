@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public abstract class AbstractOWLObjectPropertyElementHandler extends
         AbstractOWLElementHandler<OWLObjectPropertyExpression> {
     private OWLObjectPropertyExpression property;

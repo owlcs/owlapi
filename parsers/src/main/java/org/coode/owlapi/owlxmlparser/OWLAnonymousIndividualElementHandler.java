@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 17-May-2009 */
-@SuppressWarnings("javadoc")
+
 public class OWLAnonymousIndividualElementHandler extends
         AbstractOWLElementHandler<OWLAnonymousIndividual> {
     private OWLAnonymousIndividual ind;

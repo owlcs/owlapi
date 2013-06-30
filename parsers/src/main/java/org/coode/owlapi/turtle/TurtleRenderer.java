@@ -75,7 +75,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 26-Jan-2008<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class TurtleRenderer extends RDFRendererBase {
     private PrintWriter writer;
     private PrefixManager pm;

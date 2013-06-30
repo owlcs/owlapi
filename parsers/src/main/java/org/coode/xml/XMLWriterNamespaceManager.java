@@ -53,7 +53,7 @@ import java.util.Set;
  * www.cs.man.ac.uk/~horridgm<br>
  * <br>
  * Developed as part of the CO-ODE project http://www.co-ode.org */
-@SuppressWarnings("javadoc")
+
 public class XMLWriterNamespaceManager {
     private Map<String, String> prefixNamespaceMap;
     private Map<String, String> namespacePrefixMap;

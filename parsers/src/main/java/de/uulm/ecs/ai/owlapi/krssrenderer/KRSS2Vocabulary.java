@@ -41,7 +41,7 @@ package de.uulm.ecs.ai.owlapi.krssrenderer;
 /** Vocabulary of KRSS2 syntax. Author: Olaf Noppens<br>
  * Ulm University<br>
  * Institute of Artificial Intelligence<br> */
-@SuppressWarnings("javadoc")
+
 public enum KRSS2Vocabulary {
     ALL("all"), AND("and"), AT_LEAST("at-least"), AT_MOST("at-most"), COMPOSE("compose"), DEFINE_CONCEPT(
             "define-concept"), DEFINE_INDIVIDUAL("define-individual"), DEFINE_PRIMITIVE_CONCEPT(

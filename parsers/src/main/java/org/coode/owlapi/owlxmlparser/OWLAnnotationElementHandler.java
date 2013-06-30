@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 18-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAnnotation> {
     private Set<OWLAnnotation> annotations;
     private OWLAnnotationProperty property;

@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
  * <p/>
  * Translates a set of triples that represent an <code>OWLComplementOf</code>
  * class expression. */
-@SuppressWarnings("javadoc")
+
 public class ObjectComplementOfTranslator extends AbstractClassExpressionTranslator {
     public ObjectComplementOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);

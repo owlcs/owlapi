@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class DataSomeValuesFromTranslator extends AbstractClassExpressionTranslator {
     public DataSomeValuesFromTranslator(OWLRDFConsumer consumer) {
         super(consumer);

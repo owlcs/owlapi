@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class ObjectHasSelfTranslator extends AbstractClassExpressionTranslator {
     public ObjectHasSelfTranslator(OWLRDFConsumer consumer) {
         super(consumer);

@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 18/03/2011 */
-@SuppressWarnings("javadoc")
+
 public class GTPResourceTripleHandler extends AbstractResourceTripleHandler {
     public GTPResourceTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);

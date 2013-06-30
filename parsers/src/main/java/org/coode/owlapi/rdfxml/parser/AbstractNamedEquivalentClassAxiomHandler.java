@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * A base handler for equivalent class axioms where the axiom is stated in a
  * direct way without an equivalent class triple. For example A intersectionOf
  * (C or C) */
-@SuppressWarnings("javadoc")
+
 public abstract class AbstractNamedEquivalentClassAxiomHandler extends
         TriplePredicateHandler {
     public AbstractNamedEquivalentClassAxiomHandler(OWLRDFConsumer consumer,

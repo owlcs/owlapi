@@ -46,7 +46,7 @@ import java.util.List;
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 19/04/2012 */
-@SuppressWarnings("javadoc")
+
 public class OBOFrame {
     private String frameType;
     private List<OBOTagValuePair> tagValuePairs;

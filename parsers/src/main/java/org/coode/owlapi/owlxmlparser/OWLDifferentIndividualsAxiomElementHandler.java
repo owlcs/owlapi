@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class OWLDifferentIndividualsAxiomElementHandler extends
         AbstractOWLIndividualOperandAxiomElementHandler {
     public OWLDifferentIndividualsAxiomElementHandler(OWLXMLParserHandler handler) {

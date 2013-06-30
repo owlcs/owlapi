@@ -59,7 +59,6 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  * Bio-Health Informatics Group<br>
  * Date: 10-Feb-2008<br>
  * <br> */
-@SuppressWarnings("unused")
 public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
     private OWLOntology ont;

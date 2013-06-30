@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 12-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class OWLXMLRenderer extends AbstractOWLRenderer {
     public void render(OWLOntology ontology, Writer writer, OWLOntologyFormat format)
             throws OWLRendererException {

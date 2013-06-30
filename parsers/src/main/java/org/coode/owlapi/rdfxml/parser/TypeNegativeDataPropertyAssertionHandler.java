@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class TypeNegativeDataPropertyAssertionHandler extends BuiltInTypeHandler {
     public TypeNegativeDataPropertyAssertionHandler(OWLRDFConsumer consumer) {
         super(consumer, DeprecatedVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION);

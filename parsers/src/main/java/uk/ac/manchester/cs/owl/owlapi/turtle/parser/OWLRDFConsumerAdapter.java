@@ -50,7 +50,7 @@ import org.xml.sax.SAXException;
  * Bio-Health Informatics Group<br>
  * Date: 24-Feb-2008<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
     public OWLRDFConsumerAdapter(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {

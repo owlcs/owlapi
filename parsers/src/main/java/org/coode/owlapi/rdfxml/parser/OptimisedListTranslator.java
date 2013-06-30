@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * <code>Set</code>. The type of list (i.e. the type of objects in the list) are
  * determined by a <code>ListItemTranslator</code>. The translator consumes all
  * triples which are used in the translation. */
-@SuppressWarnings("javadoc")
+
 public class OptimisedListTranslator<O extends OWLObject> {
     private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
     private OWLRDFConsumer consumer;

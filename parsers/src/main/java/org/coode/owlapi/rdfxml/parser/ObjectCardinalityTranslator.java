@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class ObjectCardinalityTranslator extends AbstractClassExpressionTranslator {
     public ObjectCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);

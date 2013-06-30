@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class OWLSubClassAxiomElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLClassExpression subClass;
     private OWLClassExpression supClass;

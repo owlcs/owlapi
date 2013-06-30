@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 23-Apr-2009 */
-@SuppressWarnings("javadoc")
+
 public class OWLDataUnionOfElementHandler extends AbstractOWLDataRangeHandler {
     private Set<OWLDataRange> dataRanges = new HashSet<OWLDataRange>();
 

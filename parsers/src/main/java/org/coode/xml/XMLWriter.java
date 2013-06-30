@@ -51,7 +51,7 @@ import java.io.IOException;
  * <br>
  * <p/>
  * Developed as part of the CO-ODE project http://www.co-ode.org */
-@SuppressWarnings("javadoc")
+
 public interface XMLWriter {
     /** Sets the encoding for the document that the rdfwriter produces. The
      * default encoding is "UTF-8".

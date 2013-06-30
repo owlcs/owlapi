@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 22/12/2010 */
-@SuppressWarnings("javadoc")
+
 public class SectionMap {
     private Map<Object, Set<OWLAxiom>> object2Axioms = new HashMap<Object, Set<OWLAxiom>>();
 

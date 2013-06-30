@@ -66,7 +66,6 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * Medical Informatics Group<br>
  * Date: 15-Jun-2007<br>
  * <br> */
-@SuppressWarnings({ "unused", "javadoc" })
 public class LatexBracketChecker implements OWLClassExpressionVisitor {
     private boolean requiresBracket;
     private static LatexBracketChecker instance = new LatexBracketChecker();

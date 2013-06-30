@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** @author Olaf Noppens */
 public class KRSS2OWLSyntaxRenderer extends AbstractOWLRenderer {
-    @SuppressWarnings("javadoc")
+    
     public KRSS2OWLSyntaxRenderer() {}
 
     @Override

@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class OWLClassElementHandler extends AbstractClassExpressionElementHandler {
     private IRI iri;
 

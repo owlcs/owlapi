@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * Bio Health Informatics Group<br>
  * Date: Dec 18, 2008<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class OBORelationshipGenerator extends OWLClassExpressionVisitorAdapter {
     private Set<OBORelationship> relationships = new HashSet<OBORelationship>();
     private OBOExceptionHandler eHandler;

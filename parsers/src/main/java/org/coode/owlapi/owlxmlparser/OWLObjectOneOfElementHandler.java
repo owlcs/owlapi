@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class OWLObjectOneOfElementHandler extends AbstractClassExpressionElementHandler {
     private Set<OWLIndividual> individuals;
 

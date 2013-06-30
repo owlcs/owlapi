@@ -43,7 +43,7 @@ package org.coode.owlapi.obo.parser;
  * Bio-Health Informatics Group<br>
  * Date: 06-Mar-2007<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class IntersectionOfHandler extends AbstractTagValueHandler {
     public IntersectionOfHandler(OBOConsumer consumer) {
         super("intersection_of", consumer);

@@ -43,7 +43,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 /** Author: Olaf Noppens<br>
  * Ulm University<br>
  * Institute of Artificial Intelligence<br> */
-@SuppressWarnings("javadoc")
+
 public class KRSS2OntologyFormat extends OWLOntologyFormat {
     public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
 

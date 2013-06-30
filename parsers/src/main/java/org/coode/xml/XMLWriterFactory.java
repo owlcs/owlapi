@@ -50,7 +50,7 @@ import java.io.Writer;
  * www.cs.man.ac.uk/~horridgm<br>
  * <br>
  * Developed as part of the CO-ODE project http://www.co-ode.org */
-@SuppressWarnings("javadoc")
+
 public class XMLWriterFactory {
     private static XMLWriterFactory instance;
 

@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.model.OWLClass;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 28-Jun-2009 */
-@SuppressWarnings("javadoc")
+
 public class NamedClassTranslator extends AbstractClassExpressionTranslator {
     public NamedClassTranslator(OWLRDFConsumer consumer) {
         super(consumer);

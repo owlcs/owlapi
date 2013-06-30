@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public abstract class AbstractOWLAxiomElementHandler extends
         AbstractOWLElementHandler<OWLAxiom> {
     private OWLAxiom axiom;

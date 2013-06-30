@@ -74,7 +74,6 @@ import org.xml.sax.helpers.LocatorImpl;
 /** This class parses the RDF according to the syntax specified in <a
  * href="http://www.w3.org/TR/rdf-syntax-grammar/"
  * >http://www.w3.org/TR/rdf-syntax-grammar/</a>. */
-@SuppressWarnings({ "unused", "javadoc" })
 public class RDFParser extends DefaultHandler implements RDFConstants {
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
     protected static final SAXParserFactory s_parserFactory = SAXParserFactory

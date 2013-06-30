@@ -45,7 +45,7 @@ import java.util.List;
  * Bio Health Informatics Group<br>
  * Date: Dec 19, 2008<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public interface OBOExceptionHandler {
     public void addException(OBOStorageException exception);
 

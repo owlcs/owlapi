@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 10-Jan-2007<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public enum OBOVocabulary {
     DATA_VERSION("data-version"), VERSION("version"), DATE("date",
             DublinCoreVocabulary.DATE.getIRI()), SAVED_BY("saved-by"), AUTO_GENERATED_BY(

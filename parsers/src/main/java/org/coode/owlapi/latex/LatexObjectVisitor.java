@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * NOTE: this class was not designed as a general purpose renderer, i.e., some
  * ontologies might be misrepresented in the output. Please report any
  * formatting error you find to the bug tracker or the mailing list. */
-@SuppressWarnings("javadoc")
+
 public class LatexObjectVisitor implements OWLObjectVisitor {
     public static final String AND = "\\ensuremath{\\sqcap}";
     public static final String OR = "\\ensuremath{\\sqcup}";

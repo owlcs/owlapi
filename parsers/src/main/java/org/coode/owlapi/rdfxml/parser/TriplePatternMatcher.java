@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 19/12/2010 */
-@SuppressWarnings("javadoc")
+
 public interface TriplePatternMatcher {
     boolean matches(OWLRDFConsumer consumer, IRI mainNode);
 

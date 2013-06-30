@@ -48,7 +48,7 @@ package org.coode.xml;
  * www.cs.man.ac.uk/~horridgm<br>
  * <br>
  * Developed as part of the CO-ODE project http://www.co-ode.org */
-@SuppressWarnings("javadoc")
+
 public class XMLWriterPreferences {
     private static XMLWriterPreferences instance = new XMLWriterPreferences();
     private boolean useNamespaceEntities;

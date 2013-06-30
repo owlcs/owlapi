@@ -7,7 +7,7 @@ package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
  * the support must be added by hand, and it's easier to have it in one place.
  * This stops JavaCC from rebuilding the wrong files and minimizes duplicated
  * code. */
-@SuppressWarnings("javadoc")
+
 public class JavaCharStream extends uk.ac.manchester.cs.BOMSafeJavaCharStream {
     /** Constructor. */
     public JavaCharStream(java.io.Reader dstream, int startline, int startcolumn) {

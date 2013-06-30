@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 13-Feb-2007<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class TypeSelfRestrictionHandler extends BuiltInTypeHandler {
     public TypeSelfRestrictionHandler(OWLRDFConsumer consumer) {
         super(consumer, DeprecatedVocabulary.OWL_SELF_RESTRICTION);

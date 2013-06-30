@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLEntity entity;
     private Set<OWLAnnotation> entityAnnotations;

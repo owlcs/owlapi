@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 10-Jan-2007<br>
  * <br> */
-@SuppressWarnings("javadoc")
+
 public class NameTagValueHandler extends AbstractTagValueHandler {
     public NameTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.NAME.getName(), consumer);
