@@ -310,7 +310,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private static class TargetAxiomsComparator implements Comparator<OWLAxiom> {
         private final Set<OWLAxiom> targetAxioms;
 
-        private TargetAxiomsComparator(Set<OWLAxiom> targetAxioms) {
+        TargetAxiomsComparator(Set<OWLAxiom> targetAxioms) {
             this.targetAxioms = targetAxioms;
         }
 
