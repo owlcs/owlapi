@@ -30,17 +30,29 @@
 
 <!-- *** PAGE CONTENT GOES HERE *** -->
 
-<p>A reasoner is a key component for working with OWL ontologies. In fact, virtually all querying of an OWL ontology (and its imports closure) should be done using a reasoner.  This is because knowledge in an ontology might not be explicit and a reasoner is required to deduce implicit knowledge so that the correct query results are obtained.  The OWL API includes various interfaces for accessing OWL reasoners.  In order to access a reasoner via the API a reasoner implementation is needed.  There following reasoners (in alphabetical order) provide implementations of the OWL API <code>OWLReasoner</code> interface:
+<p>A reasoner is a key component for working with OWL ontologies. In fact, 
+virtually all querying of an OWL ontology (and its imports closure) should 
+be done using a reasoner.  This is because knowledge in an ontology might 
+not be explicit and a reasoner is required to deduce implicit knowledge so 
+that the correct query results are obtained.  The OWL API includes various 
+interfaces for accessing OWL reasoners.  In order to access a reasoner via the 
+API a reasoner implementation is needed.  There following reasoners (in 
+alphabetical order) provide implementations of the OWL API 
+<code>OWLReasoner</code> interface:
 <ul>
 	<li><a href="http://code.google.com/p/factplusplus/">FaCT++.</a>
+	<li><a href="http://jfact.sourceforge.net">JFact.</a>
 	<li><a href="http://hermit-reasoner.com/">HermiT</a>
 	<li><a href="http://pellet.owldl.com/">Pellet</a>
 	<li><a href="http://www.racer-systems.com/">RacerPro</a> (via <a href="http://www.owllink.org/">OWLLink</a>)
 </ul>
 
-To use any of these reasoners you must download the appropriate libraries and place them in your class path. 
-All of these reasoner implement the <a href="">OWLReasoner</a> interface and provide implmentations of the 
-<a href="">OWLReasonerFactory</a> interface for instantiating the appropriate OWLReasoner implementation.
+To use any of these reasoners you must download the appropriate libraries and 
+place them in your class path. 
+All of these reasoner implement the <a href="">OWLReasoner</a> interface and 
+provide implementations of the 
+<a href="">OWLReasonerFactory</a> interface for instantiating the appropriate 
+OWLReasoner implementation.
 
 
 <!-- *** END OF PAGE CONTENT *** -->
