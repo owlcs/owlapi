@@ -101,6 +101,13 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      *            the prefix manager to copy */
     public DefaultPrefixManager(PrefixManager pm) {
         this();
+        addPrefixes(pm);
+    }
+
+    // XXX this method will be added to the PrefixManager interface
+    /** @param pm
+     *            prefix manager whose prefixes will be added to this manager */
+    public void addPrefixes(PrefixManager pm) {
         for (String prefixName : pm.getPrefixNames()) {
             String prefix = pm.getPrefix(prefixName);
             if (prefix != null) {
@@ -115,12 +122,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      *            comparator to sort prefixes */
     public DefaultPrefixManager(PrefixManager pm, Comparator<String> c) {
         this(c);
-        for (String prefixName : pm.getPrefixNames()) {
-            String prefix = pm.getPrefix(prefixName);
-            if (prefix != null) {
-                prefix2NamespaceMap.put(prefixName, prefix);
-            }
-        }
+        addPrefixes(pm);
     }
 
     /** clear the map */
