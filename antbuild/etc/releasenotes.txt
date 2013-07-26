@@ -1,3 +1,23 @@
+3.4.5 25 July 2013
+
+Mostly a maintenance release. Two important bug fixes: 
+- a literal parsing error was stopping HermiT builds with 3.4.4.
+- errors in OSGI support were stopping Protege from using the feature.
+
+Bug fixes:
+Fix #370 Typo in website/htdocs/reasoners.html.
+Fixed a bug with large integer values being parsed as negative ints.
+Fix infinite recursion on cyclic import structures.
+Reverted the use of ThreadLocal as this causes memory leaks in webapps.
+Bug #343 SWRL roundtrip in manchester syntax
+
+Features and improvements:
+Refactored DefaultPrefixManager to expose addPrefixes
+Updated pom files for OSGI compatible artifacts.
+Allow override of DefaultPrefixManager in PrefixOWLOntologyFormat
+Add CollectionFactory.getExpectedThreads
+Reduce expected threads from 16 to 8 to improve general performance
+
 3.4.4 19 May 2013
 
 Features and updates implemented:
