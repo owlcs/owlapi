@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 27/04/2012
  * @since 3.5 */
-public final class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
+public final class AddOntologyAnnotationData extends
+        OntologyAnnotationChangeData {
     private static final long serialVersionUID = 30406L;
 
     /** Constructs an {@link AddOntologyAnnotationData} object that describes an
@@ -71,8 +72,8 @@ public final class AddOntologyAnnotationData extends OntologyAnnotationChangeDat
     }
 
     @Override
-    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
-            throws E {
+    public <O, E extends Exception> O accept(
+            OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
         return visitor.visit(this);
     }
 

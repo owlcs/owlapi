@@ -47,7 +47,7 @@ import java.util.Set;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 18-Dec-2006 */
-public interface OWLAnnotation extends OWLObject {
+public interface OWLAnnotation extends OWLObject, HasAnnotations {
     /** Gets the property that this annotation acts along
      * 
      * @return The annotation property */
@@ -74,9 +74,10 @@ public interface OWLAnnotation extends OWLObject {
     boolean isDeprecatedIRIAnnotation();
 
     /** Gets the annotations on this annotation
-     * 
+     *
      * @return A (possibly empty) set of annotations that annotate this
      *         annotation */
+    @Override
     Set<OWLAnnotation> getAnnotations();
 
     /** Gets an OWLAnnotation which is a copy of this annotation but which has

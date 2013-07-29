@@ -47,7 +47,7 @@ package org.semanticweb.owlapi.model;
  * @param <F>
  *            value */
 public interface OWLQuantifiedRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
-        extends OWLRestriction<R, P, F> {
+        extends OWLRestriction<R, P, F>, HasFiller<F> {
     /** @return the filler */
     F getFiller();
 }

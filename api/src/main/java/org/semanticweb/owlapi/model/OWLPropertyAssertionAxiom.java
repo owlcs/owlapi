@@ -46,8 +46,7 @@ package org.semanticweb.owlapi.model;
  *            property expression
  * @param <O>
  *            object */
-public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression<?, ?>, O extends OWLPropertyAssertionObject>
-        extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut {
+public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression<?,?>, O extends OWLPropertyAssertionObject> extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut, HasSubject<OWLIndividual> {
     /** Gets the individual that is the subject of this assertion.
      * 
      * @return The individual that represents the subject of this assertion. */

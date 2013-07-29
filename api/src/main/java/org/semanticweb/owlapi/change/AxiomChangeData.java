@@ -38,7 +38,10 @@
  */
 package org.semanticweb.owlapi.change;
 
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
 
 /** Represent the common non-ontology data required by instances of
  * {@link org.semanticweb.owlapi.model.OWLAxiomChange}.
@@ -68,5 +71,10 @@ public abstract class AxiomChangeData extends OWLOntologyChangeData {
      * @return The {@link OWLAxiom}. Not {@code null}. */
     public OWLAxiom getAxiom() {
         return axiom;
+    }
+
+    @Override
+    public Set<OWLEntity> getSignature() {
+        return axiom.getSignature();
     }
 }

@@ -51,6 +51,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -61,7 +62,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * 
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group, Date: 11-Nov-2008 */
-public enum OWL2Datatype {
+public enum OWL2Datatype implements HasIRI {
     //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -143,7 +144,8 @@ public enum OWL2Datatype {
      *             if the specified IRI is not a built in datatype IRI. */
     public static OWL2Datatype getDatatype(IRI datatype) {
         if (!isBuiltIn(datatype)) {
-            throw new OWLRuntimeException(datatype + " is not a built in datatype!");
+            throw new OWLRuntimeException(datatype
+                    + " is not a built in datatype!");
         }
         for (OWL2Datatype v : values()) {
             if (v.iri.equals(datatype)) {
@@ -170,7 +172,8 @@ public enum OWL2Datatype {
         }
     }
 
-    OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite, String regEx) {
+    OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite,
+            String regEx) {
         iri = xsd.getIRI();
         shortName = xsd.getShortName();
         this.category = category;
@@ -304,7 +307,8 @@ public enum OWL2Datatype {
                 case REPLACE:
                     return s.replaceAll("\\t|\\n|\\r", " ");
                 case COLLAPSE:
-                    return REPLACE.getNormalisedString(s).replaceAll("\\s+", " ").trim();
+                    return REPLACE.getNormalisedString(s)
+                            .replaceAll("\\s+", " ").trim();
                 case PRESERVE:
                 default:
                     return s;

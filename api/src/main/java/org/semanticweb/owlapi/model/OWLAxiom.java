@@ -47,7 +47,7 @@ import java.util.Set;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group Date: 24-Oct-2006 */
-public interface OWLAxiom extends OWLObject {
+public interface OWLAxiom extends OWLObject, HasAnnotations {
     /** @param visitor
      *            visitor to accept */
     void accept(OWLAxiomVisitor visitor);
@@ -62,6 +62,7 @@ public interface OWLAxiom extends OWLObject {
     /** Gets the annotations that are annotate this axiom.
      * 
      * @return A set of annotations that annotate this axiom. */
+    @Override
     Set<OWLAnnotation> getAnnotations();
 
     /** Gets the annotations that annotate this axiom and whose annotation

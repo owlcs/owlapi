@@ -47,7 +47,7 @@ package org.semanticweb.owlapi.model;
  * @param <V>
  *            the value type */
 public interface OWLHasValueRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject>
-        extends OWLRestriction<R, P, P> {
+        extends OWLRestriction<R, P, P>, HasFiller<V> {
     /** Gets the value which is the filler for this restriction. In the case of
      * an object restriction this will be an individual, in the case of a data
      * restriction this will be a constant (data value).

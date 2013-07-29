@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 26-Oct-2006 */
-public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
+public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, OWLClassProvider {
     private static final String ANNOTATIONS = "annotations";
     private static final long serialVersionUID = 30406L;
     private static final String ABBREVIATED_IRI = "abbreviatedIRI";

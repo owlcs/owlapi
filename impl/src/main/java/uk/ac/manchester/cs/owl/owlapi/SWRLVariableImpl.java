@@ -38,13 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
-import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.*;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 15-Jan-2007 */

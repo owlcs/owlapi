@@ -321,6 +321,11 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
+    public boolean containsEntityInSignature(OWLEntity owlEntity) {
+        return this.equals(owlEntity);
+    }
+
+    @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
                 .<OWLAnonymousIndividual> emptySet());

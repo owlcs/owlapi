@@ -46,7 +46,7 @@ import java.util.Set;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group Date: 24-Oct-2006 */
-public interface OWLEntity extends OWLObject, OWLNamedObject {
+public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
     /** Gets the entity type for this entity
      * 
      * @return The entity type */

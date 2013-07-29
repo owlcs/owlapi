@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.change;
 
+import java.util.Collections;
+import java.util.Set;
+
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
 /** Instances of this class represent {@link OWLOntologyChangeData} for changes
@@ -72,5 +76,10 @@ public abstract class ImportChangeData extends OWLOntologyChangeData {
      * @return The {@link OWLImportsDeclaration}. Not {@code null}. */
     public OWLImportsDeclaration getDeclaration() {
         return declaration;
+    }
+
+    @Override
+    public Set<OWLEntity> getSignature() {
+        return Collections.emptySet();
     }
 }

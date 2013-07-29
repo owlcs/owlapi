@@ -54,7 +54,7 @@ import java.util.Set;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group Date: 24-Oct-2006 */
-public interface OWLOntology extends OWLObject {
+public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms, HasAxiomsByType, HasContainsAxiom, HasAnnotations {
     // XXX when the interfce changes, uncomment this
     // void accept(OWLNamedObjectVisitor visitor);
     /** Gets the manager that created this ontology. The manager is used by
@@ -81,6 +81,7 @@ public interface OWLOntology extends OWLObject {
      *         copy - modifying the set will have no effect on the annotations
      *         in this ontology, similarly, any changes that affect the
      *         annotations on this ontology will not change the returned set. */
+    @Override
     Set<OWLAnnotation> getAnnotations();
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
@@ -185,6 +186,7 @@ public interface OWLOntology extends OWLObject {
      *         changes. It is recommended that the {@code containsAxiom} method
      *         is used to determine whether or not this ontology contains a
      *         particular axiom rather than using getAxioms().contains(). */
+    @Override
     Set<OWLAxiom> getAxioms();
 
     /** Gets the number of axioms in this ontology.
@@ -199,6 +201,7 @@ public interface OWLOntology extends OWLObject {
      * @return A set of axioms which are of the type {@code OWLLogicalAxiom} The
      *         set that is returned is a copy of the axioms in the ontology - it
      *         will not be updated if the ontology changes. */
+    @Override
     Set<OWLLogicalAxiom> getLogicalAxioms();
 
     /** Gets the number of logical axioms in this ontology.
@@ -215,6 +218,7 @@ public interface OWLOntology extends OWLObject {
      *         will not be updated if the ontology changes.
      * @param <T>
      *            axiom type */
+    @Override
     <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType);
 
     /** Gets the axioms which are of the specified type.
@@ -307,6 +311,7 @@ public interface OWLOntology extends OWLObject {
      * @return {@code true} if the ontology contains the specified axioms, or
      *         {@code false} if the ontology doesn't contain the specified
      *         axiom. */
+    @Override
     boolean containsAxiom(OWLAxiom axiom);
 
     /** Determines if this ontology, and possibly the imports closure, contains

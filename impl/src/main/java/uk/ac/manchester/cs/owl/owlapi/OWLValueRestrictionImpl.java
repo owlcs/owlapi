@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006 */
 public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject>
-        extends OWLRestrictionImpl<R, P, P> implements OWLHasValueRestriction<R, P, V> {
+        extends OWLRestrictionImpl<R, P, P> implements
+        OWLHasValueRestriction<R, P, V> {
     private static final long serialVersionUID = 30406L;
     private final V value;
 
@@ -67,12 +68,18 @@ public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P exte
     }
 
     @Override
+    public V getFiller() {
+        return value;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLHasValueRestriction<?, ?, ?>)) {
                 return false;
             }
-            return ((OWLHasValueRestriction<?, ?, ?>) obj).getValue().equals(value);
+            return ((OWLHasValueRestriction<?, ?, ?>) obj).getValue().equals(
+                    value);
         }
         return false;
     }

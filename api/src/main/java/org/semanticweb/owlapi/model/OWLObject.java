@@ -43,17 +43,23 @@ import java.util.Set;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group Date: 24-Oct-2006 */
-public interface OWLObject extends Comparable<OWLObject>, Serializable {
+public interface OWLObject extends Comparable<OWLObject>, Serializable,
+        HasSignature, HasContainsEntityInSignature, HasAnonymousIndividuals,
+        HasClassesInSignature, HasObjectPropertiesInSignature,
+        HasDataPropertiesInSignature, HasIndividualsInSignature,
+        HasDatatypesInSignature {
     /** Gets the signature of this object
      * 
      * @return A set of entities that correspond to the signature of this
      *         object. The set is a copy, changes are not reflected back. */
+    @Override
     Set<OWLEntity> getSignature();
 
     /** Gets the anonymous individuals occurring in this object, as collected by
      * an OWLEntityCollector. The set is a copy, changes are not reflected back.
      * 
      * @return A set of anonymous individuals. */
+    @Override
     Set<OWLAnonymousIndividual> getAnonymousIndividuals();
 
     /** A convenience method that obtains the classes that are in the signature
@@ -63,6 +69,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         object. The set is a subset of the signature, and is not backed
      *         by the signature; it is a modifiable collection and changes are
      *         not reflected by the signature. */
+    @Override
     Set<OWLClass> getClassesInSignature();
 
     /** A convenience method that obtains the data properties that are in the
@@ -72,6 +79,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature. */
+    @Override
     Set<OWLDataProperty> getDataPropertiesInSignature();
 
     /** A convenience method that obtains the object properties that are in the
@@ -81,6 +89,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         of this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature. */
+    @Override
     Set<OWLObjectProperty> getObjectPropertiesInSignature();
 
     /** A convenience method that obtains the individuals that are in the
@@ -90,6 +99,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature. */
+    @Override
     Set<OWLNamedIndividual> getIndividualsInSignature();
 
     /** A convenience method that obtains the datatypes that are in the signature
@@ -99,6 +109,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         object.The set is a subset of the signature, and is not backed by
      *         the signature; it is a modifiable collection and changes are not
      *         reflected by the signature. */
+    @Override
     Set<OWLDatatype> getDatatypesInSignature();
 
     /** Gets all of the nested (includes top level) class expressions that are
