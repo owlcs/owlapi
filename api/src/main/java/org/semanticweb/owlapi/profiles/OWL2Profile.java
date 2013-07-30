@@ -72,6 +72,12 @@ public class OWL2Profile implements OWLProfile {
     }
 
     @Override
+    public IRI getIRI() {
+        // FIXME: The javadoc says this is an OWL2-DL profile, but it does not contain the same restrictions as OWL2DLProfile
+        return OWL2_FULL;
+    }
+
+    @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWLOntologyWalker walker = new OWLOntologyWalker(ontology.getImportsClosure());
         OWL2ProfileObjectWalker visitor = new OWL2ProfileObjectWalker(walker, ontology.getOWLOntologyManager());
