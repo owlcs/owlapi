@@ -46,59 +46,39 @@ package org.semanticweb.owlapi.vocab;
  * Date: 13-Dec-2006<br><br>
  */
 public enum Namespaces {
-
-    /**
-     * Helper constant to indicate that a namespace is a built in OWL namespace.
-     */
-    private static final boolean BUILT_IN = true;
-
-    /**
-     * Helper constant to indicate that a namespace is not built in.
-     */
-    private static final boolean NOT_BUILT_IN = false;
-
-    /**
-     * Helper constant to indicate that a namespace is currently in use.
-     */
-    private static final boolean IN_USE = true;
-
-    /**
-     * Helper constant to indicate that a namespace is not currently in use.
-     */
-    private static final boolean NOT_IN_USE = false;
-
-//    OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
+    
+    //    OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
 
     /**
      * The OWL 2 namespace is here for legacy reasons.
      */
-    OWL2("owl2", "http://www.w3.org/2006/12/owl2#", NOT_IN_USE, NOT_BUILT_IN),
+    OWL2("owl2", "http://www.w3.org/2006/12/owl2#", false, false),
 
     /**legacy*/
-    OWL11XML("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", NOT_IN_USE, NOT_BUILT_IN),
+    OWL11XML("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", false, false),
 
 
     /**
      * The OWL 1.1 namespace is here for legacy reasons.
      */
-    OWL11("owl11", "http://www.w3.org/2006/12/owl11#", NOT_IN_USE, NOT_BUILT_IN),
+    OWL11("owl11", "http://www.w3.org/2006/12/owl11#", false, false),
 
     /**OWL namespace*/
-    OWL("owl", "http://www.w3.org/2002/07/owl#", IN_USE, BUILT_IN),
+    OWL("owl", "http://www.w3.org/2002/07/owl#", true, true),
     /**RDFS namespace*/
-    RDFS("rdfs", "http://www.w3.org/2000/01/rdf-schema#", IN_USE, BUILT_IN),
+    RDFS("rdfs", "http://www.w3.org/2000/01/rdf-schema#", true, true),
     /**RDF namespace*/
-    RDF("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#", IN_USE, BUILT_IN),
+    RDF("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#", true, true),
     /**XSD namespace*/
-    XSD("xsd", "http://www.w3.org/2001/XMLSchema#", IN_USE, BUILT_IN),
+    XSD("xsd", "http://www.w3.org/2001/XMLSchema#", true, true),
     /**XML namespace*/
-    XML("xml", "http://www.w3.org/XML/1998/namespace", IN_USE, NOT_BUILT_IN),
+    XML("xml", "http://www.w3.org/XML/1998/namespace", true, false),
     /**SWRL namespace*/
-    SWRL("swrl", "http://www.w3.org/2003/11/swrl#", IN_USE, NOT_BUILT_IN),
+    SWRL("swrl", "http://www.w3.org/2003/11/swrl#", true, false),
     /**SWRLB namespace*/
-    SWRLB("swrlb", "http://www.w3.org/2003/11/swrlb#", IN_USE, NOT_BUILT_IN),
+    SWRLB("swrlb", "http://www.w3.org/2003/11/swrlb#", true, false),
     /**SKOS namespace*/
-    SKOS("skos", "http://www.w3.org/2004/02/skos/core#", IN_USE, NOT_BUILT_IN);
+    SKOS("skos", "http://www.w3.org/2004/02/skos/core#", true, false);
 
     final String prefix;
     final String ns;
