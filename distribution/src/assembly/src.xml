@@ -1,0 +1,25 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 
+    http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+	<id>src</id>
+	<formats>
+		<format>dir</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<moduleSets>
+		<moduleSet>
+			<includes>
+				<include>net.sourceforge.owlapi:owlapi-api:*</include>
+				<include>net.sourceforge.owlapi:owlapi-apibinding:*</include>
+				<include>net.sourceforge.owlapi:owlapi-tools:*</include>
+				<include>net.sourceforge.owlapi:owlapi-parsers:*</include>
+				<include>net.sourceforge.owlapi:owlapi-contract:*</include>
+				<include>net.sourceforge.owlapi:owlapi-impl:*</include>
+			</includes>
+			<sources>
+				<outputDirectory>sources/${artifactId}</outputDirectory>
+			</sources>
+		</moduleSet>
+	</moduleSets>
+</assembly>

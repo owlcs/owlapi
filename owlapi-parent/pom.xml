@@ -13,10 +13,11 @@
 		<version>6</version>
 	</parent>
 
+
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>3.4.5-SNAPSHOT</version>
+	<version>3.4.6-SNAPSHOT</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
@@ -116,7 +117,6 @@
 							<execution>
 								<id>sign-artifacts</id>
 								<phase>verify</phase>
-
 								<goals>
 									<goal>sign</goal>
 								</goals>
@@ -136,7 +136,7 @@
 					</instructions>
 				</configuration>
 			</plugin>
-		</plugins>
+				</plugins>
 			</build>
 		</profile>
 
@@ -144,7 +144,6 @@
 
 	<build>
 		<plugins>
-
 			<!-- In the Compiler Plugin we specify the encoding and the compiler version. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -161,11 +160,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.2</version>
 				<executions>
-					<!-- Attach sources. -->
 					<execution>
 						<id>attach-sources</id>
+						<phase>install</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
@@ -192,10 +190,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2</version>
+				<version>2.4</version>
 				<configuration>
 					<descriptors>
-						<!-- <descriptor>owlapi-bin.xml</descriptor> -->
 						<descriptor>distribution/src/assembly/bin.xml</descriptor>
 					</descriptors>
 				</configuration>
@@ -222,5 +219,4 @@
 		<developerConnection>scm:git:git@github.com:owlcs/owlapi.git</developerConnection>
 		<url>https://github.com/owlcs/owlapi</url>
 	</scm>
-
 </project>
