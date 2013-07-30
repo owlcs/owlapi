@@ -231,9 +231,9 @@
 
 	<!-- Parameters for the Source Code Management system. -->
 	<scm>
-		<connection>scm:git:git://git.code.sf.net/p/owlapi/code</connection>
-		<developerConnection>scm:git:ssh://ignazio1977@git.code.sf.net/p/owlapi/code</developerConnection>
-		<url>git://git.code.sf.net/p/owlapi/code</url>
+		<connection>scm:git:git://github.com/owlcs/owlapi.git</connection>
+		<developerConnection>scm:git:git@github.com:owlcs/owlapi.git</developerConnection>
+		<url>https://github.com/owlcs/owlapi</url>
 	</scm>
 
 </project>
