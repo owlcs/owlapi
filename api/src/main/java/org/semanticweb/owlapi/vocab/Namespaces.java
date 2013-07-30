@@ -96,7 +96,84 @@ public enum Namespaces {
     /**
      * SKOS namespace
      */
-    SKOS("skos", "http://www.w3.org/2004/02/skos/core#", true, false);
+    SKOS("skos", "http://www.w3.org/2004/02/skos/core#", true, false),
+    
+    // Further namespaces from the RDFa Core Initial Context
+    // http://www.w3.org/2011/rdfa-context/rdfa-1.1
+    
+    /**GRDDL namespace*/
+    GRDDL("grddl", "http://www.w3.org/2003/g/data-view#", true, false),
+    /**MA namespace*/
+    MA("ma", "http://www.w3.org/ns/ma-ont#", true, false),
+    /**PROV namespace*/
+    PROV("prov", "http://www.w3.org/ns/prov#", true, false),
+    /**RDFA namespace*/
+    RDFA("rdfa", "http://www.w3.org/ns/rdfa#", true, false),
+    /**RIF namespace*/
+    RIF("rif", "http://www.w3.org/2007/rif#", true, false),
+    /**R2RML namespace*/
+    R2RML("rr", "http://www.w3.org/ns/r2rml#", true, false),
+    /**SD namespace*/
+    SD("sd", "http://www.w3.org/ns/sparql-service-description#", true, false),
+    /**SKOSXL namespace*/
+    SKOSXL("skosxl", "http://www.w3.org/2008/05/skos-xl#", true, false),
+    /**POWDER namespace*/
+    POWDER("wdr", "http://www.w3.org/2007/05/powder#", true, false),
+    /**VOID namespace*/
+    VOID("void", "http://rdfs.org/ns/void#", true, false),
+    /**POWDER-S namespace*/
+    POWDERS("wdrs", "http://www.w3.org/2007/05/powder-s#", true, false),
+    /**XHV namespace*/
+    XHV("xhv", "http://www.w3.org/1999/xhtml/vocab#", true, false),
+    
+    
+    /**ORG namespace*/
+    ORG("org", "http://www.w3.org/ns/org#", true, false),
+    /**GLDP namespace*/
+    GLDP("gldp", "http://www.w3.org/ns/people#", true, false),
+    /**CNT namespace*/
+    CNT("cnt", "http://www.w3.org/2008/content#", true, false),
+    /**DCAT namespace*/
+    DCAT("dcat", "http://www.w3.org/ns/dcat#", true, false),
+    /**EARL namespace*/
+    EARL("earl", "http://www.w3.org/ns/earl#", true, false),
+    /**HT namespace*/
+    HT("ht", "http://www.w3.org/2006/http#", true, false),
+    /**PTR namespace*/
+    PTR("ptr", "http://www.w3.org/2009/pointers#", true, false),
+    
+    
+    // Other widely used Semantic Web prefixes
+    
+    /**CC namespace*/
+    CC("cc", "http://creativecommons.org/ns#", true, false),
+    /**CTAG namespace*/
+    CTAG("ctag", "http://commontag.org/ns#", true, false),
+    /**DCTERMS namespace*/
+    DCTERMS("dcterms", "http://purl.org/dc/terms/", true, false),
+    /**DC elements namespace*/
+    DC("dc", "http://purl.org/dc/elements/1.1/", true, false),
+    /**FOAF namespace*/
+    FOAF("foaf", "http://xmlns.com/foaf/0.1/", true, false),
+    /**GR namespace*/
+    GR("gr", "http://purl.org/goodrelations/v1#", true, false),
+    /**ICAL namespace*/
+    ICAL("ical", "http://www.w3.org/2002/12/cal/icaltzd#", true, false),
+    /**OG namespace*/
+    OG("og", "http://ogp.me/ns#", true, false),
+    /**REV namespace*/
+    REV("rev", "http://purl.org/stuff/rev#", true, false),
+    /**SIOC namespace*/
+    SIOC("sioc", "http://rdfs.org/sioc/ns#", true, false),
+    /**VCARD namespace*/
+    VCARD("vcard", "http://www.w3.org/2006/vcard/ns#", true, false),
+    /**SCHEMA namespace*/
+    SCHEMA("schema", "http://schema.org/", true, false),
+    
+    /**GEO namespace*/
+    GEO("geo", "http://www.w3.org/2003/01/geo/wgs84_pos#", true, false),
+    
+    ;
 
     final String prefix;
 
@@ -121,7 +198,7 @@ public enum Namespaces {
     }
 
     /**
-     * @return The base IRI which matches the prefix name.
+     * @return The prefix IRI which matches the prefix name.
      */
     public String getPrefixIRI() {
         return ns;
