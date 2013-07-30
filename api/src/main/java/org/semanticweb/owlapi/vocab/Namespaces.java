@@ -38,6 +38,7 @@
  */
 
 package org.semanticweb.owlapi.vocab;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -45,50 +46,82 @@ package org.semanticweb.owlapi.vocab;
  * Date: 13-Dec-2006<br><br>
  */
 public enum Namespaces {
-
-//    OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
+    
+    //    OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
 
     /**
      * The OWL 2 namespace is here for legacy reasons.
      */
-    OWL2("http://www.w3.org/2006/12/owl2#"),
+    OWL2("owl2", "http://www.w3.org/2006/12/owl2#", false, false),
 
     /**legacy*/
-    OWL11XML("http://www.w3.org/2006/12/owl11-xml#"),
+    OWL11XML("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", false, false),
 
 
     /**
      * The OWL 1.1 namespace is here for legacy reasons.
      */
-    OWL11("http://www.w3.org/2006/12/owl11#"),
+    OWL11("owl11", "http://www.w3.org/2006/12/owl11#", false, false),
 
     /**OWL namespace*/
-    OWL("http://www.w3.org/2002/07/owl#"),
+    OWL("owl", "http://www.w3.org/2002/07/owl#", true, true),
     /**RDFS namespace*/
-    RDFS("http://www.w3.org/2000/01/rdf-schema#"),
+    RDFS("rdfs", "http://www.w3.org/2000/01/rdf-schema#", true, true),
     /**RDF namespace*/
-    RDF("http://www.w3.org/1999/02/22-rdf-syntax-ns#"),
+    RDF("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#", true, true),
     /**XSD namespace*/
-    XSD("http://www.w3.org/2001/XMLSchema#"),
+    XSD("xsd", "http://www.w3.org/2001/XMLSchema#", true, true),
     /**XML namespace*/
-    XML("http://www.w3.org/XML/1998/namespace"),
+    XML("xml", "http://www.w3.org/XML/1998/namespace", true, false),
     /**SWRL namespace*/
-    SWRL("http://www.w3.org/2003/11/swrl#"),
+    SWRL("swrl", "http://www.w3.org/2003/11/swrl#", true, false),
     /**SWRLB namespace*/
-    SWRLB("http://www.w3.org/2003/11/swrlb#"),
+    SWRLB("swrlb", "http://www.w3.org/2003/11/swrlb#", true, false),
     /**SKOS namespace*/
-    SKOS("http://www.w3.org/2004/02/skos/core#");
+    SKOS("skos", "http://www.w3.org/2004/02/skos/core#", true, false);
 
+    final String prefix;
     final String ns;
+    final boolean inUse;
+    final boolean builtIn;
 
-
-    Namespaces(String ns) {
+    Namespaces(String prefix, String ns, boolean inUse, boolean builtIn) {
+        this.prefix = prefix;
         this.ns = ns;
+        this.inUse = inUse;
+        this.builtIn = builtIn;
     }
 
+    /**
+     * @return A short, human-readable, prefix name that matches, and expands to the full IRI.
+     */
+    public String getPrefixName() {
+        return prefix;
+    }
+
+    /**
+     * @return The base IRI which matches the prefix name.
+     */
+    public String getBaseIRI() {
+        return ns;
+    }
+
+    /**
+     * @return True if this namespace is not obsolete and is currently in active use.
+     */
+    public boolean isInUse() {
+        return inUse;
+    }
+
+    /**
+     * @return True if this namespace is defined as a core part of the OWL-2 specification.
+     */
+    public boolean isBuiltIn() {
+        return builtIn;
+    }
 
     @Override
-	public String toString() {
+    public String toString() {
         return ns;
     }
 }
