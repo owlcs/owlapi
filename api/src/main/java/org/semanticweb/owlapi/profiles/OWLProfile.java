@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.profiles;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 
@@ -51,12 +52,37 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public interface OWLProfile {
 
+    /** http://www.w3.org/ns/owl-profile/DL **/
+    public static final IRI OWL2_DL = IRI.create("http://www.w3.org/ns/owl-profile/DL");
+    
+    /** http://www.w3.org/ns/owl-profile/EL **/
+    public static final IRI OWL2_EL = IRI.create("http://www.w3.org/ns/owl-profile/EL");
+    
+    /** http://www.w3.org/ns/owl-profile/QL **/
+    public static final IRI OWL2_QL = IRI.create("http://www.w3.org/ns/owl-profile/QL");
+    
+    /** http://www.w3.org/ns/owl-profile/RL **/
+    public static final IRI OWL2_RL = IRI.create("http://www.w3.org/ns/owl-profile/RL");
+    
+    /** http://www.w3.org/ns/owl-profile/Full **/
+    public static final IRI OWL2_FULL = IRI.create("http://www.w3.org/ns/owl-profile/Full");
+    
     /**
      * Gets the name of the profile.
      * @return A string that represents the name of the profile
      */
     String getName();
 
+    /**
+     * The IRI that uniquely identifies this profile. 
+     * 
+     * If this profile is listed at http://www.w3.org/ns/owl-profile/ 
+     * this IRI MUST match the IRI given in the list.
+     * 
+     * @return The IRI that identifies this profile.
+     */
+    IRI getIRI();
+    
 
     /**
      * Checks an ontology and its import closure to see if it is within
