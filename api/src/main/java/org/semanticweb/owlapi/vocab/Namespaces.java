@@ -46,7 +46,7 @@ package org.semanticweb.owlapi.vocab;
  * Date: 13-Dec-2006<br><br>
  */
 public enum Namespaces {
-    
+
     //    OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
 
     /**
@@ -54,7 +54,9 @@ public enum Namespaces {
      */
     OWL2("owl2", "http://www.w3.org/2006/12/owl2#", false, false),
 
-    /**legacy*/
+    /**
+     * legacy
+     */
     OWL11XML("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", false, false),
 
 
@@ -63,26 +65,45 @@ public enum Namespaces {
      */
     OWL11("owl11", "http://www.w3.org/2006/12/owl11#", false, false),
 
-    /**OWL namespace*/
+    /**
+     * OWL namespace
+     */
     OWL("owl", "http://www.w3.org/2002/07/owl#", true, true),
-    /**RDFS namespace*/
+    /**
+     * RDFS namespace
+     */
     RDFS("rdfs", "http://www.w3.org/2000/01/rdf-schema#", true, true),
-    /**RDF namespace*/
+    /**
+     * RDF namespace
+     */
     RDF("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#", true, true),
-    /**XSD namespace*/
+    /**
+     * XSD namespace
+     */
     XSD("xsd", "http://www.w3.org/2001/XMLSchema#", true, true),
-    /**XML namespace*/
+    /**
+     * XML namespace
+     */
     XML("xml", "http://www.w3.org/XML/1998/namespace", true, false),
-    /**SWRL namespace*/
+    /**
+     * SWRL namespace
+     */
     SWRL("swrl", "http://www.w3.org/2003/11/swrl#", true, false),
-    /**SWRLB namespace*/
+    /**
+     * SWRLB namespace
+     */
     SWRLB("swrlb", "http://www.w3.org/2003/11/swrlb#", true, false),
-    /**SKOS namespace*/
+    /**
+     * SKOS namespace
+     */
     SKOS("skos", "http://www.w3.org/2004/02/skos/core#", true, false);
 
     final String prefix;
+
     final String ns;
+
     final boolean inUse;
+
     final boolean builtIn;
 
     Namespaces(String prefix, String ns, boolean inUse, boolean builtIn) {
@@ -102,7 +123,7 @@ public enum Namespaces {
     /**
      * @return The base IRI which matches the prefix name.
      */
-    public String getBaseIRI() {
+    public String getPrefixIRI() {
         return ns;
     }
 
