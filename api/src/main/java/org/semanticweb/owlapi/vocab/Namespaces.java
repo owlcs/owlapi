@@ -86,7 +86,7 @@ public enum Namespaces {
     }
 
     /** @return The base IRI which matches the prefix name. */
-    public String getBaseIRI() {
+    public String getPrefixIRI() {
         return ns;
     }
 
