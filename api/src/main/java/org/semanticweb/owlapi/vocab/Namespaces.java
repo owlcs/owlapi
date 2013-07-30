@@ -41,8 +41,8 @@ package org.semanticweb.owlapi.vocab;
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br>
- * <br> */
+ * Date: 13-Dec-2006 */
+@SuppressWarnings("javadoc")
 public enum Namespaces {
     //@formatter:off
     // OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
@@ -117,24 +117,24 @@ public enum Namespaces {
     }
 
     /** @return A short, human-readable, prefix name that matches, and expands to
-     *         the full IRI. */
+     *         the full IRI. Not {@code null}. */
     public String getPrefixName() {
         return prefix;
     }
 
-    /** @return The prefix IRI which matches the prefix name. */
+    /** @return The prefix IRI which matches the prefix name. Not {@code null}. */
     public String getPrefixIRI() {
         return ns;
     }
 
-    /** @return True if this namespace is not obsolete and is currently in active
-     *         use. */
+    /** @return {@code true} if this namespace is not obsolete and is currently in
+     *         active use, otherwise {@code false}. */
     public boolean isInUse() {
         return inUse;
     }
 
-    /** @return True if this namespace is defined as a core part of the OWL-2
-     *         specification. */
+    /** @return {@code true} if this namespace is defined as a core part of the
+     *         OWL-2 specification, otherwise {@code false}. */
     public boolean isBuiltIn() {
         return builtIn;
     }
