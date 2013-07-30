@@ -38,7 +38,11 @@
  */
 package org.semanticweb.owlapi.vocab;
 
-/** Author: Matthew Horridge<br>
+import static org.semanticweb.owlapi.vocab.Namespaces.BuiltIn.*;
+import static org.semanticweb.owlapi.vocab.Namespaces.Status.*;
+
+/**
+ * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006 */
@@ -47,72 +51,82 @@ public enum Namespaces {
     //@formatter:off
     // OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
     /** The OWL 2 namespace is here for legacy reasons. */
-    OWL2    ("owl2",    "http://www.w3.org/2006/12/owl2#",                  false, false),
+    OWL2    ("owl2",    "http://www.w3.org/2006/12/owl2#", LEGACY),
     /** legacy */                                                           
-    OWL11XML("owl11xml", "http://www.w3.org/2006/12/owl11-xml#",            false, false),
+    OWL11XML("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", LEGACY),
     /** The OWL 1.1 namespace is here for legacy reasons. */                
-    OWL11   ("owl11",   "http://www.w3.org/2006/12/owl11#",                 false, false),
-    OWL     ("owl",     "http://www.w3.org/2002/07/owl#",                   true,  true),
-    RDFS    ("rdfs",    "http://www.w3.org/2000/01/rdf-schema#",            true,  true),
-    RDF     ("rdf",     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",      true,  true),
-    XSD     ("xsd",     "http://www.w3.org/2001/XMLSchema#",                true,  true),
-    XML     ("xml",     "http://www.w3.org/XML/1998/namespace",             true,  false),
-    SWRL    ("swrl",    "http://www.w3.org/2003/11/swrl#",                  true,  false),
-    SWRLB   ("swrlb",   "http://www.w3.org/2003/11/swrlb#",                 true,  false),
-    SKOS    ("skos",    "http://www.w3.org/2004/02/skos/core#",             true,  false),
+    OWL11   ("owl11",   "http://www.w3.org/2006/12/owl11#", LEGACY),
+    OWL     ("owl",     "http://www.w3.org/2002/07/owl#", IN_USE, BUILT_IN),
+    RDFS    ("rdfs",    "http://www.w3.org/2000/01/rdf-schema#", IN_USE, BUILT_IN),
+    RDF     ("rdf",     "http://www.w3.org/1999/02/22-rdf-syntax-ns#", IN_USE, BUILT_IN),
+    XSD     ("xsd",     "http://www.w3.org/2001/XMLSchema#", IN_USE, BUILT_IN),
+    XML     ("xml",     "http://www.w3.org/XML/1998/namespace"),
+    SWRL    ("swrl",    "http://www.w3.org/2003/11/swrl#"),
+    SWRLB   ("swrlb",   "http://www.w3.org/2003/11/swrlb#"),
+    SKOS    ("skos",    "http://www.w3.org/2004/02/skos/core#"),
     // Further namespaces from the RDFa Core Initial Context                       
     // http://www.w3.org/2011/rdfa-context/rdfa-1.1                                
-    GRDDL   ("grddl",   "http://www.w3.org/2003/g/data-view#",              true,  false),
-    MA      ("ma",      "http://www.w3.org/ns/ma-ont#",                     true,  false),
-    PROV    ("prov",    "http://www.w3.org/ns/prov#",                       true,  false),
-    RDFA    ("rdfa",    "http://www.w3.org/ns/rdfa#",                       true,  false),
-    RIF     ("rif",     "http://www.w3.org/2007/rif#",                      true,  false),
-    R2RML   ("rr",      "http://www.w3.org/ns/r2rml#",                      true,  false),
-    SD      ("sd",      "http://www.w3.org/ns/sparql-service-description#", true,  false),
-    SKOSXL  ("skosxl",  "http://www.w3.org/2008/05/skos-xl#",               true,  false),
-    POWDER  ("wdr",     "http://www.w3.org/2007/05/powder#",                true,  false),
-    VOID    ("void",    "http://rdfs.org/ns/void#",                         true,  false),
-    POWDERS ("wdrs",    "http://www.w3.org/2007/05/powder-s#",              true,  false),
-    XHV     ("xhv",     "http://www.w3.org/1999/xhtml/vocab#",              true,  false),
-    ORG     ("org",     "http://www.w3.org/ns/org#",                        true,  false),
-    GLDP    ("gldp",    "http://www.w3.org/ns/people#",                     true,  false),
-    CNT     ("cnt",     "http://www.w3.org/2008/content#",                  true,  false),
-    DCAT    ("dcat",    "http://www.w3.org/ns/dcat#",                       true,  false),
-    EARL    ("earl",    "http://www.w3.org/ns/earl#",                       true,  false),
-    HT      ("ht",      "http://www.w3.org/2006/http#",                     true,  false),
-    PTR     ("ptr",     "http://www.w3.org/2009/pointers#",                 true,  false),
+    GRDDL   ("grddl",   "http://www.w3.org/2003/g/data-view#"),
+    MA      ("ma",      "http://www.w3.org/ns/ma-ont#"),
+    PROV    ("prov",    "http://www.w3.org/ns/prov#"),
+    RDFA    ("rdfa",    "http://www.w3.org/ns/rdfa#"),
+    RIF     ("rif",     "http://www.w3.org/2007/rif#"),
+    R2RML   ("rr",      "http://www.w3.org/ns/r2rml#"),
+    SD      ("sd",      "http://www.w3.org/ns/sparql-service-description#"),
+    SKOSXL  ("skosxl",  "http://www.w3.org/2008/05/skos-xl#"),
+    POWDER  ("wdr",     "http://www.w3.org/2007/05/powder#"),
+    VOID    ("void",    "http://rdfs.org/ns/void#"),
+    POWDERS ("wdrs",    "http://www.w3.org/2007/05/powder-s#"),
+    XHV     ("xhv",     "http://www.w3.org/1999/xhtml/vocab#"),
+    ORG     ("org",     "http://www.w3.org/ns/org#"),
+    GLDP    ("gldp",    "http://www.w3.org/ns/people#"),
+    CNT     ("cnt",     "http://www.w3.org/2008/content#"),
+    DCAT    ("dcat",    "http://www.w3.org/ns/dcat#"),
+    EARL    ("earl",    "http://www.w3.org/ns/earl#"),
+    HT      ("ht",      "http://www.w3.org/2006/http#"),
+    PTR     ("ptr",     "http://www.w3.org/2009/pointers#"),
     // Other widely used Semantic Web prefixes                                     
-    CC      ("cc",      "http://creativecommons.org/ns#",                   true,  false),
-    CTAG    ("ctag",    "http://commontag.org/ns#",                         true,  false),
-    DCTERMS ("dcterms", "http://purl.org/dc/terms/",                        true,  false),
-    DC      ("dc",      "http://purl.org/dc/elements/1.1/",                 true,  false),
-    FOAF    ("foaf",    "http://xmlns.com/foaf/0.1/",                       true,  false),
-    GR      ("gr",      "http://purl.org/goodrelations/v1#",                true,  false),
-    ICAL    ("ical",    "http://www.w3.org/2002/12/cal/icaltzd#",           true,  false),
-    OG      ("og",      "http://ogp.me/ns#",                                true,  false),
-    REV     ("rev",     "http://purl.org/stuff/rev#",                       true,  false),
-    SIOC    ("sioc",    "http://rdfs.org/sioc/ns#",                         true,  false),
-    VCARD   ("vcard",   "http://www.w3.org/2006/vcard/ns#",                 true,  false),
-    SCHEMA  ("schema",  "http://schema.org/",                               true,  false),
-    GEO     ("geo",     "http://www.w3.org/2003/01/geo/wgs84_pos#",         true,  false),
-    SC      ("sc",      "http://purl.org/science/owl/sciencecommons/",      true,  false),
-    FB      ("fb",      "http://rdf.freebase.com/ns/",                      false, true),
-    GEONAMES("geonames","http://www.geonames.org/ontology#",                false, true),
+    CC      ("cc",      "http://creativecommons.org/ns#"),
+    CTAG    ("ctag",    "http://commontag.org/ns#"),
+    DCTERMS ("dcterms", "http://purl.org/dc/terms/"),
+    DC      ("dc",      "http://purl.org/dc/elements/1.1/"),
+    FOAF    ("foaf",    "http://xmlns.com/foaf/0.1/"),
+    GR      ("gr",      "http://purl.org/goodrelations/v1#"),
+    ICAL    ("ical",    "http://www.w3.org/2002/12/cal/icaltzd#"),
+    OG      ("og",      "http://ogp.me/ns#"),
+    REV     ("rev",     "http://purl.org/stuff/rev#"),
+    SIOC    ("sioc",    "http://rdfs.org/sioc/ns#"),
+    VCARD   ("vcard",   "http://www.w3.org/2006/vcard/ns#"),
+    SCHEMA  ("schema",  "http://schema.org/"),
+    GEO     ("geo",     "http://www.w3.org/2003/01/geo/wgs84_pos#"),
+    SC      ("sc",      "http://purl.org/science/owl/sciencecommons/"),
+    FB      ("fb",      "http://rdf.freebase.com/ns/", LEGACY),
+    GEONAMES("geonames","http://www.geonames.org/ontology#", LEGACY),
     // DBpedia                                                              
-    DBPEDIA("dbpedia",  "http://dbpedia.org/resource/",                     true, false),
-    DBP    ("dbp",      "http://dbpedia.org/property/",                     true, false),
-    DBO    ("dbo",      "http://dbpedia.org/ontology/",                     true, false),
-    YAGO   ("yago",     "http://dbpedia.org/class/yago/",                   true, false);
+    DBPEDIA("dbpedia",  "http://dbpedia.org/resource/", LEGACY),
+    DBP    ("dbp",      "http://dbpedia.org/property/", LEGACY),
+    DBO    ("dbo",      "http://dbpedia.org/ontology/"),
+    YAGO   ("yago",     "http://dbpedia.org/class/yago/");
     //@formatter:on
+
     final String prefix;
     final String ns;
-    final boolean inUse;
-    final boolean builtIn;
+    final Status status;
 
-    Namespaces(String prefix, String ns, boolean inUse, boolean builtIn) {
+    final BuiltIn builtIn;
+
+    Namespaces(String prefix, String ns, Status status) {
+        this(prefix, ns, status, NOT_BUILT_IN);
+    }
+
+    Namespaces(String prefix, String ns) {
+        this(prefix, ns, IN_USE, NOT_BUILT_IN);
+    }
+
+    Namespaces(String prefix, String ns, Status status, BuiltIn builtIn) {
         this.prefix = prefix;
         this.ns = ns;
-        this.inUse = inUse;
+        this.status = status;
         this.builtIn = builtIn;
     }
 
@@ -130,17 +144,37 @@ public enum Namespaces {
     /** @return {@code true} if this namespace is not obsolete and is currently in
      *         active use, otherwise {@code false}. */
     public boolean isInUse() {
-        return inUse;
+        return status == IN_USE;
     }
 
     /** @return {@code true} if this namespace is defined as a core part of the
      *         OWL-2 specification, otherwise {@code false}. */
     public boolean isBuiltIn() {
-        return builtIn;
+        return builtIn == BUILT_IN;
     }
 
     @Override
     public String toString() {
         return ns;
+    }
+
+    /**
+     * Indicates that a prefix is builtin - i.e. that it is either owl, rdf, rdfs, or xsd
+     */
+    public static enum BuiltIn {
+
+        BUILT_IN,
+
+        NOT_BUILT_IN
+    }
+
+    /**
+     * Indicates whether a prefix is a legacy prefix or not.
+     */
+    public static enum Status {
+
+        LEGACY,
+
+        IN_USE
     }
 }
