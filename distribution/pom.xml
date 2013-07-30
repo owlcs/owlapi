@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-distribution</artifactId>
 	<packaging>bundle</packaging>
@@ -19,6 +20,26 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-apibinding</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-tools</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-impl</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-parsers</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
@@ -53,6 +74,11 @@
 					</executions>
 				</configuration>
             </plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
 			<!-- Javadocs -->
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -60,7 +86,7 @@
 				<executions>
 					<execution>
 						<id>javadoc-jar</id>
-						<phase>package</phase>
+						<phase>install</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
@@ -69,7 +95,11 @@
 							<includeDependencySources>true</includeDependencySources>
 							<dependencySourceIncludes>
 								<!-- include ONLY owlapi artifacts -->
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-*</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-api</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-apibinding</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-parsers</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-tools</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
 							</dependencySourceIncludes>
 						</configuration>
 					</execution>
