@@ -47,59 +47,97 @@ package org.semanticweb.owlapi.vocab;
  */
 public enum Namespaces {
 
+    /**
+     * Helper constant to indicate that a namespace is a built in OWL namespace.
+     */
+    private static final boolean BUILT_IN = true;
+
+    /**
+     * Helper constant to indicate that a namespace is not built in.
+     */
+    private static final boolean NOT_BUILT_IN = false;
+
+    /**
+     * Helper constant to indicate that a namespace is currently in use.
+     */
+    private static final boolean IN_USE = true;
+
+    /**
+     * Helper constant to indicate that a namespace is not currently in use.
+     */
+    private static final boolean NOT_IN_USE = false;
+
 //    OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
 
     /**
      * The OWL 2 namespace is here for legacy reasons.
      */
-    OWL2("owl2", "http://www.w3.org/2006/12/owl2#", false),
+    OWL2("owl2", "http://www.w3.org/2006/12/owl2#", NOT_IN_USE, NOT_BUILT_IN),
 
     /**legacy*/
-    OWL11XML("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", false),
+    OWL11XML("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", NOT_IN_USE, NOT_BUILT_IN),
 
 
     /**
      * The OWL 1.1 namespace is here for legacy reasons.
      */
-    OWL11("owl11", "http://www.w3.org/2006/12/owl11#", false),
+    OWL11("owl11", "http://www.w3.org/2006/12/owl11#", NOT_IN_USE, NOT_BUILT_IN),
 
     /**OWL namespace*/
-    OWL("owl", "http://www.w3.org/2002/07/owl#", true),
+    OWL("owl", "http://www.w3.org/2002/07/owl#", IN_USE, BUILT_IN),
     /**RDFS namespace*/
-    RDFS("rdfs", "http://www.w3.org/2000/01/rdf-schema#", true),
+    RDFS("rdfs", "http://www.w3.org/2000/01/rdf-schema#", IN_USE, BUILT_IN),
     /**RDF namespace*/
-    RDF("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#", true),
+    RDF("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#", IN_USE, BUILT_IN),
     /**XSD namespace*/
-    XSD("xsd", "http://www.w3.org/2001/XMLSchema#", true),
+    XSD("xsd", "http://www.w3.org/2001/XMLSchema#", IN_USE, BUILT_IN),
     /**XML namespace*/
-    XML("xml", "http://www.w3.org/XML/1998/namespace", true),
+    XML("xml", "http://www.w3.org/XML/1998/namespace", IN_USE, NOT_BUILT_IN),
     /**SWRL namespace*/
-    SWRL("swrl", "http://www.w3.org/2003/11/swrl#", true),
+    SWRL("swrl", "http://www.w3.org/2003/11/swrl#", IN_USE, NOT_BUILT_IN),
     /**SWRLB namespace*/
-    SWRLB("swrlb", "http://www.w3.org/2003/11/swrlb#", true),
+    SWRLB("swrlb", "http://www.w3.org/2003/11/swrlb#", IN_USE, NOT_BUILT_IN),
     /**SKOS namespace*/
-    SKOS("skos", "http://www.w3.org/2004/02/skos/core#", true);
+    SKOS("skos", "http://www.w3.org/2004/02/skos/core#", IN_USE, NOT_BUILT_IN);
 
     final String prefix;
     final String ns;
     final boolean inUse;
+    final boolean builtIn;
 
-    Namespaces(String prefix, String ns, boolean inUse) {
+    Namespaces(String prefix, String ns, boolean inUse, boolean builtIn) {
         this.prefix = prefix;
         this.ns = ns;
         this.inUse = inUse;
+        this.builtIn = builtIn;
     }
 
+    /**
+     * @return A short, human-readable, prefix name that matches, and expands to the full IRI.
+     */
     public String getPrefixName() {
-        return this.prefix;
+        return prefix;
     }
 
+    /**
+     * @return The base IRI which matches the prefix name.
+     */
     public String getBaseIRI() {
-        return this.ns;
+        return ns;
     }
 
+    /**
+     * @return True if this namespace is not obsolete and is currently in active use.
+     */
     public boolean isInUse() {
-        return this.inUse;
+        return inUse;
+    }
+
+    /**
+     * @return True if this namespace is defined as a core part of the OWL-2 specification.
+     */
+    public boolean isBuiltIn() {
+        return builtIn;
     }
 
     @Override
