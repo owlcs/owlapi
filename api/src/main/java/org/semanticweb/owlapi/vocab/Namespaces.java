@@ -39,9 +39,6 @@
 
 package org.semanticweb.owlapi.vocab;
 
-import org.openrdf.model.Namespace;
-import org.openrdf.model.impl.NamespaceImpl;
-
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -93,27 +90,20 @@ public enum Namespaces {
         this.inUse = inUse;
     }
 
-    Namespace toNamespace() {
-        return new NamespaceImpl(this.prefix, this.ns);
-    }
-    
-    public String getCommonPrefix()
-    {
+    public String getPrefixName() {
         return this.prefix;
     }
-    
-    public String getBaseIRI()
-    {
+
+    public String getBaseIRI() {
         return this.ns;
     }
-    
-    public boolean isInUse()
-    {
+
+    public boolean isInUse() {
         return this.inUse;
     }
-    
+
     @Override
-	public String toString() {
+    public String toString() {
         return ns;
     }
 }
