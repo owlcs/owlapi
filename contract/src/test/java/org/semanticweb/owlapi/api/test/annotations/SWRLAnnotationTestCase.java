@@ -59,8 +59,6 @@ public class SWRLAnnotationTestCase {
         OWLOntology ontology = createOntology();
         assertTrue(ontology.containsAxiom(AXIOM));
         String saved = saveOntology(ontology);
-        System.out
-                .println("SWRLAnnotationTestCase.shouldRoundTripAnnotation()\n" + saved);
         ontology = loadOntology(saved);
         assertTrue(ontology.containsAxiom(AXIOM));
     }

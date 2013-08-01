@@ -39,21 +39,23 @@
 
 package org.semanticweb.owlapi.reasoner;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
  * Date: 21-Jan-2009
- *
  * <p>
- * An OWLReasonerConfiguration can be used to customise the setup of a reasoner at reasoner creation time via
- * an {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}. Specific
- * reasoners may define their own configuration objects with configuration options particular to the reasoner.
- * There are also a set of general options defined by this configuration object.
+ * An OWLReasonerConfiguration can be used to customise the setup of a reasoner
+ * at reasoner creation time via an
+ * {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}. Specific
+ * reasoners may define their own configuration objects with configuration
+ * options particular to the reasoner. There are also a set of general options
+ * defined by this configuration object.
  * </p>
- * Note that once a reasoner has been created, changing fields (via setter methods or directly) on the configuration
- * object will have no effect.
- * @see{@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}
- * @see{@link org.semanticweb.owlapi.reasoner.SimpleConfiguration}
- */
+ * Note that once a reasoner has been created, changing fields (via setter
+ * methods or directly) on the configuration object will have no effect.
+ * 
+ * @see org.semanticweb.owlapi.reasoner.OWLReasonerFactory
+ * @see org.semanticweb.owlapi.reasoner.SimpleConfiguration */
 public interface OWLReasonerConfiguration {
 
     /**

@@ -787,13 +787,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      */
     void removeOntologyChangesVetoedListener(OWLOntologyChangesVetoedListener listener);
 
-    /**
-     * Sets the default strategy that is used to broadcast ontology changes.
-     * @param strategy The strategy to be used for broadcasting changes.  This strategy will override any previously
-     *                 set broadcast strategy.  The strategy should not be <code>null</code>.
-     * @see {@link org.semanticweb.owlapi.model.DefaultChangeBroadcastStrategy}
-     * @see {@link org.semanticweb.owlapi.model.EDTChangeBroadcastStrategy}
-     */
+    /** Sets the default strategy that is used to broadcast ontology changes.
+     * 
+     * @param strategy
+     *            The strategy to be used for broadcasting changes. This
+     *            strategy will override any previously set broadcast strategy.
+     *            The strategy should not be <code>null</code>.
+     * @see org.semanticweb.owlapi.model.DefaultChangeBroadcastStrategy
+     * @see org.semanticweb.owlapi.model.EDTChangeBroadcastStrategy */
     void setDefaultChangeBroadcastStrategy(OWLOntologyChangeBroadcastStrategy strategy);
 
     /**

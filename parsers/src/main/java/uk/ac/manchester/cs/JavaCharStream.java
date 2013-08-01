@@ -258,7 +258,7 @@ public class JavaCharStream {
 
     /** Read a character.
      * 
-     * @return
+     * @return character
      * @throws IOException */
     public char readChar() throws IOException {
         if (inBuf > 0) {
@@ -329,12 +329,12 @@ public class JavaCharStream {
     }
 
 
-    /** Get end column. */
+    /** @return end column. */
     public int getEndColumn() {
         return bufcolumn[bufpos];
     }
 
-    /** Get end line. */
+    /** @return end line. */
     public int getEndLine() {
         return bufline[bufpos];
     }

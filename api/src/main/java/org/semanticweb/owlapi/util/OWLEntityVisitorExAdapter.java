@@ -61,13 +61,15 @@ public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
 
     private O defaultReturnValue = null;
 
-    /**
-     * Gets the default return value for this visitor.  By default, the default is <code>null</code>, but a fixed value
-     * (independent of the specified <code>OWLObject</code> <code>object</code>) can be specified in the constructor
-     * {@link org.semanticweb.owlapi.model.OWLObjectVisitorEx#()}
-     * @param object The object that was visited.
-     * @return The default return value
-     */
+    /** Gets the default return value for this visitor. By default, the default
+     * is <code>null</code>, but a fixed value (independent of the specified
+     * <code>OWLObject</code> <code>object</code>) can be specified in the
+     * constructor
+     * {@link org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter#OWLObjectVisitorExAdapter(Object)}
+     * 
+     * @param object
+     *            The object that was visited.
+     * @return The default return value */
     @SuppressWarnings("unused")
     protected O getDefaultReturnValue(OWLEntity object) {
         return defaultReturnValue;

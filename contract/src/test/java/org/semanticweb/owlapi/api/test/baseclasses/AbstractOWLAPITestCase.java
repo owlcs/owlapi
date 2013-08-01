@@ -56,6 +56,7 @@ import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -100,9 +101,12 @@ public abstract class AbstractOWLAPITestCase {
             }
             for (OWLAxiom ax : axioms2) {
                 if (!axioms1.contains(ax)) {
-                    sb.append("Add axiom: ");
-                    sb.append(ax);
-                    sb.append("\n");
+                    if (!(ax instanceof OWLDeclarationAxiom && ((OWLDeclarationAxiom) ax)
+                            .getEntity().isBuiltIn())) {
+                        sb.append("Add axiom: ");
+                        sb.append(ax);
+                        sb.append("\n");
+                    }
                 }
             }
             System.out

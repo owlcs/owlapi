@@ -130,32 +130,27 @@ public enum SKOSVocabulary {
     SCOPENOTE("scopeNote", EntityType.ANNOTATION_PROPERTY),
 
 
-    /**
-     * @Deprecated No longer used
-     */
+    /** @deprecated No longer used */
+    @Deprecated
     DOCUMENT("Document", EntityType.CLASS),
 
 
-     /**
-     * @Deprecated No longer used
-     */
+     /** @deprecated No longer used */
+    @Deprecated
     IMAGE("Image", EntityType.CLASS),
 
 
-     /**
-     * @Deprecated No longer used
-     */
+     /** @deprecated No longer used */
+    @Deprecated
     COLLECTABLEPROPERTY("CollectableProperty", EntityType.ANNOTATION_PROPERTY),
 
-     /**
-     * @Deprecated No longer used
-     */
+     /** @deprecated No longer used */
+    @Deprecated
     RESOURCE("Resource", EntityType.CLASS),
 
 
-     /**
-     * @Deprecated No longer used
-     */
+     /** @deprecated No longer used */
+    @Deprecated
     COMMENT("comment", EntityType.ANNOTATION_PROPERTY);
 
     public static final Set<IRI> ALL_IRIS;

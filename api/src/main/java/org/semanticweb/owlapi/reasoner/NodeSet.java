@@ -83,21 +83,23 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      */
     boolean isSingleton();
 
-    /**
-     * Determines if this <code>NodeSet</code> is a singleton node that only contains the top node (in a hierarchy).
-     * @see {@link Node#isTopNode()}
-     * @return <code>true</code> if this <code>NodeSet</code> is a singleton that contains only the top node, and
-     * <code>false</code> otherwise.
-     */
+    /** Determines if this <code>NodeSet</code> is a singleton node that only
+     * contains the top node (in a hierarchy).
+     * 
+     * @see org.semanticweb.owlapi.reasoner.Node#isTopNode()
+     * @return <code>true</code> if this <code>NodeSet</code> is a singleton
+     *         that contains only the top node, and <code>false</code>
+     *         otherwise. */
     boolean isTopSingleton();
 
 
-    /**
-     * Determies if this <code>NodeSet</code> is a singleton that only contains the bottom node (in a hierarchy).
-     * @see {@link Node#isBottomNode()}
-     * @return <code>true</code> if this <code>NodeSet</code> is a singleton that only contains a node that is the
-     * bottom node, otherwise <code>false</code>
-     */
+    /** Determies if this <code>NodeSet</code> is a singleton that only contains
+     * the bottom node (in a hierarchy).
+     * 
+     * @see org.semanticweb.owlapi.reasoner.Node#isBottomNode()
+     * @return <code>true</code> if this <code>NodeSet</code> is a singleton
+     *         that only contains a node that is the bottom node, otherwise
+     *         <code>false</code> */
     boolean isBottomSingleton();
 
     /**
