@@ -108,9 +108,9 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
-						<phase>install</phase>
+						<phase>package</phase>
 						<goals>
-							<goal>assembly</goal>
+							<goal>single</goal>
 						</goals>
 					</execution>
 				</executions>
