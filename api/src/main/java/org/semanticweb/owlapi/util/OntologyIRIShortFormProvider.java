@@ -69,6 +69,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
 
     @Override
     public String getShortForm(IRI iri) {
+        // XXX I suspect this is broken
         String shortForm = iri.toString();
         URI uri = iri.toURI();
         String path = uri.getPath();
@@ -91,9 +92,6 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         else if (uri.getHost() != null) {
             shortForm = iri.toString();
         }
-//        if(!Character.isUpperCase(shortForm.charAt(0))) {
-//            shortForm = Character.toUpperCase(shortForm.charAt(0)) + shortForm.substring(1, shortForm.length());
-//        }
 
         return shortForm;
 

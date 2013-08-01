@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.net.URI;
 import java.util.Collection;
@@ -50,7 +50,6 @@ public class ContractOwlapiVocabTest {
         String result0 = testSubject0.toString();
         DublinCoreVocabulary[] result1 = DublinCoreVocabulary.values();
         IRI result3 = testSubject0.getIRI();
-        URI result4 = testSubject0.getURI();
         String result5 = testSubject0.getShortName();
         String result6 = testSubject0.getQName();
         String result7 = testSubject0.name();

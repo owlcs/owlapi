@@ -79,7 +79,6 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEn
     }
 
     private static IRI convert(IRI iri) {
-        String iriString = iri.toString();
         String fragment = iri.getFragment();
         if(fragment != null) {
             String base = iri.getNamespace();
@@ -93,6 +92,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEn
             int index = path.lastIndexOf('/');
             String lastPathElement = path.substring(index + 1, path.length());
             String camelCaseElement = toCamelCase(lastPathElement);
+            String iriString = iri.toString();
             String base = iriString.substring(0, iriString.lastIndexOf('/') + 1);
             return IRI.create(base, camelCaseElement);
         }

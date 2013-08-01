@@ -44,16 +44,13 @@ import java.io.Serializable;
 import org.semanticweb.owlapi.model.IRI;
 
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 18-Dec-2007<br><br>
- *
- * A URI short form provider that generates short forms from
- * the URI fragment if there is one, followed by the URI last
- * path component if there is one.
- */
+ * Date: 18-Dec-2007<br>
+ * <br>
+ * A IRI short form provider that generates short forms from the IRI fragment if
+ * there is one, or the IRI last path component if there is one. */
 public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Serializable {
 
     private static final long serialVersionUID = 30402L;

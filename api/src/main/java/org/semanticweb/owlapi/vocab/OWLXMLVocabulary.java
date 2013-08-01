@@ -39,7 +39,6 @@
 
 package org.semanticweb.owlapi.vocab;
 
-import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -260,10 +259,7 @@ public enum OWLXMLVocabulary {
     ;
 
     private final IRI iri;
-
     private final String shortName;
-
-
 
     OWLXMLVocabulary(String name) {
         iri = IRI.create(Namespaces.OWL.toString(), name);
@@ -274,26 +270,16 @@ public enum OWLXMLVocabulary {
         return iri;
     }
 
-    @Deprecated
-    public URI getURI() {
-        return iri.toURI();
-    }
-
-
     public String getShortName() {
         return shortName;
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         return iri.toString();
     }
 
-
     static final Set<IRI> BUILT_IN_IRIS;
-
-
     static {
         BUILT_IN_IRIS = new HashSet<IRI>();
         for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {

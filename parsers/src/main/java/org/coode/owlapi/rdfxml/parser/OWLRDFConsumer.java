@@ -879,6 +879,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
     protected boolean isSharedAnonymousNode(IRI iri) {
+        // XXX verify: should be doable with nodeid and namespace
         return anonymousNodeChecker.isAnonymousSharedNode(iri.toString());
     }
 

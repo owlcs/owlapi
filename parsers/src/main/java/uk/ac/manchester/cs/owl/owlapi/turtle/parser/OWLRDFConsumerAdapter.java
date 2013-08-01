@@ -86,6 +86,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
         try {
+            // XXX inefficient?
             statementWithResourceValue(subject.toString(), predicate.toString(), object.toString());
         }
         catch (SAXException e) {

@@ -356,6 +356,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         if (uri.length() == 0) {
             // MH - Fix for resolving a "This document" reference against base
             // IRIs.
+            // XXX namespace?
             String base = m_baseIRI.toString();
             int hashIndex = base.indexOf("#");
             if (hashIndex != -1) {
