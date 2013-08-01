@@ -57,7 +57,7 @@ public interface OWLRenderer {
 
     /** @param owlOntologyManager
      * @throws OWLException
-     * @Deprecated the manager should not be set but accessed through the
+     * @deprecated the manager should not be set but accessed through the
      *             ontology passed to render */
     @Deprecated
     void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) throws OWLException;
