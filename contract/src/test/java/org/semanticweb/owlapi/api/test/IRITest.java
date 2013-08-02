@@ -182,4 +182,24 @@ public class IRITest
         }
     }
     
+    @Test
+    public void testEquivalentConstructors()
+    {
+        assertEquals(IRI.create("http://purl.obolibrary.org/obo/TEST_", "a"), 
+                IRI.create("http://purl.obolibrary.org/obo/TEST_a"));        
+    }
+
+    @Test
+    public void testNullConstructorSuffix()
+    {
+        assertEquals(IRI.create("http://purl.obolibrary.org/obo/TEST_a", null), 
+                IRI.create("http://purl.obolibrary.org/obo/TEST_a"));        
+    }
+
+    @Test
+    public void testNullConstructorPrefix()
+    {
+        assertEquals(IRI.create(null, "http://purl.obolibrary.org/obo/TEST_a"), 
+                IRI.create("http://purl.obolibrary.org/obo/TEST_a"));        
+    }
 }
