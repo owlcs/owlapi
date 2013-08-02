@@ -209,7 +209,14 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return An IRI whose characters consist of prefix + suffix.
      * @since 3.3 */
     public static IRI create(String prefix, String suffix) {
-        return new IRI(prefix, suffix);
+        if(prefix == null) {
+            return new IRI(suffix);
+        } else if(suffix == null) {
+            return new IRI(prefix);
+        } else {
+            // GITHUB-31 : Create a temporary String to ensure we use the same algorithm for prefixes
+            return new IRI(prefix + suffix);
+        }
     }
 
     /** @param file
