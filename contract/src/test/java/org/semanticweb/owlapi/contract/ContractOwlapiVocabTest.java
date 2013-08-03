@@ -51,7 +51,6 @@ public class ContractOwlapiVocabTest {
         String result0 = testSubject0.toString();
         DublinCoreVocabulary[] result1 = DublinCoreVocabulary.values();
         IRI result3 = testSubject0.getIRI();
-        URI result4 = testSubject0.getURI();
         String result5 = testSubject0.getShortName();
         String result6 = testSubject0.getQName();
         String result7 = testSubject0.name();

@@ -47,8 +47,8 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 18-Dec-2007<br>
  * <br>
- * A URI short form provider that generates short forms from the URI fragment if
- * there is one, followed by the URI last path component if there is one. */
+ *  A IRI short form provider that generates short forms from the IRI fragment if
+ * there is one, or the IRI last path component if there is one. */
 public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Serializable {
     private static final long serialVersionUID = 40000L;
 

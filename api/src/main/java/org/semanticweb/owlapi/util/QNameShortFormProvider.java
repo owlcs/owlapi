@@ -80,9 +80,8 @@ public class QNameShortFormProvider implements ShortFormProvider {
 
     @Override
     public String getShortForm(OWLEntity entity) {
-        String iri = entity.getIRI().toString();
-        String namespace = XMLUtils.getNCNamePrefix(iri);
-        String localName = XMLUtils.getNCNameSuffix(iri);
+        String namespace = entity.getIRI().getNamespace();
+        String localName = entity.getIRI().getFragment();
         String prefix = namespaceUtil.getPrefix(namespace);
         return prefix + ":" + (localName != null ? localName : "");
     }
