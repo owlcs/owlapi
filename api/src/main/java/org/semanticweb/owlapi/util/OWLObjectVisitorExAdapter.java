@@ -140,7 +140,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
     /** Gets the default return value for this visitor. By default, the default
      * is <code>null</code>, but a fixed value (independent of the specified
      * <code>OWLObject</code> <code>object</code>) can be specified in the
-     * constructor {@link org.semanticweb.owlapi.model.OWLObjectVisitorEx#()}
+     * constructor {@link OWLObjectVisitorExAdapter}
      * 
      * @param object
      *            The object that was visited.

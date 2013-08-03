@@ -113,10 +113,13 @@ public class AbstractOWLAPITestCase {
                 }
             }
             for (OWLAxiom ax : axioms2) {
-                if (!axioms1.contains(ax) && !(ax instanceof OWLDeclarationAxiom)) {
-                    sb.append("Add axiom: ");
-                    sb.append(ax);
-                    sb.append("\n");
+                if (!axioms1.contains(ax)) {
+                    if (!(ax instanceof OWLDeclarationAxiom && ((OWLDeclarationAxiom) ax)
+                            .getEntity().isBuiltIn())) {
+                        sb.append("Add axiom: ");
+                        sb.append(ax);
+                        sb.append("\n");
+                    }
                 }
             }
             if (!sb.toString().isEmpty()) {

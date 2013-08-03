@@ -53,8 +53,8 @@ package org.semanticweb.owlapi.reasoner;
  * Note that once a reasoner has been created, changing fields (via setter
  * methods or directly) on the configuration object will have no effect.
  * 
- * @see{@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}
- * @see{@link org.semanticweb.owlapi.reasoner.SimpleConfiguration} */
+ * @see org.semanticweb.owlapi.reasoner.OWLReasonerFactory
+ * @see org.semanticweb.owlapi.reasoner.SimpleConfiguration */
 public interface OWLReasonerConfiguration {
     /** Gets a progress monitor that the reasoner may update with information
      * about the progress of its reasoning process.

@@ -997,8 +997,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *            The strategy to be used for broadcasting changes. This
      *            strategy will override any previously set broadcast strategy.
      *            The strategy should not be <code>null</code>.
-     * @see {@link org.semanticweb.owlapi.model.DefaultChangeBroadcastStrategy}
-     * @see {@link org.semanticweb.owlapi.model.EDTChangeBroadcastStrategy} */
+     * @see org.semanticweb.owlapi.model.DefaultChangeBroadcastStrategy
+     * @see org.semanticweb.owlapi.model.EDTChangeBroadcastStrategy */
     void setDefaultChangeBroadcastStrategy(OWLOntologyChangeBroadcastStrategy strategy);
 
     /** Removes a previously added listener.

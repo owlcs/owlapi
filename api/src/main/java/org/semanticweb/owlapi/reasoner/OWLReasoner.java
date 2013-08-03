@@ -121,8 +121,8 @@ import org.semanticweb.owlapi.util.Version;
  * data property hierarchy) is viewed as a directed acyclic graph (DAG)
  * containing nodes connected via edges. Each node in the hierarchy represents a
  * set of entities that are equivalent to each other. Each hierarchy has a top
- * node (see {@link Node#isTopNode()}) and a bottom node (see
- * {@link Node#isBottomNode()}). </p> The figure below shows an example class
+ * node (see {@link org.semanticweb.owlapi.reasoner.Node#isTopNode()}) and a bottom node (see
+ * {@link org.semanticweb.owlapi.reasoner.Node#isBottomNode()}). </p> The figure below shows an example class
  * hierarchy. Each box in the hierarchy represents a <code>Node</code>. In this
  * case the top node contains <code>owl:Thing</code> and the bottom node
  * contains <code>owl:Nothing</code> because the nodes in the hierarchy are
@@ -1363,7 +1363,7 @@ public interface OWLReasoner {
      * @throws TimeOutException
      *             if the reasoner timed out during a basic reasoning operation.
      *             See {@link #getTimeOut()}.
-     * @see {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy} */
+     * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy */
     NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, boolean direct)
             throws InconsistentOntologyException, ClassExpressionNotInProfileException,
             FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
@@ -1396,7 +1396,7 @@ public interface OWLReasoner {
      * @throws TimeOutException
      *             if the reasoner timed out during a basic reasoning operation.
      *             See {@link #getTimeOut()}.
-     * @see {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy} */
+     * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy */
     NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ind,
             OWLObjectPropertyExpression pe) throws InconsistentOntologyException,
             FreshEntitiesException, ReasonerInterruptedException, TimeOutException;
@@ -1430,7 +1430,7 @@ public interface OWLReasoner {
      * @throws TimeOutException
      *             if the reasoner timed out during a basic reasoning operation.
      *             See {@link #getTimeOut()}.
-     * @see {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy} */
+     * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy */
     Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataProperty pe)
             throws InconsistentOntologyException, FreshEntitiesException,
             ReasonerInterruptedException, TimeOutException;
