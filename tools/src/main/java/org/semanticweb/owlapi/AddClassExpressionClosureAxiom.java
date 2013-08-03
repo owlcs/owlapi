@@ -38,10 +38,12 @@
  */
 package org.semanticweb.owlapi;
 
-import java.util.ArrayList;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -51,7 +53,6 @@ import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
@@ -73,11 +74,7 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * This code is based on the tutorial examples by Sean Bechhofer (see the
  * tutorial module). */
 public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyChange {
-    private final OWLClass cls;
-    protected final OWLObjectPropertyExpression property;
-    private final Set<OWLOntology> ontologies;
-    private final OWLOntology targetOntology;
-    private final List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
+
 
     /** Creates a composite change that will add a closure axiom for a given
      * class along a specified property.
@@ -93,23 +90,20 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
      *            The ontologies that will be examined for subclass axioms
      * @param targetOntology
      *            The target ontology that changes will be applied to. */
-    public AddClassExpressionClosureAxiom(OWLDataFactory dataFactory, OWLClass cls,
-            OWLObjectPropertyExpression property, Set<OWLOntology> ontologies,
-            OWLOntology targetOntology) {
+    public AddClassExpressionClosureAxiom(@Nonnull OWLDataFactory dataFactory,
+            @Nonnull OWLClass cls, @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull Set<OWLOntology> ontologies, @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
-        this.cls = cls;
-        this.property = property;
-        this.ontologies = ontologies;
-        this.targetOntology = targetOntology;
-        generateChanges();
+        generateChanges(checkNotNull(cls), checkNotNull(property),
+                checkNotNull(ontologies), checkNotNull(targetOntology));
     }
 
-    private void generateChanges() {
-        changes.clear();
+    private void generateChanges(OWLClass cls, OWLObjectPropertyExpression property,
+            Set<OWLOntology> ontologies, OWLOntology targetOntology) {
         // We collect all of the fillers for existential restrictions along
         // the target property and all of the fillers for hasValue restrictions
         // as nominals
-        FillerCollector collector = new FillerCollector();
+        FillerCollector collector = new FillerCollector(property);
         for (OWLOntology ont : ontologies) {
             for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(cls)) {
                 ax.getSuperClass().accept(collector);
@@ -123,19 +117,16 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
                 fillers);
         OWLClassExpression closureAxiomDesc = getDataFactory().getOWLObjectAllValuesFrom(
                 property, closureAxiomFiller);
-        changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassOfAxiom(
+        addChange(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassOfAxiom(
                 cls, closureAxiomDesc)));
-    }
-
-    @Override
-    public List<OWLOntologyChange<?>> getChanges() {
-        return changes;
     }
 
     private class FillerCollector extends OWLClassExpressionVisitorAdapter {
         private final Set<OWLClassExpression> fillers = new HashSet<OWLClassExpression>();
+        private final OWLObjectPropertyExpression property;
 
-        public FillerCollector() {
+        public FillerCollector(@Nonnull OWLObjectPropertyExpression p) {
+            property = p;
         }
 
         public Set<OWLClassExpression> getFillers() {

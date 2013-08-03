@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.modularity;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -62,7 +64,8 @@ public interface OntologySegmenter {
      * @param signature
      *            the seed signature
      * @return the segment as a set of axioms */
-    Set<OWLAxiom> extract(Set<OWLEntity> signature);
+    @Nonnull
+    Set<OWLAxiom> extract(@Nonnull Set<OWLEntity> signature);
 
     /** Returns a set of axioms that is a segment of the ontology associated with
      * this segmenter. This segment is determined by a seed signature (set of
@@ -89,8 +92,9 @@ public interface OntologySegmenter {
      *         super-/subclasses are added. If k < 0, then all direct and
      *         indirect super-/subclasses of any class in the signature are
      *         added. */
-    Set<OWLAxiom> extract(Set<OWLEntity> signature, int superClassLevel,
-            int subClassLevel, OWLReasoner reasoner);
+    @Nonnull
+    Set<OWLAxiom> extract(@Nonnull Set<OWLEntity> signature, int superClassLevel,
+            int subClassLevel, @Nonnull OWLReasoner reasoner);
 
     /** Returns an ontology that is a segment of the ontology associated with
      * this segmenter.
@@ -104,7 +108,8 @@ public interface OntologySegmenter {
      *             if adding axioms to the module fails
      * @throws OWLOntologyCreationException
      *             if the module cannot be created */
-    OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri)
+    @Nonnull
+    OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature, @Nonnull IRI iri)
             throws OWLOntologyCreationException;
 
     /** Returns an ontology that is a segment of the ontology associated with
@@ -138,7 +143,8 @@ public interface OntologySegmenter {
      *             super-/subclasses are added. If k < 0, then all direct and
      *             indirect super-/subclasses of any class in the signature are
      *             added. */
-    OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri,
-            int superClassLevel, int subClassLevel, OWLReasoner reasoner)
+    @Nonnull
+    OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature, @Nonnull IRI iri,
+            int superClassLevel, int subClassLevel, @Nonnull OWLReasoner reasoner)
             throws OWLOntologyCreationException;
 }

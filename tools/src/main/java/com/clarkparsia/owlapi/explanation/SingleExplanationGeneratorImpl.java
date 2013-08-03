@@ -38,6 +38,10 @@
  */
 package com.clarkparsia.owlapi.explanation;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -56,11 +60,11 @@ public abstract class SingleExplanationGeneratorImpl implements
     private final OWLReasonerFactory reasonerFactory;
     private final DefinitionTracker definitionTracker;
 
-    public SingleExplanationGeneratorImpl(OWLOntology ontology,
-            OWLReasonerFactory reasonerFactory, OWLReasoner reasoner) {
-        this.ontology = ontology;
-        this.reasonerFactory = reasonerFactory;
-        this.reasoner = reasoner;
+    public SingleExplanationGeneratorImpl(@Nonnull OWLOntology ontology,
+            @Nonnull OWLReasonerFactory reasonerFactory, @Nonnull OWLReasoner reasoner) {
+        this.ontology = checkNotNull(ontology);
+        this.reasonerFactory = checkNotNull(reasonerFactory);
+        this.reasoner = checkNotNull(reasoner);
         owlOntologyManager = ontology.getOWLOntologyManager();
         definitionTracker = new DefinitionTracker(ontology);
     }
@@ -75,6 +79,7 @@ public abstract class SingleExplanationGeneratorImpl implements
         return reasoner;
     }
 
+    @Nonnull
     public DefinitionTracker getDefinitionTracker() {
         return definitionTracker;
     }

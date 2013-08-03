@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.normalform;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.NNF;
@@ -49,13 +51,12 @@ import org.semanticweb.owlapi.util.NNF;
  * <br> */
 public class NegationalNormalFormConverter implements NormalFormRewriter {
     private final NNF nnf;
-    private final OWLObjectComplementOfExtractor extractor;
+    private final OWLObjectComplementOfExtractor extractor = new OWLObjectComplementOfExtractor();
 
     /** @param dataFactory
      *            the factory */
-    public NegationalNormalFormConverter(OWLDataFactory dataFactory) {
+    public NegationalNormalFormConverter(@Nonnull OWLDataFactory dataFactory) {
         nnf = new NNF(dataFactory);
-        extractor = new OWLObjectComplementOfExtractor();
     }
 
     @Override

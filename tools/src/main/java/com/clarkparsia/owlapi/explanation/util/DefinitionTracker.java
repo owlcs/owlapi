@@ -38,17 +38,20 @@
  */
 package com.clarkparsia.owlapi.explanation.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
@@ -63,21 +66,19 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
 
     /** @param ontology
      *            ontology to track */
-    public DefinitionTracker(OWLOntology ontology) {
-        this.ontology = ontology;
-        for (OWLOntology ont : ontology.getImportsClosure()) {
+    public DefinitionTracker(@Nonnull OWLOntology ontology) {
+        this.ontology = checkNotNull(ontology);
             for (OWLOntology importOnt : ontology.getImportsClosure()) {
                 for (OWLAxiom axiom : importOnt.getAxioms()) {
                     addAxiom(axiom);
                 }
             }
-        }
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
     }
 
-    private void addAxiom(OWLAxiom axiom) {
+    private void addAxiom(@Nonnull OWLAxiom axiom) {
         if (axioms.add(axiom)) {
-            for (OWLEntity entity : getEntities(axiom)) {
+            for (OWLEntity entity : axiom.getSignature()) {
                 Integer count = referenceCounts.get(entity);
                 if (count == null) {
                     count = ONE;
@@ -89,13 +90,9 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         }
     }
 
-    private Set<OWLEntity> getEntities(OWLObject obj) {
-        return obj.getSignature();
-    }
-
-    private void removeAxiom(OWLAxiom axiom) {
+    private void removeAxiom(@Nonnull OWLAxiom axiom) {
         if (axioms.remove(axiom)) {
-            for (OWLEntity entity : getEntities(axiom)) {
+            for (OWLEntity entity : axiom.getSignature()) {
                 Integer count = referenceCounts.get(entity);
                 if (count == 1) {
                     referenceCounts.remove(entity);
@@ -114,8 +111,8 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      * @return <code>true</code> if there is at least one logical axiom in the
      *         imports closure of the given ontology that refers the given
      *         entity */
-    public boolean isDefined(OWLEntity entity) {
-        return entity.isBuiltIn() || referenceCounts.containsKey(entity);
+    public boolean isDefined(@Nonnull OWLEntity entity) {
+        return checkNotNull(entity).isBuiltIn() || referenceCounts.containsKey(entity);
     }
 
     /** Checks if all the entities referred in the given concept are also
@@ -127,8 +124,8 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      * @return <code>true</code> if all the entities in the given description
      *         are referred by at least one logical axiom in the imports closure
      *         of the given ontology */
-    public boolean isDefined(OWLClassExpression classExpression) {
-        for (OWLEntity entity : getEntities(classExpression)) {
+    public boolean isDefined(@Nonnull OWLClassExpression classExpression) {
+        for (OWLEntity entity : checkNotNull(classExpression).getSignature()) {
             if (!isDefined(entity)) {
                 return false;
             }

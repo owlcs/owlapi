@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.metrics;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** Author: Matthew Horridge<br>
@@ -47,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * <br>
  * An <code>OWLMetric</code> that returns an integer value */
 public abstract class IntegerValuedMetric extends AbstractOWLMetric<Integer> {
-    protected IntegerValuedMetric(OWLOntology o) {
+    protected IntegerValuedMetric(@Nonnull OWLOntology o) {
         super(o);
     }
 }

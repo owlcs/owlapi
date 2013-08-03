@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.cs.bhig.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,6 +49,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -59,22 +63,19 @@ import java.util.Set;
 public class MutableTree<N> implements Tree<N> {
     private final N userObject;
     private MutableTree<N> parent;
-    private final List<MutableTree<N>> children;
-    private final Map<Tree<N>, Object> child2EdgeMap;
-    private NodeRenderer<N> toStringRenderer;
+    private final List<MutableTree<N>> children = new ArrayList<MutableTree<N>>();
+    private final Map<Tree<N>, Object> child2EdgeMap = new HashMap<Tree<N>, Object>();
+    private NodeRenderer<N> toStringRenderer = new NodeRenderer<N>() {
+        @Override
+        public String render(Tree<N> object) {
+            return object.toString();
+        }
+    };
 
     /** @param userObject
      *            the user object */
-    public MutableTree(N userObject) {
-        this.userObject = userObject;
-        children = new ArrayList<MutableTree<N>>();
-        child2EdgeMap = new HashMap<Tree<N>, Object>();
-        toStringRenderer = new NodeRenderer<N>() {
-            @Override
-            public String render(Tree<N> object) {
-                return object.toString();
-            }
-        };
+    public MutableTree(@Nonnull N userObject) {
+        this.userObject = checkNotNull(userObject);
     }
 
     @Override
@@ -84,25 +85,25 @@ public class MutableTree<N> implements Tree<N> {
 
     /** @param child
      *            child to add */
-    public void addChild(MutableTree<N> child) {
+    public void addChild(@Nonnull MutableTree<N> child) {
         children.add(child);
         child.parent = this;
     }
 
     /** @param child
      *            child to remove */
-    public void removeChild(MutableTree<N> child) {
+    public void removeChild(@Nonnull MutableTree<N> child) {
         children.remove(child);
         child.parent = null;
     }
 
     @Override
-    public Object getEdge(Tree<N> child) {
+    public Object getEdge(@Nonnull Tree<N> child) {
         return child2EdgeMap.get(child);
     }
 
     @Override
-    public void sortChildren(Comparator<Tree<N>> comparator) {
+    public void sortChildren(@Nonnull Comparator<Tree<N>> comparator) {
         Collections.sort(children, comparator);
     }
 
@@ -170,7 +171,7 @@ public class MutableTree<N> implements Tree<N> {
         return objects;
     }
 
-    private void getUserObjectClosure(Tree<N> tree, Set<N> bin) {
+    private void getUserObjectClosure(@Nonnull Tree<N> tree, @Nonnull Set<N> bin) {
         bin.add(tree.getUserObject());
         for (Tree<N> child : tree.getChildren()) {
             getUserObjectClosure(child, bin);
@@ -221,7 +222,7 @@ public class MutableTree<N> implements Tree<N> {
         return results;
     }
 
-    private void fillDepthFirst(Tree<N> tree, List<N> bin) {
+    private void fillDepthFirst(@Nonnull Tree<N> tree, @Nonnull List<N> bin) {
         bin.add(tree.getUserObject());
         for (Tree<N> child : tree.getChildren()) {
             fillDepthFirst(child, bin);
@@ -232,8 +233,7 @@ public class MutableTree<N> implements Tree<N> {
     public String toString() {
         if (userObject != null) {
             return userObject.toString();
-        } else {
-            return "";
         }
+        return "";
     }
 }

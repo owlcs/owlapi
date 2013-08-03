@@ -59,11 +59,15 @@ package org.semanticweb.owlapi;/*
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -75,7 +79,6 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /** Author: Matthew Horridge<br>
@@ -98,19 +101,19 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 public class ConvertPropertyAssertionsToAnnotations extends
         AbstractCompositeOntologyChange {
     private final Set<OWLOntology> ontologies;
-    private List<OWLOntologyChange<?>> changes;
 
     /** @param dataFactory
      *            factory to use
      * @param ontologies
      *            ontologies to change */
-    public ConvertPropertyAssertionsToAnnotations(OWLDataFactory dataFactory,
-            Set<OWLOntology> ontologies) {
+    public ConvertPropertyAssertionsToAnnotations(@Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
-        this.ontologies = ontologies;
+        this.ontologies = checkNotNull(ontologies);
         generateChanges();
     }
 
+    @Nonnull
     private Collection<OWLNamedIndividual> getPunnedIndividuals(
             Collection<OWLNamedIndividual> individuals) {
         List<OWLNamedIndividual> punned = new ArrayList<OWLNamedIndividual>();
@@ -125,7 +128,6 @@ public class ConvertPropertyAssertionsToAnnotations extends
     }
 
     private void generateChanges() {
-        changes = new ArrayList<OWLOntologyChange<?>>();
         Collection<OWLNamedIndividual> individuals = getPunnedIndividuals(collectIndividuals());
         Set<OWLDataProperty> convertedDataProperties = new HashSet<OWLDataProperty>();
         for (OWLNamedIndividual ind : individuals) {
@@ -137,24 +139,24 @@ public class ConvertPropertyAssertionsToAnnotations extends
         }
     }
 
-    private void removeDeclarationsAndAxioms(OWLDataProperty prop) {
+    private void removeDeclarationsAndAxioms(@Nonnull OWLDataProperty prop) {
         for (OWLOntology ont : ontologies) {
             for (OWLAxiom ax : ont.getDeclarationAxioms(prop)) {
-                changes.add(new RemoveAxiom(ont, ax));
+                addChange(new RemoveAxiom(ont, ax));
             }
             for (OWLAxiom ax : ont.getAxioms(prop)) {
-                changes.add(new RemoveAxiom(ont, ax));
+                addChange(new RemoveAxiom(ont, ax));
             }
         }
     }
 
-    private void removeDeclarationsAndClassAssertions(OWLNamedIndividual ind) {
+    private void removeDeclarationsAndClassAssertions(@Nonnull OWLNamedIndividual ind) {
         for (OWLOntology ont : ontologies) {
             for (OWLAxiom ax : ont.getDeclarationAxioms(ind)) {
-                changes.add(new RemoveAxiom(ont, ax));
+                addChange(new RemoveAxiom(ont, ax));
             }
             for (OWLClassAssertionAxiom ax : ont.getClassAssertionAxioms(ind)) {
-                changes.add(new RemoveAxiom(ont, ax));
+                addChange(new RemoveAxiom(ont, ax));
             }
         }
     }
@@ -165,16 +167,17 @@ public class ConvertPropertyAssertionsToAnnotations extends
             for (OWLDataPropertyAssertionAxiom ax : ont
                     .getDataPropertyAssertionAxioms(ind)) {
                 if (!ax.getProperty().isAnonymous()) {
-                    changes.add(new RemoveAxiom(ont, ax));
-                    changes.add(new AddAxiom(ont, convertToAnnotation(ind, ax)));
+                    addChange(new RemoveAxiom(ont, ax));
+                    addChange(new AddAxiom(ont, convertToAnnotation(ind, ax)));
                     convertedDataProperties.add((OWLDataProperty) ax.getProperty());
                 }
             }
         }
     }
 
-    private OWLAnnotationAssertionAxiom convertToAnnotation(OWLNamedIndividual ind,
-            OWLDataPropertyAssertionAxiom ax) {
+    @Nonnull
+    private OWLAnnotationAssertionAxiom convertToAnnotation(
+            @Nonnull OWLNamedIndividual ind, @Nonnull OWLDataPropertyAssertionAxiom ax) {
         OWLDataFactory df = getDataFactory();
         OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(ax
                 .getProperty().asOWLDataProperty().getIRI()), ax.getObject());
@@ -183,6 +186,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
         return annoAx;
     }
 
+    @Nonnull
     private Set<OWLNamedIndividual> collectIndividuals() {
         Set<OWLNamedIndividual> individuals = new HashSet<OWLNamedIndividual>();
         for (OWLOntology ont : ontologies) {
@@ -191,8 +195,4 @@ public class ConvertPropertyAssertionsToAnnotations extends
         return individuals;
     }
 
-    @Override
-    public List<OWLOntologyChange<?>> getChanges() {
-        return changes;
-    }
 }

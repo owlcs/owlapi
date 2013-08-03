@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -51,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ReferencedDataPropertyCount extends ObjectCountMetric<OWLDataProperty> {
     /** @param o
      *            ontology to use */
-    public ReferencedDataPropertyCount(OWLOntology o) {
+    public ReferencedDataPropertyCount(@Nonnull OWLOntology o) {
         super(o);
     }
 

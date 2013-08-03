@@ -40,6 +40,8 @@ package org.semanticweb.owlapi;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /** Author: Matthew Horridge<br>
@@ -54,5 +56,6 @@ public interface OWLCompositeOntologyChange {
      * has been invoked, it will <i>always<i> return the same list of changes.
      * 
      * @return A list of ontology changes. */
+    @Nonnull
     List<OWLOntologyChange<?>> getChanges();
 }

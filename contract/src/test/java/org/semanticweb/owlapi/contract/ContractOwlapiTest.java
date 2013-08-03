@@ -38,12 +38,7 @@ public class ContractOwlapiTest {
     @Test
     public void shouldTestAbstractCompositeOntologyChange() throws OWLException {
         AbstractCompositeOntologyChange testSubject0 = new AbstractCompositeOntologyChange(
-                mock(OWLDataFactory.class)) {
-            @Override
-            public List<OWLOntologyChange<?>> getChanges() {
-                return null;
-            }
-        };
+                mock(OWLDataFactory.class)) {};
         String result0 = testSubject0.toString();
         List<OWLOntologyChange<?>> result1 = testSubject0.getChanges();
     }
@@ -61,7 +56,7 @@ public class ContractOwlapiTest {
     @Test
     public void shouldTestAmalgamateSubClassAxioms() throws OWLException {
         AmalgamateSubClassAxioms testSubject0 = new AmalgamateSubClassAxioms(
-                Utils.mockSet(Utils.getMockOntology()), mock(OWLDataFactory.class));
+                mock(OWLDataFactory.class), Utils.mockSet(Utils.getMockOntology()));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
@@ -150,9 +145,11 @@ public class ContractOwlapiTest {
 
     public void shouldTestShortForm2AnnotationGenerator() throws OWLException {
         ShortForm2AnnotationGenerator testSubject0 = new ShortForm2AnnotationGenerator(
+                mock(OWLDataFactory.class),
                 Utils.getMockManager(), Utils.getMockOntology(),
                 mock(ShortFormProvider.class), IRI("urn:aFake"), "");
         ShortForm2AnnotationGenerator testSubject1 = new ShortForm2AnnotationGenerator(
+                mock(OWLDataFactory.class),
                 Utils.getMockManager(), Utils.getMockOntology(),
                 mock(ShortFormProvider.class), IRI("urn:aFake"));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();

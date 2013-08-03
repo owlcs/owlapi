@@ -42,6 +42,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -62,7 +64,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class HiddenGCICount extends IntegerValuedMetric {
     /** @param o
      *            ontology to use */
-    public HiddenGCICount(OWLOntology o) {
+    public HiddenGCICount(@Nonnull OWLOntology o) {
         super(o);
     }
 

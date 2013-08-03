@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.metrics;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** Author: Matthew Horridge<br>
@@ -48,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public abstract class DoubleValuedMetric extends AbstractOWLMetric<Double> {
     /** @param o
      *            ontology to use */
-    public DoubleValuedMetric(OWLOntology o) {
+    public DoubleValuedMetric(@Nonnull OWLOntology o) {
         super(o);
     }
 }

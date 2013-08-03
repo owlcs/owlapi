@@ -59,17 +59,18 @@ package org.semanticweb.owlapi;/*
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import java.util.ArrayList;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
@@ -95,11 +96,6 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * is converted to a defined class - functionality which is usually found in
  * editors. */
 public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntologyChange {
-    private final OWLOntology targetOntology;
-    private final OWLClass cls;
-    private final Set<OWLOntology> ontologies;
-    private List<OWLOntologyChange<?>> changes;
-
     /** @param dataFactory
      *            A data factory which can be used to create the appropriate
      *            axioms
@@ -111,23 +107,22 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
      * @param targetOntology
      *            The targetOntology which the equivalent classes axiom should
      *            be added to */
-    public ConvertSuperClassesToEquivalentClass(OWLDataFactory dataFactory, OWLClass cls,
-            Set<OWLOntology> ontologies, OWLOntology targetOntology) {
+    public ConvertSuperClassesToEquivalentClass(@Nonnull OWLDataFactory dataFactory,
+            @Nonnull OWLClass cls, @Nonnull Set<OWLOntology> ontologies,
+            @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
-        this.targetOntology = targetOntology;
-        this.cls = cls;
-        this.ontologies = ontologies;
-        generateChanges();
+        generateChanges(checkNotNull(targetOntology), checkNotNull(cls),
+                checkNotNull(ontologies));
     }
 
-    private void generateChanges() {
+    private void generateChanges(OWLOntology targetOntology, OWLClass cls,
+            Set<OWLOntology> ontologies) {
         // We remove the existing superclasses and then combine these
         // into an intersection which is made equivalent.
-        changes = new ArrayList<OWLOntologyChange<?>>();
         Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
             for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(cls)) {
-                changes.add(new RemoveAxiom(ont, ax));
+                addChange(new RemoveAxiom(ont, ax));
                 descs.add(ax.getSuperClass());
             }
         }
@@ -136,12 +131,7 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
         Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>();
         equivalentClasses.add(cls);
         equivalentClasses.add(equivalentClass);
-        changes.add(new AddAxiom(targetOntology, getDataFactory()
+        addChange(new AddAxiom(targetOntology, getDataFactory()
                 .getOWLEquivalentClassesAxiom(equivalentClasses)));
-    }
-
-    @Override
-    public List<OWLOntologyChange<?>> getChanges() {
-        return changes;
     }
 }

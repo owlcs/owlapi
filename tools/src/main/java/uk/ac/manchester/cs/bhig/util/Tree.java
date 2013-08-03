@@ -43,6 +43,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -55,30 +57,34 @@ public interface Tree<N> {
     /** Gets the "content" of this tree node.
      * 
      * @return The user content of this node. */
+    @Nonnull
     N getUserObject();
 
     /** Gets the parent of this tree node.
      * 
      * @return The parent tree node, or <code>null</code> if this node doesn't
      *         have a parent. */
+    @Nonnull
     Tree<N> getParent();
 
     /** Gets the children of this tree node.
      * 
      * @return A list of children. If this tree node doesn't have any children
      *         then the list will be empty. */
+    @Nonnull
     List<Tree<N>> getChildren();
 
     /** @param child
      *            the child to use
      * @return the object stored as edge */
-    Object getEdge(Tree<N> child);
+    @Nonnull
+    Object getEdge(@Nonnull Tree<N> child);
 
     /** Sorts the children using the specified comparator
      * 
      * @param comparator
      *            The comparator to be used for the sorting. */
-    void sortChildren(Comparator<Tree<N>> comparator);
+    void sortChildren(@Nonnull Comparator<Tree<N>> comparator);
 
     /** A convenience method that gets the number of child nodes that this node
      * has.
@@ -103,31 +109,36 @@ public interface Tree<N> {
     /** A convenience method that gets the root of this tree.
      * 
      * @return The root node, which could be this node. */
+    @Nonnull
     Tree<N> getRoot();
 
     /** @return the path to the root */
+    @Nonnull
     List<Tree<N>> getPathToRoot();
 
     /** @return the elements in the path to root */
+    @Nonnull
     List<N> getUserObjectPathToRoot();
 
     /** @param writer
      *            the writer to print to */
-    void dump(PrintWriter writer);
+    void dump(@Nonnull PrintWriter writer);
 
     /** @param writer
      *            the writer to print to
      * @param indent
      *            how much to indent */
-    void dump(PrintWriter writer, int indent);
+    void dump(@Nonnull PrintWriter writer, int indent);
 
     /** @param renderer
      *            the renderer to use */
-    void setNodeRenderer(NodeRenderer<N> renderer);
+    void setNodeRenderer(@Nonnull NodeRenderer<N> renderer);
 
     /** @return the set of user objects */
+    @Nonnull
     Set<N> getUserObjectClosure();
 
     /** @return the list of elements */
+    @Nonnull
     List<N> fillDepthFirst();
 }

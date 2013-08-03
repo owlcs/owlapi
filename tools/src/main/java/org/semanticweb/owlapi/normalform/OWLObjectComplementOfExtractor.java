@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.normalform;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -71,16 +73,16 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * Extracts the parts of a class expression which are negated. For example, A
  * and not (B or C or not D) would extract {(B or C or notD), D} */
 public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor {
-    private final Set<OWLClassExpression> result;
+    private final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
 
     @SuppressWarnings("javadoc")
     public OWLObjectComplementOfExtractor() {
-        result = new HashSet<OWLClassExpression>();
     }
 
     /** @param desc
      *            the class to look for
      * @return the complemented expressions */
+    @Nonnull
     public Set<OWLClassExpression>
             getComplementedClassExpressions(OWLClassExpression desc) {
         // XXX a stateless visitor would not need copies

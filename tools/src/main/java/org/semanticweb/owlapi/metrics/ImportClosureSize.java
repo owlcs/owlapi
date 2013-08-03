@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
@@ -51,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 public class ImportClosureSize extends IntegerValuedMetric {
     /** @param o
      *            ontology to use */
-    public ImportClosureSize(OWLOntology o) {
+    public ImportClosureSize(@Nonnull OWLOntology o) {
         super(o);
     }
 

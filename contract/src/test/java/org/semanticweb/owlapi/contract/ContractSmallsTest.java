@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.modularity.OntologySegmenter;
 import org.semanticweb.owlapi.normalform.NegationalNormalFormConverter;
 import org.semanticweb.owlapi.normalform.NormalFormRewriter;
@@ -497,7 +496,6 @@ public class ContractSmallsTest {
                 return null;
             }
         };
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
         OWLOntology result1 = testSubject0.getOWLOntology();
         Set<Set<OWLAxiom>> result2 = testSubject0.getAllSOSForIncosistentClass(Utils
                 .mockAnonClass());
@@ -519,7 +517,6 @@ public class ContractSmallsTest {
         testSubject0.dispose();
         Set<OWLAxiom> result0 = testSubject0.getSOSForIncosistentClass(Utils
                 .mockAnonClass());
-        OWLOntologyManager result1 = testSubject0.getOWLOntologyManager();
         OWLOntology result2 = testSubject0.getOWLOntology();
         Set<Set<OWLAxiom>> result3 = testSubject0.getAllSOSForIncosistentClass(Utils
                 .mockAnonClass());

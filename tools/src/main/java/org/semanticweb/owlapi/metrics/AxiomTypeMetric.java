@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -56,7 +58,7 @@ public class AxiomTypeMetric extends AxiomCountMetric {
      *            ontology to use
      * @param axiomType
      *            type of axioms */
-    public AxiomTypeMetric(OWLOntology o, AxiomType<?> axiomType) {
+    public AxiomTypeMetric(@Nonnull OWLOntology o, @Nonnull AxiomType<?> axiomType) {
         super(o);
         this.axiomType = axiomType;
     }
@@ -72,6 +74,7 @@ public class AxiomTypeMetric extends AxiomCountMetric {
     }
 
     /** @return axiom type */
+    @Nonnull
     public AxiomType<?> getAxiomType() {
         return axiomType;
     }

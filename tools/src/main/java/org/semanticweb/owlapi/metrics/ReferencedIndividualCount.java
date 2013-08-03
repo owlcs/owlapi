@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -51,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ReferencedIndividualCount extends ObjectCountMetric<OWLNamedIndividual> {
     /** @param o
      *            ontology to use */
-    public ReferencedIndividualCount(OWLOntology o) {
+    public ReferencedIndividualCount(@Nonnull OWLOntology o) {
         super(o);
     }
 

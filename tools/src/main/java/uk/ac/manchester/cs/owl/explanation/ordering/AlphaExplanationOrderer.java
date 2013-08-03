@@ -38,11 +38,15 @@
  */
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -58,8 +62,8 @@ public class AlphaExplanationOrderer implements ExplanationOrderer {
 
     /** @param renderer
      *            the renderer to use */
-    public AlphaExplanationOrderer(OWLObjectRenderer renderer) {
-        this.renderer = renderer;
+    public AlphaExplanationOrderer(@Nonnull OWLObjectRenderer renderer) {
+        this.renderer = checkNotNull(renderer);
     }
 
     @Override

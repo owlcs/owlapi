@@ -38,8 +38,12 @@
  */
 package com.clarkparsia.owlapi.explanation.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -63,9 +67,11 @@ public class OntologyUtils {
      * @return <code>true</code> if the description references entities that the
      *         ontology that contains entailments which are being explained,
      *         otherwise <code>false</code> */
-    public static boolean containsUnreferencedEntity(OWLOntology ontology,
-            OWLClassExpression desc) {
-        for (OWLEntity entity : desc.getSignature()) {
+    @Nonnull
+    public static boolean containsUnreferencedEntity(@Nonnull OWLOntology ontology,
+            @Nonnull OWLClassExpression desc) {
+        checkNotNull(ontology);
+        for (OWLEntity entity : checkNotNull(desc).getSignature()) {
             if (!ontology.containsEntityInSignature(entity)) {
                 if (entity instanceof OWLClass
                         && (((OWLClass) entity).isOWLThing() || ((OWLClass) entity)
@@ -88,10 +94,13 @@ public class OntologyUtils {
      * @param manager
      *            manager to apply the actual change
      * @return set of ontologies that have been affected */
-    public static Set<OWLOntology> removeAxiom(OWLAxiom axiom,
-            Set<OWLOntology> ontologies, OWLOntologyManager manager) {
+    @Nonnull
+    public static Set<OWLOntology> removeAxiom(@Nonnull OWLAxiom axiom,
+            @Nonnull Set<OWLOntology> ontologies, @Nonnull OWLOntologyManager manager) {
         Set<OWLOntology> modifiedOnts = new HashSet<OWLOntology>();
-        for (OWLOntology ont : ontologies) {
+        checkNotNull(axiom);
+        checkNotNull(manager);
+        for (OWLOntology ont : checkNotNull(ontologies)) {
             if (ont.getAxioms().contains(axiom)) {
                 modifiedOnts.add(ont);
                 manager.applyChange(new RemoveAxiom(ont, axiom));
@@ -108,10 +117,11 @@ public class OntologyUtils {
      *            the ontologies to add the axiom to
      * @param manager
      *            the manager for the application */
-    public static void addAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies,
-            OWLOntologyManager manager) {
-        for (OWLOntology ont : ontologies) {
-            manager.applyChange(new AddAxiom(ont, axiom));
+    @Nonnull
+    public static void addAxiom(@Nonnull OWLAxiom axiom,
+            @Nonnull Set<OWLOntology> ontologies, @Nonnull OWLOntologyManager manager) {
+        for (OWLOntology ont : checkNotNull(ontologies)) {
+            checkNotNull(manager).applyChange(new AddAxiom(ont, checkNotNull(axiom)));
         }
     }
 }

@@ -40,6 +40,8 @@ package com.clarkparsia.owlapi.explanation.util;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** Author: Matthew Horridge<br>
@@ -60,7 +62,7 @@ public interface ExplanationProgressMonitor {
      * 
      * @param axioms
      *            The axioms that constitute the explanation */
-    void foundExplanation(Set<OWLAxiom> axioms);
+    void foundExplanation(@Nonnull Set<OWLAxiom> axioms);
 
     /** Called when all explanations have been found. */
     void foundAllExplanations();

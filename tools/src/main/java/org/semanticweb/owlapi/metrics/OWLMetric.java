@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.metrics;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
@@ -56,6 +58,7 @@ public interface OWLMetric<M> {
     /** Gets the human readable name of this metric
      * 
      * @return A label which represents the human readable name of this metric. */
+    @Nonnull
     String getName();
 
     /** Gets the value of this metric. This value is computed w.r.t. the current
@@ -65,6 +68,7 @@ public interface OWLMetric<M> {
      *         <code>toString</code> method of the object returned by this
      *         method will result in a human readable string that displays the
      *         value of the metric. */
+    @Nonnull
     M getValue();
 
     /** Sets the "root" ontology. The metric will be recomputed from this
@@ -72,11 +76,12 @@ public interface OWLMetric<M> {
      * 
      * @param ontology
      *            The ontology for which the metric should be computed. */
-    void setOntology(OWLOntology ontology);
+    void setOntology(@Nonnull OWLOntology ontology);
 
     /** Gets the ontology which the value of the metric should be based on.
      * 
      * @return The ontology. */
+    @Nonnull
     OWLOntology getOntology();
 
     /** Determines if the computation of the metric should take into account the
@@ -99,6 +104,7 @@ public interface OWLMetric<M> {
      * obtain the imports closure of the current ontology.
      * 
      * @return An <code>OWLOntologyManager</code>. */
+    @Nonnull
     OWLOntologyManager getManager();
 
     /** Diposes of the metric. If the metric attaches itself as a listener to an

@@ -36,8 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.model;/*
-
+package org.semanticweb.owlapi.model;
+import javax.annotation.Nonnull;
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 17-Jan-2009
@@ -47,11 +47,11 @@ package org.semanticweb.owlapi.model;/*
 
 @SuppressWarnings("javadoc")
 public interface OWLAnnotationAxiomVisitor {
-    void visit(OWLAnnotationAssertionAxiom axiom);
+    void visit(@Nonnull OWLAnnotationAssertionAxiom axiom);
 
-    void visit(OWLSubAnnotationPropertyOfAxiom axiom);
+    void visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom);
 
-    void visit(OWLAnnotationPropertyDomainAxiom axiom);
+    void visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom);
 
-    void visit(OWLAnnotationPropertyRangeAxiom axiom);
+    void visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom);
 }

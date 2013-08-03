@@ -38,9 +38,13 @@
  */
 package org.semanticweb.owlapi.metrics;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -65,8 +69,8 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
 
     /** @param o
      *            the ontology to use */
-    public AbstractOWLMetric(OWLOntology o) {
-        this.ontology = o;
+    public AbstractOWLMetric(@Nonnull OWLOntology o) {
+        this.ontology = checkNotNull(o);
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
         dirty = true;
     }
@@ -84,10 +88,11 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         setDirty(true);
     }
 
+    @Nonnull
     protected abstract M recomputeMetric();
 
     @Override
-    final public M getValue() {
+    public M getValue() {
         if (dirty) {
             value = recomputeMetric();
         }
@@ -99,6 +104,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     }
 
     /** @return ontologies as a set */
+    @Nonnull
     public Set<OWLOntology> getOntologies() {
         if (importsClosureUsed) {
             return ontology.getImportsClosure();
@@ -149,7 +155,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
      *         specified list of changes, or <code>false</code> if the list of
      *         changes do not cause the value of this metric to be invalidated. */
     protected abstract boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes);
+            @Nonnull List<? extends OWLOntologyChange<?>> changes);
 
     protected abstract void disposeMetric();
 

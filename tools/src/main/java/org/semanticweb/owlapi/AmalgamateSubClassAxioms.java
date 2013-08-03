@@ -38,17 +38,18 @@
  */
 package org.semanticweb.owlapi;
 
-import java.util.ArrayList;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
@@ -64,36 +65,28 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * remove these two axioms and replace them by adding one subclass axiom, A
  * subClassOf (B and C). */
 public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
-    private final List<OWLOntologyChange<?>> changes;
-
     /** @param ontologies
      *            the ontologies to use
      * @param dataFactory
      *            the data factory */
-    public AmalgamateSubClassAxioms(Set<OWLOntology> ontologies,
-            OWLDataFactory dataFactory) {
+    public AmalgamateSubClassAxioms(@Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
-        changes = new ArrayList<OWLOntologyChange<?>>();
-        for (OWLOntology ont : ontologies) {
+        for (OWLOntology ont : checkNotNull(ontologies)) {
             for (OWLClass cls : ont.getClassesInSignature()) {
                 Set<OWLSubClassOfAxiom> axioms = ont.getSubClassAxiomsForSubClass(cls);
                 if (axioms.size() > 1) {
                     Set<OWLClassExpression> superClasses = new HashSet<OWLClassExpression>();
                     for (OWLSubClassOfAxiom ax : axioms) {
-                        changes.add(new RemoveAxiom(ont, ax));
+                        addChange(new RemoveAxiom(ont, ax));
                         superClasses.add(ax.getSuperClass());
                     }
                     OWLClassExpression combinedSuperClass = getDataFactory()
                             .getOWLObjectIntersectionOf(superClasses);
-                    changes.add(new AddAxiom(ont, getDataFactory().getOWLSubClassOfAxiom(
+                    addChange(new AddAxiom(ont, getDataFactory().getOWLSubClassOfAxiom(
                             cls, combinedSuperClass)));
                 }
             }
         }
-    }
-
-    @Override
-    public List<OWLOntologyChange<?>> getChanges() {
-        return changes;
     }
 }

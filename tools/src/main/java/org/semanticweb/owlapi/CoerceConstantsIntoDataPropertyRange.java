@@ -38,12 +38,14 @@
  */
 package org.semanticweb.owlapi;
 
-import java.util.ArrayList;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -63,7 +65,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
 
@@ -77,18 +78,15 @@ import org.semanticweb.owlapi.util.OWLObjectDuplicator;
  * where the two are used. For example, given, p value "xyz", the "xyz" constant
  * would be typed with the range of p. */
 public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntologyChange {
-    protected final Map<OWLDataPropertyExpression, OWLDatatype> map;
-    private final List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
-
     /** @param ontologies
      *            the ontologies to use
      * @param dataFactory
      *            the data factory */
-    public CoerceConstantsIntoDataPropertyRange(OWLDataFactory dataFactory,
-            Set<OWLOntology> ontologies) {
+    public CoerceConstantsIntoDataPropertyRange(@Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
-        map = new HashMap<OWLDataPropertyExpression, OWLDatatype>();
-        for (OWLOntology ont : ontologies) {
+        Map<OWLDataPropertyExpression, OWLDatatype> map = new HashMap<OWLDataPropertyExpression, OWLDatatype>();
+        for (OWLOntology ont : checkNotNull(ontologies)) {
             for (OWLDataPropertyRangeAxiom ax : ont
                     .getAxioms(AxiomType.DATA_PROPERTY_RANGE)) {
                 if (ax.getRange().isDatatype()) {
@@ -96,29 +94,29 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
                 }
             }
         }
-        OWLConstantReplacer replacer = new OWLConstantReplacer(getDataFactory());
+        OWLConstantReplacer replacer = new OWLConstantReplacer(getDataFactory(), map);
         for (OWLOntology ont : ontologies) {
             for (OWLAxiom ax : ont.getLogicalAxioms()) {
                 OWLAxiom dupAx = replacer.duplicateObject(ax);
                 if (!ax.equals(dupAx)) {
-                    changes.add(new RemoveAxiom(ont, ax));
-                    changes.add(new AddAxiom(ont, dupAx));
+                    addChange(new RemoveAxiom(ont, ax));
+                    addChange(new AddAxiom(ont, dupAx));
                 }
             }
         }
     }
 
-    @Override
-    public List<OWLOntologyChange<?>> getChanges() {
-        return changes;
-    }
-
     private class OWLConstantReplacer extends OWLObjectDuplicator {
-        public OWLConstantReplacer(OWLDataFactory dataFactory) {
+        final Map<OWLDataPropertyExpression, OWLDatatype> map;
+
+        public OWLConstantReplacer(@Nonnull OWLDataFactory dataFactory,
+                @Nonnull Map<OWLDataPropertyExpression, OWLDatatype> m) {
             super(dataFactory);
+            map = m;
         }
 
-        private OWLDataOneOf process(OWLDataPropertyExpression prop, OWLDataOneOf oneOf) {
+        private OWLDataOneOf process(@Nonnull OWLDataPropertyExpression prop,
+                @Nonnull OWLDataOneOf oneOf) {
             Set<OWLLiteral> vals = new HashSet<OWLLiteral>();
             for (OWLLiteral con : oneOf.getValues()) {
                 vals.add(process(prop, con));
@@ -126,7 +124,8 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
             return getDataFactory().getOWLDataOneOf(vals);
         }
 
-        private OWLLiteral process(OWLDataPropertyExpression prop, OWLLiteral con) {
+        private OWLLiteral process(@Nonnull OWLDataPropertyExpression prop,
+                @Nonnull OWLLiteral con) {
             OWLDatatype dt = map.get(prop);
             if (dt != null) {
                 return getDataFactory().getOWLLiteral(con.getLiteral(), dt);
@@ -194,6 +193,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
 
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
+            checkNotNull(axiom);
             super.visit(axiom);
             setLastObject(getDataFactory().getOWLDataPropertyAssertionAxiom(
                     axiom.getProperty(), axiom.getSubject(),
@@ -202,6 +202,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
 
         @Override
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+            checkNotNull(axiom);
             super.visit(axiom);
             setLastObject(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(
                     axiom.getProperty(), axiom.getSubject(),

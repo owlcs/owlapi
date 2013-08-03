@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -51,11 +53,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public abstract class AxiomCountMetric extends ObjectCountMetric<OWLAxiom> {
     /** @param o
      *            ontology to use */
-    public AxiomCountMetric(OWLOntology o) {
+    public AxiomCountMetric(@Nonnull OWLOntology o) {
         super(o);
     }
 
     /** @return the set of axioms */
+    @Nonnull
     public Set<? extends OWLAxiom> getAxioms() {
         return getObjects();
     }

@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -51,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class GCICount extends AxiomCountMetric {
     /** @param o
      *            ontology to use */
-    public GCICount(OWLOntology o) {
+    public GCICount(@Nonnull OWLOntology o) {
         super(o);
     }
 

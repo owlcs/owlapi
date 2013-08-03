@@ -44,6 +44,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -58,7 +60,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
     /** @param o
      *            ontology to use */
-    public AverageAssertedNamedSuperclassCount(OWLOntology o) {
+    public AverageAssertedNamedSuperclassCount(@Nonnull OWLOntology o) {
         super(o);
     }
 

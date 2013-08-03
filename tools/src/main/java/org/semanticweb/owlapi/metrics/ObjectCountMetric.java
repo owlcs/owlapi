@@ -42,6 +42,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
@@ -56,10 +58,11 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedMetric {
     /** @param o
      *            ontology to use */
-    public ObjectCountMetric(OWLOntology o) {
+    public ObjectCountMetric(@Nonnull OWLOntology o) {
         super(o);
     }
 
+    @Nonnull
     protected abstract String getObjectTypeName();
 
     @Override
@@ -67,13 +70,15 @@ public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedM
         return getObjectTypeName() + " count";
     }
 
-    protected abstract Set<? extends E> getObjects(OWLOntology ont);
+    @Nonnull
+    protected abstract Set<? extends E> getObjects(@Nonnull OWLOntology ont);
 
     @Override
     public Integer recomputeMetric() {
         return getObjects().size();
     }
 
+    @Nonnull
     protected Set<? extends E> getObjects() {
         Set<E> objects = new HashSet<E>();
         for (OWLOntology ont : getOntologies()) {

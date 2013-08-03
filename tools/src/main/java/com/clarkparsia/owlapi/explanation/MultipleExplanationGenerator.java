@@ -38,6 +38,8 @@
  */
 package com.clarkparsia.owlapi.explanation;
 
+import javax.annotation.Nonnull;
+
 import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
 
 /** multiple explanation generator */
@@ -47,5 +49,5 @@ public interface MultipleExplanationGenerator extends ExplanationGenerator,
      * 
      * @param progressMonitor
      *            The progress monitor. */
-    void setProgressMonitor(ExplanationProgressMonitor progressMonitor);
+    void setProgressMonitor(@Nonnull ExplanationProgressMonitor progressMonitor);
 }

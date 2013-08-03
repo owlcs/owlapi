@@ -38,11 +38,15 @@
  */
 package com.clarkparsia.owlapi.explanation;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -102,12 +106,14 @@ public class SatisfiabilityConverter {
 
         public AxiomConverter() {}
 
-        private OWLObjectIntersectionOf and(OWLClassExpression desc1,
-                OWLClassExpression desc2) {
+        @Nonnull
+        private OWLObjectIntersectionOf and(@Nonnull OWLClassExpression desc1,
+                @Nonnull OWLClassExpression desc2) {
             return factory.getOWLObjectIntersectionOf(set(desc1, desc2));
         }
 
-        private OWLObjectIntersectionOf and(Set<OWLClassExpression> set) {
+        @Nonnull
+        private OWLObjectIntersectionOf and(@Nonnull Set<OWLClassExpression> set) {
             return factory.getOWLObjectIntersectionOf(set);
         }
 
@@ -115,15 +121,19 @@ public class SatisfiabilityConverter {
             return result;
         }
 
-        private OWLObjectComplementOf not(OWLClassExpression desc) {
+        @Nonnull
+        private OWLObjectComplementOf not(@Nonnull OWLClassExpression desc) {
             return factory.getOWLObjectComplementOf(desc);
         }
 
-        private OWLObjectOneOf oneOf(OWLIndividual ind) {
+        @Nonnull
+        private OWLObjectOneOf oneOf(@Nonnull OWLIndividual ind) {
             return factory.getOWLObjectOneOf(Collections.singleton(ind));
         }
 
-        private OWLObjectUnionOf or(OWLClassExpression desc1, OWLClassExpression desc2) {
+        @Nonnull
+        private OWLObjectUnionOf or(@Nonnull OWLClassExpression desc1,
+                @Nonnull OWLClassExpression desc2) {
             return factory.getOWLObjectUnionOf(set(desc1, desc2));
         }
 
@@ -131,7 +141,8 @@ public class SatisfiabilityConverter {
             result = null;
         }
 
-        private <T> Set<T> set(T desc1, T desc2) {
+        @Nonnull
+        private <T> Set<T> set(@Nonnull T desc1, @Nonnull T desc2) {
             Set<T> set = new HashSet<T>();
             set.add(desc1);
             set.add(desc2);
@@ -146,6 +157,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLClassAssertionAxiom axiom) {
+            checkNotNull(axiom);
             OWLIndividual ind = axiom.getIndividual();
             OWLClassExpression c = axiom.getClassExpression();
             result = and(oneOf(ind), not(c));
@@ -153,6 +165,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
+            checkNotNull(axiom);
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLDataHasValue(axiom.getProperty(),
                     axiom.getObject());
@@ -162,6 +175,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLDataPropertyDomainAxiom axiom) {
+            checkNotNull(axiom);
             OWLClassExpression sub = factory.getOWLDataSomeValuesFrom(
                     axiom.getProperty(), factory.getTopDatatype());
             result = and(sub, not(axiom.getDomain()));
@@ -169,6 +183,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLDataPropertyRangeAxiom axiom) {
+            checkNotNull(axiom);
             result = factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
                     factory.getOWLDataComplementOf(axiom.getRange()));
         }
@@ -187,6 +202,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
+            checkNotNull(axiom);
             Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 nominals.add(oneOf(ind));
@@ -196,6 +212,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
+            checkNotNull(axiom);
             result = and(axiom.getClassExpressions());
         }
 
@@ -225,6 +242,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
+            checkNotNull(axiom);
             Iterator<OWLClassExpression> classes = axiom.getClassExpressions().iterator();
             OWLClassExpression c1 = classes.next();
             OWLClassExpression c2 = classes.next();
@@ -290,6 +308,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+            checkNotNull(axiom);
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLDataHasValue(axiom.getProperty(),
                     axiom.getObject());
@@ -298,6 +317,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+            checkNotNull(axiom);
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(),
                     axiom.getObject());
@@ -306,6 +326,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+            checkNotNull(axiom);
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(),
                     axiom.getObject());
@@ -321,6 +342,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
+            checkNotNull(axiom);
             result = and(
                     factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
                             factory.getOWLThing()), not(axiom.getDomain()));
@@ -328,6 +350,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLObjectPropertyRangeAxiom axiom) {
+            checkNotNull(axiom);
             result = factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
                     not(axiom.getRange()));
         }
@@ -346,6 +369,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLSameIndividualAxiom axiom) {
+            checkNotNull(axiom);
             Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 nominals.add(not(oneOf(ind)));
@@ -355,6 +379,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
+            checkNotNull(axiom);
             OWLClassExpression sub = axiom.getSubClass();
             OWLClassExpression sup = axiom.getSuperClass();
             if (sup.isOWLNothing()) {
@@ -422,17 +447,18 @@ public class SatisfiabilityConverter {
 
     /** @param factory
      *            the factory to use */
-    public SatisfiabilityConverter(OWLDataFactory factory) {
-        this.factory = factory;
+    public SatisfiabilityConverter(@Nonnull OWLDataFactory factory) {
+        this.factory = checkNotNull(factory);
         converter = new AxiomConverter();
     }
 
     /** @param axiom
      *            axiom to convert
      * @return converted class expression */
-    public OWLClassExpression convert(OWLAxiom axiom) {
+    @Nonnull
+    public OWLClassExpression convert(@Nonnull OWLAxiom axiom) {
         converter.reset();
-        axiom.accept(converter);
+        checkNotNull(axiom).accept(converter);
         OWLClassExpression result = converter.getResult();
         if (result == null) {
             throw new RuntimeException("Not supported yet");

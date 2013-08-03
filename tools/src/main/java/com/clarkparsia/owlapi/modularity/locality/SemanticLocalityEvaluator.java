@@ -38,10 +38,14 @@
  */
 package com.clarkparsia.owlapi.modularity.locality;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -89,11 +93,12 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
      *            ontology manager
      * @param reasonerFactory
      *            reasoner factory */
-    public SemanticLocalityEvaluator(OWLOntologyManager man,
-            OWLReasonerFactory reasonerFactory) {
-        df = man.getOWLDataFactory();
+    public SemanticLocalityEvaluator(@Nonnull OWLOntologyManager man,
+            @Nonnull OWLReasonerFactory reasonerFactory) {
+        df = checkNotNull(man).getOWLDataFactory();
         try {
-            reasoner = reasonerFactory.createNonBufferingReasoner(man.createOntology());
+            reasoner = checkNotNull(reasonerFactory).createNonBufferingReasoner(
+                    man.createOntology());
         } catch (Exception e) {
             throw new OWLRuntimeException(e);
         }
@@ -122,17 +127,12 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
             // XXX this seems wrong
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.fine("Calling the Reasoner");
-            }
             isLocal = true;
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.fine("DONE Calling the Reasoner. isLocal = " + isLocal);
-            }
         }
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
+            checkNotNull(axiom);
             Set<OWLClassExpression> eqClasses = axiom.getClassExpressions();
             if (eqClasses.size() != 2) {
                 return;
@@ -148,6 +148,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
+            checkNotNull(axiom);
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.fine("Calling the Reasoner");
             }
@@ -170,34 +171,38 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             return newAxiom;
         }
 
-        public OWLAxiom replaceBottom(OWLAxiom axiom, Set<? extends OWLEntity> sig) {
-            reset(sig);
-            axiom.accept(this);
+        @Nonnull
+        public OWLAxiom replaceBottom(@Nonnull OWLAxiom axiom,
+                @Nonnull Set<? extends OWLEntity> sig) {
+            reset(checkNotNull(sig));
+            checkNotNull(axiom).accept(this);
             return getResult();
         }
 
         // Takes an OWLClassExpression and a signature replaces by bottom the
         // entities not in the signature
-        public OWLClassExpression replaceBottom(OWLClassExpression desc) {
+        @Nonnull
+        public OWLClassExpression replaceBottom(@Nonnull OWLClassExpression desc) {
             newClassExpression = null;
-            desc.accept(this);
+            checkNotNull(desc).accept(this);
             if (newClassExpression == null) {
                 throw new OWLRuntimeException("Unsupported class expression " + desc);
             }
             return newClassExpression;
         }
 
+        @Nonnull
         public Set<OWLClassExpression> replaceBottom(
-                Set<OWLClassExpression> classExpressions) {
+                @Nonnull Set<OWLClassExpression> classExpressions) {
             Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
-            for (OWLClassExpression desc : classExpressions) {
+            for (OWLClassExpression desc : checkNotNull(classExpressions)) {
                 result.add(replaceBottom(desc));
             }
             return result;
         }
 
-        public void reset(Set<? extends OWLEntity> s) {
-            signature = s;
+        public void reset(@Nonnull Set<? extends OWLEntity> s) {
+            signature = checkNotNull(s);
             newAxiom = null;
         }
 
@@ -362,11 +367,13 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
     @Override
-    public boolean isLocal(OWLAxiom axiom, Set<? extends OWLEntity> signature) {
+    public boolean isLocal(@Nonnull OWLAxiom axiom,
+            @Nonnull Set<? extends OWLEntity> signature) {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine("Replacing axiom by Bottom");
         }
-        OWLAxiom newAxiom = bottomReplacer.replaceBottom(axiom, signature);
+        OWLAxiom newAxiom = bottomReplacer.replaceBottom(checkNotNull(axiom),
+                checkNotNull(signature));
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine("DONE Replacing axiom by Bottom. Success: " + (newAxiom != null));
         }

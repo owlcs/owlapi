@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.normalform;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /** Author: Matthew Horridge<br>
@@ -49,10 +51,11 @@ public interface NormalFormRewriter {
     /** @param classExpression
      *            expression to check
      * @return true if classExpression is in normal form */
-    boolean isInNormalForm(OWLClassExpression classExpression);
+    boolean isInNormalForm(@Nonnull OWLClassExpression classExpression);
 
     /** @param classExpression
      *            the expression to convert
      * @return the converted expression */
-    OWLClassExpression convertToNormalForm(OWLClassExpression classExpression);
+    @Nonnull
+    OWLClassExpression convertToNormalForm(@Nonnull OWLClassExpression classExpression);
 }

@@ -38,10 +38,14 @@
  */
 package com.clarkparsia.owlapi.modularity.locality;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -79,7 +83,6 @@ import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
@@ -116,7 +119,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 @SuppressWarnings("unused")
 public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     protected final LocalityClass localityCls;
-    private final AxiomLocalityVisitor axiomVisitor;
+    private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
     private static final EnumSet<LocalityClass> SUPPORTED_LOCALITY_CLASSES = EnumSet.of(
             LocalityClass.TOP_BOTTOM, LocalityClass.BOTTOM_BOTTOM, LocalityClass.TOP_TOP);
 
@@ -124,9 +127,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * 
      * @param localityClass
      *            the locality class for this evaluator */
-    public SyntacticLocalityEvaluator(LocalityClass localityClass) {
-        localityCls = localityClass;
-        axiomVisitor = new AxiomLocalityVisitor();
+    public SyntacticLocalityEvaluator(@Nonnull LocalityClass localityClass) {
+        localityCls = checkNotNull(localityClass);
         if (!SUPPORTED_LOCALITY_CLASSES.contains(localityClass)) {
             throw new OWLRuntimeException("Unsupported locality class: " + localityClass);
         }
@@ -148,7 +150,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      *            a data range expression
      * @return <code>true</code> if the specified data range expression is the
      *         top datatype or a built-in datatype; <code>false</code> otherwise */
-    protected static boolean isTopOrBuiltInDatatype(OWLDataRange dataRange) {
+    protected static boolean isTopOrBuiltInDatatype(@Nonnull OWLDataRange dataRange) {
         if (dataRange.isDatatype()) {
             OWLDatatype dataType = dataRange.asOWLDatatype();
             return dataType.isTopDatatype() || dataType.isBuiltIn();
@@ -167,7 +169,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * @return <code>true</code> if the specified data range expression is the
      *         top datatype or a built-in infinite datatype; <code>false</code>
      *         otherwise */
-    protected static boolean isTopOrBuiltInInfiniteDatatype(OWLDataRange dataRange) {
+    protected static boolean isTopOrBuiltInInfiniteDatatype(
+            @Nonnull OWLDataRange dataRange) {
         if (dataRange.isDatatype()) {
             OWLDatatype dataType = dataRange.asOWLDatatype();
             return dataType.isTopDatatype() || dataType.isBuiltIn()
@@ -179,22 +182,21 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
     // TODO (TS): only visit logical axioms if possible
     private class AxiomLocalityVisitor implements OWLAxiomVisitor {
-        private final BottomEquivalenceEvaluator bottomEvaluator;
+        private final BottomEquivalenceEvaluator bottomEvaluator = new BottomEquivalenceEvaluator();
         private boolean isLocal;
         private Collection<? extends OWLEntity> signature;
-        private final TopEquivalenceEvaluator topEvaluator;
+        private final TopEquivalenceEvaluator topEvaluator = new TopEquivalenceEvaluator();
 
         public AxiomLocalityVisitor() {
-            bottomEvaluator = new BottomEquivalenceEvaluator();
-            topEvaluator = new TopEquivalenceEvaluator();
             topEvaluator.setBottomEvaluator(bottomEvaluator);
             bottomEvaluator.setTopEvaluator(topEvaluator);
         }
 
-        public boolean isLocal(OWLAxiom axiom, Collection<? extends OWLEntity> sig) {
-            signature = sig;
+        public boolean isLocal(@Nonnull OWLAxiom axiom,
+                @Nonnull Collection<? extends OWLEntity> sig) {
+            signature = checkNotNull(sig);
             isLocal = false;
-            axiom.accept(this);
+            checkNotNull(axiom).accept(this);
             return isLocal;
         }
 
@@ -208,6 +210,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // BUGFIX: (DT) OP in signature makes the axiom non-local
         @Override
         public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -223,12 +226,14 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLClassAssertionAxiom axiom) {
+            checkNotNull(axiom);
             isLocal = topEvaluator.isTopEquivalent(axiom.getClassExpression(), signature,
                     localityCls);
         }
 
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -245,6 +250,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLDataPropertyDomainAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -265,6 +271,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
         @Override
         public void visit(OWLDataPropertyRangeAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -282,6 +289,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLSubDataPropertyOfAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -318,6 +326,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // bot-equivalent.
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
+            checkNotNull(axiom);
             Collection<OWLClassExpression> disjs = axiom.getClassExpressions();
             int size = disjs.size();
             if (size == 1) {
@@ -343,6 +352,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // BUGFIX (TS): Added the case where it *is* local
         @Override
         public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -378,6 +388,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // BUGFIX (TS): Added the case where it *is* local
         @Override
         public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -416,6 +427,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // are bot-equiv
         @Override
         public void visit(OWLDisjointUnionAxiom axiom) {
+            checkNotNull(axiom);
             OWLClass lhs = axiom.getOWLClass();
             Collection<OWLClassExpression> rhs = axiom.getClassExpressions();
             switch (localityCls) {
@@ -475,6 +487,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
+            checkNotNull(axiom);
             isLocal = true;
             Iterator<OWLClassExpression> eqs = axiom.getClassExpressions().iterator();
             OWLClassExpression first = eqs.next();
@@ -517,6 +530,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+            checkNotNull(axiom);
             Collection<OWLDataPropertyExpression> eqs = axiom.getProperties();
             int size = eqs.size();
             if (size == 1) {
@@ -534,6 +548,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+            checkNotNull(axiom);
             Collection<OWLObjectPropertyExpression> eqs = axiom.getProperties();
             int size = eqs.size();
             if (size == 1) {
@@ -551,6 +566,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -569,6 +585,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // getNamedProperty()
         @Override
         public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -582,12 +599,9 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-        public void visit(OWLImportsDeclaration axiom) {
-            isLocal = false;
-        }
-
         @Override
         public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -603,6 +617,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+            checkNotNull(axiom);
             isLocal = !signature.contains(axiom.getFirstProperty().getNamedProperty())
                     && !signature.contains(axiom.getSecondProperty().getNamedProperty());
         }
@@ -612,6 +627,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // BUGFIX: (DT) OP in signature makes the axiom non-local
         @Override
         public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -629,6 +645,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // case of a "positive" DP assertion.)
         @Override
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -647,6 +664,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // case of a "positive" OP assertion.)
         @Override
         public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -662,6 +680,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -678,6 +697,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // BUGFIX: (TS) Added the cases where this is local
         @Override
         public void visit(OWLSubPropertyChainOfAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -706,6 +726,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -724,6 +745,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectPropertyRangeAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -742,6 +764,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -760,6 +783,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // BUGFIX: (DT) Bottom property is not reflexive
         @Override
         public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+            checkNotNull(axiom);
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
@@ -783,6 +807,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
+            checkNotNull(axiom);
             isLocal = bottomEvaluator.isBottomEquivalent(axiom.getSubClass(), signature,
                     localityCls)
                     || topEvaluator.isTopEquivalent(axiom.getSuperClass(), signature,
@@ -791,11 +816,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+            checkNotNull(axiom);
             isLocal = !signature.contains(axiom.getProperty().getNamedProperty());
         }
 
         @Override
         public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+            checkNotNull(axiom);
             isLocal = !signature.contains(axiom.getProperty().getNamedProperty());
         }
 
@@ -836,21 +863,22 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         public BottomEquivalenceEvaluator() {}
 
-        private boolean isBottomEquivalent(OWLClassExpression desc) {
-            desc.accept(this);
+        private boolean isBottomEquivalent(@Nonnull OWLClassExpression desc) {
+            checkNotNull(desc).accept(this);
             return isBottomEquivalent;
         }
 
-        public boolean isBottomEquivalent(OWLClassExpression desc,
-                Collection<? extends OWLEntity> sig, LocalityClass locality) {
-            localityCls = locality;
-            signature = sig;
-            desc.accept(this);
+        public boolean isBottomEquivalent(@Nonnull OWLClassExpression desc,
+                @Nonnull Collection<? extends OWLEntity> sig,
+                @Nonnull LocalityClass locality) {
+            localityCls = checkNotNull(locality);
+            signature = checkNotNull(sig);
+            checkNotNull(desc).accept(this);
             return isBottomEquivalent;
         }
 
-        public void setTopEvaluator(TopEquivalenceEvaluator evaluator) {
-            topEvaluator = evaluator;
+        public void setTopEvaluator(@Nonnull TopEquivalenceEvaluator evaluator) {
+            topEvaluator = checkNotNull(evaluator);
         }
 
         @Override
@@ -1174,21 +1202,22 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         public TopEquivalenceEvaluator() {}
 
-        private boolean isTopEquivalent(OWLClassExpression desc) {
-            desc.accept(this);
+        private boolean isTopEquivalent(@Nonnull OWLClassExpression desc) {
+            checkNotNull(desc).accept(this);
             return isTopEquivalent;
         }
 
-        public boolean isTopEquivalent(OWLClassExpression desc,
-                Collection<? extends OWLEntity> sig, LocalityClass locality) {
-            localityCls = locality;
-            signature = sig;
-            desc.accept(this);
+        public boolean isTopEquivalent(@Nonnull OWLClassExpression desc,
+                @Nonnull Collection<? extends OWLEntity> sig,
+                @Nonnull LocalityClass locality) {
+            localityCls = checkNotNull(locality);
+            signature = checkNotNull(sig);
+            checkNotNull(desc).accept(this);
             return isTopEquivalent;
         }
 
-        public void setBottomEvaluator(BottomEquivalenceEvaluator evaluator) {
-            bottomEvaluator = evaluator;
+        public void setBottomEvaluator(@Nonnull BottomEquivalenceEvaluator evaluator) {
+            bottomEvaluator = checkNotNull(evaluator);
         }
 
         @Override

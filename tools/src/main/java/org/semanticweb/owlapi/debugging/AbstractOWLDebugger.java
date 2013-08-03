@@ -38,12 +38,16 @@
  */
 package org.semanticweb.owlapi.debugging;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -67,13 +71,13 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * implementation of a debugger that can compute a minimal set of axioms that
  * cause the unsatisfiability. */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
-    private final OWLOntologyManager owlOntologyManager;
+    protected final OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;
 
-    protected AbstractOWLDebugger(OWLOntologyManager owlOntologyManager,
-            OWLOntology ontology) {
-        this.owlOntologyManager = owlOntologyManager;
-        this.ontology = ontology;
+    protected AbstractOWLDebugger(@Nonnull OWLOntologyManager owlOntologyManager,
+            @Nonnull OWLOntology ontology) {
+        this.owlOntologyManager = checkNotNull(owlOntologyManager);
+        this.ontology = checkNotNull(ontology);
         mergeImportsClosure();
     }
 
@@ -94,16 +98,12 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         owlOntologyManager.applyChanges(changes);
     }
 
+    @Nonnull
     protected abstract OWLClassExpression getCurrentClass() throws OWLException;
 
     @Override
     public OWLOntology getOWLOntology() throws OWLException {
         return ontology;
-    }
-
-    /** @return the manager */
-    public OWLOntologyManager getOWLOntologyManager() {
-        return owlOntologyManager;
     }
 
     @Override
@@ -143,8 +143,9 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
      *            empty set.
      * @throws OWLException
      *             if there is any problem */
-    public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
-            Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents)
+    public void constructHittingSetTree(@Nonnull Set<OWLAxiom> mups,
+            @Nonnull Set<Set<OWLAxiom>> allMups, @Nonnull Set<Set<OWLAxiom>> satPaths,
+            @Nonnull Set<OWLAxiom> currentPathContents)
             throws OWLException {
         // We go through the current mups, axiom by axiom, and extend the tree
         // with edges for each axiom

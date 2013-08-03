@@ -38,9 +38,7 @@
  */
 package org.semanticweb.owlapi;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -68,7 +66,6 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
@@ -84,7 +81,6 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * example, A subClassOf (B and C), would be replaced with two subclass axioms,
  * A subClassOf B, and A subClassOf C. */
 public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
-    private final List<OWLOntologyChange<?>> changes;
 
     /** Creates a composite change to split subclass axioms into multiple more
      * fine grained subclass axioms.
@@ -95,33 +91,26 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
      *            The data factory which should be used to create new axioms. */
     public SplitSubClassAxioms(Set<OWLOntology> ontologies, OWLDataFactory dataFactory) {
         super(dataFactory);
-        changes = new ArrayList<OWLOntologyChange<?>>();
         for (OWLOntology ont : ontologies) {
             for (OWLSubClassOfAxiom ax : ont.getAxioms(AxiomType.SUBCLASS_OF)) {
                 ConjunctSplitter splitter = new ConjunctSplitter();
                 ax.getSuperClass().accept(splitter);
                 if (splitter.result.size() > 1) {
-                    changes.add(new RemoveAxiom(ont, ax));
+                    addChange(new RemoveAxiom(ont, ax));
                     for (OWLClassExpression desc : splitter.result) {
                         OWLAxiom replAx = getDataFactory().getOWLSubClassOfAxiom(
                                 ax.getSubClass(), desc);
-                        changes.add(new AddAxiom(ont, replAx));
+                        addChange(new AddAxiom(ont, replAx));
                     }
                 }
             }
         }
     }
 
-    @Override
-    public List<OWLOntologyChange<?>> getChanges() {
-        return changes;
-    }
-
     private static class ConjunctSplitter implements OWLClassExpressionVisitor {
-        Set<OWLClassExpression> result;
+        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
 
         public ConjunctSplitter() {
-            result = new HashSet<OWLClassExpression>();
         }
 
         @Override

@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.metrics;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -53,19 +57,20 @@ public class OWLMetricManager {
 
     /** @param metrics
      *            the metrics to use */
-    public OWLMetricManager(List<OWLMetric<?>> metrics) {
-        this.metrics = new ArrayList<OWLMetric<?>>(metrics);
+    public OWLMetricManager(@Nonnull List<OWLMetric<?>> metrics) {
+        this.metrics = new ArrayList<OWLMetric<?>>(checkNotNull(metrics));
     }
 
     /** @param ontology
      *            the ontology to measure */
-    public void setOntology(OWLOntology ontology) {
+    public void setOntology(@Nonnull OWLOntology ontology) {
         for (OWLMetric<?> metric : metrics) {
             metric.setOntology(ontology);
         }
     }
 
     /** @return the metrics */
+    @Nonnull
     public List<OWLMetric<?>> getMetrics() {
         return new ArrayList<OWLMetric<?>>(metrics);
     }

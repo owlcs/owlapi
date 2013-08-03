@@ -40,6 +40,8 @@ package com.clarkparsia.owlapi.explanation;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -50,18 +52,22 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 /** Explanation generator for a single explanation */
 public interface SingleExplanationGenerator {
     /** @return the ontology manager for this explanation generator. */
+    @Nonnull
     OWLOntologyManager getOntologyManager();
 
     /** @return the ontology according to which the explanations are generated */
+    @Nonnull
     OWLOntology getOntology();
 
     /** dispose of the reasoners and ontologies */
     void dispose();
 
     /** @return the reasoner associated with this generator. */
+    @Nonnull
     OWLReasoner getReasoner();
 
     /** @return the reasoner factory used to create fresh reasoners. */
+    @Nonnull
     OWLReasonerFactory getReasonerFactory();
 
     /** Get a single explanation for an arbitrary class expression, or empty set
@@ -72,5 +78,6 @@ public interface SingleExplanationGenerator {
      *            explained
      * @return set of axioms explaining the unsatisfiability of given class
      *         expression, or empty set if the given expression is satisfiable. */
-    Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass);
+    @Nonnull
+    Set<OWLAxiom> getExplanation(@Nonnull OWLClassExpression unsatClass);
 }

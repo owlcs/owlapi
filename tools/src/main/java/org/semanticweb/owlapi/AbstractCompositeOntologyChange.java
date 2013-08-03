@@ -38,7 +38,16 @@
  */
 package org.semanticweb.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -48,12 +57,27 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 public abstract class AbstractCompositeOntologyChange implements
         OWLCompositeOntologyChange {
     private final OWLDataFactory dataFactory;
+    private final List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
 
-    protected AbstractCompositeOntologyChange(OWLDataFactory dataFactory) {
-        this.dataFactory = dataFactory;
+    protected AbstractCompositeOntologyChange(@Nonnull OWLDataFactory dataFactory) {
+        this.dataFactory = checkNotNull(dataFactory);
     }
 
+    @Nonnull
     protected OWLDataFactory getDataFactory() {
         return dataFactory;
+    }
+
+    protected void addChange(OWLOntologyChange<?> change) {
+        changes.add(change);
+    }
+
+    protected void addChanges(Collection<OWLOntologyChange<?>> change) {
+        changes.addAll(change);
+    }
+
+    @Override
+    public List<OWLOntologyChange<?>> getChanges() {
+        return changes;
     }
 }

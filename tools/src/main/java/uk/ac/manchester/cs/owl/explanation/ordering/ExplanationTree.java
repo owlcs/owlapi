@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
@@ -50,7 +52,7 @@ import uk.ac.manchester.cs.bhig.util.MutableTree;
 public class ExplanationTree extends MutableTree<OWLAxiom> {
     /** @param userObject
      *            the axiom to wrap */
-    public ExplanationTree(OWLAxiom userObject) {
+    public ExplanationTree(@Nonnull OWLAxiom userObject) {
         super(userObject);
     }
 

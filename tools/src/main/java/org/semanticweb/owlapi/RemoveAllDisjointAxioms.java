@@ -38,15 +38,16 @@
  */
 package org.semanticweb.owlapi;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /** Author: Matthew Horridge<br>
@@ -57,30 +58,23 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * Given a set of ontologies, this composite change will remove all disjoint
  * classes axioms from these ontologies. */
 public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
-    private final Set<OWLOntology> ontologies;
-    private List<OWLOntologyChange<?>> changes;
 
     /** @param dataFactory
      *            factory to use
      * @param ontologies
      *            ontologies to change */
-    public RemoveAllDisjointAxioms(OWLDataFactory dataFactory, Set<OWLOntology> ontologies) {
+    public RemoveAllDisjointAxioms(@Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
-        this.ontologies = ontologies;
-        generateChanges();
+        generateChanges(checkNotNull(ontologies));
     }
 
-    private void generateChanges() {
-        changes = new ArrayList<OWLOntologyChange<?>>();
+    private void generateChanges(Set<OWLOntology> ontologies) {
         for (OWLOntology ont : ontologies) {
             for (OWLClassAxiom ax : ont.getAxioms(AxiomType.DISJOINT_CLASSES)) {
-                changes.add(new RemoveAxiom(ont, ax));
+                addChange(new RemoveAxiom(ont, ax));
             }
         }
     }
 
-    @Override
-    public List<OWLOntologyChange<?>> getChanges() {
-        return changes;
-    }
 }

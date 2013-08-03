@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** Author: Matthew Horridge<br>
@@ -48,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 public class EntailedAxiomTree extends ExplanationTree {
     /** @param userObject
      *            the axiom to wrap */
-    public EntailedAxiomTree(OWLAxiom userObject) {
+    public EntailedAxiomTree(@Nonnull OWLAxiom userObject) {
         super(userObject);
     }
 

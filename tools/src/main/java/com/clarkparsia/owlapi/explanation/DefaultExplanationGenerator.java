@@ -38,7 +38,12 @@
  */
 package com.clarkparsia.owlapi.explanation;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -67,10 +72,10 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      *            ontology to reason on
      * @param progressMonitor
      *            progress monitor */
-    public DefaultExplanationGenerator(OWLOntologyManager man,
-            OWLReasonerFactory reasonerFactory, OWLOntology ontology,
-            ExplanationProgressMonitor progressMonitor) {
-        this(man, reasonerFactory, ontology, reasonerFactory
+    public DefaultExplanationGenerator(@Nonnull OWLOntologyManager man,
+            @Nonnull OWLReasonerFactory reasonerFactory, @Nonnull OWLOntology ontology,
+            @Nonnull ExplanationProgressMonitor progressMonitor) {
+        this(man, reasonerFactory, ontology, checkNotNull(reasonerFactory)
                 .createNonBufferingReasoner(ontology), progressMonitor);
     }
 
@@ -84,12 +89,13 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      *            the reasoner to use
      * @param progressMonitor
      *            progress monitor */
-    public DefaultExplanationGenerator(OWLOntologyManager man,
-            OWLReasonerFactory reasonerFactory, OWLOntology ontology,
-            OWLReasoner reasoner, ExplanationProgressMonitor progressMonitor) {
-        dataFactory = man.getOWLDataFactory();
-        BlackBoxExplanation singleGen = new BlackBoxExplanation(ontology,
-                reasonerFactory, reasoner);
+    public DefaultExplanationGenerator(@Nonnull OWLOntologyManager man,
+            @Nonnull OWLReasonerFactory reasonerFactory, @Nonnull OWLOntology ontology,
+            @Nonnull OWLReasoner reasoner,
+            @Nullable ExplanationProgressMonitor progressMonitor) {
+        dataFactory = checkNotNull(man).getOWLDataFactory();
+        BlackBoxExplanation singleGen = new BlackBoxExplanation(checkNotNull(ontology),
+                checkNotNull(reasonerFactory), checkNotNull(reasoner));
         gen = new HSTExplanationGenerator(singleGen);
         if (progressMonitor != null) {
             gen.setProgressMonitor(progressMonitor);
@@ -104,9 +110,10 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
     /** @param axiom
      *            the axiom to explain
      * @return the explanation */
-    public Set<OWLAxiom> getExplanation(OWLAxiom axiom) {
+    @Nonnull
+    public Set<OWLAxiom> getExplanation(@Nonnull OWLAxiom axiom) {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
-        return getExplanation(converter.convert(axiom));
+        return getExplanation(converter.convert(checkNotNull(axiom)));
     }
 
     @Override
@@ -117,9 +124,10 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
     /** @param axiom
      *            the axiom to explain
      * @return the set of explanations */
-    public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom) {
+    @Nonnull
+    public Set<Set<OWLAxiom>> getExplanations(@Nonnull OWLAxiom axiom) {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
-        return getExplanations(converter.convert(axiom));
+        return getExplanations(converter.convert(checkNotNull(axiom)));
     }
 
     @Override
@@ -133,8 +141,10 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      * @param axiom
      *            the axiom to explain
      * @return the set of explanations */
-    public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom, int maxExplanations) {
+    @Nonnull
+    public Set<Set<OWLAxiom>>
+            getExplanations(@Nonnull OWLAxiom axiom, int maxExplanations) {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
-        return getExplanations(converter.convert(axiom), maxExplanations);
+        return getExplanations(converter.convert(checkNotNull(axiom)), maxExplanations);
     }
 }

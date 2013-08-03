@@ -38,13 +38,17 @@
  */
 package org.semanticweb.owlapi;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -58,36 +62,32 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * Bio-Health Informatics Group<br>
  * Date: 15-Feb-2008<br>
  * <br> */
-public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange {
-    // The annotation URI to be used.
-    private final IRI annotationIRI;
-    // An optional language tag to be used - could be null;
-    private final String languageTag;
-    private final OWLOntologyManager ontologyManager;
-    private final ShortFormProvider shortFormProvider;
-    private final OWLOntology ontology;
+public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChange {
 
-    /** @param ontologyManager
+    /** @param df
+     *            data factory
+     * @param ontologyManager
      *            the ontology manager
      * @param ontology
      *            the ontology
      * @param shortFormProvider
      *            the short form provider
      * @param annotationIRI
-     *            iri for annotation property
+     *            The annotation IRI to be used
      * @param languageTag
      *            language */
-    public ShortForm2AnnotationGenerator(OWLOntologyManager ontologyManager,
-            OWLOntology ontology, ShortFormProvider shortFormProvider, IRI annotationIRI,
-            String languageTag) {
-        this.ontologyManager = ontologyManager;
-        this.shortFormProvider = shortFormProvider;
-        this.annotationIRI = annotationIRI;
-        this.languageTag = languageTag;
-        this.ontology = ontology;
+    public ShortForm2AnnotationGenerator(OWLDataFactory df,
+            @Nonnull OWLOntologyManager ontologyManager, @Nonnull OWLOntology ontology,
+            @Nonnull ShortFormProvider shortFormProvider, @Nonnull IRI annotationIRI,
+            @Nullable String languageTag) {
+        super(df);
+        generateChanges(checkNotNull(ontologyManager), checkNotNull(ontology),
+                checkNotNull(shortFormProvider), checkNotNull(annotationIRI), languageTag);
     }
 
-    /** @param ontologyManager
+    /** @param df
+     *            data factory
+     * @param ontologyManager
      *            the ontology manager
      * @param ontology
      *            the ontology
@@ -95,16 +95,17 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
      *            the short form provider
      * @param annotationIRI
      *            iri for annotation property */
-    public ShortForm2AnnotationGenerator(OWLOntologyManager ontologyManager,
+    public ShortForm2AnnotationGenerator(OWLDataFactory df,
+            OWLOntologyManager ontologyManager,
             OWLOntology ontology, ShortFormProvider shortFormProvider, IRI annotationIRI) {
-        this(ontologyManager, ontology, shortFormProvider, annotationIRI, null);
+        this(df, ontologyManager, ontology, shortFormProvider, annotationIRI, null);
     }
 
-    @Override
-    public List<OWLOntologyChange<?>> getChanges() {
+    private void generateChanges(OWLOntologyManager ontologyManager,
+            OWLOntology ontology, ShortFormProvider shortFormProvider, IRI annotationIRI,
+            String languageTag) {
         ImportsStructureEntitySorter sorter = new ImportsStructureEntitySorter(ontology,
                 ontologyManager);
-        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
         Map<OWLOntology, Set<OWLEntity>> ontology2EntityMap = sorter.getObjects();
         for (OWLOntology ont : ontology2EntityMap.keySet()) {
             for (OWLEntity ent : ontology2EntityMap.get(ont)) {
@@ -122,10 +123,9 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
                                     ontologyManager.getOWLDataFactory()
                                             .getOWLAnnotationProperty(annotationIRI),
                                     ent.getIRI(), con));
-                    changes.add(chg);
+                    addChange(chg);
                 }
             }
         }
-        return changes;
     }
 }

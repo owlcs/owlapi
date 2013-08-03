@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
@@ -52,7 +54,7 @@ import org.semanticweb.owlapi.util.DLExpressivityChecker;
 public class DLExpressivity extends AbstractOWLMetric<String> {
     /** @param o
      *            ontology to use */
-    public DLExpressivity(OWLOntology o) {
+    public DLExpressivity(@Nonnull OWLOntology o) {
         super(o);
     }
 
