@@ -17,7 +17,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>4.0.0-SNAPSHOT</version>
+	<version>4.0.0-alpha-SNAPSHOT</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
@@ -174,7 +174,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.2</version>
+				<version>2.2.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -200,19 +200,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<!-- The Assembly Plugin allows providing an additional single-jar build. -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<descriptors>
-						<descriptor>distribution/src/assembly/bin.xml</descriptor>
-					</descriptors>
-				</configuration>
-			</plugin>
-
 			<!-- The Surefire Plugin is for error reporting. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
