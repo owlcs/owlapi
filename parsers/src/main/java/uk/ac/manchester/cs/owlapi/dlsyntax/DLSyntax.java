@@ -45,16 +45,33 @@ package uk.ac.manchester.cs.owlapi.dlsyntax;
  * <br> */
 
 public enum DLSyntax {
-    SUBCLASS("\u2291"), EQUIVALENT_TO("\u2261"), NOT("\u00AC"), DISJOINT_WITH(SUBCLASS
-            + " " + NOT), EXISTS("\u2203"), FORALL("\u2200"), IN("\u2208"), MIN("\u2265"), EQUAL(
-            "="), NOT_EQUAL("\u2260"), MAX("\u2264"), INVERSE("\u207B"),  // Superscript
-                                                                         // minus
-    AND("\u2293"), TOP("\u22A4"), BOTTOM("\u22A5"), OR("\u2294"), COMP("\u2218"), WEDGE(
-            "\u22C0"), IMPLIES("\u2190"), COMMA(","), SELF("self");
+    //@formatter:off
+    SUBCLASS("\u2291"),
+    EQUIVALENT_TO("\u2261"),
+    NOT("\u00AC"),
+    DISJOINT_WITH(SUBCLASS + " " + NOT),
+    EXISTS("\u2203"),
+    FORALL("\u2200"),
+    IN("\u2208"),
+    MIN("\u2265"),
+    EQUAL("="),
+    NOT_EQUAL("\u2260"),
+    MAX("\u2264"),
+    INVERSE("\u207B"),
+    AND("\u2293"),
+    TOP("\u22A4"),
+    BOTTOM("\u22A5"),
+    OR("\u2294"),
+    COMP("\u2218"),
+    WEDGE("\u22C0"),
+    IMPLIES("\u2190"),
+    COMMA(","),
+    SELF("self");
+    //@formatter:on
     private String unicodeSymbol;
 
     DLSyntax(String unicode) {
-        this.unicodeSymbol = unicode;
+        unicodeSymbol = unicode;
     }
 
     @Override

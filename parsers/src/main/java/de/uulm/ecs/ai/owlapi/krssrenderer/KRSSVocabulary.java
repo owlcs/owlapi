@@ -43,13 +43,34 @@ package de.uulm.ecs.ai.owlapi.krssrenderer;
  * Institute of Artificial Intelligence<br> */
 
 public enum KRSSVocabulary {
-    ALL("all"), AND("and"), AT_LEAST("at-least"), AT_MOST("at-most"), DEFINE_CONCEPT(
-            "define-concept"), DEFINE_PRIMITIVE_CONCEPT("define-primitive-concept"), DEFINE_PRIMITIVE_ROLE(
-            "define-primitive-role"), DEFINE_ROLE("define-role"), DISTINCT("distinct"), DISJOINT(
-            "disjoint"), DOMAIN("domain"), EQUAL("equal"), EXACTLY("exactly"), IMPLIES(
-            "implies"), INSTANCE("instance"), INVERSE("inv"), NIL("nil"), NOT("not"), OR(
-            "or"), RANGE("range"), RELATED("related"), SOME("some"), SYMMETRIC(
-            "symmetric"), TRUE("t"), TOP("top"), TRANSITIVE("transitive");
+    //@formatter:off
+    ALL("all"),
+    AND("and"),
+    AT_LEAST("at-least"),
+    AT_MOST("at-most"),
+    DEFINE_CONCEPT("define-concept"),
+    DEFINE_PRIMITIVE_CONCEPT("define-primitive-concept"),
+    DEFINE_PRIMITIVE_ROLE("define-primitive-role"),
+    DEFINE_ROLE("define-role"),
+    DISTINCT("distinct"),
+    DISJOINT("disjoint"),
+    DOMAIN("domain"),
+    EQUAL("equal"),
+    EXACTLY("exactly"),
+    IMPLIES("implies"),
+    INSTANCE("instance"),
+    INVERSE("inv"),
+    NIL("nil"),
+    NOT("not"),
+    OR("or"),
+    RANGE("range"),
+    RELATED("related"),
+    SOME("some"),
+    SYMMETRIC("symmetric"),
+    TRUE("t"),
+    TOP("top"),
+    TRANSITIVE("transitive");
+    //@formatter:on
     private String shortName;
 
     KRSSVocabulary(String name) {

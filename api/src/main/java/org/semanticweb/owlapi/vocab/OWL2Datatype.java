@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.vocab;
 
+import static org.semanticweb.owlapi.vocab.OWLFacet.*;
+
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Collection;
@@ -235,17 +237,16 @@ public enum OWL2Datatype {
     }
 
     public enum Category {
-        UNIVERSAL("Universal literal"), NUMBER("Number", OWLFacet.MIN_INCLUSIVE,
-                OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE, OWLFacet.MAX_EXCLUSIVE), STRING_WITH_LANGUAGE_TAG(
-                "String with a language tag", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH,
-                OWLFacet.LENGTH, OWLFacet.PATTERN, OWLFacet.LANG_RANGE), STRING_WITHOUT_LANGUAGE_TAG(
-                "String without a language tag", OWLFacet.MIN_LENGTH,
-                OWLFacet.MAX_LENGTH, OWLFacet.LENGTH, OWLFacet.PATTERN), BOOLEAN(
-                "Boolean value"), BINARY("Binary data", OWLFacet.MIN_LENGTH,
-                OWLFacet.MAX_LENGTH, OWLFacet.LENGTH), URI("URI", OWLFacet.MIN_LENGTH,
-                OWLFacet.MAX_LENGTH, OWLFacet.PATTERN), TIME("Time instant",
-                OWLFacet.MIN_INCLUSIVE, OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE,
-                OWLFacet.MAX_EXCLUSIVE);
+        //@formatter:off
+        UNIVERSAL("Universal literal"), 
+        NUMBER("Number", MIN_INCLUSIVE, MAX_INCLUSIVE, MIN_EXCLUSIVE, MAX_EXCLUSIVE), 
+        STRING_WITH_LANGUAGE_TAG("String with a language tag", MIN_LENGTH, MAX_LENGTH, LENGTH, PATTERN, LANG_RANGE), 
+        STRING_WITHOUT_LANGUAGE_TAG("String without a language tag", MIN_LENGTH, MAX_LENGTH, LENGTH, PATTERN), 
+        BOOLEAN("Boolean value"), 
+        BINARY("Binary data", MIN_LENGTH, MAX_LENGTH, LENGTH), 
+        URI("URI", MIN_LENGTH, MAX_LENGTH, PATTERN), 
+        TIME("Time instant", MIN_INCLUSIVE, MAX_INCLUSIVE, MIN_EXCLUSIVE, MAX_EXCLUSIVE);
+        //@formatter:on
         private final String name;
         private final Set<OWLFacet> facets;
 
