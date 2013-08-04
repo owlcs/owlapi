@@ -40,6 +40,8 @@ package org.coode.xml;
 
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
@@ -52,15 +54,12 @@ import java.io.Writer;
  * Developed as part of the CO-ODE project http://www.co-ode.org */
 
 public class XMLWriterFactory {
-    private static XMLWriterFactory instance;
+    private static XMLWriterFactory instance = new XMLWriterFactory();
 
     private XMLWriterFactory() {}
 
     /** Gets the one and only instance of the <code>XMLWriterFactory</code> */
-    public static synchronized XMLWriterFactory getInstance() {
-        if (instance == null) {
-            instance = new XMLWriterFactory();
-        }
+    public static XMLWriterFactory getInstance() {
         return instance;
     }
 
@@ -69,8 +68,9 @@ public class XMLWriterFactory {
      * @param writer
      *            The <code>Writer</code> that the XMLWriter will actually write
      *            to */
-    public XMLWriter createXMLWriter(Writer writer,
-            XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase) {
+    public XMLWriter createXMLWriter(@Nonnull Writer writer,
+            @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
+            @Nonnull String xmlBase) {
         return new XMLWriterImpl(writer, xmlWriterNamespaceManager, xmlBase);
     }
 }

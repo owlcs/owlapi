@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.expression;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -64,13 +68,14 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
      * @param shortFormProvider
      *            The BidirectionalShortFormProvider that should be used to
      *            perform the required mapping. */
-    public ShortFormEntityChecker(BidirectionalShortFormProvider shortFormProvider) {
-        this.shortFormProvider = shortFormProvider;
+    public ShortFormEntityChecker(
+            @Nonnull BidirectionalShortFormProvider shortFormProvider) {
+        this.shortFormProvider = checkNotNull(shortFormProvider);
     }
 
     @Override
     public OWLClass getOWLClass(String name) {
-        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
+        for (OWLEntity ent : shortFormProvider.getEntities(checkNotNull(name))) {
             if (ent.isOWLClass()) {
                 return ent.asOWLClass();
             }
@@ -80,7 +85,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
 
     @Override
     public OWLDataProperty getOWLDataProperty(String name) {
-        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
+        for (OWLEntity ent : shortFormProvider.getEntities(checkNotNull(name))) {
             if (ent.isOWLDataProperty()) {
                 return ent.asOWLDataProperty();
             }
@@ -90,7 +95,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
 
     @Override
     public OWLDatatype getOWLDatatype(String name) {
-        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
+        for (OWLEntity ent : shortFormProvider.getEntities(checkNotNull(name))) {
             if (ent.isOWLDatatype()) {
                 return ent.asOWLDatatype();
             }
@@ -100,7 +105,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
 
     @Override
     public OWLNamedIndividual getOWLIndividual(String name) {
-        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
+        for (OWLEntity ent : shortFormProvider.getEntities(checkNotNull(name))) {
             if (ent.isOWLNamedIndividual()) {
                 return ent.asOWLNamedIndividual();
             }
@@ -110,7 +115,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
 
     @Override
     public OWLObjectProperty getOWLObjectProperty(String name) {
-        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
+        for (OWLEntity ent : shortFormProvider.getEntities(checkNotNull(name))) {
             if (ent.isOWLObjectProperty()) {
                 return ent.asOWLObjectProperty();
             }
@@ -120,7 +125,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
 
     @Override
     public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
-        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
+        for (OWLEntity ent : shortFormProvider.getEntities(checkNotNull(name))) {
             if (ent.isOWLAnnotationProperty()) {
                 return ent.asOWLAnnotationProperty();
             }

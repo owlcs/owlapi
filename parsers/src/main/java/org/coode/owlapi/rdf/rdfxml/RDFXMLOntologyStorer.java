@@ -42,6 +42,8 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.coode.xml.IllegalElementNameException;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -64,8 +66,8 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    protected void storeOntology(OWLOntology ontology, Writer writer,
-            OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
+            @Nonnull OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
             RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer, format);
             Set<OWLEntity> entities = renderer.getUnserialisableEntities();

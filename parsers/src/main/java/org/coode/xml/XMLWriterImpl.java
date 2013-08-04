@@ -38,6 +38,8 @@
  */
 package org.coode.xml;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
@@ -51,6 +53,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 import java.util.StringTokenizer;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -79,11 +83,12 @@ public class XMLWriterImpl implements XMLWriter {
     private boolean preambleWritten;
     private static final String PERCENT_ENTITY = "&#37;";
 
-    public XMLWriterImpl(Writer writer,
-            XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase) {
-        this.writer = writer;
-        this.xmlWriterNamespaceManager = xmlWriterNamespaceManager;
-        this.xmlBase = xmlBase;
+    public XMLWriterImpl(@Nonnull Writer writer,
+            @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
+            @Nonnull String xmlBase) {
+        this.writer = checkNotNull(writer);
+        this.xmlWriterNamespaceManager = checkNotNull(xmlWriterNamespaceManager);
+        this.xmlBase = checkNotNull(xmlBase);
         xmlBaseURI = URI.create(xmlBase);
         // no need to set it to UTF-8: it's supposed to be the default encoding
         // for XML.

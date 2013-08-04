@@ -38,6 +38,9 @@
  */
 package org.semanticweb.owlapi.expression;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -55,30 +58,36 @@ public interface OWLEntityChecker {
     /** @param name
      *            name to resolve
      * @return OWLClass corresponding to name */
-    OWLClass getOWLClass(String name);
+    @Nullable
+    OWLClass getOWLClass(@Nonnull String name);
 
     /** @param name
      *            name to resolve
      * @return OWLObjectProperty corresponding to name */
-    OWLObjectProperty getOWLObjectProperty(String name);
+    @Nullable
+    OWLObjectProperty getOWLObjectProperty(@Nonnull String name);
 
     /** @param name
      *            name to resolve
      * @return OWLDataProperty corresponding to name */
-    OWLDataProperty getOWLDataProperty(String name);
+    @Nullable
+    OWLDataProperty getOWLDataProperty(@Nonnull String name);
 
     /** @param name
      *            name to resolve
      * @return OWLNamedIndividual corresponding to name */
-    OWLNamedIndividual getOWLIndividual(String name);
+    @Nullable
+    OWLNamedIndividual getOWLIndividual(@Nonnull String name);
 
     /** @param name
      *            name to resolve
      * @return OWLDatatype corresponding to name */
-    OWLDatatype getOWLDatatype(String name);
+    @Nullable
+    OWLDatatype getOWLDatatype(@Nonnull String name);
 
     /** @param name
      *            name to resolve
      * @return OWLAnnotationProperty corresponding to name */
-    OWLAnnotationProperty getOWLAnnotationProperty(String name);
+    @Nullable
+    OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull String name);
 }

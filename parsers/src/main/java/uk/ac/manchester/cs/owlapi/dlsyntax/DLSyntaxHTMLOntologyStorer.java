@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owlapi.dlsyntax;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.PrintWriter;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -56,11 +60,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * <br> */
 public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     private static final long serialVersionUID = 40000L;
-    protected ShortFormProvider sfp;
-
-    public DLSyntaxHTMLOntologyStorer() {
-        sfp = new SimpleShortFormProvider();
-    }
+    protected ShortFormProvider sfp = new SimpleShortFormProvider();
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
@@ -69,25 +69,21 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     @Override
     protected String getRendering(final OWLEntity subject, OWLAxiom axiom) {
+        checkNotNull(axiom);
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
             @Override
             protected String renderEntity(OWLEntity entity) {
+                String shortForm = sfp.getShortForm(checkNotNull(entity));
                 if (!entity.equals(subject)) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append("<a href=\"#");
-                    sb.append(sfp.getShortForm(entity));
-                    sb.append("\">");
-                    sb.append(sfp.getShortForm(entity));
-                    sb.append("</a>");
-                    return sb.toString();
+                    return "<a href=\"#" + shortForm + "\">" + shortForm + "</a>";
                 } else {
-                    return sfp.getShortForm(entity);
+                    return shortForm;
                 }
             }
 
             @Override
             protected void write(DLSyntax keyword) {
-                super.write(XMLUtils.escapeXML(keyword.toString()));
+                super.write(XMLUtils.escapeXML(checkNotNull(keyword).toString()));
             }
         };
         ren.setFocusedObject(subject);
@@ -98,7 +94,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     @Override
     protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
-        writer.println("<html>");
+        checkNotNull(ontology);
+        checkNotNull(writer).println("<html>");
         writer.println("<body>");
         writer.print("<h1>");
         writer.print("Ontology: ");
@@ -106,31 +103,36 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
         writer.println("</h1>");
     }
 
-    protected void writeEntity(OWLEntity entity, PrintWriter writer) {}
+    protected void writeEntity(@Nonnull OWLEntity entity, @Nonnull PrintWriter writer) {}
 
     @Override
     protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
-        writer.println("</body>");
+        checkNotNull(ontology);
+        checkNotNull(writer).println("</body>");
         writer.println("</html>");
     }
 
     @Override
     protected void beginWritingAxiom(OWLAxiom axiom, PrintWriter writer) {
-        writer.println("<div class=\"axiombox\"> ");
+        checkNotNull(axiom);
+        checkNotNull(writer).println("<div class=\"axiombox\"> ");
     }
 
     @Override
     protected void endWritingAxiom(OWLAxiom axiom, PrintWriter writer) {
-        writer.println(" </div>");
+        checkNotNull(axiom);
+        checkNotNull(writer).println(" </div>");
     }
 
     @Override
     protected void beginWritingAxioms(OWLEntity subject, Set<? extends OWLAxiom> axioms,
             PrintWriter writer) {
-        writer.print("<h2><a name=\"");
+        checkNotNull(subject);
+        checkNotNull(axioms);
+        checkNotNull(writer).print("<h2><a name=\"");
         writer.print(sfp.getShortForm(subject));
         writer.print("\">");
-        writer.print(subject.toString());
+        writer.print(subject.getIRI().toString());
         writer.println("</a></h2>");
         writer.println("<div class=\"entitybox\">");
     }
@@ -144,25 +146,32 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     @Override
     protected void beginWritingGeneralAxioms(Set<? extends OWLAxiom> axioms,
             PrintWriter writer) {
-        writer.println("<div>");
+        ;
+        checkNotNull(writer).println("<div>");
     }
 
     @Override
     protected void endWritingGeneralAxioms(Set<? extends OWLAxiom> axioms,
             PrintWriter writer) {
-        writer.println("</div>");
+        checkNotNull(axioms);
+        checkNotNull(writer).println("</div>");
     }
 
     @Override
     protected void beginWritingUsage(OWLEntity subject, Set<? extends OWLAxiom> axioms,
             PrintWriter writer) {
-        writer.println("<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">");
+        checkNotNull(subject);
+        checkNotNull(axioms);
+        checkNotNull(writer).println(
+                "<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">");
         writer.print("<h3>Usages (" + axioms.size() + ")</h3>");
     }
 
     @Override
     protected void endWritingUsage(OWLEntity subject, Set<? extends OWLAxiom> axioms,
             PrintWriter writer) {
-        writer.println("</div>");
+        checkNotNull(subject);
+        checkNotNull(axioms);
+        checkNotNull(writer).println("</div>");
     }
 }

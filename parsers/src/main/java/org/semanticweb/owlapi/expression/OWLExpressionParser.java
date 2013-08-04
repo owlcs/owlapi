@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.expression;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -51,11 +53,12 @@ package org.semanticweb.owlapi.expression;
 public interface OWLExpressionParser<O extends Object> {
     /** @param entityChecker
      *            the entity checker to use */
-    void setOWLEntityChecker(OWLEntityChecker entityChecker);
+    void setOWLEntityChecker(@Nonnull OWLEntityChecker entityChecker);
 
     /** @param expression
      *            the expression to parse
      * @return the parsed expression
      * @throws ParserException */
-    O parse(String expression) throws ParserException;
+    @Nonnull
+    O parse(@Nonnull String expression) throws ParserException;
 }

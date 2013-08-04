@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.cs.owlapi.dlsyntax;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /** Author: Matthew Horridge<br>
@@ -50,6 +52,6 @@ public class DLSyntaxOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat.equals(new DLSyntaxOntologyFormat());
+        return checkNotNull(ontologyFormat).equals(new DLSyntaxOntologyFormat());
     }
 }

@@ -44,6 +44,8 @@
  */
 package org.semanticweb.owlapi.rdf.syntax;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
@@ -55,6 +57,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -86,12 +90,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     /** Registered error handler. */
     protected ErrorHandler m_errorHandler;
     /** Stack of base IRIs. */
-    protected LinkedList<IRI> m_baseIRIs;
-    private Map<IRI, URI> m_baseURICache;
+    protected LinkedList<IRI> m_baseIRIs = new LinkedList<IRI>();
+    private Map<IRI, URI> m_baseURICache = new HashMap<IRI, URI>();
     /** IRI of the document being parsed. */
     protected IRI m_baseIRI;
     /** The stack of languages. */
-    protected LinkedList<String> m_languages;
+    protected LinkedList<String> m_languages = new LinkedList<String>();
     /** The current language. */
     protected String m_language;
     /** Consumer receiving notifications about parsing events. */
@@ -99,16 +103,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     /** Current parser's state. */
     protected State m_state;
     /** Stack of parser states. */
-    protected List<State> m_states;
+    protected List<State> m_states = new ArrayList<State>();
     /** Document locator. */
     protected Locator m_documentLocator;
 
     /** Creates a RDF parser. */
     public RDFParser() {
-        m_states = new ArrayList<State>();
-        m_baseIRIs = new LinkedList<IRI>();
-        m_languages = new LinkedList<String>();
-        m_baseURICache = new HashMap<IRI, URI>();
     }
 
     /** Parses RDF from given input source.
@@ -117,9 +117,11 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      *            specifies where RDF comes from
      * @param consumer
      *            receives notifications about RDF parsing events */
-    public void parse(InputSource source, RDFConsumer consumer) throws SAXException,
+    public void parse(@Nonnull InputSource source, @Nonnull RDFConsumer consumer)
+            throws SAXException,
             IOException {
-        String systemID = source.getSystemId();
+        String systemID = checkNotNull(source).getSystemId();
+        checkNotNull(consumer);
         try {
             m_documentLocator = s_nullDocumentLocator;
             if (systemID != null) {
@@ -155,8 +157,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * 
      * @param errorHandler
      *            the error handler */
-    public void setErrorHandler(ErrorHandler errorHandler) {
-        m_errorHandler = errorHandler;
+    public void setErrorHandler(@Nonnull ErrorHandler errorHandler) {
+        m_errorHandler = checkNotNull(errorHandler);
     }
 
     @Override
@@ -286,7 +288,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * 
      * @param atts
      *            the attributes */
-    protected void checkUnsupportedAttributes(Attributes atts) throws SAXException {
+    protected void checkUnsupportedAttributes(@Nonnull Attributes atts)
+            throws SAXException {
+        checkNotNull(atts);
         if (atts.getIndex(RDFNS, ATTR_ABOUT_EACH) != -1) {
             throw new RDFParserException("rdf:aboutEach attribute is not supported.",
                     m_documentLocator);
@@ -297,7 +301,10 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    private IRI resolveFromDelegate(IRI iri, String value) {
+    @Nonnull
+    private IRI resolveFromDelegate(@Nonnull IRI iri, @Nonnull String value) {
+        checkNotNull(iri);
+        checkNotNull(value);
         if (NodeID.isAnonymousNodeIRI(value)) {
             return IRI.create(value, null);
         }
@@ -315,7 +322,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * 
      * @param atts
      *            the attributes potentially containing xml:base declaration */
-    protected void processXMLBase(Attributes atts) throws SAXException {
+    protected void processXMLBase(@Nonnull Attributes atts) throws SAXException {
+        checkNotNull(atts);
         m_baseIRIs.add(0, m_baseIRI);
         String value = atts.getValue(XMLNS, "base");
         if (value != null) {
@@ -336,7 +344,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * 
      * @param atts
      *            the attributes potentially containing xml:language declaration */
-    protected void processXMLLanguage(Attributes atts) {
+    protected void processXMLLanguage(@Nonnull Attributes atts) {
+        checkNotNull(atts);
         m_languages.add(0, m_language);
         String value = atts.getValue(XMLLANG);
         if (value != null) {
@@ -344,15 +353,14 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    private int cacheHits = 0;
-
     /** Resolves an IRI with the current base.
      * 
      * @param uri
      *            the IRI being resolved
      * @return the resolved IRI */
-    protected String resolveIRI(String uri) throws SAXException {
-        if (uri.length() == 0) {
+    @Nonnull
+    protected String resolveIRI(@Nonnull String uri) throws SAXException {
+        if (checkNotNull(uri).length() == 0) {
             // MH - Fix for resolving a "This document" reference against base
             // IRIs.
             //XXX namespace?
@@ -386,23 +394,29 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     }
 
     /** Returns an absolute IRI from an ID. */
-    protected String getIRIFromID(String id) throws SAXException {
+    @Nonnull
+    protected String getIRIFromID(@Nonnull String id) throws SAXException {
         return resolveIRI("#" + id);
     }
 
     /** Returns an absolute IRI from an about attribute. */
-    protected String getIRIFromAbout(String about) throws SAXException {
+    @Nonnull
+    protected String getIRIFromAbout(@Nonnull String about) throws SAXException {
         return resolveIRI(about);
     }
 
     /** Returns an absolute IRI from a resource attribute. */
-    protected String getIRIFromResource(String resource) throws SAXException {
+    @Nonnull
+    protected String getIRIFromResource(@Nonnull String resource) throws SAXException {
         return resolveIRI(resource);
     }
 
     /** Extracts the IRI of the resource from rdf:ID, rdf:nodeID or rdf:about
      * attribute. If no attribute is found, an IRI is generated. */
-    protected String getIDNodeIDAboutResourceIRI(Attributes atts) throws SAXException {
+    @Nonnull
+    protected String getIDNodeIDAboutResourceIRI(@Nonnull Attributes atts)
+            throws SAXException {
+        checkNotNull(atts);
         String result = null;
         String value = atts.getValue(RDFNS, ATTR_ID);
         if (value != null) {
@@ -438,7 +452,10 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param atts
      *            the attributes
      * @return the IRI of the resource or <code>null</code> */
-    protected String getNodeIDResourceResourceIRI(Attributes atts) throws SAXException {
+    @Nonnull
+    protected String getNodeIDResourceResourceIRI(@Nonnull Attributes atts)
+            throws SAXException {
+        checkNotNull(atts);
         String value = atts.getValue(RDFNS, ATTR_RESOURCE);
         if (value != null) {
             return getIRIFromResource(value);
@@ -463,8 +480,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param reificationID
      *            if not <code>null</code>, contains IRI of the resource that
      *            will wold the reified statement */
-    protected void statementWithResourceValue(String subject, String predicate,
-            String object, String reificationID) throws SAXException {
+    protected void statementWithResourceValue(@Nonnull String subject,
+            @Nonnull String predicate, @Nonnull String object,
+            @Nullable String reificationID) throws SAXException {
         m_consumer.statementWithResourceValue(subject, predicate, object);
         if (reificationID != null) {
             m_consumer.statementWithResourceValue(reificationID, RDF_TYPE, RDF_STATEMENT);
@@ -488,8 +506,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param reificationID
      *            if not <code>null</code>, contains IRI of the resource that
      *            will wold the reified statement */
-    protected void statementWithLiteralValue(String subject, String predicate,
-            String object, String dataType, String reificationID) throws SAXException {
+    protected void statementWithLiteralValue(@Nonnull String subject,
+            @Nonnull String predicate, @Nonnull String object, @Nonnull String dataType,
+            @Nullable String reificationID) throws SAXException {
         m_consumer.statementWithLiteralValue(subject, predicate, object, m_language,
                 dataType);
         if (reificationID != null) {
@@ -510,8 +529,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      *            attributes
      * @param reificationManager
      *            the reification manager */
-    protected void propertyAttributes(String subjectIRI, Attributes atts,
-            ReificationManager reificationManager) throws SAXException {
+    protected void propertyAttributes(@Nonnull String subjectIRI,
+            @Nonnull Attributes atts, @Nonnull ReificationManager reificationManager)
+            throws SAXException {
         int length = atts.getLength();
         for (int i = 0; i < length; i++) {
             String nsIRI = atts.getURI(i);
@@ -630,8 +650,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    public IRI getIRI(String s) {
-        return uriCache.get(s);
+    @Nonnull
+    public IRI getIRI(@Nonnull String s) {
+        return uriCache.get(checkNotNull(s));
     }
 
     /** Base class for all parser states. */

@@ -38,6 +38,7 @@
  */
 package org.coode.owlapi.rdf.rdfxml;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.IOException;
@@ -46,6 +47,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.xml.XMLWriterFactory;
@@ -75,16 +78,17 @@ import org.semanticweb.owlapi.util.VersionInfo;
 
 public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLWriter writer;
-    private Set<RDFResource> pending;
+    private Set<RDFResource> pending = new HashSet<RDFResource>();
     private RDFXMLNamespaceManager qnameManager;
 
-    public RDFXMLRenderer(OWLOntology ontology, Writer w) {
-        this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
+    public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w) {
+        this(checkNotNull(ontology), checkNotNull(w), ontology.getOWLOntologyManager()
+                .getOntologyFormat(ontology));
     }
 
-    public RDFXMLRenderer(OWLOntology ontology, Writer w, OWLOntologyFormat format) {
-        super(ontology, format);
-        pending = new HashSet<RDFResource>();
+    public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w,
+            @Nonnull OWLOntologyFormat format) {
+        super(checkNotNull(ontology), checkNotNull(format));
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base;
@@ -93,10 +97,12 @@ public class RDFXMLRenderer extends RDFRendererBase {
         } else {
             base = defaultNamespace;
         }
-        writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(w,
+        writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(
+                checkNotNull(w),
                 qnameManager, base));
     }
 
+    @Nonnull
     public Set<OWLEntity> getUnserialisableEntities() {
         return qnameManager.getEntitiesWithInvalidQNames();
     }
@@ -113,45 +119,50 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeIndividualComments(OWLNamedIndividual ind) throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(ind.getIRI().toString()));
-    }
-
-    @Override
-    protected void writeClassComment(OWLClass cls) throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(cls.getIRI().toString()));
-    }
-
-    @Override
-    protected void writeDataPropertyComment(OWLDataProperty prop) throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
-    }
-
-    @Override
-    protected void writeObjectPropertyComment(OWLObjectProperty prop) throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
-    }
-
-    @Override
-    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop)
+    protected void writeIndividualComments(@Nonnull OWLNamedIndividual ind)
             throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
+        writer.writeComment(XMLUtils.escapeXML(checkNotNull(ind).getIRI().toString()));
     }
 
     @Override
-    protected void writeDatatypeComment(OWLDatatype datatype) throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(datatype.getIRI().toString()));
+    protected void writeClassComment(@Nonnull OWLClass cls) throws IOException {
+        writer.writeComment(XMLUtils.escapeXML(checkNotNull(cls).getIRI().toString()));
     }
 
     @Override
-    protected void writeBanner(String name) throws IOException {
+    protected void writeDataPropertyComment(@Nonnull OWLDataProperty prop)
+            throws IOException {
+        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop).getIRI().toString()));
+    }
+
+    @Override
+    protected void writeObjectPropertyComment(@Nonnull OWLObjectProperty prop)
+            throws IOException {
+        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop).getIRI().toString()));
+    }
+
+    @Override
+    protected void writeAnnotationPropertyComment(@Nonnull OWLAnnotationProperty prop)
+            throws IOException {
+        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop).getIRI().toString()));
+    }
+
+    @Override
+    protected void writeDatatypeComment(@Nonnull OWLDatatype datatype) throws IOException {
+        writer.writeComment(XMLUtils
+                .escapeXML(checkNotNull(datatype).getIRI().toString()));
+    }
+
+    @Override
+    protected void writeBanner(@Nonnull String name) throws IOException {
         writer.writeComment("\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
-                + name
+                + checkNotNull(name)
                 + "\n//\n///////////////////////////////////////////////////////////////////////////////////////\n");
     }
 
     @Override
-    public void render(RDFResource node) throws IOException {
+    public void render(@Nonnull RDFResource node) throws IOException {
+        checkNotNull(node);
         if (pending.contains(node)) {
             return;
         }

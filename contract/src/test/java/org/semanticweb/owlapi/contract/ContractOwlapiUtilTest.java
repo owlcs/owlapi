@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
@@ -73,9 +72,104 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.util.*;
+import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
+import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
+import org.semanticweb.owlapi.util.AxiomSubjectProvider;
+import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
+import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
+import org.semanticweb.owlapi.util.CachingBidirectionalShortFormProvider;
+import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.CommonBaseIRIMapper;
+import org.semanticweb.owlapi.util.DLExpressivityChecker;
 import org.semanticweb.owlapi.util.DLExpressivityChecker.Construct;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.DelegatingObjectVisitorEx;
+import org.semanticweb.owlapi.util.FilteringOWLOntologyChangeListener;
+import org.semanticweb.owlapi.util.HashCode;
+import org.semanticweb.owlapi.util.HornAxiomVisitorEx;
+import org.semanticweb.owlapi.util.IRIShortFormProvider;
+import org.semanticweb.owlapi.util.ImportsStructureEntitySorter;
+import org.semanticweb.owlapi.util.ImportsStructureObjectSorter;
 import org.semanticweb.owlapi.util.ImportsStructureObjectSorter.ObjectSelector;
+import org.semanticweb.owlapi.util.InferredAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredClassAssertionAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredClassAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredDataPropertyAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredDataPropertyCharacteristicAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredDisjointClassesAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredEquivalentClassAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredEquivalentDataPropertiesAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredEquivalentObjectPropertyAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredIndividualAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredInverseObjectPropertiesAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredObjectPropertyAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredObjectPropertyCharacteristicAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredOntologyGenerator;
+import org.semanticweb.owlapi.util.InferredPropertyAssertionGenerator;
+import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredSubDataPropertyAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredSubObjectPropertyAxiomGenerator;
+import org.semanticweb.owlapi.util.Monitorable;
+import org.semanticweb.owlapi.util.MultiMap;
+import org.semanticweb.owlapi.util.NNF;
+import org.semanticweb.owlapi.util.NamedConjunctChecker;
+import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
+import org.semanticweb.owlapi.util.NullProgressMonitor;
+import org.semanticweb.owlapi.util.OWLAxiomFilter;
+import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
+import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
+import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
+import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
+import org.semanticweb.owlapi.util.OWLClassExpressionVisitorExAdapter;
+import org.semanticweb.owlapi.util.OWLClassLiteralCollector;
+import org.semanticweb.owlapi.util.OWLEntityCollectingOntologyChangeListener;
+import org.semanticweb.owlapi.util.OWLEntityCollector;
+import org.semanticweb.owlapi.util.OWLEntityComparator;
+import org.semanticweb.owlapi.util.OWLEntityRemover;
+import org.semanticweb.owlapi.util.OWLEntityRenamer;
+import org.semanticweb.owlapi.util.OWLEntitySetProvider;
+import org.semanticweb.owlapi.util.OWLEntityTinyURIConversionStrategy;
+import org.semanticweb.owlapi.util.OWLEntityURIConverter;
+import org.semanticweb.owlapi.util.OWLEntityURIConverterStrategy;
+import org.semanticweb.owlapi.util.OWLEntityURIUnderscores2CamelBackConverterStrategy;
+import org.semanticweb.owlapi.util.OWLEntityVisitorAdapter;
+import org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter;
+import org.semanticweb.owlapi.util.OWLObjectComponentCollector;
+import org.semanticweb.owlapi.util.OWLObjectDuplicator;
+import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
+import org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter;
+import org.semanticweb.owlapi.util.OWLObjectWalker;
+import org.semanticweb.owlapi.util.OWLOntologyChangeFilter;
+import org.semanticweb.owlapi.util.OWLOntologyChangeVisitorAdapter;
+import org.semanticweb.owlapi.util.OWLOntologyChangeVisitorAdapterEx;
+import org.semanticweb.owlapi.util.OWLOntologyImportsClosureSetProvider;
+import org.semanticweb.owlapi.util.OWLOntologyMerger;
+import org.semanticweb.owlapi.util.OWLOntologySingletonSetProvider;
+import org.semanticweb.owlapi.util.OWLOntologyURIChanger;
+import org.semanticweb.owlapi.util.OWLOntologyWalker;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
+import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
+import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
+import org.semanticweb.owlapi.util.ProgressMonitor;
+import org.semanticweb.owlapi.util.PropertyAssertionValueShortFormProvider;
+import org.semanticweb.owlapi.util.QNameShortFormProvider;
+import org.semanticweb.owlapi.util.ReferencedEntitySetProvider;
+import org.semanticweb.owlapi.util.RootClassChecker;
+import org.semanticweb.owlapi.util.SWRLVariableExtractor;
+import org.semanticweb.owlapi.util.SWRLVariableShortFormProvider;
+import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.util.SimpleIRIMapper;
+import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
+import org.semanticweb.owlapi.util.SimpleRenderer;
+import org.semanticweb.owlapi.util.SimpleRootClassChecker;
+import org.semanticweb.owlapi.util.SimpleShortFormProvider;
+import org.semanticweb.owlapi.util.StructuralTransformation;
+import org.semanticweb.owlapi.util.Version;
+import org.semanticweb.owlapi.util.VersionInfo;
+import org.semanticweb.owlapi.util.WeakCache;
+import org.semanticweb.owlapi.util.WeakIndexCache;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractOwlapiUtilTest {
@@ -620,18 +714,6 @@ public class ContractOwlapiUtilTest {
         OWLAxiomSearchFilter<OWLAxiom, Object> testSubject0 = mock(OWLAxiomSearchFilter.class);
         AxiomType<?> result0 = testSubject0.getAxiomType();
         boolean result1 = testSubject0.pass(mock(OWLAxiom.class), mock(Object.class));
-    }
-
-    @Test
-    public void shouldTestOWLAxiomTypeProcessor() throws OWLException {
-        OWLAxiomTypeProcessor testSubject0 = new OWLAxiomTypeProcessor() {
-            @Override
-            public void visit(OWLDatatypeDefinitionAxiom axiom) {}
-
-            @Override
-            protected void process(OWLAxiom axiom, AxiomType<?> type) {}
-        };
-        String result0 = testSubject0.toString();
     }
 
     @Test

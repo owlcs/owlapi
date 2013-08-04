@@ -38,6 +38,9 @@
  */
 package org.semanticweb.owlapi.expression;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** Author: Matthew Horridge<br>
@@ -48,5 +51,6 @@ public interface OWLOntologyChecker {
     /** @param name
      *            the ontology name
      * @return the ontology */
-    OWLOntology getOntology(String name);
+    @Nullable
+    OWLOntology getOntology(@Nonnull String name);
 }

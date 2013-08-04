@@ -45,6 +45,9 @@
  */
 package org.semanticweb.owlapi.rdf.syntax;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.xml.sax.SAXException;
 
 /** Receives notifications about triples generated during the parsing process. */
@@ -54,7 +57,7 @@ public interface RDFConsumer {
      * @param physicalURI
      *            physical URI of the model
      * @throws SAXException */
-    void startModel(String physicalURI) throws SAXException;
+    void startModel(@Nonnull String physicalURI) throws SAXException;
 
     /** Called when model parsing is finished.
      * 
@@ -70,7 +73,8 @@ public interface RDFConsumer {
      * @param object
      *            URI of the object resource
      * @throws SAXException */
-    void statementWithResourceValue(String subject, String predicate, String object)
+    void statementWithResourceValue(@Nonnull String subject, @Nonnull String predicate,
+            @Nonnull String object)
             throws SAXException;
 
     /** Called when a statement with literal value is added to the model.
@@ -86,15 +90,16 @@ public interface RDFConsumer {
      * @param datatype
      *            the URI of the literal's datatype (may be <code>null</code>)
      * @throws SAXException */
-    void statementWithLiteralValue(String subject, String predicate, String object,
-            String language, String datatype) throws SAXException;
+    void statementWithLiteralValue(@Nonnull String subject, @Nonnull String predicate,
+            @Nonnull String object, @Nullable String language, @Nullable String datatype)
+            throws SAXException;
 
     /** Receives the logical URI of the model.
      * 
      * @param logicalURI
      *            logical URI of the model
      * @throws SAXException */
-    void logicalURI(String logicalURI) throws SAXException;
+    void logicalURI(@Nonnull String logicalURI) throws SAXException;
 
     /** Receives the notification that the model being parsed includes another
      * model with supplied URIs.
@@ -104,7 +109,8 @@ public interface RDFConsumer {
      * @param physicalURI
      *            physical URI of the model
      * @throws SAXException */
-    void includeModel(String logicalURI, String physicalURI) throws SAXException;
+    void includeModel(@Nonnull String logicalURI, @Nonnull String physicalURI)
+            throws SAXException;
 
     /** Receives the notification that the attribute and its value has been
      * parsed.
@@ -114,5 +120,5 @@ public interface RDFConsumer {
      * @param value
      *            the value of the attribute
      * @throws SAXException */
-    void addModelAttribte(String key, String value) throws SAXException;
+    void addModelAttribte(@Nonnull String key, @Nonnull String value) throws SAXException;
 }

@@ -38,6 +38,8 @@
  */
 package org.coode.owlapi.functionalrenderer;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
@@ -61,7 +63,8 @@ public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat.equals(new OWLFunctionalSyntaxOntologyFormat());
+        return checkNotNull(ontologyFormat).equals(
+                new OWLFunctionalSyntaxOntologyFormat());
     }
 
     @Override

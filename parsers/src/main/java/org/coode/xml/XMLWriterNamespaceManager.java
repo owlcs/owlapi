@@ -38,10 +38,15 @@
  */
 package org.coode.xml;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -55,37 +60,38 @@ import java.util.Set;
  * Developed as part of the CO-ODE project http://www.co-ode.org */
 
 public class XMLWriterNamespaceManager {
-    private Map<String, String> prefixNamespaceMap;
-    private Map<String, String> namespacePrefixMap;
-    private Map<String, String> wellknownNamespaces;
+    private Map<String, String> prefixNamespaceMap = new HashMap<String, String>();
+    private Map<String, String> namespacePrefixMap = new HashMap<String, String>();
+    private Map<String, String> wellknownNamespaces = new HashMap<String, String>();
     private String defaultNamespace;
 
-    public XMLWriterNamespaceManager(String defaultNamespace) {
-        prefixNamespaceMap = new HashMap<String, String>();
-        namespacePrefixMap = new HashMap<String, String>();
-        wellknownNamespaces = new HashMap<String, String>();
-        this.defaultNamespace = defaultNamespace;
+    public XMLWriterNamespaceManager(@Nonnull String defaultNamespace) {
+        this.defaultNamespace = checkNotNull(defaultNamespace);
     }
 
-    public void addWellKnownNamespace(String prefix, String namespace) {
-        wellknownNamespaces.put(prefix, namespace);
+    public void addWellKnownNamespace(@Nonnull String prefix, @Nonnull String namespace) {
+        wellknownNamespaces.put(checkNotNull(prefix), checkNotNull(namespace));
     }
 
-    public void setPrefix(String prefix, String namespace) {
+    public void setPrefix(@Nonnull String prefix, @Nonnull String namespace) {
+        checkNotNull(prefix);
+        checkNotNull(namespace);
         prefixNamespaceMap.put(prefix, namespace);
         namespacePrefixMap.put(namespace, prefix);
     }
 
-    public String getPrefixForNamespace(String namespace) {
-        return namespacePrefixMap.get(namespace);
+    @Nullable
+    public String getPrefixForNamespace(@Nonnull String namespace) {
+        return namespacePrefixMap.get(checkNotNull(namespace));
     }
 
-    public void setDefaultNamespace(String namespace) {
-        defaultNamespace = namespace;
+    public void setDefaultNamespace(@Nonnull String namespace) {
+        defaultNamespace = checkNotNull(namespace);
     }
 
-    public String getNamespaceForPrefix(String prefix) {
-        return prefixNamespaceMap.get(prefix);
+    @Nullable
+    public String getNamespaceForPrefix(@Nonnull String prefix) {
+        return prefixNamespaceMap.get(checkNotNull(prefix));
     }
 
     /** Gets a QName for a full URI.
@@ -94,7 +100,9 @@ public class XMLWriterNamespaceManager {
      *            The name which represents the full name.
      * @return The QName representation or <code>null</code> if a QName could
      *         not be generated. */
-    public String getQName(String name) {
+    @Nonnull
+    public String getQName(@Nonnull String name) {
+        checkNotNull(name);
         if (name.startsWith(defaultNamespace)) {
             return name.substring(defaultNamespace.length(), name.length());
         }
@@ -107,7 +115,8 @@ public class XMLWriterNamespaceManager {
         return name;
     }
 
-    public void createPrefixForNamespace(String namespace) {
+    public void createPrefixForNamespace(@Nonnull String namespace) {
+        checkNotNull(namespace);
         if (namespace.equals(defaultNamespace)) {
             return;
         }
@@ -127,14 +136,17 @@ public class XMLWriterNamespaceManager {
         return defaultNamespace;
     }
 
+    @Nonnull
     public Set<String> getPrefixes() {
         return new HashSet<String>(prefixNamespaceMap.keySet());
     }
 
+    @Nonnull
     public Set<String> getNamespaces() {
         return new HashSet<String>(namespacePrefixMap.keySet());
     }
 
+    @Nonnull
     public Map<String, String> getPrefixNamespaceMap() {
         return new HashMap<String, String>(prefixNamespaceMap);
     }
@@ -142,6 +154,7 @@ public class XMLWriterNamespaceManager {
     /** Search for a prefix other than "" for the default namespace
      * 
      * @return the first prefix found for the default namespace that is not "" */
+    @Nonnull
     public String getDefaultPrefix() {
         for (String prefix : prefixNamespaceMap.keySet()) {
             if (!prefix.equals("")) {

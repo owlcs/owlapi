@@ -38,6 +38,8 @@
  */
 package org.coode.owlapi.rdf.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -47,6 +49,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.semanticweb.owlapi.io.RDFNode;
@@ -60,16 +64,9 @@ import org.semanticweb.owlapi.io.RDFTriple;
  * Date: 06-Dec-2006<br>
  * <br> */
 public class RDFGraph {
-    private Map<RDFResource, Set<RDFTriple>> triplesBySubject;
-    private Set<RDFResourceBlankNode> rootAnonymousNodes;
-    private Set<RDFTriple> triples;
-
-    
-    public RDFGraph() {
-        triples = new HashSet<RDFTriple>();
-        triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
-        rootAnonymousNodes = null;
-    }
+    private Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
+    private Set<RDFResourceBlankNode> rootAnonymousNodes = null;
+    private Set<RDFTriple> triples = new HashSet<RDFTriple>();
 
     /** Determines if this graph is empty (i.e. whether or not it contains any
      * triples).
@@ -83,7 +80,8 @@ public class RDFGraph {
 
     /** @param triple
      *            triple to add */
-    public void addTriple(RDFTriple triple) {
+    public void addTriple(@Nonnull RDFTriple triple) {
+        checkNotNull(triple);
         // Reset the computation of root anon nodes
         rootAnonymousNodes = null;
         triples.add(triple);
@@ -98,9 +96,11 @@ public class RDFGraph {
     /** @param subject
      * @param sort
      * @return sorted triples */
-    public List<RDFTriple> getSortedTriplesForSubject(RDFNode subject, boolean sort) {
+    @Nonnull
+    public List<RDFTriple> getSortedTriplesForSubject(@Nonnull RDFNode subject,
+            boolean sort) {
         List<RDFTriple> toReturn = new ArrayList<RDFTriple>();
-        Set<RDFTriple> set = triplesBySubject.get(subject);
+        Set<RDFTriple> set = triplesBySubject.get(checkNotNull(subject));
         if (set != null) {
             toReturn.addAll(set);
         }
@@ -111,6 +111,7 @@ public class RDFGraph {
     }
 
     /** @return root anonymous nodes */
+    @Nonnull
     public Set<RDFResourceBlankNode> getRootAnonymousNodes() {
         if (rootAnonymousNodes == null) {
             rebuildAnonRoots();
@@ -139,7 +140,8 @@ public class RDFGraph {
      *            writer to write to
      * @throws IOException
      *             if exceptions happen */
-    public void dumpTriples(Writer w) throws IOException {
+    public void dumpTriples(@Nonnull Writer w) throws IOException {
+        checkNotNull(w);
         for (Set<RDFTriple> set : triplesBySubject.values()) {
             for (RDFTriple triple : set) {
                 w.write(triple.toString());

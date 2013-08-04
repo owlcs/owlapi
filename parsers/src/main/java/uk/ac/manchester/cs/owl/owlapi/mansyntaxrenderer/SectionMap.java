@@ -38,11 +38,15 @@
  */
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -59,7 +63,9 @@ public class SectionMap {
         return object2Axioms.isEmpty();
     }
 
-    public void add(Object o, OWLAxiom forAxiom) {
+    public void add(@Nonnull Object o, @Nonnull OWLAxiom forAxiom) {
+        checkNotNull(o);
+        checkNotNull(forAxiom);
         Set<OWLAxiom> axioms = object2Axioms.get(o);
         if (axioms == null) {
             axioms = new HashSet<OWLAxiom>();
@@ -68,15 +74,19 @@ public class SectionMap {
         axioms.add(forAxiom);
     }
 
-    public void remove(Object o) {
-        object2Axioms.remove(o);
+    public void remove(@Nonnull Object o) {
+        object2Axioms.remove(checkNotNull(o));
     }
 
+    @Nonnull
     public Collection<Object> getSectionObjects() {
         return object2Axioms.keySet();
     }
 
-    public Set<Set<OWLAnnotation>> getAnnotationsForSectionObject(Object sectionObject) {
+    @Nonnull
+    public Set<Set<OWLAnnotation>> getAnnotationsForSectionObject(
+            @Nonnull Object sectionObject) {
+        checkNotNull(sectionObject);
         Collection<OWLAxiom> axioms = object2Axioms.get(sectionObject);
         if (axioms == null) {
             return new HashSet<Set<OWLAnnotation>>();

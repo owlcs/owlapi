@@ -38,6 +38,10 @@
  */
 package org.coode.owlapi.rdf.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -65,7 +69,8 @@ public class RDFTranslator extends
      *            the ontology
      * @param useStrongTyping
      *            true if strong typing is required */
-    public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology,
+    public RDFTranslator(@Nonnull OWLOntologyManager manager,
+            @Nonnull OWLOntology ontology,
             boolean useStrongTyping) {
         super(manager, ontology, useStrongTyping);
     }
@@ -76,12 +81,15 @@ public class RDFTranslator extends
     }
 
     @Override
-    protected void addTriple(RDFResource subject, RDFResourceIRI pred, RDFNode object) {
-        graph.addTriple(new RDFTriple(subject, pred, object));
+    protected void addTriple(@Nonnull RDFResource subject, @Nonnull RDFResourceIRI pred,
+            @Nonnull RDFNode object) {
+        graph.addTriple(new RDFTriple(checkNotNull(subject), checkNotNull(pred),
+                checkNotNull(object)));
     }
 
     @Override
     protected RDFResourceBlankNode getAnonymousNode(Object key) {
+        checkNotNull(key);
         if (key instanceof OWLAnonymousIndividual) {
             RDFResourceBlankNode toReturn = new RDFResourceBlankNode(
                     ((OWLAnonymousIndividual) key).getID().getID().hashCode());

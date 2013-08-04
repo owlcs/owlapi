@@ -38,7 +38,11 @@
  */
 package org.coode.owlapi.rdf.rdfxml;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.IOException;
+
+import javax.annotation.Nonnull;
 
 import org.coode.xml.XMLWriter;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -55,28 +59,29 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 public class RDFXMLWriter {
     private XMLWriter writer;
 
-    RDFXMLWriter(XMLWriter writer) {
-        this.writer = writer;
+    RDFXMLWriter(@Nonnull XMLWriter writer) {
+        this.writer = checkNotNull(writer);
     }
 
-    public void writeStartElement(IRI elementName) throws IOException {
+    public void writeStartElement(@Nonnull IRI elementName) throws IOException {
         // Sort out with namespace
-        writer.writeStartElement(elementName.toString());
+        writer.writeStartElement(checkNotNull(elementName).toString());
     }
 
     public void writeParseTypeAttribute() throws IOException {
         writer.writeAttribute(Namespaces.RDF + "parseType", "Collection");
     }
 
-    public void writeDatatypeAttribute(IRI datatypeIRI) throws IOException {
+    public void writeDatatypeAttribute(@Nonnull IRI datatypeIRI) throws IOException {
+        checkNotNull(datatypeIRI);
         writer.writeAttribute(Namespaces.RDF + "datatype", datatypeIRI.toString());
     }
 
-    public void writeTextContent(String text) throws IOException {
+    public void writeTextContent(@Nonnull String text) throws IOException {
         writer.writeTextContent(text);
     }
 
-    public void writeLangAttribute(String lang) throws IOException {
+    public void writeLangAttribute(@Nonnull String lang) throws IOException {
         writer.writeAttribute("xml:lang", lang);
     }
 
@@ -84,21 +89,22 @@ public class RDFXMLWriter {
         writer.writeEndElement();
     }
 
-    public void writeAboutAttribute(IRI value) throws IOException {
+    public void writeAboutAttribute(@Nonnull IRI value) throws IOException {
         writeAttribute(Namespaces.RDF + "about", value);
     }
 
-    public void writeNodeIDAttribute(RDFResource node) throws IOException {
+    public void writeNodeIDAttribute(@Nonnull RDFResource node) throws IOException {
         writer.writeAttribute(Namespaces.RDF + "nodeID", node.toString());
     }
 
-    private void writeAttribute(String attributeName, IRI value) throws IOException {
-        writer.writeAttribute(attributeName, value.toString());
+    private void writeAttribute(@Nonnull String attributeName, @Nonnull IRI value)
+            throws IOException {
+        writer.writeAttribute(attributeName, checkNotNull(value).toString());
     }
 
     public void writeOWLObject(OWLObject owlObject) {}
 
-    public void writeResourceAttribute(IRI value) throws IOException {
+    public void writeResourceAttribute(@Nonnull IRI value) throws IOException {
         writeAttribute(Namespaces.RDF + "resource", value);
     }
 
@@ -110,7 +116,7 @@ public class RDFXMLWriter {
         writer.endDocument();
     }
 
-    public void writeComment(String comment) throws IOException {
+    public void writeComment(@Nonnull String comment) throws IOException {
         writer.writeComment(comment);
     }
 }

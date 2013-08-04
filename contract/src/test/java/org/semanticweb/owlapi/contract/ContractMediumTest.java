@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
+import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -308,7 +309,7 @@ public class ContractMediumTest {
     @Test
     public void shouldTestOWLOntologyXMLNamespaceManager() throws OWLException {
         OWLOntologyXMLNamespaceManager testSubject0 = new OWLOntologyXMLNamespaceManager(
-                Utils.getMockManager(), Utils.getMockOntology());
+                Utils.getMockOntology(), new OWLFunctionalSyntaxOntologyFormat());
         OWLOntologyXMLNamespaceManager testSubject1 = new OWLOntologyXMLNamespaceManager(
                 Utils.getMockOntology(), mock(OWLOntologyFormat.class));
         String result0 = testSubject0.getQName("");

@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger;
 import org.semanticweb.owlapi.debugging.DebuggerClassExpressionGenerator;
 import org.semanticweb.owlapi.debugging.JustificationMap;
 import org.semanticweb.owlapi.debugging.OWLDebugger;
+import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
@@ -244,7 +245,7 @@ public class ContractSmallsTest {
     @Test
     public void shouldTestRDFXMLNamespaceManager() throws OWLException {
         RDFXMLNamespaceManager testSubject0 = new RDFXMLNamespaceManager(
-                Utils.getMockManager(), Utils.getMockOntology());
+                Utils.getMockOntology(), new OWLFunctionalSyntaxOntologyFormat());
         RDFXMLNamespaceManager testSubject1 = new RDFXMLNamespaceManager(
                 Utils.getMockOntology(), mock(OWLOntologyFormat.class));
         Set<OWLEntity> result0 = testSubject0.getEntitiesWithInvalidQNames();
