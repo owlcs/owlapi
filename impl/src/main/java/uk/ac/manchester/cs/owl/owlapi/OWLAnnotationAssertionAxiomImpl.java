@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -66,13 +70,13 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
     private final OWLAnnotationProperty property;
     private final OWLAnnotationValue value;
 
-    public OWLAnnotationAssertionAxiomImpl(OWLAnnotationSubject subject,
-            OWLAnnotationProperty property, OWLAnnotationValue value,
-            Collection<? extends OWLAnnotation> annotations) {
+    public OWLAnnotationAssertionAxiomImpl(@Nonnull OWLAnnotationSubject subject,
+            @Nonnull OWLAnnotationProperty property, @Nonnull OWLAnnotationValue value,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.subject = subject;
-        this.property = property;
-        this.value = value;
+        this.subject = checkNotNull(subject);
+        this.property = checkNotNull(property);
+        this.value = checkNotNull(value);
     }
 
     @Override

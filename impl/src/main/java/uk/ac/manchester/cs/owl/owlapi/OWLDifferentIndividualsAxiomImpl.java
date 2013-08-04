@@ -43,6 +43,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -64,8 +66,9 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
-    public OWLDifferentIndividualsAxiomImpl(Set<? extends OWLIndividual> individuals,
-            Set<? extends OWLAnnotation> annotations) {
+    public OWLDifferentIndividualsAxiomImpl(
+            @Nonnull Set<? extends OWLIndividual> individuals,
+            @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
 

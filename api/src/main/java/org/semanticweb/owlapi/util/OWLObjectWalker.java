@@ -38,11 +38,15 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -283,7 +287,8 @@ public class OWLObjectWalker<O extends OWLObject> {
 
         public StructureWalker() {}
 
-        private void process(OWLObject object) {
+        private void process(@Nonnull OWLObject object) {
+            checkNotNull(object);
             if (!visitDuplicates) {
                 if (!visited.contains(object)) {
                     visited.add(object);

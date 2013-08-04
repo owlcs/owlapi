@@ -41,6 +41,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -59,7 +61,7 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
     private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
-    public OWLObjectIntersectionOfImpl(Set<? extends OWLClassExpression> operands) {
+    public OWLObjectIntersectionOfImpl(@Nonnull Set<? extends OWLClassExpression> operands) {
         super(operands);
     }
 

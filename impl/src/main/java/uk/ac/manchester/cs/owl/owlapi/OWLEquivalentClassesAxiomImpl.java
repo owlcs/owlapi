@@ -38,12 +38,14 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -65,12 +67,12 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl implements
         OWLEquivalentClassesAxiom {
     private static final long serialVersionUID = 40000L;
-    private Set<OWLClass> namedClasses = null;
+    private WeakReference<Set<OWLClass>> namedClasses = null;
 
     @SuppressWarnings("javadoc")
     public OWLEquivalentClassesAxiomImpl(
-            Set<? extends OWLClassExpression> classExpressions,
-            Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Set<? extends OWLClassExpression> classExpressions,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
 
@@ -128,16 +130,22 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
 
     @Override
     public Set<OWLClass> getNamedClasses() {
-        if (namedClasses == null) {
+        Set<OWLClass> toReturn = null;
+        if (namedClasses != null) {
+            toReturn = namedClasses.get();
+        }
+        if (toReturn == null) {
             Set<OWLClass> clses = new HashSet<OWLClass>(1);
             for (OWLClassExpression desc : getClassExpressions()) {
                 if (!desc.isAnonymous() && !desc.isOWLNothing() && !desc.isOWLThing()) {
                     clses.add(desc.asOWLClass());
                 }
             }
-            namedClasses = Collections.unmodifiableSet(clses);
+            toReturn = CollectionFactory
+                    .getCopyOnRequestSetFromImmutableCollection(clses);
+            namedClasses = new WeakReference<Set<OWLClass>>(toReturn);
         }
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(namedClasses);
+        return toReturn;
     }
 
     @Override

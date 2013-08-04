@@ -41,6 +41,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -61,9 +63,10 @@ public class OWLSubObjectPropertyOfAxiomImpl extends
     private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
-    public OWLSubObjectPropertyOfAxiomImpl(OWLObjectPropertyExpression subProperty,
-            OWLObjectPropertyExpression superProperty,
-            Collection<? extends OWLAnnotation> annotations) {
+    public OWLSubObjectPropertyOfAxiomImpl(
+            @Nonnull OWLObjectPropertyExpression subProperty,
+            @Nonnull OWLObjectPropertyExpression superProperty,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(subProperty, superProperty, annotations);
     }
 

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -214,186 +216,223 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
+        checkNotNull(axiom);
         type = SUBCLASS_AXIOM;
     }
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         type = NEGATIVE_OBJECT_PROPERTY_ASSERTION;
     }
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
@@ -404,6 +443,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
+        checkNotNull(axiom);
         type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 

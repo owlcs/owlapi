@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -55,11 +59,8 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
     private OWLOntologyManager ontologyManager;
 
     @Override
-    public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
-        if (owlOntologyManager == null) {
-            throw new IllegalArgumentException("ontologyManager cannot be null");
-        }
-        ontologyManager = owlOntologyManager;
+    public void setOWLOntologyManager(@Nonnull OWLOntologyManager owlOntologyManager) {
+        ontologyManager = checkNotNull(owlOntologyManager);
     }
 
     @Override
@@ -72,16 +73,6 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
         return true;
     }
 
-    /** Creates an empty ontology that a concrete representation can be parsed
-     * into. Subclasses can override this method to change the implementation of
-     * the ontology.
-     * 
-     * @param documentIRI
-     *            the document IRI
-     * @param ontologyID
-     *            the ontology id
-     * @param handler
-     *            the creation handler */
     @Override
     public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI,
             OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {

@@ -38,7 +38,11 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -72,12 +76,13 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
      *            the object
      * @param annotations
      *            the annotations */
-    public OWLIndividualRelationshipAxiomImpl(OWLIndividual subject, P property,
-            O object, Collection<? extends OWLAnnotation> annotations) {
+    public OWLIndividualRelationshipAxiomImpl(@Nonnull OWLIndividual subject,
+            @Nonnull P property, @Nonnull O object,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.subject = subject;
-        this.property = property;
-        this.object = object;
+        this.subject = checkNotNull(subject);
+        this.property = checkNotNull(property);
+        this.object = checkNotNull(object);
     }
 
     @Override

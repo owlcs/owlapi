@@ -42,6 +42,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -63,8 +65,9 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
     private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
-    public OWLSymmetricObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
-            Collection<? extends OWLAnnotation> annotations) {
+    public OWLSymmetricObjectPropertyAxiomImpl(
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(property, annotations);
     }
 

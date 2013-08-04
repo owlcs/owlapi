@@ -38,7 +38,11 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -57,11 +61,11 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> e
     private final P subProperty;
     private final P superProperty;
 
-    public OWLSubPropertyAxiomImpl(P subProperty, P superProperty,
-            Collection<? extends OWLAnnotation> annotations) {
+    public OWLSubPropertyAxiomImpl(@Nonnull P subProperty, @Nonnull P superProperty,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.subProperty = subProperty;
-        this.superProperty = superProperty;
+        this.subProperty = checkNotNull(subProperty);
+        this.superProperty = checkNotNull(superProperty);
     }
 
     @Override

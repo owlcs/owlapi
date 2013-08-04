@@ -38,6 +38,7 @@
  */
 package org.semanticweb.owlapi.reasoner.structural;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.util.ArrayList;
@@ -49,6 +50,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -128,9 +131,11 @@ public class StructuralReasoner extends OWLReasonerBase {
      *            the reasoner configuration
      * @param bufferingMode
      *            the buffering mode */
-    public StructuralReasoner(OWLOntology rootOntology,
-            OWLReasonerConfiguration configuration, BufferingMode bufferingMode) {
+    public StructuralReasoner(@Nonnull OWLOntology rootOntology,
+            @Nonnull OWLReasonerConfiguration configuration,
+            @Nonnull BufferingMode bufferingMode) {
         super(rootOntology, configuration, bufferingMode);
+        checkNotNull(configuration);
         pm = configuration.getProgressMonitor() == null ? new NullReasonerProgressMonitor()
                 : configuration.getProgressMonitor();
         prepareReasoner();

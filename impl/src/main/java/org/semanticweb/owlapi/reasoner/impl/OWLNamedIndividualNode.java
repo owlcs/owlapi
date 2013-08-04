@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 /** Author: Matthew Horridge<br>
@@ -50,11 +52,11 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 public class OWLNamedIndividualNode extends DefaultNode<OWLNamedIndividual> {
     public OWLNamedIndividualNode() {}
 
-    public OWLNamedIndividualNode(OWLNamedIndividual entity) {
+    public OWLNamedIndividualNode(@Nonnull OWLNamedIndividual entity) {
         super(entity);
     }
 
-    public OWLNamedIndividualNode(Set<OWLNamedIndividual> entities) {
+    public OWLNamedIndividualNode(@Nonnull Set<OWLNamedIndividual> entities) {
         super(entities);
     }
 

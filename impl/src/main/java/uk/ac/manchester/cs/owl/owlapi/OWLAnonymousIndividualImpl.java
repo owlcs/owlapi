@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnnotationSubjectVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationSubjectVisitorEx;
@@ -62,9 +66,8 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
     private static final long serialVersionUID = 40000L;
     private final NodeID nodeId;
 
-    public OWLAnonymousIndividualImpl(NodeID nodeID) {
-        super();
-        nodeId = nodeID;
+    public OWLAnonymousIndividualImpl(@Nonnull NodeID nodeID) {
+        nodeId = checkNotNull(nodeID);
     }
 
     @Override

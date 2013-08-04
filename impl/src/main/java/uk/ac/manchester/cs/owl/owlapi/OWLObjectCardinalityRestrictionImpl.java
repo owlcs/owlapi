@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
@@ -54,10 +58,11 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends
     private static final long serialVersionUID = 40000L;
     private final OWLObjectPropertyExpression property;
 
-    protected OWLObjectCardinalityRestrictionImpl(OWLObjectPropertyExpression property,
-            int cardinality, OWLClassExpression filler) {
+    protected OWLObjectCardinalityRestrictionImpl(
+            @Nonnull OWLObjectPropertyExpression property, int cardinality,
+            @Nonnull OWLClassExpression filler) {
         super(cardinality, filler);
-        this.property = property;
+        this.property = checkNotNull(property);
     }
 
     @Override

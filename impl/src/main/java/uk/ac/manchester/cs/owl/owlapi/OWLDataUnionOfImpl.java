@@ -40,6 +40,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
@@ -59,7 +61,7 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
     private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
-    public OWLDataUnionOfImpl(Set<? extends OWLDataRange> operands) {
+    public OWLDataUnionOfImpl(@Nonnull Set<? extends OWLDataRange> operands) {
         super(operands);
     }
 

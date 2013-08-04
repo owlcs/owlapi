@@ -38,10 +38,14 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -66,12 +70,13 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
 
     @SuppressWarnings("javadoc")
     public OWLSubPropertyChainAxiomImpl(
-            List<? extends OWLObjectPropertyExpression> propertyChain,
-            OWLObjectPropertyExpression superProperty,
-            Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull List<? extends OWLObjectPropertyExpression> propertyChain,
+            @Nonnull OWLObjectPropertyExpression superProperty,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.propertyChain = new ArrayList<OWLObjectPropertyExpression>(propertyChain);
-        this.superProperty = superProperty;
+        this.propertyChain = new ArrayList<OWLObjectPropertyExpression>(
+                checkNotNull(propertyChain));
+        this.superProperty = checkNotNull(superProperty);
     }
 
     @Override

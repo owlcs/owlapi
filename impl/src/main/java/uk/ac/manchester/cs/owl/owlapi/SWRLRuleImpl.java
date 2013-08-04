@@ -38,11 +38,15 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.ArrayList;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -85,11 +89,12 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private Set<OWLClassExpression> classAtomsPredicates;
 
     @SuppressWarnings("javadoc")
-    public SWRLRuleImpl(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head,
-            Collection<? extends OWLAnnotation> annotations) {
+    public SWRLRuleImpl(@Nonnull Set<? extends SWRLAtom> body,
+            @Nonnull Set<? extends SWRLAtom> head,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.head = new TreeSet<SWRLAtom>(head);
-        this.body = new TreeSet<SWRLAtom>(body);
+        this.head = new TreeSet<SWRLAtom>(checkNotNull(head));
+        this.body = new TreeSet<SWRLAtom>(checkNotNull(body));
     }
 
     @Override
@@ -107,7 +112,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @SuppressWarnings("javadoc")
     public SWRLRuleImpl(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
-        this(body, head, new ArrayList<OWLAnnotation>(0));
+        this(body, head, Collections.<OWLAnnotation> emptyList());
     }
 
     @Override

@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.reasoner.impl;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
@@ -89,8 +93,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpression> {
     private final OWLDataFactory df;
 
-    public SatisfiabilityReducer(OWLDataFactory dataFactory) {
-        df = dataFactory;
+    public SatisfiabilityReducer(@Nonnull OWLDataFactory dataFactory) {
+        df = checkNotNull(dataFactory);
     }
 
     @Override

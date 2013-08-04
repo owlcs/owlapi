@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -325,7 +324,7 @@ public class ContractOwlapi_4Test {
     @Test
     public void shouldTestSWRLDifferentIndividualsAtomImpl() throws OWLException {
         SWRLDifferentIndividualsAtomImpl testSubject0 = new SWRLDifferentIndividualsAtomImpl(
-                mock(OWLDataFactory.class), mock(SWRLIArgument.class),
+                mock(OWLObjectProperty.class), mock(SWRLIArgument.class),
                 mock(SWRLIArgument.class));
         testSubject0.accept(mock(OWLObjectVisitor.class));
         testSubject0.accept(mock(SWRLObjectVisitor.class));
@@ -463,7 +462,7 @@ public class ContractOwlapi_4Test {
     @Test
     public void shouldTestSWRLSameIndividualAtomImpl() throws OWLException {
         SWRLSameIndividualAtomImpl testSubject0 = new SWRLSameIndividualAtomImpl(
-                mock(OWLDataFactory.class), mock(SWRLIArgument.class),
+                mock(OWLObjectProperty.class), mock(SWRLIArgument.class),
                 mock(SWRLIArgument.class));
         testSubject0.accept(mock(OWLObjectVisitor.class));
         testSubject0.accept(mock(SWRLObjectVisitor.class));

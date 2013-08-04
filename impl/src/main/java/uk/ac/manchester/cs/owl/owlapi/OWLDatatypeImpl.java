@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -73,9 +77,8 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     private final boolean builtin;
 
     @SuppressWarnings("javadoc")
-    public OWLDatatypeImpl(IRI iri) {
-        super();
-        this.iri = iri;
+    public OWLDatatypeImpl(@Nonnull IRI iri) {
+        this.iri = checkNotNull(iri);
         top = iri.equals(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
         builtin = top || OWL2Datatype.isBuiltIn(iri)
                 || iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());

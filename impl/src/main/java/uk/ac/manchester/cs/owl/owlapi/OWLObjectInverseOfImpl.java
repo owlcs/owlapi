@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -59,8 +61,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
     private final OWLObjectPropertyExpression inverseProperty;
 
     @SuppressWarnings("javadoc")
-    public OWLObjectInverseOfImpl(OWLObjectPropertyExpression inverseProperty) {
-        super();
+    public OWLObjectInverseOfImpl(@Nonnull OWLObjectPropertyExpression inverseProperty) {
         this.inverseProperty = inverseProperty;
     }
 

@@ -38,11 +38,15 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -61,10 +65,10 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
     private final Set<OWLIndividual> individuals;
 
     @SuppressWarnings("javadoc")
-    public OWLNaryIndividualAxiomImpl(Set<? extends OWLIndividual> individuals,
-            Collection<? extends OWLAnnotation> annotations) {
+    public OWLNaryIndividualAxiomImpl(@Nonnull Set<? extends OWLIndividual> individuals,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.individuals = new TreeSet<OWLIndividual>(individuals);
+        this.individuals = new TreeSet<OWLIndividual>(checkNotNull(individuals));
     }
 
     @Override

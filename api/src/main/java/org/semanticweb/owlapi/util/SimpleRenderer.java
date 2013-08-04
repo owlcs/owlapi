@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -283,17 +285,11 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     private <N extends OWLObject> Set<N> toSortedSet(Set<N> set) {
         return new TreeSet<N>(set);
-        // Set<N> sorted = new TreeSet<N>(new Comparator() {
-        // public int compare(Object o1, Object o2) {
-        // return o1.toString().compareTo(o2.toString());
-        // }
-        // });
-        // sorted.addAll(set);
-        // return sorted;
     }
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("SubClassOf(");
         writeAnnotations(axiom);
         axiom.getSubClass().accept(this);
@@ -304,6 +300,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("NegativeObjectPropertyAssertion(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -316,6 +313,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("AsymmetricObjectProperty(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -324,6 +322,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("ReflexiveObjectProperty(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -332,6 +331,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("DisjointClasses(");
         writeAnnotations(axiom);
         render(axiom.getClassExpressions());
@@ -340,6 +340,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("DataPropertyDomain(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -350,6 +351,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("ObjectPropertyDomain(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -360,6 +362,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("EquivalentObjectProperties(");
         writeAnnotations(axiom);
         render(axiom.getProperties());
@@ -368,6 +371,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("NegativeDataPropertyAssertion(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -380,6 +384,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("DifferentIndividuals(");
         writeAnnotations(axiom);
         render(axiom.getIndividuals());
@@ -388,6 +393,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("DisjointDataProperties(");
         writeAnnotations(axiom);
         render(axiom.getProperties());
@@ -396,6 +402,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("DisjointObjectProperties(");
         writeAnnotations(axiom);
         render(axiom.getProperties());
@@ -404,6 +411,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("ObjectPropertyRange(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -414,6 +422,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("ObjectPropertyAssertion(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -426,6 +435,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("FunctionalObjectProperty(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -434,6 +444,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("SubObjectPropertyOf(");
         writeAnnotations(axiom);
         axiom.getSubProperty().accept(this);
@@ -444,6 +455,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("DisjointUnion(");
         writeAnnotations(axiom);
         axiom.getOWLClass().accept(this);
@@ -454,6 +466,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("Declaration(");
         writeAnnotations(axiom);
         OWLEntity entity = axiom.getEntity();
@@ -476,6 +489,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("AnnotationAssertion(");
         writeAnnotations(axiom);
         writeAnnotations(axiom);
@@ -489,6 +503,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("SymmetricObjectProperty(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -497,6 +512,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("DataPropertyRange(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -507,6 +523,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("FunctionalDataProperty(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -515,6 +532,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("EquivalentDataProperties(");
         writeAnnotations(axiom);
         render(axiom.getProperties());
@@ -523,6 +541,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("ClassAssertion(");
         writeAnnotations(axiom);
         axiom.getClassExpression().accept(this);
@@ -533,6 +552,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("EquivalentClasses(");
         writeAnnotations(axiom);
         render(axiom.getClassExpressions());
@@ -541,6 +561,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("DataPropertyAssertion(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -553,6 +574,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("TransitiveObjectProperty(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -561,6 +583,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("IrreflexiveObjectProperty(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -569,6 +592,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("SubDataPropertyOf(");
         writeAnnotations(axiom);
         axiom.getSubProperty().accept(this);
@@ -579,6 +603,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("InverseFunctionalObjectProperty(");
         writeAnnotations(axiom);
         axiom.getProperty().accept(this);
@@ -587,6 +612,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("SameIndividual(");
         writeAnnotations(axiom);
         render(axiom.getIndividuals());
@@ -595,6 +621,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("SubObjectPropertyOf(");
         writeAnnotations(axiom);
         sb.append("ObjectPropertyChain(");
@@ -846,6 +873,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("InverseObjectProperties(");
         axiom.getFirstProperty().accept(this);
         sb.append(" ");
@@ -855,6 +883,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("HasKey(");
         axiom.getClassExpression().accept(this);
         sb.append(" (");
@@ -898,6 +927,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("AnnotationPropertyDomain(");
         axiom.getProperty().accept(this);
         sb.append(" ");
@@ -907,6 +937,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("AnnotationPropertyRange(");
         axiom.getProperty().accept(this);
         sb.append(" ");
@@ -916,6 +947,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("SubAnnotationPropertyOf(");
         axiom.getSubProperty().accept(this);
         sb.append(" ");
@@ -1033,6 +1065,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
+        checkNotNull(axiom);
         sb.append("DatatypeDefinition(");
         axiom.getDatatype().accept(this);
         sb.append(" ");

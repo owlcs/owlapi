@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -164,6 +166,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
+            checkNotNull(axiom);
             if (axiom.getSubClass().equals(cls)) {
                 superChecker.reset();
                 axiom.getSuperClass().accept(superChecker);
@@ -173,6 +176,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
+            checkNotNull(axiom);
             Set<OWLClassExpression> descs = axiom.getClassExpressions();
             if (!descs.contains(cls)) {
                 return;

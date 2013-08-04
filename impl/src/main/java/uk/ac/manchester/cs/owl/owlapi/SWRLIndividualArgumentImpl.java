@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -57,9 +61,9 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
     private final OWLIndividual individual;
 
     @SuppressWarnings("javadoc")
-    public SWRLIndividualArgumentImpl(OWLIndividual individual) {
+    public SWRLIndividualArgumentImpl(@Nonnull OWLIndividual individual) {
         super();
-        this.individual = individual;
+        this.individual = checkNotNull(individual);
     }
 
     @Override

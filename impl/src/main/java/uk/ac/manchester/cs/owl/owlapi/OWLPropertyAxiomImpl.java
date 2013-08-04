@@ -40,6 +40,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 
@@ -52,7 +54,8 @@ public abstract class OWLPropertyAxiomImpl extends OWLLogicalAxiomImpl implement
         OWLPropertyAxiom {
     private static final long serialVersionUID = 40000L;
 
-    protected OWLPropertyAxiomImpl(Collection<? extends OWLAnnotation> annotations) {
+    protected OWLPropertyAxiomImpl(
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
     }
 }

@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -65,12 +69,12 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements
     private final OWLIndividual individual;
     private final OWLClassExpression classExpression;
 
-    public OWLClassAssertionImpl(OWLIndividual individual,
-            OWLClassExpression classExpression,
-            Collection<? extends OWLAnnotation> annotations) {
+    public OWLClassAssertionImpl(@Nonnull OWLIndividual individual,
+            @Nonnull OWLClassExpression classExpression,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.individual = individual;
-        this.classExpression = classExpression;
+        this.individual = checkNotNull(individual);
+        this.classExpression = checkNotNull(classExpression);
     }
 
     @Override

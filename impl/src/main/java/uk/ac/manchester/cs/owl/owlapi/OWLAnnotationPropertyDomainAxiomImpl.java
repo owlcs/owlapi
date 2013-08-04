@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -63,11 +67,11 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
     private final OWLAnnotationProperty property;
     private final IRI domain;
 
-    public OWLAnnotationPropertyDomainAxiomImpl(OWLAnnotationProperty property,
-            IRI domain, Collection<? extends OWLAnnotation> annotations) {
+    public OWLAnnotationPropertyDomainAxiomImpl(@Nonnull OWLAnnotationProperty property,
+            @Nonnull IRI domain, @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.domain = domain;
-        this.property = property;
+        this.domain = checkNotNull(domain);
+        this.property = checkNotNull(property);
     }
 
     @Override

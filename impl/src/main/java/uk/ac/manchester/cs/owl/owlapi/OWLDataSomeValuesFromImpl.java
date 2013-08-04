@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
@@ -57,8 +59,8 @@ public class OWLDataSomeValuesFromImpl extends OWLQuantifiedDataRestrictionImpl 
     private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
-    public OWLDataSomeValuesFromImpl(OWLDataPropertyExpression property,
-            OWLDataRange filler) {
+    public OWLDataSomeValuesFromImpl(@Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLDataRange filler) {
         super(property, filler);
     }
 

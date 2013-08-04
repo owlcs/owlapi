@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
@@ -48,11 +52,10 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
  * <br> */
 public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
     private static final long serialVersionUID = 40000L;
-    final SWRLPredicate predicate;
+    protected final SWRLPredicate predicate;
 
-    protected SWRLAtomImpl(SWRLPredicate predicate) {
-        super();
-        this.predicate = predicate;
+    protected SWRLAtomImpl(@Nonnull SWRLPredicate predicate) {
+        this.predicate = checkNotNull(predicate);
     }
 
     @Override

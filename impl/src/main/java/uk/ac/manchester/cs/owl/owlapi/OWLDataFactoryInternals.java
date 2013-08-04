@@ -38,6 +38,9 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -53,7 +56,8 @@ public interface OWLDataFactoryInternals {
     /** @param iri
      *            new class IRI
      * @return a new OWLClass object, or a cached one depending on policies */
-    OWLClass getOWLClass(IRI iri);
+    @Nonnull
+    OWLClass getOWLClass(@Nonnull IRI iri);
 
     /** purge any caches */
     void purge();
@@ -62,76 +66,95 @@ public interface OWLDataFactoryInternals {
      *            new object property IRI
      * @return a new OWLObjectProperty object, or a cached one depending on
      *         policies */
-    OWLObjectProperty getOWLObjectProperty(IRI iri);
+    @Nonnull
+    OWLObjectProperty getOWLObjectProperty(@Nonnull IRI iri);
 
     /** @param iri
      *            new OWLDataProperty IRI
      * @return a new OWLDataProperty object, or a cached one depending on
      *         policies */
-    OWLDataProperty getOWLDataProperty(IRI iri);
+    @Nonnull
+    OWLDataProperty getOWLDataProperty(@Nonnull IRI iri);
 
     /** @param iri
      *            new OWLNamedIndividual IRI
      * @return a new OWLNamedIndividual object, or a cached one depending on
      *         policies */
-    OWLNamedIndividual getOWLNamedIndividual(IRI iri);
+    @Nonnull
+    OWLNamedIndividual getOWLNamedIndividual(@Nonnull IRI iri);
 
     /** @param iri
      *            new OWLDatatype IRI
      * @return a new OWLDatatype object, or a cached one depending on policies */
-    OWLDatatype getOWLDatatype(IRI iri);
+    @Nonnull
+    OWLDatatype getOWLDatatype(@Nonnull IRI iri);
 
     /** @param iri
      *            new OWLAnnotationProperty IRI
      * @return a new OWLAnnotationProperty object, or a cached one depending on
      *         policies */
-    OWLAnnotationProperty getOWLAnnotationProperty(IRI iri);
+    @Nonnull
+    OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull IRI iri);
 
     /** @param lexicalValue
      * @param datatype
      * @return new literal */
-    OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype);
+    @Nonnull
+    OWLLiteral
+            getOWLLiteral(@Nonnull String lexicalValue, @Nullable OWLDatatype datatype);
 
     /** @param value
      * @return new literal */
+    @Nonnull
     OWLLiteral getOWLLiteral(int value);
 
     /** @param value
      * @return new literal */
+    @Nonnull
     OWLLiteral getOWLLiteral(boolean value);
 
     /** @param value
      * @return new literal */
+    @Nonnull
     OWLLiteral getOWLLiteral(double value);
 
     /** @param value
      * @return new literal */
+    @Nonnull
     OWLLiteral getOWLLiteral(float value);
 
     /** @param value
      * @return new literal */
+    @Nonnull
     OWLLiteral getOWLLiteral(String value);
 
     /** @param literal
      * @param lang
      * @return new literal */
-    OWLLiteral getOWLLiteral(String literal, String lang);
+    @Nonnull
+    OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable String lang);
 
     /** @return top datatype */
+    @Nonnull
     OWLDatatype getTopDatatype();
 
     /** @return integer datatype */
+    @Nonnull
     OWLDatatype getIntegerOWLDatatype();
 
     /** @return float datatype */
+    @Nonnull
     OWLDatatype getFloatOWLDatatype();
 
     /** @return double datatype */
+    @Nonnull
     OWLDatatype getDoubleOWLDatatype();
 
     /** @return boolean datatype */
+    @Nonnull
     OWLDatatype getBooleanOWLDatatype();
 
     /** @return plain literal datatype */
+    @Nonnull
     OWLDatatype getRDFPlainLiteral();
 }

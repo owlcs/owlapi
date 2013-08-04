@@ -38,7 +38,11 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
@@ -55,10 +59,10 @@ public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     private static final long serialVersionUID = 40000L;
     private final P property;
 
-    public OWLUnaryPropertyAxiomImpl(P property,
-            Collection<? extends OWLAnnotation> annotations) {
+    public OWLUnaryPropertyAxiomImpl(@Nonnull P property,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.property = property;
+        this.property = checkNotNull(property);
     }
 
     @Override

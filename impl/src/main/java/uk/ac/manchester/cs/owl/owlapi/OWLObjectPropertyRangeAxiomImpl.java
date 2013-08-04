@@ -40,6 +40,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -62,8 +64,9 @@ public class OWLObjectPropertyRangeAxiomImpl extends
     private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
-    public OWLObjectPropertyRangeAxiomImpl(OWLObjectPropertyExpression property,
-            OWLClassExpression range, Set<? extends OWLAnnotation> annotations) {
+    public OWLObjectPropertyRangeAxiomImpl(@Nonnull OWLObjectPropertyExpression property,
+            @Nonnull OWLClassExpression range,
+            @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(property, range, annotations);
     }
 

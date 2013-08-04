@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
@@ -67,11 +71,11 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
     private final Set<OWLFacetRestriction> facetRestrictions;
 
     @SuppressWarnings("javadoc")
-    public OWLDatatypeRestrictionImpl(OWLDatatype datatype,
-            Set<OWLFacetRestriction> facetRestrictions) {
-        super();
-        this.datatype = datatype;
-        this.facetRestrictions = new HashSet<OWLFacetRestriction>(facetRestrictions);
+    public OWLDatatypeRestrictionImpl(@Nonnull OWLDatatype datatype,
+            @Nonnull Set<OWLFacetRestriction> facetRestrictions) {
+        this.datatype = checkNotNull(datatype);
+        this.facetRestrictions = new HashSet<OWLFacetRestriction>(
+                checkNotNull(facetRestrictions));
     }
 
     @Override

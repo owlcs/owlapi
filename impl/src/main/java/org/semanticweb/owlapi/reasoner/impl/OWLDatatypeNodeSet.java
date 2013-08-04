@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.reasoner.Node;
 
@@ -51,15 +53,15 @@ import org.semanticweb.owlapi.reasoner.Node;
 public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
     public OWLDatatypeNodeSet() {}
 
-    public OWLDatatypeNodeSet(OWLDatatype entity) {
+    public OWLDatatypeNodeSet(@Nonnull OWLDatatype entity) {
         super(entity);
     }
 
-    public OWLDatatypeNodeSet(Node<OWLDatatype> owlDatatypeNode) {
+    public OWLDatatypeNodeSet(@Nonnull Node<OWLDatatype> owlDatatypeNode) {
         super(owlDatatypeNode);
     }
 
-    public OWLDatatypeNodeSet(Set<Node<OWLDatatype>> nodes) {
+    public OWLDatatypeNodeSet(@Nonnull Set<Node<OWLDatatype>> nodes) {
         super(nodes);
     }
 

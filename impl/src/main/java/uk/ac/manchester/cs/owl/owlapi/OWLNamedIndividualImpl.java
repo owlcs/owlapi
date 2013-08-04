@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -68,9 +72,8 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
 
     /** @param iri
      *            the iri */
-    public OWLNamedIndividualImpl(IRI iri) {
-        super();
-        this.iri = iri;
+    public OWLNamedIndividualImpl(@Nonnull IRI iri) {
+        this.iri = checkNotNull(iri);
     }
 
     @Override
@@ -130,14 +133,17 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
             if (!(obj instanceof OWLNamedIndividual)) {
                 return false;
             }
             IRI otherIRI = ((OWLNamedIndividual) obj).getIRI();
             return otherIRI.equals(iri);
-        }
-        return false;
     }
 
     @Override

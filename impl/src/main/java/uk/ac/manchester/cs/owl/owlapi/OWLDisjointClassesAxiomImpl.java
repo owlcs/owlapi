@@ -42,6 +42,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -63,8 +65,8 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
 
     @SuppressWarnings("javadoc")
     public OWLDisjointClassesAxiomImpl(
-            Set<? extends OWLClassExpression> classExpressions,
-            Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Set<? extends OWLClassExpression> classExpressions,
+            @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
 

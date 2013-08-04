@@ -40,6 +40,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 
@@ -53,7 +55,7 @@ public abstract class OWLIndividualAxiomImpl extends OWLLogicalAxiomImpl impleme
     private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
-    public OWLIndividualAxiomImpl(Collection<? extends OWLAnnotation> annotations) {
+    public OWLIndividualAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
     }
 }

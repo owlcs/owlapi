@@ -50,10 +50,6 @@ public abstract class OWLPropertyExpressionImpl extends OWLObjectImpl implements
         OWLPropertyExpression {
     private static final long serialVersionUID = 40000L;
 
-    public OWLPropertyExpressionImpl() {
-        super();
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

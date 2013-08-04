@@ -38,10 +38,14 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
@@ -59,9 +63,9 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
     private final Set<OWLClassExpression> operands;
 
     @SuppressWarnings("javadoc")
-    public OWLNaryBooleanClassExpressionImpl(Set<? extends OWLClassExpression> operands) {
-        super();
-        this.operands = new TreeSet<OWLClassExpression>(operands);
+    public OWLNaryBooleanClassExpressionImpl(
+            @Nonnull Set<? extends OWLClassExpression> operands) {
+        this.operands = new TreeSet<OWLClassExpression>(checkNotNull(operands));
     }
 
     @Override

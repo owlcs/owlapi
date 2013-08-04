@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
@@ -59,9 +63,8 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
     private final OWLDatatype datatype;
 
     @SuppressWarnings("javadoc")
-    public OWLLiteralImplBoolean(boolean literal, OWLDatatype datatype) {
-        super();
-        this.datatype = datatype;
+    public OWLLiteralImplBoolean(boolean literal, @Nonnull OWLDatatype datatype) {
+        this.datatype = checkNotNull(datatype);
         this.literal = literal;
         hashcode = getHashCode();
     }

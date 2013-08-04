@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.reasoner.Node;
 
@@ -53,19 +55,19 @@ public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
 
     /** @param entity
      *            the entity to be contained */
-    public OWLDataPropertyNodeSet(OWLDataProperty entity) {
+    public OWLDataPropertyNodeSet(@Nonnull OWLDataProperty entity) {
         super(entity);
     }
 
     /** @param owlDataPropertyNode
      *            the node to be contained */
-    public OWLDataPropertyNodeSet(Node<OWLDataProperty> owlDataPropertyNode) {
+    public OWLDataPropertyNodeSet(@Nonnull Node<OWLDataProperty> owlDataPropertyNode) {
         super(owlDataPropertyNode);
     }
 
     /** @param nodes
      *            the nodes to be contained */
-    public OWLDataPropertyNodeSet(Set<Node<OWLDataProperty>> nodes) {
+    public OWLDataPropertyNodeSet(@Nonnull Set<Node<OWLDataProperty>> nodes) {
         super(nodes);
     }
 

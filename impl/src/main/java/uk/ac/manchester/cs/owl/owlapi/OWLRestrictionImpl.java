@@ -50,10 +50,6 @@ public abstract class OWLRestrictionImpl extends OWLAnonymousClassExpressionImpl
         implements OWLRestriction {
     private static final long serialVersionUID = 40000L;
 
-    public OWLRestrictionImpl() {
-        super();
-    }
-
     @Override
     public boolean isClassExpressionLiteral() {
         return false;

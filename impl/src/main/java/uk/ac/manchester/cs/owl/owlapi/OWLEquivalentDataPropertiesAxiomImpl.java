@@ -44,6 +44,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -66,8 +68,8 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
 
     @SuppressWarnings("javadoc")
     public OWLEquivalentDataPropertiesAxiomImpl(
-            Set<? extends OWLDataPropertyExpression> properties,
-            Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Set<? extends OWLDataPropertyExpression> properties,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 

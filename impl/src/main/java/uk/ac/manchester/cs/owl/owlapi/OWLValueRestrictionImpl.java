@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLHasValueRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
 
@@ -47,10 +51,6 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Date: 26-Oct-2006<br>
  * <br>
  * 
- * @param <R>
- *            the range
- * @param <P>
- *            the property expression
  * @param <V>
  *            the value */
 public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
@@ -58,9 +58,8 @@ public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
     private static final long serialVersionUID = 40000L;
     protected final V value;
 
-    protected OWLValueRestrictionImpl(V value) {
-        super();
-        this.value = value;
+    protected OWLValueRestrictionImpl(@Nonnull V value) {
+        this.value = checkNotNull(value);
     }
 
     @Override

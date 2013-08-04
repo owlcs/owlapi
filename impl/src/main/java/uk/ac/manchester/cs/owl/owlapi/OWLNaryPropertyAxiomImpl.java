@@ -38,9 +38,13 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
@@ -62,10 +66,10 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
     private final Set<P> properties;
 
     @SuppressWarnings("javadoc")
-    public OWLNaryPropertyAxiomImpl(Set<? extends P> properties,
-            Collection<? extends OWLAnnotation> annotations) {
+    public OWLNaryPropertyAxiomImpl(@Nonnull Set<? extends P> properties,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.properties = new TreeSet<P>(properties);
+        this.properties = new TreeSet<P>(checkNotNull(properties));
     }
 
     @Override

@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -58,9 +62,8 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl i
     private final OWLClassExpression operand;
 
     @SuppressWarnings("javadoc")
-    public OWLObjectComplementOfImpl(OWLClassExpression operand) {
-        super();
-        this.operand = operand;
+    public OWLObjectComplementOfImpl(@Nonnull OWLClassExpression operand) {
+        this.operand = checkNotNull(operand);
     }
 
     @Override

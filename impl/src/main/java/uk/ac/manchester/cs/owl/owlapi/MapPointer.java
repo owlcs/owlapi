@@ -1,8 +1,13 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.Internals;
@@ -24,13 +29,13 @@ public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V
     private boolean initialized;
     protected final Internals i;
 
-    public MapPointer(AxiomType<?> t, OWLAxiomVisitorEx<?> v, boolean initialized,
-            Internals i) {
+    public MapPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
+            boolean initialized, @Nonnull Internals i) {
         type = t;
         visitor = v;
         map = new MultiMap<K, V>();
         this.initialized = initialized;
-        this.i = i;
+        this.i = checkNotNull(i);
     }
 
     public boolean isInitialized() {

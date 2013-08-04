@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
@@ -58,10 +62,9 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
     private final OWLLiteral facetValue;
 
     @SuppressWarnings("javadoc")
-    public OWLFacetRestrictionImpl(OWLFacet facet, OWLLiteral facetValue) {
-        super();
-        this.facet = facet;
-        this.facetValue = facetValue;
+    public OWLFacetRestrictionImpl(@Nonnull OWLFacet facet, @Nonnull OWLLiteral facetValue) {
+        this.facet = checkNotNull(facet);
+        this.facetValue = checkNotNull(facetValue);
     }
 
     @Override

@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 
@@ -52,9 +56,8 @@ public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange> e
     private static final long serialVersionUID = 40000L;
     private final F filler;
 
-    public OWLQuantifiedRestrictionImpl(F filler) {
-        super();
-        this.filler = filler;
+    public OWLQuantifiedRestrictionImpl(@Nonnull F filler) {
+        this.filler = checkNotNull(filler);
     }
 
     @Override

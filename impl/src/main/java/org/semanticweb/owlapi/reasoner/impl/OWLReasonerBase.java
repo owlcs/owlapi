@@ -38,11 +38,15 @@
  */
 package org.semanticweb.owlapi.reasoner.impl;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -78,11 +82,12 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         }
     };
 
-    protected OWLReasonerBase(OWLOntology rootOntology,
-            OWLReasonerConfiguration configuration, BufferingMode bufferingMode) {
-        this.rootOntology = rootOntology;
-        this.bufferingMode = bufferingMode;
-        this.configuration = configuration;
+    protected OWLReasonerBase(@Nonnull OWLOntology rootOntology,
+            @Nonnull OWLReasonerConfiguration configuration,
+            @Nonnull BufferingMode bufferingMode) {
+        this.rootOntology = checkNotNull(rootOntology);
+        this.bufferingMode = checkNotNull(bufferingMode);
+        this.configuration = checkNotNull(configuration);
         timeOut = configuration.getTimeOut();
         manager = rootOntology.getOWLOntologyManager();
         manager.addOntologyChangeListener(ontologyChangeListener);

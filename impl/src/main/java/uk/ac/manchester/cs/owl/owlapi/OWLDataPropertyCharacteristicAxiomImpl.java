@@ -38,7 +38,11 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom;
@@ -55,10 +59,11 @@ public abstract class OWLDataPropertyCharacteristicAxiomImpl extends OWLProperty
     private final OWLDataPropertyExpression property;
 
     @SuppressWarnings("javadoc")
-    public OWLDataPropertyCharacteristicAxiomImpl(OWLDataPropertyExpression property,
-            Collection<? extends OWLAnnotation> annotations) {
+    public OWLDataPropertyCharacteristicAxiomImpl(
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.property = property;
+        this.property = checkNotNull(property);
     }
 
     @Override

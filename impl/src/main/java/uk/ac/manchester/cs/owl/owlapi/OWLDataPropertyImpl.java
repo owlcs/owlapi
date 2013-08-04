@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -69,9 +73,8 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     private final IRI iri;
     private final boolean builtin;
 
-    public OWLDataPropertyImpl(IRI iri) {
-        super();
-        this.iri = iri;
+    public OWLDataPropertyImpl(@Nonnull IRI iri) {
+        this.iri = checkNotNull(iri);
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI())
                 || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }

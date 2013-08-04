@@ -38,9 +38,13 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -63,9 +67,9 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     private final List<SWRLDArgument> args;
 
     @SuppressWarnings("javadoc")
-    public SWRLBuiltInAtomImpl(IRI predicate, List<SWRLDArgument> args) {
+    public SWRLBuiltInAtomImpl(@Nonnull IRI predicate, @Nonnull List<SWRLDArgument> args) {
         super(predicate);
-        this.args = new ArrayList<SWRLDArgument>(args);
+        this.args = new ArrayList<SWRLDArgument>(checkNotNull(args));
     }
 
     @Override

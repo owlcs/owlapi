@@ -38,6 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.*;
 
 import java.util.ArrayList;
@@ -92,8 +93,6 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
@@ -496,29 +495,34 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
+        checkNotNull(axiom);
         axiom.getSubClass().accept(this);
         axiom.getSuperClass().accept(this);
     }
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(R);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(R);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(C);
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
@@ -527,6 +531,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
+        checkNotNull(axiom);
         axiom.getDomain().accept(this);
         constructs.add(AL);
         constructs.add(D);
@@ -535,6 +540,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(AL);
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
@@ -542,6 +548,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(H);
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
@@ -550,11 +557,13 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(U);
         constructs.add(O);
         constructs.add(C);
@@ -562,6 +571,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(D);
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
@@ -570,6 +580,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(R);
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
@@ -578,6 +589,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(AL);
         axiom.getRange().accept(this);
         axiom.getProperty().accept(this);
@@ -585,17 +597,20 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(F);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(H);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
@@ -603,6 +618,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(U);
         constructs.add(C);
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
@@ -611,19 +627,25 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDeclarationAxiom axiom) {}
+    public void visit(OWLDeclarationAxiom axiom) {
+        checkNotNull(axiom);
+    }
 
     @Override
-    public void visit(OWLAnnotationAssertionAxiom axiom) {}
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
+        checkNotNull(axiom);
+    }
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(I);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(AL);
         constructs.add(D);
         axiom.getProperty().accept(this);
@@ -631,6 +653,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(F);
         constructs.add(D);
         axiom.getProperty().accept(this);
@@ -638,6 +661,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(H);
         constructs.add(D);
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
@@ -647,11 +671,13 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
+        checkNotNull(axiom);
         axiom.getClassExpression().accept(this);
     }
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
+        checkNotNull(axiom);
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
         }
@@ -659,30 +685,35 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(D);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(TRAN);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(R);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(H);
         constructs.add(D);
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(I);
         constructs.add(F);
         axiom.getProperty().accept(this);
@@ -690,11 +721,13 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(O);
     }
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(R);
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             prop.accept(this);
@@ -704,16 +737,19 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         constructs.add(I);
     }
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
+        checkNotNull(axiom);
         // TODO
     }
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
+        checkNotNull(axiom);
         // TODO:
     }
 
@@ -744,16 +780,19 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
+        checkNotNull(axiom);
         // TODO:
     }
 
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
+        checkNotNull(axiom);
         // TODO:
     }
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+        checkNotNull(axiom);
         // TODO:
     }
 

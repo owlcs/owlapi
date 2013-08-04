@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -56,9 +60,8 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
     private static final long serialVersionUID = 40000L;
     private final Set<OWLDataRange> operands;
 
-    protected OWLNaryDataRangeImpl(Set<? extends OWLDataRange> operands) {
-        super();
-        this.operands = new TreeSet<OWLDataRange>(operands);
+    protected OWLNaryDataRangeImpl(@Nonnull Set<? extends OWLDataRange> operands) {
+        this.operands = new TreeSet<OWLDataRange>(checkNotNull(operands));
     }
 
     @Override

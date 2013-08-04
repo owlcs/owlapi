@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.reasoner.Node;
 
@@ -53,19 +55,19 @@ public class OWLClassNodeSet extends DefaultNodeSet<OWLClass> {
 
     /** @param entity
      *            the entity to be contained */
-    public OWLClassNodeSet(OWLClass entity) {
+    public OWLClassNodeSet(@Nonnull OWLClass entity) {
         super(entity);
     }
 
     /** @param owlClassNode
      *            the node to be contained */
-    public OWLClassNodeSet(Node<OWLClass> owlClassNode) {
+    public OWLClassNodeSet(@Nonnull Node<OWLClass> owlClassNode) {
         super(owlClassNode);
     }
 
     /** @param nodes
      *            the set of nodes to be contained */
-    public OWLClassNodeSet(Set<Node<OWLClass>> nodes) {
+    public OWLClassNodeSet(@Nonnull Set<Node<OWLClass>> nodes) {
         super(nodes);
     }
 

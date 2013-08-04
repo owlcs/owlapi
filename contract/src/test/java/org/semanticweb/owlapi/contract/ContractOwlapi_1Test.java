@@ -4,10 +4,13 @@ import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.DataRangeType;
@@ -154,6 +157,11 @@ public class ContractOwlapi_1Test {
             @Override
             public boolean canLoad(OWLOntologyDocumentSource documentSource) {
                 return false;
+            }
+
+            @Override
+            public List<OWLParser> getParsers() {
+                return Collections.emptyList();
             }
         };
         testSubject0.setOWLOntologyManager(Utils.getMockManager());
@@ -531,6 +539,7 @@ public class ContractOwlapi_1Test {
     @Test
     public void shouldTestEmptyInMemOWLOntologyFactory() throws OWLException {
         EmptyInMemOWLOntologyFactory testSubject0 = new EmptyInMemOWLOntologyFactory();
+        testSubject0.setOWLOntologyManager(Utils.getMockManager());
         OWLOntology result0 = testSubject0.createOWLOntology(new OWLOntologyID(),
                 IRI("urn:aFake"), mock(OWLOntologyCreationHandler.class));
         boolean result3 = testSubject0.canLoad(mock(OWLOntologyDocumentSource.class));

@@ -44,6 +44,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -83,20 +84,14 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = Logger
             .getLogger(ParsableOWLOntologyFactory.class.getName());
-    private final Set<String> parsableSchemes;
+    private final Set<String> parsableSchemes = new HashSet<String>(Arrays.asList("http",
+            "https", "file", "ftp"));
 
     /** Creates an ontology factory. */
     public ParsableOWLOntologyFactory() {
-        parsableSchemes = new HashSet<String>();
-        parsableSchemes.add("http");
-        parsableSchemes.add("https");
-        parsableSchemes.add("file");
-        parsableSchemes.add("ftp");
     }
 
-    /** @return a list of parsers that this factory uses when it tries to create
-     *         an ontology from a concrete representation. */
-    // XXX not in the interface
+    @Override
     public List<OWLParser> getParsers() {
         List<OWLParser> parsers = new ArrayList<OWLParser>();
         List<OWLParserFactory> factories = OWLParserFactoryRegistry.getInstance()

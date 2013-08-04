@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -63,9 +67,8 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     private final Set<OWLIndividual> values;
 
     @SuppressWarnings("javadoc")
-    public OWLObjectOneOfImpl(Set<? extends OWLIndividual> values) {
-        super();
-        this.values = new HashSet<OWLIndividual>(values);
+    public OWLObjectOneOfImpl(@Nonnull Set<? extends OWLIndividual> values) {
+        this.values = new HashSet<OWLIndividual>(checkNotNull(values));
     }
 
     @Override

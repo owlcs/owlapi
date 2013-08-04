@@ -41,6 +41,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
@@ -76,14 +79,16 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
      * @param datatype
      *            the datatype; if lang is null or the empty string, it can be
      *            null or it MUST be RDFPlainLiteral */
-    public OWLLiteralImplNoCompression(String literal, String lang, OWLDatatype datatype) {
+    public OWLLiteralImplNoCompression(@Nonnull String literal, @Nullable String lang,
+            @Nullable OWLDatatype datatype) {
         this(getBytes(literal), lang, datatype);
     }
 
     /** @param bytes
      * @param lang
      * @param datatype */
-    public OWLLiteralImplNoCompression(byte[] bytes, String lang, OWLDatatype datatype) {
+    public OWLLiteralImplNoCompression(@Nonnull byte[] bytes, @Nullable String lang,
+            @Nullable OWLDatatype datatype) {
         super();
         literal = new byte[bytes.length];
         System.arraycopy(bytes, 0, literal, 0, bytes.length);

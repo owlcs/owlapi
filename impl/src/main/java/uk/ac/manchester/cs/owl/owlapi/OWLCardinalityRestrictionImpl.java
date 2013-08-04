@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
@@ -55,10 +59,10 @@ public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> 
     private final int cardinality;
     private final F filler;
 
-    protected OWLCardinalityRestrictionImpl(int cardinality, F filler) {
+    protected OWLCardinalityRestrictionImpl(int cardinality, @Nonnull F filler) {
         super();
         this.cardinality = cardinality;
-        this.filler = filler;
+        this.filler = checkNotNull(filler);
     }
 
     @Override

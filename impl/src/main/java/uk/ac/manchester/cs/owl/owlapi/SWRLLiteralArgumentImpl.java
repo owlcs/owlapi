@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -56,9 +60,9 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLitera
     private final OWLLiteral literal;
 
     @SuppressWarnings("javadoc")
-    public SWRLLiteralArgumentImpl(OWLLiteral literal) {
+    public SWRLLiteralArgumentImpl(@Nonnull OWLLiteral literal) {
         super();
-        this.literal = literal;
+        this.literal = checkNotNull(literal);
     }
 
     @Override

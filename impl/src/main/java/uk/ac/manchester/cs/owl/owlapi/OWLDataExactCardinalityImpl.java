@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -58,8 +60,8 @@ public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionIm
         implements OWLDataExactCardinality {
     private static final long serialVersionUID = 40000L;
 
-    public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property,
-            int cardinality, OWLDataRange filler) {
+    public OWLDataExactCardinalityImpl(@Nonnull OWLDataPropertyExpression property,
+            int cardinality, @Nonnull OWLDataRange filler) {
         super(property, cardinality, filler);
     }
 

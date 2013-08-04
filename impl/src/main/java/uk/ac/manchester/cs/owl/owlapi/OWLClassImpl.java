@@ -38,9 +38,13 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.EntityType;
@@ -76,9 +80,8 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     private final boolean isThing;
     private final boolean isNothing;
 
-    public OWLClassImpl(IRI iri) {
-        super();
-        this.iri = iri;
+    public OWLClassImpl(@Nonnull IRI iri) {
+        this.iri = checkNotNull(iri);
         isThing = getIRI().equals(OWLRDFVocabulary.OWL_THING.getIRI());
         isNothing = getIRI().equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
     }

@@ -38,10 +38,14 @@
  */
 package org.semanticweb.owlapi.reasoner.impl;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.reasoner.Node;
@@ -63,20 +67,20 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
 
     /** @param entity
      *            the entity to be contained */
-    public DefaultNodeSet(E entity) {
-        nodes.add(getNode(entity));
+    public DefaultNodeSet(@Nonnull E entity) {
+        nodes.add(getNode(checkNotNull(entity)));
     }
 
     /** @param node
      *            the node to be contained */
-    public DefaultNodeSet(Node<E> node) {
-        nodes.add(node);
+    public DefaultNodeSet(@Nonnull Node<E> node) {
+        nodes.add(checkNotNull(node));
     }
 
     /** @param nodes
      *            a set of nodes to be contained */
-    public DefaultNodeSet(Set<Node<E>> nodes) {
-        this.nodes.addAll(nodes);
+    public DefaultNodeSet(@Nonnull Set<Node<E>> nodes) {
+        this.nodes.addAll(checkNotNull(nodes));
     }
 
     @Override
@@ -94,11 +98,8 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @throws NullPointerException
      *             if <code>entity</code> is <code>null</code>. */
     // XXX not in the interface
-    public void addEntity(E entity) {
-        if (entity == null) {
-            throw new IllegalArgumentException("entity cannot be null");
-        }
-        addNode(getNode(entity));
+    public void addEntity(@Nonnull E entity) {
+        addNode(getNode(checkNotNull(entity)));
     }
 
     /** Adds a <code>Node</code> to this set.

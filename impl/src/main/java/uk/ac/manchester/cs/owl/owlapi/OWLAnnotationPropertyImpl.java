@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -65,9 +69,8 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
 
-    public OWLAnnotationPropertyImpl(IRI i) {
-        super();
-        iri = i;
+    public OWLAnnotationPropertyImpl(@Nonnull IRI i) {
+        iri = checkNotNull(i);
     }
 
     @Override

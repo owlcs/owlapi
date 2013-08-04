@@ -62,16 +62,16 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     private static final OWLDatatype XSDFLOAT = new OWL2DatatypeImpl(XSD_FLOAT);
     private static final OWLDatatype XSDINTEGER = new OWL2DatatypeImpl(XSD_INTEGER);
     private static final OWLDatatype RDFSLITERAL = new OWL2DatatypeImpl(RDFS_LITERAL);
-    private final OWLLiteral trueLiteral;
-    private final OWLLiteral falseLiteral;
+    private static final OWLLiteral trueLiteral = new OWLLiteralImplBoolean(true,
+            XSDBOOLEAN);
+    private static final OWLLiteral falseLiteral = new OWLLiteralImplBoolean(false,
+            XSDBOOLEAN);
     private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 
     /** @param useCompression
      *            true if compression of literals should be used */
     public InternalsNoCache(boolean useCompression) {
-        trueLiteral = new OWLLiteralImplBoolean(true, XSDBOOLEAN);
-        falseLiteral = new OWLLiteralImplBoolean(false, XSDBOOLEAN);
         this.useCompression = useCompression;
     }
 

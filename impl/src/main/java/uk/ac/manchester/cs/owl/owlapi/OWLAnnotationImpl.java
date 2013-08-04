@@ -38,9 +38,13 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitor;
@@ -65,14 +69,14 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     private final OWLAnnotationValue value;
     private final Set<OWLAnnotation> annotations;
 
-    public OWLAnnotationImpl(OWLAnnotationProperty property, OWLAnnotationValue value,
-            Set<? extends OWLAnnotation> annotations) {
-        super();
-        this.property = property;
-        this.value = value;
+    public OWLAnnotationImpl(@Nonnull OWLAnnotationProperty property,
+            @Nonnull OWLAnnotationValue value,
+            @Nonnull Set<? extends OWLAnnotation> annotations) {
+        this.property = checkNotNull(property);
+        this.value = checkNotNull(value);
         this.annotations = CollectionFactory
                 .getCopyOnRequestSetFromMutableCollection(new TreeSet<OWLAnnotation>(
-                        annotations));
+                        checkNotNull(annotations)));
     }
 
     @Override

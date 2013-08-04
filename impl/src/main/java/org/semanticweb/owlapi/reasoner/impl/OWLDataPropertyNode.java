@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
 /** Author: Matthew Horridge<br>
@@ -52,13 +54,13 @@ public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
 
     /** @param entity
      *            the entity to be contained */
-    public OWLDataPropertyNode(OWLDataProperty entity) {
+    public OWLDataPropertyNode(@Nonnull OWLDataProperty entity) {
         super(entity);
     }
 
     /** @param entities
      *            the entities to be contained */
-    public OWLDataPropertyNode(Set<OWLDataProperty> entities) {
+    public OWLDataPropertyNode(@Nonnull Set<OWLDataProperty> entities) {
         super(entities);
     }
 

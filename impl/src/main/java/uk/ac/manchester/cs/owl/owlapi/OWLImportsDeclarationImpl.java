@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.Serializable;
 import java.net.URI;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
@@ -54,8 +58,8 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Seriali
     private final IRI iri;
 
     @SuppressWarnings("javadoc")
-    public OWLImportsDeclarationImpl(IRI iri) {
-        this.iri = iri;
+    public OWLImportsDeclarationImpl(@Nonnull IRI iri) {
+        this.iri = checkNotNull(iri);
     }
 
     @Override

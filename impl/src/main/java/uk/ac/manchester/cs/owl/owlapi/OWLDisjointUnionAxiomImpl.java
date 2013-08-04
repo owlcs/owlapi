@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -67,12 +71,13 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
     private final Set<OWLClassExpression> classExpressions;
 
     @SuppressWarnings("javadoc")
-    public OWLDisjointUnionAxiomImpl(OWLClass owlClass,
-            Set<? extends OWLClassExpression> classExpressions,
-            Set<? extends OWLAnnotation> annotations) {
+    public OWLDisjointUnionAxiomImpl(@Nonnull OWLClass owlClass,
+            @Nonnull Set<? extends OWLClassExpression> classExpressions,
+            @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.owlClass = owlClass;
-        this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
+        this.owlClass = checkNotNull(owlClass);
+        this.classExpressions = new TreeSet<OWLClassExpression>(
+                checkNotNull(classExpressions));
     }
 
     @Override

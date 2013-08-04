@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
@@ -51,12 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  * <br>
  * Manual IRI mapper */
 public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
-    private final Map<IRI, IRI> iriMap;
-
-    @SuppressWarnings("javadoc")
-    public OWLOntologyIRIMapperImpl() {
-        iriMap = new TreeMap<IRI, IRI>();
-    }
+    private final Map<IRI, IRI> iriMap = new TreeMap<IRI, IRI>();
 
     @Override
     public IRI getDocumentIRI(IRI ontologyIRI) {
@@ -72,7 +71,7 @@ public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
      *            new ontology iri
      * @param documentIRI
      *            new document iri */
-    public void addMapping(IRI ontologyIRI, IRI documentIRI) {
-        iriMap.put(ontologyIRI, documentIRI);
+    public void addMapping(@Nonnull IRI ontologyIRI, @Nonnull IRI documentIRI) {
+        iriMap.put(checkNotNull(ontologyIRI), checkNotNull(documentIRI));
     }
 }

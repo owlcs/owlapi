@@ -38,6 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 
 import java.io.Serializable;
@@ -45,6 +46,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
@@ -153,10 +156,11 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     }
 
     @SuppressWarnings("javadoc")
-    public OWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
+    public OWLOntologyImpl(@Nonnull OWLOntologyManager manager,
+            @Nonnull OWLOntologyID ontologyID) {
         super();
-        this.manager = manager;
-        this.ontologyID = ontologyID;
+        this.manager = checkNotNull(manager);
+        this.ontologyID = checkNotNull(ontologyID);
         internals = new InternalsImpl();
     }
 

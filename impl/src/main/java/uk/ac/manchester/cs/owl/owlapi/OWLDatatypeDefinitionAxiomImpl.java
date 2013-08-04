@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -64,11 +68,12 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
     private final OWLDataRange dataRange;
 
     @SuppressWarnings("javadoc")
-    public OWLDatatypeDefinitionAxiomImpl(OWLDatatype datatype, OWLDataRange dataRange,
-            Collection<? extends OWLAnnotation> annotations) {
+    public OWLDatatypeDefinitionAxiomImpl(@Nonnull OWLDatatype datatype,
+            @Nonnull OWLDataRange dataRange,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.datatype = datatype;
-        this.dataRange = dataRange;
+        this.datatype = checkNotNull(datatype);
+        this.dataRange = checkNotNull(dataRange);
     }
 
     @Override

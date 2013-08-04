@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -61,9 +65,8 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
     private static final long serialVersionUID = 40000L;
     private final OWLDataRange dataRange;
 
-    public OWLDataComplementOfImpl(OWLDataRange dataRange) {
-        super();
-        this.dataRange = dataRange;
+    public OWLDataComplementOfImpl(@Nonnull OWLDataRange dataRange) {
+        this.dataRange = checkNotNull(dataRange);
     }
 
     @Override

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -326,6 +328,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getSubClass().accept(this);
         axiom.getSuperClass().accept(this);
@@ -333,6 +336,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
@@ -341,30 +345,35 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         process(axiom.getClassExpressions());
     }
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
@@ -372,12 +381,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         process(axiom.getProperties());
     }
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
@@ -386,24 +397,28 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         process(axiom.getIndividuals());
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         process(axiom.getProperties());
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         process(axiom.getProperties());
     }
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getRange().accept(this);
         axiom.getProperty().accept(this);
@@ -411,6 +426,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
@@ -419,12 +435,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
@@ -432,6 +450,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getOWLClass().accept(this);
         process(axiom.getClassExpressions());
@@ -439,12 +458,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getEntity().accept(this);
     }
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getSubject().accept(this);
         axiom.getAnnotation().accept(this);
@@ -452,12 +473,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getRange().accept(this);
         axiom.getProperty().accept(this);
@@ -465,18 +488,21 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         process(axiom.getProperties());
     }
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getClassExpression().accept(this);
         axiom.getIndividual().accept(this);
@@ -484,12 +510,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         process(axiom.getClassExpressions());
     }
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
@@ -498,18 +526,21 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
@@ -517,18 +548,21 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         process(axiom.getIndividuals());
     }
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             prop.accept(this);
@@ -538,6 +572,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         process(axiom.getProperties());
     }
@@ -582,6 +617,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getClassExpression().accept(this);
         for (OWLObjectPropertyExpression prop : axiom.getObjectPropertyExpressions()) {
@@ -594,6 +630,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getProperty().accept(this);
         axiom.getDomain().accept(this);
@@ -601,6 +638,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
@@ -608,6 +646,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
@@ -725,6 +764,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
+        checkNotNull(axiom);
         handleObject(axiom);
         axiom.getDatatype().accept(this);
         axiom.getDataRange().accept(this);

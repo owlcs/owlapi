@@ -38,14 +38,17 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLDataFactory;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -58,10 +61,10 @@ public class SWRLDifferentIndividualsAtomImpl extends
     private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
-    public SWRLDifferentIndividualsAtomImpl(OWLDataFactory dataFactory,
-            SWRLIArgument arg0, SWRLIArgument arg1) {
-        super(dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM
-                .getIRI()), arg0, arg1);
+    public SWRLDifferentIndividualsAtomImpl(@Nonnull OWLObjectProperty property,
+            @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1) {
+        super(checkNotNull(property), checkNotNull(arg0),
+                checkNotNull(arg1));
     }
 
     @Override

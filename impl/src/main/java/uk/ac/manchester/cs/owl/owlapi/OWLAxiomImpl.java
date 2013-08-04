@@ -38,12 +38,16 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -64,8 +68,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     private OWLAxiom nnf;
     private final List<OWLAnnotation> annotations;
 
-    public OWLAxiomImpl(Collection<? extends OWLAnnotation> annotations) {
-        super();
+    public OWLAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
+        checkNotNull(annotations);
         if (!annotations.isEmpty()) {
             this.annotations = new ArrayList<OWLAnnotation>(annotations);
             Collections.sort(this.annotations);

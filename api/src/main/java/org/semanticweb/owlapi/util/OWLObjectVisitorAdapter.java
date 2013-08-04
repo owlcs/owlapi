@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -131,8 +135,10 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * Date: 22-Nov-2006<br>
  * <br> */
 public class OWLObjectVisitorAdapter implements OWLObjectVisitor {
-    @SuppressWarnings("unused")
-    protected void handleDefault(OWLObject owlObject) {}
+
+    protected void handleDefault(@Nonnull OWLObject owlObject) {
+        checkNotNull(owlObject);
+    }
 
     @Override
     public void visit(OWLOntology ontology) {

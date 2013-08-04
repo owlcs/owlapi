@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -51,11 +53,11 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
     public OWLObjectPropertyNode() {}
 
-    public OWLObjectPropertyNode(OWLObjectPropertyExpression entity) {
+    public OWLObjectPropertyNode(@Nonnull OWLObjectPropertyExpression entity) {
         super(entity);
     }
 
-    public OWLObjectPropertyNode(Set<OWLObjectPropertyExpression> entities) {
+    public OWLObjectPropertyNode(@Nonnull Set<OWLObjectPropertyExpression> entities) {
         super(entities);
     }
 

@@ -40,6 +40,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -62,9 +64,9 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends
     private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
-    public OWLNegativeObjectPropertyAssertionAxiomImpl(OWLIndividual subject,
-            OWLObjectPropertyExpression property, OWLIndividual object,
-            Set<? extends OWLAnnotation> annotations) {
+    public OWLNegativeObjectPropertyAssertionAxiomImpl(@Nonnull OWLIndividual subject,
+            @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLIndividual object,
+            @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 

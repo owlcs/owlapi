@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -63,11 +67,12 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
     private final OWLClassExpression superClass;
 
     @SuppressWarnings("javadoc")
-    public OWLSubClassOfAxiomImpl(OWLClassExpression subClass,
-            OWLClassExpression superClass, Collection<? extends OWLAnnotation> annotations) {
+    public OWLSubClassOfAxiomImpl(@Nonnull OWLClassExpression subClass,
+            @Nonnull OWLClassExpression superClass,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.subClass = subClass;
-        this.superClass = superClass;
+        this.subClass = checkNotNull(subClass);
+        this.superClass = checkNotNull(superClass);
     }
 
     @Override

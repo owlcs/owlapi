@@ -48,9 +48,4 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
     private static final long serialVersionUID = 40000L;
 
-    @Override
-    public boolean equals(Object obj) {
-        // XXX this is broken
-        return obj instanceof OWLIndividual;
-    }
 }

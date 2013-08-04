@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClass;
 
 /** Author: Matthew Horridge<br>
@@ -49,13 +51,13 @@ import org.semanticweb.owlapi.model.OWLClass;
 public class OWLClassNode extends DefaultNode<OWLClass> {
     /** @param entity
      *            the class to be contained */
-    public OWLClassNode(OWLClass entity) {
+    public OWLClassNode(@Nonnull OWLClass entity) {
         super(entity);
     }
 
     /** @param entities
      *            the classes to be contained */
-    public OWLClassNode(Set<OWLClass> entities) {
+    public OWLClassNode(@Nonnull Set<OWLClass> entities) {
         super(entities);
     }
 

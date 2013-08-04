@@ -38,11 +38,15 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -67,10 +71,12 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     private final OWLObjectPropertyExpression second;
 
     @SuppressWarnings("javadoc")
-    public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first,
-            OWLObjectPropertyExpression second,
-            Collection<? extends OWLAnnotation> annotations) {
-        super(new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(first, second)),
+    public OWLInverseObjectPropertiesAxiomImpl(
+            @Nonnull OWLObjectPropertyExpression first,
+            @Nonnull OWLObjectPropertyExpression second,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+        super(new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(checkNotNull(first),
+                checkNotNull(second))),
                 annotations);
         this.first = first;
         this.second = second;

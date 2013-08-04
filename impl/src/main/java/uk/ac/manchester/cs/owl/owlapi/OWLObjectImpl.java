@@ -72,10 +72,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     private static final long serialVersionUID = 40000L;
     private int hashCode = 0;
     private WeakReference<Set<OWLEntity>> signature = null;
-    private WeakReference<Set<OWLAnonymousIndividual>> anons;
-
-    /** */
-    public OWLObjectImpl() {}
+    private WeakReference<Set<OWLAnonymousIndividual>> anons = null;
 
     protected static OWLDataFactory df = new OWLDataFactoryImpl();
 

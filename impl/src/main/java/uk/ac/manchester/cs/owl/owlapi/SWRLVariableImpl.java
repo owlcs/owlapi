@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -55,9 +59,8 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
 
-    protected SWRLVariableImpl(IRI iri) {
-        super();
-        this.iri = iri;
+    protected SWRLVariableImpl(@Nonnull IRI iri) {
+        this.iri = checkNotNull(iri);
     }
 
     @Override
@@ -99,6 +102,6 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
             return false;
         }
         SWRLVariable other = (SWRLVariable) obj;
-        return other.getIRI().equals(this.getIRI());
+        return other.getIRI().equals(getIRI());
     }
 }

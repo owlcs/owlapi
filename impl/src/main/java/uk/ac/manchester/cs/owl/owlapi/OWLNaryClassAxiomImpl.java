@@ -38,12 +38,16 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -62,10 +66,12 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     private final Set<OWLClassExpression> classExpressions;
 
     @SuppressWarnings("javadoc")
-    public OWLNaryClassAxiomImpl(Set<? extends OWLClassExpression> classExpressions,
-            Collection<? extends OWLAnnotation> annotations) {
+    public OWLNaryClassAxiomImpl(
+            @Nonnull Set<? extends OWLClassExpression> classExpressions,
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
+        this.classExpressions = new TreeSet<OWLClassExpression>(
+                checkNotNull(classExpressions));
     }
 
     @Override

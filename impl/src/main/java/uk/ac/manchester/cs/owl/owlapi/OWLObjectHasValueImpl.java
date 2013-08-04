@@ -38,6 +38,10 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -61,9 +65,10 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual
     private final OWLObjectPropertyExpression property;
 
     @SuppressWarnings("javadoc")
-    public OWLObjectHasValueImpl(OWLObjectPropertyExpression property, OWLIndividual value) {
+    public OWLObjectHasValueImpl(@Nonnull OWLObjectPropertyExpression property,
+            @Nonnull OWLIndividual value) {
         super(value);
-        this.property = property;
+        this.property = checkNotNull(property);
     }
 
     @Override

@@ -1668,7 +1668,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
             SWRLIArgument arg0, SWRLIArgument arg1) {
         checkNull(arg0, "arg0");
         checkNull(arg1, "arg1");
-        return new SWRLDifferentIndividualsAtomImpl(this, arg0, arg1);
+        return new SWRLDifferentIndividualsAtomImpl(
+                getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM.getIRI()), arg0,
+                arg1);
     }
 
     @Override
@@ -1676,7 +1678,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
             SWRLIArgument arg1) {
         checkNull(arg0, "arg0");
         checkNull(arg1, "arg1");
-        return new SWRLSameIndividualAtomImpl(this, arg0, arg1);
+        return new SWRLSameIndividualAtomImpl(
+                getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS.getIRI()), arg0, arg1);
     }
 
     private static final Set<OWLAnnotation> EMPTY_ANNOTATIONS_SET = Collections

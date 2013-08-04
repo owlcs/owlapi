@@ -39,8 +39,10 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLParser;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -128,6 +130,9 @@ public interface OWLOntologyFactory extends Serializable {
      *         input source. */
     boolean canLoad(OWLOntologyDocumentSource documentSource);
 
+    /** @return a list of parsers that this factory uses when it tries to create
+     *         an ontology from a concrete representation. */
+    public List<OWLParser> getParsers();
     /** An <code>OWLOntologyCreationHandler</code> gets notified when the factory
      * has created an empty ontology (during the loading process). This may be
      * needed to handle features such as cyclic imports. For example if OntA and

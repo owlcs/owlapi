@@ -38,8 +38,12 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
@@ -65,9 +69,8 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     private final Set<OWLLiteral> values;
 
     @SuppressWarnings("javadoc")
-    public OWLDataOneOfImpl(Set<? extends OWLLiteral> values) {
-        super();
-        this.values = new TreeSet<OWLLiteral>(values);
+    public OWLDataOneOfImpl(@Nonnull Set<? extends OWLLiteral> values) {
+        this.values = new TreeSet<OWLLiteral>(checkNotNull(values));
     }
 
     @Override
