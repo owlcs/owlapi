@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Date: 03-Aug-2008<br>
  * <br> */
 public class LatexAxiomsListOntologyFormat extends OWLOntologyFormat {
-    
     public LatexAxiomsListOntologyFormat() {}
 
     @Override

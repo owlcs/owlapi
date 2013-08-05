@@ -44,6 +44,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** Author: Matthew Horridge<br>
@@ -76,6 +78,6 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
      *            this abstract implementation.
      * @throws OWLRendererException
      *             if exceptions arise */
-    public abstract void render(OWLOntology ontology, Writer writer)
+    public abstract void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer)
             throws OWLRendererException;
 }

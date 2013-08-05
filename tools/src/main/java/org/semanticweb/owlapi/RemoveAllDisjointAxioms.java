@@ -58,7 +58,6 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * Given a set of ontologies, this composite change will remove all disjoint
  * classes axioms from these ontologies. */
 public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
-
     /** @param dataFactory
      *            factory to use
      * @param ontologies
@@ -76,5 +75,4 @@ public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
             }
         }
     }
-
 }

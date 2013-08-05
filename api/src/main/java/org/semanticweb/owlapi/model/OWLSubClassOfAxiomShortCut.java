@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
@@ -51,5 +53,6 @@ public interface OWLSubClassOfAxiomShortCut {
      *         is equivalent to this axiom. Note that annotations are not copied
      *         to the returned
      *         {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} axiom. */
+    @Nonnull
     OWLSubClassOfAxiom asOWLSubClassOfAxiom();
 }

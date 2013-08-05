@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br>
  * <br> */
-
 public class ObjectHasValueTranslator extends AbstractClassExpressionTranslator {
     public ObjectHasValueTranslator(OWLRDFConsumer consumer) {
         super(consumer);

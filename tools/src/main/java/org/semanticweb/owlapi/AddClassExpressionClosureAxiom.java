@@ -74,8 +74,6 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * This code is based on the tutorial examples by Sean Bechhofer (see the
  * tutorial module). */
 public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyChange {
-
-
     /** Creates a composite change that will add a closure axiom for a given
      * class along a specified property.
      * 

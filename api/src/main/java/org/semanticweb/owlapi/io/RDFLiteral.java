@@ -38,6 +38,11 @@
  */
 package org.semanticweb.owlapi.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -62,15 +67,16 @@ public class RDFLiteral extends RDFNode {
      *            language tag
      * @param datatype
      *            datatype IRI */
-    public RDFLiteral(String literal, String lang, IRI datatype) {
-        lexicalValue = literal;
+    public RDFLiteral(@Nonnull String literal, @Nullable String lang,
+            @Nullable IRI datatype) {
+        lexicalValue = checkNotNull(literal);
         this.lang = lang == null ? "" : lang.trim();
         this.datatype = datatype;
     }
 
     /** @param literal
      *            the wrapped literal */
-    public RDFLiteral(OWLLiteral literal) {
+    public RDFLiteral(@Nonnull OWLLiteral literal) {
         this(literal.getLiteral(), literal.getLang(), literal.getDatatype().getIRI());
     }
 

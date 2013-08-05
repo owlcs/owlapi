@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -81,6 +83,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *         be "abc" (without the language tag included). If the literal is
      *         of the form <code>"abc@langTag"^^rdf:PlainLiteral</code> then the
      *         return value will be "abc" (without the language tag included). */
+    @Nonnull
     String getLiteral();
 
     /** Gets the <code>OWLDatatype</code> which types this literal.
@@ -89,6 +92,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *         for strings with language tag (previously considered to be
      *         untyped literals) the datatype will be rdf:PlainLiteral. The
      *         return value is never <code>null</code>. */
+    @Nonnull
     OWLDatatype getDatatype();
 
     /** Determines if this literal has a language tag.
@@ -104,6 +108,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *         <code>rdf:PlainLiteral</code>, or because its language tag is
      *         empty, then the empty string will be returned. (The
      *         <code>null</code> value is never returned). */
+    @Nonnull
     String getLang();
 
     /** Determines if this <code>OWLLiteral</code> has a particular language tag.
@@ -191,8 +196,8 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
     float parseFloat() throws NumberFormatException;
 
     @SuppressWarnings("javadoc")
-    void accept(OWLDataVisitor visitor);
+    void accept(@Nonnull OWLDataVisitor visitor);
 
     @SuppressWarnings("javadoc")
-    <O> O accept(OWLDataVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
 }

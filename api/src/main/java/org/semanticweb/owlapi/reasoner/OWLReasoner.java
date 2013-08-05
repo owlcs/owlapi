@@ -121,34 +121,35 @@ import org.semanticweb.owlapi.util.Version;
  * data property hierarchy) is viewed as a directed acyclic graph (DAG)
  * containing nodes connected via edges. Each node in the hierarchy represents a
  * set of entities that are equivalent to each other. Each hierarchy has a top
- * node (see {@link org.semanticweb.owlapi.reasoner.Node#isTopNode()}) and a bottom node (see
- * {@link org.semanticweb.owlapi.reasoner.Node#isBottomNode()}). </p> The figure below shows an example class
- * hierarchy. Each box in the hierarchy represents a <code>Node</code>. In this
- * case the top node contains <code>owl:Thing</code> and the bottom node
- * contains <code>owl:Nothing</code> because the nodes in the hierarchy are
- * <code>OWLClass</code> nodes. In this case, class <code>G</code> is equivalent
- * to <code>owl:Thing</code> so it appears as an entity in the top node along
- * with <code>owl:Thing</code>. Similarly, class <code>K</code> is
- * unsatisfiable, so it is equivalent to <code>owl:Nothing</code>, and therefore
- * appears in the bottom node containing <code>owl:Nothing</code>. In this
- * example, classes <code>A</code> and <code>B</code> are equivalent so they
- * appear in one node, also, classes <code>D</code> and <code>F</code> are
- * equivalent so they appear in one node. </p> Asking for the subclasses of a
- * given class (expression) returns the a <code>NodeSet</code> containing the
- * nodes that contain classes that are strict subclasses of the specified class
- * (expression). For example, asking for the subclasses of class <code>C</code>
- * returns the <code>NodeSet</code> <code>{E}</code> and
- * <code>{owl:Nothing, K}</code>. </p> Asking for the direct subclasses of a
- * given class (expression) returns the <code>NodeSet</code> that contains the
- * nodes that contains classes that are direct subclasses of the specified
- * class. For example, asking for the direct subclasses of class <code>A</code>
- * returns the <code>NodeSet</code> containing the nodes <code>{C}</code> and
- * <code>{D, F}</code>. Note that there are convenience methods on
- * {@link NodeSet} and {@link org.semanticweb.owlapi.reasoner.Node} that can be
- * used to directly access the entities in a <code>NodeSet</code> without having
- * to iterate over the nodes and entities in a <code>NodeSet</code>. For
- * example, a "plain" set of classes contained inside the <code>Nodes</code>
- * contained inside a <code>NodeSet</code> can easily be obtained using the
+ * node (see {@link org.semanticweb.owlapi.reasoner.Node#isTopNode()}) and a
+ * bottom node (see {@link org.semanticweb.owlapi.reasoner.Node#isBottomNode()}
+ * ). </p> The figure below shows an example class hierarchy. Each box in the
+ * hierarchy represents a <code>Node</code>. In this case the top node contains
+ * <code>owl:Thing</code> and the bottom node contains <code>owl:Nothing</code>
+ * because the nodes in the hierarchy are <code>OWLClass</code> nodes. In this
+ * case, class <code>G</code> is equivalent to <code>owl:Thing</code> so it
+ * appears as an entity in the top node along with <code>owl:Thing</code>.
+ * Similarly, class <code>K</code> is unsatisfiable, so it is equivalent to
+ * <code>owl:Nothing</code>, and therefore appears in the bottom node containing
+ * <code>owl:Nothing</code>. In this example, classes <code>A</code> and
+ * <code>B</code> are equivalent so they appear in one node, also, classes
+ * <code>D</code> and <code>F</code> are equivalent so they appear in one node.
+ * </p> Asking for the subclasses of a given class (expression) returns the a
+ * <code>NodeSet</code> containing the nodes that contain classes that are
+ * strict subclasses of the specified class (expression). For example, asking
+ * for the subclasses of class <code>C</code> returns the <code>NodeSet</code>
+ * <code>{E}</code> and <code>{owl:Nothing, K}</code>. </p> Asking for the
+ * direct subclasses of a given class (expression) returns the
+ * <code>NodeSet</code> that contains the nodes that contains classes that are
+ * direct subclasses of the specified class. For example, asking for the direct
+ * subclasses of class <code>A</code> returns the <code>NodeSet</code>
+ * containing the nodes <code>{C}</code> and <code>{D, F}</code>. Note that
+ * there are convenience methods on {@link NodeSet} and
+ * {@link org.semanticweb.owlapi.reasoner.Node} that can be used to directly
+ * access the entities in a <code>NodeSet</code> without having to iterate over
+ * the nodes and entities in a <code>NodeSet</code>. For example, a "plain" set
+ * of classes contained inside the <code>Nodes</code> contained inside a
+ * <code>NodeSet</code> can easily be obtained using the
  * {@link NodeSet#getFlattened()} method. In this case we could quickly obtain
  * <code>{C,
  * D, F}</code> as the direct subclasses of <code>A</code> simply by using the

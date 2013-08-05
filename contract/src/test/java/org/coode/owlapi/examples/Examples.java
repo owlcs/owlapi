@@ -840,7 +840,7 @@ public class Examples {
         // this case we just want to remove the individuals from the pizza
         // ontology, so pass our reference to the pizza ontology in as a
         // singleton set.
-        OWLEntityRemover remover = new OWLEntityRemover(man, Collections.singleton(ont));
+        OWLEntityRemover remover = new OWLEntityRemover(Collections.singleton(ont));
         System.out.println("Number of individuals: "
                 + ont.getIndividualsInSignature().size());
         // Loop through each individual that is referenced in the pizza
@@ -1305,7 +1305,7 @@ public class Examples {
         // axioms for us (into our fresh ontology). We specify the reasoner that
         // we want to use and the inferred axiom generators that we want to use.
         InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens);
-        iog.fillOntology(man, infOnt);
+        iog.fillOntology(man.getOWLDataFactory(), infOnt);
         // Save the inferred ontology. (Replace the URI with one that is
         // appropriate for your setup)
         man.saveOntology(infOnt, new StringDocumentTarget());

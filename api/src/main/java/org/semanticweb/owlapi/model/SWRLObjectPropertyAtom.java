@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
@@ -53,6 +55,7 @@ public interface SWRLObjectPropertyAtom extends
      * 
      * @return The atom predicate */
     @Override
+    @Nonnull
     OWLObjectPropertyExpression getPredicate();
 
     /** Gets a simplified form of this atom. This basically creates and returns a
@@ -61,5 +64,6 @@ public interface SWRLObjectPropertyAtom extends
      * the form inverseOf(P)(x, y) then P(y, x) is returned.
      * 
      * @return This atom in a simplified form */
+    @Nonnull
     SWRLObjectPropertyAtom getSimplified();
 }

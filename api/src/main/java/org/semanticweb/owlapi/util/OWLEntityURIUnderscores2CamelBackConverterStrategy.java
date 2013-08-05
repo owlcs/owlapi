@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -55,12 +59,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * http://another.com/pathA/pathB#hasPart */
 public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         OWLEntityURIConverterStrategy {
-    private final Map<IRI, IRI> iriMap;
-
-    @SuppressWarnings("javadoc")
-    public OWLEntityURIUnderscores2CamelBackConverterStrategy() {
-        iriMap = new HashMap<IRI, IRI>();
-    }
+    private final Map<IRI, IRI> iriMap = new HashMap<IRI, IRI>();
 
     @Override
     public IRI getConvertedIRI(OWLEntity entity) {
@@ -72,7 +71,9 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         return convIRI;
     }
 
-    private static IRI convert(IRI iri) {
+    @Nonnull
+    private static IRI convert(@Nonnull IRI iri) {
+        checkNotNull(iri);
         String fragment = iri.getFragment();
         if (fragment != null) {
             String base = iri.getNamespace();

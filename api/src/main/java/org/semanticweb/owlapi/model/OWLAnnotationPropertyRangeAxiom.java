@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
@@ -48,13 +50,16 @@ public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom {
     /** Gets the annotation property that this axiom provides a range for.
      * 
      * @return The annotation property */
+    @Nonnull
     OWLAnnotationProperty getProperty();
 
     /** Gets the specified IRI that corresponds to the range.
      * 
      * @return The range of the annotation property. */
+    @Nonnull
     IRI getRange();
 
     @Override
+    @Nonnull
     OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations();
 }

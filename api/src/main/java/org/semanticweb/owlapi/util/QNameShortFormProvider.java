@@ -38,10 +38,13 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.semanticweb.owlapi.io.XMLUtils;
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /** Author: Matthew Horridge<br>
@@ -51,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * <br>
  * A short form provider which creates QNames for entities */
 public class QNameShortFormProvider implements ShortFormProvider {
-    private final NamespaceUtil namespaceUtil;
+    private final NamespaceUtil namespaceUtil = new NamespaceUtil();
 
     /** Creates a QNameShortFormProvider where namespace prefix mappings will
      * automatically be generated. */
@@ -66,8 +69,8 @@ public class QNameShortFormProvider implements ShortFormProvider {
      *            The map which contains a prefix -> namespace mapping. The
      *            prefix must not have a trailing ":"; if one is there, it will
      *            be removed */
-    public QNameShortFormProvider(Map<String, String> prefix2NamespaceMap) {
-        namespaceUtil = new NamespaceUtil();
+    public QNameShortFormProvider(@Nonnull Map<String, String> prefix2NamespaceMap) {
+        checkNotNull(prefix2NamespaceMap);
         for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
             String key = e.getKey();
             int lastChar = key.length() - 1;
@@ -80,6 +83,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
 
     @Override
     public String getShortForm(OWLEntity entity) {
+        checkNotNull(entity);
         String namespace = entity.getIRI().getNamespace();
         String localName = entity.getIRI().getFragment();
         String prefix = namespaceUtil.getPrefix(namespace);

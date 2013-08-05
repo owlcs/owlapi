@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-
 public class OWLObjectMinCardinalityElementHandler extends
         AbstractOWLObjectCardinalityElementHandler {
     public OWLObjectMinCardinalityElementHandler(OWLXMLParserHandler handler) {

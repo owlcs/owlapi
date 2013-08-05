@@ -1109,7 +1109,6 @@ public class ContractOwlapiModel_3Test {
         OWLOntologyChangeVisitorEx<OWLObject> testSubject0 = Utils.mockOntologyChange();
     }
 
-
     @Test
     public void shouldTestInterfaceOWLOntologyFactory() throws OWLException {
         OWLOntologyFactory testSubject0 = mock(OWLOntologyFactory.class);
@@ -1340,7 +1339,6 @@ public class ContractOwlapiModel_3Test {
         testSubject0.setTreatDublinCoreVocabularyAsBuiltInVocabulary(false);
         String result2 = testSubject0.toString();
     }
-
 
     @Test
     public void shouldTestInterfaceOWLOntologySetProvider() throws OWLException {

@@ -59,7 +59,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Bio-Health Informatics Group<br>
  * Date: 10-Jan-2007<br>
  * <br> */
-
 public abstract class AbstractTagValueHandler implements TagValueHandler {
     private String tag;
     private OBOConsumer consumer;

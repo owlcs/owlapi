@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 23-Apr-2009 */
-
 public class TPVersionIRIHandler extends TriplePredicateHandler {
     public TPVersionIRIHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_VERSION_IRI.getIRI());

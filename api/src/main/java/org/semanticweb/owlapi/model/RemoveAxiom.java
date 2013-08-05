@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.change.RemoveAxiomData;
 
 /** Author: Matthew Horridge<br>
@@ -50,7 +52,7 @@ public class RemoveAxiom extends OWLAxiomChange {
      *            the ontology to which the change is to be applied
      * @param axiom
      *            the axiom to be removed */
-    public RemoveAxiom(OWLOntology ont, OWLAxiom axiom) {
+    public RemoveAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
         super(ont, axiom);
     }
 

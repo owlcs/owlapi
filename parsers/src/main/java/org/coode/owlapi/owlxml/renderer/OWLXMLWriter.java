@@ -71,7 +71,6 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * namespace (http://www.w3.org/2002/07/owl#). Unlike RDF/XML, entity URIs
  * aren't abbreviated using the XML namespace mechanism, instead they are
  * encoded using 'prefix' elements. */
-
 public class OWLXMLWriter {
     /** String comparator that takes length into account before natural ordering. */
     private static final class StringLengthComparator implements Comparator<String>,

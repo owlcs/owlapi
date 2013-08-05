@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -82,9 +86,9 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      * @param ontologySetProvider
      *            the ontology container */
     public PropertyAssertionValueShortFormProvider(
-            List<OWLPropertyExpression> properties,
-            Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
-            OWLOntologySetProvider ontologySetProvider) {
+            @Nonnull List<OWLPropertyExpression> properties,
+            @Nonnull Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
+            @Nonnull OWLOntologySetProvider ontologySetProvider) {
         this(properties, preferredLanguageMap, ontologySetProvider,
                 new SimpleShortFormProvider());
     }
@@ -116,18 +120,19 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      *            <code>OWLIndividual</code> for providing the short form of the
      *            individual. */
     public PropertyAssertionValueShortFormProvider(
-            List<OWLPropertyExpression> properties,
-            Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
-            OWLOntologySetProvider ontologySetProvider,
-            ShortFormProvider alternateShortFormProvider) {
-        this.properties = properties;
-        this.preferredLanguageMap = preferredLanguageMap;
-        this.ontologySetProvider = ontologySetProvider;
-        this.alternateShortFormProvider = alternateShortFormProvider;
+            @Nonnull List<OWLPropertyExpression> properties,
+            @Nonnull Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
+            @Nonnull OWLOntologySetProvider ontologySetProvider,
+            @Nonnull ShortFormProvider alternateShortFormProvider) {
+        this.properties = checkNotNull(properties);
+        this.preferredLanguageMap = checkNotNull(preferredLanguageMap);
+        this.ontologySetProvider = checkNotNull(ontologySetProvider);
+        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider);
     }
 
     @Override
     public String getShortForm(OWLEntity entity) {
+        checkNotNull(entity);
         int lastURIMatchIndex = Integer.MAX_VALUE;
         int lastLangMatchIndex = Integer.MAX_VALUE;
         if (!(entity instanceof OWLIndividual)) {

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -53,11 +55,13 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom {
      * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual}.
      * 
      * @return The subject of the annotation */
+    @Nonnull
     OWLAnnotationSubject getSubject();
 
     /** Gets the annotation property.
      * 
      * @return The annotation property. */
+    @Nonnull
     OWLAnnotationProperty getProperty();
 
     /** Gets the annotation value. This is either an
@@ -69,6 +73,7 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom {
      * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitor
      * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx
      * @return The annotation value. */
+    @Nonnull
     OWLAnnotationValue getValue();
 
     /** Gets the combination of the annotation property and the annotation value
@@ -76,6 +81,7 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom {
      * 
      * @return The annotation object that combines the property and value of
      *         this annotation. */
+    @Nonnull
     OWLAnnotation getAnnotation();
 
     /** Determines if this annotation assertion deprecates the IRI that is the
@@ -87,5 +93,6 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom {
     boolean isDeprecatedIRIAssertion();
 
     @Override
+    @Nonnull
     OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
 }

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -47,9 +49,9 @@ package org.semanticweb.owlapi.model;
  * expressions. */
 @SuppressWarnings("javadoc")
 public interface OWLPropertyExpressionVisitor {
-    void visit(OWLObjectProperty property);
+    void visit(@Nonnull OWLObjectProperty property);
 
-    void visit(OWLObjectInverseOf property);
+    void visit(@Nonnull OWLObjectInverseOf property);
 
-    void visit(OWLDataProperty property);
+    void visit(@Nonnull OWLDataProperty property);
 }

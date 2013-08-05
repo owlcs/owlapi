@@ -38,8 +38,9 @@
  */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLException;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -53,7 +54,6 @@ public interface RootClassChecker {
      * @param cls
      *            The class to be checked.
      * @return <code>true</code> if the class is a direct syntactic root class
-     *         of owl:Thing, otherwise <code>false</code>.
-     * @throws OWLException */
-    boolean isRootClass(OWLClass cls) throws OWLException;
+     *         of owl:Thing, otherwise <code>false</code>. */
+    boolean isRootClass(@Nonnull OWLClass cls);
 }

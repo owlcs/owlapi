@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 The interface to an object
@@ -50,5 +52,6 @@ public interface OWLOntologyIRIMapper {
      *            The ontology IRI to be mapped.
      * @return The document IRI of the ontology, or <code>null</code> if the
      *         mapper doesn't have mapping for the specified ontology IRI. */
-    IRI getDocumentIRI(IRI ontologyIRI);
+    @Nonnull
+    IRI getDocumentIRI(@Nonnull IRI ontologyIRI);
 }

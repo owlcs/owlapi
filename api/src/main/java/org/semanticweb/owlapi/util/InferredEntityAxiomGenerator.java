@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /** Author: Matthew Horridge<br>
@@ -62,14 +61,14 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extends OWLAxiom>
         implements InferredAxiomGenerator<A> {
     @Override
-    public Set<A> createAxioms(OWLOntologyManager manager, OWLReasoner reasoner) {
+    public Set<A> createAxioms(OWLDataFactory df, OWLReasoner reasoner) {
         Set<E> processedEntities = new HashSet<E>();
         Set<A> result = new HashSet<A>();
         for (OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
             for (E entity : getEntities(ont)) {
                 if (!processedEntities.contains(entity)) {
                     processedEntities.add(entity);
-                    addAxioms(entity, reasoner, manager.getOWLDataFactory(), result);
+                    addAxioms(entity, reasoner, df, result);
                 }
             }
         }

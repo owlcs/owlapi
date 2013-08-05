@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -54,5 +56,6 @@ public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression> extends
      * 
      * @return The class expression that represents the domain specified by this
      *         axiom. */
+    @Nonnull
     OWLClassExpression getDomain();
 }

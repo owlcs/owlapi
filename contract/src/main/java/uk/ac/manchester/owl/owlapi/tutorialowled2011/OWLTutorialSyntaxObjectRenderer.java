@@ -240,7 +240,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(ontology1.getAxioms());
         for (OWLImportsDeclaration decl : ontology1.getImportsDeclarations()) {
             write("Imports: ");
-            write(decl.getURI().toString());
+            write(decl.getIRI().toString());
             write("\n");
         }
         write("<h2>Classes</h2>\n");

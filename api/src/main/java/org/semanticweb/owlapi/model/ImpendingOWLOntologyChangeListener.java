@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -58,6 +60,6 @@ public interface ImpendingOWLOntologyChangeListener {
      *             The listener may throw a change veto exception, which will
      *             prevent all of the changes being applied. */
     void handleImpendingOntologyChanges(
-            List<? extends OWLOntologyChange<?>> impendingChanges)
+            @Nonnull List<? extends OWLOntologyChange<?>> impendingChanges)
             throws OWLOntologyChangeVetoException;
 }

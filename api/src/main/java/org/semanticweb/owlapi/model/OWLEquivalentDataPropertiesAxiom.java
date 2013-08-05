@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -50,8 +52,10 @@ import java.util.Set;
 public interface OWLEquivalentDataPropertiesAxiom extends
         OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
     @Override
+    @Nonnull
     OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations();
 
     /** @return the axioms equivalent to the equivalent data properties axiom */
+    @Nonnull
     Set<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms();
 }

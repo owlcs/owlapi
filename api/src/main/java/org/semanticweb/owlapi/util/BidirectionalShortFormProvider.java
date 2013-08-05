@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /** Author: Matthew Horridge<br>
@@ -58,7 +60,8 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      * @return The set of entities that have the specified short form. If there
      *         are no entities which have the specified short form then an empty
      *         set will be returned. */
-    Set<OWLEntity> getEntities(String shortForm);
+    @Nonnull
+    Set<OWLEntity> getEntities(@Nonnull String shortForm);
 
     /** A convenience method which gets an entity from its short form.
      * 
@@ -68,11 +71,13 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      *         which has the specified short form. If the specified short form
      *         corresponds to more than one entity then an entity will be chosen
      *         by the implementation of the short form provider. */
-    OWLEntity getEntity(String shortForm);
+    @Nonnull
+    OWLEntity getEntity(@Nonnull String shortForm);
 
     /** Gets all of the short forms that are mapped to entities.
      * 
      * @return A set, which contains the strings representing the short forms of
      *         entities for which there is a mapping. */
+    @Nonnull
     Set<String> getShortForms();
 }

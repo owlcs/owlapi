@@ -145,13 +145,12 @@ public class ContractOwlapiTest {
 
     public void shouldTestShortForm2AnnotationGenerator() throws OWLException {
         ShortForm2AnnotationGenerator testSubject0 = new ShortForm2AnnotationGenerator(
-                mock(OWLDataFactory.class),
-                Utils.getMockManager(), Utils.getMockOntology(),
-                mock(ShortFormProvider.class), IRI("urn:aFake"), "");
+                mock(OWLDataFactory.class), Utils.getMockManager(),
+                Utils.getMockOntology(), mock(ShortFormProvider.class), IRI("urn:aFake"),
+                "");
         ShortForm2AnnotationGenerator testSubject1 = new ShortForm2AnnotationGenerator(
-                mock(OWLDataFactory.class),
-                Utils.getMockManager(), Utils.getMockOntology(),
-                mock(ShortFormProvider.class), IRI("urn:aFake"));
+                mock(OWLDataFactory.class), Utils.getMockManager(),
+                Utils.getMockOntology(), mock(ShortFormProvider.class), IRI("urn:aFake"));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }

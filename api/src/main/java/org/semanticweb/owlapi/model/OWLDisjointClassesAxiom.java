@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -49,8 +51,10 @@ import java.util.Set;
  * >DisjointClasses</a> axiom in the OWL 2 Specification. */
 public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
     @Override
+    @Nonnull
     Set<OWLDisjointClassesAxiom> asPairwiseAxioms();
 
     @Override
+    @Nonnull
     OWLDisjointClassesAxiom getAxiomWithoutAnnotations();
 }

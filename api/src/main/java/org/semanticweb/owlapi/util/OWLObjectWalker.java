@@ -164,7 +164,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     /** @param objects
      *            the set of objects to visit */
-    public OWLObjectWalker(Set<O> objects) {
+    public OWLObjectWalker(@Nonnull Set<O> objects) {
         this(objects, true);
     }
 
@@ -172,15 +172,15 @@ public class OWLObjectWalker<O extends OWLObject> {
      *            true if duplicates should be visited
      * @param objects
      *            the set of objects to visit */
-    public OWLObjectWalker(Set<O> objects, boolean visitDuplicates) {
-        this.objects = new ArrayList<O>(objects);
+    public OWLObjectWalker(@Nonnull Set<O> objects, boolean visitDuplicates) {
+        this.objects = new ArrayList<O>(checkNotNull(objects));
         this.visitDuplicates = visitDuplicates;
     }
 
     /** @param v
      *            visitor to use over the objects */
-    public void walkStructure(OWLObjectVisitorEx<?> v) {
-        this.visitor = v;
+    public void walkStructure(@Nonnull OWLObjectVisitorEx<?> v) {
+        this.visitor = checkNotNull(v);
         StructureWalker walker = new StructureWalker();
         for (O o : objects) {
             o.accept(walker);
@@ -219,6 +219,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @return A list of class expressions that represents the path of class
      *         expressions, with the root of the class expression being the
      *         first element in the list. */
+    @Nonnull
     public List<OWLClassExpression> getClassExpressionPath() {
         return new ArrayList<OWLClassExpression>(classExpressionPath);
     }
@@ -231,7 +232,9 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @return <code>true</code> if the specified class expression is the first
      *         class expression in the current class expression path, otherwise
      *         <code>false</code> (<code>false</code> if the path is empty) */
-    public boolean isFirstClassExpressionInPath(OWLClassExpression classExpression) {
+    public boolean isFirstClassExpressionInPath(
+            @Nonnull OWLClassExpression classExpression) {
+        checkNotNull(classExpression);
         return !classExpressionPath.isEmpty()
                 && classExpressionPath.get(0).equals(classExpression);
     }
@@ -240,7 +243,8 @@ public class OWLObjectWalker<O extends OWLObject> {
      * 
      * @param ce
      *            The class expression to be pushed onto the path */
-    protected void pushClassExpression(OWLClassExpression ce) {
+    protected void pushClassExpression(@Nonnull OWLClassExpression ce) {
+        checkNotNull(ce);
         classExpressionPath.add(ce);
     }
 
@@ -262,6 +266,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @return A list of data ranges that represents the path of data ranges,
      *         with the root of the data range being the first element in the
      *         list. */
+    @Nonnull
     public List<OWLDataRange> getDataRangePath() {
         return new ArrayList<OWLDataRange>(dataRangePath);
     }
@@ -270,7 +275,8 @@ public class OWLObjectWalker<O extends OWLObject> {
      * 
      * @param dr
      *            The data range to be pushed onto the path */
-    protected void pushDataRange(OWLDataRange dr) {
+    protected void pushDataRange(@Nonnull OWLDataRange dr) {
+        checkNotNull(dr);
         dataRangePath.add(dr);
     }
 

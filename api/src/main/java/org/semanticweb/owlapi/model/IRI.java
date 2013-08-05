@@ -38,12 +38,18 @@
  */
 package org.semanticweb.owlapi.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.util.WeakCache;
@@ -60,6 +66,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * so there is no loss during this translation.
      * 
      * @return The URI */
+    @Nonnull
     public URI toURI() {
         if (remainder != null) {
             StringBuilder sb = new StringBuilder();
@@ -91,6 +98,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /** @return the IRI scheme, e.g., http, urn... can be null */
+    @Nullable
     public String getScheme() {
         int colonIndex = prefix.indexOf(':');
         if (colonIndex == -1) {
@@ -100,6 +108,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /** @return the prefix. Can be null. */
+    @Nullable
     public String getNamespace() {
         return prefix;
     }
@@ -108,7 +117,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *            the IRI stirng to be resolved
      * @return s resolved against this IRI (with the URI::resolve() method,
      *         unless this IRI is opaque) */
-    public IRI resolve(String s) {
+    @Nonnull
+    public IRI resolve(@Nonnull String s) {
         // shortcut: checking absolute and opaque here saves the creation of an
         // extra URI object
         URI uri = URI.create(s);
@@ -170,6 +180,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * 
      * @return The IRI fragment, or <code>null</code> if the IRI does not have a
      *         fragment */
+    @Nullable
     public String getFragment() {
         return remainder;
     }
@@ -177,6 +188,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /** Obtained this IRI surrounded by angled brackets
      * 
      * @return This IRI surrounded by &lt; and &gt; */
+    @Nonnull
     public String toQuotedString() {
         StringBuilder sb = new StringBuilder();
         sb.append("<");
@@ -193,10 +205,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @param str
      *            The String that specifies the IRI. Cannot be null.
      * @return The IRI that has the specified string representation. */
-    public static IRI create(String str) {
-        if (str == null) {
-            throw new IllegalArgumentException("String must not be null");
-        }
+    @Nonnull
+    public static IRI create(@Nonnull String str) {
+        checkNotNull(str);
         return new IRI(str);
     }
 
@@ -209,10 +220,11 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *            The second string. May be <code>null</code>.
      * @return An IRI whose characters consist of prefix + suffix.
      * @since 3.3 */
-    public static IRI create(String prefix, String suffix) {
-        if(prefix == null) {
+    @Nonnull
+    public static IRI create(@Nullable String prefix, @Nullable String suffix) {
+        if (prefix == null) {
             return new IRI(suffix);
-        } else if(suffix == null) {
+        } else if (suffix == null) {
             // suffix set deliberately to null is used only in blank node
             // management
             // this is not great but blank nodes should be changed to not refer
@@ -238,30 +250,27 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /** @param file
      *            the file to create the IRI from. Cannot be null.
      * @return file.toURI() IRI */
-    public static IRI create(File file) {
-        if (file == null) {
-            throw new IllegalArgumentException("file cannot be null");
-        }
+    @Nonnull
+    public static IRI create(@Nonnull File file) {
+        checkNotNull(file);
         return new IRI(file.toURI());
     }
 
     /** @param uri
      *            the uri to create the IRI from. Cannot be null
      * @return the IRI wrapping the uri */
-    public static IRI create(URI uri) {
-        if (uri == null) {
-            throw new IllegalArgumentException("uri cannot be null");
-        }
+    @Nonnull
+    public static IRI create(@Nonnull URI uri) {
+        checkNotNull(uri);
         return new IRI(uri);
     }
 
     /** @param url
      *            the url to create the IRI from. Cannot be null.
      * @return an IRI wraopping url.toURI() if the URL is ill formed */
-    public static IRI create(URL url) {
-        if (url == null) {
-            throw new IllegalArgumentException("url cannot be null");
-        }
+    @Nonnull
+    public static IRI create(@Nonnull URL url) {
+        checkNotNull(url);
         try {
             return new IRI(url.toURI());
         } catch (URISyntaxException e) {
@@ -272,11 +281,13 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /** Gets an auto-generated ontology document IRI.
      * 
      * @return An auto-generated ontology document IRI. The IRI has the form
-     *         <code>owlapi:ontologyTIMESTAMP</code> */
+     *         <code>owlapi:ontologyNNNNNNNNNNN</code> */
+    @Nonnull
     public static IRI generateDocumentIRI() {
-        return create("owlapi:ontology" + System.nanoTime());
+        return create("owlapi:ontology" + counter.incrementAndGet());
     }
 
+    private static final AtomicLong counter = new AtomicLong(System.nanoTime());
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // //
@@ -298,17 +309,17 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *            The prefix.
      * @param fragment
      *            The suffix. */
-    protected IRI(String prefix, String fragment) {
+    protected IRI(@Nonnull String prefix, @Nullable String fragment) {
         this.prefix = prefixCache.cache(prefix);
         remainder = fragment;
     }
 
-    protected IRI(String s) {
+    protected IRI(@Nonnull String s) {
         this(XMLUtils.getNCNamePrefix(s), XMLUtils.getNCNameSuffix(s));
     }
 
-    protected IRI(URI uri) {
-        this(uri.toString());
+    protected IRI(@Nonnull URI uri) {
+        this(checkNotNull(uri).toString());
     }
 
     @Override

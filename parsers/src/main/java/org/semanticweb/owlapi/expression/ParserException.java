@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Bio-Health Informatics Group<br>
  * Date: 11-Sep-2007<br>
  * <br> */
-
 public class ParserException extends Exception {
     private static final long serialVersionUID = 40000L;
     private String currentToken;

@@ -53,7 +53,6 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * <br>
  * <p/>
  * Translates a set of triples to an <code>OWLUnionOf</code>. */
-
 public class ObjectUnionOfTranslator extends AbstractClassExpressionTranslator {
     public ObjectUnionOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);

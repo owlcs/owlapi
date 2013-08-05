@@ -38,17 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 15-Nov-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
 public interface OWLObjectVisitor extends OWLAxiomVisitor, OWLClassExpressionVisitor,
         OWLDataVisitor, OWLPropertyExpressionVisitor, OWLEntityVisitor,
         OWLAnnotationAxiomVisitor, OWLIndividualVisitor, OWLAnnotationValueVisitor,
-        OWLAnnotationObjectVisitor, SWRLObjectVisitor {
-    void visit(@Nonnull OWLOntology ontology);
-}
+        OWLAnnotationObjectVisitor, SWRLObjectVisitor, OWLNamedObjectVisitor {}

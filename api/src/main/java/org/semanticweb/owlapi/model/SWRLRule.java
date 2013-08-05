@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
@@ -56,12 +58,14 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * 
      * @return A set of <code>SWRLAtom</code>s, which represent the atoms in the
      *         body of the rule. */
+    @Nonnull
     Set<SWRLAtom> getBody();
 
     /** Gets the atoms in the head of the rule
      * 
      * @return A set of <code>SWRLAtom</code>s, which represent the atoms in the
      *         head of the rule */
+    @Nonnull
     Set<SWRLAtom> getHead();
 
     /** If this rule contains atoms that have predicates that are inverse object
@@ -71,11 +75,13 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * 
      * @return The rule such that any atoms of the form inverseOf(p)(x, y) are
      *         transformed to p(x, y). */
+    @Nonnull
     SWRLRule getSimplified();
 
     /** Gets the variables that appear in this rule.
      * 
      * @return A set of variables. */
+    @Nonnull
     Set<SWRLVariable> getVariables();
 
     /** Determines if this rule uses anonymous class expressions in class atoms.
@@ -88,8 +94,10 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * 
      * @return A set of class expressions that represent the class class
      *         expressions that are predicates of class atoms. */
+    @Nonnull
     Set<OWLClassExpression> getClassAtomPredicates();
 
     @Override
+    @Nonnull
     SWRLRule getAxiomWithoutAnnotations();
 }

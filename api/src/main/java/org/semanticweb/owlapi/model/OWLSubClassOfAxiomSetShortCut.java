@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
@@ -47,5 +49,6 @@ import java.util.Set;
  * represented by a set of SubClassOf axioms that is equivalent to this axiom. */
 public interface OWLSubClassOfAxiomSetShortCut {
     /** @return the set of axioms equivalent to this expression */
+    @Nonnull
     Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms();
 }

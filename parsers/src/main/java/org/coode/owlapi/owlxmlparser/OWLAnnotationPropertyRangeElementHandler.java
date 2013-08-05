@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 16/12/2010 */
-
 public class OWLAnnotationPropertyRangeElementHandler extends
         AbstractOWLAxiomElementHandler {
     private IRI range;

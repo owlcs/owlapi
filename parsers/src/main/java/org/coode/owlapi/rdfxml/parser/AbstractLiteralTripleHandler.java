@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Bio-Health Informatics Group<br>
  * Date: 10-Dec-2006<br>
  * <br> */
-
 public abstract class AbstractLiteralTripleHandler extends AbstractTripleHandler {
     public AbstractLiteralTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);

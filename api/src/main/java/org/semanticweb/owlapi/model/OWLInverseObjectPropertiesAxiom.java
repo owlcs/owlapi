@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -57,14 +59,18 @@ import java.util.Set;
 public interface OWLInverseObjectPropertiesAxiom extends
         OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
     /** @return the first of the two object properties. */
+    @Nonnull
     OWLObjectPropertyExpression getFirstProperty();
 
     /** @return the second of the two object properties. */
+    @Nonnull
     OWLObjectPropertyExpression getSecondProperty();
 
     /** @return the set of subproperty axioms equivalent */
+    @Nonnull
     Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
 
     @Override
+    @Nonnull
     OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
 }

@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 </p> Represents <a
@@ -49,14 +51,15 @@ import java.util.Set;
  * logical axioms */
 public interface OWLAxiom extends OWLObject {
     @SuppressWarnings("javadoc")
-    void accept(OWLAxiomVisitor visitor);
+    void accept(@Nonnull OWLAxiomVisitor visitor);
 
     @SuppressWarnings("javadoc")
-    <O> O accept(OWLAxiomVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor);
 
     /** Gets the annotations that are annotate this axiom.
      * 
      * @return A set of annotations that annotate this axiom. */
+    @Nonnull
     Set<OWLAnnotation> getAnnotations();
 
     /** Gets the annotations that annotate this axiom and whose annotation
@@ -68,13 +71,15 @@ public interface OWLAxiom extends OWLObject {
      * @return A set of annotations that annotate this axiom, each of whose
      *         annotation properties is equals to
      *         <code>annotationProperty</code>. */
-    Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty);
+    @Nonnull
+    Set<OWLAnnotation> getAnnotations(@Nonnull OWLAnnotationProperty annotationProperty);
 
     /** Gets an axiom that is structurally equivalent to this axiom without
      * annotations. This essentially returns a version of this axiom stripped of
      * any annotations
      * 
      * @return The annotationless version of this axiom */
+    @Nonnull
     OWLAxiom getAxiomWithoutAnnotations();
 
     /** Gets a copy of this axiom that is annotated with the specified
@@ -88,7 +93,8 @@ public interface OWLAxiom extends OWLObject {
      * @return A copy of this axiom that has the specified annotations plus any
      *         existing annotations returned by the
      *         {@code OWLAxiom#getAnnotations()} method. */
-    OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations);
+    @Nonnull
+    OWLAxiom getAnnotatedAxiom(@Nonnull Set<OWLAnnotation> annotations);
 
     /** Determines if another axiom is equal to this axiom not taking into
      * consideration the annotations on the axiom
@@ -98,7 +104,7 @@ public interface OWLAxiom extends OWLObject {
      * @return <code>true</code> if <code>axiom</code> without annotations is
      *         equal to this axiom without annotations otherwise
      *         <code>false</code>. */
-    boolean equalsIgnoreAnnotations(OWLAxiom axiom);
+    boolean equalsIgnoreAnnotations(@Nonnull OWLAxiom axiom);
 
     /** Determines if this axiom is a logical axiom. Logical axioms are defined
      * to be axioms other than both declaration axioms (including imports
@@ -125,6 +131,7 @@ public interface OWLAxiom extends OWLObject {
     /** Gets the axiom type for this axiom.
      * 
      * @return The axiom type that corresponds to the type of this axiom. */
+    @Nonnull
     AxiomType<?> getAxiomType();
 
     /** Determines if this axiom is one of the specified types
@@ -134,7 +141,7 @@ public interface OWLAxiom extends OWLObject {
      * @return <code>true</code> if this axiom is one of the specified types,
      *         otherwise <code>false</code>
      * @since 3.0 */
-    boolean isOfType(AxiomType<?>... axiomTypes);
+    boolean isOfType(@Nonnull AxiomType<?>... axiomTypes);
 
     /** Determines if this axiom is one of the specified types
      * 
@@ -143,11 +150,12 @@ public interface OWLAxiom extends OWLObject {
      * @return <code>true</code> if this axioms is one of the specified types,
      *         otherwise <code>false</code>
      * @since 3.0 */
-    boolean isOfType(Set<AxiomType<?>> types);
+    boolean isOfType(@Nonnull Set<AxiomType<?>> types);
 
     /** Gets this axioms in negation normal form. i.e. any class expressions
      * involved in this axiom are converted into negation normal form.
      * 
      * @return The axiom in negation normal form. */
+    @Nonnull
     OWLAxiom getNNF();
 }

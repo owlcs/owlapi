@@ -48,7 +48,7 @@ public class VersionInfo {
     private static final VersionInfo INSTANCE = new VersionInfo();
     private final String version;
 
-    private VersionInfo() {
+    protected VersionInfo() {
         String v = VersionInfo.class.getPackage().getImplementationVersion();
         if (v != null) {
             version = v;

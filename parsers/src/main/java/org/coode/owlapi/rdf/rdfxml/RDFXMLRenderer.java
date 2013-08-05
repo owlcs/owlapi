@@ -75,7 +75,6 @@ import org.semanticweb.owlapi.util.VersionInfo;
  * Bio-Health Informatics Group<br>
  * Date: 06-Dec-2006<br>
  * <br> */
-
 public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLWriter writer;
     private Set<RDFResource> pending = new HashSet<RDFResource>();
@@ -98,8 +97,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
             base = defaultNamespace;
         }
         writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(
-                checkNotNull(w),
-                qnameManager, base));
+                checkNotNull(w), qnameManager, base));
     }
 
     @Nonnull

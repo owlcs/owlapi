@@ -58,7 +58,6 @@ import javax.annotation.Nullable;
  * www.cs.man.ac.uk/~horridgm<br>
  * <br>
  * Developed as part of the CO-ODE project http://www.co-ode.org */
-
 public class XMLWriterNamespaceManager {
     private Map<String, String> prefixNamespaceMap = new HashMap<String, String>();
     private Map<String, String> namespacePrefixMap = new HashMap<String, String>();

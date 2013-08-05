@@ -81,7 +81,6 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * example, A subClassOf (B and C), would be replaced with two subclass axioms,
  * A subClassOf B, and A subClassOf C. */
 public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
-
     /** Creates a composite change to split subclass axioms into multiple more
      * fine grained subclass axioms.
      * 
@@ -110,8 +109,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
     private static class ConjunctSplitter implements OWLClassExpressionVisitor {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
 
-        public ConjunctSplitter() {
-        }
+        public ConjunctSplitter() {}
 
         @Override
         public void visit(OWLClass desc) {

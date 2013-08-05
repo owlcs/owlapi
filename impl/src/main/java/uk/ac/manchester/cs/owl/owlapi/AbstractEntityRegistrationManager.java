@@ -129,7 +129,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubClass().accept(this);
         axiom.getSuperClass().accept(this);
         processAxiomAnnotations(axiom);
@@ -137,7 +136,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -146,21 +144,18 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        checkNotNull(axiom);
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
         }
@@ -169,7 +164,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -177,7 +171,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -185,7 +178,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
@@ -194,7 +186,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -203,7 +194,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        checkNotNull(axiom);
         for (OWLIndividual ind : axiom.getIndividuals()) {
             ind.accept(this);
         }
@@ -212,7 +202,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
@@ -221,7 +210,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
@@ -230,7 +218,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getRange().accept(this);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -238,7 +225,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -247,14 +233,12 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -262,7 +246,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getOWLClass().accept((OWLEntityVisitor) this);
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
@@ -272,21 +255,18 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getEntity().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
         processAxiomAnnotations(axiom);
@@ -294,14 +274,12 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
@@ -310,7 +288,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getClassExpression().accept(this);
         axiom.getIndividual().accept(this);
         processAxiomAnnotations(axiom);
@@ -318,7 +295,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        checkNotNull(axiom);
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
         }
@@ -327,7 +303,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -336,21 +311,18 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -358,14 +330,12 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        checkNotNull(axiom);
         for (OWLIndividual ind : axiom.getIndividuals()) {
             ind.accept(this);
         }
@@ -374,7 +344,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        checkNotNull(axiom);
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             prop.accept(this);
         }
@@ -384,7 +353,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getFirstProperty().accept(this);
         axiom.getSecondProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -392,7 +360,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getClassExpression().accept(this);
         for (OWLPropertyExpression prop : axiom.getPropertyExpressions()) {
             prop.accept(this);
@@ -583,7 +550,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getValue().accept(this);
@@ -598,21 +564,18 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -620,7 +583,6 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getDatatype().accept(this);
         axiom.getDataRange().accept(this);
         processAxiomAnnotations(axiom);

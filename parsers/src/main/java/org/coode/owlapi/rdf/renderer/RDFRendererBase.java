@@ -98,7 +98,6 @@ import org.semanticweb.owlapi.util.SWRLVariableExtractor;
  * Bio-Health Informatics Group<br>
  * Date: 26-Jan-2008<br>
  * <br> */
-
 public abstract class RDFRendererBase {
     private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
     private static final String DATATYPES_BANNER_TEXT = "Datatypes";

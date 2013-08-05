@@ -41,8 +41,7 @@ package org.semanticweb.owlapi.vocab;
 import static org.semanticweb.owlapi.vocab.Namespaces.BuiltIn.*;
 import static org.semanticweb.owlapi.vocab.Namespaces.Status.*;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006 */
@@ -108,11 +107,9 @@ public enum Namespaces {
     DBO    ("dbo",      "http://dbpedia.org/ontology/"),
     YAGO   ("yago",     "http://dbpedia.org/class/yago/");
     //@formatter:on
-
     final String prefix;
     final String ns;
     final Status status;
-
     final BuiltIn builtIn;
 
     Namespaces(String prefix, String ns, Status status) {
@@ -158,23 +155,14 @@ public enum Namespaces {
         return ns;
     }
 
-    /**
-     * Indicates that a prefix is builtin - i.e. that it is either owl, rdf, rdfs, or xsd
-     */
+    /** Indicates that a prefix is builtin - i.e. that it is either owl, rdf,
+     * rdfs, or xsd */
     public static enum BuiltIn {
-
-        BUILT_IN,
-
-        NOT_BUILT_IN
+        BUILT_IN, NOT_BUILT_IN
     }
 
-    /**
-     * Indicates whether a prefix is a legacy prefix or not.
-     */
+    /** Indicates whether a prefix is a legacy prefix or not. */
     public static enum Status {
-
-        LEGACY,
-
-        IN_USE
+        LEGACY, IN_USE
     }
 }

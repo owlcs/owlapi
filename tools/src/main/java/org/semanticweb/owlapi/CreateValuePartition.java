@@ -91,7 +91,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * MediumSize and LargeSize and these classes which represent the values will be
  * made disjoint with eachother. */
 public class CreateValuePartition extends AbstractCompositeOntologyChange {
-
     /** Creates a composite change that will create a value partition.
      * 
      * @param dataFactory

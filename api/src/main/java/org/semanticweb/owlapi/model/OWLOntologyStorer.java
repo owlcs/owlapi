@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.model;
 import java.io.IOException;
 import java.io.Serializable;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 
 /** Author: Matthew Horridge<br>
@@ -58,7 +60,7 @@ public interface OWLOntologyStorer extends Serializable {
      *            The desired ontology format.
      * @return <code>true</code> if this storer can store an ontology in the
      *         desired format. */
-    boolean canStoreOntology(OWLOntologyFormat ontologyFormat);
+    boolean canStoreOntology(@Nonnull OWLOntologyFormat ontologyFormat);
 
     /** Stores an ontology to the specified ontology document IRI in the
      * specified format
@@ -75,9 +77,9 @@ public interface OWLOntologyStorer extends Serializable {
      *             if there was an IOException when storing the ontology
      * @throws OWLOntologyStorageException
      *             if there was a problem storing the ontology */
-    void storeOntology(OWLOntology ontology, IRI documentIRI,
-            OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException,
-            IOException;
+    void storeOntology(@Nonnull OWLOntology ontology, @Nonnull IRI documentIRI,
+            @Nonnull OWLOntologyFormat ontologyFormat)
+            throws OWLOntologyStorageException, IOException;
 
     /** Stores an ontology to the specified target. This method assumes the
      * storer can write the ontology to some stream.
@@ -93,6 +95,7 @@ public interface OWLOntologyStorer extends Serializable {
      *             if there was a problem storing the ontology.
      * @throws IOException
      *             if there was an IOException when storing the ontology. */
-    void storeOntology(OWLOntology ontology, OWLOntologyDocumentTarget target,
-            OWLOntologyFormat format) throws OWLOntologyStorageException, IOException;
+    void storeOntology(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyDocumentTarget target, @Nonnull OWLOntologyFormat format)
+            throws OWLOntologyStorageException, IOException;
 }

@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -54,8 +58,8 @@ public class ReferencedEntitySetProvider implements OWLEntitySetProvider<OWLEnti
 
     /** @param ontologies
      *            ontologies to use */
-    public ReferencedEntitySetProvider(Set<OWLOntology> ontologies) {
-        this.ontologies = ontologies;
+    public ReferencedEntitySetProvider(@Nonnull Set<OWLOntology> ontologies) {
+        this.ontologies = checkNotNull(ontologies);
     }
 
     @Override

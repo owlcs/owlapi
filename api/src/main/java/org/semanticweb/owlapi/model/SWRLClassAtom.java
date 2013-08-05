@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
@@ -52,5 +54,6 @@ public interface SWRLClassAtom extends SWRLUnaryAtom<SWRLIArgument> {
      * 
      * @return The atom predicate */
     @Override
+    @Nonnull
     OWLClassExpression getPredicate();
 }

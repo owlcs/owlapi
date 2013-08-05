@@ -88,8 +88,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
             "https", "file", "ftp"));
 
     /** Creates an ontology factory. */
-    public ParsableOWLOntologyFactory() {
-    }
+    public ParsableOWLOntologyFactory() {}
 
     @Override
     public List<OWLParser> getParsers() {

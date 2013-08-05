@@ -216,7 +216,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     private Set<OWLEntity> getSignature(@Nonnull OWLAxiom axiom) {
         Set<OWLEntity> toReturn = new HashSet<OWLEntity>();
         OWLEntityCollector collector = new OWLEntityCollector(toReturn);
-        collector.setCollectDatatypes(false);
         axiom.accept(collector);
         return toReturn;
     }
@@ -311,13 +310,11 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             @Nonnull Set<OWLAxiom> currentPathContents, int maxExplanations,
             @Nonnull List<OWLAxiom> orderedMups, @Nonnull OWLAxiom axiom)
             throws OWLException {
-        Set<OWLAxiom> newMUPS = getNewMUPS(unsatClass, allMups,
-                currentPathContents);
+        Set<OWLAxiom> newMUPS = getNewMUPS(unsatClass, allMups, currentPathContents);
         // Generate a new node - i.e. a new justification set
         if (newMUPS.contains(axiom)) {
             // How can this be the case???
-            throw new OWLRuntimeException("Explanation contains removed axiom: "
-                    + axiom);
+            throw new OWLRuntimeException("Explanation contains removed axiom: " + axiom);
         }
         if (!newMUPS.isEmpty()) {
             // Note that getting a previous justification does not mean

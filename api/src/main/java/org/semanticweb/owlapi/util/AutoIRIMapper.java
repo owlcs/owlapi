@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -53,6 +55,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import javax.annotation.Nonnull;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -78,12 +81,12 @@ import org.xml.sax.helpers.DefaultHandler;
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper,
         Serializable {
     private static final long serialVersionUID = 40000L;
-    private final Set<String> fileExtensions;
+    private final Set<String> fileExtensions = new HashSet<String>();
     private boolean mapped;
     private final boolean recursive;
-    private final Map<String, OntologyRootElementHandler> handlerMap;
-    private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap;
-    private Map<String, IRI> oboFileMap;
+    private final Map<String, OntologyRootElementHandler> handlerMap = new HashMap<String, OntologyRootElementHandler>();
+    private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap = new HashMap<IRI, IRI>();
+    private Map<String, IRI> oboFileMap = new HashMap<String, IRI>();
     private final String directoryPath;
     private String currentFilePath;
     private transient SAXParserFactory parserFactory;
@@ -98,19 +101,15 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * @param recursive
      *            Sub directories will be searched recursively if
      *            <code>true</code>. */
-    public AutoIRIMapper(File rootDirectory, boolean recursive) {
-        directory = rootDirectory;
+    public AutoIRIMapper(@Nonnull File rootDirectory, boolean recursive) {
+        directory = checkNotNull(rootDirectory);
         directoryPath = directory.getAbsolutePath();
         this.recursive = recursive;
-        ontologyIRI2PhysicalURIMap = new HashMap<IRI, IRI>();
-        oboFileMap = new HashMap<String, IRI>();
-        fileExtensions = new HashSet<String>();
         fileExtensions.add("owl");
         fileExtensions.add("xml");
         fileExtensions.add("rdf");
         fileExtensions.add("omn");
         mapped = false;
-        handlerMap = new HashMap<String, OntologyRootElementHandler>();
         handlerMap.put(Namespaces.RDF + "RDF", new RDFXMLOntologyRootElementHandler());
         handlerMap.put(OWLXMLVocabulary.ONTOLOGY.toString(),
                 new OWLXMLOntologyRootElementHandler());

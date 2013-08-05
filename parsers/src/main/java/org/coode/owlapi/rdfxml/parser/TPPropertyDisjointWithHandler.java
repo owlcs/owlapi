@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 09-Jul-2009 */
-
 public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
     public TPPropertyDisjointWithHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_PROPERTY_DISJOINT_WITH.getIRI());

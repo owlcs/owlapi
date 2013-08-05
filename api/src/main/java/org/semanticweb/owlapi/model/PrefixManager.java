@@ -42,6 +42,8 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
@@ -55,6 +57,7 @@ public interface PrefixManager extends Serializable {
      * 
      * @return The default prefix, or <code>null</code> if there is no default
      *         prefix. */
+    @Nonnull
     String getDefaultPrefix();
 
     /** Determines if this manager knows about a given prefix name and it
@@ -64,7 +67,7 @@ public interface PrefixManager extends Serializable {
      *            The prefix name to be tested for.
      * @return <code>true</code> if the manager knows about this prefix and
      *         there is a non-null mapping for this prefix. */
-    boolean containsPrefixMapping(String prefixName);
+    boolean containsPrefixMapping(@Nonnull String prefixName);
 
     /** Gets the prefix that is bound to a particular prefix name. Note that
      * specifying ":" corresponds to requesting the default prefix and will
@@ -78,13 +81,15 @@ public interface PrefixManager extends Serializable {
      *            method).
      * @return The prefix, or <code>null</code> if there is no prefix name bound
      *         to this prefix, or the prefix name doesn't exist. */
-    String getPrefix(String prefixName);
+    @Nonnull
+    String getPrefix(@Nonnull String prefixName);
 
     /** Gets a map that maps prefix names to prefixes.
      * 
      * @return The map of prefix names to prefixes. Note that modifying the
      *         contents of this map will not change the prefix name - prefix
      *         mappings */
+    @Nonnull
     Map<String, String> getPrefixName2PrefixMap();
 
     /** Gets the URI for a given prefix IRI. The prefix IRI must have a prefix
@@ -97,7 +102,8 @@ public interface PrefixManager extends Serializable {
      * @throws OWLRuntimeException
      *             if the prefix name of the prefix IRI doesn't have a
      *             corresponding prefix managed by this manager. */
-    IRI getIRI(String prefixIRI);
+    @Nonnull
+    IRI getIRI(@Nonnull String prefixIRI);
 
     /** Gets the prefix IRI given a IRI (URI).
      * 
@@ -105,11 +111,13 @@ public interface PrefixManager extends Serializable {
      *            The IRI whose prefix it to be retrieved
      * @return The prefix IRI for this IRI, or <code>null</code> if a prefix IRI
      *         cannot be generated. */
-    String getPrefixIRI(IRI iri);
+    @Nonnull
+    String getPrefixIRI(@Nonnull IRI iri);
 
     /** Gets the prefix names that have a mapping in this prefix manager
      * 
      * @return The prefix names as a set of strings. */
+    @Nonnull
     Set<String> getPrefixNames();
 
     /** Sets the default namespace. This will also bind the prefix name ":" to
@@ -119,7 +127,7 @@ public interface PrefixManager extends Serializable {
      *            The namespace to be used as the default namespace. Note that
      *            the value may be <code>null</code> in order to clear the
      *            default namespace. */
-    void setDefaultPrefix(String defaultPrefix);
+    void setDefaultPrefix(@Nonnull String defaultPrefix);
 
     /** Adds a prefix name to prefix mapping
      * 
@@ -130,19 +138,19 @@ public interface PrefixManager extends Serializable {
      * @throws IllegalArgumentException
      *             if some parameter is null or the prefix name does not end
      *             with a colon. */
-    void setPrefix(String prefixName, String prefix);
+    void setPrefix(@Nonnull String prefixName, @Nonnull String prefix);
 
     /** Copies the prefix from another prefix manager into this one
      * 
      * @param from
      *            The manager that the prefixes should be copied from */
-    void copyPrefixesFrom(PrefixManager from);
+    void copyPrefixesFrom(@Nonnull PrefixManager from);
 
     /** Removes a previously registerd prefix namespace mapping
      * 
      * @param namespace
      *            The namespace to be removed. */
-    void unregisterNamespace(String namespace);
+    void unregisterNamespace(@Nonnull String namespace);
 
     /** clear the map */
     void clear();

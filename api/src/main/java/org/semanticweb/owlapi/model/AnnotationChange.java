@@ -38,7 +38,11 @@
  */
 package org.semanticweb.owlapi.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -51,9 +55,9 @@ public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> 
      *            the ontology to which the change is to be applied
      * @param annotation
      *            the annotation */
-    public AnnotationChange(OWLOntology ont, OWLAnnotation annotation) {
+    public AnnotationChange(@Nonnull OWLOntology ont, @Nonnull OWLAnnotation annotation) {
         super(ont);
-        this.annotation = annotation;
+        this.annotation = checkNotNull(annotation);
     }
 
     @Override
@@ -64,6 +68,7 @@ public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> 
     /** Gets the annotation that was added to an ontology.
      * 
      * @return The annotation that was added */
+    @Nonnull
     public OWLAnnotation getAnnotation() {
         return annotation;
     }

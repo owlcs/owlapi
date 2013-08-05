@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
@@ -50,16 +52,18 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
     /** Gets the {@link OWLDatatype} that is assigned a definition
      * 
      * @return The datatype */
+    @Nonnull
     OWLDatatype getDatatype();
 
     /** Gets the datarange that defines the datatype
      * 
      * @return The defining datarange */
+    @Nonnull
     OWLDataRange getDataRange();
 
     @Override
-    void accept(OWLAxiomVisitor visitor);
+    void accept(@Nonnull OWLAxiomVisitor visitor);
 
     @Override
-    <O> O accept(OWLAxiomVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor);
 }

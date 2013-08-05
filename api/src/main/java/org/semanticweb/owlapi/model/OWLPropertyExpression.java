@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 Represents a property or the
@@ -51,10 +53,10 @@ public interface OWLPropertyExpression extends OWLObject {
     boolean isAnonymous();
 
     @SuppressWarnings("javadoc")
-    void accept(OWLPropertyExpressionVisitor visitor);
+    void accept(@Nonnull OWLPropertyExpressionVisitor visitor);
 
     @SuppressWarnings("javadoc")
-    <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor);
 
     /** @return true if this is a data property */
     boolean isDataPropertyExpression();

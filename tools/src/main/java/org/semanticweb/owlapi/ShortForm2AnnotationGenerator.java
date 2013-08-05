@@ -63,7 +63,6 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * Date: 15-Feb-2008<br>
  * <br> */
 public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChange {
-
     /** @param df
      *            data factory
      * @param ontologyManager
@@ -96,16 +95,15 @@ public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChan
      * @param annotationIRI
      *            iri for annotation property */
     public ShortForm2AnnotationGenerator(OWLDataFactory df,
-            OWLOntologyManager ontologyManager,
-            OWLOntology ontology, ShortFormProvider shortFormProvider, IRI annotationIRI) {
+            OWLOntologyManager ontologyManager, OWLOntology ontology,
+            ShortFormProvider shortFormProvider, IRI annotationIRI) {
         this(df, ontologyManager, ontology, shortFormProvider, annotationIRI, null);
     }
 
     private void generateChanges(OWLOntologyManager ontologyManager,
             OWLOntology ontology, ShortFormProvider shortFormProvider, IRI annotationIRI,
             String languageTag) {
-        ImportsStructureEntitySorter sorter = new ImportsStructureEntitySorter(ontology,
-                ontologyManager);
+        ImportsStructureEntitySorter sorter = new ImportsStructureEntitySorter(ontology);
         Map<OWLOntology, Set<OWLEntity>> ontology2EntityMap = sorter.getObjects();
         for (OWLOntology ont : ontology2EntityMap.keySet()) {
             for (OWLEntity ent : ontology2EntityMap.get(ont)) {

@@ -40,11 +40,14 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 15-Jan-2009 */
 public interface OWLNaryDataRange extends OWLDataRange {
     /** @return the data ranges */
+    @Nonnull
     Set<OWLDataRange> getOperands();
 }

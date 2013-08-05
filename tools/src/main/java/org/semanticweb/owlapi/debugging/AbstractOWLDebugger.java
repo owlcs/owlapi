@@ -145,8 +145,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
      *             if there is any problem */
     public void constructHittingSetTree(@Nonnull Set<OWLAxiom> mups,
             @Nonnull Set<Set<OWLAxiom>> allMups, @Nonnull Set<Set<OWLAxiom>> satPaths,
-            @Nonnull Set<OWLAxiom> currentPathContents)
-            throws OWLException {
+            @Nonnull Set<OWLAxiom> currentPathContents) throws OWLException {
         // We go through the current mups, axiom by axiom, and extend the tree
         // with edges for each axiom
         for (OWLAxiom axiom : mups) {

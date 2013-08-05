@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio-Health Informatics Group<br>
  * Date: 06-Mar-2007<br>
  * <br> */
-
 public class ReflexiveHandler extends AbstractTagValueHandler {
     public ReflexiveHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_REFLEXIVE.getName(), consumer);

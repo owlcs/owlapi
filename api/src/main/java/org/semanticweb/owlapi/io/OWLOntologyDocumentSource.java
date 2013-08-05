@@ -104,5 +104,6 @@ public interface OWLOntologyDocumentSource {
      * 
      * @return An IRI which represents the ontology document IRI - this will
      *         never be <code>null</code>. */
+    @Nonnull
     IRI getDocumentIRI();
 }

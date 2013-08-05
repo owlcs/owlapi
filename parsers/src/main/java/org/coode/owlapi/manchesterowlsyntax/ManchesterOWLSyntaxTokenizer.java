@@ -48,7 +48,6 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 19-May-2008<br>
  * <br> */
-
 public class ManchesterOWLSyntaxTokenizer {
     public static final String EOF = "|EOF|";
     protected Set<Character> skip = new HashSet<Character>();

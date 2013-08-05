@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -47,5 +49,6 @@ package org.semanticweb.owlapi.model;
  * >ObjectComplementOf</a> class expression in the OWL 2 Specification. */
 public interface OWLObjectComplementOf extends OWLBooleanClassExpression {
     /** @return the wrapped expression */
+    @Nonnull
     OWLClassExpression getOperand();
 }

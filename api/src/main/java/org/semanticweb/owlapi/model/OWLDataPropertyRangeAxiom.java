@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -49,5 +51,6 @@ public interface OWLDataPropertyRangeAxiom extends
         OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>,
         OWLDataPropertyAxiom {
     @Override
+    @Nonnull
     OWLDataPropertyRangeAxiom getAxiomWithoutAnnotations();
 }

@@ -42,6 +42,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -59,7 +61,7 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
 
     /** @param objects
      *            the objects to visit */
-    public OWLClassLiteralCollector(Set<OWLObject> objects) {
+    public OWLClassLiteralCollector(@Nonnull Set<OWLObject> objects) {
         super(objects);
     }
 
@@ -67,7 +69,8 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
      *            the objects to visit
      * @param visitDuplicates
      *            true if duplicates must be visited */
-    public OWLClassLiteralCollector(Set<OWLObject> objects, boolean visitDuplicates) {
+    public OWLClassLiteralCollector(@Nonnull Set<OWLObject> objects,
+            boolean visitDuplicates) {
         super(objects, visitDuplicates);
     }
 

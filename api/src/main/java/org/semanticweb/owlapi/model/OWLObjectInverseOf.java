@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -57,5 +59,6 @@ public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
      * 
      * @return The object property expression such that this object property
      *         expression is an inverse of it. */
+    @Nonnull
     OWLObjectPropertyExpression getInverse();
 }

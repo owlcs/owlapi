@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.change.AddImportData;
 
 /** Author: Matthew Horridge<br>
@@ -50,7 +52,8 @@ public class AddImport extends ImportChange {
      *            the ontology to which the change is to be applied
      * @param importDeclaration
      *            the import declaration */
-    public AddImport(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
+    public AddImport(@Nonnull OWLOntology ont,
+            @Nonnull OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);
     }
 

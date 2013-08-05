@@ -57,13 +57,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * also to rebuild the cache from scratch. */
 public abstract class CachingBidirectionalShortFormProvider implements
         BidirectionalShortFormProvider {
-    private final Map<String, Set<OWLEntity>> shortForm2EntityMap;
-    private final Map<OWLEntity, String> entity2ShortFormMap;
+    private final Map<String, Set<OWLEntity>> shortForm2EntityMap = new HashMap<String, Set<OWLEntity>>();
+    private final Map<OWLEntity, String> entity2ShortFormMap = new HashMap<OWLEntity, String>();
 
-    protected CachingBidirectionalShortFormProvider() {
-        shortForm2EntityMap = new HashMap<String, Set<OWLEntity>>();
-        entity2ShortFormMap = new HashMap<OWLEntity, String>();
-    }
+    protected CachingBidirectionalShortFormProvider() {}
 
     /** Generates the short form for the specified entity. This short form will
      * be cached so that it can be retrieved efficiently and so that the entity

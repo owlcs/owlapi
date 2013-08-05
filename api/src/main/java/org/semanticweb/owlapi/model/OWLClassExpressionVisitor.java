@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -48,39 +50,39 @@ package org.semanticweb.owlapi.model;
  * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>) */
 @SuppressWarnings("javadoc")
 public interface OWLClassExpressionVisitor {
-    void visit(OWLClass ce);
+    void visit(@Nonnull OWLClass ce);
 
-    void visit(OWLObjectIntersectionOf ce);
+    void visit(@Nonnull OWLObjectIntersectionOf ce);
 
-    void visit(OWLObjectUnionOf ce);
+    void visit(@Nonnull OWLObjectUnionOf ce);
 
-    void visit(OWLObjectComplementOf ce);
+    void visit(@Nonnull OWLObjectComplementOf ce);
 
-    void visit(OWLObjectSomeValuesFrom ce);
+    void visit(@Nonnull OWLObjectSomeValuesFrom ce);
 
-    void visit(OWLObjectAllValuesFrom ce);
+    void visit(@Nonnull OWLObjectAllValuesFrom ce);
 
-    void visit(OWLObjectHasValue ce);
+    void visit(@Nonnull OWLObjectHasValue ce);
 
-    void visit(OWLObjectMinCardinality ce);
+    void visit(@Nonnull OWLObjectMinCardinality ce);
 
-    void visit(OWLObjectExactCardinality ce);
+    void visit(@Nonnull OWLObjectExactCardinality ce);
 
-    void visit(OWLObjectMaxCardinality ce);
+    void visit(@Nonnull OWLObjectMaxCardinality ce);
 
-    void visit(OWLObjectHasSelf ce);
+    void visit(@Nonnull OWLObjectHasSelf ce);
 
-    void visit(OWLObjectOneOf ce);
+    void visit(@Nonnull OWLObjectOneOf ce);
 
-    void visit(OWLDataSomeValuesFrom ce);
+    void visit(@Nonnull OWLDataSomeValuesFrom ce);
 
-    void visit(OWLDataAllValuesFrom ce);
+    void visit(@Nonnull OWLDataAllValuesFrom ce);
 
-    void visit(OWLDataHasValue ce);
+    void visit(@Nonnull OWLDataHasValue ce);
 
-    void visit(OWLDataMinCardinality ce);
+    void visit(@Nonnull OWLDataMinCardinality ce);
 
-    void visit(OWLDataExactCardinality ce);
+    void visit(@Nonnull OWLDataExactCardinality ce);
 
-    void visit(OWLDataMaxCardinality ce);
+    void visit(@Nonnull OWLDataMaxCardinality ce);
 }

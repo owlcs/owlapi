@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
-import java.net.URI;
+import javax.annotation.Nonnull;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -51,10 +51,6 @@ public interface OWLImportsDeclaration extends Comparable<OWLImportsDeclaration>
      * @return The import IRI that points to the ontology to be imported. The
      *         imported ontology should have this IRI as its IRI (although this
      *         isn't enforced). */
+    @Nonnull
     IRI getIRI();
-
-    /** A convenience method to obtain the import IRI as a URI
-     * 
-     * @return The import IRI as a URI */
-    URI getURI();
 }

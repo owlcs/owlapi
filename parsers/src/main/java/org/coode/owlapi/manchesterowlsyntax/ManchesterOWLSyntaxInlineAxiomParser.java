@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 13-May-2009 */
-
 public class ManchesterOWLSyntaxInlineAxiomParser implements
         OWLExpressionParser<OWLAxiom> {
     private OWLDataFactory dataFactory;

@@ -42,7 +42,6 @@ package org.coode.owlapi.obo.parser;
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 19/04/2012 */
-
 public class DataVersionTagValueHandler extends AbstractTagValueHandler {
     public DataVersionTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DATA_VERSION.getName(), consumer);

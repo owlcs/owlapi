@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -45,13 +47,16 @@ package org.semanticweb.owlapi.model;
  * <br> */
 public interface OWLOntologyManagerFactory {
     /** @return a new ontology manager */
+    @Nonnull
     OWLOntologyManager buildOWLOntologyManager();
 
     /** @param f
      *            the data factory the new manager will use
      * @return a new ontology manager */
-    OWLOntologyManager buildOWLOntologyManager(OWLDataFactory f);
+    @Nonnull
+    OWLOntologyManager buildOWLOntologyManager(@Nonnull OWLDataFactory f);
 
     /** @return a data factory */
+    @Nonnull
     OWLDataFactory getFactory();
 }

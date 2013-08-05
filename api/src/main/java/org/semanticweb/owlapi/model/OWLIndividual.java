@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -69,6 +71,7 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      * @return The individual as a named individual
      * @throws OWLRuntimeException
      *             if this individual is anonymous */
+    @Nonnull
     OWLNamedIndividual asOWLNamedIndividual();
 
     /** Obtains this individual an anonymous individual if it is indeed anonymous
@@ -76,6 +79,7 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      * @return The individual as an anonymous individual
      * @throws OWLRuntimeException
      *             if this individual is named */
+    @Nonnull
     OWLAnonymousIndividual asOWLAnonymousIndividual();
 
     /** Returns a string representation that can be used as the ID of this
@@ -83,12 +87,13 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      * individual
      * 
      * @return A string representing the toString of the node ID of this entity. */
+    @Nonnull
     String toStringID();
 
     /** @param visitor */
-    void accept(OWLIndividualVisitor visitor);
+    void accept(@Nonnull OWLIndividualVisitor visitor);
 
     /** @param visitor
      * @return visitor ex type */
-    <O> O accept(OWLIndividualVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLIndividualVisitorEx<O> visitor);
 }

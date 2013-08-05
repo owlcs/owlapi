@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** Author: Matthew Horridge<br>
@@ -50,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
     /** @param objects
      *            objects to walk */
-    public OWLOntologyWalker(Set<OWLOntology> objects) {
+    public OWLOntologyWalker(@Nonnull Set<OWLOntology> objects) {
         super(objects);
     }
 }

@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Bio-Health Informatics Group<br>
  * Date: 10-Dec-2006<br>
  * <br> */
-
 public class TypedConstantListItemTranslator implements ListItemTranslator<OWLLiteral> {
     private static final Logger logger = Logger
             .getLogger(TypedConstantListItemTranslator.class.getName());

@@ -38,14 +38,18 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -67,7 +71,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  *            the type */
 public class ImportsStructureObjectSorter<O> {
     private final OWLOntology ontology;
-    private final OWLOntologyManager manager;
     private final ObjectSelector<O> objectSelector;
 
     /** Creates a sorter for the specified ontology, whose imports closure is
@@ -76,16 +79,13 @@ public class ImportsStructureObjectSorter<O> {
      * 
      * @param ontology
      *            The ontology
-     * @param manager
-     *            The manager that will be used to obtain the imports closure
      * @param objectSelector
      *            The selector that will be used to select objects that are
      *            associated with each ontology. */
-    public ImportsStructureObjectSorter(OWLOntology ontology, OWLOntologyManager manager,
-            ObjectSelector<O> objectSelector) {
-        this.ontology = ontology;
-        this.manager = manager;
-        this.objectSelector = objectSelector;
+    public ImportsStructureObjectSorter(@Nonnull OWLOntology ontology,
+            @Nonnull ObjectSelector<O> objectSelector) {
+        this.ontology = checkNotNull(ontology);
+        this.objectSelector = checkNotNull(objectSelector);
     }
 
     /** Gets a map that maps ontologies to sets of associated objects. The
@@ -93,8 +93,10 @@ public class ImportsStructureObjectSorter<O> {
      * closure of the original specified ontology.
      * 
      * @return The map. */
+    @Nonnull
     public Map<OWLOntology, Set<O>> getObjects() {
-        List<OWLOntology> imports = manager.getSortedImportsClosure(ontology);
+        List<OWLOntology> imports = new ArrayList<OWLOntology>(
+                ontology.getImportsClosure());
         Map<OWLOntology, Set<O>> ontology2EntityMap = new HashMap<OWLOntology, Set<O>>();
         Set<O> processed = new HashSet<O>();
         for (int i = imports.size() - 1; i > -1; i--) {

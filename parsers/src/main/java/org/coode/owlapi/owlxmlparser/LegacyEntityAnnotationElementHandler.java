@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 21-May-2009 */
-
 public class LegacyEntityAnnotationElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLEntity entity;
     private OWLAnnotation annotation;

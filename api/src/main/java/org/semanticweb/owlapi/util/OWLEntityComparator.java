@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.Serializable;
 import java.util.Comparator;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -64,21 +68,21 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor,
         Serializable {
     private static final long serialVersionUID = 40000L;
-    int lastValue;
     private static final int OWL_CLASS_INDEX = 0;
     private static final int OWL_OBJECT_PROPERTY_INDEX = 1;
     private static final int OWL_DATA_PROPERTY_INDEX = 2;
     private static final int OWL_INDIVIDUAL_INDEX = 3;
     private static final int OWL_DATATYPE_INDEX = 4;
     private final ShortFormProvider shortFormProvider;
+    int lastValue;
 
     /** Constructs an entity comparator which uses the specified short form
      * provider
      * 
      * @param shortFormProvider
      *            the short form provider to use */
-    public OWLEntityComparator(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = shortFormProvider;
+    public OWLEntityComparator(@Nonnull ShortFormProvider shortFormProvider) {
+        this.shortFormProvider = checkNotNull(shortFormProvider);
     }
 
     @Override

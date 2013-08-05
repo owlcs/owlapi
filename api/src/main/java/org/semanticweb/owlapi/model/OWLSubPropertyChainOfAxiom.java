@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -58,12 +60,14 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
      * 
      * @return A list of object property expressions that represents the chain
      *         of properties that represent the subproperty in this axiom. */
+    @Nonnull
     List<OWLObjectPropertyExpression> getPropertyChain();
 
     /** Gets the super property of this axiom
      * 
      * @return The property expression that represents the superproperty in this
      *         expression. */
+    @Nonnull
     OWLObjectPropertyExpression getSuperProperty();
 
     /** Determines if this axiom is of the form: P o P -> P, which is an encoding
@@ -74,5 +78,6 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
     boolean isEncodingOfTransitiveProperty();
 
     @Override
+    @Nonnull
     OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations();
 }

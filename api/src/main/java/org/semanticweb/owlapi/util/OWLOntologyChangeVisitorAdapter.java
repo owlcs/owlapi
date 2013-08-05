@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.util;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.RemoveImport;
@@ -53,24 +54,40 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * Date: 12-Dec-2006<br>
  * <br> */
 public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor {
-    @Override
-    public void visit(RemoveAxiom change) {}
+    private void doDefault(OWLOntologyChange<?> change) {}
 
     @Override
-    public void visit(SetOntologyID change) {}
+    public void visit(RemoveAxiom change) {
+        doDefault(change);
+    }
 
     @Override
-    public void visit(AddAxiom change) {}
+    public void visit(SetOntologyID change) {
+        doDefault(change);
+    }
 
     @Override
-    public void visit(AddImport change) {}
+    public void visit(AddAxiom change) {
+        doDefault(change);
+    }
 
     @Override
-    public void visit(RemoveImport change) {}
+    public void visit(AddImport change) {
+        doDefault(change);
+    }
 
     @Override
-    public void visit(AddOntologyAnnotation change) {}
+    public void visit(RemoveImport change) {
+        doDefault(change);
+    }
 
     @Override
-    public void visit(RemoveOntologyAnnotation change) {}
+    public void visit(AddOntologyAnnotation change) {
+        doDefault(change);
+    }
+
+    @Override
+    public void visit(RemoveOntologyAnnotation change) {
+        doDefault(change);
+    }
 }

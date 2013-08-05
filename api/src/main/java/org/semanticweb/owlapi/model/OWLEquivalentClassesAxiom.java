@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -63,6 +65,7 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      * @return A set of classes that represents the named classes that are
      *         specified to be equivalent to some other class (expression),
      *         excluding the built in classes owl:Thing and owl:Nothing */
+    @Nonnull
     Set<OWLClass> getNamedClasses();
 
     /** Determines if this class axiom makes a class expression equivalent to
@@ -80,8 +83,10 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     boolean containsOWLThing();
 
     @Override
+    @Nonnull
     Set<OWLEquivalentClassesAxiom> asPairwiseAxioms();
 
     @Override
+    @Nonnull
     OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();
 }

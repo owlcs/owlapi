@@ -139,11 +139,11 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
         if (this == obj) {
             return true;
         }
-            if (!(obj instanceof OWLNamedIndividual)) {
-                return false;
-            }
-            IRI otherIRI = ((OWLNamedIndividual) obj).getIRI();
-            return otherIRI.equals(iri);
+        if (!(obj instanceof OWLNamedIndividual)) {
+            return false;
+        }
+        IRI otherIRI = ((OWLNamedIndividual) obj).getIRI();
+        return otherIRI.equals(iri);
     }
 
     @Override

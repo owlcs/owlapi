@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -58,13 +62,15 @@ public class SpecificOntologyChangeBroadcastStrategy implements
      * 
      * @param ontology
      *            The ontology. */
-    public SpecificOntologyChangeBroadcastStrategy(OWLOntology ontology) {
-        this.ontology = ontology;
+    public SpecificOntologyChangeBroadcastStrategy(@Nonnull OWLOntology ontology) {
+        this.ontology = checkNotNull(ontology);
     }
 
     @Override
     public void broadcastChanges(OWLOntologyChangeListener listener,
             List<? extends OWLOntologyChange<?>> changes) throws OWLException {
+        checkNotNull(listener);
+        checkNotNull(changes);
         List<OWLOntologyChange<?>> broadcastChanges = new ArrayList<OWLOntologyChange<?>>();
         for (OWLOntologyChange<?> change : changes) {
             if (change.getOntology().equals(ontology)) {

@@ -36,27 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.model;/*
+package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
- * </p>
- * An interface to an object that can accept visits from {@link org.semanticweb.owlapi.model.OWLDataRange}s.
- */
-
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 17-Jan-2009 </p> An interface to an object that can accept visits from
+ * {@link org.semanticweb.owlapi.model.OWLDataRange}s. */
 @SuppressWarnings("javadoc")
 public interface OWLDataRangeVisitor {
-    void visit(OWLDatatype node);
+    void visit(@Nonnull OWLDatatype node);
 
-    void visit(OWLDataOneOf node);
+    void visit(@Nonnull OWLDataOneOf node);
 
-    void visit(OWLDataComplementOf node);
+    void visit(@Nonnull OWLDataComplementOf node);
 
-    void visit(OWLDataIntersectionOf node);
+    void visit(@Nonnull OWLDataIntersectionOf node);
 
-    void visit(OWLDataUnionOf node);
+    void visit(@Nonnull OWLDataUnionOf node);
 
-    void visit(OWLDatatypeRestriction node);
+    void visit(@Nonnull OWLDatatypeRestriction node);
 }

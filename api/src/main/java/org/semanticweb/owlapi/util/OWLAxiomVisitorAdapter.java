@@ -38,8 +38,6 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
@@ -88,9 +86,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
  * Date: 17-Nov-2006<br>
  * <br> */
 public class OWLAxiomVisitorAdapter implements OWLAxiomVisitor {
-    private void doDefault(OWLAxiom axiom) {
-        checkNotNull(axiom);
-    }
+    private void doDefault(OWLAxiom axiom) {}
+
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         doDefault(axiom);

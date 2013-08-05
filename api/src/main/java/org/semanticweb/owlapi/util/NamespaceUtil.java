@@ -38,10 +38,14 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
@@ -57,15 +61,13 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * prefixes in accordance with the XML spec. */
 @SuppressWarnings("javadoc")
 public class NamespaceUtil {
-    private final Map<String, String> namespace2PrefixMap;
-    private final Map<String, String> standardNamespacePrefixMappings;
+    private final Map<String, String> namespace2PrefixMap = new HashMap<String, String>();
+    private final Map<String, String> standardNamespacePrefixMappings = new HashMap<String, String>();
     private final AtomicInteger candidateIndex = new AtomicInteger(1);
 
     public NamespaceUtil() {
-        standardNamespacePrefixMappings = new HashMap<String, String>();
         standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE, "dc");
         standardNamespacePrefixMappings.put(Namespaces.SKOS.toString(), "skos");
-        namespace2PrefixMap = new HashMap<String, String>();
         namespace2PrefixMap.put(Namespaces.OWL.toString(), "owl");
         namespace2PrefixMap.put(Namespaces.RDFS.toString(), "rdfs");
         namespace2PrefixMap.put(Namespaces.RDF.toString(), "rdf");
@@ -79,7 +81,9 @@ public class NamespaceUtil {
      * @param namespace
      *            The namespace whose prefix is to be retrieved.
      * @return The prefix for the specified namespace. */
-    public String getPrefix(String namespace) {
+    @Nonnull
+    public String getPrefix(@Nonnull String namespace) {
+        checkNotNull(namespace);
         String prefix = namespace2PrefixMap.get(namespace);
         if (prefix != null) {
             return prefix;
@@ -95,6 +99,7 @@ public class NamespaceUtil {
         return prefix;
     }
 
+    @Nonnull
     private String getPIntPrefix() {
         String prefix;
         do {
@@ -103,6 +108,7 @@ public class NamespaceUtil {
         return prefix;
     }
 
+    @Nonnull
     public Map<String, String> getNamespace2PrefixMap() {
         return Collections.unmodifiableMap(namespace2PrefixMap);
     }
@@ -116,7 +122,9 @@ public class NamespaceUtil {
      *            generated, where n is an integer.
      * @return The generated prefix. Note that this method will not store the
      *         namespace -> prefix mapping. */
-    private String generatePrefix(String namespace) {
+    @Nonnull
+    private String generatePrefix(@Nonnull String namespace) {
+        checkNotNull(namespace);
         String prefix = standardNamespacePrefixMappings.get(namespace);
         if (prefix != null) {
             namespace2PrefixMap.put(namespace, prefix);
@@ -167,7 +175,9 @@ public class NamespaceUtil {
      *            The namespace whose prefix is to be set.
      * @param prefix
      *            The prefix for the namespace */
-    public void setPrefix(String namespace, String prefix) {
+    public void setPrefix(@Nonnull String namespace, @Nonnull String prefix) {
+        checkNotNull(namespace);
+        checkNotNull(prefix);
         namespace2PrefixMap.put(namespace, prefix);
     }
 }

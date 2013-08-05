@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -49,12 +51,14 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
     /** Gets the subclass in this axiom
      * 
      * @return The class expression that represents the subclass in this axiom. */
+    @Nonnull
     OWLClassExpression getSubClass();
 
     /** Gets the superclass in this axiom.
      * 
      * @return The class expression that represents the superclass in this
      *         axiom. */
+    @Nonnull
     OWLClassExpression getSuperClass();
 
     /** Determines if this subclass axiom has a subclass that is anonymous. (if
@@ -66,5 +70,6 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
     boolean isGCI();
 
     @Override
+    @Nonnull
     OWLSubClassOfAxiom getAxiomWithoutAnnotations();
 }

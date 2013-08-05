@@ -313,7 +313,7 @@ public class TutorialSnippets {
         // OWLEntityRemover will remove an entity (class, property or
         // individual)
         // from a set of ontologies by removing all referencing axioms
-        OWLEntityRemover remover = new OWLEntityRemover(m, Collections.singleton(o));
+        OWLEntityRemover remover = new OWLEntityRemover(Collections.singleton(o));
         int previousNumberOfIndividuals = o.getIndividualsInSignature().size();
         // Visit all individuals with the remover
         // Changes needed for removal will be prepared
@@ -593,7 +593,7 @@ public class TutorialSnippets {
         OWLOntology infOnt = m.createOntology();
         // create the inferred ontology generator
         InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens);
-        iog.fillOntology(m, infOnt);
+        iog.fillOntology(m.getOWLDataFactory(), infOnt);
     }
 
     public void testMergedOntology() throws OWLException {

@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 21-Feb-2007<br> */
 @Deprecated
-
 public class TPDeclaredAsHandler extends TriplePredicateHandler {
     public TPDeclaredAsHandler(OWLRDFConsumer consumer) {
         super(consumer, DeprecatedVocabulary.OWL_DECLARED_AS);

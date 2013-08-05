@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -51,6 +53,6 @@ public interface ImpendingOWLOntologyChangeBroadcastStrategy {
      *            The changes to be broadcast.
      * @param listener
      *            The listeners that the changes should be broadcast to */
-    void broadcastChanges(ImpendingOWLOntologyChangeListener listener,
-            List<? extends OWLOntologyChange<?>> changes);
+    void broadcastChanges(@Nonnull ImpendingOWLOntologyChangeListener listener,
+            @Nonnull List<? extends OWLOntologyChange<?>> changes);
 }

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 Represents a restriction (<a
@@ -51,5 +53,6 @@ public interface OWLDataRestriction extends OWLAnonymousClassExpression {
      * R being a scalar or collection type.
      * 
      * @return The property */
+    @Nonnull
     OWLDataPropertyExpression getProperty();
 }

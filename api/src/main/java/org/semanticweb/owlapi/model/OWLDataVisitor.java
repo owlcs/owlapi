@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -47,7 +49,7 @@ package org.semanticweb.owlapi.model;
  * A visitor which can visit various data ranges and constants. */
 @SuppressWarnings("javadoc")
 public interface OWLDataVisitor extends OWLDataRangeVisitor {
-    void visit(OWLLiteral node);
+    void visit(@Nonnull OWLLiteral node);
 
-    void visit(OWLFacetRestriction node);
+    void visit(@Nonnull OWLFacetRestriction node);
 }

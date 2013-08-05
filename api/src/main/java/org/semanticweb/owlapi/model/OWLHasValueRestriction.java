@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -50,6 +52,7 @@ public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestrict
      * restriction this will be a constant (data value).
      * 
      * @return the value */
+    @Nonnull
     V getValue();
 
     /** A convenience method that obtains this restriction as an existential
@@ -57,5 +60,6 @@ public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestrict
      * 
      * @return The existential equivalent of this value restriction.
      *         simp(HasValue(p a)) = some(p {a}) */
+    @Nonnull
     OWLClassExpression asSomeValuesFrom();
 }

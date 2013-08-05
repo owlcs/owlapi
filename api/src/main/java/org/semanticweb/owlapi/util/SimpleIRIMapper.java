@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
@@ -54,13 +58,13 @@ public class SimpleIRIMapper implements OWLOntologyIRIMapper {
      *            ontology IRI
      * @param documentIRI
      *            document IRI */
-    public SimpleIRIMapper(final IRI ontologyIRI, final IRI documentIRI) {
-        this.ontologyIRI = ontologyIRI;
-        this.documentIRI = documentIRI;
+    public SimpleIRIMapper(@Nonnull IRI ontologyIRI, @Nonnull IRI documentIRI) {
+        this.ontologyIRI = checkNotNull(ontologyIRI);
+        this.documentIRI = checkNotNull(documentIRI);
     }
 
     @Override
-    public IRI getDocumentIRI(final IRI iri) {
+    public IRI getDocumentIRI(IRI iri) {
         if (ontologyIRI.equals(iri)) {
             return documentIRI;
         } else {

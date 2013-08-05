@@ -58,7 +58,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 18/04/2012 */
-
 public class DefTagValueHandler extends AbstractTagValueHandler {
     private static final Pattern PATTERN = Pattern
             .compile("\"([^\"]*)\"\\s*(\\[([^\\]]*)\\])?\\s*");

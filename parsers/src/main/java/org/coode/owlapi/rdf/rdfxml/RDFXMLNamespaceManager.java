@@ -56,7 +56,6 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 21/09/2011 */
 public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
-
     /** @param ontology
      * @param format */
     public RDFXMLNamespaceManager(@Nonnull OWLOntology ontology,

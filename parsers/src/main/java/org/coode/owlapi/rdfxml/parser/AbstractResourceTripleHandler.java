@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Bio-Health Informatics Group<br>
  * Date: 09-Dec-2006<br>
  * <br> */
-
 public abstract class AbstractResourceTripleHandler extends AbstractTripleHandler {
     public AbstractResourceTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);

@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
@@ -54,9 +56,11 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
      * 
      * @return The atom predicate */
     @Override
+    @Nonnull
     IRI getPredicate();
 
     /** @return list of arguments */
+    @Nonnull
     List<SWRLDArgument> getArguments();
 
     /** Determines if the predicate of this atom is is a core builtin.

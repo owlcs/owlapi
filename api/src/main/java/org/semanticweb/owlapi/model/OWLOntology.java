@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 </p> Represents an OWL 2 <a
@@ -58,23 +60,26 @@ public interface OWLOntology extends OWLObject {
     /** interim method to access ontology internals for searching purposes
      * 
      * @return internals for this ontology */
+    @Nonnull
     Internals getInternals();
 
     /** accept for named object visitor
      * 
      * @param visitor
      *            the visitor */
-    void accept(OWLNamedObjectVisitor visitor);
+    void accept(@Nonnull OWLNamedObjectVisitor visitor);
 
     /** Gets the manager that created this ontology. The manager is used by
      * various methods on OWLOntology to resolve imports
      * 
      * @return The manager that created this ontology. */
+    @Nonnull
     OWLOntologyManager getOWLOntologyManager();
 
     /** Gets the identity of this ontology (i.e. ontology IRI + version IRI).
      * 
      * @return The ID of this ontology. */
+    @Nonnull
     OWLOntologyID getOntologyID();
 
     /** Determines whether or not this ontology is anonymous. An ontology is
@@ -90,6 +95,7 @@ public interface OWLOntology extends OWLObject {
      *         copy - modifying the set will have no effect on the annotations
      *         in this ontology, similarly, any changes that affect the
      *         annotations on this ontology will not change the returned set. */
+    @Nonnull
     Set<OWLAnnotation> getAnnotations();
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
@@ -106,6 +112,7 @@ public interface OWLOntology extends OWLObject {
      * @throws UnknownOWLOntologyException
      *             If this ontology is no longer managed by its manager because
      *             it was removed from the manager. */
+    @Nonnull
     Set<IRI> getDirectImportsDocuments() throws UnknownOWLOntologyException;
 
     /** Gets the set of <em>loaded</em> ontologies that this ontology is related
@@ -125,6 +132,7 @@ public interface OWLOntology extends OWLObject {
      * @throws UnknownOWLOntologyException
      *             If this ontology is no longer managed by its manager because
      *             it was removed from the manager. */
+    @Nonnull
     Set<OWLOntology> getDirectImports() throws UnknownOWLOntologyException;
 
     /** Gets the set of <em>loaded</em> ontologies that this ontology is related
@@ -145,6 +153,7 @@ public interface OWLOntology extends OWLObject {
      * @throws UnknownOWLOntologyException
      *             if this ontology is no longer managed by its manager because
      *             it was removed from the manager. */
+    @Nonnull
     Set<OWLOntology> getImports() throws UnknownOWLOntologyException;
 
     /** Gets the set of <em>loaded</em> ontologies that this ontology is related
@@ -163,6 +172,7 @@ public interface OWLOntology extends OWLObject {
      * @throws UnknownOWLOntologyException
      *             If this ontology is no longer managed by its manager because
      *             it was removed from the manager. */
+    @Nonnull
     Set<OWLOntology> getImportsClosure() throws UnknownOWLOntologyException;
 
     /** Gets the set of imports declarations for this ontology. The set returned
@@ -175,6 +185,7 @@ public interface OWLOntology extends OWLObject {
      *         ontology. The set that is returned is a copy - it will not be
      *         updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set. */
+    @Nonnull
     Set<OWLImportsDeclaration> getImportsDeclarations();
 
     // /////////////////////////////////////////////////////////////////////////////////////////////
@@ -201,6 +212,7 @@ public interface OWLOntology extends OWLObject {
      *         changes. It is recommended that the <code>containsAxiom</code>
      *         method is used to determine whether or not this ontology contains
      *         a particular axiom rather than using getAxioms().contains(). */
+    @Nonnull
     Set<OWLAxiom> getAxioms();
 
     /** Gets the number of axioms in this ontology.
@@ -216,6 +228,7 @@ public interface OWLOntology extends OWLObject {
      *         <code>OWLLogicalAxiom</code> The set that is returned is a copy
      *         of the axioms in the ontology - it will not be updated if the
      *         ontology changes. */
+    @Nonnull
     Set<OWLLogicalAxiom> getLogicalAxioms();
 
     /** Gets the number of logical axioms in this ontology.
@@ -230,7 +243,8 @@ public interface OWLOntology extends OWLObject {
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology - it
      *         will not be updated if the ontology changes. */
-    <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType);
+    @Nonnull
+    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType);
 
     /** Gets the axioms which are of the specified type.
      * 
@@ -245,7 +259,8 @@ public interface OWLOntology extends OWLObject {
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
      *         changes. */
-    <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType,
+    @Nonnull
+    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType,
             boolean includeImportsClosure);
 
     /** Gets the axioms that form the TBox for this ontology, i.e., the ones
@@ -260,6 +275,7 @@ public interface OWLOntology extends OWLObject {
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
      *         changes. */
+    @Nonnull
     Set<OWLAxiom> getTBoxAxioms(boolean includeImportsClosure);
 
     /** Gets the axioms that form the ABox for this ontology, i.e., the ones
@@ -274,6 +290,7 @@ public interface OWLOntology extends OWLObject {
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
      *         changes. */
+    @Nonnull
     Set<OWLAxiom> getABoxAxioms(boolean includeImportsClosure);
 
     /** Gets the axioms that form the RBox for this ontology, i.e., the ones
@@ -288,6 +305,7 @@ public interface OWLOntology extends OWLObject {
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
      *         changes. */
+    @Nonnull
     Set<OWLAxiom> getRBoxAxioms(boolean includeImportsClosure);
 
     /** Gets the axiom count of a specific type of axiom
@@ -295,7 +313,7 @@ public interface OWLOntology extends OWLObject {
      * @param axiomType
      *            The type of axiom to count
      * @return The number of the specified types of axioms in this ontology */
-    <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType);
+    <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType);
 
     /** Gets the axiom count of a specific type of axiom, possibly in the imports
      * closure of this ontology
@@ -306,7 +324,7 @@ public interface OWLOntology extends OWLObject {
      *            Specifies that the imports closure should be included when
      *            counting axioms
      * @return The number of the specified types of axioms in this ontology */
-    <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType,
+    <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType,
             boolean includeImportsClosure);
 
     /** Determines if this ontology contains the specified axiom.
@@ -316,7 +334,7 @@ public interface OWLOntology extends OWLObject {
      * @return <code>true</code> if the ontology contains the specified axioms,
      *         or <code>false</code> if the ontology doesn't contain the
      *         specified axiom. */
-    boolean containsAxiom(OWLAxiom axiom);
+    boolean containsAxiom(@Nonnull OWLAxiom axiom);
 
     /** Determines if this ontology, and possibly the imports closure, contains
      * the specified axiom.
@@ -330,7 +348,7 @@ public interface OWLOntology extends OWLObject {
      * @return <code>true</code> if the ontology contains the specified axioms,
      *         or <code>false</code> if the ontology doesn't contain the
      *         specified axiom. */
-    boolean containsAxiom(OWLAxiom axiom, boolean includeImportsClosure);
+    boolean containsAxiom(@Nonnull OWLAxiom axiom, boolean includeImportsClosure);
 
     /** Determines if this ontology contains the specified axiom, but ignoring
      * any annotations on this axiom. For example, if the ontology contains
@@ -343,7 +361,7 @@ public interface OWLOntology extends OWLObject {
      *            The axiom to test for.
      * @return <code>true</code> if this ontology contains this axiom with or
      *         without annotations. */
-    boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom);
+    boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom);
 
     /** Gets the set of axioms contained in this ontology that have the same
      * "logical structure" as the specified axiom.
@@ -357,7 +375,8 @@ public interface OWLOntology extends OWLObject {
      *         <code>axiomA.getAxiomWithoutAnnotations()</code> is equal to
      *         <code>axiomB.getAxiomWithoutAnnotations()</code>. The specified
      *         axiom will be contained in the set. */
-    Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom);
+    @Nonnull
+    Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom);
 
     /** Gets the set of axioms contained in this ontology that have the same
      * "logical structure" as the specified axiom, possibly searching the
@@ -376,8 +395,9 @@ public interface OWLOntology extends OWLObject {
      *         <code>axiomA.getAxiomWithoutAnnotations()</code> is equal to
      *         <code>axiomB.getAxiomWithoutAnnotations()</code>. The specified
      *         axiom will be contained in the set. */
-    Set<OWLAxiom>
-            getAxiomsIgnoreAnnotations(OWLAxiom axiom, boolean includeImportsClosure);
+    @Nonnull
+    Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom,
+            boolean includeImportsClosure);
 
     /** Determines if this ontology and possibly its imports closure contains the
      * specified axiom but ignoring any annotations on this axiom. For example,
@@ -395,7 +415,8 @@ public interface OWLOntology extends OWLObject {
      *            only this ontology will be searched for the specifed axiom.
      * @return <code>true</code> if this ontology contains this axiom with or
      *         without annotations. */
-    boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom, boolean includeImportsClosure);
+    boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom,
+            boolean includeImportsClosure);
 
     /** Gets the set of general axioms in this ontology. This includes:
      * <ul>
@@ -410,6 +431,7 @@ public interface OWLOntology extends OWLObject {
      *         - it will not be updated if the ontology changes. It is therefore
      *         safe to apply changes to this ontology while iterating over this
      *         set. */
+    @Nonnull
     Set<OWLClassAxiom> getGeneralClassAxioms();
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
@@ -432,6 +454,7 @@ public interface OWLOntology extends OWLObject {
      * @see #getDataPropertiesInSignature()
      * @see #getIndividualsInSignature() */
     @Override
+    @Nonnull
     Set<OWLEntity> getSignature();
 
     /** Gets the entities that are in the signature of this ontology. The
@@ -452,6 +475,7 @@ public interface OWLOntology extends OWLObject {
      * @see #getObjectPropertiesInSignature()
      * @see #getDataPropertiesInSignature()
      * @see #getIndividualsInSignature() */
+    @Nonnull
     Set<OWLEntity> getSignature(boolean includeImportsClosure);
 
     /** Gets the classes that are in the signature of this ontology.
@@ -462,6 +486,7 @@ public interface OWLOntology extends OWLObject {
      *         updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set. */
     @Override
+    @Nonnull
     Set<OWLClass> getClassesInSignature();
 
     /** Gets the classes that are in the signature of this ontology, and possibly
@@ -482,6 +507,7 @@ public interface OWLOntology extends OWLObject {
      *         copy - it will not be updated if the ontology changes. It is
      *         therefore safe to apply changes to this ontology while iterating
      *         over this set. */
+    @Nonnull
     Set<OWLClass> getClassesInSignature(boolean includeImportsClosure);
 
     /** Gets the object properties that are in the signature of this ontology.
@@ -492,6 +518,7 @@ public interface OWLOntology extends OWLObject {
      *         updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set. */
     @Override
+    @Nonnull
     Set<OWLObjectProperty> getObjectPropertiesInSignature();
 
     /** Gets the object properties that are in the signature of this ontology,
@@ -513,6 +540,7 @@ public interface OWLOntology extends OWLObject {
      *         is returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
+    @Nonnull
     Set<OWLObjectProperty> getObjectPropertiesInSignature(boolean includeImportsClosure);
 
     /** Gets the data properties that are in the signature of this ontology.
@@ -523,6 +551,7 @@ public interface OWLOntology extends OWLObject {
      *         updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set. */
     @Override
+    @Nonnull
     Set<OWLDataProperty> getDataPropertiesInSignature();
 
     /** Gets the data properties that are in the signature of this ontology, and
@@ -543,6 +572,7 @@ public interface OWLOntology extends OWLObject {
      *         is returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
+    @Nonnull
     Set<OWLDataProperty> getDataPropertiesInSignature(boolean includeImportsClosure);
 
     /** Gets the individuals that are in the signature of this ontology.
@@ -553,6 +583,7 @@ public interface OWLOntology extends OWLObject {
      *         updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set. */
     @Override
+    @Nonnull
     Set<OWLNamedIndividual> getIndividualsInSignature();
 
     /** Gets the individuals that are in the signature of this ontology, and
@@ -574,11 +605,13 @@ public interface OWLOntology extends OWLObject {
      *         copy - it will not be updated if the ontology changes. It is
      *         therefore safe to apply changes to this ontology while iterating
      *         over this set. */
+    @Nonnull
     Set<OWLNamedIndividual> getIndividualsInSignature(boolean includeImportsClosure);
 
     /** Gets the referenced anonymous individuals
      * 
      * @return The set of referenced anonymous individuals */
+    @Nonnull
     Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals();
 
     /** Gets the datatypes that are in the signature of this ontology.
@@ -589,6 +622,7 @@ public interface OWLOntology extends OWLObject {
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
     @Override
+    @Nonnull
     Set<OWLDatatype> getDatatypesInSignature();
 
     /** Gets the datatypes that are in the signature of this ontology, and
@@ -610,6 +644,7 @@ public interface OWLOntology extends OWLObject {
      *         copy - it will not be updated if the ontology changes. It is
      *         therefore safe to apply changes to this ontology while iterating
      *         over this set. */
+    @Nonnull
     Set<OWLDatatype> getDatatypesInSignature(boolean includeImportsClosure);
 
     /** Gets the annotation properties that are in the signature of this
@@ -620,6 +655,7 @@ public interface OWLOntology extends OWLObject {
      *         this ontology. The set that is returned is a copy - it will not
      *         be updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set. */
+    @Nonnull
     Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature();
 
     /** Gets the axioms where the specified entity appears in the signature of
@@ -632,7 +668,8 @@ public interface OWLOntology extends OWLObject {
      * @return The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
-    Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity);
+    @Nonnull
+    Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLEntity owlEntity);
 
     /** Gets the axioms where the specified entity appears in the signature of
      * the axiom. The set that is returned, contains all axioms that directly
@@ -650,15 +687,17 @@ public interface OWLOntology extends OWLObject {
      * @return The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
-    Set<OWLAxiom>
-            getReferencingAxioms(OWLEntity owlEntity, boolean includeImportsClosure);
+    @Nonnull
+    Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLEntity owlEntity,
+            boolean includeImportsClosure);
 
     /** Gets the axioms that reference the specified anonymous individual
      * 
      * @param individual
      *            The individual
      * @return The axioms that reference the specified anonymous individual */
-    Set<OWLAxiom> getReferencingAxioms(OWLAnonymousIndividual individual);
+    @Nonnull
+    Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLAnonymousIndividual individual);
 
     /** Determines if the signature of the ontology contains the specified
      * entity.
@@ -667,7 +706,7 @@ public interface OWLOntology extends OWLObject {
      *            The entity
      * @return <code>true</code> if the signature of this ontology contains
      *         <code>owlEntity</code>, otherwise <code>false</code>. */
-    boolean containsEntityInSignature(OWLEntity owlEntity);
+    boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity);
 
     /** Determines if the signature of this ontology, and possibly the signature
      * of any of the ontologies in the imports closure of this ontology,
@@ -683,7 +722,8 @@ public interface OWLOntology extends OWLObject {
      *         returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
-    boolean containsEntityInSignature(OWLEntity owlEntity, boolean includeImportsClosure);
+    boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity,
+            boolean includeImportsClosure);
 
     /** Determines if the signature of this ontology contains a class, object
      * property, data property, named individual, annotation property or
@@ -694,7 +734,7 @@ public interface OWLOntology extends OWLObject {
      * @return <code>true</code> if the signature of this ontology contains a
      *         class, object property, data property, named individual,
      *         annotation property or datatype with the specified IRI. */
-    boolean containsEntityInSignature(IRI entityIRI);
+    boolean containsEntityInSignature(@Nonnull IRI entityIRI);
 
     /** Determines if the signature of this ontology and possibly its imports
      * closure contains a class, object property, data property, named
@@ -714,7 +754,8 @@ public interface OWLOntology extends OWLObject {
      *         <code>true</code> if the signature of this ontology contains a
      *         class, object property, data property, named individual,
      *         annotation property or datatype with the specified IRI. */
-    boolean containsEntityInSignature(IRI entityIRI, boolean includeImportsClosure);
+    boolean containsEntityInSignature(@Nonnull IRI entityIRI,
+            boolean includeImportsClosure);
 
     /** Determines if this ontology declares an entity i.e. it contains a
      * declaration axiom for the specified entity.
@@ -723,7 +764,7 @@ public interface OWLOntology extends OWLObject {
      *            The entity to be tested for
      * @return <code>true</code> if the ontology contains a declaration for the
      *         specified entity, otherwise <code>false</code>. */
-    boolean isDeclared(OWLEntity owlEntity);
+    boolean isDeclared(@Nonnull OWLEntity owlEntity);
 
     /** Determines if this ontology or its imports closure declares an entity
      * i.e. contains a declaration axiom for the specified entity.
@@ -737,7 +778,7 @@ public interface OWLOntology extends OWLObject {
      * @return <code>true</code> if the ontology or its imports closure contains
      *         a declaration for the specified entity, otherwise
      *         <code>false</code>. */
-    boolean isDeclared(OWLEntity owlEntity, boolean includeImportsClosure);
+    boolean isDeclared(@Nonnull OWLEntity owlEntity, boolean includeImportsClosure);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -752,7 +793,7 @@ public interface OWLOntology extends OWLObject {
      * @return <code>true</code> if the signature of this ontology contains an
      *         OWLClass that has <code>owlClassIRI</code> as its IRI, otherwise
      *         <code>false</code>. */
-    boolean containsClassInSignature(IRI owlClassIRI);
+    boolean containsClassInSignature(@Nonnull IRI owlClassIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
      * of one of the ontologies in the imports closure of this ontology,
@@ -775,7 +816,8 @@ public interface OWLOntology extends OWLObject {
      *         OWLClass that has <code>owlClassIRI</code> as its IRI and
      *         <code>false</code> if the signature of this ontology does not
      *         contain a class with <code>owlClassIRI</code> as its IRI. */
-    boolean containsClassInSignature(IRI owlClassIRI, boolean includeImportsClosure);
+    boolean containsClassInSignature(@Nonnull IRI owlClassIRI,
+            boolean includeImportsClosure);
 
     /** Determines if the signature of this ontology contains an
      * OWLObjectProperty with the specified IRI.
@@ -785,7 +827,7 @@ public interface OWLOntology extends OWLObject {
      * @return <code>true</code> if the signature of this ontology contains an
      *         OWLObjectProperty that has <code>owlObjectPropertyIRI</code> as
      *         its IRI, otherwise <code>false</code>. */
-    boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI);
+    boolean containsObjectPropertyInSignature(@Nonnull IRI owlObjectPropertyIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
      * of one of the ontologies in the imports closure of this ontology,
@@ -809,7 +851,7 @@ public interface OWLOntology extends OWLObject {
      *         its IRI and <code>false</code> if the signature of this ontology
      *         does not contain a class with <code>owlObjectPropertyIRI</code>
      *         as its IRI. */
-    boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI,
+    boolean containsObjectPropertyInSignature(@Nonnull IRI owlObjectPropertyIRI,
             boolean includeImportsClosure);
 
     /** Determines if the signature of this ontology contains an OWLDataProperty
@@ -820,7 +862,7 @@ public interface OWLOntology extends OWLObject {
      * @return <code>true</code> if the signature of this ontology contains an
      *         OWLDataProperty that has <code>owlDataPropertyIRI</code> as its
      *         IRI, otherwise <code>false</code>. */
-    boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI);
+    boolean containsDataPropertyInSignature(@Nonnull IRI owlDataPropertyIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
      * of one of the ontologies in the imports closure of this ontology,
@@ -844,7 +886,7 @@ public interface OWLOntology extends OWLObject {
      *         IRI and <code>false</code> if the signature of this ontology does
      *         not contain a class with <code>owlDataPropertyIRI</code> as its
      *         IRI. */
-    boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI,
+    boolean containsDataPropertyInSignature(@Nonnull IRI owlDataPropertyIRI,
             boolean includeImportsClosure);
 
     /** Determines if the signature of this ontology contains an
@@ -856,7 +898,7 @@ public interface OWLOntology extends OWLObject {
      *         OWLAnnotationProperty that has
      *         <code>owlAnnotationPropertyIRI</code> as its IRI, otherwise
      *         <code>false</code>. */
-    boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI);
+    boolean containsAnnotationPropertyInSignature(@Nonnull IRI owlAnnotationPropertyIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
      * of one of the ontologies in the imports closure of this ontology,
@@ -881,7 +923,7 @@ public interface OWLOntology extends OWLObject {
      *         <code>false</code> if the signature of this ontology does not
      *         contain a class with <code>owlAnnotationPropertyIRI</code> as its
      *         IRI. */
-    boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI,
+    boolean containsAnnotationPropertyInSignature(@Nonnull IRI owlAnnotationPropertyIRI,
             boolean includeImportsClosure);
 
     /** Determines if the signature of this ontology contains an
@@ -892,7 +934,7 @@ public interface OWLOntology extends OWLObject {
      * @return <code>true</code> if the signature of this ontology contains an
      *         OWLNamedIndividual that has <code>owlIndividualIRI</code> as its
      *         IRI, otherwise <code>false</code>. */
-    boolean containsIndividualInSignature(IRI owlIndividualIRI);
+    boolean containsIndividualInSignature(@Nonnull IRI owlIndividualIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
      * of one of the ontologies in the imports closure of this ontology,
@@ -916,7 +958,7 @@ public interface OWLOntology extends OWLObject {
      *         IRI and <code>false</code> if the signature of this ontology does
      *         not contain a class with <code>owlIndividualIRI</code> as its
      *         IRI. */
-    boolean containsIndividualInSignature(IRI owlIndividualIRI,
+    boolean containsIndividualInSignature(@Nonnull IRI owlIndividualIRI,
             boolean includeImportsClosure);
 
     /** Determines if the signature of this ontology contains an OWLDatatype with
@@ -927,7 +969,7 @@ public interface OWLOntology extends OWLObject {
      * @return <code>true</code> if the signature of this ontology contains an
      *         OWLDatatype that has <code>owlDatatypeIRI</code> as its IRI,
      *         otherwise <code>false</code>. */
-    boolean containsDatatypeInSignature(IRI owlDatatypeIRI);
+    boolean containsDatatypeInSignature(@Nonnull IRI owlDatatypeIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
      * of one of the ontologies in the imports closure of this ontology,
@@ -950,8 +992,8 @@ public interface OWLOntology extends OWLObject {
      *         OWLDatatype that has <code>owlDatatypeIRI</code> as its IRI and
      *         <code>false</code> if the signature of this ontology does not
      *         contain a class with <code>owlDatatypeIRI</code> as its IRI. */
-            boolean
-            containsDatatypeInSignature(IRI owlDatatypeIRI, boolean includeImportsClosure);
+    boolean containsDatatypeInSignature(@Nonnull IRI owlDatatypeIRI,
+            boolean includeImportsClosure);
 
     /** Gets the entities in the signature of this ontology that have the
      * specified IRI.
@@ -962,7 +1004,7 @@ public interface OWLOntology extends OWLObject {
      *         have the specified IRI. The set will be empty if there are no
      *         entities in the signature of this ontology with the specified
      *         IRI. */
-    Set<OWLEntity> getEntitiesInSignature(IRI iri);
+    Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri);
 
     /** Gets the entities in the signature of this ontology, and possibly the
      * signature of the imports closure of this ontology, that have the
@@ -980,7 +1022,9 @@ public interface OWLOntology extends OWLObject {
      *         <code>includeImportsClosure=false</code> then returns the
      *         entities in the signature of just this ontology that have
      *         <code>iri</code> as their IRI. */
-    Set<OWLEntity> getEntitiesInSignature(IRI iri, boolean includeImportsClosure);
+    @Nonnull
+    Set<OWLEntity>
+            getEntitiesInSignature(@Nonnull IRI iri, boolean includeImportsClosure);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -1005,7 +1049,8 @@ public interface OWLOntology extends OWLObject {
      *         The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
-    Set<OWLClassAxiom> getAxioms(OWLClass cls);
+    @Nonnull
+    Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls);
 
     /** Gets the axioms that form the definition/description of an object
      * property.
@@ -1033,7 +1078,8 @@ public interface OWLOntology extends OWLObject {
      *         The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
-    Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression prop);
+    @Nonnull
+    Set<OWLObjectPropertyAxiom> getAxioms(@Nonnull OWLObjectPropertyExpression prop);
 
     /** Gets the axioms that form the definition/description of a data property.
      * 
@@ -1056,7 +1102,8 @@ public interface OWLOntology extends OWLObject {
      *         The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
-    Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty prop);
+    @Nonnull
+    Set<OWLDataPropertyAxiom> getAxioms(@Nonnull OWLDataProperty prop);
 
     /** Gets the axioms that form the definition/description of an individual
      * 
@@ -1081,7 +1128,8 @@ public interface OWLOntology extends OWLObject {
      *         </ul>
      *         The set that is returned is a copy - it will not be updated if
      *         the ontology changes. */
-    Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual);
+    @Nonnull
+    Set<OWLIndividualAxiom> getAxioms(@Nonnull OWLIndividual individual);
 
     /** Gets the axioms that form the definition/description of an annotation
      * property.
@@ -1097,14 +1145,16 @@ public interface OWLOntology extends OWLObject {
      *         <li>Annotation property range axioms that specify a range for the
      *         specified property</li>
      *         </ul> */
-    Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property);
+    @Nonnull
+    Set<OWLAnnotationAxiom> getAxioms(@Nonnull OWLAnnotationProperty property);
 
     /** Gets the datatype definition axioms for the specified datatype
      * 
      * @param datatype
      *            The datatype
      * @return The set of datatype definition axioms for the specified datatype */
-    Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype);
+    @Nonnull
+    Set<OWLDatatypeDefinitionAxiom> getAxioms(@Nonnull OWLDatatype datatype);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -1118,8 +1168,9 @@ public interface OWLOntology extends OWLObject {
      *            The sub-property of the axioms to be retrieved.
      * @return A set of <code>OWLSubAnnotationPropertyOfAxiom</code>s such that
      *         the sub-property is equal to <code>subProperty</code>. */
+    @Nonnull
     Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(
-            OWLAnnotationProperty subProperty);
+            @Nonnull OWLAnnotationProperty subProperty);
 
     /** Gets the <code>OWLAnnotationPropertyDomainAxiom</code>s where the
      * specified property is the property in the domain axiom.
@@ -1128,8 +1179,9 @@ public interface OWLOntology extends OWLObject {
      *            The property that the axiom specifies a domain for.
      * @return A set of <code>OWLAnnotationPropertyDomainAxiom</code>s such that
      *         the property is equal to <code>property</code>. */
+    @Nonnull
     Set<OWLAnnotationPropertyDomainAxiom> getAnnotationPropertyDomainAxioms(
-            OWLAnnotationProperty property);
+            @Nonnull OWLAnnotationProperty property);
 
     /** Gets the <code>OWLAnnotationPropertyRangeAxiom</code>s where the
      * specified property is the property in the range axiom.
@@ -1138,8 +1190,9 @@ public interface OWLOntology extends OWLObject {
      *            The property that the axiom specifies a range for.
      * @return A set of <code>OWLAnnotationPropertyRangeAxiom</code>s such that
      *         the property is equal to <code>property</code>. */
+    @Nonnull
     Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(
-            OWLAnnotationProperty property);
+            @Nonnull OWLAnnotationProperty property);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -1158,7 +1211,8 @@ public interface OWLOntology extends OWLObject {
      *         and will not be updated if the ontology changes. It is therefore
      *         safe to iterate over this set while making changes to the
      *         ontology. */
-    Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity subject);
+    @Nonnull
+    Set<OWLDeclarationAxiom> getDeclarationAxioms(@Nonnull OWLEntity subject);
 
     /** Gets the axioms that annotate the specified entity.
      * 
@@ -1168,8 +1222,9 @@ public interface OWLOntology extends OWLObject {
      *         copy and will not be updated if the ontology changes. It is
      *         therefore safe to iterate over this set while making changes to
      *         the ontology. */
+    @Nonnull
     Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
-            OWLAnnotationSubject entity);
+            @Nonnull OWLAnnotationSubject entity);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -1185,7 +1240,8 @@ public interface OWLOntology extends OWLObject {
      * @return The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
-    Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(OWLClass cls);
+    @Nonnull
+    Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(@Nonnull OWLClass cls);
 
     /** Gets all of the subclass axioms where the right hand side (the
      * superclass) is equal to the specified class.
@@ -1195,7 +1251,8 @@ public interface OWLOntology extends OWLObject {
      * @return The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
-    Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(OWLClass cls);
+    @Nonnull
+    Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(@Nonnull OWLClass cls);
 
     /** Gets all of the equivalent axioms in this ontology that contain the
      * specified class as an operand.
@@ -1206,7 +1263,8 @@ public interface OWLOntology extends OWLObject {
      *         as an operand. The set that is returned is a copy - it will not
      *         be updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set. */
-    Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(OWLClass cls);
+    @Nonnull
+    Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(@Nonnull OWLClass cls);
 
     /** Gets the set of disjoint class axioms that contain the specified class as
      * an operand.
@@ -1218,7 +1276,8 @@ public interface OWLOntology extends OWLObject {
      *         set that is returned is a copy - it will not be updated if the
      *         ontology changes. It is therefore safe to apply changes to this
      *         ontology while iterating over this set. */
-    Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(OWLClass cls);
+    @Nonnull
+    Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(@Nonnull OWLClass cls);
 
     /** Gets the set of disjoint union axioms that have the specified class as
      * the named class that is equivalent to the disjoint union of operands. For
@@ -1230,7 +1289,8 @@ public interface OWLOntology extends OWLObject {
      * @return The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
-    Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLClass owlClass);
+    @Nonnull
+    Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(@Nonnull OWLClass owlClass);
 
     /** Gets the has key axioms that have the specified class as their subject.
      * 
@@ -1240,7 +1300,8 @@ public interface OWLOntology extends OWLObject {
      *         that is returned is a copy - it will not be updated if the
      *         ontology changes. It is therefore safe to apply changes to this
      *         ontology while iterating over this set. */
-    Set<OWLHasKeyAxiom> getHasKeyAxioms(OWLClass cls);
+    @Nonnull
+    Set<OWLHasKeyAxiom> getHasKeyAxioms(@Nonnull OWLClass cls);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -1260,8 +1321,9 @@ public interface OWLOntology extends OWLObject {
      *         is returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
+    @Nonnull
     Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(
-            OWLObjectPropertyExpression subProperty);
+            @Nonnull OWLObjectPropertyExpression subProperty);
 
     /** Gets the {@link org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom}
      * s where the super-property (returned by
@@ -1278,8 +1340,9 @@ public interface OWLOntology extends OWLObject {
      *         is returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
+    @Nonnull
     Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(
-            OWLObjectPropertyExpression superProperty);
+            @Nonnull OWLObjectPropertyExpression superProperty);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom}s where
@@ -1297,8 +1360,9 @@ public interface OWLOntology extends OWLObject {
      *         returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
+    @Nonnull
     Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(
-            OWLObjectPropertyExpression property);
+            @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets the {@link org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom}
      * s where the property (returned by
@@ -1315,8 +1379,9 @@ public interface OWLOntology extends OWLObject {
      *         returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
+    @Nonnull
     Set<OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxioms(
-            OWLObjectPropertyExpression property);
+            @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets the {@link OWLInverseObjectPropertiesAxiom}s where the specified
      * property is contained in the set returned by
@@ -1333,8 +1398,9 @@ public interface OWLOntology extends OWLObject {
      *         is returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
+    @Nonnull
     Set<OWLInverseObjectPropertiesAxiom> getInverseObjectPropertyAxioms(
-            OWLObjectPropertyExpression property);
+            @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom}s
@@ -1354,8 +1420,9 @@ public interface OWLOntology extends OWLObject {
      *         . The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
+    @Nonnull
     Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(
-            OWLObjectPropertyExpression property);
+            @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom}s
@@ -1375,8 +1442,9 @@ public interface OWLOntology extends OWLObject {
      *         . The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
+    @Nonnull
     Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(
-            OWLObjectPropertyExpression property);
+            @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom}s
@@ -1391,8 +1459,9 @@ public interface OWLOntology extends OWLObject {
      *         {@link org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom}
      *         s such that each axiom in the set is of the form
      *         <code>FunctionalObjectProperty(property)</code>. */
+    @Nonnull
     Set<OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxioms(
-            OWLObjectPropertyExpression property);
+            @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets the {@link OWLInverseFunctionalObjectPropertyAxiom}s contained in
      * this ontology that make the specified object property inverse functional.
@@ -1405,8 +1474,10 @@ public interface OWLOntology extends OWLObject {
      *         {@link org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom}
      *         s such that each axiom in the set is of the form
      *         <code>InverseFunctionalObjectProperty(property)</code>. */
-            Set<OWLInverseFunctionalObjectPropertyAxiom>
-            getInverseFunctionalObjectPropertyAxioms(OWLObjectPropertyExpression property);
+    @Nonnull
+    Set<OWLInverseFunctionalObjectPropertyAxiom>
+            getInverseFunctionalObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom}s
@@ -1421,8 +1492,9 @@ public interface OWLOntology extends OWLObject {
      *         {@link org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom}
      *         s such that each axiom in the set is of the form
      *         <code>SymmetricObjectProperty(property)</code>. */
+    @Nonnull
     Set<OWLSymmetricObjectPropertyAxiom> getSymmetricObjectPropertyAxioms(
-            OWLObjectPropertyExpression property);
+            @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom}s
@@ -1437,8 +1509,9 @@ public interface OWLOntology extends OWLObject {
      *         {@link org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom}
      *         s such that each axiom in the set is of the form
      *         <code>AsymmetricObjectProperty(property)</code>. */
+    @Nonnull
     Set<OWLAsymmetricObjectPropertyAxiom> getAsymmetricObjectPropertyAxioms(
-            OWLObjectPropertyExpression property);
+            @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom}s
@@ -1453,8 +1526,9 @@ public interface OWLOntology extends OWLObject {
      *         {@link org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom}
      *         s such that each axiom in the set is of the form
      *         <code>ReflexiveObjectProperty(property)</code>. */
+    @Nonnull
     Set<OWLReflexiveObjectPropertyAxiom> getReflexiveObjectPropertyAxioms(
-            OWLObjectPropertyExpression property);
+            @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom}s
@@ -1469,8 +1543,9 @@ public interface OWLOntology extends OWLObject {
      *         {@link org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom}
      *         s such that each axiom in the set is of the form
      *         <code>IrreflexiveObjectProperty(property)</code>. */
+    @Nonnull
     Set<OWLIrreflexiveObjectPropertyAxiom> getIrreflexiveObjectPropertyAxioms(
-            OWLObjectPropertyExpression property);
+            @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom}s
@@ -1485,8 +1560,9 @@ public interface OWLOntology extends OWLObject {
      *         {@link org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom}
      *         s such that each axiom in the set is of the form
      *         <code>TransitiveObjectProperty(property)</code>. */
+    @Nonnull
     Set<OWLTransitiveObjectPropertyAxiom> getTransitiveObjectPropertyAxioms(
-            OWLObjectPropertyExpression property);
+            @Nonnull OWLObjectPropertyExpression property);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -1506,8 +1582,9 @@ public interface OWLOntology extends OWLObject {
      *         returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
+    @Nonnull
     Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(
-            OWLDataProperty subProperty);
+            @Nonnull OWLDataProperty subProperty);
 
     /** Gets the {@link org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom}s
      * where the super-property (returned by
@@ -1524,8 +1601,9 @@ public interface OWLOntology extends OWLObject {
      *         is returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
+    @Nonnull
     Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(
-            OWLDataPropertyExpression superProperty);
+            @Nonnull OWLDataPropertyExpression superProperty);
 
     /** Gets the {@link org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom}s
      * where the property (returned by
@@ -1542,7 +1620,9 @@ public interface OWLOntology extends OWLObject {
      *         is a copy - it will not be updated if the ontology changes. It is
      *         therefore safe to apply changes to this ontology while iterating
      *         over this set. */
-    Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(OWLDataProperty property);
+    @Nonnull
+    Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(
+            @Nonnull OWLDataProperty property);
 
     /** Gets the {@link org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom}s
      * where the property (returned by
@@ -1559,7 +1639,9 @@ public interface OWLOntology extends OWLObject {
      *         returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
-    Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(OWLDataProperty property);
+    @Nonnull
+    Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(
+            @Nonnull OWLDataProperty property);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom}s
@@ -1579,8 +1661,9 @@ public interface OWLOntology extends OWLObject {
      *         . The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
+    @Nonnull
     Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(
-            OWLDataProperty property);
+            @Nonnull OWLDataProperty property);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom}s that
@@ -1600,8 +1683,9 @@ public interface OWLOntology extends OWLObject {
      *         . The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
+    @Nonnull
     Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(
-            OWLDataProperty property);
+            @Nonnull OWLDataProperty property);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom}s
@@ -1619,8 +1703,9 @@ public interface OWLOntology extends OWLObject {
      *         returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
+    @Nonnull
     Set<OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxioms(
-            OWLDataPropertyExpression property);
+            @Nonnull OWLDataPropertyExpression property);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -1642,7 +1727,9 @@ public interface OWLOntology extends OWLObject {
      *         <code>individual</code>). The set that is returned is a copy - it
      *         will not be updated if the ontology changes. It is therefore safe
      *         to apply changes to this ontology while iterating over this set. */
-    Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLIndividual individual);
+    @Nonnull
+    Set<OWLClassAssertionAxiom>
+            getClassAssertionAxioms(@Nonnull OWLIndividual individual);
 
     /** Gets the {@link org.semanticweb.owlapi.model.OWLClassAssertionAxiom}s
      * contained in this ontology that make the specified class expression,
@@ -1659,7 +1746,8 @@ public interface OWLOntology extends OWLObject {
      *         <code>ce</code>). The set that is returned is a copy - it will
      *         not be updated if the ontology changes. It is therefore safe to
      *         apply changes to this ontology while iterating over this set. */
-    Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClassExpression ce);
+    @Nonnull
+    Set<OWLClassAssertionAxiom> getClassAssertionAxioms(@Nonnull OWLClassExpression ce);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom}s
@@ -1677,8 +1765,9 @@ public interface OWLOntology extends OWLObject {
      *         it will not be updated if the ontology changes. It is therefore
      *         safe to apply changes to this ontology while iterating over this
      *         set. */
+    @Nonnull
     Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(
-            OWLIndividual individual);
+            @Nonnull OWLIndividual individual);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom}s
@@ -1696,8 +1785,9 @@ public interface OWLOntology extends OWLObject {
      *         a copy - it will not be updated if the ontology changes. It is
      *         therefore safe to apply changes to this ontology while iterating
      *         over this set. */
+    @Nonnull
     Set<OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionAxioms(
-            OWLIndividual individual);
+            @Nonnull OWLIndividual individual);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom}
@@ -1716,8 +1806,9 @@ public interface OWLOntology extends OWLObject {
      *         copy - it will not be updated if the ontology changes. It is
      *         therefore safe to apply changes to this ontology while iterating
      *         over this set. */
+    @Nonnull
     Set<OWLNegativeObjectPropertyAssertionAxiom>
-            getNegativeObjectPropertyAssertionAxioms(OWLIndividual individual);
+            getNegativeObjectPropertyAssertionAxioms(@Nonnull OWLIndividual individual);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom}
@@ -1736,8 +1827,9 @@ public interface OWLOntology extends OWLObject {
      *         copy - it will not be updated if the ontology changes. It is
      *         therefore safe to apply changes to this ontology while iterating
      *         over this set. */
+    @Nonnull
     Set<OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxioms(
-            OWLIndividual individual);
+            @Nonnull OWLIndividual individual);
 
     /** Gets the {@link org.semanticweb.owlapi.model.OWLSameIndividualAxiom}s
      * contained in this ontology that make the specified
@@ -1754,7 +1846,9 @@ public interface OWLOntology extends OWLObject {
      *         <code>individual</code>. The set that is returned is a copy - it
      *         will not be updated if the ontology changes. It is therefore safe
      *         to apply changes to this ontology while iterating over this set. */
-    Set<OWLSameIndividualAxiom> getSameIndividualAxioms(OWLIndividual individual);
+    @Nonnull
+    Set<OWLSameIndividualAxiom>
+            getSameIndividualAxioms(@Nonnull OWLIndividual individual);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom}s
@@ -1773,8 +1867,9 @@ public interface OWLOntology extends OWLObject {
      *         <code>individual</code>. The set that is returned is a copy - it
      *         will not be updated if the ontology changes. It is therefore safe
      *         to apply changes to this ontology while iterating over this set. */
+    @Nonnull
     Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(
-            OWLIndividual individual);
+            @Nonnull OWLIndividual individual);
 
     /** Gets the {@link org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom}s
      * contained in this ontology that provide a definition for the specified
@@ -1790,35 +1885,36 @@ public interface OWLOntology extends OWLObject {
      *         <code>datatype</code>. The set that is returned is a copy - it
      *         will not be updated if the ontology changes. It is therefore safe
      *         to apply changes to this ontology while iterating over this set. */
-    Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype);
+    @Nonnull
+    Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(@Nonnull OWLDatatype datatype);
 
     /** @param entity
      *            entyty to check
      * @return true if entity is referenced */
-    boolean containsReference(OWLClass entity);
+    boolean containsReference(@Nonnull OWLClass entity);
 
     /** @param entity
      *            entyty to check
      * @return true if entity is referenced */
-    boolean containsReference(OWLObjectProperty entity);
+    boolean containsReference(@Nonnull OWLObjectProperty entity);
 
     /** @param entity
      *            entyty to check
      * @return true if entity is referenced */
-    boolean containsReference(OWLDataProperty entity);
+    boolean containsReference(@Nonnull OWLDataProperty entity);
 
     /** @param entity
      *            entyty to check
      * @return true if entity is referenced */
-    boolean containsReference(OWLNamedIndividual entity);
+    boolean containsReference(@Nonnull OWLNamedIndividual entity);
 
     /** @param dt
      *            dt to check
      * @return true if entity is referenced */
-    boolean containsReference(OWLDatatype dt);
+    boolean containsReference(@Nonnull OWLDatatype dt);
 
     /** @param property
      *            property to check
      * @return true if entity is referenced */
-    boolean containsReference(OWLAnnotationProperty property);
+    boolean containsReference(@Nonnull OWLAnnotationProperty property);
 }

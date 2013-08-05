@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * Information Management Group<br>
  * Date: 17-Dec-2009 </p> An exception which indicates that a caller tried to
  * write an XML Element with a name that is not a QName. */
-
 public class IllegalElementNameException extends OWLRuntimeException {
     private static final long serialVersionUID = 40000L;
     private String elementName;

@@ -38,13 +38,15 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 17-Jan-2010 */
 @SuppressWarnings("javadoc")
 public interface OWLAnnotationSubjectVisitorEx<E> {
-    E visit(IRI iri);
+    E visit(@Nonnull IRI iri);
 
-    E visit(OWLAnonymousIndividual individual);
+    E visit(@Nonnull OWLAnonymousIndividual individual);
 }

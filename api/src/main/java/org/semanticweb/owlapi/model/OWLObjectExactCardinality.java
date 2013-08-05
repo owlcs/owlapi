@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -51,5 +53,6 @@ public interface OWLObjectExactCardinality extends OWLObjectCardinalityRestricti
      * 
      * @return The semantically equivalent but structurally simpler form simp(=
      *         1 R C) = >= 1 R C and <= 1 R C */
+    @Nonnull
     OWLClassExpression asIntersectionOfMinMax();
 }

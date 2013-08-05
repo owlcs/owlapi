@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 /** A weakly linked cache - elements in the cache can be garbage collected
  * 
  * @param <K>
@@ -20,7 +22,7 @@ public class WeakIndexCache<K, V> implements Serializable {
      * @param v
      *            the cache value
      * @return the cached value */
-    public V cache(K s, V v) {
+    public V cache(@Nonnull K s, @Nonnull V v) {
         WeakReference<V> w = prefixCache.get(s);
         if (w != null) {
             V toReturn = w.get();

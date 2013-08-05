@@ -70,7 +70,6 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * <br>
  * <p/>
  * Developed as part of the CO-ODE project http://www.co-ode.org */
-
 public class XMLWriterImpl implements XMLWriter {
     private Stack<XMLElement> elementStack;
     protected Writer writer;

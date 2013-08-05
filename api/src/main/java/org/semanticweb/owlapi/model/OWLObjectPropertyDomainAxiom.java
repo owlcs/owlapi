@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 </p> Represents <a href=
@@ -46,5 +48,6 @@ package org.semanticweb.owlapi.model;
 public interface OWLObjectPropertyDomainAxiom extends
         OWLPropertyDomainAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
     @Override
+    @Nonnull
     OWLObjectPropertyDomainAxiom getAxiomWithoutAnnotations();
 }

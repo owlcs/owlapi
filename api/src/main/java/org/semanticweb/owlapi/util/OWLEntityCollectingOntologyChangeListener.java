@@ -58,12 +58,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
  * entities which are referenced in a set of ontology changes. */
 public abstract class OWLEntityCollectingOntologyChangeListener implements
         OWLOntologyChangeListener {
-    private final Set<OWLEntity> entities;
-
-    @SuppressWarnings("javadoc")
-    public OWLEntityCollectingOntologyChangeListener() {
-        entities = new HashSet<OWLEntity>();
-    }
+    private final Set<OWLEntity> entities = new HashSet<OWLEntity>();
 
     @Override
     public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)

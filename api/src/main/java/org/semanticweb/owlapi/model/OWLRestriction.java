@@ -49,11 +49,6 @@ package org.semanticweb.owlapi.model;
  * 
  * @since 4.0.0 */
 public interface OWLRestriction extends OWLAnonymousClassExpression {
-    /** Gets the property/properties that the restriction acts along depending on
-     * R being a scalar or collection type.
-     * 
-     * @return The property */
-    // OWLPropertyExpression getProperty();
     /** Determines if this is an object restriction.
      * 
      * @return <code>true</code> if this is an object restriction, otherwise

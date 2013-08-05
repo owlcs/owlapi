@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
@@ -51,7 +53,7 @@ package org.semanticweb.owlapi.model;
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual */
 @SuppressWarnings("javadoc")
 public interface OWLAnnotationValue extends OWLAnnotationObject {
-    void accept(OWLAnnotationValueVisitor visitor);
+    void accept(@Nonnull OWLAnnotationValueVisitor visitor);
 
-    <O> O accept(OWLAnnotationValueVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor);
 }

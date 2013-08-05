@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -52,6 +54,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      * 
      * @return the class that is equivalent to a disjoint union of other
      *         classes. */
+    @Nonnull
     OWLClass getOWLClass();
 
     /** Gets the class expressions which are operands of the disjoint union.
@@ -59,6 +62,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      * @return A <code>Set</code> containing the operands of the disjoint union,
      *         note that this <b>does not</b> include the <code>OWLClass</code>
      *         that is equivalent to the disjoint union. */
+    @Nonnull
     Set<OWLClassExpression> getClassExpressions();
 
     /** Gets the part of this axiom that corresponds to an
@@ -69,6 +73,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      *         <code>CEUnion</code> is the union of the classes returned by the
      *         {@link #getClassExpressions()} method and <code>CE</code> is the
      *         class returned by the {@link #getOWLClass()} method. */
+    @Nonnull
     OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom();
 
     /** Gets the part of this axiom that corresponds to an
@@ -78,8 +83,10 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      *         essentially, <code>DisjointClasses(CE1, ..., CEn)</code> where
      *         <code>CEi in {CE1, ..., CEn}</code> is contained in the classes
      *         returned by the {@link #getClassExpressions()} method. */
+    @Nonnull
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom();
 
     @Override
+    @Nonnull
     OWLDisjointUnionAxiom getAxiomWithoutAnnotations();
 }

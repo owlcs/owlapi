@@ -47,5 +47,4 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  * <br> */
 public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
     private static final long serialVersionUID = 40000L;
-
 }

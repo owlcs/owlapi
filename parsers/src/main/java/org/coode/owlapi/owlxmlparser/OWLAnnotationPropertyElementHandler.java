@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 23-Apr-2009 */
-
 public class OWLAnnotationPropertyElementHandler extends
         AbstractOWLElementHandler<OWLAnnotationProperty> {
     private OWLAnnotationProperty prop;

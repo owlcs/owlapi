@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.io;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Author: Matthew Horridge<br>
@@ -53,5 +55,6 @@ public interface OWLParserFactory {
      *            This parameter is here for legacy reasons. Parser factories
      *            should not use it.
      * @return The parser created by this parser factory. */
-    OWLParser createParser(OWLOntologyManager owlOntologyManager);
+    @Nonnull
+    OWLParser createParser(@Nonnull OWLOntologyManager owlOntologyManager);
 }

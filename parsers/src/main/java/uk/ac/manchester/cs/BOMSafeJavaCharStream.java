@@ -47,7 +47,6 @@ import java.io.UnsupportedEncodingException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** JavaCC generated JavaCharStream with added treatment for BOMs */
-
 public class BOMSafeJavaCharStream {
     /** Whether parser is static. */
     public static final boolean staticFlag = false;

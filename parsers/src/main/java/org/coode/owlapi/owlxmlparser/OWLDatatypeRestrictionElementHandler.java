@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
  * Bio-Health Informatics Group<br>
  * Date: 10-Apr-2007<br>
  * <br> */
-
 public class OWLDatatypeRestrictionElementHandler extends AbstractOWLDataRangeHandler {
     private OWLDatatype restrictedDataRange;
     private Set<OWLFacetRestriction> facetRestrictions;

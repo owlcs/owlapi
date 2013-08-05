@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -51,6 +53,6 @@ public interface OWLOntologyChangesVetoedListener {
      *            The changes that were vetoed.
      * @param veto
      *            The cause of the veto. */
-    void ontologyChangesVetoed(List<? extends OWLOntologyChange<?>> changes,
-            OWLOntologyChangeVetoException veto);
+    void ontologyChangesVetoed(@Nonnull List<? extends OWLOntologyChange<?>> changes,
+            @Nonnull OWLOntologyChangeVetoException veto);
 }

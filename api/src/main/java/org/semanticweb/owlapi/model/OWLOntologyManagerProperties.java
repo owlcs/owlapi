@@ -45,6 +45,7 @@ import java.io.Serializable;
  * Bio-Health Informatics Group<br>
  * Date: 10-Apr-2008<br>
  * <br> */
+// XXX refactor or remove
 public class OWLOntologyManagerProperties implements Serializable {
     private static final long serialVersionUID = 40000L;
     private boolean loadAnnotationAxioms = true;

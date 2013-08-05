@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
@@ -56,13 +60,12 @@ import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
  * inv(P) simp(inv(inv(PE)) = simp(PE) */
 public class ObjectPropertySimplifier {
     private final OWLDataFactory dataFactory;
-    private final Simplifier simplifier;
+    private final Simplifier simplifier = new Simplifier();
 
     /** @param dataFactory
      *            datafactory to use */
-    public ObjectPropertySimplifier(OWLDataFactory dataFactory) {
-        this.dataFactory = dataFactory;
-        simplifier = new Simplifier();
+    public ObjectPropertySimplifier(@Nonnull OWLDataFactory dataFactory) {
+        this.dataFactory = checkNotNull(dataFactory);
     }
 
     /** Gets an object property expression in its simplest form.
@@ -70,7 +73,10 @@ public class ObjectPropertySimplifier {
      * @param prop
      *            The object property expression to be simplified.
      * @return The simplest form of the object property expression. */
-    public OWLObjectPropertyExpression getSimplified(OWLObjectPropertyExpression prop) {
+    @Nonnull
+    public OWLObjectPropertyExpression getSimplified(
+            @Nonnull OWLObjectPropertyExpression prop) {
+        checkNotNull(prop);
         simplifier.reset();
         prop.accept(simplifier);
         if (simplifier.isInverse()) {

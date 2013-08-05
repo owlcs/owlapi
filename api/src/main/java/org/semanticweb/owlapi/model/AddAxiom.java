@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.change.AddAxiomData;
 
 /** Author: Matthew Horridge<br>
@@ -52,7 +54,7 @@ public class AddAxiom extends OWLAxiomChange {
      *            the ontology to which the change is to be applied
      * @param axiom
      *            the axiom to be added */
-    public AddAxiom(OWLOntology ont, OWLAxiom axiom) {
+    public AddAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
         super(ont, axiom);
     }
 

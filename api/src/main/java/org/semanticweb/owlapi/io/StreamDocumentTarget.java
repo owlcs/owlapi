@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.OutputStream;
 import java.io.Writer;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -54,8 +58,8 @@ public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
 
     /** @param os
      *            the actual output stream */
-    public StreamDocumentTarget(OutputStream os) {
-        this.os = os;
+    public StreamDocumentTarget(@Nonnull OutputStream os) {
+        this.os = checkNotNull(os);
     }
 
     @Override

@@ -38,10 +38,14 @@
  */
 package org.semanticweb.owlapi.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.concurrent.atomic.AtomicLong;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -59,9 +63,8 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
 
     /** @param string
      *            the source string */
-    public StringDocumentSource(String string) {
-        this.string = string;
-        documentIRI = getNextDocumentIRI();
+    public StringDocumentSource(@Nonnull String string) {
+        this(string, getNextDocumentIRI());
     }
 
     /** @return a fresh IRI */
@@ -75,9 +78,9 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
      *            The string
      * @param documentIRI
      *            The document IRI */
-    public StringDocumentSource(String string, IRI documentIRI) {
-        this.string = string;
-        this.documentIRI = documentIRI;
+    public StringDocumentSource(@Nonnull String string, @Nonnull IRI documentIRI) {
+        this.string = checkNotNull(string);
+        this.documentIRI = checkNotNull(documentIRI);
     }
 
     @Override

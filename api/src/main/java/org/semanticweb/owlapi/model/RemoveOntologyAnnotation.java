@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
 
@@ -51,7 +53,8 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
      *            the ontology to which the change is to be applied
      * @param annotation
      *            the annotation */
-    public RemoveOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
+    public RemoveOntologyAnnotation(@Nonnull OWLOntology ont,
+            @Nonnull OWLAnnotation annotation) {
         super(ont, annotation);
     }
 

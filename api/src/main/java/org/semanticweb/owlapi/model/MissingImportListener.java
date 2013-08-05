@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -51,5 +53,5 @@ package org.semanticweb.owlapi.model;
 public interface MissingImportListener {
     /** @param event
      *            the missing import event */
-    void importMissing(MissingImportEvent event);
+    void importMissing(@Nonnull MissingImportEvent event);
 }

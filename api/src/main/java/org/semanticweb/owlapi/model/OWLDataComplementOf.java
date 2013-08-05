@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 </p> Represents <a href=
@@ -47,5 +49,6 @@ public interface OWLDataComplementOf extends OWLDataRange {
     /** Gets the data range which this data range is a complement of.
      * 
      * @return The complemented data range. */
+    @Nonnull
     OWLDataRange getDataRange();
 }

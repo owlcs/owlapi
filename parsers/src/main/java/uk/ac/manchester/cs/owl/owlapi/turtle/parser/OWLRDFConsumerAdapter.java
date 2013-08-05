@@ -50,7 +50,6 @@ import org.xml.sax.SAXException;
  * Bio-Health Informatics Group<br>
  * Date: 24-Feb-2008<br>
  * <br> */
-
 public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
     public OWLRDFConsumerAdapter(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
@@ -70,7 +69,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
-        //XXX inefficient?
+        // XXX inefficient?
         try {
             statementWithResourceValue(subject.toString(), predicate.toString(),
                     object.toString());

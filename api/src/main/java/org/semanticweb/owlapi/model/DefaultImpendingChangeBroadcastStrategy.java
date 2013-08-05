@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -50,8 +52,8 @@ public class DefaultImpendingChangeBroadcastStrategy implements
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public void broadcastChanges(ImpendingOWLOntologyChangeListener listener,
-            List<? extends OWLOntologyChange<?>> changes) {
+    public void broadcastChanges(@Nonnull ImpendingOWLOntologyChangeListener listener,
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         listener.handleImpendingOntologyChanges(changes);
     }
 }

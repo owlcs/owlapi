@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-
 public class OWLIrreflexiveObjectPropertyAxiomElementHandler extends
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
     public OWLIrreflexiveObjectPropertyAxiomElementHandler(OWLXMLParserHandler handler) {

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Author: Matthew Horridge<br>
@@ -55,6 +57,7 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity {
      * @return The OWLDatatypeVocabulary that describes this built in datatype
      * @throws OWLRuntimeException
      *             if this datatype is not a built in datatype. */
+    @Nonnull
     OWL2Datatype getBuiltInDatatype();
 
     /** Determines if this datatype has the IRI <code>xsd:string</code>

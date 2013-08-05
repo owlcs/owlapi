@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * Bio-Health Informatics Group<br>
  * Date: 06-Dec-2006<br>
  * <br> */
-
 public class RDFXMLWriter {
     private XMLWriter writer;
 

@@ -54,7 +54,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 15-Apr-2008<br>
  * <br> */
-
 public class TypeAllDisjointPropertiesHandler extends BuiltInTypeHandler {
     public TypeAllDisjointPropertiesHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ALL_DISJOINT_PROPERTIES.getIRI());

@@ -59,10 +59,9 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
     private O defaultReturnValue = null;
 
-    /** Gets the default return value for this visitor. By default, the default
-     * is <code>null</code>, but a fixed value (independent of the specified
-     * <code>OWLObject</code> <code>object</code>) can be specified in the
-     * constructor {@link OWLObjectVisitorExAdapter}
+    /** Gets the default return value for this visitor. A fixed value
+     * (independent of the specified <code>OWLObject</code> <code>object</code>)
+     * can be specified in the constructor {@link OWLObjectVisitorExAdapter}
      * 
      * @param object
      *            The object that was visited.

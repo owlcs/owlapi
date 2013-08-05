@@ -50,6 +50,6 @@ public interface OWLNaryAxiom extends OWLAxiom {
      * this axiom will not be copied to each axiom returned in the set of
      * pairwise axioms.
      * 
-     * @return This axiom as a set of pairwise axioms. */
+     * @Nonnull @return This axiom as a set of pairwise axioms. */
     Set<? extends OWLNaryAxiom> asPairwiseAxioms();
 }

@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.model;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.change.RemoveImportData;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
@@ -53,7 +55,8 @@ public class RemoveImport extends ImportChange {
      *            the ontology to which the change is to be applied
      * @param importDeclaration
      *            the import declaration */
-    public RemoveImport(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
+    public RemoveImport(@Nonnull OWLOntology ont,
+            @Nonnull OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);
     }
 

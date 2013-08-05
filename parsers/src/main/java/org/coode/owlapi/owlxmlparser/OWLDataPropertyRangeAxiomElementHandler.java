@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-
 public class OWLDataPropertyRangeAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
     private OWLDataPropertyExpression property;

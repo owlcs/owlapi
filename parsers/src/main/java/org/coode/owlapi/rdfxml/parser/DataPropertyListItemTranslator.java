@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Bio-Health Informatics Group<br>
  * Date: 15-Apr-2008<br>
  * <br> */
-
 public class DataPropertyListItemTranslator implements
         ListItemTranslator<OWLDataPropertyExpression> {
     private OWLRDFConsumer consumer;

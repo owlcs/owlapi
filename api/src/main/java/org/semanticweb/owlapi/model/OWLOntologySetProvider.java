@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -49,5 +51,6 @@ import java.util.Set;
  * provides a convenient lightweight access point for such a set. */
 public interface OWLOntologySetProvider {
     /** @return the set of ontologies held by the implementor */
+    @Nonnull
     Set<OWLOntology> getOntologies();
 }

@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 20/12/2010 */
-
 public class TPOnClassHandler extends TriplePredicateHandler {
     public TPOnClassHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ON_CLASS.getIRI());

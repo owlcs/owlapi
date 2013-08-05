@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -57,14 +61,8 @@ public class NamedConjunctChecker {
     OWLClass conjunct;
     boolean found;
     boolean collect;
-    final Set<OWLClass> conjuncts;
-    private final NamedConjunctCheckerVisitor visitor;
-
-    @SuppressWarnings("javadoc")
-    public NamedConjunctChecker() {
-        visitor = new NamedConjunctCheckerVisitor();
-        conjuncts = new HashSet<OWLClass>();
-    }
+    final Set<OWLClass> conjuncts = new HashSet<OWLClass>();
+    private final NamedConjunctCheckerVisitor visitor = new NamedConjunctCheckerVisitor();
 
     /** @return true ifa named class is a conjunct in a given class expression.
      *         For class expressions which aren't named classes or object
@@ -73,7 +71,10 @@ public class NamedConjunctChecker {
      *            The conjunct to check for
      * @param classExpression
      *            The expression to be checked */
-    public boolean isNamedConjunct(OWLClass conj, OWLClassExpression classExpression) {
+    public boolean isNamedConjunct(@Nonnull OWLClass conj,
+            @Nonnull OWLClassExpression classExpression) {
+        checkNotNull(conj);
+        checkNotNull(classExpression);
         reset();
         conjunct = conj;
         classExpression.accept(visitor);
@@ -90,7 +91,8 @@ public class NamedConjunctChecker {
      *         <code>OWLClass</code>) or if the expression is an intersection
      *         that has a named operand (included nested intersections),
      *         otherwise <code>false</code> */
-    public boolean hasNamedConjunct(OWLClassExpression classExpression) {
+    public boolean hasNamedConjunct(@Nonnull OWLClassExpression classExpression) {
+        checkNotNull(classExpression);
         reset();
         conjunct = null;
         classExpression.accept(visitor);
@@ -109,7 +111,9 @@ public class NamedConjunctChecker {
      * @return A set containing the named conjuncts of the specified expression.
      *         If the expression is not a named class or an intersection then
      *         the set will definitely be empty. */
-    public Set<OWLClass> getNamedConjuncts(OWLClassExpression classExpression) {
+    @Nonnull
+    public Set<OWLClass> getNamedConjuncts(@Nonnull OWLClassExpression classExpression) {
+        checkNotNull(classExpression);
         conjuncts.clear();
         reset();
         collect = true;

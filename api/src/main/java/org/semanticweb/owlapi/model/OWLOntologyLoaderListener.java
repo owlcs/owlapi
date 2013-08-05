@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -51,7 +53,7 @@ public interface OWLOntologyLoaderListener {
      * @param event
      *            The loading started event that describes the ontologt that is
      *            being loaded. */
-    void startedLoadingOntology(LoadingStartedEvent event);
+    void startedLoadingOntology(@Nonnull LoadingStartedEvent event);
 
     /** Called when the process of loading an ontology has finished. This method
      * will be called regardless of whether the ontology could be loaded or not
@@ -61,7 +63,7 @@ public interface OWLOntologyLoaderListener {
      * @param event
      *            The loading finished event that describes the ontology that
      *            was loaded. */
-    void finishedLoadingOntology(LoadingFinishedEvent event);
+    void finishedLoadingOntology(@Nonnull LoadingFinishedEvent event);
 
     /***/
     static class LoadingEvent {

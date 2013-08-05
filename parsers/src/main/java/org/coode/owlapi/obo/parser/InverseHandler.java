@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 06-Mar-2007<br>
  * <br> */
-
 public class InverseHandler extends AbstractTagValueHandler {
     public InverseHandler(OBOConsumer consumer) {
         super(OBOVocabulary.INVERSE.getName(), consumer);

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /** Author: Matthew Horridge<br>
@@ -53,16 +55,18 @@ public interface OWLFacetRestriction extends OWLObject {
     /** Gets the retricted facet
      * 
      * @return The restricted facet */
+    @Nonnull
     OWLFacet getFacet();
 
     /** Gets the value that restricts the facet
      * 
      * @return the restricting value */
+    @Nonnull
     OWLLiteral getFacetValue();
 
     @SuppressWarnings("javadoc")
-    void accept(OWLDataVisitor visitor);
+    void accept(@Nonnull OWLDataVisitor visitor);
 
     @SuppressWarnings("javadoc")
-    <O> O accept(OWLDataVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
 }

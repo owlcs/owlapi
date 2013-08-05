@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -70,22 +72,24 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate
      * 
      * @return This data range as an
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} */
+    @Nonnull
     OWLDatatype asOWLDatatype();
 
     /** Gets the type of this data range
      * 
      * @return The data range type */
+    @Nonnull
     DataRangeType getDataRangeType();
 
     @SuppressWarnings("javadoc")
-    void accept(OWLDataVisitor visitor);
+    void accept(@Nonnull OWLDataVisitor visitor);
 
     @SuppressWarnings("javadoc")
-    <O> O accept(OWLDataVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
 
     @SuppressWarnings("javadoc")
-    void accept(OWLDataRangeVisitor visitor);
+    void accept(@Nonnull OWLDataRangeVisitor visitor);
 
     @SuppressWarnings("javadoc")
-    <O> O accept(OWLDataRangeVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor);
 }

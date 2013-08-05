@@ -68,11 +68,11 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      *            ontology to track */
     public DefinitionTracker(@Nonnull OWLOntology ontology) {
         this.ontology = checkNotNull(ontology);
-            for (OWLOntology importOnt : ontology.getImportsClosure()) {
-                for (OWLAxiom axiom : importOnt.getAxioms()) {
-                    addAxiom(axiom);
-                }
+        for (OWLOntology importOnt : ontology.getImportsClosure()) {
+            for (OWLAxiom axiom : importOnt.getAxioms()) {
+                addAxiom(axiom);
             }
+        }
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
     }
 

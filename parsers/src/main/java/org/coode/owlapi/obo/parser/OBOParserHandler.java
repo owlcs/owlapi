@@ -43,7 +43,6 @@ package org.coode.owlapi.obo.parser;
  * Bio-Health Informatics Group<br>
  * Date: 10-Jan-2007<br>
  * <br> */
-
 public interface OBOParserHandler {
     void startHeader();
 

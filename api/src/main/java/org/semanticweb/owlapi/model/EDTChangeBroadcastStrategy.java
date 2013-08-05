@@ -48,7 +48,7 @@ import javax.swing.SwingUtilities;
  * Date: 14-Mar-2009
  * <p/>
  * A change broadcast strategy which broadcasts all ontology changes in the
- * Swing Even Dispatch Thread (EDT). */
+ * Swing Event Dispatch Thread (EDT). */
 public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
     private static final long serialVersionUID = 40000L;
 

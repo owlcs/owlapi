@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -45,17 +47,17 @@ package org.semanticweb.owlapi.model;
  * <br> */
 @SuppressWarnings("javadoc")
 public interface OWLOntologyChangeVisitor {
-    void visit(AddAxiom change);
+    void visit(@Nonnull AddAxiom change);
 
-    void visit(RemoveAxiom change);
+    void visit(@Nonnull RemoveAxiom change);
 
-    void visit(SetOntologyID change);
+    void visit(@Nonnull SetOntologyID change);
 
-    void visit(AddImport change);
+    void visit(@Nonnull AddImport change);
 
-    void visit(RemoveImport change);
+    void visit(@Nonnull RemoveImport change);
 
-    void visit(AddOntologyAnnotation change);
+    void visit(@Nonnull AddOntologyAnnotation change);
 
-    void visit(RemoveOntologyAnnotation change);
+    void visit(@Nonnull RemoveOntologyAnnotation change);
 }

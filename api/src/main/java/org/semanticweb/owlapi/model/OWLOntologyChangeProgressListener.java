@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
@@ -51,7 +53,7 @@ public interface OWLOntologyChangeProgressListener {
 
     /** @param change
      *            the change just applied */
-    void appliedChange(OWLOntologyChange<?> change);
+    void appliedChange(@Nonnull OWLOntologyChange<?> change);
 
     /** end of the progress */
     void end();

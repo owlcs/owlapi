@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,6 +49,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -92,14 +97,15 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      * 
      * @param c
      *            comparator to sort prefixes */
-    public DefaultPrefixManager(Comparator<String> c) {
+    public DefaultPrefixManager(@Nonnull Comparator<String> c) {
+        checkNotNull(c);
         prefix2NamespaceMap = new TreeMap<String, String>(c);
         setupDefaultPrefixes();
     }
 
     /** @param pm
      *            the prefix manager to copy */
-    public DefaultPrefixManager(PrefixManager pm) {
+    public DefaultPrefixManager(@Nonnull PrefixManager pm) {
         this();
         copyPrefixesFrom(pm);
     }
@@ -108,7 +114,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      *            the prefix manager to copy
      * @param c
      *            comparator to sort prefixes */
-    public DefaultPrefixManager(PrefixManager pm, Comparator<String> c) {
+    public DefaultPrefixManager(@Nonnull PrefixManager pm, @Nonnull Comparator<String> c) {
         this(c);
         copyPrefixesFrom(pm);
     }
@@ -127,7 +133,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      * 
      * @param defaultPrefix
      *            The namespace to be used as the default namespace. */
-    public DefaultPrefixManager(String defaultPrefix) {
+    public DefaultPrefixManager(@Nullable String defaultPrefix) {
         this();
         if (defaultPrefix != null) {
             setDefaultPrefix(defaultPrefix);
@@ -140,7 +146,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      *            The namespace to be used as the default namespace.
      * @param c
      *            comparator to sort prefixes */
-    public DefaultPrefixManager(String defaultPrefix, Comparator<String> c) {
+    public DefaultPrefixManager(@Nullable String defaultPrefix,
+            @Nonnull Comparator<String> c) {
         this(c);
         if (defaultPrefix != null) {
             setDefaultPrefix(defaultPrefix);
@@ -157,6 +164,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @Override
     public void setDefaultPrefix(String defaultPrefix) {
+        checkNotNull(defaultPrefix);
         setPrefix(":", defaultPrefix);
     }
 
@@ -231,12 +239,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @Override
     public void setPrefix(String prefixName, String prefix) {
-        if (prefix == null) {
-            throw new IllegalArgumentException("prefix cannot be null");
-        }
-        if (prefixName == null) {
-            throw new IllegalArgumentException("prefixName cannot be null");
-        }
+        checkNotNull(prefixName);
+        checkNotNull(prefix);
         if (!prefixName.endsWith(":")) {
             throw new IllegalArgumentException("Prefix names must end with a colon (:)");
         }

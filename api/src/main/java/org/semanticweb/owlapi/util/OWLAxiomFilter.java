@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** Author: Matthew Horridge<br>
@@ -49,5 +51,5 @@ public interface OWLAxiomFilter {
     /** @param axiom
      *            axiom to filter
      * @return true if check passed */
-    boolean passes(OWLAxiom axiom);
+    boolean passes(@Nonnull OWLAxiom axiom);
 }

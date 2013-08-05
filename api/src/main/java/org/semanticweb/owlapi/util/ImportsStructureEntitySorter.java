@@ -40,9 +40,10 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -51,11 +52,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * <br> */
 public class ImportsStructureEntitySorter extends ImportsStructureObjectSorter<OWLEntity> {
     /** @param ontology
-     *            the ontology
-     * @param manager
-     *            the manager */
-    public ImportsStructureEntitySorter(OWLOntology ontology, OWLOntologyManager manager) {
-        super(ontology, manager, new ReferencedEntitySelector());
+     *            the ontology */
+    public ImportsStructureEntitySorter(@Nonnull OWLOntology ontology) {
+        super(ontology, new ReferencedEntitySelector());
     }
 
     @SuppressWarnings("javadoc")

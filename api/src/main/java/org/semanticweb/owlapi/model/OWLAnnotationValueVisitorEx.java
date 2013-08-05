@@ -36,18 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.model;/*
+package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
- */
+import javax.annotation.Nonnull;
 
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 17-Jan-2009 */
 @SuppressWarnings("javadoc")
 public interface OWLAnnotationValueVisitorEx<O> {
-    O visit(IRI iri);
+    O visit(@Nonnull IRI iri);
 
-    O visit(OWLAnonymousIndividual individual);
+    O visit(@Nonnull OWLAnonymousIndividual individual);
 
-    O visit(OWLLiteral literal);
+    O visit(@Nonnull OWLLiteral literal);
 }

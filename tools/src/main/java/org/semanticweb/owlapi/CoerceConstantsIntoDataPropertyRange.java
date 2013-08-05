@@ -193,7 +193,6 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
 
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
-            checkNotNull(axiom);
             super.visit(axiom);
             setLastObject(getDataFactory().getOWLDataPropertyAssertionAxiom(
                     axiom.getProperty(), axiom.getSubject(),
@@ -202,7 +201,6 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
 
         @Override
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-            checkNotNull(axiom);
             super.visit(axiom);
             setLastObject(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(
                     axiom.getProperty(), axiom.getSubject(),

@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 05-Jun-2009 */
-
 public class OWLDatatypeDefinitionElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLDatatype datatype;
     private OWLDataRange dataRange;

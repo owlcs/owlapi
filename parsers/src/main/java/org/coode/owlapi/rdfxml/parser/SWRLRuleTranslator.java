@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.vocab.SWRLVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 18-Feb-2007<br>
  * <br> */
-
 public class SWRLRuleTranslator {
     private OWLRDFConsumer consumer;
     private OptimisedListTranslator<SWRLAtom> listTranslator;

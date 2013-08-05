@@ -104,7 +104,6 @@ public class ConvertEquivalentClassesToSuperClasses extends
     private final Set<OWLOntology> ontologies;
     private final boolean splitIntersections;
 
-
     /** @param ontologies
      *            the ontologies to use
      * @param dataFactory
@@ -117,8 +116,7 @@ public class ConvertEquivalentClassesToSuperClasses extends
      *            whether or not intersections should be split */
     public ConvertEquivalentClassesToSuperClasses(@Nonnull OWLDataFactory dataFactory,
             @Nonnull OWLClass cls, @Nonnull Set<OWLOntology> ontologies,
-            @Nonnull OWLOntology targetOntology,
-            boolean splitIntersections) {
+            @Nonnull OWLOntology targetOntology, boolean splitIntersections) {
         super(dataFactory);
         this.targetOntology = checkNotNull(targetOntology);
         this.cls = checkNotNull(cls);

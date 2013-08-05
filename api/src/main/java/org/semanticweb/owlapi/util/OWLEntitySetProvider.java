@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /** Author: Matthew Horridge<br>
@@ -54,5 +56,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
  *            the entity type */
 public interface OWLEntitySetProvider<E extends OWLEntity> {
     /** @return the entities that are provided by this provider. */
+    @Nonnull
     Set<E> getEntities();
 }

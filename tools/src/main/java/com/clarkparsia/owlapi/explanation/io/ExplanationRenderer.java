@@ -66,8 +66,7 @@ public interface ExplanationRenderer {
      * @throws IOException
      *             IO troubles */
     void render(@Nonnull OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations)
-            throws OWLException,
-            IOException;
+            throws OWLException, IOException;
 
     /** end of rendering
      * 

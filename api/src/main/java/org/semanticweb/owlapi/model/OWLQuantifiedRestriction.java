@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
@@ -47,5 +49,6 @@ package org.semanticweb.owlapi.model;
 public interface OWLQuantifiedRestriction<F extends OWLPropertyRange> extends
         OWLRestriction {
     /** @return the filler */
+    @Nonnull
     F getFiller();
 }

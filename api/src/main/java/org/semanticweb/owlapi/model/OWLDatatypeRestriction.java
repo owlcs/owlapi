@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -51,11 +53,13 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
     /** Gets the data range that this data range restricts.
      * 
      * @return The datatype that is restricted */
+    @Nonnull
     OWLDatatype getDatatype();
 
     /** Gets the facet restrictions on this data range
      * 
      * @return A <code>Set</code> of facet restrictions that apply to this data
      *         range */
+    @Nonnull
     Set<OWLFacetRestriction> getFacetRestrictions();
 }

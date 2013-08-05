@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Bio-Health Informatics Group<br>
  * Date: 09-Dec-2006<br>
  * <br> */
-
 public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     public GTPAnnotationLiteralHandler(OWLRDFConsumer consumer) {
         super(consumer);

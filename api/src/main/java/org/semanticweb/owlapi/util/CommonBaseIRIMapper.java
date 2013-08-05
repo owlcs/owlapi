@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
@@ -54,16 +58,15 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  * document IRIs which share the same base. */
 public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
     private final IRI base;
-    private final Map<IRI, IRI> iriMap;
+    private final Map<IRI, IRI> iriMap = new HashMap<IRI, IRI>();
 
     /** Creates a mapper, which maps ontology URIs to URIs which share the
      * specified base
      * 
      * @param base
      *            the base IRI */
-    public CommonBaseIRIMapper(IRI base) {
-        this.base = base;
-        iriMap = new HashMap<IRI, IRI>();
+    public CommonBaseIRIMapper(@Nonnull IRI base) {
+        this.base = checkNotNull(base);
     }
 
     /** Adds a mapping from an ontology IRI to an ontology document IRI which has
@@ -75,13 +78,16 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
      *            the ontology IRI
      * @param localName
      *            the document IRI */
-    public void addMapping(IRI ontologyIRI, String localName) {
+    public void addMapping(@Nonnull IRI ontologyIRI, @Nonnull String localName) {
+        checkNotNull(localName);
+        checkNotNull(ontologyIRI);
         IRI documentIRI = base.resolve(localName);
         iriMap.put(ontologyIRI, documentIRI);
     }
 
     @Override
     public IRI getDocumentIRI(IRI ontologyIRI) {
+        checkNotNull(ontologyIRI);
         return iriMap.get(ontologyIRI);
     }
 }

@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Bio-Health Informatics Group<br>
  * Date: 03-Apr-2007<br>
  * <br> */
-
 public class OWLSubObjectPropertyChainElementHandler extends
         AbstractOWLElementHandler<List<OWLObjectPropertyExpression>> {
     private List<OWLObjectPropertyExpression> propertyList;

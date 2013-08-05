@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -55,6 +57,7 @@ public interface OWLAnnotation extends OWLObject {
     /** Gets the property that this annotation acts along
      * 
      * @return The annotation property */
+    @Nonnull
     OWLAnnotationProperty getProperty();
 
     /** Gets the annotation value. The type of value will depend upon the type of
@@ -66,6 +69,7 @@ public interface OWLAnnotation extends OWLObject {
      * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitor
      * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx
      * @return The annotation value. */
+    @Nonnull
     OWLAnnotationValue getValue();
 
     /** Determines if this annotation is an annotation used to deprecate an IRI.
@@ -81,6 +85,7 @@ public interface OWLAnnotation extends OWLObject {
      * 
      * @return A (possibly empty) set of annotations that annotate this
      *         annotation */
+    @Nonnull
     Set<OWLAnnotation> getAnnotations();
 
     /** Gets an OWLAnnotation which is a copy of this annotation but which has
@@ -90,11 +95,12 @@ public interface OWLAnnotation extends OWLObject {
      *            The annotations
      * @return A copy of this annotation with the specified annotations
      *         annotating it */
-    OWLAnnotation getAnnotatedAnnotation(Set<OWLAnnotation> annotations);
+    @Nonnull
+    OWLAnnotation getAnnotatedAnnotation(@Nonnull Set<OWLAnnotation> annotations);
 
     @SuppressWarnings("javadoc")
-    void accept(OWLAnnotationObjectVisitor visitor);
+    void accept(@Nonnull OWLAnnotationObjectVisitor visitor);
 
     @SuppressWarnings("javadoc")
-    <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLAnnotationObjectVisitorEx<O> visitor);
 }

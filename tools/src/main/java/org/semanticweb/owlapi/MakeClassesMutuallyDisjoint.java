@@ -63,8 +63,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * disjoint classes axiom to do this or using multiple disjoint classes axioms
  * to make them pairwise disjoint (for backwards compatibility with OWL 1.0). */
 public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange {
-
-
     /** Creates a composite change which makes a set of classes mutually disjoint
      * 
      * @param dataFactory

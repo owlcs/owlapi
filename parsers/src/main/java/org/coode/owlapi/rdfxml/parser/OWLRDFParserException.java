@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.io.OWLParserException;
  * Bio-Health Informatics Group<br>
  * Date: 13-Apr-2007<br>
  * <br> */
-
 public class OWLRDFParserException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 

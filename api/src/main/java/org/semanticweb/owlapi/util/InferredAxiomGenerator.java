@@ -41,7 +41,7 @@ package org.semanticweb.owlapi.util;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /** Author: Matthew Horridge<br>
@@ -58,12 +58,12 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * @param <A>
  *            the axiom type */
 public interface InferredAxiomGenerator<A extends OWLAxiom> {
-    /** @param manager
-     *            the menager to use
+    /** @param df
+     *            data factory
      * @param reasoner
      *            the reasoner to use
      * @return the set of axioms generated */
-    Set<A> createAxioms(OWLOntologyManager manager, OWLReasoner reasoner);
+    Set<A> createAxioms(OWLDataFactory df, OWLReasoner reasoner);
 
     /** @return the label */
     String getLabel();

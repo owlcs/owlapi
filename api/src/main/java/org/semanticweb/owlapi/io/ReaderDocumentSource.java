@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.io;
 
 import java.io.Reader;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /** Author: Matthew Horridge<br>
@@ -54,7 +56,7 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      * 
      * @param reader
      *            The reader that will be used to read an ontology. */
-    public ReaderDocumentSource(Reader reader) {
+    public ReaderDocumentSource(@Nonnull Reader reader) {
         this(reader, getNextDocumentIRI("reader:ontology"));
     }
 
@@ -66,7 +68,7 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      * @param documentIRI
      *            The ontology document IRI which will be used as the base of
      *            the document if needed. */
-    public ReaderDocumentSource(Reader reader, IRI documentIRI) {
+    public ReaderDocumentSource(@Nonnull Reader reader, @Nonnull IRI documentIRI) {
         super(reader, documentIRI);
     }
 }

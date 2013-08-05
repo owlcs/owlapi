@@ -42,6 +42,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
@@ -99,32 +101,29 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     /** @param axiom
      *            the axiom to visit
      * @return the subject */
-    public OWLObject getSubject(OWLAxiom axiom) {
+    public OWLObject getSubject(@Nonnull OWLAxiom axiom) {
+        checkNotNull(axiom);
         axiom.accept(this);
         return subject;
     }
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getSubClass();
     }
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getSubject();
     }
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
@@ -139,175 +138,146 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        checkNotNull(axiom);
         subject = selectClassExpression(axiom.getClassExpressions());
     }
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperties().iterator().next();
     }
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getSubject();
     }
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getIndividuals().iterator().next();
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperties().iterator().next();
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperties().iterator().next();
     }
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getSubject();
     }
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getSubProperty();
     }
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getOWLClass();
     }
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getEntity();
     }
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getSubject();
     }
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperties().iterator().next();
     }
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getIndividual();
     }
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        checkNotNull(axiom);
         subject = selectClassExpression(axiom.getClassExpressions());
     }
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getSubject();
     }
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getSubProperty();
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getIndividuals().iterator().next();
     }
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getSuperProperty();
     }
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getFirstProperty();
     }
 
@@ -318,31 +288,26 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getClassExpression();
     }
 
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getProperty();
     }
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getSubProperty();
     }
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        checkNotNull(axiom);
         subject = axiom.getDataRange();
     }
 }

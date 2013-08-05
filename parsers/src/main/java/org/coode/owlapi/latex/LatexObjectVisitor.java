@@ -38,8 +38,6 @@
  */
 package org.coode.owlapi.latex;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -57,7 +55,6 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * NOTE: this class was not designed as a general purpose renderer, i.e., some
  * ontologies might be misrepresented in the output. Please report any
  * formatting error you find to the bug tracker or the mailing list. */
-
 public class LatexObjectVisitor implements OWLObjectVisitor {
     public static final String AND = "\\ensuremath{\\sqcap}";
     public static final String OR = "\\ensuremath{\\sqcup}";
@@ -317,7 +314,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        checkNotNull(axiom);
         if (axiom.getClassExpressions().size() != 2) {
             for (OWLClassExpression left : axiom.getClassExpressions()) {
                 for (OWLClassExpression right : axiom.getClassExpressions()) {
@@ -368,7 +364,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        checkNotNull(axiom);
         if (axiom.getClassExpressions().size() > 2) {
             Set<Set<OWLClassExpression>> rendered = new HashSet<Set<OWLClassExpression>>();
             for (OWLClassExpression left : axiom.getClassExpressions()) {
@@ -410,7 +405,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-        checkNotNull(axiom);
         setPrettyPrint(false);
         axiom.getSubClass().accept(this);
         writeSpace();
@@ -423,7 +417,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getIndividual().accept(this);
         writeSpace();
         write(":");
@@ -433,14 +426,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         write("AsymmetricProperty");
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         writeSpace();
         write("(");
@@ -452,7 +443,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        checkNotNull(axiom);
         df.getOWLDataSomeValuesFrom(axiom.getProperty(), df.getTopDatatype())
                 .accept(this);
         writeSpace();
@@ -463,7 +453,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
-        checkNotNull(axiom);
         write(TOP);
         writeSpace();
         write(SUBCLASS);
@@ -473,7 +462,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubProperty();
         writeSpace();
         write(SUBCLASS);
@@ -483,14 +471,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
-        checkNotNull(axiom);
         write("Declaration");
         axiom.getEntity().accept(this);
     }
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        checkNotNull(axiom);
         for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it.hasNext();) {
             write("\\{");
             it.next().accept(this);
@@ -505,7 +491,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         for (Iterator<OWLDataPropertyExpression> it = axiom.getProperties().iterator(); it
                 .hasNext();) {
             it.next().accept(this);
@@ -519,7 +504,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         write("DisjointObjectProperties");
         writeSpace();
         for (OWLObjectPropertyExpression p : axiom.getProperties()) {
@@ -530,7 +514,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
-        checkNotNull(axiom);
         write("DisjointUnion");
         writeSpace();
         for (OWLClassExpression p : axiom.getClassExpressions()) {
@@ -541,7 +524,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-        checkNotNull(axiom);
         write("Annotation");
         axiom.getSubject().accept(this);
         writeSpace();
@@ -552,7 +534,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         for (Iterator<OWLDataPropertyExpression> it = axiom.getProperties().iterator(); it
                 .hasNext();) {
             it.next().accept(this);
@@ -566,7 +547,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         for (Iterator<OWLObjectPropertyExpression> it = axiom.getProperties().iterator(); it
                 .hasNext();) {
             it.next().accept(this);
@@ -580,7 +560,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-        checkNotNull(axiom);
         write(TOP);
         writeSpace();
         write(SUBCLASS);
@@ -590,7 +569,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         write(TOP);
         writeSpace();
         write(SUBCLASS);
@@ -599,14 +577,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     public void visit(OWLImportsDeclaration axiom) {
-        checkNotNull(axiom);
         write("ImportsDeclaration");
         axiom.getIRI().accept(this);
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         write(TOP);
         writeSpace();
         write(SUBCLASS);
@@ -617,7 +593,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         write(axiom.getFirstProperty());
         writeSpace();
         write(EQUIV);
@@ -628,14 +603,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         write("IrreflexiveObjectProperty");
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         write(NOT);
         axiom.getProperty().accept(this);
         write("(");
@@ -647,7 +620,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         write(NOT);
         axiom.getProperty().accept(this);
         write("(");
@@ -659,7 +631,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         write("(");
         axiom.getSubject().accept(this);
@@ -670,7 +641,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        checkNotNull(axiom);
         for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain()
                 .iterator(); it.hasNext();) {
             it.next().accept(this);
@@ -688,7 +658,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        checkNotNull(axiom);
         df.getOWLObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()).accept(this);
         writeSpace();
         write(SUBCLASS);
@@ -698,7 +667,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
-        checkNotNull(axiom);
         write(TOP);
         writeSpace();
         write(SUBCLASS);
@@ -708,7 +676,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubProperty();
         writeSpace();
         write(SUBCLASS);
@@ -718,14 +685,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         write("ReflexiveProperty");
         axiom.getProperty().accept(this);
     }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        checkNotNull(axiom);
         for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it.hasNext();) {
             write("\\{");
             it.next().accept(this);
@@ -740,7 +705,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         writeSpace();
         write(EQUIV);
@@ -751,7 +715,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        checkNotNull(axiom);
         write("Datatype");
         axiom.getDatatype().accept(this);
         write(EQUIV);
@@ -760,7 +723,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         write("TransitiveProperty");
         axiom.getProperty().accept(this);
     }
@@ -940,7 +902,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        checkNotNull(axiom);
         write("Domain");
         axiom.getProperty().getIRI().accept(this);
         writeSpace();
@@ -949,7 +910,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        checkNotNull(axiom);
         write("Range");
         axiom.getProperty().getIRI().accept(this);
         writeSpace();
@@ -958,7 +918,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubProperty();
         writeSpace();
         write(SUBCLASS);
@@ -987,7 +946,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
-        checkNotNull(axiom);
         write("HasKey");
         axiom.getClassExpression().accept(this);
         for (OWLPropertyExpression p : axiom.getPropertyExpressions()) {

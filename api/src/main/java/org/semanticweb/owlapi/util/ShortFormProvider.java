@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /** Author: Matthew Horridge<br>
@@ -57,9 +59,9 @@ public interface ShortFormProvider {
      * 
      * @param entity
      *            The entity.
-     * @return A string which represents a short rendering of the speicified
-     *         entity. */
-    String getShortForm(OWLEntity entity);
+     * @return A string which represents a short rendering of entity. */
+    @Nonnull
+    String getShortForm(@Nonnull OWLEntity entity);
 
     /** Disposes of the short form proivider. This frees any resources and clears
      * any caches. */

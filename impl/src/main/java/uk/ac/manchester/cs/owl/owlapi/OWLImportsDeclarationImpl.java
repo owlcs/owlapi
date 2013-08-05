@@ -41,7 +41,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
-import java.net.URI;
 
 import javax.annotation.Nonnull;
 
@@ -65,11 +64,6 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Seriali
     @Override
     public IRI getIRI() {
         return iri;
-    }
-
-    @Override
-    public URI getURI() {
-        return iri.toURI();
     }
 
     @Override

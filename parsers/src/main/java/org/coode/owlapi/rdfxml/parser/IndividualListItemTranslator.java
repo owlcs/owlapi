@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br>
  * <br> */
-
 public class IndividualListItemTranslator implements ListItemTranslator<OWLIndividual> {
     private static final Logger logger = Logger
             .getLogger(IndividualListItemTranslator.class.getName());

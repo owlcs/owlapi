@@ -38,10 +38,13 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -94,9 +97,9 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *            ontology from which candidate annotation axioms should be
      *            taken. For a given entity, all ontologies are examined. */
     public AnnotationValueShortFormProvider(
-            List<OWLAnnotationProperty> annotationProperties,
-            Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
-            OWLOntologySetProvider ontologySetProvider) {
+            @Nonnull List<OWLAnnotationProperty> annotationProperties,
+            @Nonnull Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
+            @Nonnull OWLOntologySetProvider ontologySetProvider) {
         this(annotationProperties, preferredLanguageMap, ontologySetProvider,
                 new SimpleShortFormProvider());
     }
@@ -126,10 +129,10 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *            annotation is an <code>OWLIndividual</code> for providing the
      *            short form of the individual. */
     public AnnotationValueShortFormProvider(
-            List<OWLAnnotationProperty> annotationProperties,
-            Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
-            OWLOntologySetProvider ontologySetProvider,
-            ShortFormProvider alternateShortFormProvider) {
+            @Nonnull List<OWLAnnotationProperty> annotationProperties,
+            @Nonnull Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
+            @Nonnull OWLOntologySetProvider ontologySetProvider,
+            @Nonnull ShortFormProvider alternateShortFormProvider) {
         this(ontologySetProvider, alternateShortFormProvider,
                 new SimpleIRIShortFormProvider(), annotationProperties,
                 preferredLanguageMap);
@@ -161,11 +164,12 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *            short form of the individual.
      * @param alternateIRIShortFormProvider
      *            the alternate IRI short form provider */
-    public AnnotationValueShortFormProvider(OWLOntologySetProvider ontologySetProvider,
-            ShortFormProvider alternateShortFormProvider,
-            IRIShortFormProvider alternateIRIShortFormProvider,
-            List<OWLAnnotationProperty> annotationProperties,
-            Map<OWLAnnotationProperty, List<String>> preferredLanguageMap) {
+    public AnnotationValueShortFormProvider(
+            @Nonnull OWLOntologySetProvider ontologySetProvider,
+            @Nonnull ShortFormProvider alternateShortFormProvider,
+            @Nonnull IRIShortFormProvider alternateIRIShortFormProvider,
+            @Nonnull List<OWLAnnotationProperty> annotationProperties,
+            @Nonnull Map<OWLAnnotationProperty, List<String>> preferredLanguageMap) {
         this(ontologySetProvider, alternateShortFormProvider,
                 alternateIRIShortFormProvider, annotationProperties,
                 preferredLanguageMap, new OWLAnnotationValueVisitorEx<String>() {
@@ -188,18 +192,19 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     }
 
     @SuppressWarnings("javadoc")
-    public AnnotationValueShortFormProvider(OWLOntologySetProvider ontologySetProvider,
-            ShortFormProvider alternateShortFormProvider,
-            IRIShortFormProvider alternateIRIShortFormProvider,
-            List<OWLAnnotationProperty> annotationProperties,
-            Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
-            OWLAnnotationValueVisitorEx<String> literalRenderer) {
-        this.ontologySetProvider = ontologySetProvider;
-        this.alternateShortFormProvider = alternateShortFormProvider;
-        this.alternateIRIShortFormProvider = alternateIRIShortFormProvider;
-        this.annotationProperties = annotationProperties;
-        this.preferredLanguageMap = preferredLanguageMap;
-        this.literalRenderer = literalRenderer;
+    public AnnotationValueShortFormProvider(
+            @Nonnull OWLOntologySetProvider ontologySetProvider,
+            @Nonnull ShortFormProvider alternateShortFormProvider,
+            @Nonnull IRIShortFormProvider alternateIRIShortFormProvider,
+            @Nonnull List<OWLAnnotationProperty> annotationProperties,
+            @Nonnull Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
+            @Nonnull OWLAnnotationValueVisitorEx<String> literalRenderer) {
+        this.ontologySetProvider = checkNotNull(ontologySetProvider);
+        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider);
+        this.alternateIRIShortFormProvider = checkNotNull(alternateIRIShortFormProvider);
+        this.annotationProperties = checkNotNull(annotationProperties);
+        this.preferredLanguageMap = checkNotNull(preferredLanguageMap);
+        this.literalRenderer = checkNotNull(literalRenderer);
     }
 
     @Override

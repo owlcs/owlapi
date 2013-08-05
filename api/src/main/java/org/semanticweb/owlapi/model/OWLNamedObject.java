@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -48,8 +50,9 @@ public interface OWLNamedObject extends OWLObject {
     /** Gets the IRI of this object
      * 
      * @return The IRI of this object */
+    @Nonnull
     IRI getIRI();
 
     @SuppressWarnings("javadoc")
-    void accept(OWLNamedObjectVisitor visitor);
+    void accept(@Nonnull OWLNamedObjectVisitor visitor);
 }

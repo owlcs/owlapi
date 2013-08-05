@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
@@ -49,5 +51,6 @@ package org.semanticweb.owlapi.model;
  * <br> */
 public interface SWRLIndividualArgument extends SWRLIArgument {
     /** @return the wrapped individual */
+    @Nonnull
     OWLIndividual getIndividual();
 }

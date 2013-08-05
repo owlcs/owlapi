@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -126,8 +130,8 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
 
     /** @param dataFactory
      *            datafactory to use */
-    public NNF(OWLDataFactory dataFactory) {
-        this.dataFactory = dataFactory;
+    public NNF(@Nonnull OWLDataFactory dataFactory) {
+        this.dataFactory = checkNotNull(dataFactory);
     }
 
     /** reset the negation */

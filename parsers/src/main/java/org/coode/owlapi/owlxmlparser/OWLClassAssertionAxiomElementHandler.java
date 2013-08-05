@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-
 public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLIndividual individual;
     private OWLClassExpression classExpression;

@@ -76,8 +76,7 @@ public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor
     private final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
 
     @SuppressWarnings("javadoc")
-    public OWLObjectComplementOfExtractor() {
-    }
+    public OWLObjectComplementOfExtractor() {}
 
     /** @param desc
      *            the class to look for

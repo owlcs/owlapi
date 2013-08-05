@@ -63,8 +63,7 @@ public class SWRLDifferentIndividualsAtomImpl extends
     @SuppressWarnings("javadoc")
     public SWRLDifferentIndividualsAtomImpl(@Nonnull OWLObjectProperty property,
             @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1) {
-        super(checkNotNull(property), checkNotNull(arg0),
-                checkNotNull(arg1));
+        super(checkNotNull(property), checkNotNull(arg0), checkNotNull(arg1));
     }
 
     @Override

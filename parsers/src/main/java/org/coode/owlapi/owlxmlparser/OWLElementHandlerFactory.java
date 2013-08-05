@@ -43,7 +43,6 @@ package org.coode.owlapi.owlxmlparser;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-
 public interface OWLElementHandlerFactory {
     public String getElementName();
 

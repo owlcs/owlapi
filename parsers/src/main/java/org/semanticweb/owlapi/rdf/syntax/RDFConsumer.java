@@ -74,8 +74,7 @@ public interface RDFConsumer {
      *            URI of the object resource
      * @throws SAXException */
     void statementWithResourceValue(@Nonnull String subject, @Nonnull String predicate,
-            @Nonnull String object)
-            throws SAXException;
+            @Nonnull String object) throws SAXException;
 
     /** Called when a statement with literal value is added to the model.
      * 

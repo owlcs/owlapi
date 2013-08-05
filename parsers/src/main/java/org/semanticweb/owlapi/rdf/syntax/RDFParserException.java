@@ -48,7 +48,6 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
 /** Throws if an RDF error is encountered while parsing RDF. */
-
 public class RDFParserException extends SAXException {
     private static final long serialVersionUID = 40000L;
     protected String m_publicId;

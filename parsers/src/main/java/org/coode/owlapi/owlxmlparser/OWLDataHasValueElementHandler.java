@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-
 public class OWLDataHasValueElementHandler extends
         AbstractDataRestrictionElementHandler<OWLLiteral> {
     public OWLDataHasValueElementHandler(OWLXMLParserHandler handler) {

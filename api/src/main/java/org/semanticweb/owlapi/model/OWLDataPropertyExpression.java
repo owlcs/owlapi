@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 A high level interface to
@@ -53,5 +55,6 @@ public interface OWLDataPropertyExpression extends OWLPropertyExpression, SWRLPr
      * @return The property as an <code>OWLDataProperty</code> if possible.
      * @throws OWLRuntimeException
      *             if the property is not a named property. */
+    @Nonnull
     OWLDataProperty asOWLDataProperty();
 }

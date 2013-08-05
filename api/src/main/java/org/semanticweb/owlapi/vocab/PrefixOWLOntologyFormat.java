@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.vocab;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -64,15 +68,15 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
 
     /** @param manager
      *            prefix manager to use */
-    public PrefixOWLOntologyFormat(PrefixManager manager) {
-        nsm = manager;
+    public PrefixOWLOntologyFormat(@Nonnull PrefixManager manager) {
+        nsm = checkNotNull(manager);
         nsm.clear();
     }
 
     /** @param m
      *            prefix manager to use */
-    public void setPrefixManager(PrefixManager m) {
-        nsm = m;
+    public void setPrefixManager(@Nonnull PrefixManager m) {
+        nsm = checkNotNull(m);
         nsm.clear();
     }
 

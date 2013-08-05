@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -52,8 +54,7 @@ package org.semanticweb.owlapi.model;
  *            property expression */
 public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extends OWLPropertyRange>
         extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut {
-    /** Gets the range specified by this axiom
-     * 
-     * @return The range specified by this axiom. */
+    /** @return The range specified by this axiom. */
+    @Nonnull
     R getRange();
 }

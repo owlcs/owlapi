@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * Bio Health Informatics Group<br>
  * Date: Dec 19, 2008<br>
  * <br> */
-
 public class OBOStorageException extends OWLOntologyStorageException {
     private static final long serialVersionUID = 40000L;
 

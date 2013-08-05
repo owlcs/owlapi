@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Bio-Health Informatics Group<br>
  * Date: 06-Mar-2007<br>
  * <br> */
-
 public class DisjointFromHandler extends AbstractTagValueHandler {
     public DisjointFromHandler(OBOConsumer consumer) {
         super("disjoint_from", consumer);

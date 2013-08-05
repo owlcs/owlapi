@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 02-Feb-2009 */
-
 public class TPHasKeyHandler extends TriplePredicateHandler {
     private OptimisedListTranslator<OWLPropertyExpression> listTranslator;
 

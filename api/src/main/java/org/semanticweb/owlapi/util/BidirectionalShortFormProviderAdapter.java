@@ -38,9 +38,13 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -73,8 +77,9 @@ public class BidirectionalShortFormProviderAdapter extends
 
     /** @param shortFormProvider
      *            the short form provider to use */
-    public BidirectionalShortFormProviderAdapter(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = shortFormProvider;
+    public BidirectionalShortFormProviderAdapter(
+            @Nonnull ShortFormProvider shortFormProvider) {
+        this.shortFormProvider = checkNotNull(shortFormProvider);
     }
 
     /** Creates a BidirectionalShortFormProvider that maps between the entities
@@ -87,10 +92,10 @@ public class BidirectionalShortFormProviderAdapter extends
      * @param shortFormProvider
      *            The short form provider that should be used to generate the
      *            short forms of the referenced entities. */
-    public BidirectionalShortFormProviderAdapter(Set<OWLOntology> ontologies,
-            ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = shortFormProvider;
-        this.ontologies = new HashSet<OWLOntology>(ontologies);
+    public BidirectionalShortFormProviderAdapter(@Nonnull Set<OWLOntology> ontologies,
+            @Nonnull ShortFormProvider shortFormProvider) {
+        this.shortFormProvider = checkNotNull(shortFormProvider);
+        this.ontologies = new HashSet<OWLOntology>(checkNotNull(ontologies));
         rebuild(new ReferencedEntitySetProvider(ontologies));
     }
 
@@ -111,10 +116,11 @@ public class BidirectionalShortFormProviderAdapter extends
      *            provider will listen for ontology changes and update the cache
      *            of entity--shortform mappings based on whether the specified
      *            ontologies contain references to entities or not. */
-    public BidirectionalShortFormProviderAdapter(OWLOntologyManager man,
-            Set<OWLOntology> ontologies, ShortFormProvider shortFormProvider) {
+    public BidirectionalShortFormProviderAdapter(@Nonnull OWLOntologyManager man,
+            @Nonnull Set<OWLOntology> ontologies,
+            @Nonnull ShortFormProvider shortFormProvider) {
         this(ontologies, shortFormProvider);
-        this.man = man;
+        this.man = checkNotNull(man);
         this.man.addOntologyChangeListener(changeListener);
     }
 

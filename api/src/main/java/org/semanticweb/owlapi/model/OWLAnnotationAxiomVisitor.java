@@ -37,14 +37,14 @@
  * limitations under the License.
  */
 package org.semanticweb.owlapi.model;
-import javax.annotation.Nonnull;
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
- * </p>
- * A visitor which visits the different kinds of annotation axioms.
- */
 
+import javax.annotation.Nonnull;
+
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 17-Jan-2009 </p> A visitor which visits the different kinds of
+ * annotation axioms. */
 @SuppressWarnings("javadoc")
 public interface OWLAnnotationAxiomVisitor {
     void visit(@Nonnull OWLAnnotationAssertionAxiom axiom);

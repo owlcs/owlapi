@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 21-Jan-2009 */
-
 public class TypeNamedIndividualHandler extends BuiltInTypeHandler {
     public TypeNamedIndividualHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI());

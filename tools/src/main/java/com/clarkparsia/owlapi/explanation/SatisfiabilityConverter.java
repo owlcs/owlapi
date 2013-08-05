@@ -157,7 +157,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLClassAssertionAxiom axiom) {
-            checkNotNull(axiom);
             OWLIndividual ind = axiom.getIndividual();
             OWLClassExpression c = axiom.getClassExpression();
             result = and(oneOf(ind), not(c));
@@ -165,7 +164,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
-            checkNotNull(axiom);
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLDataHasValue(axiom.getProperty(),
                     axiom.getObject());
@@ -175,7 +173,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLDataPropertyDomainAxiom axiom) {
-            checkNotNull(axiom);
             OWLClassExpression sub = factory.getOWLDataSomeValuesFrom(
                     axiom.getProperty(), factory.getTopDatatype());
             result = and(sub, not(axiom.getDomain()));
@@ -183,7 +180,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLDataPropertyRangeAxiom axiom) {
-            checkNotNull(axiom);
             result = factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
                     factory.getOWLDataComplementOf(axiom.getRange()));
         }
@@ -202,7 +198,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
-            checkNotNull(axiom);
             Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 nominals.add(oneOf(ind));
@@ -212,7 +207,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            checkNotNull(axiom);
             result = and(axiom.getClassExpressions());
         }
 
@@ -242,7 +236,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            checkNotNull(axiom);
             Iterator<OWLClassExpression> classes = axiom.getClassExpressions().iterator();
             OWLClassExpression c1 = classes.next();
             OWLClassExpression c2 = classes.next();
@@ -308,7 +301,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-            checkNotNull(axiom);
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLDataHasValue(axiom.getProperty(),
                     axiom.getObject());
@@ -317,7 +309,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-            checkNotNull(axiom);
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(),
                     axiom.getObject());
@@ -326,7 +317,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-            checkNotNull(axiom);
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(),
                     axiom.getObject());
@@ -342,7 +332,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
-            checkNotNull(axiom);
             result = and(
                     factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
                             factory.getOWLThing()), not(axiom.getDomain()));
@@ -350,7 +339,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLObjectPropertyRangeAxiom axiom) {
-            checkNotNull(axiom);
             result = factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
                     not(axiom.getRange()));
         }
@@ -369,7 +357,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLSameIndividualAxiom axiom) {
-            checkNotNull(axiom);
             Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 nominals.add(not(oneOf(ind)));
@@ -379,7 +366,6 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
-            checkNotNull(axiom);
             OWLClassExpression sub = axiom.getSubClass();
             OWLClassExpression sup = axiom.getSuperClass();
             if (sup.isOWLNothing()) {

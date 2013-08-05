@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
@@ -53,5 +55,6 @@ public interface SWRLVariable extends SWRLIArgument, SWRLDArgument {
     /** Gets the variable IRI that names the variable
      * 
      * @return The IRI that represents the name of the variable */
+    @Nonnull
     IRI getIRI();
 }

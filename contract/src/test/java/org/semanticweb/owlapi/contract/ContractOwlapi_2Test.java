@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -1301,7 +1300,6 @@ public class ContractOwlapi_2Test {
                 IRI("urn:aFake"));
         String result0 = testSubject0.toString();
         IRI result3 = testSubject0.getIRI();
-        URI result5 = testSubject0.getURI();
     }
 
     @Test

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 Represents an <a
@@ -53,15 +55,18 @@ public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O ex
     /** Gets the individual that is the subject of this assertion.
      * 
      * @return The individual that represents the subject of this assertion. */
+    @Nonnull
     OWLIndividual getSubject();
 
     /** Gets the property that this assertion acts along
      * 
      * @return The property */
+    @Nonnull
     P getProperty();
 
     /** Gets the object of this assertion
      * 
      * @return The object that this assertion points to. */
+    @Nonnull
     O getObject();
 }

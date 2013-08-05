@@ -58,7 +58,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 03/02/2011 */
-
 public class SynonymTagValueHandler extends AbstractTagValueHandler {
     private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
     // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList

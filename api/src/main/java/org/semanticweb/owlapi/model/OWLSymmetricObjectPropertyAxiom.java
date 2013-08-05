@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 </p> Represents <a href=
@@ -48,8 +50,10 @@ import java.util.Set;
 public interface OWLSymmetricObjectPropertyAxiom extends
         OWLObjectPropertyCharacteristicAxiom {
     /** @return the set of axioms equivalent to this axiom */
+    @Nonnull
     Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms();
 
     @Override
+    @Nonnull
     OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 }

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /** Author: Matthew Horridge<br>
@@ -48,5 +50,5 @@ public interface SWRLVariableShortFormProvider {
     /** @param variable
      *            variable to shorten
      * @return short form */
-    String getShortForm(SWRLVariable variable);
+    String getShortForm(@Nonnull SWRLVariable variable);
 }

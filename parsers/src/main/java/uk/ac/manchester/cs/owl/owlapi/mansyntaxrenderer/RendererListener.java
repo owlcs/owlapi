@@ -42,7 +42,6 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 15-Jul-2009 */
-
 public interface RendererListener {
     void frameRenderingPrepared(String frameName, RendererEvent event);
 

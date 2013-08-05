@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -49,6 +51,7 @@ import java.util.Set;
  * >DifferentIndividuals</a> axiom in the OWL 2 Specification. */
 public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
     @Override
+    @Nonnull
     OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
 
     /** Determines whether this axiom contains anonymous individuals. Anonymous
@@ -59,5 +62,6 @@ public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
     boolean containsAnonymousIndividuals();
 
     @Override
+    @Nonnull
     Set<OWLDifferentIndividualsAxiom> asPairwiseAxioms();
 }

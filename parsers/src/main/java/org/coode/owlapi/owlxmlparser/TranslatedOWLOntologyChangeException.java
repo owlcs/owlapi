@@ -45,7 +45,6 @@ import org.xml.sax.SAXException;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 07-Dec-2009 */
-
 public class TranslatedOWLOntologyChangeException extends SAXException {
     private static final long serialVersionUID = 40000L;
 

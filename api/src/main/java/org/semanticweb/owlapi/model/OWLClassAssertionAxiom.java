@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 </a> Represents <a
@@ -49,14 +51,17 @@ public interface OWLClassAssertionAxiom extends OWLIndividualAxiom,
      * expression by this axiom.
      * 
      * @return The individual */
+    @Nonnull
     OWLIndividual getIndividual();
 
     /** Gets the class expression that is asserted to be a type for an individual
      * by this axiom.
      * 
      * @return The class expression */
+    @Nonnull
     OWLClassExpression getClassExpression();
 
     @Override
+    @Nonnull
     OWLClassAssertionAxiom getAxiomWithoutAnnotations();
 }

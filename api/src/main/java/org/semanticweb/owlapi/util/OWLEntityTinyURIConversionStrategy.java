@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -71,8 +75,8 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
     /** default base */
     public static final String DEFAULT_BASE = "http://tinyname.org#";
     private final String base;
-    private final Map<OWLEntity, IRI> entityNameMap;
-    private final OWLEntityFragmentProvider fragmentProvider;
+    private final Map<OWLEntity, IRI> entityNameMap = new HashMap<OWLEntity, IRI>();
+    private final OWLEntityFragmentProvider fragmentProvider = new OWLEntityFragmentProvider();
 
     /** Constructs an entity URI converter strategy, where the base of the
      * generated URIs corresponds to the value specified by the DEFAULT_BASE
@@ -86,10 +90,8 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
      * 
      * @param base
      *            The base to be used. */
-    public OWLEntityTinyURIConversionStrategy(String base) {
-        this.base = base;
-        entityNameMap = new HashMap<OWLEntity, IRI>();
-        fragmentProvider = new OWLEntityFragmentProvider();
+    public OWLEntityTinyURIConversionStrategy(@Nonnull String base) {
+        this.base = checkNotNull(base);
     }
 
     @Override

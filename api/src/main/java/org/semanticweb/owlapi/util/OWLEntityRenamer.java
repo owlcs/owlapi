@@ -38,12 +38,16 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -71,29 +75,32 @@ public class OWLEntityRenamer {
      *            the ontology manager to use
      * @param ontologies
      *            the ontologies to use */
-    public OWLEntityRenamer(OWLOntologyManager owlOntologyManager,
-            Set<OWLOntology> ontologies) {
-        this.owlOntologyManager = owlOntologyManager;
-        this.ontologies = ontologies;
+    public OWLEntityRenamer(@Nonnull OWLOntologyManager owlOntologyManager,
+            @Nonnull Set<OWLOntology> ontologies) {
+        this.owlOntologyManager = checkNotNull(owlOntologyManager);
+        this.ontologies = checkNotNull(ontologies);
     }
 
     /** Changes a IRI for another IRI. This creates the appropriate changes to be
      * applied in order to change a IRI.
      * 
-     * @param uri
+     * @param iri
      *            The IRI to be changed
      * @param newIRI
      *            The IRI that the IRI should be changed to.
      * @return A list of ontology changes that should be applied to change the
      *         specified IRI. */
-    public List<OWLOntologyChange<?>> changeIRI(IRI uri, IRI newIRI) {
+    @Nonnull
+    public List<OWLOntologyChange<?>> changeIRI(@Nonnull IRI iri, @Nonnull IRI newIRI) {
+        checkNotNull(iri);
+        checkNotNull(newIRI);
         Map<IRI, IRI> uriMap = new HashMap<IRI, IRI>();
-        uriMap.put(uri, newIRI);
+        uriMap.put(iri, newIRI);
         List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
         OWLObjectDuplicator dup = new OWLObjectDuplicator(
                 owlOntologyManager.getOWLDataFactory(), uriMap);
         for (OWLOntology ont : ontologies) {
-            fillListWithTransformChanges(changes, getAxioms(ont, uri), ont, dup);
+            fillListWithTransformChanges(changes, getAxioms(ont, iri), ont, dup);
         }
         return changes;
     }

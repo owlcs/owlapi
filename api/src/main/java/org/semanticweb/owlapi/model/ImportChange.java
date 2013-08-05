@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collections;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -52,14 +56,16 @@ public abstract class ImportChange extends OWLOntologyChange<OWLImportsDeclarati
      *            the ontology to which the change is to be applied
      * @param importDeclaration
      *            the import declaration */
-    public ImportChange(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
+    public ImportChange(@Nonnull OWLOntology ont,
+            @Nonnull OWLImportsDeclaration importDeclaration) {
         super(ont);
-        declaration = importDeclaration;
+        declaration = checkNotNull(importDeclaration);
     }
 
     /** Gets the import declaration that the change pertains to.
      * 
      * @return The import declaration */
+    @Nonnull
     public OWLImportsDeclaration getImportDeclaration() {
         return declaration;
     }

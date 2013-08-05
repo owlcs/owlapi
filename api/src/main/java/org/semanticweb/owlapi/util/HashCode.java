@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -138,7 +142,8 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     /** @param object
      *            the object to compute the hashcode for
      * @return the hashcode */
-    public static int hashCode(OWLObject object) {
+    public static int hashCode(@Nonnull OWLObject object) {
+        checkNotNull(object);
         HashCode hashCode = new HashCode();
         object.accept(hashCode);
         return hashCode.hashCode;

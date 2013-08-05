@@ -38,11 +38,15 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -120,13 +124,12 @@ import org.semanticweb.owlapi.model.SWRLRule;
 public class StructuralTransformation {
     protected final OWLDataFactory df;
     private int nameCounter = 0;
-    protected final Set<OWLEntity> signature;
+    protected final Set<OWLEntity> signature = new HashSet<OWLEntity>();
 
     /** @param dataFactory
      *            factory to use */
-    public StructuralTransformation(OWLDataFactory dataFactory) {
-        df = dataFactory;
-        signature = new HashSet<OWLEntity>();
+    public StructuralTransformation(@Nonnull OWLDataFactory dataFactory) {
+        df = checkNotNull(dataFactory);
     }
 
     protected OWLClass createNewName() {
@@ -139,7 +142,8 @@ public class StructuralTransformation {
     /** @param axioms
      *            axioms to transform
      * @return transformed axioms */
-    public Set<OWLAxiom> getTransformedAxioms(Set<OWLAxiom> axioms) {
+    public Set<OWLAxiom> getTransformedAxioms(@Nonnull Set<OWLAxiom> axioms) {
+        checkNotNull(axioms);
         signature.clear();
         for (OWLAxiom ax : axioms) {
             signature.addAll(ax.getSignature());

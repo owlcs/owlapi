@@ -149,7 +149,6 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * <br>
  * <p/>
  * Renders objects in unicode DL syntax */
-
 public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         OWLObjectRenderer, OWLObjectVisitor {
     private ShortFormProvider shortFormProvider;
@@ -242,8 +241,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     protected void write(@Nonnull Collection<? extends OWLObject> objects,
-            @Nonnull DLSyntax delim,
-            boolean nest) {
+            @Nonnull DLSyntax delim, boolean nest) {
         checkNotNull(objects);
         checkNotNull(delim);
         if (objects.size() == 2) {
@@ -301,14 +299,12 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         write(NOT);
         writePropertyAssertion(axiom);
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         write(TOP);
         writeSpace();
         write(SUBCLASS);
@@ -322,7 +318,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        checkNotNull(axiom);
         List<OWLClassExpression> descs = new ArrayList<OWLClassExpression>(
                 axiom.getClassExpressions());
         for (int i = 0; i < descs.size(); i++) {
@@ -341,7 +336,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     private void writeDomainAxiom(@Nonnull OWLPropertyDomainAxiom<?> axiom) {
-        checkNotNull(axiom);
         write(EXISTS);
         writeSpace();
         axiom.getProperty().accept(this);
@@ -436,7 +430,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubProperty().accept(this);
         writeSpace();
         write(SUBCLASS);
@@ -446,7 +439,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getOWLClass().accept(this);
         write(EQUAL);
         write(axiom.getClassExpressions(), OR, false);
@@ -483,7 +475,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
-        checkNotNull(axiom);
         if (axiom.getClassExpression().isAnonymous()) {
             write("(");
         }
@@ -508,7 +499,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getProperty().accept(this);
         writeSpace();
         write(IN);
@@ -519,7 +509,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         write(TOP);
         writeSpace();
         write(SUBCLASS);
@@ -534,7 +523,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        checkNotNull(axiom);
         axiom.getSubProperty().accept(this);
         write(SUBCLASS);
         axiom.getSuperProperty().accept(this);
@@ -542,7 +530,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         write(TOP);
         writeSpace();
         write(SUBCLASS);
@@ -562,7 +549,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        checkNotNull(axiom);
         write(axiom.getPropertyChain(), COMP, false);
         writeSpace();
         write(SUBCLASS);
@@ -572,7 +558,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         OWLObject o1 = axiom.getFirstProperty();
         OWLObject o2 = axiom.getSecondProperty();
         OWLObject first, second;

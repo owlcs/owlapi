@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /** Author: Matthew Horridge<br>
@@ -50,5 +52,6 @@ public interface IRIShortFormProvider {
     /** @param iri
      *            the IRI to shorten
      * @return the short form */
-    String getShortForm(IRI iri);
+    @Nonnull
+    String getShortForm(@Nonnull IRI iri);
 }

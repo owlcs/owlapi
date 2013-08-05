@@ -51,7 +51,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br>
  * <br> */
-
 public class TPDifferentFromHandler extends TriplePredicateHandler {
     public TPDifferentFromHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DIFFERENT_FROM.getIRI());

@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -49,10 +51,12 @@ import java.util.Set;
 public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression> extends
         OWLPropertyAxiom {
     /** @return all of the properties that appear in this axiom */
+    @Nonnull
     Set<P> getProperties();
 
     /** @param property
      *            the property to skip
      * @return the set of properties minus property */
-    Set<P> getPropertiesMinus(P property);
+    @Nonnull
+    Set<P> getPropertiesMinus(@Nonnull P property);
 }

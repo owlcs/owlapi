@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
@@ -51,14 +53,17 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
      * 
      * @return The annotation property that represents the subproperty in this
      *         axiom. */
+    @Nonnull
     OWLAnnotationProperty getSubProperty();
 
     /** Gets the superproperty of this axiom.
      * 
      * @return The annotation property that represents the superproperty in this
      *         axiom. */
+    @Nonnull
     OWLAnnotationProperty getSuperProperty();
 
     @Override
+    @Nonnull
     OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations();
 }

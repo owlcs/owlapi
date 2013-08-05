@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
@@ -53,11 +55,13 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * for
      * 
      * @return The class expression */
+    @Nonnull
     OWLClassExpression getClassExpression();
 
     /** Gets the set of property expressions that form the key
      * 
      * @return The set of property expression that form the key */
+    @Nonnull
     Set<OWLPropertyExpression> getPropertyExpressions();
 
     /** Gets the set of object property expressions that make up the key. This is
@@ -68,6 +72,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * 
      * @return The set of object property expressions in the key described by
      *         this axiom */
+    @Nonnull
     Set<OWLObjectPropertyExpression> getObjectPropertyExpressions();
 
     /** Gets the set of data property expressions that make up the key. This is
@@ -78,8 +83,10 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * 
      * @return The set of object property expressions in the key described by
      *         this axiom */
+    @Nonnull
     Set<OWLDataPropertyExpression> getDataPropertyExpressions();
 
     @Override
+    @Nonnull
     OWLHasKeyAxiom getAxiomWithoutAnnotations();
 }

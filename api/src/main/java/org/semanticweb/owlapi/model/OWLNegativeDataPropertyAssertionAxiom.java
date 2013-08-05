@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -49,6 +51,7 @@ public interface OWLNegativeDataPropertyAssertionAxiom extends
         OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>,
         OWLSubClassOfAxiomShortCut {
     @Override
+    @Nonnull
     OWLNegativeDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
     /** Determines whether this axiom contains anonymous individuals. Anonymous

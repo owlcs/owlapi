@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -47,8 +49,10 @@ package org.semanticweb.owlapi.model;
 public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression> extends
         OWLPropertyAxiom {
     /** @return the sub property */
+    @Nonnull
     P getSubProperty();
 
     /** @return the super property */
+    @Nonnull
     P getSuperProperty();
 }

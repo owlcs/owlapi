@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -49,11 +51,11 @@ package org.semanticweb.owlapi.model;
  * A declaration axiom declares an entity in an ontology. It doesn't affect the
  * logical meaning of the ontology. */
 public interface OWLDeclarationAxiom extends OWLAxiom {
-    /** Gets the entity that this axiom declares.
-     * 
-     * @return The entity that is declared by this axiom. */
+    /** @return The entity that is declared by this axiom. */
+    @Nonnull
     OWLEntity getEntity();
 
     @Override
+    @Nonnull
     OWLDeclarationAxiom getAxiomWithoutAnnotations();
 }

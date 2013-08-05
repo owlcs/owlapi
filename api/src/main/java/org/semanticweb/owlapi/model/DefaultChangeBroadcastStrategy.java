@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -53,8 +55,8 @@ public class DefaultChangeBroadcastStrategy implements
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public void broadcastChanges(OWLOntologyChangeListener listener,
-            List<? extends OWLOntologyChange<?>> changes) throws OWLException {
+    public void broadcastChanges(@Nonnull OWLOntologyChangeListener listener,
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) throws OWLException {
         // Just broadcast all changes
         listener.ontologiesChanged(changes);
     }

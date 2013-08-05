@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.OutputStream;
 import java.io.Writer;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -54,8 +58,8 @@ public class WriterDocumentTarget implements OWLOntologyDocumentTarget {
 
     /** @param writer
      *            the writer to use */
-    public WriterDocumentTarget(Writer writer) {
-        this.writer = writer;
+    public WriterDocumentTarget(@Nonnull Writer writer) {
+        this.writer = checkNotNull(writer);
     }
 
     @Override

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.io;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /** Author: Matthew Horridge<br>
@@ -48,5 +50,6 @@ import org.semanticweb.owlapi.model.IRI;
  * @since 3.2 */
 public abstract class RDFResource extends RDFNode {
     /** @return the resource IRI */
+    @Nonnull
     public abstract IRI getResource();
 }

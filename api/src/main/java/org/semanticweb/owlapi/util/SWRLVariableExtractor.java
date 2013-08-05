@@ -63,12 +63,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * <br>
  * Extracts the variables from rules */
 public class SWRLVariableExtractor implements SWRLObjectVisitor {
-    private final Set<SWRLVariable> variables;
-
-    @SuppressWarnings("javadoc")
-    public SWRLVariableExtractor() {
-        variables = new LinkedHashSet<SWRLVariable>();
-    }
+    private final Set<SWRLVariable> variables = new LinkedHashSet<SWRLVariable>();
 
     /** @return the set of variables */
     public Set<SWRLVariable> getVariables() {

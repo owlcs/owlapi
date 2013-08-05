@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br>
  * <br> */
-
 public class TPOneOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
     public TPOneOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ONE_OF.getIRI());

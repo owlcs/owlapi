@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
@@ -48,13 +50,16 @@ public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom {
     /** Gets the annotation property that this axiom specifies a domain for.
      * 
      * @return The annotation property. */
+    @Nonnull
     OWLAnnotationProperty getProperty();
 
     /** Gets the IRI that represents the domain.
      * 
      * @return The IRI that represents the domain */
+    @Nonnull
     IRI getDomain();
 
     @Override
+    @Nonnull
     OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();
 }

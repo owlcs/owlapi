@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.IRI;
  * Bio-Health Informatics Group<br>
  * Date: 24-Feb-2008<br>
  * <br> */
-
 public interface TripleHandler {
     void handlePrefixDirective(String prefixName, String prefix);
 

@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 */
@@ -49,7 +51,8 @@ public interface OWLMutableOntology extends OWLOntology {
      * @return the list of ontology changes NOT applied
      * @throws OWLOntologyChangeException
      *             if errors happen */
-    <T> OWLOntologyChange<T> applyChange(OWLOntologyChange<T> change)
+    @Nonnull
+    <T> OWLOntologyChange<T> applyChange(@Nonnull OWLOntologyChange<T> change)
             throws OWLOntologyChangeException;
 
     /** @param changes
@@ -57,7 +60,8 @@ public interface OWLMutableOntology extends OWLOntology {
      * @return the list of ontology changes NOT applied
      * @throws OWLOntologyChangeException
      *             if errors happen */
+    @Nonnull
     List<OWLOntologyChange<?>> applyChanges(
-            List<? extends OWLOntologyChange<?>> changes)
+            @Nonnull List<? extends OWLOntologyChange<?>> changes)
             throws OWLOntologyChangeException;
 }

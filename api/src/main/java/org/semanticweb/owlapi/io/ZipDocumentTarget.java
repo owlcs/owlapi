@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -46,6 +48,8 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -59,8 +63,8 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
 
     /** @param file
      *            the file to use */
-    public ZipDocumentTarget(File file) {
-        this.file = file;
+    public ZipDocumentTarget(@Nonnull File file) {
+        this.file = checkNotNull(file);
     }
 
     @Override

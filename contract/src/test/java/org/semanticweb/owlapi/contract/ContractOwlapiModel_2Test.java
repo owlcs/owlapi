@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -1036,7 +1035,6 @@ public class ContractOwlapiModel_2Test {
     public void shouldTestInterfaceOWLImportsDeclaration() throws OWLException {
         OWLImportsDeclaration testSubject0 = mock(OWLImportsDeclaration.class);
         IRI result0 = testSubject0.getIRI();
-        URI result1 = testSubject0.getURI();
     }
 
     @Test

@@ -38,7 +38,11 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -66,10 +70,10 @@ public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvi
      *            closure.
      * @param rootOntology
      *            The ontology which is the "root" of the imports closure. */
-    public OWLOntologyImportsClosureSetProvider(OWLOntologyManager manager,
-            OWLOntology rootOntology) {
-        this.manager = manager;
-        this.rootOntology = rootOntology;
+    public OWLOntologyImportsClosureSetProvider(@Nonnull OWLOntologyManager manager,
+            @Nonnull OWLOntology rootOntology) {
+        this.manager = checkNotNull(manager);
+        this.rootOntology = checkNotNull(rootOntology);
     }
 
     @Override

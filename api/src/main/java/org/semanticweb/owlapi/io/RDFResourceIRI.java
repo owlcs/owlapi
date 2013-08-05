@@ -1,5 +1,9 @@
 package org.semanticweb.owlapi.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /** IRI node implementation */
@@ -8,8 +12,8 @@ public class RDFResourceIRI extends RDFResource {
 
     /** @param resource
      *            the resource */
-    public RDFResourceIRI(IRI resource) {
-        this.resource = resource;
+    public RDFResourceIRI(@Nonnull IRI resource) {
+        this.resource = checkNotNull(resource);
     }
 
     @Override

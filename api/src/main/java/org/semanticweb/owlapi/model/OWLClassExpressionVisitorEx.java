@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -48,39 +50,39 @@ package org.semanticweb.owlapi.model;
  * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>) */
 @SuppressWarnings("javadoc")
 public interface OWLClassExpressionVisitorEx<O> {
-    O visit(OWLClass ce);
+    O visit(@Nonnull OWLClass ce);
 
-    O visit(OWLObjectIntersectionOf ce);
+    O visit(@Nonnull OWLObjectIntersectionOf ce);
 
-    O visit(OWLObjectUnionOf ce);
+    O visit(@Nonnull OWLObjectUnionOf ce);
 
-    O visit(OWLObjectComplementOf ce);
+    O visit(@Nonnull OWLObjectComplementOf ce);
 
-    O visit(OWLObjectSomeValuesFrom ce);
+    O visit(@Nonnull OWLObjectSomeValuesFrom ce);
 
-    O visit(OWLObjectAllValuesFrom ce);
+    O visit(@Nonnull OWLObjectAllValuesFrom ce);
 
-    O visit(OWLObjectHasValue ce);
+    O visit(@Nonnull OWLObjectHasValue ce);
 
-    O visit(OWLObjectMinCardinality ce);
+    O visit(@Nonnull OWLObjectMinCardinality ce);
 
-    O visit(OWLObjectExactCardinality ce);
+    O visit(@Nonnull OWLObjectExactCardinality ce);
 
-    O visit(OWLObjectMaxCardinality ce);
+    O visit(@Nonnull OWLObjectMaxCardinality ce);
 
-    O visit(OWLObjectHasSelf ce);
+    O visit(@Nonnull OWLObjectHasSelf ce);
 
-    O visit(OWLObjectOneOf ce);
+    O visit(@Nonnull OWLObjectOneOf ce);
 
-    O visit(OWLDataSomeValuesFrom ce);
+    O visit(@Nonnull OWLDataSomeValuesFrom ce);
 
-    O visit(OWLDataAllValuesFrom ce);
+    O visit(@Nonnull OWLDataAllValuesFrom ce);
 
-    O visit(OWLDataHasValue ce);
+    O visit(@Nonnull OWLDataHasValue ce);
 
-    O visit(OWLDataMinCardinality ce);
+    O visit(@Nonnull OWLDataMinCardinality ce);
 
-    O visit(OWLDataExactCardinality ce);
+    O visit(@Nonnull OWLDataExactCardinality ce);
 
-    O visit(OWLDataMaxCardinality ce);
+    O visit(@Nonnull OWLDataMaxCardinality ce);
 }

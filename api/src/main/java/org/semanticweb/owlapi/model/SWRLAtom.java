@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
@@ -56,10 +58,12 @@ public interface SWRLAtom extends SWRLObject {
     /** Gets the predicate of this atom
      * 
      * @return The atom predicate */
+    @Nonnull
     SWRLPredicate getPredicate();
 
     /** Gets all of the arguments in this atom
      * 
      * @return The collection of arguments in this atom */
+    @Nonnull
     Collection<SWRLArgument> getAllArguments();
 }

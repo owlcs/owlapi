@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -49,6 +51,7 @@ public interface OWLObjectPropertyAssertionAxiom extends
         OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>,
         OWLSubClassOfAxiomShortCut {
     @Override
+    @Nonnull
     OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
     /** Gets a simplified version of this object property axiom. This is defined
@@ -60,6 +63,7 @@ public interface OWLObjectPropertyAssertionAxiom extends
      * </ul>
      * 
      * @return the simplified version */
+    @Nonnull
     OWLObjectPropertyAssertionAxiom getSimplified();
 
     /** Determines if this axiom is in a simplified form, i.e. a form where the

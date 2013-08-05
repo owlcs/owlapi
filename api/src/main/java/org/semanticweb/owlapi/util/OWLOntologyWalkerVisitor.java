@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -51,8 +55,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class OWLOntologyWalkerVisitor<E> extends OWLObjectVisitorExAdapter<E> {
     private final OWLOntologyWalker walker;
 
-    public OWLOntologyWalkerVisitor(OWLOntologyWalker walker) {
-        this.walker = walker;
+    public OWLOntologyWalkerVisitor(@Nonnull OWLOntologyWalker walker) {
+        this.walker = checkNotNull(walker);
     }
 
     public OWLAxiom getCurrentAxiom() {

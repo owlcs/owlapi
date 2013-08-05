@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -45,25 +47,25 @@ package org.semanticweb.owlapi.model;
  * <br> */
 @SuppressWarnings("javadoc")
 public interface SWRLObjectVisitorEx<O> {
-    O visit(SWRLRule node);
+    O visit(@Nonnull SWRLRule node);
 
-    O visit(SWRLClassAtom node);
+    O visit(@Nonnull SWRLClassAtom node);
 
-    O visit(SWRLDataRangeAtom node);
+    O visit(@Nonnull SWRLDataRangeAtom node);
 
-    O visit(SWRLObjectPropertyAtom node);
+    O visit(@Nonnull SWRLObjectPropertyAtom node);
 
-    O visit(SWRLDataPropertyAtom node);
+    O visit(@Nonnull SWRLDataPropertyAtom node);
 
-    O visit(SWRLBuiltInAtom node);
+    O visit(@Nonnull SWRLBuiltInAtom node);
 
-    O visit(SWRLVariable node);
+    O visit(@Nonnull SWRLVariable node);
 
-    O visit(SWRLIndividualArgument node);
+    O visit(@Nonnull SWRLIndividualArgument node);
 
-    O visit(SWRLLiteralArgument node);
+    O visit(@Nonnull SWRLLiteralArgument node);
 
-    O visit(SWRLSameIndividualAtom node);
+    O visit(@Nonnull SWRLSameIndividualAtom node);
 
-    O visit(SWRLDifferentIndividualsAtom node);
+    O visit(@Nonnull SWRLDifferentIndividualsAtom node);
 }

@@ -70,8 +70,7 @@ public class RDFTranslator extends
      * @param useStrongTyping
      *            true if strong typing is required */
     public RDFTranslator(@Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntology ontology,
-            boolean useStrongTyping) {
+            @Nonnull OWLOntology ontology, boolean useStrongTyping) {
         super(manager, ontology, useStrongTyping);
     }
 

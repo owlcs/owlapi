@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
@@ -52,5 +54,6 @@ package org.semanticweb.owlapi.model;
  *            the type of argument */
 public interface SWRLUnaryAtom<A extends SWRLArgument> extends SWRLAtom {
     /** @return the argument */
+    @Nonnull
     A getArgument();
 }

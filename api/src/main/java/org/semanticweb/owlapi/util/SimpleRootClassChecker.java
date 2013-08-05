@@ -42,6 +42,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -85,8 +87,8 @@ public class SimpleRootClassChecker implements RootClassChecker {
      *            The ontologies whose axioms are to be taken into consideration
      *            when determining if a class is a syntactic direct subclass of
      *            owl:Thing */
-    public SimpleRootClassChecker(Set<OWLOntology> ontologies) {
-        this.ontologies = ontologies;
+    public SimpleRootClassChecker(@Nonnull Set<OWLOntology> ontologies) {
+        this.ontologies = checkNotNull(ontologies);
     }
 
     // Rules for determining if a class is a direct subclass of Thing
@@ -166,7 +168,6 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
-            checkNotNull(axiom);
             if (axiom.getSubClass().equals(cls)) {
                 superChecker.reset();
                 axiom.getSuperClass().accept(superChecker);
@@ -176,7 +177,6 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            checkNotNull(axiom);
             Set<OWLClassExpression> descs = axiom.getClassExpressions();
             if (!descs.contains(cls)) {
                 return;

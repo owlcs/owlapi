@@ -72,6 +72,7 @@ public class DLQueryEngine {
         }
         return true;
     }
+
     private OWLReasoner reasoner;
     private DLQueryParser parser;
 

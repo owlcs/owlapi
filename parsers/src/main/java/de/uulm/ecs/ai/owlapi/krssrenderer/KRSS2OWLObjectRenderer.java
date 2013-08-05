@@ -38,7 +38,6 @@
  */
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2Vocabulary.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
@@ -306,7 +305,6 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public final void visit(OWLSubClassOfAxiom axiom) {
-        checkNotNull(axiom);
         writeOpenBracket();
         write(IMPLIES);
         write(axiom.getSubClass());
@@ -316,7 +314,6 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public final void visit(OWLDisjointClassesAxiom axiom) {
-        checkNotNull(axiom);
         writeOpenBracket();
         for (final OWLClassExpression desc : axiom.getClassExpressions()) {
             write(desc);
@@ -326,7 +323,6 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public final void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         write(RELATED);
         write(axiom.getSubject());
         write(axiom.getObject());
@@ -336,7 +332,6 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public final void visit(OWLClassAssertionAxiom axiom) {
-        checkNotNull(axiom);
         write(INSTANCE);
         write(axiom.getIndividual());
         write(axiom.getClassExpression());

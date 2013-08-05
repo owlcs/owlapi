@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -45,6 +47,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -88,11 +92,12 @@ public class OWLEntityURIConverter {
      *            The ontologies whose entity URIs will be converted
      * @param strategy
      *            The conversion strategy to be used. */
-    public OWLEntityURIConverter(OWLOntologyManager manager, Set<OWLOntology> ontologies,
-            OWLEntityURIConverterStrategy strategy) {
-        this.manager = manager;
-        this.ontologies = new ArrayList<OWLOntology>(ontologies);
-        this.strategy = strategy;
+    public OWLEntityURIConverter(@Nonnull OWLOntologyManager manager,
+            @Nonnull Set<OWLOntology> ontologies,
+            @Nonnull OWLEntityURIConverterStrategy strategy) {
+        this.manager = checkNotNull(manager);
+        this.ontologies = new ArrayList<OWLOntology>(checkNotNull(ontologies));
+        this.strategy = checkNotNull(strategy);
     }
 
     /** Gets the changes required to perform the conversion.

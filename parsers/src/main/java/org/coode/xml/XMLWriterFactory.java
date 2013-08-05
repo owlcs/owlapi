@@ -52,7 +52,6 @@ import javax.annotation.Nonnull;
  * www.cs.man.ac.uk/~horridgm<br>
  * <br>
  * Developed as part of the CO-ODE project http://www.co-ode.org */
-
 public class XMLWriterFactory {
     private static XMLWriterFactory instance = new XMLWriterFactory();
 

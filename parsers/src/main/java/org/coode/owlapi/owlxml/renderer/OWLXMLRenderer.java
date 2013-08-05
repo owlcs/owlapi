@@ -59,11 +59,9 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * Bio-Health Informatics Group<br>
  * Date: 12-Dec-2006<br>
  * <br> */
-
 public class OWLXMLRenderer extends AbstractOWLRenderer {
     public void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
-            @Nonnull OWLOntologyFormat format)
-            throws OWLRendererException {
+            @Nonnull OWLOntologyFormat format) throws OWLRendererException {
         checkNotNull(ontology);
         checkNotNull(writer);
         checkNotNull(format);
@@ -109,7 +107,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
 
     @Override
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
-        render(checkNotNull(ontology), checkNotNull(writer),
-                ontology.getOWLOntologyManager().getOntologyFormat(ontology));
+        render(checkNotNull(ontology), checkNotNull(writer), ontology
+                .getOWLOntologyManager().getOntologyFormat(ontology));
     }
 }

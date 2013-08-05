@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -58,18 +62,20 @@ public class MissingImportEvent {
      *            the ontology uri
      * @param creationException
      *            the creation exception */
-    public MissingImportEvent(IRI ontologyIRI,
-            OWLOntologyCreationException creationException) {
-        this.ontologyIRI = ontologyIRI;
-        this.creationException = creationException;
+    public MissingImportEvent(@Nonnull IRI ontologyIRI,
+            @Nonnull OWLOntologyCreationException creationException) {
+        this.ontologyIRI = checkNotNull(ontologyIRI);
+        this.creationException = checkNotNull(creationException);
     }
 
     /** @return the IRI */
+    @Nonnull
     public IRI getImportedOntologyURI() {
         return ontologyIRI;
     }
 
     /** @return the exception */
+    @Nonnull
     public OWLOntologyCreationException getCreationException() {
         return creationException;
     }

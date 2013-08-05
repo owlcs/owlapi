@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 // Suppress warnings in auto-generated code
-
 public class KRSS2Parser implements KRSS2ParserConstants {
     private OWLOntology ontology;
     private OWLDataFactory dataFactory;

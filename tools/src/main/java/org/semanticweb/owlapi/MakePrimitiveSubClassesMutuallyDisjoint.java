@@ -72,8 +72,6 @@ import org.semanticweb.owlapi.search.Searcher;
  * subclasses of a class are made mutually disjoint. */
 public class MakePrimitiveSubClassesMutuallyDisjoint extends
         AbstractCompositeOntologyChange {
-
-
     /** @param dataFactory
      *            the datafactory to use
      * @param cls

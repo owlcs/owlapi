@@ -54,7 +54,6 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * manager to obtain short forms. The only difference between this short form
  * provider and a prefix manager is that names with the default prefix do not
  * have a colon with this short form provider. */
-
 public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortFormProvider {
     private DefaultPrefixManager prefixManager;
 

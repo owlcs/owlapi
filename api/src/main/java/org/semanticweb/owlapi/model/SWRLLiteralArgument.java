@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
@@ -51,5 +53,6 @@ public interface SWRLLiteralArgument extends SWRLDArgument {
     /** Gets the literal for this argument
      * 
      * @return The literal */
+    @Nonnull
     OWLLiteral getLiteral();
 }

@@ -51,7 +51,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 01-Jun-2009 */
-
 public class TPPropertyChainAxiomHandler extends TriplePredicateHandler {
     public TPPropertyChainAxiomHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_PROPERTY_CHAIN_AXIOM.getIRI());

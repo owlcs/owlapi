@@ -42,6 +42,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /** Author: Matthew Horridge<br>
@@ -77,6 +79,7 @@ public interface OWLOntologyDocumentTarget {
      * @throws org.semanticweb.owlapi.model.OWLRuntimeException
      *             if a writer is not available ({@link #isWriterAvailable()}
      *             returns <code>false</code>) and this method is called. */
+    @Nonnull
     Writer getWriter() throws IOException;
 
     /** Determines if this document target can be pointed to by an
@@ -96,6 +99,7 @@ public interface OWLOntologyDocumentTarget {
      *             if an output stream is not available (
      *             {@link #isOutputStreamAvailable()} returns <code>false</code>
      *             ) and this method is called. */
+    @Nonnull
     OutputStream getOutputStream() throws IOException;
 
     /** Determines if an IRI that points to an ontology document is available.
@@ -112,5 +116,6 @@ public interface OWLOntologyDocumentTarget {
      * @throws org.semanticweb.owlapi.model.OWLRuntimeException
      *             if an IRI is not available ({@link #isDocumentIRIAvailable()}
      *             returns <code>false</code>) and this method is called. */
+    @Nonnull
     IRI getDocumentIRI();
 }

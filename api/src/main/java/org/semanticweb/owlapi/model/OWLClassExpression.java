@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 Represents <a href=
@@ -50,6 +52,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /** Gets the class expression type for this class expression
      * 
      * @return The class expression type */
+    @Nonnull
     ClassExpressionType getClassExpressionType();
 
     /** Determines whether or not this expression represents an anonymous class
@@ -75,6 +78,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * @return This class expression as an <code>OWLClass</code>.
      * @throws OWLRuntimeException
      *             if this class expression is not an <code>OWLClass</code>. */
+    @Nonnull
     OWLClass asOWLClass();
 
     /** Determines if this expression is the built in class owl:Thing. This
@@ -94,18 +98,21 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /** Gets this expression in negation normal form.
      * 
      * @return The expression in negation normal form. */
+    @Nonnull
     OWLClassExpression getNNF();
 
     /** Gets the negation normal form of the complement of this expression.
      * 
      * @return A expression that represents the NNF of the complement of this
      *         expression. */
+    @Nonnull
     OWLClassExpression getComplementNNF();
 
     /** Gets the object complement of this class expression.
      * 
      * @return A class expression that is the complement of this class
      *         expression. */
+    @Nonnull
     OWLClassExpression getObjectComplementOf();
 
     /** Interprets this expression as a conjunction and returns the conjuncts.
@@ -116,6 +123,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      *         expression. Note that nested conjunctions will be flattened, for
      *         example, calling this method on (A and B) and C will return the
      *         set {A, B, C} */
+    @Nonnull
     Set<OWLClassExpression> asConjunctSet();
 
     /** Determines if this class expression contains a particular conjunct. This
@@ -128,7 +136,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      *         <code>ObjectIntersectionOf</code> (possibly nested withing
      *         another <code>ObjectIntersectionOf</code>) that contains
      *         <code>ce</code>, otherwise <code>false</code>. */
-    boolean containsConjunct(OWLClassExpression ce);
+    boolean containsConjunct(@Nonnull OWLClassExpression ce);
 
     /** Interprets this expression as a disjunction and returns the disjuncts.
      * This method does not normalise the expression (full DNF is not computed).
@@ -138,14 +146,15 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      *         expression. Note that nested disjunctions will be flattened, for
      *         example, calling this method on (A or B) or C will return the set
      *         {A, B, C} */
+    @Nonnull
     Set<OWLClassExpression> asDisjunctSet();
 
     /** Accepts a visit from an <code>OWLExpressionVisitor</code>
      * 
      * @param visitor
      *            The visitor that wants to visit */
-    void accept(OWLClassExpressionVisitor visitor);
+    void accept(@Nonnull OWLClassExpressionVisitor visitor);
 
     @SuppressWarnings("javadoc")
-    <O> O accept(OWLClassExpressionVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor);
 }

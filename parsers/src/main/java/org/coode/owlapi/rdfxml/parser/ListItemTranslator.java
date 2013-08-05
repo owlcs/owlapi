@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLObject;
  * <br>
  * <p/>
  * Translates and consumes an item in an RDF list. */
-
 public interface ListItemTranslator<O extends OWLObject> {
     /** The rdf:first triple that represents the item to be translated. This
      * triple will point to something like a class expression, individual.

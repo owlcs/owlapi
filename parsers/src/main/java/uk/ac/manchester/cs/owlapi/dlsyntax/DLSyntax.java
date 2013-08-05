@@ -43,7 +43,6 @@ package uk.ac.manchester.cs.owlapi.dlsyntax;
  * Bio-Health Informatics Group<br>
  * Date: 10-Feb-2008<br>
  * <br> */
-
 public enum DLSyntax {
     //@formatter:off
     SUBCLASS("\u2291"),

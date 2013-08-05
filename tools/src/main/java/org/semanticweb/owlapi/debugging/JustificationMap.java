@@ -245,19 +245,16 @@ public class JustificationMap {
             return lhs;
         }
 
-        public OWLAxiomPartExtractor() {
-        }
+        public OWLAxiomPartExtractor() {}
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getSuperClass());
             lhs.add(axiom.getSubClass());
         }
 
         @Override
         public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getObject());
             rhs.add(axiom.getProperty());
             lhs.add(axiom.getSubject());
@@ -265,47 +262,40 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getProperty());
         }
 
         @Override
         public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getProperty());
         }
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            checkNotNull(axiom);
             rhs.addAll(axiom.getClassExpressions());
             lhs.addAll(axiom.getClassExpressions());
         }
 
         @Override
         public void visit(OWLDataPropertyDomainAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getDomain());
             lhs.add(axiom.getProperty());
         }
 
         @Override
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getDomain());
             lhs.add(axiom.getProperty());
         }
 
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            checkNotNull(axiom);
             rhs.addAll(axiom.getProperties());
             lhs.addAll(axiom.getProperties());
         }
 
         @Override
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getProperty());
             rhs.add(axiom.getObject());
             lhs.add(axiom.getSubject());
@@ -313,35 +303,30 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
-            checkNotNull(axiom);
             rhs.addAll(axiom.getIndividuals());
             lhs.addAll(axiom.getIndividuals());
         }
 
         @Override
         public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-            checkNotNull(axiom);
             rhs.addAll(axiom.getProperties());
             lhs.addAll(axiom.getProperties());
         }
 
         @Override
         public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            checkNotNull(axiom);
             rhs.addAll(axiom.getProperties());
             lhs.addAll(axiom.getProperties());
         }
 
         @Override
         public void visit(OWLObjectPropertyRangeAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getRange());
             lhs.add(axiom.getProperty());
         }
 
         @Override
         public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getProperty());
             rhs.add(axiom.getObject());
             lhs.add(axiom.getSubject());
@@ -349,20 +334,17 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getProperty());
         }
 
         @Override
         public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getSuperProperty());
             lhs.add(axiom.getSubProperty());
         }
 
         @Override
         public void visit(OWLDisjointUnionAxiom axiom) {
-            checkNotNull(axiom);
             rhs.addAll(axiom.getClassExpressions());
             rhs.add(axiom.getOWLClass());
             lhs.add(axiom.getOWLClass());
@@ -371,92 +353,78 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getProperty());
         }
 
         @Override
         public void visit(OWLDataPropertyRangeAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getRange());
             lhs.add(axiom.getProperty());
         }
 
         @Override
         public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getProperty());
         }
 
         @Override
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            checkNotNull(axiom);
             rhs.addAll(axiom.getProperties());
             lhs.addAll(axiom.getProperties());
         }
 
         @Override
         public void visit(OWLClassAssertionAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getClassExpression());
             lhs.add(axiom.getIndividual());
         }
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            checkNotNull(axiom);
             rhs.addAll(axiom.getClassExpressions());
             lhs.addAll(axiom.getClassExpressions());
         }
 
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getProperty());
             lhs.add(axiom.getSubject());
         }
 
         @Override
         public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getProperty());
         }
 
         @Override
         public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getProperty());
         }
 
         @Override
         public void visit(OWLSubDataPropertyOfAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getSuperProperty());
         }
 
         @Override
         public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getProperty());
         }
 
         @Override
         public void visit(OWLSameIndividualAxiom axiom) {
-            checkNotNull(axiom);
             rhs.addAll(axiom.getIndividuals());
             lhs.addAll(axiom.getIndividuals());
         }
 
         @Override
         public void visit(OWLSubPropertyChainOfAxiom axiom) {
-            checkNotNull(axiom);
             rhs.add(axiom.getSuperProperty());
             lhs.addAll(axiom.getPropertyChain());
         }
 
         @Override
         public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-            checkNotNull(axiom);
             rhs.addAll(axiom.getProperties());
             lhs.addAll(axiom.getProperties());
         }

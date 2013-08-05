@@ -108,8 +108,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     protected Locator m_documentLocator;
 
     /** Creates a RDF parser. */
-    public RDFParser() {
-    }
+    public RDFParser() {}
 
     /** Parses RDF from given input source.
      * 
@@ -118,8 +117,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param consumer
      *            receives notifications about RDF parsing events */
     public void parse(@Nonnull InputSource source, @Nonnull RDFConsumer consumer)
-            throws SAXException,
-            IOException {
+            throws SAXException, IOException {
         String systemID = checkNotNull(source).getSystemId();
         checkNotNull(consumer);
         try {
@@ -363,7 +361,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         if (checkNotNull(uri).length() == 0) {
             // MH - Fix for resolving a "This document" reference against base
             // IRIs.
-            //XXX namespace?
+            // XXX namespace?
             String base = m_baseIRI.toString();
             int hashIndex = base.indexOf("#");
             if (hashIndex != -1) {

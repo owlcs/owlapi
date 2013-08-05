@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 </p> Represents <a href=
@@ -49,5 +51,6 @@ public interface OWLDataOneOf extends OWLDataRange {
     /** Gets the values ({@link OWLLiteral}s) that this data range consists of.
      * 
      * @return The values that this data range consists of. */
+    @Nonnull
     Set<OWLLiteral> getValues();
 }

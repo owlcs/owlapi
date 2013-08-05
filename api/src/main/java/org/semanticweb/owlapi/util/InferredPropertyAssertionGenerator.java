@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -58,6 +60,10 @@ public class InferredPropertyAssertionGenerator extends
     @Override
     protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner,
             OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom<?, ?>> result) {
+        checkNotNull(dataFactory);
+        checkNotNull(reasoner);
+        checkNotNull(result);
+        checkNotNull(entity);
         for (OWLObjectProperty prop : reasoner.getRootOntology()
                 .getObjectPropertiesInSignature(true)) {
             for (OWLNamedIndividual value : reasoner

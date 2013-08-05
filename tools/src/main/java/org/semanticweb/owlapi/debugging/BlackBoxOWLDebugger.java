@@ -487,6 +487,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
     private static final AtomicLong counter = new AtomicLong(System.nanoTime());
+
     private static IRI createIRI() {
         return IRI.create("http://debugging.blackbox#", "A" + counter.incrementAndGet());
     }

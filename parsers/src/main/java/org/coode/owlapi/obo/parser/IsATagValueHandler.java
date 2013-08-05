@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.AddAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 10-Jan-2007<br>
  * <br> */
-
 public class IsATagValueHandler extends AbstractTagValueHandler {
     public IsATagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_A.getName(), consumer);

@@ -77,7 +77,6 @@ public abstract class OWLAxiomChange extends OWLOntologyChange<OWLAxiom> {
     }
 
     @Override
-    @Nonnull
     public OWLAxiom getAxiom() {
         return axiom;
     }

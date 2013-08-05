@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio-Health Informatics Group<br>
  * Date: 06-Mar-2007<br>
  * <br> */
-
 public class RelationshipTagValueHandler extends AbstractTagValueHandler {
     private Pattern tagValuePattern = Pattern
             .compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");

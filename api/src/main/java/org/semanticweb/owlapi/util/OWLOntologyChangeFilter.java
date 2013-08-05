@@ -38,15 +38,24 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomChange;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
 import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.RemoveImport;
+import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
+import org.semanticweb.owlapi.model.SetOntologyID;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -89,37 +98,24 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * filter.processChanges(ontChanges);
  * </pre> */
 public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
-        OWLAxiomVisitor {
+        OWLAxiomVisitor, OWLOntologyChangeVisitor {
     protected boolean add;
     protected OWLOntology ontology;
-    protected final OWLOntologyChangeVisitor changeVisitor;
 
     @SuppressWarnings("javadoc")
-    public OWLOntologyChangeFilter() {
-        changeVisitor = new OWLOntologyChangeVisitorAdapter() {
-            @Override
-            public void visit(AddAxiom change) {
-                add = true;
-                processChange(change);
-            }
-
-            @Override
-            public void visit(RemoveAxiom change) {
-                add = false;
-                processChange(change);
-            }
-        };
-    }
+    public OWLOntologyChangeFilter() {}
 
     /** @param changes
      *            changes to process */
-    public void processChanges(List<? extends OWLOntologyChange<?>> changes) {
+    public void processChanges(@Nonnull List<? extends OWLOntologyChange<?>> changes) {
+        checkNotNull(changes);
         for (OWLOntologyChange<?> change : changes) {
-            change.accept(changeVisitor);
+            change.accept(this);
         }
     }
 
-    protected void processChange(OWLAxiomChange change) {
+    protected void processChange(@Nonnull OWLAxiomChange change) {
+        checkNotNull(change);
         ontology = change.getOntology();
         change.getAxiom().accept(this);
         ontology = null;
@@ -127,13 +123,13 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
 
     /** Determines if the current change caused an axiom to be added to an
      * ontology. */
-    final protected boolean isAdd() {
+    protected boolean isAdd() {
         return add;
     }
 
     /** Determines if the current change caused an axiom to be removed from an
      * ontology. */
-    final protected boolean isRemove() {
+    protected boolean isRemove() {
         return !add;
     }
 
@@ -143,7 +139,34 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
      *         change visit cycle. When called from within a <code>visit</code>
      *         method, the return value is guarenteed not to be
      *         <code>null</code>. */
-    final protected OWLOntology getOntology() {
+    protected OWLOntology getOntology() {
         return ontology;
     }
+
+    @Override
+    public void visit(AddAxiom change) {
+        add = true;
+        processChange(change);
+    }
+
+    @Override
+    public void visit(RemoveAxiom change) {
+        add = false;
+        processChange(change);
+    }
+
+    @Override
+    public void visit(SetOntologyID change) {}
+
+    @Override
+    public void visit(AddImport change) {}
+
+    @Override
+    public void visit(RemoveImport change) {}
+
+    @Override
+    public void visit(AddOntologyAnnotation change) {}
+
+    @Override
+    public void visit(RemoveOntologyAnnotation change) {}
 }

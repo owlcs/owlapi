@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 19/12/2010 */
-
 public class DataQualifiedCardinalityTranslator extends AbstractClassExpressionTranslator {
     public DataQualifiedCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);

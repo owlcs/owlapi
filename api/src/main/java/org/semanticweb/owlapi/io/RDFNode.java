@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.io;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /** Author: Matthew Horridge<br>
@@ -56,6 +58,7 @@ public abstract class RDFNode {
     /** Gets the IRI of the resource.
      * 
      * @return The IRI or <code>null</code> if this is an anonymous resource. */
+    @Nullable
     public abstract IRI getIRI();
 
     /** Determines if this node is a resource and is anonymous.

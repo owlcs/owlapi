@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
  * <br> */
-
 public class OWLInverseObjectPropertyElementHandler extends
         AbstractOWLObjectPropertyElementHandler {
     private OWLObjectPropertyExpression inverse;

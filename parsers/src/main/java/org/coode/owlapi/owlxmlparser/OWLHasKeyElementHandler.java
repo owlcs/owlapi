@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 20-May-2009 */
-
 public class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLClassExpression ce;
     private Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();

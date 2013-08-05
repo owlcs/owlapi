@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * Bio-Health Informatics Group<br>
  * Date: 10-Apr-2007<br>
  * <br> */
-
 public class OWLDatatypeFacetRestrictionElementHandler extends
         AbstractOWLElementHandler<OWLFacetRestriction> {
     private OWLFacet facet;

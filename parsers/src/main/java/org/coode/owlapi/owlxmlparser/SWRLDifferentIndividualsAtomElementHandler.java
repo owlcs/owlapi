@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 08-Oct-2009 */
-
 public class SWRLDifferentIndividualsAtomElementHandler extends SWRLAtomElementHandler {
     private SWRLIArgument arg0;
     private SWRLIArgument arg1;

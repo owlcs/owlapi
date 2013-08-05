@@ -52,6 +52,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -352,7 +353,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     public Set<OWLOntology> getImportsClosure(OWLOntology ontology) {
         Set<OWLOntology> ontologies = importsClosureCache.get(ontology.getOntologyID());
         if (ontologies == null) {
-            ontologies = new HashSet<OWLOntology>();
+            ontologies = new LinkedHashSet<OWLOntology>();
             getImportsClosure(ontology, ontologies);
             // store the wrapped set
             importsClosureCache.put(ontology.getOntologyID(), ontologies);
@@ -374,20 +375,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public List<OWLOntology> getSortedImportsClosure(OWLOntology ontology)
             throws UnknownOWLOntologyException {
-        List<OWLOntology> importsClosure = new ArrayList<OWLOntology>();
-        getSortedImportsClosure(ontology, importsClosure, new HashSet<OWLOntology>());
-        return importsClosure;
-    }
-
-    private void getSortedImportsClosure(OWLOntology ontology, List<OWLOntology> imports,
-            Set<OWLOntology> marker) {
-        if (!marker.contains(ontology)) {
-            imports.add(ontology);
-            marker.add(ontology);
-            for (OWLOntology imported : getDirectImports(ontology)) {
-                getSortedImportsClosure(imported, imports, marker);
-            }
-        }
+        return new ArrayList<OWLOntology>(ontology.getImportsClosure());
     }
 
     private boolean isChangeApplicable(OWLOntologyChange<?> change) {

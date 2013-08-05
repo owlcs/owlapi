@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.OWLOntologyURIChanger;
+import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -70,7 +70,7 @@ public class ChangeOntologyURITestCase extends AbstractOWLAPITestCase {
         man.applyChange(new AddImport(importingOnt, man.getOWLDataFactory()
                 .getOWLImportsDeclaration(ont.getOntologyID().getOntologyIRI())));
         assertTrue(man.contains(oldIRI));
-        OWLOntologyURIChanger changer = new OWLOntologyURIChanger(man);
+        OWLOntologyIRIChanger changer = new OWLOntologyIRIChanger(man);
         man.applyChanges(changer.getChanges(ont, newIRI));
         assertFalse(man.contains(oldIRI));
         assertTrue(man.contains(newIRI));

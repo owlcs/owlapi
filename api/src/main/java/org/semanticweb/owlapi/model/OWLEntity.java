@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 </p> Represents <a href=
@@ -47,6 +49,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /** Gets the entity type for this entity
      * 
      * @return The entity type */
+    @Nonnull
     EntityType<?> getEntityType();
 
     /** Tests to see if this entity is of the specified type
@@ -55,7 +58,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      *            The entity type
      * @return <code>true</code> if this entity is of the specified type,
      *         otherwise <code>false</code>. */
-    boolean isType(EntityType<?> entityType);
+    boolean isType(@Nonnull EntityType<?> entityType);
 
     /** Determines if this entity is a built in entity. The entity is a built in
      * entity if it is:
@@ -99,6 +102,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @throws OWLRuntimeException
      *             if this entity is not an OWLClass (check with the isOWLClass
      *             method first). */
+    @Nonnull
     OWLClass asOWLClass();
 
     /** A convenience method that determines if this entity is an
@@ -115,6 +119,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @throws OWLRuntimeException
      *             if this entity is not an OWLObjectProperty (check with the
      *             isOWLObjectProperty method first). */
+    @Nonnull
     OWLObjectProperty asOWLObjectProperty();
 
     /** A convenience method that determines if this entity is an OWLDataProperty
@@ -130,6 +135,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @throws OWLRuntimeException
      *             if this entity is not an OWLDataProperty (check with the
      *             isOWLDataProperty method first). */
+    @Nonnull
     OWLDataProperty asOWLDataProperty();
 
     /** A convenience method that determines if this entity is an
@@ -146,6 +152,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @throws OWLRuntimeException
      *             if this entity is not an OWLIndividual (check with the
      *             isOWLIndividual method first). */
+    @Nonnull
     OWLNamedIndividual asOWLNamedIndividual();
 
     /** A convenience method that determines if this entity is an OWLDatatype
@@ -161,6 +168,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @throws OWLRuntimeException
      *             if this entity is not an OWLDatatype (check with the
      *             isOWLDatatype method first). */
+    @Nonnull
     OWLDatatype asOWLDatatype();
 
     /** A convenience method that determines if this entity is an
@@ -176,17 +184,19 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @return The entity as an OWLAnnotationProperty.
      * @throws OWLRuntimeException
      *             if this entity is not an OWLAnnotationProperty */
+    @Nonnull
     OWLAnnotationProperty asOWLAnnotationProperty();
 
     /** Returns a string representation that can be used as the ID of this
      * entity. This is the toString representation of the IRI
      * 
      * @return A string representing the toString of the IRI of this entity. */
+    @Nonnull
     String toStringID();
 
     @SuppressWarnings("javadoc")
-    void accept(OWLEntityVisitor visitor);
+    void accept(@Nonnull OWLEntityVisitor visitor);
 
     @SuppressWarnings("javadoc")
-    <O> O accept(OWLEntityVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor);
 }

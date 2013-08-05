@@ -40,6 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006
@@ -53,11 +55,13 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
      * 
      * @return The individiauls that are the values of this
      *         <code>ObjectOneOf</code> class expression. */
+    @Nonnull
     Set<OWLIndividual> getIndividuals();
 
     /** Simplifies this enumeration to a union of singleton nominals
      * 
      * @return This enumeration in a more standard DL form. simp({a}) = {a}
      *         simp({a0, ... , {an}) = unionOf({a0}, ... , {an}) */
+    @Nonnull
     OWLClassExpression asObjectUnionOf();
 }

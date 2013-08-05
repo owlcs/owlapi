@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.io;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
@@ -56,12 +58,13 @@ public interface OWLObjectRenderer {
      * 
      * @param shortFormProvider
      *            The short form provider to be used. */
-    void setShortFormProvider(ShortFormProvider shortFormProvider);
+    void setShortFormProvider(@Nonnull ShortFormProvider shortFormProvider);
 
     /** Renders the specified object.
      * 
      * @param object
      *            The object to be rendered.
      * @return A string that represents the rendering of the object. */
-    String render(OWLObject object);
+    @Nonnull
+    String render(@Nonnull OWLObject object);
 }

@@ -63,19 +63,19 @@ public class TestImportByLocationTestCase {
     public void testImportOntologyByLocation() throws OWLOntologyCreationException,
             OWLOntologyStorageException, IOException {
         File f = File.createTempFile("a.owl", ".owl");
-            createOntologyFile(IRI("http://a.com"), f);
-            OWLOntologyManager mngr = Factory.getManager();
-            OWLDataFactory df = mngr.getOWLDataFactory();
-            // have to load an ontology for it to get a document IRI
-            OWLOntology a = mngr.loadOntologyFromOntologyDocument(f);
-            IRI locA = mngr.getOntologyDocumentIRI(a);
-            IRI bIRI = IRI("http://b.com");
-            OWLOntology b = mngr.createOntology(bIRI);
-            // import from the document location of a.owl (rather than the
-            // ontology IRI)
-            mngr.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
-            assertEquals(1, b.getImportsDeclarations().size());
-            assertEquals(1, b.getImports().size());
+        createOntologyFile(IRI("http://a.com"), f);
+        OWLOntologyManager mngr = Factory.getManager();
+        OWLDataFactory df = mngr.getOWLDataFactory();
+        // have to load an ontology for it to get a document IRI
+        OWLOntology a = mngr.loadOntologyFromOntologyDocument(f);
+        IRI locA = mngr.getOntologyDocumentIRI(a);
+        IRI bIRI = IRI("http://b.com");
+        OWLOntology b = mngr.createOntology(bIRI);
+        // import from the document location of a.owl (rather than the
+        // ontology IRI)
+        mngr.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
+        assertEquals(1, b.getImportsDeclarations().size());
+        assertEquals(1, b.getImports().size());
         f.delete();
     }
 

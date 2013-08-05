@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 </p> Represents <a href=
@@ -48,5 +50,6 @@ public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValu
     /** Gets the ID of this individual.
      * 
      * @return The node ID of this individual. */
+    @Nonnull
     NodeID getID();
 }

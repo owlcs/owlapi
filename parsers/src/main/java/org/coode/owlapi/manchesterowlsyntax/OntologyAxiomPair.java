@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 18-Feb-2009 */
-
 public class OntologyAxiomPair {
     private OWLOntology ontology;
     private OWLAxiom axiom;

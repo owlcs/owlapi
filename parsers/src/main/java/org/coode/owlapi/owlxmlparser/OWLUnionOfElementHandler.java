@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Bio-Health Informatics Group<br>
  * Date: 10-Apr-2007<br>
  * <br> */
-
 public class OWLUnionOfElementHandler extends
         AbstractOWLElementHandler<OWLClassExpression> {
     public OWLUnionOfElementHandler(OWLXMLParserHandler handler) {

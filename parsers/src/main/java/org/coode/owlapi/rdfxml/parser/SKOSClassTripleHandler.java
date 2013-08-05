@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.vocab.SKOSVocabulary;
  * Information Management Group<br>
  * Date: 05-Nov-2008<br>
  * <br> */
-
 public class SKOSClassTripleHandler extends BuiltInTypeHandler {
     public SKOSClassTripleHandler(OWLRDFConsumer consumer, SKOSVocabulary v) {
         super(consumer, v.getIRI());

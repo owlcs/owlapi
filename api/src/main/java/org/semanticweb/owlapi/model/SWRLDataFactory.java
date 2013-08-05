@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.model;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
@@ -59,7 +61,9 @@ public interface SWRLDataFactory {
      * @param head
      *            The atoms that make up the head
      * @return An anonymous rule with the specified body and head */
-    SWRLRule getSWRLRule(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head);
+    @Nonnull
+    SWRLRule getSWRLRule(@Nonnull Set<? extends SWRLAtom> body,
+            @Nonnull Set<? extends SWRLAtom> head);
 
     /** Gets an anonymous SWRL Rule
      * 
@@ -70,8 +74,11 @@ public interface SWRLDataFactory {
      * @param annotations
      *            The annotations for the rule (may be an empty set)
      * @return An anonymous rule with the specified body and head */
-    SWRLRule getSWRLRule(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head,
-            Set<OWLAnnotation> annotations);
+    @Nonnull
+    SWRLRule
+            getSWRLRule(@Nonnull Set<? extends SWRLAtom> body,
+                    @Nonnull Set<? extends SWRLAtom> head,
+                    @Nonnull Set<OWLAnnotation> annotations);
 
     /** Gets a SWRL atom where the predicate is a class expression i.e. C(x)
      * where C is a class expression and x is either an individual or a variable
@@ -83,7 +90,9 @@ public interface SWRLDataFactory {
      *            The argument (x)
      * @return The class atom with the specified class expression predicate and
      *         the specified argument. */
-    SWRLClassAtom getSWRLClassAtom(OWLClassExpression predicate, SWRLIArgument arg);
+    @Nonnull
+    SWRLClassAtom getSWRLClassAtom(@Nonnull OWLClassExpression predicate,
+            @Nonnull SWRLIArgument arg);
 
     /** Gets a SWRL atom where the predicate is a data range, i.e. D(x) where D
      * is an OWL data range and x is either a literal or variable for a literal
@@ -94,7 +103,9 @@ public interface SWRLDataFactory {
      *            The argument (x)
      * @return An atom with the specified data range predicate and the specified
      *         argument */
-    SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange predicate, SWRLDArgument arg);
+    @Nonnull
+    SWRLDataRangeAtom getSWRLDataRangeAtom(@Nonnull OWLDataRange predicate,
+            @Nonnull SWRLDArgument arg);
 
     /** Gets a SWRL object property atom, i.e. P(x, y) where P is an OWL object
      * property (expression) and x and y are are either individuals or variables
@@ -108,8 +119,10 @@ public interface SWRLDataFactory {
      *            The second argument (y)
      * @return A SWRLObjectPropertyAtom that has the specified predicate and the
      *         specified arguments */
+    @Nonnull
     SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(
-            OWLObjectPropertyExpression property, SWRLIArgument arg0, SWRLIArgument arg1);
+            @Nonnull OWLObjectPropertyExpression property, @Nonnull SWRLIArgument arg0,
+            @Nonnull SWRLIArgument arg1);
 
     /** Gets a SWRL data property atom, i.e. R(x, y) where R is an OWL data
      * property (expression) and x and y are are either literals or variables
@@ -123,8 +136,10 @@ public interface SWRLDataFactory {
      *            The second argument (y)
      * @return A SWRLDataPropertyAtom that has the specified predicate and the
      *         specified arguments */
-    SWRLDataPropertyAtom getSWRLDataPropertyAtom(OWLDataPropertyExpression property,
-            SWRLIArgument arg0, SWRLDArgument arg1);
+    @Nonnull
+    SWRLDataPropertyAtom getSWRLDataPropertyAtom(
+            @Nonnull OWLDataPropertyExpression property, @Nonnull SWRLIArgument arg0,
+            @Nonnull SWRLDArgument arg1);
 
     /** Creates a SWRL Built-In atom. Builtins have predicates that are
      * identified by IRIs. SWRL provides a core set of builtins, which are
@@ -139,14 +154,17 @@ public interface SWRLDataFactory {
      *             if the list of arguments is empty
      * @return A SWRLBuiltInAtom whose predicate is identified by the specified
      *         builtInIRI and that has the specified arguments */
-    SWRLBuiltInAtom getSWRLBuiltInAtom(IRI builtInIRI, List<SWRLDArgument> args);
+    @Nonnull
+    SWRLBuiltInAtom getSWRLBuiltInAtom(@Nonnull IRI builtInIRI,
+            @Nonnull List<SWRLDArgument> args);
 
     /** Gets a SWRLVariable.
      * 
      * @param var
      *            The id (IRI) of the variable
      * @return A SWRLVariable that has the name specified by the IRI */
-    SWRLVariable getSWRLVariable(IRI var);
+    @Nonnull
+    SWRLVariable getSWRLVariable(@Nonnull IRI var);
 
     /** Gets a SWRLIndividualArgument, which is used to wrap and OWLIndividual as
      * an argument for an atom
@@ -154,7 +172,8 @@ public interface SWRLDataFactory {
      * @param individual
      *            The individual that is the object argument
      * @return A SWRLIndividualArgument that wraps the specified individual */
-    SWRLIndividualArgument getSWRLIndividualArgument(OWLIndividual individual);
+    @Nonnull
+    SWRLIndividualArgument getSWRLIndividualArgument(@Nonnull OWLIndividual individual);
 
     /** Gets a SWRLLiteralArgument, which is used to wrap an OWLLiteral to
      * provide an argument for an atom
@@ -162,21 +181,24 @@ public interface SWRLDataFactory {
      * @param literal
      *            The constant that is the object argument
      * @return A SWRLLiteralArgument that wraps the specified literal */
-    SWRLLiteralArgument getSWRLLiteralArgument(OWLLiteral literal);
+    @Nonnull
+    SWRLLiteralArgument getSWRLLiteralArgument(@Nonnull OWLLiteral literal);
 
     /** @param arg0
      *            first individual
      * @param arg1
      *            second individual
      * @return a sameindividual atom */
-    SWRLSameIndividualAtom getSWRLSameIndividualAtom(SWRLIArgument arg0,
-            SWRLIArgument arg1);
+    @Nonnull
+    SWRLSameIndividualAtom getSWRLSameIndividualAtom(@Nonnull SWRLIArgument arg0,
+            @Nonnull SWRLIArgument arg1);
 
     /** @param arg0
      *            first individual
      * @param arg1
      *            second individual
      * @return a differentindividual atom */
-    SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(SWRLIArgument arg0,
-            SWRLIArgument arg1);
+    @Nonnull
+    SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(
+            @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1);
 }

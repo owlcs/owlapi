@@ -43,7 +43,6 @@ package org.coode.owlapi.obo.parser;
  * Bio-Health Informatics Group<br>
  * Date: 06-Mar-2007<br>
  * <br> */
-
 public class UnionOfHandler extends AbstractTagValueHandler {
     public UnionOfHandler(OBOConsumer consumer) {
         super("union_of", consumer);

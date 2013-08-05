@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 */
@@ -49,12 +51,14 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      * 
      * @return A set of entities that correspond to the signature of this
      *         object. The set is a copy, changes are not reflected back. */
+    @Nonnull
     Set<OWLEntity> getSignature();
 
     /** Gets the anonymous individuals occurring in this object, as collected by
      * an OWLEntityCollector. The set is a copy, changes are not reflected back.
      * 
      * @return A set of anonymous individuals. */
+    @Nonnull
     Set<OWLAnonymousIndividual> getAnonymousIndividuals();
 
     /** A convenience method that obtains the classes that are in the signature
@@ -64,6 +68,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         object. The set is a subset of the signature, and is not backed
      *         by the signature; it is a modifiable collection and changes are
      *         not reflected by the signature. */
+    @Nonnull
     Set<OWLClass> getClassesInSignature();
 
     /** A convenience method that obtains the data properties that are in the
@@ -73,6 +78,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature. */
+    @Nonnull
     Set<OWLDataProperty> getDataPropertiesInSignature();
 
     /** A convenience method that obtains the object properties that are in the
@@ -82,6 +88,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         of this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature. */
+    @Nonnull
     Set<OWLObjectProperty> getObjectPropertiesInSignature();
 
     /** A convenience method that obtains the individuals that are in the
@@ -91,6 +98,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature. */
+    @Nonnull
     Set<OWLNamedIndividual> getIndividualsInSignature();
 
     /** A convenience method that obtains the datatypes that are in the signature
@@ -100,6 +108,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         object.The set is a subset of the signature, and is not backed by
      *         the signature; it is a modifiable collection and changes are not
      *         reflected by the signature. */
+    @Nonnull
     Set<OWLDatatype> getDatatypesInSignature();
 
     /** Gets all of the nested (includes top level) class expressions that are
@@ -107,13 +116,14 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      * 
      * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s
      *         that represent the nested class expressions used in this object. */
+    @Nonnull
     Set<OWLClassExpression> getNestedClassExpressions();
 
     @SuppressWarnings("javadoc")
-    void accept(OWLObjectVisitor visitor);
+    void accept(@Nonnull OWLObjectVisitor visitor);
 
     @SuppressWarnings("javadoc")
-    <O> O accept(OWLObjectVisitorEx<O> visitor);
+    <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor);
 
     /** Determines if this object is either, owl:Thing (the top class),
      * owl:topObjectProperty (the top object property) , owl:topDataProperty

@@ -38,7 +38,6 @@
  */
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2Vocabulary.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
@@ -319,7 +318,6 @@ import org.semanticweb.owlapi.search.Searcher;
  * Author: Olaf Noppens<br>
  * Ulm University<br>
  * Institute of Artificial Intelligence<br> */
-
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;
     /** If declarations are ignored, entities which are only referenced in a
@@ -544,7 +542,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public final void visit(OWLSubClassOfAxiom axiom) {
-        checkNotNull(axiom);
         // we only handle GCIs
         if (!(axiom.getSubClass() instanceof OWLClass)) {
             writeOpenBracket();
@@ -558,7 +555,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        checkNotNull(axiom);
         List<OWLClassExpression> descs = sort(axiom.getClassExpressions());
         int size = descs.size();
         if (size <= 1) {
@@ -578,7 +574,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         List<OWLObjectPropertyExpression> properties = sort(axiom.getProperties());
         int size = properties.size();
         for (int i = 0; i < size; i++) {
@@ -595,7 +590,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         List<OWLObjectPropertyExpression> properties = sort(axiom.getProperties());
         int size = properties.size();
         if (size <= 1) {
@@ -613,10 +607,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         }
     }
 
-
     @Override
     public final void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         write(RELATED);
         write(axiom.getSubject());
         write(axiom.getProperty());
@@ -626,7 +618,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        checkNotNull(axiom);
         if (!(axiom.getSubProperty() instanceof OWLObjectProperty)) {
             writeOpenBracket();
             write(IMPLIES_ROLE);
@@ -639,7 +630,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        checkNotNull(axiom);
         List<OWLClassExpression> descriptions = sort(axiom.getClassExpressions());
         int size = descriptions.size();
         if (size <= 1) {
@@ -657,10 +647,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         }
     }
 
-
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        checkNotNull(axiom);
         if (leftRightIdentityUsed.contains(axiom)) {
             return;
         }
@@ -688,7 +676,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        checkNotNull(axiom);
         writeOpenBracket();
         write(INVERSE);
         axiom.getFirstProperty().accept(this);

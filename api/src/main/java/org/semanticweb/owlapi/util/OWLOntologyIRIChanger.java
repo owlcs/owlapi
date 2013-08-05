@@ -38,8 +38,12 @@
  */
 package org.semanticweb.owlapi.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
@@ -59,13 +63,13 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * <p/>
  * Changes the URI of an ontology and ensures that ontologies which import the
  * ontology have their imports statements updated */
-public class OWLOntologyURIChanger {
+public class OWLOntologyIRIChanger {
     private final OWLOntologyManager owlOntologyManager;
 
     /** @param owlOntologyManager
      *            the ontology manager to use */
-    public OWLOntologyURIChanger(OWLOntologyManager owlOntologyManager) {
-        this.owlOntologyManager = owlOntologyManager;
+    public OWLOntologyIRIChanger(@Nonnull OWLOntologyManager owlOntologyManager) {
+        this.owlOntologyManager = checkNotNull(owlOntologyManager);
     }
 
     /** Changes the URI of the specified ontology to the new URI.
@@ -77,7 +81,9 @@ public class OWLOntologyURIChanger {
      * @return A list of changes, which when applied will change the URI of the
      *         specified ontology, and also update the imports declarations in
      *         any ontologies which import the specified ontology. */
-    public List<OWLOntologyChange<?>> getChanges(OWLOntology ontology, IRI newIRI) {
+    @Nonnull
+    public List<OWLOntologyChange<?>> getChanges(@Nonnull OWLOntology ontology,
+            @Nonnull IRI newIRI) {
         List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
         changes.add(new SetOntologyID(ontology, new OWLOntologyID(newIRI, ontology
                 .getOntologyID().getVersionIRI())));

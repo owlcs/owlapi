@@ -194,5 +194,4 @@ public class ConvertPropertyAssertionsToAnnotations extends
         }
         return individuals;
     }
-
 }

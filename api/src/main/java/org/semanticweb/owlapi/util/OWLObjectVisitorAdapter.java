@@ -135,7 +135,6 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * Date: 22-Nov-2006<br>
  * <br> */
 public class OWLObjectVisitorAdapter implements OWLObjectVisitor {
-
     protected void handleDefault(@Nonnull OWLObject owlObject) {
         checkNotNull(owlObject);
     }

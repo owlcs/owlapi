@@ -81,13 +81,11 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
     }
 
     @Override
-    @Nonnull
     public SetOntologyIDData getChangeData() {
         return new SetOntologyIDData(newOntologyID);
     }
 
     @Override
-    @Nonnull
     public Set<OWLEntity> getSignature() {
         return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
                 .<OWLEntity> emptySet());

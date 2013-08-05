@@ -42,7 +42,6 @@ package org.coode.owlapi.obo.parser;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 03/02/2011 */
-
 public class OntologyTagValueHandler extends AbstractTagValueHandler {
     public OntologyTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ONTOLOGY.getName(), consumer);

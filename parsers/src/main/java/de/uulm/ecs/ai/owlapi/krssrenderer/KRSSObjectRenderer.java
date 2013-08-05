@@ -38,7 +38,6 @@
  */
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static de.uulm.ecs.ai.owlapi.krssrenderer.KRSSVocabulary.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
@@ -497,7 +496,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        checkNotNull(axiom);
         List<OWLClassExpression> classes = sort(axiom.getClassExpressions());
         int size = classes.size();
         if (size <= 1) {
@@ -517,7 +515,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        checkNotNull(axiom);
         writeOpenBracket();
         write(DOMAIN);
         write(axiom.getProperty());
@@ -528,7 +525,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        checkNotNull(axiom);
         List<OWLIndividual> individuals = sort(axiom.getIndividuals());
         int size = individuals.size();
         if (size <= 1) {
@@ -548,7 +544,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
-        checkNotNull(axiom);
         writeOpenBracket();
         write(RANGE);
         write(axiom.getProperty());
@@ -559,7 +554,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        checkNotNull(axiom);
         writeOpenBracket();
         write(RELATED);
         write(axiom.getSubject());
@@ -571,7 +565,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
-        checkNotNull(axiom);
         writeOpenBracket();
         write(INSTANCE);
         write(axiom.getIndividual());
@@ -582,7 +575,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        checkNotNull(axiom);
         writeOpenBracket();
         write(TRANSITIVE);
         write(axiom.getProperty());
@@ -592,7 +584,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        checkNotNull(axiom);
         final List<OWLIndividual> individuals = sort(axiom.getIndividuals());
         final int size = individuals.size();
         if (size <= 1) {

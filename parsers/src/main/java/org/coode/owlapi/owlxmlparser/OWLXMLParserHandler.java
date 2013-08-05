@@ -73,7 +73,6 @@ import org.xml.sax.helpers.DefaultHandler;
  * <br>
  * <p/>
  * A handler which knows about OWLXML */
-
 public class OWLXMLParserHandler extends DefaultHandler {
     private OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;
