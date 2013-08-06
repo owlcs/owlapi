@@ -55,11 +55,32 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * <br>
  * 
  * @param <O> */
-public class OWLOntologyChangeVisitorAdapterEx<O> implements
+public class OWLOntologyChangeVisitorExAdapter<O> implements
         OWLOntologyChangeVisitorEx<O> {
-    private O doDefault(OWLOntologyChange<?> change) {
-        return null;
+    private O object;
+
+    /** adapter with null default */
+    public OWLOntologyChangeVisitorExAdapter() {
+        this(null);
     }
+
+    /** adapter with object as default value
+     * 
+     * @param object
+     *            default return value */
+    public OWLOntologyChangeVisitorExAdapter(O object) {
+        this.object = object;
+    }
+
+    /** override to change default behaviour
+     * 
+     * @param change
+     *            visited change
+     * @return default return value; */
+    protected O doDefault(@SuppressWarnings("unused") OWLOntologyChange<?> change) {
+        return object;
+    }
+
 
     @Override
     public O visit(RemoveAxiom change) {

@@ -142,7 +142,7 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter;
 import org.semanticweb.owlapi.util.OWLObjectWalker;
 import org.semanticweb.owlapi.util.OWLOntologyChangeFilter;
 import org.semanticweb.owlapi.util.OWLOntologyChangeVisitorAdapter;
-import org.semanticweb.owlapi.util.OWLOntologyChangeVisitorAdapterEx;
+import org.semanticweb.owlapi.util.OWLOntologyChangeVisitorExAdapter;
 import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
 import org.semanticweb.owlapi.util.OWLOntologyImportsClosureSetProvider;
 import org.semanticweb.owlapi.util.OWLOntologyMerger;
@@ -976,7 +976,7 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestOWLOntologyChangeVisitorAdapterEx() throws OWLException {
-        OWLOntologyChangeVisitorAdapterEx<Object> testSubject0 = new OWLOntologyChangeVisitorAdapterEx<Object>();
+        OWLOntologyChangeVisitorExAdapter<Object> testSubject0 = new OWLOntologyChangeVisitorExAdapter<Object>();
         String result7 = testSubject0.toString();
     }
 

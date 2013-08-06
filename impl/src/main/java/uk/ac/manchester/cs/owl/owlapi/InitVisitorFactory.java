@@ -38,18 +38,14 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -57,8 +53,6 @@ import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
@@ -83,14 +77,12 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 @SuppressWarnings("javadoc")
 public class InitVisitorFactory {
@@ -330,205 +322,6 @@ public class InitVisitorFactory {
         }
     }
 
-    abstract static class OWLAxiomVisitorExAdapter<K> implements OWLAxiomVisitorEx<K>,
-            Serializable {
-        private static final long serialVersionUID = 40000L;
-
-        @Override
-        public K visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLAnnotationPropertyDomainAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLAnnotationPropertyRangeAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLSubClassOfAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLReflexiveObjectPropertyAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLDisjointClassesAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLDataPropertyDomainAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLObjectPropertyDomainAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLDifferentIndividualsAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLDisjointDataPropertiesAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLObjectPropertyRangeAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLObjectPropertyAssertionAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLFunctionalObjectPropertyAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLSubObjectPropertyOfAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLDisjointUnionAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLDeclarationAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLAnnotationAssertionAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLSymmetricObjectPropertyAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLDataPropertyRangeAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLFunctionalDataPropertyAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLClassAssertionAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLEquivalentClassesAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLDataPropertyAssertionAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLTransitiveObjectPropertyAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLSubDataPropertyOfAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLSameIndividualAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLSubPropertyChainOfAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLInverseObjectPropertiesAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLHasKeyAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(OWLDatatypeDefinitionAxiom axiom) {
-            return null;
-        }
-
-        @Override
-        public K visit(SWRLRule rule) {
-            return null;
-        }
-    }
 
     static final InitVisitor<OWLClass> classsubnamed = new InitVisitor<OWLClass>(true,
             true);

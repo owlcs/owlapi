@@ -48,35 +48,17 @@ import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
@@ -86,23 +68,15 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 /** Satisfiability converter */
 public class SatisfiabilityConverter {
-    // XXX this class could be rewitten as a simpler stateless OWLAxiomVisitorEx
-    private class AxiomConverter implements OWLAxiomVisitor {
-        private OWLClassExpression result;
+    private class AxiomConverter extends OWLAxiomVisitorExAdapter<OWLClassExpression> {
+        private static final long serialVersionUID = 40000L;
 
         public AxiomConverter() {}
 
@@ -115,10 +89,6 @@ public class SatisfiabilityConverter {
         @Nonnull
         private OWLObjectIntersectionOf and(@Nonnull Set<OWLClassExpression> set) {
             return factory.getOWLObjectIntersectionOf(set);
-        }
-
-        OWLClassExpression getResult() {
-            return result;
         }
 
         @Nonnull
@@ -137,10 +107,6 @@ public class SatisfiabilityConverter {
             return factory.getOWLObjectUnionOf(set(desc1, desc2));
         }
 
-        void reset() {
-            result = null;
-        }
-
         @Nonnull
         private <T> Set<T> set(@Nonnull T desc1, @Nonnull T desc2) {
             Set<T> set = new HashSet<T>();
@@ -150,92 +116,56 @@ public class SatisfiabilityConverter {
         }
 
         @Override
-        public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        protected OWLClassExpression doDefault(OWLAxiom axiom) {
             throw new OWLRuntimeException(
                     "Not implemented: Cannot generate explanation for " + axiom);
         }
 
         @Override
-        public void visit(OWLClassAssertionAxiom axiom) {
+        public OWLClassExpression visit(OWLClassAssertionAxiom axiom) {
             OWLIndividual ind = axiom.getIndividual();
             OWLClassExpression c = axiom.getClassExpression();
-            result = and(oneOf(ind), not(c));
+            return and(oneOf(ind), not(c));
         }
 
         @Override
-        public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        public OWLClassExpression visit(OWLDataPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLDataHasValue(axiom.getProperty(),
                     axiom.getObject());
             OWLSubClassOfAxiom ax = factory.getOWLSubClassOfAxiom(sub, sup);
-            ax.accept(this);
+            return ax.accept(this);
         }
 
         @Override
-        public void visit(OWLDataPropertyDomainAxiom axiom) {
+        public OWLClassExpression visit(OWLDataPropertyDomainAxiom axiom) {
             OWLClassExpression sub = factory.getOWLDataSomeValuesFrom(
                     axiom.getProperty(), factory.getTopDatatype());
-            result = and(sub, not(axiom.getDomain()));
+            return and(sub, not(axiom.getDomain()));
         }
 
         @Override
-        public void visit(OWLDataPropertyRangeAxiom axiom) {
-            result = factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
+        public OWLClassExpression visit(OWLDataPropertyRangeAxiom axiom) {
+            return factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
                     factory.getOWLDataComplementOf(axiom.getRange()));
         }
 
         @Override
-        public void visit(OWLSubDataPropertyOfAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLDeclarationAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLDifferentIndividualsAxiom axiom) {
+        public OWLClassExpression visit(OWLDifferentIndividualsAxiom axiom) {
             Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 nominals.add(oneOf(ind));
             }
-            result = factory.getOWLObjectIntersectionOf(nominals);
+            return factory.getOWLObjectIntersectionOf(nominals);
         }
 
         @Override
-        public void visit(OWLDisjointClassesAxiom axiom) {
-            result = and(axiom.getClassExpressions());
+        public OWLClassExpression visit(OWLDisjointClassesAxiom axiom) {
+            return and(axiom.getClassExpressions());
         }
 
         @Override
-        public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLDisjointUnionAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLAnnotationAssertionAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLEquivalentClassesAxiom axiom) {
+        public OWLClassExpression visit(OWLEquivalentClassesAxiom axiom) {
             Iterator<OWLClassExpression> classes = axiom.getClassExpressions().iterator();
             OWLClassExpression c1 = classes.next();
             OWLClassExpression c2 = classes.next();
@@ -243,186 +173,78 @@ public class SatisfiabilityConverter {
                 LOGGER.warning("EquivalentClassesAxiom with more than two elements not supported!");
             }
             // apply simplification for the cases where either concept is
-            // owl:Thing or owlapi:Nothin
+            // owl:Thing or owlapi:Nothing
             if (c1.isOWLNothing()) {
-                result = c2;
+                return c2;
             } else if (c2.isOWLNothing()) {
-                result = c1;
+                return c1;
             } else if (c1.isOWLThing()) {
-                result = not(c2);
+                return not(c2);
             } else if (c2.isOWLThing()) {
-                result = not(c1);
+                return not(c1);
             } else {
-                result = or(and(c1, not(c2)), and(not(c1), c2));
+                return or(and(c1, not(c2)), and(not(c1), c2));
             }
         }
 
         @Override
-        public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        public OWLClassExpression visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLDataHasValue(axiom.getProperty(),
                     axiom.getObject());
-            factory.getOWLSubClassOfAxiom(sub, not(sup)).accept(this);
+            return factory.getOWLSubClassOfAxiom(sub, not(sup)).accept(this);
         }
 
         @Override
-        public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        public OWLClassExpression visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(),
                     axiom.getObject());
-            factory.getOWLSubClassOfAxiom(sub, not(sup)).accept(this);
+            return factory.getOWLSubClassOfAxiom(sub, not(sup)).accept(this);
         }
 
         @Override
-        public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+        public OWLClassExpression visit(OWLObjectPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(),
                     axiom.getObject());
             OWLSubClassOfAxiom ax = factory.getOWLSubClassOfAxiom(sub, sup);
-            ax.accept(this);
+            return ax.accept(this);
         }
 
         @Override
-        public void visit(OWLSubPropertyChainOfAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLObjectPropertyDomainAxiom axiom) {
-            result = and(
+        public OWLClassExpression visit(OWLObjectPropertyDomainAxiom axiom) {
+            return and(
                     factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
                             factory.getOWLThing()), not(axiom.getDomain()));
         }
 
         @Override
-        public void visit(OWLObjectPropertyRangeAxiom axiom) {
-            result = factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
+        public OWLClassExpression visit(OWLObjectPropertyRangeAxiom axiom) {
+            return factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
                     not(axiom.getRange()));
         }
 
         @Override
-        public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLSameIndividualAxiom axiom) {
+        public OWLClassExpression visit(OWLSameIndividualAxiom axiom) {
             Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 nominals.add(not(oneOf(ind)));
             }
-            result = and(nominals);
+            return and(nominals);
         }
 
         @Override
-        public void visit(OWLSubClassOfAxiom axiom) {
+        public OWLClassExpression visit(OWLSubClassOfAxiom axiom) {
             OWLClassExpression sub = axiom.getSubClass();
             OWLClassExpression sup = axiom.getSuperClass();
             if (sup.isOWLNothing()) {
-                result = sub;
+                return sub;
             } else if (sub.isOWLThing()) {
-                result = not(sup);
+                return not(sup);
             } else {
-                result = and(sub, not(sup));
+                return and(sub, not(sup));
             }
-        }
-
-        @Override
-        public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(SWRLRule rule) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + rule);
-        }
-
-        @Override
-        public void visit(OWLHasKeyAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
-        }
-
-        @Override
-        public void visit(OWLDatatypeDefinitionAxiom axiom) {
-            throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
         }
     }
 
@@ -443,12 +265,6 @@ public class SatisfiabilityConverter {
      * @return converted class expression */
     @Nonnull
     public OWLClassExpression convert(@Nonnull OWLAxiom axiom) {
-        converter.reset();
-        checkNotNull(axiom).accept(converter);
-        OWLClassExpression result = converter.getResult();
-        if (result == null) {
-            throw new RuntimeException("Not supported yet");
-        }
-        return result;
+        return checkNotNull(axiom).accept(converter);
     }
 }

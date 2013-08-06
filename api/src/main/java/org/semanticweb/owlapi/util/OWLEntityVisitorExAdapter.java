@@ -66,8 +66,7 @@ public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
      * @param object
      *            The object that was visited.
      * @return The default return value */
-    @SuppressWarnings("unused")
-    protected O getDefaultReturnValue(OWLEntity object) {
+    protected O doDefault(@SuppressWarnings("unused") OWLEntity object) {
         return defaultReturnValue;
     }
 
@@ -81,31 +80,31 @@ public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
 
     @Override
     public O visit(OWLClass desc) {
-        return getDefaultReturnValue(desc);
+        return doDefault(desc);
     }
 
     @Override
     public O visit(OWLDatatype node) {
-        return getDefaultReturnValue(node);
+        return doDefault(node);
     }
 
     @Override
     public O visit(OWLDataProperty property) {
-        return getDefaultReturnValue(property);
+        return doDefault(property);
     }
 
     @Override
     public O visit(OWLObjectProperty property) {
-        return getDefaultReturnValue(property);
+        return doDefault(property);
     }
 
     @Override
     public O visit(OWLNamedIndividual individual) {
-        return getDefaultReturnValue(individual);
+        return doDefault(individual);
     }
 
     @Override
     public O visit(OWLAnnotationProperty property) {
-        return getDefaultReturnValue(property);
+        return doDefault(property);
     }
 }

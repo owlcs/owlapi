@@ -86,7 +86,11 @@ import org.semanticweb.owlapi.model.SWRLRule;
  * Date: 17-Nov-2006<br>
  * <br> */
 public class OWLAxiomVisitorAdapter implements OWLAxiomVisitor {
-    private void doDefault(OWLAxiom axiom) {}
+    /** override to change default behaviour
+     * 
+     * @param axiom
+     *            visited axiom */
+    protected void doDefault(@SuppressWarnings("unused") OWLAxiom axiom) {}
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {

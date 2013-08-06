@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
@@ -67,93 +68,117 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * @param <O> */
 public class OWLClassExpressionVisitorExAdapter<O> implements
         OWLClassExpressionVisitorEx<O> {
+    private O object;
+
+    /** adapter with null default */
+    public OWLClassExpressionVisitorExAdapter() {
+        this(null);
+    }
+
+    /** adapter with object as default value
+     * 
+     * @param object
+     *            default return value */
+    public OWLClassExpressionVisitorExAdapter(O object) {
+        this.object = object;
+    }
+
+    /** override to change default behaviour
+     * 
+     * @param c
+     *            visited axiom
+     * @return default return value; */
+    protected O doDefault(@SuppressWarnings("unused") OWLClassExpression c) {
+        return object;
+    }
+
     @Override
     public O visit(OWLClass ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectIntersectionOf ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectUnionOf ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectComplementOf ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectSomeValuesFrom ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectAllValuesFrom ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectHasValue ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectMinCardinality ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectExactCardinality ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectMaxCardinality ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectHasSelf ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectOneOf ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLDataSomeValuesFrom ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLDataAllValuesFrom ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLDataHasValue ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLDataMinCardinality ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLDataExactCardinality ce) {
-        return null;
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLDataMaxCardinality ce) {
-        return null;
+        return doDefault(ce);
     }
 }

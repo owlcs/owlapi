@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
@@ -64,57 +65,94 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * Date: 22-Nov-2006<br>
  * <br> */
 public class OWLClassExpressionVisitorAdapter implements OWLClassExpressionVisitor {
+    protected void doDefault(OWLClassExpression c) {}
     @Override
-    public void visit(OWLClass desc) {}
+    public void visit(OWLClass desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {}
+    public void visit(OWLObjectIntersectionOf desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {}
+    public void visit(OWLObjectUnionOf desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {}
+    public void visit(OWLObjectComplementOf desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {}
+    public void visit(OWLObjectSomeValuesFrom desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {}
+    public void visit(OWLObjectAllValuesFrom desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLObjectHasValue desc) {}
+    public void visit(OWLObjectHasValue desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {}
+    public void visit(OWLObjectMinCardinality desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {}
+    public void visit(OWLObjectExactCardinality desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {}
+    public void visit(OWLObjectMaxCardinality desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {}
+    public void visit(OWLObjectHasSelf desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {}
+    public void visit(OWLObjectOneOf desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {}
+    public void visit(OWLDataSomeValuesFrom desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {}
+    public void visit(OWLDataAllValuesFrom desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLDataHasValue desc) {}
+    public void visit(OWLDataHasValue desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {}
+    public void visit(OWLDataMinCardinality desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {}
+    public void visit(OWLDataExactCardinality desc) {
+        doDefault(desc);
+    }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {}
+    public void visit(OWLDataMaxCardinality desc) {
+        doDefault(desc);
+    }
 }
