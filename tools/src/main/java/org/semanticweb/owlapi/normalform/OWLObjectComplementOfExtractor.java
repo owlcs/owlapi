@@ -43,26 +43,16 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectHasSelf;
-import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -72,11 +62,8 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * <p/>
  * Extracts the parts of a class expression which are negated. For example, A
  * and not (B or C or not D) would extract {(B or C or notD), D} */
-public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor {
+public class OWLObjectComplementOfExtractor extends OWLClassExpressionVisitorAdapter {
     private final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
-
-    @SuppressWarnings("javadoc")
-    public OWLObjectComplementOfExtractor() {}
 
     /** @param desc
      *            the class to look for
@@ -94,27 +81,6 @@ public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor
     public void reset() {
         result.clear();
     }
-
-    @Override
-    public void visit(OWLClass desc) {}
-
-    @Override
-    public void visit(OWLDataAllValuesFrom desc) {}
-
-    @Override
-    public void visit(OWLDataExactCardinality desc) {}
-
-    @Override
-    public void visit(OWLDataMaxCardinality desc) {}
-
-    @Override
-    public void visit(OWLDataMinCardinality desc) {}
-
-    @Override
-    public void visit(OWLDataSomeValuesFrom desc) {}
-
-    @Override
-    public void visit(OWLDataHasValue desc) {}
 
     @Override
     public void visit(OWLObjectAllValuesFrom desc) {
@@ -150,12 +116,6 @@ public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor
     }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {}
-
-    @Override
-    public void visit(OWLObjectHasSelf desc) {}
-
-    @Override
     public void visit(OWLObjectSomeValuesFrom desc) {
         desc.getFiller().accept(this);
     }
@@ -166,7 +126,4 @@ public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor
             op.accept(this);
         }
     }
-
-    @Override
-    public void visit(OWLObjectHasValue desc) {}
 }

@@ -102,9 +102,6 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
     protected boolean add;
     protected OWLOntology ontology;
 
-    @SuppressWarnings("javadoc")
-    public OWLOntologyChangeFilter() {}
-
     /** @param changes
      *            changes to process */
     public void processChanges(@Nonnull List<? extends OWLOntologyChange<?>> changes) {
