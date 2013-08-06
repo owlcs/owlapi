@@ -450,7 +450,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param atts
      *            the attributes
      * @return the IRI of the resource or <code>null</code> */
-    @Nonnull
+    @Nullable
     protected String getNodeIDResourceResourceIRI(@Nonnull Attributes atts)
             throws SAXException {
         checkNotNull(atts);
@@ -505,7 +505,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      *            if not <code>null</code>, contains IRI of the resource that
      *            will wold the reified statement */
     protected void statementWithLiteralValue(@Nonnull String subject,
-            @Nonnull String predicate, @Nonnull String object, @Nonnull String dataType,
+            @Nonnull String predicate, @Nonnull String object, @Nullable String dataType,
             @Nullable String reificationID) throws SAXException {
         m_consumer.statementWithLiteralValue(subject, predicate, object, m_language,
                 dataType);

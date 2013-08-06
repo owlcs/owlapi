@@ -1306,9 +1306,7 @@ public class ContractOwlapi_2Test {
     public void shouldTestOWLIndividualAxiomImpl() throws OWLException {
         OWLIndividualAxiomImpl testSubject0 = new OWLIndividualAxiomImpl(
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -1378,9 +1376,7 @@ public class ContractOwlapi_2Test {
     @Test
     public void shouldTestOWLIndividualImpl() throws OWLException {
         OWLIndividualImpl testSubject0 = new OWLIndividualImpl() {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -1461,9 +1457,7 @@ public class ContractOwlapi_2Test {
                 mock(OWLIndividual.class), Utils.mockObjectProperty(),
                 mock(OWLPropertyAssertionObject.class),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
 
             @Override

@@ -90,6 +90,7 @@ public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> 
 
     @Override
     public OWLAxiom getAxiom() {
-        return null;
+        throw new UnsupportedOperationException(
+                "This is an annotation change, not an axiom change: " + this);
     }
 }

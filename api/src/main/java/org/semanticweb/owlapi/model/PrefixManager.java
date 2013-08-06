@@ -43,6 +43,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -111,7 +112,7 @@ public interface PrefixManager extends Serializable {
      *            The IRI whose prefix it to be retrieved
      * @return The prefix IRI for this IRI, or <code>null</code> if a prefix IRI
      *         cannot be generated. */
-    @Nonnull
+    @Nullable
     String getPrefixIRI(@Nonnull IRI iri);
 
     /** Gets the prefix names that have a mapping in this prefix manager

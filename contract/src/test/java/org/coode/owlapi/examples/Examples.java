@@ -433,9 +433,7 @@ public class Examples {
         man.applyChange(new AddAxiom(ont, ax));
     }
 
-    /**
-     * 
-     */
+    
     @SuppressWarnings("unused")
     @Test
     public void shouldInstantiateLiterals() {

@@ -142,22 +142,25 @@ public class NamespaceUtil {
                 break;
             }
         }
-        if (startIndex == -1) {
-            return null;
-        }
-        int endIndex = startIndex + 1;
-        for (int i = startIndex; endIndex < namespace.length() && i < namespace.length(); i++) {
-            char curChar = namespace.charAt(endIndex);
-            // We include any NCNameChar except a full stop (.) so
-            // that if the URI looks like a file with an extension the
-            // extension is removed.
-            if (XMLUtils.isNCNameChar(curChar) && curChar != '.') {
-                endIndex = i + 1;
-            } else {
-                break;
+        String computedPrefix = null;
+        if (startIndex != -1) {
+            int endIndex = startIndex + 1;
+            for (int i = startIndex; endIndex < namespace.length()
+                    && i < namespace.length(); i++) {
+                char curChar = namespace.charAt(endIndex);
+                // We include any NCNameChar except a full stop (.) so
+                // that if the URI looks like a file with an extension the
+                // extension is removed.
+                if (XMLUtils.isNCNameChar(curChar) && curChar != '.') {
+                    endIndex = i + 1;
+                } else {
+                    break;
+                }
             }
+            computedPrefix = namespace.substring(startIndex, endIndex);
+        } else {
+            computedPrefix = "p";
         }
-        String computedPrefix = namespace.substring(startIndex, endIndex);
         String candidatePrefix = computedPrefix;
         int index = 2;
         while (namespace2PrefixMap.containsValue(candidatePrefix)

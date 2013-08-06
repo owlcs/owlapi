@@ -56,7 +56,7 @@ public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat.equals(new ManchesterOWLSyntaxOntologyFormat());
+        return ontologyFormat instanceof ManchesterOWLSyntaxOntologyFormat;
     }
 
     @Override

@@ -48,9 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 public class OBOOntologyFormat extends OWLOntologyFormat {
     private IDSpaceManager idSpaceManager = new IDSpaceManager();
 
-    /**
-     * 
-     */
+    /** Constructs an OBOOntologyFormat object. */
     public OBOOntologyFormat() {}
 
     /** Constructs an OBOOntologyFormat object.

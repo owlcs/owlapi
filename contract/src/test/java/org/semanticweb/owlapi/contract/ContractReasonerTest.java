@@ -221,29 +221,21 @@ public class ContractReasonerTest {
     @Test
     public void shouldTestOWLReasonerRuntimeException() throws OWLException {
         OWLReasonerRuntimeException testSubject0 = new OWLReasonerRuntimeException() {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
         };
         OWLReasonerRuntimeException testSubject1 = new OWLReasonerRuntimeException(
                 new RuntimeException()) {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
         };
         OWLReasonerRuntimeException testSubject2 = new OWLReasonerRuntimeException("") {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
         };
         OWLReasonerRuntimeException testSubject3 = new OWLReasonerRuntimeException("",
                 new RuntimeException()) {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
         };
         Throwable result1 = testSubject0.getCause();

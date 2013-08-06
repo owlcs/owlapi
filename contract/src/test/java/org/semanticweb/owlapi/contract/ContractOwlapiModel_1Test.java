@@ -56,7 +56,6 @@ public class ContractOwlapiModel_1Test {
         OWLAnnotation result1 = testSubject0.getAnnotation();
         Object result2 = testSubject0.accept(Utils.mockOntologyChange());
         testSubject0.accept(mock(OWLOntologyChangeVisitor.class));
-        OWLAxiom result3 = testSubject0.getAxiom();
         boolean result4 = testSubject0.isAxiomChange();
         boolean result5 = testSubject0.isImportChange();
         OWLOntology result6 = testSubject0.getOntology();

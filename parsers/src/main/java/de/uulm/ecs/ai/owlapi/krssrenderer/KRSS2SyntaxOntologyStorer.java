@@ -57,7 +57,7 @@ public class KRSS2SyntaxOntologyStorer extends AbstractOWLOntologyStorer {
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat.equals(new KRSS2OntologyFormat());
+        return ontologyFormat instanceof KRSS2OntologyFormat;
     }
 
     @Override

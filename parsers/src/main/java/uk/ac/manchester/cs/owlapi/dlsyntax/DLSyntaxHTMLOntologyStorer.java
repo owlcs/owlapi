@@ -64,7 +64,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat.equals(new DLSyntaxHTMLOntologyFormat());
+        return ontologyFormat instanceof DLSyntaxHTMLOntologyFormat;
     }
 
     @Override

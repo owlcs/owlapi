@@ -52,6 +52,8 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.expression.ParserException;
@@ -434,7 +436,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 && owlEntityChecker.getOWLClass(name) != null;
     }
 
-    public OWLOntology getOntology(String name) {
+    public OWLOntology getOntology(@Nullable String name) {
         return owlOntologyChecker.getOntology(name);
     }
 

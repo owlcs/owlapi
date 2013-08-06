@@ -38,7 +38,6 @@
  */
 package org.semanticweb.owlapi.expression;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -52,5 +51,5 @@ public interface OWLOntologyChecker {
      *            the ontology name
      * @return the ontology */
     @Nullable
-    OWLOntology getOntology(@Nonnull String name);
+    OWLOntology getOntology(@Nullable String name);
 }

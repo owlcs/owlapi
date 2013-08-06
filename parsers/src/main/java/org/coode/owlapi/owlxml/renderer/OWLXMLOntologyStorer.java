@@ -38,8 +38,6 @@
  */
 package org.coode.owlapi.owlxml.renderer;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.io.Writer;
 
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
@@ -58,8 +56,7 @@ public class OWLXMLOntologyStorer extends AbstractOWLOntologyStorer {
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        checkNotNull(ontologyFormat);
-        return ontologyFormat.equals(new OWLXMLOntologyFormat());
+        return ontologyFormat instanceof OWLXMLOntologyFormat;
     }
 
     @Override

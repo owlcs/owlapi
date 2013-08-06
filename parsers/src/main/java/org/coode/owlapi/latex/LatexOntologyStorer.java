@@ -68,6 +68,6 @@ public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat.equals(new LatexOntologyFormat());
+        return ontologyFormat instanceof LatexOntologyFormat;
     }
 }

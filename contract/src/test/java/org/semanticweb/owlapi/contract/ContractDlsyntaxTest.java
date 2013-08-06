@@ -87,9 +87,7 @@ public class ContractDlsyntaxTest {
 
     public void shouldTestDLSyntaxOntologyStorerBase() throws OWLOntologyStorageException {
         DLSyntaxOntologyStorerBase testSubject0 = new DLSyntaxOntologyStorerBase() {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
 
             @Override

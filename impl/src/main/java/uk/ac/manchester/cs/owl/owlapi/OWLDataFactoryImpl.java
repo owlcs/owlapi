@@ -170,7 +170,11 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         } else if (entityType.equals(EntityType.DATATYPE)) {
             ret = (E) getOWLDatatype(iri);
         }
-        return ret;
+        if (ret != null) {
+            return ret;
+        }
+        throw new OWLRuntimeException("Entity type not recognized: " + entityType
+                + " for iri " + iri);
     }
 
     @Override

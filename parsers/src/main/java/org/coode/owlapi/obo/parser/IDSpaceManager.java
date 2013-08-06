@@ -38,8 +38,12 @@
  */
 package org.coode.owlapi.obo.parser;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Nonnull;
 
 /** Author: Matthew Horridge<br>
  * Stanford University<br>
@@ -59,9 +63,7 @@ import java.util.Map;
 public class IDSpaceManager {
     private Map<String, String> idPrefix2IRIPrefixMap = new HashMap<String, String>();
 
-    /**
-     * 
-     */
+    /** Creates an IDSpaceManager */
     public IDSpaceManager() {}
 
     /** Creates an IDSpaceManager and copying the id prefix to IRI prefix
@@ -72,11 +74,8 @@ public class IDSpaceManager {
      *            mappings will be copied. Not null.
      * @throws NullPointerException
      *             if idSpaceManager is null. */
-    public IDSpaceManager(IDSpaceManager idSpaceManager) {
-        if (idSpaceManager == null) {
-            throw new NullPointerException("idSpaceManager must not be null");
-        }
-        idPrefix2IRIPrefixMap.putAll(idSpaceManager.idPrefix2IRIPrefixMap);
+    public IDSpaceManager(@Nonnull IDSpaceManager idSpaceManager) {
+        idPrefix2IRIPrefixMap.putAll(checkNotNull(idSpaceManager).idPrefix2IRIPrefixMap);
     }
 
     /** Gets the default IRI prefix (which is returned by the

@@ -56,7 +56,7 @@ public class OBOFlatFileOntologyStorer extends AbstractOWLOntologyStorer {
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat.equals(new OBOOntologyFormat());
+        return ontologyFormat instanceof OBOOntologyFormat;
     }
 
     @Override

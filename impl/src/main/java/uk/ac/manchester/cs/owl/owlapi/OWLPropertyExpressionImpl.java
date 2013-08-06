@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
 public abstract class OWLPropertyExpressionImpl extends OWLObjectImpl implements
         OWLPropertyExpression {
     private static final long serialVersionUID = 40000L;

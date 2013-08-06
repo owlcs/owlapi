@@ -57,7 +57,7 @@ public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat.equals(new OWLTutorialSyntaxOntologyFormat());
+        return ontologyFormat instanceof OWLTutorialSyntaxOntologyFormat;
     }
 
     @Override

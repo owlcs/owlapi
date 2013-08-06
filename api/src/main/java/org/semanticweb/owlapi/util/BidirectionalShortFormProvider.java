@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.util;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -71,7 +72,7 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      *         which has the specified short form. If the specified short form
      *         corresponds to more than one entity then an entity will be chosen
      *         by the implementation of the short form provider. */
-    @Nonnull
+    @Nullable
     OWLEntity getEntity(@Nonnull String shortForm);
 
     /** Gets all of the short forms that are mapped to entities.

@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
@@ -151,7 +152,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @return The ontology that has the specified ID, or <code>null</code> if
      *         this manager does not manage an ontology with the specified
      *         ontology ID. */
-    @Nonnull
+    @Nullable
     OWLOntology getOntology(@Nonnull OWLOntologyID ontologyID);
 
     /** Given an imports declaration, obtains the ontology that this import has
@@ -163,7 +164,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *         <code>null</code> if the imports declaration could not be
      *         resolved to an ontology, because the ontology was not loaded or
      *         has been removed from this manager */
-    @Nonnull
+    @Nullable
     OWLOntology getImportedOntology(@Nonnull OWLImportsDeclaration declaration);
 
     /** Gets the set of <em>loaded</em> ontologies that the specified ontology is

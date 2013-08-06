@@ -181,9 +181,7 @@ public class ContractOwlapi_4Test {
         SWRLBinaryAtomImpl<SWRLArgument, SWRLArgument> testSubject0 = new SWRLBinaryAtomImpl<SWRLArgument, SWRLArgument>(
                 mock(SWRLPredicate.class), mock(SWRLArgument.class),
                 mock(SWRLArgument.class)) {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -488,9 +486,7 @@ public class ContractOwlapi_4Test {
     public void shouldTestSWRLUnaryAtomImpl() throws OWLException {
         SWRLUnaryAtomImpl<SWRLArgument> testSubject0 = new SWRLUnaryAtomImpl<SWRLArgument>(
                 mock(SWRLPredicate.class), mock(SWRLArgument.class)) {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
 
             @Override

@@ -175,9 +175,7 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestAbstractOWLOntologyStorer() throws OWLException {
         AbstractOWLOntologyStorer testSubject0 = new AbstractOWLOntologyStorer() {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
 
             @Override

@@ -1064,9 +1064,7 @@ public class ContractOwlapi_1Test {
     @Test
     public void shouldTestOWLAnonymousClassExpressionImpl() throws OWLException {
         OWLAnonymousClassExpressionImpl testSubject0 = new OWLAnonymousClassExpressionImpl() {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -1206,9 +1204,7 @@ public class ContractOwlapi_1Test {
     public void shouldTestOWLAxiomImpl() throws OWLException {
         OWLAxiomImpl testSubject0 = new OWLAxiomImpl(
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -1365,9 +1361,7 @@ public class ContractOwlapi_1Test {
     public void shouldTestOWLClassAxiomImpl() throws OWLException {
         OWLClassAxiomImpl testSubject0 = new OWLClassAxiomImpl(
                 new ArrayList<OWLAnnotation>()) {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -1437,9 +1431,7 @@ public class ContractOwlapi_1Test {
     @Test
     public void shouldTestOWLClassExpressionImpl() throws OWLException {
         OWLClassExpressionImpl testSubject0 = new OWLClassExpressionImpl() {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -1666,9 +1658,7 @@ public class ContractOwlapi_1Test {
     public void shouldTestOWLDataCardinalityRestrictionImpl() throws OWLException {
         OWLDataCardinalityRestrictionImpl testSubject0 = new OWLDataCardinalityRestrictionImpl(
                 mock(OWLDataPropertyExpression.class), 0, mock(OWLDataRange.class)) {
-            /**
-             * 
-             */
+            
             private static final long serialVersionUID = 40000L;
 
             @Override
