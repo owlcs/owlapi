@@ -146,16 +146,16 @@ public enum OWL2Datatype {
 
 
     /**
-     * Gets all of the built in datatype URIs
-     * @return A set of URIs corresponding to the built in datatype URIs
+     * Gets all of the built in datatype IRIs.
+     * @return A set of IRIs corresponding to the set of IRIs of all built in {@link OWL2Datatype}s.  Not {@code null}.
      */
     public static Set<IRI> getDatatypeIRIs() {
         return ALL_IRIS;
     }
 
     /**
-     * Gets the Pattern that specifies the regular expression for a datatype
-     * @return The Pattern, or <code>null</code>
+     * Gets the Pattern that specifies the regular expression for the allowed lexical values of a datatype.
+     * @return The Pattern.  Not {@code null}.
      */
     public Pattern getPattern() {
         return pattern;
@@ -174,11 +174,11 @@ public enum OWL2Datatype {
 
 
     /**
-     * Given a URI that identifies an OWLDatatype, this method obtains the
-     * corresponding OWLDatatypeVocabulary
-     * @param datatype The datatype URI
-     * @return The OWLDatatypeVocabulary
-     * @throws OWLRuntimeException if the specified URI is not a built in datatype URI
+     * Given an IRI that identifies an {@link OWLDatatype}, this method obtains the
+     * corresponding {@link OWL2Datatype}.
+     * @param datatype The datatype IRI.  Not {@code null}.
+     * @return The {@link OWL2Datatype} that has the specified {@link IRI}.
+     * @throws OWLRuntimeException if the specified IRI is not a built in datatype IRI.
      */
     public static OWL2Datatype getDatatype(IRI datatype) {
         if (!isBuiltIn(datatype)) {
@@ -240,6 +240,7 @@ public enum OWL2Datatype {
     /**
      * Gets the URI of this datatype
      * @return The URI that identifies the datatype
+     * @deprecated Use {@link #getIRI()}.
      */
     public URI getURI() {
         return iri.toURI();
