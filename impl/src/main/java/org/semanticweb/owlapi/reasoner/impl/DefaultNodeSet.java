@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.reasoner.impl;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -68,19 +68,19 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     /** @param entity
      *            the entity to be contained */
     public DefaultNodeSet(@Nonnull E entity) {
-        nodes.add(getNode(checkNotNull(entity)));
+        nodes.add(getNode(checkNotNull(entity, "entity cannot be null")));
     }
 
     /** @param node
      *            the node to be contained */
     public DefaultNodeSet(@Nonnull Node<E> node) {
-        nodes.add(checkNotNull(node));
+        nodes.add(checkNotNull(node, "node cannot be null"));
     }
 
     /** @param nodes
      *            a set of nodes to be contained */
     public DefaultNodeSet(@Nonnull Set<Node<E>> nodes) {
-        this.nodes.addAll(checkNotNull(nodes));
+        this.nodes.addAll(checkNotNull(nodes, "nodes cannot be null"));
     }
 
     @Override
@@ -99,7 +99,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *             if <code>entity</code> is <code>null</code>. */
     // XXX not in the interface
     public void addEntity(@Nonnull E entity) {
-        addNode(getNode(checkNotNull(entity)));
+        addNode(getNode(checkNotNull(entity, "entity cannot be null")));
     }
 
     /** Adds a <code>Node</code> to this set.

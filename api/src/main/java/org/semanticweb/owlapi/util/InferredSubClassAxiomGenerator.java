@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Set;
 
@@ -57,10 +57,10 @@ public class InferredSubClassAxiomGenerator extends
     @Override
     protected void addAxioms(OWLClass entity, OWLReasoner reasoner,
             OWLDataFactory dataFactory, Set<OWLSubClassOfAxiom> result) {
-        checkNotNull(dataFactory);
-        checkNotNull(reasoner);
-        checkNotNull(result);
-        checkNotNull(entity);
+        checkNotNull(dataFactory, "dataFactory cannot be null");
+        checkNotNull(reasoner, "reasoner cannot be null");
+        checkNotNull(result, "result cannot be null");
+        checkNotNull(entity, "entity cannot be null");
         if (reasoner.isSatisfiable(entity)) {
             for (OWLClass sup : reasoner.getSuperClasses(entity, true).getFlattened()) {
                 result.add(dataFactory.getOWLSubClassOfAxiom(entity, sup));

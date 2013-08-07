@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collections;
 import java.util.Set;
@@ -66,7 +66,7 @@ public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
      *            The one and only ontology which should be contained in the
      *            sets provided by this provider. */
     public OWLOntologySingletonSetProvider(@Nonnull OWLOntology ontology) {
-        ontologySingletonSet = Collections.singleton(checkNotNull(ontology));
+        ontologySingletonSet = Collections.singleton(checkNotNull(ontology, "ontology cannot be null"));
     }
 
     @Override

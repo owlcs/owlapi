@@ -38,7 +38,7 @@
  */
 package org.coode.xml;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -65,32 +65,32 @@ public class XMLWriterNamespaceManager {
     private String defaultNamespace;
 
     public XMLWriterNamespaceManager(@Nonnull String defaultNamespace) {
-        this.defaultNamespace = checkNotNull(defaultNamespace);
+        this.defaultNamespace = checkNotNull(defaultNamespace, "defaultNamespace cannot be null");
     }
 
     public void addWellKnownNamespace(@Nonnull String prefix, @Nonnull String namespace) {
-        wellknownNamespaces.put(checkNotNull(prefix), checkNotNull(namespace));
+        wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"), checkNotNull(namespace, "namespace cannot be null"));
     }
 
     public void setPrefix(@Nonnull String prefix, @Nonnull String namespace) {
-        checkNotNull(prefix);
-        checkNotNull(namespace);
+        checkNotNull(prefix, "prefix cannot be null");
+        checkNotNull(namespace, "namespace cannot be null");
         prefixNamespaceMap.put(prefix, namespace);
         namespacePrefixMap.put(namespace, prefix);
     }
 
     @Nullable
     public String getPrefixForNamespace(@Nonnull String namespace) {
-        return namespacePrefixMap.get(checkNotNull(namespace));
+        return namespacePrefixMap.get(checkNotNull(namespace, "namespace cannot be null"));
     }
 
     public void setDefaultNamespace(@Nonnull String namespace) {
-        defaultNamespace = checkNotNull(namespace);
+        defaultNamespace = checkNotNull(namespace, "namespace cannot be null");
     }
 
     @Nullable
     public String getNamespaceForPrefix(@Nonnull String prefix) {
-        return prefixNamespaceMap.get(checkNotNull(prefix));
+        return prefixNamespaceMap.get(checkNotNull(prefix, "prefix cannot be null"));
     }
 
     /** Gets a QName for a full URI.
@@ -101,7 +101,7 @@ public class XMLWriterNamespaceManager {
      *         not be generated. */
     @Nullable
     public String getQName(@Nonnull String name) {
-        checkNotNull(name);
+        checkNotNull(name, "name cannot be null");
         if (name.startsWith(defaultNamespace)) {
             return name.substring(defaultNamespace.length(), name.length());
         }
@@ -115,7 +115,7 @@ public class XMLWriterNamespaceManager {
     }
 
     public void createPrefixForNamespace(@Nonnull String namespace) {
-        checkNotNull(namespace);
+        checkNotNull(namespace, "namespace cannot be null");
         if (namespace.equals(defaultNamespace)) {
             return;
         }

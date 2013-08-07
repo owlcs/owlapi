@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -35,7 +35,7 @@ public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V
         visitor = v;
         map = new MultiMap<K, V>();
         this.initialized = initialized;
-        this.i = checkNotNull(i);
+        this.i = checkNotNull(i, "i cannot be null");
     }
 
     public boolean isInitialized() {

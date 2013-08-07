@@ -38,7 +38,7 @@
  */
 package com.clarkparsia.owlapi.explanation.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -57,14 +57,14 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
 
     @Override
     public void startRendering(Writer w) {
-        checkNotNull(w);
+        checkNotNull(w, "w cannot be null");
         writer = w instanceof PrintWriter ? (PrintWriter) w : new PrintWriter(w);
     }
 
     @Override
     public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations)
             throws OWLException, IOException {
-        writer.println("Axiom: " + renderer.render(checkNotNull(axiom)));
+        writer.println("Axiom: " + renderer.render(checkNotNull(axiom, "axiom cannot be null")));
         int expSize = checkNotNull(explanations.size());
         if (expSize == 0) {
             writer.println("Explanation: AXIOM IS NOT ENTAILED!");

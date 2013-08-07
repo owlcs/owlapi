@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,8 +77,8 @@ public class OWLEntityRenamer {
      *            the ontologies to use */
     public OWLEntityRenamer(@Nonnull OWLOntologyManager owlOntologyManager,
             @Nonnull Set<OWLOntology> ontologies) {
-        this.owlOntologyManager = checkNotNull(owlOntologyManager);
-        this.ontologies = checkNotNull(ontologies);
+        this.owlOntologyManager = checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
+        this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 
     /** Changes a IRI for another IRI. This creates the appropriate changes to be
@@ -92,8 +92,8 @@ public class OWLEntityRenamer {
      *         specified IRI. */
     @Nonnull
     public List<OWLOntologyChange<?>> changeIRI(@Nonnull IRI iri, @Nonnull IRI newIRI) {
-        checkNotNull(iri);
-        checkNotNull(newIRI);
+        checkNotNull(iri, "iri cannot be null");
+        checkNotNull(newIRI, "newIRI cannot be null");
         Map<IRI, IRI> uriMap = new HashMap<IRI, IRI>();
         uriMap.put(iri, newIRI);
         List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();

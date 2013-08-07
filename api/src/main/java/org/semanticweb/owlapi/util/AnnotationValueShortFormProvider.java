@@ -38,8 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
 import java.util.Map;
@@ -199,12 +199,12 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             @Nonnull List<OWLAnnotationProperty> annotationProperties,
             @Nonnull Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
             @Nonnull OWLAnnotationValueVisitorEx<String> literalRenderer) {
-        this.ontologySetProvider = checkNotNull(ontologySetProvider);
-        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider);
-        this.alternateIRIShortFormProvider = checkNotNull(alternateIRIShortFormProvider);
-        this.annotationProperties = checkNotNull(annotationProperties);
-        this.preferredLanguageMap = checkNotNull(preferredLanguageMap);
-        this.literalRenderer = checkNotNull(literalRenderer);
+        this.ontologySetProvider = checkNotNull(ontologySetProvider, "ontologySetProvider cannot be null");
+        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider, "alternateShortFormProvider cannot be null");
+        this.alternateIRIShortFormProvider = checkNotNull(alternateIRIShortFormProvider, "alternateIRIShortFormProvider cannot be null");
+        this.annotationProperties = checkNotNull(annotationProperties, "annotationProperties cannot be null");
+        this.preferredLanguageMap = checkNotNull(preferredLanguageMap, "preferredLanguageMap cannot be null");
+        this.literalRenderer = checkNotNull(literalRenderer, "literalRenderer cannot be null");
     }
 
     @Override

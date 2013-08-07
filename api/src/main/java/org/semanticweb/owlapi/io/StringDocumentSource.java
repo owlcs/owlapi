@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -79,8 +79,8 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
      * @param documentIRI
      *            The document IRI */
     public StringDocumentSource(@Nonnull String string, @Nonnull IRI documentIRI) {
-        this.string = checkNotNull(string);
-        this.documentIRI = checkNotNull(documentIRI);
+        this.string = checkNotNull(string, "string cannot be null");
+        this.documentIRI = checkNotNull(documentIRI, "documentIRI cannot be null");
     }
 
     @Override

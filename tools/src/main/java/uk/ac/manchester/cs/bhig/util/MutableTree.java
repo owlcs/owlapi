@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.bhig.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -75,7 +75,7 @@ public class MutableTree<N> implements Tree<N> {
     /** @param userObject
      *            the user object */
     public MutableTree(@Nonnull N userObject) {
-        this.userObject = checkNotNull(userObject);
+        this.userObject = checkNotNull(userObject, "userObject cannot be null");
     }
 
     @Override

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.Set;
@@ -163,7 +163,7 @@ public class OWLEntityCollector implements OWLObjectVisitorEx<Collection<OWLEnti
      * @param anonsToReturn
      *            the set that will contain the anon individuals */
     public OWLEntityCollector(@Nonnull Set<OWLEntity> toReturn) {
-        objects = checkNotNull(toReturn);
+        objects = checkNotNull(toReturn, "toReturn cannot be null");
     }
 
     protected void processAxiomAnnotations(OWLAxiom ax) {

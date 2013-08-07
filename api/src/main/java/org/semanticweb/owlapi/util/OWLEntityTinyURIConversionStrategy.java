@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -91,7 +91,7 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
      * @param base
      *            The base to be used. */
     public OWLEntityTinyURIConversionStrategy(@Nonnull String base) {
-        this.base = checkNotNull(base);
+        this.base = checkNotNull(base, "base cannot be null");
     }
 
     @Override

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -157,7 +157,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
      *            the object to compute the type index of
      * @return the type */
     public int getTypeIndex(@Nonnull OWLObject object) {
-        checkNotNull(object).accept(this);
+        checkNotNull(object, "object cannot be null").accept(this);
         return type;
     }
 

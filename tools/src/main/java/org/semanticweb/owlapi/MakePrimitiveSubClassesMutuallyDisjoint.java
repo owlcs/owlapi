@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.util.HashSet;
@@ -95,7 +95,7 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
             @Nonnull OWLClass cls, @Nonnull OWLOntology targetOntology,
             boolean usePairwiseDisjointAxioms) {
         super(dataFactory);
-        generateChanges(checkNotNull(cls), checkNotNull(targetOntology),
+        generateChanges(checkNotNull(cls, "cls cannot be null"), checkNotNull(targetOntology, "targetOntology cannot be null"),
                 usePairwiseDisjointAxioms);
     }
 

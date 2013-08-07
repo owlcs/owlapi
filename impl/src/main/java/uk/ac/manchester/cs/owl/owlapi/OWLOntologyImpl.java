@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 
 import java.io.Serializable;
@@ -159,8 +159,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public OWLOntologyImpl(@Nonnull OWLOntologyManager manager,
             @Nonnull OWLOntologyID ontologyID) {
         super();
-        this.manager = checkNotNull(manager);
-        this.ontologyID = checkNotNull(ontologyID);
+        this.manager = checkNotNull(manager, "manager cannot be null");
+        this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
         internals = new InternalsImpl();
     }
 

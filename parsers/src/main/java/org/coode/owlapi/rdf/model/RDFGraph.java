@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.rdf.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -81,7 +81,7 @@ public class RDFGraph {
     /** @param triple
      *            triple to add */
     public void addTriple(@Nonnull RDFTriple triple) {
-        checkNotNull(triple);
+        checkNotNull(triple, "triple cannot be null");
         // Reset the computation of root anon nodes
         rootAnonymousNodes = null;
         triples.add(triple);
@@ -100,7 +100,7 @@ public class RDFGraph {
     public List<RDFTriple> getSortedTriplesForSubject(@Nonnull RDFNode subject,
             boolean sort) {
         List<RDFTriple> toReturn = new ArrayList<RDFTriple>();
-        Set<RDFTriple> set = triplesBySubject.get(checkNotNull(subject));
+        Set<RDFTriple> set = triplesBySubject.get(checkNotNull(subject, "subject cannot be null"));
         if (set != null) {
             toReturn.addAll(set);
         }
@@ -141,7 +141,7 @@ public class RDFGraph {
      * @throws IOException
      *             if exceptions happen */
     public void dumpTriples(@Nonnull Writer w) throws IOException {
-        checkNotNull(w);
+        checkNotNull(w, "w cannot be null");
         for (Set<RDFTriple> set : triplesBySubject.values()) {
             for (RDFTriple triple : set) {
                 w.write(triple.toString());

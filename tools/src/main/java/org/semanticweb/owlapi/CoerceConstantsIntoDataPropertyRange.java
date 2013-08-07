@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -86,7 +86,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
             @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
         Map<OWLDataPropertyExpression, OWLDatatype> map = new HashMap<OWLDataPropertyExpression, OWLDatatype>();
-        for (OWLOntology ont : checkNotNull(ontologies)) {
+        for (OWLOntology ont : checkNotNull(ontologies, "ontologies cannot be null")) {
             for (OWLDataPropertyRangeAxiom ax : ont
                     .getAxioms(AxiomType.DATA_PROPERTY_RANGE)) {
                 if (ax.getRange().isDatatype()) {

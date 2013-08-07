@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,7 +73,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
 
     @Nonnull
     private static IRI convert(@Nonnull IRI iri) {
-        checkNotNull(iri);
+        checkNotNull(iri, "iri cannot be null");
         String fragment = iri.getFragment();
         if (fragment != null) {
             String base = iri.getNamespace();

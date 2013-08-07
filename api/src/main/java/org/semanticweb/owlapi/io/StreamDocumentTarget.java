@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.OutputStream;
 import java.io.Writer;
@@ -59,7 +59,7 @@ public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
     /** @param os
      *            the actual output stream */
     public StreamDocumentTarget(@Nonnull OutputStream os) {
-        this.os = checkNotNull(os);
+        this.os = checkNotNull(os, "os cannot be null");
     }
 
     @Override

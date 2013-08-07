@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.debugging;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -113,7 +113,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     public BlackBoxOWLDebugger(@Nonnull OWLOntologyManager owlOntologyManager,
             @Nonnull OWLOntology ontology, @Nonnull OWLReasonerFactory reasonerFactory) {
         super(owlOntologyManager, ontology);
-        this.reasonerFactory = checkNotNull(reasonerFactory);
+        this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
     }
 
     @Override

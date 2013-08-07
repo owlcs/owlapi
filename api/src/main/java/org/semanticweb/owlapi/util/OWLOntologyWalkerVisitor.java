@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -56,7 +56,7 @@ public class OWLOntologyWalkerVisitor<E> extends OWLObjectVisitorExAdapter<E> {
     private final OWLOntologyWalker walker;
 
     public OWLOntologyWalkerVisitor(@Nonnull OWLOntologyWalker walker) {
-        this.walker = checkNotNull(walker);
+        this.walker = checkNotNull(walker, "walker cannot be null");
     }
 
     public OWLAxiom getCurrentAxiom() {

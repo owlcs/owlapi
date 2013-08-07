@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,8 +81,8 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             boolean usePairwiseDisjointAxioms, @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
-        generateChanges(checkNotNull(classExpressions), usePairwiseDisjointAxioms,
-                checkNotNull(targetOntology));
+        generateChanges(checkNotNull(classExpressions, "classExpressions cannot be null"), usePairwiseDisjointAxioms,
+                checkNotNull(targetOntology, "targetOntology cannot be null"));
     }
 
     private void generateChanges(Set<? extends OWLClassExpression> classExpressions,

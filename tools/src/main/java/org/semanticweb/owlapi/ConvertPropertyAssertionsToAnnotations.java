@@ -59,7 +59,7 @@ package org.semanticweb.owlapi;/*
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -109,7 +109,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
     public ConvertPropertyAssertionsToAnnotations(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
-        this.ontologies = checkNotNull(ontologies);
+        this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
         generateChanges();
     }
 

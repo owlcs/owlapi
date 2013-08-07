@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.debugging;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -75,7 +75,7 @@ public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
     /** @param dataFactory
      *            factory to use */
     public DebuggerClassExpressionGenerator(@Nonnull OWLDataFactory dataFactory) {
-        this.dataFactory = checkNotNull(dataFactory);
+        this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
     /** @return the class expression */

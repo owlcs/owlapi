@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
     @SuppressWarnings("javadoc")
     public OWLNaryBooleanClassExpressionImpl(
             @Nonnull Set<? extends OWLClassExpression> operands) {
-        this.operands = new TreeSet<OWLClassExpression>(checkNotNull(operands));
+        this.operands = new TreeSet<OWLClassExpression>(checkNotNull(operands, "operands cannot be null"));
     }
 
     @Override

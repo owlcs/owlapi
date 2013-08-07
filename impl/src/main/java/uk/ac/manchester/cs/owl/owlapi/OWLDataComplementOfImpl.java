@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -66,7 +66,7 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
     private final OWLDataRange dataRange;
 
     public OWLDataComplementOfImpl(@Nonnull OWLDataRange dataRange) {
-        this.dataRange = checkNotNull(dataRange);
+        this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
     }
 
     @Override

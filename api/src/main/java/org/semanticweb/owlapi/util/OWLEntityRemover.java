@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -83,7 +83,7 @@ public class OWLEntityRemover implements OWLEntityVisitor {
      *            The set of ontologies that contain references to axioms to be
      *            removed. */
     public OWLEntityRemover(@Nonnull Set<OWLOntology> ontologies) {
-        this.ontologies = new ArrayList<OWLOntology>(checkNotNull(ontologies));
+        this.ontologies = new ArrayList<OWLOntology>(checkNotNull(ontologies, "ontologies cannot be null"));
     }
 
     /** @return the list of ontology changes that are required in order to remove
@@ -100,7 +100,7 @@ public class OWLEntityRemover implements OWLEntityVisitor {
     }
 
     private void generateChanges(@Nonnull OWLEntity entity) {
-        checkNotNull(entity);
+        checkNotNull(entity, "entity cannot be null");
         for (OWLOntology ont : ontologies) {
             for (OWLAxiom ax : ont.getReferencingAxioms(entity)) {
                 changes.add(new RemoveAxiom(ont, ax));

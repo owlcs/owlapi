@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Set;
 
@@ -102,7 +102,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
      *            the axiom to visit
      * @return the subject */
     public OWLObject getSubject(@Nonnull OWLAxiom axiom) {
-        checkNotNull(axiom);
+        checkNotNull(axiom, "axiom cannot be null");
         axiom.accept(this);
         return subject;
     }
@@ -283,7 +283,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
 
     @Override
     public void visit(SWRLRule rule) {
-        subject = checkNotNull(rule).getHead().iterator().next();
+        subject = checkNotNull(rule, "rule cannot be null").getHead().iterator().next();
     }
 
     @Override

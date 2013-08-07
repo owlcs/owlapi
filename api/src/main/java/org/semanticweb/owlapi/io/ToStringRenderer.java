@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -77,7 +77,7 @@ public class ToStringRenderer {
     /** @param renderer
      *            the new renderer to use */
     public synchronized void setRenderer(@Nonnull OWLObjectRenderer renderer) {
-        this.renderer = checkNotNull(renderer);
+        this.renderer = checkNotNull(renderer, "renderer cannot be null");
     }
 
     /** @param object

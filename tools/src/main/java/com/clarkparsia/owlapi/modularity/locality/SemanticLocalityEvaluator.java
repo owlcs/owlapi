@@ -38,7 +38,7 @@
  */
 package com.clarkparsia.owlapi.modularity.locality;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -95,9 +95,9 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
      *            reasoner factory */
     public SemanticLocalityEvaluator(@Nonnull OWLOntologyManager man,
             @Nonnull OWLReasonerFactory reasonerFactory) {
-        df = checkNotNull(man).getOWLDataFactory();
+        df = checkNotNull(man, "man cannot be null").getOWLDataFactory();
         try {
-            reasoner = checkNotNull(reasonerFactory).createNonBufferingReasoner(
+            reasoner = checkNotNull(reasonerFactory, "reasonerFactory cannot be null").createNonBufferingReasoner(
                     man.createOntology());
         } catch (Exception e) {
             throw new OWLRuntimeException(e);
@@ -172,8 +172,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Nonnull
         public OWLAxiom replaceBottom(@Nonnull OWLAxiom axiom,
                 @Nonnull Set<? extends OWLEntity> sig) {
-            reset(checkNotNull(sig));
-            checkNotNull(axiom).accept(this);
+            reset(checkNotNull(sig, "sig cannot be null"));
+            checkNotNull(axiom, "axiom cannot be null").accept(this);
             return getResult();
         }
 
@@ -182,7 +182,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Nonnull
         public OWLClassExpression replaceBottom(@Nonnull OWLClassExpression desc) {
             newClassExpression = null;
-            checkNotNull(desc).accept(this);
+            checkNotNull(desc, "desc cannot be null").accept(this);
             if (newClassExpression == null) {
                 throw new OWLRuntimeException("Unsupported class expression " + desc);
             }
@@ -193,14 +193,14 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         public Set<OWLClassExpression> replaceBottom(
                 @Nonnull Set<OWLClassExpression> classExpressions) {
             Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
-            for (OWLClassExpression desc : checkNotNull(classExpressions)) {
+            for (OWLClassExpression desc : checkNotNull(classExpressions, "classExpressions cannot be null")) {
                 result.add(replaceBottom(desc));
             }
             return result;
         }
 
         public void reset(@Nonnull Set<? extends OWLEntity> s) {
-            signature = checkNotNull(s);
+            signature = checkNotNull(s, "s cannot be null");
             newAxiom = null;
         }
 
@@ -370,8 +370,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine("Replacing axiom by Bottom");
         }
-        OWLAxiom newAxiom = bottomReplacer.replaceBottom(checkNotNull(axiom),
-                checkNotNull(signature));
+        OWLAxiom newAxiom = bottomReplacer.replaceBottom(checkNotNull(axiom, "axiom cannot be null"),
+                checkNotNull(signature, "signature cannot be null"));
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine("DONE Replacing axiom by Bottom. Success: " + (newAxiom != null));
         }

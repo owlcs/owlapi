@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.File;
 import java.net.URI;
@@ -207,7 +207,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return The IRI that has the specified string representation. */
     @Nonnull
     public static IRI create(@Nonnull String str) {
-        checkNotNull(str);
+        checkNotNull(str, "str cannot be null");
         return new IRI(str);
     }
 
@@ -252,7 +252,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return file.toURI() IRI */
     @Nonnull
     public static IRI create(@Nonnull File file) {
-        checkNotNull(file);
+        checkNotNull(file, "file cannot be null");
         return new IRI(file.toURI());
     }
 
@@ -261,7 +261,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return the IRI wrapping the uri */
     @Nonnull
     public static IRI create(@Nonnull URI uri) {
-        checkNotNull(uri);
+        checkNotNull(uri, "uri cannot be null");
         return new IRI(uri);
     }
 
@@ -270,7 +270,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return an IRI wraopping url.toURI() if the URL is ill formed */
     @Nonnull
     public static IRI create(@Nonnull URL url) {
-        checkNotNull(url);
+        checkNotNull(url, "url cannot be null");
         try {
             return new IRI(url.toURI());
         } catch (URISyntaxException e) {
@@ -319,7 +319,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     protected IRI(@Nonnull URI uri) {
-        this(checkNotNull(uri).toString());
+        this(checkNotNull(uri, "uri cannot be null").toString());
     }
 
     @Override

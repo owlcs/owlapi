@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.reasoner.impl;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -90,13 +90,13 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
     /** @param entity
      *            the entity to add */
     public DefaultNode(@Nonnull E entity) {
-        this.entities.add(checkNotNull(entity));
+        this.entities.add(checkNotNull(entity, "entity cannot be null"));
     }
 
     /** @param entities
      *            the set of entities to add */
     public DefaultNode(@Nonnull Set<E> entities) {
-        this.entities.addAll(checkNotNull(entities));
+        this.entities.addAll(checkNotNull(entities, "entities cannot be null"));
     }
 
     protected DefaultNode() {}

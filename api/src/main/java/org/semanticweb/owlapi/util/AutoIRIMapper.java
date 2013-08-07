@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -102,7 +102,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      *            Sub directories will be searched recursively if
      *            <code>true</code>. */
     public AutoIRIMapper(@Nonnull File rootDirectory, boolean recursive) {
-        directory = checkNotNull(rootDirectory);
+        directory = checkNotNull(rootDirectory, "rootDirectory cannot be null");
         directoryPath = directory.getAbsolutePath();
         this.recursive = recursive;
         fileExtensions.add("owl");

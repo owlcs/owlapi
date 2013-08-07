@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.debugging;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -112,8 +112,8 @@ public class JustificationMap {
      *            the axioms */
     public JustificationMap(@Nonnull OWLClassExpression desc,
             @Nonnull Set<OWLAxiom> axioms) {
-        this.axioms = checkNotNull(axioms);
-        this.desc = checkNotNull(desc);
+        this.axioms = checkNotNull(axioms, "axioms cannot be null");
+        this.desc = checkNotNull(desc, "desc cannot be null");
         createMap();
     }
 

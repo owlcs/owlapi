@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.obo.parser;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,7 +75,7 @@ public class IDSpaceManager {
      * @throws NullPointerException
      *             if idSpaceManager is null. */
     public IDSpaceManager(@Nonnull IDSpaceManager idSpaceManager) {
-        idPrefix2IRIPrefixMap.putAll(checkNotNull(idSpaceManager).idPrefix2IRIPrefixMap);
+        idPrefix2IRIPrefixMap.putAll(checkNotNull(idSpaceManager, "idSpaceManager cannot be null").idPrefix2IRIPrefixMap);
     }
 
     /** Gets the default IRI prefix (which is returned by the

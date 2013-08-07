@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,8 +81,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      *            This can be used to "rename" entities. */
     public OWLObjectDuplicator(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Map<IRI, IRI> iriReplacementMap) {
-        this.dataFactory = checkNotNull(dataFactory);
-        checkNotNull(iriReplacementMap);
+        this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
+        checkNotNull(iriReplacementMap, "iriReplacementMap cannot be null");
         replacementMap = new HashMap<OWLEntity, IRI>();
         for (Map.Entry<IRI, IRI> e : iriReplacementMap.entrySet()) {
             IRI iri = e.getKey();
@@ -107,9 +107,9 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      *            This can be used to "rename" entities. */
     public OWLObjectDuplicator(@Nonnull Map<OWLEntity, IRI> entityIRIReplacementMap,
             @Nonnull OWLDataFactory dataFactory) {
-        this.dataFactory = checkNotNull(dataFactory);
+        this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
         replacementMap = new HashMap<OWLEntity, IRI>(
-                checkNotNull(entityIRIReplacementMap));
+                checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
     }
 
     /** @param object
@@ -118,7 +118,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     @SuppressWarnings("unchecked")
     @Nonnull
     public <O extends OWLObject> O duplicateObject(@Nonnull OWLObject object) {
-        checkNotNull(object);
+        checkNotNull(object, "object cannot be null");
         object.accept(this);
         return (O) obj;
     }
@@ -136,7 +136,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      * @return The IRI */
     @Nonnull
     private IRI getIRI(@Nonnull OWLEntity entity) {
-        checkNotNull(entity);
+        checkNotNull(entity, "entity cannot be null");
         IRI replacement = replacementMap.get(entity);
         if (replacement != null) {
             return replacement;
@@ -147,7 +147,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     @Nonnull
     private Set<OWLAnnotation> duplicateAxiomAnnotations(@Nonnull OWLAxiom axiom) {
-        checkNotNull(axiom);
+        checkNotNull(axiom, "axiom cannot be null");
         Set<OWLAnnotation> duplicatedAnnos = new HashSet<OWLAnnotation>();
         for (OWLAnnotation anno : axiom.getAnnotations()) {
             anno.accept(this);

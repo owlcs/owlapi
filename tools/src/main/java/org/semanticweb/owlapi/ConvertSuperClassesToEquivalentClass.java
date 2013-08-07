@@ -59,7 +59,7 @@ package org.semanticweb.owlapi;/*
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -111,8 +111,8 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
             @Nonnull OWLClass cls, @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
-        generateChanges(checkNotNull(targetOntology), checkNotNull(cls),
-                checkNotNull(ontologies));
+        generateChanges(checkNotNull(targetOntology, "targetOntology cannot be null"), checkNotNull(cls, "cls cannot be null"),
+                checkNotNull(ontologies, "ontologies cannot be null"));
     }
 
     private void generateChanges(OWLOntology targetOntology, OWLClass cls,

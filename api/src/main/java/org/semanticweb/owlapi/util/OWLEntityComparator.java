@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -82,7 +82,7 @@ public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisi
      * @param shortFormProvider
      *            the short form provider to use */
     public OWLEntityComparator(@Nonnull ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider);
+        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     @Override

@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -70,7 +70,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
     @SuppressWarnings("javadoc")
     public OWLDataOneOfImpl(@Nonnull Set<? extends OWLLiteral> values) {
-        this.values = new TreeSet<OWLLiteral>(checkNotNull(values));
+        this.values = new TreeSet<OWLLiteral>(checkNotNull(values, "values cannot be null"));
     }
 
     @Override

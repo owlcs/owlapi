@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.metrics;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +58,7 @@ public class OWLMetricManager {
     /** @param metrics
      *            the metrics to use */
     public OWLMetricManager(@Nonnull List<OWLMetric<?>> metrics) {
-        this.metrics = new ArrayList<OWLMetric<?>>(checkNotNull(metrics));
+        this.metrics = new ArrayList<OWLMetric<?>>(checkNotNull(metrics, "metrics cannot be null"));
     }
 
     /** @param ontology

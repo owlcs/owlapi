@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.Set;
@@ -74,9 +74,9 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
             @Nonnull OWLAnnotationProperty property, @Nonnull OWLAnnotationValue value,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.subject = checkNotNull(subject);
-        this.property = checkNotNull(property);
-        this.value = checkNotNull(value);
+        this.subject = checkNotNull(subject, "subject cannot be null");
+        this.property = checkNotNull(property, "property cannot be null");
+        this.value = checkNotNull(value, "value cannot be null");
     }
 
     @Override

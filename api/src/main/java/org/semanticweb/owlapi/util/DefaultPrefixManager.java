@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -98,7 +98,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      * @param c
      *            comparator to sort prefixes */
     public DefaultPrefixManager(@Nonnull Comparator<String> c) {
-        checkNotNull(c);
+        checkNotNull(c, "c cannot be null");
         prefix2NamespaceMap = new TreeMap<String, String>(c);
         setupDefaultPrefixes();
     }
@@ -164,7 +164,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @Override
     public void setDefaultPrefix(String defaultPrefix) {
-        checkNotNull(defaultPrefix);
+        checkNotNull(defaultPrefix, "defaultPrefix cannot be null");
         setPrefix(":", defaultPrefix);
     }
 
@@ -239,8 +239,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @Override
     public void setPrefix(String prefixName, String prefix) {
-        checkNotNull(prefixName);
-        checkNotNull(prefix);
+        checkNotNull(prefixName, "prefixName cannot be null");
+        checkNotNull(prefix, "prefix cannot be null");
         if (!prefixName.endsWith(":")) {
             throw new IllegalArgumentException("Prefix names must end with a colon (:)");
         }

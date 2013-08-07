@@ -56,12 +56,12 @@ public class OWLOntologyChangeRecordTestCase {
         mockAxiom = mock(OWLAxiom.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testNewWithNullOntologyID() {
         new OWLOntologyChangeRecord<OWLAxiom>(null, mockChangeData);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testNewWithNullChangeData() {
         new OWLOntologyChangeRecord<OWLAxiom>(mockOntologyID, null);
     }

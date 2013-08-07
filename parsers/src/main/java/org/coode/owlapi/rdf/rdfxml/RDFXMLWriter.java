@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.rdf.rdfxml;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.IOException;
 
@@ -59,12 +59,12 @@ public class RDFXMLWriter {
     private XMLWriter writer;
 
     RDFXMLWriter(@Nonnull XMLWriter writer) {
-        this.writer = checkNotNull(writer);
+        this.writer = checkNotNull(writer, "writer cannot be null");
     }
 
     public void writeStartElement(@Nonnull IRI elementName) throws IOException {
         // Sort out with namespace
-        writer.writeStartElement(checkNotNull(elementName).toString());
+        writer.writeStartElement(checkNotNull(elementName, "elementName cannot be null").toString());
     }
 
     public void writeParseTypeAttribute() throws IOException {
@@ -72,7 +72,7 @@ public class RDFXMLWriter {
     }
 
     public void writeDatatypeAttribute(@Nonnull IRI datatypeIRI) throws IOException {
-        checkNotNull(datatypeIRI);
+        checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
         writer.writeAttribute(Namespaces.RDF + "datatype", datatypeIRI.toString());
     }
 
@@ -98,7 +98,7 @@ public class RDFXMLWriter {
 
     private void writeAttribute(@Nonnull String attributeName, @Nonnull IRI value)
             throws IOException {
-        writer.writeAttribute(attributeName, checkNotNull(value).toString());
+        writer.writeAttribute(attributeName, checkNotNull(value, "value cannot be null").toString());
     }
 
     public void writeOWLObject(OWLObject owlObject) {}

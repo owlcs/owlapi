@@ -44,7 +44,7 @@
  */
 package org.semanticweb.owlapi.rdf.syntax;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.IOException;
 import java.io.StreamTokenizer;
@@ -118,8 +118,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      *            receives notifications about RDF parsing events */
     public void parse(@Nonnull InputSource source, @Nonnull RDFConsumer consumer)
             throws SAXException, IOException {
-        String systemID = checkNotNull(source).getSystemId();
-        checkNotNull(consumer);
+        String systemID = checkNotNull(source, "source cannot be null").getSystemId();
+        checkNotNull(consumer, "consumer cannot be null");
         try {
             m_documentLocator = s_nullDocumentLocator;
             if (systemID != null) {
@@ -156,7 +156,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param errorHandler
      *            the error handler */
     public void setErrorHandler(@Nonnull ErrorHandler errorHandler) {
-        m_errorHandler = checkNotNull(errorHandler);
+        m_errorHandler = checkNotNull(errorHandler, "errorHandler cannot be null");
     }
 
     @Override
@@ -288,7 +288,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      *            the attributes */
     protected void checkUnsupportedAttributes(@Nonnull Attributes atts)
             throws SAXException {
-        checkNotNull(atts);
+        checkNotNull(atts, "atts cannot be null");
         if (atts.getIndex(RDFNS, ATTR_ABOUT_EACH) != -1) {
             throw new RDFParserException("rdf:aboutEach attribute is not supported.",
                     m_documentLocator);
@@ -301,8 +301,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     @Nonnull
     private IRI resolveFromDelegate(@Nonnull IRI iri, @Nonnull String value) {
-        checkNotNull(iri);
-        checkNotNull(value);
+        checkNotNull(iri, "iri cannot be null");
+        checkNotNull(value, "value cannot be null");
         if (NodeID.isAnonymousNodeIRI(value)) {
             return IRI.create(value, null);
         }
@@ -321,7 +321,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param atts
      *            the attributes potentially containing xml:base declaration */
     protected void processXMLBase(@Nonnull Attributes atts) throws SAXException {
-        checkNotNull(atts);
+        checkNotNull(atts, "atts cannot be null");
         m_baseIRIs.add(0, m_baseIRI);
         String value = atts.getValue(XMLNS, "base");
         if (value != null) {
@@ -343,7 +343,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param atts
      *            the attributes potentially containing xml:language declaration */
     protected void processXMLLanguage(@Nonnull Attributes atts) {
-        checkNotNull(atts);
+        checkNotNull(atts, "atts cannot be null");
         m_languages.add(0, m_language);
         String value = atts.getValue(XMLLANG);
         if (value != null) {
@@ -358,7 +358,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @return the resolved IRI */
     @Nonnull
     protected String resolveIRI(@Nonnull String uri) throws SAXException {
-        if (checkNotNull(uri).length() == 0) {
+        if (checkNotNull(uri, "uri cannot be null").length() == 0) {
             // MH - Fix for resolving a "This document" reference against base
             // IRIs.
             // XXX namespace?
@@ -414,7 +414,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     @Nonnull
     protected String getIDNodeIDAboutResourceIRI(@Nonnull Attributes atts)
             throws SAXException {
-        checkNotNull(atts);
+        checkNotNull(atts, "atts cannot be null");
         String result = null;
         String value = atts.getValue(RDFNS, ATTR_ID);
         if (value != null) {
@@ -453,7 +453,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     @Nullable
     protected String getNodeIDResourceResourceIRI(@Nonnull Attributes atts)
             throws SAXException {
-        checkNotNull(atts);
+        checkNotNull(atts, "atts cannot be null");
         String value = atts.getValue(RDFNS, ATTR_RESOURCE);
         if (value != null) {
             return getIRIFromResource(value);
@@ -650,7 +650,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     @Nonnull
     public IRI getIRI(@Nonnull String s) {
-        return uriCache.get(checkNotNull(s));
+        return uriCache.get(checkNotNull(s, "s cannot be null"));
     }
 
     /** Base class for all parser states. */

@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -57,7 +57,7 @@ public abstract class OWLQuantifiedDataRestrictionImpl extends
     public OWLQuantifiedDataRestrictionImpl(@Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLDataRange filler) {
         super(filler);
-        this.property = checkNotNull(property);
+        this.property = checkNotNull(property, "property cannot be null");
     }
 
     @Override

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.OutputStream;
 import java.io.Writer;
@@ -59,7 +59,7 @@ public class WriterDocumentTarget implements OWLOntologyDocumentTarget {
     /** @param writer
      *            the writer to use */
     public WriterDocumentTarget(@Nonnull Writer writer) {
-        this.writer = checkNotNull(writer);
+        this.writer = checkNotNull(writer, "writer cannot be null");
     }
 
     @Override

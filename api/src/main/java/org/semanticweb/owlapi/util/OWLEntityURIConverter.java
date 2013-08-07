@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -95,9 +95,9 @@ public class OWLEntityURIConverter {
     public OWLEntityURIConverter(@Nonnull OWLOntologyManager manager,
             @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLEntityURIConverterStrategy strategy) {
-        this.manager = checkNotNull(manager);
-        this.ontologies = new ArrayList<OWLOntology>(checkNotNull(ontologies));
-        this.strategy = checkNotNull(strategy);
+        this.manager = checkNotNull(manager, "manager cannot be null");
+        this.ontologies = new ArrayList<OWLOntology>(checkNotNull(ontologies, "ontologies cannot be null"));
+        this.strategy = checkNotNull(strategy, "strategy cannot be null");
     }
 
     /** Gets the changes required to perform the conversion.

@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -59,7 +59,7 @@ public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
     protected final V value;
 
     protected OWLValueRestrictionImpl(@Nonnull V value) {
-        this.value = checkNotNull(value);
+        this.value = checkNotNull(value, "value cannot be null");
     }
 
     @Override

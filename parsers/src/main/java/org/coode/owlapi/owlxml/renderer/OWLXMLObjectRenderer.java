@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.owlxml.renderer;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.util.ArrayList;
@@ -149,11 +149,11 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     private OWLXMLWriter writer;
 
     public OWLXMLObjectRenderer(@Nonnull OWLXMLWriter writer) {
-        this.writer = checkNotNull(writer);
+        this.writer = checkNotNull(writer, "writer cannot be null");
     }
 
     private void writeAnnotations(@Nonnull OWLAxiom axiom) {
-        checkNotNull(axiom);
+        checkNotNull(axiom, "axiom cannot be null");
         for (OWLAnnotation anno : axiom.getAnnotations()) {
             anno.accept(this);
         }
@@ -161,7 +161,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLOntology ontology) {
-        checkNotNull(ontology);
+        checkNotNull(ontology, "ontology cannot be null");
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             writer.writeStartElement(IMPORT);
             writer.writeTextContent(decl.getIRI().toString());
@@ -179,7 +179,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(IRI iri) {
-        checkNotNull(iri);
+        checkNotNull(iri, "iri cannot be null");
         writer.writeIRIElement(iri);
     }
 

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,8 +84,8 @@ public class ImportsStructureObjectSorter<O> {
      *            associated with each ontology. */
     public ImportsStructureObjectSorter(@Nonnull OWLOntology ontology,
             @Nonnull ObjectSelector<O> objectSelector) {
-        this.ontology = checkNotNull(ontology);
-        this.objectSelector = checkNotNull(objectSelector);
+        this.ontology = checkNotNull(ontology, "ontology cannot be null");
+        this.objectSelector = checkNotNull(objectSelector, "objectSelector cannot be null");
     }
 
     /** Gets a map that maps ontologies to sets of associated objects. The

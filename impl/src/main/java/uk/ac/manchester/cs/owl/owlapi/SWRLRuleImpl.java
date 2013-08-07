@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -93,8 +93,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
             @Nonnull Set<? extends SWRLAtom> head,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.head = new TreeSet<SWRLAtom>(checkNotNull(head));
-        this.body = new TreeSet<SWRLAtom>(checkNotNull(body));
+        this.head = new TreeSet<SWRLAtom>(checkNotNull(head, "head cannot be null"));
+        this.body = new TreeSet<SWRLAtom>(checkNotNull(body, "body cannot be null"));
     }
 
     @Override

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -64,8 +64,8 @@ public class MissingImportEvent {
      *            the creation exception */
     public MissingImportEvent(@Nonnull IRI ontologyIRI,
             @Nonnull OWLOntologyCreationException creationException) {
-        this.ontologyIRI = checkNotNull(ontologyIRI);
-        this.creationException = checkNotNull(creationException);
+        this.ontologyIRI = checkNotNull(ontologyIRI, "ontologyIRI cannot be null");
+        this.creationException = checkNotNull(creationException, "creationException cannot be null");
     }
 
     /** @return the IRI */

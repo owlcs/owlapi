@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.Set;
@@ -73,8 +73,8 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements
             @Nonnull OWLClassExpression classExpression,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.individual = checkNotNull(individual);
-        this.classExpression = checkNotNull(classExpression);
+        this.individual = checkNotNull(individual, "individual cannot be null");
+        this.classExpression = checkNotNull(classExpression, "classExpression cannot be null");
     }
 
     @Override

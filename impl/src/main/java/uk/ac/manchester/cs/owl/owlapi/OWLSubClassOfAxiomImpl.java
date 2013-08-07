@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.Set;
@@ -71,8 +71,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
             @Nonnull OWLClassExpression superClass,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.subClass = checkNotNull(subClass);
-        this.superClass = checkNotNull(superClass);
+        this.subClass = checkNotNull(subClass, "subClass cannot be null");
+        this.superClass = checkNotNull(superClass, "superClass cannot be null");
     }
 
     @Override

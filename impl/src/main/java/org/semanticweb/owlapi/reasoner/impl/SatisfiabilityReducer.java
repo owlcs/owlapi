@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.reasoner.impl;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -94,7 +94,7 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpressi
     private final OWLDataFactory df;
 
     public SatisfiabilityReducer(@Nonnull OWLDataFactory dataFactory) {
-        df = checkNotNull(dataFactory);
+        df = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
     @Override

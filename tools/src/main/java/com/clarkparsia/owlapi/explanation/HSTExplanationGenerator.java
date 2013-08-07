@@ -38,7 +38,7 @@
  */
 package com.clarkparsia.owlapi.explanation;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,12 +79,12 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *            explanation generator to use */
     public HSTExplanationGenerator(
             @Nonnull TransactionAwareSingleExpGen singleExplanationGenerator) {
-        this.singleExplanationGenerator = checkNotNull(singleExplanationGenerator);
+        this.singleExplanationGenerator = checkNotNull(singleExplanationGenerator, "singleExplanationGenerator cannot be null");
     }
 
     @Override
     public void setProgressMonitor(ExplanationProgressMonitor progressMonitor) {
-        this.progressMonitor = checkNotNull(progressMonitor);
+        this.progressMonitor = checkNotNull(progressMonitor, "progressMonitor cannot be null");
     }
 
     @Override

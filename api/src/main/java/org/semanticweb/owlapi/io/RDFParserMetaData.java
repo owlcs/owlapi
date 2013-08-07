@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -67,8 +67,8 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData {
     public RDFParserMetaData(@Nonnull RDFOntologyHeaderStatus headerStatus,
             int tripleCount, @Nonnull Set<RDFTriple> unparsedTriples) {
         this.tripleCount = tripleCount;
-        this.headerStatus = checkNotNull(headerStatus);
-        this.unparsedTriples.addAll(checkNotNull(unparsedTriples));
+        this.headerStatus = checkNotNull(headerStatus, "headerStatus cannot be null");
+        this.unparsedTriples.addAll(checkNotNull(unparsedTriples, "unparsedTriples cannot be null"));
     }
 
     /** Gets a count of the triples process during loading.

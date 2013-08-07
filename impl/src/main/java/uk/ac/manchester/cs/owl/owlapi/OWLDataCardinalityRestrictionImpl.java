@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -62,7 +62,7 @@ public abstract class OWLDataCardinalityRestrictionImpl extends
             @Nonnull OWLDataPropertyExpression property, int cardinality,
             @Nonnull OWLDataRange filler) {
         super(cardinality, filler);
-        this.property = checkNotNull(property);
+        this.property = checkNotNull(property, "property cannot be null");
     }
 
     @Override

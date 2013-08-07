@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -63,7 +63,7 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
     @SuppressWarnings("javadoc")
     public SWRLIndividualArgumentImpl(@Nonnull OWLIndividual individual) {
         super();
-        this.individual = checkNotNull(individual);
+        this.individual = checkNotNull(individual, "individual cannot be null");
     }
 
     @Override

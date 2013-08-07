@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -69,7 +69,7 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
      * @param file
      *            The file that is the target. */
     public FileDocumentTarget(@Nonnull File file) {
-        this.file = checkNotNull(file);
+        this.file = checkNotNull(file, "file cannot be null");
     }
 
     @Override

@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -75,8 +75,8 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
             @Nonnull OWLObjectPropertyExpression first,
             @Nonnull OWLObjectPropertyExpression second,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
-        super(new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(checkNotNull(first),
-                checkNotNull(second))), annotations);
+        super(new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(checkNotNull(first, "first cannot be null"),
+                checkNotNull(second, "second cannot be null"))), annotations);
         this.first = first;
         this.second = second;
     }

@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -78,7 +78,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
 
     @SuppressWarnings("javadoc")
     public OWLDatatypeImpl(@Nonnull IRI iri) {
-        this.iri = checkNotNull(iri);
+        this.iri = checkNotNull(iri, "iri cannot be null");
         top = iri.equals(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
         builtin = top || OWL2Datatype.isBuiltIn(iri)
                 || iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());

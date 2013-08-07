@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -60,7 +60,7 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
     private final IRI iri;
 
     protected SWRLVariableImpl(@Nonnull IRI iri) {
-        this.iri = checkNotNull(iri);
+        this.iri = checkNotNull(iri, "iri cannot be null");
     }
 
     @Override

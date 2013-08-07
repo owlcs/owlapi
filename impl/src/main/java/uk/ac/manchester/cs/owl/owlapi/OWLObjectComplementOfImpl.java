@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -63,7 +63,7 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl i
 
     @SuppressWarnings("javadoc")
     public OWLObjectComplementOfImpl(@Nonnull OWLClassExpression operand) {
-        this.operand = checkNotNull(operand);
+        this.operand = checkNotNull(operand, "operand cannot be null");
     }
 
     @Override

@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -153,7 +153,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @SuppressWarnings("javadoc")
     public OWLOntologyManagerImpl(@Nonnull OWLDataFactory dataFactory) {
-        this.dataFactory = checkNotNull(dataFactory);
+        this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
         installDefaultURIMappers();
         installDefaultOntologyFactories();
     }

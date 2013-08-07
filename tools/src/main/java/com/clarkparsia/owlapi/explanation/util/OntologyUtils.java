@@ -38,7 +38,7 @@
  */
 package com.clarkparsia.owlapi.explanation.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -70,8 +70,8 @@ public class OntologyUtils {
     @Nonnull
     public static boolean containsUnreferencedEntity(@Nonnull OWLOntology ontology,
             @Nonnull OWLClassExpression desc) {
-        checkNotNull(ontology);
-        for (OWLEntity entity : checkNotNull(desc).getSignature()) {
+        checkNotNull(ontology, "ontology cannot be null");
+        for (OWLEntity entity : checkNotNull(desc, "desc cannot be null").getSignature()) {
             if (!ontology.containsEntityInSignature(entity)) {
                 if (entity instanceof OWLClass
                         && (((OWLClass) entity).isOWLThing() || ((OWLClass) entity)
@@ -98,9 +98,9 @@ public class OntologyUtils {
     public static Set<OWLOntology> removeAxiom(@Nonnull OWLAxiom axiom,
             @Nonnull Set<OWLOntology> ontologies, @Nonnull OWLOntologyManager manager) {
         Set<OWLOntology> modifiedOnts = new HashSet<OWLOntology>();
-        checkNotNull(axiom);
-        checkNotNull(manager);
-        for (OWLOntology ont : checkNotNull(ontologies)) {
+        checkNotNull(axiom, "axiom cannot be null");
+        checkNotNull(manager, "manager cannot be null");
+        for (OWLOntology ont : checkNotNull(ontologies, "ontologies cannot be null")) {
             if (ont.getAxioms().contains(axiom)) {
                 modifiedOnts.add(ont);
                 manager.applyChange(new RemoveAxiom(ont, axiom));
@@ -120,8 +120,8 @@ public class OntologyUtils {
     @Nonnull
     public static void addAxiom(@Nonnull OWLAxiom axiom,
             @Nonnull Set<OWLOntology> ontologies, @Nonnull OWLOntologyManager manager) {
-        for (OWLOntology ont : checkNotNull(ontologies)) {
-            checkNotNull(manager).applyChange(new AddAxiom(ont, checkNotNull(axiom)));
+        for (OWLOntology ont : checkNotNull(ontologies, "ontologies cannot be null")) {
+            checkNotNull(manager, "manager cannot be null").applyChange(new AddAxiom(ont, checkNotNull(axiom, "axiom cannot be null")));
         }
     }
 }

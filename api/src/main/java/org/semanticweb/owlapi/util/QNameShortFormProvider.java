@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -70,7 +70,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
      *            prefix must not have a trailing ":"; if one is there, it will
      *            be removed */
     public QNameShortFormProvider(@Nonnull Map<String, String> prefix2NamespaceMap) {
-        checkNotNull(prefix2NamespaceMap);
+        checkNotNull(prefix2NamespaceMap, "prefix2NamespaceMap cannot be null");
         for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
             String key = e.getKey();
             int lastChar = key.length() - 1;
@@ -83,7 +83,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
 
     @Override
     public String getShortForm(OWLEntity entity) {
-        checkNotNull(entity);
+        checkNotNull(entity, "entity cannot be null");
         String namespace = entity.getIRI().getNamespace();
         String localName = entity.getIRI().getFragment();
         String prefix = namespaceUtil.getPrefix(namespace);

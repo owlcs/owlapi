@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -69,7 +69,7 @@ public class RDFLiteral extends RDFNode {
      *            datatype IRI */
     public RDFLiteral(@Nonnull String literal, @Nullable String lang,
             @Nullable IRI datatype) {
-        lexicalValue = checkNotNull(literal);
+        lexicalValue = checkNotNull(literal, "literal cannot be null");
         this.lang = lang == null ? "" : lang.trim();
         this.datatype = datatype;
     }

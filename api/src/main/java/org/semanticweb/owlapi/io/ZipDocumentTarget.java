@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -64,7 +64,7 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
     /** @param file
      *            the file to use */
     public ZipDocumentTarget(@Nonnull File file) {
-        this.file = checkNotNull(file);
+        this.file = checkNotNull(file, "file cannot be null");
     }
 
     @Override

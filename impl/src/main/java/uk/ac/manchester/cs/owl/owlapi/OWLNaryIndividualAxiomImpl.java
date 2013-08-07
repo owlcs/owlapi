@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -68,7 +68,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
     public OWLNaryIndividualAxiomImpl(@Nonnull Set<? extends OWLIndividual> individuals,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.individuals = new TreeSet<OWLIndividual>(checkNotNull(individuals));
+        this.individuals = new TreeSet<OWLIndividual>(checkNotNull(individuals, "individuals cannot be null"));
     }
 
     @Override

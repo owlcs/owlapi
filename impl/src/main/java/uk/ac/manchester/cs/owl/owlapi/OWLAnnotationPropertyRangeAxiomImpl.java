@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.Set;
@@ -70,8 +70,8 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
     public OWLAnnotationPropertyRangeAxiomImpl(@Nonnull OWLAnnotationProperty property,
             @Nonnull IRI range, @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.property = checkNotNull(property);
-        this.range = checkNotNull(range);
+        this.property = checkNotNull(property, "property cannot be null");
+        this.range = checkNotNull(range, "range cannot be null");
     }
 
     @Override

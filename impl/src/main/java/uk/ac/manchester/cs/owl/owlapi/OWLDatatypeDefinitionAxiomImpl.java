@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.Set;
@@ -72,8 +72,8 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
             @Nonnull OWLDataRange dataRange,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.datatype = checkNotNull(datatype);
-        this.dataRange = checkNotNull(dataRange);
+        this.datatype = checkNotNull(datatype, "datatype cannot be null");
+        this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
     }
 
     @Override

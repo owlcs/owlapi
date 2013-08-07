@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class OWLOntologyIRIChanger {
     /** @param owlOntologyManager
      *            the ontology manager to use */
     public OWLOntologyIRIChanger(@Nonnull OWLOntologyManager owlOntologyManager) {
-        this.owlOntologyManager = checkNotNull(owlOntologyManager);
+        this.owlOntologyManager = checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
     }
 
     /** Changes the URI of the specified ontology to the new URI.

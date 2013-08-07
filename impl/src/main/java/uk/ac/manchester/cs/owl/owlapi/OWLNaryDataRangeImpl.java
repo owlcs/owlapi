@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -61,7 +61,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
     private final Set<OWLDataRange> operands;
 
     protected OWLNaryDataRangeImpl(@Nonnull Set<? extends OWLDataRange> operands) {
-        this.operands = new TreeSet<OWLDataRange>(checkNotNull(operands));
+        this.operands = new TreeSet<OWLDataRange>(checkNotNull(operands, "operands cannot be null"));
     }
 
     @Override

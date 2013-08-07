@@ -38,7 +38,7 @@
  */
 package com.clarkparsia.owlapi.explanation.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -67,7 +67,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     /** @param ontology
      *            ontology to track */
     public DefinitionTracker(@Nonnull OWLOntology ontology) {
-        this.ontology = checkNotNull(ontology);
+        this.ontology = checkNotNull(ontology, "ontology cannot be null");
         for (OWLOntology importOnt : ontology.getImportsClosure()) {
             for (OWLAxiom axiom : importOnt.getAxioms()) {
                 addAxiom(axiom);
@@ -112,7 +112,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      *         imports closure of the given ontology that refers the given
      *         entity */
     public boolean isDefined(@Nonnull OWLEntity entity) {
-        return checkNotNull(entity).isBuiltIn() || referenceCounts.containsKey(entity);
+        return checkNotNull(entity, "entity cannot be null").isBuiltIn() || referenceCounts.containsKey(entity);
     }
 
     /** Checks if all the entities referred in the given concept are also
@@ -125,7 +125,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      *         are referred by at least one logical axiom in the imports closure
      *         of the given ontology */
     public boolean isDefined(@Nonnull OWLClassExpression classExpression) {
-        for (OWLEntity entity : checkNotNull(classExpression).getSignature()) {
+        for (OWLEntity entity : checkNotNull(classExpression, "classExpression cannot be null").getSignature()) {
             if (!isDefined(entity)) {
                 return false;
             }

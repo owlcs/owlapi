@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.reasoner.structural;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.util.ArrayList;
@@ -135,7 +135,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             @Nonnull OWLReasonerConfiguration configuration,
             @Nonnull BufferingMode bufferingMode) {
         super(rootOntology, configuration, bufferingMode);
-        checkNotNull(configuration);
+        checkNotNull(configuration, "configuration cannot be null");
         pm = configuration.getProgressMonitor() == null ? new NullReasonerProgressMonitor()
                 : configuration.getProgressMonitor();
         prepareReasoner();

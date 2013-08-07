@@ -38,7 +38,7 @@
  */
 package com.clarkparsia.owlapi.modularity.locality;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.EnumSet;
@@ -128,7 +128,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * @param localityClass
      *            the locality class for this evaluator */
     public SyntacticLocalityEvaluator(@Nonnull LocalityClass localityClass) {
-        localityCls = checkNotNull(localityClass);
+        localityCls = checkNotNull(localityClass, "localityClass cannot be null");
         if (!SUPPORTED_LOCALITY_CLASSES.contains(localityClass)) {
             throw new OWLRuntimeException("Unsupported locality class: " + localityClass);
         }
@@ -194,9 +194,9 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         public boolean isLocal(@Nonnull OWLAxiom axiom,
                 @Nonnull Collection<? extends OWLEntity> sig) {
-            signature = checkNotNull(sig);
+            signature = checkNotNull(sig, "sig cannot be null");
             isLocal = false;
-            checkNotNull(axiom).accept(this);
+            checkNotNull(axiom, "axiom cannot be null").accept(this);
             return isLocal;
         }
 
@@ -835,21 +835,21 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         public BottomEquivalenceEvaluator() {}
 
         private boolean isBottomEquivalent(@Nonnull OWLClassExpression desc) {
-            checkNotNull(desc).accept(this);
+            checkNotNull(desc, "desc cannot be null").accept(this);
             return isBottomEquivalent;
         }
 
         public boolean isBottomEquivalent(@Nonnull OWLClassExpression desc,
                 @Nonnull Collection<? extends OWLEntity> sig,
                 @Nonnull LocalityClass locality) {
-            localityCls = checkNotNull(locality);
-            signature = checkNotNull(sig);
-            checkNotNull(desc).accept(this);
+            localityCls = checkNotNull(locality, "locality cannot be null");
+            signature = checkNotNull(sig, "sig cannot be null");
+            checkNotNull(desc, "desc cannot be null").accept(this);
             return isBottomEquivalent;
         }
 
         public void setTopEvaluator(@Nonnull TopEquivalenceEvaluator evaluator) {
-            topEvaluator = checkNotNull(evaluator);
+            topEvaluator = checkNotNull(evaluator, "evaluator cannot be null");
         }
 
         @Override
@@ -1174,21 +1174,21 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         public TopEquivalenceEvaluator() {}
 
         private boolean isTopEquivalent(@Nonnull OWLClassExpression desc) {
-            checkNotNull(desc).accept(this);
+            checkNotNull(desc, "desc cannot be null").accept(this);
             return isTopEquivalent;
         }
 
         public boolean isTopEquivalent(@Nonnull OWLClassExpression desc,
                 @Nonnull Collection<? extends OWLEntity> sig,
                 @Nonnull LocalityClass locality) {
-            localityCls = checkNotNull(locality);
-            signature = checkNotNull(sig);
-            checkNotNull(desc).accept(this);
+            localityCls = checkNotNull(locality, "locality cannot be null");
+            signature = checkNotNull(sig, "sig cannot be null");
+            checkNotNull(desc, "desc cannot be null").accept(this);
             return isTopEquivalent;
         }
 
         public void setBottomEvaluator(@Nonnull BottomEquivalenceEvaluator evaluator) {
-            bottomEvaluator = checkNotNull(evaluator);
+            bottomEvaluator = checkNotNull(evaluator, "evaluator cannot be null");
         }
 
         @Override

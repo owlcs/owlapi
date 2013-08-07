@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.List;
 import java.util.Map;
@@ -124,15 +124,15 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
             @Nonnull Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
             @Nonnull OWLOntologySetProvider ontologySetProvider,
             @Nonnull ShortFormProvider alternateShortFormProvider) {
-        this.properties = checkNotNull(properties);
-        this.preferredLanguageMap = checkNotNull(preferredLanguageMap);
-        this.ontologySetProvider = checkNotNull(ontologySetProvider);
-        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider);
+        this.properties = checkNotNull(properties, "properties cannot be null");
+        this.preferredLanguageMap = checkNotNull(preferredLanguageMap, "preferredLanguageMap cannot be null");
+        this.ontologySetProvider = checkNotNull(ontologySetProvider, "ontologySetProvider cannot be null");
+        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider, "alternateShortFormProvider cannot be null");
     }
 
     @Override
     public String getShortForm(OWLEntity entity) {
-        checkNotNull(entity);
+        checkNotNull(entity, "entity cannot be null");
         int lastURIMatchIndex = Integer.MAX_VALUE;
         int lastLangMatchIndex = Integer.MAX_VALUE;
         if (!(entity instanceof OWLIndividual)) {

@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -94,7 +94,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
      *            null or it MUST be RDFPlainLiteral */
     public OWLLiteralImpl(@Nonnull String literal, @Nullable String lang,
             @Nullable OWLDatatype datatype) {
-        this.literal = new LiteralWrapper(checkNotNull(literal));
+        this.literal = new LiteralWrapper(checkNotNull(literal, "literal cannot be null"));
         if (lang == null || lang.length() == 0) {
             this.lang = "";
             this.datatype = datatype;

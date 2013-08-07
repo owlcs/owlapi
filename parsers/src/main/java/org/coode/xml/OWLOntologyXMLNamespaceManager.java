@@ -38,7 +38,7 @@
  */
 package org.coode.xml;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -82,8 +82,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     public OWLOntologyXMLNamespaceManager(@Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyFormat format) {
         super(getDefaultNamespace(ontology, format));
-        this.ontology = checkNotNull(ontology);
-        ontologyFormat = checkNotNull(format);
+        this.ontology = checkNotNull(ontology, "ontology cannot be null");
+        ontologyFormat = checkNotNull(format, "format cannot be null");
         addWellKnownNamespace("skos", Namespaces.SKOS.toString());
         addWellKnownNamespace("dc", DublinCoreVocabulary.NAME_SPACE);
         processOntology();
@@ -134,11 +134,11 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     }
 
     private void processEntity(@Nonnull OWLNamedObject entity) {
-        processIRI(checkNotNull(entity).getIRI());
+        processIRI(checkNotNull(entity, "entity cannot be null").getIRI());
     }
 
     private void processIRI(@Nonnull IRI iri) {
-        String ns = checkNotNull(iri).getNamespace();
+        String ns = checkNotNull(iri, "iri cannot be null").getNamespace();
         if (ns != null && !(ns.equals("") || iri.getFragment() == null)) {
             namespaceUtil.getPrefix(ns);
         }
@@ -155,8 +155,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     @Nonnull
     private static String getDefaultNamespace(@Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyFormat format) {
-        checkNotNull(ontology);
-        checkNotNull(format);
+        checkNotNull(ontology, "ontology cannot be null");
+        checkNotNull(format, "format cannot be null");
         if (format instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat prefixOWLOntologyFormat = (PrefixOWLOntologyFormat) format;
             String defaultPrefix = prefixOWLOntologyFormat.getDefaultPrefix();
@@ -178,7 +178,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     @Override
     public String getQName(String name) {
-        checkNotNull(name);
+        checkNotNull(name, "name cannot be null");
         final String ns = XMLUtils.getNCNamePrefix(name);
         String fragment = XMLUtils.getNCNameSuffix(name);
         if (ns.equals(getDefaultNamespace())) {

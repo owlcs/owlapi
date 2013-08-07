@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.model.AxiomType.AXIOM_TYPES;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 
@@ -191,7 +191,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
     @Override
     public boolean addAxiom(final OWLAxiom axiom) {
-        checkNotNull(axiom);
+        checkNotNull(axiom, "axiom cannot be null");
         if (add(getAxiomsByType(), axiom.getAxiomType(), axiom)) {
             axiom.accept(addChangeVisitor);
             axiom.accept(new AbstractEntityRegistrationManager() {
@@ -237,7 +237,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
     @Override
     public boolean removeAxiom(final OWLAxiom axiom) {
-        checkNotNull(axiom);
+        checkNotNull(axiom, "axiom cannot be null");
         if (remove(getAxiomsByType(), axiom.getAxiomType(), axiom)) {
             axiom.accept(removeChangeVisitor);
             AbstractEntityRegistrationManager referenceRemover = new AbstractEntityRegistrationManager() {

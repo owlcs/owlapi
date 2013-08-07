@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -60,7 +60,7 @@ public abstract class AbstractCompositeOntologyChange implements
     private final List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
 
     protected AbstractCompositeOntologyChange(@Nonnull OWLDataFactory dataFactory) {
-        this.dataFactory = checkNotNull(dataFactory);
+        this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
     @Nonnull

@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -68,7 +68,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
 
     @SuppressWarnings("javadoc")
     public OWLObjectOneOfImpl(@Nonnull Set<? extends OWLIndividual> values) {
-        this.values = new HashSet<OWLIndividual>(checkNotNull(values));
+        this.values = new HashSet<OWLIndividual>(checkNotNull(values, "values cannot be null"));
     }
 
     @Override

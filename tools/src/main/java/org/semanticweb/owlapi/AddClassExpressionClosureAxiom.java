@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -92,8 +92,8 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
             @Nonnull OWLClass cls, @Nonnull OWLObjectPropertyExpression property,
             @Nonnull Set<OWLOntology> ontologies, @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
-        generateChanges(checkNotNull(cls), checkNotNull(property),
-                checkNotNull(ontologies), checkNotNull(targetOntology));
+        generateChanges(checkNotNull(cls, "cls cannot be null"), checkNotNull(property, "property cannot be null"),
+                checkNotNull(ontologies, "ontologies cannot be null"), checkNotNull(targetOntology, "targetOntology cannot be null"));
     }
 
     private void generateChanges(OWLClass cls, OWLObjectPropertyExpression property,

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
     /** @param setProvider
      *            the ontology provider */
     public OWLOntologyMerger(@Nonnull OWLOntologySetProvider setProvider) {
-        this.setProvider = checkNotNull(setProvider);
+        this.setProvider = checkNotNull(setProvider, "setProvider cannot be null");
         axiomFilter = this;
         mergeOnlyLogicalAxioms = false;
     }
@@ -81,7 +81,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      *            true if only logical axioms should be included */
     public OWLOntologyMerger(@Nonnull OWLOntologySetProvider setProvider,
             boolean mergeOnlyLogicalAxioms) {
-        this.setProvider = checkNotNull(setProvider);
+        this.setProvider = checkNotNull(setProvider, "setProvider cannot be null");
         this.mergeOnlyLogicalAxioms = mergeOnlyLogicalAxioms;
         axiomFilter = this;
     }
@@ -92,7 +92,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      *            the filter to use */
     public OWLOntologyMerger(@Nonnull OWLOntologySetProvider setProvider,
             OWLAxiomFilter axiomFilter) {
-        this.setProvider = checkNotNull(setProvider);
+        this.setProvider = checkNotNull(setProvider, "setProvider cannot be null");
         this.axiomFilter = axiomFilter;
         mergeOnlyLogicalAxioms = false;
     }

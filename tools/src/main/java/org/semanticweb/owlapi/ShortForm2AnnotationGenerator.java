@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Map;
 import java.util.Set;
@@ -80,8 +80,8 @@ public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChan
             @Nonnull ShortFormProvider shortFormProvider, @Nonnull IRI annotationIRI,
             @Nullable String languageTag) {
         super(df);
-        generateChanges(checkNotNull(ontologyManager), checkNotNull(ontology),
-                checkNotNull(shortFormProvider), checkNotNull(annotationIRI), languageTag);
+        generateChanges(checkNotNull(ontologyManager, "ontologyManager cannot be null"), checkNotNull(ontology, "ontology cannot be null"),
+                checkNotNull(shortFormProvider, "shortFormProvider cannot be null"), checkNotNull(annotationIRI, "annotationIRI cannot be null"), languageTag);
     }
 
     /** @param df

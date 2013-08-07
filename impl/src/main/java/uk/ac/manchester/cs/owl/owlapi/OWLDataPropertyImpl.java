@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -74,7 +74,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     private final boolean builtin;
 
     public OWLDataPropertyImpl(@Nonnull IRI iri) {
-        this.iri = checkNotNull(iri);
+        this.iri = checkNotNull(iri, "iri cannot be null");
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI())
                 || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }

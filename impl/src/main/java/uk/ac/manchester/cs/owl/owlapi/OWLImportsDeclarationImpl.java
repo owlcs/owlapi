@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.Serializable;
 
@@ -58,7 +58,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Seriali
 
     @SuppressWarnings("javadoc")
     public OWLImportsDeclarationImpl(@Nonnull IRI iri) {
-        this.iri = checkNotNull(iri);
+        this.iri = checkNotNull(iri, "iri cannot be null");
     }
 
     @Override

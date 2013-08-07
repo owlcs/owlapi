@@ -59,7 +59,7 @@ package org.semanticweb.owlapi;/*
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Set;
 
@@ -113,8 +113,8 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
             @Nonnull OWLObjectProperty valuePartitionProperty,
             @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
-        generateChanges(checkNotNull(targetOntology), checkNotNull(valuePartionClasses),
-                checkNotNull(valuePartitionClass), checkNotNull(valuePartitionProperty));
+        generateChanges(checkNotNull(targetOntology, "targetOntology cannot be null"), checkNotNull(valuePartionClasses, "valuePartionClasses cannot be null"),
+                checkNotNull(valuePartitionClass, "valuePartitionClass cannot be null"), checkNotNull(valuePartitionProperty, "valuePartitionProperty cannot be null"));
     }
 
     private void generateChanges(OWLOntology targetOntology,

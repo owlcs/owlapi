@@ -38,7 +38,7 @@
  */
 package org.coode.xml;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -85,9 +85,9 @@ public class XMLWriterImpl implements XMLWriter {
     public XMLWriterImpl(@Nonnull Writer writer,
             @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
             @Nonnull String xmlBase) {
-        this.writer = checkNotNull(writer);
-        this.xmlWriterNamespaceManager = checkNotNull(xmlWriterNamespaceManager);
-        this.xmlBase = checkNotNull(xmlBase);
+        this.writer = checkNotNull(writer, "writer cannot be null");
+        this.xmlWriterNamespaceManager = checkNotNull(xmlWriterNamespaceManager, "xmlWriterNamespaceManager cannot be null");
+        this.xmlBase = checkNotNull(xmlBase, "xmlBase cannot be null");
         xmlBaseURI = URI.create(xmlBase);
         // no need to set it to UTF-8: it's supposed to be the default encoding
         // for XML.

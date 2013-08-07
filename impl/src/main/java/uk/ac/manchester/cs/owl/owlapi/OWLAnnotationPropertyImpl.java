@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -70,7 +70,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     private final IRI iri;
 
     public OWLAnnotationPropertyImpl(@Nonnull IRI i) {
-        iri = checkNotNull(i);
+        iri = checkNotNull(i, "i cannot be null");
     }
 
     @Override

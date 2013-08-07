@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -66,8 +66,8 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
     protected SWRLBinaryAtomImpl(@Nonnull SWRLPredicate predicate, @Nonnull A arg0,
             @Nonnull B arg1) {
         super(predicate);
-        this.arg0 = checkNotNull(arg0);
-        this.arg1 = checkNotNull(arg1);
+        this.arg0 = checkNotNull(arg0, "arg0 cannot be null");
+        this.arg1 = checkNotNull(arg1, "arg1 cannot be null");
     }
 
     @Override

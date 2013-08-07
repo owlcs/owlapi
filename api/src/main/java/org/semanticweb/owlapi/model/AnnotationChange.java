@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Set;
 
@@ -57,7 +57,7 @@ public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> 
      *            the annotation */
     public AnnotationChange(@Nonnull OWLOntology ont, @Nonnull OWLAnnotation annotation) {
         super(ont);
-        this.annotation = checkNotNull(annotation);
+        this.annotation = checkNotNull(annotation, "annotation cannot be null");
     }
 
     @Override

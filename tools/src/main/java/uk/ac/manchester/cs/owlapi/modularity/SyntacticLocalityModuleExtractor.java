@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owlapi.modularity;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.util.Collection;
@@ -227,8 +227,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             @Nonnull OWLOntology ont, @Nonnull Set<OWLAxiom> axs,
             @Nonnull ModuleType moduleType) {
         setModuleType(moduleType);
-        manager = checkNotNull(man);
-        rootOntology = checkNotNull(ont);
+        manager = checkNotNull(man, "man cannot be null");
+        rootOntology = checkNotNull(ont, "ont cannot be null");
         ontologyAxiomSet = new OntologyAxiomSet(axs);
         ontology = checkNotNull(createOntology(man, ont, axs));
     }
@@ -261,7 +261,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @param moduleType
      *            the new type of module */
     public void setModuleType(@Nonnull ModuleType moduleType) {
-        this.moduleType = checkNotNull(moduleType);
+        this.moduleType = checkNotNull(moduleType, "moduleType cannot be null");
     }
 
     /** Returns the module type for this extractor.

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -131,7 +131,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
     /** @param dataFactory
      *            datafactory to use */
     public NNF(@Nonnull OWLDataFactory dataFactory) {
-        this.dataFactory = checkNotNull(dataFactory);
+        this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
     /** reset the negation */

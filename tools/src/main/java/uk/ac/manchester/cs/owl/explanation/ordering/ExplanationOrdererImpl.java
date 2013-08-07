@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -127,7 +127,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
      *            the manager to use */
     public ExplanationOrdererImpl(@Nonnull OWLOntologyManager m) {
         currentExplanation = Collections.emptySet();
-        man = checkNotNull(m);
+        man = checkNotNull(m, "m cannot be null");
         // I'm not sure what to do with disjoint classes yet. At the
         // moment, we just shove them at the end at the top level.
         passTypes.add(AxiomType.DISJOINT_CLASSES);
@@ -301,7 +301,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         private final Set<OWLAxiom> targetAxioms;
 
         TargetAxiomsComparator(@Nonnull Set<OWLAxiom> targetAxioms) {
-            this.targetAxioms = checkNotNull(targetAxioms);
+            this.targetAxioms = checkNotNull(targetAxioms, "targetAxioms cannot be null");
         }
 
         @Override

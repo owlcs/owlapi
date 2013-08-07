@@ -59,7 +59,7 @@ package org.semanticweb.owlapi;/*
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -118,9 +118,9 @@ public class ConvertEquivalentClassesToSuperClasses extends
             @Nonnull OWLClass cls, @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntology targetOntology, boolean splitIntersections) {
         super(dataFactory);
-        this.targetOntology = checkNotNull(targetOntology);
-        this.cls = checkNotNull(cls);
-        this.ontologies = checkNotNull(ontologies);
+        this.targetOntology = checkNotNull(targetOntology, "targetOntology cannot be null");
+        this.cls = checkNotNull(cls, "cls cannot be null");
+        this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
         this.splitIntersections = splitIntersections;
         generateChanges();
     }

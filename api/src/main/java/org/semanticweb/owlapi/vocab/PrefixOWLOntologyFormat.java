@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.vocab;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Map;
 import java.util.Set;
@@ -69,14 +69,14 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
     /** @param manager
      *            prefix manager to use */
     public PrefixOWLOntologyFormat(@Nonnull PrefixManager manager) {
-        nsm = checkNotNull(manager);
+        nsm = checkNotNull(manager, "manager cannot be null");
         nsm.clear();
     }
 
     /** @param m
      *            prefix manager to use */
     public void setPrefixManager(@Nonnull PrefixManager m) {
-        nsm = checkNotNull(m);
+        nsm = checkNotNull(m, "m cannot be null");
         nsm.clear();
     }
 

@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.rdf.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
 
@@ -88,8 +88,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
      *            true if strong typing should be used */
     public AbstractTranslator(@Nonnull OWLOntologyManager manager,
             @Nonnull OWLOntology ontology, boolean useStrongTyping) {
-        this.ontology = checkNotNull(ontology);
-        this.manager = checkNotNull(manager);
+        this.ontology = checkNotNull(ontology, "ontology cannot be null");
+        this.manager = checkNotNull(manager, "manager cannot be null");
         this.useStrongTyping = useStrongTyping;
     }
 

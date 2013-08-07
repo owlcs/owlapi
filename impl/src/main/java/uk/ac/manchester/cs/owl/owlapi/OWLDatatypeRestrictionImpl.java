@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -73,9 +73,9 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
     @SuppressWarnings("javadoc")
     public OWLDatatypeRestrictionImpl(@Nonnull OWLDatatype datatype,
             @Nonnull Set<OWLFacetRestriction> facetRestrictions) {
-        this.datatype = checkNotNull(datatype);
+        this.datatype = checkNotNull(datatype, "datatype cannot be null");
         this.facetRestrictions = new HashSet<OWLFacetRestriction>(
-                checkNotNull(facetRestrictions));
+                checkNotNull(facetRestrictions, "facetRestrictions cannot be null"));
     }
 
     @Override

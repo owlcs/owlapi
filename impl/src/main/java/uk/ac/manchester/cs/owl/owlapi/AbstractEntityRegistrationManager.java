@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -116,7 +116,7 @@ abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
         // an OWLAxiomImpl will implement this interface with <OWLAnnotation >
         // parameter; this will avoid creating a defensive copy of the
         // annotation set
-        checkNotNull(ax);
+        checkNotNull(ax, "ax cannot be null");
         if (ax instanceof CollectionContainer) {
             ((CollectionContainer<OWLAnnotation>) ax).accept(annotationVisitor);
         } else {

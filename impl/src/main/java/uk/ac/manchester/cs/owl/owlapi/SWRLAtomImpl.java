@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -55,7 +55,7 @@ public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
     protected final SWRLPredicate predicate;
 
     protected SWRLAtomImpl(@Nonnull SWRLPredicate predicate) {
-        this.predicate = checkNotNull(predicate);
+        this.predicate = checkNotNull(predicate, "predicate cannot be null");
     }
 
     @Override

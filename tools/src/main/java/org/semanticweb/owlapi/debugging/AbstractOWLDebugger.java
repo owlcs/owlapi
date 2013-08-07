@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.debugging;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,8 +76,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
 
     protected AbstractOWLDebugger(@Nonnull OWLOntologyManager owlOntologyManager,
             @Nonnull OWLOntology ontology) {
-        this.owlOntologyManager = checkNotNull(owlOntologyManager);
-        this.ontology = checkNotNull(ontology);
+        this.owlOntologyManager = checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
+        this.ontology = checkNotNull(ontology, "ontology cannot be null");
         mergeImportsClosure();
     }
 

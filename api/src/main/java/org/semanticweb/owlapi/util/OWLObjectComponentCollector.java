@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -154,7 +154,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
      * @return The component of the specified object. */
     @Nonnull
     public Set<OWLObject> getComponents(@Nonnull OWLObject object) {
-        checkNotNull(object);
+        checkNotNull(object, "object cannot be null");
         result.clear();
         object.accept(this);
         return getResult();
@@ -167,7 +167,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
     private void process(@Nonnull Set<? extends OWLObject> objects) {
-        checkNotNull(objects);
+        checkNotNull(objects, "objects cannot be null");
         for (OWLObject obj : objects) {
             obj.accept(this);
         }
@@ -179,7 +179,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
      * @param obj
      *            The object being added. */
     protected void handleObject(@Nonnull OWLObject obj) {
-        checkNotNull(obj);
+        checkNotNull(obj, "obj cannot be null");
         result.add(obj);
     }
 

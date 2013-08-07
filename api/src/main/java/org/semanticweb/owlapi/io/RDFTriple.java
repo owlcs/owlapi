@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -64,9 +64,9 @@ public class RDFTriple {
      *            the object */
     public RDFTriple(@Nonnull RDFResource subject, @Nonnull RDFResourceIRI predicate,
             @Nonnull RDFNode object) {
-        this.subject = checkNotNull(subject);
-        this.predicate = checkNotNull(predicate);
-        this.object = checkNotNull(object);
+        this.subject = checkNotNull(subject, "subject cannot be null");
+        this.predicate = checkNotNull(predicate, "predicate cannot be null");
+        this.object = checkNotNull(object, "object cannot be null");
     }
 
     /** @param subject

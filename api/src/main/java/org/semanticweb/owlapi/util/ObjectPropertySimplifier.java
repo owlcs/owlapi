@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -65,7 +65,7 @@ public class ObjectPropertySimplifier {
     /** @param dataFactory
      *            datafactory to use */
     public ObjectPropertySimplifier(@Nonnull OWLDataFactory dataFactory) {
-        this.dataFactory = checkNotNull(dataFactory);
+        this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
     /** Gets an object property expression in its simplest form.
@@ -76,7 +76,7 @@ public class ObjectPropertySimplifier {
     @Nonnull
     public OWLObjectPropertyExpression getSimplified(
             @Nonnull OWLObjectPropertyExpression prop) {
-        checkNotNull(prop);
+        checkNotNull(prop, "prop cannot be null");
         simplifier.reset();
         prop.accept(simplifier);
         if (simplifier.isInverse()) {

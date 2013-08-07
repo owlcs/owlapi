@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,14 +63,14 @@ public class SpecificOntologyChangeBroadcastStrategy implements
      * @param ontology
      *            The ontology. */
     public SpecificOntologyChangeBroadcastStrategy(@Nonnull OWLOntology ontology) {
-        this.ontology = checkNotNull(ontology);
+        this.ontology = checkNotNull(ontology, "ontology cannot be null");
     }
 
     @Override
     public void broadcastChanges(OWLOntologyChangeListener listener,
             List<? extends OWLOntologyChange<?>> changes) throws OWLException {
-        checkNotNull(listener);
-        checkNotNull(changes);
+        checkNotNull(listener, "listener cannot be null");
+        checkNotNull(changes, "changes cannot be null");
         List<OWLOntologyChange<?>> broadcastChanges = new ArrayList<OWLOntologyChange<?>>();
         for (OWLOntologyChange<?> change : changes) {
             if (change.getOntology().equals(ontology)) {

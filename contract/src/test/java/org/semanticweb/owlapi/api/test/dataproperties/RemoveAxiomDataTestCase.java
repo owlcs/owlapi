@@ -25,7 +25,7 @@ public class RemoveAxiomDataTestCase {
         mockOntology = mock(OWLOntology.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testNewWithNullArgs() {
         new RemoveAxiomData(null);
     }

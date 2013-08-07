@@ -37,7 +37,7 @@ public class SetOntologyIDDataTestCase {
         return new SetOntologyIDData(mockOntologyID);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testNewWithNullArgs() {
         new SetOntologyIDData(null);
     }

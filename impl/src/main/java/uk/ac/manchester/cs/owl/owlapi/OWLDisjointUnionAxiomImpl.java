@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -75,9 +75,9 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.owlClass = checkNotNull(owlClass);
+        this.owlClass = checkNotNull(owlClass, "owlClass cannot be null");
         this.classExpressions = new TreeSet<OWLClassExpression>(
-                checkNotNull(classExpressions));
+                checkNotNull(classExpressions, "classExpressions cannot be null"));
     }
 
     @Override

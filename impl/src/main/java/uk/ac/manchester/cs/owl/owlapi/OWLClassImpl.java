@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -81,7 +81,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     private final boolean isNothing;
 
     public OWLClassImpl(@Nonnull IRI iri) {
-        this.iri = checkNotNull(iri);
+        this.iri = checkNotNull(iri, "iri cannot be null");
         isThing = getIRI().equals(OWLRDFVocabulary.OWL_THING.getIRI());
         isNothing = getIRI().equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
     }

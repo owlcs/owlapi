@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -73,8 +73,8 @@ public class NamedConjunctChecker {
      *            The expression to be checked */
     public boolean isNamedConjunct(@Nonnull OWLClass conj,
             @Nonnull OWLClassExpression classExpression) {
-        checkNotNull(conj);
-        checkNotNull(classExpression);
+        checkNotNull(conj, "conj cannot be null");
+        checkNotNull(classExpression, "classExpression cannot be null");
         reset();
         conjunct = conj;
         classExpression.accept(visitor);
@@ -92,7 +92,7 @@ public class NamedConjunctChecker {
      *         that has a named operand (included nested intersections),
      *         otherwise <code>false</code> */
     public boolean hasNamedConjunct(@Nonnull OWLClassExpression classExpression) {
-        checkNotNull(classExpression);
+        checkNotNull(classExpression, "classExpression cannot be null");
         reset();
         conjunct = null;
         classExpression.accept(visitor);
@@ -113,7 +113,7 @@ public class NamedConjunctChecker {
      *         the set will definitely be empty. */
     @Nonnull
     public Set<OWLClass> getNamedConjuncts(@Nonnull OWLClassExpression classExpression) {
-        checkNotNull(classExpression);
+        checkNotNull(classExpression, "classExpression cannot be null");
         conjuncts.clear();
         reset();
         collect = true;

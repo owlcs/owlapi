@@ -38,7 +38,7 @@
  */
 package com.clarkparsia.owlapi.explanation;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -462,7 +462,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         OWLAxiomVisitor declarationRemover = new OWLAxiomVisitorAdapter() {
             @Override
             public void visit(OWLDeclarationAxiom axiom) {
-                checkNotNull(axiom);
+                checkNotNull(axiom, "axiom cannot be null");
                 debuggingAxioms.remove(axiom);
             }
         };

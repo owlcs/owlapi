@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Set;
 
@@ -88,7 +88,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
      *            when determining if a class is a syntactic direct subclass of
      *            owl:Thing */
     public SimpleRootClassChecker(@Nonnull Set<OWLOntology> ontologies) {
-        this.ontologies = checkNotNull(ontologies);
+        this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 
     // Rules for determining if a class is a direct subclass of Thing

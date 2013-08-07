@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,9 +74,9 @@ public class InferredOntologyGenerator {
      *            the axiom generators to use */
     public InferredOntologyGenerator(@Nonnull OWLReasoner reasoner,
             @Nonnull List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators) {
-        this.reasoner = checkNotNull(reasoner);
+        this.reasoner = checkNotNull(reasoner, "reasoner cannot be null");
         this.axiomGenerators = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>(
-                checkNotNull(axiomGenerators));
+                checkNotNull(axiomGenerators, "axiomGenerators cannot be null"));
     }
 
     /** @param reasoner
@@ -112,7 +112,7 @@ public class InferredOntologyGenerator {
      * @param generator
      *            The generator to be added. */
     public void addGenerator(@Nonnull InferredAxiomGenerator<?> generator) {
-        checkNotNull(generator);
+        checkNotNull(generator, "generator cannot be null");
         if (!axiomGenerators.contains(generator)) {
             axiomGenerators.add(generator);
         }
@@ -123,7 +123,7 @@ public class InferredOntologyGenerator {
      * @param generator
      *            the generator to be removed */
     public void removeGenerator(@Nonnull InferredAxiomGenerator<?> generator) {
-        checkNotNull(generator);
+        checkNotNull(generator, "generator cannot be null");
         axiomGenerators.remove(generator);
     }
 
@@ -139,8 +139,8 @@ public class InferredOntologyGenerator {
      *             specified ontology. */
     public void fillOntology(@Nonnull OWLDataFactory df, @Nonnull OWLOntology ontology)
             throws OWLOntologyChangeException {
-        checkNotNull(df);
-        checkNotNull(ontology);
+        checkNotNull(df, "df cannot be null");
+        checkNotNull(ontology, "ontology cannot be null");
         List<AddAxiom> changes = new ArrayList<AddAxiom>();
         for (InferredAxiomGenerator<? extends OWLAxiom> axiomGenerator : axiomGenerators) {
             for (OWLAxiom ax : axiomGenerator.createAxioms(df, reasoner)) {

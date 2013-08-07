@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -83,7 +83,7 @@ public class NamespaceUtil {
      * @return The prefix for the specified namespace. */
     @Nonnull
     public String getPrefix(@Nonnull String namespace) {
-        checkNotNull(namespace);
+        checkNotNull(namespace, "namespace cannot be null");
         String prefix = namespace2PrefixMap.get(namespace);
         if (prefix != null) {
             return prefix;
@@ -124,7 +124,7 @@ public class NamespaceUtil {
      *         namespace -> prefix mapping. */
     @Nonnull
     private String generatePrefix(@Nonnull String namespace) {
-        checkNotNull(namespace);
+        checkNotNull(namespace, "namespace cannot be null");
         String prefix = standardNamespacePrefixMappings.get(namespace);
         if (prefix != null) {
             namespace2PrefixMap.put(namespace, prefix);
@@ -179,8 +179,8 @@ public class NamespaceUtil {
      * @param prefix
      *            The prefix for the namespace */
     public void setPrefix(@Nonnull String namespace, @Nonnull String prefix) {
-        checkNotNull(namespace);
-        checkNotNull(prefix);
+        checkNotNull(namespace, "namespace cannot be null");
+        checkNotNull(prefix, "prefix cannot be null");
         namespace2PrefixMap.put(namespace, prefix);
     }
 }

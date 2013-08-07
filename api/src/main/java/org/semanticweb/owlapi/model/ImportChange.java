@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collections;
 import java.util.Set;
@@ -59,7 +59,7 @@ public abstract class ImportChange extends OWLOntologyChange<OWLImportsDeclarati
     public ImportChange(@Nonnull OWLOntology ont,
             @Nonnull OWLImportsDeclaration importDeclaration) {
         super(ont);
-        declaration = checkNotNull(importDeclaration);
+        declaration = checkNotNull(importDeclaration, "importDeclaration cannot be null");
     }
 
     /** Gets the import declaration that the change pertains to.

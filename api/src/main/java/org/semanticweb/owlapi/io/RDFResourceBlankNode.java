@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.io;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -16,7 +16,7 @@ public class RDFResourceBlankNode extends RDFResource {
      * @param resource
      *            The IRI of the resource */
     public RDFResourceBlankNode(@Nonnull IRI resource) {
-        this.resource = checkNotNull(resource);
+        this.resource = checkNotNull(resource, "resource cannot be null");
     }
 
     /** Create an RDFResource that is anonymous

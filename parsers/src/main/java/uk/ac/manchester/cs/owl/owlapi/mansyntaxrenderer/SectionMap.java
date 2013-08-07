@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -63,8 +63,8 @@ public class SectionMap {
     }
 
     public void add(@Nonnull Object o, @Nonnull OWLAxiom forAxiom) {
-        checkNotNull(o);
-        checkNotNull(forAxiom);
+        checkNotNull(o, "o cannot be null");
+        checkNotNull(forAxiom, "forAxiom cannot be null");
         Set<OWLAxiom> axioms = object2Axioms.get(o);
         if (axioms == null) {
             axioms = new HashSet<OWLAxiom>();
@@ -74,7 +74,7 @@ public class SectionMap {
     }
 
     public void remove(@Nonnull Object o) {
-        object2Axioms.remove(checkNotNull(o));
+        object2Axioms.remove(checkNotNull(o, "o cannot be null"));
     }
 
     @Nonnull
@@ -85,7 +85,7 @@ public class SectionMap {
     @Nonnull
     public Set<Set<OWLAnnotation>> getAnnotationsForSectionObject(
             @Nonnull Object sectionObject) {
-        checkNotNull(sectionObject);
+        checkNotNull(sectionObject, "sectionObject cannot be null");
         Collection<OWLAxiom> axioms = object2Axioms.get(sectionObject);
         if (axioms == null) {
             return new HashSet<Set<OWLAnnotation>>();

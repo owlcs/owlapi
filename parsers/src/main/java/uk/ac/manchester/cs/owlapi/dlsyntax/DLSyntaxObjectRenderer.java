@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owlapi.dlsyntax;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntax.*;
 
 import java.util.ArrayList;
@@ -163,7 +163,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     public void setFocusedObject(@Nonnull OWLObject focusedObject) {
-        this.focusedObject = checkNotNull(focusedObject);
+        this.focusedObject = checkNotNull(focusedObject, "focusedObject cannot be null");
     }
 
     public boolean isFocusedObject(OWLObject obj) {
@@ -175,19 +175,19 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider);
+        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     @Override
     public String render(OWLObject object) {
         buffer = new StringBuilder();
-        checkNotNull(object).accept(this);
+        checkNotNull(object, "object cannot be null").accept(this);
         return buffer.toString();
     }
 
     @Override
     public void visit(OWLOntology ontology) {
-        for (OWLAxiom ax : new TreeSet<OWLAxiom>(checkNotNull(ontology)
+        for (OWLAxiom ax : new TreeSet<OWLAxiom>(checkNotNull(ontology, "ontology cannot be null")
                 .getLogicalAxioms())) {
             ax.accept(this);
             write("\n");
@@ -195,20 +195,20 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     protected void write(@Nonnull String s) {
-        buffer.append(checkNotNull(s));
+        buffer.append(checkNotNull(s, "s cannot be null"));
     }
 
     @Nonnull
     protected String renderEntity(@Nonnull OWLEntity entity) {
-        return shortFormProvider.getShortForm(checkNotNull(entity));
+        return shortFormProvider.getShortForm(checkNotNull(entity, "entity cannot be null"));
     }
 
     protected void writeEntity(@Nonnull OWLEntity entity) {
-        write(renderEntity(checkNotNull(entity)));
+        write(renderEntity(checkNotNull(entity, "entity cannot be null")));
     }
 
     protected void write(@Nonnull DLSyntax keyword) {
-        write(checkNotNull(keyword).toString());
+        write(checkNotNull(keyword, "keyword cannot be null").toString());
     }
 
     protected void write(int i) {
@@ -216,7 +216,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     protected void writeNested(@Nonnull OWLObject object) {
-        checkNotNull(object);
+        checkNotNull(object, "object cannot be null");
         if (isBracketedIfNested(object)) {
             write("(");
         }
@@ -227,12 +227,12 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     protected boolean isBracketedIfNested(@Nonnull OWLObject object) {
-        checkNotNull(object);
+        checkNotNull(object, "object cannot be null");
         return !(object instanceof OWLEntity);
     }
 
     private void writeObject(@Nonnull OWLObject object, boolean nest) {
-        checkNotNull(object);
+        checkNotNull(object, "object cannot be null");
         if (nest) {
             writeNested(object);
         } else {
@@ -242,8 +242,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     protected void write(@Nonnull Collection<? extends OWLObject> objects,
             @Nonnull DLSyntax delim, boolean nest) {
-        checkNotNull(objects);
-        checkNotNull(delim);
+        checkNotNull(objects, "objects cannot be null");
+        checkNotNull(delim, "delim cannot be null");
         if (objects.size() == 2) {
             Iterator<? extends OWLObject> it = objects.iterator();
             OWLObject o1 = it.next();
@@ -276,7 +276,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-        checkNotNull(axiom).getSubClass().accept(this);
+        checkNotNull(axiom, "axiom cannot be null").getSubClass().accept(this);
         writeSpace();
         write(SUBCLASS);
         writeSpace();
@@ -284,7 +284,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     private void writePropertyAssertion(@Nonnull OWLPropertyAssertionAxiom<?, ?> ax) {
-        checkNotNull(ax);
+        checkNotNull(ax, "ax cannot be null");
         if (ax instanceof OWLNegativeObjectPropertyAssertionAxiom
                 || ax instanceof OWLNegativeDataPropertyAssertionAxiom) {
             write(NOT);
@@ -388,7 +388,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     private void writeRangeAxiom(@Nonnull OWLPropertyRangeAxiom<?, ?> axiom) {
-        checkNotNull(axiom);
+        checkNotNull(axiom, "axiom cannot be null");
         write(TOP);
         writeSpace();
         write(SUBCLASS);
@@ -411,7 +411,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     private void writeFunctionalProperty(@Nonnull OWLPropertyExpression property) {
-        checkNotNull(property);
+        checkNotNull(property, "property cannot be null");
         write(TOP);
         writeSpace();
         write(SUBCLASS);

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.metrics;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
     /** @param reasoner
      *            the reasoner */
     public UnsatisfiableClassCountMetric(@Nonnull OWLReasoner reasoner) {
-        super(checkNotNull(reasoner).getRootOntology());
+        super(checkNotNull(reasoner, "reasoner cannot be null").getRootOntology());
         this.reasoner = reasoner;
     }
 

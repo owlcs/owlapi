@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -173,14 +173,14 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param objects
      *            the set of objects to visit */
     public OWLObjectWalker(@Nonnull Set<O> objects, boolean visitDuplicates) {
-        this.objects = new ArrayList<O>(checkNotNull(objects));
+        this.objects = new ArrayList<O>(checkNotNull(objects, "objects cannot be null"));
         this.visitDuplicates = visitDuplicates;
     }
 
     /** @param v
      *            visitor to use over the objects */
     public void walkStructure(@Nonnull OWLObjectVisitorEx<?> v) {
-        this.visitor = checkNotNull(v);
+        this.visitor = checkNotNull(v, "v cannot be null");
         StructureWalker walker = new StructureWalker();
         for (O o : objects) {
             o.accept(walker);
@@ -234,7 +234,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      *         <code>false</code> (<code>false</code> if the path is empty) */
     public boolean isFirstClassExpressionInPath(
             @Nonnull OWLClassExpression classExpression) {
-        checkNotNull(classExpression);
+        checkNotNull(classExpression, "classExpression cannot be null");
         return !classExpressionPath.isEmpty()
                 && classExpressionPath.get(0).equals(classExpression);
     }
@@ -244,7 +244,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param ce
      *            The class expression to be pushed onto the path */
     protected void pushClassExpression(@Nonnull OWLClassExpression ce) {
-        checkNotNull(ce);
+        checkNotNull(ce, "ce cannot be null");
         classExpressionPath.add(ce);
     }
 
@@ -276,7 +276,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param dr
      *            The data range to be pushed onto the path */
     protected void pushDataRange(@Nonnull OWLDataRange dr) {
-        checkNotNull(dr);
+        checkNotNull(dr, "dr cannot be null");
         dataRangePath.add(dr);
     }
 
@@ -294,7 +294,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         public StructureWalker() {}
 
         private void process(@Nonnull OWLObject object) {
-            checkNotNull(object);
+            checkNotNull(object, "object cannot be null");
             if (!visitDuplicates) {
                 if (!visited.contains(object)) {
                     visited.add(object);

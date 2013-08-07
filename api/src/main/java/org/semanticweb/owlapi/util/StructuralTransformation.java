@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -129,7 +129,7 @@ public class StructuralTransformation {
     /** @param dataFactory
      *            factory to use */
     public StructuralTransformation(@Nonnull OWLDataFactory dataFactory) {
-        df = checkNotNull(dataFactory);
+        df = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
     protected OWLClass createNewName() {
@@ -143,7 +143,7 @@ public class StructuralTransformation {
      *            axioms to transform
      * @return transformed axioms */
     public Set<OWLAxiom> getTransformedAxioms(@Nonnull Set<OWLAxiom> axioms) {
-        checkNotNull(axioms);
+        checkNotNull(axioms, "axioms cannot be null");
         signature.clear();
         for (OWLAxiom ax : axioms) {
             signature.addAll(ax.getSignature());

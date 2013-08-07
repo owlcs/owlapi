@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -79,7 +79,7 @@ public class BidirectionalShortFormProviderAdapter extends
      *            the short form provider to use */
     public BidirectionalShortFormProviderAdapter(
             @Nonnull ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider);
+        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     /** Creates a BidirectionalShortFormProvider that maps between the entities
@@ -94,8 +94,8 @@ public class BidirectionalShortFormProviderAdapter extends
      *            short forms of the referenced entities. */
     public BidirectionalShortFormProviderAdapter(@Nonnull Set<OWLOntology> ontologies,
             @Nonnull ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider);
-        this.ontologies = new HashSet<OWLOntology>(checkNotNull(ontologies));
+        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.ontologies = new HashSet<OWLOntology>(checkNotNull(ontologies, "ontologies cannot be null"));
         rebuild(new ReferencedEntitySetProvider(ontologies));
     }
 
@@ -120,7 +120,7 @@ public class BidirectionalShortFormProviderAdapter extends
             @Nonnull Set<OWLOntology> ontologies,
             @Nonnull ShortFormProvider shortFormProvider) {
         this(ontologies, shortFormProvider);
-        this.man = checkNotNull(man);
+        this.man = checkNotNull(man, "man cannot be null");
         this.man.addOntologyChangeListener(changeListener);
     }
 

@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.Set;
@@ -74,9 +74,9 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
             @Nonnull Set<? extends OWLPropertyExpression> propertyExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.expression = checkNotNull(expression);
+        this.expression = checkNotNull(expression, "expression cannot be null");
         this.propertyExpressions = new TreeSet<OWLPropertyExpression>(
-                checkNotNull(propertyExpressions));
+                checkNotNull(propertyExpressions, "propertyExpressions cannot be null"));
     }
 
     @Override

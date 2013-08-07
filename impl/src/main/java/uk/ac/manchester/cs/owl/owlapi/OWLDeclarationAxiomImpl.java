@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.Set;
@@ -68,7 +68,7 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
     public OWLDeclarationAxiomImpl(@Nonnull OWLEntity entity,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.entity = checkNotNull(entity);
+        this.entity = checkNotNull(entity, "entity cannot be null");
     }
 
     @Override

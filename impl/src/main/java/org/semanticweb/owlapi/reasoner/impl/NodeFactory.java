@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.reasoner.impl;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Set;
 
@@ -63,14 +63,14 @@ public class NodeFactory {
      *            a class to be included in the node
      * @return a class node with one element */
     public static DefaultNode<OWLClass> getOWLClassNode(@Nonnull OWLClass cls) {
-        return new OWLClassNode(checkNotNull(cls));
+        return new OWLClassNode(checkNotNull(cls, "cls cannot be null"));
     }
 
     /** @param clses
      *            set of classes to be included
      * @return a class node with some elements */
     public static DefaultNode<OWLClass> getOWLClassNode(@Nonnull Set<OWLClass> clses) {
-        return new OWLClassNode(checkNotNull(clses));
+        return new OWLClassNode(checkNotNull(clses, "clses cannot be null"));
     }
 
     /** @return the top class node */

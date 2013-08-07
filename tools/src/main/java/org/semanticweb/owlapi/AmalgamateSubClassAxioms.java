@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -72,7 +72,7 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
     public AmalgamateSubClassAxioms(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
-        for (OWLOntology ont : checkNotNull(ontologies)) {
+        for (OWLOntology ont : checkNotNull(ontologies, "ontologies cannot be null")) {
             for (OWLClass cls : ont.getClassesInSignature()) {
                 Set<OWLSubClassOfAxiom> axioms = ont.getSubClassAxiomsForSubClass(cls);
                 if (axioms.size() > 1) {

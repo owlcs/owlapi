@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -67,7 +67,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
     private final NodeID nodeId;
 
     public OWLAnonymousIndividualImpl(@Nonnull NodeID nodeID) {
-        nodeId = checkNotNull(nodeID);
+        nodeId = checkNotNull(nodeID, "nodeID cannot be null");
     }
 
     @Override

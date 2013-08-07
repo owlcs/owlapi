@@ -38,7 +38,7 @@
  */
 package com.clarkparsia.owlapi.explanation;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -62,9 +62,9 @@ public abstract class SingleExplanationGeneratorImpl implements
 
     public SingleExplanationGeneratorImpl(@Nonnull OWLOntology ontology,
             @Nonnull OWLReasonerFactory reasonerFactory, @Nonnull OWLReasoner reasoner) {
-        this.ontology = checkNotNull(ontology);
-        this.reasonerFactory = checkNotNull(reasonerFactory);
-        this.reasoner = checkNotNull(reasoner);
+        this.ontology = checkNotNull(ontology, "ontology cannot be null");
+        this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
+        this.reasoner = checkNotNull(reasoner, "reasoner cannot be null");
         owlOntologyManager = ontology.getOWLOntologyManager();
         definitionTracker = new DefinitionTracker(ontology);
     }

@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.owlxml.renderer;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -62,9 +62,9 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public class OWLXMLRenderer extends AbstractOWLRenderer {
     public void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
             @Nonnull OWLOntologyFormat format) throws OWLRendererException {
-        checkNotNull(ontology);
-        checkNotNull(writer);
-        checkNotNull(format);
+        checkNotNull(ontology, "ontology cannot be null");
+        checkNotNull(writer, "writer cannot be null");
+        checkNotNull(format, "format cannot be null");
         try {
             OWLXMLWriter w = new OWLXMLWriter(writer, ontology);
             w.startDocument(ontology);
@@ -107,7 +107,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
 
     @Override
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
-        render(checkNotNull(ontology), checkNotNull(writer), ontology
+        render(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(writer, "writer cannot be null"), ontology
                 .getOWLOntologyManager().getOntologyFormat(ontology));
     }
 }

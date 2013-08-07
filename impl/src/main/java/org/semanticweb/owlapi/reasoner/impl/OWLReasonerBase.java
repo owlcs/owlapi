@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.reasoner.impl;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -85,9 +85,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     protected OWLReasonerBase(@Nonnull OWLOntology rootOntology,
             @Nonnull OWLReasonerConfiguration configuration,
             @Nonnull BufferingMode bufferingMode) {
-        this.rootOntology = checkNotNull(rootOntology);
-        this.bufferingMode = checkNotNull(bufferingMode);
-        this.configuration = checkNotNull(configuration);
+        this.rootOntology = checkNotNull(rootOntology, "rootOntology cannot be null");
+        this.bufferingMode = checkNotNull(bufferingMode, "bufferingMode cannot be null");
+        this.configuration = checkNotNull(configuration, "configuration cannot be null");
         timeOut = configuration.getTimeOut();
         manager = rootOntology.getOWLOntologyManager();
         manager.addOntologyChangeListener(ontologyChangeListener);

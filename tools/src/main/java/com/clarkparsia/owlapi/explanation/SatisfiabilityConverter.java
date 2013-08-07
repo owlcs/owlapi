@@ -38,7 +38,7 @@
  */
 package com.clarkparsia.owlapi.explanation;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -256,7 +256,7 @@ public class SatisfiabilityConverter {
     /** @param factory
      *            the factory to use */
     public SatisfiabilityConverter(@Nonnull OWLDataFactory factory) {
-        this.factory = checkNotNull(factory);
+        this.factory = checkNotNull(factory, "factory cannot be null");
         converter = new AxiomConverter();
     }
 
@@ -265,6 +265,6 @@ public class SatisfiabilityConverter {
      * @return converted class expression */
     @Nonnull
     public OWLClassExpression convert(@Nonnull OWLAxiom axiom) {
-        return checkNotNull(axiom).accept(converter);
+        return checkNotNull(axiom, "axiom cannot be null").accept(converter);
     }
 }

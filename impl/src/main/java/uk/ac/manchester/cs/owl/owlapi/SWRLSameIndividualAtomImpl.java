@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -63,7 +63,7 @@ public class SWRLSameIndividualAtomImpl extends
     @SuppressWarnings("javadoc")
     public SWRLSameIndividualAtomImpl(@Nonnull OWLObjectProperty property,
             @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1) {
-        super(checkNotNull(property), checkNotNull(arg0), checkNotNull(arg1));
+        super(checkNotNull(property, "property cannot be null"), checkNotNull(arg0, "arg0 cannot be null"), checkNotNull(arg1, "arg1 cannot be null"));
     }
 
     @Override

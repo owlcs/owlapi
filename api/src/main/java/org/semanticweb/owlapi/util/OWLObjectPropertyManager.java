@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
 import java.io.Serializable;
@@ -104,7 +104,7 @@ public class OWLObjectPropertyManager {
      *            the ontology to use */
     public OWLObjectPropertyManager(@Nonnull OWLOntologyManager manager,
             @Nonnull OWLOntology ont) {
-        man = checkNotNull(manager);
+        man = checkNotNull(manager, "manager cannot be null");
         setOntology(ont);
     }
 
@@ -120,7 +120,7 @@ public class OWLObjectPropertyManager {
     public void dispose() {}
 
     private void setOntology(@Nonnull OWLOntology ontology) {
-        this.ontology = checkNotNull(ontology);
+        this.ontology = checkNotNull(ontology, "ontology cannot be null");
         for (OWLOntology ont : man.getImportsClosure(ontology)) {
             for (OWLObjectProperty prop : ont.getObjectPropertiesInSignature()) {
                 properties.add(prop);
@@ -147,7 +147,7 @@ public class OWLObjectPropertyManager {
      *         to the above definition) or <code>false</code> if the object
      *         property is not composite. */
     public boolean isComposite(@Nonnull OWLObjectPropertyExpression expression) {
-        checkNotNull(expression);
+        checkNotNull(expression, "expression cannot be null");
         return getCompositeProperties().contains(expression.getSimplified());
     }
 
@@ -187,7 +187,7 @@ public class OWLObjectPropertyManager {
     }
 
     private void markComposite(@Nonnull OWLObjectPropertyExpression prop) {
-        checkNotNull(prop);
+        checkNotNull(prop, "prop cannot be null");
         compositeProperties.add(prop.getSimplified());
         compositeProperties.add(prop.getInverseProperty().getSimplified());
     }
@@ -301,8 +301,8 @@ public class OWLObjectPropertyManager {
      *         <code>false</code> */
     public boolean isSubPropertyOf(@Nonnull OWLObjectPropertyExpression sub,
             @Nonnull OWLObjectPropertyExpression sup) {
-        checkNotNull(sub);
-        checkNotNull(sup);
+        checkNotNull(sub, "sub cannot be null");
+        checkNotNull(sup, "sup cannot be null");
         Set<OWLObjectPropertyExpression> supers = getHierarchyReflexiveTransitiveClosure()
                 .get(sub);
         if (supers == null) {
@@ -321,7 +321,7 @@ public class OWLObjectPropertyManager {
      * @return <code>true</code> if the object property expression is simple,
      *         otherwise false. */
     public boolean isNonSimple(@Nonnull OWLObjectPropertyExpression expression) {
-        checkNotNull(expression);
+        checkNotNull(expression, "expression cannot be null");
         return getNonSimpleProperties().contains(expression.getSimplified());
     }
 
@@ -401,8 +401,8 @@ public class OWLObjectPropertyManager {
      * @return true if first property comes first in the default ordering */
     public boolean isLessThan(@Nonnull OWLObjectPropertyExpression propA,
             @Nonnull OWLObjectPropertyExpression propB) {
-        checkNotNull(propA);
-        checkNotNull(propB);
+        checkNotNull(propA, "propA cannot be null");
+        checkNotNull(propB, "propB cannot be null");
         Set<OWLObjectPropertyExpression> props = getPropertyPartialOrdering().get(
                 propA.getSimplified());
         if (props == null) {
@@ -429,7 +429,7 @@ public class OWLObjectPropertyManager {
     @Nonnull
     public static Collection<Set<OWLObjectPropertyExpression>>
             getEquivalentObjectProperties(@Nonnull Set<OWLOntology> ontologies) {
-        checkNotNull(ontologies);
+        checkNotNull(ontologies, "ontologies cannot be null");
         Set<Set<OWLObjectPropertyExpression>> result = new HashSet<Set<OWLObjectPropertyExpression>>();
         Set<OWLObjectPropertyExpression> processed = new HashSet<OWLObjectPropertyExpression>();
         Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
@@ -495,14 +495,14 @@ public class OWLObjectPropertyManager {
             @Nonnull Set<Set<OWLObjectPropertyExpression>> result,
             @Nonnull Set<OWLObjectPropertyExpression> processed,
             @Nonnull Set<OWLObjectPropertyExpression> stackProps) {
-        checkNotNull(ontologies);
-        checkNotNull(prop);
-        checkNotNull(stack);
-        checkNotNull(indexMap);
-        checkNotNull(lowlinkMap);
-        checkNotNull(result);
-        checkNotNull(processed);
-        checkNotNull(stackProps);
+        checkNotNull(ontologies, "ontologies cannot be null");
+        checkNotNull(prop, "prop cannot be null");
+        checkNotNull(stack, "stack cannot be null");
+        checkNotNull(indexMap, "indexMap cannot be null");
+        checkNotNull(lowlinkMap, "lowlinkMap cannot be null");
+        checkNotNull(result, "result cannot be null");
+        checkNotNull(processed, "processed cannot be null");
+        checkNotNull(stackProps, "stackProps cannot be null");
         processed.add(prop);
         indexMap.put(prop, index);
         lowlinkMap.put(prop, index);
@@ -554,10 +554,10 @@ public class OWLObjectPropertyManager {
                     @Nonnull Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
                     @Nonnull Set<OWLObjectPropertyExpression> rtc,
                     @Nonnull Set<OWLObjectPropertyExpression> processed) {
-        checkNotNull(prop);
-        checkNotNull(map);
-        checkNotNull(rtc);
-        checkNotNull(processed);
+        checkNotNull(prop, "prop cannot be null");
+        checkNotNull(map, "map cannot be null");
+        checkNotNull(rtc, "rtc cannot be null");
+        checkNotNull(processed, "processed cannot be null");
         if (processed.contains(prop)) {
             return;
         }
@@ -578,8 +578,8 @@ public class OWLObjectPropertyManager {
             getKeyValue(
                     @Nonnull OWLObjectPropertyExpression key,
                     @Nonnull Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map) {
-        checkNotNull(key);
-        checkNotNull(map);
+        checkNotNull(key, "key cannot be null");
+        checkNotNull(map, "map cannot be null");
         Set<OWLObjectPropertyExpression> vals = map.get(key);
         if (vals == null) {
             vals = new HashSet<OWLObjectPropertyExpression>(4);

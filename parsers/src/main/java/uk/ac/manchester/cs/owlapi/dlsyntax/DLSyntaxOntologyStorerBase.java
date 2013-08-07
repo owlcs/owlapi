@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owlapi.dlsyntax;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -72,8 +72,8 @@ public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStor
     protected void
             storeOntology(OWLOntology ontology, Writer w, OWLOntologyFormat format)
                     throws OWLOntologyStorageException {
-        ont = checkNotNull(ontology);
-        PrintWriter writer = new PrintWriter(checkNotNull(w));
+        ont = checkNotNull(ontology, "ontology cannot be null");
+        PrintWriter writer = new PrintWriter(checkNotNull(w, "w cannot be null"));
         beginWritingOntology(ontology, writer);
         for (OWLObjectProperty prop : new TreeSet<OWLObjectProperty>(
                 ontology.getObjectPropertiesInSignature())) {

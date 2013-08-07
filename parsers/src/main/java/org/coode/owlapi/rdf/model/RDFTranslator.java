@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.rdf.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -82,13 +82,13 @@ public class RDFTranslator extends
     @Override
     protected void addTriple(@Nonnull RDFResource subject, @Nonnull RDFResourceIRI pred,
             @Nonnull RDFNode object) {
-        graph.addTriple(new RDFTriple(checkNotNull(subject), checkNotNull(pred),
-                checkNotNull(object)));
+        graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"), checkNotNull(pred, "pred cannot be null"),
+                checkNotNull(object, "object cannot be null")));
     }
 
     @Override
     protected RDFResourceBlankNode getAnonymousNode(Object key) {
-        checkNotNull(key);
+        checkNotNull(key, "key cannot be null");
         if (key instanceof OWLAnonymousIndividual) {
             RDFResourceBlankNode toReturn = new RDFResourceBlankNode(
                     ((OWLAnonymousIndividual) key).getID().getID().hashCode());

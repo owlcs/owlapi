@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -71,7 +71,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.classExpressions = new TreeSet<OWLClassExpression>(
-                checkNotNull(classExpressions));
+                checkNotNull(classExpressions, "classExpressions cannot be null"));
     }
 
     @Override

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.net.URI;
 import java.util.StringTokenizer;
@@ -59,7 +59,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      * @return short form of the ontology IRI */
     @Nonnull
     public String getShortForm(@Nonnull OWLOntology ont) {
-        checkNotNull(ont);
+        checkNotNull(ont, "ont cannot be null");
         if (!ont.isAnonymous()) {
             return getShortForm(ont.getOntologyID().getOntologyIRI());
         } else {

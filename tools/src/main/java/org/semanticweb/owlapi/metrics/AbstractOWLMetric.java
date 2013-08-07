@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.metrics;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -70,7 +70,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     /** @param o
      *            the ontology to use */
     public AbstractOWLMetric(@Nonnull OWLOntology o) {
-        this.ontology = checkNotNull(o);
+        this.ontology = checkNotNull(o, "o cannot be null");
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
         dirty = true;
     }

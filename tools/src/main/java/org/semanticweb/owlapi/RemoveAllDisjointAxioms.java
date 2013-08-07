@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Set;
 
@@ -65,7 +65,7 @@ public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
     public RemoveAllDisjointAxioms(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
-        generateChanges(checkNotNull(ontologies));
+        generateChanges(checkNotNull(ontologies, "ontologies cannot be null"));
     }
 
     private void generateChanges(Set<OWLOntology> ontologies) {
