@@ -284,9 +284,8 @@ public enum OWL2Datatype {
 
     /**
      * Gets the equivalent OWLDatatype from the given factory.
-     * @param factory the OWLDataFactory
-     * @return the equivalent OWLDatatype
-     *
+     * @param factory the OWLDataFactory.  Not {@code null}.
+     * @return An {@link OWLDatatype} that has the same IRI as this {@link OWL2Datatype}.  Not {@code null}.
      */
     public OWLDatatype getDatatype(OWLDataFactory factory){
         return factory.getOWLDatatype( getIRI() );
