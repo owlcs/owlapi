@@ -49,7 +49,11 @@ import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+
+
 
 
 /**
@@ -277,6 +281,16 @@ public enum OWL2Datatype {
         return category.getFacets();
     }
 
+
+    /**
+     * Gets the equivalent OWLDatatype from the given factory.
+     * @param factory the OWLDataFactory
+     * @return the equivalent OWLDatatype
+     *
+     */
+    public OWLDatatype getDatatype(OWLDataFactory factory){
+        return factory.getOWLDatatype( getIRI() );
+    }
 
     /**
      * Determines if the specified string is the lexical space of this datatype
