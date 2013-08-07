@@ -165,8 +165,8 @@ public enum OWL2Datatype {
     /**
      * Determines if the specified IRI identifies a built in datatype.
      * @param datatypeIRI The datatype IRI
-     * @return <code>true</code> if the IRI identifies a built in datatype, or
-     *         <code>false</code> if the IRI does not identify a built in datatype.
+     * @return {@code true} if the IRI identifies a built in datatype, or
+     *         {@code false} if the IRI does not identify a built in datatype.
      */
     public static boolean isBuiltIn(IRI datatypeIRI) {
         return ALL_IRIS.contains(datatypeIRI);
@@ -256,7 +256,7 @@ public enum OWL2Datatype {
 
     /**
      * Determines if this datatype is a numeric datatype
-     * @return <code>true</code> if this datatype is a numeric datatype
+     * @return {@code true} if this datatype is a numeric datatype
      */
     public boolean isNumeric() {
         return category.equals(Category.NUMBER);
@@ -264,8 +264,8 @@ public enum OWL2Datatype {
 
     /**
      * Determines whether or not this datatype is finite.
-     * @return <code>true</code> if this datatype is finite, or
-     *         <code>false</code> if this datatype is infinite.
+     * @return {@code true} if this datatype is finite, or
+     *         {@code false} if this datatype is infinite.
      */
     public boolean isFinite() {
         return finite;
@@ -294,7 +294,7 @@ public enum OWL2Datatype {
     /**
      * Determines if the specified string is the lexical space of this datatype
      * @param s The string to test
-     * @return <code>true</code> if the string is in the lexical space, otherwise <code>false</code>
+     * @return {@code true} if the string is in the lexical space, otherwise {@code false}
      */
     public boolean isInLexicalSpace(String s) {
         return pattern.matcher(s).matches();
