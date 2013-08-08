@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Date: 30-Jul-2008<br>
  * <br> */
 @SuppressWarnings("javadoc")
-public class OWLOntologyWalkerVisitor<E> extends OWLObjectVisitorExAdapter<E> {
+public class OWLOntologyWalkerVisitor extends OWLObjectVisitorAdapter {
     private final OWLOntologyWalker walker;
 
     public OWLOntologyWalkerVisitor(@Nonnull OWLOntologyWalker walker) {

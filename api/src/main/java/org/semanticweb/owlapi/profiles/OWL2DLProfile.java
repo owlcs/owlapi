@@ -85,7 +85,7 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -122,7 +122,7 @@ public class OWL2DLProfile implements OWLProfile {
     }
 
     private static class OWL2DLProfileObjectVisitor extends
-            OWLOntologyWalkerVisitor<Object> {
+            OWLOntologyWalkerVisitorEx<Object> {
         private OWLObjectPropertyManager objectPropertyManager = null;
         private final OWLOntologyManager manager;
         private final Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();

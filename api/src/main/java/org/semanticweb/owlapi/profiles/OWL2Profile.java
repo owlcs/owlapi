@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Author: Matthew Horridge<br>
@@ -86,7 +86,7 @@ public class OWL2Profile implements OWLProfile {
         return new OWLProfileReport(this, pv);
     }
 
-    private static class OWL2ProfileObjectWalker extends OWLOntologyWalkerVisitor<Object> {
+    private static class OWL2ProfileObjectWalker extends OWLOntologyWalkerVisitorEx<Object> {
         private final OWLOntologyManager man;
         private final Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 

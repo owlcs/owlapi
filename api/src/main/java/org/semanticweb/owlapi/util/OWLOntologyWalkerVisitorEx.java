@@ -36,23 +36,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.model;
+package org.semanticweb.owlapi.util;
+
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br>
- * </p> An interface for objects that can accept visits from axioms. (See the <a
- * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>) */
+ * Information Management Group<br>
+ * Date: 30-Jul-2008<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public interface OWLAxiomVisitor extends OWLAnnotationAxiomVisitor,
-        OWLLogicalAxiomVisitor {
-    void visit(@Nonnull OWLDeclarationAxiom axiom);
+public class OWLOntologyWalkerVisitorEx<E> extends OWLObjectVisitorExAdapter<E> {
+    private final OWLOntologyWalker walker;
 
+    public OWLOntologyWalkerVisitorEx(@Nonnull OWLOntologyWalker walker) {
+        this.walker = checkNotNull(walker, "walker cannot be null");
+    }
 
-    void visit(@Nonnull OWLDatatypeDefinitionAxiom axiom);
+    public OWLAxiom getCurrentAxiom() {
+        return walker.getAxiom();
+    }
 
+    public OWLOntology getCurrentOntology() {
+        return walker.getOntology();
+    }
+
+    public OWLAnnotation getCurrentAnnotation() {
+        return walker.getAnnotation();
+    }
 }

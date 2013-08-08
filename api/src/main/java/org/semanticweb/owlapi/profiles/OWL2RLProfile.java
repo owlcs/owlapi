@@ -83,7 +83,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -151,7 +151,7 @@ public class OWL2RLProfile implements OWLProfile {
         return new OWLProfileReport(this, violations);
     }
 
-    private class OWL2RLObjectVisitor extends OWLOntologyWalkerVisitor<Object> {
+    private class OWL2RLObjectVisitor extends OWLOntologyWalkerVisitorEx<Object> {
         private final Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
         OWL2RLObjectVisitor(OWLOntologyWalker walker) {

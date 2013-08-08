@@ -148,7 +148,7 @@ import org.semanticweb.owlapi.util.OWLOntologyImportsClosureSetProvider;
 import org.semanticweb.owlapi.util.OWLOntologyMerger;
 import org.semanticweb.owlapi.util.OWLOntologySingletonSetProvider;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
 import org.semanticweb.owlapi.util.ProgressMonitor;
@@ -1035,7 +1035,7 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestOWLOntologyWalkerVisitor() throws OWLException {
-        OWLOntologyWalkerVisitor<Object> testSubject0 = new OWLOntologyWalkerVisitor<Object>(
+        OWLOntologyWalkerVisitorEx<Object> testSubject0 = new OWLOntologyWalkerVisitorEx<Object>(
                 mock(OWLOntologyWalker.class));
         OWLAxiom result0 = testSubject0.getCurrentAxiom();
         OWLOntology result1 = testSubject0.getCurrentOntology();

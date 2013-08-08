@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -155,7 +155,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 public class OWLObjectWalker<O extends OWLObject> {
     protected OWLOntology ontology;
     private final Collection<O> objects;
-    protected OWLObjectVisitorEx<?> visitor;
+    private OWLObjectVisitor visitor;
+    private OWLObjectVisitorEx<?> visitorEx;
     protected final boolean visitDuplicates;
     protected OWLAxiom ax;
     protected OWLAnnotation annotation;
@@ -167,6 +168,26 @@ public class OWLObjectWalker<O extends OWLObject> {
     public OWLObjectWalker(@Nonnull Set<O> objects) {
         this(objects, true);
     }
+
+    protected Object passToVisitor(OWLObject o) {
+        if (visitor != null) {
+            o.accept(visitor);
+            return null;
+        } else {
+            return o.accept(visitorEx);
+        }
+    }
+
+    protected void setVisitor(OWLObjectVisitorEx<?> visitor) {
+        this.visitorEx = visitor;
+        this.visitor = null;
+    }
+
+    protected void setVisitor(OWLObjectVisitor visitor) {
+        this.visitor = visitor;
+        this.visitorEx = null;
+    }
+
 
     /** @param visitDuplicates
      *            true if duplicates should be visited
@@ -180,7 +201,17 @@ public class OWLObjectWalker<O extends OWLObject> {
     /** @param v
      *            visitor to use over the objects */
     public void walkStructure(@Nonnull OWLObjectVisitorEx<?> v) {
-        this.visitor = checkNotNull(v, "v cannot be null");
+        this.setVisitor(checkNotNull(v, "v cannot be null"));
+        StructureWalker walker = new StructureWalker();
+        for (O o : objects) {
+            o.accept(walker);
+        }
+    }
+
+    /** @param v
+     *            visitor to use over the objects */
+    public void walkStructure(@Nonnull OWLObjectVisitor v) {
+        this.setVisitor(checkNotNull(v, "v cannot be null"));
         StructureWalker walker = new StructureWalker();
         for (O o : objects) {
             o.accept(walker);
@@ -298,10 +329,10 @@ public class OWLObjectWalker<O extends OWLObject> {
             if (!visitDuplicates) {
                 if (!visited.contains(object)) {
                     visited.add(object);
-                    object.accept(visitor);
+                    passToVisitor(object);
                 }
             } else {
-                object.accept(visitor);
+                passToVisitor(object);
             }
         }
 

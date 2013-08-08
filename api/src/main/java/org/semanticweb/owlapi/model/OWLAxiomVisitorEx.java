@@ -48,77 +48,9 @@ import javax.annotation.Nonnull;
  * </p> An interface for objects that can accept visits from axioms. (See the <a
  * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>) */
 @SuppressWarnings("javadoc")
-public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O> {
-    O visit(@Nonnull OWLSubClassOfAxiom axiom);
-
-    O visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom);
-
-    O visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom);
-
-    O visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom);
-
-    O visit(@Nonnull OWLDisjointClassesAxiom axiom);
-
-    O visit(@Nonnull OWLDataPropertyDomainAxiom axiom);
-
-    O visit(@Nonnull OWLObjectPropertyDomainAxiom axiom);
-
-    O visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom);
-
-    O visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom);
-
-    O visit(@Nonnull OWLDifferentIndividualsAxiom axiom);
-
-    O visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom);
-
-    O visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom);
-
-    O visit(@Nonnull OWLObjectPropertyRangeAxiom axiom);
-
-    O visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom);
-
-    O visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom);
-
-    O visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom);
-
-    O visit(@Nonnull OWLDisjointUnionAxiom axiom);
-
+public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>,
+        OWLLogicalAxiomVisitorEx<O> {
     O visit(@Nonnull OWLDeclarationAxiom axiom);
 
-    @Override
-    O visit(@Nonnull OWLAnnotationAssertionAxiom axiom);
-
-    O visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom);
-
-    O visit(@Nonnull OWLDataPropertyRangeAxiom axiom);
-
-    O visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom);
-
-    O visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom);
-
-    O visit(@Nonnull OWLClassAssertionAxiom axiom);
-
-    O visit(@Nonnull OWLEquivalentClassesAxiom axiom);
-
-    O visit(@Nonnull OWLDataPropertyAssertionAxiom axiom);
-
-    O visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom);
-
-    O visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom);
-
-    O visit(@Nonnull OWLSubDataPropertyOfAxiom axiom);
-
-    O visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom);
-
-    O visit(@Nonnull OWLSameIndividualAxiom axiom);
-
-    O visit(@Nonnull OWLSubPropertyChainOfAxiom axiom);
-
-    O visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom);
-
-    O visit(@Nonnull OWLHasKeyAxiom axiom);
-
     O visit(@Nonnull OWLDatatypeDefinitionAxiom axiom);
-
-    O visit(@Nonnull SWRLRule rule);
 }
