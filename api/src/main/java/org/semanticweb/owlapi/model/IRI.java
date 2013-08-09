@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.File;
 import java.net.URI;
@@ -208,7 +208,12 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     @Nonnull
     public static IRI create(@Nonnull String str) {
         checkNotNull(str, "str cannot be null");
-        return new IRI(str);
+        int index = XMLUtils.getNCNameSuffixIndex(str);
+        if (index < 0) {
+            // no ncname
+            return new IRI(str, null);
+        }
+        return new IRI(str.substring(0, index), str.substring(index));
     }
 
     /** Creates an IRI by concatenating two strings. The full IRI is an IRI that
@@ -223,14 +228,14 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     @Nonnull
     public static IRI create(@Nullable String prefix, @Nullable String suffix) {
         if (prefix == null) {
-            return new IRI(suffix);
+            return create(suffix);
         } else if (suffix == null) {
             // suffix set deliberately to null is used only in blank node
             // management
             // this is not great but blank nodes should be changed to not refer
             // to IRIs at all
             // XXX address blank node issues with iris
-            return new IRI(prefix);
+            return create(prefix);
         } else {
             int index = XMLUtils.getNCNameSuffixIndex(prefix);
             int test = XMLUtils.getNCNameSuffixIndex(suffix);
@@ -243,7 +248,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
             // otherwise the split is wrong; we could obtain the right split by
             // using index and test, but it's just as easy to use the other
             // constructor
-            return new IRI(prefix + suffix);
+            return create(prefix + suffix);
         }
     }
 

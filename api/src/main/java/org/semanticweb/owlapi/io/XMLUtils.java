@@ -209,6 +209,10 @@ public class XMLUtils {
      *         sequence <code>s</code> that is an NCName, or -1 if the character
      *         sequence <code>s</code> does not have a suffix that is an NCName. */
     public static int getNCNameSuffixIndex(CharSequence s) {
+        // identify bnode labels and do not try to split them
+        if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
+            return -1;
+        }
         int index = -1;
         for (int i = s.length() - 1; i > -1; i--) {
             if (!Character.isLowSurrogate(s.charAt(i))) {
@@ -237,7 +241,7 @@ public class XMLUtils {
             return null;
         }
         int localPartStartIndex = getNCNameSuffixIndex(s);
-        if (localPartStartIndex != -1) {
+        if (localPartStartIndex > -1) {
             return s.toString().substring(localPartStartIndex);
         } else {
             return null;
@@ -255,7 +259,7 @@ public class XMLUtils {
             return s.toString();
         }
         int localPartStartIndex = getNCNameSuffixIndex(s);
-        if (localPartStartIndex != -1) {
+        if (localPartStartIndex > -1) {
             return s.toString().substring(0, localPartStartIndex);
         } else {
             return s.toString();

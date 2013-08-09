@@ -122,6 +122,7 @@ import org.xml.sax.SAXException;
  * or not a triple can be consumed dIRIng parsing is determined by installed
  * triple handlers. */
 public class OWLRDFConsumer implements RDFConsumer {
+    private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";
     private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
     private static final Logger tripleProcessor = Logger.getLogger("Triple processor");
     private OWLOntologyLoaderConfiguration configuration;
@@ -371,7 +372,8 @@ public class OWLRDFConsumer implements RDFConsumer {
         // where the vocabulary has simply changed (e.g. DAML+OIL -> OWL)
         synonymMap = CollectionFactory.createMap();
         // Legacy protege-owlapi representation of QCRs
-        synonymMap.put(IRI.create(Namespaces.OWL + "valuesFrom"), OWL_ON_CLASS.getIRI());
+        synonymMap.put(IRI.create(Namespaces.OWL.getPrefixIRI(), "valuesFrom"),
+                OWL_ON_CLASS.getIRI());
         if (!configuration.isStrict()) {
             addDAMLOILVocabulary();
             addIntermediateOWLSpecVocabulary();
@@ -379,68 +381,43 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
     private void addDAMLOILVocabulary() {
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#subClassOf"),
-                RDFS_SUBCLASS_OF.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#imports"),
-                OWL_IMPORTS.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#range"),
-                RDFS_RANGE.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#hasValue"),
-                OWL_HAS_VALUE.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#type"),
-                RDF_TYPE.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#domain"),
-                RDFS_DOMAIN.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#versionInfo"),
-                OWL_VERSION_INFO.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#comment"),
-                RDFS_COMMENT.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#onProperty"),
-                OWL_ON_PROPERTY.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#toClass"),
-                OWL_ALL_VALUES_FROM.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#hasClass"),
-                OWL_SOME_VALUES_FROM.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#Restriction"),
-                OWL_RESTRICTION.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#Class"),
-                OWL_CLASS.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#Thing"),
-                OWL_THING.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#Nothing"),
-                OWL_NOTHING.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#minCardinality"),
+        synonymMap.put(IRI.create(DAML_OIL, "subClassOf"), RDFS_SUBCLASS_OF.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "imports"), OWL_IMPORTS.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "range"), RDFS_RANGE.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "hasValue"), OWL_HAS_VALUE.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "type"), RDF_TYPE.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "domain"), RDFS_DOMAIN.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "versionInfo"), OWL_VERSION_INFO.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "comment"), RDFS_COMMENT.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "onProperty"), OWL_ON_PROPERTY.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "toClass"), OWL_ALL_VALUES_FROM.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "hasClass"), OWL_SOME_VALUES_FROM.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "Restriction"), OWL_RESTRICTION.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "Class"), OWL_CLASS.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "Thing"), OWL_THING.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "Nothing"), OWL_NOTHING.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "minCardinality"),
                 OWL_MIN_CARDINALITY.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#cardinality"),
-                OWL_CARDINALITY.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#maxCardinality"),
+        synonymMap.put(IRI.create(DAML_OIL, "cardinality"), OWL_CARDINALITY.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "maxCardinality"),
                 OWL_MAX_CARDINALITY.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#inverseOf"),
-                OWL_INVERSE_OF.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#samePropertyAs"),
+        synonymMap.put(IRI.create(DAML_OIL, "inverseOf"), OWL_INVERSE_OF.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "samePropertyAs"),
                 OWL_EQUIVALENT_PROPERTY.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#hasClassQ"),
-                OWL_ON_CLASS.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#cardinalityQ"),
-                OWL_CARDINALITY.getIRI());
-        synonymMap.put(
-                IRI.create("http://www.daml.org/2001/03/daml+oil#maxCardinalityQ"),
+        synonymMap.put(IRI.create(DAML_OIL, "hasClassQ"), OWL_ON_CLASS.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "cardinalityQ"), OWL_CARDINALITY.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "maxCardinalityQ"),
                 OWL_MAX_CARDINALITY.getIRI());
-        synonymMap.put(
-                IRI.create("http://www.daml.org/2001/03/daml+oil#minCardinalityQ"),
+        synonymMap.put(IRI.create(DAML_OIL, "minCardinalityQ"),
                 OWL_MIN_CARDINALITY.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#complementOf"),
-                OWL_COMPLEMENT_OF.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#unionOf"),
-                OWL_UNION_OF.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#intersectionOf"),
+        synonymMap.put(IRI.create(DAML_OIL, "complementOf"), OWL_COMPLEMENT_OF.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "unionOf"), OWL_UNION_OF.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "intersectionOf"),
                 OWL_INTERSECTION_OF.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#label"),
-                RDFS_LABEL.getIRI());
-        synonymMap.put(IRI.create("http://www.daml.org/2001/03/daml+oil#ObjectProperty"),
+        synonymMap.put(IRI.create(DAML_OIL, "label"), RDFS_LABEL.getIRI());
+        synonymMap.put(IRI.create(DAML_OIL, "ObjectProperty"),
                 OWL_OBJECT_PROPERTY.getIRI());
-        synonymMap.put(
-                IRI.create("http://www.daml.org/2001/03/daml+oil#DatatypeProperty"),
+        synonymMap.put(IRI.create(DAML_OIL, "DatatypeProperty"),
                 OWL_DATA_PROPERTY.getIRI());
     }
 
@@ -452,15 +429,15 @@ public class OWLRDFConsumer implements RDFConsumer {
             addLegacyMapping(v);
         }
         for (OWLFacet v : OWLFacet.values()) {
-            synonymMap.put(IRI.create(Namespaces.OWL.toString() + v.getShortName()),
+            synonymMap.put(IRI.create(Namespaces.OWL.toString(), v.getShortName()),
                     v.getIRI());
-            synonymMap.put(IRI.create(Namespaces.OWL11.toString() + v.getShortName()),
+            synonymMap.put(IRI.create(Namespaces.OWL11.toString(), v.getShortName()),
                     v.getIRI());
-            synonymMap.put(IRI.create(Namespaces.OWL2.toString() + v.getShortName()),
+            synonymMap.put(IRI.create(Namespaces.OWL2.toString(), v.getShortName()),
                     v.getIRI());
         }
         for (OWLFacet v : OWLFacet.values()) {
-            synonymMap.put(IRI.create(Namespaces.OWL2.toString() + v.getShortName()),
+            synonymMap.put(IRI.create(Namespaces.OWL2.toString(), v.getShortName()),
                     v.getIRI());
         }
         synonymMap.put(DeprecatedVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION,
@@ -516,9 +493,9 @@ public class OWLRDFConsumer implements RDFConsumer {
     private void addLegacyMapping(OWLRDFVocabulary v) {
         // Map OWL11 to OWL
         // Map OWL2 to OWL
-        synonymMap.put(IRI.create(Namespaces.OWL2.toString() + v.getShortName()),
+        synonymMap.put(IRI.create(Namespaces.OWL2.toString(), v.getShortName()),
                 v.getIRI());
-        synonymMap.put(IRI.create(Namespaces.OWL11.toString() + v.getShortName()),
+        synonymMap.put(IRI.create(Namespaces.OWL11.toString(), v.getShortName()),
                 v.getIRI());
     }
 
@@ -1793,7 +1770,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     private static final AtomicInteger errorCounter = new AtomicInteger(0);
 
     private <E extends OWLEntity> E getErrorEntity(EntityType<E> entityType) {
-        IRI iri = IRI.create("http://org.semanticweb.owlapi/error#Error"
+        IRI iri = IRI.create("http://org.semanticweb.owlapi/error#", "Error"
                 + errorCounter.incrementAndGet());
         return dataFactory.getOWLEntity(entityType, iri);
     }
