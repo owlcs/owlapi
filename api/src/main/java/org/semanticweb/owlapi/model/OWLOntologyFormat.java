@@ -91,9 +91,9 @@ public abstract class OWLOntologyFormat {
     /** Determines if this format is an instance of a format that uses prefixes
      * to shorted IRIs
      * 
-     * @return <code>true</code> if this format is an instance of
+     * @return {@code true} if this format is an instance of
      *         {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}
-     *         other wise <code>false</code>. */
+     *         other wise {@code false}. */
     public boolean isPrefixOWLOntologyFormat() {
         return this instanceof PrefixOWLOntologyFormat;
     }

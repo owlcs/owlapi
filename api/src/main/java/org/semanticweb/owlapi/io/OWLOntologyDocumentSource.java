@@ -67,8 +67,8 @@ public interface OWLOntologyDocumentSource {
     /** Determines if a reader is available which an ontology document can be
      * parsed from.
      * 
-     * @return <code>true</code> if a reader can be obtained from this document
-     *         source, or <code>false</code> if a reader cannot be obtained from
+     * @return {@code true} if a reader can be obtained from this document
+     *         source, or {@code false} if a reader cannot be obtained from
      *         this document source. */
     boolean isReaderAvailable();
 
@@ -85,8 +85,8 @@ public interface OWLOntologyDocumentSource {
     /** Determines if an input stream is available which an ontology document can
      * be parsed from.
      * 
-     * @return <code>true</code> if an input stream can be obtained,
-     *         <code>false</code> if an input stream cannot be obtained from
+     * @return {@code true} if an input stream can be obtained,
+     *         {@code false} if an input stream cannot be obtained from
      *         this document source. */
     boolean isInputStreamAvailable();
 
@@ -94,7 +94,7 @@ public interface OWLOntologyDocumentSource {
      * method creates it. This method may be called multiple times. Each
      * invocation will return a new input stream. This method should not be
      * called if the <code>isInputStreamAvailable</code> method returns
-     * <code>false</code>.
+     * {@code false}.
      * 
      * @return A new input stream which the ontology can be read from. */
     @Nonnull

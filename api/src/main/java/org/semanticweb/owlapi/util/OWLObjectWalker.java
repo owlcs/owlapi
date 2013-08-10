@@ -260,9 +260,9 @@ public class OWLObjectWalker<O extends OWLObject> {
      * 
      * @param classExpression
      *            The class expression
-     * @return <code>true</code> if the specified class expression is the first
+     * @return {@code true} if the specified class expression is the first
      *         class expression in the current class expression path, otherwise
-     *         <code>false</code> (<code>false</code> if the path is empty) */
+     *         {@code false} ({@code false} if the path is empty) */
     public boolean isFirstClassExpressionInPath(
             @Nonnull OWLClassExpression classExpression) {
         checkNotNull(classExpression, "classExpression cannot be null");

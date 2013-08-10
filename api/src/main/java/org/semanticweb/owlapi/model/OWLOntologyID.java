@@ -108,8 +108,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     /** Determines if this is a valid OWL 2 DL ontology ID. To be a valid OWL 2
      * DL ID, the ontology IRI and version IRI must not be reserved vocabulary.
      * 
-     * @return <code>true</code> if this is a valid OWL 2 DL ontology ID,
-     *         otherwise <code>false</code>
+     * @return {@code true} if this is a valid OWL 2 DL ontology ID,
+     *         otherwise {@code false}
      * @see org.semanticweb.owlapi.model.IRI#isReservedVocabulary() */
     public boolean isOWL2DLOntologyID() {
         return ontologyIRI == null || !ontologyIRI.isReservedVocabulary()
@@ -162,8 +162,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     /** Determines if this ID names an ontology or whether it is an ID for an
      * ontology without an IRI.
      * 
-     * @return <code>true</code> if this ID is an ID for an ontology without an
-     *         IRI, or <code>false</code> if this ID is an ID for an ontology
+     * @return {@code true} if this ID is an ID for an ontology without an
+     *         IRI, or {@code false} if this ID is an ID for an ontology
      *         with an IRI. */
     public boolean isAnonymous() {
         return ontologyIRI == null;

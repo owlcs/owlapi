@@ -57,7 +57,7 @@ public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
     /** Determines whether this axiom contains anonymous individuals. Anonymous
      * individuals are not allowed in same individuals axioms.
      * 
-     * @return <code>true</code> if this axioms contains anonymous individual
+     * @return {@code true} if this axioms contains anonymous individual
      *         axioms */
     boolean containsAnonymousIndividuals();
 

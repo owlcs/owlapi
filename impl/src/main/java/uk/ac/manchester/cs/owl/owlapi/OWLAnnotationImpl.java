@@ -109,8 +109,8 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
      * <code>owl:deprecated</code> and the value of the annotation is
      * <code>"true"^^xsd:boolean</code>
      * 
-     * @return <code>true</code> if this annotation is an annotation that can be
-     *         used to deprecate an IRI, otherwise <code>false</code>. */
+     * @return {@code true} if this annotation is an annotation that can be
+     *         used to deprecate an IRI, otherwise {@code false}. */
     @Override
     public boolean isDeprecatedIRIAnnotation() {
         return property.isDeprecated() && value instanceof OWLLiteral

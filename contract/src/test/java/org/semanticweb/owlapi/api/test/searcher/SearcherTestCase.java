@@ -217,9 +217,9 @@ public class SearcherTestCase {
     // *
     // * @param ontology
     // * The ontology to examine for axioms.
-    // * @return <code>true</code> if <code>ontology</code> contains an
+    // * @return {@code true} if <code>ontology</code> contains an
     // * <code>EquivalentClassesAxiom</code> where this class is a top
-    // * level class in the axiom, other wise <code>false</code>. */
+    // * level class in the axiom, other wise {@code false}. */
     // boolean isDefined(OWLOntology ontology);
     //
     // /** Determines if this class is a top level class in an
@@ -228,9 +228,9 @@ public class SearcherTestCase {
     // *
     // * @param ontologies
     // * The ontologies to examine for axioms.
-    // * @return <code>true</code> if one or more of <code>ontologies</code>
+    // * @return {@code true} if one or more of <code>ontologies</code>
     // * contains an <code>EquivalentClassesAxiom</code> where this class
-    // * is a top level class in the axiom, other wise <code>false</code>. */
+    // * is a top level class in the axiom, other wise {@code false}. */
     // boolean isDefined(Set<OWLOntology> ontologies);
     //
     // /** Gets the annotations for this entity. These are deemed to be
@@ -281,8 +281,8 @@ public class SearcherTestCase {
     // * @param ontology
     // * The ontology that will be searched for axioms
     // * @param includeImports
-    // * If <code>true</code> then axioms in the imports closure will
-    // * also be returned, if <code>false</code> then only the axioms
+    // * If {@code true} then axioms in the imports closure will
+    // * also be returned, if {@code false} then only the axioms
     // * in the specified ontology will be returned.
     // * @return The axioms in the specified ontology whose signature contains
     // * this entity. */
@@ -345,11 +345,11 @@ public class SearcherTestCase {
     // * The individual value of the property that will be tested for
     // * @param ontology
     // * The ontology to search for the property value
-    // * @return <code>true</code> if the individual has the specified property
-    // * value, that is, <code>true</code> if the specified ontology
+    // * @return {@code true} if the individual has the specified property
+    // * value, that is, {@code true} if the specified ontology
     // * contains an object property assertion
     // * ObjectPropertyAssertion(property, this, individual), otherwise
-    // * <code>false</code> */
+    // * {@code false} */
     // boolean hasObjectPropertyValue(OWLObjectPropertyExpression property,
     // OWLIndividual individual, OWLOntology ontology);
     //
@@ -362,11 +362,11 @@ public class SearcherTestCase {
     // * The value value of the property that will be tested for
     // * @param ontology
     // * The ontology to search for the property value
-    // * @return <code>true</code> if the individual has the specified property
-    // * value, that is, <code>true</code> if the specified ontology
+    // * @return {@code true} if the individual has the specified property
+    // * value, that is, {@code true} if the specified ontology
     // * contains a data property assertion
     // * DataPropertyAssertion(property, this, value), otherwise
-    // * <code>false</code> */
+    // * {@code false} */
     // boolean hasDataPropertyValue(OWLDataPropertyExpression property,
     // OWLLiteral value,
     // OWLOntology ontology);
@@ -380,12 +380,12 @@ public class SearcherTestCase {
     // * The value to test for
     // * @param ontology
     // * The ontology to search for the assertion
-    // * @return <code>true</code> if the specified property value has
+    // * @return {@code true} if the specified property value has
     // explicitly
-    // * been asserted not to hold, that is, <code>true</code> if the
+    // * been asserted not to hold, that is, {@code true} if the
     // * specified ontology contains a negative object property assertion
     // * NegativeObjectPropertyAssertion(property, this, individual),
-    // * otherwise <code>false</code> */
+    // * otherwise {@code false} */
     // boolean hasNegativeObjectPropertyValue(OWLObjectPropertyExpression
     // property,
     // OWLIndividual individual, OWLOntology ontology);
@@ -444,12 +444,12 @@ public class SearcherTestCase {
     // * The value to test for
     // * @param ontology
     // * The ontology to search for the assertion
-    // * @return <code>true</code> if the specified property value has
+    // * @return {@code true} if the specified property value has
     // explicitly
-    // * been asserted not to hold, that is, <code>true</code> if the
+    // * been asserted not to hold, that is, {@code true} if the
     // * specified ontology contains a negative data property assertion
     // * NegativeDataPropertyAssertion(property, this, literal), otherwise
-    // * <code>false</code> */
+    // * {@code false} */
     // boolean hasNegativeDataPropertyValue(OWLDataPropertyExpression property,
     // OWLLiteral literal, OWLOntology ontology);
     //
@@ -474,9 +474,9 @@ public class SearcherTestCase {
     // *
     // * @param ontology
     // * The ontology to be tested for a functional property axiom.
-    // * @return <code>true</code> if the specified ontology contains an axiom
+    // * @return {@code true} if the specified ontology contains an axiom
     // * stating that the property is functional, other wise
-    // * <code>false</code>. */
+    // * {@code false}. */
     // boolean isFunctional(OWLOntology ontology);
     //
     // /** Determines if the property is functional because there is an axiom in
@@ -486,8 +486,8 @@ public class SearcherTestCase {
     // * @param ontologies
     // * The ontologies which will be searched for axioms which specify
     // * that this property is fuctional.
-    // * @return <code>true</code> if the property is functional, or
-    // * <code>false</code> if the property is not functional. */
+    // * @return {@code true} if the property is functional, or
+    // * {@code false} if the property is not functional. */
     // boolean isFunctional(Set<OWLOntology> ontologies);
     //
     // /** Determines if the specified ontology specifies that this property is
@@ -496,8 +496,8 @@ public class SearcherTestCase {
     // * @param ontology
     // * The ontology to be tested for an inverse functional property
     // * axiom.
-    // * @return <code>true</code> if the property is inverse functional, or
-    // * <code>false</code> if the property is not inverse functional. */
+    // * @return {@code true} if the property is inverse functional, or
+    // * {@code false} if the property is not inverse functional. */
     // boolean isInverseFunctional(OWLOntology ontology);
     //
     // /** @param ontologies

@@ -994,9 +994,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * @param ontologyID
      *            The ontology ID for which a document IRI is to be retrieved
      * @param quiet
-     *            If set to <code>true</code> and a mapping can't be found then
+     *            If set to {@code true} and a mapping can't be found then
      *            a value of <code>null</code> is returned. If set to
-     *            <code>false</code> and a mapping can't be found then an
+     *            {@code false} and a mapping can't be found then an
      *            exception
      *            {@link org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException}
      *            is thrown.

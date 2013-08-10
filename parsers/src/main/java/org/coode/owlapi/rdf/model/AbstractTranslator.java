@@ -1117,7 +1117,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     /** Adds triples to strong type an entity. Triples are only added if the
-     * useStrongTyping flag is set to <code>true</code> and the entity is not a
+     * useStrongTyping flag is set to {@code true} and the entity is not a
      * built in entity.
      * 
      * @param entity

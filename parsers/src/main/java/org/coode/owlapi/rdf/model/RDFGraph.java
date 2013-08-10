@@ -71,8 +71,8 @@ public class RDFGraph {
     /** Determines if this graph is empty (i.e. whether or not it contains any
      * triples).
      * 
-     * @return <code>true</code> if the graph contains triples, otherwise
-     *         <code>false</code>
+     * @return {@code true} if the graph contains triples, otherwise
+     *         {@code false}
      * @since 3.5 */
     public boolean isEmpty() {
         return triples.isEmpty();

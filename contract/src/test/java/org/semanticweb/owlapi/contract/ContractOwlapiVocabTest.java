@@ -76,7 +76,6 @@ public class ContractOwlapiVocabTest {
         if (result4) {
             OWL2Datatype result5 = OWL2Datatype.getDatatype(IRI("urn:aFake"));
         }
-        URI result6 = testSubject0.getURI();
         String result7 = testSubject0.getShortName();
         Set<IRI> result8 = OWL2Datatype.getDatatypeIRIs();
         Pattern result9 = testSubject0.getPattern();

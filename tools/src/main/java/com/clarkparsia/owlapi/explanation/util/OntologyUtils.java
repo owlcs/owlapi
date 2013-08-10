@@ -64,9 +64,9 @@ public class OntologyUtils {
      *            the ontology to search
      * @param desc
      *            The description to be searched
-     * @return <code>true</code> if the description references entities that the
+     * @return {@code true} if the description references entities that the
      *         ontology that contains entailments which are being explained,
-     *         otherwise <code>false</code> */
+     *         otherwise {@code false} */
     @Nonnull
     public static boolean containsUnreferencedEntity(@Nonnull OWLOntology ontology,
             @Nonnull OWLClassExpression desc) {

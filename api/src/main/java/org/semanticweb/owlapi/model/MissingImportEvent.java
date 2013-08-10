@@ -48,7 +48,7 @@ import javax.annotation.Nonnull;
  * Date: 11-Apr-2008<br>
  * <br>
  * </p> An event that gets posted to objects that listen for missing imports
- * when silent missing import handling is set to <code>true</code> in an
+ * when silent missing import handling is set to {@code true} in an
  * ontology manager.
  * 
  * @see org.semanticweb.owlapi.model.MissingImportListener

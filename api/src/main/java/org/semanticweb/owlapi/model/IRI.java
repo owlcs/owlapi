@@ -80,7 +80,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
 
     /** Determines if this IRI is absolute
      * 
-     * @return <code>true</code> if this IRI is absolute or <code>false</code>
+     * @return {@code true} if this IRI is absolute or {@code false}
      *         if this IRI is not absolute */
     public boolean isAbsolute() {
         int colonIndex = prefix.indexOf(':');
@@ -135,8 +135,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * &lt;http://www.w3.org/2001/XMLSchema#&gt; or
      * &lt;http://www.w3.org/2002/07/owl#&gt;
      * 
-     * @return <code>true</code> if the IRI is in the reserved vocabulary,
-     *         otherwise <code>false</code>. */
+     * @return {@code true} if the IRI is in the reserved vocabulary,
+     *         otherwise {@code false}. */
     public boolean isReservedVocabulary() {
         return prefix.startsWith(Namespaces.OWL.toString())
                 || prefix.startsWith(Namespaces.RDF.toString())
@@ -147,9 +147,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /** Determines if this IRI is equal to the IRI that <code>owl:Thing</code> is
      * named with
      * 
-     * @return <code>true</code> if this IRI is equal to
+     * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/2002/07/owl#Thing&gt; and otherwise
-     *         <code>false</code> */
+     *         {@code false} */
     public boolean isThing() {
         return remainder != null && remainder.equals("Thing")
                 && prefix.equals(Namespaces.OWL.toString());
@@ -158,9 +158,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /** Determines if this IRI is equal to the IRI that <code>owl:Nothing</code>
      * is named with
      * 
-     * @return <code>true</code> if this IRI is equal to
+     * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/2002/07/owl#Nothing&gt; and otherwise
-     *         <code>false</code> */
+     *         {@code false} */
     public boolean isNothing() {
         return equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
     }
@@ -168,9 +168,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /** Determines if this IRI is equal to the IRI that is named
      * <code>rdf:PlainLiteral</code>
      * 
-     * @return <code>true</code> if this IRI is equal to
+     * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
-     *         otherwise <code>false</code> */
+     *         otherwise {@code false} */
     public boolean isPlainLiteral() {
         return remainder != null && remainder.equals("PlainLiteral")
                 && prefix.equals(Namespaces.RDF.toString());

@@ -66,8 +66,8 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom,
      * 
      * @param ce
      *            The class expression to test for
-     * @return <code>true</code> if this axiom contains the specified class
-     *         expression as an operand, otherwise <code>false</code>. */
+     * @return {@code true} if this axiom contains the specified class
+     *         expression as an operand, otherwise {@code false}. */
     boolean contains(@Nonnull OWLClassExpression ce);
 
     /** Gets the set of class expressions that appear in this axiom minus the

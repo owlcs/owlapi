@@ -100,7 +100,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      *            The root directory which should be searched for ontologies.
      * @param recursive
      *            Sub directories will be searched recursively if
-     *            <code>true</code>. */
+     *            {@code true}. */
     public AutoIRIMapper(@Nonnull File rootDirectory, boolean recursive) {
         directory = checkNotNull(rootDirectory, "rootDirectory cannot be null");
         directoryPath = directory.getAbsolutePath();

@@ -66,7 +66,7 @@ public interface PrefixManager extends Serializable {
      * 
      * @param prefixName
      *            The prefix name to be tested for.
-     * @return <code>true</code> if the manager knows about this prefix and
+     * @return {@code true} if the manager knows about this prefix and
      *         there is a non-null mapping for this prefix. */
     boolean containsPrefixMapping(@Nonnull String prefixName);
 

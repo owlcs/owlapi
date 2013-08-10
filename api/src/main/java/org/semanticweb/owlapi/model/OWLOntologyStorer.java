@@ -58,7 +58,7 @@ public interface OWLOntologyStorer extends Serializable {
      * 
      * @param ontologyFormat
      *            The desired ontology format.
-     * @return <code>true</code> if this storer can store an ontology in the
+     * @return {@code true} if this storer can store an ontology in the
      *         desired format. */
     boolean canStoreOntology(@Nonnull OWLOntologyFormat ontologyFormat);
 

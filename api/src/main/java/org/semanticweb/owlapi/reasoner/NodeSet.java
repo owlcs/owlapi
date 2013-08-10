@@ -65,9 +65,9 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * 
      * @param e
      *            The entity to test for
-     * @return <code>true</code> if this <code>NodeSet</code> contains a
+     * @return {@code true} if this <code>NodeSet</code> contains a
      *         <code>Node</code> that contains the entity, <code>e</code>, and
-     *         <code>false</code> if this <code>NodeSet</code> does not contain
+     *         {@code false} if this <code>NodeSet</code> does not contain
      *         a <code>Node</code> that contains the entity, <code>e</code>. */
     boolean containsEntity(E e);
 
@@ -75,16 +75,16 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * <code>NodeSet</code> is a singleton if it contains only one
      * <code>Node</code>.
      * 
-     * @return <code>true</code> if this <code>NodeSet</code> is a singleton,
-     *         otherwise <code>false</code>. */
+     * @return {@code true} if this <code>NodeSet</code> is a singleton,
+     *         otherwise {@code false}. */
     boolean isSingleton();
 
     /** Determines if this <code>NodeSet</code> is a singleton node that only
      * contains the top node (in a hierarchy).
      * 
      * @see org.semanticweb.owlapi.reasoner.Node#isTopNode()
-     * @return <code>true</code> if this <code>NodeSet</code> is a singleton
-     *         that contains only the top node, and <code>false</code>
+     * @return {@code true} if this <code>NodeSet</code> is a singleton
+     *         that contains only the top node, and {@code false}
      *         otherwise. */
     boolean isTopSingleton();
 
@@ -92,9 +92,9 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * the bottom node (in a hierarchy).
      * 
      * @see org.semanticweb.owlapi.reasoner.Node#isBottomNode()
-     * @return <code>true</code> if this <code>NodeSet</code> is a singleton
+     * @return {@code true} if this <code>NodeSet</code> is a singleton
      *         that only contains a node that is the bottom node, otherwise
-     *         <code>false</code> */
+     *         {@code false} */
     boolean isBottomSingleton();
 
     /** Gets the <code>Node</code>s contained in this <code>NodeSet</code>

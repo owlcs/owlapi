@@ -57,7 +57,7 @@ public interface OWLCardinalityRestriction<F extends OWLPropertyRange> extends
      * unqualified if it has a filler that is owl:Thing. A data restriction is
      * unqualified if it has a filler which is the top data type (rdfs:Literal).
      * 
-     * @return <code>true</code> if this restriction is qualified, or
-     *         <code>false</code> if this restriction is unqualified. */
+     * @return {@code true} if this restriction is qualified, or
+     *         {@code false} if this restriction is unqualified. */
     boolean isQualified();
 }

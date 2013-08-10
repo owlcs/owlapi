@@ -47,8 +47,8 @@ import javax.annotation.Nonnull;
 public interface OWLPropertyExpression extends OWLObject {
     /** Determines if this property expression is anonymous.
      * 
-     * @return <code>true</code> if the property expression is anonymous
-     *         (because it is the inverse of a property). <code>false</code> if
+     * @return {@code true} if the property expression is anonymous
+     *         (because it is the inverse of a property). {@code false} if
      *         this property is a named object property or named data property. */
     boolean isAnonymous();
 
@@ -66,25 +66,25 @@ public interface OWLPropertyExpression extends OWLObject {
 
     /** Determines if this is the owl:topObjectProperty
      * 
-     * @return <code>true</code> if this property is the owl:topObjectProperty
-     *         otherwise <code>false</code> */
+     * @return {@code true} if this property is the owl:topObjectProperty
+     *         otherwise {@code false} */
     boolean isOWLTopObjectProperty();
 
     /** Determines if this is the owl:bottomObjectProperty
      * 
-     * @return <code>true</code> if this property is the
-     *         owl:bottomObjectProperty otherwise <code>false</code> */
+     * @return {@code true} if this property is the
+     *         owl:bottomObjectProperty otherwise {@code false} */
     boolean isOWLBottomObjectProperty();
 
     /** Determines if this is the owl:topDataProperty
      * 
-     * @return <code>true</code> if this property is the owl:topDataProperty
-     *         otherwise <code>false</code> */
+     * @return {@code true} if this property is the owl:topDataProperty
+     *         otherwise {@code false} */
     boolean isOWLTopDataProperty();
 
     /** Determines if this is the owl:bottomDataProperty
      * 
-     * @return <code>true</code> if this property is the owl:bottomDataProperty
-     *         otherwise <code>false</code> */
+     * @return {@code true} if this property is the owl:bottomDataProperty
+     *         otherwise {@code false} */
     boolean isOWLBottomDataProperty();
 }

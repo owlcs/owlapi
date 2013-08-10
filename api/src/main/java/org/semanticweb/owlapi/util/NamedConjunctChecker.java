@@ -87,10 +87,10 @@ public class NamedConjunctChecker {
      * 
      * @param classExpression
      *            The expression to be checked.
-     * @return <code>true</code> if the expression is in fact a named class (
+     * @return {@code true} if the expression is in fact a named class (
      *         <code>OWLClass</code>) or if the expression is an intersection
      *         that has a named operand (included nested intersections),
-     *         otherwise <code>false</code> */
+     *         otherwise {@code false} */
     public boolean hasNamedConjunct(@Nonnull OWLClassExpression classExpression) {
         checkNotNull(classExpression, "classExpression cannot be null");
         reset();

@@ -87,8 +87,8 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
 
     /** Determines if this axiom is structurally an OWL 2 axiom.
      * 
-     * @return <code>true</code> if this axiom is an OWL 2 axiom,
-     *         <code>false</code> if this axiom is not an OWL 2 axiom and it can
+     * @return {@code true} if this axiom is an OWL 2 axiom,
+     *         {@code false} if this axiom is not an OWL 2 axiom and it can
      *         be represented using OWL 1. */
     public boolean isOWL2Axiom() {
         return owl2Axiom;
@@ -100,8 +100,8 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
      * syntax. This method determines if this axiom type is a pure OWL 2 axiom
      * and cannot be represented using OWL 1 syntax.
      * 
-     * @return <code>true</code> if this axiom is a pure OWL 2 axiom and cannot
-     *         be represented using OWL 1 syntax, otherwise <code>false</code>. */
+     * @return {@code true} if this axiom is a pure OWL 2 axiom and cannot
+     *         be represented using OWL 1 syntax, otherwise {@code false}. */
     public boolean isNonSyntacticOWL2Axiom() {
         return nonSyntacticOWL2Axiom;
     }
@@ -116,7 +116,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
 
     /** Determines if this axiom type is a logical axiom type.
      * 
-     * @return <code>true</code> if this axiom type is a logical axiom type,
+     * @return {@code true} if this axiom type is a logical axiom type,
      *         otherwise false; */
     public boolean isLogical() {
         return isLogical;
@@ -186,8 +186,8 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
      * 
      * @param _name
      *            The name to test for
-     * @return <code>true</code> if there is an axiom type with the specified
-     *         name, or <code>false</code> if there is no axiom type with the
+     * @return {@code true} if there is an axiom type with the specified
+     *         name, or {@code false} if there is no axiom type with the
      *         specified name. */
     public boolean isAxiomType(String _name) {
         return NAME_TYPE_MAP.containsKey(_name);

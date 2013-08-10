@@ -66,7 +66,7 @@ public interface OWLOntologyDocumentTarget {
     /** Determines if this document target can be pointed to by a
      * {@link java.io.Writer}.
      * 
-     * @return <code>true</code> if a {@link java.io.Writer} can be obtained
+     * @return {@code true} if a {@link java.io.Writer} can be obtained
      *         from this document target. */
     boolean isWriterAvailable();
 
@@ -78,14 +78,14 @@ public interface OWLOntologyDocumentTarget {
      *             if there was a problem obtaining the writer
      * @throws org.semanticweb.owlapi.model.OWLRuntimeException
      *             if a writer is not available ({@link #isWriterAvailable()}
-     *             returns <code>false</code>) and this method is called. */
+     *             returns {@code false}) and this method is called. */
     @Nonnull
     Writer getWriter() throws IOException;
 
     /** Determines if this document target can be pointed to by an
      * {@link java.io.OutputStream}.
      * 
-     * @return <code>true</code> if an {@link java.io.OutputStream} can be
+     * @return {@code true} if an {@link java.io.OutputStream} can be
      *         obtained from this document target. */
     boolean isOutputStreamAvailable();
 
@@ -97,7 +97,7 @@ public interface OWLOntologyDocumentTarget {
      *             if there was a problem obtaining the output stream
      * @throws org.semanticweb.owlapi.model.OWLRuntimeException
      *             if an output stream is not available (
-     *             {@link #isOutputStreamAvailable()} returns <code>false</code>
+     *             {@link #isOutputStreamAvailable()} returns {@code false}
      *             ) and this method is called. */
     @Nonnull
     OutputStream getOutputStream() throws IOException;
@@ -106,8 +106,8 @@ public interface OWLOntologyDocumentTarget {
      * The IRI encodes the exact details of how an ontology should be saved to a
      * document.
      * 
-     * @return <code>true</code> if an IRI is available, otherwise
-     *         <code>false</code>. */
+     * @return {@code true} if an IRI is available, otherwise
+     *         {@code false}. */
     boolean isDocumentIRIAvailable();
 
     /** Gets an IRI that points to an ontology document.
@@ -115,7 +115,7 @@ public interface OWLOntologyDocumentTarget {
      * @return The IRI
      * @throws org.semanticweb.owlapi.model.OWLRuntimeException
      *             if an IRI is not available ({@link #isDocumentIRIAvailable()}
-     *             returns <code>false</code>) and this method is called. */
+     *             returns {@code false}) and this method is called. */
     @Nonnull
     IRI getDocumentIRI();
 }

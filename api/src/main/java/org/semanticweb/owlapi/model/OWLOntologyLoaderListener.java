@@ -95,8 +95,8 @@ public interface OWLOntologyLoaderListener {
         /** Determines if the ontology was loaded because of an imports
          * statement.
          * 
-         * @return <code>true</code> if the ontology was loaded because it was
-         *         imported by another ontology, or <code>false</code> if the
+         * @return {@code true} if the ontology was loaded because it was
+         *         imported by another ontology, or {@code false} if the
          *         ontology was loaded by a direct load request on
          *         OWLOntologyManager. */
         public boolean isImported() {
@@ -125,8 +125,8 @@ public interface OWLOntologyLoaderListener {
 
         /** Determines if the ontology was successfully loaded.
          * 
-         * @return <code>true</code> if the ontology was successfully loaded,
-         *         <code>false</code> if the ontology was not successfully
+         * @return {@code true} if the ontology was successfully loaded,
+         *         {@code false} if the ontology was not successfully
          *         loaded. Note that an ontology being successfully loaded does
          *         not imply that any ontologies that the ontology imports were
          *         successfully loaded. */

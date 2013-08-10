@@ -60,8 +60,8 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
      * {@link #isMissingType(org.semanticweb.owlapi.model.OWLEntity, org.semanticweb.owlapi.model.OWLOntology)}
      * method to determine if it needs to add a type.
      * 
-     * @return <code>true</code> if untyped entities should automatically be
-     *         typed during rendering, otherwise <code>false</code>. */
+     * @return {@code true} if untyped entities should automatically be
+     *         typed during rendering, otherwise {@code false}. */
     public boolean isAddMissingTypes() {
         return addMissingTypes;
     }
@@ -73,13 +73,13 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
      *            The entity
      * @param ontology
      *            The ontology.
-     * @return <code>false</code> if the entity is built in. <code>false</code>
+     * @return {@code false} if the entity is built in. {@code false}
      *         if the ontology doesn't contain the entity in its signature.
-     *         <code>false</code> if the entity is already declared in the
-     *         imports closure of the ontology. <code>false</code> if the
+     *         {@code false} if the entity is already declared in the
+     *         imports closure of the ontology. {@code false} if the
      *         transitive imports does not contain the ontology but the entity
      *         is contained in the signature of one of the imported ontologies,
-     *         <code>true</code> if none of the previous conditions are met. */
+     *         {@code true} if none of the previous conditions are met. */
     public static boolean isMissingType(OWLEntity entity, OWLOntology ontology) {
         // We don't need to declare built in entities
         if (entity.isBuiltIn()) {
@@ -110,8 +110,8 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
      * rendering. By default this is true.
      * 
      * @param addMissingTypes
-     *            <code>true</code> if untyped entities should automatically be
-     *            typed during rendering, otherwise <code>false</code>. */
+     *            {@code true} if untyped entities should automatically be
+     *            typed during rendering, otherwise {@code false}. */
     public void setAddMissingTypes(boolean addMissingTypes) {
         this.addMissingTypes = addMissingTypes;
     }

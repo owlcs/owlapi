@@ -68,8 +68,8 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      * <code>"abc"</code> or <code>"abc"@langTag</code> will be of the type
      * <code>rdf:PlainLiteral</code> after parsing.
      * 
-     * @return <code>true</code> if the datatype of this literal is
-     *         rdf:PlainLiteral, otherwise <code>false</code>. */
+     * @return {@code true} if the datatype of this literal is
+     *         rdf:PlainLiteral, otherwise {@code false}. */
     boolean isRDFPlainLiteral();
 
     /** Gets the lexical value of this literal. Note that if the datatype is
@@ -97,8 +97,8 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
 
     /** Determines if this literal has a language tag.
      * 
-     * @return <code>true</code> if this literal has a non-empty language tag,
-     *         otherwise <code>false</code> */
+     * @return {@code true} if this literal has a non-empty language tag,
+     *         otherwise {@code false} */
     boolean hasLang();
 
     /** Gets the language tag of this literal.
@@ -117,16 +117,16 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *            The specific lang to test for. The tag will be normalised -
      *            white space will be trimmed from the end and it will be
      *            converted to lower case.
-     * @return <code>true</code> if this literal has a language tag equal to
-     *         <code>lang</code>, otherwise <code>false</code>. */
+     * @return {@code true} if this literal has a language tag equal to
+     *         <code>lang</code>, otherwise {@code false}. */
     boolean hasLang(String lang);
 
     /** Determines if this literal is typed with a datatype that has an IRI that
      * is <code>"http://www.w3.org/2001/XMLSchema#"integer</code>.
      * 
-     * @return <code>true</code> if this literal is typed with
+     * @return {@code true} if this literal is typed with
      *         <code>"http://www.w3.org/2001/XMLSchema#"integer</code>, i.e.
-     *         this literal represents an integer, otherwise <code>false</code>. */
+     *         this literal represents an integer, otherwise {@code false}. */
     boolean isInteger();
 
     /** Parses the lexical value of this literal into an integer. The lexical
@@ -143,9 +143,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
     /** Determines if this literal is typed with a datatype that has an IRI that
      * is <code>"http://www.w3.org/2001/XMLSchema#"boolean</code>.
      * 
-     * @return <code>true</code> if this literal is typed with
+     * @return {@code true} if this literal is typed with
      *         <code>"http://www.w3.org/2001/XMLSchema#"boolean</code>, i.e.
-     *         this literal represents a boolean, otherwise <code>false</code>. */
+     *         this literal represents a boolean, otherwise {@code false}. */
     boolean isBoolean();
 
     /** Parses the lexical value of this literal into a boolean. The lexical
@@ -162,9 +162,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
     /** Determines if this literal is typed with a datatype that has an IRI that
      * is <code>"http://www.w3.org/2001/XMLSchema#"double</code>.
      * 
-     * @return <code>true</code> if this literal is typed with
+     * @return {@code true} if this literal is typed with
      *         <code>"http://www.w3.org/2001/XMLSchema#"double</code>, i.e. this
-     *         literal represents a double, otherwise <code>false</code>. */
+     *         literal represents a double, otherwise {@code false}. */
     boolean isDouble();
 
     /** Parses the lexical value of this literal into a double. The lexical value
@@ -180,9 +180,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
     /** Determines if this literal is typed with a datatype that has an IRI that
      * is <code>"http://www.w3.org/2001/XMLSchema#"float</code>.
      * 
-     * @return <code>true</code> if this literal is typed with
+     * @return {@code true} if this literal is typed with
      *         <code>"http://www.w3.org/2001/XMLSchema#"float</code>, i.e. this
-     *         literal represents a float, otherwise <code>false</code>. */
+     *         literal represents a float, otherwise {@code false}. */
     boolean isFloat();
 
     /** Parses the lexical value of this literal into a float. The lexical value

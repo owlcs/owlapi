@@ -108,7 +108,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      * 
      * @param entity
      *            entity we are searching for
-     * @return <code>true</code> if there is at least one logical axiom in the
+     * @return {@code true} if there is at least one logical axiom in the
      *         imports closure of the given ontology that refers the given
      *         entity */
     public boolean isDefined(@Nonnull OWLEntity entity) {
@@ -121,7 +121,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      * 
      * @param classExpression
      *            description that contains the entities we are searching for
-     * @return <code>true</code> if all the entities in the given description
+     * @return {@code true} if all the entities in the given description
      *         are referred by at least one logical axiom in the imports closure
      *         of the given ontology */
     public boolean isDefined(@Nonnull OWLClassExpression classExpression) {

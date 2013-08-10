@@ -387,8 +387,8 @@ public interface OWLReasoner {
      * 
      * @param inferenceType
      *            The type of inference to check for.
-     * @return <code>true</code> if the specified type of inferences have been
-     *         precomputed, otherwise <code>false</code>. */
+     * @return {@code true} if the specified type of inferences have been
+     *         precomputed, otherwise {@code false}. */
     boolean isPrecomputed(InferenceType inferenceType);
 
     /** Returns the set of {@link org.semanticweb.owlapi.reasoner.InferenceType}s
@@ -403,8 +403,8 @@ public interface OWLReasoner {
      * {@link org.semanticweb.owlapi.reasoner.InconsistentOntologyException}
      * even if the root ontology imports closure is inconsistent.
      * 
-     * @return <code>true</code> if the imports closure of the root ontology is
-     *         consistent, or <code>false</code> if the imports closure of the
+     * @return {@code true} if the imports closure of the root ontology is
+     *         consistent, or {@code false} if the imports closure of the
      *         root ontology is inconsistent.
      * @throws ReasonerInterruptedException
      *             if the reasoning process was interrupted for any particular
@@ -420,8 +420,8 @@ public interface OWLReasoner {
      * 
      * @param classExpression
      *            The class expression
-     * @return <code>true</code> if classExpression is satisfiable with respect
-     *         to the set of axioms, or <code>false</code> if classExpression is
+     * @return {@code true} if classExpression is satisfiable with respect
+     *         to the set of axioms, or {@code false} if classExpression is
      *         unsatisfiable with respect to the axioms.
      * @throws InconsistentOntologyException
      *             if the set of reasoner axioms is inconsistent
@@ -467,9 +467,9 @@ public interface OWLReasoner {
      * 
      * @param axiom
      *            The axiom
-     * @return <code>true</code> if {@code axiom} is entailed by the reasoner
-     *         axioms or <code>false</code> if {@code axiom} is not entailed by
-     *         the reasoner axioms. <code>true</code> if the set of reasoner
+     * @return {@code true} if {@code axiom} is entailed by the reasoner
+     *         axioms or {@code false} if {@code axiom} is not entailed by
+     *         the reasoner axioms. {@code true} if the set of reasoner
      *         axioms is inconsistent.
      * @throws FreshEntitiesException
      *             if the signature of the axiom is not contained within the
@@ -500,10 +500,10 @@ public interface OWLReasoner {
      * 
      * @param axioms
      *            The set of axioms to be tested
-     * @return <code>true</code> if the set of axioms is entailed by the axioms
+     * @return {@code true} if the set of axioms is entailed by the axioms
      *         in the imports closure of the root ontology, otherwise
-     *         <code>false</code>. If the set of reasoner axioms is inconsistent
-     *         then <code>true</code>.
+     *         {@code false}. If the set of reasoner axioms is inconsistent
+     *         then {@code true}.
      * @throws FreshEntitiesException
      *             if the signature of the set of axioms is not contained within
      *             the signature of the imports closure of the root ontology and
@@ -535,13 +535,13 @@ public interface OWLReasoner {
      * 
      * @param axiomType
      *            The axiom type
-     * @return <code>true</code> if entailment checking for the specified axiom
-     *         type is supported, otherwise <code>false</code>. If
-     *         <code>true</code> then asking
+     * @return {@code true} if entailment checking for the specified axiom
+     *         type is supported, otherwise {@code false}. If
+     *         {@code true} then asking
      *         {@link #isEntailed(org.semanticweb.owlapi.model.OWLAxiom)} will
      *         <em>not</em> throw an exception of
      *         {@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException}
-     *         . If <code>false</code> then asking
+     *         . If {@code false} then asking
      *         {@link #isEntailed(org.semanticweb.owlapi.model.OWLAxiom)}
      *         <em>will</em> throw an
      *         {@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException}
@@ -586,12 +586,12 @@ public interface OWLReasoner {
      *            be retrieved.
      * @param direct
      *            Specifies if the direct subclasses should be retrived (
-     *            <code>true</code>) or if the all subclasses (descendant)
-     *            classes should be retrieved (<code>false</code>).
-     * @return If direct is <code>true</code>, a <code>NodeSet</code> such that
+     *            {@code true}) or if the all subclasses (descendant)
+     *            classes should be retrieved ({@code false}).
+     * @return If direct is {@code true}, a <code>NodeSet</code> such that
      *         for each class <code>C</code> in the <code>NodeSet</code> the set
      *         of reasoner axioms entails <code>DirectSubClassOf(C, ce)</code>.
-     *         </p> If direct is <code>false</code>, a <code>NodeSet</code> such
+     *         </p> If direct is {@code false}, a <code>NodeSet</code> such
      *         that for each class <code>C</code> in the <code>NodeSet</code>
      *         the set of reasoner axioms entails
      *         <code>StrictSubClassOf(C, ce)</code>. </p> If <code>ce</code> is
@@ -629,12 +629,12 @@ public interface OWLReasoner {
      *            to be retrieved.
      * @param direct
      *            Specifies if the direct super classes should be retrived (
-     *            <code>true</code>) or if the all super classes (ancestors)
-     *            classes should be retrieved (<code>false</code>).
-     * @return If direct is <code>true</code>, a <code>NodeSet</code> such that
+     *            {@code true}) or if the all super classes (ancestors)
+     *            classes should be retrieved ({@code false}).
+     * @return If direct is {@code true}, a <code>NodeSet</code> such that
      *         for each class <code>C</code> in the <code>NodeSet</code> the set
      *         of reasoner axioms entails <code>DirectSubClassOf(ce, C)</code>.
-     *         </p> If direct is <code>false</code>, a <code>NodeSet</code> such
+     *         </p> If direct is {@code false}, a <code>NodeSet</code> such
      *         that for each class <code>C</code> in the <code>NodeSet</code>
      *         the set of reasoner axioms entails
      *         <code>StrictSubClassOf(ce, C)</code>. </p> If <code>ce</code> is
@@ -777,15 +777,15 @@ public interface OWLReasoner {
      *            subproperties are to be retrieved.
      * @param direct
      *            Specifies if the direct subproperties should be retrived (
-     *            <code>true</code>) or if the all subproperties (descendants)
-     *            should be retrieved (<code>false</code>).
-     * @return If direct is <code>true</code>, a <code>NodeSet</code> of <a
+     *            {@code true}) or if the all subproperties (descendants)
+     *            should be retrieved ({@code false}).
+     * @return If direct is {@code true}, a <code>NodeSet</code> of <a
      *         href="#spe">simplified object property expressions</a>, such that
      *         for each <a href="#spe">simplified object property
      *         expression</a>, <code>P</code>, in the <code>NodeSet</code> the
      *         set of reasoner axioms entails
      *         <code>DirectSubObjectPropertyOf(P, pe)</code>. </p> If direct is
-     *         <code>false</code>, a <code>NodeSet</code> of <a
+     *         {@code false}, a <code>NodeSet</code> of <a
      *         href="#spe">simplified object property expressions</a>, such that
      *         for each <a href="#spe">simplified object property
      *         expression</a>, <code>P</code>, in the <code>NodeSet</code> the
@@ -824,15 +824,15 @@ public interface OWLReasoner {
      *            properties are to be retrieved.
      * @param direct
      *            Specifies if the direct super properties should be retrived (
-     *            <code>true</code>) or if the all super properties (ancestors)
-     *            should be retrieved (<code>false</code>).
-     * @return If direct is <code>true</code>, a <code>NodeSet</code> of <a
+     *            {@code true}) or if the all super properties (ancestors)
+     *            should be retrieved ({@code false}).
+     * @return If direct is {@code true}, a <code>NodeSet</code> of <a
      *         href="#spe">simplified object property expressions</a>, such that
      *         for each <a href="#spe">simplified object property
      *         expression</a>, <code>P</code>, in the <code>NodeSet</code>, the
      *         set of reasoner axioms entails
      *         <code>DirectSubObjectPropertyOf(pe, P)</code>. </p> If direct is
-     *         <code>false</code>, a <code>NodeSet</code> of <a
+     *         {@code false}, a <code>NodeSet</code> of <a
      *         href="#spe">simplified object property expressions</a>, such that
      *         for each <a href="#spe">simplified object property
      *         expression</a>, <code>P</code>, in the <code>NodeSet</code>, the
@@ -981,18 +981,18 @@ public interface OWLReasoner {
      *            The property expression whose domains are to be retrieved.
      * @param direct
      *            Specifies if the direct domains should be retrieved (
-     *            <code>true</code>), or if all domains should be retrieved (
-     *            <code>false</code>).
+     *            {@code true}), or if all domains should be retrieved (
+     *            {@code false}).
      * @return Let
      *         <code>N = getEquivalentClasses(ObjectSomeValuesFrom(pe owl:Thing))</code>
      *         .
      *         <p>
-     *         If <code>direct</code> is <code>true</code>: then if
+     *         If <code>direct</code> is {@code true}: then if
      *         <code>N</code> is not empty then the return value is
      *         <code>N</code>, else the return value is the result of
      *         <code>getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), true)</code>.
      *         <p>
-     *         If <code>direct</code> is <code>false</code>: then the result of
+     *         If <code>direct</code> is {@code false}: then the result of
      *         <code>getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), false)</code>
      *         together with <code>N</code> if <code>N</code> is non-empty.
      * @throws InconsistentOntologyException
@@ -1022,18 +1022,18 @@ public interface OWLReasoner {
      *            The property expression whose ranges are to be retrieved.
      * @param direct
      *            Specifies if the direct ranges should be retrieved (
-     *            <code>true</code>), or if all ranges should be retrieved (
-     *            <code>false</code>).
+     *            {@code true}), or if all ranges should be retrieved (
+     *            {@code false}).
      * @return Let
      *         <code>N = getEquivalentClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing))</code>
      *         .
      *         <p>
-     *         If <code>direct</code> is <code>true</code>: then if
+     *         If <code>direct</code> is {@code true}: then if
      *         <code>N</code> is not empty then the return value is
      *         <code>N</code>, else the return value is the result of
      *         <code>getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), true)</code>.
      *         <p>
-     *         If <code>direct</code> is <code>false</code>: then the result of
+     *         If <code>direct</code> is {@code false}: then the result of
      *         <code>getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), false)</code>
      *         together with <code>N</code> if <code>N</code> is non-empty.
      * @throws InconsistentOntologyException
@@ -1095,13 +1095,13 @@ public interface OWLReasoner {
      *            be retrieved.
      * @param direct
      *            Specifies if the direct subproperties should be retrived (
-     *            <code>true</code>) or if the all subproperties (descendants)
-     *            should be retrieved (<code>false</code>).
-     * @return If direct is <code>true</code>, a <code>NodeSet</code> such that
+     *            {@code true}) or if the all subproperties (descendants)
+     *            should be retrieved ({@code false}).
+     * @return If direct is {@code true}, a <code>NodeSet</code> such that
      *         for each property <code>P</code> in the <code>NodeSet</code> the
      *         set of reasoner axioms entails
      *         <code>DirectSubDataPropertyOf(P, pe)</code>. </p> If direct is
-     *         <code>false</code>, a <code>NodeSet</code> such that for each
+     *         {@code false}, a <code>NodeSet</code> such that for each
      *         property <code>P</code> in the <code>NodeSet</code> the set of
      *         reasoner axioms entails
      *         <code>StrictSubDataPropertyOf(P, pe)</code>. </p> If
@@ -1136,13 +1136,13 @@ public interface OWLReasoner {
      *            to be retrieved.
      * @param direct
      *            Specifies if the direct super properties should be retrived (
-     *            <code>true</code>) or if the all super properties (ancestors)
-     *            should be retrieved (<code>false</code>).
-     * @return If direct is <code>true</code>, a <code>NodeSet</code> such that
+     *            {@code true}) or if the all super properties (ancestors)
+     *            should be retrieved ({@code false}).
+     * @return If direct is {@code true}, a <code>NodeSet</code> such that
      *         for each property <code>P</code> in the <code>NodeSet</code> the
      *         set of reasoner axioms entails
      *         <code>DirectSubDataPropertyOf(pe, P)</code>. </p> If direct is
-     *         <code>false</code>, a <code>NodeSet</code> such that for each
+     *         {@code false}, a <code>NodeSet</code> such that for each
      *         property <code>P</code> in the <code>NodeSet</code> the set of
      *         reasoner axioms entails
      *         <code>StrictSubDataPropertyOf(pe, P)</code>. </p> If
@@ -1250,18 +1250,18 @@ public interface OWLReasoner {
      *            The property expression whose domains are to be retrieved.
      * @param direct
      *            Specifies if the direct domains should be retrieved (
-     *            <code>true</code>), or if all domains should be retrieved (
-     *            <code>false</code>).
+     *            {@code true}), or if all domains should be retrieved (
+     *            {@code false}).
      * @return Let
      *         <code>N = getEquivalentClasses(DataSomeValuesFrom(pe rdfs:Literal))</code>
      *         .
      *         <p>
-     *         If <code>direct</code> is <code>true</code>: then if
+     *         If <code>direct</code> is {@code true}: then if
      *         <code>N</code> is not empty then the return value is
      *         <code>N</code>, else the return value is the result of
      *         <code>getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), true)</code>.
      *         <p>
-     *         If <code>direct</code> is <code>false</code>: then the result of
+     *         If <code>direct</code> is {@code false}: then the result of
      *         <code>getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), false)</code>
      *         together with <code>N</code> if <code>N</code> is non-empty.
      *         <p>
@@ -1299,13 +1299,13 @@ public interface OWLReasoner {
      *            The individual whose types are to be retrieved.
      * @param direct
      *            Specifies if the direct types should be retrieved (
-     *            <code>true</code>), or if all types should be retrieved (
-     *            <code>false</code>).
-     * @return If <code>direct</code> is <code>true</code>, a
+     *            {@code true}), or if all types should be retrieved (
+     *            {@code false}).
+     * @return If <code>direct</code> is {@code true}, a
      *         <code>NodeSet</code> containing named classes such that for each
      *         named class <code>C</code> in the node set, the set of reasoner
      *         axioms entails <code>DirectClassAssertion(C, ind)</code>. </p> If
-     *         <code>direct</code> is <code>false</code>, a <code>NodeSet</code>
+     *         <code>direct</code> is {@code false}, a <code>NodeSet</code>
      *         containing named classes such that for each named class
      *         <code>C</code> in the node set, the set of reasoner axioms
      *         entails <code>ClassAssertion(C, ind)</code>. </p>
@@ -1335,13 +1335,13 @@ public interface OWLReasoner {
      *            The class expression whose instances are to be retrieved.
      * @param direct
      *            Specifies if the direct instances should be retrieved (
-     *            <code>true</code>), or if all instances should be retrieved (
-     *            <code>false</code>).
-     * @return If <code>direct</code> is <code>true</code>, a
+     *            {@code true}), or if all instances should be retrieved (
+     *            {@code false}).
+     * @return If <code>direct</code> is {@code true}, a
      *         <code>NodeSet</code> containing named individuals such that for
      *         each named individual <code>j</code> in the node set, the set of
      *         reasoner axioms entails <code>DirectClassAssertion(ce, j)</code>.
-     *         </p> If <code>direct</code> is <code>false</code>, a
+     *         </p> If <code>direct</code> is {@code false}, a
      *         <code>NodeSet</code> containing named individuals such that for
      *         each named individual <code>j</code> in the node set, the set of
      *         reasoner axioms entails <code>ClassAssertion(ce, j)</code>. </p>

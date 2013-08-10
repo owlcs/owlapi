@@ -38,18 +38,24 @@
  */
 package org.semanticweb.owlapi.vocab;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 
-import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** Author: Matthew Horridge<br>
@@ -99,16 +105,16 @@ public enum OWL2Datatype {
 //@formatter:on
     private static final Set<IRI> ALL_IRIS;
     static {
-        Set<IRI> uris = new HashSet<IRI>();
+        List<IRI> iris = new ArrayList<IRI>();
         for (OWL2Datatype v : OWL2Datatype.values()) {
-            uris.add(v.iri);
+            iris.add(v.iri);
         }
-        ALL_IRIS = Collections.unmodifiableSet(new TreeSet<IRI>(uris));
+        ALL_IRIS = Collections.unmodifiableSet(new TreeSet<IRI>(iris));
     }
 
-    /** Gets all of the built in datatype URIs
+    /** Gets all of the built in datatype IRIs
      * 
-     * @return A set of URIs corresponding to the built in datatype URIs */
+     * @return A set of IRIs corresponding to the built in datatype IRIs */
     public static Set<IRI> getDatatypeIRIs() {
         return ALL_IRIS;
     }
@@ -124,25 +130,22 @@ public enum OWL2Datatype {
      * 
      * @param datatypeIRI
      *            The datatype IRI
-     * @return <code>true</code> if the IRI identifies a built in datatype, or
-     *         <code>false</code> if the IRI does not identify a built in
+     * @return {@code true} if the IRI identifies a built in datatype, or
+     *         {@code false} if the IRI does not identify a built in
      *         datatype. */
     public static boolean isBuiltIn(IRI datatypeIRI) {
         return ALL_IRIS.contains(datatypeIRI);
     }
 
-    /** Given a URI that identifies an OWLDatatype, this method obtains the
+    /** Given a IRI that identifies an OWLDatatype, this method obtains the
      * corresponding OWLDatatypeVocabulary
      * 
      * @param datatype
-     *            The datatype URI
-     * @return The OWLDatatypeVocabulary
+     *            The datatype IRI
+     * @return The OWL2Datatype
      * @throws OWLRuntimeException
-     *             if the specified URI is not a built in datatype URI */
+     *             if the specified IRI is not a built in datatype IRI */
     public static OWL2Datatype getDatatype(IRI datatype) {
-        if (!isBuiltIn(datatype)) {
-            throw new OWLRuntimeException(datatype + " is not a built in datatype!");
-        }
         for (OWL2Datatype v : values()) {
             if (v.iri.equals(datatype)) {
                 return v;
@@ -190,13 +193,6 @@ public enum OWL2Datatype {
         return iri;
     }
 
-    /** Gets the URI of this datatype
-     * 
-     * @return The URI that identifies the datatype */
-    public URI getURI() {
-        return iri.toURI();
-    }
-
     /** Gets the category for this datatype
      * 
      * @return The category */
@@ -206,15 +202,15 @@ public enum OWL2Datatype {
 
     /** Determines if this datatype is a numeric datatype
      * 
-     * @return <code>true</code> if this datatype is a numeric datatype */
+     * @return {@code true} if this datatype is a numeric datatype */
     public boolean isNumeric() {
         return category.equals(Category.NUMBER);
     }
 
     /** Determines whether or not this datatype is finite.
      * 
-     * @return <code>true</code> if this datatype is finite, or
-     *         <code>false</code> if this datatype is infinite. */
+     * @return {@code true} if this datatype is finite, or
+     *         {@code false} if this datatype is infinite. */
     public boolean isFinite() {
         return finite;
     }
@@ -226,12 +222,23 @@ public enum OWL2Datatype {
         return category.getFacets();
     }
 
+    /** Gets the equivalent OWLDatatype from the given factory.
+     * 
+     * @param factory
+     *            the OWLDataFactory. Not {@code null}.
+     * @return An {@link OWLDatatype} that has the same IRI as this
+     *         {@link OWL2Datatype}. Not {@code null}. */
+    public OWLDatatype getDatatype(@Nonnull OWLDataFactory factory) {
+        checkNotNull(factory, "factory cannot be null");
+        return factory.getOWLDatatype(getIRI());
+    }
+    
     /** Determines if the specified string is the lexical space of this datatype
      * 
      * @param s
      *            The string to test
-     * @return <code>true</code> if the string is in the lexical space,
-     *         otherwise <code>false</code> */
+     * @return {@code true} if the string is in the lexical space,
+     *         otherwise {@code false} */
     public boolean isInLexicalSpace(String s) {
         return pattern.matcher(s).matches();
     }

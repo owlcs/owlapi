@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * </pre>
  * 
  * creates an <code>OWLOntologyLoaderConfiguration</code> object with the load
- * annotation axioms set to <code>false</code>. */
+ * annotation axioms set to {@code false}. */
 public final class OWLOntologyLoaderConfiguration {
     /** strategies to cope with missing headers */
     public enum MissingOntologyHeaderStrategy {
@@ -128,8 +128,8 @@ public final class OWLOntologyLoaderConfiguration {
      * enabled.
      * 
      * @param b
-     *            <code>true</code> if annotation axioms should be loaded, or
-     *            <code>false</code> if annotation axioms should not be loaded
+     *            {@code true} if annotation axioms should be loaded, or
+     *            {@code false} if annotation axioms should not be loaded
      *            and should be discarded on loading.
      * @return An <code>OWLOntologyLoaderConfiguration</code> object with the
      *         option set. */
@@ -147,8 +147,8 @@ public final class OWLOntologyLoaderConfiguration {
      * <code>OWLAnnotationAxiom</code>) should be loaded. By default, the
      * loading of annotation axioms is enabled.
      * 
-     * @return <code>true</code> if annotation assertions will be loaded, or
-     *         <code>false</code> if annotation assertions will not be loaded
+     * @return {@code true} if annotation assertions will be loaded, or
+     *         {@code false} if annotation assertions will not be loaded
      *         because they will be discarded on loading. */
     public boolean isLoadAnnotationAxioms() {
         return loadAnnotations;

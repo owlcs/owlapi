@@ -58,15 +58,15 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /** Determines whether or not this expression represents an anonymous class
      * expression.
      * 
-     * @return <code>true</code> if this is an anonymous class expression, or
-     *         <code>false</code> if this is a named class (
+     * @return {@code true} if this is an anonymous class expression, or
+     *         {@code false} if this is a named class (
      *         <code>OWLClass</code>) */
     boolean isAnonymous();
 
     /** Determines if this class is a literal. A literal being either a named
      * class or the negation of a named class (i.e. A or not(A)).
      * 
-     * @return <code>true</code> if this is a literal, or false if this is not a
+     * @return {@code true} if this is a literal, or false if this is not a
      *         literal. */
     boolean isClassExpressionLiteral();
 
@@ -84,15 +84,15 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /** Determines if this expression is the built in class owl:Thing. This
      * method does not determine if the class is equivalent to owl:Thing.
      * 
-     * @return <code>true</code> if this expression is owl:Thing, or
-     *         <code>false</code> if this expression is not owl:Thing */
+     * @return {@code true} if this expression is owl:Thing, or
+     *         {@code false} if this expression is not owl:Thing */
     boolean isOWLThing();
 
     /** Determines if this expression is the built in class owl:Nothing. This
      * method does not determine if the class is equivalent to owl:Nothing.
      * 
-     * @return <code>true</code> if this expression is owl:Nothing, or
-     *         <code>false</code> if this expression is not owl:Nothing. */
+     * @return {@code true} if this expression is owl:Nothing, or
+     *         {@code false} if this expression is not owl:Nothing. */
     boolean isOWLNothing();
 
     /** Gets this expression in negation normal form.
@@ -131,11 +131,11 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * 
      * @param ce
      *            The conjunct to test for
-     * @return <code>true</code> if this class expression is equal to
+     * @return {@code true} if this class expression is equal to
      *         <code>ce</code> or if this class expression is an
      *         <code>ObjectIntersectionOf</code> (possibly nested withing
      *         another <code>ObjectIntersectionOf</code>) that contains
-     *         <code>ce</code>, otherwise <code>false</code>. */
+     *         <code>ce</code>, otherwise {@code false}. */
     boolean containsConjunct(@Nonnull OWLClassExpression ce);
 
     /** Interprets this expression as a disjunction and returns the disjuncts.

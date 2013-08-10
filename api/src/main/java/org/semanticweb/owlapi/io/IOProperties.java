@@ -86,7 +86,7 @@ public class IOProperties {
 
     /** Determines whether HTTP compression can be used
      * 
-     * @return <code>true</code> if HTTP compression can be used, otherwise
+     * @return {@code true} if HTTP compression can be used, otherwise
      *         false */
     public boolean isConnectionAcceptHTTPCompression() {
         return connectionAcceptHTTPCompression;
@@ -95,8 +95,8 @@ public class IOProperties {
     /** Sets whether HTTP compression can be used.
      * 
      * @param connectionAcceptHTTPCompression
-     *            <code>true</code> if HTTP compression can be used, otherwise
-     *            <code>false</code> */
+     *            {@code true} if HTTP compression can be used, otherwise
+     *            {@code false} */
     public void
             setConnectionAcceptHTTPCompression(boolean connectionAcceptHTTPCompression) {
         this.connectionAcceptHTTPCompression = connectionAcceptHTTPCompression;

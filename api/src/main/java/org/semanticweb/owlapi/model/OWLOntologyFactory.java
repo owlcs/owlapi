@@ -124,8 +124,8 @@ public interface OWLOntologyFactory extends Serializable {
      * 
      * @param documentIRI
      *            The document IRI
-     * @return <code>true</code> if the factory can create an ontology given the
-     *         specified document IRI, or <code>false</code> if the factory
+     * @return {@code true} if the factory can create an ontology given the
+     *         specified document IRI, or {@code false} if the factory
      *         cannot create an ontology given the specified document IRI. */
     boolean canCreateFromDocumentIRI(@Nonnull IRI documentIRI);
 
@@ -134,7 +134,7 @@ public interface OWLOntologyFactory extends Serializable {
      * 
      * @param documentSource
      *            The input source from which to load the ontology
-     * @return <code>true</code> if the factory can load from the specified
+     * @return {@code true} if the factory can load from the specified
      *         input source. */
     boolean canLoad(@Nonnull OWLOntologyDocumentSource documentSource);
 

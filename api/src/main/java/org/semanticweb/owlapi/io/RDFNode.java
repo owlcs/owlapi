@@ -51,8 +51,8 @@ import org.semanticweb.owlapi.model.IRI;
 public abstract class RDFNode {
     /** Determines if this node is a literal node.
      * 
-     * @return <code>true</code> if this node is a literal, otherwise
-     *         <code>false</code>. */
+     * @return {@code true} if this node is a literal, otherwise
+     *         {@code false}. */
     public abstract boolean isLiteral();
 
     /** Gets the IRI of the resource.
@@ -63,9 +63,9 @@ public abstract class RDFNode {
 
     /** Determines if this node is a resource and is anonymous.
      * 
-     * @return <code>true</code> if this is a resource node (i.e.
-     *         <code>isLiteral</code> returns <code>false</code>) and the node
-     *         is anonymous, or <code>false</code> if this is a resource node
+     * @return {@code true} if this is a resource node (i.e.
+     *         <code>isLiteral</code> returns {@code false}) and the node
+     *         is anonymous, or {@code false} if this is a resource node
      *         and is not anonymous. */
     public abstract boolean isAnonymous();
 }

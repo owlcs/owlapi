@@ -129,7 +129,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      * owl:topObjectProperty (the top object property) , owl:topDataProperty
      * (the top data property) or rdfs:Literal (the top datatype).
      * 
-     * @return <code>true</code> if this object corresponds to one of the above
+     * @return {@code true} if this object corresponds to one of the above
      *         entities. */
     boolean isTopEntity();
 
@@ -137,7 +137,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      * owl:bottomObjectProperty (the bottom object property) ,
      * owl:bottomDataProperty (the bottom data property).
      * 
-     * @return <code>true</code> if this object corresponds to one of the above
+     * @return {@code true} if this object corresponds to one of the above
      *         entities. */
     boolean isBottomEntity();
 }

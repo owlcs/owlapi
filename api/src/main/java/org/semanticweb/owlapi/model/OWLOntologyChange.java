@@ -71,14 +71,14 @@ public abstract class OWLOntologyChange<T> {
 
     /** Determines if the change will add an axiom to an ontology.
      * 
-     * @return <code>true</code> if the change is an AddAxiom change and it will
-     *         add an axiom to an ontology, <code>false</code> otherwise. */
+     * @return {@code true} if the change is an AddAxiom change and it will
+     *         add an axiom to an ontology, {@code false} otherwise. */
     public abstract boolean isAddAxiom();
 
     /** Determines if the change will remove an axiom from an ontology.
      * 
-     * @return <code>true</code> if the change is a RemoveAxiom change and it
-     *         will remove an axiom from an ontology, <code>false</code>
+     * @return {@code true} if the change is a RemoveAxiom change and it
+     *         will remove an axiom from an ontology, {@code false}
      *         otherwise. */
     public boolean isRemoveAxiom() {
         return isAxiomChange() && !isAddAxiom();

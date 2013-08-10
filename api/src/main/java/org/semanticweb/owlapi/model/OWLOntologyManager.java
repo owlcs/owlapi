@@ -98,9 +98,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @param ontologyIRI
      *            The IRI of the ontology to test for (the version IRI is
      *            assumed to be <code>null</code>)
-     * @return <code>true</code> if there is an ontology with the specified IRI,
+     * @return {@code true} if there is an ontology with the specified IRI,
      *         and no version IRI, that is managed by this manager, otherwise
-     *         <code>false</code>. */
+     *         {@code false}. */
     boolean contains(@Nonnull IRI ontologyIRI);
 
     /** Determines if there is an ontology with the specified id that is managed
@@ -108,8 +108,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * 
      * @param id
      *            The id of the ontology to test for
-     * @return <code>true</code> if there is an ontology with the specified id
-     *         that is managed by this manager, otherwise <code>false</code>. */
+     * @return {@code true} if there is an ontology with the specified id
+     *         that is managed by this manager, otherwise {@code false}. */
     boolean contains(@Nonnull OWLOntologyID id);
 
     /** Determines if there is an ontology with the specified version IRI, that
@@ -118,9 +118,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @param ontologyVersionIRI
      *            The version IRI of the ontology to test for (the ontology IRI
      *            may be anything)
-     * @return <code>true</code> if there is an ontology with the specified
+     * @return {@code true} if there is an ontology with the specified
      *         version IRI, that is managed by this manager, otherwise
-     *         <code>false</code>. */
+     *         {@code false}. */
     boolean containsVersion(@Nonnull IRI ontologyVersionIRI);
 
     /** Gets a set of OWLOntologyIDs representing ontologies that are managed by
@@ -462,8 +462,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *            The ontologies whose axioms should be copied into the new
      *            ontology
      * @param copyLogicalAxiomsOnly
-     *            If set to <code>true</code> only logical axioms are copied
-     *            into the new ontology. If set to <code>false</code> then all
+     *            If set to {@code true} only logical axioms are copied
+     *            into the new ontology. If set to {@code false} then all
      *            axioms (including annotation axioms) are copied into the new
      *            ontology.
      * @return An ontology that has the specified IRI and contains all of the

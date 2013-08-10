@@ -85,8 +85,8 @@ public interface OWLOntology extends OWLObject {
     /** Determines whether or not this ontology is anonymous. An ontology is
      * anonymous if it does not have an ontology IRI.
      * 
-     * @return <code>true</code> if this ontology is anonymous, otherwise
-     *         <code>false</code> */
+     * @return {@code true} if this ontology is anonymous, otherwise
+     *         {@code false} */
     boolean isAnonymous();
 
     /** Gets the annotations on this ontology.
@@ -198,8 +198,8 @@ public interface OWLOntology extends OWLObject {
      * and it does not have any annotations (i.e. {@link #getAnnotations()}
      * returns the empty set).
      * 
-     * @return <code>true</code> if the ontology is empty, otherwise
-     *         <code>false</code>. */
+     * @return {@code true} if the ontology is empty, otherwise
+     *         {@code false}. */
     boolean isEmpty();
 
     /** Retrieves all of the axioms in this ontology. Note that to test whether
@@ -251,9 +251,9 @@ public interface OWLOntology extends OWLObject {
      * @param axiomType
      *            The type of axioms to be retrived.
      * @param includeImportsClosure
-     *            if <code>true</code> then axioms of the specified type will
+     *            if {@code true} then axioms of the specified type will
      *            also be retrieved from the imports closure of this ontology,
-     *            if <code>false</code> then axioms of the specified type will
+     *            if {@code false} then axioms of the specified type will
      *            only be retrieved from this ontology.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology (and
@@ -267,9 +267,9 @@ public interface OWLOntology extends OWLObject {
      * whose type is in the AxiomType::TBoxAxiomTypes
      * 
      * @param includeImportsClosure
-     *            if <code>true</code> then axioms of the specified type will
+     *            if {@code true} then axioms of the specified type will
      *            also be retrieved from the imports closure of this ontology,
-     *            if <code>false</code> then axioms of the specified type will
+     *            if {@code false} then axioms of the specified type will
      *            only be retrieved from this ontology.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology (and
@@ -282,9 +282,9 @@ public interface OWLOntology extends OWLObject {
      * whose type is in the AxiomType::ABoxAxiomTypes
      * 
      * @param includeImportsClosure
-     *            if <code>true</code> then axioms of the specified type will
+     *            if {@code true} then axioms of the specified type will
      *            also be retrieved from the imports closure of this ontology,
-     *            if <code>false</code> then axioms of the specified type will
+     *            if {@code false} then axioms of the specified type will
      *            only be retrieved from this ontology.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology (and
@@ -297,9 +297,9 @@ public interface OWLOntology extends OWLObject {
      * whose type is in the AxiomType::RBoxAxiomTypes
      * 
      * @param includeImportsClosure
-     *            if <code>true</code> then axioms of the specified type will
+     *            if {@code true} then axioms of the specified type will
      *            also be retrieved from the imports closure of this ontology,
-     *            if <code>false</code> then axioms of the specified type will
+     *            if {@code false} then axioms of the specified type will
      *            only be retrieved from this ontology.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology (and
@@ -331,8 +331,8 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param axiom
      *            The axiom to test for.
-     * @return <code>true</code> if the ontology contains the specified axioms,
-     *         or <code>false</code> if the ontology doesn't contain the
+     * @return {@code true} if the ontology contains the specified axioms,
+     *         or {@code false} if the ontology doesn't contain the
      *         specified axiom. */
     boolean containsAxiom(@Nonnull OWLAxiom axiom);
 
@@ -342,24 +342,24 @@ public interface OWLOntology extends OWLObject {
      * @param axiom
      *            The axiom to test for.
      * @param includeImportsClosure
-     *            if <code>true</code> the imports closure of this ontology will
-     *            be searched for the specific axiom, if <code>false</code> just
+     *            if {@code true} the imports closure of this ontology will
+     *            be searched for the specific axiom, if {@code false} just
      *            this ontology will be searched.
-     * @return <code>true</code> if the ontology contains the specified axioms,
-     *         or <code>false</code> if the ontology doesn't contain the
+     * @return {@code true} if the ontology contains the specified axioms,
+     *         or {@code false} if the ontology doesn't contain the
      *         specified axiom. */
     boolean containsAxiom(@Nonnull OWLAxiom axiom, boolean includeImportsClosure);
 
     /** Determines if this ontology contains the specified axiom, but ignoring
      * any annotations on this axiom. For example, if the ontology contains
      * <code>SubClassOf(Annotation(p V) A B)</code> then this method will return
-     * <code>true</code> if the ontology contains <code>SubClassOf(A B)</code>
+     * {@code true} if the ontology contains <code>SubClassOf(A B)</code>
      * or <code>SubClassOf(Annotation(q S) A B)</code> for any annotation
      * property <code>q</code> and any annotation value <code>S</code>.
      * 
      * @param axiom
      *            The axiom to test for.
-     * @return <code>true</code> if this ontology contains this axiom with or
+     * @return {@code true} if this ontology contains this axiom with or
      *         without annotations. */
     boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom);
 
@@ -387,8 +387,8 @@ public interface OWLOntology extends OWLObject {
      *            to retrieve. If this axiom is annotated then the annotations
      *            are ignored.
      * @param includeImportsClosure
-     *            if <code>true</code> then axioms in the imports closure of
-     *            this ontology are returned, if <code>false</code> only axioms
+     *            if {@code true} then axioms in the imports closure of
+     *            this ontology are returned, if {@code false} only axioms
      *            in this ontology will be returned.
      * @return A set of axioms such that for any two axioms, <code>axiomA</code>
      *         and <code>axiomB</code> in the set,
@@ -402,7 +402,7 @@ public interface OWLOntology extends OWLObject {
     /** Determines if this ontology and possibly its imports closure contains the
      * specified axiom but ignoring any annotations on this axiom. For example,
      * if the ontology contains <code>SubClassOf(Annotation(p V) A B)</code>
-     * then this method will return <code>true</code> if the ontology contains
+     * then this method will return {@code true} if the ontology contains
      * <code>SubClassOf(A B)</code> or
      * <code>SubClassOf(Annotation(q S) A B)</code> for any annotation property
      * <code>q</code> and any annotation value <code>S</code>.
@@ -410,10 +410,10 @@ public interface OWLOntology extends OWLObject {
      * @param axiom
      *            The axiom to test for.
      * @param includeImportsClosure
-     *            if <code>true</code> the imports closure of this ontology will
-     *            be searched for the specified axiom. If <code>false</code>
+     *            if {@code true} the imports closure of this ontology will
+     *            be searched for the specified axiom. If {@code false}
      *            only this ontology will be searched for the specifed axiom.
-     * @return <code>true</code> if this ontology contains this axiom with or
+     * @return {@code true} if this ontology contains this axiom with or
      *         without annotations. */
     boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom,
             boolean includeImportsClosure);
@@ -495,10 +495,10 @@ public interface OWLOntology extends OWLObject {
      * @param includeImportsClosure
      *            Specifies whether classes should be drawn from the signature
      *            of just this ontology or the imports closure of this ontology.
-     *            If <code>true</code> then the set of classes returned will
+     *            If {@code true} then the set of classes returned will
      *            correspond to the union of the classes in the signatures of
      *            the ontologies in the imports closure of this ontology. If
-     *            <code>false</code> then the set of classes returned will
+     *            {@code false} then the set of classes returned will
      *            correspond to the classes that are in the signature of this
      *            just this ontology.
      * @return A set of classes that are in the signature of this ontology and
@@ -527,10 +527,10 @@ public interface OWLOntology extends OWLObject {
      * @param includeImportsClosure
      *            Specifies whether object properties should be drawn from the
      *            signature of just this ontology or the imports closure of this
-     *            ontology. If <code>true</code> then the set of object
+     *            ontology. If {@code true} then the set of object
      *            properties returned will correspond to the union of the object
      *            properties in the signatures of the ontologies in the imports
-     *            closure of this ontology. If <code>false</code> then the set
+     *            closure of this ontology. If {@code false} then the set
      *            of object properties returned will correspond to the object
      *            properties that are in the signature of this just this
      *            ontology.
@@ -560,10 +560,10 @@ public interface OWLOntology extends OWLObject {
      * @param includeImportsClosure
      *            Specifies whether data properties should be drawn from the
      *            signature of just this ontology or the imports closure of this
-     *            ontology. If <code>true</code> then the set of data properties
+     *            ontology. If {@code true} then the set of data properties
      *            returned will correspond to the union of the data properties
      *            in the signatures of the ontologies in the imports closure of
-     *            this ontology. If <code>false</code> then the set of data
+     *            this ontology. If {@code false} then the set of data
      *            properties returned will correspond to the data properties
      *            that are in the signature of this just this ontology.
      * @return A set of data properties that are in the signature of this
@@ -593,10 +593,10 @@ public interface OWLOntology extends OWLObject {
      * @param includeImportsClosure
      *            Specifies whether individuals should be drawn from the
      *            signature of just this ontology or the imports closure of this
-     *            ontology. If <code>true</code> then the set of individuals
+     *            ontology. If {@code true} then the set of individuals
      *            returned will correspond to the union of the individuals in
      *            the signatures of the ontologies in the imports closure of
-     *            this ontology. If <code>false</code> then the set of
+     *            this ontology. If {@code false} then the set of
      *            individuals returned will correspond to the individuals that
      *            are in the signature of this just this ontology.
      * @return A set of individuals that are in the signature of this ontology
@@ -632,10 +632,10 @@ public interface OWLOntology extends OWLObject {
      * @param includeImportsClosure
      *            Specifies whether datatypes should be drawn from the signature
      *            of just this ontology or the imports closure of this ontology.
-     *            If <code>true</code> then the set of datatypes returned will
+     *            If {@code true} then the set of datatypes returned will
      *            correspond to the union of the datatypes in the signatures of
      *            the ontologies in the imports closure of this ontology. If
-     *            <code>false</code> then the set of datatypes returned will
+     *            {@code false} then the set of datatypes returned will
      *            correspond to the datatypes that are in the signature of this
      *            just this ontology.
      * @return A set of datatypes that are in the signature of this ontology and
@@ -681,8 +681,8 @@ public interface OWLOntology extends OWLObject {
      * @param includeImportsClosure
      *            Specifies if the axioms returned should just be from this
      *            ontology, or from the imports closure of this ontology. If
-     *            <code>true</code> the axioms returned will be from the imports
-     *            closure of this ontology, if <code>false</code> the axioms
+     *            {@code true} the axioms returned will be from the imports
+     *            closure of this ontology, if {@code false} the axioms
      *            returned will just be from this ontology.
      * @return The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
@@ -704,8 +704,8 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param owlEntity
      *            The entity
-     * @return <code>true</code> if the signature of this ontology contains
-     *         <code>owlEntity</code>, otherwise <code>false</code>. */
+     * @return {@code true} if the signature of this ontology contains
+     *         <code>owlEntity</code>, otherwise {@code false}. */
     boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity);
 
     /** Determines if the signature of this ontology, and possibly the signature
@@ -717,8 +717,8 @@ public interface OWLOntology extends OWLObject {
      * @param includeImportsClosure
      *            Specifies whether the imports closure should be examined for
      *            the entity reference or not.
-     * @return <code>true</code> if the ontology contains a reference to the
-     *         specified entity, otherwise <code>false</code> The set that is
+     * @return {@code true} if the ontology contains a reference to the
+     *         specified entity, otherwise {@code false} The set that is
      *         returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
@@ -731,7 +731,7 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param entityIRI
      *            The IRI to test for.
-     * @return <code>true</code> if the signature of this ontology contains a
+     * @return {@code true} if the signature of this ontology contains a
      *         class, object property, data property, named individual,
      *         annotation property or datatype with the specified IRI. */
     boolean containsEntityInSignature(@Nonnull IRI entityIRI);
@@ -746,12 +746,12 @@ public interface OWLOntology extends OWLObject {
      *            Specifies whether the imports closure of this ontology should
      *            be examined or not.
      * @return If <code>includeImportsClosure=true</code> then returns
-     *         <code>true</code> if the signature of this ontology or the
+     *         {@code true} if the signature of this ontology or the
      *         signature of an ontology in the imports closure of this ontology
      *         contains a class, object property, data property, named
      *         individual, annotation property or datatype with the specified
      *         IRI. If <code>includeImportsClosure=false</code> then returns
-     *         <code>true</code> if the signature of this ontology contains a
+     *         {@code true} if the signature of this ontology contains a
      *         class, object property, data property, named individual,
      *         annotation property or datatype with the specified IRI. */
     boolean containsEntityInSignature(@Nonnull IRI entityIRI,
@@ -762,8 +762,8 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param owlEntity
      *            The entity to be tested for
-     * @return <code>true</code> if the ontology contains a declaration for the
-     *         specified entity, otherwise <code>false</code>. */
+     * @return {@code true} if the ontology contains a declaration for the
+     *         specified entity, otherwise {@code false}. */
     boolean isDeclared(@Nonnull OWLEntity owlEntity);
 
     /** Determines if this ontology or its imports closure declares an entity
@@ -772,12 +772,12 @@ public interface OWLOntology extends OWLObject {
      * @param owlEntity
      *            The entity to be tested for
      * @param includeImportsClosure
-     *            <code>true</code> if the imports closure of this ontology
-     *            should be examined, <code>false</code> if just this ontology
+     *            {@code true} if the imports closure of this ontology
+     *            should be examined, {@code false} if just this ontology
      *            should be examined.
-     * @return <code>true</code> if the ontology or its imports closure contains
+     * @return {@code true} if the ontology or its imports closure contains
      *         a declaration for the specified entity, otherwise
-     *         <code>false</code>. */
+     *         {@code false}. */
     boolean isDeclared(@Nonnull OWLEntity owlEntity, boolean includeImportsClosure);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -790,9 +790,9 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param owlClassIRI
      *            The IRI of the OWLClass to check for.
-     * @return <code>true</code> if the signature of this ontology contains an
+     * @return {@code true} if the signature of this ontology contains an
      *         OWLClass that has <code>owlClassIRI</code> as its IRI, otherwise
-     *         <code>false</code>. */
+     *         {@code false}. */
     boolean containsClassInSignature(@Nonnull IRI owlClassIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
@@ -802,19 +802,19 @@ public interface OWLOntology extends OWLObject {
      * @param owlClassIRI
      *            The IRI of the class to check for
      * @param includeImportsClosure
-     *            <code>true</code> if the signature of the ontologies in the
+     *            {@code true} if the signature of the ontologies in the
      *            imports closure of this ontology should be checked,
-     *            <code>false</code> if just the signature of this ontology
+     *            {@code false} if just the signature of this ontology
      *            should be chekced.
      * @return If <code>includeImportsClosure=true</code> then returns
-     *         <code>true</code> if there is an OWLClass with
+     *         {@code true} if there is an OWLClass with
      *         <code>owlClassIRI</code> as its IRI in the signature of at least
      *         one ontology in the imports clousre of this ontology and
-     *         <code>false</code> if this is not the case. If
+     *         {@code false} if this is not the case. If
      *         <code>includeImportsClosure=false</code> then returns
-     *         <code>true</code> if the signature of this ontology contains an
+     *         {@code true} if the signature of this ontology contains an
      *         OWLClass that has <code>owlClassIRI</code> as its IRI and
-     *         <code>false</code> if the signature of this ontology does not
+     *         {@code false} if the signature of this ontology does not
      *         contain a class with <code>owlClassIRI</code> as its IRI. */
     boolean containsClassInSignature(@Nonnull IRI owlClassIRI,
             boolean includeImportsClosure);
@@ -824,9 +824,9 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param owlObjectPropertyIRI
      *            The IRI of the OWLObjectProperty to check for.
-     * @return <code>true</code> if the signature of this ontology contains an
+     * @return {@code true} if the signature of this ontology contains an
      *         OWLObjectProperty that has <code>owlObjectPropertyIRI</code> as
-     *         its IRI, otherwise <code>false</code>. */
+     *         its IRI, otherwise {@code false}. */
     boolean containsObjectPropertyInSignature(@Nonnull IRI owlObjectPropertyIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
@@ -836,19 +836,19 @@ public interface OWLOntology extends OWLObject {
      * @param owlObjectPropertyIRI
      *            The IRI of the OWLObjectProperty to check for
      * @param includeImportsClosure
-     *            <code>true</code> if the signature of the ontologies in the
+     *            {@code true} if the signature of the ontologies in the
      *            imports closure of this ontology should be checked,
-     *            <code>false</code> if just the signature of this ontology
+     *            {@code false} if just the signature of this ontology
      *            should be chekced.
      * @return If <code>includeImportsClosure=true</code> then returns
-     *         <code>true</code> if there is an OWLObjectProperty with
+     *         {@code true} if there is an OWLObjectProperty with
      *         <code>owlObjectPropertyIRI</code> as its IRI in the signature of
      *         at least one ontology in the imports clousre of this ontology and
-     *         <code>false</code> if this is not the case. If
+     *         {@code false} if this is not the case. If
      *         <code>includeImportsClosure=false</code> then returns
-     *         <code>true</code> if the signature of this ontology contains an
+     *         {@code true} if the signature of this ontology contains an
      *         OWLObjectProperty that has <code>owlObjectPropertyIRI</code> as
-     *         its IRI and <code>false</code> if the signature of this ontology
+     *         its IRI and {@code false} if the signature of this ontology
      *         does not contain a class with <code>owlObjectPropertyIRI</code>
      *         as its IRI. */
     boolean containsObjectPropertyInSignature(@Nonnull IRI owlObjectPropertyIRI,
@@ -859,9 +859,9 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param owlDataPropertyIRI
      *            The IRI of the OWLDataProperty to check for.
-     * @return <code>true</code> if the signature of this ontology contains an
+     * @return {@code true} if the signature of this ontology contains an
      *         OWLDataProperty that has <code>owlDataPropertyIRI</code> as its
-     *         IRI, otherwise <code>false</code>. */
+     *         IRI, otherwise {@code false}. */
     boolean containsDataPropertyInSignature(@Nonnull IRI owlDataPropertyIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
@@ -871,19 +871,19 @@ public interface OWLOntology extends OWLObject {
      * @param owlDataPropertyIRI
      *            The IRI of the OWLDataProperty to check for
      * @param includeImportsClosure
-     *            <code>true</code> if the signature of the ontologies in the
+     *            {@code true} if the signature of the ontologies in the
      *            imports closure of this ontology should be checked,
-     *            <code>false</code> if just the signature of this ontology
+     *            {@code false} if just the signature of this ontology
      *            should be chekced.
      * @return If <code>includeImportsClosure=true</code> then returns
-     *         <code>true</code> if there is an OWLDataProperty with
+     *         {@code true} if there is an OWLDataProperty with
      *         <code>owlDataPropertyIRI</code> as its IRI in the signature of at
      *         least one ontology in the imports clousre of this ontology and
-     *         <code>false</code> if this is not the case. If
+     *         {@code false} if this is not the case. If
      *         <code>includeImportsClosure=false</code> then returns
-     *         <code>true</code> if the signature of this ontology contains an
+     *         {@code true} if the signature of this ontology contains an
      *         OWLDataProperty that has <code>owlDataPropertyIRI</code> as its
-     *         IRI and <code>false</code> if the signature of this ontology does
+     *         IRI and {@code false} if the signature of this ontology does
      *         not contain a class with <code>owlDataPropertyIRI</code> as its
      *         IRI. */
     boolean containsDataPropertyInSignature(@Nonnull IRI owlDataPropertyIRI,
@@ -894,10 +894,10 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param owlAnnotationPropertyIRI
      *            The IRI of the OWLAnnotationProperty to check for.
-     * @return <code>true</code> if the signature of this ontology contains an
+     * @return {@code true} if the signature of this ontology contains an
      *         OWLAnnotationProperty that has
      *         <code>owlAnnotationPropertyIRI</code> as its IRI, otherwise
-     *         <code>false</code>. */
+     *         {@code false}. */
     boolean containsAnnotationPropertyInSignature(@Nonnull IRI owlAnnotationPropertyIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
@@ -907,20 +907,20 @@ public interface OWLOntology extends OWLObject {
      * @param owlAnnotationPropertyIRI
      *            The IRI of the OWLAnnotationProperty to check for
      * @param includeImportsClosure
-     *            <code>true</code> if the signature of the ontologies in the
+     *            {@code true} if the signature of the ontologies in the
      *            imports closure of this ontology should be checked,
-     *            <code>false</code> if just the signature of this ontology
+     *            {@code false} if just the signature of this ontology
      *            should be chekced.
      * @return If <code>includeImportsClosure=true</code> then returns
-     *         <code>true</code> if there is an OWLAnnotationProperty with
+     *         {@code true} if there is an OWLAnnotationProperty with
      *         <code>owlAnnotationPropertyIRI</code> as its IRI in the signature
      *         of at least one ontology in the imports clousre of this ontology
-     *         and <code>false</code> if this is not the case. If
+     *         and {@code false} if this is not the case. If
      *         <code>includeImportsClosure=false</code> then returns
-     *         <code>true</code> if the signature of this ontology contains an
+     *         {@code true} if the signature of this ontology contains an
      *         OWLAnnotationProperty that has
      *         <code>owlAnnotationPropertyIRI</code> as its IRI and
-     *         <code>false</code> if the signature of this ontology does not
+     *         {@code false} if the signature of this ontology does not
      *         contain a class with <code>owlAnnotationPropertyIRI</code> as its
      *         IRI. */
     boolean containsAnnotationPropertyInSignature(@Nonnull IRI owlAnnotationPropertyIRI,
@@ -931,9 +931,9 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param owlIndividualIRI
      *            The IRI of the OWLNamedIndividual to check for.
-     * @return <code>true</code> if the signature of this ontology contains an
+     * @return {@code true} if the signature of this ontology contains an
      *         OWLNamedIndividual that has <code>owlIndividualIRI</code> as its
-     *         IRI, otherwise <code>false</code>. */
+     *         IRI, otherwise {@code false}. */
     boolean containsIndividualInSignature(@Nonnull IRI owlIndividualIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
@@ -943,19 +943,19 @@ public interface OWLOntology extends OWLObject {
      * @param owlIndividualIRI
      *            The IRI of the OWLNamedIndividual to check for
      * @param includeImportsClosure
-     *            <code>true</code> if the signature of the ontologies in the
+     *            {@code true} if the signature of the ontologies in the
      *            imports closure of this ontology should be checked,
-     *            <code>false</code> if just the signature of this ontology
+     *            {@code false} if just the signature of this ontology
      *            should be chekced.
      * @return If <code>includeImportsClosure=true</code> then returns
-     *         <code>true</code> if there is an OWLNamedIndividual with
+     *         {@code true} if there is an OWLNamedIndividual with
      *         <code>owlIndividualIRI</code> as its IRI in the signature of at
      *         least one ontology in the imports closure of this ontology and
-     *         <code>false</code> if this is not the case. If
+     *         {@code false} if this is not the case. If
      *         <code>includeImportsClosure=false</code> then returns
-     *         <code>true</code> if the signature of this ontology contains an
+     *         {@code true} if the signature of this ontology contains an
      *         OWLNamedIndividual that has <code>owlIndividualIRI</code> as its
-     *         IRI and <code>false</code> if the signature of this ontology does
+     *         IRI and {@code false} if the signature of this ontology does
      *         not contain a class with <code>owlIndividualIRI</code> as its
      *         IRI. */
     boolean containsIndividualInSignature(@Nonnull IRI owlIndividualIRI,
@@ -966,9 +966,9 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param owlDatatypeIRI
      *            The IRI of the OWLDatatype to check for.
-     * @return <code>true</code> if the signature of this ontology contains an
+     * @return {@code true} if the signature of this ontology contains an
      *         OWLDatatype that has <code>owlDatatypeIRI</code> as its IRI,
-     *         otherwise <code>false</code>. */
+     *         otherwise {@code false}. */
     boolean containsDatatypeInSignature(@Nonnull IRI owlDatatypeIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
@@ -978,19 +978,19 @@ public interface OWLOntology extends OWLObject {
      * @param owlDatatypeIRI
      *            The IRI of the OWLDatatype to check for
      * @param includeImportsClosure
-     *            <code>true</code> if the signature of the ontologies in the
+     *            {@code true} if the signature of the ontologies in the
      *            imports closure of this ontology should be checked,
-     *            <code>false</code> if just the signature of this ontology
+     *            {@code false} if just the signature of this ontology
      *            should be chekced.
      * @return If <code>includeImportsClosure=true</code> then returns
-     *         <code>true</code> if there is an OWLDatatype with
+     *         {@code true} if there is an OWLDatatype with
      *         <code>owlDatatypeIRI</code> as its IRI in the signature of at
      *         least one ontology in the imports closure of this ontology and
-     *         <code>false</code> if this is not the case. If
+     *         {@code false} if this is not the case. If
      *         <code>includeImportsClosure=false</code> then returns
-     *         <code>true</code> if the signature of this ontology contains an
+     *         {@code true} if the signature of this ontology contains an
      *         OWLDatatype that has <code>owlDatatypeIRI</code> as its IRI and
-     *         <code>false</code> if the signature of this ontology does not
+     *         {@code false} if the signature of this ontology does not
      *         contain a class with <code>owlDatatypeIRI</code> as its IRI. */
     boolean containsDatatypeInSignature(@Nonnull IRI owlDatatypeIRI,
             boolean includeImportsClosure);

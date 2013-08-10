@@ -565,7 +565,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      *            the start index (inclusive)
      * @param length
      *            the end index (non-inclusive)
-     * @return <code>true</code> if characters contain whitespace */
+     * @return {@code true} if characters contain whitespace */
     protected boolean isWhitespaceOnly(char[] data, int start, int length) {
         int end = start + length;
         for (int i = start; i < end; i++) {
@@ -581,7 +581,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * 
      * @param buffer
      *            the data being checked
-     * @return <code>true</code> if characters contain whitespace */
+     * @return {@code true} if characters contain whitespace */
     protected boolean isWhitespaceOnly(StringBuilder buffer) {
         for (int i = 0; i < buffer.length(); i++) {
             char c = buffer.charAt(i);

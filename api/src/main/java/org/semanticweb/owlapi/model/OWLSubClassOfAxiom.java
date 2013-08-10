@@ -65,8 +65,8 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
      * the subclass is anonymous then the subclass axiom is known as a General
      * Concept Inclusion - GCI).
      * 
-     * @return <code>true</code> if this axiom is a GCI, other wise
-     *         <code>false</code>. */
+     * @return {@code true} if this axiom is a GCI, other wise
+     *         {@code false}. */
     boolean isGCI();
 
     @Override

@@ -77,8 +77,8 @@ public interface OWLAnnotation extends OWLObject {
      * <code>owl:deprecated</code> and the value of the annotation is
      * <code>"true"^^xsd:boolean</code>
      * 
-     * @return <code>true</code> if this annotation is an annotation that can be
-     *         used to deprecate an IRI, otherwise <code>false</code>. */
+     * @return {@code true} if this annotation is an annotation that can be
+     *         used to deprecate an IRI, otherwise {@code false}. */
     boolean isDeprecatedIRIAnnotation();
 
     /** Gets the annotations on this annotation

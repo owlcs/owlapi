@@ -120,8 +120,8 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
     /** Determines if the stack trace for each parse exception is included in the
      * getMessage() method.
      * 
-     * @return <code>true</code> if the stack trace is included in the message
-     *         for this exception, other wise <code>false</code>. */
+     * @return {@code true} if the stack trace is included in the message
+     *         for this exception, other wise {@code false}. */
     public static boolean isIncludeStackTraceInMessage() {
         return includeStackTraceInMessage;
     }
@@ -131,9 +131,9 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      * for debugging purposes, but can bloat the message for end user usage.
      * 
      * @param includeStackTraceInMessage
-     *            Set to <code>true</code> to indicate that the stack trace for
+     *            Set to {@code true} to indicate that the stack trace for
      *            each parser exception should be included in the message for
-     *            this exception, otherwise set to <code>false</code>. */
+     *            this exception, otherwise set to {@code false}. */
     public static void setIncludeStackTraceInMessage(boolean includeStackTraceInMessage) {
         UnparsableOntologyException.includeStackTraceInMessage = includeStackTraceInMessage;
     }

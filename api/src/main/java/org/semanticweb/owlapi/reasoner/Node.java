@@ -90,13 +90,13 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * property node, the top node is the node that contains
      * <code>owl:topDataProperty</code>
      * 
-     * @return <code>true</code> if this node is an <code>OWLClass</code> node
-     *         and it contains <code>owl:Thing</code>. </p> <code>true</code> if
+     * @return {@code true} if this node is an <code>OWLClass</code> node
+     *         and it contains <code>owl:Thing</code>. </p> {@code true} if
      *         this node is an <code>OWLObjectProperty</code> node and it
      *         contains <code>owl:topObjectProperty</code>. </p>
-     *         <code>true</code> if this node is an <code>OWLDataProperty</code>
+     *         {@code true} if this node is an <code>OWLDataProperty</code>
      *         node and it contains <code>owl:topDataProperty</code>. </p>
-     *         <code>false</code> if none of the above. */
+     *         {@code false} if none of the above. */
     boolean isTopNode();
 
     /** Determines if this node represents the bottom node (in a hierarchy). For
@@ -106,13 +106,13 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * property node, the bottom node is the node that contains
      * <code>owl:bottomDataProperty</code>
      * 
-     * @return <code>true</code> if this node is an <code>OWLClass</code> node
-     *         and it contains <code>owl:Nothing</code>. </p> <code>true</code>
+     * @return {@code true} if this node is an <code>OWLClass</code> node
+     *         and it contains <code>owl:Nothing</code>. </p> {@code true}
      *         if this node is an <code>OWLObjectProperty</code> node and it
      *         contains <code>owl:bottomObjectProperty</code>. </p>
-     *         <code>true</code> if this node is an <code>OWLDataProperty</code>
+     *         {@code true} if this node is an <code>OWLDataProperty</code>
      *         node and it contains <code>owl:bottomDataProperty</code>. </p>
-     *         <code>false</code> if none of the above. */
+     *         {@code false} if none of the above. */
     boolean isBottomNode();
 
     /** Gets the entities contained in this node. The entities are equivalent to
@@ -130,8 +130,8 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * 
      * @param entity
      *            The entity to check for
-     * @return <code>true</code> if this node contains <code>entity</code>, or
-     *         <code>false</code> if this node does not contain
+     * @return {@code true} if this node contains <code>entity</code>, or
+     *         {@code false} if this node does not contain
      *         <code>entity</code> */
     boolean contains(E entity);
 
@@ -174,8 +174,8 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
 
     /** Determines if this <code>Node</code> contains just one entity.
      * 
-     * @return <code>true</code> if this <code>Node</code> contains just one
-     *         entity, otherwise <code>false</code> */
+     * @return {@code true} if this <code>Node</code> contains just one
+     *         entity, otherwise {@code false} */
     boolean isSingleton();
 
     /** Gets one of the entities contained in this entity set. If this is a

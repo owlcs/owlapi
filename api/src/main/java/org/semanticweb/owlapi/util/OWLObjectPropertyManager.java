@@ -143,8 +143,8 @@ public class OWLObjectPropertyManager {
      * 
      * @param expression
      *            The object property expression to be tested
-     * @return <code>true</code> if the object property is composite (according
-     *         to the above definition) or <code>false</code> if the object
+     * @return {@code true} if the object property is composite (according
+     *         to the above definition) or {@code false} if the object
      *         property is not composite. */
     public boolean isComposite(@Nonnull OWLObjectPropertyExpression expression) {
         checkNotNull(expression, "expression cannot be null");
@@ -297,8 +297,8 @@ public class OWLObjectPropertyManager {
      *            The sub property
      * @param sup
      *            The super property
-     * @return <code>true</code> if sub is the sub-property of sup, otherwise
-     *         <code>false</code> */
+     * @return {@code true} if sub is the sub-property of sup, otherwise
+     *         {@code false} */
     public boolean isSubPropertyOf(@Nonnull OWLObjectPropertyExpression sub,
             @Nonnull OWLObjectPropertyExpression sup) {
         checkNotNull(sub, "sub cannot be null");
@@ -318,7 +318,7 @@ public class OWLObjectPropertyManager {
      * 
      * @param expression
      *            The expression to be tested.
-     * @return <code>true</code> if the object property expression is simple,
+     * @return {@code true} if the object property expression is simple,
      *         otherwise false. */
     public boolean isNonSimple(@Nonnull OWLObjectPropertyExpression expression) {
         checkNotNull(expression, "expression cannot be null");
