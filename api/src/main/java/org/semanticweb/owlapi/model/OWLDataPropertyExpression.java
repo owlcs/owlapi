@@ -47,12 +47,12 @@ import javax.annotation.Nonnull;
 public interface OWLDataPropertyExpression extends OWLPropertyExpression, SWRLPredicate {
     /** If the property is a named data property then this method will obtain the
      * property as such. The general pattern of use is that the
-     * <code>isAnonymous</code> method should first be used to determine if the
+     * {@code isAnonymous} method should first be used to determine if the
      * property is named (i.e. not an object property expression such as
      * inv(p)). If the property is named then this method may be used to obtain
      * the property as a named property without casting.
      * 
-     * @return The property as an <code>OWLDataProperty</code> if possible.
+     * @return The property as an {@code OWLDataProperty} if possible.
      * @throws OWLRuntimeException
      *             if the property is not a named property. */
     @Nonnull

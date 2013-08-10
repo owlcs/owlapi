@@ -119,7 +119,7 @@ public enum OWLFacet {
      * 
      * @param shortName
      *            The short name of the facet.
-     * @return The facet or <code>null</code> if not facet by the specified name
+     * @return The facet or {@code null} if not facet by the specified name
      *         exists. */
     public static OWLFacet getFacetByShortName(String shortName) {
         for (OWLFacet vocabulary : OWLFacet.values()) {

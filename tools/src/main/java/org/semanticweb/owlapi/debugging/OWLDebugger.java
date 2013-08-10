@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Date: 24-Nov-2006<br>
  * <br> */
 public interface OWLDebugger {
-    /** @return the <code>OWLOntology</code> that is being debugged.
+    /** @return the {@code OWLOntology} that is being debugged.
      * @throws OWLException
      *             if there is any problem */
     @Nonnull

@@ -144,7 +144,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
                 || prefix.startsWith(Namespaces.XSD.toString());
     }
 
-    /** Determines if this IRI is equal to the IRI that <code>owl:Thing</code> is
+    /** Determines if this IRI is equal to the IRI that {@code owl:Thing} is
      * named with
      * 
      * @return {@code true} if this IRI is equal to
@@ -155,7 +155,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
                 && prefix.equals(Namespaces.OWL.toString());
     }
 
-    /** Determines if this IRI is equal to the IRI that <code>owl:Nothing</code>
+    /** Determines if this IRI is equal to the IRI that {@code owl:Nothing}
      * is named with
      * 
      * @return {@code true} if this IRI is equal to
@@ -166,7 +166,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /** Determines if this IRI is equal to the IRI that is named
-     * <code>rdf:PlainLiteral</code>
+     * {@code rdf:PlainLiteral}
      * 
      * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
@@ -178,7 +178,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
 
     /** Gets the fragment of the IRI.
      * 
-     * @return The IRI fragment, or <code>null</code> if the IRI does not have a
+     * @return The IRI fragment, or {@code null} if the IRI does not have a
      *         fragment */
     @Nullable
     public String getFragment() {
@@ -220,9 +220,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * contains the characters in prefix + suffix.
      * 
      * @param prefix
-     *            The first string. May be <code>null</code>.
+     *            The first string. May be {@code null}.
      * @param suffix
-     *            The second string. May be <code>null</code>.
+     *            The second string. May be {@code null}.
      * @return An IRI whose characters consist of prefix + suffix.
      * @since 3.3 */
     @Nonnull
@@ -286,7 +286,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /** Gets an auto-generated ontology document IRI.
      * 
      * @return An auto-generated ontology document IRI. The IRI has the form
-     *         <code>owlapi:ontologyNNNNNNNNNNN</code> */
+     *         {@code owlapi:ontologyNNNNNNNNNNN} */
     @Nonnull
     public static IRI generateDocumentIRI() {
         return create("owlapi:ontology" + counter.incrementAndGet());

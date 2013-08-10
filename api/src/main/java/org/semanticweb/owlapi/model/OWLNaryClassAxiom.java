@@ -50,7 +50,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom,
         OWLSubClassOfAxiomSetShortCut {
     /** Gets all of the top level class expressions that appear in this axiom.
      * 
-     * @return A <code>Set</code> of class expressions that appear in the axiom. */
+     * @return A {@code Set} of class expressions that appear in the axiom. */
     @Nonnull
     Set<OWLClassExpression> getClassExpressions();
 

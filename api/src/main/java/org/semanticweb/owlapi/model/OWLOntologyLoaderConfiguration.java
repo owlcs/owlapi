@@ -49,16 +49,16 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * Date: 15/12/2010
  * <p>
  * A configuration object that specifies options and hints to objects that load
- * OWLOntologies. Every <code>OWLOntologyLoaderConfiguration</code> is
+ * OWLOntologies. Every {@code OWLOntologyLoaderConfiguration} is
  * immutable. Changing a setting results in the creation of a new
- * <code>OWLOntologyLoaderConfiguration</code> with that setting. For example,
+ * {@code OWLOntologyLoaderConfiguration} with that setting. For example,
  * 
  * <pre>
  * OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
  * config = config.setLoadAnnotationAxioms(false);
  * </pre>
  * 
- * creates an <code>OWLOntologyLoaderConfiguration</code> object with the load
+ * creates an {@code OWLOntologyLoaderConfiguration} object with the load
  * annotation axioms set to {@code false}. */
 public final class OWLOntologyLoaderConfiguration {
     /** strategies to cope with missing headers */
@@ -123,7 +123,7 @@ public final class OWLOntologyLoaderConfiguration {
     }
 
     /** Specifies whether or not annotation axioms (instances of
-     * <code>OWLAnnotationAxiom</code>) should be loaded or whether they should
+     * {@code OWLAnnotationAxiom}) should be loaded or whether they should
      * be discarded on loading. By default, the loading of annotation axioms is
      * enabled.
      * 
@@ -131,7 +131,7 @@ public final class OWLOntologyLoaderConfiguration {
      *            {@code true} if annotation axioms should be loaded, or
      *            {@code false} if annotation axioms should not be loaded
      *            and should be discarded on loading.
-     * @return An <code>OWLOntologyLoaderConfiguration</code> object with the
+     * @return An {@code OWLOntologyLoaderConfiguration} object with the
      *         option set. */
     public OWLOntologyLoaderConfiguration setLoadAnnotationAxioms(boolean b) {
         // do not make copies if setting the same value
@@ -144,7 +144,7 @@ public final class OWLOntologyLoaderConfiguration {
     }
 
     /** Determines whether or not annotation axioms (instances of
-     * <code>OWLAnnotationAxiom</code>) should be loaded. By default, the
+     * {@code OWLAnnotationAxiom}) should be loaded. By default, the
      * loading of annotation axioms is enabled.
      * 
      * @return {@code true} if annotation assertions will be loaded, or
@@ -191,7 +191,7 @@ public final class OWLOntologyLoaderConfiguration {
      * 
      * @param missingImportHandlingStrategy
      *            The strategy to be used.
-     * @return An <code>OWLOntologyLoaderConfiguration</code> object with the
+     * @return An {@code OWLOntologyLoaderConfiguration} object with the
      *         strategy set.
      * @since 3.3 */
     public OWLOntologyLoaderConfiguration setMissingImportHandlingStrategy(
@@ -254,7 +254,7 @@ public final class OWLOntologyLoaderConfiguration {
      * @param ontologyDocumentIRI
      *            The ontology document IRI that will be ignored if it is
      *            encountered as an imported ontology during loading.
-     * @return An <code>OWLOntologyLoaderConfiguration</code> with the ignored
+     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
      *         ontology document IRI set. */
     public OWLOntologyLoaderConfiguration addIgnoredImport(IRI ontologyDocumentIRI) {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
@@ -268,7 +268,7 @@ public final class OWLOntologyLoaderConfiguration {
      * @param ontologyDocumentIRI
      *            The ontology document IRI that would be ignored if it is
      *            encountered as an imported ontology during loading.
-     * @return An <code>OWLOntologyLoaderConfiguration</code> with the ignored
+     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
      *         ontology document IRI removed. */
     public OWLOntologyLoaderConfiguration removeIgnoredImport(IRI ontologyDocumentIRI) {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
@@ -279,7 +279,7 @@ public final class OWLOntologyLoaderConfiguration {
     /** Clears all ontology document IRIs from the list of ignored ontology
      * document IRIs.
      * 
-     * @return An <code>OWLOntologyLoaderConfiguration</code> with the list of
+     * @return An {@code OWLOntologyLoaderConfiguration} with the list of
      *         ignored ontology document IRIs set to be empty. */
     public OWLOntologyLoaderConfiguration clearIgnoredImports() {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();

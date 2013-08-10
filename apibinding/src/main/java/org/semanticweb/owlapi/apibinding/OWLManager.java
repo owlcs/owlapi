@@ -71,7 +71,7 @@ import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
  * <br>
  * <p/>
  * Provides a point of convenience for creating an
- * <code>OWLOntologyManager</code> with commonly required features (such as an
+ * {@code OWLOntologyManager} with commonly required features (such as an
  * RDF parser for example). */
 public class OWLManager implements OWLOntologyManagerFactory {
     static {

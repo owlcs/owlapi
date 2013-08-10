@@ -41,6 +41,6 @@ package org.semanticweb.owlapi.model;
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 25-Nov-2009 An <code>OWLLogicalEntity</code> is an
- * <code>OWLEntity</code> that is not an <code>OWLAnnotationProperty</code>. */
+ * Date: 25-Nov-2009 An {@code OWLLogicalEntity} is an
+ * {@code OWLEntity} that is not an {@code OWLAnnotationProperty}. */
 public interface OWLLogicalEntity extends OWLEntity {}

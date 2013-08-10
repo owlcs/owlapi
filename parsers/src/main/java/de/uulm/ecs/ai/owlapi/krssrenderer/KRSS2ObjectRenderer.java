@@ -72,7 +72,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.search.Searcher;
 
-/** <code>KRSS2ObjectRenderer</code> is an extension of {@link KRSSObjectRenderer
+/** {@code KRSS2ObjectRenderer} is an extension of {@link KRSSObjectRenderer
  * KRSSObjectRenderer} which uses the extended vocabulary.
  * <p/>
  * <b>Abbreviations</b>

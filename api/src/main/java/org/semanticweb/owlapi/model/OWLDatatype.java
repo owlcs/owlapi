@@ -60,39 +60,39 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity {
     @Nonnull
     OWL2Datatype getBuiltInDatatype();
 
-    /** Determines if this datatype has the IRI <code>xsd:string</code>
+    /** Determines if this datatype has the IRI {@code xsd:string}
      * 
      * @return {@code true} if this datatype has the IRI
-     *         <code>xsd:string</code>, otherwise {@code false}. */
+     *         {@code xsd:string}, otherwise {@code false}. */
     boolean isString();
 
-    /** Determines if this datatype has the IRI <code>xsd:integer</code>
+    /** Determines if this datatype has the IRI {@code xsd:integer}
      * 
      * @return {@code true} if this datatype has the IRI
-     *         <code>xsd:integer</code>, otherwise {@code false}. */
+     *         {@code xsd:integer}, otherwise {@code false}. */
     boolean isInteger();
 
-    /** Determines if this datatype has the IRI <code>xsd:float</code>
+    /** Determines if this datatype has the IRI {@code xsd:float}
      * 
      * @return {@code true} if this datatype has the IRI
-     *         <code>xsd:float</code>, otherwise {@code false}. */
+     *         {@code xsd:float}, otherwise {@code false}. */
     boolean isFloat();
 
-    /** Determines if this datatype has the IRI <code>xsd:double</code>
+    /** Determines if this datatype has the IRI {@code xsd:double}
      * 
      * @return {@code true} if this datatype has the IRI
-     *         <code>xsd:double</code>, otherwise {@code false}. */
+     *         {@code xsd:double}, otherwise {@code false}. */
     boolean isDouble();
 
-    /** Determines if this datatype has the IRI <code>xsd:boolean</code>
+    /** Determines if this datatype has the IRI {@code xsd:boolean}
      * 
      * @return {@code true} if this datatype has the IRI
-     *         <code>xsd:boolean</code>, otherwise {@code false}. */
+     *         {@code xsd:boolean}, otherwise {@code false}. */
     boolean isBoolean();
 
-    /** Determines if this datatype has the IRI <code>rdf:PlainLiteral</code>
+    /** Determines if this datatype has the IRI {@code rdf:PlainLiteral}
      * 
      * @return {@code true} if this datatype has the IRI
-     *         <code>rdf:PlainLiteral</code> otherwise {@code false} */
+     *         {@code rdf:PlainLiteral} otherwise {@code false} */
     boolean isRDFPlainLiteral();
 }

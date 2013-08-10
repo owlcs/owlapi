@@ -49,10 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
  * Bio-Health Informatics Group<br>
  * Date: 17-Dec-2006<br>
  * <br>
- * Incorporates a listener into an <code>OWLOntologyChangeFilter</code>. This
+ * Incorporates a listener into an {@code OWLOntologyChangeFilter}. This
  * listener listens to and processes axiom added and axiom removed changes. To
- * filter out axioms of interest, override the appropriate <code>visit</code>
- * method - see <code>OWLOntologyChangeFilter</code> for more details. */
+ * filter out axioms of interest, override the appropriate {@code visit}
+ * method - see {@code OWLOntologyChangeFilter} for more details. */
 public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter implements
         OWLOntologyChangeListener {
     @Override

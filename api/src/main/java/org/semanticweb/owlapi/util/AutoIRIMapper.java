@@ -140,7 +140,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     /** The mapper only examines files that have specified file extensions. This
      * method returns the file extensions that cause a file to be examined.
      * 
-     * @return A <code>Set</code> of file extensions. */
+     * @return A {@code Set} of file extensions. */
     public Set<String> getFileExtensions() {
         return fileExtensions;
     }
@@ -159,7 +159,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     /** Gets the set of ontology IRIs that this mapper has found
      * 
-     * @return A <code>Set</code> of ontology (logical) URIs */
+     * @return A {@code Set} of ontology (logical) URIs */
     public Set<IRI> getOntologyIRIs() {
         if (!mapped) {
             mapFiles();
@@ -325,7 +325,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
          * @param attributes
          *            The attributes which will be examined for the ontology
          *            URI.
-         * @return The ontology URI or <code>null</code> if no ontology URI
+         * @return The ontology URI or {@code null} if no ontology URI
          *         could be found. */
         IRI handle(Attributes attributes);
     }

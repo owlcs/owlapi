@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
     private final Set<OWLOntology> ontologySingletonSet;
 
-    /** Constructs an <code>OWLOntologySingletonSetProvider</code> which provides
+    /** Constructs an {@code OWLOntologySingletonSetProvider} which provides
      * a singleton set contain the specified ontology.
      * 
      * @param ontology

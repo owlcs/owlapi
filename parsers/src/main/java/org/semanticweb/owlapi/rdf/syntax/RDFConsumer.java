@@ -87,7 +87,7 @@ public interface RDFConsumer {
      * @param language
      *            the language
      * @param datatype
-     *            the URI of the literal's datatype (may be <code>null</code>)
+     *            the URI of the literal's datatype (may be {@code null})
      * @throws SAXException */
     void statementWithLiteralValue(@Nonnull String subject, @Nonnull String predicate,
             @Nonnull String object, @Nullable String language, @Nullable String datatype)

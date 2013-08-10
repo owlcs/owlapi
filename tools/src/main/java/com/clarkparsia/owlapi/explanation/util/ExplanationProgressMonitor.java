@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Date: 26-Nov-2007<br>
  * <br>
  * A progress monitor for an explanation generator. The progress monitor should
- * be used with an <code>MultipleExpalanationGenerator</code> */
+ * be used with an {@code MultipleExpalanationGenerator} */
 public interface ExplanationProgressMonitor {
     /** Determines if the process of generating explanations has been cancelled.
      * 

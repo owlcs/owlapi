@@ -69,7 +69,7 @@ import org.xml.sax.InputSource;
  * Date: 14-Nov-2006<br>
  * <br>
  * A convenience base class for parsers, which provides a mechanism to manage
- * the setting and getting of the <code>OWLOntologyManager</code> that should be
+ * the setting and getting of the {@code OWLOntologyManager} that should be
  * associated with the parser */
 public abstract class AbstractOWLParser implements OWLParser {
     private static final Logger LOGGER = Logger.getLogger(AbstractOWLParser.class
@@ -96,7 +96,7 @@ public abstract class AbstractOWLParser implements OWLParser {
      *            The URI from which the input stream should be returned
      * @return The input stream obtained from the URI
      * @throws IOException
-     *             if there was an <code>IOException</code> in obtaining the
+     *             if there was an {@code IOException} in obtaining the
      *             input stream from the URI. */
     @Nonnull
     protected InputStream getInputStream(@Nonnull IRI documentIRI,

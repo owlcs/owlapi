@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * Date: 27-Jul-2007<br>
  * <br>
  * <p/>
- * Generates <code>OWLClassAssertionsAxiom</code>s for inferred individual
+ * Generates {@code OWLClassAssertionsAxiom}s for inferred individual
  * types. */
 public class InferredClassAssertionAxiomGenerator extends
         InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {

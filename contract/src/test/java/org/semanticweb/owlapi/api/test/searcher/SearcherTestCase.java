@@ -102,7 +102,7 @@ public class SearcherTestCase {
     // *
     // * @param ontology
     // * The ontology to be examined
-    // * @return A <code>Set</code> of <code>OWLClassExpression</code>s that
+    // * @return A {@code Set} of {@code OWLClassExpression}s that
     // * represent the superclasses of this class, which have been
     // * asserted in the specified ontology. */
     // Set<OWLClassExpression> getSuperClasses(OWLOntology ontology);
@@ -114,7 +114,7 @@ public class SearcherTestCase {
     // *
     // * @param ontologies
     // * The set of ontologies to be examined.
-    // * @return A set of <code>OWLClassExpressions</code>s that represent the
+    // * @return A set of {@code OWLClassExpressions}s that represent the
     // * super classes of this class */
     // Set<OWLClassExpression> getSuperClasses(Set<OWLOntology> ontologies);
     //
@@ -124,7 +124,7 @@ public class SearcherTestCase {
     // *
     // * @param ontology
     // * The ontology which should be examined for subclass axioms.
-    // * @return A <code>Set</code> of <code>OWLClassExpression</code>s that
+    // * @return A {@code Set} of {@code OWLClassExpression}s that
     // * represet the asserted subclasses of this class. */
     // Set<OWLClassExpression> getSubClasses(OWLOntology ontology);
     //
@@ -134,7 +134,7 @@ public class SearcherTestCase {
     // *
     // * @param ontologies
     // * The ontologies which should be examined for subclass axioms.
-    // * @return A <code>Set</code> of <code>OWLClassExpression</code>s that
+    // * @return A {@code Set} of {@code OWLClassExpression}s that
     // * represet the asserted subclasses of this class. */
     // Set<OWLClassExpression> getSubClasses(Set<OWLOntology> ontologies);
     //
@@ -146,7 +146,7 @@ public class SearcherTestCase {
     // *
     // * @param ontology
     // * The ontology to be examined for axioms
-    // * @return A <code>Set</code> of <code>OWLClassExpression</code>s that
+    // * @return A {@code Set} of {@code OWLClassExpression}s that
     // * represent the equivalent classes of this class, that have been
     // * asserted in the specified ontology. */
     // Set<OWLClassExpression> getEquivalentClasses(OWLOntology ontology);
@@ -159,7 +159,7 @@ public class SearcherTestCase {
     // *
     // * @param ontologies
     // * The ontologies to be examined for axioms
-    // * @return A <code>Set</code> of <code>OWLClassExpression</code>s that
+    // * @return A {@code Set} of {@code OWLClassExpression}s that
     // * represent the equivalent classes of this class, that have been
     // * asserted in the specified ontologies. */
     // Set<OWLClassExpression> getEquivalentClasses(Set<OWLOntology>
@@ -171,7 +171,7 @@ public class SearcherTestCase {
     // *
     // * @param ontology
     // * The ontology to search for disjoint class axioms
-    // * @return A <code>Set</code> of <code>OWLClassExpression</code>s that
+    // * @return A {@code Set} of {@code OWLClassExpression}s that
     // * represent the disjoint classes of this class. */
     // Set<OWLClassExpression> getDisjointClasses(OWLOntology ontology);
     //
@@ -181,7 +181,7 @@ public class SearcherTestCase {
     // *
     // * @param ontologies
     // * The ontologies to search for disjoint class axioms
-    // * @return A <code>Set</code> of <code>OWLClassExpression</code>s that
+    // * @return A {@code Set} of {@code OWLClassExpression}s that
     // * represent the disjoint classes of this class. */
     // Set<OWLClassExpression> getDisjointClasses(Set<OWLOntology> ontologies);
     //
@@ -192,7 +192,7 @@ public class SearcherTestCase {
     // * @param ontology
     // * The ontology to be examined for class assertion axioms that
     // * assert an individual to be an instance of this class.
-    // * @return A <code>Set</code> of <code>OWLIndividual</code>s that
+    // * @return A {@code Set} of {@code OWLIndividual}s that
     // represent
     // * the individual that have been asserted to be an instance of this
     // * class. */
@@ -205,7 +205,7 @@ public class SearcherTestCase {
     // * @param ontologies
     // * The ontologies to be examined for class assertion axioms that
     // * assert an individual to be an instance of this class.
-    // * @return A <code>Set</code> of <code>OWLIndividual</code>s that
+    // * @return A {@code Set} of {@code OWLIndividual}s that
     // represent
     // * the individual that have been asserted to be an instance of this
     // * class. */
@@ -217,8 +217,8 @@ public class SearcherTestCase {
     // *
     // * @param ontology
     // * The ontology to examine for axioms.
-    // * @return {@code true} if <code>ontology</code> contains an
-    // * <code>EquivalentClassesAxiom</code> where this class is a top
+    // * @return {@code true} if {@code ontology} contains an
+    // * {@code EquivalentClassesAxiom} where this class is a top
     // * level class in the axiom, other wise {@code false}. */
     // boolean isDefined(OWLOntology ontology);
     //
@@ -228,8 +228,8 @@ public class SearcherTestCase {
     // *
     // * @param ontologies
     // * The ontologies to examine for axioms.
-    // * @return {@code true} if one or more of <code>ontologies</code>
-    // * contains an <code>EquivalentClassesAxiom</code> where this class
+    // * @return {@code true} if one or more of {@code ontologies}
+    // * contains an {@code EquivalentClassesAxiom} where this class
     // * is a top level class in the axiom, other wise {@code false}. */
     // boolean isDefined(Set<OWLOntology> ontologies);
     //
@@ -253,7 +253,7 @@ public class SearcherTestCase {
     // * The ontology to examine for annotation axioms
     // * @param annotationProperty
     // * The annotation property
-    // * @return A set of <code>OWLAnnotation</code> objects that have the
+    // * @return A set of {@code OWLAnnotation} objects that have the
     // * specified URI. */
     // Set<OWLAnnotation> getAnnotations(OWLOntology ontology,
     // OWLAnnotationProperty annotationProperty);

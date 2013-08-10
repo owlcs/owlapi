@@ -80,7 +80,7 @@ public interface OWLProfile {
      * 
      * @param ontology
      *            The ontology to be checked.
-     * @return An <code>OWLProfileReport</code> that describes whether or not
+     * @return An {@code OWLProfileReport} that describes whether or not
      *         the ontology is within this profile. */
     OWLProfileReport checkOntology(OWLOntology ontology);
 }

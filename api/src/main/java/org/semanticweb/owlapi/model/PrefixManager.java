@@ -56,7 +56,7 @@ public interface PrefixManager extends Serializable {
     /** Gets the default prefix. The default prefix is denoted by the prefix name
      * ":"
      * 
-     * @return The default prefix, or <code>null</code> if there is no default
+     * @return The default prefix, or {@code null} if there is no default
      *         prefix. */
     @Nonnull
     String getDefaultPrefix();
@@ -72,7 +72,7 @@ public interface PrefixManager extends Serializable {
 
     /** Gets the prefix that is bound to a particular prefix name. Note that
      * specifying ":" corresponds to requesting the default prefix and will
-     * return the same result as a call to the <code>getDefaultPrefix()</code>
+     * return the same result as a call to the {@code getDefaultPrefix()}
      * method.
      * 
      * @param prefixName
@@ -80,7 +80,7 @@ public interface PrefixManager extends Serializable {
      *            prefix to be retrieved. Note that specifying ":" is the same
      *            as asking for the default prefix (see the getDefaultPrefix()
      *            method).
-     * @return The prefix, or <code>null</code> if there is no prefix name bound
+     * @return The prefix, or {@code null} if there is no prefix name bound
      *         to this prefix, or the prefix name doesn't exist. */
     @Nonnull
     String getPrefix(@Nonnull String prefixName);
@@ -110,7 +110,7 @@ public interface PrefixManager extends Serializable {
      * 
      * @param iri
      *            The IRI whose prefix it to be retrieved
-     * @return The prefix IRI for this IRI, or <code>null</code> if a prefix IRI
+     * @return The prefix IRI for this IRI, or {@code null} if a prefix IRI
      *         cannot be generated. */
     @Nullable
     String getPrefixIRI(@Nonnull IRI iri);
@@ -126,7 +126,7 @@ public interface PrefixManager extends Serializable {
      * 
      * @param defaultPrefix
      *            The namespace to be used as the default namespace. Note that
-     *            the value may be <code>null</code> in order to clear the
+     *            the value may be {@code null} in order to clear the
      *            default namespace. */
     void setDefaultPrefix(@Nonnull String defaultPrefix);
 

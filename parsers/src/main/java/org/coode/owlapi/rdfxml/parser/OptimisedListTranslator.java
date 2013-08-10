@@ -55,9 +55,9 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Date: 08-Jan-2007<br>
  * <br>
  * <p/>
- * Translates an rdf:List into a Java <code>List</code>, or Java
- * <code>Set</code>. The type of list (i.e. the type of objects in the list) are
- * determined by a <code>ListItemTranslator</code>. The translator consumes all
+ * Translates an rdf:List into a Java {@code List}, or Java
+ * {@code Set}. The type of list (i.e. the type of objects in the list) are
+ * determined by a {@code ListItemTranslator}. The translator consumes all
  * triples which are used in the translation. */
 public class OptimisedListTranslator<O extends OWLObject> {
     private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());

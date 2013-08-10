@@ -115,11 +115,11 @@ public abstract class OWLOntologyFormat {
     /** If this format describes an ontology that was loaded from some ontology
      * document (rather than created programmatically) there may be some meta
      * data about the loading process. Subclasses of
-     * <code>OWLOntologyFormat</code> will provide accessors etc. to details
+     * {@code OWLOntologyFormat} will provide accessors etc. to details
      * pertaining to the meta data about loading.
      * 
      * @return An object containing the meta data about loading. Not
-     *         <code>null</code>. */
+     *         {@code null}. */
     public OWLOntologyLoaderMetaData getOntologyLoaderMetaData() {
         return loaderMetaData;
     }
@@ -127,9 +127,9 @@ public abstract class OWLOntologyFormat {
     /** Sets the meta data for the ontology loader.
      * 
      * @param loaderMetaData
-     *            The metadata. Must not be <code>null</code>.
+     *            The metadata. Must not be {@code null}.
      * @throws NullPointerException
-     *             if the <code>loaderMetaData</code> is <code>null</code>. */
+     *             if the {@code loaderMetaData} is {@code null}. */
     public void setOntologyLoaderMetaData(OWLOntologyLoaderMetaData loaderMetaData) {
         this.loaderMetaData = loaderMetaData;
     }

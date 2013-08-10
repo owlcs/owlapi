@@ -97,7 +97,7 @@ public class XMLWriterNamespaceManager {
      * 
      * @param name
      *            The name which represents the full name.
-     * @return The QName representation or <code>null</code> if a QName could
+     * @return The QName representation or {@code null} if a QName could
      *         not be generated. */
     @Nullable
     public String getQName(@Nonnull String name) {

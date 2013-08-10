@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Bio-Health Informatics Group<br>
  * Date: 15-Nov-2006<br>
  * <br>
- * An object that can create an <code>OWLParser</code>. */
+ * An object that can create an {@code OWLParser}. */
 public interface OWLParserFactory {
     /** Creates a parser
      * 

@@ -54,7 +54,7 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
      * the exact instances (extension) of this class expression.
      * 
      * @return The individiauls that are the values of this
-     *         <code>ObjectOneOf</code> class expression. */
+     *         {@code ObjectOneOf} class expression. */
     @Nonnull
     Set<OWLIndividual> getIndividuals();
 

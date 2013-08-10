@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
  * Date: 08-Dec-2006<br>
  * <br>
  * <p/>
- * Translates a set of triples that represent an <code>OWLComplementOf</code>
+ * Translates a set of triples that represent an {@code OWLComplementOf}
  * class expression. */
 public class ObjectComplementOfTranslator extends AbstractClassExpressionTranslator {
     public ObjectComplementOfTranslator(OWLRDFConsumer consumer) {

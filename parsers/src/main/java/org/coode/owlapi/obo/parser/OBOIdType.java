@@ -145,7 +145,7 @@ public enum OBOIdType {
      * 
      * @param oboId
      *            The OBO ID. Must not be null.
-     * @return The OBOIdType for the specified oboId, or <code>null</code> if
+     * @return The OBOIdType for the specified oboId, or {@code null} if
      *         the specified oboId does not conform to any OBO Id type. */
     public static OBOIdType getIdType(String oboId) {
         if (oboId == null) {

@@ -62,7 +62,7 @@ public interface OWLReasonerFactory {
 
     /** Creates an OWLReasoner that reasons over the imports closure of the
      * specified ontology. The reasoner will obtain the imports closure from the
-     * ontology manager associated with <code>ontology</code>. The reasoner will
+     * ontology manager associated with {@code ontology}. The reasoner will
      * listen for ontology changes to the ontologies that it is reasoning over
      * and will always answer queries with respect to the changed ontologies
      * (see {@link org.semanticweb.owlapi.reasoner.OWLReasoner} for further
@@ -81,7 +81,7 @@ public interface OWLReasonerFactory {
 
     /** Creates a buffering reasoner that reasons over the imports closure of the
      * specified ontology. The reasoner will obtain the imports closure from the
-     * ontology manager associated with <code>ontology</code>. The reasoner will
+     * ontology manager associated with {@code ontology}. The reasoner will
      * listen for ontology changes to the ontologies it is reasoning over but
      * will only answer queries with respect to the changed ontologies when the
      * {@link OWLReasoner#flush()} method is called (see
@@ -100,7 +100,7 @@ public interface OWLReasonerFactory {
 
     /** Creates an OWLReasoner that reasons over the imports closure of the
      * specified ontology. The reasoner will obtain the imports closure from the
-     * ontology manager associated with <code>ontology</code>. The reasoner will
+     * ontology manager associated with {@code ontology}. The reasoner will
      * listen for ontology changes to the ontologies that it is reasoning over
      * and will always answer queries with respect to the changed ontologies
      * (see {@link org.semanticweb.owlapi.reasoner.OWLReasoner} for further
@@ -128,7 +128,7 @@ public interface OWLReasonerFactory {
 
     /** Creates a buffering reasoner that reasons over the imports closure of the
      * specified ontology. The reasoner will obtain the imports closure from the
-     * ontology manager associated with <code>ontology</code>. The reasoner will
+     * ontology manager associated with {@code ontology}. The reasoner will
      * listen for ontology changes to the ontologies it is reasoning over but
      * will only answer queries with respect to the changed ontologies when the
      * {@link OWLReasoner#flush()} method is called (see

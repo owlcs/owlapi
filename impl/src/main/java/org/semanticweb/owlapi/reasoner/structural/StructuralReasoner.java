@@ -948,7 +948,7 @@ public class StructuralReasoner extends OWLReasonerBase {
          * @param stackEntities
          *            stack entities
          * @param cache
-         *            A cache of children to parents - may be <code>null</code>
+         *            A cache of children to parents - may be {@code null}
          *            if no caching is to take place.
          * @param childrenOfTop
          *            A set of entities that have a raw parent that is the top

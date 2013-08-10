@@ -445,11 +445,11 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     }
 
     /** Extracts the IRI of the resource from rdf:resource or rdf:nodeID
-     * attribute. If no attribute is found, <code>null</code> is returned.
+     * attribute. If no attribute is found, {@code null} is returned.
      * 
      * @param atts
      *            the attributes
-     * @return the IRI of the resource or <code>null</code> */
+     * @return the IRI of the resource or {@code null} */
     @Nullable
     protected String getNodeIDResourceResourceIRI(@Nonnull Attributes atts)
             throws SAXException {
@@ -476,7 +476,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param object
      *            IRI of the object resource
      * @param reificationID
-     *            if not <code>null</code>, contains IRI of the resource that
+     *            if not {@code null}, contains IRI of the resource that
      *            will wold the reified statement */
     protected void statementWithResourceValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
@@ -500,9 +500,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param object
      *            literal object value
      * @param dataType
-     *            the IRI of the literal's datatype (may be <code>null</code>)
+     *            the IRI of the literal's datatype (may be {@code null})
      * @param reificationID
-     *            if not <code>null</code>, contains IRI of the resource that
+     *            if not {@code null}, contains IRI of the resource that
      *            will wold the reified statement */
     protected void statementWithLiteralValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object, @Nullable String dataType,
@@ -837,7 +837,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     }
 
     /** Parses resourcePropertyElt or literalPropertyElt productions. m_text is
-     * <code>null</code> when startElement is expected on the actual property
+     * {@code null} when startElement is expected on the actual property
      * element. */
     protected class ResourceOrLiteralPropertyElement extends State {
         protected NodeElement m_nodeElement;

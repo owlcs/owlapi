@@ -88,26 +88,26 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(nodes);
     }
 
-    /** Adds an entity to this <code>NodeSet</code> by wrapping it in a
-     * <code>Node</code>.
+    /** Adds an entity to this {@code NodeSet} by wrapping it in a
+     * {@code Node}.
      * 
      * @param entity
      *            The entity to be added. The entity will be wrapped in the
-     *            <code>Node</code> and the <code>Node</code> added to this set.
-     *            Must not be <code>null</code>.
+     *            {@code Node} and the {@code Node} added to this set.
+     *            Must not be {@code null}.
      * @throws NullPointerException
-     *             if <code>entity</code> is <code>null</code>. */
+     *             if {@code entity} is {@code null}. */
     // XXX not in the interface
     public void addEntity(@Nonnull E entity) {
         addNode(getNode(checkNotNull(entity, "entity cannot be null")));
     }
 
-    /** Adds a <code>Node</code> to this set.
+    /** Adds a {@code Node} to this set.
      * 
      * @param node
-     *            The <code>Node</code> to be added.
+     *            The {@code Node} to be added.
      * @throws NullPointerException
-     *             if <code>entity</code> is <code>null</code>. */
+     *             if {@code entity} is {@code null}. */
     // XXX not in the interface
     public void addNode(Node<E> node) {
         if (node == null) {
@@ -116,11 +116,11 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         nodes.add(node);
     }
 
-    /** Adds a collection of <code>Node</code>s to this set.
+    /** Adds a collection of {@code Node}s to this set.
      * 
      * @param nodeset
-     *            The <code>Node</code>s to be added. Note that if the
-     *            collection is not a set then duplicate <code>Node</code>s will
+     *            The {@code Node}s to be added. Note that if the
+     *            collection is not a set then duplicate {@code Node}s will
      *            be filtered out. */
     // XXX not in the interface
     public void addAllNodes(Collection<Node<E>> nodeset) {
@@ -131,23 +131,23 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         }
     }
 
-    /** Adds the set of entities as a <code>Node</code> to this set.
+    /** Adds the set of entities as a {@code Node} to this set.
      * 
      * @param entities
      *            The set of entities to be added. The entities will be wrapped
-     *            in a <code>Node</code> which will be added to this
-     *            <code>NodeSet</code>. */
+     *            in a {@code Node} which will be added to this
+     *            {@code NodeSet}. */
     // XXX not in the interface
     public void addSameEntities(Set<E> entities) {
         nodes.add(getNode(entities));
     }
 
-    /** Adds the specified entities as <code>Node</code>s to this set.
+    /** Adds the specified entities as {@code Node}s to this set.
      * 
      * @param entities
      *            The entities to be added. Each entity will be wrapped in a
-     *            <code>Node</code> which will then be added to this
-     *            <code>NodeSet</code>. */
+     *            {@code Node} which will then be added to this
+     *            {@code NodeSet}. */
     // XXX not in the interface
     public void addDifferentEntities(Set<E> entities) {
         for (E e : entities) {

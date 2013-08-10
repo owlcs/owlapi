@@ -61,9 +61,9 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      * this method is the dual of {@link #isNamed()}.
      * 
      * @return {@code true} if this object represents an anonymous
-     *         individual (<code>OWLAnonymousIndividual)</code> or
+     *         individual ({@code OWLAnonymousIndividual)} or
      *         {@code false} if this object represents a named individual (
-     *         <code>OWLIndividual</code>) */
+     *         {@code OWLIndividual}) */
     boolean isAnonymous();
 
     /** Obtains this individual as a named individual if it is indeed named.

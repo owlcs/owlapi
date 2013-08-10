@@ -101,7 +101,7 @@ public class BidirectionalShortFormProviderAdapter extends
 
     /** Creates a BidirectionalShortFormProvider that maps between the entities
      * that are referenced in the specified ontologies and the shortforms of
-     * these entities. Note that the <code>dispose</code> method must be called
+     * these entities. Note that the {@code dispose} method must be called
      * when the provider has been finished with so that the provider may remove
      * itself as a listener from the manager.
      * 

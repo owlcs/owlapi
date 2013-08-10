@@ -316,69 +316,69 @@ public interface OWLDataFactory extends SWRLDataFactory {
             @Nonnull PrefixManager prefixManager);
 
     /** Gets an annotation property that has an IRI corresponding to
-     * <code>rdfs:label</code>.
+     * {@code rdfs:label}.
      * 
-     * @return An annotation property with an IRI of <code>rdfs:label</code>. */
+     * @return An annotation property with an IRI of {@code rdfs:label}. */
     @Nonnull
     OWLAnnotationProperty getRDFSLabel();
 
     /** Gets an annotation property that has an IRI corresponding to
-     * <code>rdfs:comment</code>.
+     * {@code rdfs:comment}.
      * 
-     * @return An annotation property with an IRI of <code>rdfs:comment</code>. */
+     * @return An annotation property with an IRI of {@code rdfs:comment}. */
     @Nonnull
     OWLAnnotationProperty getRDFSComment();
 
     /** Gets an annotation property that has an IRI corresponding to
-     * <code>rdfs:seeAlso</code>.
+     * {@code rdfs:seeAlso}.
      * 
-     * @return An annotation property with an IRI of <code>rdfs:seeAlso</code>. */
+     * @return An annotation property with an IRI of {@code rdfs:seeAlso}. */
     @Nonnull
     OWLAnnotationProperty getRDFSSeeAlso();
 
     /** Gets an annotation property that has an IRI corresponding to
-     * <code>rdfs:isDefinedBy</code>.
+     * {@code rdfs:isDefinedBy}.
      * 
      * @return An annotation property with an IRI of
-     *         <code>rdfs:isDefinedBy</code>. */
+     *         {@code rdfs:isDefinedBy}. */
     @Nonnull
     OWLAnnotationProperty getRDFSIsDefinedBy();
 
     /** Gets an annotation property that has an IRI corresponding to
-     * <code>owl:versionInfo</code>.
+     * {@code owl:versionInfo}.
      * 
      * @return An annotation property with an IRI of
-     *         <code>owl:versionInfo</code>. */
+     *         {@code owl:versionInfo}. */
     @Nonnull
     OWLAnnotationProperty getOWLVersionInfo();
 
     /** Gets an annotation property that has an IRI corresponding to
-     * <code>owl:backwardCompatibleWith</code>.
+     * {@code owl:backwardCompatibleWith}.
      * 
      * @return An annotation property with an IRI of
-     *         <code>owl:backwardCompatibleWith</code>. */
+     *         {@code owl:backwardCompatibleWith}. */
     @Nonnull
     OWLAnnotationProperty getOWLBackwardCompatibleWith();
 
     /** Gets an annotation property that has an IRI corresponding to
-     * <code>owl:incompatibleWith</code>.
+     * {@code owl:incompatibleWith}.
      * 
      * @return An annotation property with an IRI of
-     *         <code>owl:incompatibleWith</code>. */
+     *         {@code owl:incompatibleWith}. */
     @Nonnull
     OWLAnnotationProperty getOWLIncompatibleWith();
 
     /** Gets an annotation property that has an IRI corresponding to
-     * <code>owl:backwardCompatibleWith</code>.
+     * {@code owl:backwardCompatibleWith}.
      * 
      * @return An annotation property with an IRI of
-     *         <code>owl:backwardCompatibleWith</code>. */
+     *         {@code owl:backwardCompatibleWith}. */
     @Nonnull
     OWLAnnotationProperty getOWLDeprecated();
 
     /** Gets the rdf:PlainLiteral datatype.
      * 
-     * @return The datatype with an IRI of <code>rdf:PlainLiteral</code> */
+     * @return The datatype with an IRI of {@code rdf:PlainLiteral} */
     @Nonnull
     OWLDatatype getRDFPlainLiteral();
 
@@ -451,7 +451,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLDatatype getBooleanOWLDatatype();
 
     // Literals
-    /** Gets an <code>OWLLiteral</code>, which has the specified lexical value,
+    /** Gets an {@code OWLLiteral}, which has the specified lexical value,
      * and is typed with the specified datatype.
      * 
      * @param lexicalValue
@@ -459,7 +459,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param datatype
      *            The datatype. Cannot be null.
      * @return An OWLLiteral with the specified lexical value and specified
-     *         datatype. If the datatype is <code>rdf:PlainLiteral</code>, and
+     *         datatype. If the datatype is {@code rdf:PlainLiteral}, and
      *         the lexical value contains a language tag then the language tag
      *         will be parsed out of the lexical value. For example,
      *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value
@@ -467,7 +467,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
     @Nonnull
     OWLLiteral getOWLLiteral(@Nonnull String lexicalValue, @Nonnull OWLDatatype datatype);
 
-    /** Gets an <code>OWLLiteral</code>, which has the specified lexical value,
+    /** Gets an {@code OWLLiteral}, which has the specified lexical value,
      * and is typed with the specified datatype.
      * 
      * @param lexicalValue
@@ -475,7 +475,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * @param datatype
      *            The datatype. Cannot be null.
      * @return An OWLLiteral with the specified lexical value and specified
-     *         datatype. If the datatype is <code>rdf:PlainLiteral</code>, and
+     *         datatype. If the datatype is {@code rdf:PlainLiteral}, and
      *         the lexical value contains a language tag then the language tag
      *         will be parsed out of the lexical value. For example,
      *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value
@@ -488,7 +488,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param value
      *            The value of the literal
-     * @return An <code>OWLTypedConstant</code> whose literal is the lexical
+     * @return An {@code OWLTypedConstant} whose literal is the lexical
      *         value of the integer, and whose data type is xsd:integer. */
     @Nonnull
     OWLLiteral getOWLLiteral(int value);
@@ -497,7 +497,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param value
      *            The value of the literal
-     * @return An <code>OWLTypedConstant</code> whose literal is the lexical
+     * @return An {@code OWLTypedConstant} whose literal is the lexical
      *         value of the double, and whose data type is xsd:double. */
     @Nonnull
     OWLLiteral getOWLLiteral(double value);
@@ -506,7 +506,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param value
      *            The value of the literal
-     * @return An <code>OWLTypedConstant</code> whose literal is the lexical
+     * @return An {@code OWLTypedConstant} whose literal is the lexical
      *         value of the boolean, and whose data type is xsd:boolean. */
     @Nonnull
     OWLLiteral getOWLLiteral(boolean value);
@@ -515,7 +515,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param value
      *            The value of the literal
-     * @return An <code>OWLTypedConstant</code> whose literal is the lexical
+     * @return An {@code OWLTypedConstant} whose literal is the lexical
      *         value of the float, and whose data type is xsd:float. */
     @Nonnull
     OWLLiteral getOWLLiteral(float value);
@@ -540,8 +540,8 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *            The language tag. The empty string may be specified to
      *            indicate an empty language tag. Leading and trailing white
      *            space will be removed from the tag and the tag will be
-     *            normalised to LOWER CASE. If <code>lang</code> is
-     *            <code>null</code> then <code>lang</code> will be converted to
+     *            normalised to LOWER CASE. If {@code lang} is
+     *            {@code null} then {@code lang} will be converted to
      *            the empty string (for backwards compatibility). If not empty,
      *            the tag is formed according to <a
      *            href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a>
@@ -630,12 +630,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param minInclusive
      *            The value of the min inclusive facet restriction that will be
-     *            applied to the <code>xsd:integer</code> datatype
-     * @return An <code>OWLDatatypeRestriction</code> that restricts the
-     *         <code>xsd:integer</code>
+     *            applied to the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the
+     *         {@code xsd:integer}
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet
-     *         value specified by the <code>minInclusive</code> parameter. */
+     *         value specified by the {@code minInclusive} parameter. */
     @Nonnull
     OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(int minInclusive);
 
@@ -644,12 +644,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param maxInclusive
      *            The value of the max inclusive facet restriction that will be
-     *            applied to the <code>xsd:integer</code> datatype
-     * @return An <code>OWLDatatypeRestriction</code> that restricts the
-     *         <code>xsd:integer</code>
+     *            applied to the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the
+     *         {@code xsd:integer}
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
-     *         value specified by the <code>maxInclusive</code> parameter. */
+     *         value specified by the {@code maxInclusive} parameter. */
     @Nonnull
     OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(int maxInclusive);
 
@@ -658,17 +658,17 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param minInclusive
      *            The value of the max inclusive facet restriction that will be
-     *            applied to the <code>xsd:integer</code> datatype.
+     *            applied to the {@code xsd:integer} datatype.
      * @param maxInclusive
      *            The value of the max inclusive facet restriction that will be
-     *            applied to the <code>xsd:integer</code> datatype
-     * @return An <code>OWLDatatypeRestriction</code> that restricts the
-     *         <code>xsd:integer</code>
+     *            applied to the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the
+     *         {@code xsd:integer}
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet
-     *         value specified by the <code>minInclusive</code> parameter and a
+     *         value specified by the {@code minInclusive} parameter and a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
-     *         value specified by the <code>maxInclusive</code> parameter. */
+     *         value specified by the {@code maxInclusive} parameter. */
     @Nonnull
     OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(int minInclusive,
             int maxInclusive);
@@ -678,12 +678,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param minExclusive
      *            The value of the min exclusive facet restriction that will be
-     *            applied to the <code>xsd:integer</code> datatype
-     * @return An <code>OWLDatatypeRestriction</code> that restricts the
-     *         <code>xsd:integer</code>
+     *            applied to the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the
+     *         {@code xsd:integer}
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet
-     *         value specified by the <code>minExclusive</code> parameter. */
+     *         value specified by the {@code minExclusive} parameter. */
     @Nonnull
     OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(int minExclusive);
 
@@ -692,12 +692,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param maxExclusive
      *            The value of the max exclusive facet restriction that will be
-     *            applied to the <code>xsd:integer</code> datatype
-     * @return An <code>OWLDatatypeRestriction</code> that restricts the
-     *         <code>xsd:integer</code>
+     *            applied to the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the
+     *         {@code xsd:integer}
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
-     *         value specified by the <code>maxExclusive</code> parameter. */
+     *         value specified by the {@code maxExclusive} parameter. */
     @Nonnull
     OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(int maxExclusive);
 
@@ -706,17 +706,17 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param minExclusive
      *            The value of the max exclusive facet restriction that will be
-     *            applied to the <code>xsd:integer</code> datatype.
+     *            applied to the {@code xsd:integer} datatype.
      * @param maxExclusive
      *            The value of the max exclusive facet restriction that will be
-     *            applied to the <code>xsd:integer</code> datatype
-     * @return An <code>OWLDatatypeRestriction</code> that restricts the
-     *         <code>xsd:integer</code>
+     *            applied to the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the
+     *         {@code xsd:integer}
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet
-     *         value specified by the <code>minExclusive</code> parameter and a
+     *         value specified by the {@code minExclusive} parameter and a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
-     *         value specified by the <code>maxExclusive</code> parameter. */
+     *         value specified by the {@code maxExclusive} parameter. */
     @Nonnull
     OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(int minExclusive,
             int maxExclusive);
@@ -726,12 +726,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param minInclusive
      *            The value of the min inclusive facet restriction that will be
-     *            applied to the <code>xsd:double</code> datatype
-     * @return An <code>OWLDatatypeRestriction</code> that restricts the
-     *         <code>xsd:double</code>
+     *            applied to the {@code xsd:double} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the
+     *         {@code xsd:double}
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet
-     *         value specified by the <code>minInclusive</code> parameter. */
+     *         value specified by the {@code minInclusive} parameter. */
     @Nonnull
     OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(double minInclusive);
 
@@ -740,12 +740,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param maxInclusive
      *            The value of the max inclusive facet restriction that will be
-     *            applied to the <code>xsd:double</code> datatype
-     * @return An <code>OWLDatatypeRestriction</code> that restricts the
-     *         <code>xsd:double</code>
+     *            applied to the {@code xsd:double} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the
+     *         {@code xsd:double}
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
-     *         value specified by the <code>maxInclusive</code> parameter. */
+     *         value specified by the {@code maxInclusive} parameter. */
     @Nonnull
     OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(double maxInclusive);
 
@@ -754,17 +754,17 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param minInclusive
      *            The value of the max inclusive facet restriction that will be
-     *            applied to the <code>xsd:double</code> datatype.
+     *            applied to the {@code xsd:double} datatype.
      * @param maxInclusive
      *            The value of the max inclusive facet restriction that will be
-     *            applied to the <code>xsd:double</code> datatype
-     * @return An <code>OWLDatatypeRestriction</code> that restricts the
-     *         <code>xsd:double</code>
+     *            applied to the {@code xsd:double} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the
+     *         {@code xsd:double}
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet
-     *         value specified by the <code>minInclusive</code> parameter and a
+     *         value specified by the {@code minInclusive} parameter and a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
-     *         value specified by the <code>maxInclusive</code> parameter. */
+     *         value specified by the {@code maxInclusive} parameter. */
     @Nonnull
     OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(double minInclusive,
             double maxInclusive);
@@ -774,12 +774,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param minExclusive
      *            The value of the min exclusive facet restriction that will be
-     *            applied to the <code>xsd:double</code> datatype
-     * @return An <code>OWLDatatypeRestriction</code> that restricts the
-     *         <code>xsd:double</code>
+     *            applied to the {@code xsd:double} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the
+     *         {@code xsd:double}
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet
-     *         value specified by the <code>minExclusive</code> parameter. */
+     *         value specified by the {@code minExclusive} parameter. */
     @Nonnull
     OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(double minExclusive);
 
@@ -788,12 +788,12 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param maxExclusive
      *            The value of the max exclusive facet restriction that will be
-     *            applied to the <code>xsd:double</code> datatype
-     * @return An <code>OWLDatatypeRestriction</code> that restricts the
-     *         <code>xsd:double</code>
+     *            applied to the {@code xsd:double} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the
+     *         {@code xsd:double}
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
-     *         value specified by the <code>maxExclusive</code> parameter. */
+     *         value specified by the {@code maxExclusive} parameter. */
     @Nonnull
     OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(double maxExclusive);
 
@@ -802,17 +802,17 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param minExclusive
      *            The value of the max exclusive facet restriction that will be
-     *            applied to the <code>xsd:double</code> datatype.
+     *            applied to the {@code xsd:double} datatype.
      * @param maxExclusive
      *            The value of the max exclusive facet restriction that will be
-     *            applied to the <code>xsd:double</code> datatype
-     * @return An <code>OWLDatatypeRestriction</code> that restricts the
-     *         <code>xsd:double</code>
+     *            applied to the {@code xsd:double} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the
+     *         {@code xsd:double}
      *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet
-     *         value specified by the <code>minExclusive</code> parameter and a
+     *         value specified by the {@code minExclusive} parameter and a
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
-     *         value specified by the <code>maxExclusive</code> parameter. */
+     *         value specified by the {@code maxExclusive} parameter. */
     @Nonnull
     OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(double minExclusive,
             double maxExclusive);
@@ -2100,7 +2100,7 @@ public interface OWLDataFactory extends SWRLDataFactory {
 
     /** Gets an annotation assertion that specifies that an IRI is deprecated.
      * The annotation property is owl:deprecated and the value of the annotation
-     * is <code>"true"^^xsd:boolean</code>. (See <a href=
+     * is {@code "true"^^xsd:boolean}. (See <a href=
      * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Properties"
      * >Annotation Properties</a> in the OWL 2 Specification
      * 

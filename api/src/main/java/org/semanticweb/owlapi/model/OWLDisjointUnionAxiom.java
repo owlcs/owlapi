@@ -59,29 +59,29 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
 
     /** Gets the class expressions which are operands of the disjoint union.
      * 
-     * @return A <code>Set</code> containing the operands of the disjoint union,
-     *         note that this <b>does not</b> include the <code>OWLClass</code>
+     * @return A {@code Set} containing the operands of the disjoint union,
+     *         note that this <b>does not</b> include the {@code OWLClass}
      *         that is equivalent to the disjoint union. */
     @Nonnull
     Set<OWLClassExpression> getClassExpressions();
 
     /** Gets the part of this axiom that corresponds to an
-     * <code>EquivalentClasses</code> axiom.
+     * {@code EquivalentClasses} axiom.
      * 
      * @return The equivalent classes axiom part of this axiom. This is
-     *         essentially, <code>EquivalentClasses(CE, CEUnion)</code> where
-     *         <code>CEUnion</code> is the union of the classes returned by the
-     *         {@link #getClassExpressions()} method and <code>CE</code> is the
+     *         essentially, {@code EquivalentClasses(CE, CEUnion)} where
+     *         {@code CEUnion} is the union of the classes returned by the
+     *         {@link #getClassExpressions()} method and {@code CE} is the
      *         class returned by the {@link #getOWLClass()} method. */
     @Nonnull
     OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom();
 
     /** Gets the part of this axiom that corresponds to an
-     * <code>DisjointClasses</code> axiom.
+     * {@code DisjointClasses} axiom.
      * 
      * @return The disjoint classes axiom part of this axiom. This is
-     *         essentially, <code>DisjointClasses(CE1, ..., CEn)</code> where
-     *         <code>CEi in {CE1, ..., CEn}</code> is contained in the classes
+     *         essentially, {@code DisjointClasses(CE1, ..., CEn)} where
+     *         {@code CEi in {CE1, ..., CEn}} is contained in the classes
      *         returned by the {@link #getClassExpressions()} method. */
     @Nonnull
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom();

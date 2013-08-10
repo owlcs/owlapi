@@ -76,7 +76,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     private final ShortFormProvider alternateShortFormProvider;
 
     /** Constructs a property value short form provider. Using
-     * <code>SimpleShortFormProvider</code> as the alternate short form provider
+     * {@code SimpleShortFormProvider} as the alternate short form provider
      * (see other constructor for details).
      * 
      * @param properties
@@ -96,7 +96,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     /** Constructs a property value short form provider.
      * 
      * @param properties
-     *            A <code>List</code> of preferred properties. The list is
+     *            A {@code List} of preferred properties. The list is
      *            searched from start to end, so that property assertions whose
      *            property is at the start of the list have a higher priority
      *            and are selected over properties that appear towards or at the
@@ -107,9 +107,9 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      *            languages for the values of that property Languages at the
      *            start of the list have a higher priority over languages at the
      *            end of the list. This parameter may be empty but it must not
-     *            be <code>null</code>.
+     *            be {@code null}.
      * @param ontologySetProvider
-     *            An <code>OWLOntologySetProvider</code> which provides a set of
+     *            An {@code OWLOntologySetProvider} which provides a set of
      *            ontology from which candidate annotation axioms should be
      *            taken. For a given entity, all ontologies are examined.
      * @param alternateShortFormProvider
@@ -117,7 +117,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      *            form for an entity that does not have any property values
      *            (e.g. class, property). This provider will also be used in the
      *            case where the value of an annotation is an
-     *            <code>OWLIndividual</code> for providing the short form of the
+     *            {@code OWLIndividual} for providing the short form of the
      *            individual. */
     public PropertyAssertionValueShortFormProvider(
             @Nonnull List<OWLPropertyExpression> properties,

@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * <p/>
  * Generates an ontology based on inferred axioms which are essentially supplied
  * by a reasoner. The generator can be configured with
- * <code>InferredAxiomGenerator</code>s which generate specific kinds of axioms
+ * {@code InferredAxiomGenerator}s which generate specific kinds of axioms
  * e.g. subclass axioms. */
 public class InferredOntologyGenerator {
     // The reasoner which is used to compute the inferred axioms
@@ -128,7 +128,7 @@ public class InferredOntologyGenerator {
     }
 
     /** Adds 'inferred axioms' to an ontology using the generators that have been
-     * registered with this <code>InferredAxiomGenerator</code>
+     * registered with this {@code InferredAxiomGenerator}
      * 
      * @param df
      *            data factory.

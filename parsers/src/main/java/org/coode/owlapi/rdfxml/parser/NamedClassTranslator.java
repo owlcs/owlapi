@@ -61,7 +61,7 @@ public class NamedClassTranslator extends AbstractClassExpressionTranslator {
     }
 
     /** Translates the specified main node into an
-     * <code>OWLClassExpression</code>. All triples used in the translation are
+     * {@code OWLClassExpression}. All triples used in the translation are
      * consumed.
      * 
      * @param mainNode

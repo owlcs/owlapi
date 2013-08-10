@@ -121,7 +121,7 @@ public enum OWL2Datatype {
 
     /** Gets the Pattern that specifies the regular expression for a datatype
      * 
-     * @return The Pattern, or <code>null</code> */
+     * @return The Pattern, or {@code null} */
     public Pattern getPattern() {
         return pattern;
     }

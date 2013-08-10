@@ -57,7 +57,7 @@ public class XMLWriterFactory {
 
     private XMLWriterFactory() {}
 
-    /** Gets the one and only instance of the <code>XMLWriterFactory</code> */
+    /** Gets the one and only instance of the {@code XMLWriterFactory} */
     public static XMLWriterFactory getInstance() {
         return instance;
     }
@@ -65,7 +65,7 @@ public class XMLWriterFactory {
     /** Creates an XMLWriter.
      * 
      * @param writer
-     *            The <code>Writer</code> that the XMLWriter will actually write
+     *            The {@code Writer} that the XMLWriter will actually write
      *            to */
     public XMLWriter createXMLWriter(@Nonnull Writer writer,
             @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,

@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Bio-Health Informatics Group<br>
  * Date: 14-Nov-2006<br>
  * <br>
- * </p> An <code>OWLParser</code> parses an ontology document into an OWL API
+ * </p> An {@code OWLParser} parses an ontology document into an OWL API
  * object representation of an ontology. */
 public interface OWLParser {
     /** Parses the ontology that has a concrete representation which is pointed
@@ -66,9 +66,9 @@ public interface OWLParser {
      *            The document IRI where the ontology should be loaded from
      * @param ontology
      *            The ontology that the concrete representation should be parsed
-     *            into. @return An <code>OWLOntologyFormat</code> which
+     *            into. @return An {@code OWLOntologyFormat} which
      *            describes the concrete representation format which was parsed
-     *            to obtain the ontology. This will never be <code>null</code>.
+     *            to obtain the ontology. This will never be {@code null}.
      * @return The format of the ontology
      * @throws OWLParserException
      *             if there was a problem parsing the ontology. This indicates
@@ -94,15 +94,15 @@ public interface OWLParser {
      * 
      * @param documentSource
      *            The input source which points the concrete representation. If
-     *            the input source can provide a <code>Reader</code> then the
-     *            ontology is parsed from the <code>Reader</code>. If the input
+     *            the input source can provide a {@code Reader} then the
+     *            ontology is parsed from the {@code Reader}. If the input
      *            source cannot provide a reader then it is parsed from the
-     *            <code>InputStream</code>. If the input source cannot provide
-     *            an <code>InputStream</code> then it is parsed from the
+     *            {@code InputStream}. If the input source cannot provide
+     *            an {@code InputStream} then it is parsed from the
      *            ontology document IRI.
      * @param ontology
      *            The ontology which the representation will be parsed into
-     * @return An <code>OWLOntologyFormat</code> which describes the concrete
+     * @return An {@code OWLOntologyFormat} which describes the concrete
      *         representation format which was parsed to obtain the ontology.
      * @throws OWLParserException
      *             if there was a problem parsing the ontology. This indicates
@@ -128,18 +128,18 @@ public interface OWLParser {
      * 
      * @param documentSource
      *            The input source which points the concrete representation. If
-     *            the input source can provider a <code>Reader</code> then the
-     *            ontology is parsed from the <code>Reader</code>. If the input
+     *            the input source can provider a {@code Reader} then the
+     *            ontology is parsed from the {@code Reader}. If the input
      *            source cannot provide a reader then it is parsed from the
-     *            <code>InputStream</code>. If the input source cannot provide
-     *            an <code>InputStream</code> then it is parsed from the
+     *            {@code InputStream}. If the input source cannot provide
+     *            an {@code InputStream} then it is parsed from the
      *            ontology document IRI.
      * @param ontology
      *            The ontology which the representation will be parsed into
      * @param configuration
      *            A configuration object that provides various generic options
      *            to the parser.
-     * @return An <code>OWLOntologyFormat</code> which describes the concrete
+     * @return An {@code OWLOntologyFormat} which describes the concrete
      *         representation format which was parsed to obtain the ontology.
      * @throws OWLParserException
      *             if there was a problem parsing the ontology. This indicates

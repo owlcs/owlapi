@@ -51,7 +51,7 @@ import java.util.Set;
  * Date: 27-Jul-2007<br>
  * <br>
  * </p> Represents the type of axioms which can belong to ontologies. Axioms can
- * be retrieved from ontologies by their <code>AxiomType</code>. For example,
+ * be retrieved from ontologies by their {@code AxiomType}. For example,
  * see {@link org.semanticweb.owlapi.model.OWLOntology#getAxioms(AxiomType)} and
  * {@link org.semanticweb.owlapi.model.OWLOntology#getAxiomCount(AxiomType, boolean)}
  * . */
@@ -176,7 +176,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
      * 
      * @param name
      *            The name of the axiom type
-     * @return The axiom type with the specified name, or <code>null</code> if
+     * @return The axiom type with the specified name, or {@code null} if
      *         there is no such axiom type with the specified name */
     public static AxiomType<?> getAxiomType(String name) {
         return NAME_TYPE_MAP.get(name);

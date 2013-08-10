@@ -72,9 +72,9 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * version IRI
      * 
      * @param ontologyIRI
-     *            The ontology IRI (may be <code>null</code>)
+     *            The ontology IRI (may be {@code null})
      * @param versionIRI
-     *            The version IRI (must be <code>null</code> if the ontologyIRI
+     *            The version IRI (must be {@code null} if the ontologyIRI
      *            is null) */
     public OWLOntologyID(IRI ontologyIRI, IRI versionIRI) {
         this.ontologyIRI = ontologyIRI;
@@ -123,7 +123,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
 
     /** Gets the ontology IRI.
      * 
-     * @return the ontology IRI, or <code>null</code> if there is no ontology
+     * @return the ontology IRI, or {@code null} if there is no ontology
      *         IRI. */
     public IRI getOntologyIRI() {
         return ontologyIRI;
@@ -131,7 +131,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
 
     /** Gets the version IRI.
      * 
-     * @return the version IRI, or <code>null</code> if there is no version IRI. */
+     * @return the version IRI, or {@code null} if there is no version IRI. */
     public IRI getVersionIRI() {
         return versionIRI;
     }
@@ -140,13 +140,13 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * representation of an ontology with this ID. This will be the version IRI
      * if there is an ontology IRI and version IRI, else it will be the ontology
      * IRI if there is an ontology IRI but no version IRI, else it will be
-     * <code>null</code> if there is no ontology IRI. See <a href=
+     * {@code null} if there is no ontology IRI. See <a href=
      * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Ontology_Documents"
      * >Ontology Documents</a> in the OWL 2 Structural Specification.
      * 
      * @return The IRI that can be used as a default for an ontology document
      *         containing an ontology as identified by this ontology ID. Returns
-     *         the default IRI or <code>null</code>. */
+     *         the default IRI or {@code null}. */
     public IRI getDefaultDocumentIRI() {
         if (ontologyIRI != null) {
             if (versionIRI != null) {

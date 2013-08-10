@@ -166,7 +166,7 @@ public class OBOConsumer implements OBOParserHandler {
      * returns the default value which is equal to
      * {@link OBOVocabulary#OBO_IRI_BASE}.
      * 
-     * @return The default-namespace tag value. Not <code>null</code>. */
+     * @return The default-namespace tag value. Not {@code null}. */
     public String getDefaultNamespaceTagValue() {
         return defaultNamespaceTagValue;
     }
@@ -445,7 +445,7 @@ public class OBOConsumer implements OBOParserHandler {
      * @param tagName
      *            The tag name.
      * @return The IRI for the tag name. For built in tags this is obtained from
-     *         the {@link OBOVocabulary} enum. Not <code>null</code>.
+     *         the {@link OBOVocabulary} enum. Not {@code null}.
      * @throws NullPointerException
      *             if tagName is null. */
     public IRI getIRIFromTagName(String tagName) {

@@ -63,14 +63,14 @@ public interface OWLAxiom extends OWLObject {
     Set<OWLAnnotation> getAnnotations();
 
     /** Gets the annotations that annotate this axiom and whose annotation
-     * property is equal to <code>annotationProperty</code>.
+     * property is equal to {@code annotationProperty}.
      * 
      * @param annotationProperty
      *            The annotation property that will be equal to the annotation
      *            property of each returned annotation.
      * @return A set of annotations that annotate this axiom, each of whose
      *         annotation properties is equals to
-     *         <code>annotationProperty</code>. */
+     *         {@code annotationProperty}. */
     @Nonnull
     Set<OWLAnnotation> getAnnotations(@Nonnull OWLAnnotationProperty annotationProperty);
 
@@ -101,7 +101,7 @@ public interface OWLAxiom extends OWLObject {
      * 
      * @param axiom
      *            The axiom to test if equal
-     * @return {@code true} if <code>axiom</code> without annotations is
+     * @return {@code true} if {@code axiom} without annotations is
      *         equal to this axiom without annotations otherwise
      *         {@code false}. */
     boolean equalsIgnoreAnnotations(@Nonnull OWLAxiom axiom);
@@ -115,10 +115,10 @@ public interface OWLAxiom extends OWLObject {
     boolean isLogicalAxiom();
 
     /** Determines if this axioms in an annotation axiom (an instance of
-     * <code>OWLAnnotationAxiom</code>)
+     * {@code OWLAnnotationAxiom})
      * 
      * @return {@code true} if this axiom is an instance of
-     *         <code>OWLAnnotationAxiom</code>, otherwise {@code false}.
+     *         {@code OWLAnnotationAxiom}, otherwise {@code false}.
      * @since 3.2 */
     boolean isAnnotationAxiom();
 

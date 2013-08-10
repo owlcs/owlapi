@@ -1403,7 +1403,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     /** Selects an IRI to be the ontology IRI
      * 
      * @return An IRI that should be used as the IRI of the parsed ontology, or
-     *         <code>null</code> if the parsed ontology does not have an IRI */
+     *         {@code null} if the parsed ontology does not have an IRI */
     private IRI chooseOntologyIRI() {
         IRI ontologyIRIToSet = null;
         if (ontologyIRIs.isEmpty()) {
@@ -1569,15 +1569,15 @@ public class OWLRDFConsumer implements RDFConsumer {
         addTriple(subject, predicate, con);
     }
 
-    /** A convenience method to obtain an <code>OWLConstant</code>
+    /** A convenience method to obtain an {@code OWLConstant}
      * 
      * @param literal
-     *            The literal - must NOT be <code>null</code>
+     *            The literal - must NOT be {@code null}
      * @param datatype
-     *            The data type - may be <code>null</code>
+     *            The data type - may be {@code null}
      * @param lang
-     *            The lang - may be <code>null</code>
-     * @return The <code>OWLConstant</code> (either typed or untyped depending
+     *            The lang - may be {@code null}
+     * @return The {@code OWLConstant} (either typed or untyped depending
      *         on the params) */
     private OWLLiteral getOWLLiteral(String literal, String datatype, String lang) {
         if (datatype != null) {

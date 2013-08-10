@@ -65,7 +65,7 @@ public interface OWLMetric<M> {
      * ontology and possibly the imports closure (if specified).
      * 
      * @return An object which represents the value of this metric - calling the
-     *         <code>toString</code> method of the object returned by this
+     *         {@code toString} method of the object returned by this
      *         method will result in a human readable string that displays the
      *         value of the metric. */
     @Nonnull
@@ -103,7 +103,7 @@ public interface OWLMetric<M> {
     /** Gets the ontology manager which, amongst other things can be used to
      * obtain the imports closure of the current ontology.
      * 
-     * @return An <code>OWLOntologyManager</code>. */
+     * @return An {@code OWLOntologyManager}. */
     @Nonnull
     OWLOntologyManager getManager();
 

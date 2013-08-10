@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Information Management Group<br>
  * Date: 29-Jul-2008<br>
  * <br>
- * Provides a default implementation of <code>OWLObjectVisitorEx</code>. Only
+ * Provides a default implementation of {@code OWLObjectVisitorEx}. Only
  * the methods that need specific client implementation need be overridden. The
  * adapter can be set up to return a default value. */
 @SuppressWarnings("javadoc")
@@ -60,7 +60,7 @@ public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
     private O defaultReturnValue = null;
 
     /** Gets the default return value for this visitor. A fixed value
-     * (independent of the specified <code>OWLObject</code> <code>object</code>)
+     * (independent of the specified {@code OWLObject} {@code object})
      * can be specified in the constructor {@link OWLObjectVisitorExAdapter}
      * 
      * @param object

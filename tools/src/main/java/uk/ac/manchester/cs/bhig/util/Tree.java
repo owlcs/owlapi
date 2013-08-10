@@ -62,7 +62,7 @@ public interface Tree<N> {
 
     /** Gets the parent of this tree node.
      * 
-     * @return The parent tree node, or <code>null</code> if this node doesn't
+     * @return The parent tree node, or {@code null} if this node doesn't
      *         have a parent. */
     @Nonnull
     Tree<N> getParent();

@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
  * <br>
- * An <code>OWLMetric</code> that returns an integer value */
+ * An {@code OWLMetric} that returns an integer value */
 public abstract class IntegerValuedMetric extends AbstractOWLMetric<Integer> {
     protected IntegerValuedMetric(@Nonnull OWLOntology o) {
         super(o);

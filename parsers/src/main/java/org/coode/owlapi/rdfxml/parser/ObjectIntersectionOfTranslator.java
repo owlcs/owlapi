@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
  * <br>
  * <p/>
  * A class expression translator which produces an
- * <code>OWLIntersectionOf</code>. This relies on the main node having an
+ * {@code OWLIntersectionOf}. This relies on the main node having an
  * intersectionOf triple. */
 public class ObjectIntersectionOfTranslator extends AbstractClassExpressionTranslator {
     public ObjectIntersectionOfTranslator(OWLRDFConsumer consumer) {

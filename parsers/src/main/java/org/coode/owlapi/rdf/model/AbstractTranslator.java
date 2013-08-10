@@ -1098,7 +1098,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     /** Renders a set of class expressions in a pairwise manner using the
      * specified IRI. It is assumed that the relationship described by the IRI
      * (e.g. disjointWith) is symmetric. The method delegates to the
-     * <code>addPairwise</code> method after sorting the class expressions so
+     * {@code addPairwise} method after sorting the class expressions so
      * that named classes appear first.
      * 
      * @param axiom

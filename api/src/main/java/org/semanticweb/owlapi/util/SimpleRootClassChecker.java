@@ -68,7 +68,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * <li>It is an operand in an equivalent class axiom where at least one of the
  * other other operands is an intersection class that has a named operand other
  * than the class in question. For example
- * <code>EquivalentClasses(A,  (B and prop some C))</code></li>
+ * {@code EquivalentClasses(A,  (B and prop some C))}</li>
  * </ol>
  * <p/>
  * This functionality is provided because it is useful for displaying class

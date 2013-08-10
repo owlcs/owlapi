@@ -57,8 +57,8 @@ import org.semanticweb.owlapi.model.IRI;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 16/12/2010 <br>
- * An <code>OWLOntologyDocumentTarget</code> that supports writing out to a
- * <code>File</code>.
+ * An {@code OWLOntologyDocumentTarget} that supports writing out to a
+ * {@code File}.
  * 
  * @since 3.2 */
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {

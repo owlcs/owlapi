@@ -44,7 +44,7 @@ package org.semanticweb.owlapi.model;
  * Date: 13-Apr-2007<br>
  * <br>
  * An exception to describe a problem in accessing an ontology. Since there
- * could be any kind of implementation of <code>OWLOntology</code> (and other
+ * could be any kind of implementation of {@code OWLOntology} (and other
  * model interfaces), some of which may use secondary storage, such as a
  * database backend, there could be problems with accessing ontology objects
  * such as axioms. In such situations the implementation should wrap the

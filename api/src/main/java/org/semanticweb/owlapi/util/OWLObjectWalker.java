@@ -227,7 +227,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     /** Gets the last axiom to be visited.
      * 
-     * @return The last axiom to be visited, or <code>null</code> if an axiom
+     * @return The last axiom to be visited, or {@code null} if an axiom
      *         has not be visited */
     public OWLAxiom getAxiom() {
         return ax;
@@ -235,7 +235,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     /** Gets the last annotation to be visited.
      * 
-     * @return The last annotation to be visited (may be <code>null</code>) */
+     * @return The last annotation to be visited (may be {@code null}) */
     public OWLAnnotation getAnnotation() {
         return annotation;
     }

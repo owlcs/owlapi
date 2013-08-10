@@ -78,10 +78,10 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     private final OWLAnnotationValueVisitorEx<String> literalRenderer;
 
     /** Constructs an annotation value short form provider. Using
-     * <code>SimpleShortFormProvider</code> as the alternate short form provider
+     * {@code SimpleShortFormProvider} as the alternate short form provider
      * 
      * @param annotationProperties
-     *            A <code>List</code> of preferred annotation properties. The
+     *            A {@code List} of preferred annotation properties. The
      *            list is searched from start to end, so that annotations that
      *            have a property at the start of the list have a higher
      *            priority and are selected over annotations with properties
@@ -91,9 +91,9 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *            For any given annotation property there may be a list of
      *            preferred languages. Languages at the start of the list have a
      *            higher priority over languages at the end of the list. This
-     *            parameter may be empty but it must not be <code>null</code>.
+     *            parameter may be empty but it must not be {@code null}.
      * @param ontologySetProvider
-     *            An <code>OWLOntologySetProvider</code> which provides a set of
+     *            An {@code OWLOntologySetProvider} which provides a set of
      *            ontology from which candidate annotation axioms should be
      *            taken. For a given entity, all ontologies are examined. */
     public AnnotationValueShortFormProvider(
@@ -107,7 +107,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     /** Constructs an annotation short form provider.
      * 
      * @param annotationProperties
-     *            A <code>List</code> of preferred annotation properties. The
+     *            A {@code List} of preferred annotation properties. The
      *            list is searched from start to end, so that annotations that
      *            have a property at the start of the list have a higher
      *            priority and are selected over annotations with properties
@@ -117,16 +117,16 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *            For any given annotation property there may be a list of
      *            preferred languages. Languages at the start of the list have a
      *            higher priority over languages at the end of the list. This
-     *            parameter may be empty but it must not be <code>null</code>.
+     *            parameter may be empty but it must not be {@code null}.
      * @param ontologySetProvider
-     *            An <code>OWLOntologySetProvider</code> which provides a set of
+     *            An {@code OWLOntologySetProvider} which provides a set of
      *            ontology from which candidate annotation axioms should be
      *            taken. For a given entity, all ontologies are examined.
      * @param alternateShortFormProvider
      *            A short form provider which will be used to generate the short
      *            form for an entity that does not have any annotations. This
      *            provider will also be used in the case where the value of an
-     *            annotation is an <code>OWLIndividual</code> for providing the
+     *            annotation is an {@code OWLIndividual} for providing the
      *            short form of the individual. */
     public AnnotationValueShortFormProvider(
             @Nonnull List<OWLAnnotationProperty> annotationProperties,
@@ -141,7 +141,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     /** Constructs an annotation short form provider.
      * 
      * @param annotationProperties
-     *            A <code>List</code> of preferred annotation properties. The
+     *            A {@code List} of preferred annotation properties. The
      *            list is searched from start to end, so that annotations that
      *            have a property at the start of the list have a higher
      *            priority and are selected over annotations with properties
@@ -151,16 +151,16 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *            For any given annotation property there may be a list of
      *            preferred languages. Languages at the start of the list have a
      *            higher priority over languages at the end of the list. This
-     *            parameter may be empty but it must not be <code>null</code>.
+     *            parameter may be empty but it must not be {@code null}.
      * @param ontologySetProvider
-     *            An <code>OWLOntologySetProvider</code> which provides a set of
+     *            An {@code OWLOntologySetProvider} which provides a set of
      *            ontology from which candidate annotation axioms should be
      *            taken. For a given entity, all ontologies are examined.
      * @param alternateShortFormProvider
      *            A short form provider which will be used to generate the short
      *            form for an entity that does not have any annotations. This
      *            provider will also be used in the case where the value of an
-     *            annotation is an <code>OWLIndividual</code> for providing the
+     *            annotation is an {@code OWLIndividual} for providing the
      *            short form of the individual.
      * @param alternateIRIShortFormProvider
      *            the alternate IRI short form provider */

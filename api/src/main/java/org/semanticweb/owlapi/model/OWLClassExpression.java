@@ -60,7 +60,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * 
      * @return {@code true} if this is an anonymous class expression, or
      *         {@code false} if this is a named class (
-     *         <code>OWLClass</code>) */
+     *         {@code OWLClass}) */
     boolean isAnonymous();
 
     /** Determines if this class is a literal. A literal being either a named
@@ -71,13 +71,13 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     boolean isClassExpressionLiteral();
 
     /** If this class expression is in fact a named class then this method may be
-     * used to obtain the expression as an <code>OWLClass</code> without the
+     * used to obtain the expression as an {@code OWLClass} without the
      * need for casting. The general pattern of use is to use the
-     * <code>isAnonymous</code> to first check
+     * {@code isAnonymous} to first check
      * 
-     * @return This class expression as an <code>OWLClass</code>.
+     * @return This class expression as an {@code OWLClass}.
      * @throws OWLRuntimeException
-     *             if this class expression is not an <code>OWLClass</code>. */
+     *             if this class expression is not an {@code OWLClass}. */
     @Nonnull
     OWLClass asOWLClass();
 
@@ -132,10 +132,10 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * @param ce
      *            The conjunct to test for
      * @return {@code true} if this class expression is equal to
-     *         <code>ce</code> or if this class expression is an
-     *         <code>ObjectIntersectionOf</code> (possibly nested withing
-     *         another <code>ObjectIntersectionOf</code>) that contains
-     *         <code>ce</code>, otherwise {@code false}. */
+     *         {@code ce} or if this class expression is an
+     *         {@code ObjectIntersectionOf} (possibly nested withing
+     *         another {@code ObjectIntersectionOf}) that contains
+     *         {@code ce}, otherwise {@code false}. */
     boolean containsConjunct(@Nonnull OWLClassExpression ce);
 
     /** Interprets this expression as a disjunction and returns the disjuncts.
@@ -149,7 +149,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     @Nonnull
     Set<OWLClassExpression> asDisjunctSet();
 
-    /** Accepts a visit from an <code>OWLExpressionVisitor</code>
+    /** Accepts a visit from an {@code OWLExpressionVisitor}
      * 
      * @param visitor
      *            The visitor that wants to visit */

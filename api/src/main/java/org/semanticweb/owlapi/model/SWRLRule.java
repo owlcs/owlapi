@@ -56,14 +56,14 @@ import javax.annotation.Nonnull;
 public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     /** Gets the atoms in the body of the rule
      * 
-     * @return A set of <code>SWRLAtom</code>s, which represent the atoms in the
+     * @return A set of {@code SWRLAtom}s, which represent the atoms in the
      *         body of the rule. */
     @Nonnull
     Set<SWRLAtom> getBody();
 
     /** Gets the atoms in the head of the rule
      * 
-     * @return A set of <code>SWRLAtom</code>s, which represent the atoms in the
+     * @return A set of {@code SWRLAtom}s, which represent the atoms in the
      *         head of the rule */
     @Nonnull
     Set<SWRLAtom> getHead();

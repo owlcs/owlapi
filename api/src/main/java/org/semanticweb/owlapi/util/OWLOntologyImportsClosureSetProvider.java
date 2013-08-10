@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  * Date: 27-Apr-2007<br>
  * <br>
  * <p/>
- * An <code>OWLOntologySetProvider</code> which provides a set of ontologies
+ * An {@code OWLOntologySetProvider} which provides a set of ontologies
  * which correspond to the imports closure of a given ontology. Note that the
  * set of provided ontologies will be updated if the imports closure gets
  * updated. */
@@ -62,7 +62,7 @@ public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvi
     private final OWLOntologyManager manager;
     private final OWLOntology rootOntology;
 
-    /** Constructs an <code>OWLOntologySetProvider</code> which provides a set
+    /** Constructs an {@code OWLOntologySetProvider} which provides a set
      * containing the imports closure of a given ontology.
      * 
      * @param manager

@@ -139,7 +139,7 @@ public interface OWLOntologyLoaderListener {
          * loaded successfully.
          * 
          * @return The exception that describes why the ontology was not loaded
-         *         successfully, or <code>null</code> if the ontology was loaded
+         *         successfully, or {@code null} if the ontology was loaded
          *         successfully. */
         public OWLOntologyCreationException getException() {
             return ex;

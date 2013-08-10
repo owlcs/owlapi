@@ -59,7 +59,7 @@ public class OWLOntologyCreationIOException extends OWLOntologyCreationException
     }
 
     /** Delegates to the getMessage() method of the contained
-     * <code>IOException</code>.
+     * {@code IOException}.
      * 
      * @return The message of the IOException */
     @Override

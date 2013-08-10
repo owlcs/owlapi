@@ -57,14 +57,14 @@ public abstract class RDFNode {
 
     /** Gets the IRI of the resource.
      * 
-     * @return The IRI or <code>null</code> if this is an anonymous resource. */
+     * @return The IRI or {@code null} if this is an anonymous resource. */
     @Nullable
     public abstract IRI getIRI();
 
     /** Determines if this node is a resource and is anonymous.
      * 
      * @return {@code true} if this is a resource node (i.e.
-     *         <code>isLiteral</code> returns {@code false}) and the node
+     *         {@code isLiteral} returns {@code false}) and the node
      *         is anonymous, or {@code false} if this is a resource node
      *         and is not anonymous. */
     public abstract boolean isAnonymous();

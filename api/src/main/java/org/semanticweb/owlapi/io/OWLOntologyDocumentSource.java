@@ -74,11 +74,11 @@ public interface OWLOntologyDocumentSource {
 
     /** Gets a reader which an ontology document can be read from. This method
      * may be called multiple times. Each invocation will return a new
-     * <code>Reader</code>. This method should not be called if the
-     * <code>isReaderAvailable</code> method returns false. A
-     * <code>Runtime</code> execption will be thrown if this happens.
+     * {@code Reader}. This method should not be called if the
+     * {@code isReaderAvailable} method returns false. A
+     * {@code Runtime} execption will be thrown if this happens.
      * 
-     * @return A new <code>Reader</code> which the ontology can be read from. */
+     * @return A new {@code Reader} which the ontology can be read from. */
     @Nonnull
     Reader getReader();
 
@@ -93,7 +93,7 @@ public interface OWLOntologyDocumentSource {
     /** If an input stream can be obtained from this document source then this
      * method creates it. This method may be called multiple times. Each
      * invocation will return a new input stream. This method should not be
-     * called if the <code>isInputStreamAvailable</code> method returns
+     * called if the {@code isInputStreamAvailable} method returns
      * {@code false}.
      * 
      * @return A new input stream which the ontology can be read from. */
@@ -103,7 +103,7 @@ public interface OWLOntologyDocumentSource {
     /** Gets the IRI of the ontology document.
      * 
      * @return An IRI which represents the ontology document IRI - this will
-     *         never be <code>null</code>. */
+     *         never be {@code null}. */
     @Nonnull
     IRI getDocumentIRI();
 }

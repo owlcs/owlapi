@@ -66,7 +66,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
      * be cached so that it can be retrieved efficiently and so that the entity
      * can be obtained from the short form. If the short form for the entity
      * changes then the cach must explicilty be updated using the
-     * <code>update</code> method.
+     * {@code update} method.
      * 
      * @param entity
      *            The entity whose short form should be generated. */
@@ -82,7 +82,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
      * provider.
      * 
      * @param entitySetProvider
-     *            The <code>OWLEntitySetProvider</code> that should be used to
+     *            The {@code OWLEntitySetProvider} that should be used to
      *            obtain the entities whose short forms will be cached. */
     protected void rebuild(OWLEntitySetProvider<OWLEntity> entitySetProvider) {
         shortForm2EntityMap.clear();
