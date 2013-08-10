@@ -196,7 +196,12 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         if (str == null) {
             throw new IllegalArgumentException("String must not be null");
         }
-        return new IRI(str);
+        int index = XMLUtils.getNCNameSuffixIndex(str);
+        if (index < 0) {
+            // no ncname
+            return new IRI(str, null);
+        }
+        return new IRI(str.substring(0, index), str.substring(index));
     }
 
     /** Creates an IRI by concatenating two strings. The full IRI is an IRI that
@@ -210,14 +215,14 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @since 3.3 */
     public static IRI create(String prefix, String suffix) {
         if(prefix == null) {
-            return new IRI(suffix);
+            return create(suffix);
         } else if(suffix == null) {
             // suffix set deliberately to null is used only in blank node
             // management
             // this is not great but blank nodes should be changed to not refer
             // to IRIs at all
             // XXX address blank node issues with iris
-            return new IRI(prefix);
+            return create(prefix);
         } else {
             int index = XMLUtils.getNCNameSuffixIndex(prefix);
             int test = XMLUtils.getNCNameSuffixIndex(suffix);
@@ -230,7 +235,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
             // otherwise the split is wrong; we could obtain the right split by
             // using index and test, but it's just as easy to use the other
             // constructor
-            return new IRI(prefix + suffix);
+            return create(prefix + suffix);
         }
     }
 
