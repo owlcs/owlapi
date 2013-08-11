@@ -40,8 +40,6 @@ package org.coode.owl.rdf;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -50,8 +48,10 @@ import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
+import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -93,7 +93,7 @@ public class TestDisjointsTestCase {
     }
 
     @Test
-    public void testAnonDisjoints() throws OWLOntologyCreationException, IOException,
+    public void testAnonDisjoints() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
         OWLOntology ontA = man.createOntology(TestUtils.createIRI());
         OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
@@ -110,10 +110,11 @@ public class TestDisjointsTestCase {
         OWLAxiom ax = man.getOWLDataFactory()
                 .getOWLDisjointClassesAxiom(classExpressions);
         man.applyChange(new AddAxiom(ontA, ax));
-        File tempFile = File.createTempFile("Ontology", ".owlapi");
-        man.saveOntology(ontA, IRI.create(tempFile.toURI()));
+        StringDocumentTarget target = new StringDocumentTarget();
+        man.saveOntology(ontA, new RDFXMLOntologyFormat(), target);
         man.removeOntology(ontA);
-        OWLOntology ontB = man.loadOntologyFromOntologyDocument(tempFile);
+        OWLOntology ontB = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
+                target.toString()));
         assertTrue(ontB.getAxioms().contains(ax));
     }
 }
