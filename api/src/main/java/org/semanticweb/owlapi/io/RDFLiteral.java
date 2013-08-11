@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * 
  * @since 3.2 */
 public class RDFLiteral extends RDFNode {
+    private static final long serialVersionUID = 40000L;
     private final String lexicalValue;
     private final String lang;
     private final IRI datatype;

@@ -38,7 +38,9 @@
  */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
+import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 
@@ -51,7 +53,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Date: 21/12/2010
  * 
  * @since 3.2 */
-public class RDFTriple {
+public class RDFTriple implements Serializable {
+    private static final long serialVersionUID = 40000L;
     private final RDFResource subject;
     private final RDFResourceIRI predicate;
     private final RDFNode object;

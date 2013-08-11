@@ -38,8 +38,9 @@
  */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,7 +54,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Date: 21/12/2010
  * 
  * @since 3.2 */
-public class RDFParserMetaData implements OWLOntologyLoaderMetaData {
+public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializable {
+    private static final long serialVersionUID = 40000L;
     private final int tripleCount;
     private final RDFOntologyHeaderStatus headerStatus;
     private final Set<RDFTriple> unparsedTriples = new HashSet<RDFTriple>();

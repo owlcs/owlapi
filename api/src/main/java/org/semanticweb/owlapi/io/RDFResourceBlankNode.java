@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
@@ -9,6 +9,7 @@ import org.semanticweb.owlapi.model.NodeID;
 
 /** Anonymous node implementation */
 public class RDFResourceBlankNode extends RDFResource {
+    private static final long serialVersionUID = 40000L;
     private final IRI resource;
 
     /** Create an RDFResource that is anonymous

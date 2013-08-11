@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.io;
 
+import java.io.Serializable;
+
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -48,7 +50,8 @@ import org.semanticweb.owlapi.model.IRI;
  * Date: 21/12/2010
  * 
  * @since 3.2 */
-public abstract class RDFNode {
+public abstract class RDFNode implements Serializable {
+    private static final long serialVersionUID = 40000L;
     /** Determines if this node is a literal node.
      * 
      * @return {@code true} if this node is a literal, otherwise

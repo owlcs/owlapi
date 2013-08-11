@@ -38,6 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * Represents the concrete representation format of an ontology. The equality of
  * an ontology format is defined by the equals and hashCode method (not its
  * identity). */
-public abstract class OWLOntologyFormat {
+public abstract class OWLOntologyFormat implements Serializable {
     /** if set to "true", an intermediate file will be used for output, even for
      * remote URIs */
     public static final String USE_INTERMEDIATE_OUTPUT_FILE = "USE_INTERMEDIATE_OUTPUT_FILE";
@@ -144,7 +145,8 @@ public abstract class OWLOntologyFormat {
         return getClass().hashCode();
     }
 
-    private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData {
+    private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData,
+            Serializable {
         public NullLoaderMetaData() {}
     }
 }

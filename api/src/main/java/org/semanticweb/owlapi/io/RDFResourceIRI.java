@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
@@ -8,6 +8,7 @@ import org.semanticweb.owlapi.model.IRI;
 
 /** IRI node implementation */
 public class RDFResourceIRI extends RDFResource {
+    private static final long serialVersionUID = 40000L;
     private final IRI resource;
 
     /** @param resource

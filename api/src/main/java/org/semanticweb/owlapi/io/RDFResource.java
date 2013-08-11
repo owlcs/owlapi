@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.IRI;
  * 
  * @since 3.2 */
 public abstract class RDFResource extends RDFNode {
+    private static final long serialVersionUID = 40000L;
     /** @return the resource IRI */
     @Nonnull
     public abstract IRI getResource();
