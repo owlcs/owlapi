@@ -39,6 +39,7 @@
 
 package org.semanticweb.owlapi.io;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,7 +52,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Date: 21/12/2010
  * @since 3.2
  */
-public class RDFParserMetaData implements OWLOntologyLoaderMetaData {
+public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializable {
+    private static final long serialVersionUID = 30405L;
 
     private final int tripleCount;
 

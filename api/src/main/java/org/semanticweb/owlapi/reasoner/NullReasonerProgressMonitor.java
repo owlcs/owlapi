@@ -38,6 +38,9 @@
  */
 
 package org.semanticweb.owlapi.reasoner;
+
+import java.io.Serializable;
+
 /**
  * Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -45,7 +48,8 @@ package org.semanticweb.owlapi.reasoner;
  * Date: 29-Nov-2009
  * An implementation of a progress monitor that does nothing when it receives notification of progress events.
  */
-public class NullReasonerProgressMonitor implements ReasonerProgressMonitor {
+public class NullReasonerProgressMonitor implements ReasonerProgressMonitor , Serializable {
+    private static final long serialVersionUID = 30405L;
 	  @Override
     public void reasonerTaskStarted(String taskName) {
     }

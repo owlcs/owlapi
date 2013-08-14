@@ -39,6 +39,8 @@
 
 package org.semanticweb.owlapi.io;
 
+import java.io.Serializable;
+
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
@@ -48,7 +50,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Date: 21/12/2010
  * @since 3.2
  */
-public class RDFLiteral extends RDFNode {
+public class RDFLiteral extends RDFNode implements Serializable {
+    private static final long serialVersionUID = 30405L;
 
     private final OWLLiteral literal;
 
