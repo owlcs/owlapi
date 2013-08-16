@@ -4,7 +4,6 @@ import static org.mockito.Mockito.mock;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
@@ -22,7 +21,6 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.reasoner.AxiomNotInProfileException;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.ClassExpressionNotInProfileException;
@@ -723,7 +721,6 @@ public class ContractReasonerImplTest {
         FreshEntityPolicy result2 = testSubject0.getFreshEntityPolicy();
         IndividualNodeSetPolicy result3 = testSubject0.getIndividualNodeSetPolicy();
         BufferingMode result4 = testSubject0.getBufferingMode();
-        List<OWLOntologyChange> result5 = testSubject0.getPendingChanges();
         Set<OWLAxiom> result6 = testSubject0.getPendingAxiomAdditions();
         Set<OWLAxiom> result7 = testSubject0.getPendingAxiomRemovals();
         OWLOntology result8 = testSubject0.getRootOntology();

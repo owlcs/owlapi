@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * This example shows how to perform a "dlquery". The DLQuery view/tab in
  * Protege 4 works like this. */
 public class DLQueryEngine {
+    @SuppressWarnings("javadoc")
     public static final boolean isEmpty(String s) {
         if (s == null) {
             return true;

@@ -38,7 +38,7 @@
  */
 package com.clarkparsia.owlapi.explanation.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -134,7 +134,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
+    public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
             throws OWLException {
         for (OWLOntologyChange<?> change : changes) {
             if (!change.isAxiomChange()

@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -21,7 +20,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -52,7 +50,6 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLValueRestrictionImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.SWRLAtomImpl;
 import uk.ac.manchester.cs.owl.owlapi.SWRLBinaryAtomImpl;
@@ -71,41 +68,6 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapi_4Test {
-    @Test
-    public void shouldTestOWLValueRestrictionImpl() throws OWLException {
-        OWLValueRestrictionImpl<OWLObject> testSubject0 = mock(OWLValueRestrictionImpl.class);
-        OWLObject result0 = testSubject0.getValue();
-        boolean result2 = testSubject0.isClassExpressionLiteral();
-        boolean result3 = testSubject0.isAnonymous();
-        if (!testSubject0.isAnonymous()) {
-            OWLClass result4 = testSubject0.asOWLClass();
-        }
-        boolean result6 = testSubject0.isOWLThing();
-        boolean result7 = testSubject0.isOWLNothing();
-        OWLClassExpression result9 = testSubject0.getObjectComplementOf();
-        Set<OWLClassExpression> result10 = testSubject0.asConjunctSet();
-        boolean result11 = testSubject0.containsConjunct(Utils.mockAnonClass());
-        Set<OWLClassExpression> result12 = testSubject0.asDisjunctSet();
-        String result13 = testSubject0.toString();
-        Set<OWLEntity> result50 = testSubject0.getSignature();
-        Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
-        Set<OWLClass> result52 = testSubject0.getClassesInSignature();
-        Set<OWLDataProperty> result53 = testSubject0.getDataPropertiesInSignature();
-        Set<OWLObjectProperty> result54 = testSubject0.getObjectPropertiesInSignature();
-        Set<OWLNamedIndividual> result55 = testSubject0.getIndividualsInSignature();
-        Set<OWLDatatype> result56 = testSubject0.getDatatypesInSignature();
-        boolean result24 = testSubject0.isTopEntity();
-        boolean result25 = testSubject0.isBottomEntity();
-        testSubject0.accept(mock(OWLObjectVisitor.class));
-        Object result27 = testSubject0.accept(Utils.mockObject());
-        Object result28 = testSubject0.accept(Utils.mockClassExpression());
-        testSubject0.accept(mock(OWLClassExpressionVisitor.class));
-        ClassExpressionType result29 = testSubject0.getClassExpressionType();
-        boolean result30 = testSubject0.isObjectRestriction();
-        boolean result31 = testSubject0.isDataRestriction();
-        OWLClassExpression result32 = testSubject0.asSomeValuesFrom();
-    }
-
     @Ignore
     @Test
     public void shouldTestParsableOWLOntologyFactory() throws OWLException {

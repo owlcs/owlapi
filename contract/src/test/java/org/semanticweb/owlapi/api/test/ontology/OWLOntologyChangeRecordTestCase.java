@@ -32,6 +32,8 @@ public class OWLOntologyChangeRecordTestCase {
     public void setUp() {
         mockOntologyID = new OWLOntologyID();
         mockChangeData = new OWLOntologyChangeData<OWLAxiom>() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected String getName() {
                 return "test";

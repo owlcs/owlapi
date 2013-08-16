@@ -81,7 +81,7 @@ import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParserConstants;
 import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParserTokenManager;
 import uk.ac.manchester.cs.owlapi.dlsyntax.parser.ParseException;
 
-@SuppressWarnings({ "unused", "javadoc", "unchecked" })
+@SuppressWarnings({ "unused", "javadoc", "unchecked", "rawtypes" })
 public class ContractMediumTest {
     @Test
     public void shouldTestInterfaceOWLClassExpressionParser() throws OWLException,

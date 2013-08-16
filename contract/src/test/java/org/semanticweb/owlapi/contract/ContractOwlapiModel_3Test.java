@@ -1140,7 +1140,9 @@ public class ContractOwlapiModel_3Test {
     @Ignore
     @Test
     public void shouldTestOWLOntologyFormat() throws OWLException {
-        OWLOntologyFormat testSubject0 = new OWLOntologyFormat() {};
+        OWLOntologyFormat testSubject0 = new OWLOntologyFormat() {
+            private static final long serialVersionUID = 1L;
+        };
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result0 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));

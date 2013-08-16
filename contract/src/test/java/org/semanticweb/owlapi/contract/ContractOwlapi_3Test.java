@@ -103,7 +103,6 @@ import uk.ac.manchester.cs.owl.owlapi.OWLPropertyExpressionImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLPropertyRangeAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLQuantifiedDataRestrictionImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLQuantifiedObjectRestrictionImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLQuantifiedRestrictionImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLReflexiveObjectPropertyAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLRestrictionImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLSameIndividualAxiomImpl;
@@ -781,7 +780,6 @@ public class ContractOwlapi_3Test {
         ClassExpressionType result2 = testSubject0.getClassExpressionType();
         boolean result3 = testSubject0.isObjectRestriction();
         boolean result4 = testSubject0.isDataRestriction();
-        OWLClassExpression result5 = testSubject0.asSomeValuesFrom();
         OWLObject result6 = testSubject0.getValue();
         OWLObjectPropertyExpression result7 = testSubject0.getProperty();
         boolean result8 = testSubject0.isClassExpressionLiteral();
@@ -1821,39 +1819,6 @@ public class ContractOwlapi_3Test {
         boolean result31 = testSubject0.isDataRestriction();
     }
 
-    @Test
-    public void shouldTestOWLQuantifiedRestrictionImpl() throws OWLException {
-        OWLQuantifiedRestrictionImpl<OWLClassExpression> testSubject0 = mock(OWLQuantifiedRestrictionImpl.class);
-        OWLPropertyRange result0 = testSubject0.getFiller();
-        boolean result2 = testSubject0.isClassExpressionLiteral();
-        boolean result3 = testSubject0.isAnonymous();
-        if (!testSubject0.isAnonymous()) {
-            if (!testSubject0.isAnonymous()) {
-                OWLClass result4 = testSubject0.asOWLClass();
-            }
-        }
-        boolean result6 = testSubject0.isOWLThing();
-        boolean result7 = testSubject0.isOWLNothing();
-        OWLClassExpression result9 = testSubject0.getObjectComplementOf();
-        Set<OWLClassExpression> result10 = testSubject0.asConjunctSet();
-        boolean result11 = testSubject0.containsConjunct(Utils.mockAnonClass());
-        Set<OWLClassExpression> result12 = testSubject0.asDisjunctSet();
-        String result13 = testSubject0.toString();
-        Set<OWLEntity> result16 = testSubject0.getSignature();
-        Set<OWLAnonymousIndividual> result17 = testSubject0.getAnonymousIndividuals();
-        Set<OWLClass> result18 = testSubject0.getClassesInSignature();
-        Set<OWLDataProperty> result19 = testSubject0.getDataPropertiesInSignature();
-        Set<OWLObjectProperty> result20 = testSubject0.getObjectPropertiesInSignature();
-        Set<OWLNamedIndividual> result21 = testSubject0.getIndividualsInSignature();
-        Set<OWLDatatype> result22 = testSubject0.getDatatypesInSignature();
-        testSubject0.accept(mock(OWLObjectVisitor.class));
-        Object result27 = testSubject0.accept(Utils.mockObject());
-        Object result28 = testSubject0.accept(Utils.mockClassExpression());
-        testSubject0.accept(mock(OWLClassExpressionVisitor.class));
-        ClassExpressionType result29 = testSubject0.getClassExpressionType();
-        boolean result30 = testSubject0.isObjectRestriction();
-        boolean result31 = testSubject0.isDataRestriction();
-    }
 
     @Test
     public void shouldTestOWLReflexiveObjectPropertyAxiomImpl() throws OWLException {

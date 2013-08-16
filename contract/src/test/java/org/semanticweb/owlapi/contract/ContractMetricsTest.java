@@ -39,7 +39,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-@SuppressWarnings({ "unused", "javadoc", "unchecked" })
+@SuppressWarnings({ "unused", "javadoc", "unchecked", "rawtypes" })
 public class ContractMetricsTest {
     @Test
     public void shouldTestAbstractOWLMetric() throws OWLException {
@@ -57,7 +57,7 @@ public class ContractMetricsTest {
 
             @Override
             protected boolean isMetricInvalidated(
-                    List<? extends OWLOntologyChange<?>> changes) {
+                    List<? extends OWLOntologyChange> changes) {
                 return false;
             }
 
@@ -209,7 +209,7 @@ public class ContractMetricsTest {
 
             @Override
             protected boolean isMetricInvalidated(
-                    List<? extends OWLOntologyChange<?>> changes) {
+                    List<? extends OWLOntologyChange> changes) {
                 return false;
             }
 
@@ -299,7 +299,7 @@ public class ContractMetricsTest {
 
             @Override
             protected boolean isMetricInvalidated(
-                    List<? extends OWLOntologyChange<?>> changes) {
+                    List<? extends OWLOntologyChange> changes) {
                 return false;
             }
 

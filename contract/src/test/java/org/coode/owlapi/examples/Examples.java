@@ -434,7 +434,7 @@ public class Examples {
     }
 
     
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "javadoc", "unused" })
     @Test
     public void shouldInstantiateLiterals() {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();

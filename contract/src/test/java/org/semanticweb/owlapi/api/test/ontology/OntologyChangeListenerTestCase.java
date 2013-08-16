@@ -89,7 +89,10 @@ public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
                 });
         getManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
             @Override
-            public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
+            public
+                    void
+                    ontologiesChanged(
+                            @SuppressWarnings("rawtypes") List<? extends OWLOntologyChange> changes)
                     throws OWLException {
                 for (OWLOntologyChange<?> change : changes) {
                     if (change.isAddAxiom()) {
