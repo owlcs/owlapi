@@ -53,6 +53,7 @@ import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTriple;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.xml.XMLWriterFactory;
+import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -73,11 +74,11 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 06-Dec-2006<br>
  * <br> */
-@SuppressWarnings("javadoc")
 public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLWriter writer;
     private Set<RDFResourceNode> pending;
     private RDFXMLNamespaceManager qnameManager;
+    private OWLOntologyFormat format;
 
     @Deprecated
     public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w) {
@@ -96,7 +97,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     public RDFXMLRenderer(OWLOntology ontology, Writer w, OWLOntologyFormat format) {
         super(ontology, format);
-        pending = new HashSet<RDFResourceNode>();
+        this.format = format;
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base;
@@ -136,6 +137,12 @@ public class RDFXMLRenderer extends RDFRendererBase {
     protected void endDocument() throws IOException {
         writer.endDocument();
         writer.writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
+        if (format instanceof RDFOntologyFormat
+                && !((RDFOntologyFormat) format).isAddMissingTypes()) {
+            // missing type declarations could have been omitted, adding a
+            // comment to document it
+            writer.writeComment("Warning: type declarations were not added automatically.");
+        }
     }
 
     @Override

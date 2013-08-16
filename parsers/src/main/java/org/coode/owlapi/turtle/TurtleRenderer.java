@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.turtle;
 
 import java.io.PrintWriter;
@@ -53,6 +52,7 @@ import org.coode.owlapi.rdf.model.RDFNode;
 import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTriple;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
+import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -70,23 +70,17 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Jan-2008<br><br>
- */
-@SuppressWarnings("javadoc")
+ * Date: 26-Jan-2008<br>
+ * <br> */
 public class TurtleRenderer extends RDFRendererBase {
-
     private PrintWriter writer;
-
     private Set<RDFResourceNode> pending;
-
     private DefaultPrefixManager pm;
-
     private String base;
+    private OWLOntologyFormat format;
 
     @Deprecated
     public TurtleRenderer(OWLOntology ontology, OWLOntologyManager manager,
@@ -96,6 +90,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLOntologyFormat format) {
         super(ontology, format);
+        this.format = format;
         this.writer = new PrintWriter(writer);
         pending = new HashSet<RDFResourceNode>();
         pm = new DefaultPrefixManager();
@@ -106,11 +101,10 @@ public class TurtleRenderer extends RDFRendererBase {
             PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
             for (String prefixName : prefixFormat.getPrefixNames()) {
                 pm.setPrefix(prefixName, prefixFormat.getPrefix(prefixName));
+            }
         }
-    }
         base = "";
     }
-
 
     private void writeNamespaces() {
         for (String prefixName : pm.getPrefixName2PrefixMap().keySet()) {
@@ -124,25 +118,19 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-
     int bufferLength = 0;
-
     int lastNewLineIndex = 0;
-
     Stack<Integer> tabs = new Stack<Integer>();
-
 
     public void pushTab() {
         tabs.push(getIndent());
     }
-
 
     public void popTab() {
         if (!tabs.isEmpty()) {
             tabs.pop();
         }
     }
-
 
     private void write(String s) {
         int newLineIndex = s.indexOf('\n');
@@ -153,11 +141,9 @@ public class TurtleRenderer extends RDFRendererBase {
         bufferLength += s.length();
     }
 
-
     private int getCurrentPos() {
         return bufferLength;
     }
-
 
     private int getIndent() {
         return getCurrentPos() - lastNewLineIndex;
@@ -167,37 +153,30 @@ public class TurtleRenderer extends RDFRendererBase {
         write("<");
         if (s.startsWith(base)) {
             write(s.substring(base.length()));
-        }
-        else {
+        } else {
             write(s);
         }
         write(">");
     }
 
-
     private void write(IRI iri) {
-
         if (iri.equals(getOntology().getOntologyID().getOntologyIRI())) {
             writeAsURI(iri.toString());
-        }
-        else {
+        } else {
             String name = pm.getPrefixIRI(iri);
             if (name == null) {
                 // No QName!
                 writeAsURI(iri.toString());
-            }
-            else {
+            } else {
                 if (name.indexOf(':') != -1) {
                     write(name);
-                }
-                else {
+                } else {
                     write(":");
                     write(name);
                 }
             }
         }
     }
-
 
     private void writeNewLine() {
         write("\n");
@@ -210,32 +189,26 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-
     private void write(RDFNode node) {
         if (node.isLiteral()) {
             write((RDFLiteralNode) node);
-        }
-        else {
+        } else {
             write((RDFResourceNode) node);
         }
     }
-
 
     private void write(RDFLiteralNode node) {
         if (node.getDatatype() != null) {
             if (node.getDatatype().equals(XSDVocabulary.INTEGER.getIRI())) {
                 write(node.getLiteral());
-            }
-            else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getIRI())) {
+            } else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getIRI())) {
                 write(node.getLiteral());
-            }
-            else {
+            } else {
                 writeStringLiteral(node.getLiteral());
                 write("^^");
                 write(node.getDatatype());
             }
-        }
-        else {
+        } else {
             writeStringLiteral(node.getLiteral());
             if (node.getLang() != null) {
                 write("@");
@@ -244,32 +217,27 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-
     private void writeStringLiteral(String literal) {
         String escapedLiteral = EscapeUtils.escapeString(literal);
         if (escapedLiteral.indexOf('\n') != -1) {
             write("\"\"\"");
             write(escapedLiteral);
             write("\"\"\"");
-        }
-        else {
+        } else {
             write("\"");
             write(escapedLiteral);
             write("\"");
         }
     }
 
-
     private void write(RDFResourceNode node) {
         if (!node.isAnonymous()) {
             write(node.getIRI());
-        }
-        else {
+        } else {
             pushTab();
             if (!isObjectList(node)) {
                 render(node);
-            }
-            else {
+            } else {
                 // List - special syntax
                 List<RDFNode> list = new ArrayList<RDFNode>();
                 toJavaList(node, list);
@@ -292,7 +260,6 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-
     @Override
     protected void beginDocument() {
         // Namespaces
@@ -301,8 +268,7 @@ public class TurtleRenderer extends RDFRendererBase {
         write("<");
         if (!getOntology().isAnonymous()) {
             write(getOntology().getOntologyID().getOntologyIRI().toString());
-        }
-        else {
+        } else {
             write(Namespaces.OWL.toString());
         }
         write("> .");
@@ -311,33 +277,34 @@ public class TurtleRenderer extends RDFRendererBase {
         // Ontology URI
     }
 
-
     @Override
     protected void endDocument() {
         writer.flush();
         writer.println();
         writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
+        if (format instanceof RDFOntologyFormat
+                && !((RDFOntologyFormat) format).isAddMissingTypes()) {
+            // missing type declarations could have been omitted, adding a
+            // comment to document it
+            writeComment("Warning: type declarations were not added automatically.");
+        }
         writer.flush();
     }
-
 
     @Override
     protected void writeClassComment(OWLClass cls) {
         writeComment(cls.getIRI().toString());
     }
 
-
     @Override
     protected void writeObjectPropertyComment(OWLObjectProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
-
     @Override
     protected void writeDataPropertyComment(OWLDataProperty prop) {
         writeComment(prop.getIRI().toString());
     }
-
 
     @Override
     protected void writeIndividualComments(OWLNamedIndividual ind) {
@@ -361,14 +328,12 @@ public class TurtleRenderer extends RDFRendererBase {
         writeNewLine();
     }
 
-
     @Override
     protected void endObject() {
         writeNewLine();
         writeNewLine();
         writeNewLine();
     }
-
 
     @Override
     protected void writeBanner(String name) {
@@ -384,20 +349,18 @@ public class TurtleRenderer extends RDFRendererBase {
         writeNewLine();
     }
 
-
     int level = 0;
 
     @Override
     public void render(RDFResourceNode node) {
-
         level++;
         List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
         if (pending.contains(node)) {
-            // We essentially remove all structure sharing during parsing - any cycles therefore indicate a bug!
+            // We essentially remove all structure sharing during parsing - any
+            // cycles therefore indicate a bug!
             triples = new ArrayList<RDFTriple>();
         }
         pending.add(node);
-
         RDFResourceNode lastSubject = null;
         RDFResourceNode lastPredicate = null;
         boolean first = true;
@@ -411,8 +374,7 @@ public class TurtleRenderer extends RDFRendererBase {
                     write(" ,");
                     writeNewLine();
                     write(triple.getObject());
-                }
-                else {
+                } else {
                     // The predicate, object differ from previous triple
                     // Just write the predicate and object
                     write(" ;");
@@ -426,8 +388,7 @@ public class TurtleRenderer extends RDFRendererBase {
                     pushTab();
                     write(triple.getObject());
                 }
-            }
-            else {
+            } else {
                 if (!first) {
                     popTab();
                     popTab();
@@ -437,8 +398,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 if (!node.isAnonymous()) {
                     write(triple.getSubject());
                     write(" ");
-                }
-                else {
+                } else {
                     pushTab();
                     write("[");
                     write(" ");
@@ -453,20 +413,17 @@ public class TurtleRenderer extends RDFRendererBase {
             lastPredicate = pred;
             first = false;
         }
-
         if (node.isAnonymous()) {
             popTab();
             popTab();
             if (triples.isEmpty()) {
                 write("[ ");
-            }
-            else {
+            } else {
                 writeNewLine();
             }
             write("]");
             popTab();
-        }
-        else {
+        } else {
             popTab();
             popTab();
         }
@@ -474,7 +431,6 @@ public class TurtleRenderer extends RDFRendererBase {
             write(" .\n");
         }
         writer.flush();
-
         pending.remove(node);
         level--;
     }
