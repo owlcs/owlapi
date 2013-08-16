@@ -38,6 +38,8 @@
  */
 package org.coode.owlapi.turtle;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -50,6 +52,7 @@ import java.util.Stack;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
@@ -80,9 +83,11 @@ public class TurtleRenderer extends RDFRendererBase {
     private PrefixManager pm;
     private Set<RDFResource> pending;
     private String base;
+    private OWLOntologyFormat format;
 
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLOntologyFormat format) {
         super(ontology, format);
+        this.format = checkNotNull(format, "format cannot be null");
         this.writer = new PrintWriter(writer);
         pending = new HashSet<RDFResource>();
         pm = new DefaultPrefixManager();
@@ -274,6 +279,12 @@ public class TurtleRenderer extends RDFRendererBase {
         writer.flush();
         writer.println();
         writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
+        if (format instanceof RDFOntologyFormat
+                && !((RDFOntologyFormat) format).isAddMissingTypes()) {
+            // missing type declarations could have been omitted, adding a
+            // comment to document it
+            writeComment("Warning: type declarations were not added automatically.");
+        }
         writer.flush();
     }
 

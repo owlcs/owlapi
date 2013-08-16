@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.rdf.rdfxml;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.IOException;
@@ -54,6 +54,7 @@ import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.xml.XMLWriterFactory;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
@@ -79,6 +80,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLWriter writer;
     private Set<RDFResource> pending = new HashSet<RDFResource>();
     private RDFXMLNamespaceManager qnameManager;
+    private OWLOntologyFormat format;
 
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w) {
         this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w, "w cannot be null"), ontology.getOWLOntologyManager()
@@ -88,6 +90,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w,
             @Nonnull OWLOntologyFormat format) {
         super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(format, "format cannot be null"));
+        this.format = checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base;
@@ -114,6 +117,12 @@ public class RDFXMLRenderer extends RDFRendererBase {
     protected void endDocument() throws IOException {
         writer.endDocument();
         writer.writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
+        if (format instanceof RDFOntologyFormat
+                && !((RDFOntologyFormat) format).isAddMissingTypes()) {
+            // missing type declarations could have been omitted, adding a
+            // comment to document it
+            writer.writeComment("Warning: type declarations were not added automatically.");
+        }
     }
 
     @Override
