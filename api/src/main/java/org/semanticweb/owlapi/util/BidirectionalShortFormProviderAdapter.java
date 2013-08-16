@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashSet;
 import java.util.List;
@@ -69,7 +69,7 @@ public class BidirectionalShortFormProviderAdapter extends
     private OWLOntologyManager man;
     private final OWLOntologyChangeListener changeListener = new OWLOntologyChangeListener() {
         @Override
-        public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
+        public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
                 throws OWLException {
             handleChanges(changes);
         }
@@ -136,7 +136,7 @@ public class BidirectionalShortFormProviderAdapter extends
         }
     }
 
-    void handleChanges(List<? extends OWLOntologyChange<?>> changes) {
+    void handleChanges(List<? extends OWLOntologyChange> changes) {
         if (ontologies == null) {
             return;
         }

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
 
@@ -104,7 +104,7 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
 
     /** @param changes
      *            changes to process */
-    public void processChanges(@Nonnull List<? extends OWLOntologyChange<?>> changes) {
+    public void processChanges(@Nonnull List<? extends OWLOntologyChange> changes) {
         checkNotNull(changes, "changes cannot be null");
         for (OWLOntologyChange<?> change : changes) {
             change.accept(this);

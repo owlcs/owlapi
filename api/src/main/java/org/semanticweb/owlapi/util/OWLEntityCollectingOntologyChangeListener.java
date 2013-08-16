@@ -61,7 +61,7 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements
     private final Set<OWLEntity> entities = new HashSet<OWLEntity>();
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
+    public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
             throws OWLException {
         entities.clear();
         for (OWLOntologyChange<?> change : changes) {
