@@ -39,9 +39,9 @@
 package org.semanticweb.owlapi.reasoner;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -57,12 +57,21 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
     private static final long serialVersionUID = 30402L;
     private final List<OWLEntity> entities;
 
-    public FreshEntitiesException(Set<OWLEntity> entities) {
-        this.entities = Collections.unmodifiableList(new ArrayList<OWLEntity>(entities));
+    public FreshEntitiesException(Collection<OWLEntity> entities) {
+        this(entities, null);
+    }
+
+    public FreshEntitiesException(Collection<OWLEntity> entities, Throwable t) {
+        super(t);
+        this.entities = new ArrayList<OWLEntity>(entities);
     }
 
     public FreshEntitiesException(OWLEntity entity) {
-        entities = Collections.singletonList(entity);
+        this(Collections.singletonList(entity));
+    }
+
+    public FreshEntitiesException(OWLEntity entity, Throwable t) {
+        this(Collections.singletonList(entity), t);
     }
 
     /** Gets the entities
