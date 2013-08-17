@@ -76,7 +76,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * <br> */
 public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLWriter writer;
-    private Set<RDFResourceNode> pending;
+    private Set<RDFResourceNode> pending = new HashSet<RDFResourceNode>();
     private RDFXMLNamespaceManager qnameManager;
     private OWLOntologyFormat format;
 
