@@ -815,9 +815,6 @@ public abstract class RDFRendererBase {
                     }
                 }
             }
-            if (diff == 0) {
-                diff = 1;
-            }
             return diff;
         }
     }
