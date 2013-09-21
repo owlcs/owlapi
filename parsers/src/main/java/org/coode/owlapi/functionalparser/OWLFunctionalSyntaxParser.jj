@@ -127,7 +127,7 @@ SKIP: {" " | "\n" | "\t" | "\r"}
 
 MORE:
 {
-    <COMMENT_START: "//"> : IN_COMMENT
+    <COMMENT_START: "#"|"//"> : IN_COMMENT
 }
 
 <IN_COMMENT> SKIP:

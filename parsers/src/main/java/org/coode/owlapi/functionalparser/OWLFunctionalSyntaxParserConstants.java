@@ -271,7 +271,7 @@ public interface OWLFunctionalSyntaxParserConstants {
     "\"\\n\"",
     "\"\\t\"",
     "\"\\r\"",
-    "\"//\"",
+    "<COMMENT_START>",
     "<token of kind 6>",
     "\"\\n\"",
     "\"\\\"\"",
