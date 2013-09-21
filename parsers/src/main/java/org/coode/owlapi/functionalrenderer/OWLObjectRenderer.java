@@ -466,29 +466,49 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
+        Set<OWLIndividual> individuals = axiom.getIndividuals();
+        if (individuals.size() < 2) {
+            // TODO log
+            return;
+        }
         writeAxiomStart(DIFFERENT_INDIVIDUALS, axiom);
-        write(axiom.getIndividuals());
+        write(individuals);
         writeAxiomEnd();
     }
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
+        Set<OWLClassExpression> classExpressions = axiom.getClassExpressions();
+        if (classExpressions.size() < 2) {
+            // TODO log
+            return;
+        }
         writeAxiomStart(DISJOINT_CLASSES, axiom);
-        write(axiom.getClassExpressions());
+        write(classExpressions);
         writeAxiomEnd();
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+        Set<OWLDataPropertyExpression> properties = axiom.getProperties();
+        if (properties.size() < 2) {
+            // TODO log
+            return;
+        }
         writeAxiomStart(DISJOINT_DATA_PROPERTIES, axiom);
-        write(axiom.getProperties());
+        write(properties);
         writeAxiomEnd();
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        Set<OWLObjectPropertyExpression> properties = axiom.getProperties();
+        if (properties.size() < 2) {
+            // TODO log
+            return;
+        }
         writeAxiomStart(DISJOINT_OBJECT_PROPERTIES, axiom);
-        write(axiom.getProperties());
+        write(properties);
         writeAxiomEnd();
     }
 
@@ -514,22 +534,37 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
+        Set<OWLClassExpression> classExpressions = axiom.getClassExpressions();
+        if (classExpressions.size() < 2) {
+            // TODO log
+            return;
+        }
         writeAxiomStart(EQUIVALENT_CLASSES, axiom);
-        write(axiom.getClassExpressions());
+        write(classExpressions);
         writeAxiomEnd();
     }
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        Set<OWLDataPropertyExpression> properties = axiom.getProperties();
+        if (properties.size() < 2) {
+            // TODO log
+            return;
+        }
         writeAxiomStart(EQUIVALENT_DATA_PROPERTIES, axiom);
-        write(axiom.getProperties());
+        write(properties);
         writeAxiomEnd();
     }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        Set<OWLObjectPropertyExpression> properties = axiom.getProperties();
+        if (properties.size() < 2) {
+            // TODO log
+            return;
+        }
         writeAxiomStart(EQUIVALENT_OBJECT_PROPERTIES, axiom);
-        write(axiom.getProperties());
+        write(properties);
         writeAxiomEnd();
     }
 
@@ -650,8 +685,13 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
+        Set<OWLIndividual> individuals = axiom.getIndividuals();
+        if (individuals.size() < 2) {
+            // TODO log
+            return;
+        }
         writeAxiomStart(SAME_INDIVIDUAL, axiom);
-        write(axiom.getIndividuals());
+        write(individuals);
         writeAxiomEnd();
     }
 
