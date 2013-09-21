@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * Date: 01-Jul-2010 */
 @SuppressWarnings("javadoc")
 public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
-    private static final String NS = "http://www.co-ode.org/ontologies/pizza/pizza.owl";
+    private static final String NS = "urn:test";
     public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
 
     @Test

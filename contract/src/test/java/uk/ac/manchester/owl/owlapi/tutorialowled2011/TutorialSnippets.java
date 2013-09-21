@@ -130,7 +130,7 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 @SuppressWarnings("javadoc")
 public class TutorialSnippets {
     public static final IRI pizza_iri = IRI
-            .create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
+            .create("http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl");
     public static final IRI example_iri = IRI
             .create("http://www.semanticweb.org/ontologies/ont.owl");
     public static final IRI example_save_iri = IRI
