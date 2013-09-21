@@ -36,6 +36,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
@@ -60,16 +61,20 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
  * Bio-Health Informatics Group<br>
  * Date: 18-Feb-2007<br>
  * <br> */
+@SuppressWarnings("javadoc")
 public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> {
     private static final Logger logger = Logger
             .getLogger(SWRLAtomListItemTranslator.class.getName());
     private OWLRDFConsumer consumer;
+
     protected OWLDataFactory dataFactory;
+
 
     public SWRLAtomListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
         dataFactory = consumer.getDataFactory();
     }
+
 
     @Override
     public SWRLAtom translate(IRI firstObject) {
@@ -84,39 +89,49 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
             return dataFactory.getSWRLBuiltInAtom(builtInIRI, args);
         } else if (consumer.isSWRLClassAtom(firstObject)) {
             // C(?x) or C(ind)
-            SWRLIArgument iObject = translateSWRLAtomIObject(firstObject,
-                    ARGUMENT_1.getIRI());
-            IRI classIRI = consumer.getResourceObject(firstObject,
-                    CLASS_PREDICATE.getIRI(), true);
+            SWRLIArgument iObject = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getIRI());
+            IRI classIRI = consumer.getResourceObject(firstObject, CLASS_PREDICATE.getIRI(), true);
+            if (classIRI == null) {
+                throw new OWLRuntimeException(
+                        "Don't know how to translate SWRL Atom: class IRI is null "
+                                + firstObject);
+            }
             OWLClassExpression desc = consumer.translateClassExpression(classIRI);
             return dataFactory.getSWRLClassAtom(desc, iObject);
         } else if (consumer.isSWRLDataRangeAtom(firstObject)) {
             // DR(?x) or DR(val)
-            SWRLDArgument dObject = translateSWRLAtomDObject(firstObject,
-                    ARGUMENT_1.getIRI());
-            IRI dataRangeIRI = consumer.getResourceObject(firstObject,
-                    DATA_RANGE.getIRI(), true);
+            SWRLDArgument dObject = translateSWRLAtomDObject(firstObject, ARGUMENT_1.getIRI());
+            IRI dataRangeIRI = consumer.getResourceObject(firstObject, DATA_RANGE.getIRI(), true);
+            if (dataRangeIRI == null) {
+                throw new OWLRuntimeException(
+                        "Don't know how to translate SWRL Atom: data range IRI is null "
+                                + firstObject);
+            }
             OWLDataRange dataRange = consumer.translateDataRange(dataRangeIRI);
             return dataFactory.getSWRLDataRangeAtom(dataRange, dObject);
-        } else if (consumer.isSWRLDataValuedPropertyAtom(firstObject)) {
-            SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject,
-                    ARGUMENT_1.getIRI());
-            SWRLDArgument arg2 = translateSWRLAtomDObject(firstObject,
-                    ARGUMENT_2.getIRI());
-            IRI dataPropertyIRI = consumer.getResourceObject(firstObject,
-                    PROPERTY_PREDICATE.getIRI(), true);
-            OWLDataPropertyExpression prop = consumer
-                    .translateDataPropertyExpression(dataPropertyIRI);
+        }
+        else if (consumer.isSWRLDataValuedPropertyAtom(firstObject)) {
+            SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getIRI());
+            SWRLDArgument arg2 = translateSWRLAtomDObject(firstObject, ARGUMENT_2.getIRI());
+            IRI dataPropertyIRI = consumer.getResourceObject(firstObject, PROPERTY_PREDICATE.getIRI(), true);
+            if (dataPropertyIRI == null) {
+                throw new OWLRuntimeException(
+                        "Don't know how to translate SWRL Atom: data property IRI is null "
+                                + firstObject);
+            }
+            OWLDataPropertyExpression prop = consumer.translateDataPropertyExpression(dataPropertyIRI);
             return dataFactory.getSWRLDataPropertyAtom(prop, arg1, arg2);
-        } else if (consumer.isSWRLIndividualPropertyAtom(firstObject)) {
-            SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject,
-                    ARGUMENT_1.getIRI());
-            SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject,
-                    ARGUMENT_2.getIRI());
-            IRI objectPropertyIRI = consumer.getResourceObject(firstObject,
-                    PROPERTY_PREDICATE.getIRI(), true);
-            OWLObjectPropertyExpression prop = consumer
-                    .translateObjectPropertyExpression(objectPropertyIRI);
+        }
+        else if (consumer.isSWRLIndividualPropertyAtom(firstObject)) {
+            SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getIRI());
+            SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject, ARGUMENT_2.getIRI());
+            IRI objectPropertyIRI = consumer.getResourceObject(firstObject, PROPERTY_PREDICATE.getIRI(), true);
+            if (objectPropertyIRI == null) {
+                throw new OWLRuntimeException(
+                        "Don't know how to translate SWRL Atom: object property IRI is null "
+                                + firstObject);
+            }
+            OWLObjectPropertyExpression prop = consumer.translateObjectPropertyExpression(objectPropertyIRI);
             return dataFactory.getSWRLObjectPropertyAtom(prop, arg1, arg2);
         } else if (consumer.isSWRLSameAsAtom(firstObject)) {
             SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject,
@@ -135,17 +150,20 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
                 + firstObject);
     }
 
+
     @Override
     public SWRLAtom translate(OWLLiteral firstObject) {
         throw new OWLRuntimeException("Unexpected literal in atom list: " + firstObject);
     }
+
 
     private SWRLIArgument translateSWRLAtomIObject(IRI mainIRI, IRI argPredicateIRI) {
         IRI argIRI = consumer.getResourceObject(mainIRI, argPredicateIRI, true);
         if (argIRI != null) {
             if (consumer.isSWRLVariable(argIRI)) {
                 return dataFactory.getSWRLVariable(argIRI);
-            } else {
+            }
+ else {
                 return dataFactory.getSWRLIndividualArgument(consumer
                         .getOWLIndividual(argIRI));
             }
@@ -154,6 +172,7 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
                     + argPredicateIRI + " Triple not found.");
         }
     }
+
 
     private SWRLDArgument translateSWRLAtomDObject(IRI mainIRI, IRI argPredicateIRI) {
         IRI argIRI = consumer.getResourceObject(mainIRI, argPredicateIRI, true);
@@ -177,11 +196,11 @@ public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> 
     private class SWRLAtomDObjectListItemTranslator implements
             ListItemTranslator<SWRLDArgument> {
         public SWRLAtomDObjectListItemTranslator() {}
-
         @Override
         public SWRLDArgument translate(IRI firstObject) {
             return dataFactory.getSWRLVariable(firstObject);
         }
+
 
         @Override
         public SWRLDArgument translate(OWLLiteral firstObject) {
