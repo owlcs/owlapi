@@ -150,7 +150,7 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
  * Date: 11-Jan-2007 */
 @Ignore
 public class Examples {
-    private static final String PIZZA_IRI = "http://www.co-ode.org/ontologies/pizza/pizza.owl";
+    private static final String PIZZA_IRI = "http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl";
 
     /** The examples here show how to load ontologies
      * 
@@ -159,13 +159,15 @@ public class Examples {
         // Get hold of an ontology manager
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // Let's load an ontology from the web
-        IRI iri = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
+        IRI iri = IRI
+                .create("http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl");
         OWLOntology pizzaOntology = manager.loadOntologyFromOntologyDocument(iri);
         System.out.println("Loaded ontology: " + pizzaOntology);
         // Remove the ontology so that we can load a local copy.
         manager.removeOntology(pizzaOntology);
         // We can also load ontologies from files. Download the pizza ontology
-        // from http://www.co-ode.org/ontologies/pizza/pizza.owl and put it
+        // from http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl
+        // and put it
         // somewhere on your hard drive Create a file object that points to the
         // local copy
         File file = new File("/tmp/pizza.owl");
@@ -181,13 +183,14 @@ public class Examples {
         // ontology IRI mapper can be used to provide a redirection mechanism.
         // This means that ontologies can be loaded as if they were located on
         // the web. In this example, we simply redirect the loading from
-        // http://www.co-ode.org/ontologies/pizza/pizza.owl to our local copy
+        // http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl to
+        // our local copy
         // above.
         manager.addIRIMapper(new SimpleIRIMapper(iri, IRI.create(file)));
         // Load the ontology as if we were loading it from the web (from its
         // ontology IRI)
         IRI pizzaOntologyIRI = IRI
-                .create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
+                .create("http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl");
         OWLOntology redirectedPizza = manager.loadOntology(pizzaOntologyIRI);
         System.out.println("Loaded ontology: " + redirectedPizza);
         System.out
@@ -209,7 +212,8 @@ public class Examples {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // Let's load an ontology from the web. We load the ontology from a
         // document IRI
-        IRI documentIRI = IRI.create("http://www.co-ode.org/ontologies/pizza/pizza.owl");
+        IRI documentIRI = IRI
+                .create("http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl");
         OWLOntology pizzaOntology = manager.loadOntologyFromOntologyDocument(documentIRI);
         System.out.println("Loaded ontology: " + pizzaOntology);
         // Now save a local copy of the ontology. (Specify a path appropriate to
@@ -1576,7 +1580,7 @@ public class Examples {
     @Test
     public void shouldExtractModules() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
-        String DOCUMENT_IRI = "http://www.co-ode.org/ontologies/pizza/2007/02/12/pizza.owl";
+        String DOCUMENT_IRI = "http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl";
         // Create our manager
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         // Load the pizza ontology
