@@ -38,7 +38,7 @@
  */
 package org.coode.xml;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashMap;
 import java.util.HashSet;

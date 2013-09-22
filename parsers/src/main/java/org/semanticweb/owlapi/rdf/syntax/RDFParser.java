@@ -44,7 +44,7 @@
  */
 package org.semanticweb.owlapi.rdf.syntax;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
 import java.io.StreamTokenizer;

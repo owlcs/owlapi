@@ -38,8 +38,8 @@
  */
 package org.semanticweb.owlapi.reasoner.structural;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;

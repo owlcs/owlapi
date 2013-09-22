@@ -38,7 +38,7 @@
  */
 package com.clarkparsia.owlapi.explanation;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;

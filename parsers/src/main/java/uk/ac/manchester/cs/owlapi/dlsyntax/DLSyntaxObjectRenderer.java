@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.cs.owlapi.dlsyntax;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntax.*;
 
 import java.util.ArrayList;

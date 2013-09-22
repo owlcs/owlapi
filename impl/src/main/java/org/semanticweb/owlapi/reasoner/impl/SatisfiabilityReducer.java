@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.reasoner.impl;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 

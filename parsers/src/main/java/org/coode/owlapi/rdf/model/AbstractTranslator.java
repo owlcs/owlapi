@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.rdf.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
 

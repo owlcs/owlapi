@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.owlxml.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.util.ArrayList;

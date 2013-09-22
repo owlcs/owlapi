@@ -38,7 +38,7 @@
  */
 package com.clarkparsia.owlapi.modularity.locality;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashSet;
 import java.util.Set;
