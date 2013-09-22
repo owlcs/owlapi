@@ -71,6 +71,7 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
+@SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     private OWLOntologyManager man;
     private OWLOntologyLoaderConfiguration configuration;
@@ -161,12 +162,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         for (String pn : prefixMap.keySet()) {
             format.setPrefix(pn, prefixMap.get(pn));
         }
-        {
-            if (true) {
-                return format;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return format;
     }
 
     final public void Ontology() throws ParseException, UnloadableImportException {
@@ -243,45 +239,25 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return iri;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return iri;
     }
 
     final public IRI FullIRI() throws ParseException {
         Token t;
         t = jj_consume_token(FULLIRI);
-        {
-            if (true) {
-                return getIRI(t.image);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return getIRI(t.image);
     }
 
     final public IRI AbbreviatedIRI() throws ParseException {
         Token t;
         t = jj_consume_token(PNAME_LN);
-        {
-            if (true) {
-                return getIRI(t.image);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return getIRI(t.image);
     }
 
     final public String PrefixName() throws ParseException {
         Token t;
         t = jj_consume_token(PNAME_NS);
-        {
-            if (true) {
-                return t.image;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return t.image;
     }
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -331,23 +307,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return desc;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return desc;
     }
 
     final public OWLClass ClassIRI() throws ParseException {
         IRI iri;
         iri = IRI();
-        {
-            if (true) {
-                return dataFactory.getOWLClass(iri);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLClass(iri);
     }
 
     final public Set<OWLClassExpression> ClassExpressionSet() throws ParseException {
@@ -366,12 +332,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             desc = ClassExpression();
             classExpressions.add(desc);
         }
-        {
-            if (true) {
-                return classExpressions;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return classExpressions;
     }
 
     final public Set<OWLIndividual> IndividualMinOneSet() throws ParseException {
@@ -388,12 +349,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             ind = Individual();
             individuals.add(ind);
         }
-        {
-            if (true) {
-                return individuals;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return individuals;
     }
 
     final public OWLClassExpression ObjectUnionOf() throws ParseException {
@@ -402,12 +358,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLObjectUnionOf(classExpressions);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLObjectUnionOf(classExpressions);
     }
 
     final public OWLClassExpression ObjectIntersectionOf() throws ParseException {
@@ -416,12 +367,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLObjectIntersectionOf(classExpressions);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLObjectIntersectionOf(classExpressions);
     }
 
     final public OWLClassExpression ObjectComplementOf() throws ParseException {
@@ -430,12 +376,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         operand = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLObjectComplementOf(operand);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLObjectComplementOf(operand);
     }
 
     final public OWLClassExpression ObjectOneOf() throws ParseException {
@@ -444,12 +385,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         individuals = IndividualMinOneSet();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLObjectOneOf(individuals);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLObjectOneOf(individuals);
     }
 
     final public OWLClassExpression ObjectAllValuesFrom() throws ParseException {
@@ -460,12 +396,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         filler = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
     }
 
     final public OWLClassExpression ObjectSomeValuesFrom() throws ParseException {
@@ -476,12 +407,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         filler = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
     }
 
     final public OWLClassExpression ObjectHasValue() throws ParseException {
@@ -492,12 +418,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         ind = Individual();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLObjectHasValue(prop, ind);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLObjectHasValue(prop, ind);
     }
 
     final public OWLClassExpression ObjectSelf() throws ParseException {
@@ -506,12 +427,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLObjectHasSelf(prop);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLObjectHasSelf(prop);
     }
 
     final public OWLClassExpression ObjectMinCardinality() throws ParseException {
@@ -615,12 +531,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = DataPropertyExpression();
         dataRange = DataRange();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDataAllValuesFrom(prop, dataRange);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDataAllValuesFrom(prop, dataRange);
     }
 
     final public OWLClassExpression DataSomeValuesFrom() throws ParseException {
@@ -631,12 +542,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = DataPropertyExpression();
         dataRange = DataRange();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDataSomeValuesFrom(prop, dataRange);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDataSomeValuesFrom(prop, dataRange);
     }
 
     final public OWLClassExpression DataHasValue() throws ParseException {
@@ -647,12 +553,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = DataPropertyExpression();
         literal = Literal();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDataHasValue(prop, literal);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDataHasValue(prop, literal);
     }
 
     final public OWLClassExpression DataMinCardinality() throws ParseException {
@@ -751,12 +652,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         cls = ClassIRI();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return cls;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return cls;
     }
 
     final public OWLObjectPropertyExpression ObjectPropertyExpression()
@@ -770,12 +666,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return prop;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return prop;
     }
 
     final public OWLObjectPropertyExpression InverseObjectProperty()
@@ -785,12 +676,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLObjectInverseOf(prop);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLObjectInverseOf(prop);
     }
 
     final public OWLObjectProperty ObjectProperty() throws ParseException {
@@ -799,34 +685,19 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         prop = ObjectPropertyIRI();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return prop;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return prop;
     }
 
     final public OWLDataPropertyExpression DataPropertyExpression() throws ParseException {
         OWLDataPropertyExpression prop;
         prop = DataPropertyIRI();
-        {
-            if (true) {
-                return prop;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return prop;
     }
 
     final public OWLDataProperty DataPropertyIRI() throws ParseException {
         IRI iri;
         iri = IRI();
-        {
-            if (true) {
-                return dataFactory.getOWLDataProperty(iri);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDataProperty(iri);
     }
 
     final public OWLDataProperty DataProperty() throws ParseException {
@@ -835,12 +706,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         prop = DataPropertyIRI();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return prop;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return prop;
     }
 
     final public OWLAnnotationProperty AnnotationProperty() throws ParseException {
@@ -849,23 +715,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         prop = AnnotationPropertyIRI();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return prop;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return prop;
     }
 
     final public OWLAnnotationProperty AnnotationPropertyIRI() throws ParseException {
         IRI iri;
         iri = IRI();
-        {
-            if (true) {
-                return dataFactory.getOWLAnnotationProperty(iri);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLAnnotationProperty(iri);
     }
 
     final public OWLNamedIndividual NamedIndividual() throws ParseException {
@@ -874,24 +730,14 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         ind = IndividualIRI();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return ind;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return ind;
     }
 
     final public OWLAnonymousIndividual AnonymousIndividual() throws ParseException {
         Token t;
         t = jj_consume_token(NODEID);
         String id = t.image.substring(2, t.image.length());
-        {
-            if (true) {
-                return dataFactory.getOWLAnonymousIndividual(id);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLAnonymousIndividual(id);
     }
 
     final public OWLDatatype Datatype() throws ParseException {
@@ -900,46 +746,26 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         dt = DatatypeIRI();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dt;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dt;
     }
 
     final public OWLDatatype DatatypeIRI() throws ParseException {
         IRI iri;
         iri = IRI();
-        {
-            if (true) {
-                return dataFactory.getOWLDatatype(iri);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDatatype(iri);
     }
 
     final public int Cardinality() throws ParseException {
         int card = 0;
         card = Integer();
-        {
-            if (true) {
-                return card;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return card;
     }
 
     final public int Integer() throws ParseException {
         Token t;
         t = jj_consume_token(INT);
         int i = Integer.parseInt(t.image);
-        {
-            if (true) {
-                return i;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return i;
     }
 
     final public OWLDatatypeDefinitionAxiom DatatypeDefinitionAxiom()
@@ -953,12 +779,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         datatype = DatatypeIRI();
         dr = DataRange();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDatatypeDefinitionAxiom(datatype, dr, axAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDatatypeDefinitionAxiom(datatype, dr, axAnnos);
     }
 
     final public OWLDataRange DataRange() throws ParseException {
@@ -979,12 +800,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return rng;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return rng;
     }
 
     final public OWLDataRange DataComplementOf() throws ParseException {
@@ -993,12 +809,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         rng = DataRange();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDataComplementOf(rng);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDataComplementOf(rng);
     }
 
     final public OWLDataRange DataOneOf() throws ParseException {
@@ -1017,12 +828,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             }
         }
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDataOneOf(values);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDataOneOf(values);
     }
 
     final public OWLDataRange DataUnionOf() throws ParseException {
@@ -1040,12 +846,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             }
         }
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDataUnionOf(ranges);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDataUnionOf(ranges);
     }
 
     final public OWLDataRange DataIntersectionOf() throws ParseException {
@@ -1063,12 +864,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             }
         }
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDataIntersectionOf(ranges);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDataIntersectionOf(ranges);
     }
 
     final public OWLDataRange DataRangeRestriction() throws ParseException {
@@ -1089,12 +885,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             }
         }
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDatatypeRestriction(rng, facetRestrictions);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDatatypeRestriction(rng, facetRestrictions);
     }
 
     final public OWLFacetRestriction DataRangeFacetRestriction() throws ParseException {
@@ -1103,12 +894,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         iri = IRI();
         con = Literal();
         OWLFacet v = OWLFacet.getFacetByShortName(iri.getFragment());
-        {
-            if (true) {
-                return dataFactory.getOWLFacetRestriction(v, con);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLFacetRestriction(v, con);
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1140,12 +926,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return ax;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return ax;
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1167,12 +948,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return ax;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return ax;
     }
 
     final public OWLClassAxiom SubClassOf() throws ParseException {
@@ -1185,13 +961,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         subClass = ClassExpression();
         superClass = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory
-                        .getOWLSubClassOfAxiom(subClass, superClass, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLSubClassOfAxiom(subClass, superClass, axiomAnnos);
     }
 
     final public OWLClassAxiom EquivalentClasses() throws ParseException {
@@ -1202,13 +972,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLEquivalentClassesAxiom(classExpressions,
-                        axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLEquivalentClassesAxiom(classExpressions, axiomAnnos);
     }
 
     final public OWLClassAxiom DisjointClasses() throws ParseException {
@@ -1219,13 +983,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDisjointClassesAxiom(classExpressions,
-                        axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDisjointClassesAxiom(classExpressions, axiomAnnos);
     }
 
     final public OWLClassAxiom DisjointUnion() throws ParseException {
@@ -1238,13 +996,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         cls = ClassIRI();
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDisjointUnionAxiom(cls, classExpressions,
-                        axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDisjointUnionAxiom(cls, classExpressions, axiomAnnos);
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1284,12 +1036,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return ax;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return ax;
     }
 
     final public List<OWLObjectPropertyExpression> SubObjectPropertyChain()
@@ -1310,12 +1057,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             props.add(prop);
         }
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return props;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return props;
     }
 
     final public OWLPropertyAxiom SubObjectPropertyOf() throws ParseException {
@@ -1368,13 +1110,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         props = ObjectPropertySet();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLEquivalentObjectPropertiesAxiom(props,
-                        axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLEquivalentObjectPropertiesAxiom(props, axiomAnnos);
     }
 
     final public OWLPropertyAxiom DisjointObjectProperties() throws ParseException {
@@ -1385,12 +1121,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         props = ObjectPropertySet();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDisjointObjectPropertiesAxiom(props, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDisjointObjectPropertiesAxiom(props, axiomAnnos);
     }
 
     final public Set<OWLObjectPropertyExpression> ObjectPropertySet()
@@ -1410,12 +1141,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             prop = ObjectPropertyExpression();
             props.add(prop);
         }
-        {
-            if (true) {
-                return props;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return props;
     }
 
     final public OWLPropertyAxiom ObjectPropertyRange() throws ParseException {
@@ -1428,13 +1154,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         range = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory
-                        .getOWLObjectPropertyRangeAxiom(prop, range, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLObjectPropertyRangeAxiom(prop, range, axiomAnnos);
     }
 
     final public OWLPropertyAxiom ObjectPropertyDomain() throws ParseException {
@@ -1447,13 +1167,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         desc = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory
-                        .getOWLObjectPropertyDomainAxiom(prop, desc, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLObjectPropertyDomainAxiom(prop, desc, axiomAnnos);
     }
 
     final public OWLPropertyAxiom FunctionalObjectProperty() throws ParseException {
@@ -1464,12 +1178,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLFunctionalObjectPropertyAxiom(prop, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLFunctionalObjectPropertyAxiom(prop, axiomAnnos);
     }
 
     final public OWLPropertyAxiom InverseObjectProperties() throws ParseException {
@@ -1482,13 +1191,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         propA = ObjectPropertyExpression();
         propB = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLInverseObjectPropertiesAxiom(propA, propB,
-                        axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLInverseObjectPropertiesAxiom(propA, propB, axiomAnnos);
     }
 
     final public OWLPropertyAxiom InverseFunctionalObjectProperty() throws ParseException {
@@ -1499,13 +1202,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(prop,
-                        axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(prop, axiomAnnos);
     }
 
     final public OWLPropertyAxiom SymmetricObjectProperty() throws ParseException {
@@ -1516,12 +1213,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLSymmetricObjectPropertyAxiom(prop, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLSymmetricObjectPropertyAxiom(prop, axiomAnnos);
     }
 
     final public OWLPropertyAxiom AsymmetricObjectProperty() throws ParseException {
@@ -1532,12 +1224,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLAsymmetricObjectPropertyAxiom(prop, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLAsymmetricObjectPropertyAxiom(prop, axiomAnnos);
     }
 
     final public OWLPropertyAxiom ReflexiveObjectProperty() throws ParseException {
@@ -1548,12 +1235,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLReflexiveObjectPropertyAxiom(prop, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLReflexiveObjectPropertyAxiom(prop, axiomAnnos);
     }
 
     final public OWLPropertyAxiom IrreflexiveObjectProperty() throws ParseException {
@@ -1564,12 +1246,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLIrreflexiveObjectPropertyAxiom(prop, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLIrreflexiveObjectPropertyAxiom(prop, axiomAnnos);
     }
 
     final public OWLPropertyAxiom TransitiveObjectProperty() throws ParseException {
@@ -1580,12 +1257,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLTransitiveObjectPropertyAxiom(prop, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLTransitiveObjectPropertyAxiom(prop, axiomAnnos);
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1611,12 +1283,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return ax;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return ax;
     }
 
     final public OWLPropertyAxiom SubDataPropertyOf() throws ParseException {
@@ -1629,13 +1296,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         subProperty = DataPropertyExpression();
         superProperty = DataPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLSubDataPropertyOfAxiom(subProperty,
-                        superProperty, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLSubDataPropertyOfAxiom(subProperty, superProperty,
+                axiomAnnos);
     }
 
     final public OWLPropertyAxiom EquivalentDataProperties() throws ParseException {
@@ -1646,12 +1308,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         props = DataPropertySet();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLEquivalentDataPropertiesAxiom(props, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLEquivalentDataPropertiesAxiom(props, axiomAnnos);
     }
 
     final public OWLPropertyAxiom DisjointDataProperties() throws ParseException {
@@ -1662,12 +1319,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         props = DataPropertySet();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDisjointDataPropertiesAxiom(props, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDisjointDataPropertiesAxiom(props, axiomAnnos);
     }
 
     final public Set<OWLDataPropertyExpression> DataPropertySet() throws ParseException {
@@ -1686,12 +1338,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             prop = DataPropertyExpression();
             props.add(prop);
         }
-        {
-            if (true) {
-                return props;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return props;
     }
 
     final public OWLPropertyAxiom DataPropertyDomain() throws ParseException {
@@ -1704,13 +1351,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = DataPropertyExpression();
         domain = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory
-                        .getOWLDataPropertyDomainAxiom(prop, domain, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDataPropertyDomainAxiom(prop, domain, axiomAnnos);
     }
 
     final public OWLPropertyAxiom DataPropertyRange() throws ParseException {
@@ -1723,12 +1364,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = DataPropertyExpression();
         rng = DataRange();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDataPropertyRangeAxiom(prop, rng, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDataPropertyRangeAxiom(prop, rng, axiomAnnos);
     }
 
     final public OWLPropertyAxiom FunctionalDataProperty() throws ParseException {
@@ -1739,12 +1375,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         prop = DataPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLFunctionalDataPropertyAxiom(prop, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLFunctionalDataPropertyAxiom(prop, axiomAnnos);
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1772,12 +1403,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return ax;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return ax;
     }
 
     final public Set<OWLIndividual> IndividualSet() throws ParseException {
@@ -1796,12 +1422,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             ind = Individual();
             individuals.add(ind);
         }
-        {
-            if (true) {
-                return individuals;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return individuals;
     }
 
     final public OWLIndividualAxiom SameIndividuals() throws ParseException {
@@ -1812,12 +1433,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         individuals = IndividualSet();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLSameIndividualAxiom(individuals, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLSameIndividualAxiom(individuals, axiomAnnos);
     }
 
     final public OWLIndividualAxiom DifferentIndividuals() throws ParseException {
@@ -1828,13 +1444,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         axiomAnnos = AxiomAnnotationSet();
         individuals = IndividualSet();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDifferentIndividualsAxiom(individuals,
-                        axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDifferentIndividualsAxiom(individuals, axiomAnnos);
     }
 
     final public OWLIndividualAxiom ClassAssertion() throws ParseException {
@@ -1847,12 +1457,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         desc = ClassExpression();
         ind = Individual();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLClassAssertionAxiom(desc, ind, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLClassAssertionAxiom(desc, ind, axiomAnnos);
     }
 
     final public OWLIndividualAxiom ObjectPropertyAssertion() throws ParseException {
@@ -1867,13 +1472,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         subj = Individual();
         obj = Individual();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj,
-                        axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory
+                .getOWLObjectPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);
     }
 
     final public OWLIndividualAxiom NegativeObjectPropertyAssertion()
@@ -1889,13 +1489,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         subj = Individual();
         obj = Individual();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(prop, subj,
-                        obj, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(prop, subj, obj,
+                axiomAnnos);
     }
 
     final public OWLIndividualAxiom DataPropertyAssertion() throws ParseException {
@@ -1910,13 +1505,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         subj = Individual();
         obj = Literal();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLDataPropertyAssertionAxiom(prop, subj, obj,
-                        axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLDataPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);
     }
 
     final public OWLIndividualAxiom NegativeDataPropertyAssertion() throws ParseException {
@@ -1931,24 +1520,14 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         subj = Individual();
         obj = Literal();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLNegativeDataPropertyAssertionAxiom(prop, subj,
-                        obj, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLNegativeDataPropertyAssertionAxiom(prop, subj, obj,
+                axiomAnnos);
     }
 
     final public OWLNamedIndividual IndividualIRI() throws ParseException {
         IRI iri;
         iri = IRI();
-        {
-            if (true) {
-                return dataFactory.getOWLNamedIndividual(iri);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLNamedIndividual(iri);
     }
 
     final public OWLIndividual Individual() throws ParseException {
@@ -1961,23 +1540,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return ind;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return ind;
     }
 
     final public OWLObjectProperty ObjectPropertyIRI() throws ParseException {
         IRI iri;
         iri = IRI();
-        {
-            if (true) {
-                return dataFactory.getOWLObjectProperty(iri);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLObjectProperty(iri);
     }
 
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1999,12 +1568,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return axiom;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return axiom;
     }
 
     final public OWLAnnotation Annotation() throws ParseException {
@@ -2027,12 +1591,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = AnnotationPropertyIRI();
         val = AnnotationValue();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLAnnotation(prop, val, annos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLAnnotation(prop, val, annos);
     }
 
     final public OWLAnnotationSubject AnnotationSubject() throws ParseException {
@@ -2045,12 +1604,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return subj;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return subj;
     }
 
     final public OWLAnnotationValue AnnotationValue() throws ParseException {
@@ -2065,12 +1619,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return value;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return value;
     }
 
     final public Set<OWLAnnotation> AxiomAnnotationSet() throws ParseException {
@@ -2091,12 +1640,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         if (annos == null) {
             annos = Collections.emptySet();
         }
-        {
-            if (true) {
-                return annos;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return annos;
     }
 
     final public OWLImportsDeclaration ImportsDeclaration() throws ParseException {
@@ -2107,12 +1651,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(CLOSEPAR);
         OWLImportsDeclaration importsDeclaration = dataFactory
                 .getOWLImportsDeclaration(iri);
-        {
-            if (true) {
-                return importsDeclaration;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return importsDeclaration;
     }
 
     final public OWLAnnotationAssertionAxiom AnnotationAssertion() throws ParseException {
@@ -2127,13 +1666,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         subj = AnnotationSubject();
         val = AnnotationValue();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLAnnotationAssertionAxiom(prop, subj, val,
-                        axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLAnnotationAssertionAxiom(prop, subj, val, axiomAnnos);
     }
 
     final public OWLSubAnnotationPropertyOfAxiom SubAnnotationPropertyOf()
@@ -2147,13 +1680,8 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         subProp = AnnotationPropertyIRI();
         superProperty = AnnotationPropertyIRI();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLSubAnnotationPropertyOfAxiom(subProp,
-                        superProperty, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLSubAnnotationPropertyOfAxiom(subProp, superProperty,
+                axiomAnnos);
     }
 
     final public OWLAnnotationPropertyDomainAxiom AnnotationPropertyDomain()
@@ -2167,13 +1695,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = AnnotationPropertyIRI();
         domain = IRI();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLAnnotationPropertyDomainAxiom(prop, domain,
-                        axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLAnnotationPropertyDomainAxiom(prop, domain, axiomAnnos);
     }
 
     final public OWLAnnotationPropertyRangeAxiom AnnotationPropertyRange()
@@ -2187,13 +1709,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = AnnotationPropertyIRI();
         range = IRI();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLAnnotationPropertyRangeAxiom(prop, range,
-                        axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLAnnotationPropertyRangeAxiom(prop, range, axiomAnnos);
     }
 
     final public OWLHasKeyAxiom HasKey() throws ParseException {
@@ -2228,12 +1744,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
         jj_consume_token(CLOSEPAR);
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getOWLHasKeyAxiom(ce, props, axiomAnnos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getOWLHasKeyAxiom(ce, props, axiomAnnos);
     }
 
     final public OWLAxiom Declaration() throws ParseException {
@@ -2280,12 +1791,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return entity;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return entity;
     }
 
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2340,12 +1846,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         Token t;
         t = jj_consume_token(STRINGLITERAL);
         String raw = t.image.substring(1, t.image.length() - 1);
-        {
-            if (true) {
-                return EscapeUtils.unescapeString(raw);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return EscapeUtils.unescapeString(raw);
     }
 
     final public String LangTag() throws ParseException {
@@ -2353,12 +1854,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         Token t;
         t = jj_consume_token(PN_LOCAL);
         lang += t.image;
-        {
-            if (true) {
-                return lang;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return lang;
     }
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2401,12 +1897,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
         jj_consume_token(CLOSEPAR);
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getSWRLRule(body, head, annos);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getSWRLRule(body, head, annos);
     }
 
     final public SWRLAtom Atom() throws ParseException {
@@ -2429,12 +1920,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
-                return atom;
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return atom;
     }
 
     final public SWRLClassAtom ClassAtom() throws ParseException {
@@ -2445,12 +1931,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         ce = ClassExpression();
         arg0 = IArg();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getSWRLClassAtom(ce, arg0);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getSWRLClassAtom(ce, arg0);
     }
 
     final public SWRLDataRangeAtom DataRangeAtom() throws ParseException {
@@ -2461,12 +1942,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         rng = DataRange();
         arg0 = DArg();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getSWRLDataRangeAtom(rng, arg0);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getSWRLDataRangeAtom(rng, arg0);
     }
 
     final public SWRLObjectPropertyAtom ObjectPropertyAtom() throws ParseException {
@@ -2479,12 +1955,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         arg0 = IArg();
         arg1 = IArg();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getSWRLObjectPropertyAtom(prop, arg0, arg1);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getSWRLObjectPropertyAtom(prop, arg0, arg1);
     }
 
     final public SWRLDataPropertyAtom DataPropertyAtom() throws ParseException {
@@ -2497,12 +1968,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         arg0 = IArg();
         arg1 = DArg();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getSWRLDataPropertyAtom(prop, arg0, arg1);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getSWRLDataPropertyAtom(prop, arg0, arg1);
     }
 
     final public SWRLBuiltInAtom BuiltInAtom() throws ParseException {
@@ -2526,12 +1992,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             args.add(arg);
         }
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getSWRLBuiltInAtom(iri, args);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getSWRLBuiltInAtom(iri, args);
     }
 
     final public SWRLSameIndividualAtom SameIndividualAtom() throws ParseException {
@@ -2542,12 +2003,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         arg0 = IArg();
         arg1 = IArg();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getSWRLSameIndividualAtom(arg0, arg1);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getSWRLSameIndividualAtom(arg0, arg1);
     }
 
     final public SWRLDifferentIndividualsAtom DifferentIndividualsAtom()
@@ -2559,12 +2015,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         arg0 = IArg();
         arg1 = IArg();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
-                return dataFactory.getSWRLDifferentIndividualsAtom(arg0, arg1);
-            }
-        }
-        throw new Error("Missing return statement in function");
+        return dataFactory.getSWRLDifferentIndividualsAtom(arg0, arg1);
     }
 
     final public SWRLIArgument IArg() throws ParseException {
@@ -4180,6 +3631,26 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         } finally {
             jj_save(129, xla);
         }
+    }
+
+    private boolean jj_3R_96() {
+        if (jj_scan_token(CLASSASSERTION)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean jj_3R_69() {
+        if (jj_scan_token(EQUIVALENTCLASSES)) {
+            return true;
+        }
+        if (jj_scan_token(OPENPAR)) {
+            return true;
+        }
+        return false;
     }
 
     private boolean jj_3_84() {
@@ -6297,26 +5768,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
 
     private boolean jj_3_87() {
         if (jj_3R_96()) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean jj_3R_96() {
-        if (jj_scan_token(CLASSASSERTION)) {
-            return true;
-        }
-        if (jj_scan_token(OPENPAR)) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean jj_3R_69() {
-        if (jj_scan_token(EQUIVALENTCLASSES)) {
-            return true;
-        }
-        if (jj_scan_token(OPENPAR)) {
             return true;
         }
         return false;

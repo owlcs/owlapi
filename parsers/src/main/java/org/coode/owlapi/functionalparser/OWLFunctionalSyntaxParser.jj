@@ -122,7 +122,7 @@ SKIP: {" " | "\n" | "\t" | "\r"}
 
 MORE:
 {
-    <COMMENT_START: "//"> : IN_COMMENT
+    <COMMENT_START: "#"|"//"> : IN_COMMENT
 }
 
 <IN_COMMENT> SKIP:
@@ -831,7 +831,7 @@ TOKEN:
     <ERROR: ~[]>
 }
 
-public OWLFunctionalSyntaxOntologyFormat parse() throws OWLParserException, IOException, UnloadableImportException :
+public OWLFunctionalSyntaxOntologyFormat parse() throws OWLParserException, UnloadableImportException :
 {
 }
 {
@@ -2128,8 +2128,8 @@ OWLAnnotationPropertyRangeAxiom AnnotationPropertyRange() :
 OWLHasKeyAxiom HasKey() :
 {
     OWLClassExpression ce;
-    OWLPropertyExpression<?,?> prop;
-    Set<OWLPropertyExpression<?,?>> props = new HashSet<OWLPropertyExpression<?,?>>();
+    OWLPropertyExpression prop;
+    Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
     Set<OWLAnnotation> axiomAnnos;
 }
 {
