@@ -71,7 +71,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * <br> */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLAPITestCase {
-    public static boolean equal(OWLOntology ont1, OWLOntology ont2) {
+    public boolean equal(OWLOntology ont1, OWLOntology ont2) {
         if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
             assertEquals("Ontologies supposed to be the same", ont1.getOntologyID(),
                     ont2.getOntologyID());
@@ -91,31 +91,59 @@ public abstract class AbstractOWLAPITestCase {
                 df);
         axioms2 = normaliser2.getNormalisedAxioms(axioms2);
         if (!axioms1.equals(axioms2)) {
+            int counter = 0;
             StringBuilder sb = new StringBuilder();
             for (OWLAxiom ax : axioms1) {
                 if (!axioms2.contains(ax)) {
+                    if (!isIgnorableAxiom(ax, false)) {
                     sb.append("Rem axiom: ");
                     sb.append(ax);
                     sb.append("\n");
+                    counter++;
+                }
                 }
             }
             for (OWLAxiom ax : axioms2) {
                 if (!axioms1.contains(ax)) {
-                    if (!(ax instanceof OWLDeclarationAxiom && ((OWLDeclarationAxiom) ax)
-                            .getEntity().isBuiltIn())) {
+                    if (!isIgnorableAxiom(ax, true)) {
                         sb.append("Add axiom: ");
                         sb.append(ax);
                         sb.append("\n");
+                        counter++;
                     }
                 }
             }
-            System.out
-                    .println("AbstractOWLAPITestCase.roundTripOntology() Failing to match axioms: "
-                            + sb.toString());
-            return false;
+            if (counter > 0) {
+                System.out.println(this.getClass().getSimpleName()
+                        + " roundTripOntology() Failing to match axioms: "
+                        + sb.toString());
+                return false;
+            } else {
+                return true;
+            }
         }
         assertEquals(axioms1, axioms2);
         return true;
+    }
+
+    /** ignore declarations of builtins and of named individuals - named
+     * individuals do not /need/ a declaration, but addiong one is not an error
+     * 
+     * @param parse
+     *            true if the axiom belongs to the parsed ones, false for the
+     *            input
+     * @return true if the axiom can be ignored */
+    public boolean isIgnorableAxiom(OWLAxiom ax, boolean parse) {
+        if (ax instanceof OWLDeclarationAxiom) {
+            OWLDeclarationAxiom d = (OWLDeclarationAxiom) ax;
+            if (parse) {
+                // all extra declarations in the parsed ontology are fine
+                return true;
+            }
+            // declarations of builtin and named individuals can be ignored
+            return d.getEntity().isBuiltIn() || d.getEntity().isOWLNamedIndividual();
+        }
+        return false;
     }
 
     private OWLOntologyManager manager;

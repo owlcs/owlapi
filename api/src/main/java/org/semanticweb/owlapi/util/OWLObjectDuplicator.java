@@ -45,6 +45,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -62,6 +63,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     private Object obj;
 
     private Map<OWLEntity, IRI> replacementMap;
+    private AtomicInteger anonsCounter = new AtomicInteger();
 
 
     /**
@@ -880,7 +882,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     @Override
     public void visit(OWLAnonymousIndividual individual) {
-        obj = individual;
+        obj = dataFactory.getOWLAnonymousIndividual(NodeID.nodeString(anonsCounter
+                .incrementAndGet()));
     }
 
     @Override
