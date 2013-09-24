@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Date: 09-Dec-2006<br>
  * <br> */
 public abstract class AbstractResourceTripleHandler extends AbstractTripleHandler {
-    public AbstractResourceTripleHandler(OWLRDFConsumer consumer) {
+    protected AbstractResourceTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
@@ -57,28 +57,28 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
 
     protected boolean isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(
             IRI subject, IRI object) {
-        return (isSubjectAndObjectClassExpression(subject, object) || isSubjectAndObjectDataRange(
-                subject, object));
+        return isSubjectAndObjectClassExpression(subject, object) || isSubjectAndObjectDataRange(
+                subject, object);
     }
 
     protected boolean isSubjectAndObjectDataRange(IRI subject, IRI object) {
-        return (getConsumer().isDataRange(subject) && getConsumer().isDataRange(object));
+        return getConsumer().isDataRange(subject) && getConsumer().isDataRange(object);
     }
 
     protected boolean isSubjectAndObjectClassExpression(IRI subject, IRI object) {
-        return (getConsumer().isClassExpression(subject) && getConsumer()
-                .isClassExpression(object));
+        return getConsumer().isClassExpression(subject) && getConsumer()
+                .isClassExpression(object);
     }
 
-    public abstract void handleTriple(IRI subject, IRI predicate, IRI object)
+    protected abstract void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException;
 
-    public abstract boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
+    protected abstract boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException;
 
-    public abstract boolean canHandle(IRI subject, IRI predicate, IRI object);
+    protected abstract boolean canHandle(IRI subject, IRI predicate, IRI object);
 
-    public void inferTypes(IRI subject, IRI object) {
+    protected void inferTypes(IRI subject, IRI object) {
         if (getConsumer().isClassExpression(object)) {
             getConsumer().addClassExpression(subject, false);
         } else if (getConsumer().isDataRange(object)) {

@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * <br> */
 public class OWLFunctionalObjectPropertyAxiomElementHandler extends
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
+    /** @param handler */
     public OWLFunctionalObjectPropertyAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

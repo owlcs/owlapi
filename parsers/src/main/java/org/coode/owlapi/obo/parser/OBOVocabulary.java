@@ -37,6 +37,8 @@
  * limitations under the License.
  */
 package org.coode.owlapi.obo.parser;
+import static org.coode.owlapi.obo.parser.OBOPrefix.*;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,46 +47,81 @@ import java.util.regex.Pattern;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 10-Jan-2007<br>
  * <br> */
+@SuppressWarnings("javadoc")
 public enum OBOVocabulary {
-    DATA_VERSION("data-version"), VERSION("version"), DATE("date",
-            DublinCoreVocabulary.DATE.getIRI()), SAVED_BY("saved-by"), AUTO_GENERATED_BY(
-            "auto-generated-by"), ONTOLOGY("ontology"), SUBSETDEF("subsetdef",
-            OBOPrefix.OBO_IN_OWL, "SubsetProperty"), IMPORT("import"), SYNONYM_TYPE_DEF(
-            "synonymtypedef", OBOPrefix.OBO_IN_OWL, "SynonymTypeProperty"), SYNONYM_TYPE(
-            "synonym-type", OBOPrefix.OBO_IN_OWL, "hasSynonymType"), ID_SPACE("id_space"), DEFAULT_RELATIONSHIP_ID_PREFIX(
-            "default-relationship-id-prefix"), ID_MAPPING("id-mapping"), REMARK("remark"), ID(
-            "id"), NAME("name", OWLRDFVocabulary.RDFS_LABEL.getIRI()), FORMAT_VERSION(
-            "format-version"), TYPEDEF("Typedef"), ALT_ID("alt_id", OBOPrefix.OBO_IN_OWL,
-            "hasAlternativeId"), SHORT_HAND("shorthand", OBOPrefix.OBO_IN_OWL,
-            "shorthand"), ALT_NAME("alt_name"), NAMESPACE("namespace"), DEFAULT_NAMESPACE(
-            "default-namespace"), DEF("def"), COMMENT("comment",
-            OWLRDFVocabulary.RDFS_COMMENT.getIRI()), SUBSET("subset",
-            OBOPrefix.OBO_IN_OWL, "inSubset"), SYNONYM("synonym"), HAS_SCOPE("hasScope",
-            OBOPrefix.OBO_IN_OWL), RELATED_SYNONYM("relatedSynonym",
-            OBOPrefix.OBO_IN_OWL, "hasRelatedSynonym"), EXACT_SYNONYM("exactSynonym",
-            OBOPrefix.OBO_IN_OWL, "hasExactSynonym"), BROAD_SYNONYM("broadSynonym",
-            OBOPrefix.OBO_IN_OWL, "hasBroadSynonym"), NARROW_SYNONYM("narrowSynonym",
-            OBOPrefix.OBO_IN_OWL, "hasNarrowSynonym"), XREF("xref", OBOPrefix.OBO_IN_OWL), XREF_ANALOGUE(
-            "xref_analogue"), XREF_UNKNOWN("xref_unk"), IS_A("is_a"), IS_OBSOLETE(
-            "is_obsolete", OWLRDFVocabulary.OWL_DEPRECATED.getIRI()), PART_OF("part_of"), RELATIONSHIP(
-            "relationship"), REPLACED_BY("replaced_by"), CONSIDER("consider",
-            OBOPrefix.OBO_IN_OWL, "consider"), USE_TERM("use_term"), DOMAIN("domain"), RANGE(
-            "range"), IS_CYCLIC("is_cyclic"), IS_TRANSITIVE("is_transitive"), IS_SYMMETRIC(
-            "is_symmetric"), IS_ASYMMETRIC("is_asymmetric"), IS_REFLEXIVE("is_reflexive"), INVERSE(
-            "inverse"), TRANSITIVE_OVER("transitive_over"), INTERSECTION_OF(
-            "intersection_of"), UNION_OF("union_of"), DISJOINT_FROM("disjoint_from"), TERM(
-            "Term"), BUILTIN("builtin"), IS_METADATA_TAG("is_metadata_tag"), CARDINALITY(
-            "cardinality"), MAX_CARDINALITY("maxCardinality"), MIN_CARDINALITY(
-            "minCardinality"), INSTANCE("Instance"), INSTANCE_OF("instance_of"), PROPERTY_VALUE(
-            "property_value"), IS_ANONYMOUS("is_anonymous");
-    public static final String OBO_IRI_BASE = OBOPrefix.OBO.getPrefix();
+    //@formatter:off
+    DATA_VERSION       ("data-version"),
+    VERSION            ("version"),
+    DATE               ("date",           DublinCoreVocabulary.DATE.getIRI()),
+    SAVED_BY           ("saved-by"),
+    AUTO_GENERATED_BY  ("auto-generated-by"),
+    ONTOLOGY           ("ontology"),
+    SUBSETDEF          ("subsetdef",      OBO_IN_OWL, "SubsetProperty"),
+    IMPORT             ("import"),
+    SYNONYM_TYPE_DEF   ("synonymtypedef", OBO_IN_OWL, "SynonymTypeProperty"),
+    SYNONYM_TYPE       ("synonym-type",   OBO_IN_OWL, "hasSynonymType"),
+    ID_SPACE           ("id_space"),
+    DEFAULT_RELATIONSHIP_ID_PREFIX("default-relationship-id-prefix"),
+    ID_MAPPING         ("id-mapping"),
+    REMARK             ("remark"),
+    ID                 ("id"),
+    NAME               ("name", RDFS_LABEL.getIRI()),
+    FORMAT_VERSION     ("format-version"),
+    TYPEDEF            ("Typedef"),
+    ALT_ID             ("alt_id",         OBO_IN_OWL, "hasAlternativeId"),
+    SHORT_HAND         ("shorthand",      OBO_IN_OWL, "shorthand"),
+    ALT_NAME           ("alt_name"),
+    NAMESPACE          ("namespace"),
+    DEFAULT_NAMESPACE  ("default-namespace"),
+    DEF                ("def"),
+    COMMENT            ("comment",        RDFS_COMMENT.getIRI()),
+    SUBSET             ("subset",         OBO_IN_OWL, "inSubset"),
+    SYNONYM            ("synonym"),       
+    HAS_SCOPE          ("hasScope",       OBO_IN_OWL),
+    RELATED_SYNONYM    ("relatedSynonym", OBO_IN_OWL, "hasRelatedSynonym"),
+    EXACT_SYNONYM      ("exactSynonym",   OBO_IN_OWL, "hasExactSynonym"),
+    BROAD_SYNONYM      ("broadSynonym",   OBO_IN_OWL, "hasBroadSynonym"),
+    NARROW_SYNONYM     ("narrowSynonym",  OBO_IN_OWL, "hasNarrowSynonym"),
+    XREF               ("xref",           OBO_IN_OWL),
+    XREF_ANALOGUE      ("xref_analogue"),
+    XREF_UNKNOWN       ("xref_unk"),
+    IS_A               ("is_a"),
+    IS_OBSOLETE        ("is_obsolete",    OWL_DEPRECATED.getIRI()),
+    PART_OF            ("part_of"),
+    RELATIONSHIP       ("relationship"),
+    REPLACED_BY        ("replaced_by"),
+    CONSIDER           ("consider",       OBO_IN_OWL, "consider"),
+    USE_TERM           ("use_term"),
+    DOMAIN             ("domain"),
+    RANGE              ("range"),
+    IS_CYCLIC          ("is_cyclic"),
+    IS_TRANSITIVE      ("is_transitive"),
+    IS_SYMMETRIC       ("is_symmetric"),
+    IS_ASYMMETRIC      ("is_asymmetric"),
+    IS_REFLEXIVE       ("is_reflexive"),
+    INVERSE            ("inverse"),
+    TRANSITIVE_OVER    ("transitive_over"),
+    INTERSECTION_OF    ("intersection_of"),
+    UNION_OF           ("union_of"),
+    DISJOINT_FROM      ("disjoint_from"),
+    TERM               ("Term"),
+    BUILTIN            ("builtin"),
+    IS_METADATA_TAG    ("is_metadata_tag"),
+    CARDINALITY        ("cardinality"),
+    MAX_CARDINALITY    ("maxCardinality"),
+    MIN_CARDINALITY    ("minCardinality"),
+    INSTANCE           ("Instance"),
+    INSTANCE_OF        ("instance_of"),
+    PROPERTY_VALUE     ("property_value"),
+    IS_ANONYMOUS       ("is_anonymous");
+    //@formatter:off
+    public static final String OBO_IRI_BASE = OBO.getPrefix();
     public static final String LEGACY_OBO_IRI_BASE = "http://purl.org/obo/owl/";//
     /** The pattern for OBO IDs. Specified at <a
      * href="http://www.obofoundry.org/id-policy.shtml"
@@ -93,7 +130,7 @@ public enum OBOVocabulary {
     private static final String bases = Pattern.quote(OBO_IRI_BASE) + "|"
             + Pattern.quote("http://purl.org/obo/owl/") + "|"
             + Pattern.quote(LEGACY_OBO_IRI_BASE) + "|"
-            + Pattern.quote(OBOPrefix.OBO_IN_OWL.getPrefix());
+            + Pattern.quote(OBO_IN_OWL.getPrefix());
     public static final Pattern OBO_IRI_PATTERN = Pattern.compile("(" + bases + ")"
             + "(([^\\_]*)\\_)?([A-Za-z0-9\\_\\-]*)");
 
@@ -197,7 +234,7 @@ public enum OBOVocabulary {
 
     OBOVocabulary(String name) {
         this.name = name;
-        iri = IRI.create(OBOPrefix.OBO.getPrefix() + name);
+        iri = IRI.create(OBO.getPrefix() + name);
     }
 
     OBOVocabulary(String name, OBOPrefix prefix) {

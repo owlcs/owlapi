@@ -45,6 +45,7 @@ package org.coode.owlapi.manchesterowlsyntax;
  * <br>
  * <p/>
  * The vocabulary that the Manchester OWL Syntax uses */
+@SuppressWarnings("javadoc")
 public enum ManchesterOWLSyntax {
     //@formatter:off
     ONTOLOGY                    ("Ontology",             false, false, false, false, false),

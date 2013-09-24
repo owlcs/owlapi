@@ -66,7 +66,6 @@ import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
@@ -111,19 +110,7 @@ public class ContractOboParserTest {
             public void handle(String currentId, String value, String qualifierBlock,
                     String comment) {}
         };
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
         testSubject0.handle("", "", "", "");
     }
 
@@ -131,57 +118,21 @@ public class ContractOboParserTest {
     public void shouldTestAltIdTagValueHandler() throws OWLException {
         AltIdTagValueHandler testSubject0 = new AltIdTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestAsymmetricHandler() throws OWLException {
         AsymmetricHandler testSubject0 = new AsymmetricHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestDataVersionTagValueHandler() throws OWLException {
         DataVersionTagValueHandler testSubject0 = new DataVersionTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
@@ -189,76 +140,28 @@ public class ContractOboParserTest {
         DefaultNamespaceTagValueHandler testSubject0 = new DefaultNamespaceTagValueHandler(
                 mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestDefTagValueHandler() throws OWLException {
         DefTagValueHandler testSubject0 = new DefTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestDisjointFromHandler() throws OWLException {
         DisjointFromHandler testSubject0 = new DisjointFromHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestDomainHandler() throws OWLException {
         DomainHandler testSubject0 = new DomainHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
@@ -268,121 +171,48 @@ public class ContractOboParserTest {
         testSubject0.setIRIPrefix("", "");
         String result0 = testSubject0.getIRIPrefix("");
         String result1 = testSubject0.getDefaultIRIPrefix();
-        String result2 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestIDSpaceTagValueHandler() throws OWLException {
         IDSpaceTagValueHandler testSubject0 = new IDSpaceTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestIDTagValueHandler() throws OWLException {
         IDTagValueHandler testSubject0 = new IDTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestIntersectionOfHandler() throws OWLException {
         IntersectionOfHandler testSubject0 = new IntersectionOfHandler(mock);
         testSubject0.handle("", "test test", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestInverseHandler() throws OWLException {
         InverseHandler testSubject0 = new InverseHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestIsATagValueHandler() throws OWLException {
         IsATagValueHandler testSubject0 = new IsATagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestIsObsoleteTagValueHandler() throws OWLException {
         IsObsoleteTagValueHandler testSubject0 = new IsObsoleteTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
@@ -392,38 +222,24 @@ public class ContractOboParserTest {
         testSubject0.addModifier("", "");
         Set<String> result1 = testSubject0.getModifierNames();
         Set<String> result2 = testSubject0.getModifierValues("");
-        String result3 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestNameTagValueHandler() throws OWLException {
         NameTagValueHandler testSubject0 = new NameTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestOBOConsumer() throws OWLException {
-        OBOConsumer testSubject0 = new OBOConsumer(manager, mockonto,
+        OBOConsumer testSubject0 = new OBOConsumer(mockonto,
                 new OWLOntologyLoaderConfiguration(), IRI("urn:aFake"));
         testSubject0.setCurrentId("");
         OBOConsumer testSubject1 = new OBOConsumer(mockonto,
                 new OWLOntologyLoaderConfiguration(), IRI("urn:aFake"));
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
         OWLOntology result1 = testSubject0.getOntology();
-        OWLClass result2 = testSubject0.getCurrentClass();
         IRI result3 = testSubject0.getIRIFromTagName("");
         IRI result4 = testSubject0.getIRIFromOBOId("");
         String result5 = testSubject0.getCurrentId();
@@ -448,7 +264,6 @@ public class ContractOboParserTest {
         String result13 = testSubject0.unescapeTagValue("");
         OWLEntity result14 = testSubject0.getCurrentEntity();
         OWLAnnotation result15 = testSubject0.parseXRef("");
-        String result16 = testSubject0.toString();
         testSubject0.addUnionOfOperand(Utils.mockAnonClass());
         testSubject0.addIntersectionOfOperand(Utils.mockAnonClass());
     }
@@ -462,7 +277,6 @@ public class ContractOboParserTest {
         List<OBOTagValuePair> result1 = testSubject0.getTagValuePairs();
         boolean result2 = testSubject0.isHeaderFrame();
         boolean result3 = testSubject0.isTypeDefFrame();
-        String result4 = testSubject0.toString();
     }
 
     @Test
@@ -470,7 +284,6 @@ public class ContractOboParserTest {
         OBOIdTranslator testSubject0 = new OBOIdTranslator();
         IRI result0 = testSubject0.getIRIFromOBOId("");
         String result1 = testSubject0.getOBOIdFromIRI();
-        String result2 = testSubject0.toString();
     }
 
     @Test
@@ -482,7 +295,6 @@ public class ContractOboParserTest {
                 mock(IDSpaceManager.class), "AZ:27");
         OBOIdType result4 = OBOIdType.getIdType("");
         String result5 = testSubject0.name();
-        String result6 = testSubject0.toString();
         int result11 = testSubject0.ordinal();
     }
 
@@ -490,7 +302,6 @@ public class ContractOboParserTest {
     public void shouldTestOBOOntologyFormat() throws OWLException {
         OBOOntologyFormat testSubject0 = new OBOOntologyFormat();
         OBOOntologyFormat testSubject1 = new OBOOntologyFormat(mock(IDSpaceManager.class));
-        String result0 = testSubject0.toString();
         IDSpaceManager result1 = testSubject0.getIdSpaceManager();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result2 = testSubject0
@@ -533,7 +344,6 @@ public class ContractOboParserTest {
     public void shouldTestOBOParserFactory() throws OWLException {
         OBOParserFactory testSubject0 = new OBOParserFactory();
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
-        String result1 = testSubject0.toString();
     }
 
     @Test
@@ -554,7 +364,6 @@ public class ContractOboParserTest {
         testSubject0.startFrame("");
         testSubject0.endFrame();
         testSubject0.handleTagValue("", "", "", "");
-        String result0 = testSubject0.toString();
     }
 
     @Test
@@ -563,7 +372,6 @@ public class ContractOboParserTest {
         OBOPrefix[] result0 = OBOPrefix.values();
         String result2 = testSubject0.getPrefix();
         String result3 = testSubject0.name();
-        String result4 = testSubject0.toString();
         int result9 = testSubject0.ordinal();
     }
 
@@ -574,13 +382,11 @@ public class ContractOboParserTest {
         String result1 = testSubject0.getComment();
         String result2 = testSubject0.getTagName();
         String result3 = testSubject0.getQualifier();
-        String result4 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestOBOVocabulary() throws OWLException {
         OBOVocabulary testSubject0 = OBOVocabulary.ALT_ID;
-        String result0 = testSubject0.toString();
         OBOVocabulary[] result1 = OBOVocabulary.values();
         String result3 = testSubject0.getName();
         IRI result4 = testSubject0.getIRI();
@@ -597,19 +403,7 @@ public class ContractOboParserTest {
     public void shouldTestOntologyTagValueHandler() throws OWLException {
         OntologyTagValueHandler testSubject0 = new OntologyTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
@@ -623,64 +417,27 @@ public class ContractOboParserTest {
         List<OBOFrame> result0 = testSubject0.getTypeDefFrames();
         List<OBOFrame> result1 = testSubject0.getNonTypeDefFrames();
         OBOFrame result2 = testSubject0.getHeaderFrame();
-        String result3 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestReflexiveHandler() throws OWLException {
         ReflexiveHandler testSubject0 = new ReflexiveHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestRelationshipTagValueHandler() throws OWLException {
         RelationshipTagValueHandler testSubject0 = new RelationshipTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestSymmetricTagValueHandler() throws OWLException {
         SymmetricTagValueHandler testSubject0 = new SymmetricTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
@@ -688,7 +445,6 @@ public class ContractOboParserTest {
         SynonymScope testSubject0 = SynonymScope.BROAD;
         SynonymScope[] result0 = SynonymScope.values();
         String result2 = testSubject0.name();
-        String result3 = testSubject0.toString();
         int result8 = testSubject0.ordinal();
     }
 
@@ -696,38 +452,14 @@ public class ContractOboParserTest {
     public void shouldTestSynonymTagValueHandler() throws OWLException {
         SynonymTagValueHandler testSubject0 = new SynonymTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestSynonymTypeDefTagHandler() throws OWLException {
         SynonymTypeDefTagHandler testSubject0 = new SynonymTypeDefTagHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
@@ -742,7 +474,6 @@ public class ContractOboParserTest {
         Token testSubject0 = new Token();
         Token testSubject1 = new Token(0);
         Token testSubject2 = new Token(0, "");
-        String result0 = testSubject0.toString();
         Object result1 = testSubject0.getValue();
         Token result2 = Token.newToken(0, "");
         Token result3 = Token.newToken(0);
@@ -752,56 +483,20 @@ public class ContractOboParserTest {
     public void shouldTestTransitiveOverHandler() throws OWLException {
         TransitiveOverHandler testSubject0 = new TransitiveOverHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestTransitiveTagValueHandler() throws OWLException {
         TransitiveTagValueHandler testSubject0 = new TransitiveTagValueHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestXRefTagHandler() throws OWLException {
         XRefTagHandler testSubject0 = new XRefTagHandler(mock);
         testSubject0.handle("", "", "", "");
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.getOntology();
-        testSubject0.applyChange(mockChange);
-        OWLDataFactory result2 = testSubject0.getDataFactory();
-        OWLClass result3 = testSubject0.getCurrentClass();
         String result4 = testSubject0.getTagName();
-        OBOConsumer result5 = testSubject0.getConsumer();
-        IRI result6 = testSubject0.getTagIRI(OBOVocabulary.IS_A);
-        IRI result7 = testSubject0.getTagIRI("");
-        IRI result8 = testSubject0.getIRIFromOBOId("");
-        OWLAnnotation result9 = testSubject0.getAnnotationForTagValuePair("", "");
-        OWLClass result10 = testSubject0.getClassFromId("");
-        String result11 = testSubject0.toString();
     }
 }

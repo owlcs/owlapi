@@ -51,6 +51,7 @@ public class OWLAnnotationPropertyRangeElementHandler extends
     private IRI range;
     private OWLAnnotationProperty property;
 
+    /** @param handler */
     public OWLAnnotationPropertyRangeElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

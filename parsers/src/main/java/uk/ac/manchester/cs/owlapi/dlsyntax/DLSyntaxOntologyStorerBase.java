@@ -129,37 +129,48 @@ public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStor
     }
 
     @Nonnull
+    @SuppressWarnings("unused")
     protected String getRendering(@Nullable OWLEntity subject, @Nonnull OWLAxiom axiom) {
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer();
         return ren.render(axiom);
     }
 
+    @SuppressWarnings("unused")
     protected void beginWritingOntology(@Nonnull OWLOntology ontology,
             @Nonnull PrintWriter writer) {}
 
+    @SuppressWarnings("unused")
     protected void endWritingOntology(@Nonnull OWLOntology ontology,
             @Nonnull PrintWriter writer) {}
 
+    @SuppressWarnings("unused")
     protected void
             beginWritingAxiom(@Nonnull OWLAxiom axiom, @Nonnull PrintWriter writer) {}
 
+    @SuppressWarnings("unused")
     protected void endWritingAxiom(@Nonnull OWLAxiom axiom, @Nonnull PrintWriter writer) {}
 
+    @SuppressWarnings("unused")
     protected void beginWritingAxioms(@Nonnull OWLEntity subject,
             @Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {}
 
+    @SuppressWarnings("unused")
     protected void endWritingAxioms(@Nonnull OWLEntity subject,
             @Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {}
 
+    @SuppressWarnings("unused")
     protected void beginWritingUsage(@Nonnull OWLEntity subject,
             @Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {}
 
+    @SuppressWarnings("unused")
     protected void endWritingUsage(@Nonnull OWLEntity subject,
             @Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {}
 
+    @SuppressWarnings("unused")
     protected void beginWritingGeneralAxioms(@Nonnull Set<? extends OWLAxiom> axioms,
             @Nonnull PrintWriter writer) {}
 
+    @SuppressWarnings("unused")
     protected void endWritingGeneralAxioms(@Nonnull Set<? extends OWLAxiom> axioms,
             @Nonnull PrintWriter writer) {}
 }

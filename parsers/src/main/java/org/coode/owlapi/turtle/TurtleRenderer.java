@@ -157,7 +157,7 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     private void write(IRI iri) {
-        if (iri.equals(getOntology().getOntologyID().getOntologyIRI())) {
+        if (iri.equals(ontology.getOntologyID().getOntologyIRI())) {
             writeAsURI(iri.toString());
         } else {
             String name = pm.getPrefixIRI(iri);
@@ -263,8 +263,8 @@ public class TurtleRenderer extends RDFRendererBase {
         writeNamespaces();
         write("@base ");
         write("<");
-        if (!getOntology().isAnonymous()) {
-            write(getOntology().getOntologyID().getOntologyIRI().toString());
+        if (!ontology.isAnonymous()) {
+            write(ontology.getOntologyID().getOntologyIRI().toString());
         } else {
             write(Namespaces.OWL.toString());
         }
@@ -351,7 +351,7 @@ public class TurtleRenderer extends RDFRendererBase {
     @Override
     public void render(RDFResource node) {
         level++;
-        List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
+        List<RDFTriple> triples = graph.getSortedTriplesForSubject(node, true);
         if (pending.contains(node)) {
             // We essentially remove all structure sharing during parsing - any
             // cycles therefore indicate a bug!

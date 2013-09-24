@@ -47,10 +47,12 @@ import org.semanticweb.owlapi.model.SWRLAtom;
 public abstract class SWRLAtomElementHandler extends AbstractOWLElementHandler<SWRLAtom> {
     private SWRLAtom atom;
 
+    /** @param handler */
     public SWRLAtomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    /** @param atom */
     public void setAtom(SWRLAtom atom) {
         this.atom = atom;
     }

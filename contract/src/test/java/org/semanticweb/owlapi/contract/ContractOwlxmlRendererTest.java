@@ -18,7 +18,7 @@ public class ContractOwlxmlRendererTest {
     public void shouldTestOWLXMLObjectRenderer() throws OWLException {
         OWLXMLObjectRenderer testSubject0 = new OWLXMLObjectRenderer(
                 mock(OWLXMLWriter.class));
-        String result0 = testSubject0.toString();
+
     }
 
     @Test
@@ -28,6 +28,6 @@ public class ContractOwlxmlRendererTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
-        String result0 = testSubject0.toString();
+
     }
 }

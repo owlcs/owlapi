@@ -63,30 +63,30 @@ public class AbstractRenderer {
     private boolean useTabbing = true;
     private boolean useWrapping = true;
 
-    public AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
+    protected AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
         this.writer = writer;
         this.shortFormProvider = shortFormProvider;
         tabs = new ArrayList<Integer>();
         pushTab(0);
     }
 
-    public void setUseTabbing(boolean useTabbing) {
+    protected void setUseTabbing(boolean useTabbing) {
         this.useTabbing = useTabbing;
     }
 
-    public void setUseWrapping(boolean useWrapping) {
+    protected void setUseWrapping(boolean useWrapping) {
         this.useWrapping = useWrapping;
     }
 
-    public boolean isUseWrapping() {
+    protected boolean isUseWrapping() {
         return useWrapping;
     }
 
-    public boolean isUseTabbing() {
+    protected boolean isUseTabbing() {
         return useTabbing;
     }
 
-    public void flush() throws OWLRendererException {
+    protected void flush() throws OWLRendererException {
         try {
             writer.flush();
         } catch (IOException e) {

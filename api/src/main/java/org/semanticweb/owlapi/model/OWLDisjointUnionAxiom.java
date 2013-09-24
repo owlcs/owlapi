@@ -81,7 +81,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      * 
      * @return The disjoint classes axiom part of this axiom. This is
      *         essentially, {@code DisjointClasses(CE1, ..., CEn)} where
-     *         {@code CEi in {CE1, ..., CEn}} is contained in the classes
+     *         {@code CEi in (CE1, ..., CEn)} is contained in the classes
      *         returned by the {@link #getClassExpressions()} method. */
     @Nonnull
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom();

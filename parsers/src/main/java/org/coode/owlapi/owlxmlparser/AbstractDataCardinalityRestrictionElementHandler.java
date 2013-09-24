@@ -49,6 +49,7 @@ public abstract class AbstractDataCardinalityRestrictionElementHandler extends
         AbstractDataRangeFillerRestrictionElementHandler {
     private int cardinality;
 
+    /** @param handler */
     public AbstractDataCardinalityRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

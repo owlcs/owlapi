@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * <br> */
 public abstract class AbstractOWLObjectPropertyOperandAxiomElementHandler extends
         AbstractOperandAxiomElementHandler<OWLObjectPropertyExpression> {
-    public AbstractOWLObjectPropertyOperandAxiomElementHandler(OWLXMLParserHandler handler) {
+    protected AbstractOWLObjectPropertyOperandAxiomElementHandler(
+            OWLXMLParserHandler handler) {
         super(handler);
     }
 

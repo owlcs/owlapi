@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Date: 06-Mar-2007<br>
  * <br> */
 public class DisjointFromHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public DisjointFromHandler(OBOConsumer consumer) {
         super("disjoint_from", consumer);
     }

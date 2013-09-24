@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 public class OWLDataComplementOfElementHandler extends AbstractOWLDataRangeHandler {
     private OWLDataRange operand;
 
+    /** @param handler */
     public OWLDataComplementOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

@@ -51,10 +51,17 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * that represent the class expression, and translates the triples to the
  * appropriate OWL API {@code OWLClassExpression} object. */
 public interface ClassExpressionTranslator {
+    /** @param mainNode
+     * @param mode
+     * @return true if parameter matches */
     boolean matches(IRI mainNode, Mode mode);
 
+    /** @param mainNode
+     * @return true if parameter matches strictly */
     boolean matchesStrict(IRI mainNode);
 
+    /** @param mainNode
+     * @return true if parameter matches in lax mode */
     boolean matchesLax(IRI mainNode);
 
     /** Translates the specified main node into an

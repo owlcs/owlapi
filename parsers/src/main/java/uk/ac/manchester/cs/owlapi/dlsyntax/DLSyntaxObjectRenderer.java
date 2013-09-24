@@ -156,16 +156,20 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     private StringBuilder buffer;
     private OWLObject focusedObject;
 
+    /** default constructor */
     public DLSyntaxObjectRenderer() {
         shortFormProvider = new SimpleShortFormProvider();
         iriShortFormProvider = new SimpleIRIShortFormProvider();
         buffer = new StringBuilder();
     }
 
+    /** @param focusedObject */
     public void setFocusedObject(@Nonnull OWLObject focusedObject) {
         this.focusedObject = checkNotNull(focusedObject, "focusedObject cannot be null");
     }
 
+    /** @param obj
+     * @return true if obj is equal to focusedObject */
     public boolean isFocusedObject(OWLObject obj) {
         if (focusedObject == null) {
             return false;

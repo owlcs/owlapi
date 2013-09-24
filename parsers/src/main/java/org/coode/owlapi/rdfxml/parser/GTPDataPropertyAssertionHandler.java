@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Date: 11-Dec-2006<br>
  * <br> */
 public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandler {
+    /** @param consumer */
     public GTPDataPropertyAssertionHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }

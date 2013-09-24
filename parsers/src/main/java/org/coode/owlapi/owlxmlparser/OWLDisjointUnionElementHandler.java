@@ -54,6 +54,7 @@ public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandl
     private OWLClass cls;
     private Set<OWLClassExpression> classExpressions;
 
+    /** @param handler */
     public OWLDisjointUnionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         classExpressions = new HashSet<OWLClassExpression>();

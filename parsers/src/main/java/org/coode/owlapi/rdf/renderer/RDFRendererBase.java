@@ -106,10 +106,10 @@ public abstract class RDFRendererBase {
     private static final String CLASSES_BANNER_TEXT = "Classes";
     private static final String INDIVIDUALS_BANNER_TEXT = "Individuals";
     private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
-    public static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
-    public static final String RULES_BANNER_TEXT = "Rules";
+    private static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
+    private static final String RULES_BANNER_TEXT = "Rules";
     protected OWLOntology ontology;
-    private RDFGraph graph;
+    protected RDFGraph graph;
     protected Set<IRI> prettyPrintedTypes = initPrettyTypes();
     private OWLOntologyFormat format;
 
@@ -122,6 +122,7 @@ public abstract class RDFRendererBase {
                 RDFS_DATATYPE.getIRI(), OWL_AXIOM.getIRI(), OWL_ANNOTATION.getIRI()));
     }
 
+    /** @param ontology */
     public RDFRendererBase(OWLOntology ontology) {
         this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
@@ -129,14 +130,6 @@ public abstract class RDFRendererBase {
     protected RDFRendererBase(OWLOntology ontology, OWLOntologyFormat format) {
         this.ontology = ontology;
         this.format = format;
-    }
-
-    public RDFGraph getGraph() {
-        return graph;
-    }
-
-    public OWLOntology getOntology() {
-        return ontology;
     }
 
     /** Hooks for subclasses */

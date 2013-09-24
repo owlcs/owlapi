@@ -51,6 +51,7 @@ public abstract class AbstractClassExpressionElementHandler extends
         AbstractOWLElementHandler<OWLClassExpression> {
     private OWLClassExpression desc;
 
+    /** @param handler */
     public AbstractClassExpressionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

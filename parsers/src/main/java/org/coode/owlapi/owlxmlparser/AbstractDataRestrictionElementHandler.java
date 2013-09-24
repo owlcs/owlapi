@@ -45,9 +45,12 @@ import org.semanticweb.owlapi.model.OWLObject;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
- * <br> */
+ * <br>
+ * 
+ * @param <F> */
 public abstract class AbstractDataRestrictionElementHandler<F extends OWLObject> extends
         AbstractRestrictionElementHandler<OWLDataPropertyExpression, F> {
+    /** @param handler */
     public AbstractDataRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

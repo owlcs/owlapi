@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -56,6 +55,7 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
     private OWLEntity entity;
     private Set<OWLAnnotation> entityAnnotations;
 
+    /** @param handler */
     public OWLDeclarationAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -119,14 +119,6 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
                 entityAnnotations = new HashSet<OWLAnnotation>();
             }
             entityAnnotations.add(handler.getOWLObject());
-        }
-    }
-
-    public Set<OWLAnnotation> getEntityAnnotations() {
-        if (entityAnnotations == null) {
-            return Collections.emptySet();
-        } else {
-            return entityAnnotations;
         }
     }
 }

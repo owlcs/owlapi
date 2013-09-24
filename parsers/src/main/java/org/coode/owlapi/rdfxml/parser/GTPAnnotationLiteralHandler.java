@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Date: 09-Dec-2006<br>
  * <br> */
 public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
+    /** @param consumer */
     public GTPAnnotationLiteralHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }

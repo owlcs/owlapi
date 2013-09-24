@@ -50,6 +50,7 @@ public class SWRLSameIndividualAtomElementHandler extends SWRLAtomElementHandler
     private SWRLIArgument arg0;
     private SWRLIArgument arg1;
 
+    /** @param handler */
     public SWRLSameIndividualAtomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

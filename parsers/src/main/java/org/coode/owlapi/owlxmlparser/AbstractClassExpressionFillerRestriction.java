@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * <br> */
 public abstract class AbstractClassExpressionFillerRestriction extends
         AbstractObjectRestrictionElementHandler<OWLClassExpression> {
+    /** @param handler */
     public AbstractClassExpressionFillerRestriction(OWLXMLParserHandler handler) {
         super(handler);
     }

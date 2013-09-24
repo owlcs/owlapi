@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * <br> */
 public class OWLDataHasValueElementHandler extends
         AbstractDataRestrictionElementHandler<OWLLiteral> {
+    /** @param handler */
     public OWLDataHasValueElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

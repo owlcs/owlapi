@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class DataMinCardinalityTranslator extends AbstractClassExpressionTranslator {
+    /** @param consumer */
     public DataMinCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }

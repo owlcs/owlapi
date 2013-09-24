@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
  * Bio-Medical Informatics Research Group<br>
  * Date: 10/05/2012 */
 public class AltIdTagValueHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public AltIdTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ALT_ID.getName(), consumer);
     }

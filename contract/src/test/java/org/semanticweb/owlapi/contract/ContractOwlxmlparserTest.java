@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -47,7 +46,6 @@ public class ContractOwlxmlparserTest {
         boolean result0 = testSubject0.isTextContentPossible();
         IRI result1 = testSubject0.getOWLObject();
         Object result2 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -66,11 +64,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -84,7 +80,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -104,12 +99,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -127,7 +120,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -145,12 +137,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -166,12 +156,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockClassHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -189,12 +176,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.endElement();
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -215,7 +200,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -232,11 +216,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -255,7 +237,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -273,12 +254,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -295,7 +274,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -314,12 +292,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -332,7 +308,7 @@ public class ContractOwlxmlparserTest {
             }
         };
         String result0 = testSubject0.getElementName();
-        String result1 = testSubject0.toString();
+
         OWLElementHandler<?> result2 = testSubject0.createHandler(Utils.mockHandler());
     }
 
@@ -349,7 +325,6 @@ public class ContractOwlxmlparserTest {
             }
         };
         testSubject0.setParentHandler(Utils.mockElementHandler());
-        OWLOntologyLoaderConfiguration result0 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result1 = testSubject0.isTextContentPossible();
         String result2 = testSubject0.getText();
@@ -369,12 +344,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result3 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result4 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result5 = testSubject0.toString();
+
         testSubject0.endElement();
         Object result6 = testSubject0.getOWLObject();
     }
@@ -395,7 +368,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -414,12 +386,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -436,7 +406,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -455,12 +424,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -474,12 +441,9 @@ public class ContractOwlxmlparserTest {
         };
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -498,12 +462,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.endElement();
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -516,19 +478,10 @@ public class ContractOwlxmlparserTest {
             }
         };
         testSubject0.setParentHandler(Utils.mockElementHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        OWLObjectPropertyExpression result0 = testSubject0.getProperty();
-        OWLObject result1 = testSubject0.getObject();
-        testSubject0.setSubject(mock(OWLIndividual.class));
-        OWLIndividual result2 = testSubject0.getSubject();
-        testSubject0.setObject(mock(OWLObject.class));
-        Set<OWLAnnotation> result3 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         Object result4 = testSubject0.getOWLObject();
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -547,12 +500,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.endElement();
-        IRI result9 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result10 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result11 = testSubject0.toString();
+
     }
 
     @Test
@@ -565,13 +516,10 @@ public class ContractOwlxmlparserTest {
             }
         };
         testSubject0.setParentHandler(Utils.mockElementHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -590,12 +538,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.endElement();
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -613,20 +559,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockDataPropertyHandler());
         testSubject0.handleChild(Utils.mockLiteralHandler());
-        testSubject0.setProperty(mock(OWLDataPropertyExpression.class));
-        OWLDataPropertyExpression result0 = testSubject0.getProperty();
-        OWLObject result1 = testSubject0.getObject();
-        testSubject0.setSubject(mock(OWLIndividual.class));
-        OWLIndividual result2 = testSubject0.getSubject();
-        testSubject0.setObject(mock(OWLLiteral.class));
-        Set<OWLAnnotation> result3 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result4 = testSubject0.getOWLObject();
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -640,12 +577,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result9 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result10 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result11 = testSubject0.toString();
+
     }
 
     @Test
@@ -661,12 +596,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockDataPropertyHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -684,12 +616,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.endElement();
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -703,8 +633,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -724,12 +652,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -746,7 +672,6 @@ public class ContractOwlxmlparserTest {
         };
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
-        OWLOntologyLoaderConfiguration result0 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result1 = testSubject0.isTextContentPossible();
         String result2 = testSubject0.getText();
@@ -766,12 +691,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result3 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result4 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result5 = testSubject0.toString();
+
         testSubject0.endElement();
         Object result6 = testSubject0.getOWLObject();
     }
@@ -790,12 +713,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -812,12 +732,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.endElement();
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -838,7 +756,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -855,11 +772,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -876,19 +791,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        OWLObjectPropertyExpression result0 = testSubject0.getProperty();
-        OWLObject result1 = testSubject0.getObject();
-        testSubject0.setSubject(mock(OWLIndividual.class));
-        OWLIndividual result2 = testSubject0.getSubject();
-        testSubject0.setObject(mock(OWLIndividual.class));
-        Set<OWLAnnotation> result3 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         Object result4 = testSubject0.getOWLObject();
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -904,12 +810,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.endElement();
-        IRI result9 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result10 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result11 = testSubject0.toString();
+
     }
 
     @Test
@@ -925,15 +829,11 @@ public class ContractOwlxmlparserTest {
         };
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -950,12 +850,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -969,7 +867,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLObjectPropertyExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -989,12 +886,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1010,13 +905,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1033,12 +925,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
     }
 
     @Test
@@ -1053,15 +942,10 @@ public class ContractOwlxmlparserTest {
             }
         };
         testSubject0.setParentHandler(Utils.mockElementHandler());
-        testSubject0.setProperty(mock(OWLAxiom.class));
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
-        testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1079,12 +963,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
     }
 
     @Test
@@ -1100,7 +981,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1120,12 +1000,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1136,7 +1014,6 @@ public class ContractOwlxmlparserTest {
         boolean result0 = testSubject0.isTextContentPossible();
         IRI result1 = testSubject0.getOWLObject();
         Object result2 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -1155,12 +1032,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1173,13 +1048,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1193,12 +1065,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -1210,14 +1080,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.handleChild(Utils.mockLiteralHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockSWRLVariableHandler());
@@ -1231,12 +1098,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -1255,7 +1120,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockSWRLVariableHandler());
         testSubject0.handleChild(Utils.mockSWRLAtomHandler());
@@ -1268,11 +1132,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1282,14 +1144,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1305,12 +1164,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockLiteralHandler());
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -1322,7 +1179,6 @@ public class ContractOwlxmlparserTest {
         OWLAnnotationProperty result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1342,11 +1198,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1356,14 +1210,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1379,12 +1230,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockLiteralHandler());
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -1396,7 +1245,6 @@ public class ContractOwlxmlparserTest {
         OWLAnonymousIndividual result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1416,11 +1264,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1430,15 +1276,12 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
+
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1455,12 +1298,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -1469,15 +1310,12 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
+
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1494,12 +1332,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -1510,14 +1346,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockClassHandler());
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -1532,12 +1365,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -1550,7 +1381,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1570,11 +1400,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1587,7 +1415,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1605,12 +1432,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1622,8 +1447,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1642,12 +1465,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1662,7 +1483,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -1679,11 +1499,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1696,7 +1514,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1714,12 +1531,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1731,8 +1546,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1751,12 +1564,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1771,7 +1582,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -1788,11 +1598,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1807,7 +1615,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -1824,11 +1631,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1840,8 +1645,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1860,12 +1663,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1878,20 +1679,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockDataPropertyHandler());
         testSubject0.handleChild(Utils.mockLiteralHandler());
-        testSubject0.setProperty(mock(OWLDataPropertyExpression.class));
-        OWLDataPropertyExpression result0 = testSubject0.getProperty();
-        OWLObject result1 = testSubject0.getObject();
-        testSubject0.setSubject(mock(OWLIndividual.class));
-        OWLIndividual result2 = testSubject0.getSubject();
-        testSubject0.setObject(mock(OWLLiteral.class));
-        Set<OWLAnnotation> result3 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result4 = testSubject0.getOWLObject();
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -1905,12 +1697,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result9 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result10 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result11 = testSubject0.toString();
+
     }
 
     @Test
@@ -1920,14 +1710,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockClassHandler());
         testSubject0.handleChild(Utils.mockDataPropertyHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1943,12 +1730,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -1960,7 +1745,6 @@ public class ContractOwlxmlparserTest {
         OWLDataPropertyExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1980,11 +1764,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -1994,14 +1776,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockDataRangeHandler());
         testSubject0.handleChild(Utils.mockDataPropertyHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2017,12 +1796,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2036,8 +1813,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2055,11 +1830,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -2072,7 +1845,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2090,12 +1862,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -2104,14 +1874,11 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockDataRangeHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2128,12 +1895,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2145,8 +1910,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2166,11 +1929,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -2183,7 +1944,6 @@ public class ContractOwlxmlparserTest {
         Object result1 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockLiteralHandler());
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2202,11 +1962,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -2219,8 +1977,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2238,12 +1994,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockLiteralHandler());
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -2255,8 +2009,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2275,12 +2027,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -2296,13 +2046,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockDataRangeHandler());
         testSubject0.handleChild(Utils.mockClassHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getEntityAnnotations();
-        Set<OWLAnnotation> result1 = testSubject0.getAnnotations();
         testSubject0.endElement();
         Object result2 = testSubject0.getOWLObject();
         OWLAxiom result3 = testSubject0.getOWLObject();
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result4 = testSubject0.getConfiguration();
         boolean result5 = testSubject0.isTextContentPossible();
         String result6 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2314,12 +2060,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockLiteralHandler());
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
-        IRI result7 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result8 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result9 = testSubject0.toString();
+
     }
 
     @Test
@@ -2331,13 +2075,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -2353,12 +2094,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2368,13 +2107,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockClassHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2391,12 +2127,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2407,13 +2141,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockDataPropertyHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2430,12 +2161,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2446,13 +2175,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2469,12 +2195,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2483,14 +2207,11 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockClassHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2507,12 +2228,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2558,13 +2277,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockClassHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2581,12 +2297,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2597,13 +2311,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockDataPropertyHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2620,12 +2331,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2636,13 +2345,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2659,12 +2365,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2674,15 +2378,12 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockDataPropertyHandler());
-        testSubject0.setProperty(mock(OWLDataPropertyExpression.class));
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
+
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2699,12 +2400,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2714,15 +2413,12 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
+
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2739,12 +2435,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2756,13 +2450,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockClassHandler());
         testSubject0.handleChild(Utils.mockDataPropertyHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2777,12 +2468,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2792,7 +2481,6 @@ public class ContractOwlxmlparserTest {
         boolean result0 = testSubject0.isTextContentPossible();
         OWLOntology result1 = testSubject0.getOWLObject();
         Object result2 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -2811,12 +2499,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -2828,7 +2514,6 @@ public class ContractOwlxmlparserTest {
         OWLNamedIndividual result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2848,11 +2533,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -2862,15 +2545,12 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
+
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2887,11 +2567,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2902,12 +2580,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2924,12 +2599,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -2941,7 +2614,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLObjectPropertyExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2960,12 +2632,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -2975,15 +2645,12 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
+
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3000,12 +2667,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -3019,7 +2684,6 @@ public class ContractOwlxmlparserTest {
         OWLLiteral result1 = testSubject0.getOWLObject();
         Object result2 = testSubject0.getOWLObject();
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3037,11 +2701,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3054,20 +2716,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockDataPropertyHandler());
         testSubject0.handleChild(Utils.mockLiteralHandler());
-        testSubject0.setProperty(mock(OWLDataPropertyExpression.class));
-        OWLDataPropertyExpression result0 = testSubject0.getProperty();
-        OWLObject result1 = testSubject0.getObject();
-        testSubject0.setSubject(mock(OWLIndividual.class));
-        OWLIndividual result2 = testSubject0.getSubject();
-        testSubject0.setObject(mock(OWLLiteral.class));
-        Set<OWLAnnotation> result3 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result4 = testSubject0.getOWLObject();
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -3081,12 +2734,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result9 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result10 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result11 = testSubject0.toString();
+
     }
 
     @Test
@@ -3098,20 +2749,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        OWLObjectPropertyExpression result0 = testSubject0.getProperty();
-        OWLObject result1 = testSubject0.getObject();
-        testSubject0.setSubject(mock(OWLIndividual.class));
-        OWLIndividual result2 = testSubject0.getSubject();
-        testSubject0.setObject(mock(OWLIndividual.class));
-        Set<OWLAnnotation> result3 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result4 = testSubject0.getOWLObject();
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -3126,12 +2768,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result9 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result10 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result11 = testSubject0.toString();
+
     }
 
     @Test
@@ -3144,7 +2784,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3162,12 +2801,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3179,7 +2816,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3198,12 +2834,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3218,7 +2852,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -3235,11 +2868,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3251,7 +2882,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3270,12 +2900,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3288,7 +2916,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3306,12 +2933,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3323,7 +2948,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3342,12 +2966,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3362,7 +2984,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -3379,11 +3000,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3398,7 +3017,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -3415,11 +3033,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3430,7 +3046,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockIndividualHandler());
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3449,12 +3064,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3466,20 +3079,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        OWLObjectPropertyExpression result0 = testSubject0.getProperty();
-        OWLObject result1 = testSubject0.getObject();
-        testSubject0.setSubject(mock(OWLIndividual.class));
-        OWLIndividual result2 = testSubject0.getSubject();
-        testSubject0.setObject(mock(OWLIndividual.class));
-        Set<OWLAnnotation> result3 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result4 = testSubject0.getOWLObject();
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -3494,12 +3098,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result9 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result10 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result11 = testSubject0.toString();
+
     }
 
     @Test
@@ -3509,14 +3111,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockClassHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3532,12 +3131,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -3549,7 +3146,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLObjectPropertyExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3569,11 +3165,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3583,14 +3177,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockClassHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3606,12 +3197,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -3624,7 +3213,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3642,12 +3230,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3659,7 +3245,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3678,12 +3263,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3700,7 +3283,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockDataRangeHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3715,10 +3297,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3728,15 +3308,12 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
+
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3753,12 +3330,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -3769,13 +3344,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockIndividualHandler());
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
         testSubject0.startElement("");
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -3791,12 +3363,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -3805,13 +3375,10 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3828,12 +3395,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockLiteralHandler());
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -3843,13 +3408,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.startElement("");
         testSubject0.handleChild(Utils.mockClassHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3866,12 +3428,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -3880,14 +3440,11 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockDataPropertyHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3904,12 +3461,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -3921,7 +3476,6 @@ public class ContractOwlxmlparserTest {
         List<OWLObjectPropertyExpression> result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3940,12 +3494,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -3955,14 +3507,11 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3978,12 +3527,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockLiteralHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -3993,15 +3540,12 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
+
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -4018,12 +3562,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -4033,15 +3575,12 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        testSubject0.setProperty(Utils.mockObjectProperty());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
+
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -4058,12 +3597,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -4073,7 +3610,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.endElement();
         testSubject0.handleChild(Utils.mockClassHandler());
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4092,12 +3628,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     public void shouldTestOWLXMLParser() throws OWLException, OWLOntologyChangeException,
@@ -4105,7 +3639,7 @@ public class ContractOwlxmlparserTest {
         OWLXMLParser testSubject0 = new OWLXMLParser();
         OWLOntologyFormat result1 = testSubject0.parse(new StringDocumentSource(""),
                 Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
-        String result4 = testSubject0.toString();
+
     }
 
     @Test
@@ -4116,7 +3650,7 @@ public class ContractOwlxmlparserTest {
         int result1 = testSubject0.getLineNumber();
         int result2 = testSubject0.getColumnNumber();
         Throwable result4 = testSubject0.getCause();
-        String result6 = testSubject0.toString();
+
         String result7 = testSubject0.getLocalizedMessage();
     }
 
@@ -4128,7 +3662,7 @@ public class ContractOwlxmlparserTest {
         int result1 = testSubject0.getLineNumber();
         int result2 = testSubject0.getColumnNumber();
         Throwable result4 = testSubject0.getCause();
-        String result6 = testSubject0.toString();
+
         String result7 = testSubject0.getLocalizedMessage();
     }
 
@@ -4139,7 +3673,7 @@ public class ContractOwlxmlparserTest {
         int result1 = testSubject0.getLineNumber();
         int result2 = testSubject0.getColumnNumber();
         Throwable result4 = testSubject0.getCause();
-        String result6 = testSubject0.toString();
+
         String result7 = testSubject0.getLocalizedMessage();
     }
 
@@ -4147,7 +3681,7 @@ public class ContractOwlxmlparserTest {
     public void shouldTestOWLXMLParserFactory() throws OWLException {
         OWLXMLParserFactory testSubject0 = new OWLXMLParserFactory();
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
-        String result1 = testSubject0.toString();
+
     }
 
     @Test
@@ -4161,7 +3695,6 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4181,12 +3714,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
         testSubject0.endElement();
     }
 
@@ -4199,7 +3730,6 @@ public class ContractOwlxmlparserTest {
         List<SWRLAtom> result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockSWRLAtomHandler());
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4218,12 +3748,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -4238,7 +3766,6 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4256,11 +3783,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -4275,7 +3800,6 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4292,12 +3816,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -4314,7 +3836,6 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4329,12 +3850,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -4349,7 +3868,6 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4367,12 +3885,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -4387,7 +3903,6 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4404,12 +3919,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -4418,14 +3931,11 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockSWRLAtomListHandler());
-        Set<OWLAnnotation> result0 = testSubject0.getAnnotations();
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
-        testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -4442,12 +3952,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result6 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result7 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -4461,7 +3969,6 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4479,12 +3986,10 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -4496,7 +4001,6 @@ public class ContractOwlxmlparserTest {
         SWRLVariable result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4516,11 +4020,9 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockSubObjectPropertyChainHandler());
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
-        IRI result5 = testSubject0.getIRIFromAttribute("IRI", "");
-        IRI result6 = testSubject0.getIRIFromElement("IRI", "");
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-        String result7 = testSubject0.toString();
+
     }
 
     @Test
@@ -4529,7 +4031,7 @@ public class ContractOwlxmlparserTest {
                 mock(OWLOntologyChangeException.class));
         OWLOntologyChangeException result0 = testSubject0.getCause();
         Throwable result1 = testSubject0.getCause();
-        String result2 = testSubject0.toString();
+
         String result3 = testSubject0.getMessage();
         Exception result4 = testSubject0.getException();
         String result7 = testSubject0.getLocalizedMessage();
@@ -4541,7 +4043,7 @@ public class ContractOwlxmlparserTest {
                 mock(OWLParserException.class));
         OWLParserException result0 = testSubject0.getParserException();
         Throwable result1 = testSubject0.getCause();
-        String result2 = testSubject0.toString();
+
         String result3 = testSubject0.getMessage();
         Exception result4 = testSubject0.getException();
         String result7 = testSubject0.getLocalizedMessage();
@@ -4553,7 +4055,7 @@ public class ContractOwlxmlparserTest {
                 mock(UnloadableImportException.class));
         UnloadableImportException result0 = testSubject0.getUnloadableImportException();
         Throwable result1 = testSubject0.getCause();
-        String result2 = testSubject0.toString();
+
         String result3 = testSubject0.getMessage();
         Exception result4 = testSubject0.getException();
         String result7 = testSubject0.getLocalizedMessage();

@@ -41,9 +41,7 @@ package org.coode.xml;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -64,14 +62,20 @@ public class XMLWriterNamespaceManager {
     private Map<String, String> wellknownNamespaces = new HashMap<String, String>();
     private String defaultNamespace;
 
+    /** @param defaultNamespace
+     *            default namespace */
     public XMLWriterNamespaceManager(@Nonnull String defaultNamespace) {
         this.defaultNamespace = checkNotNull(defaultNamespace, "defaultNamespace cannot be null");
     }
 
+    /** @param prefix
+     * @param namespace */
     public void addWellKnownNamespace(@Nonnull String prefix, @Nonnull String namespace) {
         wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"), checkNotNull(namespace, "namespace cannot be null"));
     }
 
+    /** @param prefix
+     * @param namespace */
     public void setPrefix(@Nonnull String prefix, @Nonnull String namespace) {
         checkNotNull(prefix, "prefix cannot be null");
         checkNotNull(namespace, "namespace cannot be null");
@@ -79,15 +83,20 @@ public class XMLWriterNamespaceManager {
         namespacePrefixMap.put(namespace, prefix);
     }
 
+    /** @param namespace
+     * @return prefix for namespace, or null */
     @Nullable
     public String getPrefixForNamespace(@Nonnull String namespace) {
         return namespacePrefixMap.get(checkNotNull(namespace, "namespace cannot be null"));
     }
 
+    /** @param namespace */
     public void setDefaultNamespace(@Nonnull String namespace) {
         defaultNamespace = checkNotNull(namespace, "namespace cannot be null");
     }
 
+    /** @param prefix
+     * @return namespace for prefix or null */
     @Nullable
     public String getNamespaceForPrefix(@Nonnull String prefix) {
         return prefixNamespaceMap.get(checkNotNull(prefix, "prefix cannot be null"));
@@ -114,6 +123,7 @@ public class XMLWriterNamespaceManager {
         return name;
     }
 
+    /** @param namespace */
     public void createPrefixForNamespace(@Nonnull String namespace) {
         checkNotNull(namespace, "namespace cannot be null");
         if (namespace.equals(defaultNamespace)) {
@@ -131,23 +141,21 @@ public class XMLWriterNamespaceManager {
         }
     }
 
+    /** @return default namespace */
     public String getDefaultNamespace() {
         return defaultNamespace;
     }
 
+    /** @return iterable on prefixes */
     @Nonnull
-    public Set<String> getPrefixes() {
-        return new HashSet<String>(prefixNamespaceMap.keySet());
+    public Iterable<String> getPrefixes() {
+        return prefixNamespaceMap.keySet();
     }
 
+    /** @return iterable of namespaces */
     @Nonnull
-    public Set<String> getNamespaces() {
-        return new HashSet<String>(namespacePrefixMap.keySet());
-    }
-
-    @Nonnull
-    public Map<String, String> getPrefixNamespaceMap() {
-        return new HashMap<String, String>(prefixNamespaceMap);
+    public Iterable<String> getNamespaces() {
+        return namespacePrefixMap.keySet();
     }
 
     /** Search for a prefix other than "" for the default namespace

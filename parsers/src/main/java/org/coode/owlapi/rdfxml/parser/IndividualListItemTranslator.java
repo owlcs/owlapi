@@ -54,6 +54,7 @@ public class IndividualListItemTranslator implements ListItemTranslator<OWLIndiv
             .getLogger(IndividualListItemTranslator.class.getName());
     private OWLRDFConsumer consumer;
 
+    /** @param consumer */
     public IndividualListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

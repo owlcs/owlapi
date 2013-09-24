@@ -52,6 +52,7 @@ public class OWLAnnotationPropertyElementHandler extends
     private OWLAnnotationProperty prop;
     private IRI iri;
 
+    /** @param handler */
     public OWLAnnotationPropertyElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

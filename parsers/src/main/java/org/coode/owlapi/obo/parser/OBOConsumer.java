@@ -102,6 +102,9 @@ public class OBOConsumer implements OBOParserHandler {
     private String ontologyTagValue = "";
     private String dataVersionTagValue = "";
 
+    /** @param ontology
+     * @param configuration
+     * @param baseIRI */
     public OBOConsumer(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration, IRI baseIRI) {
         this.configuration = configuration;
@@ -131,23 +134,24 @@ public class OBOConsumer implements OBOParserHandler {
         return baseURIPath.substring(lastSlashIndex + 1);
     }
 
-    public OBOConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration, IRI baseIRI) {
-        this(ontology, configuration, baseIRI);
-    }
 
+    /** @return ontology manager */
     public OWLOntologyManager getOWLOntologyManager() {
         return owlOntologyManager;
     }
 
+    /** @return ontology */
     public OWLOntology getOntology() {
         return ontology;
     }
 
+    /** @return current id */
     public String getCurrentId() {
         return currentId;
     }
 
+    /** @param symbolicName
+     * @param fullIRI */
     public void addSymbolicIdMapping(String symbolicName, IRI fullIRI) {
         symbolicIdCache.put(symbolicName, fullIRI);
     }
@@ -195,6 +199,8 @@ public class OBOConsumer implements OBOParserHandler {
         this.dataVersionTagValue = dataVersionTagValue;
     }
 
+    /** @param idSpacePrefix
+     * @param iriPrefix */
     public void registerIdSpace(String idSpacePrefix, String iriPrefix) {
         idSpaceManager.setIRIPrefix(idSpacePrefix, iriPrefix);
     }
@@ -206,30 +212,37 @@ public class OBOConsumer implements OBOParserHandler {
         return idSpaceManager;
     }
 
+    /** @param currentId */
     public void setCurrentId(String currentId) {
         this.currentId = currentId;
     }
 
+    /** @param classExpression */
     public void addUnionOfOperand(OWLClassExpression classExpression) {
         unionOfOperands.add(classExpression);
     }
 
+    /** @param classExpression */
     public void addIntersectionOfOperand(OWLClassExpression classExpression) {
         intersectionOfOperands.add(classExpression);
     }
 
+    /** @return stanza type */
     public String getStanzaType() {
         return stanzaType;
     }
 
+    /** @return true if term */
     public boolean isTerm() {
         return termType;
     }
 
+    /** @return true if typedef */
     public boolean isTypedef() {
         return typedefType;
     }
 
+    /** @return true if instance type */
     public boolean isInstanceType() {
         return instanceType;
     }
@@ -402,6 +415,8 @@ public class OBOConsumer implements OBOParserHandler {
         }
     }
 
+    /** @param value
+     * @return unescaped value */
     public String unescapeTagValue(String value) {
         String unquoted;
         if (value.startsWith("\"") && value.endsWith("\"")) {
@@ -423,10 +438,11 @@ public class OBOConsumer implements OBOParserHandler {
         return getOWLOntologyManager().getOWLDataFactory();
     }
 
-    public OWLClass getCurrentClass() {
+    private OWLClass getCurrentClass() {
         return getDataFactory().getOWLClass(getIRI(currentId));
     }
 
+    /** @return current entity */
     public OWLEntity getCurrentEntity() {
         if (isTerm()) {
             return getCurrentClass();
@@ -475,6 +491,8 @@ public class OBOConsumer implements OBOParserHandler {
         return getIRI(oboId);
     }
 
+    /** @param symbolicIdOrOBOId
+     * @return iri from id */
     public IRI getRelationIRIFromSymbolicIdOrOBOId(String symbolicIdOrOBOId) {
         IRI fullIRI = symbolicIdCache.get(symbolicIdOrOBOId);
         if (fullIRI != null) {
@@ -511,6 +529,8 @@ public class OBOConsumer implements OBOParserHandler {
     private static final int XREF_ID_GROUP = 1;
     private static final int XREF_QUOTED_STRING_GROUP = 3;
 
+    /** @param xref
+     * @return annotation for xref */
     public OWLAnnotation parseXRef(String xref) {
         Matcher matcher = XREF_PATTERN.matcher(xref);
         if (matcher.matches()) {

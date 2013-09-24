@@ -339,7 +339,9 @@ public class BOMSafeJavaCharStream {
         return bufline[tokenBegin];
     }
 
-    /** Retreat. */
+    /** Retreat.
+     * 
+     * @param amount */
     public void backup(int amount) {
         inBuf += amount;
         if ((bufpos -= amount) < 0) {
@@ -360,7 +362,11 @@ public class BOMSafeJavaCharStream {
         nextCharBuf = new char[4096];
     }
 
-    /** Constructor. */
+    /** Constructor.
+     * 
+     * @param dstream
+     * @param startline
+     * @param startcolumn */
     public BOMSafeJavaCharStream(Reader dstream, int startline, int startcolumn) {
         this(dstream, startline, startcolumn, 4096);
     }
@@ -382,7 +388,11 @@ public class BOMSafeJavaCharStream {
         nextCharInd = bufpos = -1;
     }
 
-    /** Reinitialise. */
+    /** Reinitialise.
+     * 
+     * @param dstream
+     * @param startline
+     * @param startcolumn */
     public void ReInit(Reader dstream, int startline, int startcolumn) {
         ReInit(dstream, startline, startcolumn, 4096);
     }
@@ -395,7 +405,13 @@ public class BOMSafeJavaCharStream {
                 buffersize);
     }
 
-    /** Constructor. */
+    /** Constructor.
+     * 
+     * @param dstream
+     * @param encoding
+     * @param startline
+     * @param startcolumn
+     * @throws UnsupportedEncodingException */
     public BOMSafeJavaCharStream(InputStream dstream, String encoding, int startline,
             int startcolumn) throws UnsupportedEncodingException {
         this(dstream, encoding, startline, startcolumn, 4096);
@@ -409,7 +425,13 @@ public class BOMSafeJavaCharStream {
                 buffersize);
     }
 
-    /** Reinitialise. */
+    /** Reinitialise.
+     * 
+     * @param dstream
+     * @param encoding
+     * @param startline
+     * @param startcolumn
+     * @throws UnsupportedEncodingException */
     public void ReInit(InputStream dstream, String encoding, int startline,
             int startcolumn) throws UnsupportedEncodingException {
         ReInit(dstream, encoding, startline, startcolumn, 4096);

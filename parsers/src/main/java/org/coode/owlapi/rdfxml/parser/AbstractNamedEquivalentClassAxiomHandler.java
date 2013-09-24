@@ -56,6 +56,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * (C or C) */
 public abstract class AbstractNamedEquivalentClassAxiomHandler extends
         TriplePredicateHandler {
+    /** @param consumer
+     * @param predicateIRI */
     public AbstractNamedEquivalentClassAxiomHandler(OWLRDFConsumer consumer,
             IRI predicateIRI) {
         super(consumer, predicateIRI);

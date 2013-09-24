@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * <br> */
 public class OWLDataMaxCardinalityElementHandler extends
         AbstractDataCardinalityRestrictionElementHandler {
+    /** @param handler */
     public OWLDataMaxCardinalityElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

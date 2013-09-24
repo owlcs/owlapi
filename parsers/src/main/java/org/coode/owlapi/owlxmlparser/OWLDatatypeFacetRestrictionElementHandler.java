@@ -55,6 +55,7 @@ public class OWLDatatypeFacetRestrictionElementHandler extends
     private OWLFacet facet;
     private OWLLiteral constant;
 
+    /** @param handler */
     public OWLDatatypeFacetRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

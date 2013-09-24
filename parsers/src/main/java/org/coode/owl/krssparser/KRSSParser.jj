@@ -14,7 +14,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import java.net.*;
 import java.util.*;
 
-
+@SuppressWarnings("javadoc")
 public class KRSSParser {
 
     private OWLOntology ontology;

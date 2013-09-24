@@ -59,12 +59,14 @@ public class SWRLRuleTranslator {
     private OWLRDFConsumer consumer;
     private OptimisedListTranslator<SWRLAtom> listTranslator;
 
+    /** @param consumer */
     public SWRLRuleTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
         listTranslator = new OptimisedListTranslator<SWRLAtom>(consumer,
                 new SWRLAtomListItemTranslator(consumer));
     }
 
+    /** @param mainNode */
     public void translateRule(IRI mainNode) {
         Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
         Set<IRI> predicates = consumer.getPredicatesBySubject(mainNode);

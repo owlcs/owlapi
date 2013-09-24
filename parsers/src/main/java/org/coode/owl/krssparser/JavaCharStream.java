@@ -8,12 +8,22 @@ package org.coode.owl.krssparser;
  * This stops JavaCC from rebuilding the wrong files and minimizes duplicated
  * code. */
 public class JavaCharStream extends uk.ac.manchester.cs.BOMSafeJavaCharStream {
-    /** Constructor. */
+    /** Constructor.
+     * 
+     * @param dstream
+     * @param startline
+     * @param startcolumn */
     public JavaCharStream(java.io.Reader dstream, int startline, int startcolumn) {
         super(dstream, startline, startcolumn, 4096);
     }
 
-    /** Constructor. */
+    /** Constructor.
+     * 
+     * @param dstream
+     * @param encoding
+     * @param startline
+     * @param startcolumn
+     * @throws java.io.UnsupportedEncodingException */
     public JavaCharStream(java.io.InputStream dstream, String encoding, int startline,
             int startcolumn) throws java.io.UnsupportedEncodingException {
         super(dstream, encoding, startline, startcolumn, 4096);

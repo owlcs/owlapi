@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class DataHasValueTranslator extends AbstractClassExpressionTranslator {
+    /** @param consumer */
     public DataHasValueTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }

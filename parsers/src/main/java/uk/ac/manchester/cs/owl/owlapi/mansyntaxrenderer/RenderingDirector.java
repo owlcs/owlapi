@@ -46,6 +46,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Information Management Group<br>
  * Date: 11-Mar-2010 */
 public interface RenderingDirector {
+    /** @param frameSectionKeyword
+     * @param ontologies
+     * @return false if not empty */
     boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword,
             OWLOntology... ontologies);
 }

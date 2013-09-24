@@ -50,6 +50,8 @@ import org.semanticweb.owlapi.vocab.SKOSVocabulary;
  * Date: 05-Nov-2008<br>
  * <br> */
 public class SKOSClassTripleHandler extends BuiltInTypeHandler {
+    /** @param consumer
+     * @param v */
     public SKOSClassTripleHandler(OWLRDFConsumer consumer, SKOSVocabulary v) {
         super(consumer, v.getIRI());
     }

@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public abstract class BuiltInTypeHandler extends TriplePredicateHandler {
     private IRI typeIRI;
 
-    public BuiltInTypeHandler(OWLRDFConsumer consumer, IRI typeIRI) {
+    protected BuiltInTypeHandler(OWLRDFConsumer consumer, IRI typeIRI) {
         super(consumer, OWLRDFVocabulary.RDF_TYPE.getIRI());
         this.typeIRI = typeIRI;
     }
@@ -67,6 +67,7 @@ public abstract class BuiltInTypeHandler extends TriplePredicateHandler {
                 && object.equals(typeIRI);
     }
 
+    /** @return the type IRI */
     public IRI getTypeIRI() {
         return typeIRI;
     }

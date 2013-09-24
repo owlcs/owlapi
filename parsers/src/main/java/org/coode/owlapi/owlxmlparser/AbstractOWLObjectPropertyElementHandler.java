@@ -51,7 +51,7 @@ public abstract class AbstractOWLObjectPropertyElementHandler extends
         AbstractOWLElementHandler<OWLObjectPropertyExpression> {
     private OWLObjectPropertyExpression property;
 
-    public AbstractOWLObjectPropertyElementHandler(OWLXMLParserHandler handler) {
+    protected AbstractOWLObjectPropertyElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -62,7 +62,7 @@ public abstract class AbstractOWLObjectPropertyElementHandler extends
     }
 
     protected void setOWLObjectPropertyExpression(OWLObjectPropertyExpression prop) {
-        this.property = prop;
+        property = prop;
     }
 
     @Override

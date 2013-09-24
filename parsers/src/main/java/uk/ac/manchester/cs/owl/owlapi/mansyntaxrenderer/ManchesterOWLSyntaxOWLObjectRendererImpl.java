@@ -58,6 +58,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
     private ManchesterOWLSyntaxObjectRenderer ren;
     private WriterDelegate writerDelegate;
 
+    /** default constructor */
     public ManchesterOWLSyntaxOWLObjectRendererImpl() {
         writerDelegate = new WriterDelegate();
         ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate,

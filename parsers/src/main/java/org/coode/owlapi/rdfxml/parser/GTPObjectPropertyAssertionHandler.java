@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Date: 11-Dec-2006<br>
  * <br> */
 public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHandler {
+    /** @param consumer */
     public GTPObjectPropertyAssertionHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }

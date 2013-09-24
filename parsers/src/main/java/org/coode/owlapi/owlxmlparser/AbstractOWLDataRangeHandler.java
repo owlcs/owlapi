@@ -55,7 +55,7 @@ public abstract class AbstractOWLDataRangeHandler extends
         super(handler);
     }
 
-    public void setDataRange(OWLDataRange dataRange) {
+    protected void setDataRange(OWLDataRange dataRange) {
         this.dataRange = dataRange;
     }
 

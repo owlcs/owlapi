@@ -93,7 +93,7 @@ public class ContractSmallsTest {
         EscapeUtils testSubject0 = new EscapeUtils();
         String result1 = EscapeUtils.escapeString("");
         String result2 = EscapeUtils.unescapeString("");
-        String result3 = testSubject0.toString();
+
     }
 
     @Test
@@ -117,7 +117,7 @@ public class ContractSmallsTest {
         testSubject0.render(mock(OWLAxiom.class), Utils.mockSetSetAxiom());
         testSubject0.startRendering(mock(Writer.class));
         testSubject0.endRendering();
-        String result0 = testSubject0.toString();
+
     }
 
     @Test
@@ -135,7 +135,7 @@ public class ContractSmallsTest {
         testSubject0.render(mock(OWLAxiom.class), Utils.mockSetSetAxiom());
         testSubject0.startRendering(mock(Writer.class));
         testSubject0.endRendering();
-        String result0 = testSubject0.toString();
+
     }
 
     @Test
@@ -158,7 +158,7 @@ public class ContractSmallsTest {
                 Utils.getMockManager(), mock(OWLReasonerFactory.class));
         boolean result0 = testSubject0.isLocal(mock(OWLAxiom.class),
                 Utils.mockSet(Utils.mockOWLEntity()));
-        String result1 = testSubject0.toString();
+
     }
 
     @Test
@@ -168,13 +168,13 @@ public class ContractSmallsTest {
         boolean result0 = testSubject0.isLocal(mock(OWLAxiom.class),
                 Utils.mockSet(Utils.mockOWLEntity()));
         Set<LocalityClass> result1 = testSubject0.supportedLocalityClasses();
-        String result2 = testSubject0.toString();
+
     }
 
     @Test
     public void shouldTestModuleType() throws OWLException {
         ModuleType testSubject0 = ModuleType.BOT;
-        String result0 = testSubject0.toString();
+
         ModuleType[] result1 = ModuleType.values();
         String result3 = testSubject0.name();
         int result8 = testSubject0.ordinal();
@@ -201,7 +201,7 @@ public class ContractSmallsTest {
                 Utils.mockSet(Utils.mockOWLEntity()), IRI.create("urn:anotherFake"));
         testSubject0.setModuleType(ModuleType.BOT);
         ModuleType result5 = testSubject0.getModuleType();
-        String result6 = testSubject0.toString();
+
     }
 
     @Test
@@ -210,7 +210,7 @@ public class ContractSmallsTest {
         boolean result0 = testSubject0.isDefined(Utils.mockOWLEntity());
         boolean result1 = testSubject0.isDefined(Utils.mockAnonClass());
         testSubject0.ontologiesChanged(Utils.mockList(mock(AddAxiom.class)));
-        String result2 = testSubject0.toString();
+
     }
 
     @Test
@@ -230,7 +230,7 @@ public class ContractSmallsTest {
                 Utils.mockSet(Utils.getMockOntology()), Utils.getMockManager());
         boolean result1 = OntologyUtils.containsUnreferencedEntity(
                 Utils.getMockOntology(), Utils.mockAnonClass());
-        String result2 = testSubject0.toString();
+
     }
 
     @Test
@@ -239,7 +239,7 @@ public class ContractSmallsTest {
         boolean result0 = testSubject0.isCancelled();
         testSubject0.foundExplanation(Utils.mockSet(mock(OWLAxiom.class)));
         testSubject0.foundAllExplanations();
-        String result1 = testSubject0.toString();
+
     }
 
     @Test
@@ -258,10 +258,7 @@ public class ContractSmallsTest {
         testSubject0.setDefaultNamespace("");
         String result5 = testSubject0.getNamespaceForPrefix("");
         testSubject0.createPrefixForNamespace("");
-        Set<String> result6 = testSubject0.getPrefixes();
-        Set<String> result7 = testSubject0.getNamespaces();
-        Map<String, String> result8 = testSubject0.getPrefixNamespaceMap();
-        String result9 = testSubject0.toString();
+
     }
 
     @Ignore
@@ -273,14 +270,14 @@ public class ContractSmallsTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-        String result1 = testSubject0.toString();
+
     }
 
     @Ignore
     @Test
     public void shouldTestMutableTree() throws OWLException {
         MutableTree<Object> testSubject0 = new MutableTree<Object>(mock(Object.class));
-        String result0 = testSubject0.toString();
+
         Tree<Object> result1 = testSubject0.getParent();
         Tree<Object> result3 = testSubject0.getRoot();
         boolean result4 = testSubject0.isRoot();
@@ -335,7 +332,7 @@ public class ContractSmallsTest {
         boolean result0 = testSubject0.isInNormalForm(Utils.mockAnonClass());
         OWLClassExpression result1 = testSubject0.convertToNormalForm(Utils
                 .mockAnonClass());
-        String result2 = testSubject0.toString();
+
     }
 
     @Test
@@ -352,14 +349,14 @@ public class ContractSmallsTest {
         testSubject0.reset();
         Set<OWLClassExpression> result0 = testSubject0
                 .getComplementedClassExpressions(Utils.mockAnonClass());
-        String result1 = testSubject0.toString();
+
     }
 
     @Ignore
     @Test
     public void shouldTestTurtleOntologyFormat() throws OWLException {
         TurtleOntologyFormat testSubject0 = new TurtleOntologyFormat();
-        String result0 = testSubject0.toString();
+
         RDFParserMetaData result1 = testSubject0.getOntologyLoaderMetaData();
         OWLOntologyLoaderMetaData result2 = testSubject0.getOntologyLoaderMetaData();
         boolean result3 = testSubject0.isAddMissingTypes();
@@ -396,7 +393,7 @@ public class ContractSmallsTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-        String result1 = testSubject0.toString();
+
     }
 
     @Test
@@ -421,7 +418,7 @@ public class ContractSmallsTest {
         String result2 = testSubject0.getPublicId();
         String result3 = testSubject0.getSystemId();
         Throwable result4 = testSubject0.getCause();
-        String result5 = testSubject0.toString();
+
         String result6 = testSubject0.getMessage();
         Exception result7 = testSubject0.getException();
         String result10 = testSubject0.getLocalizedMessage();
@@ -431,7 +428,7 @@ public class ContractSmallsTest {
     public void shouldTestOWLXMLObjectRenderer() throws OWLException {
         OWLXMLObjectRenderer testSubject0 = new OWLXMLObjectRenderer(
                 mock(OWLXMLWriter.class));
-        String result0 = testSubject0.toString();
+
     }
 
     @Ignore
@@ -443,7 +440,7 @@ public class ContractSmallsTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-        String result1 = testSubject0.toString();
+
     }
 
     @Test
@@ -453,7 +450,7 @@ public class ContractSmallsTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
-        String result0 = testSubject0.toString();
+
     }
 
     @Ignore
@@ -503,7 +500,7 @@ public class ContractSmallsTest {
         testSubject0.constructHittingSetTree(Utils.mockSet(mock(OWLAxiom.class)),
                 Utils.mockSetSetAxiom(), Utils.mockSetSetAxiom(),
                 Utils.mockSet(mock(OWLAxiom.class)));
-        String result3 = testSubject0.toString();
+
         testSubject0.dispose();
         Set<OWLAxiom> result4 = testSubject0.getSOSForIncosistentClass(Utils
                 .mockAnonClass());
@@ -524,7 +521,7 @@ public class ContractSmallsTest {
         testSubject0.constructHittingSetTree(Utils.mockSet(mock(OWLAxiom.class)),
                 Utils.mockSetSetAxiom(), Utils.mockSetSetAxiom(),
                 Utils.mockSet(mock(OWLAxiom.class)));
-        String result4 = testSubject0.toString();
+
     }
 
     @Test
@@ -532,7 +529,7 @@ public class ContractSmallsTest {
         DebuggerClassExpressionGenerator testSubject0 = new DebuggerClassExpressionGenerator(
                 mock(OWLDataFactory.class));
         OWLClassExpression result0 = testSubject0.getDebuggerClassExpression();
-        String result1 = testSubject0.toString();
+
     }
 
     @Test
@@ -541,7 +538,7 @@ public class ContractSmallsTest {
                 Utils.mockSet(mock(OWLAxiom.class)));
         Set<OWLAxiom> result0 = testSubject0.getRootAxioms();
         Set<OWLAxiom> result1 = testSubject0.getChildAxioms(mock(OWLAxiom.class));
-        String result2 = testSubject0.toString();
+
     }
 
     @Test

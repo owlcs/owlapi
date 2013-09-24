@@ -12,7 +12,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntax;
 import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxHTMLOntologyFormat;
 import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxHTMLOntologyStorer;
 import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
@@ -22,18 +21,11 @@ import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxOntologyStorerBase;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractDlsyntaxTest {
-    @Test
-    public void shouldTestDLSyntax() {
-        DLSyntax testSubject0 = DLSyntax.AND;
-        String result0 = testSubject0.toString();
-        DLSyntax[] result1 = DLSyntax.values();
-        String result3 = testSubject0.name();
-        int result8 = testSubject0.ordinal();
-    }
+
 
     public void shouldTestDLSyntaxHTMLOntologyFormat() {
         DLSyntaxHTMLOntologyFormat testSubject0 = new DLSyntaxHTMLOntologyFormat();
-        String result0 = testSubject0.toString();
+
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result1 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
@@ -50,7 +42,7 @@ public class ContractDlsyntaxTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-        String result1 = testSubject0.toString();
+
     }
 
     @Test
@@ -60,12 +52,12 @@ public class ContractDlsyntaxTest {
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
         testSubject0.setFocusedObject(mock(OWLObject.class));
         boolean result1 = testSubject0.isFocusedObject(mock(OWLObject.class));
-        String result2 = testSubject0.toString();
+
     }
 
     public void shouldTestDLSyntaxOntologyFormat() {
         DLSyntaxOntologyFormat testSubject0 = new DLSyntaxOntologyFormat();
-        String result0 = testSubject0.toString();
+
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result1 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
@@ -82,7 +74,7 @@ public class ContractDlsyntaxTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-        String result1 = testSubject0.toString();
+
     }
 
     public void shouldTestDLSyntaxOntologyStorerBase() throws OWLOntologyStorageException {
@@ -99,7 +91,7 @@ public class ContractDlsyntaxTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-        String result0 = testSubject0.toString();
+
         boolean result1 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
     }
 }

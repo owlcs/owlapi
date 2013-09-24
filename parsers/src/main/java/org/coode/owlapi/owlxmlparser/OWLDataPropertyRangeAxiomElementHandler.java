@@ -52,6 +52,7 @@ public class OWLDataPropertyRangeAxiomElementHandler extends
     private OWLDataPropertyExpression property;
     private OWLDataRange range;
 
+    /** @param handler */
     public OWLDataPropertyRangeAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

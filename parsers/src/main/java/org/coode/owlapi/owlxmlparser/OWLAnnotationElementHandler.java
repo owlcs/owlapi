@@ -59,6 +59,7 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
     private OWLAnnotationProperty property;
     private OWLAnnotationValue object;
 
+    /** @param handler */
     public OWLAnnotationElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

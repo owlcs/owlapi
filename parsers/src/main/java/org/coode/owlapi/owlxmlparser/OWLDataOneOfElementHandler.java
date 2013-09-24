@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
     Set<OWLLiteral> constants;
 
+    /** @param handler */
     public OWLDataOneOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         constants = new HashSet<OWLLiteral>();

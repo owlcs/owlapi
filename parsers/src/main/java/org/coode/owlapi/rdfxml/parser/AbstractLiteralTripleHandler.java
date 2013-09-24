@@ -47,14 +47,26 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Date: 10-Dec-2006<br>
  * <br> */
 public abstract class AbstractLiteralTripleHandler extends AbstractTripleHandler {
+    /** @param consumer */
     public AbstractLiteralTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
+    /** @param subject
+     * @param predicate
+     * @param object */
     public abstract void handleTriple(IRI subject, IRI predicate, OWLLiteral object);
 
+    /** @param subject
+     * @param predicate
+     * @param object
+     * @return true if triple can be handled */
     public abstract boolean canHandle(IRI subject, IRI predicate, OWLLiteral object);
 
+    /** @param subject
+     * @param predicate
+     * @param object
+     * @return true if triple can be handled in streaming */
     public abstract boolean canHandleStreaming(IRI subject, IRI predicate,
             OWLLiteral object);
 }

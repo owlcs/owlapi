@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -63,7 +62,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
     private String tag;
     private OBOConsumer consumer;
 
-    public AbstractTagValueHandler(String tag, OBOConsumer consumer) {
+    protected AbstractTagValueHandler(String tag, OBOConsumer consumer) {
         this.tag = tag;
         this.consumer = consumer;
     }
@@ -73,27 +72,25 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         return tag;
     }
 
-    public OWLOntologyManager getOWLOntologyManager() {
-        return consumer.getOWLOntologyManager();
-    }
 
-    public OWLOntology getOntology() {
+
+    protected OWLOntology getOntology() {
         return consumer.getOntology();
     }
 
-    public void applyChange(OWLOntologyChange<?> change) {
+    protected void applyChange(OWLOntologyChange<?> change) {
         consumer.getOWLOntologyManager().applyChange(change);
     }
 
-    public OBOConsumer getConsumer() {
+    protected OBOConsumer getConsumer() {
         return consumer;
     }
 
-    public OWLDataFactory getDataFactory() {
+    protected OWLDataFactory getDataFactory() {
         return consumer.getOWLOntologyManager().getOWLDataFactory();
     }
 
-    public IRI getTagIRI(OBOVocabulary vocabulary) {
+    protected IRI getTagIRI(OBOVocabulary vocabulary) {
         return consumer.getIRIFromTagName(vocabulary.getName());
     }
 
@@ -103,17 +100,13 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
      * @param tagName
      *            The tag name.
      * @return The IRI corresponding to the tag name. */
-    public IRI getTagIRI(String tagName) {
+    protected IRI getTagIRI(String tagName) {
         return consumer.getIRIFromTagName(tagName);
     }
 
-    public IRI getIRIFromOBOId(String id) {
+    protected IRI getIRIFromOBOId(String id) {
         return consumer.getIRIFromOBOId(id);
     }
-
-    // public IRI getIRIFromSymbolicId(String symbolicId) {
-    // return consumer.getIRIFromSymbolicId(symbolicId);
-    // }
     /** Gets an {@link OWLAnnotation} for a tag value pair.
      * 
      * @param tagName
@@ -124,7 +117,7 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
      * @return An {@link OWLAnnotation} that is formed by converting the tagName
      *         to an IRI and then to an {@link OWLAnnotationProperty} and the
      *         value to an {@link OWLLiteral}. */
-    public OWLAnnotation getAnnotationForTagValuePair(String tagName, String value) {
+    protected OWLAnnotation getAnnotationForTagValuePair(String tagName, String value) {
         IRI tagIRI = getTagIRI(tagName);
         OWLDataFactory df = getDataFactory();
         OWLAnnotationProperty annotationProperty = df.getOWLAnnotationProperty(tagIRI);
@@ -133,11 +126,11 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         return df.getOWLAnnotation(annotationProperty, annotationValue);
     }
 
-    public OWLClass getClassFromId(String s) {
+    protected OWLClass getClassFromId(String s) {
         return getDataFactory().getOWLClass(getIRIFromOBOId(s));
     }
 
-    public OWLClass getCurrentClass() {
+    protected OWLClass getCurrentClass() {
         return getDataFactory().getOWLClass(getIRIFromOBOId(consumer.getCurrentId()));
     }
 

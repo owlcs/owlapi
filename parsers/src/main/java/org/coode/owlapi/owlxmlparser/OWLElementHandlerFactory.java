@@ -44,7 +44,10 @@ package org.coode.owlapi.owlxmlparser;
  * Date: 14-Dec-2006<br>
  * <br> */
 public interface OWLElementHandlerFactory {
-    public String getElementName();
+    /** @return element name */
+    String getElementName();
 
-    public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler);
+    /** @param handler
+     * @return element handler */
+    OWLElementHandler<?> createHandler(OWLXMLParserHandler handler);
 }

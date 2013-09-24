@@ -136,6 +136,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * is used in any class expressions or property assertions (e.g. ObjectProperty:
  * hasPart) */
 public class ManchesterOWLSyntaxEditorParser {
+    // XXX refactor to use enums
     // This parser was built by hand! After struggling with terrible
     // error messages produced by ANTLR (or JavaCC) I decides to construct
     // this parser by hand. The error messages that this parser generates
@@ -857,7 +858,7 @@ public class ManchesterOWLSyntaxEditorParser {
         throw createException(SOME, ONLY, VALUE, MIN, EXACTLY, MAX);
     }
 
-    public OWLFacet parseFacet() throws ParserException {
+    protected OWLFacet parseFacet() {
         String facet = consumeToken();
         if (facet.equals(">")) {
             if (peekToken().equals("=")) {

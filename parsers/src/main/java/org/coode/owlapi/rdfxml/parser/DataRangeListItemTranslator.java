@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public class DataRangeListItemTranslator implements ListItemTranslator<OWLDataRange> {
     private OWLRDFConsumer consumer;
 
+    /** @param consumer */
     public DataRangeListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

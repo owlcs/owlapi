@@ -92,6 +92,7 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
  * namespace. When terms from many ontologies have been loaded together,
  * namespaces are used to break the merged ontology back into separate files. */
 public class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public DefaultNamespaceTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DEFAULT_NAMESPACE.getName(), consumer);
     }

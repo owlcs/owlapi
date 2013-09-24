@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.OWLAxiomFilter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.AbstractRenderer;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxFrameRenderer;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxObjectRenderer;
@@ -44,17 +43,6 @@ import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.SectionMap;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractMansyntaxrendererTest {
-    @Test
-    public void shouldTestAbstractRenderer() throws Exception {
-        AbstractRenderer testSubject0 = new AbstractRenderer(mock(Writer.class),
-                mock(ShortFormProvider.class));
-        testSubject0.flush();
-        testSubject0.setUseTabbing(false);
-        testSubject0.setUseWrapping(false);
-        boolean result0 = testSubject0.isUseWrapping();
-        boolean result1 = testSubject0.isUseTabbing();
-        String result2 = testSubject0.toString();
-    }
 
     public void shouldTestManchesterOWLSyntaxFrameRenderer() throws Exception {
         ManchesterOWLSyntaxFrameRenderer testSubject0 = new ManchesterOWLSyntaxFrameRenderer(
@@ -70,7 +58,6 @@ public class ContractMansyntaxrendererTest {
         Set<OWLAxiom> result4 = testSubject0.write(Utils.mockObjectProperty());
         Set<OWLAxiom> result5 = testSubject0.write(mock(OWLClass.class));
         Set<OWLAxiom> result6 = testSubject0.write(mock(OWLAnnotationProperty.class));
-        Set<OWLOntology> result7 = testSubject0.getOntologies();
         Set<OWLAnnotationAssertionAxiom> result8 = testSubject0
                 .writeAnnotations(mock(OWLAnnotationSubject.class));
         testSubject0.writeComment("", "", false);
@@ -94,24 +81,12 @@ public class ContractMansyntaxrendererTest {
         boolean result9 = testSubject0.isFiltered(mock(AxiomType.class));
         boolean result10 = testSubject0.isDisplayed(mock(OWLAxiom.class));
         Set<OWLAxiom> result11 = testSubject0.writeFrame(Utils.mockOWLEntity());
-        testSubject0.flush();
-        testSubject0.setUseTabbing(false);
-        testSubject0.setUseWrapping(false);
-        boolean result12 = testSubject0.isUseWrapping();
-        boolean result13 = testSubject0.isUseTabbing();
-        String result14 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestManchesterOWLSyntaxObjectRenderer() throws Exception {
         ManchesterOWLSyntaxObjectRenderer testSubject0 = new ManchesterOWLSyntaxObjectRenderer(
                 mock(Writer.class), mock(ShortFormProvider.class));
-        testSubject0.flush();
-        testSubject0.setUseTabbing(false);
-        testSubject0.setUseWrapping(false);
-        boolean result0 = testSubject0.isUseWrapping();
-        boolean result1 = testSubject0.isUseTabbing();
-        String result2 = testSubject0.toString();
     }
 
     public void shouldTestManchesterOWLSyntaxOntologyStorer() throws Exception {
@@ -121,7 +96,7 @@ public class ContractMansyntaxrendererTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-        String result1 = testSubject0.toString();
+
     }
 
     @Test
@@ -129,7 +104,7 @@ public class ContractMansyntaxrendererTest {
         ManchesterOWLSyntaxOWLObjectRendererImpl testSubject0 = new ManchesterOWLSyntaxOWLObjectRendererImpl();
         String result0 = testSubject0.render(mock(OWLObject.class));
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
-        String result1 = testSubject0.toString();
+
     }
 
     @Test
@@ -143,7 +118,7 @@ public class ContractMansyntaxrendererTest {
         String result0 = testSubject0.getShortForm(Utils.mockOWLEntity());
         String result1 = testSubject0.getShortForm(IRI("urn:aFake"));
         PrefixManager result2 = testSubject0.getPrefixManager();
-        String result3 = testSubject0.toString();
+
     }
 
     @Test
@@ -151,7 +126,7 @@ public class ContractMansyntaxrendererTest {
         ManchesterOWLSyntaxRenderer testSubject0 = new ManchesterOWLSyntaxRenderer();
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
-        String result0 = testSubject0.toString();
+
     }
 
     @Test
@@ -162,7 +137,7 @@ public class ContractMansyntaxrendererTest {
         ManchesterOWLSyntaxFrameRenderer result0 = testSubject0.getFrameRenderer();
         testSubject0.writeCommentOnNewLine("");
         OWLObject result1 = testSubject0.getFrameSubject();
-        String result2 = testSubject0.toString();
+
     }
 
     @Test
@@ -193,6 +168,6 @@ public class ContractMansyntaxrendererTest {
         Collection<Object> result1 = testSubject0.getSectionObjects();
         Set<Set<OWLAnnotation>> result2 = testSubject0
                 .getAnnotationsForSectionObject(mock(Object.class));
-        String result3 = testSubject0.toString();
+
     }
 }

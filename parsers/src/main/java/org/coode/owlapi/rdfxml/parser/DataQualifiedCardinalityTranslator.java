@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * Bio-Health Informatics Group<br>
  * Date: 19/12/2010 */
 public class DataQualifiedCardinalityTranslator extends AbstractClassExpressionTranslator {
+    /** @param consumer */
     public DataQualifiedCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }

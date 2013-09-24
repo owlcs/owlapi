@@ -54,6 +54,7 @@ public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
     private IRI iri;
     private List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
 
+    /** @param handler */
     public SWRLBuiltInAtomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

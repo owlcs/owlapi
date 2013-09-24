@@ -53,6 +53,7 @@ public class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
     private SWRLIArgument arg0 = null;
     private SWRLDArgument arg1 = null;
 
+    /** @param handler */
     public SWRLDataPropertyAtomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

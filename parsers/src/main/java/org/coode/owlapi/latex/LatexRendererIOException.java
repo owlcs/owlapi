@@ -48,6 +48,7 @@ import java.io.IOException;
 public class LatexRendererIOException extends LatexRendererException {
     private static final long serialVersionUID = 40000L;
 
+    /** @param cause */
     public LatexRendererIOException(IOException cause) {
         super(cause);
     }

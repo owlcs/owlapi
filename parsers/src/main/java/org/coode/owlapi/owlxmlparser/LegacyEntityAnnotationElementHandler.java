@@ -51,6 +51,7 @@ public class LegacyEntityAnnotationElementHandler extends AbstractOWLAxiomElemen
     private OWLEntity entity;
     private OWLAnnotation annotation;
 
+    /** @param handler */
     public LegacyEntityAnnotationElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

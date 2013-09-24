@@ -52,6 +52,7 @@ public abstract class AbstractNaryBooleanClassExpressionElementHandler extends
         AbstractClassExpressionElementHandler {
     private Set<OWLClassExpression> operands;
 
+    /** @param handler */
     public AbstractNaryBooleanClassExpressionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         operands = new HashSet<OWLClassExpression>();

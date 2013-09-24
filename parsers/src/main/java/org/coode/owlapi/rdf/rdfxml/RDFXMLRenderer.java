@@ -82,11 +82,16 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLNamespaceManager qnameManager;
     private OWLOntologyFormat format;
 
+    /** @param ontology
+     * @param w */
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w) {
         this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w, "w cannot be null"), ontology.getOWLOntologyManager()
                 .getOntologyFormat(ontology));
     }
 
+    /** @param ontology
+     * @param w
+     * @param format */
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w,
             @Nonnull OWLOntologyFormat format) {
         super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(format, "format cannot be null"));
@@ -103,6 +108,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                 checkNotNull(w, "w cannot be null"), qnameManager, base));
     }
 
+    /** @return entities that cannot be serialized */
     @Nonnull
     public Set<OWLEntity> getUnserialisableEntities() {
         return qnameManager.getEntitiesWithInvalidQNames();
@@ -175,7 +181,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         pending.add(node);
         RDFTriple candidatePrettyPrintTypeTriple = null;
-        final List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
+        final List<RDFTriple> triples = graph.getSortedTriplesForSubject(node, true);
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getPredicate().getIRI();
             if (propertyIRI.equals(RDF_TYPE.getIRI())

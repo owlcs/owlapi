@@ -55,6 +55,7 @@ public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandle
     private OWLLiteral constant;
     private IRI facetIRI;
 
+    /** @param handler */
     public OWLDataRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

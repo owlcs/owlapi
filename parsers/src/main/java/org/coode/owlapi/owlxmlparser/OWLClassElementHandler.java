@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.IRI;
 public class OWLClassElementHandler extends AbstractClassExpressionElementHandler {
     private IRI iri;
 
+    /** @param handler */
     public OWLClassElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

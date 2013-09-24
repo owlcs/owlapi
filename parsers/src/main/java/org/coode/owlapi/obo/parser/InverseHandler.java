@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Date: 06-Mar-2007<br>
  * <br> */
 public class InverseHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public InverseHandler(OBOConsumer consumer) {
         super(OBOVocabulary.INVERSE.getName(), consumer);
     }

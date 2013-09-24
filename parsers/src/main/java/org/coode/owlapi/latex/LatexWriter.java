@@ -53,30 +53,37 @@ import java.io.Writer;
 public class LatexWriter {
     private PrintWriter writer;
 
+    /** @param writer */
     public LatexWriter(Writer writer) {
         this.writer = new PrintWriter(writer);
     }
 
+    /** @param o */
     public void write(Object o) {
         writer.write(o.toString());
     }
 
+    /** add new line */
     public void writeNewLine() {
         writer.write("\\\\\n");
     }
 
+    /** non breakable space */
     public void writeSpace() {
         writer.write("~");
     }
 
+    /** open brace */
     public void writeOpenBrace() {
         writer.write("\\{");
     }
 
+    /** close brace */
     public void writeCloseBrace() {
         writer.write("\\}");
     }
 
+    /** flush the writer */
     public void flush() {
         writer.flush();
     }

@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Information Management Group<br>
  * Date: 17-May-2009 */
 public class AbbreviatedIRIElementHandler extends AbstractIRIElementHandler {
+    /** @param handler */
     public AbbreviatedIRIElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

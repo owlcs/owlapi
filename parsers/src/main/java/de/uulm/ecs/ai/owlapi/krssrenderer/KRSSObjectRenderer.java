@@ -277,6 +277,8 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     private int pos = 0;
     private int lastNewLinePos = 0;
 
+    /** @param ontology
+     * @param writer */
     public KRSSObjectRenderer(OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = new PrintWriter(writer);
@@ -313,7 +315,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         write(iri.toString());
     }
 
-    private void write(KRSSVocabulary v) {
+    protected void write(KRSSVocabulary v) {
         write(v.toString());
     }
 
@@ -348,22 +350,22 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         write(NEWLINE);
     }
 
-    public final void write(OWLClassExpression obj) {
+    protected final void write(OWLClassExpression obj) {
         writeSpace();
         obj.accept(this);
     }
 
-    public final void write(OWLIndividual ind) {
+    protected final void write(OWLIndividual ind) {
         writeSpace();
         ind.accept(this);
     }
 
-    public final void write(OWLPropertyExpression obj) {
+    protected final void write(OWLPropertyExpression obj) {
         writeSpace();
         obj.accept(this);
     }
 
-    public final void write(OWLDataRange obj) {
+    protected final void write(OWLDataRange obj) {
         writeSpace();
         obj.accept(this);
     }

@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * Date: 10-Jan-2007<br>
  * <br> */
 public class IDTagValueHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public IDTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ID.getName(), consumer);
     }

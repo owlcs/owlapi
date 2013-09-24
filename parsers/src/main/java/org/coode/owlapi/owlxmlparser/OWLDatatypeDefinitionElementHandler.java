@@ -50,6 +50,7 @@ public class OWLDatatypeDefinitionElementHandler extends AbstractOWLAxiomElement
     private OWLDatatype datatype;
     private OWLDataRange dataRange;
 
+    /** @param handler */
     public OWLDatatypeDefinitionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

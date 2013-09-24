@@ -43,19 +43,35 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
  * Information Management Group<br>
  * Date: 15-Jul-2009 */
 public interface RendererListener {
+    /** @param frameName
+     * @param event */
     void frameRenderingPrepared(String frameName, RendererEvent event);
 
+    /** @param frameName
+     * @param event */
     void frameRenderingStarted(String frameName, RendererEvent event);
 
+    /** @param frameName
+     * @param event */
     void frameRenderingFinished(String frameName, RendererEvent event);
 
+    /** @param sectionName
+     * @param event */
     void sectionRenderingPrepared(String sectionName, RendererEvent event);
 
+    /** @param sectionName
+     * @param event */
     void sectionRenderingStarted(String sectionName, RendererEvent event);
 
+    /** @param sectionName
+     * @param event */
     void sectionItemPrepared(String sectionName, RendererEvent event);
 
+    /** @param sectionName
+     * @param event */
     void sectionItemFinished(String sectionName, RendererEvent event);
 
+    /** @param sectionName
+     * @param event */
     void sectionRenderingFinished(String sectionName, RendererEvent event);
 }

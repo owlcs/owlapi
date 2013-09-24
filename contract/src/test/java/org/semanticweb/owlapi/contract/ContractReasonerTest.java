@@ -47,7 +47,7 @@ public class ContractReasonerTest {
         OWLAxiom result0 = testSubject0.getAxiom();
         OWLProfile result1 = testSubject0.getProfile();
         Throwable result3 = testSubject0.getCause();
-        String result5 = testSubject0.toString();
+
         String result6 = testSubject0.getMessage();
         String result7 = testSubject0.getLocalizedMessage();
     }
@@ -57,7 +57,7 @@ public class ContractReasonerTest {
         BufferingMode testSubject0 = BufferingMode.BUFFERING;
         BufferingMode[] result0 = BufferingMode.values();
         String result2 = testSubject0.name();
-        String result3 = testSubject0.toString();
+
         int result8 = testSubject0.ordinal();
     }
 
@@ -68,7 +68,7 @@ public class ContractReasonerTest {
         OWLClassExpression result0 = testSubject0.getClassExpression();
         OWLProfile result1 = testSubject0.getProfile();
         Throwable result3 = testSubject0.getCause();
-        String result5 = testSubject0.toString();
+
         String result6 = testSubject0.getMessage();
         String result7 = testSubject0.getLocalizedMessage();
     }
@@ -79,7 +79,7 @@ public class ContractReasonerTest {
         testSubject0.reasonerTaskStopped();
         testSubject0.reasonerTaskProgressChanged(0, 0);
         testSubject0.reasonerTaskBusy();
-        String result0 = testSubject0.toString();
+
     }
 
     @Test
@@ -91,7 +91,7 @@ public class ContractReasonerTest {
         String result0 = testSubject0.getMessage();
         List<OWLEntity> result1 = testSubject0.getEntities();
         Throwable result3 = testSubject0.getCause();
-        String result5 = testSubject0.toString();
+
         String result6 = testSubject0.getLocalizedMessage();
     }
 
@@ -100,7 +100,7 @@ public class ContractReasonerTest {
         FreshEntityPolicy testSubject0 = FreshEntityPolicy.ALLOW;
         FreshEntityPolicy[] result0 = FreshEntityPolicy.values();
         String result2 = testSubject0.name();
-        String result3 = testSubject0.toString();
+
         int result8 = testSubject0.ordinal();
     }
 
@@ -114,7 +114,7 @@ public class ContractReasonerTest {
                 "", new RuntimeException(), mock(OWLReasonerConfiguration.class));
         OWLReasonerConfiguration result0 = testSubject0.getConfiguration();
         Throwable result2 = testSubject0.getCause();
-        String result4 = testSubject0.toString();
+
         String result5 = testSubject0.getMessage();
         String result6 = testSubject0.getLocalizedMessage();
     }
@@ -125,7 +125,7 @@ public class ContractReasonerTest {
                 mock(OWLProfile.class));
         OWLProfile result0 = testSubject0.getProfile();
         Throwable result2 = testSubject0.getCause();
-        String result4 = testSubject0.toString();
+
         String result5 = testSubject0.getMessage();
         String result6 = testSubject0.getLocalizedMessage();
     }
@@ -134,7 +134,7 @@ public class ContractReasonerTest {
     public void shouldTestInconsistentOntologyException() throws OWLException {
         InconsistentOntologyException testSubject0 = new InconsistentOntologyException();
         Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
+
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -144,14 +144,14 @@ public class ContractReasonerTest {
         IndividualNodeSetPolicy testSubject0 = IndividualNodeSetPolicy.BY_NAME;
         IndividualNodeSetPolicy[] result0 = IndividualNodeSetPolicy.values();
         String result2 = testSubject0.name();
-        String result3 = testSubject0.toString();
+
         int result8 = testSubject0.ordinal();
     }
 
     @Test
     public void shouldTestInferenceType() throws OWLException {
         InferenceType testSubject0 = InferenceType.CLASS_ASSERTIONS;
-        String result0 = testSubject0.toString();
+
         InferenceType[] result1 = InferenceType.values();
         String result3 = testSubject0.name();
         int result8 = testSubject0.ordinal();
@@ -193,7 +193,7 @@ public class ContractReasonerTest {
         testSubject0.reasonerTaskStopped();
         testSubject0.reasonerTaskProgressChanged(0, 0);
         testSubject0.reasonerTaskBusy();
-        String result0 = testSubject0.toString();
+
     }
 
     @Test
@@ -239,7 +239,7 @@ public class ContractReasonerTest {
             private static final long serialVersionUID = 40000L;
         };
         Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
+
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -252,7 +252,7 @@ public class ContractReasonerTest {
         ReasonerInternalException testSubject2 = new ReasonerInternalException("",
                 new RuntimeException());
         Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
+
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -266,7 +266,7 @@ public class ContractReasonerTest {
         ReasonerInterruptedException testSubject3 = new ReasonerInterruptedException(
                 new RuntimeException());
         Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
+
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -286,7 +286,7 @@ public class ContractReasonerTest {
         testSubject0.reasonerTaskStopped();
         testSubject0.reasonerTaskProgressChanged(0, 0);
         testSubject0.reasonerTaskBusy();
-        String result0 = testSubject0.toString();
+
     }
 
     @Test
@@ -295,7 +295,7 @@ public class ContractReasonerTest {
         TimeOutException testSubject1 = new TimeOutException("");
         TimeOutException testSubject2 = new TimeOutException("", new RuntimeException());
         Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
+
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -306,7 +306,7 @@ public class ContractReasonerTest {
                 mock(OWLAxiom.class));
         OWLAxiom result0 = testSubject0.getAxiom();
         Throwable result2 = testSubject0.getCause();
-        String result4 = testSubject0.toString();
+
         String result5 = testSubject0.getMessage();
         String result6 = testSubject0.getLocalizedMessage();
     }

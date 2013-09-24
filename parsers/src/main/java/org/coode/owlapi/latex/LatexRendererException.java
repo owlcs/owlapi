@@ -48,14 +48,18 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 public abstract class LatexRendererException extends OWLRendererException {
     private static final long serialVersionUID = 40000L;
 
+    /** @param cause */
     public LatexRendererException(Throwable cause) {
         super(cause);
     }
 
+    /** @param message */
     public LatexRendererException(String message) {
         super(message);
     }
 
+    /** @param message
+     * @param cause */
     public LatexRendererException(String message, Throwable cause) {
         super(message, cause);
     }

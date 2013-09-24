@@ -48,8 +48,9 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 public abstract class AbstractElementHandlerFactory implements OWLElementHandlerFactory {
     private String elementName;
 
+    /** @param v */
     public AbstractElementHandlerFactory(OWLXMLVocabulary v) {
-        this.elementName = v.getShortName();
+        elementName = v.getShortName();
     }
 
     protected AbstractElementHandlerFactory(String elementName) {

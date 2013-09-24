@@ -12,6 +12,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.UseOfReservedVocabularyForAnnotationPropertyIRI;
 import org.semanticweb.owlapi.profiles.UseOfUndeclaredAnnotationProperty;
 
+@SuppressWarnings("javadoc")
 public class ForbiddenVocabularyTestCase {
     @Test
     public void shouldFindViolation() throws Exception {

@@ -51,6 +51,7 @@ public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElemen
     private OWLIndividual individual;
     private OWLClassExpression classExpression;
 
+    /** @param handler */
     public OWLClassAssertionAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

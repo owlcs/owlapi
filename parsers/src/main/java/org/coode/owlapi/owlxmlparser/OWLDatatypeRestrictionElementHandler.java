@@ -54,6 +54,7 @@ public class OWLDatatypeRestrictionElementHandler extends AbstractOWLDataRangeHa
     private OWLDatatype restrictedDataRange;
     private Set<OWLFacetRestriction> facetRestrictions;
 
+    /** @param handler */
     public OWLDatatypeRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         facetRestrictions = new HashSet<OWLFacetRestriction>();

@@ -349,7 +349,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-    public void setIRIProvider(IRIProvider iriProvider) {
+    protected void setIRIProvider(IRIProvider iriProvider) {
         this.iriProvider = iriProvider;
     }
 
@@ -499,11 +499,11 @@ public class OWLRDFConsumer implements RDFConsumer {
                 v.getIRI());
     }
 
-    public OWLOntology getOntology() {
+    protected OWLOntology getOntology() {
         return ontology;
     }
 
-    public RDFOntologyFormat getOntologyFormat() {
+    protected RDFOntologyFormat getOntologyFormat() {
         return ontologyFormat;
     }
 
@@ -511,7 +511,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         ontologyFormat = format;
     }
 
-    public void setExpectedAxioms(int expectedAxioms) {
+    protected void setExpectedAxioms(int expectedAxioms) {
         this.expectedAxioms = expectedAxioms;
     }
 
@@ -622,7 +622,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addPredicateHandler(new TPDatatypeComplementOfHandler(this));
     }
 
-    public OWLDataFactory getDataFactory() {
+    protected OWLDataFactory getDataFactory() {
         return dataFactory;
     }
 
@@ -634,7 +634,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      * method (calling this method clears the current pending annotations)
      * 
      * @return The set (possibly empty) of pending annotations. */
-    public Set<OWLAnnotation> getPendingAnnotations() {
+    protected Set<OWLAnnotation> getPendingAnnotations() {
         if (!pendingAnnotations.isEmpty()) {
             Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(pendingAnnotations);
             pendingAnnotations.clear();
@@ -644,7 +644,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-    public void setPendingAnnotations(Set<OWLAnnotation> annotations) {
+    protected void setPendingAnnotations(Set<OWLAnnotation> annotations) {
         if (!pendingAnnotations.isEmpty()) {
             for (OWLAnnotation ann : pendingAnnotations) {
                 System.out.println(ann);
@@ -671,7 +671,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         return iri;
     }
 
-    public void importsClosureChanged() {
+    protected void importsClosureChanged() {
         // NOTE: This method only gets called when the ontology being parsed
         // adds a direct import. This is enough
         // for resolving the imports closure.
@@ -812,7 +812,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         applyChange(new AddImport(ontology, declaration));
     }
 
-    public OWLAxiom getLastAddedAxiom() {
+    protected OWLAxiom getLastAddedAxiom() {
         return lastAddedAxiom;
     }
 
@@ -828,19 +828,19 @@ public class OWLRDFConsumer implements RDFConsumer {
         return propertyIRIs.contains(iri);
     }
 
-    public void addClassExpression(IRI iri, boolean explicitlyTyped) {
+    protected void addClassExpression(IRI iri, boolean explicitlyTyped) {
         addType(iri, classExpressionIRIs, explicitlyTyped);
     }
 
-    public boolean isClassExpression(IRI iri) {
+    protected boolean isClassExpression(IRI iri) {
         return classExpressionIRIs.contains(iri);
     }
 
-    public void addObjectProperty(IRI iri, boolean explicitlyTyped) {
+    protected void addObjectProperty(IRI iri, boolean explicitlyTyped) {
         addType(iri, objectPropertyExpressionIRIs, explicitlyTyped);
     }
 
-    public void addDataProperty(IRI iri, boolean explicitlyTyped) {
+    protected void addDataProperty(IRI iri, boolean explicitlyTyped) {
         addType(iri, dataPropertyExpressionIRIs, explicitlyTyped);
     }
 
@@ -848,7 +848,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         addType(iri, annotationPropertyIRIs, explicitlyTyped);
     }
 
-    public void addDataRange(IRI iri, boolean explicitlyTyped) {
+    protected void addDataRange(IRI iri, boolean explicitlyTyped) {
         addType(iri, dataRangeIRIs, explicitlyTyped);
     }
 
@@ -870,7 +870,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-    public boolean isRestriction(IRI iri) {
+    protected boolean isRestriction(IRI iri) {
         return restrictionIRIs.contains(iri);
     }
 
@@ -946,7 +946,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         return ontologyIRIs.contains(iri);
     }
 
-    public OWLOntologyManager getOWLOntologyManager() {
+    protected OWLOntologyManager getOWLOntologyManager() {
         return owlOntologyManager;
     }
 
@@ -957,7 +957,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      *            The source that the annotation annotates
      * @param annotationMainNode
      *            The annotations */
-    public void addAnnotatedSource(IRI annotatedAnonSource, IRI annotationMainNode) {
+    protected void addAnnotatedSource(IRI annotatedAnonSource, IRI annotationMainNode) {
         Set<IRI> annotationMainNodes = annotatedAnonSource2AnnotationMap
                 .get(annotatedAnonSource);
         if (annotationMainNodes == null) {
@@ -973,7 +973,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      * @param source
      *            The source (axiom or annotation main node)
      * @return The set of main nodes that annotate the specified source */
-    public Set<IRI> getAnnotatedSourceAnnotationMainNodes(IRI source) {
+    protected Set<IRI> getAnnotatedSourceAnnotationMainNodes(IRI source) {
         Set<IRI> mainNodes = annotatedAnonSource2AnnotationMap.get(source);
         if (mainNodes != null) {
             return mainNodes;
@@ -1114,7 +1114,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      *            The object of the triple
      * @throws UnloadableImportException
      *             if such exception is raised by handleTriple() */
-    public void handle(IRI subject, IRI predicate, IRI object)
+    protected void handle(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
         if (predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI())) {
             BuiltInTypeHandler typeHandler = builtInTypeTripleHandlers.get(object);
@@ -1142,7 +1142,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-    public void handle(IRI subject, IRI predicate, OWLLiteral object) {
+    protected void handle(IRI subject, IRI predicate, OWLLiteral object) {
         for (AbstractLiteralTripleHandler handler : literalTripleHandlers) {
             if (handler.canHandle(subject, predicate, object)) {
                 handler.handleTriple(subject, predicate, object);
@@ -1233,7 +1233,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         count = 0;
     }
 
-    public boolean isParsedAllTriples() {
+    protected boolean isParsedAllTriples() {
         return parsedAllTriples;
     }
 
@@ -1464,7 +1464,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     @Override
     public void logicalURI(String string) throws SAXException {}
 
-    public IRI getSynonym(IRI original) {
+    protected IRI getSynonym(IRI original) {
         if (!configuration.isStrict()) {
             IRI synonymIRI = synonymMap.get(original);
             if (synonymIRI != null) {
@@ -1594,7 +1594,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      *            The main node
      * @return The translated data range. If the data range could not be
      *         translated then an OWLDatatype with the given IRI is returned. */
-    public OWLDataRange translateDataRange(IRI mainNode) {
+    protected OWLDataRange translateDataRange(IRI mainNode) {
         if (!isDataRange(mainNode) && configuration.isStrict()) {
             // Can't translated ANY according to Table 12
             return generateAndLogParseError(EntityType.DATATYPE, mainNode);
@@ -1663,7 +1663,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         return generateAndLogParseError(EntityType.DATATYPE, mainNode);
     }
 
-    public OWLDataPropertyExpression translateDataPropertyExpression(IRI iri) {
+    protected OWLDataPropertyExpression translateDataPropertyExpression(IRI iri) {
         return dataFactory.getOWLDataProperty(iri);
     }
 
@@ -1676,7 +1676,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private Map<IRI, OWLObjectPropertyExpression> translatedProperties = new HashMap<IRI, OWLObjectPropertyExpression>();
 
-    public OWLObjectPropertyExpression translateObjectPropertyExpression(IRI mainNode) {
+    protected OWLObjectPropertyExpression translateObjectPropertyExpression(IRI mainNode) {
         OWLObjectPropertyExpression prop = translatedProperties.get(mainNode);
         if (prop != null) {
             return prop;
@@ -1701,7 +1701,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         return prop;
     }
 
-    public OWLIndividual translateIndividual(IRI node) {
+    protected OWLIndividual translateIndividual(IRI node) {
         return getOWLIndividual(node);
     }
 
@@ -1713,7 +1713,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      * @param mainNode
      *            The main node
      * @return The set of annotations on the main node */
-    public Set<OWLAnnotation> translateAnnotations(IRI mainNode) {
+    protected Set<OWLAnnotation> translateAnnotations(IRI mainNode) {
         // Are we the subject of an annotation? If so, we need to ensure that
         // the annotations annotate us. This
         // will only happen if we are an annotation!
@@ -1758,7 +1758,7 @@ public class OWLRDFConsumer implements RDFConsumer {
 
     private Map<IRI, OWLClassExpression> translatedClassExpression = new HashMap<IRI, OWLClassExpression>();
 
-    public OWLClassExpression translateClassExpression(IRI mainNode) {
+    protected OWLClassExpression translateClassExpression(IRI mainNode) {
         OWLClassExpression ce = translatedClassExpression.get(mainNode);
         if (ce == null) {
             ce = translateClassExpressionInternal(mainNode);
@@ -1841,40 +1841,41 @@ public class OWLRDFConsumer implements RDFConsumer {
         return entity;
     }
 
-    public OWLClassExpression getClassExpressionIfTranslated(IRI mainNode) {
+    protected OWLClassExpression getClassExpressionIfTranslated(IRI mainNode) {
         return translatedClassExpression.get(mainNode);
     }
 
-    public List<OWLObjectPropertyExpression> translateToObjectPropertyList(IRI mainNode) {
+    protected List<OWLObjectPropertyExpression>
+            translateToObjectPropertyList(IRI mainNode) {
         return objectPropertyListTranslator.translateList(mainNode);
     }
 
-    public List<OWLDataPropertyExpression> translateToDataPropertyList(IRI mainNode) {
+    protected List<OWLDataPropertyExpression> translateToDataPropertyList(IRI mainNode) {
         return dataPropertyListTranslator.translateList(mainNode);
     }
 
-    public Set<OWLClassExpression> translateToClassExpressionSet(IRI mainNode) {
+    protected Set<OWLClassExpression> translateToClassExpressionSet(IRI mainNode) {
         return classExpressionListTranslator.translateToSet(mainNode);
     }
 
-    public Set<OWLLiteral> translateToConstantSet(IRI mainNode) {
+    protected Set<OWLLiteral> translateToConstantSet(IRI mainNode) {
         return constantListTranslator.translateToSet(mainNode);
     }
 
-    public Set<OWLIndividual> translateToIndividualSet(IRI mainNode) {
+    protected Set<OWLIndividual> translateToIndividualSet(IRI mainNode) {
         return individualListTranslator.translateToSet(mainNode);
     }
 
-    public Set<OWLDataRange> translateToDataRangeSet(IRI mainNode) {
+    protected Set<OWLDataRange> translateToDataRangeSet(IRI mainNode) {
         return dataRangeListTranslator.translateToSet(mainNode);
     }
 
-    public Set<OWLFacetRestriction> translateToFacetRestrictionSet(IRI mainNode) {
+    protected Set<OWLFacetRestriction> translateToFacetRestrictionSet(IRI mainNode) {
         return faceRestrictionListTranslator.translateToSet(mainNode);
     }
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    public Set<IRI> getPredicatesBySubject(IRI subject) {
+    protected Set<IRI> getPredicatesBySubject(IRI subject) {
         Set<IRI> IRIs = new HashSet<IRI>();
         Map<IRI, Collection<IRI>> predObjMap = resTriplesBySubject.get(subject);
         if (predObjMap != null) {
@@ -1887,12 +1888,12 @@ public class OWLRDFConsumer implements RDFConsumer {
         return IRIs;
     }
 
-    public IRI
+    protected IRI
             getResourceObject(IRI subject, OWLRDFVocabulary predicate, boolean consume) {
         return getResourceObject(subject, predicate.getIRI(), consume);
     }
 
-    public IRI getResourceObject(IRI subject, IRI predicate, boolean consume) {
+    protected IRI getResourceObject(IRI subject, IRI predicate, boolean consume) {
         Map<IRI, IRI> subjPredMap = singleValuedResTriplesByPredicate.get(predicate);
         if (subjPredMap != null) {
             IRI obj = subjPredMap.get(subject);
@@ -1923,7 +1924,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         return null;
     }
 
-    public Set<IRI> getResourceObjects(IRI subject, IRI predicate) {
+    protected Set<IRI> getResourceObjects(IRI subject, IRI predicate) {
         Set<IRI> result = new HashSet<IRI>();
         Map<IRI, IRI> subjPredMap = singleValuedResTriplesByPredicate.get(predicate);
         if (subjPredMap != null) {
@@ -1942,12 +1943,12 @@ public class OWLRDFConsumer implements RDFConsumer {
         return result;
     }
 
-    public OWLLiteral getLiteralObject(IRI subject, OWLRDFVocabulary predicate,
+    protected OWLLiteral getLiteralObject(IRI subject, OWLRDFVocabulary predicate,
             boolean consume) {
         return getLiteralObject(subject, predicate.getIRI(), consume);
     }
 
-    public OWLLiteral getLiteralObject(IRI subject, IRI predicate, boolean consume) {
+    protected OWLLiteral getLiteralObject(IRI subject, IRI predicate, boolean consume) {
         Map<IRI, OWLLiteral> subjPredMap = singleValuedLitTriplesByPredicate
                 .get(predicate);
         if (subjPredMap != null) {
@@ -1976,7 +1977,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         return null;
     }
 
-    public Set<OWLLiteral> getLiteralObjects(IRI subject, IRI predicate) {
+    protected Set<OWLLiteral> getLiteralObjects(IRI subject, IRI predicate) {
         Set<OWLLiteral> result = new HashSet<OWLLiteral>();
         Map<IRI, OWLLiteral> subjPredMap = singleValuedLitTriplesByPredicate
                 .get(predicate);
@@ -1996,7 +1997,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         return result;
     }
 
-    public boolean
+    protected boolean
             isTriplePresent(IRI subject, IRI predicate, IRI object, boolean consume) {
         Map<IRI, IRI> subjPredMap = singleValuedResTriplesByPredicate.get(predicate);
         if (subjPredMap != null) {
@@ -2036,7 +2037,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                 || predicate.getNamespace().indexOf(Namespaces.SWRLB.toString()) != -1;
     }
 
-    public boolean isTriplePresent(IRI subject, IRI predicate, OWLLiteral object,
+    protected boolean isTriplePresent(IRI subject, IRI predicate, OWLLiteral object,
             boolean consume) {
         Map<IRI, OWLLiteral> subjPredMap = singleValuedLitTriplesByPredicate
                 .get(predicate);
@@ -2069,7 +2070,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         return false;
     }
 
-    public boolean hasPredicate(IRI subject, IRI predicate) {
+    protected boolean hasPredicate(IRI subject, IRI predicate) {
         Map<IRI, IRI> resPredMap = singleValuedResTriplesByPredicate.get(predicate);
         if (resPredMap != null) {
             return resPredMap.containsKey(subject);
@@ -2093,16 +2094,15 @@ public class OWLRDFConsumer implements RDFConsumer {
         return false;
     }
 
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////
-    public void addRest(IRI subject, IRI object) {
+    protected void addRest(IRI subject, IRI object) {
         listRestTripleMap.put(subject, object);
     }
 
-    public void addFirst(IRI subject, IRI object) {
+    protected void addFirst(IRI subject, IRI object) {
         listFirstResourceTripleMap.put(subject, object);
     }
 
-    public IRI getFirstResource(IRI subject, boolean consume) {
+    protected IRI getFirstResource(IRI subject, boolean consume) {
         if (consume) {
             return listFirstResourceTripleMap.remove(subject);
         } else {
@@ -2110,11 +2110,11 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-    public OWLLiteral getFirstLiteral(IRI subject) {
+    protected OWLLiteral getFirstLiteral(IRI subject) {
         return listFirstLiteralTripleMap.get(subject);
     }
 
-    public IRI getRest(IRI subject, boolean consume) {
+    protected IRI getRest(IRI subject, boolean consume) {
         if (consume) {
             return listRestTripleMap.remove(subject);
         } else {
@@ -2122,34 +2122,34 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-    public void addFirst(IRI subject, OWLLiteral object) {
+    protected void addFirst(IRI subject, OWLLiteral object) {
         listFirstLiteralTripleMap.put(subject, object);
     }
 
-    public void addOntology(IRI iri) {
+    protected void addOntology(IRI iri) {
         if (ontologyIRIs.isEmpty()) {
             firstOntologyIRI = iri;
         }
         ontologyIRIs.add(iri);
     }
 
-    public Set<IRI> getOntologies() {
+    protected Set<IRI> getOntologies() {
         return ontologyIRIs;
     }
 
-    public void addAxiom(IRI axiomIRI) {
+    protected void addAxiom(IRI axiomIRI) {
         axioms.add(axiomIRI);
     }
 
-    public boolean isAxiom(IRI iri) {
+    protected boolean isAxiom(IRI iri) {
         return axioms.contains(iri);
     }
 
-    public boolean isDataRange(IRI iri) {
+    protected boolean isDataRange(IRI iri) {
         return dataRangeIRIs.contains(iri);
     }
 
-    public OWLOntologyLoaderConfiguration getConfiguration() {
+    protected OWLOntologyLoaderConfiguration getConfiguration() {
         return configuration;
     }
 
@@ -2174,7 +2174,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         void handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object) throws E;
     }
 
-    public <E extends Throwable> void iterateResourceTriples(
+    protected <E extends Throwable> void iterateResourceTriples(
             ResourceTripleIterator<E> iterator) throws E {
         for (IRI subject : new ArrayList<IRI>(resTriplesBySubject.keySet())) {
             Map<IRI, Collection<IRI>> map = resTriplesBySubject.get(subject);
@@ -2193,7 +2193,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-    public <E extends Throwable> void iterateLiteralTriples(
+    protected <E extends Throwable> void iterateLiteralTriples(
             LiteralTripleIterator<E> iterator) throws E {
         for (IRI subject : new ArrayList<IRI>(litTriplesBySubject.keySet())) {
             Map<IRI, Collection<OWLLiteral>> map = litTriplesBySubject.get(subject);
@@ -2230,7 +2230,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     private Map<IRI, Map<IRI, OWLLiteral>> singleValuedLitTriplesByPredicate = CollectionFactory
             .createMap();
 
-    public void addTriple(IRI subject, IRI predicate, IRI object) {
+    protected void addTriple(IRI subject, IRI predicate, IRI object) {
         Map<IRI, IRI> subjObjMap = singleValuedResTriplesByPredicate.get(predicate);
         if (subjObjMap != null) {
             subjObjMap.put(subject, object);
@@ -2249,7 +2249,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
-    public void addTriple(IRI subject, IRI predicate, OWLLiteral con) {
+    protected void addTriple(IRI subject, IRI predicate, OWLLiteral con) {
         Map<IRI, OWLLiteral> subjObjMap = singleValuedLitTriplesByPredicate
                 .get(predicate);
         if (subjObjMap != null) {

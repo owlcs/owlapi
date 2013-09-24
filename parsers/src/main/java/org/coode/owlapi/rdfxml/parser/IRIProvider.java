@@ -45,5 +45,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Information Management Group<br>
  * Date: 09-Mar-2009 */
 public interface IRIProvider {
+    /** @param s
+     * @return iri for s */
     IRI getIRI(String s);
 }

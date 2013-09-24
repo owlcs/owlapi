@@ -51,6 +51,7 @@ public class ClassExpressionListItemTranslator implements
         ListItemTranslator<OWLClassExpression> {
     private OWLRDFConsumer consumer;
 
+    /** @param consumer */
     public ClassExpressionListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

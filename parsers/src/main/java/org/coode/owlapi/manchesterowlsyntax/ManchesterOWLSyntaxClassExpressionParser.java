@@ -56,6 +56,8 @@ public class ManchesterOWLSyntaxClassExpressionParser implements
     private OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
 
+    /** @param dataFactory
+     * @param checker */
     public ManchesterOWLSyntaxClassExpressionParser(OWLDataFactory dataFactory,
             OWLEntityChecker checker) {
         this.dataFactory = dataFactory;

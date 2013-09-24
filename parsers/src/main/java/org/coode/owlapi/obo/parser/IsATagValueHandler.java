@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.AddAxiom;
  * Date: 10-Jan-2007<br>
  * <br> */
 public class IsATagValueHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public IsATagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_A.getName(), consumer);
     }

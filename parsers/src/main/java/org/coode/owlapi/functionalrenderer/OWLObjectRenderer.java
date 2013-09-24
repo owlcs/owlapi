@@ -312,6 +312,8 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         return annotationAssertions;
     }
 
+    /** @param v
+     * @param o */
     public void write(OWLXMLVocabulary v, OWLObject o) {
         write(v);
         write("(");

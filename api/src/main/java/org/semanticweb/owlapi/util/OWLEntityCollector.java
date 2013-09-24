@@ -159,9 +159,7 @@ public class OWLEntityCollector implements OWLObjectVisitorEx<Collection<OWLEnti
     private Collection<OWLEntity> objects;
 
     /** @param toReturn
-     *            the set that will contain the results
-     * @param anonsToReturn
-     *            the set that will contain the anon individuals */
+     *            the set that will contain the results */
     public OWLEntityCollector(@Nonnull Set<OWLEntity> toReturn) {
         objects = checkNotNull(toReturn, "toReturn cannot be null");
     }

@@ -51,6 +51,7 @@ public class SWRLDataRangeAtomElementHandler extends SWRLAtomElementHandler {
     private OWLDataRange prop;
     private SWRLDArgument arg1 = null;
 
+    /** @param handler */
     public SWRLDataRangeAtomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

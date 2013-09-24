@@ -52,6 +52,7 @@ public class SWRLRuleElementHandler extends AbstractOWLAxiomElementHandler {
     private Set<SWRLAtom> body = null;
     private Set<SWRLAtom> head = null;
 
+    /** @param handler */
     public SWRLRuleElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

@@ -43,7 +43,7 @@ public class ContractOboRendererTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-        String result1 = testSubject0.toString();
+
     }
 
     public void shouldTestOBOFlatFileRenderer() throws OWLException {
@@ -52,7 +52,7 @@ public class ContractOboRendererTest {
         List<OBOStorageException> result0 = testSubject0.getExceptions();
         testSubject0.addException(mock(OBOStorageException.class));
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
-        String result1 = testSubject0.toString();
+
     }
 
     @Test
@@ -69,7 +69,7 @@ public class ContractOboRendererTest {
         testSubject0.setMaxCardinality(0);
         testSubject0.setMinCardinality(0);
         testSubject0.setCardinality(0);
-        String result5 = testSubject0.toString();
+
     }
 
     @Test
@@ -79,7 +79,7 @@ public class ContractOboRendererTest {
         testSubject0.clear();
         testSubject0.setClass(mock(OWLClass.class));
         Set<OBORelationship> result0 = testSubject0.getOBORelationships();
-        String result1 = testSubject0.toString();
+
     }
 
     @Test
@@ -87,7 +87,7 @@ public class ContractOboRendererTest {
         OBOStorageException testSubject0 = new OBOStorageException(mock(OWLObject.class),
                 mock(OWLObject.class), "");
         Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
+
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -99,7 +99,7 @@ public class ContractOboRendererTest {
         String result0 = testSubject0.getMessage();
         List<OBOStorageException> result1 = testSubject0.getCauses();
         Throwable result3 = testSubject0.getCause();
-        String result5 = testSubject0.toString();
+
         String result6 = testSubject0.getLocalizedMessage();
     }
 
@@ -113,6 +113,6 @@ public class ContractOboRendererTest {
         testSubject0.addPair(mock(OBOVocabulary.class), "");
         testSubject0.addPair(IRI("urn:aFake"), "");
         testSubject0.setPair(mock(OBOVocabulary.class), "");
-        String result1 = testSubject0.toString();
+
     }
 }

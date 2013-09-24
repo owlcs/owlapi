@@ -169,7 +169,7 @@ public class ContractOwlapi_1Test {
         OWLOntology result1 = testSubject0.createOWLOntology(new OWLOntologyID(),
                 IRI("urn:aFake"), mock(OWLOntologyCreationHandler.class));
         boolean result2 = testSubject0.canCreateFromDocumentIRI(IRI("urn:aFake"));
-        String result3 = testSubject0.toString();
+
         OWLOntology result4 = testSubject0.loadOWLOntology(
                 mock(OWLOntologyDocumentSource.class),
                 mock(OWLOntologyCreationHandler.class));
@@ -445,7 +445,7 @@ public class ContractOwlapi_1Test {
                 .getSameIndividualsAxiomsByIndividual();
         MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom> result72 = testSubject0
                 .getAnnotationAssertionAxiomsBySubject();
-        String result74 = testSubject0.toString();
+
         boolean result75 = testSubject0.add(mock(MapPointer.class), mock(Object.class),
                 mock(OWLAxiom.class));
         boolean result76 = testSubject0.isEmpty();
@@ -511,7 +511,7 @@ public class ContractOwlapi_1Test {
         testSubject0.init();
         boolean result0 = testSubject0.put(mock(OWLClass.class),
                 mock(OWLClassAxiom.class));
-        String result1 = testSubject0.toString();
+
         boolean result2 = testSubject0.contains(mock(OWLClass.class),
                 mock(OWLClassAxiom.class));
         int result3 = testSubject0.size();
@@ -546,13 +546,13 @@ public class ContractOwlapi_1Test {
         testSubject0.setOWLOntologyManager(Utils.getMockManager());
         OWLOntologyManager result4 = testSubject0.getOWLOntologyManager();
         boolean result5 = testSubject0.canCreateFromDocumentIRI(IRI("urn:aFake"));
-        String result6 = testSubject0.toString();
+
     }
 
     @Test
     public void shouldTestInitVisitorFactory() throws OWLException {
         InitVisitorFactory testSubject0 = new InitVisitorFactory();
-        String result0 = testSubject0.toString();
+
     }
 
     @Test
@@ -819,7 +819,7 @@ public class ContractOwlapi_1Test {
                 .removeOntologyAnnotation(mock(OWLAnnotation.class));
         testSubject0
                 .removePropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
-        String result116 = testSubject0.toString();
+
     }
 
     @Test
@@ -846,7 +846,7 @@ public class ContractOwlapi_1Test {
         OWLLiteral result17 = testSubject0.getOWLLiteral(0);
         OWLLiteral result18 = testSubject0.getOWLLiteral(false);
         testSubject0.purge();
-        String result19 = testSubject0.toString();
+
     }
 
     @Test
@@ -854,7 +854,7 @@ public class ContractOwlapi_1Test {
         MapPointer<OWLClass, OWLAxiom> testSubject0 = new MapPointer<OWLClass, OWLAxiom>(
                 Utils.mockAxiomType(), Utils.mockAxiom(), false, mock(Internals.class));
         boolean result0 = testSubject0.put(mock(OWLClass.class), mock(OWLAxiom.class));
-        String result1 = testSubject0.toString();
+
         boolean result2 = testSubject0.contains(mock(OWLClass.class),
                 mock(OWLAxiom.class));
         int result3 = testSubject0.size();
@@ -896,7 +896,7 @@ public class ContractOwlapi_1Test {
         boolean result17 = testSubject0.isAnnotated();
         boolean result18 = testSubject0.isOfType(AxiomType.CLASS_ASSERTION);
         boolean result19 = testSubject0.isOfType(AxiomType.SUBCLASS_OF);
-        String result21 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -923,7 +923,7 @@ public class ContractOwlapi_1Test {
         boolean result5 = testSubject0.isDeprecatedIRIAnnotation();
         OWLAnnotation result6 = testSubject0.getAnnotatedAnnotation(Utils
                 .mockSet(mock(OWLAnnotation.class)));
-        String result9 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -960,7 +960,7 @@ public class ContractOwlapi_1Test {
         boolean result14 = testSubject0.isAnnotated();
         boolean result15 = testSubject0.isOfType(AxiomType.CLASS_ASSERTION);
         boolean result16 = testSubject0.isOfType(AxiomType.SUBCLASS_OF);
-        String result18 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1012,7 +1012,7 @@ public class ContractOwlapi_1Test {
         boolean result25 = testSubject0.isComment();
         boolean result26 = testSubject0.isLabel();
         boolean result27 = testSubject0.isDeprecated();
-        String result34 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1049,7 +1049,7 @@ public class ContractOwlapi_1Test {
         boolean result14 = testSubject0.isAnnotated();
         boolean result15 = testSubject0.isOfType(AxiomType.CLASS_ASSERTION);
         boolean result16 = testSubject0.isOfType(AxiomType.SUBCLASS_OF);
-        String result18 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1110,7 +1110,7 @@ public class ContractOwlapi_1Test {
         Set<OWLClassExpression> result7 = testSubject0.asConjunctSet();
         boolean result8 = testSubject0.containsConjunct(Utils.mockAnonClass());
         Set<OWLClassExpression> result9 = testSubject0.asDisjunctSet();
-        String result10 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1151,7 +1151,7 @@ public class ContractOwlapi_1Test {
             OWLAnonymousIndividual result9 = testSubject0.asOWLAnonymousIndividual();
         }
         boolean result11 = !testSubject0.isAnonymous();
-        String result32 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1188,7 +1188,7 @@ public class ContractOwlapi_1Test {
         boolean result14 = testSubject0.isAnnotated();
         boolean result15 = testSubject0.isOfType(AxiomType.CLASS_ASSERTION);
         boolean result16 = testSubject0.isOfType(AxiomType.SUBCLASS_OF);
-        String result18 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1262,7 +1262,7 @@ public class ContractOwlapi_1Test {
         boolean result4 = testSubject0.isOfType(AxiomType.CLASS_ASSERTION);
         boolean result5 = testSubject0.isOfType(AxiomType.SUBCLASS_OF);
         OWLAxiom result6 = testSubject0.getNNF();
-        String result7 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1300,7 +1300,7 @@ public class ContractOwlapi_1Test {
         Set<OWLClassExpression> result11 = testSubject0.asConjunctSet();
         boolean result12 = testSubject0.containsConjunct(Utils.mockAnonClass());
         Set<OWLClassExpression> result13 = testSubject0.asDisjunctSet();
-        String result14 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1345,7 +1345,7 @@ public class ContractOwlapi_1Test {
         boolean result15 = testSubject0.isAnnotated();
         boolean result16 = testSubject0.isOfType(AxiomType.CLASS_ASSERTION);
         boolean result17 = testSubject0.isOfType(AxiomType.SUBCLASS_OF);
-        String result19 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1410,7 +1410,7 @@ public class ContractOwlapi_1Test {
         boolean result5 = testSubject0.isAnnotated();
         boolean result6 = testSubject0.isOfType(AxiomType.CLASS_ASSERTION);
         boolean result7 = testSubject0.isOfType(AxiomType.SUBCLASS_OF);
-        String result9 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1515,7 +1515,7 @@ public class ContractOwlapi_1Test {
                 return 0;
             }
         };
-        String result0 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1606,7 +1606,7 @@ public class ContractOwlapi_1Test {
         Set<OWLClassExpression> result53 = testSubject0.asDisjunctSet();
         Set<OWLSubClassOfAxiom> result54 = Utils.getMockOntology()
                 .getSubClassAxiomsForSubClass(testSubject0);
-        String result55 = testSubject0.toString();
+
         Set<OWLEntity> result60 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result61 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result62 = testSubject0.getClassesInSignature();
@@ -1642,7 +1642,7 @@ public class ContractOwlapi_1Test {
         Set<OWLClassExpression> result15 = testSubject0.asConjunctSet();
         boolean result16 = testSubject0.containsConjunct(Utils.mockAnonClass());
         Set<OWLClassExpression> result17 = testSubject0.asDisjunctSet();
-        String result18 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1701,7 +1701,7 @@ public class ContractOwlapi_1Test {
         Set<OWLClassExpression> result14 = testSubject0.asConjunctSet();
         boolean result15 = testSubject0.containsConjunct(Utils.mockAnonClass());
         Set<OWLClassExpression> result16 = testSubject0.asDisjunctSet();
-        String result17 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1735,7 +1735,7 @@ public class ContractOwlapi_1Test {
         boolean result5 = testSubject0.isTopDatatype();
         DataRangeType result6 = testSubject0.getDataRangeType();
         OWLDataRange result7 = testSubject0.getDataRange();
-        String result8 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1776,7 +1776,7 @@ public class ContractOwlapi_1Test {
         Set<OWLClassExpression> result18 = testSubject0.asConjunctSet();
         boolean result19 = testSubject0.containsConjunct(Utils.mockAnonClass());
         Set<OWLClassExpression> result20 = testSubject0.asDisjunctSet();
-        String result21 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -1838,6 +1838,6 @@ public class ContractOwlapi_1Test {
         OWLDatatype result16 = testSubject0.getBooleanOWLDatatype();
         OWLLiteral result17 = testSubject0.getOWLLiteral("", "");
         OWLLiteral result18 = testSubject0.getOWLLiteral(false);
-        String result19 = testSubject0.toString();
+
     }
 }

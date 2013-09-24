@@ -50,6 +50,7 @@ public abstract class AbstractOWLObjectCardinalityElementHandler extends
         AbstractClassExpressionFillerRestriction {
     private int cardinality;
 
+    /** @param handler */
     public AbstractOWLObjectCardinalityElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.IRI;
 public class OWLDatatypeElementHandler extends AbstractOWLDataRangeHandler {
     private IRI iri;
 
+    /** @param handler */
     public OWLDatatypeElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

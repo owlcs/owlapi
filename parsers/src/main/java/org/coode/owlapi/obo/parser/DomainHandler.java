@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Date: 20-May-2007<br>
  * <br> */
 public class DomainHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public DomainHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DOMAIN.getName(), consumer);
     }

@@ -48,7 +48,9 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Date: 08-Dec-2006<br>
  * <br>
  * <p/>
- * Translates and consumes an item in an RDF list. */
+ * Translates and consumes an item in an RDF list.
+ * 
+ * @param <O> */
 public interface ListItemTranslator<O extends OWLObject> {
     /** The rdf:first triple that represents the item to be translated. This
      * triple will point to something like a class expression, individual.
@@ -58,5 +60,7 @@ public interface ListItemTranslator<O extends OWLObject> {
      * @return The translated item. */
     O translate(IRI firstObject);
 
+    /** @param firstObject
+     * @return the translated item */
     O translate(OWLLiteral firstObject);
 }

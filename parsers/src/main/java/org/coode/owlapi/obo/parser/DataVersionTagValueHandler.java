@@ -43,6 +43,7 @@ package org.coode.owlapi.obo.parser;
  * Bio-Medical Informatics Research Group<br>
  * Date: 19/04/2012 */
 public class DataVersionTagValueHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public DataVersionTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DATA_VERSION.getName(), consumer);
     }

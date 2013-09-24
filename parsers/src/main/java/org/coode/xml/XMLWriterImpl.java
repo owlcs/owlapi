@@ -98,8 +98,10 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     private void setupEntities() {
-        List<String> namespaces = new ArrayList<String>(
-                xmlWriterNamespaceManager.getNamespaces());
+        List<String> namespaces = new ArrayList<String>();
+        for (String s : xmlWriterNamespaceManager.getNamespaces()) {
+            namespaces.add(s);
+        }
         Collections.sort(namespaces, new StringLengthOnlyComparator());
         entities = new LinkedHashMap<String, String>();
         for (String curNamespace : namespaces) {

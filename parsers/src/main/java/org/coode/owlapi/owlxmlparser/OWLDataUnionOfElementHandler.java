@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 public class OWLDataUnionOfElementHandler extends AbstractOWLDataRangeHandler {
     private Set<OWLDataRange> dataRanges = new HashSet<OWLDataRange>();
 
+    /** @param handler */
     public OWLDataUnionOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

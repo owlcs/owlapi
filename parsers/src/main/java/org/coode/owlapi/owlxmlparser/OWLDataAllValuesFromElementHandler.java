@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * <br> */
 public class OWLDataAllValuesFromElementHandler extends
         AbstractDataRangeFillerRestrictionElementHandler {
+    /** @param handler */
     public OWLDataAllValuesFromElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

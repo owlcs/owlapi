@@ -86,6 +86,8 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
     private final OWLOntology ontology;
     private final Writer writer;
 
+    /** @param ontology
+     * @param writer */
     public KRSS2OWLObjectRenderer(OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = writer;
@@ -157,22 +159,22 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         }
     }
 
-    public final void write(OWLClassExpression obj) {
+    private void write(OWLClassExpression obj) {
         writeSpace();
         obj.accept(this);
     }
 
-    public final void write(OWLIndividual ind) {
+    private void write(OWLIndividual ind) {
         writeSpace();
         ind.accept(this);
     }
 
-    public final void write(OWLPropertyExpression obj) {
+    private void write(OWLPropertyExpression obj) {
         writeSpace();
         obj.accept(this);
     }
 
-    public final void write(OWLDataRange obj) {
+    private void write(OWLDataRange obj) {
         writeSpace();
         obj.accept(this);
     }

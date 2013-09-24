@@ -61,8 +61,6 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
      * obtainable from the format of the specified ontology (the manager will be
      * asked for the ontology format of the specified ontology)
      * 
-     * @param man
-     *            The manager
      * @param ont
      *            The ontology */
     public ManchesterOWLSyntaxPrefixNameShortFormProvider(OWLOntology ont) {

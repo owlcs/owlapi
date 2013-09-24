@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorExAdapter;
 import org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import uk.ac.manchester.cs.owl.owlapi.CollectionContainer;
 import uk.ac.manchester.cs.owl.owlapi.CollectionContainerVisitor;
@@ -174,8 +173,6 @@ public class Utils {
     public static AbstractOWLIndividualOperandAxiomElementHandler mockIndividualHandler()
             throws OWLParserException {
         AbstractOWLIndividualOperandAxiomElementHandler mock = mock(AbstractOWLIndividualOperandAxiomElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLDeclarationAxiom(
                         Class(IRI("urn:fake"))));
@@ -185,8 +182,6 @@ public class Utils {
     public static OWLAnnotationElementHandler mockAnnotationHandler()
             throws OWLParserException {
         OWLAnnotationElementHandler mock = mock(OWLAnnotationElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLAnnotation(
                         OWLManager.getOWLDataFactory().getRDFSLabel(),
@@ -197,8 +192,6 @@ public class Utils {
     public static AbstractOWLDataRangeHandler mockDataRangeHandler()
             throws OWLParserException {
         AbstractOWLDataRangeHandler mock = mock(AbstractOWLDataRangeHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(mock(OWLDatatype.class));
         return mock;
     }
@@ -206,8 +199,6 @@ public class Utils {
     public static OWLAnonymousIndividualElementHandler mockAnonymousIndividualHandler()
             throws OWLParserException {
         OWLAnonymousIndividualElementHandler mock = mock(OWLAnonymousIndividualElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLAnonymousIndividual());
         return mock;
@@ -215,8 +206,6 @@ public class Utils {
 
     public static OWLLiteralElementHandler mockLiteralHandler() throws OWLParserException {
         OWLLiteralElementHandler mock = mock(OWLLiteralElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLLiteral(false));
         return mock;
@@ -225,8 +214,6 @@ public class Utils {
     public static OWLSubAnnotationPropertyOfElementHandler
             mockSubAnnotationPropertyOfHandler() throws OWLParserException {
         OWLSubAnnotationPropertyOfElementHandler mock = mock(OWLSubAnnotationPropertyOfElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLDeclarationAxiom(
                         OWLManager.getOWLDataFactory().getOWLThing()));
@@ -236,8 +223,6 @@ public class Utils {
     public static OWLSubClassAxiomElementHandler mockSubObjectPropertyChainHandler()
             throws OWLParserException {
         OWLSubClassAxiomElementHandler mock = mock(OWLSubClassAxiomElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLDeclarationAxiom(
                         OWLManager.getOWLDataFactory().getOWLThing()));
@@ -247,8 +232,6 @@ public class Utils {
     public static OWLDatatypeElementHandler mockDatatypeFacetRestrictionHandler()
             throws OWLParserException {
         OWLDatatypeElementHandler mock = mock(OWLDatatypeElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLDatatype(
                         OWL2Datatype.OWL_REAL.getIRI()));
@@ -258,8 +241,6 @@ public class Utils {
     public static OWLAnnotationPropertyElementHandler mockAnnotationPropertyHandler()
             throws OWLParserException {
         OWLAnnotationPropertyElementHandler mock = mock(OWLAnnotationPropertyElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getRDFSComment());
         return mock;
@@ -268,8 +249,6 @@ public class Utils {
     public static AbstractClassExpressionElementHandler mockClassHandler()
             throws OWLParserException {
         AbstractClassExpressionElementHandler mock = mock(AbstractClassExpressionElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLThing());
         return mock;
@@ -278,8 +257,6 @@ public class Utils {
     public static OWLDataPropertyElementHandler mockDataPropertyHandler()
             throws OWLParserException {
         OWLDataPropertyElementHandler mock = mock(OWLDataPropertyElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLTopDataProperty());
         return mock;
@@ -288,8 +265,6 @@ public class Utils {
     public static AbstractIRIElementHandler mockAbstractIRIHandler()
             throws OWLParserException {
         AbstractIRIElementHandler mock = mock(AbstractIRIElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(IRI(""));
         return mock;
     }
@@ -297,8 +272,6 @@ public class Utils {
     public static AbstractOWLAxiomElementHandler mockAxiomHandler()
             throws OWLParserException {
         AbstractOWLAxiomElementHandler mock = mock(AbstractOWLAxiomElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLDeclarationAxiom(
                         OWLManager.getOWLDataFactory().getOWLTopObjectProperty()));
@@ -307,8 +280,6 @@ public class Utils {
 
     public static SWRLAtomElementHandler mockSWRLAtomHandler() throws OWLParserException {
         SWRLAtomElementHandler mock = mock(SWRLAtomElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(mock(SWRLAtom.class));
         return mock;
     }
@@ -316,8 +287,6 @@ public class Utils {
     public static SWRLVariableElementHandler mockSWRLVariableHandler()
             throws OWLParserException {
         SWRLVariableElementHandler mock = mock(SWRLVariableElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(mock(SWRLVariable.class));
         return mock;
     }
@@ -325,8 +294,6 @@ public class Utils {
     public static SWRLAtomListElementHandler mockSWRLAtomListHandler()
             throws OWLParserException {
         SWRLAtomListElementHandler mock = mock(SWRLAtomListElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(mockList(mock(SWRLAtom.class)));
         return mock;
     }
@@ -334,8 +301,6 @@ public class Utils {
     public static OWLObjectPropertyElementHandler mockObjectPropertyHandler()
             throws OWLParserException {
         OWLObjectPropertyElementHandler mock = mock(OWLObjectPropertyElementHandler.class);
-        Mockito.when(mock.getIRIFromAttribute(Matchers.anyString(), Matchers.anyString()))
-                .thenReturn(IRI("urn:otherfake"));
         Mockito.when(mock.getOWLObject()).thenReturn(
                 OWLManager.getOWLDataFactory().getOWLTopObjectProperty());
         return mock;
@@ -1087,7 +1052,6 @@ public class Utils {
         c.setOntologyFormat(new RDFOntologyFormat() {
             private static final long serialVersionUID = 40000L;
         });
-        c.addTriple(fakeiri1, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), fakeiri2);
         return c;
     }
 

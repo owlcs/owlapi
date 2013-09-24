@@ -45,17 +45,19 @@ import org.semanticweb.owlapi.model.OWLObject;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
- * <br> */
+ * <br>
+ * 
+ * @param <P> */
 public abstract class AbstractOWLPropertyCharacteristicAxiomElementHandler<P extends OWLObject>
         extends AbstractOWLAxiomElementHandler {
     private P property;
 
-    public AbstractOWLPropertyCharacteristicAxiomElementHandler(
+    protected AbstractOWLPropertyCharacteristicAxiomElementHandler(
             OWLXMLParserHandler handler) {
         super(handler);
     }
 
-    public void setProperty(P property) {
+    protected void setProperty(P property) {
         this.property = property;
     }
 

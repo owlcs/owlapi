@@ -57,6 +57,8 @@ public class ManchesterOWLSyntaxClassFrameParser implements
     private OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
 
+    /** @param dataFactory
+     * @param checker */
     public ManchesterOWLSyntaxClassFrameParser(OWLDataFactory dataFactory,
             OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
@@ -65,7 +67,7 @@ public class ManchesterOWLSyntaxClassFrameParser implements
 
     @Override
     public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
-        this.checker = entityChecker;
+        checker = entityChecker;
     }
 
     @Override

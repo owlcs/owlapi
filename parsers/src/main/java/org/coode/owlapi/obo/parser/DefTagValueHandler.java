@@ -64,6 +64,7 @@ public class DefTagValueHandler extends AbstractTagValueHandler {
     private static final int QUOTED_STRING_CONTENT_GROUP = 1;
     private static final int XREF_GROUP = 3;
 
+    /** @param consumer */
     public DefTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DEF.getName(), consumer);
     }

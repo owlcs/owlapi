@@ -49,11 +49,13 @@ public class IllegalElementNameException extends OWLRuntimeException {
     private static final long serialVersionUID = 40000L;
     private String elementName;
 
+    /** @param elementName */
     public IllegalElementNameException(String elementName) {
         super("Illegal Element Name (Element Is Not A QName): " + elementName);
         this.elementName = elementName;
     }
 
+    /** @return element name */
     public String getElementName() {
         return elementName;
     }

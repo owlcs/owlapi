@@ -54,6 +54,7 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
     private OWLDataFactory dataFactory;
     private ShortFormProvider shortFormProvider;
 
+    /** @param dataFactory */
     public LatexOWLObjectRenderer(OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
     }

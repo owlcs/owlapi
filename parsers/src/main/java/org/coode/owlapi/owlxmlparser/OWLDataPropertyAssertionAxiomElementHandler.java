@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * <br> */
 public class OWLDataPropertyAssertionAxiomElementHandler extends
         AbstractOWLDataPropertyAssertionAxiomElementHandler {
+    /** @param handler */
     public OWLDataPropertyAssertionAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

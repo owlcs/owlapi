@@ -53,6 +53,7 @@ public class OWLDataPropertyElementHandler extends
     private OWLDataPropertyExpression prop;
     private IRI iri;
 
+    /** @param handler */
     public OWLDataPropertyElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

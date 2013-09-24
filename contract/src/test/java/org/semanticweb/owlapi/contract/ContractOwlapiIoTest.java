@@ -95,7 +95,7 @@ public class ContractOwlapiIoTest {
         };
         OWLOntologyFormat result0 = testSubject0.parse(IRI("urn:aFake"),
                 Utils.getMockOntology());
-        String result2 = testSubject0.toString();
+
         OWLOntologyFormat result3 = testSubject0.parse(
                 mock(OWLOntologyDocumentSource.class), Utils.getMockOntology());
         OWLOntologyFormat result4 = testSubject0.parse(
@@ -112,7 +112,7 @@ public class ContractOwlapiIoTest {
         };
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
-        String result0 = testSubject0.toString();
+
     }
 
     @Ignore
@@ -154,7 +154,7 @@ public class ContractOwlapiIoTest {
         int result2 = testSubject0.getConnectionTimeout();
         testSubject0.setConnectionTimeout(0);
         testSubject0.setConnectionAcceptHTTPCompression(false);
-        String result3 = testSubject0.toString();
+
     }
 
     @Test
@@ -184,7 +184,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestOWLFunctionalSyntaxOntologyFormat() throws OWLException {
         OWLFunctionalSyntaxOntologyFormat testSubject0 = new OWLFunctionalSyntaxOntologyFormat();
-        String result0 = testSubject0.toString();
+
         String result1 = testSubject0.getPrefix("");
         IRI result2 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");
@@ -219,7 +219,7 @@ public class ContractOwlapiIoTest {
                 mock(IOException.class));
         Throwable result1 = testSubject0.getCause();
         String result2 = testSubject0.getMessage();
-        String result5 = testSubject0.toString();
+
         String result6 = testSubject0.getLocalizedMessage();
     }
 
@@ -256,7 +256,7 @@ public class ContractOwlapiIoTest {
                 mock(IOException.class));
         IOException result0 = testSubject0.getIOException();
         Throwable result2 = testSubject0.getCause();
-        String result4 = testSubject0.toString();
+
         String result5 = testSubject0.getMessage();
         String result6 = testSubject0.getLocalizedMessage();
     }
@@ -289,7 +289,7 @@ public class ContractOwlapiIoTest {
         List<OWLParserFactory> result1 = testSubject0.getParserFactories();
         testSubject0.registerParserFactory(mock(OWLParserFactory.class));
         testSubject0.unregisterParserFactory(mock(OWLParserFactory.class));
-        String result2 = testSubject0.toString();
+
     }
 
     @Test
@@ -301,7 +301,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestOWLXMLOntologyFormat() throws OWLException {
         OWLXMLOntologyFormat testSubject0 = new OWLXMLOntologyFormat();
-        String result0 = testSubject0.toString();
+
         String result1 = testSubject0.getPrefix("");
         IRI result2 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");
@@ -354,7 +354,7 @@ public class ContractOwlapiIoTest {
         boolean result12 = testSubject0.isPrefixOWLOntologyFormat();
         PrefixOWLOntologyFormat result13 = testSubject0.asPrefixOWLOntologyFormat();
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
-        String result14 = testSubject0.toString();
+
     }
 
     @Test
@@ -362,7 +362,7 @@ public class ContractOwlapiIoTest {
         RDFOntologyHeaderStatus testSubject0 = RDFOntologyHeaderStatus.PARSED_MULTIPLE_HEADERS;
         RDFOntologyHeaderStatus[] result0 = RDFOntologyHeaderStatus.values();
         String result2 = testSubject0.name();
-        String result3 = testSubject0.toString();
+
         int result8 = testSubject0.ordinal();
     }
 
@@ -374,7 +374,7 @@ public class ContractOwlapiIoTest {
         int result0 = testSubject0.getTripleCount();
         RDFOntologyHeaderStatus result1 = testSubject0.getHeaderState();
         Set<RDFTriple> result2 = testSubject0.getUnparsedTriples();
-        String result3 = testSubject0.toString();
+
     }
 
     @Test
@@ -385,7 +385,7 @@ public class ContractOwlapiIoTest {
         OWLEntity result0 = testSubject0.getParserGeneratedErrorEntity();
         RDFNode result1 = testSubject0.getMainNode();
         Set<RDFTriple> result2 = testSubject0.getMainNodeTriples();
-        String result3 = testSubject0.toString();
+
     }
 
     @Ignore
@@ -465,7 +465,7 @@ public class ContractOwlapiIoTest {
         }
         IRI result4 = testSubject0.getDocumentIRI();
         IRI result5 = StringDocumentSource.getNextDocumentIRI();
-        String result6 = testSubject0.toString();
+
     }
 
     @Test
@@ -510,7 +510,7 @@ public class ContractOwlapiIoTest {
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
         testSubject0.setRenderer(mock(OWLObjectRenderer.class));
         String result2 = testSubject0.getRendering(mock(OWLObject.class));
-        String result3 = testSubject0.toString();
+
     }
 
     @Test
@@ -523,7 +523,7 @@ public class ContractOwlapiIoTest {
         UnparsableOntologyException.setIncludeStackTraceInMessage(false);
         Map<OWLParser, OWLParserException> result3 = testSubject0.getExceptions();
         Throwable result5 = testSubject0.getCause();
-        String result7 = testSubject0.toString();
+
         String result8 = testSubject0.getLocalizedMessage();
     }
 
@@ -558,7 +558,7 @@ public class ContractOwlapiIoTest {
         String result8 = XMLUtils.getNCNameSuffix(mock(CharSequence.class));
         String result9 = XMLUtils.getNCNamePrefix(mock(CharSequence.class));
         String result10 = XMLUtils.escapeXML(mock(CharSequence.class));
-        String result11 = testSubject0.toString();
+
     }
 
     @Ignore

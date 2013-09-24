@@ -56,6 +56,7 @@ public class RelationshipTagValueHandler extends AbstractTagValueHandler {
     private Pattern tagValuePattern = Pattern
             .compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
 
+    /** @param consumer */
     public RelationshipTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
     }

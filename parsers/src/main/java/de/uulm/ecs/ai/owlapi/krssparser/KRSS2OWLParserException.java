@@ -46,10 +46,12 @@ import org.coode.owl.krssparser.KRSSOWLParserException;
 public class KRSS2OWLParserException extends KRSSOWLParserException {
     private static final long serialVersionUID = 40000L;
 
+    /** @param e */
     public KRSS2OWLParserException(org.coode.owl.krssparser.ParseException e) {
         super(e);
     }
 
+    /** @param cause */
     public KRSS2OWLParserException(Throwable cause) {
         super(cause);
     }

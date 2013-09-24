@@ -86,7 +86,7 @@ public class ContractOwlapi_4Test {
         OWLOntologyManager result6 = testSubject0.getOWLOntologyManager();
         OWLOntology result7 = testSubject0.createOWLOntology(new OWLOntologyID(),
                 IRI("urn:aFake"), mock(OWLOntologyCreationHandler.class));
-        String result8 = testSubject0.toString();
+
     }
 
     @Test
@@ -121,7 +121,7 @@ public class ContractOwlapi_4Test {
             }
         };
         SWRLPredicate result0 = testSubject0.getPredicate();
-        String result1 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -166,7 +166,7 @@ public class ContractOwlapi_4Test {
         SWRLArgument result1 = testSubject0.getFirstArgument();
         SWRLArgument result2 = testSubject0.getSecondArgument();
         SWRLPredicate result3 = testSubject0.getPredicate();
-        String result4 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -195,7 +195,7 @@ public class ContractOwlapi_4Test {
         Collection<SWRLArgument> result4 = testSubject0.getAllArguments();
         List<SWRLDArgument> result5 = testSubject0.getArguments();
         boolean result6 = testSubject0.isCoreBuiltIn();
-        String result7 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -219,7 +219,7 @@ public class ContractOwlapi_4Test {
         SWRLPredicate result3 = testSubject0.getPredicate();
         SWRLArgument result4 = testSubject0.getArgument();
         Collection<SWRLArgument> result5 = testSubject0.getAllArguments();
-        String result6 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -245,7 +245,7 @@ public class ContractOwlapi_4Test {
         Collection<SWRLArgument> result4 = testSubject0.getAllArguments();
         SWRLArgument result5 = testSubject0.getFirstArgument();
         SWRLArgument result6 = testSubject0.getSecondArgument();
-        String result7 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -269,7 +269,7 @@ public class ContractOwlapi_4Test {
         OWLDataRange result3 = testSubject0.getPredicate();
         SWRLArgument result4 = testSubject0.getArgument();
         Collection<SWRLArgument> result5 = testSubject0.getAllArguments();
-        String result6 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -294,7 +294,7 @@ public class ContractOwlapi_4Test {
         SWRLArgument result3 = testSubject0.getFirstArgument();
         SWRLArgument result4 = testSubject0.getSecondArgument();
         SWRLPredicate result5 = testSubject0.getPredicate();
-        String result6 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -315,7 +315,7 @@ public class ContractOwlapi_4Test {
         Object result1 = testSubject0.accept(Utils.mockSWRLObject());
         testSubject0.accept(mock(OWLObjectVisitor.class));
         OWLIndividual result2 = testSubject0.getIndividual();
-        String result3 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -336,7 +336,7 @@ public class ContractOwlapi_4Test {
         Object result1 = testSubject0.accept(Utils.mockSWRLObject());
         testSubject0.accept(mock(OWLObjectVisitor.class));
         OWLLiteral result2 = testSubject0.getLiteral();
-        String result3 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -363,7 +363,7 @@ public class ContractOwlapi_4Test {
         Collection<SWRLArgument> result5 = testSubject0.getAllArguments();
         SWRLArgument result6 = testSubject0.getFirstArgument();
         SWRLArgument result7 = testSubject0.getSecondArgument();
-        String result8 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -407,7 +407,7 @@ public class ContractOwlapi_4Test {
         boolean result18 = testSubject0.isAnnotated();
         boolean result19 = testSubject0.isOfType(AxiomType.CLASS_ASSERTION);
         boolean result20 = testSubject0.isOfType(AxiomType.SUBCLASS_OF);
-        String result22 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -432,7 +432,7 @@ public class ContractOwlapi_4Test {
         SWRLArgument result3 = testSubject0.getFirstArgument();
         SWRLArgument result4 = testSubject0.getSecondArgument();
         SWRLPredicate result5 = testSubject0.getPredicate();
-        String result6 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -475,7 +475,7 @@ public class ContractOwlapi_4Test {
         SWRLArgument result0 = testSubject0.getArgument();
         Collection<SWRLArgument> result1 = testSubject0.getAllArguments();
         SWRLPredicate result2 = testSubject0.getPredicate();
-        String result3 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();
@@ -501,7 +501,7 @@ public class ContractOwlapi_4Test {
         testSubject0.accept(mock(SWRLObjectVisitor.class));
         Object result1 = testSubject0.accept(Utils.mockSWRLObject());
         IRI result2 = testSubject0.getIRI();
-        String result3 = testSubject0.toString();
+
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0.getAnonymousIndividuals();
         Set<OWLClass> result52 = testSubject0.getClassesInSignature();

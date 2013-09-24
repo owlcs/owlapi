@@ -50,6 +50,7 @@ public class HasKeyListItemTranslator implements
         ListItemTranslator<OWLPropertyExpression> {
     private OWLRDFConsumer consumer;
 
+    /** @param consumer */
     public HasKeyListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

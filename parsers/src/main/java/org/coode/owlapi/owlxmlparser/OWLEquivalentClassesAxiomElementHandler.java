@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * <br> */
 public class OWLEquivalentClassesAxiomElementHandler extends
         AbstractClassExpressionOperandAxiomElementHandler {
+    /** @param handler */
     public OWLEquivalentClassesAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

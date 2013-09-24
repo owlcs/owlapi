@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Date: 20-Mar-2007<br>
  * <br> */
 public class OWLAnnotationAssertionElementHandler extends AbstractOWLAxiomElementHandler {
+    /** @param handler */
     public OWLAnnotationAssertionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

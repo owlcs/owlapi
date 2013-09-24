@@ -53,6 +53,8 @@ public class ManchesterOWLSyntaxInlineAxiomParser implements
     private OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
 
+    /** @param dataFactory
+     * @param checker */
     public ManchesterOWLSyntaxInlineAxiomParser(OWLDataFactory dataFactory,
             OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
@@ -61,7 +63,7 @@ public class ManchesterOWLSyntaxInlineAxiomParser implements
 
     @Override
     public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
-        this.checker = entityChecker;
+        checker = entityChecker;
     }
 
     @Override

@@ -119,7 +119,7 @@ public class ContractOwlapiModel_4Test {
         OWLOntologyStorageException testSubject2 = new OWLOntologyStorageException(
                 new RuntimeException());
         Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
+
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -139,7 +139,7 @@ public class ContractOwlapiModel_4Test {
         OWLOntologyStorerNotFoundException testSubject0 = new OWLOntologyStorerNotFoundException(
                 mock(OWLOntologyFormat.class));
         Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
+
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -579,7 +579,7 @@ public class ContractOwlapiModel_4Test {
                 new RuntimeException());
         OWLRuntimeException testSubject3 = new OWLRuntimeException(new RuntimeException());
         Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
+
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -936,7 +936,7 @@ public class ContractOwlapiModel_4Test {
     public void shouldTestRemoveAxiom() throws OWLException {
         RemoveAxiom testSubject0 = new RemoveAxiom(Utils.getMockOntology(),
                 mock(OWLAxiom.class));
-        String result0 = testSubject0.toString();
+
         testSubject0.accept(mock(OWLOntologyChangeVisitor.class));
         Object result1 = testSubject0.accept(Utils.mockOntologyChange());
         OWLAxiom result2 = testSubject0.getAxiom();
@@ -949,7 +949,7 @@ public class ContractOwlapiModel_4Test {
     public void shouldTestRemoveImport() throws OWLException {
         RemoveImport testSubject0 = new RemoveImport(Utils.getMockOntology(),
                 mock(OWLImportsDeclaration.class));
-        String result0 = testSubject0.toString();
+
         testSubject0.accept(mock(OWLOntologyChangeVisitor.class));
         Object result1 = testSubject0.accept(Utils.mockOntologyChange());
         OWLAxiom result2 = testSubject0.getAxiom();
@@ -963,7 +963,7 @@ public class ContractOwlapiModel_4Test {
     public void shouldTestRemoveOntologyAnnotation() throws OWLException {
         RemoveOntologyAnnotation testSubject0 = new RemoveOntologyAnnotation(
                 Utils.getMockOntology(), mock(OWLAnnotation.class));
-        String result0 = testSubject0.toString();
+
         OWLAnnotation result1 = testSubject0.getAnnotation();
         Object result2 = testSubject0.accept(Utils.mockOntologyChange());
         testSubject0.accept(mock(OWLOntologyChangeVisitor.class));
@@ -975,7 +975,7 @@ public class ContractOwlapiModel_4Test {
     public void shouldTestSetOntologyID() throws OWLException {
         SetOntologyID testSubject0 = new SetOntologyID(Utils.getMockOntology(),
                 new OWLOntologyID());
-        String result0 = testSubject0.toString();
+
         testSubject0.accept(mock(OWLOntologyChangeVisitor.class));
         Object result1 = testSubject0.accept(Utils.mockOntologyChange());
         OWLAxiom result2 = testSubject0.getAxiom();
@@ -992,7 +992,7 @@ public class ContractOwlapiModel_4Test {
                 Utils.getMockOntology());
         testSubject0.broadcastChanges(mock(OWLOntologyChangeListener.class),
                 Utils.mockList(mock(AddAxiom.class)));
-        String result0 = testSubject0.toString();
+
     }
 
     @Test
@@ -1435,7 +1435,7 @@ public class ContractOwlapiModel_4Test {
         UnknownOWLOntologyException testSubject0 = new UnknownOWLOntologyException(
                 new OWLOntologyID());
         Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
+
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -1448,7 +1448,7 @@ public class ContractOwlapiModel_4Test {
         OWLOntologyCreationException result1 = testSubject0
                 .getOntologyCreationException();
         Throwable result3 = testSubject0.getCause();
-        String result5 = testSubject0.toString();
+
         String result6 = testSubject0.getMessage();
         String result7 = testSubject0.getLocalizedMessage();
     }

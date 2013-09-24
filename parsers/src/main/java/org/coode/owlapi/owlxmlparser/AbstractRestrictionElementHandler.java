@@ -46,7 +46,10 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
- * <br> */
+ * <br>
+ * 
+ * @param <P>
+ * @param <F> */
 public abstract class AbstractRestrictionElementHandler<P extends OWLPropertyExpression, F extends OWLObject>
         extends AbstractClassExpressionElementHandler {
     private P property;

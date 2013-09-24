@@ -57,6 +57,7 @@ public abstract class AbstractOWLAxiomElementHandler extends
     private OWLAxiom axiom;
     private Set<OWLAnnotation> annotations;
 
+    /** @param handler */
     public AbstractOWLAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -66,9 +67,6 @@ public abstract class AbstractOWLAxiomElementHandler extends
         return axiom;
     }
 
-    public void setAxiom(OWLAxiom axiom) {
-        this.axiom = axiom;
-    }
 
     @Override
     public void startElement(String name) throws OWLXMLParserException {
@@ -88,11 +86,11 @@ public abstract class AbstractOWLAxiomElementHandler extends
 
     @Override
     final public void endElement() throws OWLParserException, UnloadableImportException {
-        setAxiom(createAxiom());
+        axiom = createAxiom();
         getParentHandler().handleChild(this);
     }
 
-    public Set<OWLAnnotation> getAnnotations() {
+    protected Set<OWLAnnotation> getAnnotations() {
         if (annotations == null) {
             return Collections.emptySet();
         } else {

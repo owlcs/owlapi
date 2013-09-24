@@ -63,14 +63,17 @@ public class RendererEvent {
         return frameRenderer;
     }
 
+    /** @param comment */
     public void writeComment(String comment) {
         frameRenderer.writeComment(comment, false);
     }
 
+    /** @param comment */
     public void writeCommentOnNewLine(String comment) {
         frameRenderer.writeComment(comment, true);
     }
 
+    /** @return the frame subject */
     public OWLObject getFrameSubject() {
         return frameSubject;
     }

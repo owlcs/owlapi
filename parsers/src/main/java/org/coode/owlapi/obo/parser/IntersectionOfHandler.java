@@ -44,6 +44,7 @@ package org.coode.owlapi.obo.parser;
  * Date: 06-Mar-2007<br>
  * <br> */
 public class IntersectionOfHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public IntersectionOfHandler(OBOConsumer consumer) {
         super("intersection_of", consumer);
     }

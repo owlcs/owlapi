@@ -51,6 +51,7 @@ public class OWLFacetRestrictionListItemTranslator implements
         ListItemTranslator<OWLFacetRestriction> {
     private OWLRDFConsumer consumer;
 
+    /** @param consumer */
     public OWLFacetRestrictionListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

@@ -68,11 +68,11 @@ public class AbstractTripleHandler {
     private DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
     private IndividualMatcher individualMatcher = new IndividualMatcher();
 
-    public AbstractTripleHandler(OWLRDFConsumer consumer) {
+    protected AbstractTripleHandler(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
 
-    public OWLRDFConsumer getConsumer() {
+    protected OWLRDFConsumer getConsumer() {
         return consumer;
     }
 

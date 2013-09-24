@@ -45,70 +45,110 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br>
- * <br> */
+ * <br>
+ * 
+ * @param <O> */
 public interface OWLElementHandler<O> {
-    public void startElement(String name) throws OWLXMLParserException;
+    /** @param name
+     * @throws OWLXMLParserException */
+    void startElement(String name) throws OWLXMLParserException;
 
-    public void attribute(String localName, String value) throws OWLParserException;
+    /** @param localName
+     * @param value
+     * @throws OWLParserException */
+    void attribute(String localName, String value) throws OWLParserException;
 
-    public void endElement() throws OWLParserException, UnloadableImportException;
+    /** @throws OWLParserException
+     * @throws UnloadableImportException */
+    void endElement() throws OWLParserException, UnloadableImportException;
 
-    public O getOWLObject() throws OWLXMLParserException;
+    /** @return the owl object
+     * @throws OWLXMLParserException */
+    O getOWLObject() throws OWLXMLParserException;
 
-    public void setParentHandler(OWLElementHandler<?> handler)
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void setParentHandler(OWLElementHandler<?> handler) throws OWLXMLParserException;
+
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(AbstractOWLAxiomElementHandler handler) throws OWLXMLParserException;
+
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(AbstractClassExpressionElementHandler handler)
             throws OWLXMLParserException;
 
-    public void handleChild(AbstractOWLAxiomElementHandler handler)
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(AbstractOWLObjectPropertyElementHandler handler)
             throws OWLXMLParserException;
 
-    public void handleChild(AbstractClassExpressionElementHandler handler)
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(OWLDataPropertyElementHandler handler) throws OWLXMLParserException;
+
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(OWLIndividualElementHandler handler) throws OWLXMLParserException;
+
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(AbstractOWLDataRangeHandler handler) throws OWLXMLParserException;
+
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException;
+
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException;
+
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(OWLAnonymousIndividualElementHandler handler)
             throws OWLXMLParserException;
 
-    public void handleChild(AbstractOWLObjectPropertyElementHandler handler)
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(OWLSubObjectPropertyChainElementHandler handler)
             throws OWLXMLParserException;
 
-    public void handleChild(OWLDataPropertyElementHandler handler)
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(OWLDatatypeFacetRestrictionElementHandler handler)
             throws OWLXMLParserException;
 
-    public void handleChild(OWLIndividualElementHandler handler)
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(OWLAnnotationPropertyElementHandler handler)
             throws OWLXMLParserException;
 
-    public void handleChild(AbstractOWLDataRangeHandler handler)
-            throws OWLXMLParserException;
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(AbstractIRIElementHandler handler) throws OWLXMLParserException;
 
-    public void handleChild(OWLLiteralElementHandler handler)
-            throws OWLXMLParserException;
+    /** @param chars
+     * @param start
+     * @param length
+     * @throws OWLXMLParserException */
+    void handleChars(char[] chars, int start, int length) throws OWLXMLParserException;
 
-    public void handleChild(OWLAnnotationElementHandler handler)
-            throws OWLXMLParserException;
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(SWRLVariableElementHandler handler) throws OWLXMLParserException;
 
-    public void handleChild(OWLAnonymousIndividualElementHandler handler)
-            throws OWLXMLParserException;
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(SWRLAtomElementHandler handler) throws OWLXMLParserException;
 
-    public void handleChild(OWLSubObjectPropertyChainElementHandler handler)
-            throws OWLXMLParserException;
+    /** @param handler
+     * @throws OWLXMLParserException */
+    void handleChild(SWRLAtomListElementHandler handler) throws OWLXMLParserException;
 
-    public void handleChild(OWLDatatypeFacetRestrictionElementHandler handler)
-            throws OWLXMLParserException;
+    /** @return text */
+    String getText();
 
-    public void handleChild(OWLAnnotationPropertyElementHandler handler)
-            throws OWLXMLParserException;
-
-    public void handleChild(AbstractIRIElementHandler handler)
-            throws OWLXMLParserException;
-
-    public void handleChars(char[] chars, int start, int length)
-            throws OWLXMLParserException;
-
-    public void handleChild(SWRLVariableElementHandler handler)
-            throws OWLXMLParserException;
-
-    public void handleChild(SWRLAtomElementHandler handler) throws OWLXMLParserException;
-
-    public void handleChild(SWRLAtomListElementHandler handler)
-            throws OWLXMLParserException;
-
-    public String getText();
-
-    public boolean isTextContentPossible();
+    /** @return text content possible */
+    boolean isTextContentPossible();
 }

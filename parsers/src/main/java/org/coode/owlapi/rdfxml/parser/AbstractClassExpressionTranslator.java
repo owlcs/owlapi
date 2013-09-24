@@ -75,7 +75,7 @@ public abstract class AbstractClassExpressionTranslator implements
         }
     }
 
-    public OWLRDFConsumer getConsumer() {
+    protected OWLRDFConsumer getConsumer() {
         return consumer;
     }
 

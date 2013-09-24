@@ -1066,7 +1066,7 @@ public class ContractOwlapiModel_3Test {
         OWLAxiom result2 = testSubject0.getAxiom();
         boolean result3 = testSubject0.isAxiomChange();
         boolean result4 = testSubject0.isImportChange();
-        String result5 = testSubject0.toString();
+
     }
 
     @Test
@@ -1132,7 +1132,7 @@ public class ContractOwlapiModel_3Test {
         OWLOntologyFactoryNotFoundException testSubject0 = new OWLOntologyFactoryNotFoundException(
                 IRI("urn:aFake"));
         Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
+
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -1150,7 +1150,7 @@ public class ContractOwlapiModel_3Test {
         PrefixOWLOntologyFormat result2 = testSubject0.asPrefixOWLOntologyFormat();
         OWLOntologyLoaderMetaData result3 = testSubject0.getOntologyLoaderMetaData();
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
-        String result4 = testSubject0.toString();
+
     }
 
     @Test
@@ -1158,7 +1158,7 @@ public class ContractOwlapiModel_3Test {
         OWLOntologyID testSubject0 = new OWLOntologyID();
         OWLOntologyID testSubject1 = new OWLOntologyID(IRI("urn:aFake"), IRI("urn:aFake"));
         OWLOntologyID testSubject2 = new OWLOntologyID(IRI("urn:aFake"));
-        String result0 = testSubject0.toString();
+
         boolean result3 = testSubject0.isAnonymous();
         IRI result4 = testSubject0.getOntologyIRI();
         boolean result5 = testSubject0.isOWL2DLOntologyID();
@@ -1177,7 +1177,7 @@ public class ContractOwlapiModel_3Test {
         OWLOntologyIRIMappingNotFoundException testSubject0 = new OWLOntologyIRIMappingNotFoundException(
                 IRI("urn:aFake"));
         Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.toString();
+
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -1206,7 +1206,7 @@ public class ContractOwlapiModel_3Test {
         OWLOntologyLoaderConfiguration result12 = testSubject0
                 .removeIgnoredImport(IRI("urn:aFake"));
         OWLOntologyLoaderConfiguration result13 = testSubject0.clearIgnoredImports();
-        String result14 = testSubject0.toString();
+
     }
 
     @Test
@@ -1339,7 +1339,7 @@ public class ContractOwlapiModel_3Test {
         testSubject0.restoreDefaults();
         boolean result1 = testSubject0.isTreatDublinCoreVocabularyAsBuiltInVocabulary();
         testSubject0.setTreatDublinCoreVocabularyAsBuiltInVocabulary(false);
-        String result2 = testSubject0.toString();
+
     }
 
     @Test

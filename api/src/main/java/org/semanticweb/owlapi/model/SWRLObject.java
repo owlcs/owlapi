@@ -50,7 +50,10 @@ import javax.annotation.Nonnull;
  * www.cs.man.ac.uk/~horridgm<br>
  * <br> */
 public interface SWRLObject extends OWLObject {
+    /** @param visitor */
     void accept(@Nonnull SWRLObjectVisitor visitor);
 
+    /** @param visitor
+     * @return visitor value */
     <O> O accept(@Nonnull SWRLObjectVisitorEx<O> visitor);
 }

@@ -51,6 +51,7 @@ public class DataPropertyListItemTranslator implements
         ListItemTranslator<OWLDataPropertyExpression> {
     private OWLRDFConsumer consumer;
 
+    /** @param consumer */
     public DataPropertyListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Date: 06-Mar-2007<br>
  * <br> */
 public class AsymmetricHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public AsymmetricHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_ASYMMETRIC.getName(), consumer);
     }

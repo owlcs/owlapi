@@ -47,14 +47,15 @@ import org.semanticweb.owlapi.model.OWLObject;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
- * <br> */
+ * <br>
+ * 
+ * @param <O> */
 public abstract class AbstractOperandAxiomElementHandler<O extends OWLObject> extends
         AbstractOWLAxiomElementHandler {
-    private Set<O> operands;
+    private Set<O> operands = new HashSet<O>();
 
-    public AbstractOperandAxiomElementHandler(OWLXMLParserHandler handler) {
+    protected AbstractOperandAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
-        operands = new HashSet<O>();
     }
 
     @Override

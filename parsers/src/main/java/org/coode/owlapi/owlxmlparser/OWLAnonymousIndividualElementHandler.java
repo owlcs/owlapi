@@ -51,6 +51,7 @@ public class OWLAnonymousIndividualElementHandler extends
         AbstractOWLElementHandler<OWLAnonymousIndividual> {
     private OWLAnonymousIndividual ind;
 
+    /** @param handler */
     public OWLAnonymousIndividualElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

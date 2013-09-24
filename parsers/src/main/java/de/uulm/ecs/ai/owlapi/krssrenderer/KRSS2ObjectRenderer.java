@@ -324,11 +324,14 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
      * declaration are not rendered. */
     protected boolean ignoreDeclarations = false;
 
+    /** @param ontology
+     * @param writer */
     public KRSS2ObjectRenderer(OWLOntology ontology, Writer writer) {
         super(ontology, writer);
         leftRightIdentityUsed = new HashSet<OWLSubPropertyChainOfAxiom>();
     }
 
+    /** @param ignoreDeclarations */
     public void setIgnoreDeclarations(boolean ignoreDeclarations) {
         this.ignoreDeclarations = ignoreDeclarations;
     }
@@ -759,7 +762,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         return axioms;
     }
 
-    public void reset() {
+    protected void reset() {
         leftRightIdentityUsed.clear();
     }
 }

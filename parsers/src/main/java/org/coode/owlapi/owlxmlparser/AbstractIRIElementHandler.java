@@ -45,6 +45,7 @@ import org.semanticweb.owlapi.model.IRI;
  * Information Management Group<br>
  * Date: 17-May-2009 */
 public abstract class AbstractIRIElementHandler extends AbstractOWLElementHandler<IRI> {
+    /** @param handler */
     public AbstractIRIElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

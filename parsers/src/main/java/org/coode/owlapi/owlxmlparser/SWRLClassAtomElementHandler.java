@@ -51,6 +51,7 @@ public class SWRLClassAtomElementHandler extends SWRLAtomElementHandler {
     private OWLClassExpression ce;
     private SWRLIArgument arg;
 
+    /** @param handler */
     public SWRLClassAtomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

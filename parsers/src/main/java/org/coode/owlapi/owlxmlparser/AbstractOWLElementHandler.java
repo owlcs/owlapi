@@ -50,7 +50,9 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br>
- * <br> */
+ * <br>
+ * 
+ * @param <O> */
 public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<O> {
     private OWLXMLParserHandler handler;
     private OWLElementHandler<?> parentHandler;
@@ -61,11 +63,11 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
         this.handler = handler;
     }
 
-    public OWLOntologyLoaderConfiguration getConfiguration() {
+    protected OWLOntologyLoaderConfiguration getConfiguration() {
         return handler.getConfiguration();
     }
 
-    public IRI getIRIFromAttribute(String localName, String value)
+    protected IRI getIRIFromAttribute(String localName, String value)
             throws OWLParserException {
         if (localName.equals(OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName())) {
             return getIRI(value);
@@ -80,7 +82,7 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
                 getColumnNumber(), OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName());
     }
 
-    public IRI getIRIFromElement(String elementLocalName, String textContent)
+    protected IRI getIRIFromElement(String elementLocalName, String textContent)
             throws OWLParserException {
         if (elementLocalName.equals(OWLXMLVocabulary.IRI_ELEMENT.getShortName())) {
             return handler.getIRI(textContent.trim());

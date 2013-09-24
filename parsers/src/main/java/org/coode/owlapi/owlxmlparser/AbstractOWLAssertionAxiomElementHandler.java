@@ -46,38 +46,42 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 14-Dec-2006<br>
- * <br> */
+ * <br>
+ * 
+ * @param <P>
+ * @param <O> */
 public abstract class AbstractOWLAssertionAxiomElementHandler<P extends OWLPropertyExpression, O extends OWLObject>
         extends AbstractOWLAxiomElementHandler {
     private OWLIndividual subject;
     private P property;
     private O object;
 
+    /** @param handler */
     public AbstractOWLAssertionAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
-    public OWLIndividual getSubject() {
+    protected OWLIndividual getSubject() {
         return subject;
     }
 
-    public P getProperty() {
+    protected P getProperty() {
         return property;
     }
 
-    public O getObject() {
+    protected O getObject() {
         return object;
     }
 
-    public void setSubject(OWLIndividual subject) {
+    protected void setSubject(OWLIndividual subject) {
         this.subject = subject;
     }
 
-    public void setProperty(P property) {
+    protected void setProperty(P property) {
         this.property = property;
     }
 
-    public void setObject(O object) {
+    protected void setObject(O object) {
         this.object = object;
     }
 }
