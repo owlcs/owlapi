@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;

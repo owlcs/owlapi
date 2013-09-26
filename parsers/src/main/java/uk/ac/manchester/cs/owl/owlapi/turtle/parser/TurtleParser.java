@@ -45,14 +45,17 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         this.handler = handler;
     }
 
+    @Override
     public boolean isAnonymousNode(String iri) {
         return NodeID.isAnonymousNodeIRI(iri);
     }
 
+    @Override
     public boolean isAnonymousNode(IRI iri) {
         return NodeID.isAnonymousNodeIRI(iri);
     }
 
+    @Override
     public boolean isAnonymousSharedNode(String iri) {
         return NodeID.isAnonymousNodeID(iri);
     }
@@ -124,7 +127,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
                 throw new ParseException();
             }
             if (jj_2_3(2)) {
-                ;
+
             } else {
                 break label_1;
             }
@@ -173,8 +176,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         subject = parseSubject();
         if (jj_2_6(2)) {
             parsePredicateObjectList(subject);
-        } else {
-            ;
         }
     }
 
@@ -188,46 +189,26 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
                 return iri;
-            }
-        }
-        throw new Error("Missing return statement in function");
     }
 
     final public IRI parseLoneNS() throws ParseException {
         Token t;
         t = jj_consume_token(PNAME_NS);
-        {
-            if (true) {
                 return getIRIFromQName(t.image);
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public IRI parseAbbreviatedIRI() throws ParseException {
         Token t;
         t = jj_consume_token(PNAME_LN);
-        {
-            if (true) {
                 return getIRIFromQName(t.image);
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public IRI parseIRI() throws ParseException {
         Token t;
         t = jj_consume_token(FULLIRI);
-        {
-            if (true) {
                 return getIRI(t.image);
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public IRI parseBlankNode() throws ParseException {
         IRI iri = null;
@@ -248,11 +229,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
                 parsePredicateObjectList(iri);
                 if (jj_2_9(2)) {
                     jj_consume_token(DOT);
-                } else {
-                    ;
                 }
-            } else {
-                ;
             }
             jj_consume_token(CLOSE_SQUARE_BRACKET);
             if (iri == null) {
@@ -264,24 +241,14 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
                 return iri;
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public IRI parseNodeID() throws ParseException {
         Token t;
         t = jj_consume_token(NODEID);
-        {
-            if (true) {
                 return getNextBlankNode(t.image);
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public void parsePredicateObjectList(IRI subject) throws ParseException {
         IRI predicate;
@@ -289,7 +256,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         parseObjectList(subject, predicate);
         label_2: while (true) {
             if (jj_2_15(2)) {
-                ;
             } else {
                 break label_2;
             }
@@ -299,8 +265,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         }
         if (jj_2_16(2)) {
             jj_consume_token(SEMICOLON);
-        } else {
-            ;
         }
     }
 
@@ -315,24 +279,14 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
                 return iri;
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public IRI parsePredicate() throws ParseException {
         IRI iri;
         iri = parseResource();
-        {
-            if (true) {
                 return iri;
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public IRI parseResource() throws ParseException {
         IRI iri;
@@ -346,19 +300,13 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
                 return iri;
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public void parseObjectList(IRI subject, IRI predicate) throws ParseException {
         parseObject(subject, predicate);
         label_3: while (true) {
             if (jj_2_22(2)) {
-                ;
             } else {
                 break label_3;
             }
@@ -392,13 +340,8 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         jj_consume_token(OPENPAR);
         iri = parseItemList();
         jj_consume_token(CLOSEPAR);
-        {
-            if (true) {
                 return iri;
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public IRI parseItemList() throws ParseException {
         // _x rdf:type rdf:List
@@ -413,7 +356,7 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         IRI nil = OWLRDFVocabulary.RDF_NIL.getIRI();
         label_4: while (true) {
             if (jj_2_27(2)) {
-                ;
+
             } else {
                 break label_4;
             }
@@ -433,13 +376,8 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         if (subject != null) {
             handler.handleTriple(subject, rest, nil);
         }
-        {
-            if (true) {
                 return firstSubject;
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public void parseLiteral(IRI subject, IRI predicate) throws ParseException {
         String literal;
@@ -460,8 +398,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
                     jj_consume_token(-1);
                     throw new ParseException();
                 }
-            } else {
-                ;
             }
             if (datatype != null) {
                 handler.handleTriple(subject, predicate, literal, datatype);
@@ -496,46 +432,27 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         Token t;
         if (jj_2_36(2)) {
             t = jj_consume_token(INTEGER);
-            {
-                if (true) {
                     return t.image;
-                }
-            }
         } else if (jj_2_37(2)) {
             t = jj_consume_token(DIGIT);
-            {
-                if (true) {
                     return t.image;
-                }
-            }
         } else {
             jj_consume_token(-1);
             throw new ParseException();
         }
-        throw new Error("Missing return statement in function");
     }
 
     final public String parseDouble() throws ParseException {
         Token t;
         t = jj_consume_token(DOUBLE);
-        {
-            if (true) {
                 return t.image;
-            }
-        }
-        throw new Error("Missing return statement in function");
     }
 
     final public String parseDecimal() throws ParseException {
         Token t;
         t = jj_consume_token(DECIMAL);
-        {
-            if (true) {
                 return t.image;
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public String parseBoolean() throws ParseException {
         Token t;
@@ -547,24 +464,14 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
                 return t.image;
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public String parseQuotedString() throws ParseException {
         String s;
         s = parseString();
-        {
-            if (true) {
                 return s;
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     final public String parseString() throws ParseException {
         Token t;
@@ -579,13 +486,8 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
             jj_consume_token(-1);
             throw new ParseException();
         }
-        {
-            if (true) {
                 return EscapeUtils.unescapeString(rawString);
             }
-        }
-        throw new Error("Missing return statement in function");
-    }
 
     private boolean jj_2_1(int xla) {
         jj_la = xla;

@@ -467,8 +467,6 @@ public class ContractSmallsTest {
         TurtleRenderer testSubject0 = new TurtleRenderer(Utils.getMockOntology(),
                 mock(Writer.class), mock(OWLOntologyFormat.class));
         testSubject0.render(mock(RDFResourceNode.class));
-        testSubject0.pushTab();
-        testSubject0.popTab();
         OWLOntology result0 = testSubject0.getOntology();
         testSubject0.render();
         RDFGraph result1 = testSubject0.getGraph();

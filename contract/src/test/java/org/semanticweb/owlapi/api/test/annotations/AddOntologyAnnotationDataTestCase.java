@@ -33,6 +33,7 @@ public class AddOntologyAnnotationDataTestCase {
         mockOntology = mock(OWLOntology.class);
     }
 
+    @SuppressWarnings("unused")
     @Test(expected = NullPointerException.class)
     public void testNewWithNullArgs() {
         new AddOntologyAnnotationData(null);

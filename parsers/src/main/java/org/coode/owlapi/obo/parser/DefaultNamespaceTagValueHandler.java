@@ -39,7 +39,8 @@
 
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 
 
 /**

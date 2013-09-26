@@ -38,8 +38,8 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
+@SuppressWarnings("javadoc")
 public class SerializationTest extends TestCase {
-    private static final String MESSAGE = "Exception expected!";
     private static final OWLDataFactory f = OWLManager.getOWLDataFactory();
     OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
     OWLDataPropertyExpression dp = f.getOWLDataProperty(IRI.create("urn:dp"));
@@ -71,9 +71,6 @@ public class SerializationTest extends TestCase {
     Set<OWLFacetRestriction> setowlfacetrestriction = new HashSet<OWLFacetRestriction>();
     OWLPropertyExpression[] owlpropertyexpression = new OWLPropertyExpression[] {};
 
-    public static void main(String[] args) {
-        new SerializationTest().run();
-    }
 
     @Test
     public void testrun() throws Exception {

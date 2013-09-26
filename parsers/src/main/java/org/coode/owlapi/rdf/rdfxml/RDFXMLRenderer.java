@@ -80,21 +80,28 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLNamespaceManager qnameManager;
     private OWLOntologyFormat format;
 
+    @SuppressWarnings("javadoc")
     @Deprecated
     public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w) {
         this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 
+    /** @param ontology
+     * @param w */
     public RDFXMLRenderer(OWLOntology ontology, Writer w) {
         this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 
+    @SuppressWarnings("javadoc")
     @Deprecated
     public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w,
             OWLOntologyFormat format) {
         this(ontology, w, format);
     }
 
+    /** @param ontology
+     * @param w
+     * @param format */
     public RDFXMLRenderer(OWLOntology ontology, Writer w, OWLOntologyFormat format) {
         super(ontology, format);
         this.format = format;
@@ -124,6 +131,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION.getIRI());
     }
 
+    /** @return unserializable entities */
     public Set<OWLEntity> getUnserialisableEntities() {
         return qnameManager.getEntitiesWithInvalidQNames();
     }

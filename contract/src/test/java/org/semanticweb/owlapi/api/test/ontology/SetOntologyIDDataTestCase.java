@@ -33,6 +33,7 @@ public class SetOntologyIDDataTestCase {
         return new SetOntologyIDData(mockOntologyID);
     }
 
+    @SuppressWarnings("unused")
     @Test(expected = NullPointerException.class)
     public void testNewWithNullArgs() {
         new SetOntologyIDData(null);

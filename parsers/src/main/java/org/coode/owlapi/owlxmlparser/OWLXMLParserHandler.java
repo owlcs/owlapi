@@ -828,6 +828,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * @deprecated
      */
     @Deprecated
+    @SuppressWarnings("unused")
     public OWLXMLParserHandler(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLElementHandler<?> topHandler, OWLOntologyLoaderConfiguration configuration) {
         this(ontology, topHandler, configuration);
     }

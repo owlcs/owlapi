@@ -82,12 +82,17 @@ public class TurtleRenderer extends RDFRendererBase {
     private String base;
     private OWLOntologyFormat format;
 
+    @SuppressWarnings("javadoc")
     @Deprecated
-    public TurtleRenderer(OWLOntology ontology, OWLOntologyManager manager,
+    public TurtleRenderer(OWLOntology ontology,
+            @SuppressWarnings("unused") OWLOntologyManager manager,
             Writer writer, OWLOntologyFormat format) {
         this(ontology, writer, format);
     }
 
+    /** @param ontology
+     * @param writer
+     * @param format */
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLOntologyFormat format) {
         super(ontology, format);
         this.format = format;
@@ -122,11 +127,11 @@ public class TurtleRenderer extends RDFRendererBase {
     int lastNewLineIndex = 0;
     Stack<Integer> tabs = new Stack<Integer>();
 
-    public void pushTab() {
+    protected void pushTab() {
         tabs.push(getIndent());
     }
 
-    public void popTab() {
+    protected void popTab() {
         if (!tabs.isEmpty()) {
             tabs.pop();
         }

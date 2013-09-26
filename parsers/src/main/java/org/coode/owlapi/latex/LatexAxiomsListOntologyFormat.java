@@ -47,11 +47,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * 03-Aug-2008<br><br>
  */
 public class LatexAxiomsListOntologyFormat extends OWLOntologyFormat {
-
-	@SuppressWarnings("javadoc")
-    public LatexAxiomsListOntologyFormat() {
-    }
-
+    private static final long serialVersionUID = 30405L;
 
     @Override
 	public String toString() {

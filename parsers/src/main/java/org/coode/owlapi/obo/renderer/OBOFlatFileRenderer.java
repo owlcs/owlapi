@@ -134,6 +134,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements OBOExcep
     private OWLDataFactory factory;
 
     @Deprecated
+    @SuppressWarnings("unused")
     protected OBOFlatFileRenderer(OWLOntologyManager owlOntologyManager) {
         this();
     }

@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class KRSS2SyntaxRenderer extends AbstractOWLRenderer {
 
     @Deprecated
+    @SuppressWarnings("unused")
     public KRSS2SyntaxRenderer(OWLOntologyManager owlOntologyManager) {
     }
 

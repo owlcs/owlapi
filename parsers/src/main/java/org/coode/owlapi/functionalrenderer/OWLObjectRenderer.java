@@ -72,6 +72,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     private OWLObject focusedObject;
 
     @Deprecated
+    @SuppressWarnings("unused")
     public OWLObjectRenderer(OWLOntologyManager man, OWLOntology ontology, Writer writer) {
         this(ontology, writer);
     }

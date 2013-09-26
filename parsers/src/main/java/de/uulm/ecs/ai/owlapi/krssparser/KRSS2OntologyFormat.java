@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 @SuppressWarnings("javadoc")
 public class KRSS2OntologyFormat extends OWLOntologyFormat {
+    private static final long serialVersionUID = 30405L;
     public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
 
     @Override

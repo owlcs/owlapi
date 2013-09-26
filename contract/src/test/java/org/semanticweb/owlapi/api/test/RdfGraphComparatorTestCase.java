@@ -8,6 +8,7 @@ import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
+@SuppressWarnings("javadoc")
 public class RdfGraphComparatorTestCase {
     @Test
     public void shouldSort() {

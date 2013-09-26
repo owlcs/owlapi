@@ -160,6 +160,8 @@ public class OBOConsumer implements OBOParserHandler {
         return baseURIPath.substring(lastSlashIndex + 1);
     }
 
+    @Deprecated
+    @SuppressWarnings("unused")
     public OBOConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration, IRI baseIRI) {
         this(ontology, configuration, baseIRI);
     }

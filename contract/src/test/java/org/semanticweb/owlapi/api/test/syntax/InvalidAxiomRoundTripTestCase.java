@@ -41,7 +41,7 @@ public class InvalidAxiomRoundTripTestCase {
         }
     }
 
-    private OWLOntology saveAndReload(OWLOntology o) throws OWLOntologyStorageException,
+    private OWLOntology saveAndReload() throws OWLOntologyStorageException,
             OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o,
@@ -64,7 +64,7 @@ public class InvalidAxiomRoundTripTestCase {
         // when
         addAxioms(wrongAxiom, validAxiom);
         // then
-        assertCorrectResult(wrongAxiom, validAxiom, saveAndReload(o));
+        assertCorrectResult(wrongAxiom, validAxiom, saveAndReload());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class InvalidAxiomRoundTripTestCase {
         OWLAxiom validAxiom = DisjointClasses(e2, e3);
         // when
         addAxioms(wrongAxiom, validAxiom);
-        OWLOntology reloaded = saveAndReload(o);
+        OWLOntology reloaded = saveAndReload();
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
@@ -99,7 +99,7 @@ public class InvalidAxiomRoundTripTestCase {
         OWLAxiom validAxiom = DisjointObjectProperties(e2, e3);
         // when
         addAxioms(wrongAxiom, validAxiom);
-        OWLOntology reloaded = saveAndReload(o);
+        OWLOntology reloaded = saveAndReload();
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
@@ -119,7 +119,7 @@ public class InvalidAxiomRoundTripTestCase {
         OWLAxiom validAxiom = DisjointDataProperties(e2, e3);
         // when
         addAxioms(wrongAxiom, validAxiom);
-        OWLOntology reloaded = saveAndReload(o);
+        OWLOntology reloaded = saveAndReload();
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
@@ -140,7 +140,7 @@ public class InvalidAxiomRoundTripTestCase {
         // when
         addAxioms(wrongAxiom, validAxiom);
         // then
-        assertCorrectResult(wrongAxiom, validAxiom, saveAndReload(o));
+        assertCorrectResult(wrongAxiom, validAxiom, saveAndReload());
     }
 
     @Test
@@ -155,7 +155,7 @@ public class InvalidAxiomRoundTripTestCase {
         OWLAxiom validAxiom = EquivalentClasses(e2, e3);
         // when
         addAxioms(wrongAxiom, validAxiom);
-        OWLOntology reloaded = saveAndReload(o);
+        OWLOntology reloaded = saveAndReload();
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
@@ -175,7 +175,7 @@ public class InvalidAxiomRoundTripTestCase {
         OWLAxiom validAxiom = EquivalentObjectProperties(e2, e3);
         // when
         addAxioms(wrongAxiom, validAxiom);
-        OWLOntology reloaded = saveAndReload(o);
+        OWLOntology reloaded = saveAndReload();
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
@@ -195,7 +195,7 @@ public class InvalidAxiomRoundTripTestCase {
         OWLAxiom validAxiom = EquivalentDataProperties(e2, e3);
         // when
         addAxioms(wrongAxiom, validAxiom);
-        OWLOntology reloaded = saveAndReload(o);
+        OWLOntology reloaded = saveAndReload();
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));

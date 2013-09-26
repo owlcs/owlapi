@@ -33,11 +33,13 @@ public class OWLOntologyChangeRecordTestCase {
         mockAxiom = mock(OWLAxiom.class);
     }
 
+    @SuppressWarnings("unused")
     @Test(expected = NullPointerException.class)
     public void testNewWithNullOntologyID() {
         new OWLOntologyChangeRecord(null, mockChangeData);
     }
 
+    @SuppressWarnings("unused")
     @Test(expected = NullPointerException.class)
     public void testNewWithNullChangeData() {
         new OWLOntologyChangeRecord(mockOntologyID, null);

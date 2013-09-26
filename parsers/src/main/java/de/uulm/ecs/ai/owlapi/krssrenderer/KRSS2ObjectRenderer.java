@@ -350,7 +350,6 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * Ulm University<br>
  * Institute of Artificial Intelligence<br>
  */
-@SuppressWarnings("javadoc")
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;
@@ -361,15 +360,19 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     protected boolean ignoreDeclarations = false;
 
     @Deprecated
+    @SuppressWarnings({ "unused", "javadoc" })
     public KRSS2ObjectRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer writer) {
         this(ontology, writer);
     }
 
+    /** @param ontology
+     * @param writer */
     public KRSS2ObjectRenderer(OWLOntology ontology, Writer writer) {
         super(ontology, writer);
         leftRightIdentityUsed = new HashSet<OWLSubPropertyChainOfAxiom>();
     }
 
+    /** @param ignoreDeclarations */
     public void setIgnoreDeclarations(boolean ignoreDeclarations) {
         this.ignoreDeclarations = ignoreDeclarations;
     }
@@ -884,7 +887,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         return axioms;
     }
 
-    public void reset() {
+    private void reset() {
         leftRightIdentityUsed.clear();
     }
 }

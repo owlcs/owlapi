@@ -437,6 +437,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
     }
 
+    @SuppressWarnings("unused")
     @Deprecated
     public OWLRDFConsumer(OWLOntologyManager owlOntologyManager, OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
         this(ontology, checker, configuration);

@@ -76,6 +76,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
     private ShortFormProvider shortFormProvider;
 
     @Deprecated
+    @SuppressWarnings("unused")
     public LatexRenderer(OWLOntologyManager owlOntologyManager) {
         this();
     }

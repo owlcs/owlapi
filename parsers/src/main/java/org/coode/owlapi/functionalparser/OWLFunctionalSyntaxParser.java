@@ -73,6 +73,7 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
+@SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     private OWLOntologyManager man;
     private OWLOntologyLoaderConfiguration configuration;
@@ -85,6 +86,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     private Set<OWLAnnotation> currentAnnotations;
 
     @Deprecated
+    @SuppressWarnings("unused")
     public void setUp(OWLOntologyManager man, OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
         setUp(ontology, configuration);
@@ -157,7 +159,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             OWLParserException, IOException, UnloadableImportException {
         label_1: while (true) {
             if (jj_2_1(2)) {
-                ;
+
             } else {
                 break label_1;
             }
@@ -185,17 +187,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             ontologyIRI = IRI();
             if (jj_2_2(2)) {
                 versionIRI = IRI();
-            } else {
-                ;
             }
-        } else {
-            ;
         }
         OWLOntologyID id = new OWLOntologyID(ontologyIRI, versionIRI);
         applyChange(new SetOntologyID(ontology, id));
         label_2: while (true) {
             if (jj_2_4(2)) {
-                ;
+
             } else {
                 break label_2;
             }
@@ -214,7 +212,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
         label_3: while (true) {
             if (jj_2_7(2)) {
-                ;
+
             } else {
                 break label_3;
             }
@@ -333,7 +331,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         classExpressions.add(desc);
         label_4: while (true) {
             if (jj_2_28(2)) {
-                ;
+
             } else {
                 break label_4;
             }
@@ -350,7 +348,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         individuals.add(ind);
         label_5: while (true) {
             if (jj_2_29(2)) {
-                ;
+
             } else {
                 break label_5;
             }
@@ -448,8 +446,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         if (jj_2_30(2)) {
             filler = ClassExpression();
-        } else {
-            ;
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
@@ -469,8 +465,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         if (jj_2_31(2)) {
             filler = ClassExpression();
-        } else {
-            ;
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
@@ -490,8 +484,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = ObjectPropertyExpression();
         if (jj_2_32(2)) {
             filler = ClassExpression();
-        } else {
-            ;
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
@@ -544,8 +536,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = DataPropertyExpression();
         if (jj_2_33(2)) {
             rng = DataRange();
-        } else {
-            ;
         }
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
@@ -565,8 +555,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = DataPropertyExpression();
         if (jj_2_34(2)) {
             rng = DataRange();
-        } else {
-            ;
         }
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
@@ -586,8 +574,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prop = DataPropertyExpression();
         if (jj_2_35(2)) {
             rng = DataRange();
-        } else {
-            ;
         }
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
@@ -766,14 +752,12 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     final public OWLDataRange DataOneOf() throws ParseException {
         Set<OWLLiteral> values = new HashSet<OWLLiteral>();
         OWLLiteral con = null;
-        OWLDataRange rng = null;
         jj_consume_token(DATAONEOF);
         jj_consume_token(OPENPAR);
         label_6: while (true) {
             con = Literal();
             values.add(con);
             if (jj_2_44(2)) {
-                ;
             } else {
                 break label_6;
             }
@@ -791,7 +775,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             dataRange = DataRange();
             ranges.add(dataRange);
             if (jj_2_45(2)) {
-                ;
             } else {
                 break label_7;
             }
@@ -809,7 +792,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             dataRange = DataRange();
             ranges.add(dataRange);
             if (jj_2_46(2)) {
-                ;
             } else {
                 break label_8;
             }
@@ -819,7 +801,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     final public OWLDataRange DataRangeRestriction() throws ParseException {
-        OWLFacet v;
         OWLDatatype rng;
         OWLFacetRestriction facetRestriction;
         Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
@@ -830,7 +811,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             facetRestriction = DataRangeFacetRestriction();
             facetRestrictions.add(facetRestriction);
             if (jj_2_47(2)) {
-                ;
             } else {
                 break label_9;
             }
@@ -1000,7 +980,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         props.add(prop);
         label_10: while (true) {
             if (jj_2_74(2)) {
-                ;
             } else {
                 break label_10;
             }
@@ -1072,7 +1051,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         props.add(prop);
         label_11: while (true) {
             if (jj_2_77(2)) {
-                ;
+
             } else {
                 break label_11;
             }
@@ -1269,7 +1248,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         props.add(prop);
         label_12: while (true) {
             if (jj_2_84(2)) {
-                ;
+
             } else {
                 break label_12;
             }
@@ -1353,7 +1332,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         individuals.add(ind);
         label_13: while (true) {
             if (jj_2_92(2)) {
-                ;
+
             } else {
                 break label_13;
             }
@@ -1519,7 +1498,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         label_14: while (true) {
             if (jj_2_99(2)) {
-                ;
+
             } else {
                 break label_14;
             }
@@ -1565,7 +1544,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         OWLAnnotation anno;
         label_15: while (true) {
             if (jj_2_105(2)) {
-                ;
+
             } else {
                 break label_15;
             }
@@ -1662,7 +1641,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         label_16: while (true) {
             if (jj_2_106(2)) {
-                ;
+
             } else {
                 break label_16;
             }
@@ -1673,7 +1652,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         label_17: while (true) {
             if (jj_2_107(2)) {
-                ;
+
             } else {
                 break label_17;
             }
@@ -1746,8 +1725,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                 jj_consume_token(-1);
                 throw new ParseException();
             }
-        } else {
-            ;
         }
         if (plain) {
             return dataFactory.getOWLLiteral(literal, lang);
@@ -1795,7 +1772,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         label_18: while (true) {
             if (jj_2_117(2)) {
-                ;
+
             } else {
                 break label_18;
             }
@@ -1808,7 +1785,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(OPENPAR);
         label_19: while (true) {
             if (jj_2_118(2)) {
-                ;
+
             } else {
                 break label_19;
             }
@@ -1894,7 +1871,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     final public SWRLBuiltInAtom BuiltInAtom() throws ParseException {
         IRI iri;
         List<SWRLDArgument> args;
-        ;
+
         SWRLDArgument arg;
         jj_consume_token(BUILTINATOM);
         jj_consume_token(OPENPAR);
@@ -1904,7 +1881,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         args.add(arg);
         label_20: while (true) {
             if (jj_2_126(2)) {
-                ;
+
             } else {
                 break label_20;
             }

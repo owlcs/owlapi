@@ -57,7 +57,8 @@ import org.xml.sax.SAXException;
 @SuppressWarnings("javadoc")
 public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
 
-
+    @SuppressWarnings("unused")
+    @Deprecated
     public OWLRDFConsumerAdapter(OWLOntologyManager owlOntologyManager, OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
         this(ontology, checker, configuration);
     }

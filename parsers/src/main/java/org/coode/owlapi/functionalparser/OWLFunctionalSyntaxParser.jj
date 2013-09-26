@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import java.io.IOException;
 import org.semanticweb.owlapi.io.OWLParserException;
 
-
+@SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxParser {
 
     private OWLOntologyManager man;

@@ -133,11 +133,13 @@ public abstract class RDFRendererBase {
     }
 
     @Deprecated
+    @SuppressWarnings("unused")
     public RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager) {
         this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 
     @Deprecated
+    @SuppressWarnings("unused")
     protected RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager,
             OWLOntologyFormat format) {
         this(ontology, format);

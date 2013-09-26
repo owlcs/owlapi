@@ -1,4 +1,5 @@
 package org.semanticweb.owlapi.api.test.syntax;
+
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
@@ -10,6 +11,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
+@SuppressWarnings("javadoc")
 public class FunctionalSyntaxCommentTestCase {
     @Test
     public void shouldParseCommentAndSkipIt() throws OWLOntologyCreationException {
@@ -23,13 +25,14 @@ public class FunctionalSyntaxCommentTestCase {
                 + ")";
         OWLOntology o = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(input));
-        
-OWLAxiom ax1= Declaration(DataProperty(IRI("urn:test.owl#city")));
-OWLAxiom ax2= SubClassOf(Class(IRI("urn:test.owl#ContactInformation")), DataMaxCardinality(1, 
-        DataProperty(IRI("urn:test.owl#city")), Datatype(OWL2Datatype.XSD_STRING.getIRI())));
-OWLAxiom ax3= Declaration(Class(IRI("urn:test.owl#ContactInformation")));
-assertTrue(o.containsAxiom(ax1));
-assertTrue(o.containsAxiom(ax2));
-assertTrue(o.containsAxiom(ax3));
+        OWLAxiom ax1 = Declaration(DataProperty(IRI("urn:test.owl#city")));
+        OWLAxiom ax2 = SubClassOf(
+                Class(IRI("urn:test.owl#ContactInformation")),
+                DataMaxCardinality(1, DataProperty(IRI("urn:test.owl#city")),
+                        Datatype(OWL2Datatype.XSD_STRING.getIRI())));
+        OWLAxiom ax3 = Declaration(Class(IRI("urn:test.owl#ContactInformation")));
+        assertTrue(o.containsAxiom(ax1));
+        assertTrue(o.containsAxiom(ax2));
+        assertTrue(o.containsAxiom(ax3));
     }
 }

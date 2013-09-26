@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 @SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
+    @SuppressWarnings("unused")
     @Deprecated
     public OWLFunctionalSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
 }

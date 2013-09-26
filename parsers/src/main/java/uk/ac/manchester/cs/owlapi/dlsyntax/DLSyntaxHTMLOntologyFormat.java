@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public class DLSyntaxHTMLOntologyFormat extends OWLOntologyFormat {
 
+    private static final long serialVersionUID = 30405L;
 
     @Override
 	public String toString() {

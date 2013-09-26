@@ -63,6 +63,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public class OWLXMLRenderer extends AbstractOWLRenderer {
 
     @Deprecated
+    @SuppressWarnings("unused")
     public OWLXMLRenderer(OWLOntologyManager owlOntologyManager) {
     }
 

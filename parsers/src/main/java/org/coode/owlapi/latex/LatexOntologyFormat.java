@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public class LatexOntologyFormat extends OWLOntologyFormat {
 
-
+    private static final long serialVersionUID = 30405L;
     @Override
 	public String toString() {
         return "Latex";

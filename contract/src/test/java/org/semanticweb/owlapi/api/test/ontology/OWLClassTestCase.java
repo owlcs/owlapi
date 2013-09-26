@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLEntityTestCase;
 import org.semanticweb.owlapi.model.IRI;

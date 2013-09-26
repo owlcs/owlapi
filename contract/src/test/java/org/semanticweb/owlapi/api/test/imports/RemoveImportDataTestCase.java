@@ -33,6 +33,7 @@ public class RemoveImportDataTestCase {
         mockOntology = mock(OWLOntology.class);
     }
 
+    @SuppressWarnings("unused")
     @Test(expected = NullPointerException.class)
     public void testNewWithNullArgs() {
         new RemoveImportData(null);

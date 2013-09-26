@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.IRI;
 /** Unit tests for the {@link IRI} class.
  * 
  * @author Peter Ansell p_ansell@yahoo.com */
+@SuppressWarnings("javadoc")
 public class IRITest {
     /** All of the unit tests individually timeout after 60 seconds. */
     @Rule
@@ -64,6 +65,7 @@ public class IRITest {
         for (int i = 0; i < threadCount; i++) {
             final int number = i;
             Runnable runner = new Runnable() {
+                @Override
                 public void run() {
                     try {
                         openLatch.await();
@@ -104,6 +106,7 @@ public class IRITest {
         for (int i = 0; i < threadCount; i++) {
             final int number = i;
             Runnable runner = new Runnable() {
+                @Override
                 public void run() {
                     try {
                         openLatch.await();

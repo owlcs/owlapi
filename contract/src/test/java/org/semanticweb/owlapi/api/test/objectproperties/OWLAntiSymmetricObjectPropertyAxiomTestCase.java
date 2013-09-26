@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLObjectPropertyCharacteristicAxiomTestCase;
 import org.semanticweb.owlapi.model.OWLException;
