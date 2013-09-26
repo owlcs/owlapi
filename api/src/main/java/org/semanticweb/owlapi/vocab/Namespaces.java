@@ -49,75 +49,79 @@ import static org.semanticweb.owlapi.vocab.Namespaces.Status.*;
 public enum Namespaces {
     //@formatter:off
     // OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
-    /** The OWL 2 namespace is here for legacy reasons. */
-    OWL2    ("owl2",    "http://www.w3.org/2006/12/owl2#", LEGACY),
-    /** legacy */                                                           
-    OWL11XML("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", LEGACY),
-    /** The OWL 1.1 namespace is here for legacy reasons. */                
-    OWL11   ("owl11",   "http://www.w3.org/2006/12/owl11#", LEGACY),
-    OWL     ("owl",     "http://www.w3.org/2002/07/owl#", IN_USE, BUILT_IN),
-    RDFS    ("rdfs",    "http://www.w3.org/2000/01/rdf-schema#", IN_USE, BUILT_IN),
-    RDF     ("rdf",     "http://www.w3.org/1999/02/22-rdf-syntax-ns#", IN_USE, BUILT_IN),
-    XSD     ("xsd",     "http://www.w3.org/2001/XMLSchema#", IN_USE, BUILT_IN),
-    XML     ("xml",     "http://www.w3.org/XML/1998/namespace"),
-    SWRL    ("swrl",    "http://www.w3.org/2003/11/swrl#"),
-    SWRLB   ("swrlb",   "http://www.w3.org/2003/11/swrlb#"),
-    SKOS    ("skos",    "http://www.w3.org/2004/02/skos/core#"),
-    // Further namespaces from the RDFa Core Initial Context                       
-    // http://www.w3.org/2011/rdfa-context/rdfa-1.1                                
-    GRDDL   ("grddl",   "http://www.w3.org/2003/g/data-view#"),
-    MA      ("ma",      "http://www.w3.org/ns/ma-ont#"),
-    PROV    ("prov",    "http://www.w3.org/ns/prov#"),
-    RDFA    ("rdfa",    "http://www.w3.org/ns/rdfa#"),
-    RIF     ("rif",     "http://www.w3.org/2007/rif#"),
-    R2RML   ("rr",      "http://www.w3.org/ns/r2rml#"),
-    SD      ("sd",      "http://www.w3.org/ns/sparql-service-description#"),
-    SKOSXL  ("skosxl",  "http://www.w3.org/2008/05/skos-xl#"),
-    POWDER  ("wdr",     "http://www.w3.org/2007/05/powder#"),
-    VOID    ("void",    "http://rdfs.org/ns/void#"),
-    POWDERS ("wdrs",    "http://www.w3.org/2007/05/powder-s#"),
-    XHV     ("xhv",     "http://www.w3.org/1999/xhtml/vocab#"),
-    ORG     ("org",     "http://www.w3.org/ns/org#"),
-    GLDP    ("gldp",    "http://www.w3.org/ns/people#"),
-    CNT     ("cnt",     "http://www.w3.org/2008/content#"),
-    DCAT    ("dcat",    "http://www.w3.org/ns/dcat#"),
-    EARL    ("earl",    "http://www.w3.org/ns/earl#"),
-    HT      ("ht",      "http://www.w3.org/2006/http#"),
-    PTR     ("ptr",     "http://www.w3.org/2009/pointers#"),
-    // Other widely used Semantic Web prefixes                                     
-    CC      ("cc",      "http://creativecommons.org/ns#"),
-    CTAG    ("ctag",    "http://commontag.org/ns#"),
-    DCTERMS ("dcterms", "http://purl.org/dc/terms/"),
-    DC      ("dc",      "http://purl.org/dc/elements/1.1/"),
-    FOAF    ("foaf",    "http://xmlns.com/foaf/0.1/"),
-    GR      ("gr",      "http://purl.org/goodrelations/v1#"),
-    ICAL    ("ical",    "http://www.w3.org/2002/12/cal/icaltzd#"),
-    OG      ("og",      "http://ogp.me/ns#"),
-    REV     ("rev",     "http://purl.org/stuff/rev#"),
-    SIOC    ("sioc",    "http://rdfs.org/sioc/ns#"),
-    VCARD   ("vcard",   "http://www.w3.org/2006/vcard/ns#"),
-    SCHEMA  ("schema",  "http://schema.org/"),
-    GEO     ("geo",     "http://www.w3.org/2003/01/geo/wgs84_pos#"),
-    SC      ("sc",      "http://purl.org/science/owl/sciencecommons/"),
-    FB      ("fb",      "http://rdf.freebase.com/ns/", LEGACY),
-    GEONAMES("geonames","http://www.geonames.org/ontology#", LEGACY),
-    // DBpedia                                                              
-    DBPEDIA("dbpedia",  "http://dbpedia.org/resource/", LEGACY),
-    DBP    ("dbp",      "http://dbpedia.org/property/", LEGACY),
-    DBO    ("dbo",      "http://dbpedia.org/ontology/"),
-    YAGO   ("yago",     "http://dbpedia.org/class/yago/");
-    //@formatter:on
-    final String prefix;
-    final String ns;
-    final Status status;
-    final BuiltIn builtIn;
+    /** The OWL 2 namespace. */    OWL2        ("owl2",     "http://www.w3.org/2006/12/owl2#", Status.LEGACY),
+    /** Status.LEGACY */           OWL11XML    ("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", Status.LEGACY),
+    /** The OWL 1.1 namespace. */  OWL11       ("owl11",    "http://www.w3.org/2006/12/owl11#", Status.LEGACY),
+    /**The OWL namespace */        OWL         ("owl",      "http://www.w3.org/2002/07/owl#", IN_USE),
+    /**The RDFS namespace */       RDFS        ("rdfs",     "http://www.w3.org/2000/01/rdf-schema#", IN_USE),
+    /** The RDF namespace. */      RDF         ("rdf",      "http://www.w3.org/1999/02/22-rdf-syntax-ns#", IN_USE),
+    /** The XSD namespace. */      XSD         ("xsd",      "http://www.w3.org/2001/XMLSchema#", IN_USE),
+    /** The XML namespace. */      XML         ("xml",      "http://www.w3.org/XML/1998/namespace"),
+    /** The SWRL namespace. */     SWRL        ("swrl",     "http://www.w3.org/2003/11/swrl#"),
+    /** The SWRLB namespace. */    SWRLB       ("swrlb",    "http://www.w3.org/2003/11/swrlb#"),
+    /** The SKOS namespace. */     SKOS        ("skos",     "http://www.w3.org/2004/02/skos/core#"),
 
-    Namespaces(String prefix, String ns, Status status) {
-        this(prefix, ns, status, NOT_BUILT_IN);
-    }
+    // Further namespaces from the RDFa Core Initial Context
+    // http://www.w3.org/2011/rdfa-context/rdfa-1.1
+    /** The GRDDL namespace. */    GRDDL       ("grddl",    "http://www.w3.org/2003/g/data-view#"),
+    /** The MA namespace. */       MA          ("ma",       "http://www.w3.org/ns/ma-ont#"),
+    /** The PROV namespace. */     PROV        ("prov",     "http://www.w3.org/ns/prov#"),
+    /** The RDFA namespace. */     RDFA        ("rdfa",     "http://www.w3.org/ns/rdfa#"),
+    /** The RIF namespace. */      RIF         ("rif",      "http://www.w3.org/2007/rif#"),
+    /** The R2RML namespace. */    R2RML       ("rr",       "http://www.w3.org/ns/r2rml#"),
+    /** The SD namespace. */       SD          ("sd",       "http://www.w3.org/ns/sparql-service-description#"),
+    /** The SKOSXL namespace. */   SKOSXL      ("skosxl",   "http://www.w3.org/2008/05/skos-xl#"),
+    /** The POWDER namespace. */   POWDER      ("wdr",      "http://www.w3.org/2007/05/powder#"),
+    /** The VOID namespace. */     VOID        ("void",     "http://rdfs.org/ns/void#"),
+    /** The POWDERS namespace. */  POWDERS     ("wdrs",     "http://www.w3.org/2007/05/powder-s#"),
+    /** The XHV namespace. */      XHV         ("xhv",      "http://www.w3.org/1999/xhtml/vocab#"),
+    /** The ORG namespace. */      ORG         ("org",      "http://www.w3.org/ns/org#"),
+    /** The GLDP namespace. */     GLDP        ("gldp",     "http://www.w3.org/ns/people#"),
+    /** The CNT namespace. */      CNT         ("cnt",      "http://www.w3.org/2008/content#"),
+    /** The DCAT namespace. */     DCAT        ("dcat",     "http://www.w3.org/ns/dcat#"),
+    /** The EARL namespace. */     EARL        ("earl",     "http://www.w3.org/ns/earl#"),
+    /** The HT namespace. */       HT          ("ht",       "http://www.w3.org/2006/http#"),
+    /** The PTR namespace. */      PTR         ("ptr",      "http://www.w3.org/2009/pointers#"),
+
+    // Other widely used Semantic Web prefixes
+    /** The CC namespace. */       CC          ("cc",       "http://creativecommons.org/ns#"),
+    /** The CTAG namespace. */     CTAG        ("ctag",     "http://commontag.org/ns#"),
+    /** The DCTERMS namespace. */  DCTERMS     ("dcterms",  "http://purl.org/dc/terms/"),
+    /** The DC namespace. */       DC          ("dc",       "http://purl.org/dc/elements/1.1/"),
+    /** The FOAF namespace. */     FOAF        ("foaf",     "http://xmlns.com/foaf/0.1/"),
+    /** The GR namespace. */       GR          ("gr",       "http://purl.org/goodrelations/v1#"),
+    /** The ICAL namespace. */     ICAL        ("ical",     "http://www.w3.org/2002/12/cal/icaltzd#"),
+    /** The OG namespace. */       OG          ("og",       "http://ogp.me/ns#"),
+    /** The REV namespace. */      REV         ("rev",      "http://purl.org/stuff/rev#"),
+    /** The SIOC namespace. */     SIOC        ("sioc",     "http://rdfs.org/sioc/ns#"),
+    /** The VCARD namespace. */    VCARD       ("vcard",    "http://www.w3.org/2006/vcard/ns#"),
+    /** The SCHEMA namespace. */   SCHEMA      ("schema",   "http://schema.org/"),
+    /** The GEO namespace. */      GEO         ("geo",      "http://www.w3.org/2003/01/geo/wgs84_pos#"),
+    /** The SC namespace. */       SC          ("sc",       "http://purl.org/science/owl/sciencecommons/"),
+    /** The FB namespace. */       FB          ("fb",       "http://rdf.freebase.com/ns/", Status.LEGACY),
+    /** The GEONAMES namespace. */ GEONAMES    ("geonames", "http://www.geonames.org/ontology#", Status.LEGACY),
+
+    // DBpedia
+    /** The DBPEDIA namespace. */  DBPEDIA     ("dbpedia", "http://dbpedia.org/resource/"),
+    /** The DBP namespace. */      DBP         ("dbp",     "http://dbpedia.org/property/"),
+    /** The DBO namespace. */      DBO         ("dbo",     "http://dbpedia.org/ontology/"),
+    /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/");
+    //@formatter:on
+
+    final String prefix;
+
+    final String ns;
+
+    final Status status;
+
+    final BuiltIn builtIn;
 
     Namespaces(String prefix, String ns) {
         this(prefix, ns, IN_USE, NOT_BUILT_IN);
+    }
+
+    Namespaces(String prefix, String ns, Status status) {
+        this(prefix, ns, status, status == Status.LEGACY ? NOT_BUILT_IN : BUILT_IN);
     }
 
     Namespaces(String prefix, String ns, Status status, BuiltIn builtIn) {
@@ -126,7 +130,6 @@ public enum Namespaces {
         this.status = status;
         this.builtIn = builtIn;
     }
-
     /** @return A short, human-readable, prefix name that matches, and expands to
      *         the full IRI. Not {@code null}. */
     public String getPrefixName() {
@@ -154,15 +157,24 @@ public enum Namespaces {
     public String toString() {
         return ns;
     }
-
-    /** Indicates that a prefix is builtin - i.e. that it is either owl, rdf,
-     * rdfs, or xsd */
+    /**
+     * Indicates that a prefix is builtin - i.e. that it is either owl, rdf, rdfs, or xsd
+     */
     public static enum BuiltIn {
-        BUILT_IN, NOT_BUILT_IN
+        /** built in flag */
+        BUILT_IN,
+        /** not built in flag */
+        NOT_BUILT_IN
     }
 
-    /** Indicates whether a prefix is a legacy prefix or not. */
+    /**
+     * Indicates whether a prefix is a legacy prefix or not.
+     */
     public static enum Status {
-        LEGACY, IN_USE
+        /** legacy flag */
+        LEGACY,
+        /** in use flag */
+        IN_USE
     }
+
 }

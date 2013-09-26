@@ -46,6 +46,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Date: 02-Jan-2007<br>
  * <br> */
 public class KRSSOntologyFormat extends OWLOntologyFormat {
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public String toString() {
         return "KRSS Syntax";
