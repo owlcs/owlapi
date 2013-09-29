@@ -94,6 +94,8 @@ public final class OWLOntologyLoaderConfiguration {
     private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = DEFAULT_MISSING_ONTOLOGY_HEADER_STRATEGY;
 
     private boolean strict = false;
+    /** flag to enable stack traces on parsing exceptions */
+    private boolean reportStackTraces = false;
     private boolean followRedirects = true;
 
     private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
@@ -331,6 +333,28 @@ public final class OWLOntologyLoaderConfiguration {
         return configuration;
     }
 
+    /** Set the value for the report stack traces flag. If true, parsing
+     * exceptions will have the full stack trace for the source exceptions.
+     * Default is false.
+     * 
+     * @param b
+     *            the new value for the flag
+     * @return A <code>OWLOntologyLoaderConfiguration</code> with the report
+     *         flag set to the new value. */
+    public OWLOntologyLoaderConfiguration setReportStackTraces(boolean b) {
+        if (b == reportStackTraces) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.reportStackTraces = b;
+        return configuration;
+    }
+
+    /** @return value for the report stack trace flag. */
+    public boolean isReportStackTrace() {
+        return reportStackTraces;
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -348,6 +372,7 @@ public final class OWLOntologyLoaderConfiguration {
         copy.missingImportHandlingStrategy = missingImportHandlingStrategy;
         copy.missingOntologyHeaderStrategy = missingOntologyHeaderStrategy;
         copy.followRedirects = followRedirects;
+        copy.reportStackTraces = reportStackTraces;
         return copy;
     }
 

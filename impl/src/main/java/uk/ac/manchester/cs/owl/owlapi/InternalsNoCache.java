@@ -44,7 +44,6 @@ import java.util.Locale;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -68,18 +67,14 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             .getDatatype(OWL2Datatype.XSD_INTEGER);
     private static final OWLDatatype RDFS_LITERAL = OWL2DatatypeImpl
             .getDatatype(OWL2Datatype.RDFS_LITERAL);
-    private final OWLDataFactory factory;
     private final OWLLiteral trueLiteral;
     private final OWLLiteral falseLiteral;
     private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 
-    /** @param f
-     *            the factory to refer to
-     * @param useCompression
+    /** @param useCompression
      *            true if compression of literals should be used */
-    public InternalsNoCache(OWLDataFactory f, boolean useCompression) {
-        factory = f;
+    public InternalsNoCache(boolean useCompression) {
         trueLiteral = new OWLLiteralImplBoolean(true);
         falseLiteral = new OWLLiteralImplBoolean(false);
         this.useCompression = useCompression;

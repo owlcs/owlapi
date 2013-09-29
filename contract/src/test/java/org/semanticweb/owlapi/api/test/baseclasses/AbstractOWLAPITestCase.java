@@ -48,11 +48,11 @@ import java.util.Set;
 import org.junit.Before;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
+import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
@@ -179,7 +180,9 @@ public abstract class AbstractOWLAPITestCase {
     public OWLOntology loadOntology(String fileName) {
         try {
             URL url = getClass().getResource("/" + fileName);
-            return manager.loadOntologyFromOntologyDocument(IRI.create(url));
+            return manager.loadOntologyFromOntologyDocument(
+                    new IRIDocumentSource(IRI.create(url)),
+                    new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
         } catch (OWLOntologyCreationException e) {
             fail(e.getMessage());
             throw new OWLRuntimeException(e);
@@ -213,7 +216,6 @@ public abstract class AbstractOWLAPITestCase {
      *            The format to use when doing the round trip. */
     public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormat format)
             throws Exception {
-        UnparsableOntologyException.setIncludeStackTraceInMessage(true);
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyFormat fromFormat = manager.getOntologyFormat(ont);
         if (fromFormat instanceof PrefixOWLOntologyFormat
@@ -228,8 +230,11 @@ public abstract class AbstractOWLAPITestCase {
         manager.saveOntology(ont, format, target);
         handleSaved(target, format);
         OWLOntologyManager man = Factory.getManager();
+        System.out.println("AbstractOWLAPITestCase.roundTripOntology() "
+                + target.toString());
         OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                target.toString()));
+                target.toString()), new OWLOntologyLoaderConfiguration()
+                .setReportStackTraces(true));
         equal(ont, ont2);
         return ont2;
     }

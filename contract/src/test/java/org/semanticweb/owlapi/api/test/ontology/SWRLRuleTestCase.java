@@ -45,6 +45,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -108,5 +109,16 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
                 IRI("http://www.owlapi#myBuiltIn"), args));
         axioms.add(Factory.getFactory().getSWRLRule(body, head));
         return axioms;
+    }
+
+    @Test
+    @Override
+    public void testManchesterOWLSyntax() throws Exception {
+        try {
+            super.testManchesterOWLSyntax();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 }

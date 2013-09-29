@@ -56,6 +56,10 @@ public class ManchesterOWLSyntaxTokenizer {
 
     public static final String EOF = "|EOF|";
 
+    public static boolean EOF(String s) {
+        return EOF.equals(s);
+    }
+
     protected Set<Character> skip = new HashSet<Character>();
 
     protected Set<Character> commentDelimiters = new HashSet<Character>();

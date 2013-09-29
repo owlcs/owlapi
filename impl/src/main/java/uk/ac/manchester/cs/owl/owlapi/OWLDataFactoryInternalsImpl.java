@@ -43,7 +43,6 @@ import java.lang.ref.WeakReference;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -106,8 +105,8 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         return new BuildableWeakIndexCache<V>();
     }
 
-    public OWLDataFactoryInternalsImpl(OWLDataFactory f, boolean useCompression) {
-        super(f, useCompression);
+    public OWLDataFactoryInternalsImpl(boolean useCompression) {
+        super(useCompression);
         classesByURI = buildCache();
         objectPropertiesByURI = buildCache();
         dataPropertiesByURI = buildCache();

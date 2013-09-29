@@ -129,22 +129,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     private void writeRestriction(OWLQuantifiedDataRestriction restriction, ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
-        boolean conjunctionOrDisjunction = false;
-        if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
-            if (restriction.getFiller() instanceof OWLObjectIntersectionOf || restriction.getFiller() instanceof OWLObjectUnionOf) {
-                conjunctionOrDisjunction = true;
-                incrementTab(4);
-                writeNewLine();
-            }
-            write("(");
-        }
         restriction.getFiller().accept(this);
-        if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
-            write(")");
-            if (conjunctionOrDisjunction) {
-                popTab();
-            }
-        }
     }
 
     private void writeRestriction(OWLQuantifiedObjectRestriction restriction, ManchesterOWLSyntax keyword) {
