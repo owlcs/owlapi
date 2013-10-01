@@ -230,8 +230,6 @@ public abstract class AbstractOWLAPITestCase {
         manager.saveOntology(ont, format, target);
         handleSaved(target, format);
         OWLOntologyManager man = Factory.getManager();
-        System.out.println("AbstractOWLAPITestCase.roundTripOntology() "
-                + target.toString());
         OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
                 target.toString()), new OWLOntologyLoaderConfiguration()
                 .setReportStackTraces(true));
