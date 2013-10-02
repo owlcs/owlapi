@@ -39,7 +39,7 @@
 
 package org.semanticweb.owlapi.io;
 
-import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 
 /**
@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLException;
  *
  * Indicates that a parse error happened when trying to parse an ontology.
  */
-public class OWLParserException extends OWLException {
+public class OWLParserException extends OWLRuntimeException {
 
 
 	private static final long serialVersionUID = 30402L;
@@ -61,8 +61,8 @@ public class OWLParserException extends OWLException {
 
     @SuppressWarnings("javadoc")
 	public OWLParserException() {
-        this.lineNumber = -1;
-        this.columnNumber=-1;
+        lineNumber = -1;
+        columnNumber=-1;
     }
 
     /**
@@ -71,7 +71,7 @@ public class OWLParserException extends OWLException {
     public OWLParserException(String message) {
         super(message);
         lineNumber = -1;
-        this.columnNumber=-1;
+        columnNumber=-1;
     }
 
     /**
@@ -81,7 +81,7 @@ public class OWLParserException extends OWLException {
     public OWLParserException(String message, Throwable cause) {
         super(message, cause);
         lineNumber = -1;
-        this.columnNumber=-1;
+        columnNumber=-1;
     }
 
     /**
@@ -90,7 +90,7 @@ public class OWLParserException extends OWLException {
     public OWLParserException(Throwable cause) {
         super(cause);
         lineNumber = -1;
-        this.columnNumber=-1;
+        columnNumber=-1;
     }
 
     /**

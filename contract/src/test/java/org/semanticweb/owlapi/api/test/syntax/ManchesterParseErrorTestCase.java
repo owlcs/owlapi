@@ -17,7 +17,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 @SuppressWarnings("javadoc")
-public class ManchesterParseError {
+public class ManchesterParseErrorTestCase {
     @Test(expected = ParserException.class)
     public void shouldNotParse() throws ParserException {
         parse("p some rdfs:Literal");
