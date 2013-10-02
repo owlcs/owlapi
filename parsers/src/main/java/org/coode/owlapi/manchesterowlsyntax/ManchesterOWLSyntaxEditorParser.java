@@ -470,7 +470,7 @@ public class ManchesterOWLSyntaxEditorParser {
      * @throws ParserException
      *             If a class expression could not be parsed. */
     public OWLClassExpression parseClassExpression() throws ParserException {
-        OWLClassExpression desc = parseIntersection();
+        OWLClassExpression desc = parseUnion();
         if (!EOF(consumeToken())) {
             throw new ExceptionBuilder().withKeyword(EOF).build();
         }
@@ -482,7 +482,7 @@ public class ManchesterOWLSyntaxEditorParser {
         String kw = AND.keyword();
         while (AND.matches(kw)) {
             potentialKeywords.remove(AND);
-            ops.add(parseUnion());
+            ops.add(parseNonNaryClassExpression());
             potentialKeywords.add(AND);
             kw = peekToken();
             if (AND.matches(kw)) {
@@ -499,12 +499,12 @@ public class ManchesterOWLSyntaxEditorParser {
         }
     }
 
-    private OWLClassExpression parseUnion() {
+    protected OWLClassExpression parseUnion() {
         Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
         String kw = OR.keyword();
         while (OR.matches(kw)) {
             potentialKeywords.remove(OR);
-            ops.add(parseNonNaryClassExpression());
+            ops.add(parseIntersection());
             potentialKeywords.add(OR);
             kw = peekToken();
             if (OR.matches(kw)) {
@@ -645,7 +645,7 @@ public class ManchesterOWLSyntaxEditorParser {
             String tok = peekToken();
             Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
             if (!OPENBRACKET.matches(tok)) {
-                descs.add(parseIntersection());
+                descs.add(parseUnion());
             } else {
                 descs.addAll(parseClassExpressionList(OPENBRACKET, CLOSEBRACKET));
             }
@@ -937,7 +937,7 @@ public class ManchesterOWLSyntaxEditorParser {
         String tok = peekToken();
         if (OPEN.matches(tok)) {
             consumeToken();
-            OWLClassExpression desc = parseIntersection();
+            OWLClassExpression desc = parseUnion();
             String closeBracket = consumeToken();
             if (!CLOSE.matches(closeBracket)) {
                 // Error!
@@ -1582,7 +1582,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     private SWRLAtom parseClassAtom() {
-        OWLClassExpression predicate = parseIntersection();
+        OWLClassExpression predicate = parseUnion();
         consumeToken(OPEN.keyword());
         SWRLIArgument obj = parseIObject();
         consumeToken(CLOSE.keyword());
@@ -1821,7 +1821,7 @@ public class ManchesterOWLSyntaxEditorParser {
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
             potentialKeywords.remove(COMMA);
-            descs.add(parseIntersection());
+            descs.add(parseUnion());
             potentialKeywords.add(COMMA);
             sep = peekToken();
             if (COMMA.matches(sep)) {
@@ -1841,7 +1841,7 @@ public class ManchesterOWLSyntaxEditorParser {
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
             potentialKeywords.remove(COMMA);
-            OWLClassExpression desc = parseIntersection();
+            OWLClassExpression desc = parseUnion();
             potentialKeywords.add(COMMA);
             descs.add(desc);
             sep = peekToken();
@@ -2517,7 +2517,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     private OWLAxiom parseAxiomWithClassExpressionStart() {
-        return parseClassAxiomRemainder(parseIntersection());
+        return parseClassAxiomRemainder(parseUnion());
     }
 
     private OWLAxiom parseClassAxiomRemainder(OWLClassExpression startExpression) {
@@ -2538,7 +2538,7 @@ public class ManchesterOWLSyntaxEditorParser {
             OWLClassExpression ce = dataFactory.getOWLObjectIntersectionOf(conjuncts);
             return parseClassAxiomRemainder(ce);
         } else if (OR.matches(kw)) {
-            OWLClassExpression disjunct = parseIntersection();
+            OWLClassExpression disjunct = parseUnion();
             Set<OWLClassExpression> disjuncts = disjunct.asDisjunctSet();
             disjuncts.add(startExpression);
             OWLClassExpression ce = dataFactory.getOWLObjectUnionOf(disjuncts);
@@ -2553,26 +2553,26 @@ public class ManchesterOWLSyntaxEditorParser {
         OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
         String kw = consumeToken();
         if (SOME.matches(kw)) {
-            OWLClassExpression filler = parseIntersection();
+            OWLClassExpression filler = parseUnion();
             return parseClassAxiomRemainder(dataFactory.getOWLObjectSomeValuesFrom(prop,
                     filler));
         } else if (ONLY.matches(kw)) {
-            OWLClassExpression filler = parseIntersection();
+            OWLClassExpression filler = parseUnion();
             return parseClassAxiomRemainder(dataFactory.getOWLObjectAllValuesFrom(prop,
                     filler));
         } else if (MIN.matches(kw)) {
             int cardi = parseInteger();
-            OWLClassExpression filler = parseIntersection();
+            OWLClassExpression filler = parseUnion();
             return parseClassAxiomRemainder(dataFactory.getOWLObjectMinCardinality(cardi,
                     prop, filler));
         } else if (MAX.matches(kw)) {
             int cardi = parseInteger();
-            OWLClassExpression filler = parseIntersection();
+            OWLClassExpression filler = parseUnion();
             return parseClassAxiomRemainder(dataFactory.getOWLObjectMaxCardinality(cardi,
                     prop, filler));
         } else if (EXACTLY.matches(kw)) {
             int cardi = parseInteger();
-            OWLClassExpression filler = parseIntersection();
+            OWLClassExpression filler = parseUnion();
             return parseClassAxiomRemainder(dataFactory.getOWLObjectExactCardinality(
                     cardi, prop, filler));
         } else if (SUB_PROPERTY_OF.matches(kw)) {
