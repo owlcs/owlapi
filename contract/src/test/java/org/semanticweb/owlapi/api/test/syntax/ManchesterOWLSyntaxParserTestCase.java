@@ -15,10 +15,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
-import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -30,6 +28,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -38,6 +37,7 @@ import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
@@ -239,8 +239,7 @@ public class ManchesterOWLSyntaxParserTestCase {
     }
 
     @Test
-    public void shouldDoPrecedenceWithParentheses() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldDoPrecedenceWithParentheses() throws OWLOntologyCreationException {
         // given
         OWLClass a = Class(IRI("urn:test#a"));
         OWLClass b = Class(IRI("urn:test#b"));
@@ -256,10 +255,6 @@ public class ManchesterOWLSyntaxParserTestCase {
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(c));
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(d));
         manager.addAxiom(o, factory.getOWLSubClassOfAxiom(expected, d));
-        o.getOWLOntologyManager().saveOntology(o,
-                new OWLFunctionalSyntaxOntologyFormat(), new SystemOutDocumentTarget());
-        o.getOWLOntologyManager().saveOntology(o,
-                new ManchesterOWLSyntaxOntologyFormat(), new SystemOutDocumentTarget());
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 Arrays.asList(factory.getRDFSLabel()),
@@ -280,8 +275,44 @@ public class ManchesterOWLSyntaxParserTestCase {
     }
 
     @Test
+    public void shouldParseCorrectlydecimal() throws OWLOntologyCreationException {
+        // given
+        String text1 = "p some decimal[<=2.0, >= 1.0]";
+        OWLDatatype decimal = factory.getOWLDatatype(OWL2Datatype.XSD_DECIMAL.getIRI());
+        OWLFacetRestriction max = factory.getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE,
+                factory.getOWLLiteral("2.0", decimal));
+        OWLFacetRestriction min = factory.getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE,
+                factory.getOWLLiteral("1.0", decimal));
+        OWLClassExpression expected = factory.getOWLDataSomeValuesFrom(p,
+                factory.getOWLDatatypeRestriction(decimal, max, min));
+        // ontology creation including labels - this is the input ontology
+        OWLOntologyManager manager = Factory.getManager();
+        OWLOntology o = manager.createOntology();
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(p));
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(decimal));
+        manager.addAxiom(o, annotation(p, "p"));
+        // select a short form provider that uses annotations
+        ShortFormProvider sfp = new AnnotationValueShortFormProvider(
+                Arrays.asList(factory.getRDFSLabel()),
+                Collections.<OWLAnnotationProperty, List<String>> emptyMap(), manager);
+        BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
+                manager.getOntologies(), sfp);
+        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
+                factory, text1);
+        ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
+                shortFormProvider);
+        parser.setOWLEntityChecker(owlEntityChecker);
+        parser.setDefaultOntology(o);
+        // when
+        // finally parse
+        OWLClassExpression dsvf = parser.parseClassExpression();
+        // then
+        assertEquals(expected, dsvf);
+    }
+
+    @Test
     public void shouldDoPrecedenceWithoutParentheses()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws OWLOntologyCreationException {
         // given
         OWLClass a = Class(IRI("urn:test#a"));
         OWLClass b = Class(IRI("urn:test#b"));
@@ -297,10 +328,6 @@ public class ManchesterOWLSyntaxParserTestCase {
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(c));
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(d));
         manager.addAxiom(o, factory.getOWLSubClassOfAxiom(expected, d));
-        o.getOWLOntologyManager().saveOntology(o,
-                new OWLFunctionalSyntaxOntologyFormat(), new SystemOutDocumentTarget());
-        o.getOWLOntologyManager().saveOntology(o,
-                new ManchesterOWLSyntaxOntologyFormat(), new SystemOutDocumentTarget());
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 Arrays.asList(factory.getRDFSLabel()),

@@ -683,7 +683,7 @@ public class ManchesterOWLSyntaxEditorParser {
             OWLDataRange rng = parseDataRange();
             return dataFactory.getOWLDataAllValuesFrom(prop, rng);
         } else if (VALUE.matches(kw)) {
-            OWLLiteral con = parseConstant();
+            OWLLiteral con = parseLiteral(null);
             return dataFactory.getOWLDataHasValue(prop, con);
         } else if (MIN.matches(kw)) {
             int card = parseInteger();
@@ -793,7 +793,7 @@ public class ManchesterOWLSyntaxEditorParser {
                         throw new ExceptionBuilder().withKeyword(OWLFacet.getFacets())
                                 .build();
                     }
-                    OWLLiteral con = parseConstant();
+                    OWLLiteral con = parseLiteral(datatype);
                     facetRestrictions.add(dataFactory.getOWLFacetRestriction(fv, con));
                     sep = consumeToken();
                 }
@@ -841,7 +841,7 @@ public class ManchesterOWLSyntaxEditorParser {
         Set<OWLLiteral> cons = new HashSet<OWLLiteral>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
-            OWLLiteral con = parseConstant();
+            OWLLiteral con = parseLiteral(null);
             cons.add(con);
             sep = consumeToken();
         }
@@ -860,7 +860,7 @@ public class ManchesterOWLSyntaxEditorParser {
         return dataFactory.getOWLDataComplementOf(complementedDataRange);
     }
 
-    private OWLLiteral parseLiteral() {
+    private OWLLiteral parseLiteral(OWLDatatype datatype) {
         String tok = consumeToken();
         if (tok.startsWith("\"")) {
             String lit = "";
@@ -883,6 +883,10 @@ public class ManchesterOWLSyntaxEditorParser {
                 return dataFactory.getOWLLiteral(lit, "");
             }
         } else {
+            if (datatype != null) {
+                // datatype is known from context
+                return dataFactory.getOWLLiteral(tok, datatype);
+            }
             try {
                 int i = Integer.parseInt(tok);
                 return dataFactory.getOWLLiteral(i);
@@ -918,11 +922,6 @@ public class ManchesterOWLSyntaxEditorParser {
                 LITERAL_LIT_DATATYPE, LITERAL_LIT_LANG).build();
     }
 
-    /** @deprecated Use {@link #parseLiteral()} instead */
-    @Deprecated
-    private OWLLiteral parseConstant() {
-        return parseLiteral();
-    }
 
     private int parseInteger() {
         String i = consumeToken();
@@ -1206,7 +1205,7 @@ public class ManchesterOWLSyntaxEditorParser {
             IRI value = parseIRI();
             anno = dataFactory.getOWLAnnotation(annoProp, value);
         } else {
-            OWLLiteral con = parseLiteral();
+            OWLLiteral con = parseLiteral(null);
             anno = dataFactory.getOWLAnnotation(annoProp, con);
         }
         return anno;
@@ -1397,7 +1396,7 @@ public class ManchesterOWLSyntaxEditorParser {
         String prop = peekToken();
         if (isDataPropertyName(prop)) {
             OWLDataProperty p = parseDataProperty();
-            OWLLiteral con = parseConstant();
+            OWLLiteral con = parseLiteral(null);
             if (!negative) {
                 return dataFactory.getOWLDataPropertyAssertionAxiom(p, ind, con);
             } else {
@@ -1654,7 +1653,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     private SWRLLiteralArgument parseLiteralObject() {
-        OWLLiteral lit = parseLiteral();
+        OWLLiteral lit = parseLiteral(null);
         return dataFactory.getSWRLLiteralArgument(lit);
     }
 
