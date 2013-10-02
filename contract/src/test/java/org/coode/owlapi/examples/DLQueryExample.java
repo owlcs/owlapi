@@ -48,7 +48,6 @@ import java.util.Set;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
-import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -345,7 +344,6 @@ class DLQueryPrinter {
         if (classExpression.length() == 0) {
             System.out.println("No class expression specified");
         } else {
-            try {
                 StringBuilder sb = new StringBuilder();
                 sb.append("\n--------------------------------------------------------------------------------\n");
                 sb.append("QUERY:   ");
@@ -366,10 +364,6 @@ class DLQueryPrinter {
                 Set<OWLNamedIndividual> individuals = dlQueryEngine.getInstances(
                         classExpression, true);
                 printEntities("Instances", individuals, sb);
-                // System.out.println(sb.toString());
-            } catch (ParserException e) {
-                System.out.println(e.getMessage());
-            }
         }
     }
 

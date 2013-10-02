@@ -51,6 +51,8 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTe
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
@@ -113,12 +115,8 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Test
     @Override
-    public void testManchesterOWLSyntax() throws Exception {
-        try {
+    public void testManchesterOWLSyntax() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
             super.testManchesterOWLSyntax();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
     }
 }

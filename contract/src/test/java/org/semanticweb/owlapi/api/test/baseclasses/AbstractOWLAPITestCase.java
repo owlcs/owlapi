@@ -61,6 +61,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
@@ -196,7 +197,8 @@ public abstract class AbstractOWLAPITestCase {
         manager.addAxiom(ont, ax);
     }
 
-    public void roundTripOntology(OWLOntology ont) throws Exception {
+    public void roundTripOntology(OWLOntology ont) throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         roundTripOntology(ont, new RDFXMLOntologyFormat());
     }
 
@@ -209,9 +211,11 @@ public abstract class AbstractOWLAPITestCase {
      * @param ont
      *            The ontology to be round tripped.
      * @param format
-     *            The format to use when doing the round trip. */
+     *            The format to use when doing the round trip.
+     * @throws OWLOntologyStorageException
+     * @throws OWLOntologyCreationException */
     public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormat format)
-            throws Exception {
+            throws OWLOntologyStorageException, OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyFormat fromFormat = manager.getOntologyFormat(ont);
         if (fromFormat instanceof PrefixOWLOntologyFormat

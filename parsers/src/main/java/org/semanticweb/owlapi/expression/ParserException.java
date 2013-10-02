@@ -65,7 +65,7 @@ public class ParserException extends OWLParserException {
     private boolean integerExpected = false;
     private boolean annotationPropertyExpected = false;
     private boolean ontologyNameExpected = false;
-    private Set<String> expectedKeywords;
+    private Set<String> expectedKeywords = new HashSet<String>();
     private int startPos;
 
     public ParserException(List<String> tokenSequence, int startPos, int lineNumber,
@@ -93,7 +93,7 @@ public class ParserException extends OWLParserException {
         this.individualNameExpected = individualNameExpected;
         this.datatypeNameExpected = datatypeNameExpected;
         this.annotationPropertyExpected = annotationPropertyExpected;
-        this.expectedKeywords = expectedKeywords;
+        this.expectedKeywords.addAll(expectedKeywords);
         this.startPos = startPos;
     }
 
