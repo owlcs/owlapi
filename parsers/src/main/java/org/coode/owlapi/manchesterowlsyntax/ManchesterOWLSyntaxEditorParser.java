@@ -734,8 +734,12 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     private OWLDatatype parseDatatype() {
-        String name = consumeToken();
-        return getOWLDatatype(name);
+        String name = peekToken();
+        OWLDatatype d = getOWLDatatype(name);
+        if (d != null) {
+            consumeToken();
+        }
+        return d;
     }
 
     protected OWLDataRange parseDataRange() {
@@ -907,6 +911,11 @@ public class ManchesterOWLSyntaxEditorParser {
             }
             try {
                 double d = Double.parseDouble(tok);
+                OWLDatatype dt = parseDatatype();
+                if (dt == null) {
+                    // no datatype specified: a decimal
+                    return dataFactory.getOWLLiteral(tok, OWL2Datatype.XSD_DECIMAL);
+                }
                 return dataFactory.getOWLLiteral(d);
             } catch (NumberFormatException e) {
                 // Ignore - not interested
