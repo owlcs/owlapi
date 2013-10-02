@@ -44,7 +44,6 @@ import java.util.Set;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
-import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -74,7 +73,7 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
 
     @Override
     public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
-        this.checker = entityChecker;
+        checker = entityChecker;
     }
 
     /**
@@ -88,11 +87,11 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
      * @param ontology the ontology to use
      */
     public void setDefaultOntology(OWLOntology ontology) {
-        this.defaultOntology = ontology;
+        defaultOntology = ontology;
     }
 
     @Override
-    public Set<OntologyAxiomPair> parse(String expression) throws ParserException {
+    public Set<OntologyAxiomPair> parse(String expression) {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);
         parser.setDefaultOntology(defaultOntology);

@@ -41,7 +41,6 @@ package org.coode.owlapi.manchesterowlsyntax;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
-import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
@@ -68,12 +67,12 @@ public class ManchesterOWLSyntaxInlineAxiomParser implements OWLExpressionParser
 
     @Override
     public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
-        this.checker = entityChecker;
+        checker = entityChecker;
     }
 
 
     @Override
-    public OWLAxiom parse(String expression) throws ParserException {
+    public OWLAxiom parse(String expression) {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);
         return parser.parseAxiom();

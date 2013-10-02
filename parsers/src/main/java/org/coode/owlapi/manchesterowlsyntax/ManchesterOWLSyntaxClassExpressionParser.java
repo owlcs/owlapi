@@ -36,44 +36,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.manchesterowlsyntax;
-
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
-import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Sep-2007<br><br>
- *
- * An expression parser that parses class expressions written in the Manchester OWL Syntax
- */
+ * Date: 13-Sep-2007<br>
+ * <br>
+ * An expression parser that parses class expressions written in the Manchester
+ * OWL Syntax */
 @SuppressWarnings("javadoc")
-public class ManchesterOWLSyntaxClassExpressionParser implements OWLExpressionParser<OWLClassExpression> {
-
+public class ManchesterOWLSyntaxClassExpressionParser implements
+        OWLExpressionParser<OWLClassExpression> {
     private OWLDataFactory dataFactory;
-
     private OWLEntityChecker checker;
 
-    public ManchesterOWLSyntaxClassExpressionParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
+    public ManchesterOWLSyntaxClassExpressionParser(OWLDataFactory dataFactory,
+            OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
         this.checker = checker;
     }
 
-
     @Override
-    public OWLClassExpression parse(String expression) throws ParserException {
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
+    public OWLClassExpression parse(String expression) {
+        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
+                dataFactory, expression);
         parser.setOWLEntityChecker(checker);
         return parser.parseClassExpression();
     }
-
 
     @Override
     public void setOWLEntityChecker(OWLEntityChecker checker) {

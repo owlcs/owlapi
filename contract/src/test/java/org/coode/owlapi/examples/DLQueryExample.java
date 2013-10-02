@@ -109,8 +109,7 @@ public class DLQueryExample {
             + "  <owl:ObjectProperty rdf:ID=\"hasChildren\"><rdfs:range rdf:resource=\"#Animal\"/><rdfs:domain rdf:resource=\"#Animal\"/></owl:ObjectProperty>\n"
             + "  <owl:FunctionalProperty rdf:ID=\"hasGender\"><rdfs:range rdf:resource=\"#Gender\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#ObjectProperty\"/><rdfs:domain rdf:resource=\"#Animal\"/></owl:FunctionalProperty>\n"
             + "  <owl:FunctionalProperty rdf:ID=\"isHardWorking\"><rdfs:range rdf:resource=\"http://www.w3.org/2001/XMLSchema#boolean\"/><rdfs:domain rdf:resource=\"#Person\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/></owl:FunctionalProperty>\n"
-            + "  <Degree rdf:ID=\"MA\"/>\n"
-            + "</rdf:RDF>";
+            + "  <Degree rdf:ID=\"MA\"/>\n" + "</rdf:RDF>";
 
     @SuppressWarnings("javadoc")
     public static void main(String[] args) {
@@ -208,11 +207,9 @@ class DLQueryEngine {
      * @param direct
      *            Specifies whether direct superclasses should be returned or
      *            not.
-     * @return The superclasses of the specified class expression
-     * @throws ParserException
-     *             If there was a problem parsing the class expression. */
-    public Set<OWLClass> getSuperClasses(String classExpressionString, boolean direct)
-            throws ParserException {
+     * @return The superclasses of the specified class expression If there was a
+     *         problem parsing the class expression. */
+    public Set<OWLClass> getSuperClasses(String classExpressionString, boolean direct) {
         if (classExpressionString.trim().length() == 0) {
             return Collections.emptySet();
         }
@@ -227,11 +224,9 @@ class DLQueryEngine {
      * 
      * @param classExpressionString
      *            The string from which the class expression will be parsed.
-     * @return The equivalent classes of the specified class expression
-     * @throws ParserException
-     *             If there was a problem parsing the class expression. */
-    public Set<OWLClass> getEquivalentClasses(String classExpressionString)
-            throws ParserException {
+     * @return The equivalent classes of the specified class expression If there
+     *         was a problem parsing the class expression. */
+    public Set<OWLClass> getEquivalentClasses(String classExpressionString) {
         if (classExpressionString.trim().length() == 0) {
             return Collections.emptySet();
         }
@@ -253,11 +248,9 @@ class DLQueryEngine {
      *            The string from which the class expression will be parsed.
      * @param direct
      *            Specifies whether direct subclasses should be returned or not.
-     * @return The subclasses of the specified class expression
-     * @throws ParserException
-     *             If there was a problem parsing the class expression. */
-    public Set<OWLClass> getSubClasses(String classExpressionString, boolean direct)
-            throws ParserException {
+     * @return The subclasses of the specified class expression If there was a
+     *         problem parsing the class expression. */
+    public Set<OWLClass> getSubClasses(String classExpressionString, boolean direct) {
         if (classExpressionString.trim().length() == 0) {
             return Collections.emptySet();
         }
@@ -273,11 +266,10 @@ class DLQueryEngine {
      *            The string from which the class expression will be parsed.
      * @param direct
      *            Specifies whether direct instances should be returned or not.
-     * @return The instances of the specified class expression
-     * @throws ParserException
-     *             If there was a problem parsing the class expression. */
+     * @return The instances of the specified class expression If there was a
+     *         problem parsing the class expression. */
     public Set<OWLNamedIndividual> getInstances(String classExpressionString,
-            boolean direct) throws ParserException {
+            boolean direct) {
         if (classExpressionString.trim().length() == 0) {
             return Collections.emptySet();
         }
@@ -317,12 +309,9 @@ class DLQueryParser {
      * 
      * @param classExpressionString
      *            The class expression string
-     * @return The corresponding class expression
-     * @throws ParserException
-     *             if the class expression string is malformed or contains
-     *             unknown entity names. */
-    public OWLClassExpression parseClassExpression(String classExpressionString)
-            throws ParserException {
+     * @return The corresponding class expression if the class expression string
+     *         is malformed or contains unknown entity names. */
+    public OWLClassExpression parseClassExpression(String classExpressionString) {
         OWLDataFactory dataFactory = rootOntology.getOWLOntologyManager()
                 .getOWLDataFactory();
         // Set up the real parser

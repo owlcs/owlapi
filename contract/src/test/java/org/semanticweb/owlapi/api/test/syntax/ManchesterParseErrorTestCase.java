@@ -19,20 +19,20 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 @SuppressWarnings("javadoc")
 public class ManchesterParseErrorTestCase {
     @Test(expected = ParserException.class)
-    public void shouldNotParse() throws ParserException {
+    public void shouldNotParse() {
         parse("p some rdfs:Literal");
         String text1 = "p some Litera";
         parse(text1);
     }
 
     @Test(expected = ParserException.class)
-    public void shouldNotParseToo() throws ParserException {
+    public void shouldNotParseToo() {
         parse("p some rdfs:Literal");
         String text1 = "p some Literal";
         parse(text1);
     }
 
-    private static OWLClassExpression parse(String text) throws ParserException {
+    private static OWLClassExpression parse(String text) {
         OWLDataFactory factory = Factory.getFactory();
         StupidEntityChecker checker = new StupidEntityChecker(factory);
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
