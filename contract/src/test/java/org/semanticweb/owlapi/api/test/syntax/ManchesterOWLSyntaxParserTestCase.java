@@ -287,7 +287,7 @@ public class ManchesterOWLSyntaxParserTestCase {
         OWLClass b = Class(IRI("urn:test#b"));
         OWLClass c = Class(IRI("urn:test#c"));
         OWLClass d = Class(IRI("urn:test#all"));
-        String text1 = "(a and b) or c";
+        String text1 = "a and b or c";
         OWLClassExpression expected = factory.getOWLObjectUnionOf(
                 factory.getOWLObjectIntersectionOf(a, b), c);
         OWLOntologyManager manager = Factory.getManager();
