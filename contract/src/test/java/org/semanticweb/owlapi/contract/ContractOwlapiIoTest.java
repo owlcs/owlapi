@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -50,7 +49,6 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 import org.semanticweb.owlapi.io.ToStringRenderer;
-import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.io.WriterDocumentTarget;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.io.ZipDocumentTarget;
@@ -510,21 +508,6 @@ public class ContractOwlapiIoTest {
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
         testSubject0.setRenderer(mock(OWLObjectRenderer.class));
         String result2 = testSubject0.getRendering(mock(OWLObject.class));
-
-    }
-
-    @Test
-    public void shouldTestUnparsableOntologyException() throws OWLException {
-        UnparsableOntologyException testSubject0 = new UnparsableOntologyException(
-                IRI("urn:aFake"), Collections.<OWLParser, OWLParserException> emptyMap());
-        String result0 = testSubject0.getMessage();
-        IRI result1 = testSubject0.getDocumentIRI();
-        boolean result2 = UnparsableOntologyException.isIncludeStackTraceInMessage();
-        UnparsableOntologyException.setIncludeStackTraceInMessage(false);
-        Map<OWLParser, OWLParserException> result3 = testSubject0.getExceptions();
-        Throwable result5 = testSubject0.getCause();
-
-        String result8 = testSubject0.getLocalizedMessage();
     }
 
     @Test

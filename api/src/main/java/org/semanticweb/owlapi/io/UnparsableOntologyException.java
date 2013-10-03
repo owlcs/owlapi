@@ -39,11 +39,11 @@
 package org.semanticweb.owlapi.io;
 
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -53,21 +53,24 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * </p> A class that describes how ontology parsing failed. This class collects
  * parse errors and the parsers that generated the errors. */
 public class UnparsableOntologyException extends OWLOntologyCreationException {
+
     private static final long serialVersionUID = 40000L;
-    private static boolean includeStackTraceInMessage = false;
+
+    private boolean includeStackTraceInMessage = true;
+
     private final IRI documentIRI;
     private final Map<OWLParser, OWLParserException> exceptions;
 
     /** @param documentIRI
      *            the document IRI
      * @param exceptions
-     *            the map parser-&gt;exceptions */
-    public UnparsableOntologyException(IRI documentIRI,
-            Map<OWLParser, OWLParserException> exceptions) {
-        super("Could not parse ontology from document IRI: "
-                + documentIRI.toQuotedString());
+     *            the map parser-&gt;exceptions
+     * @param config */
+    public UnparsableOntologyException(IRI documentIRI, Map<OWLParser, OWLParserException> exceptions,OWLOntologyLoaderConfiguration config) {
+        super("Could not parse ontology from document IRI: " + documentIRI.toQuotedString());
+        includeStackTraceInMessage = config.isReportStackTrace();
         this.documentIRI = documentIRI;
-        this.exceptions = new LinkedHashMap<OWLParser, OWLParserException>(exceptions);
+        this.exceptions = exceptions;
     }
 
     @Override
@@ -75,10 +78,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
         StringBuilder msg = new StringBuilder();
         msg.append("Problem parsing ");
         msg.append(documentIRI);
-        msg.append("\n");
-        msg.append("Could not parse ontology.  Either a suitable parser could not be found, or "
-                + "parsing failed.  See parser logs below for explanation.\n");
-        msg.append("The following parsers were tried:\n");
+        msg.append("\nCould not parse ontology.  Either a suitable parser could not be found, or parsing failed.  See parser logs below for explanation.\nThe following parsers were tried:\n");
         int counter = 1;
         for (OWLParser parser : exceptions.keySet()) {
             msg.append(counter);
@@ -94,14 +94,29 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
             msg.append("Parser: ");
             msg.append(parser.getName());
             msg.append("\n");
+            if (!includeStackTraceInMessage) {
             msg.append(exception.getMessage());
             msg.append("\n\n");
-            if (includeStackTraceInMessage) {
+            } else {
                 msg.append("    Stack trace:\n");
-                for (StackTraceElement element : exception.getStackTrace()) {
-                    msg.append("        ");
-                    msg.append(element.toString());
-                    msg.append("\n");
+                Throwable current = exception;
+                // print up to five nested causes
+                boolean moreStackTraces = true;
+                for (int i = 0; i < 5 && moreStackTraces; i++) {
+                    msg.append(current.getMessage());
+                    StackTraceElement[] stackTrace = current.getStackTrace();
+                    for (int stackDepth = 0; stackDepth < 10
+                            && stackDepth < stackTrace.length; stackDepth++) {
+                        StackTraceElement element = stackTrace[stackDepth];
+                        msg.append("        ");
+                        msg.append(element.toString());
+                        msg.append("\n");
+                    }
+                    if (current.getCause() != null && current.getCause() != current) {
+                        current = current.getCause();
+                    } else {
+                        moreStackTraces = false;
+                    }
                 }
                 msg.append("\n\n");
             }
@@ -115,27 +130,6 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      * @return The ontology document IRI */
     public IRI getDocumentIRI() {
         return documentIRI;
-    }
-
-    /** Determines if the stack trace for each parse exception is included in the
-     * getMessage() method.
-     * 
-     * @return {@code true} if the stack trace is included in the message
-     *         for this exception, other wise {@code false}. */
-    public static boolean isIncludeStackTraceInMessage() {
-        return includeStackTraceInMessage;
-    }
-
-    /** Specifies whether the stack trace for each parser exception should be
-     * included in the message generated by this exception - this can be useful
-     * for debugging purposes, but can bloat the message for end user usage.
-     * 
-     * @param includeStackTraceInMessage
-     *            Set to {@code true} to indicate that the stack trace for
-     *            each parser exception should be included in the message for
-     *            this exception, otherwise set to {@code false}. */
-    public static void setIncludeStackTraceInMessage(boolean includeStackTraceInMessage) {
-        UnparsableOntologyException.includeStackTraceInMessage = includeStackTraceInMessage;
     }
 
     /** Gets a map that lists the parsers (that were used to parse an ontology)

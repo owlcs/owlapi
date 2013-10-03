@@ -124,6 +124,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
+<<<<<<< version4
         boolean conjunctionOrDisjunction = false;
         if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
             if (restriction.getFiller() instanceof OWLObjectIntersectionOf
@@ -134,13 +135,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             }
             write("(");
         }
+=======
+>>>>>>> 4725924 Tidying up Manchester OWL Syntax parser code
         restriction.getFiller().accept(this);
-        if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
-            write(")");
-            if (conjunctionOrDisjunction) {
-                popTab();
-            }
-        }
     }
 
     private void writeRestriction(OWLQuantifiedObjectRestriction restriction,

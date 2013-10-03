@@ -210,7 +210,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // exception whose message contains the stack traces from all of the
         // parsers
         // that we have tried.
-        throw new UnparsableOntologyException(documentSource.getDocumentIRI(), exceptions);
+        throw new UnparsableOntologyException(documentSource.getDocumentIRI(),
+                exceptions, configuration);
     }
 
     @Override

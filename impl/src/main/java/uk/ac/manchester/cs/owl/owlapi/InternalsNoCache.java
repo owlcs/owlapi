@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** @author ignazio no cache used */
+/** no cache used @author ignazio */
 public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     private static final long serialVersionUID = 40000L;
     private static final OWLDatatype PLAIN = new OWL2DatatypeImpl(RDF_PLAIN_LITERAL);
@@ -66,6 +66,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             XSDBOOLEAN);
     private static final OWLLiteral falseLiteral = new OWLLiteralImplBoolean(false,
             XSDBOOLEAN);
+
     private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 

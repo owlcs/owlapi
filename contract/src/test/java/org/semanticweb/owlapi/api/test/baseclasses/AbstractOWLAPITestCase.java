@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -60,6 +59,7 @@ import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
@@ -190,8 +190,7 @@ public class AbstractOWLAPITestCase {
      * @throws OWLOntologyStorageException
      * @throws OWLOntologyCreationException */
     public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormat format)
-            throws OWLOntologyStorageException, OWLOntologyCreationException {
-        UnparsableOntologyException.setIncludeStackTraceInMessage(true);
+            throws Exception {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyFormat fromFormat = manager.getOntologyFormat(ont);
         if (fromFormat instanceof PrefixOWLOntologyFormat
@@ -206,8 +205,11 @@ public class AbstractOWLAPITestCase {
         manager.saveOntology(ont, format, target);
         handleSaved(target, format);
         OWLOntologyManager man = Factory.getManager();
+        System.out.println("AbstractOWLAPITestCase.roundTripOntology() "
+                + target.toString());
         OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                target.toString()));
+                target.toString()), new OWLOntologyLoaderConfiguration()
+                .setReportStackTraces(true));
         equal(ont, ont2);
         return ont2;
     }
