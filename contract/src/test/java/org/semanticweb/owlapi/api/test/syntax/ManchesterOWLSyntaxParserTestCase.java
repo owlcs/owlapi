@@ -15,8 +15,10 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
+import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -237,4 +239,88 @@ public class ManchesterOWLSyntaxParserTestCase {
         return factory.getOWLAnnotationAssertionAxiom(e.getIRI(), factory
                 .getOWLAnnotation(factory.getRDFSLabel(), factory.getOWLLiteral(s)));
     }
+
+    @Test
+    public void shouldDoPrecedenceWithParentheses() throws ParserException,
+            OWLOntologyCreationException, OWLOntologyStorageException {
+        // given
+        OWLClass a = Class(IRI("urn:test#a"));
+        OWLClass b = Class(IRI("urn:test#b"));
+        OWLClass c = Class(IRI("urn:test#c"));
+        OWLClass d = Class(IRI("urn:test#all"));
+        String text1 = "(a and b) or c";
+        OWLClassExpression expected = factory.getOWLObjectUnionOf(
+                factory.getOWLObjectIntersectionOf(a, b), c);
+        OWLOntologyManager manager = Factory.getManager();
+        OWLOntology o = manager.createOntology();
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(a));
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(b));
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(c));
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(d));
+        manager.addAxiom(o, factory.getOWLSubClassOfAxiom(expected, d));
+        o.getOWLOntologyManager().saveOntology(o,
+                new OWLFunctionalSyntaxOntologyFormat(), new SystemOutDocumentTarget());
+        o.getOWLOntologyManager().saveOntology(o,
+                new ManchesterOWLSyntaxOntologyFormat(), new SystemOutDocumentTarget());
+        // select a short form provider that uses annotations
+        ShortFormProvider sfp = new AnnotationValueShortFormProvider(
+                Arrays.asList(factory.getRDFSLabel()),
+                Collections.<OWLAnnotationProperty, List<String>> emptyMap(), manager);
+        BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
+                manager.getOntologies(), sfp);
+        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
+                factory, text1);
+        ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
+                shortFormProvider);
+        parser.setOWLEntityChecker(owlEntityChecker);
+        parser.setDefaultOntology(o);
+        // when
+        // finally parse
+        OWLClassExpression dsvf = parser.parseClassExpression();
+        // then
+        assertEquals("Expected " + expected + " actual " + dsvf, expected, dsvf);
+    }
+
+    @Test
+    public void shouldDoPrecedenceWithoutParentheses() throws ParserException,
+            OWLOntologyCreationException, OWLOntologyStorageException {
+        // given
+        OWLClass a = Class(IRI("urn:test#a"));
+        OWLClass b = Class(IRI("urn:test#b"));
+        OWLClass c = Class(IRI("urn:test#c"));
+        OWLClass d = Class(IRI("urn:test#all"));
+        String text1 = "(a and b) or c";
+        OWLClassExpression expected = factory.getOWLObjectUnionOf(
+                factory.getOWLObjectIntersectionOf(a, b), c);
+        OWLOntologyManager manager = Factory.getManager();
+        OWLOntology o = manager.createOntology();
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(a));
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(b));
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(c));
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(d));
+        manager.addAxiom(o,
+ factory.getOWLSubClassOfAxiom(expected, d));
+        o.getOWLOntologyManager().saveOntology(o,
+                new OWLFunctionalSyntaxOntologyFormat(), new SystemOutDocumentTarget());
+        o.getOWLOntologyManager().saveOntology(o,
+                new ManchesterOWLSyntaxOntologyFormat(), new SystemOutDocumentTarget());
+        // select a short form provider that uses annotations
+        ShortFormProvider sfp = new AnnotationValueShortFormProvider(
+                Arrays.asList(factory.getRDFSLabel()),
+                Collections.<OWLAnnotationProperty, List<String>> emptyMap(), manager);
+        BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
+                manager.getOntologies(), sfp);
+        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
+                factory, text1);
+        ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
+                shortFormProvider);
+        parser.setOWLEntityChecker(owlEntityChecker);
+        parser.setDefaultOntology(o);
+        // when
+        // finally parse
+        OWLClassExpression dsvf = parser.parseClassExpression();
+        // then
+        assertEquals("Expected " + expected + " actual " + dsvf, expected, dsvf);
+    }
+
 }

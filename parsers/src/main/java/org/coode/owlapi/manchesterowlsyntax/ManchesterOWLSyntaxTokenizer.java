@@ -48,6 +48,7 @@ import java.util.Set;
  * Bio-Health Informatics Group<br>
  * Date: 19-May-2008<br>
  * <br> */
+@SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxTokenizer {
     public static final String EOF = "|EOF|";
 
@@ -254,16 +255,7 @@ public class ManchesterOWLSyntaxTokenizer {
 
         @Override
         public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append(token);
-            sb.append(" [");
-            sb.append(pos);
-            sb.append(", ");
-            sb.append(col);
-            sb.append(", ");
-            sb.append(row);
-            sb.append("]");
-            return sb.toString();
+            return token + " [" + pos + ", " + col + ", " + row + "]";
         }
     }
 }

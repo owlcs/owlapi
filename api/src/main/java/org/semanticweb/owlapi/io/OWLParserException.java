@@ -52,9 +52,9 @@ public class OWLParserException extends OWLException {
     private final int columnNumber;
 
     @SuppressWarnings("javadoc")
-    public OWLParserException() {
-        this.lineNumber = -1;
-        this.columnNumber = -1;
+	public OWLParserException() {
+        lineNumber = -1;
+        columnNumber=-1;
     }
 
     /** @param message
@@ -62,7 +62,7 @@ public class OWLParserException extends OWLException {
     public OWLParserException(String message) {
         super(message);
         lineNumber = -1;
-        this.columnNumber = -1;
+        columnNumber=-1;
     }
 
     /** @param message
@@ -72,7 +72,7 @@ public class OWLParserException extends OWLException {
     public OWLParserException(String message, Throwable cause) {
         super(message, cause);
         lineNumber = -1;
-        this.columnNumber = -1;
+        columnNumber=-1;
     }
 
     /** @param cause
@@ -80,7 +80,7 @@ public class OWLParserException extends OWLException {
     public OWLParserException(Throwable cause) {
         super(cause);
         lineNumber = -1;
-        this.columnNumber = -1;
+        columnNumber=-1;
     }
 
     /** @param message

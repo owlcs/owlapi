@@ -42,6 +42,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** Author: Matthew Horridge<br>
@@ -49,7 +50,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Bio-Health Informatics Group<br>
  * Date: 11-Sep-2007<br>
  * <br> */
-public class ParserException extends Exception {
+@SuppressWarnings("javadoc")
+public class ParserException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
     private String currentToken;
     private int lineNumber;
@@ -67,9 +69,11 @@ public class ParserException extends Exception {
     private int startPos;
 
     public ParserException(List<String> tokenSequence, int startPos, int lineNumber,
-            int columnNumber, boolean ontologyNameExpected, String... keywords) {
-        this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false,
-                false, false, false, keywords);
+            int columnNumber, boolean ontologyNameExpected, boolean classNameExpected,
+            boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
+            boolean individualNameExpected, boolean datatypeNameExpected,
+            boolean annotationPropertyExpected, boolean integerExpected,
+            Set<String> expectedKeywords) {
         this.ontologyNameExpected = ontologyNameExpected;
     }
 
@@ -78,7 +82,8 @@ public class ParserException extends Exception {
             boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
             boolean individualNameExpected, boolean datatypeNameExpected,
             boolean annotationPropertyExpected, Set<String> expectedKeywords) {
-        this.currentToken = tokenSequence.iterator().next();
+        currentToken = tokenSequence.iterator().next();
+        currentToken = tokenSequence.iterator().next();
         this.tokenSequence = tokenSequence;
         this.lineNumber = lineNumber;
         this.columnNumber = columnNumber;
@@ -166,6 +171,10 @@ public class ParserException extends Exception {
 
     public int getColumnNumber() {
         return columnNumber;
+    }
+
+    public boolean isIntegerExpected() {
+        return integerExpected;
     }
 
     @Override

@@ -53,7 +53,6 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserURISyntaxException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -73,6 +72,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * <br>
  * <p/>
  * A handler which knows about OWLXML */
+@SuppressWarnings("javadoc")
 public class OWLXMLParserHandler extends DefaultHandler {
     private OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;
@@ -83,10 +83,6 @@ public class OWLXMLParserHandler extends DefaultHandler {
     private Stack<URI> bases;
     private OWLOntologyLoaderConfiguration configuration;
 
-    /** Creates an OWLXML handler.
-     * 
-     * @param ontology
-     *            The ontology that the XML representation will be parsed into. */
     public OWLXMLParserHandler(OWLOntology ontology) {
         this(ontology, null, new OWLOntologyLoaderConfiguration());
     }
@@ -109,7 +105,6 @@ public class OWLXMLParserHandler extends DefaultHandler {
         } catch (URISyntaxException e) {}
         bases.push(base);
     }
-
     public OWLXMLParserHandler(OWLOntology ontology, OWLElementHandler<?> topHandler) {
         this(ontology, topHandler, new OWLOntologyLoaderConfiguration());
     }
@@ -782,7 +777,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 if (handler.isTextContentPossible()) {
                     handler.handleChars(ch, start, length);
                 }
-            } catch (OWLException e) {
+            } catch (OWLParserException e) {
                 throw new SAXException(e);
             }
         }
