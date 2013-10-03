@@ -198,8 +198,7 @@ public class ManchesterOWLSyntaxParserTestCase {
     }
 
     @Test
-    public void shouldParseCorrectly() throws ParserException,
-            OWLOntologyCreationException {
+    public void shouldParseCorrectly() throws OWLOntologyCreationException {
         // given
         OWLClass a = Class(IRI(NS + "#A"));
         String text1 = "'GWAS study' and  has_publication_date some dateTime[< \"2009-01-01T00:00:00+00:00\"^^dateTime]";
@@ -241,8 +240,8 @@ public class ManchesterOWLSyntaxParserTestCase {
     }
 
     @Test
-    public void shouldDoPrecedenceWithParentheses() throws ParserException,
-            OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldDoPrecedenceWithParentheses() throws OWLOntologyCreationException,
+            OWLOntologyStorageException {
         // given
         OWLClass a = Class(IRI("urn:test#a"));
         OWLClass b = Class(IRI("urn:test#b"));
@@ -282,8 +281,8 @@ public class ManchesterOWLSyntaxParserTestCase {
     }
 
     @Test
-    public void shouldDoPrecedenceWithoutParentheses() throws ParserException,
-            OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldDoPrecedenceWithoutParentheses()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLClass a = Class(IRI("urn:test#a"));
         OWLClass b = Class(IRI("urn:test#b"));
@@ -298,8 +297,7 @@ public class ManchesterOWLSyntaxParserTestCase {
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(b));
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(c));
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(d));
-        manager.addAxiom(o,
- factory.getOWLSubClassOfAxiom(expected, d));
+        manager.addAxiom(o, factory.getOWLSubClassOfAxiom(expected, d));
         o.getOWLOntologyManager().saveOntology(o,
                 new OWLFunctionalSyntaxOntologyFormat(), new SystemOutDocumentTarget());
         o.getOWLOntologyManager().saveOntology(o,
@@ -322,5 +320,4 @@ public class ManchesterOWLSyntaxParserTestCase {
         // then
         assertEquals("Expected " + expected + " actual " + dsvf, expected, dsvf);
     }
-
 }

@@ -40,7 +40,6 @@ package org.coode.owlapi.manchesterowlsyntax;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
-import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
@@ -51,13 +50,12 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
  * <br>
  * An expression parser that parses class expressions written in the Manchester
  * OWL Syntax */
+@SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxClassExpressionParser implements
         OWLExpressionParser<OWLClassExpression> {
     private OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
 
-    /** @param dataFactory
-     * @param checker */
     public ManchesterOWLSyntaxClassExpressionParser(OWLDataFactory dataFactory,
             OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
@@ -65,7 +63,7 @@ public class ManchesterOWLSyntaxClassExpressionParser implements
     }
 
     @Override
-    public OWLClassExpression parse(String expression) throws ParserException {
+    public OWLClassExpression parse(String expression) {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 dataFactory, expression);
         parser.setOWLEntityChecker(checker);

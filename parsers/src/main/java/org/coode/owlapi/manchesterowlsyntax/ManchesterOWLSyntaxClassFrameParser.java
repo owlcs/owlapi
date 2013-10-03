@@ -42,7 +42,6 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
-import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Author: Matthew Horridge<br>
@@ -71,9 +70,8 @@ public class ManchesterOWLSyntaxClassFrameParser implements
     }
 
     @Override
-    public Set<OntologyAxiomPair> parse(String expression) throws ParserException {
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                dataFactory, expression);
+    public Set<OntologyAxiomPair> parse(String expression) {
+        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);
         return parser.parseClassFrameEOF();
     }

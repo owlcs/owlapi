@@ -40,7 +40,6 @@ package org.coode.owlapi.manchesterowlsyntax;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
-import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
@@ -67,9 +66,8 @@ public class ManchesterOWLSyntaxInlineAxiomParser implements
     }
 
     @Override
-    public OWLAxiom parse(String expression) throws ParserException {
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                dataFactory, expression);
+    public OWLAxiom parse(String expression) {
+        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
         parser.setOWLEntityChecker(checker);
         return parser.parseAxiom();
     }
