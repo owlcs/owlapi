@@ -70,7 +70,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * <br> */
 public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     private int hashCode = 0;
     private transient WeakReference<Set<OWLEntity>> signature = null;
     private transient WeakReference<Set<OWLAnonymousIndividual>> anons;

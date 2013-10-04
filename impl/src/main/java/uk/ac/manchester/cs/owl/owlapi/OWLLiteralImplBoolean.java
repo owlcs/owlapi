@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     private final boolean literal;
     private final OWLDatatype datatype;
 

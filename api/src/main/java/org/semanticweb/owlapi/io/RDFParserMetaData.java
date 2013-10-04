@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @since 3.2
  */
 public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializable {
-    private static final long serialVersionUID = 30405L;
+    private static final long serialVersionUID = 30406L;
 
     private final int tripleCount;
 

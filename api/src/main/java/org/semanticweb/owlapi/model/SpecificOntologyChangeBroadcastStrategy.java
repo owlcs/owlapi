@@ -55,7 +55,7 @@ import java.util.List;
 public class SpecificOntologyChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 	private final OWLOntology ontology;
 
     /**

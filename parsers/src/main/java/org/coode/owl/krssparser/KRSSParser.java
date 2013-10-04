@@ -1246,7 +1246,7 @@ public class KRSSParser implements KRSSParserConstants {
 
     static private final class LookaheadSuccess extends OWLRuntimeException {
 
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
 
         public LookaheadSuccess() {}
     }

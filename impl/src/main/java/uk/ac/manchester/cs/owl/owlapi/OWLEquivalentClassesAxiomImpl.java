@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * <br> */
 public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl implements
         OWLEquivalentClassesAxiom, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     private transient WeakReference<Set<OWLClass>> namedClasses = null;
 
     @SuppressWarnings("javadoc")

@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * Date: 26-Oct-2006<br>
  * <br> */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     static final String utf_8 = "UTF-8";
     private static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl
             .getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);

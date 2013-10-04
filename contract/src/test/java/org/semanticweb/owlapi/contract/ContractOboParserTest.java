@@ -489,7 +489,6 @@ public class ContractOboParserTest {
     @Test
     public void shouldTestOBOOntologyFormat() throws Exception {
         OBOOntologyFormat testSubject0 = new OBOOntologyFormat();
-        OBOOntologyFormat testSubject1 = new OBOOntologyFormat(mock(IDSpaceManager.class));
         String result0 = testSubject0.toString();
         IDSpaceManager result1 = testSubject0.getIdSpaceManager();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));

@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
     protected ShortFormProvider sfp;
 
 

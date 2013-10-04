@@ -50,7 +50,7 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public abstract class NodeID implements Comparable<NodeID>, Serializable {
 
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     private static final AtomicLong counter = new AtomicLong();
     private static final String NODE_ID_PREFIX = "genid";
     private static final String SHARED_NODE_ID_PREFIX = "genid-nodeid-";
@@ -125,7 +125,7 @@ public abstract class NodeID implements Comparable<NodeID>, Serializable {
     }
 
     static class NodeIDImpl extends NodeID {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
         private final String id;
 
         public NodeIDImpl(String id) {

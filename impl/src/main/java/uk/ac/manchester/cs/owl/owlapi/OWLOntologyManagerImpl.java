@@ -121,7 +121,7 @@ import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
  * <br> */
 public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     private static final Logger logger = Logger.getLogger(OWLOntologyManagerImpl.class
             .getName());
     protected Map<OWLOntologyID, OWLOntology> ontologiesByID;

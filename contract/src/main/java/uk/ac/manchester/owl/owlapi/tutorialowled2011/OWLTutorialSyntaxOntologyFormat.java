@@ -49,7 +49,7 @@ public class OWLTutorialSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
     /**
      * 
      */
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
     @Override
     public String toString() {

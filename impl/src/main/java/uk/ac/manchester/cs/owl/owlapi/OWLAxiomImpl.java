@@ -63,7 +63,7 @@ import org.semanticweb.owlapi.util.NNF;
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 CollectionContainer<OWLAnnotation> {
 
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     private OWLAxiom nnf;
     private final List<OWLAnnotation> annotations;
 

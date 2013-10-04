@@ -64,7 +64,7 @@ import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
 public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpressionImpl<OWLClassExpression, OWLObjectPropertyExpression> implements OWLObjectPropertyExpression {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 	private OWLObjectPropertyExpression simplestForm;
 

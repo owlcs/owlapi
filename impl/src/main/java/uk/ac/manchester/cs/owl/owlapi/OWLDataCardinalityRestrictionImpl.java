@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 public abstract class OWLDataCardinalityRestrictionImpl extends OWLCardinalityRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> implements OWLDataCardinalityRestriction {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 	protected OWLDataCardinalityRestrictionImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
         super(property, cardinality, filler);

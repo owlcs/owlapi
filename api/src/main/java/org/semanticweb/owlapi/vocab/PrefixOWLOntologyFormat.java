@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
  * <p/>
  * An */
 public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements PrefixManager {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     private DefaultPrefixManager nsm;
 
     @SuppressWarnings("javadoc")

@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.IRI;
  * there is one, or the IRI last path component if there is one. */
 public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Serializable {
 
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
     @Override
     public String getShortForm(IRI iri) {

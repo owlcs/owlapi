@@ -62,7 +62,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>> extends OWLObjectImpl implements OWLPropertyExpression<R, P> {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 
 	public OWLPropertyExpressionImpl() {

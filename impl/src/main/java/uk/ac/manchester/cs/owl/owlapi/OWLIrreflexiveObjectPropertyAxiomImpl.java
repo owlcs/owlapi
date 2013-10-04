@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLIrreflexiveObjectPropertyAxiom {
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 	@SuppressWarnings("javadoc")
     public OWLIrreflexiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {

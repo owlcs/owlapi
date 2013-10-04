@@ -44,7 +44,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     // NOTE: This class did extend OWLObjectImpl but this created a circular
     // dependency and caused initialisation
     // problems with static methods.
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     private static final EnumMap<OWL2Datatype, OWLDatatype> instanceMap;
     static {
         final EnumMap<OWL2Datatype, OWLDatatype> map = new EnumMap<OWL2Datatype, OWLDatatype>(

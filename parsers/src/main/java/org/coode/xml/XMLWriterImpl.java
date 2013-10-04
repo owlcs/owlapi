@@ -322,7 +322,7 @@ public class XMLWriterImpl implements XMLWriter {
 
     private static final class StringLengthOnlyComparator implements
 			Comparator<String>, Serializable {
-		private static final long serialVersionUID = 30402L;
+		private static final long serialVersionUID = 30406L;
 
         public StringLengthOnlyComparator() {}
         @Override

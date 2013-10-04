@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression<?,?>, R extends OWLPropertyRange> extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyRangeAxiom<P, R> {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 	private final R range;
 
 

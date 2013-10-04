@@ -50,7 +50,7 @@ import java.io.Serializable;
 public class OWLOntologyManagerProperties implements Serializable {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 	private boolean loadAnnotationAxioms = true;
 

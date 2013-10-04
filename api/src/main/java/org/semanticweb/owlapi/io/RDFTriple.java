@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * @since 3.2
  */
 public class RDFTriple implements Serializable {
-    private static final long serialVersionUID = 30405L;
+    private static final long serialVersionUID = 30406L;
 
     private final RDFResource subject;
 

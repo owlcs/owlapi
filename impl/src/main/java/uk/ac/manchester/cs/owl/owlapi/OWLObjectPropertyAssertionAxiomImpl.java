@@ -62,7 +62,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual> implements OWLObjectPropertyAssertionAxiom {
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 
 	@SuppressWarnings("javadoc")

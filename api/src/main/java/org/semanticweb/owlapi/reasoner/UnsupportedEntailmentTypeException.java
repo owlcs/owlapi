@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 @SuppressWarnings("javadoc")
 public class UnsupportedEntailmentTypeException extends OWLRuntimeException {
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 	private final OWLAxiom axiom;
 
 

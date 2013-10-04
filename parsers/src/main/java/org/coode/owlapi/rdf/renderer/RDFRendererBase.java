@@ -742,7 +742,7 @@ public abstract class RDFRendererBase {
      */
     private static final class OWLEntityIRIComparator implements Comparator<OWLEntity>, Serializable {
 
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
 
         public OWLEntityIRIComparator() {}
         @Override
@@ -755,7 +755,7 @@ public abstract class RDFRendererBase {
 
     public static class TripleComparator implements Comparator<RDFTriple>, Serializable {
 
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
 
         private static final List<IRI> orderedURIs = Arrays.asList(RDF_TYPE.getIRI(), RDFS_LABEL.getIRI(), OWL_EQUIVALENT_CLASS.getIRI(), RDFS_SUBCLASS_OF.getIRI(), OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(), OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
 

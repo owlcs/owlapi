@@ -52,7 +52,7 @@ import org.xml.sax.SAXException;
 public class TranslatedOWLOntologyChangeException extends SAXException {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 	public TranslatedOWLOntologyChangeException(OWLOntologyChangeException e) {
         super(e);

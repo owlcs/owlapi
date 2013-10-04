@@ -79,7 +79,7 @@ public class OWLXMLWriter {
      * String comparator that takes length into account before natural ordering.
      */
     private static final class StringLengthComparator implements Comparator<String>, Serializable {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
 
         public StringLengthComparator() {}
 		@Override

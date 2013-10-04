@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class ReasonerInterruptedException extends OWLRuntimeException {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 	public ReasonerInterruptedException() {
     }

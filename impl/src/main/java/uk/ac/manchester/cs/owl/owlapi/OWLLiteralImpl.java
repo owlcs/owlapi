@@ -76,7 +76,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
 
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
     private static final int COMPRESSION_LIMIT = 160;
 
@@ -290,7 +290,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     private static final class LiteralWrapper implements Serializable {
 
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
 
         String l;
 

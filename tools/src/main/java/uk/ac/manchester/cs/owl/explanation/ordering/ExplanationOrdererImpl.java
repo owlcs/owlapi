@@ -339,7 +339,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /** tree comparator */
     private static final class OWLAxiomTreeComparator implements
             Comparator<Tree<OWLAxiom>>, Serializable {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
 
         public OWLAxiomTreeComparator() {}
 

@@ -430,7 +430,7 @@ public class JustificationMap {
 
     private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements
             Comparator<OWLAxiom>, Serializable {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
 
         public OWLAxiomComparator() {}
 

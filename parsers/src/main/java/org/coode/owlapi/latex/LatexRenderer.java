@@ -187,7 +187,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     private static class OWLAxiomComparator implements Comparator<OWLAxiom>, Serializable {
 
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
 
         public OWLAxiomComparator() {}
 

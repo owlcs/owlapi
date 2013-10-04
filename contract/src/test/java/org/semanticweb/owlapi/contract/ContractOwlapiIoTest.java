@@ -461,7 +461,7 @@ public class ContractOwlapiIoTest {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 30406L;
         };
         RDFParserMetaData result0 = testSubject0.getOntologyLoaderMetaData();
         OWLOntologyLoaderMetaData result1 = testSubject0.getOntologyLoaderMetaData();

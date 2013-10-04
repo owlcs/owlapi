@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class OBOStorageException extends OWLOntologyStorageException{
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
     public OBOStorageException(OWLObject source, OWLObject problem, String message){
         super(source + ": " + message + " (" + problem + ")");

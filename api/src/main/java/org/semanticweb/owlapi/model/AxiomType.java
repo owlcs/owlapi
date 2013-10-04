@@ -61,7 +61,7 @@ import java.util.Set;
 public class AxiomType<C extends OWLAxiom> implements Serializable {
 
 
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
     private final String name;
 

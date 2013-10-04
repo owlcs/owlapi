@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @since 3.5
  */
 public final class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
     /**
      * Constructs an {@link AddOntologyAnnotationData} object that describes an {@link AddOntologyAnnotation} change

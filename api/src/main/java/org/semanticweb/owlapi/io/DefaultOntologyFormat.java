@@ -48,7 +48,7 @@ package org.semanticweb.owlapi.io;
 public class DefaultOntologyFormat extends RDFXMLOntologyFormat {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 
 	@Override

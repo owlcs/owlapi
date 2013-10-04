@@ -73,10 +73,7 @@ public class ContractOwlapi_4Test {
     public void shouldTestOWLValueRestrictionImpl() throws Exception {
         OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObject> testSubject0 = new OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObject>(
                 Utils.mockObjectProperty(), mock(OWLObject.class)) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 30406L;
 
             @Override
             public OWLClassExpression asSomeValuesFrom() {
@@ -171,7 +168,7 @@ public class ContractOwlapi_4Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 30406L;
 
             @Override
             public Collection<SWRLArgument> getAllArguments() {
@@ -224,7 +221,7 @@ public class ContractOwlapi_4Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 30406L;
 
             @Override
             public void accept(SWRLObjectVisitor visitor) {}
@@ -520,7 +517,7 @@ public class ContractOwlapi_4Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 30406L;
 
             @Override
             public void accept(SWRLObjectVisitor visitor) {}
@@ -567,7 +564,7 @@ public class ContractOwlapi_4Test {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 30406L;
         };
         testSubject0.accept(mock(OWLObjectVisitor.class));
         Object result0 = testSubject0.accept(Utils.mockObject());

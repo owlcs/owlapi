@@ -64,7 +64,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  */
 public class SimpleShortFormProvider implements ShortFormProvider, Serializable {
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 	private final SimpleIRIShortFormProvider uriShortFormProvider = new SimpleIRIShortFormProvider();
 
     @Override

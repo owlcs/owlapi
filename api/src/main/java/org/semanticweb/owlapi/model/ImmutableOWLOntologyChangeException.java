@@ -49,7 +49,7 @@ package org.semanticweb.owlapi.model;
 public class ImmutableOWLOntologyChangeException extends OWLOntologyChangeException {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
     /**
      * Constructs an exception which describes the attempted change.

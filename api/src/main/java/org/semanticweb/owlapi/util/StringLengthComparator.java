@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 /** String comparator that takes length into account before natural ordering. */
 public class StringLengthComparator implements Comparator<String>, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
     @Override
     public int compare(String o1, String o2) {

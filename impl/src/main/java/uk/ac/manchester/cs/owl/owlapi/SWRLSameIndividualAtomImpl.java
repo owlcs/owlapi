@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class SWRLSameIndividualAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements SWRLSameIndividualAtom {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
     @SuppressWarnings("javadoc")
 	public SWRLSameIndividualAtomImpl(OWLDataFactory dataFactory,SWRLIArgument arg0, SWRLIArgument arg1) {

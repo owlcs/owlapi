@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @param <E> */
 
 public final class EntityType<E extends OWLEntity> implements Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     /** class entity */
     public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class",
             "Class", "Classes", OWL_CLASS);

@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * its identity).
  */
 public abstract class OWLOntologyFormat implements Serializable {
-    private static final long serialVersionUID = 30405L;
+    private static final long serialVersionUID = 30406L;
 
     /** if set to "true", an intermediate file will be used for output, even for
      * remote URIs */
@@ -150,7 +150,7 @@ public abstract class OWLOntologyFormat implements Serializable {
 
     private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData,
             Serializable {
-        private static final long serialVersionUID = 30405L;
+        private static final long serialVersionUID = 30406L;
         public NullLoaderMetaData() {}
     }
 }

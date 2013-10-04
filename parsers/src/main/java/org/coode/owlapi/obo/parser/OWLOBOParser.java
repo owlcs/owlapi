@@ -122,7 +122,9 @@ public class OWLOBOParser extends AbstractOWLParser {
                 reader.close();
             }
         }
-        return new OBOOntologyFormat(oboConsumer.getIdSpaceManager());
+        OBOOntologyFormat format = new OBOOntologyFormat();
+        format.setIDSpaceManager(oboConsumer.getIdSpaceManager());
+        return format;
     }
 
 

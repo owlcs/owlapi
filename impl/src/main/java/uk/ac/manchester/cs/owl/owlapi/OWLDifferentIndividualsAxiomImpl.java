@@ -64,7 +64,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl implements OWLDifferentIndividualsAxiom {
 
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
 
     @SuppressWarnings("javadoc")

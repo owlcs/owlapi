@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * <br> */
 public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl implements
         OWLObjectUnionOf {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
     @SuppressWarnings("javadoc")
     public OWLObjectUnionOfImpl(Set<? extends OWLClassExpression> operands) {

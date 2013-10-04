@@ -68,7 +68,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
  * Date: 04-Dec-2007<br>
  * <br> */
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     private static final String UTF_8 = "UTF-8";
     protected final static Logger LOGGER = Logger.getLogger(OWLOntologyStorer.class
             .getName());

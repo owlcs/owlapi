@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.util.NNF;
 public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpressionImpl implements OWLAnonymousClassExpression {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 	public OWLAnonymousClassExpressionImpl() {
         super();

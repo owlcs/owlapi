@@ -88,7 +88,7 @@ public class ContractOwlapiUtilTest {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 30406L;
 
             @Override
             public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {

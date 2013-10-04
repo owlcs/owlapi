@@ -63,7 +63,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataComplementOf {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 	private final OWLDataRange dataRange;
 
 

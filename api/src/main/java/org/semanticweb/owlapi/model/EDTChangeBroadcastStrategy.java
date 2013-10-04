@@ -51,7 +51,7 @@ import javax.swing.SwingUtilities;
  */
 public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
 
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
     @Override
     public void broadcastChanges(final OWLOntologyChangeListener listener, final List<? extends OWLOntologyChange> changes) throws OWLException {
@@ -81,7 +81,7 @@ public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStr
      * unwrapping later on */
     private static class BroadcastException extends RuntimeException {
 
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
 
         BroadcastException(OWLException cause) {
             super(cause);

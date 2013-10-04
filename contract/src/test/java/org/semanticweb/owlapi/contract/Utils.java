@@ -1096,7 +1096,7 @@ public class Utils {
             }
         }, new OWLOntologyLoaderConfiguration());
         c.setOntologyFormat(new RDFOntologyFormat() {
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 30406L;
         });
         return c;
     }

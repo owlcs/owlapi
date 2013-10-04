@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLClassAxiom;
 public abstract class OWLClassAxiomImpl extends OWLLogicalAxiomImpl implements OWLClassAxiom {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 	protected OWLClassAxiomImpl(Collection<? extends OWLAnnotation> annotations) {
         super(annotations);

@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** @author ignazio no cache used */
 public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     private static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl
             .getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);
     private static final OWLDatatype XSD_BOOLEAN = OWL2DatatypeImpl

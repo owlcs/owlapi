@@ -81,7 +81,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * instantiated by using a list of <code>OWLParserFactory</code> objects that
  * are obtained from the <code>OWLParserFactoryRegistry</code>. */
 public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     private static final Logger logger = Logger
             .getLogger(ParsableOWLOntologyFactory.class.getName());
     private final Set<String> parsableSchemes;

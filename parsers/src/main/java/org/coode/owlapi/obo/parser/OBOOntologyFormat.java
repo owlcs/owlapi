@@ -50,25 +50,19 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public class OBOOntologyFormat extends OWLOntologyFormat {
 
+    private static final long serialVersionUID = 30406L;
     private IDSpaceManager idSpaceManager = new IDSpaceManager();
 
-    /**
-     * 
-     */
-    public OBOOntologyFormat() {
-    }
-
-    /**
-     * Constructs an OBOOntologyFormat object.
-     * @param idSpaceManager An {@link IDSpaceManager} which specifies mappings between id prefixes and IRI prefixes.
-     */
-    public OBOOntologyFormat(IDSpaceManager idSpaceManager) {
-        this.idSpaceManager = idSpaceManager;
-    }
-
     @Override
-	public String toString() {
+    public String toString() {
         return "OBO Format";
+    }
+
+    /** @param m
+     *            An {@link IDSpaceManager} which specifies mappings between id
+     *            prefixes and IRI prefixes. */
+    public void setIDSpaceManager(IDSpaceManager m) {
+        idSpaceManager = m;
     }
 
     /**

@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLRestriction;
 public abstract class OWLRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F> extends OWLAnonymousClassExpressionImpl implements OWLRestriction<R, P, F> {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 	private final P property;
 
 

@@ -67,7 +67,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStorer {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 	private OWLOntology ont;
 
     @Override

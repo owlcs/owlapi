@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  * Date: 24-April-2007<br>
  * <br> */
 public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {

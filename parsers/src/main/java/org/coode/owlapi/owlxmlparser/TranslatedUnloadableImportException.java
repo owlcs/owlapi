@@ -52,7 +52,7 @@ import org.xml.sax.SAXException;
 public class TranslatedUnloadableImportException extends SAXException {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
     private UnloadableImportException unloadableImportException;
 
     public TranslatedUnloadableImportException(UnloadableImportException e) {

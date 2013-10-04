@@ -49,7 +49,7 @@ package org.semanticweb.owlapi.model;
 @SuppressWarnings("javadoc")
 public class OWLRuntimeException extends RuntimeException {
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 	public OWLRuntimeException() {
     }

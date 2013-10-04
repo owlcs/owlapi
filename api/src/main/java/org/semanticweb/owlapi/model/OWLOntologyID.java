@@ -54,7 +54,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 	private static final AtomicInteger counter = new AtomicInteger();
 

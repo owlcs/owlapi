@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * </p>
  */
 public abstract class AxiomChangeData extends OWLOntologyChangeData {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
     private final OWLAxiom axiom;
 

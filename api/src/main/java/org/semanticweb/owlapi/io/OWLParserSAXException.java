@@ -53,7 +53,7 @@ import org.xml.sax.SAXException;
  */
 public class OWLParserSAXException extends OWLParserException {
 
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
     /**
      * @param cause the cause

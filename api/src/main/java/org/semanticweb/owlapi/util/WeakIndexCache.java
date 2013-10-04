@@ -11,7 +11,7 @@ import java.util.Map;
  * @param <K>
  * @param <V> */
 public class WeakIndexCache<K, V> implements Serializable {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     protected transient Map<K, WeakReference<V>> prefixCache = CollectionFactory
             .createSyncWeakMap();
 

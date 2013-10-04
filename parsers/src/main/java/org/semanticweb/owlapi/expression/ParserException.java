@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
  * <br> */
 @SuppressWarnings("javadoc")
 public class ParserException extends OWLParserException {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
     private String currentToken;
     private int lineNumber;
     private int columnNumber;

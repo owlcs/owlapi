@@ -58,7 +58,7 @@ package org.semanticweb.owlapi.reasoner;
 public class ReasonerInternalException extends OWLReasonerRuntimeException {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
 	public ReasonerInternalException(Throwable cause) {
         super(cause);

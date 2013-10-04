@@ -47,7 +47,7 @@ package org.coode.owlapi.owlxmlparser;
 public class OWLXMLParserAttributeNotFoundException extends OWLXMLParserException {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
     public OWLXMLParserAttributeNotFoundException(int lineNumber, int columnNumber, String attributeName) {
         super("Attribute not found: " + attributeName, lineNumber, columnNumber);

@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Date: 02-Jan-2007<br><br>
  */
 public class KRSSOntologyFormat extends OWLOntologyFormat {
-    private static final long serialVersionUID = 30405L;
+    private static final long serialVersionUID = 30406L;
 
     @Override
 	public String toString() {

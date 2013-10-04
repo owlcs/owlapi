@@ -223,27 +223,27 @@ public class ContractReasonerTest {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 30406L;
         };
         OWLReasonerRuntimeException testSubject1 = new OWLReasonerRuntimeException(
                 new RuntimeException()) {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 30406L;
         };
         OWLReasonerRuntimeException testSubject2 = new OWLReasonerRuntimeException("") {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 30406L;
         };
         OWLReasonerRuntimeException testSubject3 = new OWLReasonerRuntimeException("",
                 new RuntimeException()) {
             /**
              * 
              */
-            private static final long serialVersionUID = 30402L;
+            private static final long serialVersionUID = 30406L;
         };
         Throwable result1 = testSubject0.getCause();
         String result3 = testSubject0.toString();

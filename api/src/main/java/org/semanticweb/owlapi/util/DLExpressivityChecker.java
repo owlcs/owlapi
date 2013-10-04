@@ -1149,7 +1149,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 //	 */
 //	private static class ConstructComparator implements Comparator<Construct>,
 //			Serializable {
-//		private static final long serialVersionUID = 30402L;
+//		private static final long serialVersionUID = 30406L;
 //
 //		public int compare(Construct o1, Construct o2) {
 //			return o1.ordinal() - o2.ordinal();

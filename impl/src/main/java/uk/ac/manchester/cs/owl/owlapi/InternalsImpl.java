@@ -109,10 +109,10 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 @SuppressWarnings("javadoc")
 public class InternalsImpl extends AbstractInternalsImpl {
-    private static final long serialVersionUID = 30402L;
+    private static final long serialVersionUID = 30406L;
 
     protected class SetPointer<K> implements Internals.SimplePointer<K>, Serializable {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
         private final Set<K> set;
 
         public SetPointer(Set<K> s) {
@@ -480,7 +480,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
     }
 
     class AddAxiomVisitor implements OWLAxiomVisitor, Serializable {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
@@ -727,7 +727,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
     }
 
     class RemoveAxiomVisitor implements OWLAxiomVisitor, Serializable {
-        private static final long serialVersionUID = 30402L;
+        private static final long serialVersionUID = 30406L;
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {

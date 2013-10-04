@@ -13,7 +13,7 @@ public class Token implements java.io.Serializable {
    * Increment only if the <i>serialized</i> form of the
    * class changes.
    */
-  private static final long serialVersionUID = 30402L;
+  private static final long serialVersionUID = 30406L;
 
   /**
    * An integer that describes the kind of this token.  This numbering

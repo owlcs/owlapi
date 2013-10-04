@@ -49,7 +49,7 @@ import java.io.Serializable;
  * An implementation of a progress monitor that does nothing when it receives notification of progress events.
  */
 public class NullReasonerProgressMonitor implements ReasonerProgressMonitor , Serializable {
-    private static final long serialVersionUID = 30405L;
+    private static final long serialVersionUID = 30406L;
 	  @Override
     public void reasonerTaskStarted(String taskName) {
     }

@@ -51,7 +51,7 @@ import java.io.IOException;
 public class OWLRendererIOException extends OWLRendererException {
 
 
-	private static final long serialVersionUID = 30402L;
+	private static final long serialVersionUID = 30406L;
 
     /**
      * @param cause the cause
