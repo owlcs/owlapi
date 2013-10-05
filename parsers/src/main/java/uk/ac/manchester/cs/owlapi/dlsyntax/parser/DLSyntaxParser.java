@@ -67,7 +67,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import uk.ac.manchester.cs.JavaCharStream;
+import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 
 @SuppressWarnings("all")
 public class DLSyntaxParser implements DLSyntaxParserConstants {
@@ -1916,7 +1916,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
 
     /** Generated Token Manager. */
     public DLSyntaxParserTokenManager token_source;
-    JavaCharStream jj_input_stream;
+    BOMSafeJavaCharStream jj_input_stream;
     /** Current token. */
     public Token token;
     /** Next token. */
@@ -1944,7 +1944,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     /** Constructor with InputStream and supplied encoding */
     public DLSyntaxParser(java.io.InputStream stream, String encoding) {
         try {
-            jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
+            jj_input_stream = new BOMSafeJavaCharStream(stream, encoding, 1, 1);
         } catch (java.io.UnsupportedEncodingException e) {
             throw new OWLRuntimeException(e);
         }
@@ -1985,7 +1985,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
 
     /** Constructor. */
     public DLSyntaxParser(java.io.Reader stream) {
-        jj_input_stream = new JavaCharStream(stream, 1, 1);
+        jj_input_stream = new BOMSafeJavaCharStream(stream, 1, 1);
         token_source = new DLSyntaxParserTokenManager(jj_input_stream);
         token = new Token();
         jj_ntk = -1;

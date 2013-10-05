@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import uk.ac.manchester.cs.JavaCharStream;
+import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 
 // Suppress warnings in auto-generated code
 @SuppressWarnings({ "unused", "javadoc" })
@@ -2929,7 +2929,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
 
     /** Generated Token Manager. */
     public KRSS2ParserTokenManager token_source;
-    JavaCharStream jj_input_stream;
+    BOMSafeJavaCharStream jj_input_stream;
     /** Current token. */
     public Token token;
     /** Next token. */
@@ -2972,7 +2972,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     /** Constructor with InputStream and supplied encoding */
     public KRSS2Parser(java.io.InputStream stream, String encoding) {
         try {
-            jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
+            jj_input_stream = new BOMSafeJavaCharStream(stream, encoding, 1, 1);
         } catch (java.io.UnsupportedEncodingException e) {
             throw new OWLRuntimeException(e);
         }
@@ -3014,7 +3014,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
 
     /** Constructor. */
     public KRSS2Parser(java.io.Reader stream) {
-        jj_input_stream = new JavaCharStream(stream, 1, 1);
+        jj_input_stream = new BOMSafeJavaCharStream(stream, 1, 1);
         token_source = new KRSS2ParserTokenManager(jj_input_stream);
         token = new Token();
         jj_ntk = -1;

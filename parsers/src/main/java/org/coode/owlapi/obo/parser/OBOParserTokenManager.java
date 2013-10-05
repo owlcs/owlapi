@@ -3,7 +3,7 @@ package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-import uk.ac.manchester.cs.JavaCharStream;
+import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 
 /** Token Manager. */
 @SuppressWarnings("javadoc")
@@ -823,13 +823,13 @@ public class OBOParserTokenManager implements OBOParserConstants
     static final long[] jjtoSkip = {
         0x166c3eL,
     };
-    protected JavaCharStream input_stream;
+    protected BOMSafeJavaCharStream input_stream;
     private final int[] jjrounds = new int[7];
     private final int[] jjstateSet = new int[14];
     protected char curChar;
     /** Constructor. */
-    public OBOParserTokenManager(JavaCharStream stream){
-        if (JavaCharStream.staticFlag) {
+    public OBOParserTokenManager(BOMSafeJavaCharStream stream){
+        if (BOMSafeJavaCharStream.staticFlag) {
             throw new OWLRuntimeException(
                     "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
         }
@@ -837,13 +837,13 @@ public class OBOParserTokenManager implements OBOParserConstants
     }
 
     /** Constructor. */
-    public OBOParserTokenManager(JavaCharStream stream, int lexState){
+    public OBOParserTokenManager(BOMSafeJavaCharStream stream, int lexState){
         this(stream);
         SwitchTo(lexState);
     }
 
     /** Reinitialise parser. */
-    public void ReInit(JavaCharStream stream)
+    public void ReInit(BOMSafeJavaCharStream stream)
     {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
@@ -860,7 +860,7 @@ public class OBOParserTokenManager implements OBOParserConstants
     }
 
     /** Reinitialise parser. */
-    public void ReInit(JavaCharStream stream, int lexState)
+    public void ReInit(BOMSafeJavaCharStream stream, int lexState)
     {
         ReInit(stream);
         SwitchTo(lexState);

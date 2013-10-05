@@ -3,7 +3,7 @@ package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-import uk.ac.manchester.cs.JavaCharStream;
+import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 
 @SuppressWarnings("all")
 public class OBOParser implements OBOParserConstants {
@@ -139,7 +139,7 @@ public class OBOParser implements OBOParserConstants {
 
     /** Generated Token Manager. */
     public OBOParserTokenManager token_source;
-    JavaCharStream jj_input_stream;
+    BOMSafeJavaCharStream jj_input_stream;
     /** Current token. */
     public Token token;
     /** Next token. */
@@ -162,7 +162,7 @@ public class OBOParser implements OBOParserConstants {
     /** Constructor with InputStream and supplied encoding */
     public OBOParser(java.io.InputStream stream, String encoding) {
         try {
-            jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
+            jj_input_stream = new BOMSafeJavaCharStream(stream, encoding, 1, 1);
         } catch (java.io.UnsupportedEncodingException e) {
             throw new OWLRuntimeException(e);
         }
@@ -197,7 +197,7 @@ public class OBOParser implements OBOParserConstants {
 
     /** Constructor. */
     public OBOParser(java.io.Reader stream) {
-        jj_input_stream = new JavaCharStream(stream, 1, 1);
+        jj_input_stream = new BOMSafeJavaCharStream(stream, 1, 1);
         token_source = new OBOParserTokenManager(jj_input_stream);
         token = new Token();
         jj_ntk = -1;

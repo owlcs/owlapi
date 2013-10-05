@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** JavaCC generated JavaCharStream with added treatment for BOMs */
 @SuppressWarnings("javadoc")
-public class JavaCharStream {
+public class BOMSafeJavaCharStream {
     /** Whether parser is static. */
     public static final boolean staticFlag = false;
 
@@ -358,7 +358,7 @@ public class JavaCharStream {
     }
 
     /** Constructor. */
-    protected JavaCharStream(Reader dstream, int startline, int startcolumn,
+    protected BOMSafeJavaCharStream(Reader dstream, int startline, int startcolumn,
             int buffersize) {
         inputStream = dstream;
         line = startline;
@@ -371,7 +371,7 @@ public class JavaCharStream {
     }
 
     /** Constructor. */
-    public JavaCharStream(Reader dstream, int startline, int startcolumn) {
+    public BOMSafeJavaCharStream(Reader dstream, int startline, int startcolumn) {
         this(dstream, startline, startcolumn, 4096);
     }
 
@@ -398,7 +398,7 @@ public class JavaCharStream {
     }
 
     /** Constructor. */
-    protected JavaCharStream(InputStream dstream, String encoding, int startline,
+    protected BOMSafeJavaCharStream(InputStream dstream, String encoding, int startline,
             int startcolumn, int buffersize) throws UnsupportedEncodingException {
         this(encoding == null ? new InputStreamReader(dstream, "UTF-8")
         : new InputStreamReader(dstream, encoding), startline, startcolumn,
@@ -406,7 +406,7 @@ public class JavaCharStream {
     }
 
     /** Constructor. */
-    public JavaCharStream(InputStream dstream, String encoding, int startline,
+    public BOMSafeJavaCharStream(InputStream dstream, String encoding, int startline,
             int startcolumn) throws UnsupportedEncodingException {
         this(dstream, encoding, startline, startcolumn, 4096);
     }

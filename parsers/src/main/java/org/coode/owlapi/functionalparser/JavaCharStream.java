@@ -10,7 +10,7 @@ package org.coode.owlapi.functionalparser;
  * This stops JavaCC from rebuilding the wrong files and minimizes duplicated
  * code. */
 @SuppressWarnings("javadoc")
-public class JavaCharStream extends uk.ac.manchester.cs.JavaCharStream {
+public class JavaCharStream extends uk.ac.manchester.cs.BOMSafeJavaCharStream {
     /** Constructor. */
     public JavaCharStream(java.io.Reader dstream, int startline, int startcolumn) {
         super(dstream, startline, startcolumn, 4096);
