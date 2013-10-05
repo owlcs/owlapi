@@ -132,7 +132,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return <code>true</code> if the IRI is in the reserved vocabulary,
      *         otherwise <code>false</code>. */
     public boolean isReservedVocabulary() {
-        return prefix.startsWith(Namespaces.OWL.toString()) || prefix.startsWith(Namespaces.RDF.toString()) || prefix.startsWith(Namespaces.RDFS.toString()) || prefix.startsWith(Namespaces.XSD.toString());
+        return Namespaces.OWL.inNamespace(prefix) || Namespaces.RDF.inNamespace(prefix)
+                || Namespaces.RDFS.inNamespace(prefix);
     }
 
     /** Determines if this IRI is equal to the IRI that <code>owl:Thing</code> is
@@ -142,7 +143,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *         &lt;http://www.w3.org/2002/07/owl#Thing&gt; and otherwise
      *         <code>false</code> */
     public boolean isThing() {
-        return remainder != null && remainder.equals("Thing") && prefix.equals(Namespaces.OWL.toString());
+        return remainder != null && remainder.equals("Thing")
+                && Namespaces.OWL.inNamespace(prefix);
     }
 
     /** Determines if this IRI is equal to the IRI that <code>owl:Nothing</code>
@@ -162,7 +164,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
      *         otherwise <code>false</code> */
     public boolean isPlainLiteral() {
-        return remainder != null && remainder.equals("PlainLiteral") && prefix.equals(Namespaces.RDF.toString());
+        return remainder != null && remainder.equals("PlainLiteral")
+                && Namespaces.RDF.inNamespace(prefix);
     }
 
     /** Gets the fragment of the IRI.

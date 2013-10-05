@@ -57,15 +57,6 @@ public class ContractOwlapiVocabTest {
     }
 
     @Test
-    public void shouldTestNamespaces() throws Exception {
-        Namespaces testSubject0 = Namespaces.OWL;
-        String result0 = testSubject0.toString();
-        Namespaces[] result1 = Namespaces.values();
-        String result3 = testSubject0.name();
-        int result8 = testSubject0.ordinal();
-    }
-
-    @Test
     public void shouldTestOWL2Datatype() throws Exception {
         OWL2Datatype testSubject0 = OWL2Datatype.OWL_RATIONAL;
         OWL2Datatype[] result0 = OWL2Datatype.values();

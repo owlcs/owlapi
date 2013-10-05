@@ -123,7 +123,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
         Map<String, String> ns2prefixMap = namespaceUtil.getNamespace2PrefixMap();
         for (String ns : ns2prefixMap.keySet()) {
-            if (!ns.equals(Namespaces.OWL11.toString()) && !ns.equals(Namespaces.OWL11XML.toString())) {
+            if (!Namespaces.OWL11.inNamespace(ns) && !Namespaces.OWL11XML.inNamespace(ns)) {
                 setPrefix(ns2prefixMap.get(ns), ns);
             }
         }
@@ -171,7 +171,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             }
         }
         if(ontology.getOntologyID().isAnonymous()) {
-            // What do we return here? Just return the OWL namespace for now.
+            // XXX What do we return here? Just return the OWL namespace for
+            // now.
             return Namespaces.OWL.toString();
         }
         else {

@@ -311,7 +311,7 @@ public class OWL2DLProfile implements OWLProfile {
             //     - Be rdfs:Literal, or
             //     - Not be in the reserved vocabulary of OWL 2
             if (!OWL2Datatype.isBuiltIn(datatype.getIRI())) {
-                if (!datatype.getIRI().getNamespace().equals(Namespaces.XSD.toString())) {
+                if (!Namespaces.XSD.inNamespace(datatype.getIRI())) {
                     if (!datatype.isTopDatatype()) {
                         if (datatype.getIRI().isReservedVocabulary()) {
                             profileViolations.add(new UseOfUnknownDatatype(getCurrentOntology(), getCurrentAxiom(), datatype));

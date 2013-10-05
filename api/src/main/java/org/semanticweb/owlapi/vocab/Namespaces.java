@@ -43,6 +43,8 @@ package org.semanticweb.owlapi.vocab;
 import static org.semanticweb.owlapi.vocab.Namespaces.BuiltIn.*;
 import static org.semanticweb.owlapi.vocab.Namespaces.Status.IN_USE;
 
+import org.semanticweb.owlapi.model.IRI;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -167,6 +169,20 @@ public enum Namespaces {
     @Override
     public String toString() {
         return ns;
+    }
+
+    /** @param s
+     * @return true if s equals this namespace */
+
+    public boolean inNamespace(String s) {
+        return ns.equals(s);
+    }
+
+    /** @param i
+     * @return true if the namespace for i equals this namespace */
+
+    public boolean inNamespace(IRI i) {
+        return ns.equals(i.getNamespace());
     }
 
 
