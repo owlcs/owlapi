@@ -167,7 +167,7 @@ CollectionContainer<OWLAnnotation> {
     @Override
     public OWLAxiom getNNF() {
         if (nnf == null) {
-            NNF con = new NNF(getOWLDataFactory());
+            NNF con = new NNF(new OWLDataFactoryImpl());
             nnf = accept(con);
         }
         return nnf;

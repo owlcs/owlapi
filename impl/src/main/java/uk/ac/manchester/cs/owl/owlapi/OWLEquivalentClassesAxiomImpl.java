@@ -41,6 +41,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -81,12 +82,12 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLEquivalentClassesAxiom(getClassExpressions());
+        return new OWLEquivalentClassesAxiomImpl(getClassExpressions(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLEquivalentClassesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLEquivalentClassesAxiom(getClassExpressions(),
+        return new OWLEquivalentClassesAxiomImpl(getClassExpressions(),
                 mergeAnnos(annotations));
     }
 
@@ -98,7 +99,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             OWLClassExpression ceI = classExpressions.get(i);
             OWLClassExpression ceJ = classExpressions.get(i + 1);
-            result.add(getOWLDataFactory().getOWLEquivalentClassesAxiom(ceI, ceJ));
+            result.add(new OWLEquivalentClassesAxiomImpl(new HashSet<OWLClassExpression>(
+                    Arrays.asList(ceI, ceJ)), NO_ANNOTATIONS));
         }
         return result;
     }
@@ -156,8 +158,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         for (int i = 0; i < classExpressions.size(); i++) {
             for (int j = 0; j < classExpressions.size(); j++) {
                 if (i != j) {
-                    result.add(getOWLDataFactory().getOWLSubClassOfAxiom(
-                            classExpressions.get(i), classExpressions.get(j)));
+                    result.add(new OWLSubClassOfAxiomImpl(classExpressions.get(i),
+                            classExpressions.get(j), NO_ANNOTATIONS));
                 }
             }
         }

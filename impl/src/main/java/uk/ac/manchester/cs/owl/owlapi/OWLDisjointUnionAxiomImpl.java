@@ -39,6 +39,8 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -75,9 +77,6 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     public OWLDisjointUnionAxiomImpl(OWLClass owlClass, Set<? extends OWLClassExpression> classExpressions, Set<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.owlClass = owlClass;
-//        if(classExpressions==null || classExpressions.isEmpty()) {
-//        	throw new IllegalArgumentException("the classExpressions set must contain at least one value");
-//        }
         this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
     }
 
@@ -91,12 +90,14 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDisjointUnionAxiom(getOWLClass(), getClassExpressions());
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(), getClassExpressions(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDisjointUnionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDisjointUnionAxiom(getOWLClass(), getClassExpressions(), mergeAnnos(annotations));
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(), getClassExpressions(),
+                mergeAnnos(annotations));
     }
 
     @Override
@@ -147,12 +148,14 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
 
     @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
-        return getOWLDataFactory().getOWLEquivalentClassesAxiom(owlClass, getOWLDataFactory().getOWLObjectUnionOf(getClassExpressions()));
+        return new OWLEquivalentClassesAxiomImpl(
+                new HashSet<OWLClassExpression>(Arrays.asList(owlClass,
+                        new OWLObjectUnionOfImpl(getClassExpressions()))), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom() {
-        return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions());
+        return new OWLDisjointClassesAxiomImpl(getClassExpressions(), NO_ANNOTATIONS);
     }
 
     @Override

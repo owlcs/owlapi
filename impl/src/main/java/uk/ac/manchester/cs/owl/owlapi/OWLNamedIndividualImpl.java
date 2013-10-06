@@ -93,7 +93,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
 
     @Override
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
-        return getOWLDataFactory().getOWLEntity(entityType, getIRI());
+        return getOWLEntity(entityType, getIRI());
     }
 
     @Override

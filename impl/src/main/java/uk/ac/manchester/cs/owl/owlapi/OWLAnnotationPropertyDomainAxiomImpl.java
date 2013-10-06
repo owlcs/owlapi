@@ -78,12 +78,14 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLAnnotationPropertyDomainAxiom(getProperty(), getDomain());
+        return new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public OWLAnnotationPropertyDomainAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLAnnotationPropertyDomainAxiom(getProperty(), getDomain(), mergeAnnos(annotations));
+        return new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(),
+                mergeAnnos(annotations));
     }
 
     @Override

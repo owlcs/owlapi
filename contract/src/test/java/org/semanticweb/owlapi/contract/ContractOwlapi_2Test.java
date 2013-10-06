@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.contract;
 
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.net.URI;
@@ -72,6 +72,7 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternals;
@@ -163,7 +164,9 @@ false);
         OWLLiteral result7 = testSubject0.getOWLLiteral(0);
         OWLLiteral result8 = testSubject0.getOWLLiteral("");
         OWLLiteral result9 = testSubject0.getOWLLiteral(0F);
-        OWLLiteral result10 = testSubject0.getOWLLiteral("", mock(OWLDatatype.class));
+        OWLDatatype mock = mock(OWLDatatype.class);
+        when(mock.getIRI()).thenReturn(OWL2Datatype.XSD_STRING.getIRI());
+        OWLLiteral result10 = testSubject0.getOWLLiteral("", mock);
         testSubject0.purge();
         OWLDatatype result11 = testSubject0.getTopDatatype();
         OWLDatatype result12 = testSubject0.getRDFPlainLiteral();

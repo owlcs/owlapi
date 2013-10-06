@@ -65,6 +65,7 @@ public class ObjectPropertySimplifier {
         simplifier = new Simplifier();
     }
 
+
     /** Gets an object property expression in its simplest form.
      * 
      * @param prop

@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 
 /**
@@ -65,6 +66,11 @@ public class OWLDataMinCardinalityImpl extends OWLDataCardinalityRestrictionImpl
         super(property, cardinality, filler);
     }
 
+    @SuppressWarnings("javadoc")
+    public OWLDataMinCardinalityImpl(OWLDataPropertyExpression property, int cardinality) {
+        this(property, cardinality, OWL2DatatypeImpl
+                .getDatatype(OWL2Datatype.RDFS_LITERAL));
+	}
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.DATA_MIN_CARDINALITY;

@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -60,6 +61,12 @@ public class OWLDataMaxCardinalityImpl extends OWLDataCardinalityRestrictionImpl
     public OWLDataMaxCardinalityImpl(OWLDataPropertyExpression property, int cardinality,
             OWLDataRange filler) {
         super(property, cardinality, filler);
+    }
+
+    @SuppressWarnings("javadoc")
+    public OWLDataMaxCardinalityImpl(OWLDataPropertyExpression property, int cardinality) {
+        this(property, cardinality, OWL2DatatypeImpl
+                .getDatatype(OWL2Datatype.RDFS_LITERAL));
     }
 
     @Override

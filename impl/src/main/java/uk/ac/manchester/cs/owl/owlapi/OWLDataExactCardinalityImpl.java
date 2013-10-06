@@ -38,6 +38,9 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -47,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -61,6 +65,11 @@ public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionIm
     public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property,
             int cardinality, OWLDataRange filler) {
         super(property, cardinality, filler);
+    }
+
+    public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property, int cardinality) {
+        super(property, cardinality, OWL2DatatypeImpl
+                .getDatatype(OWL2Datatype.RDFS_LITERAL));
     }
 
     @Override
@@ -98,10 +107,9 @@ public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionIm
 
     @Override
     public OWLClassExpression asIntersectionOfMinMax() {
-        return getOWLDataFactory().getOWLObjectIntersectionOf(
-                getOWLDataFactory().getOWLDataMinCardinality(getCardinality(),
-                        getProperty(), getFiller()),
-                getOWLDataFactory().getOWLDataMaxCardinality(getCardinality(),
-                        getProperty(), getFiller()));
+        return new OWLObjectIntersectionOfImpl(new HashSet<OWLClassExpression>(
+                Arrays.asList(new OWLDataMinCardinalityImpl(getProperty(),
+                        getCardinality(), getFiller()), new OWLDataMaxCardinalityImpl(
+                        getProperty(), getCardinality(), getFiller()))));
     }
 }

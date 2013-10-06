@@ -72,12 +72,13 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDisjointObjectPropertiesAxiom(getProperties());
+        return new OWLDisjointObjectPropertiesAxiomImpl(getProperties(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDisjointObjectPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDisjointObjectPropertiesAxiom(getProperties(), mergeAnnos(annotations));
+        return new OWLDisjointObjectPropertiesAxiomImpl(getProperties(),
+                mergeAnnos(annotations));
     }
 
     @Override

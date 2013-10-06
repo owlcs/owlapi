@@ -38,7 +38,6 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -97,17 +96,12 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getSWRLRule(getBody(), getHead());
+        return new SWRLRuleImpl(getBody(), getHead(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getSWRLRule(getBody(), getHead());
-    }
-
-    @SuppressWarnings("javadoc")
-    public SWRLRuleImpl(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
-        this(body, head, new ArrayList<OWLAnnotation>(0));
+        return new SWRLRuleImpl(getBody(), getHead(), annotations);
     }
 
     @Override
@@ -259,7 +253,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
             for (SWRLAtom atom : node.getHead()) {
                 nodehead.add((SWRLAtom) atom.accept(this));
             }
-            return getOWLDataFactory().getSWRLRule(nodebody, nodehead);
+            return new SWRLRuleImpl(nodebody, nodehead, NO_ANNOTATIONS);
         }
 
         @Override

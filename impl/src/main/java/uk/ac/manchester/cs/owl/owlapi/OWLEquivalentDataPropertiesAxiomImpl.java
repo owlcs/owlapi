@@ -76,12 +76,13 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(getProperties());
+        return new OWLEquivalentDataPropertiesAxiomImpl(getProperties(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLEquivalentDataPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(getProperties(), mergeAnnos(annotations));
+        return new OWLEquivalentDataPropertiesAxiomImpl(getProperties(),
+                mergeAnnos(annotations));
     }
 
     @Override
@@ -122,7 +123,8 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         for (int i = 0; i < props.size(); i++) {
             for (int j = 0; j < props.size(); j++) {
                 if (i != j) {
-                    result.add(getOWLDataFactory().getOWLSubDataPropertyOfAxiom(                            props.get(i), props.get(j)));
+                    result.add(new OWLSubDataPropertyOfAxiomImpl(props.get(i), props
+                            .get(j), NO_ANNOTATIONS));
                 }
             }
         }

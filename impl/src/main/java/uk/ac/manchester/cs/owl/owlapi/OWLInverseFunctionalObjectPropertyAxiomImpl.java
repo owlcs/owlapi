@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -75,12 +74,14 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends OWLObjectProper
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(getProperty());
+        return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public OWLInverseFunctionalObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
+        return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(),
+                mergeAnnos(annotations));
     }
 
     @Override
@@ -117,7 +118,7 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends OWLObjectProper
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLDataFactory df = getOWLDataFactory();
-        return df.getOWLSubClassOfAxiom(df.getOWLThing(), df.getOWLObjectMaxCardinality(1, getProperty().getInverseProperty().getSimplified()));
+        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectMaxCardinalityImpl(
+                getProperty().getInverseProperty().getSimplified(), 1), NO_ANNOTATIONS);
     }
 }

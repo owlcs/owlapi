@@ -125,20 +125,12 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         }
     }
 
-    @Override
-    public boolean isRDFPlainLiteral() {
-        return datatype.equals(getOWLDataFactory().getRDFPlainLiteral());
-    }
 
     @Override
     public boolean hasLang() {
         return !lang.equals("");
     }
 
-    @Override
-    public boolean isInteger() {
-        return datatype.equals(getOWLDataFactory().getIntegerOWLDatatype());
-    }
 
     @Override
     public int parseInteger() throws NumberFormatException {
@@ -146,8 +138,28 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     }
 
     @Override
+    public boolean isRDFPlainLiteral() {
+        return datatype.getIRI().equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+    }
+
+    @Override
+    public boolean isInteger() {
+        return datatype.getIRI().equals(OWL2Datatype.XSD_INTEGER.getIRI());
+    }
+
+    @Override
     public boolean isBoolean() {
-        return datatype.equals(getOWLDataFactory().getBooleanOWLDatatype());
+        return datatype.getIRI().equals(OWL2Datatype.XSD_BOOLEAN.getIRI());
+    }
+
+    @Override
+    public boolean isDouble() {
+        return datatype.getIRI().equals(OWL2Datatype.XSD_DOUBLE.getIRI());
+    }
+
+    @Override
+    public boolean isFloat() {
+        return datatype.getIRI().equals(OWL2Datatype.XSD_FLOAT.getIRI());
     }
 
     @Override
@@ -169,19 +181,10 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     }
 
     @Override
-    public boolean isDouble() {
-        return datatype.equals(getOWLDataFactory().getDoubleOWLDatatype());
-    }
-
-    @Override
     public double parseDouble() throws NumberFormatException {
         return Double.parseDouble(getLiteral());
     }
 
-    @Override
-    public boolean isFloat() {
-        return datatype.equals(getOWLDataFactory().getFloatOWLDatatype());
-    }
 
     @Override
     public float parseFloat() throws NumberFormatException {

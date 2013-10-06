@@ -62,48 +62,43 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
  * <br>
  * <p>
- *     Implementation of {@link OWLLiteral} that uses compression of strings.  See also
- *     {@link OWLLiteralImplNoCompression}
- * </p>
- */
+ * Implementation of {@link OWLLiteral} that uses compression of strings. See
+ * also {@link OWLLiteralImplNoCompression}
+ * </p> */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
-
-
     private static final long serialVersionUID = 30406L;
-
     private static final int COMPRESSION_LIMIT = 160;
-
     private final LiteralWrapper literal;
-
     private final OWLDatatype datatype;
-
     private final String lang;
-
     private final int hashcode;
 
-    /**
-     * @param literal the lexical form
-     * @param lang the language; can be null or an empty string, in which case datatype can be any datatype but not null
-     * @param datatype the datatype; if lang is null or the empty string, it can be null or it MUST be RDFPlainLiteral
-     */
+    /** @param literal
+     *            the lexical form
+     * @param lang
+     *            the language; can be null or an empty string, in which case
+     *            datatype can be any datatype but not null
+     * @param datatype
+     *            the datatype; if lang is null or the empty string, it can be
+     *            null or it MUST be RDFPlainLiteral */
     public OWLLiteralImpl(String literal, String lang, OWLDatatype datatype) {
         super();
         this.literal = new LiteralWrapper(literal);
         if (lang == null || lang.length() == 0) {
             this.lang = "";
             this.datatype = datatype;
-        }
-        else {
+        } else {
             if (datatype != null && !datatype.isRDFPlainLiteral()) {
-                // ERROR: attempting to build a literal with a language tag and type different from plain literal
-                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
+                // ERROR: attempting to build a literal with a language tag and
+                // type different from plain literal
+                throw new OWLRuntimeException("Error: cannot build a literal with type: "
+                        + datatype.getIRI() + " and language: " + lang);
             }
             this.lang = lang;
             this.datatype = new OWLDatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
@@ -118,7 +113,27 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean isRDFPlainLiteral() {
-        return datatype.equals(getOWLDataFactory().getRDFPlainLiteral());
+        return datatype.getIRI().equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+    }
+
+    @Override
+    public boolean isInteger() {
+        return datatype.getIRI().equals(OWL2Datatype.XSD_INTEGER.getIRI());
+    }
+
+    @Override
+    public boolean isBoolean() {
+        return datatype.getIRI().equals(OWL2Datatype.XSD_BOOLEAN.getIRI());
+    }
+
+    @Override
+    public boolean isDouble() {
+        return datatype.getIRI().equals(OWL2Datatype.XSD_DOUBLE.getIRI());
+    }
+
+    @Override
+    public boolean isFloat() {
+        return datatype.getIRI().equals(OWL2Datatype.XSD_FLOAT.getIRI());
     }
 
     @Override
@@ -127,18 +142,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public boolean isInteger() {
-        return datatype.equals(getOWLDataFactory().getIntegerOWLDatatype());
-    }
-
-    @Override
     public int parseInteger() throws NumberFormatException {
         return Integer.parseInt(literal.get());
-    }
-
-    @Override
-    public boolean isBoolean() {
-        return datatype.equals(getOWLDataFactory().getBooleanOWLDatatype());
     }
 
     @Override
@@ -159,18 +164,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public boolean isDouble() {
-        return datatype.equals(getOWLDataFactory().getDoubleOWLDatatype());
-    }
-
-    @Override
     public double parseDouble() throws NumberFormatException {
         return Double.parseDouble(literal.get());
-    }
-
-    @Override
-    public boolean isFloat() {
-        return datatype.equals(getOWLDataFactory().getFloatOWLDatatype());
     }
 
     @Override
@@ -210,8 +205,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         hashCode = hashCode * 37;
         if (literal.l != null) {
             hashCode += literal.l.hashCode();
-        }
-        else {
+        } else {
             hashCode += Arrays.hashCode(literal.bytes);
         }
         if (hasLang()) {
@@ -227,7 +221,9 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 return false;
             }
             OWLLiteral other = (OWLLiteral) obj;
-            return literal.get().equals(other.getLiteral()) && datatype.equals(other.getDatatype()) && lang.equals(other.getLang());
+            return literal.get().equals(other.getLiteral())
+                    && datatype.equals(other.getDatatype())
+                    && lang.equals(other.getLang());
         }
         return false;
     }
@@ -276,24 +272,19 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return visitor.visit(this);
     }
 
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////
-    ///////  Literal Wraper
-    ///////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // /////
+    // ///// Literal Wraper
+    // /////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final class LiteralWrapper implements Serializable {
-
         private static final long serialVersionUID = 30406L;
-
         String l;
-
         byte[] bytes;
 
         LiteralWrapper(String s) {
@@ -301,14 +292,12 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 try {
                     bytes = compress(s);
                     l = null;
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     // some problem happened - defaulting to no compression
                     l = s;
                     bytes = null;
                 }
-            }
-            else {
+            } else {
                 bytes = null;
                 l = s;
             }
@@ -320,8 +309,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
             try {
                 return decompress(bytes);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 // some problem has happened - cannot recover from this
                 e.printStackTrace();
                 return null;
@@ -355,6 +343,4 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
         private static final String COMPRESSED_ENCODING = "UTF-16";
     }
-
-
 }

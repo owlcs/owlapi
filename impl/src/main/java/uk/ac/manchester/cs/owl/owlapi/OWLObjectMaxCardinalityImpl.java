@@ -62,6 +62,12 @@ public class OWLObjectMaxCardinalityImpl extends OWLObjectCardinalityRestriction
         super(property, cardinality, filler);
     }
 
+    @SuppressWarnings("javadoc")
+    public OWLObjectMaxCardinalityImpl(OWLObjectPropertyExpression property,
+            int cardinality) {
+        this(property, cardinality, OWL_THING);
+    }
+
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_MAX_CARDINALITY;

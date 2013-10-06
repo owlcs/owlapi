@@ -165,7 +165,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
-        return OWLObjectImpl.getOWLDataFactory().getOWLEntity(entityType,
+        return OWLObjectImpl.getOWLEntity(entityType,
                 OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
     }
 

@@ -39,17 +39,17 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -61,63 +61,45 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br><br>
  */
-@SuppressWarnings("javadoc")
-public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWLClassAssertionAxiom {
+public class OWLNegativeDataPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLNegativeDataPropertyAssertionAxiom {
 
+    private static final long serialVersionUID = 30406L;
 
-	private static final long serialVersionUID = 30406L;
-
-	private final OWLIndividual individual;
-
-    private final OWLClassExpression classExpression;
-
-
-    public OWLClassAssertionImpl(OWLIndividual individual, OWLClassExpression classExpression, Collection<? extends OWLAnnotation> annotations) {
-        super(annotations);
-        this.individual = individual;
-        this.classExpression = classExpression;
-    }
-
-    @Override
-    public OWLClassAssertionAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(), getIndividual());
-    }
-
-    @Override
-    public OWLClassAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLClassAssertionAxiom(getClassExpression(), getIndividual(), mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLClassExpression getClassExpression() {
-        return classExpression;
-    }
-
-
-    @Override
-    public OWLIndividual getIndividual() {
-        return individual;
-    }
-
-
-    @Override
-	public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLClassAssertionAxiom)) {
-                return false;
-            }
-            OWLClassAssertionAxiom other = (OWLClassAssertionAxiom) obj;
-            return other.getIndividual().equals(individual) && other.getClassExpression().equals(classExpression);
-        }
-        return false;
+    @SuppressWarnings("javadoc")
+    public OWLNegativeDataPropertyAssertionAxiomImpl(OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral object, Set<? extends OWLAnnotation> annotations) {
+        super(subject, property, object, annotations);
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLObjectOneOf(getIndividual()), getClassExpression());
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
+                Collections.singleton(getSubject())), new OWLObjectComplementOfImpl(
+                new OWLDataHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
+    }
+
+    @Override
+    public OWLNegativeDataPropertyAssertionAxiom getAxiomWithoutAnnotations() {
+        if (!isAnnotated()) {
+            return this;
+        }
+        return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
+                getObject(), NO_ANNOTATIONS);
+    }
+
+    @Override
+    public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
+                getObject(), mergeAnnos(annotations));
+    }
+
+    @Override
+    public boolean containsAnonymousIndividuals() {
+        return getSubject().isAnonymous();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) && obj instanceof OWLNegativeDataPropertyAssertionAxiom;
     }
 
     @Override
@@ -143,19 +125,6 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements OWL
 
     @Override
     public AxiomType<?> getAxiomType() {
-        return AxiomType.CLASS_ASSERTION;
+        return AxiomType.NEGATIVE_DATA_PROPERTY_ASSERTION;
     }
-
-    @Override
-	protected int compareObjectOfSameType(OWLObject object) {
-        OWLClassAssertionAxiom otherAx = (OWLClassAssertionAxiom) object;
-        int diff = getIndividual().compareTo(otherAx.getIndividual());
-        if (diff != 0) {
-            return diff;
-        }
-        else {
-            return getClassExpression().compareTo(otherAx.getClassExpression());
-        }
-    }
-
 }

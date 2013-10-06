@@ -40,6 +40,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -48,6 +49,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
+import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -62,6 +66,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -69,8 +74,10 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * Date: 25-Oct-2006<br>
  * <br> */
 public abstract class OWLObjectImpl implements OWLObject, Serializable {
-
     private static final long serialVersionUID = 30406L;
+    /** a convenience reference for an empty annotation set, saves on typing */
+    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
+            .<OWLAnnotation> emptySet();
     private int hashCode = 0;
     private transient WeakReference<Set<OWLEntity>> signature = null;
     private transient WeakReference<Set<OWLAnonymousIndividual>> anons;
@@ -81,17 +88,33 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     // XXX there should be no datafactory here at all
     @Deprecated
     private static OWLDataFactory f = new OWLDataFactoryImpl(false, false);
-
-    /** @return this object's data factory */
-    @Deprecated
-    public static OWLDataFactory getOWLDataFactory() {
-        return f;
-    }
-
-    @SuppressWarnings("javadoc")
-    @Deprecated
-    public static void setOWLDataFactory(OWLDataFactory factory) {
-        f = factory;
+    protected static final OWLClass OWL_THING = new OWLClassImpl(
+            OWLRDFVocabulary.OWL_THING.getIRI());
+    // /** @return this object's data factory */
+    // @Deprecated
+    // public static OWLDataFactory getOWLDataFactory() {
+    // return f;
+    // }
+    // @SuppressWarnings("javadoc")
+    // @Deprecated
+    // public static void setOWLDataFactory(OWLDataFactory factory) {
+    // f = factory;
+    // }
+    static <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType, IRI iri) {
+        if (entityType.equals(EntityType.CLASS)) {
+            return (E) new OWLClassImpl(iri);
+        } else if (entityType.equals(EntityType.OBJECT_PROPERTY)) {
+            return (E) new OWLObjectPropertyImpl(iri);
+        } else if (entityType.equals(EntityType.DATA_PROPERTY)) {
+            return (E) new OWLDataPropertyImpl(iri);
+        } else if (entityType.equals(EntityType.ANNOTATION_PROPERTY)) {
+            return (E) new OWLAnnotationPropertyImpl(iri);
+        } else if (entityType.equals(EntityType.NAMED_INDIVIDUAL)) {
+            return (E) new OWLNamedIndividualImpl(iri);
+        } else if (entityType.equals(EntityType.DATATYPE)) {
+            return (E) new OWLDatatypeImpl(iri);
+        }
+        return null;
     }
 
     @Override

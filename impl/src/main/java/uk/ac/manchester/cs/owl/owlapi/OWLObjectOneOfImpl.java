@@ -38,6 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,7 +65,6 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
 
     @SuppressWarnings("javadoc")
     public OWLObjectOneOfImpl(Set<? extends OWLIndividual> values) {
-        super();
         this.values = new HashSet<OWLIndividual>(values);
     }
 
@@ -87,13 +87,12 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     public OWLClassExpression asObjectUnionOf() {
         if (values.size() == 1) {
             return this;
-        } else {
-            Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-            for (OWLIndividual ind : values) {
-                ops.add(getOWLDataFactory().getOWLObjectOneOf(ind));
-            }
-            return getOWLDataFactory().getOWLObjectUnionOf(ops);
         }
+        Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
+            for (OWLIndividual ind : values) {
+            ops.add(new OWLObjectOneOfImpl(Collections.singleton(ind)));
+            }
+        return new OWLObjectUnionOfImpl(ops);
     }
 
     @Override

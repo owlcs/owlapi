@@ -39,6 +39,7 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Collections;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -71,7 +72,9 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLObjectOneOf(getSubject()), getOWLDataFactory().getOWLDataHasValue(getProperty(), getObject()));
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
+                Collections.singleton(getSubject())), new OWLDataHasValueImpl(
+                getProperty(), getObject()), NO_ANNOTATIONS);
     }
 
     @Override
@@ -79,12 +82,14 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
+        return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
+                getObject(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDataPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
+        return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
+                getObject(), mergeAnnos(annotations));
     }
 
     @Override

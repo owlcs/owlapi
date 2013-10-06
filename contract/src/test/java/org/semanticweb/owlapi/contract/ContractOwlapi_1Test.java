@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.contract;
 
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.ArrayList;
@@ -95,6 +95,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import uk.ac.manchester.cs.owl.owlapi.AbstractInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.AbstractInternalsImpl;
@@ -119,7 +120,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLAnonymousIndividualImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLAsymmetricObjectPropertyAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLCardinalityRestrictionImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLClassAssertionImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLClassAssertionAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLClassAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLClassExpressionImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
@@ -844,7 +845,9 @@ public class ContractOwlapi_1Test {
         OWLDatatype result10 = testSubject0.getDoubleOWLDatatype();
         OWLDatatype result11 = testSubject0.getBooleanOWLDatatype();
         OWLLiteral result12 = testSubject0.getOWLLiteral(0D);
-        OWLLiteral result13 = testSubject0.getOWLLiteral("", mock(OWLDatatype.class));
+        OWLDatatype mock = mock(OWLDatatype.class);
+        when(mock.getIRI()).thenReturn(OWL2Datatype.XSD_STRING.getIRI());
+        OWLLiteral result13 = testSubject0.getOWLLiteral("", mock);
         OWLLiteral result14 = testSubject0.getOWLLiteral(0F);
         OWLLiteral result15 = testSubject0.getOWLLiteral("");
         OWLLiteral result16 = testSubject0.getOWLLiteral("", "");
@@ -1424,7 +1427,7 @@ public class ContractOwlapi_1Test {
 
     @Test
     public void shouldTestOWLClassAssertionImpl() throws Exception {
-        OWLClassAssertionImpl testSubject0 = new OWLClassAssertionImpl(
+        OWLClassAssertionAxiomImpl testSubject0 = new OWLClassAssertionAxiomImpl(
                 mock(OWLIndividual.class), Utils.mockAnonClass(),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
         testSubject0.accept(mock(OWLAxiomVisitor.class));
@@ -1960,7 +1963,9 @@ public class ContractOwlapi_1Test {
         OWLLiteral result7 = testSubject0.getOWLLiteral(0);
         OWLLiteral result8 = testSubject0.getOWLLiteral("");
         OWLLiteral result9 = testSubject0.getOWLLiteral(0F);
-        OWLLiteral result10 = testSubject0.getOWLLiteral("", mock(OWLDatatype.class));
+        OWLDatatype mock = mock(OWLDatatype.class);
+        when(mock.getIRI()).thenReturn(OWL2Datatype.XSD_STRING.getIRI());
+        OWLLiteral result10 = testSubject0.getOWLLiteral("", mock);
         testSubject0.purge();
         OWLDatatype result11 = testSubject0.getTopDatatype();
         OWLDatatype result12 = testSubject0.getRDFPlainLiteral();

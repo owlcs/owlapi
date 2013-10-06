@@ -42,6 +42,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 
 /**
@@ -62,7 +63,8 @@ public abstract class OWLDataCardinalityRestrictionImpl extends OWLCardinalityRe
 
     @Override
     public boolean isQualified() {
-        return !getFiller().equals(getOWLDataFactory().getTopDatatype());
+        return !getFiller().equals(
+                OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDFS_LITERAL));
     }
 
     @Override

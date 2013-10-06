@@ -95,7 +95,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
 
     @Override
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
-        return getOWLDataFactory().getOWLEntity(entityType, getIRI());
+        return getOWLEntity(entityType, getIRI());
     }
 
     @Override

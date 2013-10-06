@@ -77,11 +77,13 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
         }
         else if (prop.isAnonymous()) {
             // Flip
-            return getOWLDataFactory().getSWRLObjectPropertyAtom(prop.getInverseProperty().getSimplified(), getSecondArgument(), getFirstArgument());
+            return new SWRLObjectPropertyAtomImpl(prop.getInverseProperty()
+                    .getSimplified(), getSecondArgument(), getFirstArgument());
         }
         else {
             // No need to flip
-            return getOWLDataFactory().getSWRLObjectPropertyAtom(prop, getFirstArgument(), getSecondArgument());
+            return new SWRLObjectPropertyAtomImpl(prop, getFirstArgument(),
+                    getSecondArgument());
         }
     }
 

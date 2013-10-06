@@ -98,7 +98,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
 
     @Override
     public OWLSubClassOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass, mergeAnnos(annotations));
+        return new OWLSubClassOfAxiomImpl(subClass, superClass, mergeAnnos(annotations));
     }
 
     @Override
@@ -106,7 +106,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass);
+        return new OWLSubClassOfAxiomImpl(subClass, superClass, NO_ANNOTATIONS);
     }
     //XXX not in the interface
     @SuppressWarnings("javadoc")

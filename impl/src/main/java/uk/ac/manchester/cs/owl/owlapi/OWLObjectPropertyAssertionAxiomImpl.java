@@ -39,6 +39,7 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Collections;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -75,17 +76,21 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject());
+        return new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(),
+                getObject(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return getOWLDataFactory().getOWLSubClassOfAxiom(getOWLDataFactory().getOWLObjectOneOf(getSubject()), getOWLDataFactory().getOWLObjectHasValue(getProperty(), getObject()));
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
+                Collections.singleton(getSubject())), new OWLObjectHasValueImpl(
+                getProperty(), getObject()), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getObject(), mergeAnnos(annotations));
+        return new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(),
+                getObject(), mergeAnnos(annotations));
     }
 
     @Override
@@ -101,7 +106,8 @@ public class OWLObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationsh
         else {
             OWLObjectInverseOf property = (OWLObjectInverseOf) getProperty();
             OWLObjectPropertyExpression invProp = property.getInverse();
-            return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(invProp, getObject(), getSubject());
+            return new OWLObjectPropertyAssertionAxiomImpl(getSubject(), invProp,
+                    getObject(), NO_ANNOTATIONS);
         }
     }
 

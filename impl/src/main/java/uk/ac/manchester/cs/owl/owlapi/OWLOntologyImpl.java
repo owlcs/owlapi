@@ -388,7 +388,7 @@ Serializable {
 
     @Override
     public boolean containsClassInSignature(IRI owlClassIRI) {
-        return containsReference(getOWLDataFactory()
+        return containsReference(manager.getOWLDataFactory()
                 .getOWLClass(owlClassIRI));
     }
 
@@ -407,7 +407,7 @@ Serializable {
 
     @Override
     public boolean containsObjectPropertyInSignature(IRI propIRI) {
-        return containsReference(
+        return containsReference(manager.
                 getOWLDataFactory().getOWLObjectProperty(propIRI));
     }
 
@@ -427,7 +427,7 @@ Serializable {
 
     @Override
     public boolean containsDataPropertyInSignature(IRI propIRI) {
-        return containsReference(
+        return containsReference(manager.
                 getOWLDataFactory().getOWLDataProperty(propIRI));
     }
 
@@ -447,7 +447,7 @@ Serializable {
 
     @Override
     public boolean containsAnnotationPropertyInSignature(IRI propIRI) {
-        final OWLAnnotationProperty owlAnnotationProperty = getOWLDataFactory()
+        final OWLAnnotationProperty owlAnnotationProperty = manager.getOWLDataFactory()
                 .getOWLAnnotationProperty(propIRI);
         boolean b = containsReference(
                 owlAnnotationProperty);
@@ -480,7 +480,8 @@ Serializable {
     @Override
     public boolean containsIndividualInSignature(IRI individualIRI) {
         return containsReference(
-                getOWLDataFactory().getOWLNamedIndividual(individualIRI));
+manager.getOWLDataFactory().getOWLNamedIndividual(
+                individualIRI));
     }
 
     @Override
@@ -500,7 +501,7 @@ Serializable {
     @Override
     public boolean containsDatatypeInSignature(IRI datatypeIRI) {
         return containsReference(
-                getOWLDataFactory().getOWLDatatype(datatypeIRI));
+manager.getOWLDataFactory().getOWLDatatype(datatypeIRI));
     }
 
     @Override
@@ -599,7 +600,8 @@ Serializable {
 
     @Override
     public boolean isDeclared(OWLEntity entity) {
-        return internals.isDeclared(getOWLDataFactory().getOWLDeclarationAxiom(entity));
+        return internals.isDeclared(manager.getOWLDataFactory().getOWLDeclarationAxiom(
+                entity));
     }
 
     @Override

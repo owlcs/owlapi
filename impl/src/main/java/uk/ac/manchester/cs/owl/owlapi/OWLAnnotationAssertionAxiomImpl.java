@@ -86,7 +86,8 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(getProperty(), getSubject(), getValue());
+        return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
+                getValue(), NO_ANNOTATIONS);
     }
 
     /** Determines if this annotation assertion deprecates the IRI that is the
@@ -102,7 +103,8 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
 
     @Override
     public OWLAnnotationAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(getProperty(), getSubject(), getValue(), mergeAnnos(annotations));
+        return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
+                getValue(), mergeAnnos(annotations));
     }
 
     @Override
@@ -122,7 +124,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
 
     @Override
     public OWLAnnotation getAnnotation() {
-        return getOWLDataFactory().getOWLAnnotation(property, value);
+        return new OWLAnnotationImpl(property, value, NO_ANNOTATIONS);
     }
 
     @Override

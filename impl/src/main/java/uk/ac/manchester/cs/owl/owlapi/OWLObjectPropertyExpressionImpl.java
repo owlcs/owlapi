@@ -261,7 +261,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     @Override
     public OWLObjectPropertyExpression getSimplified() {
         if (simplestForm == null) {
-            ObjectPropertySimplifier simplifier = new ObjectPropertySimplifier(getOWLDataFactory());
+            ObjectPropertySimplifier simplifier = new ObjectPropertySimplifier(
+                    new OWLDataFactoryImpl());
             simplestForm = simplifier.getSimplified(this);
         }
         return simplestForm;
@@ -271,7 +272,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     @Override
     public OWLObjectPropertyExpression getInverseProperty() {
         if (inverse == null) {
-            inverse = getOWLDataFactory().getOWLObjectInverseOf(this);
+            inverse = new OWLObjectInverseOfImpl(this);
         }
         return inverse;
     }

@@ -446,8 +446,6 @@ public class ContractOwlapi_4Test {
 
     public void shouldTestSWRLRuleImpl() throws Exception {
         SWRLRuleImpl testSubject0 = new SWRLRuleImpl(Utils.mockSet(mock(SWRLAtom.class)),
-                Utils.mockSet(mock(SWRLAtom.class)));
-        SWRLRuleImpl testSubject1 = new SWRLRuleImpl(Utils.mockSet(mock(SWRLAtom.class)),
                 Utils.mockSet(mock(SWRLAtom.class)),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
         Object result0 = testSubject0.accept(Utils.mockSWRLObject());

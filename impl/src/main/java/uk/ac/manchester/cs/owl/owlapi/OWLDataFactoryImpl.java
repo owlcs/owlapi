@@ -1090,7 +1090,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         checkNull(object, "object");
         checkNull(subject, "subject");
         checkNull(annotations, ANNOTATIONS, true);
-        return new OWLNegativeDataPropertyAssertionImplAxiom(subject, property, object, annotations);
+        return new OWLNegativeDataPropertyAssertionAxiomImpl(subject, property, object, annotations);
     }
 
     @Override
@@ -1122,7 +1122,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         checkNull(classExpression, "classExpression");
         checkNull(individual, "individual");
         checkNull(annotations, ANNOTATIONS, true);
-        return new OWLClassAssertionImpl(individual, classExpression, annotations);
+        return new OWLClassAssertionAxiomImpl(individual, classExpression, annotations);
     }
 
     @Override
@@ -1485,7 +1485,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
     public SWRLRule getSWRLRule(Set<? extends SWRLAtom> antecedent, Set<? extends SWRLAtom> consequent) {
         checkNull(antecedent, "antecedent");
         checkNull(consequent, "consequent");
-        return new SWRLRuleImpl(antecedent, consequent);
+        return new SWRLRuleImpl(antecedent, consequent,
+ EMPTY_ANNOTATIONS_SET);
     }
 
     @Override

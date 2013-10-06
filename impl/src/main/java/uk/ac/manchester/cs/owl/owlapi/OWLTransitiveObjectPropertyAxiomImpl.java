@@ -73,12 +73,14 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(getProperty());
+        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(),
+ NO_ANNOTATIONS);
     }
 
     @Override
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(getProperty(), mergeAnnos(annotations));
+        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(),
+                mergeAnnos(annotations));
     }
 
     @Override

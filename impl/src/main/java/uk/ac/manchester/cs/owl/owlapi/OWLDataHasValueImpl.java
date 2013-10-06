@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Collections;
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -89,8 +91,8 @@ public class OWLDataHasValueImpl extends
 
     @Override
     public OWLClassExpression asSomeValuesFrom() {
-        return getOWLDataFactory().getOWLDataSomeValuesFrom(getProperty(),
-                getOWLDataFactory().getOWLDataOneOf(getValue()));
+        return new OWLDataSomeValuesFromImpl(getProperty(), new OWLDataOneOfImpl(
+                Collections.singleton(getValue())));
     }
 
     @Override

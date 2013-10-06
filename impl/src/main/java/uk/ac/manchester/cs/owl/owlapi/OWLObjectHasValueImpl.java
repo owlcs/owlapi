@@ -39,6 +39,8 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Collections;
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -91,7 +93,8 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLClassExpre
 
     @Override
     public OWLClassExpression asSomeValuesFrom() {
-        return getOWLDataFactory().getOWLObjectSomeValuesFrom(getProperty(), getOWLDataFactory().getOWLObjectOneOf(getValue()));
+        return new OWLObjectSomeValuesFromImpl(getProperty(), new OWLObjectOneOfImpl(
+                Collections.singleton(getValue())));
     }
 
 

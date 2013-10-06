@@ -112,7 +112,7 @@ Serializable {
 
     @Override
     public OWLClassExpression getObjectComplementOf() {
-        return getOWLDataFactory().getOWLObjectComplementOf(this);
+        return new OWLObjectComplementOfImpl(this);
     }
 
     @Override
@@ -122,7 +122,7 @@ Serializable {
 
     @Override
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
-        return getOWLDataFactory().getOWLEntity(entityType, getIRI());
+        return getOWLEntity(entityType, getIRI());
     }
 
     @Override
@@ -203,7 +203,7 @@ Serializable {
 
     @Override
     public OWLClassExpression getComplementNNF() {
-        return getOWLDataFactory().getOWLObjectComplementOf(this);
+        return new OWLObjectComplementOfImpl(this);
     }
 
     // XXX not in the interface

@@ -39,6 +39,7 @@
 
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -74,12 +75,13 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions());
+        return new OWLDisjointClassesAxiomImpl(getClassExpressions(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDisjointClassesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDisjointClassesAxiom(getClassExpressions(), mergeAnnos(annotations));
+        return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
+                mergeAnnos(annotations));
     }
 
     @Override
@@ -119,7 +121,9 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         List<OWLClassExpression> list = getClassExpressionsAsList();
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
-                result.add(getOWLDataFactory().getOWLDisjointClassesAxiom(list.get(i), list.get(j)));
+                result.add(new OWLDisjointClassesAxiomImpl(
+                        new HashSet<OWLClassExpression>(Arrays.asList(list.get(i),
+                                list.get(j))), NO_ANNOTATIONS));
             }
         }
         return result;
@@ -131,7 +135,8 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         List<OWLClassExpression> list = getClassExpressionsAsList();
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
-                result.add(getOWLDataFactory().getOWLSubClassOfAxiom(list.get(i), list.get(j).getObjectComplementOf()));
+                result.add(new OWLSubClassOfAxiomImpl(list.get(i), list.get(j)
+                        .getObjectComplementOf(), NO_ANNOTATIONS));
             }
         }
         return result;

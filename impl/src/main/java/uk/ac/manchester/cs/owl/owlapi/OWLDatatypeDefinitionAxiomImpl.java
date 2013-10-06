@@ -81,12 +81,14 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
         if (!isAnnotated()) {
             return this;
         }
-        return getOWLDataFactory().getOWLDatatypeDefinitionAxiom(getDatatype(), getDataRange());
+        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDatatypeDefinitionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return getOWLDataFactory().getOWLDatatypeDefinitionAxiom(getDatatype(), getDataRange(), mergeAnnos(annotations));
+        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(),
+                mergeAnnos(annotations));
     }
 
     @Override

@@ -103,7 +103,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
 
     @Override
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType) {
-        return getOWLDataFactory().getOWLEntity(entityType, iri);
+        return getOWLEntity(entityType, iri);
     }
 
     @Override
