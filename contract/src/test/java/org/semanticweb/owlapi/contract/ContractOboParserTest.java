@@ -4,10 +4,6 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -34,13 +30,11 @@ import org.coode.owlapi.obo.parser.OBOFrame;
 import org.coode.owlapi.obo.parser.OBOIdTranslator;
 import org.coode.owlapi.obo.parser.OBOIdType;
 import org.coode.owlapi.obo.parser.OBOOntologyFormat;
-import org.coode.owlapi.obo.parser.OBOParser;
 import org.coode.owlapi.obo.parser.OBOParserConstants;
 import org.coode.owlapi.obo.parser.OBOParserException;
 import org.coode.owlapi.obo.parser.OBOParserFactory;
 import org.coode.owlapi.obo.parser.OBOParserHandler;
 import org.coode.owlapi.obo.parser.OBOParserHandlerAdapter;
-import org.coode.owlapi.obo.parser.OBOParserTokenManager;
 import org.coode.owlapi.obo.parser.OBOPrefix;
 import org.coode.owlapi.obo.parser.OBOTagValuePair;
 import org.coode.owlapi.obo.parser.OBOVocabulary;
@@ -62,7 +56,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -499,29 +492,6 @@ public class ContractOboParserTest {
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
-    @Test
-    public void shouldTestOBOParser() throws Exception {
-        StringDocumentTarget target = new StringDocumentTarget();
-        mockonto.getOWLOntologyManager().addAxiom(mockonto,
-                df.getOWLDeclarationAxiom(Class(IRI("urn:c:test"))));
-        manager.saveOntology(mockonto, new OBOOntologyFormat(), target);
-        String string = target.toString();
-        OBOParser testSubject0 = new OBOParser(new InputStreamReader(
-                new ByteArrayInputStream(string.getBytes())));
-        OBOParser testSubject1 = new OBOParser(mock(OBOParserTokenManager.class));
-        OBOParser testSubject2 = new OBOParser(mock(InputStream.class));
-        OBOParser testSubject3 = new OBOParser(mock(InputStream.class), "UTF-8");
-        testSubject0.setHandler(mock(OBOParserHandler.class));
-        testSubject0.parse();
-        testSubject0.ReInit(mock(InputStream.class), "UTF-8");
-        testSubject0.ReInit(mock(InputStream.class));
-        testSubject0.ReInit(mock(Reader.class));
-        testSubject0.ReInit(mock(OBOParserTokenManager.class));
-        Token result1 = testSubject0.getNextToken();
-        Token result3 = testSubject0.getToken(0);
-        testSubject0.enable_tracing();
-        testSubject0.disable_tracing();
-    }
 
     @Test
     public void shouldTestInterfaceOBOParserConstants() throws Exception {
