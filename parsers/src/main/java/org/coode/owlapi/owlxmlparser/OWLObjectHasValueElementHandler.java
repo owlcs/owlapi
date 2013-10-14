@@ -57,10 +57,14 @@ public class OWLObjectHasValueElementHandler extends AbstractObjectRestrictionEl
 
 
     @Override
-	public void handleChild(OWLIndividualElementHandler handler) {
+    public void handleChild(OWLIndividualElementHandler handler) {
         setFiller(handler.getOWLObject());
     }
 
+    @Override
+    public void handleChild(OWLAnonymousIndividualElementHandler handler) {
+        setFiller(handler.getOWLObject());
+    }
 
     @Override
 	protected OWLClassExpression createRestriction() {
