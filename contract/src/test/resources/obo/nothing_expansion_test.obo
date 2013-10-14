@@ -1,0 +1,21 @@
+ontology: x
+
+[Term]
+id: X:1
+name: x1
+
+[Term]
+id: X:2
+name: x2
+relationship: spatially_disjoint_from X:1
+
+[Typedef]
+id: spatially_disjoint_from
+name: spatially_disjoint_from
+expand_assertion_to: "Class: <http://www.w3.org/2002/07/owl#Nothing> EquivalentTo: (BFO_0000050 some ?X) and (BFO_0000050 some ?Y)" []
+is_metadata_tag: true
+is_class_level: true
+
+[Typedef]
+id: BFO:0000050
+name: part of

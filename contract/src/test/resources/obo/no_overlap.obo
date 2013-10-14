@@ -1,0 +1,54 @@
+ontology: test
+
+[Term]
+id: TEST:1
+name: nucleus
+
+[Term]
+id: TEST:2
+name: cytoplasm
+relationship: no_overlap TEST:1
+
+[Term]
+id: TEST:3
+name: cell
+relationship: has_plasma_membrane_part TEST:4
+
+[Term]
+id: TEST:4
+name: cell A
+intersection_of: TEST:3
+intersection_of: has_plasma_membrane_part TEST:5
+
+[Term]
+id: TEST:4
+name: protein
+
+[Term]
+id: TEST:5
+name: protein A
+
+[Term]
+id: GO:0005886
+
+[Typedef]
+id: BFO:0000051
+name: has part
+
+[Typedef]
+id: BFO:0000050
+name: part of
+
+[Typedef]
+id: no_overlap
+expand_assertion_to: "Class: ?X DisjointWith: BFO_0000051 some (BFO_0000050 some ?Y)" []
+is_class_level: true
+is_metadata_tag: true
+xref: RO:8888888
+
+[Typedef]
+id: has_plasma_membrane_part
+name: has_plasma_membrane_part
+xref: RO:0002104
+is_a: has_part ! has part
+expand_expression_to: "BFO_0000051 some (GO_0005886 and BFO_0000051 some ?Y)" []

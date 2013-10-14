@@ -1,0 +1,43 @@
+ontology: rel_xref_test
+
+[Term]
+id: TEST:a
+name: a
+relationship: part_of TEST:b
+
+[Term]
+id: TEST:b
+name: b
+relationship: has_part TEST:b
+
+[Term]
+id: TEST:c
+name: c
+relationship: releases_neurotransmitter TEST:a
+
+[Typedef]
+id: part_of
+name: part_of
+xref: BFO:0000050
+xref: OBO_REL:part_of
+
+[Typedef]
+id: has_part
+name: has part
+xref: BFO:0000051
+
+[Typedef]
+id: BFO:0000051
+name: has part
+is_transitive: true
+
+[Typedef]
+id: releases_neurotransmitter
+name: releases_neurotransmitter
+xref: RO:0002111
+name: releases neurotransmitter
+
+[Typedef]
+id: foo
+name: foo
+xref: BAR:0000001

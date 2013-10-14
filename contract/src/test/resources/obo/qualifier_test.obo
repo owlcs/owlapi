@@ -1,0 +1,24 @@
+ontology: test
+
+[Term]
+id: X:1
+relationship: part_of X:2 {source="abc"}
+relationship: has_part X:3 {notes="foo"}
+
+[Term]
+id: X:2
+
+[Term]
+id: X:3
+
+[Term]
+id: TAX:1
+
+[Typedef]
+id: part_of
+xref: BFO:0000050
+inverse_of: part_of
+
+[Typedef]
+id: has_part
+xref: BFO:0000051

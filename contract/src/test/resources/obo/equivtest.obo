@@ -1,0 +1,27 @@
+ontology: test
+
+[Term]
+id: X:1
+name: x1
+equivalent_to: X:2
+intersection_of: Y:1
+intersection_of: R:1 Z:1
+
+
+[Term]
+id: X:2
+name: x2
+equivalent_to: X:1
+
+[Term]
+id: Y:1
+name: y1
+
+[Term]
+id: Z:1
+name: z1
+
+[Typedef]
+id: R:1
+name: r1
+

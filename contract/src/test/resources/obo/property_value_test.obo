@@ -1,0 +1,18 @@
+ontology: test
+property_value: FOO:0000001 http://purl.obolibrary.org/obo/go.owl
+
+[Term]
+id: UBERON:0004657
+name: mandible condylar process
+def: "The posterior process on the ramus of the mandible composed of two parts: a superior part, the articular portion, and an inferior part, the condylar neck." [BTO:0001750, Wikipedia:Mandibular_condyle]
+property_value: IAO:0000412 http://purl.obolibrary.org/obo/uberon.owl
+synonym: "mandibular condyloid process" RELATED [MA:0002816]
+synonym: "Processus condylaris" EXACT [FMA:52836]
+synonym: "condylar process of mandible" EXACT [FMA:52836]
+synonym: "mandibular condyle" EXACT [BTO:0001750]
+xref: FMA:52836 ! Condylar process of mandible
+xref: MA:0002816 ! mandible condylar process
+xref: GAID:219 ! mandibular condyle
+xref: BTO:0001750 ! mandibular condyle
+xref: http://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Processuscondylarismandibulae.PNG/200px-Processuscondylarismandibulae.PNG
+xref: MESH:A.02.835.232.781.324.502.632.600 ! mandibular condyle

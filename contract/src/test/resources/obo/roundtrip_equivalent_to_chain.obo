@@ -1,0 +1,16 @@
+format-version: 1.2
+ontology: test
+
+[Term]
+id: TEST:0001
+
+[Typedef]
+id: TEST_REL:0006
+equivalent_to_chain: TEST_REL:0007 TEST_REL:0008 {val1="one",val2="two"} ! comment
+
+[Typedef]
+id: TEST_REL:0007
+
+[Typedef]
+id: TEST_REL:0008
+

@@ -17,7 +17,6 @@ import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -87,7 +86,7 @@ public class ManchesterOWLSyntaxParserTestCase {
         assertEquals(o.getAxioms(), roundtripped.getAxioms());
     }
 
-    @Test(expected = UnparsableOntologyException.class)
+    @Test(expected = ParserException.class)
     public void testManSyntaxEditorParser() throws OWLOntologyCreationException,
             ParserException {
         String onto = "<?xml version=\"1.0\"?>"

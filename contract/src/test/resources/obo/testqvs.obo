@@ -1,0 +1,24 @@
+format-version: 1.4
+data-version: 1.23.45
+default-namespace: test
+
+[Term]
+id: a2b
+intersection_of: complex
+intersection_of: R:has_part a {exactCardinality="1"}
+intersection_of: R:has_part b {exactCardinality="2"}
+
+[Term]
+id: complex
+
+[Term]
+id: a
+
+[Term]
+id: b
+
+[Typedef]
+id: R:has_part
+name: has part
+xref: RO:0002104
+is_transitive: true

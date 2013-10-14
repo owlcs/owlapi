@@ -28,6 +28,7 @@
 		<module>impl</module>
 		<module>tools</module>
 		<module>parsers</module>
+		<module>oboformat</module>
 		<module>apibinding</module>
 		<module>contract</module>
 		<!-- The distribution module is a single-jar build of the whole OWL API. -->
@@ -192,8 +193,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.7.1</version>
 				<configuration>
-				                    <useFile>false</useFile>
+				    <useFile>false</useFile>
                     <printSummary>false</printSummary>
+					<argLine>-Xmx1024M</argLine>
 				</configuration>
 			</plugin>
 

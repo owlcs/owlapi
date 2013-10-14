@@ -1,0 +1,28 @@
+format-version: 1.2
+date: 06:10:2011 16:40
+auto-generated-by: OBO-Edit 2.0
+default-namespace: gene_ontology
+remark: cvs version: $Revision: 1.2303 $
+ontology: go
+
+
+[Term]
+id: GO:0000016
+name: lactase activity
+namespace: molecular_function
+def: "Catalysis of the reaction: lactose + H2O = D-glucose + D-galactose." [EC:3.2.1.108]
+synonym: "lactase-phlorizin hydrolase activity" BROAD [EC:3.2.1.108]
+synonym: "lactose galactohydrolase activity" EXACT [EC:3.2.1.108]
+xref: EC:3.2.1.108
+xref: MetaCyc:LACTASE-RXN
+xref: Reactome:REACT_100439 "lactose + H2O => D-glucose + D-galactose, Gallus gallus"
+xref: Reactome:REACT_104113 "lactose + H2O => D-glucose + D-galactose, Rattus norvegicus"
+xref: Reactome:REACT_105850 "lactose + H2O => D-glucose + D-galactose, Bos taurus"
+xref: Reactome:REACT_109208 "lactose + H2O => D-glucose + D-galactose, Taeniopygia guttata"
+xref: Reactome:REACT_109391 "lactose + H2O => D-glucose + D-galactose, Sus scrofa"
+xref: Reactome:REACT_109447 "lactose + H2O => D-glucose + D-galactose, Danio rerio"
+xref: Reactome:REACT_30821 "lactose + H2O => D-glucose + D-galactose, Mus musculus"
+xref: Reactome:REACT_78084 "lactose + H2O => D-glucose + D-galactose, Canis familiaris"
+xref: Reactome:REACT_78754 "lactose + H2O => D-glucose + D-galactose, Xenopus tropicalis"
+xref: Reactome:REACT_9455 "lactose + H2O => D-glucose + D-galactose, Homo sapiens"
+xref: RHEA:10079

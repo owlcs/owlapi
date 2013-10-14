@@ -1,0 +1,8 @@
+format-version: 1.2
+synonymtypedef: UK_SPELLING "British spelling" EXACT
+ontology: test
+
+[Term]
+id: TEST:0001
+name: test1 
+synonym: "test one" UK_SPELLING [REF:0001, REF:0002]

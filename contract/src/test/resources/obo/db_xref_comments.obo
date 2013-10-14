@@ -1,0 +1,12 @@
+format-version: 1.2
+
+[Term]
+id: GO:0000009
+name: alpha-1,6-mannosyltransferase activity
+xref: Reactome:REACT_22295 "Addition of a third mannose to the N-glycan precursor by Alg2, Saccharomyces cerevisiae"
+
+[Term]
+id: MOD:00516
+name: Hex1HexNAc2
+def: "modification from UniMod N-linked glycosylation" [RESID:AA0151 "variant", UniMod:148]
+

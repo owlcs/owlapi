@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl 'http://www.w3.org/2002/07/owl#'>
+    <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+]>
+
+<rdf:RDF
+    xmlns:owl="&owl;"
+    xmlns:rdf="&rdf;"
+>
+<owl:Ontology rdf:about="http://example.org"/>
+
+<owl:Class rdf:about="http://x.org#x1">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="http://x.org#x2"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="http://x.org#r1"/>
+          <owl:someValuesFrom>
+            <owl:Class>
+              <owl:intersectionOf rdf:parseType="Collection">
+                <rdf:Description rdf:about="http://x.org#x3"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://x.org#r2"/>
+                  <owl:someValuesFrom rdf:resource="http://x.org#x4"/>
+                </owl:Restriction>
+              </owl:intersectionOf>
+            </owl:Class>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:ObjectProperty rdf:about="http://x.org#r1"/>
+
+<owl:ObjectProperty rdf:about="http://x.org#r2"/>
+
+<owl:Class rdf:about="http://x.org#x2"/>
+
+<owl:Class rdf:about="http://x.org#x3"/>
+
+<owl:Class rdf:about="http://x.org#x4"/>
+
+</rdf:RDF>

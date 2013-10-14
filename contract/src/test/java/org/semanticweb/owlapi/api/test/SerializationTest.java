@@ -76,8 +76,7 @@ public class SerializationTest extends TestCase {
     public void testrun() throws Exception {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         m.addIRIMapper(new AutoIRIMapper(new File("."), false));
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new File(
-                "src/test/resources/pizza.owl/"));
+        OWLOntology o = m.createOntology(IRI.create("urn:src/test/resources/pizza.owl"));
         m.addAxiom(o, f.getOWLDeclarationAxiom(f.getOWLClass(iri)));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLClass(string, prefixmanager)));
         m.addAxiom(o, f.getOWLEquivalentClassesAxiom(f.getOWLClass(iri), c));

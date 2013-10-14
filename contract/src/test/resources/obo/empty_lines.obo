@@ -1,0 +1,6 @@
+
+[Term]
+id: GO:0009555 ! pollen development
+intersection_of: GO:0048646 ! anatomical structure formation
+intersection_of: OBO_REL:results_in_formation_of PO:0020091 ! male gametophyte
+

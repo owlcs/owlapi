@@ -1,0 +1,22 @@
+format-version: 1.2
+ontology: pr
+
+[Term]
+id: PR:000005116
+
+[Term]
+id: PR:000027122
+relationship: has_part PR:000005116 {minCardinality="1", maxCardinality="3"}
+
+[Term]
+id: PR:000027136
+is_a: GO:0000307
+relationship: has_part PR:000005116 {cardinality="1"}
+relationship: has_part PR:000027122 {cardinality="2"}
+
+
+[Typedef]
+id: has_part
+name: has_part
+is_transitive: true
+

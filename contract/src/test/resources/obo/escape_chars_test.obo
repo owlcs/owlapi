@@ -1,0 +1,36 @@
+format-version: 1.2
+subsetdef: goslim_candida "Candida GO slim"
+subsetdef: goslim_generic "Generic GO slim"
+subsetdef: goslim_goa "GOA and proteome slim"
+subsetdef: goslim_pir "PIR GO slim"
+subsetdef: goslim_plant "Plant GO slim"
+subsetdef: goslim_pombe "Fission yeast GO slim"
+subsetdef: goslim_yeast "Yeast GO slim"
+subsetdef: gosubset_prok "Prokaryotic GO subset"
+subsetdef: unvetted "unvetted"
+synonymtypedef: systematic_synonym "Systematic synonym" EXACT
+ontology: go
+
+[Term]
+id: CL:0000096
+name: mature neutrophil
+namespace: cell
+def: "bla bla .\"" [GOC:add, GOC:tfm, http://www.cap.org, MESH:A.11.118.637.415.583]
+comment: bla bla bla.\nbla bla (bla).
+
+[Term]
+id: FBtp:0000000
+comment: Pre-synaptic terminals were assessed by labelling with a UAS-Synaptotagmin reporter (P\{UAS-HA-syt}) [FBtp0015803]. The identification of dendrites and axons was done using a UAS-Dscam (P\{UAS-Dscam.exon17.1.GFP}) [FBtp0021447] or a UAS-tau (P\{UAS-tau-lacZ.O}) [FBtp0010033] reporter, respectively (Morante and Desplan, 2008). Cell connectivity in the lamina was determined by analysis of semi-automated EM reconstruction of 749 serial sections of 21 complete lamina cartridges. The number of synaptic connections for Lawf (presynaptic/postsynaptic) in a single lamina cartridge with each cell type was the following: R1 (1/1), R2 (3/-), R3 (1/-), R6 (1/-), L1 (1/-), L2 (7/-), L3 (17/-), L5 (1/-), Lai (24/-), T1 (1/-), C2 (3/-), C3 (2/-), Lawf collaterals (5) and epithelial glia (6/-) (Rivera-Alba et al., 2011).
+
+[Term]
+id: GO:0033942
+name: 4-alpha-D-\{(1->4)-alpha-D-glucano}trehalose trehalohydrolase activity
+namespace: molecular_function
+def: "Catalysis of the hydrolysis of alpha-(1->4)-D-glucosidic linkage in 4-alpha-D-{(1->4)-alpha-D-glucanosyl}n trehalose to yield trehalose and alpha-(1->4)-D-glucan." [EC:3.2.1.141]
+synonym: "4-alpha-D-{(1->4)-alpha-D-glucano}trehalose glucanohydrolase (trehalose-producing) activity" EXACT [EC:3.2.1.141]
+synonym: "malto-oligosyltrehalose trehalohydrolase activity" EXACT [EC:3.2.1.141]
+synonym: "maltooligosyl trehalose trehalohydrolase activity" EXACT [EC:3.2.1.141]
+xref: EC:3.2.1.141
+xref: MetaCyc:3.2.1.141-RXN
+is_a: GO:0004553
+

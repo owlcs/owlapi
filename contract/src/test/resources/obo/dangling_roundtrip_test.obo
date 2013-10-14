@@ -1,0 +1,83 @@
+format-version: 1.2
+subsetdef: grouping_class "Subset consisting of classes creating for grouping purposes"
+subsetdef: developmental_classification "developmental_classification"
+subsetdef: functional_classification "functional_classification"
+subsetdef: emapa_ehdaa2 "derived from the union of EHDAA2 and EMAPA - still to be checked"
+subsetdef: inconsistent_with_fma "classes that have some inconsistency with FMA"
+subsetdef: inherited_grouping_class "A grouping class that originates in two or more separate anatomical ontologies. Includes 'region of X' type terms"
+subsetdef: dubious_grouping "Indicates that subclasses in AOs may be inappropriately linked"
+subsetdef: upper_level "abstract upper-level terms not directly useful for analysis"
+subsetdef: defined_by_ordinal_series "classes that are defined by relative position counting from first in a series in an individual organism rather than by homology"
+subsetdef: vertebrate_core "core classes typically found across vertebrates. one purpose is to create a rough set of terms that could be used to start a new vertebrate AO"
+subsetdef: metazoa_core "core classes typically found across metazoa. one purpose is to create a rough set of terms that could be used to start a new metazoan AO. Note this subset is not yet fully fleshed out"
+subsetdef: major_organ "somewhat fuzzy grouping for analysis purposes, currently composed of something like: liver, heart, skeletal, kidney, bladder, brain, skin, mouth, esophagus, stomach, small intestine, large intestines, trachea nose, lungs, brain, spinal cord,  peripheral nerves, kidneys, ureters, bladder, urethra, gonads"
+subsetdef: upper_ontology_conflict "Terms in this subset group together terms from different anatomy ontologies that have conflicting upper ontology/CARO assignments. For example, in FMA the naris is immaterial and in ZFA it is an organism subdivision."
+subsetdef: disjointness_axiom_removed "A class which has a weakened disjointness axiom, to avoid inconsistency. These are kept separately in the uberon_disjoint_from_strict ontology."
+subsetdef: early_development "A class that represents an early developmental structure, like a blastocyst. This part of the ontology is undergoing review to remove inappropriate grouping classes."
+synonymtypedef: PLURAL "plural term"
+synonymtypedef: DUBIOUS "dubious or contested synonym"
+synonymtypedef: SENSU "taxonomic disambiguation"
+synonymtypedef: ATTRIBUTION_REQUIRED "expert consultation and attribution required"
+synonymtypedef: INCONSISTENT "indicates that a synonym is used in an inconsistent or confusing way, typically between species"
+synonymtypedef: HOMOLOGY "a synonym made on the basis of a possibly homologous structure in another species"
+default-namespace: uberon
+treat-xrefs-as-equivalent: CARO
+treat-xrefs-as-equivalent: GO
+treat-xrefs-as-equivalent: BSPO
+treat-xrefs-as-equivalent: NIF_GrossAnatomy
+treat-xrefs-as-equivalent: BILA
+treat-xrefs-as-equivalent: OG
+treat-xrefs-as-equivalent: VAO
+treat-xrefs-as-has-subclass: EMAPA
+treat-xrefs-as-has-subclass: EHDAA
+treat-xrefs-as-has-subclass: EHDAA2
+treat-xrefs-as-reverse-genus-differentia: AAO part_of NCBITaxon:8292
+treat-xrefs-as-reverse-genus-differentia: FBbt part_of NCBITaxon:7227
+treat-xrefs-as-reverse-genus-differentia: FMA part_of NCBITaxon:9606
+treat-xrefs-as-reverse-genus-differentia: HAO part_of NCBITaxon:7399
+treat-xrefs-as-reverse-genus-differentia: MA part_of NCBITaxon:10088
+treat-xrefs-as-reverse-genus-differentia: MFO part_of NCBITaxon:8089
+treat-xrefs-as-reverse-genus-differentia: SPD part_of NCBITaxon:6893
+treat-xrefs-as-reverse-genus-differentia: TGMA part_of NCBITaxon:44484
+treat-xrefs-as-reverse-genus-differentia: TADS part_of NCBITaxon:6939
+treat-xrefs-as-reverse-genus-differentia: TAO part_of NCBITaxon:32443
+treat-xrefs-as-reverse-genus-differentia: WBbt part_of NCBITaxon:6237
+treat-xrefs-as-reverse-genus-differentia: XAO part_of NCBITaxon:8353
+treat-xrefs-as-reverse-genus-differentia: ZFA part_of NCBITaxon:7954
+treat-xrefs-as-reverse-genus-differentia: ncithesaurus part_of NCBITaxon:40674
+ontology: uberon
+idspace: Wikipedia http://en.wikipedia.org/wiki/
+idspace: NIF_GrossAnatomy http://ontology.neuinfo.org/NIF/BiomaterialEntities/NIF-GrossAnatomy.owl#
+
+[Term]
+id: UBERON:0000020
+name: sense organ
+def: "An organ that is part of a sense organ system." [Wikipedia:Sense_organ]
+comment: This class was created automatically from a combination of ontologies
+subset: uberon_slim
+synonym: "sensillum" NARROW [WBbt:0006929]
+synonym: "sensor" RELATED []
+synonym: "sensory organ" EXACT []
+synonym: "organ of sense organ system" EXACT [OBOL:automatic]
+synonym: "organ of sensory organ system" EXACT [OBOL:automatic]
+synonym: "organ of sensory system" EXACT [OBOL:automatic]
+synonym: "sense organ system organ" EXACT [OBOL:automatic]
+synonym: "sensory organ system organ" EXACT [OBOL:automatic]
+synonym: "sensory system organ" EXACT [OBOL:automatic]
+synonym: "Sinnesorgan" RELATED [BTO:0000202]
+xref: BTO:0000202
+xref: EHDAA:500 ! sensory organ
+xref: FBbt:00005155 ! sense organ
+xref: GAID:63 ! sense organ
+xref: HAO:0000930 ! sense organ
+xref: OG:0001407 ! sensory organ
+xref: WBbt:0006929 ! sensillum
+xref: MA:0000017 ! sensory organ
+xref: EHDAA2:0001824 ! sensory organ
+xref: AEO:0000094 ! sense organ
+xref: http://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Gray722.png/200px-Gray722.png
+xref: EMAPA:16192 ! sensory organ
+xref: MESH:A.09 ! sense organ
+intersection_of: UBERON:0000062 ! organ
+intersection_of: systemic_part_of UBERON:0001032 ! sense organ system
+

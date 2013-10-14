@@ -1,0 +1,13 @@
+ontology: test
+
+[Term]
+id: X:1
+relationship: R:1 Y:1
+
+[Term]
+id: Y:1
+name: y1
+
+[Typedef]
+id: R:1
+name: named relation

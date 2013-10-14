@@ -1,0 +1,98 @@
+[Term]
+id: NCBITaxon_Union:0000002
+name: Viridiplantae or Cyanobacteria
+namespace: union_terms
+def: "The union of the taxa Viridiplantae and Cyanobacteria." [GOC:mtg_go-taxon]
+union_of: NCBITaxon:1117 ! Cyanobacteria
+union_of: NCBITaxon:33090 ! Viridiplantae
+created_by: Jennifer Deegan
+creation_date: 2008-07-16T03:33:38Z
+
+[Term]
+id: NCBITaxon_Union:0000000
+name: Viridiplantae or Bacteria
+namespace: union_terms
+union_of: NCBITaxon:2 ! Bacteria
+union_of: NCBITaxon:33090 ! Viridiplantae
+created_by: Jennifer I Deegan
+creation_date: 2009-08-10T10:46:43Z
+
+[Term]
+id: NCBITaxon_Union:0000008
+name: Viridiplantae or Euglenozoa
+namespace: union_terms
+union_of: NCBITaxon:33682 ! Euglenozoa
+union_of: NCBITaxon:33090 ! Viridiplantae
+created_by: Jennifer I Deegan
+creation_date: 2009-08-10T10:46:43Z
+
+
+[Term]
+id: NCBITaxon_Union:0000007
+name: Viridiplantae or Bacteria or Euglenozoa
+namespace: union_terms
+union_of: NCBITaxon:2 ! Bacteria
+union_of: NCBITaxon:33090 ! Viridiplantae
+union_of: NCBITaxon:33682 ! Euglenozoa
+created_by: Jennifer I Deegan
+creation_date: 2009-08-10T10:46:43Z
+
+
+[Term]
+id: NCBITaxon_Union:0000021
+name: Viridiplantae or Bacteria or Euglenozoa or Archaea
+namespace: union_terms
+union_of: NCBITaxon:2 ! Bacteria
+union_of: NCBITaxon:33090 ! Viridiplantae
+union_of: NCBITaxon:33682 ! Euglenozoa
+union_of: NCBITaxon:2157 ! Archaea
+created_by: Jennifer I Deegan
+creation_date: 2009-08-10T10:46:43Z
+
+[Term]
+id: NCBITaxon_Union:0000003
+name: Myxininae or Petromyzontidae
+namespace: union_terms
+union_of: NCBITaxon:7746 ! Petromyzontidae
+union_of: NCBITaxon:7762 ! Myxinidae
+created_by: jdeegan
+creation_date: 2008-07-21T02:13:01Z
+
+[Term]
+id: NCBITaxon_Union:0000004
+name: Prokaryota
+namespace: union_terms
+union_of: NCBITaxon:2 ! Bacteria
+union_of: NCBITaxon:2157 ! Archaea
+created_by: jdeegan
+creation_date: 2008-07-24T11:56:07Z
+
+[Term]
+id: NCBITaxon_Union:0000005
+name: Nematoda or Protostomia
+namespace: union_terms
+synonym: "Invertebrata" EXACT [GOC:jid, GOC:jl]
+union_of: NCBITaxon:33317 ! Protostomia
+union_of: NCBITaxon:6231 ! Nematoda
+created_by: Jennifer Deegan
+creation_date: 2008-07-24T04:15:25Z
+
+[Term]
+id: NCBITaxon_Union:0000006
+name: Viridiplantae or Archaea or Bacteria
+namespace: union_terms
+union_of: NCBITaxon:2 ! Bacteria
+union_of: NCBITaxon:2157 ! Archaea
+union_of: NCBITaxon:33090 ! Viridiplantae
+created_by: jdeegan
+creation_date: 2008-08-14T10:45:59Z
+
+[Term]
+id: NCBITaxon_Union:0000020
+name: Fungi or Bacteria
+namespace: union_terms
+union_of: NCBITaxon:2 ! Bacteria
+union_of: NCBITaxon:4751 ! Fungi
+created_by: Jennifer Deegan
+creation_date: 2008-07-24T04:15:25Z
+

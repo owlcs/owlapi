@@ -1,0 +1,18 @@
+format-version: 1.2
+ontology: test
+
+[Term]
+id: TEST:0001
+name: test 1
+
+[Term]
+id: TEST:0002
+name: test 2
+is_a: TEST:0001 ! test 1
+
+[Term]
+id: TEST:0003
+name: test 3
+is_a: TEST:0001 {is_inferred="true"} ! test 1
+is_a: TEST:0002 ! test 2
+

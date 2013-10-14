@@ -1,0 +1,13 @@
+ontology: test
+
+[Term]
+id: X:1
+union_of: X:2
+union_of: X:3
+
+[Term]
+id: X:2
+
+[Term]
+id: X:3
+

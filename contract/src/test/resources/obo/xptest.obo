@@ -1,0 +1,4 @@
+[Term]
+id: MP:0000008 ! increased white adipose tissue amount
+intersection_of: PATO:0002002 ! has extra parts of type
+intersection_of: towards MA:0000058 ! white adipose tissue

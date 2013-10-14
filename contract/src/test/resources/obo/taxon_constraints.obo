@@ -1,0 +1,2291 @@
+ontology: go/extensions/x-taxon
+
+[Term]
+id: GO:0003146
+name: heart jogging
+relationship: never_in_taxon NCBITaxon:40674 {id="GOTAX:0000001"} ! Mammalia
+
+[Term]
+id: GO:0001701 
+name: in utero embryonic development 
+relationship: only_in_taxon NCBITaxon:32525 {id="GOTAX:0000002"} ! Theria  
+
+[Term]
+id: GO:0007503 
+name: fat body development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000003"} ! Arthropoda
+
+[Term]
+id: GO:0050877 
+name: neurological system process
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000004"} ! Metazoa  
+
+[Term]
+id: GO:0001890 
+name: placenta development 
+relationship: only_in_taxon NCBITaxon:32525 {id="GOTAX:0000005"} ! Theria  
+
+[Term]
+id: GO:0030879 
+name: mammary gland development 
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000006"} ! Mammalia  
+
+[Term]
+id: GO:0001967 
+name: suckling behaviour
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000007"} ! Mammalia  
+
+[Term]
+id: GO:0001824 
+name: blastocyst development 
+relationship: only_in_taxon NCBITaxon:32525 {id="GOTAX:0000008"} ! Theria  
+
+[Term]
+id: GO:0007565 
+name: female pregnancy 
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000009"} ! Mammalia  
+
+[Term]
+id: GO:0042698 
+name: ovulation
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000010"} ! Eukaryota  
+
+[Term]
+id: GO:0042633 
+name: hair cycle
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000011"} ! Mammalia 
+ 
+[Term]
+id: GO:0042476 
+name: odontogenesis 
+relationship: never_in_taxon NCBITaxon:8782 {id="GOTAX:0000012"} ! Aves  
+
+[Term]
+id: GO:0030141
+name: secretory granule
+relationship: never_in_taxon NCBITaxon:4890 {id="GOTAX:0000013"} ! Ascomycota
+
+[Term]
+id: GO:0000132
+name: establishment of mitotic spindle orientation
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000014"} ! Eukaryota
+
+[Term]
+id: GO:0000165
+name: MAPKKK cascade
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000015"} ! Eukaryota
+
+[Term]
+id: GO:0000185
+name: activation of MAPKKK activity
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000016"} ! Eukaryota
+
+[Term]
+id: GO:0000186
+name: activation of MAPKK activity
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000017"} ! Eukaryota
+
+[Term]
+id: GO:0000188
+name: inactivation of MAPK activity
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000018"} ! Eukaryota
+
+[Term]
+id: GO:0000282
+name: cellular bud site selection
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000019"} ! Fungi
+
+[Term]
+id: GO:0000324
+name: fungal-type vacuole
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000022"} ! Fungi
+
+[Term]
+id: GO:0000325
+name: plant-type vacuole
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000023"} ! Viridiplantae
+
+[Term]
+id: GO:0000327
+name: lytic vacuole within protein storage vacuole
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000024"} ! Viridiplantae
+
+[Term]
+id: GO:0000328
+name: fungal-type vacuole lumen
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000025"} ! Fungi
+
+[Term]
+id: GO:0000329
+name: fungal-type vacuole membrane
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000026"} ! Fungi
+
+[Term]
+id: GO:0000330
+name: plant-type vacuole lumen
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000027"} ! Viridiplantae
+
+[Term]
+id: GO:0000345
+name: cytosolic DNA-directed RNA polymerase complex
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000028"} ! Bacteria
+
+[Term]
+id: GO:0000501
+name: flocculation via cell wall protein-carbohydrate interaction
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000030"} ! Fungi
+
+[Term]
+id: GO:0000747
+name: conjugation with cellular fusion
+relationship: only_in_taxon NCBITaxon_Union:0000022 {id="GOTAX:0000482"} ! Fungi or Dictyostelium
+
+[Term]
+id: GO:0000749
+name: response to pheromone during conjugation with cellular fusion
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000032"} ! Fungi
+
+[Term]
+id: GO:0000750
+name: pheromone-dependent signal transduction involved in conjugation with cellular fusion
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000033"} ! Fungi
+
+[Term]
+id: GO:0000751
+name: cell cycle arrest in response to pheromone
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000034"} ! Fungi
+
+[Term]
+id: GO:0000755
+name: cytogamy
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000035"} ! Fungi
+
+[Term]
+id: GO:0000911
+name: cytokinesis by cell plate formation
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000036"} ! Viridiplantae
+
+[Term]
+id: GO:0000916
+name: actomyosin contractile ring contraction
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000508"} ! Eukaryota
+
+[Term]
+id: GO:0001403
+name: invasive growth in response to glucose limitation
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000037"} ! Fungi
+
+[Term]
+id: GO:0001410
+name: chlamydospore formation
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000038"} ! Fungi
+
+[Term]
+id: GO:0001555
+name: oocyte growth
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000039"} ! Metazoa
+
+[Term]
+id: GO:0001556
+name: oocyte maturation
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000040"} ! Metazoa
+
+[Term]
+id: GO:0001673
+name: male germ cell nucleus
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000041"} ! Eukaryota
+
+[Term]
+id: GO:0001674
+name: female germ cell nucleus
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000042"} ! Eukaryota
+
+[Term]
+id: GO:0001700
+name: embryonic development via the syncytial blastoderm
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000043"} ! Insecta
+
+[Term]
+id: GO:0001702
+name: gastrulation with mouth forming second
+relationship: only_in_taxon NCBITaxon:33511 {id="GOTAX:0000044"} ! Deuterostomia
+
+[Term]
+id: GO:0001703
+name: gastrulation with mouth forming first
+relationship: only_in_taxon NCBITaxon_Union:0000005 {id="GOTAX:0000045"} ! Nematoda or Protostomia
+
+[Term]
+id: GO:0001744
+name: optic lobe placode formation
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000046"} ! Arthropoda
+
+[Term]
+id: GO:0001745
+name: compound eye morphogenesis
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000047"} ! Arthropoda
+
+[Term]
+id: GO:0001748
+name: optic lobe placode development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000048"} ! Arthropoda
+
+[Term]
+id: GO:0002119
+name: nematode larval development
+relationship: only_in_taxon NCBITaxon:33213 {id="GOTAX:0000049"} ! Bilateria
+
+[Term]
+id: GO:0002165
+name: instar larval or pupal development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000050"} ! Arthropoda
+
+[Term]
+id: GO:0002459
+name: adaptive immune response based on somatic recombination of immune receptors built from leucine-rich repeat domains
+relationship: only_in_taxon NCBITaxon:89593 {id="GOTAX:0000051"} ! Craniata
+
+[Term]
+id: GO:0002822
+name: regulation of adaptive immune response based on somatic recombination of immune receptors built from immunoglobulin superfamily domains
+relationship: only_in_taxon NCBITaxon:7776 {id="GOTAX:0000052"} ! Gnathostomata
+
+[Term]
+id: GO:0005183
+name: gonadotropin hormone-releasing hormone activity
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000053"} ! Metazoa
+
+[Term]
+id: GO:0005213
+name: structural constituent of chorion
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000054"} ! Arthropoda
+
+[Term]
+id: GO:0005214
+name: structural constituent of chitin-based cuticle
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000055"} ! Arthropoda
+
+[Term]
+id: GO:0005578
+name: proteinaceous extracellular matrix
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000056"} ! Eukaryota
+
+[Term]
+id: GO:0005623
+name: cell
+relationship: only_in_taxon NCBITaxon:131567 {id="GOTAX:0000057"} ! cellular organisms
+! See SF:3436126
+
+[Term]
+id: GO:0005628
+name: prospore membrane
+relationship: only_in_taxon NCBITaxon:4890 {id="GOTAX:0000058"} ! Ascomycota
+
+[Term]
+id: GO:0005634
+name: nucleus
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000059"} ! Eukaryota
+
+[Term]
+id: GO:0005739
+name: mitochondrion
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000060"} ! Eukaryota
+
+[Term]
+id: GO:0005768
+name: endosome
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000061"} ! Eukaryota
+
+[Term]
+id: GO:0005773 
+name: vacuole
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000062"} ! Eukaryota 
+
+[Term]
+id: GO:0005783
+name: endoplasmic reticulum
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000063"} ! Eukaryota
+
+[Term]
+id: GO:0005786
+name: signal recognition particle, endoplasmic reticulum targeting
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000064"} ! Eukaryota
+
+[Term]
+id: GO:0005794
+name: Golgi apparatus
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000065"} ! Eukaryota
+
+[Term]
+id: GO:0005813
+name: centrosome
+relationship: never_in_taxon NCBITaxon:4751 {id="GOTAX:0000518"} ! Fungi
+relationship: never_in_taxon NCBITaxon:27896 {id="GOTAX:0000519"} ! Planariidae
+relationship: never_in_taxon NCBITaxon:33090 {id="GOTAX:0000520"} ! Viridiplantae
+
+[Term]
+id: GO:0005816
+name: spindle pole body
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000066"} ! Fungi
+
+[Term]
+id: GO:0005917
+name: nephrocyte junction 
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000067"} ! Insecta
+
+[Term]
+id: GO:0005826
+name: actomyosin contractile ring
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000509"} ! Eukaryota
+
+[Term]
+id: GO:0005947
+name: mitochondrial alpha-ketoglutarate dehydrogenase complex
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000068"} ! Eukaryota
+
+[Term]
+id: GO:0007053
+name: spindle assembly involved in male meiosis
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000515", alt_id="GOTAX:0000069"} ! Eukaryota
+
+[Term]
+id: GO:0007056
+name: spindle assembly involved in female meiosis
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000516", alt_id="GOTAX:0000070"} ! Eukaryota
+
+[Term]
+id: GO:0007086
+name: vesicle fusion with nuclear membrane involved in mitotic nuclear envelope reassembly
+relationship: never_in_taxon NCBITaxon:4751 {id="GOTAX:0000071"} ! Fungi
+
+[Term]
+id: GO:0007282
+name: cystoblast division
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000072"} ! Arthropoda
+
+[Term]
+id: GO:0007293
+name: germarium-derived egg chamber formation
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000073"} ! Arthropoda
+
+[Term]
+id: GO:0007294
+name: germarium-derived oocyte fate determination
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000074"} ! Insecta
+
+[Term]
+id: GO:0007295
+name: growth of a germarium-derived egg chamber
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000075"} ! Insecta
+
+[Term]
+id: GO:0007297
+name: ovarian follicle cell migration
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000076"} ! Insecta
+
+[Term]
+id: GO:0007299
+name: ovarian follicle cell adhesion
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000077"} ! Insecta
+
+[Term]
+id: GO:0007300
+name: ovarian nurse cell to oocyte transport
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000078"} ! Insecta
+
+[Term]
+id: GO:0007301
+name: ovarian ring canal formation
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000079"} ! Insecta
+
+[Term]
+id: GO:0007304
+name: chorion-containing eggshell formation
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000080"} ! Insecta
+
+[Term]
+id: GO:0007305
+name: vitelline membrane formation in chorion-containing eggshell
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000081"} ! Insecta
+
+[Term]
+id: GO:0007338
+name: single fertilization
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000083"} ! Eukaryota
+
+[Term]
+id: GO:0007400
+name: neuroblast fate determination
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000084"} ! Metazoa
+
+[Term]
+id: GO:0007403
+name: glial cell fate determination
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000085"} ! Metazoa
+
+[Term]
+id: GO:0007405
+name: neuroblast proliferation
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000086"} ! Metazoa
+
+[Term]
+id: GO:0007407
+name: neuroblast activation
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000087"} ! Metazoa
+
+[Term]
+id: GO:0007424
+name: open tracheal system development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000088"} ! Arthropoda
+
+[Term]
+id: GO:0007425
+name: epithelial cell fate determination, open tracheal system
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000089"} ! Insecta
+
+[Term]
+id: GO:0007426
+name: tracheal outgrowth, open tracheal system
+relationship: only_in_taxon NCBITaxon:33317 {id="GOTAX:0000090"} ! Protostomia
+
+[Term]
+id: GO:0007427
+name: epithelial cell migration, open tracheal system
+relationship: only_in_taxon NCBITaxon:33317 {id="GOTAX:0000091"} ! Protostomia
+
+[Term]
+id: GO:0007428
+name: primary branching, open tracheal system
+relationship: only_in_taxon NCBITaxon:33317 {id="GOTAX:0000092"} ! Protostomia
+
+[Term]
+id: GO:0007429
+name: secondary branching, open tracheal system
+relationship: only_in_taxon NCBITaxon:33317 {id="GOTAX:0000093"} ! Protostomia
+
+[Term]
+id: GO:0007430
+name: terminal branching, open tracheal system
+relationship: only_in_taxon NCBITaxon:33317 {id="GOTAX:0000094"} ! Protostomia
+
+[Term]
+id: GO:0007444
+name: imaginal disc development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000095"} ! Arthropoda
+
+[Term]
+id: GO:0007458
+name: progression of morphogenetic furrow during compound eye morphogenesis
+relationship: only_in_taxon NCBITaxon:33392 {id="GOTAX:0000096"} ! Endopterygota
+
+[Term]
+id: GO:0007480
+name: imaginal disc-derived leg morphogenesis
+relationship: only_in_taxon NCBITaxon:33392 {id="GOTAX:0000097"} ! Endopterygota
+
+[Term]
+id: GO:0007484
+name: imaginal disc-derived genitalia development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000098"} ! Arthropoda
+
+[Term]
+id: GO:0007486
+name: imaginal disc-derived female genitalia development
+relationship: only_in_taxon NCBITaxon:33392 {id="GOTAX:0000099"} ! Endopterygota
+
+[Term]
+id: GO:0007516
+name: hemocyte development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000100"} ! Arthropoda
+
+[Term]
+id: GO:0007591
+name: molting cycle, chitin-based cuticle
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000101"} ! Arthropoda
+
+[Term]
+id: GO:0007592
+name: protein-based cuticle development
+relationship: only_in_taxon NCBITaxon_Union:0000005 {id="GOTAX:0000102"} ! Nematoda or Protostomia
+
+[Term]
+id: GO:0007594
+name: puparial adhesion
+relationship: only_in_taxon NCBITaxon:7147 {id="GOTAX:0000103"} ! Diptera
+
+[Term]
+id: GO:0007595
+name: lactation
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000104"} ! Mammalia
+
+[Term]
+id: GO:0008069
+name: dorsal/ventral axis specification, ovarian follicular epithelium
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000105"} ! Insecta
+
+[Term]
+id: GO:0008302
+name: ring canal formation, actin assembly
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000106"} ! Insecta
+
+[Term]
+id: GO:0008316
+name: structural constituent of vitelline membrane
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000107"} ! Arthropoda
+
+[Term]
+id: GO:0008347
+name: glial cell migration
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000108"} ! Metazoa
+
+[Term]
+id: GO:0008364
+name: pupal chitin-based cuticle development
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000109"} ! Insecta
+
+[Term]
+id: GO:0008583
+name: mystery cell fate differentiation
+relationship: only_in_taxon NCBITaxon:33392 {id="GOTAX:0000110"} ! Endopterygota
+
+[Term]
+id: GO:0009252
+name: peptidoglycan biosynthetic process
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000111"} ! Bacteria
+
+[Term]
+id: GO:0009272
+name: fungal-type cell wall biogenesis
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000112"} ! Fungi
+
+[Term]
+id: GO:0009273
+name: peptidoglycan-based cell wall biogenesis
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000113"} ! Bacteria
+
+[Term]
+id: GO:0009274
+name: peptidoglycan-based cell wall
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000114"} ! Bacteria
+
+[Term]
+id: GO:0009277
+name: fungal-type cell wall
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000115"} ! Fungi
+
+[Term]
+id: GO:0009288
+name: bacterial-type flagellum
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000116"} ! Bacteria
+
+[Term]
+id: GO:0009291
+name: unidirectional conjugation
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000117"} ! Prokaryota
+
+[Term]
+id: GO:0009434
+name: microtubule-based flagellum
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000118"} ! Eukaryota
+
+[Term]
+id: GO:0009501
+name: amyloplast
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000119"} ! Viridiplantae
+
+[Term]
+id: GO:0009503
+name: thylakoid light-harvesting complex
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000120"} ! Viridiplantae
+
+[Term]
+id: GO:0009505
+name: plant-type cell wall
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000121"} ! Viridiplantae
+
+[Term]
+id: GO:0009507
+name: chloroplast
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000480", source="PMID:21311032"} ! Metazoa
+relationship: never_in_taxon NCBITaxon:4751 {id="GOTAX:0000496", source="PMID:21311032"} ! Fungi
+relationship: never_in_taxon NCBITaxon:28009 {id="GOTAX:0000497", source="PMID:21311032"} ! Choanoflagellida
+relationship: never_in_taxon NCBITaxon:554915 {id="GOTAX:0000498", source="PMID:21311032"} ! Amoebozoa
+
+[Term]
+id: GO:0009509
+name: chromoplast
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000124"} ! Viridiplantae
+
+[Term]
+id: GO:0009513
+name: etioplast
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000125"} ! Viridiplantae
+
+[Term]
+id: GO:0009515
+name: granal stacked thylakoid
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000126"} ! Viridiplantae
+
+[Term]
+id: GO:0009516
+name: leucoplast
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000127"} ! Viridiplantae
+
+[Term]
+id: GO:0009533
+name: chloroplast stromal thylakoid
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000130"} ! Viridiplantae
+
+[Term]
+id: GO:0009536
+name: plastid
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000491", source="PMID:21311032"} ! Metazoa
+relationship: never_in_taxon NCBITaxon:4751 {id="GOTAX:0000499", source="PMID:21311032"} ! Fungi
+relationship: never_in_taxon NCBITaxon:28009 {id="GOTAX:0000500", source="PMID:21311032"} ! Choanoflagellida
+relationship: never_in_taxon NCBITaxon:554915 {id="GOTAX:0000501", source="PMID:21311032"} ! Amoebozoa
+
+[Term]
+id: GO:0009541
+name: etioplast prolamellar body
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000134"} ! Viridiplantae
+
+[Term]
+id: GO:0009542
+name: granum
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000135"} ! Viridiplantae
+
+[Term]
+id: GO:0009544
+name: chloroplast ATP synthase complex
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000136"} ! Viridiplantae
+
+[Term]
+id: GO:0009545
+name: elaioplast
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000137"} ! Viridiplantae
+
+[Term]
+id: GO:0009549
+name: cellulose microfibril
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000139"} ! Viridiplantae
+
+[Term]
+id: GO:0009554
+name: megasporogenesis
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000140"} ! Magnoliophyta
+
+[Term]
+id: GO:0009556
+name: microsporogenesis
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000141"} ! Magnoliophyta
+
+[Term]
+id: GO:0009557
+name: antipodal cell differentiation
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000142"} ! Magnoliophyta
+
+[Term]
+id: GO:0009558
+name: cellularization of the embryo sac
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000143"} ! Magnoliophyta
+
+[Term]
+id: GO:0009559
+name: embryo sac central cell differentiation
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000144"} ! Magnoliophyta
+
+[Term]
+id: GO:0009560
+name: embryo sac egg cell differentiation
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000145"} ! Magnoliophyta
+
+[Term]
+id: GO:0009561
+name: megagametogenesis
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000146"} ! Magnoliophyta
+
+[Term]
+id: GO:0009562
+name: embryo sac nuclear migration
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000147"} ! Magnoliophyta
+
+[Term]
+id: GO:0009563
+name: synergid differentiation
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000148"} ! Magnoliophyta
+
+[Term]
+id: GO:0009567
+name: double fertilization forming a zygote and endosperm
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000149"} ! Magnoliophyta
+
+[Term]
+id: GO:0009573
+name: chloroplast ribulose bisphosphate carboxylase complex
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000151"} ! Viridiplantae
+
+[Term]
+id: GO:0009575
+name: chromoplast stroma
+relationship: only_in_taxon NCBITaxon_Union:0000006 {id="GOTAX:0000152"} ! Viridiplantae or Archaea or Bacteria
+
+[Term]
+id: GO:0009576
+name: leucoplast stroma
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000153"} ! Viridiplantae
+
+[Term]
+id: GO:0009577
+name: elaioplast stroma
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000154"} ! Viridiplantae
+
+[Term]
+id: GO:0009578
+name: etioplast stroma
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000155"} ! Viridiplantae
+
+[Term]
+id: GO:0009579
+name: thylakoid
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000469"} ! Metazoa
+
+[Term]
+id: GO:0009640
+name: photomorphogenesis
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000157"} ! Viridiplantae
+
+[Term]
+id: GO:0009647
+name: skotomorphogenesis
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000158"} ! Viridiplantae
+
+[Term]
+id: GO:0009655
+name: PSII associated light-harvesting complex II, core complex
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000159"} ! Viridiplantae
+
+[Term]
+id: GO:0009656
+name: PSII associated light-harvesting complex II, peripheral complex
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000160"} ! Viridiplantae
+
+[Term]
+id: GO:0009657
+name: plastid organization
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000492", source="PMID:21311032"} ! Metazoa
+relationship: never_in_taxon NCBITaxon:4751 {id="GOTAX:0000502", source="PMID:21311032"} ! Fungi
+relationship: never_in_taxon NCBITaxon:28009 {id="GOTAX:0000503", source="PMID:21311032"} ! Choanoflagellida
+relationship: never_in_taxon NCBITaxon:554915 {id="GOTAX:0000504", source="PMID:21311032"} ! Amoebozoa
+
+[Term]
+id: GO:0009664
+name: plant-type cell wall organization
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000162"} ! Viridiplantae
+
+[Term]
+id: GO:0009677
+name: double fertilization forming two zygotes
+relationship: only_in_taxon NCBITaxon:58022 {id="GOTAX:0000164"} ! Gnetophyta
+
+[Term]
+id: GO:0009704
+name: de-etiolation
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000165"} ! Viridiplantae
+
+[Term]
+id: GO:0009705
+name: plant-type vacuole membrane
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000166"} ! Viridiplantae
+
+[Term]
+id: GO:0009760
+name: C4 photosynthesis
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000167"} ! Viridiplantae
+
+[Term]
+id: GO:0009761
+name: CAM photosynthesis
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000168"} ! Viridiplantae
+
+[Term]
+id: GO:0009766
+name: primary charge separation
+relationship: only_in_taxon NCBITaxon_Union:0000007 {id="GOTAX:0000169"} ! Viridiplantae or Bacteria or Euglenozoa
+
+[Term]
+id: GO:0009777
+name: photosynthetic phosphorylation
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000470"} ! Metazoa
+
+[Term]
+id: GO:0009780
+name: photosynthetic NADP+ reduction
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000471"} ! Metazoa
+
+[Term]
+id: GO:0009792
+name: embryonic development ending in birth or egg hatching
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000175"} ! Metazoa
+
+[Term]
+id: GO:0009832
+name: plant-type cell wall biogenesis
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000176"} ! Viridiplantae
+
+[Term]
+id: GO:0009840
+name: chloroplastic endopeptidase Clp complex
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000177"} ! Viridiplantae
+
+[Term]
+id: GO:0009842
+name: cyanelle
+relationship: only_in_taxon NCBITaxon:38254 {id="GOTAX:0000178"} ! Glaucocystophyceae
+
+[Term]
+id: GO:0009853
+name: photorespiration
+relationship: only_in_taxon NCBITaxon_Union:0000007 {id="GOTAX:0000179"} ! Viridiplantae or Bacteria or Euglenozoa
+
+[Term]
+id: GO:0009864
+name: induced systemic resistance, jasmonic acid mediated signaling pathway
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000180"} ! Viridiplantae
+
+[Term]
+id: GO:0009866
+name: induced systemic resistance, ethylene mediated signaling pathway
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000181"} ! Viridiplantae
+
+[Term]
+id: GO:0009908
+name: flower development
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000182"} ! Magnoliophyta
+
+[Term]
+id: GO:0009920
+name: cell plate formation involved in plant-type cell wall biogenesis
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000183"} ! Viridiplantae
+
+[Term]
+id: GO:0009930
+name: longitudinal side of cell surface
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000184"} ! Eukaryota
+
+[Term]
+id: GO:0009986
+name: cell surface
+relationship: only_in_taxon NCBITaxon:131567 {id="GOTAX:0000185"} ! cellular organisms
+
+[Term]
+id: GO:0010001
+name: glial cell differentiation
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000186"} ! Metazoa
+
+[Term]
+id: GO:0010006
+name: Toc complex
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000187"} ! Viridiplantae
+
+[Term]
+id: GO:0010007
+name: magnesium chelatase complex
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000188"} ! Viridiplantae
+
+[Term]
+id: GO:0010019
+name: chloroplast-nucleus signaling pathway
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000189"} ! Viridiplantae
+
+[Term]
+id: GO:0010051
+name: xylem and phloem pattern formation
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000190"} ! Viridiplantae
+
+[Term]
+id: GO:0010069
+name: zygote asymmetric cytokinesis in the embryo sac
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000191"} ! Magnoliophyta
+
+[Term]
+id: GO:0010087
+name: phloem or xylem histogenesis
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000192"} ! Viridiplantae
+
+[Term]
+id: GO:0010090
+name: trichome morphogenesis
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000193"} ! Viridiplantae
+
+[Term]
+id: GO:0010091
+name: trichome branching
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000194"} ! Viridiplantae
+
+[Term]
+id: GO:0010099
+name: regulation of photomorphogenesis
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000195"} ! Viridiplantae
+
+[Term]
+id: GO:0010152
+name: pollen maturation
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000196"} ! Magnoliophyta
+
+[Term]
+id: GO:0010154
+name: fruit development
+relationship: only_in_taxon NCBITaxon:58024 {id="GOTAX:0000197"} ! Spermatophyta
+
+[Term]
+id: GO:0010197
+name: polar nucleus fusion
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000198"} ! Magnoliophyta
+
+[Term]
+id: GO:0010205
+name: photoinhibition
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000472"} ! Metazoa
+
+[Term]
+id: GO:0010206
+name: photosystem II repair
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000473"} ! Metazoa
+
+[Term]
+id: GO:0010208
+name: pollen wall assembly
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000201"} ! Magnoliophyta
+
+[Term]
+id: GO:0010214
+name: seed coat development
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000202"} ! Viridiplantae
+
+[Term]
+id: GO:0010242
+name: oxygen evolving activity
+relationship: only_in_taxon NCBITaxon_Union:0000007 {id="GOTAX:0000204"} ! Viridiplantae or Bacteria or Euglenozoa
+
+[Term]
+id: GO:0010278
+name: chloroplast outer membrane translocon
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000205"} ! Viridiplantae
+
+[Term]
+id: GO:0010287
+name: plastoglobule
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000206"} ! Viridiplantae
+
+[Term]
+id: GO:0010319
+name: stromule
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000207"} ! Viridiplantae
+
+[Term]
+id: GO:0010330
+name: cellulose synthase complex
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000208"} ! Viridiplantae
+
+[Term]
+id: GO:0010338
+name: leaf formation
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000209"} ! Viridiplantae
+
+[Term]
+id: GO:0010358
+name: leaf shaping
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000210"} ! Viridiplantae
+
+[Term]
+id: GO:0010368
+name: chloroplast isoamylase complex
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000211"} ! Viridiplantae
+
+[Term]
+id: GO:0010374
+name: stomatal complex development
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000212"} ! Viridiplantae
+
+[Term]
+id: GO:0010377
+name: guard cell fate commitment
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000213"} ! Viridiplantae
+
+[Term]
+id: GO:0010380
+name: regulation of chlorophyll biosynthetic process
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000474"} ! Metazoa
+
+[Term]
+id: GO:0010419
+name: rhamnogalacturonan II side chain metabolic process
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000215"} ! Viridiplantae
+
+[Term]
+id: GO:0010433
+name: bract morphogenesis
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000216"} ! Viridiplantae
+
+[Term]
+id: GO:0010434
+name: bract formation
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000217"} ! Viridiplantae
+
+[Term]
+id: GO:0010547
+name: thylakoid membrane disassembly
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000475"} ! Metazoa
+
+[Term]
+id: GO:0010548
+name: regulation of thylakoid membrane disassembly
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000476"} ! Metazoa
+
+[Term]
+id: GO:0010865
+name: stipule development
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000220"} ! Viridiplantae
+
+[Term]
+id: GO:0012511
+name: monolayer-surrounded lipid storage body
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000221"} ! Viridiplantae
+
+[Term]
+id: GO:0014021
+name: secondary neural tube formation
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000222"} ! Mammalia
+
+[Term]
+id: GO:0014023
+name: neural rod formation
+relationship: only_in_taxon NCBITaxon:32443 {id="GOTAX:0000223"} ! Teleostei
+
+[Term]
+id: GO:0015032
+name: storage protein import into fat body
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000224"} ! Arthropoda
+
+[Term]
+id: GO:0015628
+name: protein secretion by the type II secretion system
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000225"} ! Bacteria
+
+[Term]
+id: GO:0015979
+name: photosynthesis
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000477"} ! Metazoa
+
+[Term]
+id: GO:0015994
+name: chlorophyll metabolic process
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000478"} ! Metazoa
+
+[Term]
+id: GO:0016117
+name: carotenoid biosynthesis
+relationship: never_in_taxon NCBITaxon:4890 {id="GOTAX:0000483"} ! Ascomycota
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000484"} ! Metazoa
+
+[Term]
+id: GO:0016168
+name: chlorophyll binding
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000479"} ! Metazoa
+
+[Term]
+id: GO:0016348
+name: imaginal disc-derived leg joint morphogenesis
+relationship: only_in_taxon NCBITaxon:33392 {id="GOTAX:0000229"} ! Endopterygota
+
+[Term]
+id: GO:0016490
+name: structural constituent of peritrophic membrane
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000230"} ! Arthropoda
+
+[Term]
+id: GO:0016543
+name: male courtship behavior, orientation prior to leg tapping and wing vibration
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000231"} ! Arthropoda
+
+[Term]
+id: GO:0016544
+name: male courtship behavior, tapping to detect pheromone
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000232"} ! Arthropoda
+
+[Term]
+id: GO:0016546
+name: male courtship behavior, proboscis-mediated licking
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000233"} ! Arthropoda
+
+[Term]
+id: GO:0018988
+name: molting cycle, protein-based cuticle
+relationship: only_in_taxon NCBITaxon_Union:0000005 {id="GOTAX:0000234"} ! Nematoda or Protostomia
+
+[Term]
+id: GO:0018990
+name: ecdysis, chitin-based cuticle
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000235"} ! Arthropoda
+
+[Term]
+id: GO:0019096
+name: pole plasm mitochondrial lrRNA localization
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000236"} ! Arthropoda
+
+[Term]
+id: GO:0019097
+name: pole plasm mitochondrial srRNA localization
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000237"} ! Arthropoda
+
+[Term]
+id: GO:0019350
+name: teichoic acid biosynthetic process
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000238"} ! Bacteria
+
+[Term]
+id: GO:0020011
+name: apicoplast
+relationship: only_in_taxon NCBITaxon:5794 {id="GOTAX:0000240", source="PMID:12722949"} ! Apicomplexa
+
+[Term]
+id: GO:0020015
+name: glycosome
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000241"} ! Eukaryota
+
+[Term]
+id: GO:0020020
+name: food vacuole
+relationship: only_in_taxon NCBITaxon:5794 {id="GOTAX:0000242"} ! Apicomplexa
+
+[Term]
+id: GO:0020026
+name: merozoite dense granule
+relationship: only_in_taxon NCBITaxon:5794 {id="GOTAX:0000243"} ! Apicomplexa
+
+[Term]
+id: GO:0020030
+name: infected host cell surface knob
+relationship: only_in_taxon NCBITaxon:5820 {id="GOTAX:0000244"} ! Plasmodium
+
+[Term]
+id: GO:0022416
+name: bristle development
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000487"} ! Insecta
+
+[Term]
+id: GO:0022602
+name: ovulation cycle process
+relationship: only_in_taxon NCBITaxon:7742 {id="GOTAX:0000245"} ! Vertebrata
+
+[Term]
+id: GO:0022619
+name: generative cell differentiation
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000246"} ! Magnoliophyta
+
+[Term]
+id: GO:0022620
+name: vegetative cell differentiation
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000247"} ! Magnoliophyta
+
+[Term]
+id: GO:0022625
+name: cytosolic large ribosomal subunit
+relationship: only_in_taxon NCBITaxon:131567 {id="GOTAX:0000248"} ! cellular organisms
+
+[Term]
+id: GO:0022626
+name: cytosolic ribosome
+relationship: only_in_taxon NCBITaxon:131567 {id="GOTAX:0000249"} ! cellular organisms
+
+[Term]
+id: GO:0022627
+name: cytosolic small ribosomal subunit
+relationship: only_in_taxon NCBITaxon:131567 {id="GOTAX:0000250"} ! cellular organisms
+
+[Term]
+id: GO:0030075
+name: plasma membrane-derived thylakoid
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000253"} ! Bacteria
+
+[Term]
+id: GO:0030077
+name: plasma membrane light-harvesting complex
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000254"} ! Prokaryota
+
+[Term]
+id: GO:0030080
+name: B875 antenna complex
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000255"} ! Prokaryota
+
+[Term]
+id: GO:0030081
+name: B800-820 antenna complex
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000256"} ! Prokaryota
+
+[Term]
+id: GO:0030082
+name: B800-850 antenna complex
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000257"} ! Prokaryota
+
+[Term]
+id: GO:0030085
+name: PSII associated light-harvesting complex II, peripheral complex, LHCIIb subcomplex
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000258"} ! Viridiplantae
+
+[Term]
+id: GO:0030093
+name: chloroplast photosystem I
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000259"} ! Viridiplantae
+
+[Term]
+id: GO:0030427
+name: site of polarized growth
+relationship: only_in_taxon NCBITaxon:131567 {id="GOTAX:0000260"} ! cellular organisms
+
+[Term]
+id: GO:0030437
+name: ascospore formation
+relationship: only_in_taxon NCBITaxon:4890 {id="GOTAX:0000261"} ! Ascomycota
+
+[Term]
+id: GO:0030472
+name: mitotic spindle organization in nucleus
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000262"} ! Eukaryota
+
+[Term]
+id: GO:0030479
+name: actin cortical patch
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000263"} ! Fungi
+
+[Term]
+id: GO:0030493
+name: bacteriochlorophyll metabolic process
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000264"} ! Prokaryota
+
+[Term]
+id: GO:0030537
+name: larval behavior
+relationship: only_in_taxon NCBITaxon:6072 {id="GOTAX:0000265"} ! Eumetazoa
+
+[Term]
+id: GO:0030584
+name: sporocarp development
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000266"} ! Fungi
+
+[Term]
+id: GO:0030587
+name: sorocarp development
+relationship: only_in_taxon NCBITaxon:33083 {id="GOTAX:0000267"} ! Dictyosteliida
+
+[Term]
+id: GO:0030588
+name: pseudocleavage
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000268"} ! Metazoa
+
+[Term]
+id: GO:0030590
+name: pseudocleavage during first cell cycle
+relationship: only_in_taxon NCBITaxon:33213 {id="GOTAX:0000269"} ! Bilateria
+
+[Term]
+id: GO:0030680
+name: dimeric ribonuclease P complex
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000271"} ! Bacteria
+
+[Term]
+id: GO:0030703
+name: eggshell formation
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000272"} ! Metazoa
+
+[Term]
+id: GO:0030707
+name: ovarian follicle cell development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000273"} ! Arthropoda
+
+[Term]
+id: GO:0030717
+name: karyosome formation
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000274"} ! Insecta
+
+[Term]
+id: GO:0030719
+name: P granule organization
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000275"} ! Metazoa
+
+[Term]
+id: GO:0030720
+name: oocyte localization during germarium-derived egg chamber formation
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000276"} ! Insecta
+
+[Term]
+id: GO:0030723
+name: ovarian fusome organization
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000277"} ! Insecta
+
+[Term]
+id: GO:0030930
+name: homotetrameric ADPG pyrophosphorylase complex
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000278"} ! Bacteria
+
+[Term]
+id: GO:0030931
+name: heterotetrameric ADPG pyrophosphorylase complex
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000279"} ! Eukaryota
+
+[Term]
+id: GO:0031321
+name: ascospore-type prospore formation
+relationship: only_in_taxon NCBITaxon:4890 {id="GOTAX:0000281"} ! Ascomycota
+
+[Term]
+id: GO:0031504
+name: peptidoglycan-based cell wall organization
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000287"} ! Bacteria
+
+[Term]
+id: GO:0031505
+name: fungal-type cell wall organization
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000288"} ! Fungi
+
+[Term]
+id: GO:0031522
+name: cell envelope Sec protein transport complex
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000289"} ! Bacteria
+
+[Term]
+id: GO:0031566
+name: actomyosin contractile ring maintenance
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000510"} ! Eukaryota
+
+[Term]
+id: GO:0031633
+name: xanthophore
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000290"} ! Prokaryota
+
+[Term]
+id: GO:0031897
+name: Tic complex
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000291"} ! Viridiplantae
+
+[Term]
+id: GO:0031974
+name: membrane-enclosed lumen
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000292"} ! Eukaryota
+
+[Term]
+id: GO:0031986
+name: proteinoplast
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000294"} ! Viridiplantae
+
+[Term]
+id: GO:0032121
+name: attachment of telomeres to spindle pole body
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000295"} ! Fungi
+
+[Term]
+id: GO:0032187
+name: actomyosin contractile ring localization
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000511"} ! Eukaryota
+
+[Term]
+id: GO:0032501
+name: multicellular organismal process
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000299"} ! Eukaryota
+
+[Term]
+id: GO:0033009
+name: nucleomorph
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000300"} ! Viridiplantae
+
+[Term]
+id: GO:0033105
+name: chlorosome envelope
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000301"} ! Prokaryota
+
+[Term]
+id: GO:0033174
+name: chloroplast proton-transporting ATP synthase complex, catalytic core CF(1)
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000304"} ! Viridiplantae
+
+[Term]
+id: GO:0033175
+name: chloroplast proton-transporting ATP synthase complex, coupling factor CF(o)
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000305"} ! Viridiplantae
+
+[Term]
+id: GO:0033614
+name: chloroplast proton-transporting ATP synthase complex assembly
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000307"} ! Viridiplantae
+
+[Term]
+id: GO:0034306
+name: regulation of sexual sporulation
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000309"} ! Fungi
+
+[Term]
+id: GO:0034400
+name: gerontoplast
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000310"} ! Viridiplantae
+
+[Term]
+id: GO:0034631
+name: microtubule anchoring at spindle pole body
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000311"} ! Fungi
+
+[Term]
+id: GO:0035001
+name: dorsal trunk growth, open tracheal system
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000312"} ! Insecta
+
+[Term]
+id: GO:0035002
+name: liquid clearance, open tracheal system
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000313"} ! Insecta
+
+[Term]
+id: GO:0035018
+name: adult chitin-based cuticle pattern formation
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000314"} ! Arthropoda
+
+[Term]
+id: GO:0035052
+name: dorsal vessel aortic cell fate commitment
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000315"} ! Insecta
+
+[Term]
+id: GO:0035053
+name: dorsal vessel heart proper cell fate commitment
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000316"} ! Insecta
+
+[Term]
+id: GO:0035099
+name: hemocyte migration
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000317"} ! Arthropoda
+
+[Term]
+id: GO:0035147
+name: branch fusion, open tracheal system
+relationship: only_in_taxon NCBITaxon:33317 {id="GOTAX:0000318"} ! Protostomia
+
+[Term]
+id: GO:0035152
+name: regulation of tube architecture, open tracheal system
+relationship: only_in_taxon NCBITaxon:33317 {id="GOTAX:0000319"} ! Protostomia
+
+[Term]
+id: GO:0035153
+name: epithelial cell type specification, open tracheal system
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000320"} ! Insecta
+
+[Term]
+id: GO:0035155
+name: negative regulation of terminal cell fate specification, open tracheal system
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000321"} ! Insecta
+
+[Term]
+id: GO:0035157
+name: negative regulation of fusion cell fate specification
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000322"} ! Insecta
+
+[Term]
+id: GO:0035158
+name: regulation of tube diameter, open tracheal system
+relationship: only_in_taxon NCBITaxon:33317 {id="GOTAX:0000323"} ! Protostomia
+
+[Term]
+id: GO:0035159
+name: regulation of tube length, open tracheal system
+relationship: only_in_taxon NCBITaxon:33317 {id="GOTAX:0000324"} ! Protostomia
+
+[Term]
+id: GO:0035172
+name: hemocyte proliferation
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000325"} ! Arthropoda
+
+[Term]
+id: GO:0035207
+name: negative regulation of hemocyte proliferation
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000326"} ! Arthropoda
+
+[Term]
+id: GO:0035277
+name: spiracle morphogenesis, open tracheal system
+relationship: only_in_taxon NCBITaxon:33317 {id="GOTAX:0000327"} ! Protostomia
+
+[Term]
+id: GO:0035287
+name: head segmentation
+relationship: never_in_taxon NCBITaxon:7742 {id="GOTAX:0000489"} ! Vertebrata
+
+[Term]
+id: GO:0035316
+name: non-sensory hair organization
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000328"} ! Arthropoda
+
+[Term]
+id: GO:0035670
+name: ovule-producing ovary development
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000329"} ! Magnoliophyta
+
+[Term]
+id: GO:0040002
+name: collagen and cuticulin-based cuticle development
+relationship: only_in_taxon NCBITaxon:6231 {id="GOTAX:0000330"} ! Nematoda
+
+[Term]
+id: GO:0040003
+name: chitin-based cuticle development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000331"} ! Arthropoda
+
+[Term]
+id: GO:0040006
+name: protein-based cuticle attachment to epithelium
+relationship: only_in_taxon NCBITaxon_Union:0000005 {id="GOTAX:0000332"} ! Nematoda or Protostomia
+
+[Term]
+id: GO:0040007
+name: growth
+relationship: only_in_taxon NCBITaxon:131567 {id="GOTAX:0000333"} ! cellular organisms
+
+[Term]
+id: GO:0040021
+name: hermaphrodite germ-line sex determination
+relationship: only_in_taxon NCBITaxon:6231 {id="GOTAX:0000334"} ! Nematoda
+
+[Term]
+id: GO:0040025
+name: vulval development
+relationship: only_in_taxon NCBITaxon:6231 {id="GOTAX:0000335"} ! Nematoda
+
+[Term]
+id: GO:0042001
+name: hermaphrodite somatic sex determination
+relationship: only_in_taxon NCBITaxon:33213 {id="GOTAX:0000336"} ! Bilateria
+
+[Term]
+id: GO:0042243
+name: asexual spore wall assembly
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000338"} ! Bacteria
+
+[Term]
+id: GO:0042314
+name: bacteriochlorophyll binding
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000339"} ! Prokaryota
+
+[Term]
+id: GO:0042329
+name: structural constituent of collagen and cuticulin-based cuticle
+relationship: only_in_taxon NCBITaxon:6231 {id="GOTAX:0000340"} ! Nematoda
+
+[Term]
+id: GO:0042386
+name: hemocyte differentiation
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000341"} ! Arthropoda
+
+[Term]
+id: GO:0042463
+name: ocellus photoreceptor cell development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000342"} ! Arthropoda
+
+[Term]
+id: GO:0042475
+name: odontogenesis of dentine-containing tooth
+relationship: only_in_taxon NCBITaxon:7711 {id="GOTAX:0000343"} ! Chordata
+
+[Term]
+id: GO:0042601
+name: endospore-forming forespore
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000344"} ! Bacteria
+
+[Term]
+id: GO:0042603
+name: capsule
+relationship: only_in_taxon NCBITaxon_Union:0000020 {id="GOTAX:0000345"} ! Fungi or Bacteria
+
+[Term]
+id: GO:0042649
+name: prothylakoid
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000347"} ! Viridiplantae
+
+[Term]
+id: GO:0042650
+name: prothylakoid membrane
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000348"} ! Viridiplantae
+
+[Term]
+id: GO:0042716
+name: plasma membrane-derived chromatophore
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000349"} ! Bacteria
+
+[Term]
+id: GO:0042764
+name: ascospore-type prospore
+relationship: only_in_taxon NCBITaxon:4890 {id="GOTAX:0000350"} ! Ascomycota
+
+[Term]
+id: GO:0042777
+name: plasma membrane ATP synthesis coupled proton transport
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000351"} ! Bacteria
+
+[Term]
+id: GO:0043009
+name: chordate embryonic development
+relationship: only_in_taxon NCBITaxon:7711 {id="GOTAX:0000352"} ! Chordata
+
+[Term]
+id: GO:0043036
+name: starch grain
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000353"} ! Viridiplantae
+
+[Term]
+id: GO:0043082
+name: megagametophyte egg cell nucleus
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000354"} ! Viridiplantae
+
+[Term]
+id: GO:0043190
+name: ATP-binding cassette (ABC) transporter complex
+relationship: only_in_taxon NCBITaxon:131567 {id="GOTAX:0000355"} ! cellular organisms
+
+[Term]
+id: GO:0043263
+name: cellulosome
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000356"} ! Prokaryota
+
+[Term]
+id: GO:0043473
+name: pigmentation
+relationship: only_in_taxon NCBITaxon:131567 {id="GOTAX:0000357"} ! cellular organisms
+
+[Term]
+id: GO:0043581
+name: mycelium development
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000358"} ! Fungi
+
+[Term]
+id: GO:0043591
+name: endospore external encapsulating structure
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000359"} ! Bacteria
+
+[Term]
+id: GO:0043595
+name: endospore cortex
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000360"} ! Bacteria
+
+[Term]
+id: GO:0043597
+name: cytoplasmic replication fork
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000361"} ! Prokaryota
+
+[Term]
+id: GO:0044456
+name: synapse part
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000362"} ! Metazoa
+
+[Term]
+id: GO:0045138
+name: tail tip morphogenesis
+relationship: only_in_taxon NCBITaxon:6231 {id="GOTAX:0000363"} ! Nematoda
+
+[Term]
+id: GO:0045172
+name: germline ring canal
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000364"} ! Arthropoda
+
+[Term]
+id: GO:0045202
+name: synapse
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000365"} ! Metazoa
+
+[Term]
+id: GO:0045246
+name: cytosolic tricarboxylic acid cycle enzyme complex
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000366"} ! Prokaryota
+
+[Term]
+id: GO:0045247
+name: cytosolic electron transfer flavoprotein complex
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000367"} ! Prokaryota
+
+[Term]
+id: GO:0045248
+name: cytosolic oxoglutarate dehydrogenase complex
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000368"} ! Prokaryota
+
+[Term]
+id: GO:0045249
+name: cytosol pyruvate dehydrogenase (lipoamide) phosphatase complex
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000369"} ! Prokaryota
+
+[Term]
+id: GO:0045250
+name: cytosolic pyruvate dehydrogenase complex
+comment: Note that this term represents a location and not a function; the activity possessed by this complex is mentioned in the relationship: only_in_taxon NCBITaxon_Union:0000004 ! Prokaryota
+
+[Term]
+id: GO:0045258
+name: plasma membrane succinate dehydrogenase complex (ubiquinone)
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000370"} ! Prokaryota
+
+[Term]
+id: GO:0045260
+name: plasma membrane proton-transporting ATP synthase complex
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000371"} ! Bacteria
+
+[Term]
+id: GO:0045314
+name: regulation of compound eye photoreceptor development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000372"} ! Arthropoda
+
+[Term]
+id: GO:0045498
+name: sex comb development
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000373"} ! Insecta
+
+[Term]
+id: GO:0045688
+name: regulation of antipodal cell differentiation
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000374"} ! Magnoliophyta
+
+[Term]
+id: GO:0045691
+name: regulation of embryo sac central cell differentiation
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000375"} ! Magnoliophyta
+
+[Term]
+id: GO:0045694
+name: regulation of embryo sac egg cell differentiation
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000376"} ! Magnoliophyta
+
+[Term]
+id: GO:0045697
+name: regulation of synergid differentiation
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000377"} ! Magnoliophyta
+
+[Term]
+id: GO:0046594
+name: maintenance of pole plasm mRNA location
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000378"} ! Metazoa
+
+[Term]
+id: GO:0046595
+name: establishment of pole plasm mRNA localization
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000379"} ! Arthropoda
+
+[Term]
+id: GO:0046858
+name: chlorosome
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000380"} ! Prokaryota
+
+[Term]
+id: GO:0048046
+name: apoplast
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000381"} ! Viridiplantae
+
+[Term]
+id: GO:0048065
+name: male courtship behavior, veined wing extension
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000382"} ! Arthropoda
+
+[Term]
+id: GO:0048072
+name: compound eye pigmentation
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000383"} ! Arthropoda
+
+[Term]
+id: GO:0048085
+name: adult chitin-containing cuticle pigmentation
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000384"} ! Arthropoda
+
+[Term]
+id: GO:0048540
+name: bursa of Fabricius development
+relationship: only_in_taxon NCBITaxon:8457 {id="GOTAX:0000385"} ! Sauropsida 
+
+[Term]
+id: GO:0048102
+name: autophagic cell death
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000386"} ! Eukaryota
+
+[Term]
+id: GO:0048132
+name: female germ-line stem cell division
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000387"} ! Arthropoda
+
+[Term]
+id: GO:0048134
+name: germ-line cyst formation
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000388"} ! Arthropoda
+
+[Term]
+id: GO:0048138
+name: germ-line cyst encapsulation
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000389"} ! Insecta
+
+[Term]
+id: GO:0048158
+name: oogonium stage, oogenesis
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000390"} ! Mammalia
+
+[Term]
+id: GO:0048160
+name: primary follicle stage, oogenesis
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000391"} ! Mammalia
+
+[Term]
+id: GO:0048161
+name: double layer follicle stage, oogenesis
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000392"} ! Mammalia
+
+[Term]
+id: GO:0048162
+name: multi-layer follicle stage, oogenesis
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000393"} ! Mammalia
+
+[Term]
+id: GO:0048163
+name: scattered antral spaces stage, oogenesis
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000394"} ! Mammalia
+
+[Term]
+id: GO:0048164
+name: distinct antral spaces stage, oogenesis
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000395"} ! Mammalia
+
+[Term]
+id: GO:0048165
+name: fused antrum stage, oogenesis
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000396"} ! Mammalia
+
+[Term]
+id: GO:0048166
+name: mature follicle stage, oogenesis
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000397"} ! Mammalia
+
+[Term]
+id: GO:0048196
+name: middle lamella-containing extracellular matrix
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000398"} ! Viridiplantae
+
+[Term]
+id: GO:0048217
+name: pectic matrix
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000399"} ! Viridiplantae
+
+[Term]
+id: GO:0048223
+name: hemicellulose network
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000400"} ! Viridiplantae
+
+[Term]
+id: GO:0048224
+name: lignin network
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000401"} ! Viridiplantae
+
+[Term]
+id: GO:0048225
+name: suberin network
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000402"} ! Viridiplantae
+
+[Term]
+id: GO:0048226
+name: Casparian strip
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000403"} ! Viridiplantae
+
+[Term]
+id: GO:0048229
+name: gametophyte development
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000404"} ! Magnoliophyta
+
+[Term]
+id: GO:0048235
+name: pollen sperm cell differentiation
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000405"} ! Magnoliophyta
+
+[Term]
+id: GO:0048236
+name: plant-type spore development
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000406"} ! Viridiplantae
+
+[Term]
+id: GO:0048314
+name: embryo sac morphogenesis
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000407"} ! Magnoliophyta
+
+[Term]
+id: GO:0048364
+name: root development
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000408"} ! Viridiplantae
+
+[Term]
+id: GO:0048477
+name: oogenesis
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000409"} ! Metazoa
+
+[Term]
+id: GO:0048479
+name: style development
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000410"} ! Viridiplantae
+
+[Term]
+id: GO:0048480
+name: stigma development
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000411"} ! Viridiplantae
+
+[Term]
+id: GO:0048493
+name: plasma membrane-derived thylakoid ribulose bisphosphate carboxylase complex
+relationship: only_in_taxon NCBITaxon:1117 {id="GOTAX:0000412"} ! Cyanobacteria
+
+[Term]
+id: GO:0048501
+name: signal recognition particle, plasma membrane targeting
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000413"} ! Prokaryota
+
+[Term]
+id: GO:0048511
+name: rhythmic process
+relationship: only_in_taxon NCBITaxon:131567 {id="GOTAX:0000414"} ! cellular organisms
+
+[Term]
+id: GO:0048542
+name: lymph gland development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000415"} ! Arthropoda
+
+[Term]
+id: GO:0048555
+name: generative cell nucleus
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000416"} ! Magnoliophyta
+
+[Term]
+id: GO:0048573
+name: photoperiodism, flowering
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000417"} ! Magnoliophyta
+
+[Term]
+id: GO:0048586
+name: regulation of long-day photoperiodism, flowering
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000418"} ! Magnoliophyta
+
+[Term]
+id: GO:0048587
+name: regulation of short-day photoperiodism, flowering
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000419"} ! Magnoliophyta
+
+[Term]
+id: GO:0048600
+name: oocyte fate commitment
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000420"} ! Metazoa
+
+[Term]
+id: GO:0048601
+name: oocyte morphogenesis
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000421"} ! Metazoa
+
+[Term]
+id: GO:0048623
+name: seed germination on parent plant
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000422"} ! Viridiplantae
+
+[Term]
+id: GO:0048624
+name: plantlet formation on parent plant
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000423"} ! Viridiplantae
+
+[Term]
+id: GO:0048658
+name: tapetal layer development
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000424"} ! Viridiplantae
+
+[Term]
+id: GO:0048737
+name: imaginal disc-derived appendage development
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000425"} ! Arthropoda
+
+[Term]
+id: GO:0048826
+name: cotyledon morphogenesis
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000426"} ! Viridiplantae
+
+[Term]
+id: GO:0048827
+name: phyllome development
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000427"} ! Viridiplantae
+
+[Term]
+id: GO:0048829
+name: root cap development
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000428"} ! Viridiplantae
+
+[Term]
+id: GO:0048838
+name: release of seed from dormancy
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000429"} ! Viridiplantae
+
+[Term]
+id: GO:0048840
+name: otolith development
+relationship: only_in_taxon NCBITaxon:7742 {id="GOTAX:0000430"} ! Vertebrata
+
+[Term]
+id: GO:0050845
+name: teichuronic acid biosynthetic process
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000431"} ! Bacteria
+
+[Term]
+id: GO:0051300
+name: spindle pole body organization
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000432"} ! Fungi
+
+[Term]
+id: GO:0051417
+name: microtubule nucleation by spindle pole body
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000433"} ! Fungi
+
+[Term]
+id: GO:0051640
+name: organelle localization
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000434"} ! Eukaryota
+
+[Term]
+id: GO:0051644
+name: plastid localization
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000493", source="PMID:21311032"} ! Metazoa
+relationship: never_in_taxon NCBITaxon:4751 {id="GOTAX:0000505", source="PMID:21311032"} ! Fungi
+relationship: never_in_taxon NCBITaxon:28009 {id="GOTAX:0000506", source="PMID:21311032"} ! Choanoflagellida
+relationship: never_in_taxon NCBITaxon:554915 {id="GOTAX:0000507", source="PMID:21311032"} ! Amoebozoa
+
+[Term]
+id: GO:0051663
+name: oocyte nucleus localization involved in oocyte dorsal/ventral axis specification
+relationship: only_in_taxon NCBITaxon:6656 {id="GOTAX:0000435"} ! Arthropoda
+
+[Term]
+id: GO:0052541
+name: plant-type cell wall cellulose metabolic process
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000437"} ! Viridiplantae
+
+[Term]
+id: GO:0052546
+name: cell wall pectin metabolic process
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000438"} ! Viridiplantae
+
+[Term]
+id: GO:0055044
+name: symplast
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000439"} ! Viridiplantae
+
+[Term]
+id: GO:0055045
+name: antipodal cell degeneration
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000440"} ! Magnoliophyta
+
+[Term]
+id: GO:0055046
+name: microgametogenesis
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000441"} ! Magnoliophyta
+
+[Term]
+id: GO:0055051
+name: ATP-binding cassette (ABC) transporter complex, integrated substrate binding
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000442"} ! Eukaryota
+
+[Term]
+id: GO:0055052
+name: ATP-binding cassette (ABC) transporter complex, substrate-binding subunit-containing
+relationship: only_in_taxon NCBITaxon_Union:0000004 {id="GOTAX:0000443"} ! Prokaryota
+
+[Term]
+id: GO:0060033
+name: anatomical structure regression
+relationship: only_in_taxon NCBITaxon:2759 {id="GOTAX:0000444"} ! Eukaryota
+
+[Term]
+id: GO:0060102
+name: collagen and cuticulin-based cuticle extracellular matrix
+relationship: only_in_taxon NCBITaxon:33213 {id="GOTAX:0000445"} ! Bilateria
+
+[Term]
+id: GO:0060111
+name: alae of collagen and cuticulin-based cuticle extracellular matrix
+relationship: only_in_taxon NCBITaxon:33213 {id="GOTAX:0000446"} ! Bilateria
+
+[Term]
+id: GO:0061319
+name: nephrocyte differentiation
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000447"} ! Insecta
+
+[Term]
+id: GO:0070057
+name: prospore membrane spindle pole body attachment site
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000448"} ! Fungi
+
+[Term]
+id: GO:0070470
+name: plasma membrane respiratory chain
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000449"} ! Bacteria
+
+[Term]
+id: GO:0070631
+name: spindle pole body localization
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000450"} ! Fungi
+created_by: midori
+creation_date: 2009-05-06T02:21:38Z
+
+[Term]
+id: GO:0070648
+name: formin-nucleated actin cable
+relationship: only_in_taxon NCBITaxon:4751 {id="GOTAX:0000451"} ! Fungi
+created_by: midori
+creation_date: 2009-05-12T02:09:57Z
+
+[Term]
+id: GO:0072002
+name: Malpighian tubule development
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000452"} ! Insecta
+
+[Term]
+id: GO:0072324
+name: ascus epiplasm
+relationship: never_in_taxon NCBITaxon:5878 {id="GOTAX:0000453"} ! Ciliophora  
+created_by: midori
+creation_date: 2010-10-28T04:46:18Z
+
+[Term]
+id: GO:0072325
+name: vulval cell fate commitment
+relationship: only_in_taxon NCBITaxon:6231 {id="GOTAX:0000454"} ! Nematoda
+
+[Term]
+id: GO:0072326
+name: vulval cell fate determination
+relationship: only_in_taxon NCBITaxon:6231 {id="GOTAX:0000455"} ! Nematoda
+
+[Term]
+id: GO:0072327
+name: vulval cell fate specification
+relationship: only_in_taxon NCBITaxon:6231 {id="GOTAX:0000456"} ! Nematoda
+
+[Term]
+id: GO:0075259
+name: spore-bearing organ development
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000457"} ! Metazoa
+
+[Term]
+id: GO:0072690
+name: vegetative growth of a single-celled organism
+relationship: only_in_taxon NCBITaxon_Union:0000023 {id="GOTAX:0000485"} ! Fungi or Bacteria or Archaea
+
+[Term]
+id: GO:0080086
+name: stamen filament development
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000458"} ! Viridiplantae
+created_by: donghui
+creation_date: 2009-04-22T03:12:03Z
+
+[Term]
+id: GO:0080186
+name: developmental vegetative growth
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000486"} ! Viridiplantae
+
+[Term]
+id: GO:0035804
+name: structural constituent of egg coat
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000459"} ! Metazoa
+
+[Term]
+id: GO:0035805
+name: egg coat
+relationship: only_in_taxon NCBITaxon:33208 {id="GOTAX:0000460"} ! Metazoa
+
+[Term]
+id: GO:0006306
+name: DNA methylation
+relationship: never_in_taxon NCBITaxon:4930 {id="GOTAX:0000461"} ! Saccharomyces
+relationship: never_in_taxon NCBITaxon:4895 {id="GOTAX:0000463"} ! Schizosaccharomyces
+
+[Term]
+id: GO:0034736
+name: cholesterol O-acyltransferase activity
+relationship: never_in_taxon NCBITaxon:4930 {id="GOTAX:0000462"} ! Saccharomyces
+relationship: never_in_taxon NCBITaxon:4895 {id="GOTAX:0000464"} ! Schizosaccharomyces
+
+[Term]
+id: GO:0075321
+name: oomycete sporangium development
+relationship: only_in_taxon NCBITaxon:4762 {id="GOTAX:0000465"} ! Oomycetes
+
+[Term]
+id: GO:0008203
+name: cholesterol metabolic process
+relationship: never_in_taxon NCBITaxon:4930 {id="GOTAX:0000466"} ! Saccharomyces
+relationship: never_in_taxon NCBITaxon:4895 {id="GOTAX:0000467"} ! Schizosaccharomyces
+
+[Term]
+id: GO:0009292
+name: genetic transfer
+relationship: never_in_taxon NCBITaxon:33208 {id="GOTAX:0000468"} ! Metazoa
+
+[Term]
+id: GO:0097094
+name: craniofacial suture morphogenesis
+relationship: only_in_taxon NCBITaxon:7742 {id="GOTAX:0000481"} ! Vertebrata
+
+[Term]
+id: GO:0022809
+name: mobile ion carrier activity
+relationship: only_in_taxon NCBITaxon:2 {id="GOTAX:0000488"} ! Bacteria
+
+[Term]
+id: GO:0006915
+name: apoptosis
+relationship: never_in_taxon NCBITaxon:33090 {id="GOTAX:0000490"} ! Viridiplantae
+
+[Term]
+id: GO:0021724 
+name: inferior raphe nucleus development
+relationship: only_in_taxon NCBITaxon:7742 {id="GOTAX:0000494"} ! Vertebrata
+
+[Term]
+id: GO:0021725 
+name: superior raphe nucleus development
+relationship: only_in_taxon NCBITaxon:7742 {id="GOTAX:0000495"} ! Vertebrata
+
+[Term]
+id: GO:0097195 
+name: pilomotor reflex
+relationship: only_in_taxon NCBITaxon:40674 {id="GOTAX:0000512"} ! Mammalia
+
+[Term]
+id: GO:0097206 
+name: nephrocyte filtration
+relationship: only_in_taxon NCBITaxon:50557 {id="GOTAX:0000513"} ! Insecta
+
+[Term]
+id: GO:0097207 
+name: bud dormancy process
+relationship: only_in_taxon NCBITaxon:33090 {id="GOTAX:0000514"} ! Viridiplantae
+
+[Term]
+id: GO:0097218 
+name: sieve plate
+relationship: only_in_taxon NCBITaxon:3398 {id="GOTAX:0000517"} ! Magnoliophyta
+
+[Typedef]
+id: never_in_taxon
+name: never_in_taxon
+xref: RO:0002161
+is_metadata_tag: true
+is_class_level: true
+expand_assertion_to: "Class: ?X DisjointWith: RO_0002162 some ?Y" []
+
+[Typedef]
+id: only_in_taxon
+name: only_in_taxon
+xref: RO:0002160
+
+[Typedef]
+id: in_taxon
+name: in taxon
+xref: RO:0002162

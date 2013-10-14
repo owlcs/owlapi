@@ -1,0 +1,8 @@
+ontology: import_test_main
+import: http://purl.obolibrary.org/obo/tests/import_test_imported.owl
+
+[Term]
+id: TEST:1
+name: nucleus
+relationship: part_of TEST:2 ! cell
+

@@ -1,0 +1,8 @@
+format-version: 1.2
+
+[Term]
+id: X:1
+name: x1
+is_a: X:2
+property_value: foo "wiggle" xsd:string
+

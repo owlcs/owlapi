@@ -1,0 +1,69 @@
+package org.obolibrary.obo2owl;
+
+import static org.junit.Assert.*;
+
+import java.util.Set;
+
+import org.junit.Test;
+import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
+import org.obolibrary.oboformat.model.Clause;
+import org.obolibrary.oboformat.model.Frame;
+import org.obolibrary.oboformat.model.Frame.FrameType;
+import org.obolibrary.oboformat.model.OBODoc;
+import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+
+public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
+
+	@Test
+	public void testMultiLineDefinitions() throws Exception {
+		// create minimal ontology
+		OBODoc oboDocSource = new OBODoc();
+		oboDocSource.setHeaderFrame(new Frame(FrameType.HEADER));
+		oboDocSource.addDefaultOntologyHeader("caro");
+		
+		// add source frame that contains at least one new line
+		Frame sourceFrame = new Frame(FrameType.TERM);
+		sourceFrame.setId("CARO:0000049");
+		sourceFrame.addClause(new Clause(OboFormatTag.TAG_DEF, "Sequential hermaphroditic organism that produces\ngametes first of the male sex, and then later of the\nfemale sex."));
+		oboDocSource.addTermFrame(sourceFrame);
+		
+		// convert to OWL and retrieve def
+        Obo2Owl bridge = new Obo2Owl(OWLManager.createOWLOntologyManager());
+		OWLOntology owlOntology = bridge.convert(oboDocSource);
+		final OWLDataFactory factory = owlOntology.getOWLOntologyManager().getOWLDataFactory();
+		
+		// IRI
+		IRI iri = bridge.oboIdToIRI("CARO:0000049");
+		OWLClass c = factory.getOWLClass(iri);
+		
+		// Def
+		OWLAnnotationProperty defProperty = factory.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000115.getIRI());
+		Set<OWLAnnotation> annotations = c.getAnnotations(owlOntology, defProperty);
+		assertEquals(1, annotations.size());
+		OWLAnnotation annotation = annotations.iterator().next();
+		assertTrue(annotation.getValue() instanceof OWLLiteral);
+		String owlDef = ((OWLLiteral)annotation.getValue()).getLiteral();
+		
+		// check that owl def also contains at least one new line
+		assertTrue(owlDef.indexOf('\n') > 0);
+		
+		// convert back to OBO
+        Owl2Obo owl2Obo = new Owl2Obo(OWLManager.createOWLOntologyManager());
+		OBODoc convertedOboDoc = owl2Obo.convert(owlOntology);
+		
+		Frame convertedFrame = convertedOboDoc.getTermFrame("CARO:0000049");
+		String convertedDef = convertedFrame.getTagValue(OboFormatTag.TAG_DEF, String.class);
+		
+		// check that round trip still contains newlines
+		assertTrue(convertedDef.indexOf('\n') > 0);
+	}
+
+}

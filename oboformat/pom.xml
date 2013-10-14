@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>oboformat-included-owlapi</artifactId>
+	<packaging>jar</packaging>
+	<name>oboformat-included-owlapi</name>
+	<parent>
+		<groupId>net.sourceforge.owlapi</groupId>
+		<artifactId>owlapi-parent</artifactId>
+		<version>3.4.9-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+	<url>http://code.google.com/p/oboformat/</url>
+	<description>A java library for converting obo format documents to OWL, and for converting (a subset of) OWL to obo format. This version has been slightly modified to be included directly in the OWL API.
+	The upstream code for this module and its authors can be found at https://code.google.com/p/oboformat/.</description>
+	<inceptionYear>2010</inceptionYear>
+	
+	<scm>
+		<url>https://oboformat.googlecode.com/svn/trunk/</url>
+	</scm>
+	<issueManagement>
+		<url>http://code.google.com/p/oboformat/issues/list</url>
+	</issueManagement>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.11</version>
+				<configuration>
+					<argLine>-Xmx1024M</argLine>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-parsers</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

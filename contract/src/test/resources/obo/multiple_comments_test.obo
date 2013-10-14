@@ -1,0 +1,7 @@
+ontology: test
+remark: multiple comment tags are not allowed in a frame. This test ontology deliberately violates this
+
+[Term]
+id: TEST:001 
+comment: "Comment 1"
+comment: "Comment 2"

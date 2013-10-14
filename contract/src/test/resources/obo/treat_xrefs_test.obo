@@ -1,0 +1,73 @@
+ontology: uberon
+treat-xrefs-as-is_a: CARO
+treat-xrefs-as-genus-differentia: TEST part_of NCBITaxon:33208
+treat-xrefs-as-equivalent: GO
+treat-xrefs-as-equivalent: BSPO
+treat-xrefs-as-equivalent: NIF_GrossAnatomy
+treat-xrefs-as-equivalent: BILA
+treat-xrefs-as-equivalent: OG
+treat-xrefs-as-equivalent: VAO
+treat-xrefs-as-has-subclass: EMAPA
+treat-xrefs-as-has-subclass: EHDAA
+treat-xrefs-as-has-subclass: EHDAA2
+treat-xrefs-as-reverse-genus-differentia: AAO part_of NCBITaxon:8292
+treat-xrefs-as-reverse-genus-differentia: FBbt part_of NCBITaxon:7227
+treat-xrefs-as-reverse-genus-differentia: FMA part_of NCBITaxon:9606
+treat-xrefs-as-reverse-genus-differentia: HAO part_of NCBITaxon:7399
+treat-xrefs-as-reverse-genus-differentia: MA part_of NCBITaxon:10088
+treat-xrefs-as-reverse-genus-differentia: MFO part_of NCBITaxon:8089
+treat-xrefs-as-reverse-genus-differentia: SPD part_of NCBITaxon:6893
+treat-xrefs-as-reverse-genus-differentia: TGMA part_of NCBITaxon:44484
+treat-xrefs-as-reverse-genus-differentia: TADS part_of NCBITaxon:6939
+treat-xrefs-as-reverse-genus-differentia: TAO part_of NCBITaxon:32443
+treat-xrefs-as-reverse-genus-differentia: WBbt part_of NCBITaxon:6237
+treat-xrefs-as-reverse-genus-differentia: XAO part_of NCBITaxon:8353
+treat-xrefs-as-reverse-genus-differentia: ZFA part_of NCBITaxon:7954
+
+[Term]
+id: UBERON:0002539
+name: pharyngeal arch
+alt_id: UBERON:MIAA_0000242-XAO_0000096-ZFA_0001306
+def: "One of a series of bony or cartilaginous arches that develop in the walls of the mouth cavity and pharynx of the embryo. The pharyngeal arches are separated by endodermal outpocketings, the pharyngeal pouches" [NLM:branchial+arch, Wikipedia:Pharyngeal_arch, PMID:16313389]
+comment: Numbered cranial to caudal. different in mammals. branchial arch = ZFA:0001613 pharyngeal arch 3-7. generally gill arch 1 = pharyngeal arch 3. terminology varies as to whether branchial arch follows gill or pharyngeal numbering
+subset: uberon_slim
+subset: vertebrate_core
+synonym: "pharyngeal arches" EXACT PLURAL []
+synonym: "visceral arch" RELATED []
+synonym: "branchial arch" NARROW [MP:0002884, BTO:0001785]
+xref: OG:0000155 ! pharyngeal arch
+xref: MAT:0000242 ! pharyngeal arch
+xref: MIAA:0000242 ! pharyngeal arch
+xref: TAO:0001306 ! pharyngeal arch
+xref: XAO:0000096 ! pharyngeal arch
+xref: ZFA:0001306 ! pharyngeal arch
+xref: ncithesaurus:Pharyngeal_Arch ! Pharyngeal Arch
+xref: EFO:0000959 ! pharyngeal arch
+xref: BTO:0001785 ! branchial arch
+xref: XAO:0000096 ! pharyngeal arch
+xref: AAO:0010359 ! pharyngeal arch
+xref: http://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Gray41.png/200px-Gray41.png
+xref: EMAPA:16117 ! branchial arch
+xref: MESH:A.16.254.160 ! branchial region
+xref: GAID:1292 ! branchial region
+xref: EHDAA:571 ! branchial arch
+xref: VAO:0000149 ! pharyngeal arch
+
+[Term]
+id: UBERON:0006800
+name: anatomical line
+def: "Non-material anatomical entity of one dimension, which forms a boundary of an anatomical surface or is a modulation of an anatomical surface." [CARO:MAH]
+subset: upper_level
+xref: HAO:0000008 ! anatomical line
+xref: ZFA:0001689 ! anatomical line
+xref: EHDAA2:0003008 ! anatomical line
+xref: AEO:0000008 ! anatomical line
+xref: BILA:0000008 ! anatomical line
+xref: CARO:0000008 ! anatomical line
+xref: TGMA:0001828 ! anatomical line
+xref: FMA:9657 ! Anatomical line
+xref: AAO:0010267 ! anatomical line
+
+[Typedef]
+id: part_of
+xref: BFO:0000050

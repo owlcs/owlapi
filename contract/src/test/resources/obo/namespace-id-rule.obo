@@ -1,0 +1,8 @@
+format-version: 1.2
+namespace-id-rule: * test:$sequence(7,0,9999999)$
+ontology: test
+
+[Term]
+id: TEST:0000001
+name: Test 1
+

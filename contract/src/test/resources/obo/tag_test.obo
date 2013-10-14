@@ -1,0 +1,51 @@
+format-version: 1.4
+data-version: 1.23.45
+default-namespace: test
+
+[Term]
+id: X:1 ! x1
+name: x1
+namespace: test
+
+[Term]
+id: X:2
+name: x2
+
+[Term]
+id: CHEBI:15355
+name: acetylcholine
+namespace: chebi_ontology
+def: "Actylcholine is an ester of acetic acid and choline, which acts as a neurotransmitter." [ANON:ANON]
+synonym: "2-acetyloxy-N,N,N-trimethylethanaminium" EXACT IUPAC_NAME [IUPAC:]
+synonym: "ACETYLCHOLINE" EXACT [MSDchem:]
+synonym: "Acetylcholine" EXACT [KEGG COMPOUND:]
+synonym: "ACh" RELATED [ChemIDplus:]
+synonym: "Azetylcholin" RELATED [ChEBI:]
+synonym: "C7H16NO2" RELATED FORMULA [KEGG COMPOUND:]
+synonym: "CC(=O)OCC[N+](C)(C)C" RELATED SMILES [ChEBI:]
+synonym: "choline acetate" RELATED [ChemIDplus:]
+synonym: "InChI=1/C7H16NO2/c1-7(9)10-6-5-8(2,3)4/h5-6H2,1-4H3/q+1" RELATED InChI [ChEBI:]
+synonym: "InChIKey=OIPILFWXSMYKGL-UHFFFAOYAY" RELATED InChIKey [ChEBI:]
+synonym: "O-Acetylcholine" RELATED [KEGG COMPOUND:]
+is_a: CHEBI:35287 ! acylcholine
+is_a: CHEBI:47622 ! acetate ester
+
+[Term]
+id: CHEBI:30151
+name: aluminide(1-)
+def: "A monoatomic aluminium that has formula Al." []
+synonym: "Aluminum anion" RELATED [NIST Chemistry WebBook:]
+synonym: "Al(-)" RELATED [IUPAC:]
+synonym: "aluminide(1-)" EXACT IUPAC_NAME [IUPAC:]
+synonym: "aluminide(-I)" EXACT IUPAC_NAME [IUPAC:]
+synonym: "Al" RELATED FORMULA [ChEBI:]
+synonym: "[Al-]" RELATED SMILES [ChEBI:]
+synonym: "InChI=1/Al/q-1" RELATED InChI [ChEBI:]
+synonym: "InChIKey=SBLSYFIUPXRQRY-UHFFFAOYAW" RELATED InChIKey [ChEBI:]
+xref: NIST Chemistry WebBook:22325-47-9 "CAS Registry Number"
+is_a: CHEBI:33429
+is_a: CHEBI:33627
+
+[Typedef]
+id: R:1
+name: r1

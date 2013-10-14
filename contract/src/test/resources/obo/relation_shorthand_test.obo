@@ -1,0 +1,44 @@
+ontology: test
+remark: see 5.9.3 and 8.2.2 of spec
+
+[Term]
+id: GO:0000050
+name: urea cycle
+relationship: has_part GO:0004055 ! argininosuccinate synthase activity
+
+[Term]
+id: GO:0004055
+name: argininosuccinate synthase activity
+relationship: part_of XX:0000001
+
+[Term]
+id: XX:0000001
+name: test
+
+[Typedef]
+id: has_part
+name: has_part
+is_transitive: true
+xref: BFO:0000051
+
+[Typedef]
+id: part_of
+name: part_of
+is_transitive: true
+xref: OBO_REL:part_of   ! this should be ignored
+xref: BFO:0000050       ! this should take priority
+
+[Typedef]
+id: negatively_regulates
+name: negatively_regulates
+is_a: regulates ! regulates
+
+[Typedef]
+id: positively_regulates
+name: positively_regulates
+is_a: regulates ! regulates
+
+[Typedef]
+id: regulates
+name: regulates
+transitive_over: part_of ! part_of
