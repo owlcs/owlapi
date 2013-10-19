@@ -38,14 +38,17 @@
  */
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -88,5 +91,25 @@ public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
         OWLOntologyManager manager2 = Factory.getManager();
         manager2.loadOntologyFromOntologyDocument(new StringDocumentSource(target
                 .toString()));
+    }
+
+    @Test
+    public void shouldParse() throws Exception {
+        OWLOntology o = OWLManager.createOWLOntologyManager().createOntology(
+                IRI.create("urn:test"));
+        OWLDataFactory df = o.getOWLOntologyManager().getOWLDataFactory();
+        o.getOWLOntologyManager().addAxiom(
+                o,
+                df.getOWLSubClassOfAxiom(
+                        df.getOWLClass(IRI.create("urn:c")),
+                        df.getOWLObjectHasValue(
+                                df.getOWLObjectProperty(IRI.create("urn:p")),
+                                df.getOWLAnonymousIndividual())));
+        StringDocumentTarget target = new StringDocumentTarget();
+        o.getOWLOntologyManager().saveOntology(o, new OWLXMLOntologyFormat(), target);
+        OWLOntology roundtrip = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(target.toString()));
+        assertEquals(o.getAxioms(), roundtrip.getAxioms());
     }
 }

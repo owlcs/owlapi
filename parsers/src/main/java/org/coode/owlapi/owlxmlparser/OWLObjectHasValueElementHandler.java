@@ -58,6 +58,11 @@ public class OWLObjectHasValueElementHandler extends
     }
 
     @Override
+    public void handleChild(OWLAnonymousIndividualElementHandler handler) {
+        setFiller(handler.getOWLObject());
+    }
+
+    @Override
     protected OWLClassExpression createRestriction() {
         return getOWLDataFactory().getOWLObjectHasValue(getProperty(), getFiller());
     }
