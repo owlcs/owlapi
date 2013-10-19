@@ -379,7 +379,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         }
     }
 
-    @SuppressWarnings("unused")
     private static class SeedExtractor extends OWLAxiomVisitorAdapter {
         private OWLEntity source;
         private OWLEntity target;
@@ -462,7 +461,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** A visitor that indexes axioms by their left and right hand sides. */
-    @SuppressWarnings("unused")
     private class AxiomMapBuilder extends OWLAxiomVisitorAdapter {
         public AxiomMapBuilder() {}
 

@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.IRI;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 03/02/2011 */
-
+@SuppressWarnings("javadoc")
 public class OBOIDTestCase {
     @Test
     public void testID() {

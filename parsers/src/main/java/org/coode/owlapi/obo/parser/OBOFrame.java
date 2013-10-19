@@ -50,27 +50,34 @@ public class OBOFrame {
     private String frameType;
     private List<OBOTagValuePair> tagValuePairs;
 
+    /** @param tagValuePairs */
     public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
         this.tagValuePairs = tagValuePairs;
     }
 
+    /** @param frameType
+     * @param tagValuePairs */
     public OBOFrame(String frameType, List<OBOTagValuePair> tagValuePairs) {
         this.frameType = frameType;
         this.tagValuePairs = new ArrayList<OBOTagValuePair>(tagValuePairs);
     }
 
+    /** @return frame type */
     public String getFrameType() {
         return frameType;
     }
 
+    /** @return the tag value pairs */
     public List<OBOTagValuePair> getTagValuePairs() {
         return Collections.unmodifiableList(tagValuePairs);
     }
 
+    /** @return true if no frame type */
     public boolean isHeaderFrame() {
         return frameType == null;
     }
 
+    /** @return true if it's a typedef frame */
     public boolean isTypeDefFrame() {
         return OBOVocabulary.TYPEDEF.getName().equals(frameType);
     }

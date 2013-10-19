@@ -60,8 +60,8 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * <br> */
 public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implements
         OWLObjectVisitor {
-    public static final int LINE_LENGTH = 70;
-
+    /** @param writer
+     * @param entityShortFormProvider */
     public ManchesterOWLSyntaxObjectRenderer(Writer writer,
             ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);

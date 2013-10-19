@@ -42,7 +42,104 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLArgument;
+import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDArgument;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
@@ -56,28 +153,30 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * ontologies might be misrepresented in the output. Please report any
  * formatting error you find to the bug tracker or the mailing list. */
 public class LatexObjectVisitor implements OWLObjectVisitor {
-    public static final String AND = "\\ensuremath{\\sqcap}";
-    public static final String OR = "\\ensuremath{\\sqcup}";
-    public static final String NOT = "\\ensuremath{\\lnot}";
-    public static final String ALL = "\\ensuremath{\\forall}";
-    public static final String SOME = "\\ensuremath{\\exists}";
-    public static final String HASVALUE = "\\ensuremath{hasValue}";
-    public static final String MIN = "\\ensuremath{\\geq}";
-    public static final String MAX = "\\ensuremath{\\leq}";
-    public static final String EQUAL = "\\ensuremath{=}";
-    public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
-    public static final String EQUIV = "\\ensuremath{\\equiv}";
-    public static final String NOT_EQUIV = "\\ensuremath{\\not\\equiv}";
-    public static final String TOP = "\\ensuremath{\\top}";
-    public static final String BOTTOM = "\\ensuremath{\\bot}";
-    public static final String SELF = "\\ensuremath{\\Self}";
-    public static final String CIRC = "\\ensuremath{\\circ}";
+    private static final String AND = "\\ensuremath{\\sqcap}";
+    private static final String OR = "\\ensuremath{\\sqcup}";
+    private static final String NOT = "\\ensuremath{\\lnot}";
+    private static final String ALL = "\\ensuremath{\\forall}";
+    private static final String SOME = "\\ensuremath{\\exists}";
+    private static final String HASVALUE = "\\ensuremath{hasValue}";
+    private static final String MIN = "\\ensuremath{\\geq}";
+    private static final String MAX = "\\ensuremath{\\leq}";
+    private static final String EQUAL = "\\ensuremath{=}";
+    private static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
+    private static final String EQUIV = "\\ensuremath{\\equiv}";
+    private static final String NOT_EQUIV = "\\ensuremath{\\not\\equiv}";
+    private static final String TOP = "\\ensuremath{\\top}";
+    private static final String BOTTOM = "\\ensuremath{\\bot}";
+    private static final String SELF = "\\ensuremath{\\Self}";
+    private static final String CIRC = "\\ensuremath{\\circ}";
     private OWLObject subject;
     private LatexWriter writer;
     private boolean prettyPrint = true;
     private OWLDataFactory df;
     private ShortFormProvider shortFormProvider;
 
+    /** @param writer
+     * @param df */
     public LatexObjectVisitor(LatexWriter writer, OWLDataFactory df) {
         this.writer = writer;
         this.df = df;
@@ -85,10 +184,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         subject = df.getOWLThing();
     }
 
+    /** @param subject */
     public void setSubject(OWLObject subject) {
         this.subject = subject;
     }
 
+    /** @param shortFormProvder */
     public void setShortFormProvider(ShortFormProvider shortFormProvder) {
         shortFormProvider = shortFormProvder;
     }
@@ -109,10 +210,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writer.writeCloseBrace();
     }
 
+    /** @return true if pretty print */
     public boolean isPrettyPrint() {
         return prettyPrint;
     }
 
+    /** @param prettyPrint */
     public void setPrettyPrint(boolean prettyPrint) {
         this.prettyPrint = prettyPrint;
     }
@@ -574,11 +677,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write(SUBCLASS);
         writeSpace();
         df.getOWLObjectMaxCardinality(1, axiom.getProperty()).accept(this);
-    }
-
-    public void visit(OWLImportsDeclaration axiom) {
-        write("ImportsDeclaration");
-        axiom.getIRI().accept(this);
     }
 
     @Override

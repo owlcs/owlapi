@@ -48,11 +48,18 @@ import org.semanticweb.owlapi.io.OWLParserException;
 public class ManchesterOWLSyntaxParserException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 
+    /** @param message
+     * @param lineNumber
+     * @param columnNumber */
     public ManchesterOWLSyntaxParserException(String message, int lineNumber,
             int columnNumber) {
         super(message, lineNumber, columnNumber);
     }
 
+    /** @param message
+     * @param cause
+     * @param lineNumber
+     * @param columnNumber */
     public ManchesterOWLSyntaxParserException(String message, Throwable cause,
             int lineNumber, int columnNumber) {
         super(message, cause, lineNumber, columnNumber);

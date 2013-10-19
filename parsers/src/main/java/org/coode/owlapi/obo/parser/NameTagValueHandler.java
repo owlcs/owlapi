@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 10-Jan-2007<br>
  * <br> */
 public class NameTagValueHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public NameTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.NAME.getName(), consumer);
     }

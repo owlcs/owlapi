@@ -82,6 +82,7 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
         requiresBracket = true;
     }
 
+    /** @param node */
     public void visit(OWLDataCardinalityRestriction node) {
         requiresBracket = true;
     }
@@ -101,6 +102,7 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
         requiresBracket = true;
     }
 
+    /** @param node */
     public void visit(OWLObjectCardinalityRestriction node) {
         requiresBracket = true;
     }
@@ -170,6 +172,8 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
         requiresBracket = true;
     }
 
+    /** @param classExpression
+     * @return true if bracket required */
     public static boolean requiresBracket(OWLClassExpression classExpression) {
         instance.requiresBracket = true;
         classExpression.accept(instance);

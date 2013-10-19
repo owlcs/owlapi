@@ -49,15 +49,19 @@ public class OntologyAxiomPair {
     private OWLOntology ontology;
     private OWLAxiom axiom;
 
+    /** @param ontology
+     * @param axiom */
     public OntologyAxiomPair(OWLOntology ontology, OWLAxiom axiom) {
         this.ontology = ontology;
         this.axiom = axiom;
     }
 
+    /** @return the ontology */
     public OWLOntology getOntology() {
         return ontology;
     }
 
+    /** @return the axiom */
     public OWLAxiom getAxiom() {
         return axiom;
     }

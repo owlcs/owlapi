@@ -116,7 +116,6 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
 /** Syntactic locality evaluator */
-@SuppressWarnings("unused")
 public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     protected final LocalityClass localityCls;
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();

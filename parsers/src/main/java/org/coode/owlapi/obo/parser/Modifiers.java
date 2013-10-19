@@ -51,8 +51,6 @@ import java.util.StringTokenizer;
 public class Modifiers {
     private Map<String, Set<String>> modifierNameValuesMap = new LinkedHashMap<String, Set<String>>();
 
-    public Modifiers() {}
-
     /** Parses a list of modifiers.
      * 
      * @param modifiersList
@@ -95,6 +93,8 @@ public class Modifiers {
         return modifierNameValuesMap.keySet();
     }
 
+    /** @param modifierName
+     * @return modifiers for modifierName */
     public Set<String> getModifierValues(String modifierName) {
         Set<String> valuesToReturn = new HashSet<String>();
         Set<String> values = modifierNameValuesMap.get(modifierName);

@@ -99,23 +99,21 @@ import org.semanticweb.owlapi.util.Version;
  * reasoner interface contains methods that return
  * {@link org.semanticweb.owlapi.reasoner.NodeSet}s. These are sets of
  * {@link org.semanticweb.owlapi.reasoner.Node}s. A {@code Node} contains
- * entities. </p> For a {@code Node&lt;OWLClass&gt;} of classes, each class
- * in the node is equivalent to the other classes in the {@code Node} with
- * respect to the imports closure of the root ontology. </p> For a
+ * entities. </p> For a {@code Node&lt;OWLClass&gt;} of classes, each class in
+ * the node is equivalent to the other classes in the {@code Node} with respect
+ * to the imports closure of the root ontology. </p> For a
  * {@code Node&lt;OWLObjectProperty&gt;} of object properties, each object
- * property in the {@code Node} is equivalent to the other object
- * properties in the node with respect to the imports closure of the root
- * ontology. </p> For a {@code Node&lt;OWLDataProperty&gt;} of data
- * properties, each data property in the {@code Node} is equivalent to the
- * other data properties in the node with respect to the imports closure of the
- * root ontology. </p> For a {@code Node&lt;OWLNamedIndividual&gt;} of
- * named individuals, each individual in the node is the same as the other
- * individuals in the node with respect to the imports closure of the root
- * ontology.
+ * property in the {@code Node} is equivalent to the other object properties in
+ * the node with respect to the imports closure of the root ontology. </p> For a
+ * {@code Node&lt;OWLDataProperty&gt;} of data properties, each data property in
+ * the {@code Node} is equivalent to the other data properties in the node with
+ * respect to the imports closure of the root ontology. </p> For a
+ * {@code Node&lt;OWLNamedIndividual&gt;} of named individuals, each individual
+ * in the node is the same as the other individuals in the node with respect to
+ * the imports closure of the root ontology.
  * <p/>
- * By abuse of notation, we say that a {@code NodeSet} "contains" an entity
- * if that entity is contained in one of the {@code Nodes} in the
- * {@code NodeSet}.
+ * By abuse of notation, we say that a {@code NodeSet} "contains" an entity if
+ * that entity is contained in one of the {@code Nodes} in the {@code NodeSet}.
  * </p>
  * <h2>Hierarchies</h2> A hierachy (class hierachy, object property hierarchy,
  * data property hierarchy) is viewed as a directed acyclic graph (DAG)
@@ -125,44 +123,40 @@ import org.semanticweb.owlapi.util.Version;
  * bottom node (see {@link org.semanticweb.owlapi.reasoner.Node#isBottomNode()}
  * ). </p> The figure below shows an example class hierarchy. Each box in the
  * hierarchy represents a {@code Node}. In this case the top node contains
- * {@code owl:Thing} and the bottom node contains {@code owl:Nothing}
- * because the nodes in the hierarchy are {@code OWLClass} nodes. In this
- * case, class {@code G} is equivalent to {@code owl:Thing} so it
- * appears as an entity in the top node along with {@code owl:Thing}.
- * Similarly, class {@code K} is unsatisfiable, so it is equivalent to
- * {@code owl:Nothing}, and therefore appears in the bottom node containing
- * {@code owl:Nothing}. In this example, classes {@code A} and
- * {@code B} are equivalent so they appear in one node, also, classes
- * {@code D} and {@code F} are equivalent so they appear in one node.
- * </p> Asking for the subclasses of a given class (expression) returns the a
- * {@code NodeSet} containing the nodes that contain classes that are
+ * {@code owl:Thing} and the bottom node contains {@code owl:Nothing} because the
+ * nodes in the hierarchy are {@code OWLClass} nodes. In this case, class
+ * {@code G} is equivalent to {@code owl:Thing} so it appears as an entity in the
+ * top node along with {@code owl:Thing}. Similarly, class {@code K} is
+ * unsatisfiable, so it is equivalent to {@code owl:Nothing}, and therefore
+ * appears in the bottom node containing {@code owl:Nothing}. In this example,
+ * classes {@code A} and {@code B} are equivalent so they appear in one node,
+ * also, classes {@code D} and {@code F} are equivalent so they appear in one
+ * node. </p> Asking for the subclasses of a given class (expression) returns
+ * the a {@code NodeSet} containing the nodes that contain classes that are
  * strict subclasses of the specified class (expression). For example, asking
- * for the subclasses of class {@code C} returns the {@code NodeSet}
- * {@code {E}} and {@code {owl:Nothing, K}}. </p> Asking for the
- * direct subclasses of a given class (expression) returns the
- * {@code NodeSet} that contains the nodes that contains classes that are
- * direct subclasses of the specified class. For example, asking for the direct
- * subclasses of class {@code A} returns the {@code NodeSet}
- * containing the nodes {@code {C}} and {@code {D, F}}. Note that
- * there are convenience methods on {@link NodeSet} and
+ * for the subclasses of class {@code C} returns the {@code NodeSet} {E} and
+ * {owl:Nothing, K}. </p> Asking for the direct subclasses of a given class
+ * (expression) returns the {@code NodeSet} that contains the nodes that contains
+ * classes that are direct subclasses of the specified class. For example,
+ * asking for the direct subclasses of class {@code A} returns the
+ * {@code NodeSet} containing the nodes {C} and {D, F}. Note that there are
+ * convenience methods on {@link NodeSet} and
  * {@link org.semanticweb.owlapi.reasoner.Node} that can be used to directly
- * access the entities in a {@code NodeSet} without having to iterate over
- * the nodes and entities in a {@code NodeSet}. For example, a "plain" set
- * of classes contained inside the {@code Nodes} contained inside a
- * {@code NodeSet} can easily be obtained using the
- * {@link NodeSet#getFlattened()} method. In this case we could quickly obtain
- * {@code {C,
- * D, F}} as the direct subclasses of {@code A} simply by using the
+ * access the entities in a {@code NodeSet} without having to iterate over the
+ * nodes and entities in a {@code NodeSet}. For example, a "plain" set of classes
+ * contained inside the {@code Nodes} contained inside a {@code NodeSet} can
+ * easily be obtained using the {@link NodeSet#getFlattened()} method. In this
+ * case we could quickly obtain {C, D, F} as the direct subclasses of {@code A}
+ * simply by using the
  * {@link #getSubClasses(org.semanticweb.owlapi.model.OWLClassExpression, boolean)}
- * (with boolean=true) method on {@code OWLReasoner} and then we could use
- * the {@link NodeSet#getFlattened()} method on the retuned {@code NodeSet}
- * . </p> Asking for equivalent classes of a class (expression) returns a
- * {@code Node} that contains classes that are equivalent to the class
- * (expression) . For example, asking for the equivalent classes of
- * {@code owl:Nothing} (i.e. asking for the unsatisfiable classes) returns
- * the {@code Node} {@code {owl:Nothing, K}}. </p> <div
- * align="center"> <img src="../../../../doc-files/hierarchy.png"/> </div> </p>
- * <h2>Definitions</h2>
+ * (with boolean=true) method on {@code OWLReasoner} and then we could use the
+ * {@link NodeSet#getFlattened()} method on the retuned {@code NodeSet} . </p>
+ * Asking for equivalent classes of a class (expression) returns a {@code Node}
+ * that contains classes that are equivalent to the class (expression) . For
+ * example, asking for the equivalent classes of {@code owl:Nothing} (i.e. asking
+ * for the unsatisfiable classes) returns the {@code Node} {owl:Nothing, K}. </p>
+ * <div align="center"> <img src="../../../../doc-files/hierarchy.png"/> </div>
+ * </p> <h2>Definitions</h2>
  * <p>
  * In what follows, an extension of the <a
  * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/">OWL 2 Functional
@@ -171,93 +165,86 @@ import org.semanticweb.owlapi.util.Version;
  * <p/>
  * <h3>StrictSubClassOf</h3>
  * <p>
- * Given two class expressions {@code CE1} and {@code CE2} and an
- * ontology {@code O}, {@code CE1} is a strict subclass of
- * {@code CE2}, written {@code StrictSubClassOf(CE1 CE2)} if
- * {@code O} entails {@code SubClassOf(CE1 CE2)} and {@code O}
- * does not entail {@code SubClassOf(CE2 CE1)}
+ * Given two class expressions {@code CE1} and {@code CE2} and an ontology
+ * {@code O}, {@code CE1} is a strict subclass of {@code CE2}, written
+ * {@code StrictSubClassOf(CE1 CE2)} if {@code O} entails
+ * {@code SubClassOf(CE1 CE2)} and {@code O} does not entail
+ * {@code SubClassOf(CE2 CE1)}
  * <p/>
  * <h3>DirectSubClassOf</h3>
  * <p>
- * Given two class expressions {@code CE1} and {@code CE2} and an
- * ontology {@code O}, {@code CE1} is a <emph>direct</emph> subclass
- * of {@code CE2}, written {@code DirectSubClassOf(CE1 CE2)}, with
- * respect to {@code O} if {@code O} entails
- * {@code StrictSubClassOf(CE1 CE2)} and there is no class name
- * {@code C} in the signature of {@code O} such that {@code O}
- * entails {@code StrictSubClassOf(CE1 C)} and {@code O} entails
+ * Given two class expressions {@code CE1} and {@code CE2} and an ontology
+ * {@code O}, {@code CE1} is a <emph>direct</emph> subclass of {@code CE2},
+ * written {@code DirectSubClassOf(CE1 CE2)}, with respect to {@code O} if
+ * {@code O} entails {@code StrictSubClassOf(CE1 CE2)} and there is no class name
+ * {@code C} in the signature of {@code O} such that {@code O} entails
+ * {@code StrictSubClassOf(CE1 C)} and {@code O} entails
  * {@code StrictSubClassOf(C CE2)}.
  * </p>
  * <h3>StrictSubObjectPropertyOf</h3>
  * <p>
- * Given two object property expressions {@code OPE1} and {@code OPE2}
- * and an ontology {@code O}, {@code OPE1} is a strict subproperty of
- * {@code OPE2}, written {@code StrictSubObjectPropertyOf(OPE1 OPE2)}
- * if {@code O} entails {@code SubObjectPropertyOf(OPE1 OPE2)} and
- * {@code O} does not entail {@code SubObjectPropertyOf(OPE2 OPE1)}
+ * Given two object property expressions {@code OPE1} and {@code OPE2} and an
+ * ontology {@code O}, {@code OPE1} is a strict subproperty of {@code OPE2},
+ * written {@code StrictSubObjectPropertyOf(OPE1 OPE2)} if {@code O} entails
+ * {@code SubObjectPropertyOf(OPE1 OPE2)} and {@code O} does not entail
+ * {@code SubObjectPropertyOf(OPE2 OPE1)}
  * <p/>
  * <h3>DirectSubObjectPropertyOf</h3>
  * <p>
- * Given two object property expressions {@code OPE1} and {@code OPE2}
- * and an ontology {@code O}, {@code OPE1} is a <emph>direct</emph>
- * subproperty of {@code OPE2}, written
- * {@code DirectSubObjectPropertyOf(OPE1 OPE2)}, with respect to
- * {@code O} if {@code O} entails
- * {@code StrictSubObjectPropertyOf(OPE1 OPE2)} and there is no object
- * property name {@code P} in the signature of {@code O} such that
- * {@code O} entails {@code StrictSubObjectPropertyOf(OPE1 P)} and
- * {@code O} entails {@code StrictSubObjectPropertyOf(P OPE2)}.
+ * Given two object property expressions {@code OPE1} and {@code OPE2} and an
+ * ontology {@code O}, {@code OPE1} is a <emph>direct</emph> subproperty of
+ * {@code OPE2}, written {@code DirectSubObjectPropertyOf(OPE1 OPE2)}, with
+ * respect to {@code O} if {@code O} entails
+ * {@code StrictSubObjectPropertyOf(OPE1 OPE2)} and there is no object property
+ * name {@code P} in the signature of {@code O} such that {@code O} entails
+ * {@code StrictSubObjectPropertyOf(OPE1 P)} and {@code O} entails
+ * {@code StrictSubObjectPropertyOf(P OPE2)}.
  * </p>
  * <h3>StrictSubDataPropertyOf</h3>
  * <p>
- * Given two dbject property expressions {@code DPE1} and {@code DPE2}
- * and an ontology {@code O}, {@code DPE1} is a strict subproperty of
- * {@code DPE2}, written {@code StrictSubDataPropertyOf(DPE1 DPE2)} if
- * {@code O} entails {@code SubDataPropertyOf(DPE1 DPE2)} and
- * {@code O} does not entail {@code SubDataPropertyOf(DPE1 DPE2)}
+ * Given two dbject property expressions {@code DPE1} and {@code DPE2} and an
+ * ontology {@code O}, {@code DPE1} is a strict subproperty of {@code DPE2},
+ * written {@code StrictSubDataPropertyOf(DPE1 DPE2)} if {@code O} entails
+ * {@code SubDataPropertyOf(DPE1 DPE2)} and {@code O} does not entail
+ * {@code SubDataPropertyOf(DPE1 DPE2)}
  * <p/>
  * <h3>DirectSubDataPropertyOf</h3>
  * <p>
- * Given two data property expressions {@code DPE1} and {@code DPE2}
- * and an ontology {@code O}, {@code DPE1} is a <emph>direct</emph>
- * subproperty of {@code DPE2}, written
- * {@code DirectSubDataPropertyOf(DPE1 DPE2)}, with respect to
- * {@code O} if {@code O} entails
- * {@code StrictSubDataPropertyOf(DPE1 DPE2)} and there is no data property
- * name {@code P} in the signature of {@code O} such that
- * {@code O} entails {@code StrictSubDataPropertyOf(DPE1 P)} and
+ * Given two data property expressions {@code DPE1} and {@code DPE2} and an
+ * ontology {@code O}, {@code DPE1} is a <emph>direct</emph> subproperty of
+ * {@code DPE2}, written {@code DirectSubDataPropertyOf(DPE1 DPE2)}, with respect
+ * to {@code O} if {@code O} entails {@code StrictSubDataPropertyOf(DPE1 DPE2)}
+ * and there is no data property name {@code P} in the signature of {@code O}
+ * such that {@code O} entails {@code StrictSubDataPropertyOf(DPE1 P)} and
  * {@code O} entails {@code StrictSubDataPropertyOf(P DPE2)}.
  * </p>
  * <h3>DirectClassAssertion</h3> Given an individual {@code j} and a class
- * expression {@code CE} and an ontology {@code O}, {@code CE} is
- * a direct class assertion (type) for {@code j}, written
- * {@code DirectClassAssertion(CE j)}, if {@code O} entails
- * {@code ClassAssertion(CE j)} and there is no class name {@code C}
- * in the signature of {@code O} such that {@code O} entails
+ * expression {@code CE} and an ontology {@code O}, {@code CE} is a direct class
+ * assertion (type) for {@code j}, written {@code DirectClassAssertion(CE j)}, if
+ * {@code O} entails {@code ClassAssertion(CE j)} and there is no class name
+ * {@code C} in the signature of {@code O} such that {@code O} entails
  * {@code ClassAssertion(C j)} and {@code O} entails
- * {@code StrictSubClassOf(C CE)}. <h3>ObjectPropertyComplementOf</h3>
- * Given an object property expression {@code pe}, the object property
- * complement of {@code pe} is written as
- * {@code ObjectPropertyComplementOf(pe)}. The interpretation of
- * {@code ObjectPropertyComplementOf(pe)} is equal to the interpretation of
- * {@code owl:topObjectProperty} minus the interpretation of
- * {@code pe}. In other words, {@code ObjectPropertyComplementOf(pe)}
- * is the set of pairs of individuals that are not in {@code pe}. <h3>
- * DataPropertyComplementOf</h3> Given a data property expression
- * {@code pe}, the data property complement of {@code pe} is written
- * as {@code DataPropertyComplementOf(pe)}. The interpretation of
+ * {@code StrictSubClassOf(C CE)}. <h3>ObjectPropertyComplementOf</h3> Given an
+ * object property expression {@code pe}, the object property complement of
+ * {@code pe} is written as {@code ObjectPropertyComplementOf(pe)}. The
+ * interpretation of {@code ObjectPropertyComplementOf(pe)} is equal to the
+ * interpretation of {@code owl:topObjectProperty} minus the interpretation of
+ * {@code pe}. In other words, {@code ObjectPropertyComplementOf(pe)} is the set
+ * of pairs of individuals that are not in {@code pe}. <h3>
+ * DataPropertyComplementOf</h3> Given a data property expression {@code pe}, the
+ * data property complement of {@code pe} is written as
+ * {@code DataPropertyComplementOf(pe)}. The interpretation of
  * {@code DataPropertyComplementOf(pe)} is equal to the interpretation of
- * {@code owl:topDataProperty} minus the interpretation of {@code pe}.
- * In other words, {@code DataPropertyComplementOf(pe)} is the set of pairs
- * of individual and literals that are not in {@code pe}. <h3 id="spe">
- * Simplified Object Property Expression</h3> A simplified object property
- * expression is either a named property {@code P}, or an object inverse
- * property of the form {@code ObjectInverseOf(P)} where {@code P} is
- * a named property. In other words, there is no nesting of
- * {@code ObjectInverseOf} operators. <h2>Error Handling</h2> An
- * {@code OWLReasoner} may throw the following exceptions to indicate
- * errors. More documentation for each type of exception can be found on the
- * particular exception class.
+ * {@code owl:topDataProperty} minus the interpretation of {@code pe}. In other
+ * words, {@code DataPropertyComplementOf(pe)} is the set of pairs of individual
+ * and literals that are not in {@code pe}. <h3 id="spe">Simplified Object
+ * Property Expression</h3> A simplified object property expression is either a
+ * named property {@code P}, or an object inverse property of the form
+ * {@code ObjectInverseOf(P)} where {@code P} is a named property. In other
+ * words, there is no nesting of {@code ObjectInverseOf} operators. <h2>Error
+ * Handling</h2> An {@code OWLReasoner} may throw the following exceptions to
+ * indicate errors. More documentation for each type of exception can be found
+ * on the particular exception class.
  * <ul>
  * <li>{@link org.semanticweb.owlapi.reasoner.AxiomNotInProfileException}</li>
  * <li>
@@ -356,10 +343,9 @@ public interface OWLReasoner {
      * the reasoner will answer all queries correctly regardless of whether
      * inferences are precomputed or not. For example, if the imports closure of
      * the root ontology entails {@code SubClassOf(A B)} then the result of
-     * {@code getSubClasses(B)} will contain {@code A}, regardless of
-     * whether
-     * {@code precomputeInferences({@link InferenceType#CLASS_HIERARCHY})}
-     * has been called.
+     * {@code getSubClasses(B)} will contain {@code A}, regardless of whether
+     * {@code precomputeInferences}({@link InferenceType#CLASS_HIERARCHY}) has
+     * been called.
      * <p>
      * If the reasoner does not support the precomputation of a particular type
      * of inference then it will silently ignore the request.

@@ -245,8 +245,7 @@ public class OWLXMLWriter {
      * 
      * @param iri
      *            The IRI to be written as an element. If the IRI can be
-     *            abbreviated then an AbbreviatedIRI element will be written
-     * @throws IOException */
+     *            abbreviated then an AbbreviatedIRI element will be written */
     public void writeIRIElement(IRI iri) {
         try {
             String iriString = iri.toString();
