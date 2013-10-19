@@ -43,6 +43,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -134,55 +135,53 @@ public enum OBOVocabulary {
     public static final Pattern OBO_IRI_PATTERN = Pattern.compile("(" + bases + ")"
             + "(([^\\_]*)\\_)?([A-Za-z0-9\\_\\-]*)");
 
-    // private static final IDSpaceManager DEFAULT_ID_SPACE_MANAGER = new
-    // IDSpaceManager() {
-    // @Override
-    // public void setIRIPrefix(String idPrefix, String iriPrefix) {
-    // throw new
-    // RuntimeException("The default id space manager must not be used for custom prefixes.");
-    // }
-    // };
-    //
-    // /**
-    // * Converts OBO Ids to IRIs. The conversion is defined at
-    // * <a
-    // href="http://www.obofoundry.org/id-policy.shtml">http://www.obofoundry.org/id-policy.shtml</a>
-    // * @param oboId The Id to convert
-    // * @return The IRI of the converted Id
-    // */
-    // public static IRI ID2IRI(String oboId) {
-    // return ID2IRI(oboId, DEFAULT_ID_SPACE_MANAGER);
-    // }
-    //
-    // /**
-    // * Converts OBO Ids to IRIs. The conversion is defined at
-    // * <a
-    // href="http://www.obofoundry.org/id-policy.shtml">http://www.obofoundry.org/id-policy.shtml</a>.
-    // * @param oboId The OBO Id to convert.
-    // * @param idSpaceManager An {@link IDSpaceManager} which can be used to
-    // customise the IRI prefixes used in the
-    // * conversion.
-    // * @return The IRI of the converted Id.
-    // */
-    // public static IRI ID2IRI(String oboId, IDSpaceManager idSpaceManager) {
-    // Matcher matcher = OBO_ID_PATTERN.matcher(oboId);
-    // if (matcher.matches()) {
-    // String idSpace = matcher.group(2);
-    // String localId = matcher.group(3);
-    // StringBuilder sb = new StringBuilder();
-    // String iriPrefix = idSpaceManager.getIRIPrefix(idSpace);
-    // sb.append(iriPrefix);
-    // if (idSpace != null) {
-    // sb.append(idSpace);
-    // sb.append("_");
-    // }
-    // sb.append(localId);
-    // return IRI.create(sb.toString());
-    // }
-    // else {
-    // return IRI.create(oboId);
-    // }
-    // }
+    private static final IDSpaceManager DEFAULT_ID_SPACE_MANAGER = new IDSpaceManager() {
+        @Override
+        public void setIRIPrefix(String idPrefix, String iriPrefix) {
+            throw new RuntimeException(
+                    "The default id space manager must not be used for custom prefixes.");
+        }
+    };
+
+    /** Converts OBO Ids to IRIs. The conversion is defined at <a
+     * href="http://www.obofoundry.org/id-policy.shtml"
+     * >http://www.obofoundry.org/id-policy.shtml</a>
+     * 
+     * @param oboId
+     *            The Id to convert
+     * @return The IRI of the converted Id */
+    public static IRI ID2IRI(String oboId) {
+        return ID2IRI(oboId, DEFAULT_ID_SPACE_MANAGER);
+    }
+
+    /** Converts OBO Ids to IRIs. The conversion is defined at <a
+     * href="http://www.obofoundry.org/id-policy.shtml"
+     * >http://www.obofoundry.org/id-policy.shtml</a>.
+     * 
+     * @param oboId
+     *            The OBO Id to convert.
+     * @param idSpaceManager
+     *            An {@link IDSpaceManager} which can be used to customise the
+     *            IRI prefixes used in the conversion.
+     * @return The IRI of the converted Id. */
+    public static IRI ID2IRI(String oboId, IDSpaceManager idSpaceManager) {
+        Matcher matcher = OBO_ID_PATTERN.matcher(oboId);
+        if (matcher.matches()) {
+            String idSpace = matcher.group(2);
+            String localId = matcher.group(3);
+            StringBuilder sb = new StringBuilder();
+            String iriPrefix = idSpaceManager.getIRIPrefix(idSpace);
+            sb.append(iriPrefix);
+            if (idSpace != null) {
+                sb.append(idSpace);
+                sb.append("_");
+            }
+            sb.append(localId);
+            return IRI.create(sb.toString());
+        } else {
+            return IRI.create(oboId);
+        }
+    }
     // Format of Foundry-compliant URIs
     //
     // FOUNDRY_OBO_URI ::= "http://purl.obolibrary.org/obo/" IDSPACE "_" LOCALID
@@ -194,23 +193,24 @@ public enum OBOVocabulary {
     //
     // LEGACY_OBO_URI ::= "http://purl.org/obo/owl/" IDSPACE "#" IDSPACE "_"
     // LOCALID
-    // public static String IRI2ID(IRI oboIRI) {
-    // Matcher matcher = OBO_IRI_PATTERN.matcher(oboIRI.toString());
-    // if (matcher.matches()) {
-    // String idSpace = matcher.group(3);
-    // String localId = matcher.group(4);
-    // StringBuilder sb = new StringBuilder();
-    // if (idSpace != null) {
-    // sb.append(idSpace);
-    // sb.append(":");
-    // }
-    // sb.append(localId);
-    // return sb.toString();
-    // }
-    // else {
-    // throw new RuntimeException("Not an OBO IRI");
-    // }
-    // }
+    public static String IRI2ID(IRI oboIRI) {
+        Matcher matcher = OBO_IRI_PATTERN.matcher(oboIRI.toString());
+        if (matcher.matches()) {
+            String idSpace = matcher.group(3);
+            String localId = matcher.group(4);
+            StringBuilder sb = new StringBuilder();
+            if (idSpace != null) {
+                sb.append(idSpace);
+                sb.append(":");
+            }
+            sb.append(localId);
+            return sb.toString();
+        } else {
+            throw new RuntimeException("Not an OBO IRI");
+        }
+    }
+
+
     public static boolean isOBOIRI(IRI oboIRI) {
         return OBO_ID_PATTERN.matcher(oboIRI.toString()).matches();
     }
@@ -234,7 +234,7 @@ public enum OBOVocabulary {
 
     OBOVocabulary(String name) {
         this.name = name;
-        iri = IRI.create(OBO.getPrefix() + name);
+        iri = IRI.create(OBOPrefix.OBO.getPrefix() + name);
     }
 
     OBOVocabulary(String name, OBOPrefix prefix) {

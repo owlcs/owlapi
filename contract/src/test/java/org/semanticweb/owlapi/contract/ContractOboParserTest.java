@@ -59,7 +59,7 @@ import org.coode.owlapi.obo.parser.TransitiveTagValueHandler;
 import org.coode.owlapi.obo.parser.XRefTagHandler;
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -85,7 +85,7 @@ public class ContractOboParserTest {
 
     @Before
     public void setUp() throws OWLOntologyCreationException {
-        manager = Factory.getManager();
+        manager = OWLManager.createOWLOntologyManager();
         df = manager.getOWLDataFactory();
         mock = mock(OBOConsumer.class);
         when(mock.getOWLOntologyManager()).thenReturn(manager);
