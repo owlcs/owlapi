@@ -138,10 +138,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return {@code true} if the IRI is in the reserved vocabulary,
      *         otherwise {@code false}. */
     public boolean isReservedVocabulary() {
-        return prefix.startsWith(Namespaces.OWL.toString())
-                || prefix.startsWith(Namespaces.RDF.toString())
-                || prefix.startsWith(Namespaces.RDFS.toString())
-                || prefix.startsWith(Namespaces.XSD.toString());
+        return Namespaces.OWL.inNamespace(prefix) || Namespaces.RDF.inNamespace(prefix)
+                || Namespaces.RDFS.inNamespace(prefix);
     }
 
     /** Determines if this IRI is equal to the IRI that {@code owl:Thing} is
@@ -152,7 +150,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *         {@code false} */
     public boolean isThing() {
         return remainder != null && remainder.equals("Thing")
-                && prefix.equals(Namespaces.OWL.toString());
+                && Namespaces.OWL.inNamespace(prefix);
     }
 
     /** Determines if this IRI is equal to the IRI that {@code owl:Nothing}
@@ -173,7 +171,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *         otherwise {@code false} */
     public boolean isPlainLiteral() {
         return remainder != null && remainder.equals("PlainLiteral")
-                && prefix.equals(Namespaces.RDF.toString());
+                && Namespaces.RDF.inNamespace(prefix);
     }
 
     /** Gets the fragment of the IRI.
