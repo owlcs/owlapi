@@ -95,23 +95,15 @@ public abstract class AbstractOWLAPITestCase {
             int counter = 0;
             StringBuilder sb = new StringBuilder();
             for (OWLAxiom ax : axioms1) {
-                if (!axioms2.contains(ax)) {
-                    if (!isIgnorableAxiom(ax, false)) {
-                    sb.append("Rem axiom: ");
-                    sb.append(ax);
-                    sb.append("\n");
+                if (!axioms2.contains(ax) && !isIgnorableAxiom(ax, false)) {
+                    sb.append("Rem axiom: ").append(ax).append("\n");
                     counter++;
-                }
                 }
             }
             for (OWLAxiom ax : axioms2) {
-                if (!axioms1.contains(ax)) {
-                    if (!isIgnorableAxiom(ax, true)) {
-                        sb.append("Add axiom: ");
-                        sb.append(ax);
-                        sb.append("\n");
-                        counter++;
-                    }
+                if (!axioms1.contains(ax) && !isIgnorableAxiom(ax, true)) {
+                    sb.append("Add axiom: ").append(ax).append("\n");
+                    counter++;
                 }
             }
             if (counter > 0) {

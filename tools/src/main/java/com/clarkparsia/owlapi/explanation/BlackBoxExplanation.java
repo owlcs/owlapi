@@ -274,10 +274,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
             if (count == limit) {
                 break;
             }
-            if (!(obj instanceof OWLAnnotationAxiom)) {
-                if (dest.add(obj)) {
-                    count++;
-                }
+            if (!(obj instanceof OWLAnnotationAxiom) && dest.add(obj)) {
+                count++;
             }
         }
         return count;

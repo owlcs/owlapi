@@ -74,12 +74,11 @@ public class TPTypeHandler extends TriplePredicateHandler {
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
-        if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(object)) {
-            if (!object.equals(OWLRDFVocabulary.OWL_THING.getIRI())) {
-                // Can't have instance of built in vocabulary!
-                // Shall we throw an exception here?
-                logger.fine("Individual of builtin type " + object);
-            }
+        if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(object)
+                && !object.equals(OWLRDFVocabulary.OWL_THING.getIRI())) {
+            // Can't have instance of built in vocabulary!
+            // Shall we throw an exception here?
+            logger.fine("Individual of builtin type " + object);
         }
         addAxiom(getDataFactory().getOWLClassAssertionAxiom(
                 translateClassExpression(object), translateIndividual(subject),

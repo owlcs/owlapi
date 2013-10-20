@@ -181,12 +181,10 @@ public class XMLWriterImpl implements XMLWriter {
     @Override
     public void writeStartElement(String name) throws IOException {
         String qName = xmlWriterNamespaceManager.getQName(name);
-        if (qName == null || qName.equals(name)) {
-            if (!isValidQName(name)) {
-                // Could not generate a valid QName, therefore, we cannot
-                // write valid XML - just throw an exception!
-                throw new IllegalElementNameException(name);
-            }
+        if ((qName == null || qName.equals(name)) && !isValidQName(name)) {
+            // Could not generate a valid QName, therefore, we cannot
+            // write valid XML - just throw an exception!
+            throw new IllegalElementNameException(name);
         }
         XMLElement element = new XMLElement(qName, elementStack.size());
         if (!elementStack.isEmpty()) {

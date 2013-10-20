@@ -43,6 +43,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /** Author: Matthew Horridge<br>
@@ -60,9 +61,10 @@ public class InferredDisjointClassesAxiomGenerator extends
             OWLDataFactory dataFactory, Set<OWLDisjointClassesAxiom> result) {
         for (OWLClass cls : getAllEntities(reasoner)) {
             if (!cls.equals(entity)) {
-                if (!reasoner.isSatisfiable(dataFactory
+                OWLObjectIntersectionOf intersection = dataFactory
                         .getOWLObjectIntersectionOf(CollectionFactory.createSet(entity,
-                                cls)))) {
+                                cls));
+                if (!reasoner.isSatisfiable(intersection)) {
                     result.add(dataFactory.getOWLDisjointClassesAxiom(entity, cls));
                 }
             }

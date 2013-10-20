@@ -1394,10 +1394,9 @@ public class OWLRDFConsumer implements RDFConsumer {
                     throws UnloadableImportException {
                 BuiltInTypeHandler builtInTypeHandler = axiomTypeTripleHandlers
                         .get(object);
-                if (builtInTypeHandler != null) {
-                    if (builtInTypeHandler.canHandle(subject, predicate, object)) {
-                        builtInTypeHandler.handleTriple(subject, predicate, object);
-                    }
+                if (builtInTypeHandler != null
+                        && builtInTypeHandler.canHandle(subject, predicate, object)) {
+                    builtInTypeHandler.handleTriple(subject, predicate, object);
                 }
             }
         });
@@ -1908,20 +1907,18 @@ public class OWLRDFConsumer implements RDFConsumer {
         Map<IRI, Collection<IRI>> predObjMap = resTriplesBySubject.get(subject);
         if (predObjMap != null) {
             Collection<IRI> objects = predObjMap.get(predicate);
-            if (objects != null) {
-                if (!objects.isEmpty()) {
-                    IRI object = objects.iterator().next();
-                    if (consume) {
-                        objects.remove(object);
-                    }
-                    if (objects.isEmpty()) {
-                        predObjMap.remove(predicate);
-                        if (predObjMap.isEmpty()) {
-                            resTriplesBySubject.remove(subject);
-                        }
-                    }
-                    return object;
+            if (objects != null && !objects.isEmpty()) {
+                IRI object = objects.iterator().next();
+                if (consume) {
+                    objects.remove(object);
                 }
+                if (objects.isEmpty()) {
+                    predObjMap.remove(predicate);
+                    if (predObjMap.isEmpty()) {
+                        resTriplesBySubject.remove(subject);
+                    }
+                }
+                return object;
             }
         }
         return null;
@@ -1964,17 +1961,15 @@ public class OWLRDFConsumer implements RDFConsumer {
         Map<IRI, Collection<OWLLiteral>> predObjMap = litTriplesBySubject.get(subject);
         if (predObjMap != null) {
             Collection<OWLLiteral> objects = predObjMap.get(predicate);
-            if (objects != null) {
-                if (!objects.isEmpty()) {
-                    OWLLiteral object = objects.iterator().next();
-                    if (consume) {
-                        objects.remove(object);
-                    }
-                    if (objects.isEmpty()) {
-                        predObjMap.remove(predicate);
-                    }
-                    return object;
+            if (objects != null && !objects.isEmpty()) {
+                OWLLiteral object = objects.iterator().next();
+                if (consume) {
+                    objects.remove(object);
                 }
+                if (objects.isEmpty()) {
+                    predObjMap.remove(predicate);
+                }
+                return object;
             }
         }
         return null;

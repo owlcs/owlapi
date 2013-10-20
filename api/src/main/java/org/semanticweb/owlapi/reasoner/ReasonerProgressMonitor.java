@@ -55,19 +55,19 @@ package org.semanticweb.owlapi.reasoner;
 public interface ReasonerProgressMonitor {
     /** A standard name for the task of loading a reasoner with axioms. Note that
      * there is no guarantee that the reasoner will use this name for loading. */
-    public static final String LOADING = "Loading";
+    String LOADING = "Loading";
     /** A standard name for the task of computing the class hierarchy. Note that
      * there is no guarantee that the reasoner will use this name for the task
      * of computing the class hierarchy. */
-    public static final String CLASSIFYING = "Classifying";
+    String CLASSIFYING = "Classifying";
     /** A standard name for the task of computing the types of individual. Note
      * that there is no guarantee that the reasoner will use this name for the
      * task of realising. */
-    public static final String REALIZING = "Realizing";
+    String REALIZING = "Realizing";
     /** A standard name for the task of classifying and realising at the same
      * time. Note that there is no guarantee that the reasoner will use this
      * name for the task of classifying. */
-    public static final String CLASSIFYING_AND_REALIZING = "Classifying and Realizing";
+    String CLASSIFYING_AND_REALIZING = "Classifying and Realizing";
 
     /** Indicates that some reasoner task, for example, loading, consistency
      * checking, classification, realisation etc. has started. When the task has

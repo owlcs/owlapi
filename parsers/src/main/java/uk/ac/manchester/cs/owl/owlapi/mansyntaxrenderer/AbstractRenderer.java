@@ -59,14 +59,13 @@ public class AbstractRenderer {
     private int lastNewLinePos = -1;
     private int currentPos;
     private Writer writer;
-    private List<Integer> tabs;
+    private final List<Integer> tabs = new ArrayList<Integer>();
     private boolean useTabbing = true;
     private boolean useWrapping = true;
 
     protected AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
         this.writer = writer;
         this.shortFormProvider = shortFormProvider;
-        tabs = new ArrayList<Integer>();
         pushTab(0);
     }
 
@@ -190,5 +189,9 @@ public class AbstractRenderer {
 
     protected ShortFormProvider getShortFormProvider() {
         return shortFormProvider;
+    }
+
+    protected void setShortFormProvider(ShortFormProvider p) {
+        shortFormProvider = p;
     }
 }

@@ -47,9 +47,7 @@ public class ContractOwlapiModel_2Test {
         EntityType<?> result43 = testSubject0.getEntityType();
         boolean result45 = !testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {
-            if (!testSubject0.isAnonymous()) {
-                OWLClass result46 = testSubject0.asOWLClass();
-            }
+            OWLClass result46 = testSubject0.asOWLClass();
         }
         boolean result47 = testSubject0.isOWLObjectProperty();
         if (testSubject0.isOWLObjectProperty()) {
@@ -311,9 +309,7 @@ public class ContractOwlapiModel_2Test {
         testSubject0.accept(mock(OWLClassExpressionVisitor.class));
         boolean result5 = testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {
-            if (!testSubject0.isAnonymous()) {
-                OWLClass result6 = testSubject0.asOWLClass();
-            }
+            OWLClass result6 = testSubject0.asOWLClass();
         }
         ClassExpressionType result8 = testSubject0.getClassExpressionType();
         boolean result9 = testSubject0.isClassExpressionLiteral();
@@ -1006,9 +1002,7 @@ public class ContractOwlapiModel_2Test {
         testSubject0.accept(mock(OWLClassExpressionVisitor.class));
         boolean result6 = testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {
-            if (!testSubject0.isAnonymous()) {
-                OWLClass result7 = testSubject0.asOWLClass();
-            }
+            OWLClass result7 = testSubject0.asOWLClass();
         }
         ClassExpressionType result9 = testSubject0.getClassExpressionType();
         boolean result10 = testSubject0.isClassExpressionLiteral();
@@ -1572,9 +1566,7 @@ public class ContractOwlapiModel_2Test {
         EntityType<?> result39 = testSubject0.getEntityType();
         boolean result41 = !testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {
-            if (!testSubject0.isAnonymous()) {
-                OWLClass result42 = testSubject0.asOWLClass();
-            }
+            OWLClass result42 = testSubject0.asOWLClass();
         }
         boolean result43 = testSubject0.isOWLObjectProperty();
         if (testSubject0.isOWLObjectProperty()) {
@@ -1668,9 +1660,7 @@ public class ContractOwlapiModel_2Test {
         testSubject0.accept(mock(OWLClassExpressionVisitor.class));
         boolean result3 = testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {
-            if (!testSubject0.isAnonymous()) {
-                OWLClass result4 = testSubject0.asOWLClass();
-            }
+            OWLClass result4 = testSubject0.asOWLClass();
         }
         ClassExpressionType result6 = testSubject0.getClassExpressionType();
         boolean result7 = testSubject0.isClassExpressionLiteral();

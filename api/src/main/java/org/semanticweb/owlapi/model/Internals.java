@@ -49,10 +49,10 @@ public interface Internals {
     /** a marker interface for objects that identify contained maps - so that
      * getting the keys of a specific map does not require a specific method for
      * each map nor does it require the map to be copied and returned */
-    public interface Pointer<K, V> {}
+    interface Pointer<K, V> {}
 
     /** a marker interface for objects that identify contained sets */
-    public interface SimplePointer<K> {}
+    interface SimplePointer<K> {}
 
     Pointer<AxiomType<?>, OWLAxiom> getAxiomsByType();
 

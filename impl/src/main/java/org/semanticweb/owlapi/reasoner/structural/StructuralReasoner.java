@@ -607,16 +607,15 @@ public class StructuralReasoner extends OWLReasonerBase {
         for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
             for (OWLObjectPropertyAssertionAxiom axiom : ontology
                     .getObjectPropertyAssertionAxioms(ind)) {
-                if (!axiom.getObject().isAnonymous()) {
-                    if (axiom.getProperty().getSimplified().equals(pe.getSimplified())) {
-                        if (getIndividualNodeSetPolicy().equals(
-                                IndividualNodeSetPolicy.BY_SAME_AS)) {
-                            result.addNode(getSameIndividuals(axiom.getObject()
-                                    .asOWLNamedIndividual()));
-                        } else {
-                            result.addNode(new OWLNamedIndividualNode(axiom.getObject()
-                                    .asOWLNamedIndividual()));
-                        }
+                if (!axiom.getObject().isAnonymous()
+                        && axiom.getProperty().getSimplified().equals(pe.getSimplified())) {
+                    if (getIndividualNodeSetPolicy().equals(
+                            IndividualNodeSetPolicy.BY_SAME_AS)) {
+                        result.addNode(getSameIndividuals(axiom.getObject()
+                                .asOWLNamedIndividual()));
+                    } else {
+                        result.addNode(new OWLNamedIndividualNode(axiom.getObject()
+                                .asOWLNamedIndividual()));
                     }
                 }
                 // Inverse of pe

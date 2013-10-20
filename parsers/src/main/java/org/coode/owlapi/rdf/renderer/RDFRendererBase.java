@@ -554,10 +554,10 @@ public abstract class RDFRendererBase {
             @Override
             public void visit(OWLDataProperty property) {
                 for (OWLAxiom ax : ontology.getAxioms(property)) {
-                    if (ax instanceof OWLDisjointDataPropertiesAxiom) {
-                        if (((OWLDisjointDataPropertiesAxiom) ax).getProperties().size() > 2) {
-                            continue;
-                        }
+                    if (ax instanceof OWLDisjointDataPropertiesAxiom
+                            && ((OWLDisjointDataPropertiesAxiom) ax).getProperties()
+                                    .size() > 2) {
+                        continue;
                     }
                     axioms.add(ax);
                 }
@@ -566,11 +566,10 @@ public abstract class RDFRendererBase {
             @Override
             public void visit(OWLObjectProperty property) {
                 for (OWLAxiom ax : ontology.getAxioms(property)) {
-                    if (ax instanceof OWLDisjointObjectPropertiesAxiom) {
-                        if (((OWLDisjointObjectPropertiesAxiom) ax).getProperties()
-                                .size() > 2) {
-                            continue;
-                        }
+                    if (ax instanceof OWLDisjointObjectPropertiesAxiom
+                            && ((OWLDisjointObjectPropertiesAxiom) ax).getProperties()
+                                    .size() > 2) {
+                        continue;
                     }
                     axioms.add(ax);
                 }
@@ -589,11 +588,10 @@ public abstract class RDFRendererBase {
                 axioms.addAll(ontology.getAxioms(property));
             }
         });
-        if (axioms.isEmpty() && shouldInsertDeclarations()) {
-            if (RDFOntologyFormat.isMissingType(entity, ontology)) {
-                axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory()
-                        .getOWLDeclarationAxiom(entity));
-            }
+        if (axioms.isEmpty() && shouldInsertDeclarations()
+                && RDFOntologyFormat.isMissingType(entity, ontology)) {
+            axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory()
+                    .getOWLDeclarationAxiom(entity));
         }
         createGraph(axioms);
         return !axioms.isEmpty();
@@ -644,19 +642,17 @@ public abstract class RDFRendererBase {
 
     protected boolean isObjectList(RDFResource node) {
         for (RDFTriple triple : graph.getSortedTriplesForSubject(node, false)) {
-            if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI())) {
-                if (!triple.getObject().isAnonymous()) {
-                    if (triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
-                        List<RDFNode> items = new ArrayList<RDFNode>();
-                        toJavaList(node, items);
-                        for (RDFNode n : items) {
-                            if (n.isLiteral()) {
-                                return false;
-                            }
-                        }
-                        return true;
+            if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI())
+                    && !triple.getObject().isAnonymous()
+                    && triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
+                List<RDFNode> items = new ArrayList<RDFNode>();
+                toJavaList(node, items);
+                for (RDFNode n : items) {
+                    if (n.isLiteral()) {
+                        return false;
                     }
                 }
+                return true;
             }
         }
         return false;

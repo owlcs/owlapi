@@ -86,36 +86,35 @@ public class TPImportsHandler extends TriplePredicateHandler {
             if (importedOntology != null) {
                 OWLOntologyFormat importedOntologyFormat = man
                         .getOntologyFormat(importedOntology);
-                if (importedOntologyFormat instanceof RDFOntologyFormat) {
-                    if (importedOntology.isAnonymous()) {
-                        OWLOntologyLoaderConfiguration.MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = getConsumer()
-                                .getConfiguration().getMissingOntologyHeaderStrategy();
-                        boolean includeGraph = missingOntologyHeaderStrategy
-                                .equals(OWLOntologyLoaderConfiguration.MissingOntologyHeaderStrategy.INCLUDE_GRAPH);
-                        if (includeGraph) {
-                            // We should have just included the triples rather
-                            // than imported them. So,
-                            // we remove the imports statement, add the axioms
-                            // from the imported ontology to
-                            // out importing ontology and remove the imported
-                            // ontology.
-                            // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
-                            man.applyChange(new RemoveImport(getConsumer().getOntology(),
-                                    importsDeclaration));
-                            for (OWLImportsDeclaration decl : importedOntology
-                                    .getImportsDeclarations()) {
-                                man.applyChange(new AddImport(
-                                        getConsumer().getOntology(), decl));
-                            }
-                            for (OWLAnnotation anno : importedOntology.getAnnotations()) {
-                                man.applyChange(new AddOntologyAnnotation(getConsumer()
-                                        .getOntology(), anno));
-                            }
-                            for (OWLAxiom ax : importedOntology.getAxioms()) {
-                                getConsumer().addAxiom(ax);
-                            }
-                            man.removeOntology(importedOntology);
+                if (importedOntologyFormat instanceof RDFOntologyFormat
+                        && importedOntology.isAnonymous()) {
+                    OWLOntologyLoaderConfiguration.MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = getConsumer()
+                            .getConfiguration().getMissingOntologyHeaderStrategy();
+                    boolean includeGraph = missingOntologyHeaderStrategy
+                            .equals(OWLOntologyLoaderConfiguration.MissingOntologyHeaderStrategy.INCLUDE_GRAPH);
+                    if (includeGraph) {
+                        // We should have just included the triples rather
+                        // than imported them. So,
+                        // we remove the imports statement, add the axioms
+                        // from the imported ontology to
+                        // out importing ontology and remove the imported
+                        // ontology.
+                        // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
+                        man.applyChange(new RemoveImport(getConsumer().getOntology(),
+                                importsDeclaration));
+                        for (OWLImportsDeclaration decl : importedOntology
+                                .getImportsDeclarations()) {
+                            man.applyChange(new AddImport(getConsumer().getOntology(),
+                                    decl));
                         }
+                        for (OWLAnnotation anno : importedOntology.getAnnotations()) {
+                            man.applyChange(new AddOntologyAnnotation(getConsumer()
+                                    .getOntology(), anno));
+                        }
+                        for (OWLAxiom ax : importedOntology.getAxioms()) {
+                            getConsumer().addAxiom(ax);
+                        }
+                        man.removeOntology(importedOntology);
                     }
                 }
             }

@@ -86,7 +86,8 @@ public class OWL2Profile implements OWLProfile {
         return new OWLProfileReport(this, pv);
     }
 
-    private static class OWL2ProfileObjectWalker extends OWLOntologyWalkerVisitorEx<Object> {
+    private static class OWL2ProfileObjectWalker extends
+            OWLOntologyWalkerVisitorEx<Object> {
         private final OWLOntologyManager man;
         private final Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
 
@@ -129,14 +130,12 @@ public class OWL2Profile implements OWLProfile {
         @Override
         public Object visit(OWLLiteral node) {
             // Check that the lexical value of the literal is in the lexical
-            // space of the
-            // literal datatype
-            if (node.getDatatype().isBuiltIn()) {
-                if (!node.getDatatype().getBuiltInDatatype()
-                        .isInLexicalSpace(node.getLiteral())) {
-                    profileViolations.add(new LexicalNotInLexicalSpace(
-                            getCurrentOntology(), getCurrentAxiom(), node));
-                }
+            // space of the literal datatype
+            if (node.getDatatype().isBuiltIn()
+                    && !node.getDatatype().getBuiltInDatatype()
+                            .isInLexicalSpace(node.getLiteral())) {
+                profileViolations.add(new LexicalNotInLexicalSpace(getCurrentOntology(),
+                        getCurrentAxiom(), node));
             }
             return null;
         }

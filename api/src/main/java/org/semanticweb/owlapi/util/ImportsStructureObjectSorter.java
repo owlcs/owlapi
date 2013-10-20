@@ -85,7 +85,8 @@ public class ImportsStructureObjectSorter<O> {
     public ImportsStructureObjectSorter(@Nonnull OWLOntology ontology,
             @Nonnull ObjectSelector<O> objectSelector) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
-        this.objectSelector = checkNotNull(objectSelector, "objectSelector cannot be null");
+        this.objectSelector = checkNotNull(objectSelector,
+                "objectSelector cannot be null");
     }
 
     /** Gets a map that maps ontologies to sets of associated objects. The
@@ -115,7 +116,7 @@ public class ImportsStructureObjectSorter<O> {
 
     /** @param <O>
      *            type of selected objects */
-    public static interface ObjectSelector<O> {
+    public interface ObjectSelector<O> {
         /** @param ontology
          *            the ontology to explore
          * @return set of objects selected */

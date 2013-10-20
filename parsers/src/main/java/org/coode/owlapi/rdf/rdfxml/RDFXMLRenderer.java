@@ -85,8 +85,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
     /** @param ontology
      * @param w */
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w) {
-        this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w, "w cannot be null"), ontology.getOWLOntologyManager()
-                .getOntologyFormat(ontology));
+        this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w,
+                "w cannot be null"), ontology.getOWLOntologyManager().getOntologyFormat(
+                ontology));
     }
 
     /** @param ontology
@@ -94,7 +95,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
      * @param format */
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w,
             @Nonnull OWLOntologyFormat format) {
-        super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(format, "format cannot be null"));
+        super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(format,
+                "format cannot be null"));
         this.format = checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
@@ -134,36 +136,41 @@ public class RDFXMLRenderer extends RDFRendererBase {
     @Override
     protected void writeIndividualComments(@Nonnull OWLNamedIndividual ind)
             throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(ind, "ind cannot be null").getIRI().toString()));
+        writer.writeComment(XMLUtils.escapeXML(checkNotNull(ind, "ind cannot be null")
+                .getIRI().toString()));
     }
 
     @Override
     protected void writeClassComment(@Nonnull OWLClass cls) throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(cls, "cls cannot be null").getIRI().toString()));
+        writer.writeComment(XMLUtils.escapeXML(checkNotNull(cls, "cls cannot be null")
+                .getIRI().toString()));
     }
 
     @Override
     protected void writeDataPropertyComment(@Nonnull OWLDataProperty prop)
             throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop, "prop cannot be null").getIRI().toString()));
+        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop, "prop cannot be null")
+                .getIRI().toString()));
     }
 
     @Override
     protected void writeObjectPropertyComment(@Nonnull OWLObjectProperty prop)
             throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop, "prop cannot be null").getIRI().toString()));
+        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop, "prop cannot be null")
+                .getIRI().toString()));
     }
 
     @Override
     protected void writeAnnotationPropertyComment(@Nonnull OWLAnnotationProperty prop)
             throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop, "prop cannot be null").getIRI().toString()));
+        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop, "prop cannot be null")
+                .getIRI().toString()));
     }
 
     @Override
     protected void writeDatatypeComment(@Nonnull OWLDatatype datatype) throws IOException {
-        writer.writeComment(XMLUtils
-                .escapeXML(checkNotNull(datatype, "datatype cannot be null").getIRI().toString()));
+        writer.writeComment(XMLUtils.escapeXML(checkNotNull(datatype,
+                "datatype cannot be null").getIRI().toString()));
     }
 
     @Override
@@ -185,12 +192,10 @@ public class RDFXMLRenderer extends RDFRendererBase {
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getPredicate().getIRI();
             if (propertyIRI.equals(RDF_TYPE.getIRI())
-                    && !triple.getObject().isAnonymous()) {
-                if (BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())) {
-                    if (prettyPrintedTypes.contains(triple.getObject().getIRI())) {
-                        candidatePrettyPrintTypeTriple = triple;
-                    }
-                }
+                    && !triple.getObject().isAnonymous()
+                    && BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())
+                    && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
+                candidatePrettyPrintTypeTriple = triple;
             }
         }
         if (candidatePrettyPrintTypeTriple == null) {

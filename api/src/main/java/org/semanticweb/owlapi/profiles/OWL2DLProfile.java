@@ -288,11 +288,9 @@ public class OWL2DLProfile implements OWLProfile {
                             getCurrentOntology()));
                 }
                 IRI versionIRI = ontologyID.getVersionIRI();
-                if (versionIRI != null) {
-                    if (versionIRI.isReservedVocabulary()) {
-                        profileViolations.add(new UseOfReservedVocabularyForVersionIRI(
-                                getCurrentOntology()));
-                    }
+                if (versionIRI != null && versionIRI.isReservedVocabulary()) {
+                    profileViolations.add(new UseOfReservedVocabularyForVersionIRI(
+                            getCurrentOntology()));
                 }
             }
             objectPropertyManager = null;
@@ -301,11 +299,9 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public Object visit(OWLClass desc) {
-            if (!desc.isBuiltIn()) {
-                if (desc.getIRI().isReservedVocabulary()) {
-                    profileViolations.add(new UseOfReservedVocabularyForClassIRI(
-                            getCurrentOntology(), getCurrentAxiom(), desc));
-                }
+            if (!desc.isBuiltIn() && desc.getIRI().isReservedVocabulary()) {
+                profileViolations.add(new UseOfReservedVocabularyForClassIRI(
+                        getCurrentOntology(), getCurrentAxiom(), desc));
             }
             if (!desc.isBuiltIn() && !getCurrentOntology().isDeclared(desc, true)) {
                 profileViolations.add(new UseOfUndeclaredClass(getCurrentOntology(),
@@ -328,13 +324,11 @@ public class OWL2DLProfile implements OWLProfile {
             // - Be rdfs:Literal, or
             // - Not be in the reserved vocabulary of OWL 2
             if (!OWL2Datatype.isBuiltIn(datatype.getIRI())) {
-                if (!Namespaces.XSD.inNamespace(datatype.getIRI())) {
-                    if (!datatype.isTopDatatype()) {
-                        if (datatype.getIRI().isReservedVocabulary()) {
-                            profileViolations.add(new UseOfUnknownDatatype(
-                                    getCurrentOntology(), getCurrentAxiom(), datatype));
-                        }
-                    }
+                if (!Namespaces.XSD.inNamespace(datatype.getIRI())
+                        && !datatype.isTopDatatype()
+                        && datatype.getIRI().isReservedVocabulary()) {
+                    profileViolations.add(new UseOfUnknownDatatype(getCurrentOntology(),
+                            getCurrentAxiom(), datatype));
                 }
                 // We also have to declare datatypes that are not built in
                 if (!datatype.isTopDatatype() && datatype.isBuiltIn()
@@ -386,12 +380,10 @@ public class OWL2DLProfile implements OWLProfile {
         @Override
         public Object visit(OWLObjectProperty property) {
             if (!property.isOWLTopObjectProperty()
-                    && !property.isOWLBottomObjectProperty()) {
-                if (property.getIRI().isReservedVocabulary()) {
-                    profileViolations
-                            .add(new UseOfReservedVocabularyForObjectPropertyIRI(
-                                    getCurrentOntology(), getCurrentAxiom(), property));
-                }
+                    && !property.isOWLBottomObjectProperty()
+                    && property.getIRI().isReservedVocabulary()) {
+                profileViolations.add(new UseOfReservedVocabularyForObjectPropertyIRI(
+                        getCurrentOntology(), getCurrentAxiom(), property));
             }
             if (!property.isBuiltIn() && !getCurrentOntology().isDeclared(property, true)) {
                 profileViolations.add(new UseOfUndeclaredObjectProperty(
@@ -412,11 +404,10 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public Object visit(OWLDataProperty property) {
-            if (!property.isOWLTopDataProperty() && !property.isOWLBottomDataProperty()) {
-                if (property.getIRI().isReservedVocabulary()) {
-                    profileViolations.add(new UseOfReservedVocabularyForDataPropertyIRI(
-                            getCurrentOntology(), getCurrentAxiom(), property));
-                }
+            if (!property.isOWLTopDataProperty() && !property.isOWLBottomDataProperty()
+                    && property.getIRI().isReservedVocabulary()) {
+                profileViolations.add(new UseOfReservedVocabularyForDataPropertyIRI(
+                        getCurrentOntology(), getCurrentAxiom(), property));
             }
             if (!property.isBuiltIn() && !getCurrentOntology().isDeclared(property, true)) {
                 profileViolations.add(new UseOfUndeclaredDataProperty(
@@ -437,12 +428,10 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public Object visit(OWLAnnotationProperty property) {
-            if (!property.isBuiltIn()) {
-                if (property.getIRI().isReservedVocabulary()) {
-                    profileViolations
-                            .add(new UseOfReservedVocabularyForAnnotationPropertyIRI(
-                                    getCurrentOntology(), getCurrentAxiom(), property));
-                }
+            if (!property.isBuiltIn() && property.getIRI().isReservedVocabulary()) {
+                profileViolations
+                        .add(new UseOfReservedVocabularyForAnnotationPropertyIRI(
+                                getCurrentOntology(), getCurrentAxiom(), property));
             }
             if (!property.isBuiltIn() && !getCurrentOntology().isDeclared(property, true)) {
                 profileViolations.add(new UseOfUndeclaredAnnotationProperty(

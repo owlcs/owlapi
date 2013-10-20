@@ -85,8 +85,8 @@ public interface OWLOntologyFactory extends Serializable {
      *            The document source that provides the means of getting a
      *            representation of a document.
      * @param handler
-     *            A pointer to an {@code OWLOntologyCreationHandler} which
-     *            will be notified immediately after an empty ontology has been
+     *            A pointer to an {@code OWLOntologyCreationHandler} which will
+     *            be notified immediately after an empty ontology has been
      *            created, but before the source data is read and the ontology
      *            is loaded with axioms.
      * @return The newly created and loaded ontology
@@ -103,8 +103,8 @@ public interface OWLOntologyFactory extends Serializable {
      *            The document source that provides the means of getting a
      *            representation of a document.
      * @param handler
-     *            A pointer to an {@code OWLOntologyCreationHandler} which
-     *            will be notified immediately after and empty ontology has been
+     *            A pointer to an {@code OWLOntologyCreationHandler} which will
+     *            be notified immediately after and empty ontology has been
      *            created, but before the source data is read and the ontology
      *            is loaded with axioms.
      * @param configuration
@@ -125,8 +125,8 @@ public interface OWLOntologyFactory extends Serializable {
      * @param documentIRI
      *            The document IRI
      * @return {@code true} if the factory can create an ontology given the
-     *         specified document IRI, or {@code false} if the factory
-     *         cannot create an ontology given the specified document IRI. */
+     *         specified document IRI, or {@code false} if the factory cannot
+     *         create an ontology given the specified document IRI. */
     boolean canCreateFromDocumentIRI(@Nonnull IRI documentIRI);
 
     /** Determines if the factory can load an ontology for the specified input
@@ -134,8 +134,8 @@ public interface OWLOntologyFactory extends Serializable {
      * 
      * @param documentSource
      *            The input source from which to load the ontology
-     * @return {@code true} if the factory can load from the specified
-     *         input source. */
+     * @return {@code true} if the factory can load from the specified input
+     *         source. */
     boolean canLoad(@Nonnull OWLOntologyDocumentSource documentSource);
 
     /** @return a list of parsers that this factory uses when it tries to create
@@ -143,8 +143,8 @@ public interface OWLOntologyFactory extends Serializable {
     @Nonnull
     List<OWLParser> getParsers();
 
-    /** An {@code OWLOntologyCreationHandler} gets notified when the factory
-     * has created an empty ontology (during the loading process). This may be
+    /** An {@code OWLOntologyCreationHandler} gets notified when the factory has
+     * created an empty ontology (during the loading process). This may be
      * needed to handle features such as cyclic imports. For example if OntA and
      * OntB are ontologies and OntA imports OntB and vice versa, OntA will
      * probably be partially loaded, but then will require the loading of OntB
@@ -152,7 +152,7 @@ public interface OWLOntologyFactory extends Serializable {
      * partial loading of OntA for the same reason. The handler allows a
      * reference to an ontology which is being loaded to be obtained before
      * loading is finished. */
-    public interface OWLOntologyCreationHandler {
+    interface OWLOntologyCreationHandler {
         /** The factory calls this method as soon as it has created an ontology.
          * If the factory is loading an ontology then the ontology will not have
          * been populated with axioms at this stage.

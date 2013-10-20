@@ -63,11 +63,10 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
 
     @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-        return super.canHandle(subject, predicate, object)
-                && isTyped(subject, predicate, object);
+        return super.canHandle(subject, predicate, object) && isTyped(subject, object);
     }
 
-    private boolean isTyped(IRI subject, IRI predicate, IRI object) {
+    private boolean isTyped(IRI subject, IRI object) {
         return getConsumer().isClassExpression(subject)
                 && getConsumer().isClassExpression(object);
     }

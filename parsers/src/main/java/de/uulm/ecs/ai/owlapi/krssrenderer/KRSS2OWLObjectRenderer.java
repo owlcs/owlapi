@@ -244,7 +244,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
                     write(iter.next());
                     writeCloseBracket();
                     writeln();
-                    for (; iter.hasNext();) {
+                    while (iter.hasNext()) {
                         writeOpenBracket();
                         write(EQUIVALENT);
                         write(eachClass);

@@ -131,20 +131,18 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     public boolean containsAnonymousClassExpressions() {
         if (containsAnonymousClassExpressions == null) {
             for (SWRLAtom atom : head) {
-                if (atom instanceof SWRLClassAtom) {
-                    if (((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
-                        containsAnonymousClassExpressions = Boolean.TRUE;
-                        break;
-                    }
+                if (atom instanceof SWRLClassAtom
+                        && ((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
+                    containsAnonymousClassExpressions = Boolean.TRUE;
+                    break;
                 }
             }
             if (containsAnonymousClassExpressions == null) {
                 for (SWRLAtom atom : body) {
-                    if (atom instanceof SWRLClassAtom) {
-                        if (((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
-                            containsAnonymousClassExpressions = Boolean.TRUE;
-                            break;
-                        }
+                    if (atom instanceof SWRLClassAtom
+                            && ((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
+                        containsAnonymousClassExpressions = Boolean.TRUE;
+                        break;
                     }
                 }
             }

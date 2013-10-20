@@ -395,26 +395,25 @@ public class CollectionFactory {
         public boolean contains(Object arg0) {
             containsCounter++;
             if (containsCounter >= maxContains && !copyDone) {
-                // many calls to contains, inefficient if the delegate is not a
-                // set
-                if (!(delegate instanceof Set)) {
-                    copyDone = true;
-                    delegate = new HashSet<T>(delegate);
-                }
+                checkDelegate();
             }
             return delegate.contains(arg0);
+        }
+
+        private void checkDelegate() {
+            // many calls to contains, inefficient if the delegate is not a
+            // set
+            if (!(delegate instanceof Set)) {
+                copyDone = true;
+                delegate = new HashSet<T>(delegate);
+            }
         }
 
         @Override
         public boolean containsAll(Collection<?> arg0) {
             containsCounter++;
             if (containsCounter >= maxContains && !copyDone) {
-                // many calls to contains, inefficient if the delegate is not a
-                // set
-                if (!(delegate instanceof Set)) {
-                    copyDone = true;
-                    delegate = new HashSet<T>(delegate);
-                }
+                checkDelegate();
             }
             return delegate.containsAll(arg0);
         }

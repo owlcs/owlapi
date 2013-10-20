@@ -113,7 +113,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     public BlackBoxOWLDebugger(@Nonnull OWLOntologyManager owlOntologyManager,
             @Nonnull OWLOntology ontology, @Nonnull OWLReasonerFactory reasonerFactory) {
         super(owlOntologyManager, ontology);
-        this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
+        this.reasonerFactory = checkNotNull(reasonerFactory,
+                "reasonerFactory cannot be null");
     }
 
     @Override
@@ -294,10 +295,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             if (count == limit) {
                 break;
             }
-            if (!(obj instanceof OWLAnnotationAxiom)) {
-                if (dest.add(obj)) {
-                    count++;
-                }
+            if (!(obj instanceof OWLAnnotationAxiom) && dest.add(obj)) {
+                count++;
             }
         }
         return count;

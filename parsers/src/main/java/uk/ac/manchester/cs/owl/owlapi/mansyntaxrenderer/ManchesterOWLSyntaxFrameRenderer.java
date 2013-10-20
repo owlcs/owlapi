@@ -406,14 +406,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 MultiMap<Object, Set<OWLAnnotation>> equivalentClasses = new MultiMap<Object, Set<OWLAnnotation>>();
                 for (OWLEquivalentClassesAxiom ax : ontology
                         .getEquivalentClassesAxioms(cls)) {
-                    if (ax.getClassExpressions().size() == 2) {
-                        if (isDisplayed(ax)) {
-                            for (OWLClassExpression equivCls : ax
-                                    .getClassExpressionsMinus(cls)) {
-                                equivalentClasses.put(equivCls, ax.getAnnotations());
-                            }
-                            axioms.add(ax);
+                    if (ax.getClassExpressions().size() == 2 && isDisplayed(ax)) {
+                        for (OWLClassExpression equivCls : ax
+                                .getClassExpressionsMinus(cls)) {
+                            equivalentClasses.put(equivCls, ax.getAnnotations());
                         }
+                        axioms.add(ax);
                     }
                 }
                 equivalentClasses.remove(cls);
@@ -478,15 +476,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     // Handling of nary in frame style
                     for (OWLDisjointClassesAxiom ax : ontology
                             .getDisjointClassesAxioms(cls)) {
-                        if (isDisplayed(ax)) {
-                            if (ax.getClassExpressions().size() > 2) {
-                                Set<OWLClassExpression> allDisjointClasses = new TreeSet<OWLClassExpression>(
-                                        ax.getClassExpressions());
-                                allDisjointClasses.remove(cls);
-                                axioms.add(ax);
-                                writeSection(DISJOINT_CLASSES, allDisjointClasses, ", ",
-                                        false, ontology);
-                            }
+                        if (isDisplayed(ax) && ax.getClassExpressions().size() > 2) {
+                            Set<OWLClassExpression> allDisjointClasses = new TreeSet<OWLClassExpression>(
+                                    ax.getClassExpressions());
+                            allDisjointClasses.remove(cls);
+                            axioms.add(ax);
+                            writeSection(DISJOINT_CLASSES, allDisjointClasses, ", ",
+                                    false, ontology);
                         }
                     }
                 }
@@ -507,11 +503,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             for (OWLOntology ontology : ontologies) {
                 MultiMap<Object, Set<OWLAnnotation>> individuals = new MultiMap<Object, Set<OWLAnnotation>>();
                 for (OWLClassAssertionAxiom ax : ontology.getClassAssertionAxioms(cls)) {
-                    if (isDisplayed(ax)) {
-                        if (renderExtensions || ax.getIndividual().isAnonymous()) {
-                            individuals.put(ax.getIndividual(), ax.getAnnotations());
-                            axioms.add(ax);
-                        }
+                    if (isDisplayed(ax)
+                            && (renderExtensions || ax.getIndividual().isAnonymous())) {
+                        individuals.put(ax.getIndividual(), ax.getAnnotations());
+                        axioms.add(ax);
                     }
                 }
                 writeSection(INDIVIDUALS, individuals, ",", true, ontology);
@@ -607,13 +602,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             for (OWLOntology ontology : ontologies) {
                 for (OWLSubPropertyChainOfAxiom ax : ontology
                         .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
-                    if (ax.getSuperProperty().equals(property)) {
-                        if (isDisplayed(ax)) {
-                            MultiMap<Object, Set<OWLAnnotation>> map = new MultiMap<Object, Set<OWLAnnotation>>();
-                            map.put(ax.getPropertyChain(), ax.getAnnotations());
-                            writeSection(SUB_PROPERTY_CHAIN, map, " o ", false, ontology);
-                            axioms.add(ax);
-                        }
+                    if (ax.getSuperProperty().equals(property) && isDisplayed(ax)) {
+                        MultiMap<Object, Set<OWLAnnotation>> map = new MultiMap<Object, Set<OWLAnnotation>>();
+                        map.put(ax.getPropertyChain(), ax.getAnnotations());
+                        writeSection(SUB_PROPERTY_CHAIN, map, " o ", false, ontology);
+                        axioms.add(ax);
                     }
                 }
             }

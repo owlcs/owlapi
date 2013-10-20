@@ -48,20 +48,15 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * <br> */
 public interface OWLProfile {
     /** http://www.w3.org/ns/owl-profile/DL **/
-    public static final IRI OWL2_DL = IRI.create("http://www.w3.org/ns/owl-profile/",
-            "DL");
+    IRI OWL2_DL = IRI.create("http://www.w3.org/ns/owl-profile/", "DL");
     /** http://www.w3.org/ns/owl-profile/EL **/
-    public static final IRI OWL2_EL = IRI.create("http://www.w3.org/ns/owl-profile/",
-            "EL");
+    IRI OWL2_EL = IRI.create("http://www.w3.org/ns/owl-profile/", "EL");
     /** http://www.w3.org/ns/owl-profile/QL **/
-    public static final IRI OWL2_QL = IRI.create("http://www.w3.org/ns/owl-profile/",
-            "QL");
+    IRI OWL2_QL = IRI.create("http://www.w3.org/ns/owl-profile/", "QL");
     /** http://www.w3.org/ns/owl-profile/RL **/
-    public static final IRI OWL2_RL = IRI.create("http://www.w3.org/ns/owl-profile/",
-            "RL");
+    IRI OWL2_RL = IRI.create("http://www.w3.org/ns/owl-profile/", "RL");
     /** http://www.w3.org/ns/owl-profile/Full **/
-    public static final IRI OWL2_FULL = IRI.create("http://www.w3.org/ns/owl-profile/",
-            "Full");
+    IRI OWL2_FULL = IRI.create("http://www.w3.org/ns/owl-profile/", "Full");
 
     /** Gets the name of the profile.
      * 
@@ -80,7 +75,7 @@ public interface OWLProfile {
      * 
      * @param ontology
      *            The ontology to be checked.
-     * @return An {@code OWLProfileReport} that describes whether or not
-     *         the ontology is within this profile. */
+     * @return An {@code OWLProfileReport} that describes whether or not the
+     *         ontology is within this profile. */
     OWLProfileReport checkOntology(OWLOntology ontology);
 }

@@ -96,31 +96,29 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     sb.append("\n");
                     if (!foundMagicNumber) {
                         String trimmedLine = line.trim();
-                        if (trimmedLine.length() > 0) {
-                            if (!trimmedLine.startsWith(COMMENT_START_CHAR)) {
-                                // Non-empty line, that is not a comment. The
-                                // trimmed line MUST start with our magic
-                                // number if we are going to parse the rest of
-                                // it.
-                                if (startsWithMagicNumber(line)) {
-                                    foundMagicNumber = true;
-                                    // We have set the found flag - we never end
-                                    // up here again
-                                } else {
-                                    // Non-empty line that is NOT a comment. We
-                                    // cannot possibly parse this.
-                                    int startCol = line.indexOf(trimmedLine) + 1;
-                                    StringBuilder msg = new StringBuilder();
-                                    msg.append("Encountered '");
-                                    msg.append(trimmedLine);
-                                    msg.append("' at line ");
-                                    msg.append(lineCount);
-                                    msg.append(" column ");
-                                    msg.append(startCol);
-                                    msg.append(".  Expected either 'Ontology:' or 'Prefix:'");
-                                    throw new ManchesterOWLSyntaxParserException(
-                                            msg.toString(), lineCount, startCol);
-                                }
+                        if (trimmedLine.length() > 0
+                                && !trimmedLine.startsWith(COMMENT_START_CHAR)) {
+                            // Non-empty line, that is not a comment. The
+                            // trimmed line MUST start with our magic
+                            // number if we are going to parse the rest of
+                            // it.
+                            if (startsWithMagicNumber(line)) {
+                                foundMagicNumber = true;
+                                // We have set the found flag - we never end
+                                // up here again
+                            } else {
+                                // Non-empty line that is NOT a comment. We
+                                // cannot possibly parse this.
+                                int startCol = line.indexOf(trimmedLine) + 1;
+                                StringBuilder msg = new StringBuilder("Encountered '")
+                                        .append(trimmedLine)
+                                        .append("' at line ")
+                                        .append(lineCount)
+                                        .append(" column ")
+                                        .append(startCol)
+                                        .append(".  Expected either 'Ontology:' or 'Prefix:'");
+                                throw new ManchesterOWLSyntaxParserException(
+                                        msg.toString(), lineCount, startCol);
                             }
                         }
                     }
