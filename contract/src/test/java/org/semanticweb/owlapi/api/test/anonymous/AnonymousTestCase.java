@@ -3,9 +3,7 @@ package org.semanticweb.owlapi.api.test.anonymous;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
@@ -13,7 +11,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -46,14 +43,6 @@ public class AnonymousTestCase extends AbstractOWLAPITestCase {
         saved = saveOntology(ontologyReloaded);
         equal(ontology, ontologyReloaded);
         // assertEquals(asString(ontology), asString(ontologyReloaded));
-    }
-
-    public static Set<String> asString(OWLOntology o) {
-        Set<String> set = new HashSet<String>();
-        for (OWLAxiom ax : o.getLogicalAxioms()) {
-            set.add(ax.toString().replaceAll("\\_\\:genid[0-9]+", "genid"));
-        }
-        return set;
     }
 
     String saveOntology(OWLOntology ontology) throws OWLOntologyStorageException {

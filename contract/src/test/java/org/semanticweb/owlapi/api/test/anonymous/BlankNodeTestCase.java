@@ -38,11 +38,12 @@
  */
 package org.semanticweb.owlapi.api.test.anonymous;
 
+import static org.mockito.Mockito.mock;
+
 import java.io.Reader;
 import java.io.StringReader;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.model.IRI;
 
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.ParseException;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler;
@@ -57,31 +58,7 @@ public class BlankNodeTestCase {
     @Test
     public void testBlankNodes() throws ParseException {
         Reader input = new StringReader("_:foo <http://example.com/> _:bar .");
-        TripleHandler handler = new TripleHandler() {
-            @Override
-            public void handleTriple(IRI s, IRI p, String o, IRI d) {}
-
-            @Override
-            public void handleTriple(IRI s, IRI p, String o, String lang) {}
-
-            @Override
-            public void handleTriple(IRI s, IRI p, String o) {}
-
-            @Override
-            public void handleTriple(IRI s, IRI p, IRI o) {}
-
-            @Override
-            public void handlePrefixDirective(String pn, String p) {}
-
-            @Override
-            public void handleEnd() {}
-
-            @Override
-            public void handleComment(String comment) {}
-
-            @Override
-            public void handleBaseDirective(String base) {}
-        };
+        TripleHandler handler = mock(TripleHandler.class);
         TurtleParser parser = new TurtleParser(input, handler, "");
         parser.parseDocument();
     }

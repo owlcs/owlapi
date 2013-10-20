@@ -55,6 +55,7 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -66,14 +67,10 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
  * reasoning results, rather it is designed to test the reasoner returns the
  * results in the form required by the OWL API reasoner interface. */
 @SuppressWarnings("javadoc")
-public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
-    private OWLReasonerFactory reasonerFactory;
+public class ReasonerTestCase extends AbstractOWLAPITestCase {
+    private OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
     private OWLOntology ont;
     private OWLReasoner reasoner;
-
-    public AbstractReasonerTestCase(OWLReasonerFactory reasonerFactory) {
-        this.reasonerFactory = reasonerFactory;
-    }
 
     private void createOntology() {
         ont = getOWLOntology("ont");
