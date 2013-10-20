@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * Date: 12-Dec-2006<br>
  * <br> */
 public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor {
-    protected void doDefault(OWLOntologyChange<?> change) {}
+    protected void doDefault(@SuppressWarnings("unused") OWLOntologyChange<?> change) {}
 
     @Override
     public void visit(RemoveAxiom change) {

@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * <br> */
 public class OWLObjectIntersectionOfElementHandler extends
         AbstractNaryBooleanClassExpressionElementHandler {
+    /** @param handler */
     public OWLObjectIntersectionOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

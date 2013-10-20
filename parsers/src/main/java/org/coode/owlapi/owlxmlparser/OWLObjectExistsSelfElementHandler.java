@@ -49,6 +49,7 @@ public class OWLObjectExistsSelfElementHandler extends
         AbstractClassExpressionElementHandler {
     private OWLObjectPropertyExpression property;
 
+    /** @param handler */
     public OWLObjectExistsSelfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 public class OWLObjectOneOfElementHandler extends AbstractClassExpressionElementHandler {
     private Set<OWLIndividual> individuals;
 
+    /** @param handler */
     public OWLObjectOneOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         individuals = new HashSet<OWLIndividual>();

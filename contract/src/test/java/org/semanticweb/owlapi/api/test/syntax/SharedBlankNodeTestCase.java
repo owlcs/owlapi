@@ -3,8 +3,6 @@ package org.semanticweb.owlapi.api.test.syntax;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
-import java.util.Set;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
@@ -32,15 +30,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 @Ignore
 public class SharedBlankNodeTestCase {
-    @Test
-    public void verify() throws OWLOntologyCreationException {
-        String input = "Ontology:\n" + "    \n" + "    DataProperty: xsd:a\n"
-                + "        Range: {1.2}";
-        Set<OWLAxiom> axioms = Factory.getManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(input))
-                .getAxioms();
-    }
-
     @Test
     public void shouldSaveOneIndividual() throws OWLOntologyStorageException,
             OWLOntologyCreationException {

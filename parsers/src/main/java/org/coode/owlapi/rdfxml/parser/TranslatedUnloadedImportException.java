@@ -48,6 +48,7 @@ import org.xml.sax.SAXException;
 public class TranslatedUnloadedImportException extends SAXException {
     private static final long serialVersionUID = 40000L;
 
+    /** @param e */
     public TranslatedUnloadedImportException(UnloadableImportException e) {
         super(e);
     }

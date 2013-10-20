@@ -94,6 +94,8 @@ public class OWLXMLWriter {
     private Map<String, String> iriPrefixMap = new TreeMap<String, String>(
             STRING_LENGTH_COMPARATOR);
 
+    /** @param writer
+     * @param ontology */
     public OWLXMLWriter(Writer writer, OWLOntology ontology) {
         XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(
                 Namespaces.OWL.toString());
@@ -108,10 +110,12 @@ public class OWLXMLWriter {
         this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer, nsm, base);
     }
 
+    /** @return iri prefix map */
     public Map<String, String> getIRIPrefixMap() {
         return iriPrefixMap;
     }
 
+    /** @return namespace manager */
     public XMLWriterNamespaceManager getNamespaceManager() {
         return writer.getNamespacePrefixes();
     }
@@ -122,7 +126,8 @@ public class OWLXMLWriter {
      *            The name of the prefix (e.g. owl: is the prefix name for the
      *            OWL prefix)
      * @param iri
-     *            The prefix iri */
+     *            The prefix iri
+     * @throws IOException */
     public void writePrefix(String prefixName, String iri) throws IOException {
         writer.writeStartElement(OWLXMLVocabulary.PREFIX.getIRI().toString());
         if (prefixName.endsWith(":")) {
@@ -156,6 +161,8 @@ public class OWLXMLWriter {
         return prefixName + iri.getFragment();
     }
 
+    /** @param ontology
+     * @throws OWLRendererException */
     public void startDocument(OWLOntology ontology) throws OWLRendererException {
         try {
             writer.startDocument(OWLXMLVocabulary.ONTOLOGY.toString());
@@ -172,6 +179,9 @@ public class OWLXMLWriter {
         }
     }
 
+    /**
+     * 
+     */
     public void endDocument() {
         try {
             writer.endDocument();
@@ -181,6 +191,7 @@ public class OWLXMLWriter {
         }
     }
 
+    /** @param name */
     public void writeStartElement(OWLXMLVocabulary name) {
         try {
             writer.writeStartElement(name.getIRI().toString());
@@ -189,6 +200,9 @@ public class OWLXMLWriter {
         }
     }
 
+    /**
+     * 
+     */
     public void writeEndElement() {
         try {
             writer.writeEndElement();
@@ -211,6 +225,7 @@ public class OWLXMLWriter {
         }
     }
 
+    /** @param nodeID */
     public void writeNodeIDAttribute(NodeID nodeID) {
         try {
             writer.writeAttribute(OWLXMLVocabulary.NODE_ID.getIRI().toString(),
@@ -220,6 +235,7 @@ public class OWLXMLWriter {
         }
     }
 
+    /** @param iri */
     public void writeIRIAttribute(IRI iri) {
         try {
             String attName = OWLXMLVocabulary.IRI_ATTRIBUTE.getIRI().toString();
@@ -271,6 +287,7 @@ public class OWLXMLWriter {
         }
     }
 
+    /** @param lang */
     public void writeLangAttribute(String lang) {
         try {
             writer.writeAttribute(Namespaces.XML + "lang", lang);
@@ -279,6 +296,7 @@ public class OWLXMLWriter {
         }
     }
 
+    /** @param cardinality */
     public void writeCardinalityAttribute(int cardinality) {
         try {
             writer.writeAttribute(OWLXMLVocabulary.CARDINALITY_ATTRIBUTE.getIRI()
@@ -288,6 +306,7 @@ public class OWLXMLWriter {
         }
     }
 
+    /** @param text */
     public void writeTextContent(String text) {
         try {
             writer.writeTextContent(text);
@@ -296,6 +315,7 @@ public class OWLXMLWriter {
         }
     }
 
+    /** @param facet */
     public void writeFacetAttribute(OWLFacet facet) {
         try {
             writer.writeAttribute(OWLXMLVocabulary.DATATYPE_FACET.getIRI().toString(),
@@ -305,6 +325,7 @@ public class OWLXMLWriter {
         }
     }
 
+    /** @param uri */
     public void writeAnnotationURIAttribute(URI uri) {
         try {
             writer.writeAttribute(OWLXMLVocabulary.ANNOTATION_URI.toString(),

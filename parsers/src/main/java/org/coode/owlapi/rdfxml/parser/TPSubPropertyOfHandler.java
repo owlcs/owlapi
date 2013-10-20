@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class TPSubPropertyOfHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPSubPropertyOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDFS_SUB_PROPERTY_OF.getIRI());
     }

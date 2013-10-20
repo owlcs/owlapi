@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.OWLClass;
  * Information Management Group<br>
  * Date: 28-Jun-2009 */
 public class NamedClassTranslator extends AbstractClassExpressionTranslator {
+    /** @param consumer */
     public NamedClassTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -60,9 +61,8 @@ public class NamedClassTranslator extends AbstractClassExpressionTranslator {
         return !isAnonymous(mainNode);
     }
 
-    /** Translates the specified main node into an
-     * {@code OWLClassExpression}. All triples used in the translation are
-     * consumed.
+    /** Translates the specified main node into an {@code OWLClassExpression}.
+     * All triples used in the translation are consumed.
      * 
      * @param mainNode
      *            The main node of the set of triples that represent the class

@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * <br> */
 public class OWLObjectExactCardinalityElementHandler extends
         AbstractOWLObjectCardinalityElementHandler {
+    /** @param handler */
     public OWLObjectExactCardinalityElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

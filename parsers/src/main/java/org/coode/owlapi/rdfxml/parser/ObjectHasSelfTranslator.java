@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class ObjectHasSelfTranslator extends AbstractClassExpressionTranslator {
+    /** @param consumer */
     public ObjectHasSelfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }

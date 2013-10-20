@@ -50,6 +50,7 @@ public class OWLInverseObjectPropertyElementHandler extends
         AbstractOWLObjectPropertyElementHandler {
     private OWLObjectPropertyExpression inverse;
 
+    /** @param handler */
     public OWLInverseObjectPropertyElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

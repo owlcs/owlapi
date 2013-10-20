@@ -51,6 +51,8 @@ import org.xml.sax.SAXException;
  * Date: 24-Feb-2008<br>
  * <br> */
 public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
+    /** @param ontology
+     * @param configuration */
     public OWLRDFConsumerAdapter(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
         super(ontology, configuration);

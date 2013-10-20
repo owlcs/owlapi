@@ -63,6 +63,7 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
  * An ordered rendering of the Tag Value Pairs that also supports: - default
  * values - unknown tags (which are rendered at the end of the known tags) -
  * extraction of TVPs from annotations */
+@SuppressWarnings("javadoc")
 public class OBOTagValuePairList {
     private Map<String, Set<String>> knownTVPs = new HashMap<String, Set<String>>();
     private Map<String, Set<String>> unknownTVPs = new HashMap<String, Set<String>>();

@@ -52,14 +52,17 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class TPInverseOfHandler extends TriplePredicateHandler {
     private boolean axiomParsingMode = false;
 
+    /** @param consumer */
     public TPInverseOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_INVERSE_OF.getIRI());
     }
 
+    /** @return true if axiom parsing mode */
     public boolean isAxiomParsingMode() {
         return axiomParsingMode;
     }
 
+    /** @param axiomParsingMode */
     public void setAxiomParsingMode(boolean axiomParsingMode) {
         this.axiomParsingMode = axiomParsingMode;
     }

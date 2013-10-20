@@ -45,7 +45,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.Node;
@@ -60,7 +59,7 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 public class StructuralReasonerTestCase extends AbstractOWLAPITestCase {
     @SuppressWarnings("javadoc")
     @Test
-    public void testClassHierarchy() throws OWLOntologyCreationException {
+    public void testClassHierarchy() {
         OWLClass clsX = Class(getIRI("X"));
         OWLClass clsA = Class(getIRI("A"));
         OWLClass clsAp = Class(getIRI("Ap"));

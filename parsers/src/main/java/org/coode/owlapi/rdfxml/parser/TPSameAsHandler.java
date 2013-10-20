@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class TPSameAsHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPSameAsHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_SAME_AS.getIRI());
     }

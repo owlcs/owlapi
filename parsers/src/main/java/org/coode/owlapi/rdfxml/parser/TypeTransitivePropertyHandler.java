@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class TypeTransitivePropertyHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeTransitivePropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_TRANSITIVE_PROPERTY.getIRI());
     }

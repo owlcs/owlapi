@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 19/12/2010 */
 public class TPAnnotatedTargetHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPAnnotatedTargetHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     }

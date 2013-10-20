@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class TPPropertyRangeHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPPropertyRangeHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDFS_RANGE.getIRI());
     }

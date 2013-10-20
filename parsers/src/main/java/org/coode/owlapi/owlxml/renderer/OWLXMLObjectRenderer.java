@@ -148,6 +148,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     private OWLXMLWriter writer;
 
+    /** @param writer */
     public OWLXMLObjectRenderer(@Nonnull OWLXMLWriter writer) {
         this.writer = checkNotNull(writer, "writer cannot be null");
     }

@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class ObjectSomeValuesFromTranslator extends AbstractClassExpressionTranslator {
+    /** @param consumer */
     public ObjectSomeValuesFromTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -64,10 +65,10 @@ public class ObjectSomeValuesFromTranslator extends AbstractClassExpressionTrans
 
     @Override
     public boolean matchesLax(IRI mainNode) {
-        return (isClassExpressionLax(mainNode, OWL_SOME_VALUES_FROM) && isResourcePresent(
-                mainNode, OWL_ON_PROPERTY))
-                || (isObjectPropertyLax(mainNode) && isResourcePresent(mainNode,
-                        OWL_SOME_VALUES_FROM));
+        return isClassExpressionLax(mainNode, OWL_SOME_VALUES_FROM)
+                && isResourcePresent(mainNode, OWL_ON_PROPERTY)
+                || isObjectPropertyLax(mainNode)
+                && isResourcePresent(mainNode, OWL_SOME_VALUES_FROM);
     }
 
     @Override

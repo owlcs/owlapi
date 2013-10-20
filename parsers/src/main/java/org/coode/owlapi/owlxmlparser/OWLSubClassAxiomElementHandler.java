@@ -50,6 +50,7 @@ public class OWLSubClassAxiomElementHandler extends AbstractOWLAxiomElementHandl
     private OWLClassExpression subClass;
     private OWLClassExpression supClass;
 
+    /** @param handler */
     public OWLSubClassAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

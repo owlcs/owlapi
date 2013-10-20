@@ -46,7 +46,12 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Bio-Health Informatics Group<br>
  * Date: 19/12/2010 */
 public interface TriplePatternMatcher {
+    /** @param consumer
+     * @param mainNode
+     * @return true if match found */
     boolean matches(OWLRDFConsumer consumer, IRI mainNode);
 
+    /** @param consumer
+     * @return owl object */
     OWLObject createObject(OWLRDFConsumer consumer);
 }

@@ -10,6 +10,8 @@ public class ParseTypeResourcePropertyElement implements State {
     protected String m_reificationID;
     private RDFParser parser;
 
+    /** @param nodeElement
+     * @param parser */
     public ParseTypeResourcePropertyElement(NodeElement nodeElement, RDFParser parser) {
         m_nodeElement = nodeElement;
         this.parser = parser;

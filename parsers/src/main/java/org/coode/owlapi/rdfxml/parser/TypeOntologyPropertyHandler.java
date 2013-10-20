@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 17/12/2010 */
 public class TypeOntologyPropertyHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeOntologyPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, DeprecatedVocabulary.OWL_ONTOLOGY_PROPERTY);
     }

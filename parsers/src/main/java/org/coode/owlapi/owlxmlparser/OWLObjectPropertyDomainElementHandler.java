@@ -51,6 +51,7 @@ public class OWLObjectPropertyDomainElementHandler extends AbstractOWLAxiomEleme
     private OWLClassExpression domain;
     private OWLObjectPropertyExpression property;
 
+    /** @param handler */
     public OWLObjectPropertyDomainElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

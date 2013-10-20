@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * <br> */
 public class OWLObjectUnionOfElementHandler extends
         AbstractNaryBooleanClassExpressionElementHandler {
+    /** @param handler */
     public OWLObjectUnionOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

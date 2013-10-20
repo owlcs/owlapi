@@ -43,7 +43,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -75,20 +74,22 @@ public class XMLWriterImpl implements XMLWriter {
     protected Writer writer;
     private String encoding = "";
     private String xmlBase;
-    private URI xmlBaseURI;
     private XMLWriterNamespaceManager xmlWriterNamespaceManager;
     private Map<String, String> entities;
     private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private boolean preambleWritten;
     private static final String PERCENT_ENTITY = "&#37;";
 
+    /** @param writer
+     * @param xmlWriterNamespaceManager
+     * @param xmlBase */
     public XMLWriterImpl(@Nonnull Writer writer,
             @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
             @Nonnull String xmlBase) {
         this.writer = checkNotNull(writer, "writer cannot be null");
-        this.xmlWriterNamespaceManager = checkNotNull(xmlWriterNamespaceManager, "xmlWriterNamespaceManager cannot be null");
+        this.xmlWriterNamespaceManager = checkNotNull(xmlWriterNamespaceManager,
+                "xmlWriterNamespaceManager cannot be null");
         this.xmlBase = checkNotNull(xmlBase, "xmlBase cannot be null");
-        xmlBaseURI = URI.create(xmlBase);
         // no need to set it to UTF-8: it's supposed to be the default encoding
         // for XML.
         // Must be set correctly for the Writer anyway, or bugs will ensue.
@@ -130,6 +131,7 @@ public class XMLWriterImpl implements XMLWriter {
         return value;
     }
 
+    /** @return default namespace */
     public String getDefaultNamespace() {
         return xmlWriterNamespaceManager.getDefaultNamespace();
     }
@@ -137,10 +139,6 @@ public class XMLWriterImpl implements XMLWriter {
     @Override
     public String getXMLBase() {
         return xmlBase;
-    }
-
-    public URI getXMLBaseAsURI() {
-        return xmlBaseURI;
     }
 
     @Override
@@ -312,18 +310,13 @@ public class XMLWriterImpl implements XMLWriter {
         }
     }
 
-    public class XMLElement {
+    private class XMLElement {
         private String name;
         private Map<String, String> attributes;
         String textContent;
         private boolean startWritten;
         private int indentation;
         private boolean wrapAttributes;
-
-        public XMLElement(String name) {
-            this(name, 0);
-            wrapAttributes = false;
-        }
 
         public XMLElement(String name, int indentation) {
             this.name = name;

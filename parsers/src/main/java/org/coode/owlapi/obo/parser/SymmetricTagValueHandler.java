@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Date: 10-Jan-2007<br>
  * <br> */
 public class SymmetricTagValueHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public SymmetricTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_SYMMETRIC.getName(), consumer);
     }

@@ -933,7 +933,7 @@ public class StructuralReasoner extends OWLReasonerBase {
          * 
          * @param entity
          *            The entity
-         * @param index
+         * @param _index
          *            index
          * @param stack
          *            stack
@@ -948,18 +948,19 @@ public class StructuralReasoner extends OWLReasonerBase {
          * @param stackEntities
          *            stack entities
          * @param cache
-         *            A cache of children to parents - may be {@code null}
-         *            if no caching is to take place.
+         *            A cache of children to parents - may be {@code null} if no
+         *            caching is to take place.
          * @param childrenOfTop
          *            A set of entities that have a raw parent that is the top
          *            entity
          * @param parentsOfBottom
          *            A set of entities that have a raw parent that is the
          *            bottom entity */
-        public void tarjan(T entity, int index, Stack<T> stack, Map<T, Integer> indexMap,
-                Map<T, Integer> lowlinkMap, Set<Set<T>> result, Set<T> processed,
-                Set<T> stackEntities, Map<T, Collection<T>> cache, Set<T> childrenOfTop,
-                Set<T> parentsOfBottom) {
+        public void tarjan(T entity, int _index, Stack<T> stack,
+                Map<T, Integer> indexMap, Map<T, Integer> lowlinkMap, Set<Set<T>> result,
+                Set<T> processed, Set<T> stackEntities, Map<T, Collection<T>> cache,
+                Set<T> childrenOfTop, Set<T> parentsOfBottom) {
+            int index = _index;
             throwExceptionIfInterrupted();
             if (processed.add(entity)) {
                 Collection<T> rawChildren = rawParentChildProvider.getChildren(entity);

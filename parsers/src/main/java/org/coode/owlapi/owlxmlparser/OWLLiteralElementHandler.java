@@ -54,6 +54,7 @@ public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiter
     private IRI iri;
     private String lang;
 
+    /** @param handler */
     public OWLLiteralElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

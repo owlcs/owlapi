@@ -54,6 +54,7 @@ public class OWLSubObjectPropertyChainElementHandler extends
         AbstractOWLElementHandler<List<OWLObjectPropertyExpression>> {
     private List<OWLObjectPropertyExpression> propertyList;
 
+    /** @param handler */
     public OWLSubObjectPropertyChainElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         propertyList = new ArrayList<OWLObjectPropertyExpression>();

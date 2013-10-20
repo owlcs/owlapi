@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class TPRestHandler extends TriplePredicateHandler {
     protected static int count = 0;
 
+    /** @param consumer */
     public TPRestHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDF_REST.getIRI());
     }

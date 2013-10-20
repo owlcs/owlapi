@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * an ontology format is defined by the equals and hashCode method (not its
  * identity). */
 public abstract class OWLOntologyFormat implements Serializable {
+    private static final long serialVersionUID = 40000L;
     /** if set to "true", an intermediate file will be used for output, even for
      * remote URIs */
     public static final String USE_INTERMEDIATE_OUTPUT_FILE = "USE_INTERMEDIATE_OUTPUT_FILE";
@@ -115,9 +116,9 @@ public abstract class OWLOntologyFormat implements Serializable {
 
     /** If this format describes an ontology that was loaded from some ontology
      * document (rather than created programmatically) there may be some meta
-     * data about the loading process. Subclasses of
-     * {@code OWLOntologyFormat} will provide accessors etc. to details
-     * pertaining to the meta data about loading.
+     * data about the loading process. Subclasses of {@code OWLOntologyFormat}
+     * will provide accessors etc. to details pertaining to the meta data about
+     * loading.
      * 
      * @return An object containing the meta data about loading. Not
      *         {@code null}. */
@@ -147,6 +148,8 @@ public abstract class OWLOntologyFormat implements Serializable {
 
     private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData,
             Serializable {
+        private static final long serialVersionUID = 40000L;
+
         public NullLoaderMetaData() {}
     }
 }

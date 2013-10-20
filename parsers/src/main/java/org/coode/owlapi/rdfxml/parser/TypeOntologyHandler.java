@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 10-Dec-2006<br>
  * <br> */
 public class TypeOntologyHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeOntologyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ONTOLOGY.getIRI());
     }

@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class TPTypeHandler extends TriplePredicateHandler {
     private static final Logger logger = Logger.getLogger(TPTypeHandler.class.getName());
 
+    /** @param consumer */
     public TPTypeHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDF_TYPE.getIRI());
     }

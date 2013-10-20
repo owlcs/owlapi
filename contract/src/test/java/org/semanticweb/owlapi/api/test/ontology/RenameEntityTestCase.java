@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -71,7 +70,7 @@ import org.semanticweb.owlapi.util.OWLEntityRenamer;
 @SuppressWarnings("javadoc")
 public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testRenameClass() throws OWLException {
+    public void testRenameClass() {
         OWLOntology ont = getOWLOntology("testont");
         OWLClass clsAIRI1 = Class(getIRI("ClsA1"));
         OWLClass clsAIRI2 = Class(getIRI("ClsA2"));
@@ -113,7 +112,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testRenameObjectProperty() throws OWLException {
+    public void testRenameObjectProperty() {
         OWLOntology ont = getOWLOntology("testont");
         OWLClass clsA = Class(getIRI("ClsA"));
         OWLObjectProperty propA = ObjectProperty(getIRI("propA"));
@@ -169,7 +168,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testRenameDataProperty() throws OWLException {
+    public void testRenameDataProperty() {
         OWLOntology ont = getOWLOntology("testont");
         OWLClass clsA = Class(getIRI("ClsA"));
         OWLDataProperty propA = DataProperty(getIRI("propA"));
@@ -211,7 +210,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testRenameIndividual() throws OWLException {
+    public void testRenameIndividual() {
         OWLOntology ont = getOWLOntology("testont");
         OWLClass clsA = Class(getIRI("ClsA"));
         OWLDataProperty propA = DataProperty(getIRI("propA"));
@@ -246,7 +245,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testRenameDatatype() throws OWLException {
+    public void testRenameDatatype() {
         OWLOntology ont = getOWLOntology("testont");
         OWLDatatype dtA = Datatype(getIRI("DtA"));
         OWLDatatype dtB = Datatype(getIRI("DtB"));
@@ -279,7 +278,7 @@ public class RenameEntityTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testRenameAnnotationProperty() throws OWLException {
+    public void testRenameAnnotationProperty() {
         OWLOntology ont = getOWLOntology("testont");
         OWLNamedIndividual indA = NamedIndividual(getIRI("indA"));
         OWLNamedIndividual indB = NamedIndividual(getIRI("indB"));

@@ -46,14 +46,18 @@ package org.coode.owlapi.rdfxml.parser;
 public class OWLRDFXMLParserMalformedNodeException extends OWLRDFXMLParserException {
     private static final long serialVersionUID = 40000L;
 
+    /** @param cause */
     public OWLRDFXMLParserMalformedNodeException(Throwable cause) {
         super(cause);
     }
 
+    /** @param message
+     * @param cause */
     public OWLRDFXMLParserMalformedNodeException(String message, Throwable cause) {
         super(message, cause);
     }
 
+    /** @param message */
     public OWLRDFXMLParserMalformedNodeException(String message) {
         super(message);
     }

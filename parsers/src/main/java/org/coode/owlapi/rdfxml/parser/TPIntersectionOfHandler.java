@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * <p/>
  * A handler for top level intersection classes. */
 public class TPIntersectionOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
+    /** @param consumer */
     public TPIntersectionOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_INTERSECTION_OF.getIRI());
     }

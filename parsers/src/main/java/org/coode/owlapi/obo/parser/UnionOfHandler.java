@@ -44,6 +44,7 @@ package org.coode.owlapi.obo.parser;
  * Date: 06-Mar-2007<br>
  * <br> */
 public class UnionOfHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public UnionOfHandler(OBOConsumer consumer) {
         super("union_of", consumer);
     }

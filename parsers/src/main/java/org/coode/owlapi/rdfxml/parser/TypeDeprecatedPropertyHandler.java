@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 10-Dec-2009 */
 public class TypeDeprecatedPropertyHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeDeprecatedPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DEPRECATED_PROPERTY.getIRI());
     }

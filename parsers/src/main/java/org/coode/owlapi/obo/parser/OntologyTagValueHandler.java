@@ -43,6 +43,7 @@ package org.coode.owlapi.obo.parser;
  * Bio-Health Informatics Group<br>
  * Date: 03/02/2011 */
 public class OntologyTagValueHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public OntologyTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ONTOLOGY.getName(), consumer);
     }

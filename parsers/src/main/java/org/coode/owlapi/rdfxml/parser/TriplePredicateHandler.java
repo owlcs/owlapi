@@ -48,6 +48,8 @@ import org.semanticweb.owlapi.model.IRI;
 public abstract class TriplePredicateHandler extends AbstractResourceTripleHandler {
     private IRI predicateIRI;
 
+    /** @param consumer
+     * @param predicateIRI */
     public TriplePredicateHandler(OWLRDFConsumer consumer, IRI predicateIRI) {
         super(consumer);
         this.predicateIRI = predicateIRI;
@@ -59,6 +61,7 @@ public abstract class TriplePredicateHandler extends AbstractResourceTripleHandl
         return predicate.equals(predicateIRI);
     }
 
+    /** @return predicate iri */
     public IRI getPredicateIRI() {
         return predicateIRI;
     }

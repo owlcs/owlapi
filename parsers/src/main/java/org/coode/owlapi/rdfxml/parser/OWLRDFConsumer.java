@@ -179,8 +179,10 @@ public class OWLRDFConsumer implements RDFConsumer {
     // owl:AllDifferent
     // owl:NegativePropertyAssertion
     // owl:Axiom
-    // These need to be handled separately from other types, because the base triples for annotated
-    // axioms should be in the ontology before annotations on the annotated versions of these axioms are parsed.
+    // These need to be handled separately from other types, because the base
+    // triples for annotated
+    // axioms should be in the ontology before annotations on the annotated
+    // versions of these axioms are parsed.
     protected Map<IRI, BuiltInTypeHandler> axiomTypeTripleHandlers = new HashMap<IRI, BuiltInTypeHandler>();
     // Handlers for build in predicates
     private Map<IRI, TriplePredicateHandler> predicateHandlers;
@@ -227,6 +229,8 @@ public class OWLRDFConsumer implements RDFConsumer {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////
     private boolean parsedAllTriples = false;
 
+    /** @param ontology
+     * @param configuration */
     public OWLRDFConsumer(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
@@ -292,8 +296,10 @@ public class OWLRDFConsumer implements RDFConsumer {
         setupPredicateHandlers();
         // General literal triples - i.e. triples which have a predicate
         // that is not a built in IRI. Annotation properties get precedence
-        // over data properties, so that if we have the statement a:A a:foo a:B and a:foo
-        // is typed as both an annotation and data property then the statement will be
+        // over data properties, so that if we have the statement a:A a:foo a:B
+        // and a:foo
+        // is typed as both an annotation and data property then the statement
+        // will be
         // translated as an annotation on a:A
         literalTripleHandlers = new ArrayList<AbstractLiteralTripleHandler>();
         literalTripleHandlers.add(new GTPDataPropertyAssertionHandler(this));
@@ -301,8 +307,10 @@ public class OWLRDFConsumer implements RDFConsumer {
         literalTripleHandlers.add(new GTPAnnotationLiteralHandler(this));
         // General resource/object triples - i.e. triples which have a predicate
         // that is not a built in IRI. Annotation properties get precedence
-        // over object properties, so that if we have the statement a:A a:foo a:B and a:foo
-        // is typed as both an annotation and data property then the statement will be
+        // over object properties, so that if we have the statement a:A a:foo
+        // a:B and a:foo
+        // is typed as both an annotation and data property then the statement
+        // will be
         // translated as an annotation on a:A
         resourceTripleHandlers = new ArrayList<AbstractResourceTripleHandler>();
         resourceTripleHandlers.add(new GTPObjectPropertyAssertionHandler(this));
@@ -501,6 +509,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         return ontologyFormat;
     }
 
+    /** @param format */
     public void setOntologyFormat(RDFOntologyFormat format) {
         ontologyFormat = format;
     }
@@ -698,8 +707,8 @@ public class OWLRDFConsumer implements RDFConsumer {
      * 
      * @param iri
      *            The IRI of the node to be checked.
-     * @return {@code true} if the node is anonymous, or {@code false}
-     *         if the node is not anonymous. */
+     * @return {@code true} if the node is anonymous, or {@code false} if the
+     *         node is not anonymous. */
     protected boolean isAnonymousNode(IRI iri) {
         return NodeID.isAnonymousNodeIRI(iri);
     }
@@ -780,10 +789,14 @@ public class OWLRDFConsumer implements RDFConsumer {
      * 
      * @param iri
      *            The IRI to check
-     * @return {@code true} if the IRI corresponds to a built in OWL entity
-     *         IRI otherwise {@code false}. */
+     * @return {@code true} if the IRI corresponds to a built in OWL entity IRI
+     *         otherwise {@code false}. */
     private boolean isEntityTypeIRI(IRI iri) {
-        return iri.equals(OWL_CLASS.getIRI()) || iri.equals(OWL_OBJECT_PROPERTY.getIRI()) || iri.equals(OWL_DATA_PROPERTY.getIRI()) || iri.equals(OWL_ANNOTATION_PROPERTY.getIRI()) || iri.equals(RDFS_DATATYPE.getIRI()) || iri.equals(OWL_NAMED_INDIVIDUAL.getIRI());
+        return iri.equals(OWL_CLASS.getIRI()) || iri.equals(OWL_OBJECT_PROPERTY.getIRI())
+                || iri.equals(OWL_DATA_PROPERTY.getIRI())
+                || iri.equals(OWL_ANNOTATION_PROPERTY.getIRI())
+                || iri.equals(RDFS_DATATYPE.getIRI())
+                || iri.equals(OWL_NAMED_INDIVIDUAL.getIRI());
     }
 
     protected void applyChange(OWLOntologyChange<?> change) {
@@ -879,8 +892,8 @@ public class OWLRDFConsumer implements RDFConsumer {
      * 
      * @param iri
      *            The IRI to check.
-     * @return {@code true} if the IRI is an object property IRI and not a
-     *         data property IRI and not an annotation property IRI. Otherwise,
+     * @return {@code true} if the IRI is an object property IRI and not a data
+     *         property IRI and not an annotation property IRI. Otherwise,
      *         {@code false}. */
     protected boolean isObjectPropertyOnly(IRI iri) {
         return iri != null && !dataPropertyExpressionIRIs.contains(iri)
@@ -899,9 +912,9 @@ public class OWLRDFConsumer implements RDFConsumer {
      * 
      * @param iri
      *            The IRI to check.
-     * @return {@code true} if the IRI is a data property IRI and not an
-     *         object property IRI and not an annotation property IRI.
-     *         Otherwise, {@code false}. */
+     * @return {@code true} if the IRI is a data property IRI and not an object
+     *         property IRI and not an annotation property IRI. Otherwise,
+     *         {@code false}. */
     protected boolean isDataPropertyOnly(IRI iri) {
         return iri != null && !objectPropertyExpressionIRIs.contains(iri)
                 && !annotationPropertyIRIs.contains(iri)
@@ -919,9 +932,9 @@ public class OWLRDFConsumer implements RDFConsumer {
      * 
      * @param iri
      *            The IRI to check.
-     * @return {@code true} if the IRI is an annotation property IRI and
-     *         not a data property IRI and not an object property IRI.
-     *         Otherwise, {@code false}. */
+     * @return {@code true} if the IRI is an annotation property IRI and not a
+     *         data property IRI and not an object property IRI. Otherwise,
+     *         {@code false}. */
     protected boolean isAnnotationPropertyOnly(IRI iri) {
         return iri != null && !objectPropertyExpressionIRIs.contains(iri)
                 && !dataPropertyExpressionIRIs.contains(iri)
@@ -1237,13 +1250,16 @@ public class OWLRDFConsumer implements RDFConsumer {
             tripleProcessor.fine("Total number of triples: " + count);
             RDFOntologyFormat format = ontologyFormat;
             consumeSWRLRules();
-
-
-            // We need to mop up all remaining triples.  These triples will be in the
-            // triples by subject map.  Other triples which reside in the triples by
-            // predicate (single valued) triple aren't "root" triples for axioms.  First
-            // we translate all system triples and then go for triples whose predicates
-            // are not system/reserved vocabulary IRIs to translate these into ABox assertions
+            // We need to mop up all remaining triples. These triples will be in
+            // the
+            // triples by subject map. Other triples which reside in the triples
+            // by
+            // predicate (single valued) triple aren't "root" triples for
+            // axioms. First
+            // we translate all system triples and then go for triples whose
+            // predicates
+            // are not system/reserved vocabulary IRIs to translate these into
+            // ABox assertions
             // or annotationIRIs
             iterateResourceTriples(new ResourceTripleIterator<UnloadableImportException>() {
                 @Override
@@ -1564,8 +1580,8 @@ public class OWLRDFConsumer implements RDFConsumer {
      *            The data type - may be {@code null}
      * @param lang
      *            The lang - may be {@code null}
-     * @return The {@code OWLConstant} (either typed or untyped depending
-     *         on the params) */
+     * @return The {@code OWLConstant} (either typed or untyped depending on the
+     *         params) */
     private OWLLiteral getOWLLiteral(String literal, String datatype, String lang) {
         if (datatype != null) {
             return dataFactory.getOWLLiteral(literal,
@@ -1875,8 +1891,8 @@ public class OWLRDFConsumer implements RDFConsumer {
         return IRIs;
     }
 
-    protected IRI
-            getResourceObject(IRI subject, OWLRDFVocabulary predicate, boolean consume) {
+    protected IRI getResourceObject(IRI subject, OWLRDFVocabulary predicate,
+            boolean consume) {
         return getResourceObject(subject, predicate.getIRI(), consume);
     }
 
@@ -1984,8 +2000,8 @@ public class OWLRDFConsumer implements RDFConsumer {
         return result;
     }
 
-    protected boolean
-            isTriplePresent(IRI subject, IRI predicate, IRI object, boolean consume) {
+    protected boolean isTriplePresent(IRI subject, IRI predicate, IRI object,
+            boolean consume) {
         Map<IRI, IRI> subjPredMap = singleValuedResTriplesByPredicate.get(predicate);
         if (subjPredMap != null) {
             IRI obj = subjPredMap.get(subject);

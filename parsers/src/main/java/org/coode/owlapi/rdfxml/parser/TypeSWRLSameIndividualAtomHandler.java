@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.SWRLVocabulary;
  * Date: 18-Feb-2007<br>
  * <br> */
 public class TypeSWRLSameIndividualAtomHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeSWRLSameIndividualAtomHandler(OWLRDFConsumer consumer) {
         super(consumer, SWRLVocabulary.SAME_INDIVIDUAL_ATOM.getIRI());
     }

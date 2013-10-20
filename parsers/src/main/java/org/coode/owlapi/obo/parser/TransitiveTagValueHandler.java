@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Date: 10-Jan-2007<br>
  * <br> */
 public class TransitiveTagValueHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public TransitiveTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_TRANSITIVE.getName(), consumer);
     }

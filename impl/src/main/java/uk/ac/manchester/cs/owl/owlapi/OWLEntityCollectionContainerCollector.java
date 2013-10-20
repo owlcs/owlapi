@@ -42,7 +42,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -171,26 +170,6 @@ public class OWLEntityCollectionContainerCollector extends
         return new HashSet<OWLAnonymousIndividual>();
     }
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Axiom Visitor stuff
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////
-    private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
-        @Override
-        public void visit(CollectionContainer<OWLAnnotation> c) {}
-
-        @Override
-        public void visitItem(OWLAnnotation c) {
-            c.accept(OWLEntityCollectionContainerCollector.this);
-        }
-    };
-
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    // OWLClassExpressionVisitor
-    //
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLClass desc) {
         if (collectClasses) {
@@ -198,11 +177,6 @@ public class OWLEntityCollectionContainerCollector extends
         }
     }
 
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Entity visitor
-    //
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLObjectProperty property) {
         if (collectObjectProperties) {

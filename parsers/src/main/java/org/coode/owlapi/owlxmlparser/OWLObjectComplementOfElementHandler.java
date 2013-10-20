@@ -49,6 +49,7 @@ public class OWLObjectComplementOfElementHandler extends
         AbstractClassExpressionElementHandler {
     private OWLClassExpression operand;
 
+    /** @param handler */
     public OWLObjectComplementOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

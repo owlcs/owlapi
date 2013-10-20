@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class TypeDatatypeHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeDatatypeHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDFS_DATATYPE.getIRI());
     }

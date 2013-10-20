@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Institute of Artificial Intelligence<br> */
 public class KRSS2OntologyFormat extends OWLOntologyFormat {
     private static final long serialVersionUID = 40000L;
-    public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
+    private static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
 
     @Override
     public String toString() {

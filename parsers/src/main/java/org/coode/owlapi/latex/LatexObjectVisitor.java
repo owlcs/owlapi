@@ -1023,6 +1023,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         axiom.getSuperProperty().accept(this);
     }
 
+    /** @param value */
     public void visit(OWLAnnotationValue value) {
         value.accept(new OWLAnnotationValueVisitor() {
             @Override

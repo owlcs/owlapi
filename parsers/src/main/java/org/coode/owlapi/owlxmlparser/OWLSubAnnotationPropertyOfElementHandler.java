@@ -50,6 +50,7 @@ public class OWLSubAnnotationPropertyOfElementHandler extends
     OWLAnnotationProperty subProperty = null;
     OWLAnnotationProperty superProperty = null;
 
+    /** @param handler */
     public OWLSubAnnotationPropertyOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

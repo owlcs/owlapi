@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 13-Feb-2007<br>
  * <br> */
 public class TypeSelfRestrictionHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeSelfRestrictionHandler(OWLRDFConsumer consumer) {
         super(consumer, DeprecatedVocabulary.OWL_SELF_RESTRICTION);
     }

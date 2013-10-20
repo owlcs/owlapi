@@ -75,7 +75,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
@@ -113,7 +112,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testSubClassOfAxiomAccessors() throws OWLOntologyCreationException {
+    public void testSubClassOfAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLClass clsA = Class(getIRI("A"));
         OWLClass clsB = Class(getIRI("B"));
@@ -132,7 +131,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testEquivalentClassesAxiomAccessors() throws OWLOntologyCreationException {
+    public void testEquivalentClassesAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLClass clsA = Class(getIRI("A"));
         OWLClass clsB = Class(getIRI("B"));
@@ -153,7 +152,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testDisjointClassesAxiomAccessors() throws OWLOntologyCreationException {
+    public void testDisjointClassesAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLClass clsA = Class(getIRI("A"));
         OWLClass clsB = Class(getIRI("B"));
@@ -174,8 +173,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testSubObjectPropertyOfAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testSubObjectPropertyOfAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLObjectProperty propQ = ObjectProperty(getIRI("q"));
@@ -189,8 +187,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testEquivalentObjectPropertiesAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testEquivalentObjectPropertiesAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLObjectProperty propQ = ObjectProperty(getIRI("q"));
@@ -209,8 +206,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testDisjointObjectPropertiesAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testDisjointObjectPropertiesAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLObjectProperty propQ = ObjectProperty(getIRI("q"));
@@ -229,8 +225,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testObjectPropertyDomainAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testObjectPropertyDomainAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLClass clsA = Class(getIRI("ClsA"));
@@ -244,8 +239,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testObjectPropertyRangeAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testObjectPropertyRangeAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLClass clsA = Class(getIRI("ClsA"));
@@ -259,8 +253,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testFunctionalObjectPropertyAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testFunctionalObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
@@ -273,8 +266,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testInverseFunctionalObjectPropertyAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testInverseFunctionalObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
@@ -287,8 +279,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testTransitiveObjectPropertyAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testTransitiveObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
@@ -301,8 +292,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testSymmetricObjectPropertyAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testSymmetricObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
@@ -315,8 +305,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testAsymmetricObjectPropertyAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testAsymmetricObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
@@ -329,8 +318,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testReflexiveObjectPropertyAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testReflexiveObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
@@ -343,8 +331,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testIrreflexiveObjectPropertyAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testIrreflexiveObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
@@ -357,7 +344,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testSubDataPropertyOfAxiomAccessors() throws OWLOntologyCreationException {
+    public void testSubDataPropertyOfAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty propP = DataProperty(getIRI("p"));
         OWLDataProperty propQ = DataProperty(getIRI("q"));
@@ -371,8 +358,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testEquivalentDataPropertiesAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testEquivalentDataPropertiesAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty propP = DataProperty(getIRI("p"));
         OWLDataProperty propQ = DataProperty(getIRI("q"));
@@ -391,8 +377,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testDisjointDataPropertiesAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testDisjointDataPropertiesAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty propP = DataProperty(getIRI("p"));
         OWLDataProperty propQ = DataProperty(getIRI("q"));
@@ -410,8 +395,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testDataPropertyDomainAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testDataPropertyDomainAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty propP = DataProperty(getIRI("p"));
         OWLClass clsA = Class(getIRI("ClsA"));
@@ -425,7 +409,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testDataPropertyRangeAxiomAccessors() throws OWLOntologyCreationException {
+    public void testDataPropertyRangeAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty propP = DataProperty(getIRI("p"));
         OWLDatatype dt = Datatype(getIRI("dt"));
@@ -439,8 +423,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testFunctionalDataPropertyAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testFunctionalDataPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty propP = DataProperty(getIRI("p"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
@@ -453,7 +436,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testClassAssertionAxiomAccessors() throws OWLOntologyCreationException {
+    public void testClassAssertionAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLClass clsA = Class(getIRI("clsA"));
         OWLNamedIndividual indA = NamedIndividual(getIRI("indA"));
@@ -469,7 +452,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testObjectPropertyAxiomAccessors() throws OWLOntologyCreationException {
+    public void testObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         OWLNamedIndividual indA = NamedIndividual(getIRI("indA"));
@@ -483,8 +466,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testNegativeObjectPropertyAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testNegativeObjectPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         OWLNamedIndividual indA = NamedIndividual(getIRI("indA"));
@@ -499,7 +481,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testDataPropertyAxiomAccessors() throws OWLOntologyCreationException {
+    public void testDataPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty prop = DataProperty(getIRI("prop"));
         OWLNamedIndividual indA = NamedIndividual(getIRI("indA"));
@@ -513,8 +495,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testNegativeDataPropertyAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testNegativeDataPropertyAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLDataProperty prop = DataProperty(getIRI("prop"));
         OWLNamedIndividual indA = NamedIndividual(getIRI("indA"));
@@ -529,7 +510,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testSameIndividualAxiomAccessors() throws OWLOntologyCreationException {
+    public void testSameIndividualAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLNamedIndividual indA = NamedIndividual(getIRI("indA"));
         OWLNamedIndividual indB = NamedIndividual(getIRI("indB"));
@@ -547,8 +528,7 @@ public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testDifferentIndividualsAxiomAccessors()
-            throws OWLOntologyCreationException {
+    public void testDifferentIndividualsAxiomAccessors() {
         OWLOntology ont = getOWLOntology("ont");
         OWLNamedIndividual indA = NamedIndividual(getIRI("indA"));
         OWLNamedIndividual indB = NamedIndividual(getIRI("indB"));

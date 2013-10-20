@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio Health Informatics Group<br>
  * Date: Dec 18, 2008<br>
  * <br> */
+@SuppressWarnings("javadoc")
 public class OBORelationship {
     private OWLObjectProperty property;
     private int minCardinality = -1;

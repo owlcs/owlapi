@@ -48,16 +48,23 @@ import org.semanticweb.owlapi.io.OWLParserException;
 public class OWLRDFParserException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 
+    /**
+     * 
+     */
     public OWLRDFParserException() {}
 
+    /** @param message */
     public OWLRDFParserException(String message) {
         super(message);
     }
 
+    /** @param message
+     * @param cause */
     public OWLRDFParserException(String message, Throwable cause) {
         super(message, cause);
     }
 
+    /** @param cause */
     public OWLRDFParserException(Throwable cause) {
         super(cause);
     }

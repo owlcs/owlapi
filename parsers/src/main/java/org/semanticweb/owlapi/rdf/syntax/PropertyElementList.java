@@ -10,6 +10,8 @@ public class PropertyElementList implements State {
     protected NodeElement m_nodeElement;
     private RDFParser parser;
 
+    /** @param nodeElement
+     * @param parser */
     public PropertyElementList(NodeElement nodeElement, RDFParser parser) {
         m_nodeElement = nodeElement;
         this.parser = parser;

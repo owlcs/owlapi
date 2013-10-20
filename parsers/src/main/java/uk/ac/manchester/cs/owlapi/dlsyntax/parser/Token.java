@@ -41,6 +41,7 @@
 package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
 
 /** Describes the input token stream. */
+@SuppressWarnings("javadoc")
 public class Token implements java.io.Serializable {
     /** The version identifier for this Serializable class. Increment only if the
      * <i>serialized</i> form of the class changes. */
@@ -101,6 +102,7 @@ public class Token implements java.io.Serializable {
     }
 
     /** Returns the image. */
+    @Override
     public String toString() {
         return image;
     }

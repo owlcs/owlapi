@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 11-Dec-2006<br>
  * <br> */
 public class TPOnPropertyHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPOnPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI());
     }

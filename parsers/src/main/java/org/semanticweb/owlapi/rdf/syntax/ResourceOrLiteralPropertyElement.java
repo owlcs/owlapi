@@ -15,6 +15,8 @@ public class ResourceOrLiteralPropertyElement implements State {
     protected NodeElement m_innerNode;
     private RDFParser parser;
 
+    /** @param nodeElement
+     * @param parser */
     public ResourceOrLiteralPropertyElement(NodeElement nodeElement, RDFParser parser) {
         m_nodeElement = nodeElement;
         this.parser = parser;
@@ -31,8 +33,7 @@ public class ResourceOrLiteralPropertyElement implements State {
             m_text = new StringBuilder();
         } else {
             if (!parser.isWhitespaceOnly(m_text)) {
-                throw new RDFParserException(
-"Text was seen and new node is started.",
+                throw new RDFParserException("Text was seen and new node is started.",
                         parser.m_documentLocator);
             }
             if (m_datatype != null) {
@@ -51,12 +52,10 @@ public class ResourceOrLiteralPropertyElement implements State {
             throws SAXException {
         if (m_innerNode != null) {
             parser.statementWithResourceValue(m_nodeElement.getSubjectIRI(),
-                    m_propertyIRI,
-                    m_innerNode.getSubjectIRI(), m_reificationID);
+                    m_propertyIRI, m_innerNode.getSubjectIRI(), m_reificationID);
         } else {
             parser.statementWithLiteralValue(m_nodeElement.getSubjectIRI(),
-                    m_propertyIRI,
-                    m_text.toString(), m_datatype, m_reificationID);
+                    m_propertyIRI, m_text.toString(), m_datatype, m_reificationID);
         }
         parser.popState();
     }

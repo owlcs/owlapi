@@ -5,14 +5,12 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.OutputStream;
 import java.io.Writer;
-import java.util.Collection;
 import java.util.Set;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
@@ -39,11 +37,9 @@ import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxRende
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.RendererEvent;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.RendererListener;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.RenderingDirector;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.SectionMap;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractMansyntaxrendererTest {
-
     public void shouldTestManchesterOWLSyntaxFrameRenderer() throws Exception {
         ManchesterOWLSyntaxFrameRenderer testSubject0 = new ManchesterOWLSyntaxFrameRenderer(
                 Utils.mockSet(Utils.getMockOntology()), mock(Writer.class),
@@ -73,8 +69,6 @@ public class ContractMansyntaxrendererTest {
         testSubject0.writePrefixMap();
         testSubject0.writeOntologyHeader(Utils.getMockOntology());
         testSubject0.writeSection(mock(ManchesterOWLSyntax.class),
-                mock(SectionMap.class), "", false, mock(OWLOntology[].class));
-        testSubject0.writeSection(mock(ManchesterOWLSyntax.class),
                 Utils.mockCollection(), "", false, mock(OWLOntology[].class));
         testSubject0.writeSection(mock(ManchesterOWLSyntax.class));
         testSubject0.writeFullURI("");
@@ -96,7 +90,6 @@ public class ContractMansyntaxrendererTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-
     }
 
     @Test
@@ -104,7 +97,6 @@ public class ContractMansyntaxrendererTest {
         ManchesterOWLSyntaxOWLObjectRendererImpl testSubject0 = new ManchesterOWLSyntaxOWLObjectRendererImpl();
         String result0 = testSubject0.render(mock(OWLObject.class));
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
-
     }
 
     @Test
@@ -118,7 +110,6 @@ public class ContractMansyntaxrendererTest {
         String result0 = testSubject0.getShortForm(Utils.mockOWLEntity());
         String result1 = testSubject0.getShortForm(IRI("urn:aFake"));
         PrefixManager result2 = testSubject0.getPrefixManager();
-
     }
 
     @Test
@@ -126,7 +117,6 @@ public class ContractMansyntaxrendererTest {
         ManchesterOWLSyntaxRenderer testSubject0 = new ManchesterOWLSyntaxRenderer();
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
-
     }
 
     @Test
@@ -137,7 +127,6 @@ public class ContractMansyntaxrendererTest {
         ManchesterOWLSyntaxFrameRenderer result0 = testSubject0.getFrameRenderer();
         testSubject0.writeCommentOnNewLine("");
         OWLObject result1 = testSubject0.getFrameSubject();
-
     }
 
     @Test
@@ -157,17 +146,5 @@ public class ContractMansyntaxrendererTest {
         RenderingDirector testSubject0 = mock(RenderingDirector.class);
         boolean result0 = testSubject0.renderEmptyFrameSection(
                 mock(ManchesterOWLSyntax.class), mock(OWLOntology[].class));
-    }
-
-    @Test
-    public void shouldTestSectionMap() throws Exception {
-        SectionMap testSubject0 = new SectionMap();
-        testSubject0.add(mock(Object.class), mock(OWLAxiom.class));
-        boolean result0 = testSubject0.isEmpty();
-        testSubject0.remove(mock(Object.class));
-        Collection<Object> result1 = testSubject0.getSectionObjects();
-        Set<Set<OWLAnnotation>> result2 = testSubject0
-                .getAnnotationsForSectionObject(mock(Object.class));
-
     }
 }

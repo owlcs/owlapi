@@ -55,6 +55,7 @@ public class ObjectPropertyListItemTranslator implements
             .getLogger(ObjectPropertyListItemTranslator.class.getName());
     private OWLRDFConsumer consumer;
 
+    /** @param consumer */
     public ObjectPropertyListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class TypePropertyHandler extends BuiltInTypeHandler {
     private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
 
+    /** @param consumer */
     public TypePropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDF_PROPERTY.getIRI());
     }

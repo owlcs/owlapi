@@ -50,6 +50,7 @@ public class OWLObjectPropertyElementHandler extends
         AbstractOWLObjectPropertyElementHandler {
     private IRI iri;
 
+    /** @param handler */
     public OWLObjectPropertyElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

@@ -184,7 +184,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public boolean hasLang(String l) {
+    public boolean hasLang(String _l) {
+        String l = _l;
         if (l == null && lang == null) {
             return true;
         }

@@ -53,6 +53,7 @@ public class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLClassExpression ce;
     private Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
 
+    /** @param handler */
     public OWLHasKeyElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

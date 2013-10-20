@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Date: 13-Dec-2006<br>
  * <br> */
 public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
+    /** @param handler */
     public OWLOntologyHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

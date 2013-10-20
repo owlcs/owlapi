@@ -48,6 +48,7 @@ import org.xml.sax.SAXException;
 public class OWLRDFXMLParserSAXException extends OWLRDFXMLParserException {
     private static final long serialVersionUID = 40000L;
 
+    /** @param cause */
     public OWLRDFXMLParserSAXException(SAXException cause) {
         super(cause);
     }

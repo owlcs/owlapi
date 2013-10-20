@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
-import java.net.URI;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -125,7 +124,6 @@ public class ContractMediumTest {
         OWLAnnotationProperty result3 = testSubject0.getOWLAnnotationProperty("");
         OWLDatatype result4 = testSubject0.getOWLDatatype("");
         OWLNamedIndividual result5 = testSubject0.getOWLIndividual("");
-
     }
 
     @Test
@@ -134,14 +132,12 @@ public class ContractMediumTest {
                 mock(OWLObjectRenderer.class));
         ExplanationTree result0 = testSubject0.getOrderedExplanation(
                 mock(OWLAxiom.class), Utils.mockSet(mock(OWLAxiom.class)));
-
     }
 
     @Test
     public void shouldTestEntailedAxiomTree() throws OWLException {
         EntailedAxiomTree testSubject0 = new EntailedAxiomTree(mock(OWLAxiom.class));
         boolean result0 = testSubject0.isEntailed();
-
         Tree<OWLAxiom> result2 = testSubject0.getParent();
         Tree<OWLAxiom> result4 = testSubject0.getRoot();
         boolean result5 = testSubject0.isRoot();
@@ -173,7 +169,6 @@ public class ContractMediumTest {
     public void shouldTestExplanationTree() throws OWLException {
         ExplanationTree testSubject0 = new ExplanationTree(mock(OWLAxiom.class));
         boolean result0 = testSubject0.isEntailed();
-
         Tree<OWLAxiom> result2 = testSubject0.getParent();
         Tree<OWLAxiom> result4 = testSubject0.getRoot();
         boolean result5 = testSubject0.isRoot();
@@ -199,7 +194,6 @@ public class ContractMediumTest {
         NullExplanationOrderer testSubject0 = new NullExplanationOrderer();
         ExplanationTree result0 = testSubject0.getOrderedExplanation(
                 mock(OWLAxiom.class), Utils.mockSet(mock(OWLAxiom.class)));
-
     }
 
     @Test
@@ -300,7 +294,6 @@ public class ContractMediumTest {
         IllegalElementNameException testSubject0 = new IllegalElementNameException("");
         String result0 = testSubject0.getElementName();
         Throwable result2 = testSubject0.getCause();
-
         String result5 = testSubject0.getMessage();
         String result6 = testSubject0.getLocalizedMessage();
     }
@@ -320,7 +313,6 @@ public class ContractMediumTest {
         testSubject0.setDefaultNamespace("");
         String result4 = testSubject0.getNamespaceForPrefix("");
         testSubject0.createPrefixForNamespace("");
-
     }
 
     @Test
@@ -346,7 +338,6 @@ public class ContractMediumTest {
         XMLWriterFactory result0 = XMLWriterFactory.getInstance();
         XMLWriter result1 = testSubject0.createXMLWriter(mock(Writer.class),
                 mock(XMLWriterNamespaceManager.class), "");
-
     }
 
     @Ignore
@@ -366,8 +357,6 @@ public class ContractMediumTest {
         testSubject0.writeAttribute("", "");
         testSubject0.writeTextContent("");
         testSubject0.writeComment("");
-        URI result3 = testSubject0.getXMLBaseAsURI();
-
     }
 
     @Test
@@ -382,7 +371,6 @@ public class ContractMediumTest {
         testSubject0.setDefaultNamespace("");
         String result4 = testSubject0.getNamespaceForPrefix("");
         testSubject0.createPrefixForNamespace("");
-
     }
 
     @Test
@@ -395,7 +383,6 @@ public class ContractMediumTest {
         testSubject0.setIndenting(false);
         int result3 = testSubject0.getIndentSize();
         testSubject0.setIndentSize(0);
-
     }
 
     @Test
@@ -483,7 +470,6 @@ public class ContractMediumTest {
         OWLOntology result46 = testSubject0.getRootOntology();
         OWLReasonerConfiguration result47 = testSubject0.getReasonerConfiguration();
         Collection<OWLAxiom> result48 = testSubject0.getReasonerAxioms();
-
     }
 
     @Test
@@ -497,7 +483,6 @@ public class ContractMediumTest {
         OWLReasoner result3 = testSubject0.createReasoner(Utils.getMockOntology());
         OWLReasoner result4 = testSubject0.createReasoner(Utils.getMockOntology(),
                 mock(OWLReasonerConfiguration.class));
-
     }
 
     @Ignore
@@ -551,7 +536,6 @@ public class ContractMediumTest {
         OWLClassExpression result34 = testSubject0.parseCardinalityRestriction();
         OWLClass result35 = testSubject0.parseClassId();
         OWLClassExpression result36 = testSubject0.NestedClassDescription();
-
     }
 
     @Test

@@ -51,6 +51,7 @@ public class OWLSubDataPropertyOfAxiomElementHandler extends
     private OWLDataPropertyExpression subProperty;
     private OWLDataPropertyExpression superProperty;
 
+    /** @param handler */
     public OWLSubDataPropertyOfAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

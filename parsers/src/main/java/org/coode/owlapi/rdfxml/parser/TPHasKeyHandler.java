@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class TPHasKeyHandler extends TriplePredicateHandler {
     private OptimisedListTranslator<OWLPropertyExpression> listTranslator;
 
+    /** @param consumer */
     public TPHasKeyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_HAS_KEY.getIRI());
         listTranslator = new OptimisedListTranslator<OWLPropertyExpression>(

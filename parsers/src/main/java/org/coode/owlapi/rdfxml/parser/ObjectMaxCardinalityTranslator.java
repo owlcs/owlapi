@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class ObjectMaxCardinalityTranslator extends AbstractClassExpressionTranslator {
+    /** @param consumer */
     public ObjectMaxCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }

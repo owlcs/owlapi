@@ -60,6 +60,10 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * Date: 12-Dec-2006<br>
  * <br> */
 public class OWLXMLRenderer extends AbstractOWLRenderer {
+    /** @param ontology
+     * @param writer
+     * @param format
+     * @throws OWLRendererException */
     public void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
             @Nonnull OWLOntologyFormat format) throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
@@ -107,7 +111,8 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
 
     @Override
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
-        render(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(writer, "writer cannot be null"), ontology
-                .getOWLOntologyManager().getOntologyFormat(ontology));
+        render(checkNotNull(ontology, "ontology cannot be null"),
+                checkNotNull(writer, "writer cannot be null"), ontology
+                        .getOWLOntologyManager().getOntologyFormat(ontology));
     }
 }

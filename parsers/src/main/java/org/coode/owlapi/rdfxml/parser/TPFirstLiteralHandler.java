@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 08-Jan-2007<br>
  * <br> */
 public class TPFirstLiteralHandler extends AbstractLiteralTripleHandler {
+    /** @param consumer */
     public TPFirstLiteralHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }

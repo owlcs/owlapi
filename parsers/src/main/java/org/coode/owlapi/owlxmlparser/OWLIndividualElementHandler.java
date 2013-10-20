@@ -53,6 +53,7 @@ public class OWLIndividualElementHandler extends
     private OWLNamedIndividual individual;
     private IRI name;
 
+    /** @param handler */
     public OWLIndividualElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

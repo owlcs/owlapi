@@ -55,10 +55,12 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Date: 08-Jan-2007<br>
  * <br>
  * <p/>
- * Translates an rdf:List into a Java {@code List}, or Java
- * {@code Set}. The type of list (i.e. the type of objects in the list) are
- * determined by a {@code ListItemTranslator}. The translator consumes all
- * triples which are used in the translation. */
+ * Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The type
+ * of list (i.e. the type of objects in the list) are determined by a
+ * {@code ListItemTranslator}. The translator consumes all triples which are used
+ * in the translation.
+ * 
+ * @param <O> */
 public class OptimisedListTranslator<O extends OWLObject> {
     private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
     private OWLRDFConsumer consumer;
@@ -98,6 +100,8 @@ public class OptimisedListTranslator<O extends OWLObject> {
         }
     }
 
+    /** @param mainNode
+     * @return translated list */
     @SuppressWarnings("unchecked")
     public List<O> translateList(IRI mainNode) {
         boolean shared = consumer.isSharedAnonymousNode(mainNode);
@@ -118,6 +122,8 @@ public class OptimisedListTranslator<O extends OWLObject> {
         return list;
     }
 
+    /** @param mainNode
+     * @return list as set */
     public Set<O> translateToSet(IRI mainNode) {
         return new HashSet<O>(translateList(mainNode));
     }

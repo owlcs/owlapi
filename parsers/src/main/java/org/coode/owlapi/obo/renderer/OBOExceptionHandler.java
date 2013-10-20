@@ -46,7 +46,9 @@ import java.util.List;
  * Date: Dec 19, 2008<br>
  * <br> */
 public interface OBOExceptionHandler {
-    public void addException(OBOStorageException exception);
+    /** @param exception */
+    void addException(OBOStorageException exception);
 
-    public List<OBOStorageException> getExceptions();
+    /** @return exceptions */
+    List<OBOStorageException> getExceptions();
 }

@@ -13,19 +13,26 @@ public class NodeElement implements State {
     protected int m_nextLi = 1;
     private RDFParser parser;
 
+    /** @param parser */
     public NodeElement(RDFParser parser) {
         this.parser = parser;
     }
 
+    /** @param atts
+     * @throws SAXException */
     public void startDummyElement(Attributes atts) throws SAXException {
         m_subjectIRI = NodeID.nextAnonymousIRI();
         m_reificationManager = parser.getReificationManager(atts);
     }
 
+    /** @return subject iri */
     public String getSubjectIRI() {
         return m_subjectIRI;
     }
 
+    /** @param atts
+     * @return reification id
+     * @throws SAXException */
     public String getReificationID(Attributes atts) throws SAXException {
         String rdfID = atts.getValue(RDFConstants.RDFNS, RDFConstants.ATTR_ID);
         if (rdfID != null) {
@@ -34,10 +41,13 @@ public class NodeElement implements State {
         return m_reificationManager.getReificationID(rdfID);
     }
 
+    /** @return next list item */
     public String getNextLi() {
         return RDFConstants.RDFNS + "_" + m_nextLi++;
     }
 
+    /** @param uri
+     * @return property iri */
     public String getPropertyIRI(String uri) {
         if (RDFConstants.RDF_LI.equals(uri)) {
             return getNextLi();

@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 20/12/2010 */
 public class TPOnDataRangeHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPOnDataRangeHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ON_DATA_RANGE.getIRI());
     }

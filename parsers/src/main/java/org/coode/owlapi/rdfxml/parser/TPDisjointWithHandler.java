@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class TPDisjointWithHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPDisjointWithHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DISJOINT_WITH.getIRI());
     }

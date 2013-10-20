@@ -60,30 +60,37 @@ public class XMLWriterPreferences {
         indentSize = 4;
     }
 
+    /** @return the only instance */
     public static XMLWriterPreferences getInstance() {
         return instance;
     }
 
+    /** @return use namespace entities */
     public boolean isUseNamespaceEntities() {
         return useNamespaceEntities;
     }
 
+    /** @param useNamespaceEntities */
     public void setUseNamespaceEntities(boolean useNamespaceEntities) {
         this.useNamespaceEntities = useNamespaceEntities;
     }
 
+    /** @return indenting */
     public boolean isIndenting() {
         return indenting;
     }
 
+    /** @param indenting */
     public void setIndenting(boolean indenting) {
         this.indenting = indenting;
     }
 
+    /** @return indent size */
     public int getIndentSize() {
         return indentSize;
     }
 
+    /** @param indentSize */
     public void setIndentSize(int indentSize) {
         this.indentSize = indentSize;
     }

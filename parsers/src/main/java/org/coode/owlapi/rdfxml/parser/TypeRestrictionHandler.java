@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 09-Dec-2006<br>
  * <br> */
 public class TypeRestrictionHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeRestrictionHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_RESTRICTION.getIRI());
     }

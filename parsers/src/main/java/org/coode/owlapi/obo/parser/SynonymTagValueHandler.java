@@ -67,9 +67,9 @@ public class SynonymTagValueHandler extends AbstractTagValueHandler {
     private static final int SCOPE_GROUP = 2;
     private static final int SYNONYM_TYPE_GROUP = 3;
     private static final int XREF_GROUP = 4;
-    public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
-    public static final IRI XREF_IRI = OBOVocabulary.XREF.getIRI();
+    private static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
 
+    /** @param consumer */
     public SynonymTagValueHandler(OBOConsumer consumer) {
         super(TAG_NAME, consumer);
     }

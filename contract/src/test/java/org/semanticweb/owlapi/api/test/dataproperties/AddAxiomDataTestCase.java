@@ -25,6 +25,7 @@ public class AddAxiomDataTestCase {
         mockOntology = mock(OWLOntology.class);
     }
 
+    @SuppressWarnings("unused")
     @Test(expected = IllegalArgumentException.class)
     public void testNewWithNullArgs() {
         new AddAxiomData(null);

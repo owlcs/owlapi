@@ -205,7 +205,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     }
 
     @Override
-    public boolean hasLang(String l) {
+    public boolean hasLang(String _l) {
+        String l = _l;
         if (l == null && lang == null) {
             return true;
         }

@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 03/02/2011 */
 public class XRefTagHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public XRefTagHandler(OBOConsumer consumer) {
         super(OBOVocabulary.XREF.getName(), consumer);
     }

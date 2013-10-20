@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.Node;
@@ -76,7 +75,7 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
         this.reasonerFactory = reasonerFactory;
     }
 
-    private void createOntology() throws OWLOntologyCreationException {
+    private void createOntology() {
         ont = getOWLOntology("ont");
         OWLClass clsA = getClsA();
         OWLClass clsB = getClsB();
@@ -155,7 +154,7 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
     }
 
     @Before
-    public void setUpOntoAndReasoner() throws OWLOntologyCreationException {
+    public void setUpOntoAndReasoner() {
         createOntology();
         reasoner = reasonerFactory.createReasoner(ont);
     }

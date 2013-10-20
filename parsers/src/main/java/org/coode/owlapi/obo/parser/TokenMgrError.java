@@ -3,6 +3,7 @@
 package org.coode.owlapi.obo.parser;
 
 /** Token Manager Error. */
+@SuppressWarnings({ "javadoc", "unused" })
 public class TokenMgrError extends Error {
     /** The version identifier for this Serializable class. Increment only if the
      * <i>serialized</i> form of the class changes. */
@@ -79,15 +80,14 @@ public class TokenMgrError extends Error {
      * this method. */
     protected static String LexicalError(boolean EOFSeen, int lexState, int errorLine,
             int errorColumn, String errorAfter, char curChar) {
-        return ("Lexical error at line "
+        return "Lexical error at line "
                 + errorLine
                 + ", column "
                 + errorColumn
                 + ".  Encountered: "
-                + (EOFSeen ? "<EOF> "
-                        : ("\"" + addEscapes(String.valueOf(curChar)) + "\"") + " ("
-                                + (int) curChar + "), ") + "after : \""
-                + addEscapes(errorAfter) + "\"");
+                + (EOFSeen ? "<EOF> " : "\"" + addEscapes(String.valueOf(curChar)) + "\""
+                        + " (" + (int) curChar + "), ") + "after : \""
+                + addEscapes(errorAfter) + "\"";
     }
 
     /** You can also modify the body of this method to customize your error
@@ -95,6 +95,7 @@ public class TokenMgrError extends Error {
      * are not of end-users concern, so you can return something like :
      * "Internal Error : Please file a bug report .... " from this method for
      * such cases in the release version of your parser. */
+    @Override
     public String getMessage() {
         return super.getMessage();
     }

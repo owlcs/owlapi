@@ -44,6 +44,7 @@
  */
 package org.semanticweb.owlapi.rdf.syntax;
 
+import static org.semanticweb.owlapi.rdf.util.RDFConstants.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
@@ -65,7 +66,6 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
-import org.semanticweb.owlapi.rdf.util.RDFConstants;
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -78,7 +78,7 @@ import org.xml.sax.helpers.LocatorImpl;
 /** This class parses the RDF according to the syntax specified in <a
  * href="http://www.w3.org/TR/rdf-syntax-grammar/"
  * >http://www.w3.org/TR/rdf-syntax-grammar/</a>. */
-public class RDFParser extends DefaultHandler implements RDFConstants {
+public class RDFParser extends DefaultHandler {
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
     protected static final SAXParserFactory s_parserFactory = SAXParserFactory
             .newInstance();
@@ -360,7 +360,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @return the resolved IRI */
     @Nonnull
     protected String resolveIRI(@Nonnull String uri) throws SAXException {
-        if (checkNotNull(uri, "uri cannot be null").length() == 0) {
+        checkNotNull(uri, "uri cannot be null");
+        if (uri.length() == 0) {
             // MH - Fix for resolving a "This document" reference against base
             // IRIs.
             // XXX namespace?
@@ -650,6 +651,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
+    /** @param s
+     * @return iri */
     @Nonnull
     public IRI getIRI(@Nonnull String s) {
         return uriCache.get(checkNotNull(s, "s cannot be null"));

@@ -43,5 +43,8 @@ package org.coode.owlapi.rdfxml.parser;
  * Bio-Health Informatics Group<br>
  * Date: 11/03/2011 */
 public enum Mode {
-    STRICT, LAX
+    /** Strict parsing mode */
+    STRICT,
+    /** Lax parsing mode */
+    LAX
 }

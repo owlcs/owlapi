@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  * <br> */
 public class OWLObjectHasValueElementHandler extends
         AbstractObjectRestrictionElementHandler<OWLIndividual> {
+    /** @param handler */
     public OWLObjectHasValueElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

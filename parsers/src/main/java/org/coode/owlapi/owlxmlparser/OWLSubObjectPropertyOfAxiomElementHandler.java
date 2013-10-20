@@ -54,6 +54,7 @@ public class OWLSubObjectPropertyOfAxiomElementHandler extends
     private List<OWLObjectPropertyExpression> propertyList;
     private OWLObjectPropertyExpression superProperty;
 
+    /** @param handler */
     public OWLSubObjectPropertyOfAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

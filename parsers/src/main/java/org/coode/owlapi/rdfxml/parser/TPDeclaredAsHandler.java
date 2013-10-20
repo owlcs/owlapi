@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 21-Feb-2007<br> */
 @Deprecated
 public class TPDeclaredAsHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPDeclaredAsHandler(OWLRDFConsumer consumer) {
         super(consumer, DeprecatedVocabulary.OWL_DECLARED_AS);
     }

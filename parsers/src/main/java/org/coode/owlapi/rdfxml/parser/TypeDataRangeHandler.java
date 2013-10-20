@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 09-Dec-2006<br>
  * <br> */
 public class TypeDataRangeHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeDataRangeHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DATA_RANGE.getIRI());
     }

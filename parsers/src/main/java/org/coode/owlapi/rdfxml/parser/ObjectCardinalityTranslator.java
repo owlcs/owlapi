@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class ObjectCardinalityTranslator extends AbstractClassExpressionTranslator {
+    /** @param consumer */
     public ObjectCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }

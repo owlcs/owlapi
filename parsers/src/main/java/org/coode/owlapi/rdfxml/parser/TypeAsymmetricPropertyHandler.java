@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 07-Sep-2008<br>
  * <br> */
 public class TypeAsymmetricPropertyHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeAsymmetricPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY.getIRI());
     }

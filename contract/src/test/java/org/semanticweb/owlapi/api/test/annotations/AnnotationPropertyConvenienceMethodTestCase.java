@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -56,7 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testGetSuperProperties() throws OWLOntologyCreationException {
+    public void testGetSuperProperties() {
         OWLOntology ont = getOWLOntology("OntA");
         OWLDataFactory df = ont.getOWLOntologyManager().getOWLDataFactory();
         OWLAnnotationProperty propP = AnnotationProperty(getIRI("propP"));
@@ -75,7 +74,7 @@ public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPIT
     }
 
     @Test
-    public void testGetSubProperties() throws OWLOntologyCreationException {
+    public void testGetSubProperties() {
         OWLOntology ont = getOWLOntology("OntA");
         OWLDataFactory df = ont.getOWLOntologyManager().getOWLDataFactory();
         OWLAnnotationProperty propP = AnnotationProperty(getIRI("propP"));

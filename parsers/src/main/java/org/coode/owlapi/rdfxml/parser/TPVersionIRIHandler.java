@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 23-Apr-2009 */
 public class TPVersionIRIHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPVersionIRIHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_VERSION_IRI.getIRI());
     }

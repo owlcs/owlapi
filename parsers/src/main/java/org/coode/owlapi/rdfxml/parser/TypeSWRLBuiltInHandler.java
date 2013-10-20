@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.SWRLVocabulary;
  * Date: 18-Feb-2007<br>
  * <br> */
 public class TypeSWRLBuiltInHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeSWRLBuiltInHandler(OWLRDFConsumer consumer) {
         super(consumer, SWRLVocabulary.BUILT_IN_CLASS.getIRI());
     }

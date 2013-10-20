@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 02-Jul-2009 */
 public class TPAnnotatedSourceHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPAnnotatedSourceHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ANNOTATED_SOURCE.getIRI());
     }

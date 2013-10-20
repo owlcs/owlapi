@@ -38,7 +38,6 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public class ContractKrssparserTest {
     public void shouldTestKRSSOntologyFormat() throws OWLException {
         KRSSOntologyFormat testSubject0 = new KRSSOntologyFormat();
-
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result1 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
@@ -58,14 +57,12 @@ public class ContractKrssparserTest {
                 new OWLOntologyLoaderConfiguration());
         OWLOntologyFormat result2 = testSubject0.parse(IRI("urn:aFake"),
                 Utils.getMockOntology());
-
     }
 
     @Test
     public void shouldTestKRSSOWLParserFactory() throws OWLException {
         KRSSOWLParserFactory testSubject0 = new KRSSOWLParserFactory();
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
-
     }
 
     public void shouldTestKRSSParser() throws OWLException, ParseException {
@@ -111,8 +108,6 @@ public class ContractKrssparserTest {
         Token result29 = testSubject0.getToken(0);
         testSubject0.enable_tracing();
         testSubject0.disable_tracing();
-        testSubject0.setIgnoreAnnotationsAndDeclarations(false);
-
     }
 
     @Test
@@ -125,7 +120,6 @@ public class ContractKrssparserTest {
         NameResolverStrategy testSubject0 = NameResolverStrategy.ADAPTIVE;
         NameResolverStrategy[] result0 = NameResolverStrategy.values();
         String result2 = testSubject0.name();
-
         int result8 = testSubject0.ordinal();
     }
 
@@ -135,7 +129,6 @@ public class ContractKrssparserTest {
         ParseException testSubject1 = new ParseException();
         ParseException testSubject2 = new ParseException("");
         Throwable result1 = testSubject0.getCause();
-
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -145,7 +138,6 @@ public class ContractKrssparserTest {
         Token testSubject0 = new Token();
         Token testSubject1 = new Token(0);
         Token testSubject2 = new Token(0, "");
-
         Object result1 = testSubject0.getValue();
         Token result2 = Token.newToken(0, "");
         Token result3 = Token.newToken(0);
@@ -158,7 +150,6 @@ public class ContractKrssparserTest {
                 mock(char.class), 0);
         String result0 = testSubject0.getMessage();
         Throwable result2 = testSubject0.getCause();
-
         String result5 = testSubject0.getLocalizedMessage();
     }
 }

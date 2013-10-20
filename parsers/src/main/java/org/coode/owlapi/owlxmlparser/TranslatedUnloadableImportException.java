@@ -49,11 +49,13 @@ public class TranslatedUnloadableImportException extends SAXException {
     private static final long serialVersionUID = 40000L;
     private UnloadableImportException unloadableImportException;
 
+    /** @param e */
     public TranslatedUnloadableImportException(UnloadableImportException e) {
         super(e);
-        this.unloadableImportException = e;
+        unloadableImportException = e;
     }
 
+    /** @return unloadable import */
     public UnloadableImportException getUnloadableImportException() {
         return unloadableImportException;
     }

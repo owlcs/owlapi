@@ -39,7 +39,6 @@
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -48,9 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  * <br> */
 public class OWLObjectAllValuesFromElementHandler extends
         AbstractClassExpressionFillerRestriction {
-    public static final String ELEMENT_NAME = OWLXMLVocabulary.OBJECT_SOME_VALUES_FROM
-            .toString();
-
+    /** @param handler */
     public OWLObjectAllValuesFromElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

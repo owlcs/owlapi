@@ -48,14 +48,18 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class OWLXMLOntologyStorageException extends OWLOntologyStorageException {
     private static final long serialVersionUID = 40000L;
 
+    /** @param message */
     public OWLXMLOntologyStorageException(String message) {
         super(message);
     }
 
+    /** @param message
+     * @param cause */
     public OWLXMLOntologyStorageException(String message, Throwable cause) {
         super(message, cause);
     }
 
+    /** @param cause */
     public OWLXMLOntologyStorageException(Throwable cause) {
         super(cause);
     }

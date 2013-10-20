@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 04-Feb-2009 */
 public class TypeAnnotationHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeAnnotationHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ANNOTATION.getIRI());
     }

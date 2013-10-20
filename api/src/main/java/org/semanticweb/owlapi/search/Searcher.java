@@ -79,7 +79,7 @@ public class Searcher<T> implements Iterable<T> {
     /** @param c
      *            Class of the returned type
      * @return a Searcher whose final return type will be T */
-    public static <T> Searcher<T> find(Class<T> c) {
+    public static <T> Searcher<T> find(@SuppressWarnings("unused") Class<T> c) {
         return new Searcher<T>().task(Tasks.SEARCH);
     }
 

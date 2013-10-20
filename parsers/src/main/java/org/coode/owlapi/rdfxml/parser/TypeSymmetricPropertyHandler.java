@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class TypeSymmetricPropertyHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeSymmetricPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY.getIRI());
     }

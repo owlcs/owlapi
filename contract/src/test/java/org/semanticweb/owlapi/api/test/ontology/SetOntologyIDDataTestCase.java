@@ -37,6 +37,7 @@ public class SetOntologyIDDataTestCase {
         return new SetOntologyIDData(mockOntologyID);
     }
 
+    @SuppressWarnings("unused")
     @Test(expected = IllegalArgumentException.class)
     public void testNewWithNullArgs() {
         new SetOntologyIDData(null);

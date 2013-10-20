@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Date: 10-Jan-2007<br>
  * <br> */
 public class OBOOntologyFormat extends OWLOntologyFormat {
+    private static final long serialVersionUID = 40000L;
     private IDSpaceManager idSpaceManager = new IDSpaceManager();
 
     /** Constructs an OBOOntologyFormat object. */

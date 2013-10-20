@@ -51,11 +51,13 @@ public class TranslatedOWLParserException extends SAXException {
     private static final long serialVersionUID = 40000L;
     private OWLParserException parserException;
 
+    /** @param cause */
     public TranslatedOWLParserException(OWLParserException cause) {
         super(cause);
-        this.parserException = cause;
+        parserException = cause;
     }
 
+    /** @return the parser exception */
     public OWLParserException getParserException() {
         return parserException;
     }

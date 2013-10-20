@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Date: 10-Jan-2007<br>
  * <br> */
 public class PartOfTagValueHandler extends AbstractTagValueHandler {
+    /** @param consumer */
     public PartOfTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
     }

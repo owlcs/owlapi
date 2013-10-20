@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPEquivalentPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_EQUIVALENT_PROPERTY.getIRI());
     }

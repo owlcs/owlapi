@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -56,7 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class InverseSelfTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testInverse() throws OWLOntologyCreationException {
+    public void testInverse() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLObjectProperty propQ = ObjectProperty(getIRI("q"));
@@ -67,7 +66,7 @@ public class InverseSelfTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testInverseSelf() throws OWLOntologyCreationException {
+    public void testInverseSelf() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty propP = ObjectProperty(getIRI("p"));
         OWLAxiom ax = InverseObjectProperties(propP, propP);

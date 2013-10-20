@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 15-Apr-2008<br>
  * <br> */
 public class TypeAllDisjointClassesHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeAllDisjointClassesHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI());
     }

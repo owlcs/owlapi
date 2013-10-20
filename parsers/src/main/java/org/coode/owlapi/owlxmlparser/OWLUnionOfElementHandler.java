@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * <br> */
 public class OWLUnionOfElementHandler extends
         AbstractOWLElementHandler<OWLClassExpression> {
+    /** @param handler */
     public OWLUnionOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

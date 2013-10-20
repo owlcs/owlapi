@@ -54,7 +54,6 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -64,7 +63,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings({ "javadoc", "rawtypes" })
 public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testAddAxiom() throws OWLOntologyCreationException {
+    public void testAddAxiom() {
         OWLOntology ont = getOWLOntology("OntA");
         OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();
@@ -80,9 +79,8 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
 
-
     @Test
-    public void testAddAxioms() throws OWLOntologyCreationException {
+    public void testAddAxioms() {
         OWLOntology ont = getOWLOntology("OntB");
         OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();
@@ -99,7 +97,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testApplyChange() throws OWLOntologyCreationException {
+    public void testApplyChange() {
         OWLOntology ont = getOWLOntology("OntC");
         OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();
@@ -116,7 +114,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testApplyChanges() throws OWLOntologyCreationException {
+    public void testApplyChanges() {
         OWLOntology ont = getOWLOntology("OntD");
         OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();

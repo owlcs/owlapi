@@ -41,10 +41,10 @@ public class InvalidAxiomRoundTripTestCase {
         }
     }
 
-    private OWLOntology saveAndReload(OWLOntology o) throws OWLOntologyStorageException,
+    private OWLOntology saveAndReload(OWLOntology ontology) throws OWLOntologyStorageException,
             OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
-        o.getOWLOntologyManager().saveOntology(o,
+        ontology.getOWLOntologyManager().saveOntology(ontology,
                 new OWLFunctionalSyntaxOntologyFormat(), target);
         OWLOntology reloaded = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(target.toString()));

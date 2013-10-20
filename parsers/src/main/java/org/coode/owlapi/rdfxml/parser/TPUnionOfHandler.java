@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 11-Dec-2006<br>
  * <br> */
 public class TPUnionOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
+    /** @param consumer */
     public TPUnionOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_UNION_OF.getIRI());
     }

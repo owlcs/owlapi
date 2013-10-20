@@ -46,6 +46,9 @@ package org.coode.owlapi.owlxmlparser;
 public class OWLXMLParserElementNotFoundException extends OWLXMLParserException {
     private static final long serialVersionUID = 40000L;
 
+    /** @param lineNumber
+     * @param columnNumber
+     * @param elementType */
     public OWLXMLParserElementNotFoundException(int lineNumber, int columnNumber,
             String elementType) {
         super("Element not found: " + elementType, lineNumber, columnNumber);

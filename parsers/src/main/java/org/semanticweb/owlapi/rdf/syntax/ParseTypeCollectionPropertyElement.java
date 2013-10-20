@@ -13,6 +13,8 @@ public class ParseTypeCollectionPropertyElement implements State {
     protected String m_lastCellIRI;
     private RDFParser parser;
 
+    /** @param nodeElement
+     * @param parser */
     public ParseTypeCollectionPropertyElement(NodeElement nodeElement, RDFParser parser) {
         m_nodeElement = nodeElement;
         this.parser = parser;

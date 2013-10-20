@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 21-Jan-2009 */
 public class TypeNamedIndividualHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeNamedIndividualHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI());
     }

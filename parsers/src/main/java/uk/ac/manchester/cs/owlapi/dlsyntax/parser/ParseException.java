@@ -45,6 +45,7 @@ package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
  * generateParseException in the generated parser. You can modify this class to
  * customize your error reporting mechanisms so long as you retain the public
  * fields. */
+@SuppressWarnings("javadoc")
 public class ParseException extends Exception {
     /** The version identifier for this Serializable class. Increment only if the
      * <i>serialized</i> form of the class changes. */
@@ -114,7 +115,9 @@ public class ParseException extends Exception {
         String retval = "Encountered \"";
         Token tok = currentToken.next;
         for (int i = 0; i < maxSize; i++) {
-            if (i != 0) retval += " ";
+            if (i != 0) {
+                retval += " ";
+            }
             if (tok.kind == 0) {
                 retval += tokenImage[0];
                 break;

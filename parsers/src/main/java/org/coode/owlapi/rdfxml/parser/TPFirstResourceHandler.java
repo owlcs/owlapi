@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 08-Jan-2007<br>
  * <br> */
 public class TPFirstResourceHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPFirstResourceHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDF_FIRST.getIRI());
     }

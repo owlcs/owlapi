@@ -46,19 +46,40 @@ import org.semanticweb.owlapi.model.IRI;
  * Date: 24-Feb-2008<br>
  * <br> */
 public interface TripleHandler {
+    /** @param prefixName
+     * @param prefix */
     void handlePrefixDirective(String prefixName, String prefix);
 
+    /** @param base */
     void handleBaseDirective(String base);
 
+    /** @param comment */
     void handleComment(String comment);
 
+    /** @param subject
+     * @param predicate
+     * @param object */
     void handleTriple(IRI subject, IRI predicate, IRI object);
 
+    /** @param subject
+     * @param predicate
+     * @param object */
     void handleTriple(IRI subject, IRI predicate, String object);
 
+    /** @param subject
+     * @param predicate
+     * @param object
+     * @param lang */
     void handleTriple(IRI subject, IRI predicate, String object, String lang);
 
+    /** @param subject
+     * @param predicate
+     * @param object
+     * @param datatype */
     void handleTriple(IRI subject, IRI predicate, String object, IRI datatype);
 
+    /**
+     * 
+     */
     void handleEnd();
 }

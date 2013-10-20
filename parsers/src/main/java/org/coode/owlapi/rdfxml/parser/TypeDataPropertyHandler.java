@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class TypeDataPropertyHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeDataPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI());
     }

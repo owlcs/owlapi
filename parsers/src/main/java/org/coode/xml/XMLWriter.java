@@ -67,15 +67,16 @@ public interface XMLWriter {
     @Nonnull
     XMLWriterNamespaceManager getNamespacePrefixes();
 
+    /** @return the xml base */
     @Nonnull
     String getXMLBase();
 
     /** Causes the current element's attributes to be wrapped in the output.
      * 
      * @param b
-     *            If {@code true} then the attributes will be wrapped if
-     *            they are long. If {@code false} then no attribute
-     *            wrapping will occur. */
+     *            If {@code true} then the attributes will be wrapped if they
+     *            are long. If {@code false} then no attribute wrapping will
+     *            occur. */
     void setWrapAttributes(boolean b);
 
     /** Starts writing the document. The root element will contain the namespace
@@ -131,5 +132,7 @@ public interface XMLWriter {
      *             if there was an IO problem */
     void writeTextContent(@Nonnull String text) throws IOException;
 
+    /** @param commentText
+     * @throws IOException */
     void writeComment(@Nonnull String commentText) throws IOException;
 }

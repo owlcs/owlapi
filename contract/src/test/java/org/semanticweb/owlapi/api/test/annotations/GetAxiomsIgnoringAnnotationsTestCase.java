@@ -51,7 +51,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
@@ -60,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class GetAxiomsIgnoringAnnotationsTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testGetAxiomsIgnoringAnnoations() throws OWLOntologyCreationException {
+    public void testGetAxiomsIgnoringAnnoations() {
         OWLLiteral annoLiteral = Literal("value");
         OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
         OWLAnnotation anno = Factory.getFactory().getOWLAnnotation(annoProp, annoLiteral);

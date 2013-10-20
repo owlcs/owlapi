@@ -52,7 +52,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.coode.owlapi.rdf.renderer.RDFRendererBase;
+import org.coode.owlapi.rdf.renderer.TripleComparator;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
@@ -100,12 +100,13 @@ public class RDFGraph {
     public List<RDFTriple> getSortedTriplesForSubject(@Nonnull RDFNode subject,
             boolean sort) {
         List<RDFTriple> toReturn = new ArrayList<RDFTriple>();
-        Set<RDFTriple> set = triplesBySubject.get(checkNotNull(subject, "subject cannot be null"));
+        Set<RDFTriple> set = triplesBySubject.get(checkNotNull(subject,
+                "subject cannot be null"));
         if (set != null) {
             toReturn.addAll(set);
         }
         if (sort) {
-            Collections.sort(toReturn, RDFRendererBase.tripleComparator);
+            Collections.sort(toReturn, new TripleComparator());
         }
         return toReturn;
     }

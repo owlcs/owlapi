@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Information Management Group<br>
  * Date: 09-Jul-2009 */
 public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPPropertyDisjointWithHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_PROPERTY_DISJOINT_WITH.getIRI());
     }
@@ -56,9 +57,9 @@ public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         inferTypes(subject, object);
         return super.canHandle(subject, predicate, object)
-                && ((getConsumer().isObjectProperty(subject) && getConsumer()
-                        .isObjectProperty(object)) || (getConsumer().isDataProperty(
-                        subject) && getConsumer().isDataProperty(object)));
+                && (getConsumer().isObjectProperty(subject)
+                        && getConsumer().isObjectProperty(object) || getConsumer()
+                        .isDataProperty(subject) && getConsumer().isDataProperty(object));
     }
 
     @Override

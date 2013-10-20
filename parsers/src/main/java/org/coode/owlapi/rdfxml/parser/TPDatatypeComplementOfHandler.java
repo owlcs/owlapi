@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 20/12/2010 */
 public class TPDatatypeComplementOfHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPDatatypeComplementOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DATATYPE_COMPLEMENT_OF.getIRI());
     }

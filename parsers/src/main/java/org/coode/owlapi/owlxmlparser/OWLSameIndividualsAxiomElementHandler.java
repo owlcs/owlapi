@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * <br> */
 public class OWLSameIndividualsAxiomElementHandler extends
         AbstractOWLIndividualOperandAxiomElementHandler {
+    /** @param handler */
     public OWLSameIndividualsAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

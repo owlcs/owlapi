@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 08-Dec-2006<br>
  * <br> */
 public class TPDifferentFromHandler extends TriplePredicateHandler {
+    /** @param consumer */
     public TPDifferentFromHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DIFFERENT_FROM.getIRI());
     }

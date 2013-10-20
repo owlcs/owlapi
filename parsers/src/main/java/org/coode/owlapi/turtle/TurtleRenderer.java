@@ -85,6 +85,9 @@ public class TurtleRenderer extends RDFRendererBase {
     private String base;
     private OWLOntologyFormat format;
 
+    /** @param ontology
+     * @param writer
+     * @param format */
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLOntologyFormat format) {
         super(ontology, format);
         this.format = checkNotNull(format, "format cannot be null");
@@ -119,11 +122,11 @@ public class TurtleRenderer extends RDFRendererBase {
     int lastNewLineIndex = 0;
     Stack<Integer> tabs = new Stack<Integer>();
 
-    public void pushTab() {
+    private void pushTab() {
         tabs.push(getIndent());
     }
 
-    public void popTab() {
+    private void popTab() {
         if (!tabs.isEmpty()) {
             tabs.pop();
         }

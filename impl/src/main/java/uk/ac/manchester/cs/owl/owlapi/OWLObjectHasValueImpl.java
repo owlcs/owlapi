@@ -110,6 +110,7 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual
         return false;
     }
 
+    @Override
     @Deprecated
     public OWLClassExpression asSomeValuesFrom() {
         return df.getOWLObjectSomeValuesFrom(getProperty(),

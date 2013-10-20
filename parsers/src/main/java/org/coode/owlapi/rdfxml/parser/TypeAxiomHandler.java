@@ -53,10 +53,13 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Date: 11-Dec-2006<br>
  * <br> */
 public class TypeAxiomHandler extends BuiltInTypeHandler {
+    /** @param consumer */
     public TypeAxiomHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_AXIOM.getIRI());
     }
 
+    /** @param consumer
+     * @param typeIRI */
     public TypeAxiomHandler(OWLRDFConsumer consumer, IRI typeIRI) {
         super(consumer, typeIRI);
     }
@@ -121,6 +124,7 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         }
     }
 
+    @SuppressWarnings("unused")
     protected OWLAxiom handleAxiomTriples(IRI subjectTriple, IRI predicateTriple,
             IRI objectTriple, Set<OWLAnnotation> annotations) {
         // Reconstitute the original triple from the reification triples
@@ -128,7 +132,8 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
     }
 
     protected OWLAxiom handleAxiomTriples(IRI subjectTripleObject,
-            IRI predicateTripleObject, OWLLiteral con, Set<OWLAnnotation> annotations) {
+            IRI predicateTripleObject, OWLLiteral con,
+            @SuppressWarnings("unused") Set<OWLAnnotation> annotations) {
         getConsumer().handle(subjectTripleObject, predicateTripleObject, con);
         return getConsumer().getLastAddedAxiom();
     }

@@ -48,6 +48,9 @@ import org.semanticweb.owlapi.io.OWLParserException;
 public class OWLXMLParserException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 
+    /** @param message
+     * @param lineNumber
+     * @param columnNumber */
     public OWLXMLParserException(String message, int lineNumber, int columnNumber) {
         super(message, lineNumber, columnNumber);
     }

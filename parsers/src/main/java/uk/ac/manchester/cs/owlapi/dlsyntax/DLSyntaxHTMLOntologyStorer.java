@@ -73,7 +73,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
             @Override
             protected String renderEntity(OWLEntity entity) {
-                String shortForm = sfp.getShortForm(checkNotNull(entity, "entity cannot be null"));
+                String shortForm = sfp.getShortForm(checkNotNull(entity,
+                        "entity cannot be null"));
                 if (!entity.equals(subject)) {
                     return "<a href=\"#" + shortForm + "\">" + shortForm + "</a>";
                 } else {
@@ -83,7 +84,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
             @Override
             protected void write(DLSyntax keyword) {
-                super.write(XMLUtils.escapeXML(checkNotNull(keyword, "keyword cannot be null").toString()));
+                super.write(XMLUtils.escapeXML(checkNotNull(keyword,
+                        "keyword cannot be null").toString()));
             }
         };
         ren.setFocusedObject(subject);
@@ -115,7 +117,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     @Override
     protected void beginWritingAxiom(OWLAxiom axiom, PrintWriter writer) {
         checkNotNull(axiom, "axiom cannot be null");
-        checkNotNull(writer, "writer cannot be null").println("<div class=\"axiombox\"> ");
+        checkNotNull(writer, "writer cannot be null")
+                .println("<div class=\"axiombox\"> ");
     }
 
     @Override
@@ -146,7 +149,6 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     @Override
     protected void beginWritingGeneralAxioms(Set<? extends OWLAxiom> axioms,
             PrintWriter writer) {
-        ;
         checkNotNull(writer, "writer cannot be null").println("<div>");
     }
 

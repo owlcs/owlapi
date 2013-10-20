@@ -55,6 +55,7 @@ public class OWLObjectPropertyExpressionListItemTranslator implements
             .getLogger(OWLObjectPropertyExpressionListItemTranslator.class.getName());
     private OWLRDFConsumer consumer;
 
+    /** @param consumer */
     public OWLObjectPropertyExpressionListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

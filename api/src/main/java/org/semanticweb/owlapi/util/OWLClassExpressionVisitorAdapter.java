@@ -65,7 +65,8 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * Date: 22-Nov-2006<br>
  * <br> */
 public class OWLClassExpressionVisitorAdapter implements OWLClassExpressionVisitor {
-    protected void doDefault(OWLClassExpression c) {}
+    protected void doDefault(@SuppressWarnings("unused") OWLClassExpression c) {}
+
     @Override
     public void visit(OWLClass desc) {
         doDefault(desc);
