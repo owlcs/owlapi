@@ -91,6 +91,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
         this.prefixManager = prefixManager;
     }
 
+    /** @return prefix manager */
     public PrefixManager getPrefixManager() {
         return new DefaultPrefixManager(prefixManager);
     }
