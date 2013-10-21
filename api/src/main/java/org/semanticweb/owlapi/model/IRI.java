@@ -54,7 +54,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 14-Jan-2009 Represents International Resource Identifiers */
-public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence {
+public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate,
+        CharSequence {
     /** Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
      * so there is no loss during this translation.
      * 
@@ -81,7 +82,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         }
         for (int i = 0; i < colonIndex; i++) {
             char ch = prefix.charAt(i);
-            if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+' && ch != '-') {
+            if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.'
+                    && ch != '+' && ch != '-') {
                 return false;
             }
         }
@@ -103,6 +105,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     public String getStart() {
         return prefix;
     }
+
     /** @return the prefix. Can be null. */
     public String getNamespace() {
         return prefix;
@@ -133,7 +136,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *         otherwise <code>false</code>. */
     public boolean isReservedVocabulary() {
         return Namespaces.OWL.inNamespace(prefix) || Namespaces.RDF.inNamespace(prefix)
-                || Namespaces.RDFS.inNamespace(prefix);
+                || Namespaces.RDFS.inNamespace(prefix)
+                || Namespaces.XSD.inNamespace(prefix);
     }
 
     /** Determines if this IRI is equal to the IRI that <code>owl:Thing</code> is
@@ -217,9 +221,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return An IRI whose characters consist of prefix + suffix.
      * @since 3.3 */
     public static IRI create(String prefix, String suffix) {
-        if(prefix == null) {
+        if (prefix == null) {
             return create(suffix);
-        } else if(suffix == null) {
+        } else if (suffix == null) {
             // suffix set deliberately to null is used only in blank node
             // management
             // this is not great but blank nodes should be changed to not refer
@@ -488,7 +492,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         if (remainder == null) {
             return otherRemainder == null && prefix.equals(other.prefix);
         } else {
-            return otherRemainder != null && remainder.equals(otherRemainder) && other.prefix.equals(prefix);
+            return otherRemainder != null && remainder.equals(otherRemainder)
+                    && other.prefix.equals(prefix);
         }
     }
 }
