@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.vocab;
 import static org.semanticweb.owlapi.vocab.Namespaces.BuiltIn.*;
 import static org.semanticweb.owlapi.vocab.Namespaces.Status.IN_USE;
 
+import java.util.EnumSet;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /** Author: Matthew Horridge<br>
@@ -50,13 +52,13 @@ import org.semanticweb.owlapi.model.IRI;
 public enum Namespaces {
     //@formatter:off
     // OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
-    /** The OWL 2 namespace. */    OWL2        ("owl2",     "http://www.w3.org/2006/12/owl2#", Status.LEGACY),
+    /** The OWL 2 namespace. */    OWL2        ("owl2",     "http://www.w3.org/2006/12/owl2#",      Status.LEGACY),
     /** Status.LEGACY */           OWL11XML    ("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", Status.LEGACY),
-    /** The OWL 1.1 namespace. */  OWL11       ("owl11",    "http://www.w3.org/2006/12/owl11#", Status.LEGACY),
-    /**The OWL namespace */        OWL         ("owl",      "http://www.w3.org/2002/07/owl#", IN_USE),
-    /**The RDFS namespace */       RDFS        ("rdfs",     "http://www.w3.org/2000/01/rdf-schema#", IN_USE),
+    /** The OWL 1.1 namespace. */  OWL11       ("owl11",    "http://www.w3.org/2006/12/owl11#",     Status.LEGACY),
+    /**The OWL namespace */        OWL         ("owl",      "http://www.w3.org/2002/07/owl#",              IN_USE),
+    /**The RDFS namespace */       RDFS        ("rdfs",     "http://www.w3.org/2000/01/rdf-schema#",       IN_USE),
     /** The RDF namespace. */      RDF         ("rdf",      "http://www.w3.org/1999/02/22-rdf-syntax-ns#", IN_USE),
-    /** The XSD namespace. */      XSD         ("xsd",      "http://www.w3.org/2001/XMLSchema#", IN_USE),
+    /** The XSD namespace. */      XSD         ("xsd",      "http://www.w3.org/2001/XMLSchema#",           IN_USE),
     /** The XML namespace. */      XML         ("xml",      "http://www.w3.org/XML/1998/namespace"),
     /** The SWRL namespace. */     SWRL        ("swrl",     "http://www.w3.org/2003/11/swrl#"),
     /** The SWRLB namespace. */    SWRLB       ("swrlb",    "http://www.w3.org/2003/11/swrlb#"),
@@ -99,8 +101,8 @@ public enum Namespaces {
     /** The SCHEMA namespace. */   SCHEMA      ("schema",   "http://schema.org/"),
     /** The GEO namespace. */      GEO         ("geo",      "http://www.w3.org/2003/01/geo/wgs84_pos#"),
     /** The SC namespace. */       SC          ("sc",       "http://purl.org/science/owl/sciencecommons/"),
-    /** The FB namespace. */       FB          ("fb",       "http://rdf.freebase.com/ns/", Status.LEGACY),
-    /** The GEONAMES namespace. */ GEONAMES    ("geonames", "http://www.geonames.org/ontology#", Status.LEGACY),
+    /** The FB namespace. */       FB          ("fb",       "http://rdf.freebase.com/ns/",                 Status.LEGACY),
+    /** The GEONAMES namespace. */ GEONAMES    ("geonames", "http://www.geonames.org/ontology#",           Status.LEGACY),
 
     // DBpedia
     /** The DBPEDIA namespace. */  DBPEDIA     ("dbpedia", "http://dbpedia.org/resource/"),
@@ -108,14 +110,11 @@ public enum Namespaces {
     /** The DBO namespace. */      DBO         ("dbo",     "http://dbpedia.org/ontology/"),
     /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/");
     //@formatter:on
-
     final String prefix;
-
     final String ns;
-
     final Status status;
-
     final BuiltIn builtIn;
+    final String hashless;
 
     Namespaces(String prefix, String ns) {
         this(prefix, ns, IN_USE, NOT_BUILT_IN);
@@ -130,7 +129,9 @@ public enum Namespaces {
         this.ns = ns;
         this.status = status;
         this.builtIn = builtIn;
+        hashless = hashless(prefix);
     }
+
     /** @return A short, human-readable, prefix name that matches, and expands to
      *         the full IRI. Not {@code null}. */
     public String getPrefixName() {
@@ -154,6 +155,42 @@ public enum Namespaces {
         return builtIn == BUILT_IN;
     }
 
+    /** @re this namespace without hash or slash at the end */
+    private static String hashless(String ns) {
+        int index = ns.length() - 1;
+        if (ns.charAt(index) == '/' || ns.charAt(index) == '#') {
+            return ns.substring(0, index);
+        }
+        return ns;
+    }
+
+    public static EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(OWL, RDF, RDFS,
+            SWRL, SWRLB, XML, XSD);
+
+    /** @param i
+     *            the iri to check
+     * @return true if the iri is for a namespace ignored by default */
+    public static boolean isDefaultIgnoredImport(IRI i) {
+        for (Namespaces n : defaultIgnoredImports) {
+            if (n.hashless.equals(i.toString())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** @param i
+     *            the stirng to check
+     * @return true if the string is for a namespace ignored by default */
+    public static boolean isDefaultIgnoredImport(String i) {
+        for (Namespaces n : defaultIgnoredImports) {
+            if (n.hashless.equals(i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return ns;
@@ -161,22 +198,18 @@ public enum Namespaces {
 
     /** @param s
      * @return true if s equals this namespace */
-
     public boolean inNamespace(String s) {
         return ns.equals(s);
     }
 
     /** @param i
      * @return true if the namespace for i equals this namespace */
-
     public boolean inNamespace(IRI i) {
         return ns.equals(i.getNamespace());
     }
 
-
-    /**
-     * Indicates that a prefix is builtin - i.e. that it is either owl, rdf, rdfs, or xsd
-     */
+    /** Indicates that a prefix is builtin - i.e. that it is either owl, rdf,
+     * rdfs, or xsd */
     public static enum BuiltIn {
         /** built in flag */
         BUILT_IN,
@@ -184,14 +217,11 @@ public enum Namespaces {
         NOT_BUILT_IN
     }
 
-    /**
-     * Indicates whether a prefix is a legacy prefix or not.
-     */
+    /** Indicates whether a prefix is a legacy prefix or not. */
     public static enum Status {
         /** legacy flag */
         LEGACY,
         /** in use flag */
         IN_USE
     }
-
 }

@@ -96,8 +96,8 @@ public abstract class AbstractOWLParser implements OWLParser {
      *            The URI from which the input stream should be returned
      * @return The input stream obtained from the URI
      * @throws IOException
-     *             if there was an {@code IOException} in obtaining the
-     *             input stream from the URI. */
+     *             if there was an {@code IOException} in obtaining the input
+     *             stream from the URI. */
     @Nonnull
     protected InputStream getInputStream(@Nonnull IRI documentIRI,
             @Nonnull OWLOntologyLoaderConfiguration config) throws IOException {
@@ -106,10 +106,10 @@ public abstract class AbstractOWLParser implements OWLParser {
         String originalProtocol = originalURL.getProtocol();
         URLConnection conn = originalURL.openConnection();
         conn.addRequestProperty("Accept", requestType);
-        if (IOProperties.getInstance().isConnectionAcceptHTTPCompression()) {
+        if (config.isAcceptingHTTPCompression()) {
             conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
         }
-        conn.setConnectTimeout(IOProperties.getInstance().getConnectionTimeout());
+        conn.setConnectTimeout(config.getConnectionTimeout());
         if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
             // follow redirects to HTTPS
             HttpURLConnection con = (HttpURLConnection) conn;
@@ -127,11 +127,10 @@ public abstract class AbstractOWLParser implements OWLParser {
                     // automatically
                     conn = newURL.openConnection();
                     conn.addRequestProperty("Accept", requestType);
-                    if (IOProperties.getInstance().isConnectionAcceptHTTPCompression()) {
+                    if (config.isAcceptingHTTPCompression()) {
                         conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
                     }
-                    conn.setConnectTimeout(IOProperties.getInstance()
-                            .getConnectionTimeout());
+                    conn.setConnectTimeout(config.getConnectionTimeout());
                 }
             }
         }

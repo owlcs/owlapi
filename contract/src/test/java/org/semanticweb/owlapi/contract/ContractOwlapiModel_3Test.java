@@ -1169,7 +1169,6 @@ public class ContractOwlapiModel_3Test {
                 .getMissingImportHandlingStrategy();
         OWLOntologyLoaderConfiguration result8 = testSubject0.setStrict(false);
         boolean result9 = testSubject0.isIgnoredImport(IRI("urn:aFake"));
-        Set<IRI> result10 = testSubject0.getIgnoredImports();
         OWLOntologyLoaderConfiguration result11 = testSubject0
                 .addIgnoredImport(IRI("urn:aFake"));
         OWLOntologyLoaderConfiguration result12 = testSubject0
