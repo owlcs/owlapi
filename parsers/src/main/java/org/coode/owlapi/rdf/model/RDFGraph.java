@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdf.model;
 
 import java.io.IOException;
@@ -51,41 +50,35 @@ import java.util.Set;
 
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br><br>
- */
+ * Date: 06-Dec-2006<br>
+ * <br> */
 public class RDFGraph {
-
     private Map<RDFResourceNode, Set<RDFTriple>> triplesBySubject;
-
     private Set<RDFResourceNode> rootAnonymousNodes;
-
     private Set<RDFTriple> triples;
 
-
     @SuppressWarnings("javadoc")
-	public RDFGraph() {
+    public RDFGraph() {
         triples = new HashSet<RDFTriple>();
         triplesBySubject = new HashMap<RDFResourceNode, Set<RDFTriple>>();
         rootAnonymousNodes = null;
     }
 
-    /**
-     * Determines if this graph is empty (i.e. whether or not it contains any triples).
-     * @return <code>true</code> if the graph contains triples, otherwise <code>false</code>
-     * @since 3.5
-     */
+    /** Determines if this graph is empty (i.e. whether or not it contains any
+     * triples).
+     * 
+     * @return <code>true</code> if the graph contains triples, otherwise
+     *         <code>false</code>
+     * @since 3.5 */
     public boolean isEmpty() {
         return triples.isEmpty();
     }
 
-    /**
-     * @param triple triple to add
-     */
+    /** @param triple
+     *            triple to add */
     public void addTriple(RDFTriple triple) {
         // Reset the computation of root anon nodes
         rootAnonymousNodes = null;
@@ -98,18 +91,17 @@ public class RDFGraph {
         tripleSet.add(triple);
     }
 
-
-    /**
-     * @param subject node to search
+    /** @param subject
+     *            node to search
      * @return triples which have subject as subject
-     * @deprecated this method makes a defensive copy for each element in the map, but most uses of this only iterate over the results. Use getSortedTriplesForResult instead
-     */
+     * @deprecated this method makes a defensive copy for each element in the
+     *             map, but most uses of this only iterate over the results. Use
+     *             getSortedTriplesForResult instead */
     @Deprecated
     public Set<RDFTriple> getTriplesForSubject(RDFNode subject) {
         if (triplesBySubject.containsKey(subject)) {
             return new HashSet<RDFTriple>(triplesBySubject.get(subject));
-        }
-        else {
+        } else {
             return Collections.emptySet();
         }
     }
@@ -118,33 +110,36 @@ public class RDFGraph {
      * @param sort
      * @return sorted triples */
     public List<RDFTriple> getSortedTriplesForSubject(RDFNode subject, boolean sort) {
-    	List<RDFTriple> toReturn=new ArrayList<RDFTriple>();
-    	Set<RDFTriple> set=triplesBySubject.get(subject);
-    	if(set!=null){
-    		toReturn.addAll(set);
-    	}
-    	if(sort) {
-    		Collections.sort(toReturn, RDFRendererBase.tripleComparator);
-    	}
-    	return toReturn;
+        List<RDFTriple> toReturn = new ArrayList<RDFTriple>();
+        Set<RDFTriple> set = triplesBySubject.get(subject);
+        if (set != null) {
+            toReturn.addAll(set);
+        }
+        if (sort) {
+            try {
+                Collections.sort(toReturn, RDFRendererBase.tripleComparator);
+            } catch (IllegalArgumentException e) {
+                System.out.println("RDFGraph.getSortedTriplesForSubject() " + toReturn);
+                throw e;
+            }
+        }
+        return toReturn;
     }
 
-
-    /**
-     * @param node node to search
-     * @return true if the anon node is shared
-     */
+    /** @param node
+     *            node to search
+     * @return true if the anon node is shared */
     public boolean isAnonymousNodeSharedSubject(RDFResourceNode node) {
-        if(!node.isAnonymous()) {
+        if (!node.isAnonymous()) {
             return false;
         }
         int count = 0;
-        for(RDFTriple triple : triples) {
-            if(!triple.getObject().isLiteral()) {
+        for (RDFTriple triple : triples) {
+            if (!triple.getObject().isLiteral()) {
                 RDFResourceNode object = (RDFResourceNode) triple.getObject();
-                if(object.equals(node)) {
+                if (object.equals(node)) {
                     count++;
-                    if(count > 1) {
+                    if (count > 1) {
                         return true;
                     }
                 }
@@ -153,16 +148,13 @@ public class RDFGraph {
         return false;
     }
 
-    /**
-     * @return root anonymous nodes
-     */
+    /** @return root anonymous nodes */
     public Set<RDFResourceNode> getRootAnonymousNodes() {
         if (rootAnonymousNodes == null) {
             rebuildAnonRoots();
         }
         return rootAnonymousNodes;
     }
-
 
     private void rebuildAnonRoots() {
         rootAnonymousNodes = new HashSet<RDFResourceNode>();
@@ -179,13 +171,13 @@ public class RDFGraph {
         }
     }
 
-    /**
-     * @param w writer to write to
-     * @throws IOException if exceptions happen
-     */
+    /** @param w
+     *            writer to write to
+     * @throws IOException
+     *             if exceptions happen */
     public void dumpTriples(Writer w) throws IOException {
-        for(Set<RDFTriple> set : triplesBySubject.values()) {
-            for(RDFTriple triple : set) {
+        for (Set<RDFTriple> set : triplesBySubject.values()) {
+            for (RDFTriple triple : set) {
                 w.write(triple.toString());
                 w.write("\n");
             }
