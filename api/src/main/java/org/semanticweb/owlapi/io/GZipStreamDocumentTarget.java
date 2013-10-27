@@ -43,8 +43,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.zip.GZIPOutputStream;
 
@@ -58,6 +56,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * <br> */
 public class GZipStreamDocumentTarget implements OWLOntologyDocumentTarget {
     private final File out;
+    private OutputStream outputStream;
 
     /** @param os
      *            the actual file */
@@ -67,17 +66,13 @@ public class GZipStreamDocumentTarget implements OWLOntologyDocumentTarget {
 
     @Override
     public boolean isWriterAvailable() {
-        return true;
+        return false;
     }
 
     @Override
     public Writer getWriter() {
-        try {
-            return new OutputStreamWriter(getOutputStream(), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            // will never happen though - UTF-8 is always supported
-            throw new OWLRuntimeException(e);
-        }
+        throw new UnsupportedOperationException(
+                "writer not available; check with isWriterAvailable() first.");
     }
 
     @Override
@@ -87,13 +82,16 @@ public class GZipStreamDocumentTarget implements OWLOntologyDocumentTarget {
 
     @Override
     public OutputStream getOutputStream() {
-        try {
-            return new GZIPOutputStream(new FileOutputStream(out));
-        } catch (FileNotFoundException e) {
-            throw new OWLRuntimeException(e);
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+        if (outputStream == null) {
+            try {
+                outputStream = new GZIPOutputStream(new FileOutputStream(out));
+            } catch (FileNotFoundException e) {
+                throw new OWLRuntimeException(e);
+            } catch (IOException e) {
+                throw new OWLRuntimeException(e);
+            }
         }
+        return outputStream;
     }
 
     @Override

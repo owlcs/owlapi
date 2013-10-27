@@ -47,6 +47,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 
@@ -56,6 +58,7 @@ import org.coode.owlapi.rdf.renderer.RDFRendererBase;
  * Date: 06-Dec-2006<br>
  * <br> */
 public class RDFGraph {
+    private static final Logger logger = Logger.getLogger(RDFGraph.class.getName());
     private Map<RDFResourceNode, Set<RDFTriple>> triplesBySubject;
     private Set<RDFResourceNode> rootAnonymousNodes;
     private Set<RDFTriple> triples;
@@ -119,8 +122,15 @@ public class RDFGraph {
             try {
                 Collections.sort(toReturn, RDFRendererBase.tripleComparator);
             } catch (IllegalArgumentException e) {
-                System.out.println("RDFGraph.getSortedTriplesForSubject() " + toReturn);
-                throw e;
+                // catch possible sorting misbehaviour
+                if (!e.getMessage().contains(
+                        "Comparison method violates its general contract!")) {
+                    throw e;
+                }
+                // otherwise print a warning and leave the list unsorted
+                logger.log(Level.WARNING,
+                        "Misbehaving triple comparator, leaving triples unsorted: "
+                                + toReturn, e);
             }
         }
         return toReturn;
