@@ -722,5 +722,4 @@ public abstract class RDFRendererBase {
     }
 
     private static final OWLEntityIRIComparator OWL_ENTITY_IRI_COMPARATOR = new OWLEntityIRIComparator();
-    public static final TripleComparator tripleComparator = new TripleComparator();
 }

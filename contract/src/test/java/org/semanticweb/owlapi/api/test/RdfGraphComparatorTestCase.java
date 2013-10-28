@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTriple;
-import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
@@ -15,6 +14,6 @@ public class RdfGraphComparatorTestCase {
         RDFResourceNode iri1 = new RDFResourceNode(IRI.create("urn:test:1"));
         RDFTriple first = new RDFTriple(iri1, iri1, iri1);
         RDFTriple second = new RDFTriple(iri1, iri1, iri1);
-        assertEquals(0, RDFRendererBase.tripleComparator.compare(first, second));
+        assertEquals(0, first.compareTo(second));
     }
 }

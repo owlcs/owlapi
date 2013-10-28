@@ -50,8 +50,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.coode.owlapi.rdf.renderer.RDFRendererBase;
-
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -120,7 +118,7 @@ public class RDFGraph {
         }
         if (sort) {
             try {
-                Collections.sort(toReturn, RDFRendererBase.tripleComparator);
+                Collections.sort(toReturn);
             } catch (IllegalArgumentException e) {
                 // catch possible sorting misbehaviour
                 if (!e.getMessage().contains(

@@ -36,63 +36,56 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdf.model;
-/**
- * Author: Matthew Horridge<br>
+
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.semanticweb.owlapi.model.IRI;
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br><br>
- *
- * Represents an RDF triple (S, P, O)
- */
-public class RDFTriple {
-
+ * Date: 06-Dec-2006<br>
+ * <br>
+ * Represents an RDF triple (S, P, O) */
+public class RDFTriple implements Comparable<RDFTriple> {
     private RDFResourceNode subject;
-
     private RDFResourceNode property;
-
     private RDFNode object;
-
     private int hashCode = 0;
 
-
-    /**
-     * @param subject subject of triple
-     * @param property property of triple
-     * @param object object of triple
-     */
+    /** @param subject
+     *            subject of triple
+     * @param property
+     *            property of triple
+     * @param object
+     *            object of triple */
     public RDFTriple(RDFResourceNode subject, RDFResourceNode property, RDFNode object) {
         this.object = object;
         this.property = property;
         this.subject = subject;
     }
 
-
-    /**
-     * @return subject
-     */
+    /** @return subject */
     public RDFResourceNode getSubject() {
         return subject;
     }
 
-    /**
-     * @return property
-     */
+    /** @return property */
     public RDFResourceNode getProperty() {
         return property;
     }
 
-     /**
-      * @return object
-      */
-     public RDFNode getObject() {
+    /** @return object */
+    public RDFNode getObject() {
         return object;
     }
 
-
     @Override
-	public int hashCode() {
+    public int hashCode() {
         if (hashCode == 0) {
             hashCode = 17;
             hashCode = hashCode * 37 + subject.hashCode();
@@ -102,21 +95,18 @@ public class RDFTriple {
         return hashCode;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-        if(!(obj instanceof RDFTriple)) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof RDFTriple)) {
             return false;
         }
         RDFTriple other = (RDFTriple) obj;
-        return other.subject.equals(subject) &&
-                other.property.equals(property) &&
-                other.object.equals(object);
+        return other.subject.equals(subject) && other.property.equals(property)
+                && other.object.equals(object);
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(subject.toString());
         sb.append(" -> ");
@@ -124,5 +114,31 @@ public class RDFTriple {
         sb.append(" -> ");
         sb.append(object.toString());
         return sb.toString();
+    }
+
+    private static final List<IRI> orderedURIs = Arrays.asList(RDF_TYPE.getIRI(),
+            RDFS_LABEL.getIRI(), OWL_EQUIVALENT_CLASS.getIRI(),
+            RDFS_SUBCLASS_OF.getIRI(), OWL_DISJOINT_WITH.getIRI(),
+            OWL_ON_PROPERTY.getIRI(), OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
+
+    private int getIndex(IRI iri) {
+        int index = orderedURIs.indexOf(iri);
+        if (index == -1) {
+            index = orderedURIs.size();
+        }
+        return index;
+    }
+
+    @Override
+    public int compareTo(RDFTriple b) {
+        // compare by predicate, then subject, then object
+        int diff = getIndex(getProperty().getIRI()) - getIndex(b.getProperty().getIRI());
+        if (diff == 0) {
+            diff = getSubject().compareTo(b.getSubject());
+        }
+        if (diff == 0) {
+            diff = getObject().compareTo(b.getObject());
+        }
+        return diff;
     }
 }

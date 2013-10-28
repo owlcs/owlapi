@@ -36,38 +36,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdf.model;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br><br>
- */
-public abstract class RDFNode {
-
-    /**
-     * @return true if the node is a literal
-     */
+ * Date: 06-Dec-2006<br>
+ * <br> */
+public abstract class RDFNode implements Comparable<RDFNode> {
+    /** @return true if the node is a literal */
     public abstract boolean isLiteral();
 
-
-    /**
-     * Gets the URI of the resource.
-     * @return The URI or <code>null</code> if this is an anonymous resource.
-     */
+    /** Gets the URI of the resource.
+     * 
+     * @return The URI or <code>null</code> if this is an anonymous resource. */
     public abstract IRI getIRI();
 
-
-    /**
-     * Determines if this node is a resource and is anonymous.
+    /** Determines if this node is a resource and is anonymous.
+     * 
      * @return <code>true</code> if this is a resource node (i.e.
-     * <code>isLiteral</code> returns <code>false</code>) and the
-     * node is anonymous, or <code>false</code> if this is a
-     * resource node and is not anonymous.
-     */
+     *         <code>isLiteral</code> returns <code>false</code>) and the node
+     *         is anonymous, or <code>false</code> if this is a resource node
+     *         and is not anonymous. */
     public abstract boolean isAnonymous();
 }

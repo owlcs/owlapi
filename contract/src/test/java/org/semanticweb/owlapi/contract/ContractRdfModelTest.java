@@ -94,6 +94,11 @@ public class ContractRdfModelTest {
             public boolean isAnonymous() {
                 return false;
             }
+
+            @Override
+            public int compareTo(RDFNode o) {
+                return 0;
+            }
         };
         boolean result0 = testSubject0.isAnonymous();
         IRI result1 = testSubject0.getIRI();

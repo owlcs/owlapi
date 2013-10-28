@@ -36,154 +36,169 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdf.model;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br><br>
- */
-public class RDFLiteralNode extends RDFNode {
-
+ * Date: 06-Dec-2006<br>
+ * <br> */
+public class RDFLiteralNode extends RDFNode implements Comparable<RDFNode> {
     private String literal;
-
     private String lang;
-
     private IRI datatype;
-
     private int hashCode = 0;
 
     @Override
-	public IRI getIRI() {
+    public IRI getIRI() {
         return null;
     }
 
-
     @Override
-	public boolean isAnonymous() {
+    public boolean isAnonymous() {
         return false;
     }
 
-
-    /**
-     * @param literal lexical form
-     * @param datatype type
-     */
+    /** @param literal
+     *            lexical form
+     * @param datatype
+     *            type */
     public RDFLiteralNode(String literal, IRI datatype) {
         this.literal = literal;
         this.datatype = datatype;
     }
 
-    /**
-     * @param literal lexical form
-     * @param lang language tag
-     */
+    /** @param literal
+     *            lexical form
+     * @param lang
+     *            language tag */
     public RDFLiteralNode(String literal, String lang) {
         this.literal = literal;
         this.lang = lang;
     }
 
-    /**
-     * Gets the lexical form of this literal.
-     * @return The lexical form
-     */
+    /** Gets the lexical form of this literal.
+     * 
+     * @return The lexical form */
     public String getLiteral() {
         return literal;
     }
 
-
-    /**
-     * Gets the lang
-     * @return The lang, or <code>null</code> if there is no lang
-     */
+    /** Gets the lang
+     * 
+     * @return The lang, or <code>null</code> if there is no lang */
     public String getLang() {
         return lang;
     }
 
-
-    /**
-     * @return the datatype, or <code>null</code> if there is no datatype
-     */
+    /** @return the datatype, or <code>null</code> if there is no datatype */
     public IRI getDatatype() {
         return datatype;
     }
 
-
-    /**
-     * @return true if the node has a datatype
-     */
+    /** @return true if the node has a datatype */
     public boolean isTyped() {
         return datatype != null;
     }
 
     @Override
-	public boolean isLiteral() {
+    public boolean isLiteral() {
         return true;
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\"");
         sb.append(literal);
         sb.append("\"");
-        if(datatype != null) {
+        if (datatype != null) {
             sb.append("^^<");
             sb.append(datatype);
             sb.append(">");
-        }
-        else if(lang != null) {
+        } else if (lang != null) {
             sb.append("@");
             sb.append(lang);
         }
         return sb.toString();
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-        if(!(obj instanceof RDFLiteralNode)) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof RDFLiteralNode)) {
             return false;
         }
         RDFLiteralNode other = (RDFLiteralNode) obj;
-        if(!other.literal.equals(literal)) {
+        if (!other.literal.equals(literal)) {
             return false;
         }
-        if(datatype != null) {
-            if(!datatype.equals(other.datatype)) {
+        if (datatype != null) {
+            if (!datatype.equals(other.datatype)) {
                 return false;
             }
-        }
-        else if(other.getDatatype() != null) {
+        } else if (other.getDatatype() != null) {
             return false;
         }
-        if(lang != null) {
+        if (lang != null) {
             return lang.equals(other.lang);
-        }
-        else if(other.lang != null) {
+        } else if (other.lang != null) {
             return false;
         }
         return true;
     }
 
-
     @Override
-	public int hashCode() {
+    public int hashCode() {
         if (hashCode == 0) {
             hashCode = 37;
             hashCode = hashCode * 37 + literal.hashCode();
-            if(lang != null) {
+            if (lang != null) {
                 hashCode = hashCode * 37 + lang.hashCode();
             }
-            if(datatype != null) {
+            if (datatype != null) {
                 hashCode = hashCode * 37 + datatype.hashCode();
             }
         }
         return hashCode;
+    }
+
+    @Override
+    public int compareTo(RDFNode b) {
+        if (!b.isLiteral()) {
+            return -1;
+        }
+        if (equals(b)) {
+            return 0;
+        }
+        int diff = 0;
+        RDFLiteralNode lit2 = (RDFLiteralNode) b;
+        if (isTyped()) {
+            if (lit2.isTyped()) {
+                diff = getLiteral().compareTo(lit2.getLiteral());
+                if (diff == 0) {
+                    diff = getDatatype().compareTo(lit2.getDatatype());
+                }
+            } else {
+                diff = -1;
+            }
+        } else {
+            if (lit2.isTyped()) {
+                diff = 1;
+            } else {
+                if (getLang() != null) {
+                    if (lit2.getLang() != null) {
+                        diff = getLang().compareTo(lit2.getLang());
+                    }
+                } else {
+                    diff = -1;
+                }
+                if (diff == 0) {
+                    diff = getLiteral().compareTo(lit2.getLiteral());
+                }
+            }
+        }
+        return diff;
     }
 }

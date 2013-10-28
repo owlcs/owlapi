@@ -11,21 +11,20 @@ import java.util.List;
 import org.coode.owlapi.rdf.model.RDFNode;
 import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTriple;
-import org.coode.owlapi.rdf.renderer.TripleComparator;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 public class TripleComparatorTestCase {
-    String ns = "http://www.co-ode.org/roberts/pto.owl#";
-    RDFResourceNode g = r(Class(IRI(ns + "MoleOfGoldAtom")));
-    RDFResourceNode d = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
-    RDFResourceNode subtype = r(RDFS_SUBCLASS_OF.getIRI());
+    String ns = "urn:";
+    RDFResourceNode g = r(Class(IRI(ns + "g")));
+    RDFResourceNode d = r(ObjectProperty(IRI("urn:d")));
+    RDFResourceNode subtype = r(IRI("urn:r"));
 
     @Test
     public void shouldSort() {
-        List<RDFTriple> list = new ArrayList<RDFTriple>(Arrays.asList(
+        List<RDFTriple> asList = Arrays.asList(
                 //@formatter:off
                 triple("MoleOfNiobiumAtom"), 
                 triple("MoleOfMercuryAtom"),
@@ -93,8 +92,9 @@ public class TripleComparatorTestCase {
                 , triple("MoleOfRheniumAtom")
                 , triple("MoleOfZincAtom")
                 //@formatter:on
-                ));
-        Collections.sort(list, new TripleComparator());
+                );
+        List<RDFTriple> listB = new ArrayList<RDFTriple>(asList);
+        Collections.sort(listB);
     }
 
     private RDFTriple triple(String n) {
