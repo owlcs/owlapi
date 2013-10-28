@@ -154,4 +154,42 @@ public class RDFLiteral extends RDFNode {
     public boolean isPlainLiteral() {
         return OWL2Datatype.RDF_PLAIN_LITERAL.getIRI().equals(datatype);
     }
+
+    @Override
+    public int compareTo(RDFNode b) {
+        if (!b.isLiteral()) {
+            return -1;
+        }
+        if (equals(b)) {
+            return 0;
+        }
+        int diff = 0;
+        RDFLiteral lit2 = (RDFLiteral) b;
+        if (datatype != null) {
+            if (lit2.datatype != null) {
+                diff = lexicalValue.compareTo(lit2.lexicalValue);
+                if (diff == 0) {
+                    diff = getDatatype().compareTo(lit2.getDatatype());
+                }
+            } else {
+                diff = -1;
+            }
+        } else {
+            if (lit2.datatype != null) {
+                diff = 1;
+            } else {
+                if (getLang() != null) {
+                    if (lit2.getLang() != null) {
+                        diff = getLang().compareTo(lit2.getLang());
+                    }
+                } else {
+                    diff = -1;
+                }
+                if (diff == 0) {
+                    diff = lexicalValue.compareTo(lit2.lexicalValue);
+                }
+            }
+        }
+        return diff;
+    }
 }

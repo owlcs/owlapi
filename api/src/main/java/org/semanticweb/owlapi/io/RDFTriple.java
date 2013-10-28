@@ -39,8 +39,11 @@
 package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -53,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * Date: 21/12/2010
  * 
  * @since 3.2 */
-public class RDFTriple implements Serializable {
+public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     private static final long serialVersionUID = 40000L;
     private final RDFResource subject;
     private final RDFResourceIRI predicate;
@@ -153,5 +156,31 @@ public class RDFTriple implements Serializable {
         sb.append(object.toString());
         sb.append(".");
         return sb.toString();
+    }
+
+    private static final List<IRI> orderedURIs = Arrays.asList(RDF_TYPE.getIRI(),
+            RDFS_LABEL.getIRI(), OWL_EQUIVALENT_CLASS.getIRI(),
+            RDFS_SUBCLASS_OF.getIRI(), OWL_DISJOINT_WITH.getIRI(),
+            OWL_ON_PROPERTY.getIRI(), OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
+
+    private int getIndex(IRI iri) {
+        int index = orderedURIs.indexOf(iri);
+        if (index == -1) {
+            index = orderedURIs.size();
+        }
+        return index;
+    }
+
+    @Override
+    public int compareTo(RDFTriple b) {
+        // compare by predicate, then subject, then object
+        int diff = getIndex(predicate.getIRI()) - getIndex(b.predicate.getIRI());
+        if (diff == 0) {
+            diff = subject.compareTo(b.subject);
+        }
+        if (diff == 0) {
+            diff = object.compareTo(b.object);
+        }
+        return diff;
     }
 }

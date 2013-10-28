@@ -50,7 +50,36 @@ import org.semanticweb.owlapi.model.IRI;
  * @since 3.2 */
 public abstract class RDFResource extends RDFNode {
     private static final long serialVersionUID = 40000L;
+
     /** @return the resource IRI */
     @Nonnull
     public abstract IRI getResource();
+
+    @Override
+    public int compareTo(RDFNode b) {
+        if (b.isLiteral()) {
+            return 1;
+        }
+        if (equals(b)) {
+            return 0;
+        }
+        int diff = 0;
+        boolean anonA = isAnonymous();
+        boolean anonB = b.isAnonymous();
+        if (anonA == anonB) {
+            // if both are anonymous or both are not anonymous,
+            // comparing the id() values corresponds to comparing IRIs or
+            // comparing bnode ids
+            diff = getIRI().compareTo(b.getIRI());
+        } else {
+            // if one is anonymous and the other is not,
+            // named nodes come first
+            if (!anonA) {
+                diff = -1;
+            } else {
+                diff = 1;
+            }
+        }
+        return diff;
+    }
 }

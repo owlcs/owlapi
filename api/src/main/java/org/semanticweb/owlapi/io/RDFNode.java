@@ -50,12 +50,12 @@ import org.semanticweb.owlapi.model.IRI;
  * Date: 21/12/2010
  * 
  * @since 3.2 */
-public abstract class RDFNode implements Serializable {
+public abstract class RDFNode implements Serializable, Comparable<RDFNode> {
     private static final long serialVersionUID = 40000L;
+
     /** Determines if this node is a literal node.
      * 
-     * @return {@code true} if this node is a literal, otherwise
-     *         {@code false}. */
+     * @return {@code true} if this node is a literal, otherwise {@code false}. */
     public abstract boolean isLiteral();
 
     /** Gets the IRI of the resource.
@@ -66,9 +66,8 @@ public abstract class RDFNode implements Serializable {
 
     /** Determines if this node is a resource and is anonymous.
      * 
-     * @return {@code true} if this is a resource node (i.e.
-     *         {@code isLiteral} returns {@code false}) and the node
-     *         is anonymous, or {@code false} if this is a resource node
-     *         and is not anonymous. */
+     * @return {@code true} if this is a resource node (i.e. {@code isLiteral}
+     *         returns {@code false}) and the node is anonymous, or
+     *         {@code false} if this is a resource node and is not anonymous. */
     public abstract boolean isAnonymous();
 }

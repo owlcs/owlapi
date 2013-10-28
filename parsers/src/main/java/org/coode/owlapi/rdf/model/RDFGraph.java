@@ -49,10 +49,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
 
-import org.coode.owlapi.rdf.renderer.TripleComparator;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
@@ -64,6 +65,7 @@ import org.semanticweb.owlapi.io.RDFTriple;
  * Date: 06-Dec-2006<br>
  * <br> */
 public class RDFGraph {
+    private static final Logger logger = Logger.getLogger(RDFGraph.class.getName());
     private Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
     private Set<RDFResourceBlankNode> rootAnonymousNodes = null;
     private Set<RDFTriple> triples = new HashSet<RDFTriple>();
@@ -106,7 +108,19 @@ public class RDFGraph {
             toReturn.addAll(set);
         }
         if (sort) {
-            Collections.sort(toReturn, new TripleComparator());
+            try {
+                Collections.sort(toReturn);
+            } catch (IllegalArgumentException e) {
+                // catch possible sorting misbehaviour
+                if (!e.getMessage().contains(
+                        "Comparison method violates its general contract!")) {
+                    throw e;
+                }
+                // otherwise print a warning and leave the list unsorted
+                logger.log(Level.WARNING,
+                        "Misbehaving triple comparator, leaving triples unsorted: "
+                                + toReturn, e);
+            }
         }
         return toReturn;
     }
