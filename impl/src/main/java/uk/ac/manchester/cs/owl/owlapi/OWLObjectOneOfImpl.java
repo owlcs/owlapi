@@ -40,6 +40,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -68,7 +69,8 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
 
     @SuppressWarnings("javadoc")
     public OWLObjectOneOfImpl(@Nonnull Set<? extends OWLIndividual> values) {
-        this.values = new HashSet<OWLIndividual>(checkNotNull(values, "values cannot be null"));
+        this.values = new HashSet<OWLIndividual>(checkNotNull(values,
+                "values cannot be null"));
     }
 
     @Override
@@ -93,9 +95,9 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
         } else {
             Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : values) {
-                ops.add(df.getOWLObjectOneOf(ind));
+                ops.add(new OWLObjectOneOfImpl(Collections.singleton(ind)));
             }
-            return df.getOWLObjectUnionOf(ops);
+            return new OWLObjectUnionOfImpl(ops);
         }
     }
 

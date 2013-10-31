@@ -40,6 +40,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -48,10 +49,10 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -62,6 +63,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -70,11 +72,14 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * <br> */
 public abstract class OWLObjectImpl implements OWLObject, Serializable {
     private static final long serialVersionUID = 40000L;
+    /** a convenience reference for an empty annotation set, saves on typing */
+    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
+            .<OWLAnnotation> emptySet();
     private int hashCode = 0;
     private transient WeakReference<Set<OWLEntity>> signature = null;
     private transient WeakReference<Set<OWLAnonymousIndividual>> anons = null;
-    protected static OWLDataFactory df = new OWLDataFactoryImpl();
-
+    protected static final OWLClass OWL_THING = new OWLClassImpl(
+            OWLRDFVocabulary.OWL_THING.getIRI());
     @Override
     public Set<OWLEntity> getSignature() {
         Set<OWLEntity> set = null;

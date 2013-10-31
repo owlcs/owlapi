@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDFS_LITERAL;
+
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -76,12 +78,13 @@ public class OWLDataPropertyDomainAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLDataPropertyDomainAxiom(getProperty(), getDomain());
+        return new OWLDataPropertyDomainAxiomImpl(getProperty(), getDomain(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return df.getOWLDataPropertyDomainAxiom(getProperty(), getDomain(),
+        return new OWLDataPropertyDomainAxiomImpl(getProperty(), getDomain(),
                 mergeAnnos(annotations));
     }
 
@@ -117,8 +120,8 @@ public class OWLDataPropertyDomainAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLClassExpression sub = df.getOWLDataSomeValuesFrom(getProperty(),
-                df.getTopDatatype());
-        return df.getOWLSubClassOfAxiom(sub, getDomain());
+        OWLClassExpression sub = new OWLDataSomeValuesFromImpl(getProperty(),
+                new OWL2DatatypeImpl(RDFS_LITERAL));
+        return new OWLSubClassOfAxiomImpl(sub, getDomain(), NO_ANNOTATIONS);
     }
 }

@@ -75,12 +75,13 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLTransitiveObjectPropertyAxiom(getProperty());
+        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(),
+ NO_ANNOTATIONS);
     }
 
     @Override
     public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return df.getOWLTransitiveObjectPropertyAxiom(getProperty(),
+        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }
 

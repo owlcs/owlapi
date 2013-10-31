@@ -40,6 +40,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -113,8 +115,8 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual
     @Override
     @Deprecated
     public OWLClassExpression asSomeValuesFrom() {
-        return df.getOWLObjectSomeValuesFrom(getProperty(),
-                df.getOWLObjectOneOf(getValue()));
+        return new OWLObjectSomeValuesFromImpl(getProperty(), new OWLObjectOneOfImpl(
+                Collections.singleton(getValue())));
     }
 
     @Override

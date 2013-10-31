@@ -101,7 +101,7 @@ public class RDFParser extends DefaultHandler {
     /** Consumer receiving notifications about parsing events. */
     protected RDFConsumer m_consumer;
     /** Current parser's state. */
-    protected State m_state;
+    protected State state;
     /** Stack of parser states. */
     protected List<State> m_states = new ArrayList<State>();
     /** Document locator. */
@@ -141,7 +141,7 @@ public class RDFParser extends DefaultHandler {
             throw new SAXException("Invalid SystemID '" + systemID
                     + "'of the supplied input source.");
         } finally {
-            m_state = null;
+            state = null;
             m_states.clear();
             m_documentLocator = null;
             m_baseIRIs.clear();
@@ -196,7 +196,7 @@ public class RDFParser extends DefaultHandler {
 
     @Override
     public void endDocument() throws SAXException {
-        if (m_state != null) {
+        if (state != null) {
             throw new RDFParserException("RDF content not finished.", m_documentLocator);
         }
     }
@@ -206,20 +206,20 @@ public class RDFParser extends DefaultHandler {
             Attributes atts) throws SAXException {
         processXMLBase(atts);
         processXMLLanguage(atts);
-        m_state.startElement(namespaceIRI, localName, qName, atts);
+        state.startElement(namespaceIRI, localName, qName, atts);
     }
 
     @Override
     public void endElement(String namespaceIRI, String localName, String qName)
             throws SAXException {
-        m_state.endElement(namespaceIRI, localName, qName);
+        state.endElement(namespaceIRI, localName, qName);
         m_baseIRI = m_baseIRIs.remove(0);
         m_language = m_languages.remove(0);
     }
 
     @Override
     public void characters(char[] data, int start, int length) throws SAXException {
-        m_state.characters(data, start, length);
+        state.characters(data, start, length);
     }
 
     @Override
@@ -262,11 +262,11 @@ public class RDFParser extends DefaultHandler {
 
     /** Pushes a new state on the state stack.
      * 
-     * @param state
+     * @param s
      *            new state */
-    protected void pushState(State state) {
-        m_states.add(state);
-        m_state = state;
+    protected void pushState(State s) {
+        m_states.add(s);
+        state = s;
     }
 
     /** Pops a state from the stack. */
@@ -277,9 +277,9 @@ public class RDFParser extends DefaultHandler {
                     m_documentLocator);
         }
         if (size == 1) {
-            m_state = null;
+            state = null;
         } else {
-            m_state = m_states.get(size - 2);
+            state = m_states.get(size - 2);
         }
         m_states.remove(size - 1);
     }

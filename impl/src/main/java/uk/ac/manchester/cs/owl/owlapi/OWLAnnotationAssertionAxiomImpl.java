@@ -84,7 +84,8 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLAnnotationAssertionAxiom(getProperty(), getSubject(), getValue());
+        return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
+                getValue(), NO_ANNOTATIONS);
     }
 
     /** Determines if this annotation assertion deprecates the IRI that is the
@@ -100,8 +101,8 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
 
     @Override
     public OWLAnnotationAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return df.getOWLAnnotationAssertionAxiom(getProperty(), getSubject(), getValue(),
-                mergeAnnos(annotations));
+        return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
+                getValue(), mergeAnnos(annotations));
     }
 
     @Override
@@ -121,7 +122,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
 
     @Override
     public OWLAnnotation getAnnotation() {
-        return df.getOWLAnnotation(property, value);
+        return new OWLAnnotationImpl(property, value, NO_ANNOTATIONS);
     }
 
     @Override

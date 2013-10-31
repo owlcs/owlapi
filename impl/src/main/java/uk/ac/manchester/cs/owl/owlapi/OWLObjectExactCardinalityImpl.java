@@ -38,6 +38,9 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -79,11 +82,10 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
 
     @Override
     public OWLClassExpression asIntersectionOfMinMax() {
-        return df
-                .getOWLObjectIntersectionOf(df.getOWLObjectMinCardinality(
-                        getCardinality(), getProperty(), getFiller()), df
-                        .getOWLObjectMaxCardinality(getCardinality(), getProperty(),
-                                getFiller()));
+        return new OWLObjectIntersectionOfImpl(new HashSet<OWLClassExpression>(
+                Arrays.asList(new OWLObjectMinCardinalityImpl(getProperty(),
+                        getCardinality(), getFiller()), new OWLObjectMaxCardinalityImpl(
+                        getProperty(), getCardinality(), getFiller()))));
     }
 
     @Override

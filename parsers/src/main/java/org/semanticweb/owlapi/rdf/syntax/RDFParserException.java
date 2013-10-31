@@ -50,10 +50,10 @@ import org.xml.sax.SAXException;
 /** Throws if an RDF error is encountered while parsing RDF. */
 public class RDFParserException extends SAXException {
     private static final long serialVersionUID = 40000L;
-    protected String m_publicId;
-    protected String m_systemId;
-    protected int m_lineNumber;
-    protected int m_columnNumber;
+    protected final String publicId;
+    protected final String systemId;
+    protected final int lineNumber;
+    protected final int columnNumber;
 
     /** @param message */
     public RDFParserException(String message) {
@@ -77,29 +77,29 @@ public class RDFParserException extends SAXException {
         super((lineNumber != -1 || columnNumber != -1 ? "[line=" + lineNumber + ":"
                 + "column=" + columnNumber + "] " : "")
                 + message);
-        m_publicId = publicId;
-        m_systemId = systemId;
-        m_lineNumber = lineNumber;
-        m_columnNumber = columnNumber;
+        this.publicId = publicId;
+        this.systemId = systemId;
+        this.lineNumber = lineNumber;
+        this.columnNumber = columnNumber;
     }
 
     /** @return public id */
     public String getPublicId() {
-        return m_publicId;
+        return publicId;
     }
 
     /** @return system id */
     public String getSystemId() {
-        return m_systemId;
+        return systemId;
     }
 
     /** @return line number */
     public int getLineNumber() {
-        return m_lineNumber;
+        return lineNumber;
     }
 
     /** @return column number */
     public int getColumnNumber() {
-        return m_columnNumber;
+        return columnNumber;
     }
 }

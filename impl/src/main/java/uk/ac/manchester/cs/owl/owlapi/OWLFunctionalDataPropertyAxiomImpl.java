@@ -38,6 +38,8 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDFS_LITERAL;
+
 import java.util.Collection;
 import java.util.Set;
 
@@ -75,13 +77,13 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLFunctionalDataPropertyAxiom(getProperty());
+        return new OWLFunctionalDataPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLFunctionalDataPropertyAxiom
             getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return df.getOWLFunctionalDataPropertyAxiom(getProperty(),
+        return new OWLFunctionalDataPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }
 
@@ -123,7 +125,7 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return df.getOWLSubClassOfAxiom(df.getOWLThing(),
-                df.getOWLDataMaxCardinality(1, getProperty()));
+        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLDataMaxCardinalityImpl(
+                getProperty(), 1, new OWL2DatatypeImpl(RDFS_LITERAL)), NO_ANNOTATIONS);
     }
 }

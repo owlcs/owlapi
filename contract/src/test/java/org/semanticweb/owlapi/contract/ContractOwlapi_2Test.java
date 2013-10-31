@@ -162,7 +162,8 @@ public class ContractOwlapi_2Test {
         OWLLiteral result7 = testSubject0.getOWLLiteral(0);
         OWLLiteral result8 = testSubject0.getOWLLiteral("");
         OWLLiteral result9 = testSubject0.getOWLLiteral(0F);
-        OWLLiteral result10 = testSubject0.getOWLLiteral("", mock(OWLDatatype.class));
+        OWLLiteral result10 = testSubject0.getOWLLiteral("true",
+                testSubject0.getBooleanOWLDatatype());
         testSubject0.purge();
         OWLDatatype result11 = testSubject0.getTopDatatype();
         OWLDatatype result12 = testSubject0.getRDFPlainLiteral();

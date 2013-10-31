@@ -72,7 +72,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLNaryClassAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLNaryDataRangeImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLNaryIndividualAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLNaryPropertyAxiomImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLNegativeDataPropertyAssertionImplAxiom;
+import uk.ac.manchester.cs.owl.owlapi.OWLNegativeDataPropertyAssertionAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLNegativeObjectPropertyAssertionAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectAllValuesFromImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectCardinalityRestrictionImpl;
@@ -469,7 +469,7 @@ public class ContractOwlapi_3Test {
 
     @Test
     public void shouldTestOWLNegativeDataPropertyAssertionImplAxiom() throws OWLException {
-        OWLNegativeDataPropertyAssertionImplAxiom testSubject0 = new OWLNegativeDataPropertyAssertionImplAxiom(
+        OWLNegativeDataPropertyAssertionAxiomImpl testSubject0 = new OWLNegativeDataPropertyAssertionAxiomImpl(
                 mock(OWLIndividual.class), mock(OWLDataPropertyExpression.class),
                 mock(OWLLiteral.class), Utils.mockSet(mock(OWLAnnotation.class)));
         testSubject0.accept(mock(OWLAxiomVisitor.class));

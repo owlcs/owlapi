@@ -41,6 +41,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -63,18 +64,19 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Date: 26-Oct-2006<br>
  * <br> */
 @SuppressWarnings("javadoc")
-public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements
+public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implements
         OWLClassAssertionAxiom {
     private static final long serialVersionUID = 40000L;
     private final OWLIndividual individual;
     private final OWLClassExpression classExpression;
 
-    public OWLClassAssertionImpl(@Nonnull OWLIndividual individual,
+    public OWLClassAssertionAxiomImpl(@Nonnull OWLIndividual individual,
             @Nonnull OWLClassExpression classExpression,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.individual = checkNotNull(individual, "individual cannot be null");
-        this.classExpression = checkNotNull(classExpression, "classExpression cannot be null");
+        this.classExpression = checkNotNull(classExpression,
+                "classExpression cannot be null");
     }
 
     @Override
@@ -82,12 +84,13 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLClassAssertionAxiom(getClassExpression(), getIndividual());
+        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public OWLClassAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return df.getOWLClassAssertionAxiom(getClassExpression(), getIndividual(),
+        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(),
                 mergeAnnos(annotations));
     }
 
@@ -116,8 +119,9 @@ public class OWLClassAssertionImpl extends OWLIndividualAxiomImpl implements
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getIndividual()),
-                getClassExpression());
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
+                Collections.singleton(getIndividual())), getClassExpression(),
+                NO_ANNOTATIONS);
     }
 
     @Override

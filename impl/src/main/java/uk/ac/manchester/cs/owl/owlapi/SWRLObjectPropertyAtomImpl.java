@@ -76,12 +76,12 @@ public class SWRLObjectPropertyAtomImpl extends
             return this;
         } else if (prop.isAnonymous()) {
             // Flip
-            return df.getSWRLObjectPropertyAtom(
-                    prop.getInverseProperty().getSimplified(), getSecondArgument(),
-                    getFirstArgument());
-        } else {
+            return new SWRLObjectPropertyAtomImpl(prop.getInverseProperty()
+                    .getSimplified(), getSecondArgument(), getFirstArgument());
+        }
+        else {
             // No need to flip
-            return df.getSWRLObjectPropertyAtom(prop, getFirstArgument(),
+            return new SWRLObjectPropertyAtomImpl(prop, getFirstArgument(),
                     getSecondArgument());
         }
     }

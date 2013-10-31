@@ -38,6 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -73,8 +74,9 @@ public class OWLDataPropertyAssertionAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getSubject()),
-                df.getOWLDataHasValue(getProperty(), getObject()));
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
+                Collections.singleton(getSubject())), new OWLDataHasValueImpl(
+                getProperty(), getObject()), NO_ANNOTATIONS);
     }
 
     @Override
@@ -82,14 +84,14 @@ public class OWLDataPropertyAssertionAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(),
-                getObject());
+        return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
+                getObject(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDataPropertyAssertionAxiom
             getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return df.getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(),
+        return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
                 getObject(), mergeAnnos(annotations));
     }
 

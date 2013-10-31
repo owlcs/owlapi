@@ -74,12 +74,13 @@ public class OWLSubDataPropertyOfAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLSubDataPropertyOfAxiom(getSubProperty(), getSuperProperty());
+        return new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public OWLSubDataPropertyOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return df.getOWLSubDataPropertyOfAxiom(getSubProperty(), getSuperProperty(),
+        return new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
                 mergeAnnos(annotations));
     }
 

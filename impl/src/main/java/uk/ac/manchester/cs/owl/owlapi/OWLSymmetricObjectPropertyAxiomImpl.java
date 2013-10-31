@@ -73,19 +73,17 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
 
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms() {
-        Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<OWLSubObjectPropertyOfAxiom>(
-                5);
-        result.add(df.getOWLSubObjectPropertyOfAxiom(getProperty(), getProperty()
-                .getInverseProperty().getSimplified()));
-        result.add(df.getOWLSubObjectPropertyOfAxiom(getProperty().getInverseProperty()
-                .getSimplified(), getProperty()));
+        Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<OWLSubObjectPropertyOfAxiom>(5);
+        result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty(), getProperty()
+                .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
+        result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty().getInverseProperty()
+                .getSimplified(), getProperty(), NO_ANNOTATIONS));
         return result;
     }
 
     @Override
-    public OWLSymmetricObjectPropertyAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
-        return df.getOWLSymmetricObjectPropertyAxiom(getProperty(),
+    public OWLSymmetricObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }
 
@@ -94,7 +92,7 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLSymmetricObjectPropertyAxiom(getProperty());
+        return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override

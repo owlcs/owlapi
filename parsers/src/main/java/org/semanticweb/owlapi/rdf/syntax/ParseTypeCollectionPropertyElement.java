@@ -29,7 +29,7 @@ public class ParseTypeCollectionPropertyElement implements State {
         } else {
             NodeElement collectionNode = new NodeElement(parser);
             parser.pushState(collectionNode);
-            parser.m_state.startElement(namespaceIRI, localName, qName, atts);
+            parser.state.startElement(namespaceIRI, localName, qName, atts);
             String newListCellIRI = listCell(collectionNode.getSubjectIRI());
             if (m_lastCellIRI == null) {
                 parser.statementWithResourceValue(m_nodeElement.getSubjectIRI(),

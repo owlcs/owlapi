@@ -1146,7 +1146,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         checkNull(object, "object");
         checkNull(subject, "subject");
         checkNull(annotations, ANNOTATIONS, true);
-        return new OWLNegativeDataPropertyAssertionImplAxiom(subject, property, object,
+        return new OWLNegativeDataPropertyAssertionAxiomImpl(subject, property, object,
                 annotations);
     }
 
@@ -1194,7 +1194,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable {
         checkNull(classExpression, "classExpression");
         checkNull(individual, "individual");
         checkNull(annotations, ANNOTATIONS, true);
-        return new OWLClassAssertionImpl(individual, classExpression, annotations);
+        return new OWLClassAssertionAxiomImpl(individual, classExpression, annotations);
     }
 
     @Override

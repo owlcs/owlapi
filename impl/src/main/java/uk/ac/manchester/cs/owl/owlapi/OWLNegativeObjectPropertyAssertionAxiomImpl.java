@@ -38,6 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -75,22 +76,21 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLNegativeObjectPropertyAssertionAxiom(getProperty(), getSubject(),
-                getObject());
+        return new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(),
+                getProperty(), getObject(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLNegativeObjectPropertyAssertionAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
-        return df.getOWLNegativeObjectPropertyAssertionAxiom(getProperty(), getSubject(),
-                getObject(), mergeAnnos(annotations));
+    public OWLNegativeObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(),
+                getProperty(), getObject(), mergeAnnos(annotations));
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getSubject()), df
-                .getOWLObjectComplementOf(df.getOWLObjectHasValue(getProperty(),
-                        getObject())));
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
+                Collections.singleton(getSubject())), new OWLObjectComplementOfImpl(
+                new OWLObjectHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
     }
 
     @Override

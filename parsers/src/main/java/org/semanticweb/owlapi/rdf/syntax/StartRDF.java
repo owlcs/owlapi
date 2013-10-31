@@ -6,7 +6,7 @@ import org.xml.sax.SAXException;
 
 /** State expecting start of RDF text. */
 public class StartRDF implements State {
-    private RDFParser parser;
+    private final RDFParser parser;
 
     /** @param parser */
     public StartRDF(RDFParser parser) {

@@ -39,7 +39,7 @@
 package org.coode.owlapi.manchesterowlsyntax;
 
 import static org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax.*;
-import static org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer.EOF;
+import static org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,6 +53,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
@@ -471,7 +473,7 @@ public class ManchesterOWLSyntaxEditorParser {
      *             If a class expression could not be parsed. */
     public OWLClassExpression parseClassExpression() throws ParserException {
         OWLClassExpression desc = parseUnion();
-        if (!EOF(consumeToken())) {
+        if (!eof(consumeToken())) {
             throw new ExceptionBuilder().withKeyword(EOF).build();
         }
         return desc;
@@ -817,7 +819,7 @@ public class ManchesterOWLSyntaxEditorParser {
             OWLDataRange rng = parseDataRange();
             consumeToken(CLOSE.keyword());
             return rng;
-        } else if (!EOF(tok)) {
+        } else if (!eof(tok)) {
             consumeToken();
             throw new ExceptionBuilder().withDt().withKeyword(OPENBRACE, NOT).build();
         }
@@ -931,7 +933,6 @@ public class ManchesterOWLSyntaxEditorParser {
                 LITERAL_LIT_DATATYPE, LITERAL_LIT_LANG).build();
     }
 
-
     private int parseInteger() {
         String i = consumeToken();
         try {
@@ -957,7 +958,7 @@ public class ManchesterOWLSyntaxEditorParser {
         } else if (isClassName(tok)) {
             String name = consumeToken();
             return getOWLClass(name);
-        } else if (!EOF(tok) || !lookaheadCheck) {
+        } else if (!eof(tok) || !lookaheadCheck) {
             consumeToken();
             throw new ExceptionBuilder().withKeyword(OPEN, OPENBRACE).withClass().build();
         }
@@ -1041,7 +1042,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 resetPossible(possible);
                 axioms.addAll(parseRuleFrame());
             } else {
-                if (EOF(tok)) {
+                if (eof(tok)) {
                     break;
                 } else {
                     consumeToken();
@@ -1292,7 +1293,7 @@ public class ManchesterOWLSyntaxEditorParser {
         }
         String next = peekToken();
         return !ANNOTATIONS.matches(next)
-                && (parsers.containsKey(parse(next)) || EOF(next));
+                && (parsers.containsKey(parse(next)) || eof(next));
     }
 
     private <F> void parseFrameSections(boolean eof, Set<OntologyAxiomPair> axioms,
@@ -1307,7 +1308,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 if (!isEmptyFrameSection(sectionParsers)) {
                     axioms.addAll(parseAnnotatedListItems(frameSubject, parser, onts));
                 }
-            } else if (eof && !EOF(sect)) {
+            } else if (eof && !eof(sect)) {
                 List<ManchesterOWLSyntax> expected = new ArrayList<ManchesterOWLSyntax>();
                 expected.addAll(sectionParsers.keySet());
                 if (frameSubject instanceof OWLAnnotationSubject
@@ -1434,7 +1435,7 @@ public class ManchesterOWLSyntaxEditorParser {
         Set<OWLOntology> onts = getOntologies();
         OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
         String clsName = consumeToken();
-        if (EOF(clsName)) {
+        if (eof(clsName)) {
             throw new ExceptionBuilder().withObject().build();
         }
         OWLClass cls = getOWLClass(clsName);
@@ -2106,7 +2107,7 @@ public class ManchesterOWLSyntaxEditorParser {
                 }
             } else if (RULE.matches(section)) {
                 axioms.addAll(parseRuleFrame());
-            } else if (EOF(section)) {
+            } else if (eof(section)) {
                 break;
             } else {
                 consumeToken();
@@ -2169,7 +2170,7 @@ public class ManchesterOWLSyntaxEditorParser {
             } else if (ANNOTATIONS.matches(section)) {
                 consumeToken();
                 annotations.addAll(parseAnnotationList());
-            } else if (EOF(section)) {
+            } else if (eof(section)) {
                 break;
             } else if (toEOF) {
                 throw new ExceptionBuilder().withKeyword(IMPORT, ANNOTATIONS).build();
@@ -2390,29 +2391,29 @@ public class ManchesterOWLSyntaxEditorParser {
         }
     }
 
-    private Map<String, IRI> nameIRIMap = new HashMap<String, IRI>();
+    private final Map<String, IRI> nameIRIMap = new HashMap<String, IRI>();
 
-    protected IRI getIRI(String name) {
-        String _name = name;
-        boolean fullIRI = _name.equals("<");
+    protected IRI getIRI(@Nonnull String _name) {
+        String name = _name;
+        boolean fullIRI = name.equals("<");
         if (fullIRI) {
-            _name = consumeToken();
+            name = consumeToken();
             consumeToken();
         }
-        IRI uri = nameIRIMap.get(_name);
+        IRI uri = nameIRIMap.get(name);
         if (uri != null) {
             return uri;
         }
         if (fullIRI) {
-            uri = IRI.create(_name);
+            uri = IRI.create(name);
         } else {
-            int colonIndex = _name.indexOf(':');
+            int colonIndex = name.indexOf(':');
             if (colonIndex == -1) {
-                _name = ":" + _name;
+                name = ":" + name;
             }
-            uri = pm.getIRI(_name);
+            uri = pm.getIRI(name);
         }
-        nameIRIMap.put(_name, uri);
+        nameIRIMap.put(name, uri);
         return uri;
     }
 

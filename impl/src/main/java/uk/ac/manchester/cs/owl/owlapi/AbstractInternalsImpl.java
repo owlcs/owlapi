@@ -42,7 +42,6 @@ import static org.semanticweb.owlapi.model.AxiomType.*;
 import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.*;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.Internals;
@@ -87,7 +86,6 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** this class encapsulates all lazily built indexes */
 public abstract class AbstractInternalsImpl implements Internals, Serializable {
@@ -184,10 +182,6 @@ public abstract class AbstractInternalsImpl implements Internals, Serializable {
             SAME_INDIVIDUAL, icollections);
     protected final MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom> annotationAssertionAxiomsBySubject = buildLazy(
             ANNOTATION_ASSERTION, annotsupernamed);
-
-    protected <K, V> Map<K, V> createMap() {
-        return CollectionFactory.createMap();
-    }
 
     @Override
     public MapPointer<OWLClass, OWLClassAxiom> getClassAxiomsByClass() {

@@ -40,6 +40,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -76,8 +78,8 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.owlClass = checkNotNull(owlClass, "owlClass cannot be null");
-        this.classExpressions = new TreeSet<OWLClassExpression>(
-                checkNotNull(classExpressions, "classExpressions cannot be null"));
+        this.classExpressions = new TreeSet<OWLClassExpression>(checkNotNull(
+                classExpressions, "classExpressions cannot be null"));
     }
 
     @Override
@@ -91,12 +93,13 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLDisjointUnionAxiom(getOWLClass(), getClassExpressions());
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(), getClassExpressions(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDisjointUnionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return df.getOWLDisjointUnionAxiom(getOWLClass(), getClassExpressions(),
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(), getClassExpressions(),
                 mergeAnnos(annotations));
     }
 
@@ -145,13 +148,14 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
-        return df.getOWLEquivalentClassesAxiom(owlClass,
-                df.getOWLObjectUnionOf(getClassExpressions()));
+        return new OWLEquivalentClassesAxiomImpl(
+                new HashSet<OWLClassExpression>(Arrays.asList(owlClass,
+                        new OWLObjectUnionOfImpl(getClassExpressions()))), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom() {
-        return df.getOWLDisjointClassesAxiom(getClassExpressions());
+        return new OWLDisjointClassesAxiomImpl(getClassExpressions(), NO_ANNOTATIONS);
     }
 
     @Override

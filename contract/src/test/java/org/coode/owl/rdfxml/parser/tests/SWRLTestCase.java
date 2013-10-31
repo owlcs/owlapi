@@ -80,7 +80,7 @@ public class SWRLTestCase {
         assertTrue(ont.getIndividualsInSignature().isEmpty());
     }
 
-    String input = "<?xml version=\"1.0\"?>\n"
+    private String input = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF\n"
             + "    xmlns:temporal=\"http://swrl.stanford.edu/ontologies/built-ins/3.3/temporal.owl#\"\n"
             + "    xmlns:swrla=\"http://swrl.stanford.edu/ontologies/3.3/swrla.owl#\"\n"

@@ -131,7 +131,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     public boolean isRDFPlainLiteral() {
-        return datatype.equals(df.getRDFPlainLiteral());
+        return datatype.getIRI().equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override
@@ -141,7 +141,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     public boolean isInteger() {
-        return datatype.equals(df.getIntegerOWLDatatype());
+        return datatype.getIRI().equals(OWL2Datatype.XSD_INTEGER.getIRI());
     }
 
     @Override
@@ -151,7 +151,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     public boolean isBoolean() {
-        return datatype.equals(df.getBooleanOWLDatatype());
+       return datatype.getIRI().equals(OWL2Datatype.XSD_BOOLEAN.getIRI());
     }
 
     @Override
@@ -174,7 +174,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     public boolean isDouble() {
-        return datatype.equals(df.getDoubleOWLDatatype());
+        return datatype.getIRI().equals(OWL2Datatype.XSD_DOUBLE.getIRI());
     }
 
     @Override
@@ -184,7 +184,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     public boolean isFloat() {
-        return datatype.equals(df.getFloatOWLDatatype());
+        return datatype.getIRI().equals(OWL2Datatype.XSD_FLOAT.getIRI());
     }
 
     @Override

@@ -233,10 +233,6 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         this.shortFormProvider = shortFormProvider;
     }
 
-    protected void append(String s) {
-        sb.append(s);
-    }
-
     /** @param iri
      *            the iri to shorten
      * @return the short form */

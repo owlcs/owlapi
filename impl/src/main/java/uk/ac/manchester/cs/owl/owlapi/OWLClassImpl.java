@@ -103,7 +103,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
 
     @Override
     public OWLClassExpression getObjectComplementOf() {
-        return df.getOWLObjectComplementOf(this);
+        return new OWLObjectComplementOfImpl(this);
     }
 
     @Override
@@ -178,7 +178,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
 
     @Override
     public OWLClassExpression getComplementNNF() {
-        return df.getOWLObjectComplementOf(this);
+        return new OWLObjectComplementOfImpl(this);
     }
 
     @Override

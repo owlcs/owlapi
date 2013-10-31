@@ -40,6 +40,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -112,7 +114,8 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral> imp
 
     @Override
     public OWLClassExpression asSomeValuesFrom() {
-        return df.getOWLDataSomeValuesFrom(getProperty(), df.getOWLDataOneOf(getValue()));
+        return new OWLDataSomeValuesFromImpl(getProperty(), new OWLDataOneOfImpl(
+                Collections.singleton(getValue())));
     }
 
     @Override

@@ -163,7 +163,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     @Override
     public OWLAxiom getNNF() {
         if (nnf == null) {
-            NNF con = new NNF(df);
+            NNF con = new NNF(new OWLDataFactoryImpl());
             nnf = accept(con);
         }
         return nnf;

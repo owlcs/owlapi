@@ -39,6 +39,8 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -76,12 +78,12 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLSameIndividualAxiom(getIndividuals());
+        return new OWLSameIndividualAxiomImpl(getIndividuals(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLSameIndividualAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return df.getOWLSameIndividualAxiom(getIndividuals(), mergeAnnos(annotations));
+        return new OWLSameIndividualAxiomImpl(getIndividuals(), mergeAnnos(annotations));
     }
 
     @Override
@@ -91,7 +93,8 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         for (int i = 0; i < inds.size() - 1; i++) {
             OWLIndividual indI = inds.get(i);
             OWLIndividual indJ = inds.get(i + 1);
-            result.add(df.getOWLSameIndividualAxiom(indI, indJ));
+            result.add(new OWLSameIndividualAxiomImpl(new HashSet<OWLIndividual>(Arrays
+                    .asList(indI, indJ)), NO_ANNOTATIONS));
         }
         return result;
     }
@@ -110,14 +113,14 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<OWLClassExpression>();
         for (OWLIndividual individual : getIndividuals()) {
-            nominalsList.add(df.getOWLObjectOneOf(individual));
+            nominalsList.add(new OWLObjectOneOfImpl(Collections.singleton(individual)));
         }
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {
             OWLClassExpression ceI = nominalsList.get(i);
             OWLClassExpression ceJ = nominalsList.get(i + 1);
-            result.add(df.getOWLSubClassOfAxiom(ceI, ceJ));
-            result.add(df.getOWLSubClassOfAxiom(ceJ, ceI));
+            result.add(new OWLSubClassOfAxiomImpl(ceI, ceJ, NO_ANNOTATIONS));
+            result.add(new OWLSubClassOfAxiomImpl(ceJ, ceI, NO_ANNOTATIONS));
         }
         return result;
     }

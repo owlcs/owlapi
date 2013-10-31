@@ -79,13 +79,13 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLAnnotationPropertyRangeAxiom(getProperty(), getRange());
+        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(),
+                NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
-        return df.getOWLAnnotationPropertyRangeAxiom(getProperty(), getRange(),
+    public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(),
                 mergeAnnos(annotations));
     }
 

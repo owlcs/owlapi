@@ -38,6 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -59,13 +60,13 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
  * <br> */
-public class OWLNegativeDataPropertyAssertionImplAxiom extends
+public class OWLNegativeDataPropertyAssertionAxiomImpl extends
         OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
         implements OWLNegativeDataPropertyAssertionAxiom {
     private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
-    public OWLNegativeDataPropertyAssertionImplAxiom(@Nonnull OWLIndividual subject,
+    public OWLNegativeDataPropertyAssertionAxiomImpl(@Nonnull OWLIndividual subject,
             @Nonnull OWLDataPropertyExpression property, @Nonnull OWLLiteral object,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
@@ -73,9 +74,9 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return df.getOWLSubClassOfAxiom(df.getOWLObjectOneOf(getSubject()), df
-                .getOWLObjectComplementOf(df.getOWLDataHasValue(getProperty(),
-                        getObject())));
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
+                Collections.singleton(getSubject())), new OWLObjectComplementOfImpl(
+                new OWLDataHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
     }
 
     @Override
@@ -83,14 +84,13 @@ public class OWLNegativeDataPropertyAssertionImplAxiom extends
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(),
-                getObject());
+        return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
+                getObject(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
-        return df.getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(),
+    public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
                 getObject(), mergeAnnos(annotations));
     }
 

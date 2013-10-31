@@ -391,7 +391,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean containsClassInSignature(IRI owlClassIRI) {
-        return containsReference(df.getOWLClass(owlClassIRI));
+        return containsReference(manager.getOWLDataFactory().getOWLClass(owlClassIRI));
     }
 
     @Override
@@ -410,7 +410,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean containsObjectPropertyInSignature(IRI propIRI) {
-        return containsReference(df.getOWLObjectProperty(propIRI));
+        return containsReference(manager.getOWLDataFactory()
+                .getOWLObjectProperty(propIRI));
     }
 
     @Override
@@ -429,7 +430,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean containsDataPropertyInSignature(IRI propIRI) {
-        return containsReference(df.getOWLDataProperty(propIRI));
+        return containsReference(manager.getOWLDataFactory().getOWLDataProperty(propIRI));
     }
 
     @Override
@@ -448,7 +449,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean containsAnnotationPropertyInSignature(IRI propIRI) {
-        final OWLAnnotationProperty owlAnnotationProperty = df
+        final OWLAnnotationProperty owlAnnotationProperty = manager.getOWLDataFactory()
                 .getOWLAnnotationProperty(propIRI);
         boolean b = containsReference(owlAnnotationProperty);
         if (b) {
@@ -479,7 +480,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean containsIndividualInSignature(IRI individualIRI) {
-        return containsReference(df.getOWLNamedIndividual(individualIRI));
+        return containsReference(manager.getOWLDataFactory().getOWLNamedIndividual(
+                individualIRI));
     }
 
     @Override
@@ -498,7 +500,7 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean containsDatatypeInSignature(IRI datatypeIRI) {
-        return containsReference(df.getOWLDatatype(datatypeIRI));
+        return containsReference(manager.getOWLDataFactory().getOWLDatatype(datatypeIRI));
     }
 
     @Override
@@ -519,22 +521,22 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
     public Set<OWLEntity> getEntitiesInSignature(IRI iri) {
         Set<OWLEntity> result = createSet(6);
         if (containsClassInSignature(iri)) {
-            result.add(df.getOWLClass(iri));
+            result.add(manager.getOWLDataFactory().getOWLClass(iri));
         }
         if (containsObjectPropertyInSignature(iri)) {
-            result.add(df.getOWLObjectProperty(iri));
+            result.add(manager.getOWLDataFactory().getOWLObjectProperty(iri));
         }
         if (containsDataPropertyInSignature(iri)) {
-            result.add(df.getOWLDataProperty(iri));
+            result.add(manager.getOWLDataFactory().getOWLDataProperty(iri));
         }
         if (containsIndividualInSignature(iri)) {
-            result.add(df.getOWLNamedIndividual(iri));
+            result.add(manager.getOWLDataFactory().getOWLNamedIndividual(iri));
         }
         if (containsDatatypeInSignature(iri)) {
-            result.add(df.getOWLDatatype(iri));
+            result.add(manager.getOWLDataFactory().getOWLDatatype(iri));
         }
         if (containsAnnotationPropertyInSignature(iri)) {
-            result.add(df.getOWLAnnotationProperty(iri));
+            result.add(manager.getOWLDataFactory().getOWLAnnotationProperty(iri));
         }
         return result;
     }
@@ -585,7 +587,8 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
 
     @Override
     public boolean isDeclared(OWLEntity entity) {
-        return internals.isDeclared(df.getOWLDeclarationAxiom(entity));
+        return internals.isDeclared(manager.getOWLDataFactory().getOWLDeclarationAxiom(
+                entity));
     }
 
     @Override

@@ -78,13 +78,12 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLEquivalentDataPropertiesAxiom(getProperties());
+        return new OWLEquivalentDataPropertiesAxiomImpl(getProperties(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLEquivalentDataPropertiesAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
-        return df.getOWLEquivalentDataPropertiesAxiom(getProperties(),
+    public OWLEquivalentDataPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return new OWLEquivalentDataPropertiesAxiomImpl(getProperties(),
                 mergeAnnos(annotations));
     }
 
@@ -126,8 +125,9 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
         for (int i = 0; i < props.size(); i++) {
             for (int j = 0; j < props.size(); j++) {
                 if (i != j) {
-                    result.add(df.getOWLSubDataPropertyOfAxiom(props.get(i), props.get(j)));
-                }
+                           result.add(new OWLSubDataPropertyOfAxiomImpl(props.get(i), props
+                            .get(j), NO_ANNOTATIONS));
+         }
             }
         }
         return result;

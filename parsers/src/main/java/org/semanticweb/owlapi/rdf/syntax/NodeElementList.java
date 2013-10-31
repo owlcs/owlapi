@@ -16,14 +16,14 @@ public class NodeElementList implements State {
     public void startElement(String namespaceIRI, String localName, String qName,
             Attributes atts) throws SAXException {
         parser.pushState(new NodeElement(parser));
-        parser.m_state.startElement(namespaceIRI, localName, qName, atts);
+        parser.state.startElement(namespaceIRI, localName, qName, atts);
     }
 
     @Override
     public void endElement(String namespaceIRI, String localName, String qName)
             throws SAXException {
         parser.popState();
-        parser.m_state.endElement(namespaceIRI, localName, qName);
+        parser.state.endElement(namespaceIRI, localName, qName);
     }
 
     @Override

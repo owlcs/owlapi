@@ -288,10 +288,10 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *         {@code owlapi:ontologyNNNNNNNNNNN} */
     @Nonnull
     public static IRI generateDocumentIRI() {
-        return create("owlapi:ontology" + counter.incrementAndGet());
+        return create("owlapi:ontology" + COUNTER.incrementAndGet());
     }
 
-    private static final AtomicLong counter = new AtomicLong(System.nanoTime());
+    private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // //

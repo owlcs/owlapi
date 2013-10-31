@@ -75,7 +75,7 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLFunctionalObjectPropertyAxiom(getProperty());
+        return new OWLFunctionalObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
@@ -84,9 +84,8 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends
     }
 
     @Override
-    public OWLFunctionalObjectPropertyAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
-        return df.getOWLFunctionalObjectPropertyAxiom(getProperty(),
+    public OWLFunctionalObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return new OWLFunctionalObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }
 
@@ -117,7 +116,7 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return df.getOWLSubClassOfAxiom(df.getOWLThing(),
-                df.getOWLObjectMaxCardinality(1, getProperty()));
+        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectMaxCardinalityImpl(
+                getProperty(), 1, OWL_THING), NO_ANNOTATIONS);
     }
 }

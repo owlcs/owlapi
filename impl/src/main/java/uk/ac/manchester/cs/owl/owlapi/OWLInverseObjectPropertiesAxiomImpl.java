@@ -86,14 +86,13 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return df.getOWLInverseObjectPropertiesAxiom(getFirstProperty(),
-                getSecondProperty());
+        return new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(),
+                getSecondProperty(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
-        return df.getOWLInverseObjectPropertiesAxiom(getFirstProperty(),
+    public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(),
                 getSecondProperty(), mergeAnnos(annotations));
     }
 
@@ -140,10 +139,10 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<OWLSubObjectPropertyOfAxiom>();
-        axs.add(df.getOWLSubObjectPropertyOfAxiom(first, second.getInverseProperty()
-                .getSimplified()));
-        axs.add(df.getOWLSubObjectPropertyOfAxiom(second, first.getInverseProperty()
-                .getSimplified()));
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(first, second.getInverseProperty()
+                .getSimplified(), NO_ANNOTATIONS));
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(second, first.getInverseProperty()
+                .getSimplified(), NO_ANNOTATIONS));
         return axs;
     }
 }

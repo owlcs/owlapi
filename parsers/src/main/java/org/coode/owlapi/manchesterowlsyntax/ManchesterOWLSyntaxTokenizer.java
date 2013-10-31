@@ -52,7 +52,7 @@ import java.util.Set;
 public class ManchesterOWLSyntaxTokenizer {
     public static final String EOF = "|EOF|";
 
-    public static boolean EOF(String s) {
+    public static boolean eof(String s) {
         return EOF.equals(s);
     }
 

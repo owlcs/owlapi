@@ -51,11 +51,6 @@ public class OWLOntologyManagerProperties implements Serializable {
     private boolean loadAnnotationAxioms = true;
     private boolean treatDublinCoreVocabularyAsBuiltInVocabulary = true;
 
-    @SuppressWarnings("javadoc")
-    public OWLOntologyManagerProperties() {
-        restoreDefaults();
-    }
-
     /** Restores the various properties to their default values. */
     public void restoreDefaults() {
         loadAnnotationAxioms = true;
@@ -73,11 +68,11 @@ public class OWLOntologyManagerProperties implements Serializable {
     /** Specifies whether annotation axioms should be loaded or ignored.
      * 
      * @param loadAnnotationAxioms
-     *            {@code true} if annotation axioms should be loaded
-     *            (default) or {@code false} if annotation axioms should be
-     *            ignored. Note that this is merely a hint to parsers and
-     *            loaders - a setting of {@code false} does not guarentee
-     *            that annotations won't be loaded. */
+     *            {@code true} if annotation axioms should be loaded (default)
+     *            or {@code false} if annotation axioms should be ignored. Note
+     *            that this is merely a hint to parsers and loaders - a setting
+     *            of {@code false} does not guarentee that annotations won't be
+     *            loaded. */
     public void setLoadAnnotationAxioms(boolean loadAnnotationAxioms) {
         this.loadAnnotationAxioms = loadAnnotationAxioms;
     }
@@ -87,10 +82,10 @@ public class OWLOntologyManagerProperties implements Serializable {
      * built in vocabulary, so that Dublin Core metadata properties are
      * interpreted as annotation properties.
      * 
-     * @return {@code true} if the Dublin Core Vocabulary should be treated
-     *         as built in vocabulary and Dublin Core properties are interpreted
-     *         as annotation properties, otherwise {@code false}. The
-     *         defaut is {@code true}. */
+     * @return {@code true} if the Dublin Core Vocabulary should be treated as
+     *         built in vocabulary and Dublin Core properties are interpreted as
+     *         annotation properties, otherwise {@code false}. The defaut is
+     *         {@code true}. */
     public boolean isTreatDublinCoreVocabularyAsBuiltInVocabulary() {
         return treatDublinCoreVocabularyAsBuiltInVocabulary;
     }
