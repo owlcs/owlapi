@@ -38,6 +38,7 @@
  */
 package org.semanticweb.owlapi.vocab;
 
+import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -84,6 +85,11 @@ public enum DublinCoreVocabulary {
 
     public String getQName() {
         return qname;
+    }
+
+    @Deprecated
+    public URI getURI() {
+        return iri.toURI();
     }
 
     public IRI getIRI() {

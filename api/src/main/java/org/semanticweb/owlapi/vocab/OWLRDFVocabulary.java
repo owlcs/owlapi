@@ -38,6 +38,7 @@
  */
 package org.semanticweb.owlapi.vocab;
 
+import java.net.URI;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -299,43 +300,43 @@ public enum OWLRDFVocabulary {
     /** http://www.w3.org/2002/07/owl#inverseObjectPropertyExpression **/
     OWL_INVERSE_OBJECT_PROPERTY_EXPRESSION(Namespaces.OWL,
             "inverseObjectPropertyExpression"),
-            /** http://www.w3.org/2002/07/owl#Axiom **/
-            OWL_AXIOM(Namespaces.OWL, "Axiom"),
-            /** http://www.w3.org/2002/07/owl#propertyChain **/
-            @Deprecated
-            OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain"),
-            /** http://www.w3.org/2002/07/owl#propertyChainAxiom **/
-            OWL_PROPERTY_CHAIN_AXIOM(Namespaces.OWL, "propertyChainAxiom"),
-            /** http://www.w3.org/2002/07/owl#AllDisjointClasses **/
-            OWL_ALL_DISJOINT_CLASSES(Namespaces.OWL, "AllDisjointClasses"),
-            /** http://www.w3.org/2002/07/owl#members **/
-            OWL_MEMBERS(Namespaces.OWL, "members"),
-            /** http://www.w3.org/2002/07/owl#AllDisjointProperties **/
-            OWL_ALL_DISJOINT_PROPERTIES(Namespaces.OWL, "AllDisjointProperties"),
-            /** http://www.w3.org/2002/07/owl#topObjectProperty **/
-            OWL_TOP_OBJECT_PROPERTY(Namespaces.OWL, "topObjectProperty"),
-            /** http://www.w3.org/2002/07/owl#bottomObjectProperty **/
-            OWL_BOTTOM_OBJECT_PROPERTY(Namespaces.OWL, "bottomObjectProperty"),
-            /** http://www.w3.org/2002/07/owl#topDataProperty **/
-            OWL_TOP_DATA_PROPERTY(Namespaces.OWL, "topDataProperty"),
-            /** http://www.w3.org/2002/07/owl#bottomDataProperty **/
-            OWL_BOTTOM_DATA_PROPERTY(Namespaces.OWL, "bottomDataProperty"),
-            /** http://www.w3.org/2002/07/owl#hasKey **/
-            OWL_HAS_KEY(Namespaces.OWL, "hasKey"),
-            /** http://www.w3.org/2002/07/owl#annotatedSource **/
-            OWL_ANNOTATED_SOURCE(Namespaces.OWL, "annotatedSource"),
-            /** http://www.w3.org/2002/07/owl#annotatedProperty **/
-            OWL_ANNOTATED_PROPERTY(Namespaces.OWL, "annotatedProperty"),
-            /** http://www.w3.org/2002/07/owl#annotatedTarget **/
-            OWL_ANNOTATED_TARGET(Namespaces.OWL, "annotatedTarget"),
-            /** http://www.w3.org/2002/07/owl#sourceIndividual **/
-            OWL_SOURCE_INDIVIDUAL(Namespaces.OWL, "sourceIndividual"),
-            /** http://www.w3.org/2002/07/owl#assertionProperty **/
-            OWL_ASSERTION_PROPERTY(Namespaces.OWL, "assertionProperty"),
-            /** http://www.w3.org/2002/07/owl#targetIndividual **/
-            OWL_TARGET_INDIVIDUAL(Namespaces.OWL, "targetIndividual"),
-            /** http://www.w3.org/2002/07/owl#targetValue **/
-            OWL_TARGET_VALUE(Namespaces.OWL, "targetValue");
+    /** http://www.w3.org/2002/07/owl#Axiom **/
+    OWL_AXIOM(Namespaces.OWL, "Axiom"),
+    /** http://www.w3.org/2002/07/owl#propertyChain **/
+    @Deprecated
+    OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain"),
+    /** http://www.w3.org/2002/07/owl#propertyChainAxiom **/
+    OWL_PROPERTY_CHAIN_AXIOM(Namespaces.OWL, "propertyChainAxiom"),
+    /** http://www.w3.org/2002/07/owl#AllDisjointClasses **/
+    OWL_ALL_DISJOINT_CLASSES(Namespaces.OWL, "AllDisjointClasses"),
+    /** http://www.w3.org/2002/07/owl#members **/
+    OWL_MEMBERS(Namespaces.OWL, "members"),
+    /** http://www.w3.org/2002/07/owl#AllDisjointProperties **/
+    OWL_ALL_DISJOINT_PROPERTIES(Namespaces.OWL, "AllDisjointProperties"),
+    /** http://www.w3.org/2002/07/owl#topObjectProperty **/
+    OWL_TOP_OBJECT_PROPERTY(Namespaces.OWL, "topObjectProperty"),
+    /** http://www.w3.org/2002/07/owl#bottomObjectProperty **/
+    OWL_BOTTOM_OBJECT_PROPERTY(Namespaces.OWL, "bottomObjectProperty"),
+    /** http://www.w3.org/2002/07/owl#topDataProperty **/
+    OWL_TOP_DATA_PROPERTY(Namespaces.OWL, "topDataProperty"),
+    /** http://www.w3.org/2002/07/owl#bottomDataProperty **/
+    OWL_BOTTOM_DATA_PROPERTY(Namespaces.OWL, "bottomDataProperty"),
+    /** http://www.w3.org/2002/07/owl#hasKey **/
+    OWL_HAS_KEY(Namespaces.OWL, "hasKey"),
+    /** http://www.w3.org/2002/07/owl#annotatedSource **/
+    OWL_ANNOTATED_SOURCE(Namespaces.OWL, "annotatedSource"),
+    /** http://www.w3.org/2002/07/owl#annotatedProperty **/
+    OWL_ANNOTATED_PROPERTY(Namespaces.OWL, "annotatedProperty"),
+    /** http://www.w3.org/2002/07/owl#annotatedTarget **/
+    OWL_ANNOTATED_TARGET(Namespaces.OWL, "annotatedTarget"),
+    /** http://www.w3.org/2002/07/owl#sourceIndividual **/
+    OWL_SOURCE_INDIVIDUAL(Namespaces.OWL, "sourceIndividual"),
+    /** http://www.w3.org/2002/07/owl#assertionProperty **/
+    OWL_ASSERTION_PROPERTY(Namespaces.OWL, "assertionProperty"),
+    /** http://www.w3.org/2002/07/owl#targetIndividual **/
+    OWL_TARGET_INDIVIDUAL(Namespaces.OWL, "targetIndividual"),
+    /** http://www.w3.org/2002/07/owl#targetValue **/
+    OWL_TARGET_VALUE(Namespaces.OWL, "targetValue");
     final IRI iri;
     final Namespaces namespace;
     final String shortName;
@@ -344,6 +345,13 @@ public enum OWLRDFVocabulary {
         this.namespace = namespace;
         this.shortName = shortName;
         iri = IRI.create(namespace.toString(), shortName);
+    }
+
+    /** @return The URI
+     * @deprecated Use getIRI() instead. */
+    @Deprecated
+    public URI getURI() {
+        return iri.toURI();
     }
 
     /** @return the entry IRI */

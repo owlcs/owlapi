@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -58,6 +59,10 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
     private final List<OWLEntity> entities;
 
     public FreshEntitiesException(Collection<OWLEntity> entities) {
+        this(entities, null);
+    }
+
+    public FreshEntitiesException(Set<OWLEntity> entities) {
         this(entities, null);
     }
 
