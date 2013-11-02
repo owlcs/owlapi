@@ -1,3 +1,32 @@
+3.4.8 02 November 2013
+
+Bug fixes:
+Fixes #40 Fixes #7 RDFGraph.getSortedTriplesForSubject throws exception in Java7 Refactored TripleComparator into RDFTriple and RDFNode as Comparable
+DLQueryExample did not print the StringBuilder with the answers
+Fixes #50 Null anonymous individual parsing ObjectHasValue from OWL/XML
+Fixes SF 313 Man Syntax Parser gives facets unexpected datatype
+Fixes SF 101 Manchester OWL Syntax Parser doesn't do precedence correctly
+Fixes #43 Functional Syntax Parser does not support comments
+Fixes #41 Parsing error of SWRL atom.
+Fixes #46 Round tripping error in functional syntax
+Fixes #37 setAddMissingTypes logging if disabled
+Missed serialization transients and tests, serialization bug fixes
+Patch IRI.create(String,String) to match IRI.create(String)
+
+Features:
+GZip read/write ability. Compressed gzip input and output streams, but make sure to close the stream in the calling code.
+OSGI dependency removed
+Added Namespaces.inNamespace
+Made ParserException to extend OWLParserException, and OWLParserException a runtime exception.
+Tidying up Manchester OWL Syntax parser code
+Added to the documentation on getOWLDatatype(OWLDataFactory)
+Added a convenience method to convert an OWL2Datatype object to an OWLDatatype.
+mvn install and mvn deploy now make aggregate sources available.
+Added more well known namespaces, removed non-explanatory comments
+Added RDFa Core Initial Context prefixes and other well known prefixes and prefix names.
+GITHUB-10 : Add RDFa Core Initial Context prefixes
+Extend Namespaces enum with common prefixes
+
 3.4.5 25 July 2013
 
 Mostly a maintenance release. Two important bug fixes: 

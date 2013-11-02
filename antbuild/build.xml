@@ -9,7 +9,7 @@
           should be of the format <major>.<minor>.<revision>.  Note that the svn
             revision number will automatically be appended to this build number! -->
 
-    <property name="version" value="3.4.5"/>
+    <property name="version" value="3.4.8"/>
 
     <!-- The directory that contains the jar file dependencies for
          the class path and building a release -->
