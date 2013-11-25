@@ -36,18 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeVisitorEx;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi.model.SetOntologyID;
-
 
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -56,48 +55,54 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * <br>
  * 
  * @param <O> */
-public class OWLOntologyChangeVisitorAdapterEx<O> implements OWLOntologyChangeVisitorEx<O> {
+public class OWLOntologyChangeVisitorAdapterEx<O> implements
+        OWLOntologyChangeVisitorEx<O> {
+    private O defaultValue;
+
+    public OWLOntologyChangeVisitorAdapterEx(O c) {
+        this.defaultValue = c;
+    }
+
+    public OWLOntologyChangeVisitorAdapterEx() {
+        this(null);
+    }
+
+    protected O handleDefault(OWLOntologyChange c) {
+        return defaultValue;
+    }
 
     @Override
     public O visit(RemoveAxiom change) {
-    	return null;
+        return handleDefault(change);
     }
-
 
     @Override
     public O visit(SetOntologyID change) {
-    	return null;
+        return handleDefault(change);
     }
-
 
     @Override
     public O visit(AddAxiom change) {
-    	return null;
+        return handleDefault(change);
     }
-
 
     @Override
     public O visit(AddImport change) {
-    	return null;
+        return handleDefault(change);
     }
-
 
     @Override
     public O visit(RemoveImport change) {
-    	return null;
+        return handleDefault(change);
     }
-
 
     @Override
     public O visit(AddOntologyAnnotation change) {
-    	return null;
+        return handleDefault(change);
     }
-
 
     @Override
     public O visit(RemoveOntologyAnnotation change) {
-    	return null;
+        return handleDefault(change);
     }
-
-
 }

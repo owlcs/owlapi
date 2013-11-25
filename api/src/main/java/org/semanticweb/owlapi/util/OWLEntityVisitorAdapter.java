@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -48,18 +47,15 @@ import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 22-Nov-2006<br><br>
- */
+ * Date: 22-Nov-2006<br>
+ * <br> */
 public class OWLEntityVisitorAdapter implements OWLEntityVisitor {
-	  @SuppressWarnings("unused")
-    protected void handleDefault(OWLEntity owlObject) {
-
-    }
+    /** override this method to change the default behaviour */
+    @SuppressWarnings("unused")
+    protected void handleDefault(OWLEntity owlObject) {}
 
     @Override
     public void visit(OWLClass desc) {

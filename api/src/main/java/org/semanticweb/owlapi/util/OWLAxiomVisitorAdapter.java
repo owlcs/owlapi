@@ -36,13 +36,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
@@ -80,169 +80,208 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 17-Nov-2006<br><br>
- */
+ * Date: 17-Nov-2006<br>
+ * <br> */
 public class OWLAxiomVisitorAdapter implements OWLAxiomVisitor {
+    /** override this method to change the default behaviour */
+    @SuppressWarnings("unused")
+    protected void handleDefault(OWLAxiom owlObject) {}
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(SWRLRule rule) {
+        handleDefault(rule);
     }
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+        handleDefault(axiom);
     }
-
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
+        handleDefault(axiom);
     }
 }

@@ -36,60 +36,59 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
- */
+ * Date: 12-Dec-2006<br>
+ * <br> */
 public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor {
+    /** override this method to change the default behaviour */
+    protected void handleDefault(@SuppressWarnings("unused") OWLOntologyChange c) {}
 
     @Override
     public void visit(RemoveAxiom change) {
+        handleDefault(change);
     }
-    
 
     @Override
     public void visit(SetOntologyID change) {
+        handleDefault(change);
     }
-
 
     @Override
     public void visit(AddAxiom change) {
+        handleDefault(change);
     }
-
 
     @Override
     public void visit(AddImport change) {
+        handleDefault(change);
     }
-
 
     @Override
     public void visit(RemoveImport change) {
+        handleDefault(change);
     }
-
 
     @Override
     public void visit(AddOntologyAnnotation change) {
+        handleDefault(change);
     }
-
 
     @Override
     public void visit(RemoveOntologyAnnotation change) {
+        handleDefault(change);
     }
-
-
 }

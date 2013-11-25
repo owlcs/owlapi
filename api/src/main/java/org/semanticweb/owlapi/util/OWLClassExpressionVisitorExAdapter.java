@@ -36,10 +36,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
@@ -59,7 +59,6 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
-
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -67,98 +66,113 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * <br>
  * 
  * @param <O> */
-public class OWLClassExpressionVisitorExAdapter<O> implements OWLClassExpressionVisitorEx<O> {
+public class OWLClassExpressionVisitorExAdapter<O> implements
+        OWLClassExpressionVisitorEx<O> {
+    private O defaultValue = null;
+
+    /** constructor for null default value */
+    public OWLClassExpressionVisitorExAdapter() {
+        this(null);
+    }
+
+    /** @param o
+     *            default value */
+    public OWLClassExpressionVisitorExAdapter(O o) {
+        defaultValue = o;
+    }
+
+    /** override this method to change the default behaviour */
+    protected O handleDefault(@SuppressWarnings("unused") OWLClassExpression ce) {
+        return defaultValue;
+    }
 
     @Override
     public O visit(OWLClass ce) {
-
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLObjectIntersectionOf ce) {
-
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLObjectUnionOf ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLObjectComplementOf ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLObjectSomeValuesFrom ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLObjectAllValuesFrom ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLObjectHasValue ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLObjectMinCardinality ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLObjectExactCardinality ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLObjectMaxCardinality ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLObjectHasSelf ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLObjectOneOf ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLDataSomeValuesFrom ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLDataAllValuesFrom ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLDataHasValue ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLDataMinCardinality ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLDataExactCardinality ce) {
-		return null;
-	}
+        return handleDefault(ce);
+    }
 
     @Override
     public O visit(OWLDataMaxCardinality ce) {
-		return null;
-	}
-
+        return handleDefault(ce);
+    }
 }
