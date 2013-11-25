@@ -1,3 +1,18 @@
+3.4.9 25 November 2013
+Features:
+Added default methods and return values for a few visitor adapters
+#57 Reimplement NodeID so that it doesn't use an inner class
+#56 parse things like xsd:string easily
+
+feature: OBO parser replaced with oboformat. Original code at: https://code.google.com/p/oboformat/
+
+
+Bug fixes:
+Fixed wrong naming of gzip file source and target and added stream only versions.
+Restore UnparseableOntologyException interface
+Added back deprecated parseConstant for compatibility with Pellet CLI code. Warning: it has bugs.
+
+
 3.4.8 02 November 2013
 
 Bug fixes:
