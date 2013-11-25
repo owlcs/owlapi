@@ -124,6 +124,9 @@ public enum XSDVocabulary {
      * @return the XSDVocabulary item matching xsd:typename, e.g.,
      *         {@code STRING} for {@code "xsd:string"} */
     public static XSDVocabulary parseShortName(String s) {
+        if (s == null) {
+            throw new IllegalArgumentException("the input string cannot be null");
+        }
         if (s.startsWith("xsd:")) {
             String name = s.substring(4);
             for (XSDVocabulary v : values()) {
