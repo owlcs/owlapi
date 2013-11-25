@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>3.4.10-SNAPSHOT</version>
+		<version>3.4.9</version>
 		<relativePath>../</relativePath>
 	</parent>
 	<dependencies>
