@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.ByteArrayInputStream;
@@ -48,90 +47,64 @@ import java.io.Reader;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Nov-2007<br><br>
- *
- * An ontology document source which can read from a stream.
- */
+ * Date: 15-Nov-2007<br>
+ * <br>
+ * An ontology document source which can read from a stream. */
 public class StreamDocumentSource implements OWLOntologyDocumentSource {
-
     private static int counter = 0;
-
     private final IRI documentIRI;
+    private byte[] buffer;
 
-    private byte [] buffer;
-
-
-    /**
-     * Constructs an input source which will read an ontology from
-     * a representation from the specified stream.
-     * @param is The stream that the ontology representation will be
-     * read from.
-     */
+    /** Constructs an input source which will read an ontology from a
+     * representation from the specified stream.
+     * 
+     * @param is
+     *            The stream that the ontology representation will be read from. */
     public StreamDocumentSource(InputStream is) {
         this(is, getNextDocumentIRI());
     }
-    /**
-     * @return a fresh IRI
-     */
+
+    /** @return a fresh IRI */
     public static synchronized IRI getNextDocumentIRI() {
         counter = counter + 1;
         return IRI.create("inputstream:ontology" + counter);
     }
 
-
-    /**
-     * Constructs an input source which will read an ontology from
-     * a representation from the specified stream.
-     * @param stream The stream that the ontology representation will be
-     * read from.
-     * @param documentIRI The document IRI
-     */
+    /** Constructs an input source which will read an ontology from a
+     * representation from the specified stream.
+     * 
+     * @param stream
+     *            The stream that the ontology representation will be read from.
+     * @param documentIRI
+     *            The document IRI */
     public StreamDocumentSource(InputStream stream, IRI documentIRI) {
         this.documentIRI = documentIRI;
         readIntoBuffer(stream);
     }
 
-
-    /**
-     * Reads all the bytes from the specified stream into a temporary buffer,
+    /** Reads all the bytes from the specified stream into a temporary buffer,
      * which is necessary because we may need to access the input stream more
-     * than once.  In other words, this method caches the input stream.
-     * @param stream The stream to be "cached"
-     */
-//    private void readIntoBuffer(InputStream stream) {
-//        try {
-//            byte [] tempBuffer = new byte [4096];
-//            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//            int read;
-//            while((read = stream.read(tempBuffer)) != -1) {
-//                bos.write(tempBuffer, 0, read);
-//            }
-//            buffer = bos.toByteArray();
-//        }
-//        catch (IOException e) {
-//            throw new OWLOntologyInputSourceException(e);
-//        }
-//    }
+     * than once. In other words, this method caches the input stream.
+     * 
+     * @param stream
+     *            The stream to be "cached" */
     private void readIntoBuffer(InputStream reader) {
         try {
-        	ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
             final int length = 100000;
-			byte [] tempBuffer = new byte [length];
-			int read=0;
-			do {
-				read=reader.read(tempBuffer, 0, length);
-				if(read>0) {
-					bos.write(tempBuffer, 0, read);
-				}
-			} while(read>0);
+            byte[] tempBuffer = new byte[length];
+            int read = 0;
+            do {
+                read = reader.read(tempBuffer, 0, length);
+                if (read > 0) {
+                    bos.write(tempBuffer, 0, read);
+                }
+            } while (read > 0);
             buffer = bos.toByteArray();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
     }
@@ -141,24 +114,21 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
         return true;
     }
 
-
     @Override
     public InputStream getInputStream() {
         return new ByteArrayInputStream(buffer);
     }
-
 
     @Override
     public IRI getDocumentIRI() {
         return documentIRI;
     }
 
-
     @Override
     public Reader getReader() {
-        throw new OWLRuntimeException("Reader not available.  Check with StreamDocumentSource.isReaderAvailable() first!");
+        throw new OWLRuntimeException(
+                "Reader not available.  Check with StreamDocumentSource.isReaderAvailable() first!");
     }
-
 
     @Override
     public boolean isReaderAvailable() {

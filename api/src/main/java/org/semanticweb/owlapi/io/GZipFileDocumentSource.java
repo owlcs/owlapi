@@ -38,8 +38,9 @@
  */
 package org.semanticweb.owlapi.io;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -50,21 +51,21 @@ import java.util.zip.GZIPInputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** An ontology document source which can read from a GZIP stream.
+/** An ontology document source which can read from a GZIP File.
  * 
  * @author ignazio
  * @from 3.4.8 */
-public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
+public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
     private static int counter = 0;
     private final IRI documentIRI;
-    private byte[] buffer;
+    private final File file;
 
     /** Constructs an input source which will read an ontology from a
      * representation from the specified file.
      * 
      * @param is
-     *            The stream that the ontology representation will be read from. */
-    public GZipStreamDocumentSource(InputStream is) {
+     *            The file that the ontology representation will be read from. */
+    public GZipFileDocumentSource(File is) {
         this(is, getNextDocumentIRI());
     }
 
@@ -75,48 +76,29 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
     }
 
     /** Constructs an input source which will read an ontology from a
-     * representation from the specified stream.
+     * representation from the specified file.
      * 
      * @param stream
-     *            The stream that the ontology representation will be read from.
+     *            The file that the ontology representation will be read from.
      * @param documentIRI
      *            The document IRI */
-    public GZipStreamDocumentSource(InputStream stream, IRI documentIRI) {
+    public GZipFileDocumentSource(File stream, IRI documentIRI) {
         this.documentIRI = documentIRI;
-        readIntoBuffer(stream);
-    }
-
-    private void readIntoBuffer(InputStream reader) {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            final int length = 100000;
-            byte[] tempBuffer = new byte[length];
-            int read = 0;
-            do {
-                read = reader.read(tempBuffer, 0, length);
-                if (read > 0) {
-                    bos.write(tempBuffer, 0, read);
-                }
-            } while (read > 0);
-            buffer = bos.toByteArray();
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
+        file = stream;
     }
 
     @Override
     public boolean isInputStreamAvailable() {
-        return buffer != null;
+        return file.exists();
     }
 
     @Override
     public InputStream getInputStream() {
-        if (buffer == null) {
-            throw new OWLRuntimeException(
-                    "Stream not found - check that the file is available before calling this method.");
-        }
         try {
-            return new GZIPInputStream(new ByteArrayInputStream(buffer));
+            return new GZIPInputStream(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            throw new OWLRuntimeException(
+                    "File not found - check that the file is available before calling this method.");
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
@@ -139,6 +121,6 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
 
     @Override
     public boolean isReaderAvailable() {
-        return isInputStreamAvailable();
+        return file.exists();
     }
 }
