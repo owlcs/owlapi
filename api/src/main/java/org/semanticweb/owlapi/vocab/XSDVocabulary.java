@@ -115,11 +115,15 @@ public enum XSDVocabulary {
         return iri.toString();
     }
 
-    /** @param a
+    /** Easy parse of short names of the kind "xsd:typename". Note that the match
+     * must be exact - uppercase or lowercase variants are not accepted. An
+     * IllegalArgumentException will he thrown for null or non matching input.
+     * 
+     * @param a
      *            string of the form {@code xsd:typename}
      * @return the XSDVocabulary item matching xsd:typename, e.g.,
      *         {@code STRING} for {@code "xsd:string"} */
-    public static XSDVocabulary parse(String s) {
+    public static XSDVocabulary parseShortName(String s) {
         if (s.startsWith("xsd:")) {
             String name = s.substring(4);
             for (XSDVocabulary v : values()) {
@@ -128,6 +132,7 @@ public enum XSDVocabulary {
                 }
             }
         }
-        return null;
+        throw new IllegalArgumentException(
+                "the input value does not match any of the known xsd types: " + s);
     }
 }
