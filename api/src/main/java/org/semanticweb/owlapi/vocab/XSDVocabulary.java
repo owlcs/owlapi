@@ -114,4 +114,20 @@ public enum XSDVocabulary {
     public String toString() {
         return iri.toString();
     }
+
+    /** @param a
+     *            string of the form {@code xsd:typename}
+     * @return the XSDVocabulary item matching xsd:typename, e.g.,
+     *         {@code STRING} for {@code "xsd:string"} */
+    public static XSDVocabulary parse(String s) {
+        if (s.startsWith("xsd:")) {
+            String name = s.substring(4);
+            for (XSDVocabulary v : values()) {
+                if (v.shortName.equals(name)) {
+                    return v;
+                }
+            }
+        }
+        return null;
+    }
 }
