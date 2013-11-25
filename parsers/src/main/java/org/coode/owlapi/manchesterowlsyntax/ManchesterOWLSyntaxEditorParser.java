@@ -864,6 +864,13 @@ public class ManchesterOWLSyntaxEditorParser {
         return dataFactory.getOWLDataComplementOf(complementedDataRange);
     }
 
+    /** This method ignores parsing context; its results are unreliable. It is
+     * used by Pellet only, as far as I can tell. */
+    @Deprecated
+    public OWLLiteral parseConstant() {
+        return parseLiteral(null);
+    }
+
     private OWLLiteral parseLiteral(OWLDatatype datatype) {
         String tok = consumeToken();
         if (tok.startsWith("\"")) {
@@ -930,7 +937,6 @@ public class ManchesterOWLSyntaxEditorParser {
                 LITERAL_INTEGER, LITERAL_FLOAT, LITERAL_DOUBLE, LITERAL_LITERAL,
                 LITERAL_LIT_DATATYPE, LITERAL_LIT_LANG).build();
     }
-
 
     private int parseInteger() {
         String i = consumeToken();
