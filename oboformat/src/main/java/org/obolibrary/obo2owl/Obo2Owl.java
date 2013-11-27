@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLProperty;
+import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -176,18 +177,6 @@ public class Obo2Owl {
         return map;
     }
 
-    public OWLOntologyManager getManager() {
-        return manager;
-    }
-
-    public void setManager(OWLOntologyManager manager) {
-        this.manager = manager;
-    }
-
-    public OBODoc getObodoc() {
-        return obodoc;
-    }
-
     public void setObodoc(OBODoc obodoc) {
         this.obodoc = obodoc;
     }
@@ -212,8 +201,7 @@ public class Obo2Owl {
     public OWLOntology convert(String oboFile) throws OWLOntologyCreationException {
         try {
             OBOFormatParser p = new OBOFormatParser();
-            OBODoc obodoc = p.parse(oboFile);
-            return convert(obodoc);
+            return convert(p.parse(oboFile));
         } catch (IOException ex) {
             throw new OWLOntologyCreationException("Error Occured while parsing OBO '"
                     + oboFile + "'", ex);
@@ -227,11 +215,10 @@ public class Obo2Owl {
      * @param useFreshManager
      * @return ontology
      * @throws OWLOntologyCreationException */
-    public OWLOntology convert(OBODoc obodoc, boolean useFreshManager)
-            throws OWLOntologyCreationException {
+    public OWLOntology convert(OBODoc obodoc) throws OWLOntologyCreationException {
         this.obodoc = obodoc;
         init(manager);
-        return tr(null);
+        return tr(manager.createOntology());
     }
 
     public OWLOntology convert(OBODoc obodoc, OWLOntology in)
@@ -241,19 +228,8 @@ public class Obo2Owl {
         return tr(in);
     }
 
-    /** Converts an OBO document to an OWL ontology
-     * 
-     * @param obodoc
-     * @return ontology
-     * @throws OWLOntologyCreationException */
-    public OWLOntology convert(OBODoc obodoc) throws OWLOntologyCreationException {
-        // always create a new manager, when loading a new obo document - TODO -
-        // why?
-        // creates problems for sharing ontologies
-        return convert(obodoc, false);
-    }
-
     private OWLOntology tr(OWLOntology in) throws OWLOntologyCreationException {
+        owlOntology = in;
         Frame hf = obodoc.getHeaderFrame();
         Clause ontClause = hf.getClause(OboFormatTag.TAG_ONTOLOGY);
         if (ontClause != null) {
@@ -272,29 +248,29 @@ public class Obo2Owl {
                 IRI vIRI = IRI.create(Obo2OWLConstants.DEFAULT_IRI_PREFIX + ontOboId
                         + "/" + dv + "/" + ontOboId + ".owl");
                 OWLOntologyID oid = new OWLOntologyID(ontIRI, vIRI);
-                if (in != null && in.getOntologyID().equals(oid)) {
-                    owlOntology = in;
-                } else {
-                    owlOntology = manager.createOntology(oid);
+                // if the ontology being read has a differet id from the one
+                // that was passed in, update it
+                // when parsing, the original ontology is likely an anonymous,
+                // empty one
+                if (!oid.equals(owlOntology.getOntologyID())) {
+                    manager.applyChange(new SetOntologyID(owlOntology, oid));
                 }
             } else {
-                if (in != null && in.getOntologyID() != null
-                        && ontIRI.equals(in.getOntologyID().getOntologyIRI())) {
-                    owlOntology = in;
-                } else {
-                    owlOntology = manager.createOntology(ontIRI);
+                // if the ontology being read has a differet id from the one
+                // that was passed in, update it
+                // when parsing, the original ontology is likely an anonymous,
+                // empty one
+                if (owlOntology.getOntologyID() == null
+                        || !ontIRI.equals(owlOntology.getOntologyID().getOntologyIRI())) {
+                    manager.applyChange(new SetOntologyID(owlOntology, new OWLOntologyID(
+                            ontIRI)));
                 }
             }
         } else {
             defaultIDSpace = "TEMP";
-            if (in != null) {
-                owlOntology = in;
-            } else {
-                IRI ontIRI = IRI.create(Obo2OWLConstants.DEFAULT_IRI_PREFIX
-                        + defaultIDSpace);
-                // TODO - warn
-                owlOntology = manager.createOntology(ontIRI);
-            }
+            manager.applyChange(new SetOntologyID(owlOntology, new OWLOntologyID(IRI
+                    .create(Obo2OWLConstants.DEFAULT_IRI_PREFIX + defaultIDSpace))));
+            // TODO - warn
         }
         trHeaderFrame(hf);
         for (Frame f : obodoc.getTypedefFrames()) {
