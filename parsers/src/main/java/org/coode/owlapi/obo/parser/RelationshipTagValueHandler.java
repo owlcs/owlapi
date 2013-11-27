@@ -36,37 +36,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-/** Author: Matthew Horridge<br>
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+
+/**
+ * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br>
- * <br> */
-public class OBOOntologyFormat extends OWLOntologyFormat {
-    private static final long serialVersionUID = 30406L;
-    private IDSpaceManager idSpaceManager = new IDSpaceManager();
+ * Date: 06-Mar-2007<br><br>
+ */
+@SuppressWarnings("javadoc")
+public class RelationshipTagValueHandler extends AbstractTagValueHandler {
+
+    private Pattern tagValuePattern = Pattern.compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
+
+    public RelationshipTagValueHandler(OBOConsumer consumer) {
+        super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
+    }
+
 
     @Override
-    public String toString() {
-        return "OBO Format";
-    }
+    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+        Matcher matcher = tagValuePattern.matcher(value);
+        if(matcher.matches()) {
+            IRI propIRI = getConsumer().getRelationIRIFromSymbolicIdOrOBOId(matcher.group(1));
+            IRI fillerIRI = getIRIFromOBOId(matcher.group(2));
+            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
+            OWLClass filler = getDataFactory().getOWLClass(fillerIRI);
+            OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
+            OWLClass subCls = getDataFactory().getOWLClass(getIRIFromOBOId(currentId));
+            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(subCls, restriction)));
+            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLDeclarationAxiom(prop)));
+        }
 
-    /** @param m
-     *            An {@link IDSpaceManager} which specifies mappings between id
-     *            prefixes and IRI prefixes. */
-    public void setIDSpaceManager(IDSpaceManager m) {
-        idSpaceManager = m;
-    }
-
-    /**
-     * Gets the OBO id-space manager.  This is NOT the same as a prefix manager.
-     * @return The {@link IDSpaceManager} for this format.  For ontologies parsed from an OBO file this will contain
-     * any id prefix to IRI prefix mappings that were parsed out of the file (from id-space tags).  Not null.
-     */
-    public IDSpaceManager getIdSpaceManager() {
-        return idSpaceManager;
     }
 }

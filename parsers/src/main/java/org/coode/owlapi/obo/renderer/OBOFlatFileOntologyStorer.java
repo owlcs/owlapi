@@ -36,37 +36,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo.parser;
 
+package org.coode.owlapi.obo.renderer;
+
+import java.io.Writer;
+
+import org.coode.owlapi.obo.parser.OBOOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-/** Author: Matthew Horridge<br>
+/**
+ * Author: Nick Drummond<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br>
- * <br> */
-public class OBOOntologyFormat extends OWLOntologyFormat {
-    private static final long serialVersionUID = 30406L;
-    private IDSpaceManager idSpaceManager = new IDSpaceManager();
+ * Bio Health Informatics Group<br>
+ * Date: Dec 17, 2008<br><br>
+ */
+public class OBOFlatFileOntologyStorer extends AbstractOWLOntologyStorer {
+
+
+	private static final long serialVersionUID = 30406L;
+
 
     @Override
-    public String toString() {
-        return "OBO Format";
+    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+        return ontologyFormat instanceof OBOOntologyFormat;
     }
 
-    /** @param m
-     *            An {@link IDSpaceManager} which specifies mappings between id
-     *            prefixes and IRI prefixes. */
-    public void setIDSpaceManager(IDSpaceManager m) {
-        idSpaceManager = m;
+
+    @Override
+	protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws
+            OWLOntologyStorageException {
+        storeOntology(ontology, writer, format);
     }
 
-    /**
-     * Gets the OBO id-space manager.  This is NOT the same as a prefix manager.
-     * @return The {@link IDSpaceManager} for this format.  For ontologies parsed from an OBO file this will contain
-     * any id prefix to IRI prefix mappings that were parsed out of the file (from id-space tags).  Not null.
-     */
-    public IDSpaceManager getIdSpaceManager() {
-        return idSpaceManager;
+    @Override
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
+        OBOFlatFileRenderer renderer = new OBOFlatFileRenderer();
+        renderer.render(ontology, writer);
     }
 }

@@ -36,37 +36,77 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+package org.coode.owlapi.obo.renderer;
 
-/** Author: Matthew Horridge<br>
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+
+/**
+ * Author: Nick Drummond<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br>
- * <br> */
-public class OBOOntologyFormat extends OWLOntologyFormat {
-    private static final long serialVersionUID = 30406L;
-    private IDSpaceManager idSpaceManager = new IDSpaceManager();
+ * Bio Health Informatics Group<br>
+ * Date: Dec 18, 2008<br><br>
+ */
+@SuppressWarnings("javadoc")
+public class OBORelationship {
 
-    @Override
-    public String toString() {
-        return "OBO Format";
+    private OWLObjectProperty property;
+
+    private int minCardinality = -1;
+    private int maxCardinality = -1;
+    private int cardinality = -1;
+
+    private OWLEntity filler;
+
+    public OBORelationship(OWLObjectProperty property, OWLNamedIndividual filler) {
+        this.property = property;
+        this.filler = filler;
     }
 
-    /** @param m
-     *            An {@link IDSpaceManager} which specifies mappings between id
-     *            prefixes and IRI prefixes. */
-    public void setIDSpaceManager(IDSpaceManager m) {
-        idSpaceManager = m;
+    public OBORelationship(OWLObjectProperty property, OWLClass filler) {
+        this.property = property;
+        this.filler = filler;
     }
 
-    /**
-     * Gets the OBO id-space manager.  This is NOT the same as a prefix manager.
-     * @return The {@link IDSpaceManager} for this format.  For ontologies parsed from an OBO file this will contain
-     * any id prefix to IRI prefix mappings that were parsed out of the file (from id-space tags).  Not null.
-     */
-    public IDSpaceManager getIdSpaceManager() {
-        return idSpaceManager;
+    public OWLObjectProperty getProperty() {
+        return property;
+    }
+
+
+    public int getMinCardinality() {
+        return minCardinality;
+    }
+
+
+    public OWLEntity getFiller() {
+        return filler;
+    }
+
+
+    public int getMaxCardinality() {
+        return maxCardinality;
+    }
+
+
+    public void setMaxCardinality(int maxCardinality) {
+        this.maxCardinality = maxCardinality;
+    }
+
+
+    public void setMinCardinality(int minCardinality) {
+        this.minCardinality = minCardinality;
+    }
+
+
+    public int getCardinality() {
+        return cardinality;
+    }
+
+
+    public void setCardinality(int cardinality) {
+        this.cardinality = cardinality;
     }
 }

@@ -36,37 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** Author: Matthew Horridge<br>
+
+/**
+ * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br>
- * <br> */
-public class OBOOntologyFormat extends OWLOntologyFormat {
-    private static final long serialVersionUID = 30406L;
-    private IDSpaceManager idSpaceManager = new IDSpaceManager();
+ * Date: 10-Jan-2007<br><br>
+ */
+public class OBOParserFactory implements OWLParserFactory {
 
     @Override
-    public String toString() {
-        return "OBO Format";
-    }
-
-    /** @param m
-     *            An {@link IDSpaceManager} which specifies mappings between id
-     *            prefixes and IRI prefixes. */
-    public void setIDSpaceManager(IDSpaceManager m) {
-        idSpaceManager = m;
-    }
-
-    /**
-     * Gets the OBO id-space manager.  This is NOT the same as a prefix manager.
-     * @return The {@link IDSpaceManager} for this format.  For ontologies parsed from an OBO file this will contain
-     * any id prefix to IRI prefix mappings that were parsed out of the file (from id-space tags).  Not null.
-     */
-    public IDSpaceManager getIdSpaceManager() {
-        return idSpaceManager;
+    public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
+        return new OWLOBOParser();
     }
 }

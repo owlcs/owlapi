@@ -36,37 +36,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+package org.coode.owlapi.obo.renderer;
 
-/** Author: Matthew Horridge<br>
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+
+/**
+ * Author: Nick Drummond<br>
  * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br>
- * <br> */
-public class OBOOntologyFormat extends OWLOntologyFormat {
-    private static final long serialVersionUID = 30406L;
-    private IDSpaceManager idSpaceManager = new IDSpaceManager();
+ * Bio Health Informatics Group<br>
+ * Date: Dec 19, 2008<br><br>
+ */
+@SuppressWarnings("javadoc")
+public class OBOStorageException extends OWLOntologyStorageException{
 
-    @Override
-    public String toString() {
-        return "OBO Format";
-    }
 
-    /** @param m
-     *            An {@link IDSpaceManager} which specifies mappings between id
-     *            prefixes and IRI prefixes. */
-    public void setIDSpaceManager(IDSpaceManager m) {
-        idSpaceManager = m;
-    }
+	private static final long serialVersionUID = 30406L;
 
-    /**
-     * Gets the OBO id-space manager.  This is NOT the same as a prefix manager.
-     * @return The {@link IDSpaceManager} for this format.  For ontologies parsed from an OBO file this will contain
-     * any id prefix to IRI prefix mappings that were parsed out of the file (from id-space tags).  Not null.
-     */
-    public IDSpaceManager getIdSpaceManager() {
-        return idSpaceManager;
+    public OBOStorageException(OWLObject source, OWLObject problem, String message){
+        super(source + ": " + message + " (" + problem + ")");
     }
 }

@@ -1,0 +1,232 @@
+options {
+JAVA_UNICODE_ESCAPE=true;
+    STATIC=false;
+    // DEBUG_TOKEN_MANAGER=true;
+}
+
+PARSER_BEGIN(OBOParser)
+
+package org.coode.owlapi.obo.parser;
+
+import org.semanticweb.owlapi.model.*;
+import java.net.*;
+import java.util.*;
+import org.coode.string.*;
+
+@SuppressWarnings("all")
+public class OBOParser {
+
+    private OBOParserHandler handler;
+
+    public void setHandler(OBOParserHandler handler) {
+        this.handler = handler;
+    }
+}
+
+PARSER_END(OBOParser)
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+
+SKIP:
+{
+    <"\n">
+}
+
+SKIP:
+{
+    <"\r">
+}
+
+SKIP:
+{
+    <"\t">
+}
+
+SKIP:
+{
+    <" ">
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+<DEFAULT> SKIP :
+{
+    <LINE_COMMENTED_OUT: "!"(~["\r","\n"])*>
+}
+
+TOKEN:
+{
+    <OPEN_SQUARE_BRACKET: "["> : IN_STANZA_HEADER
+}
+
+<IN_STANZA_HEADER> TOKEN:
+{
+    <STANZA_TYPE: (~["]"])+>
+}
+
+<IN_STANZA_HEADER> TOKEN:
+{
+    <CLOSE_SQUARE_BRACKET: "]"> : DEFAULT
+}
+
+
+
+TOKEN:
+{
+    <TAG_NAME: (~["[",":","\n","\r"])+> : IN_TAG_VALUE_PAIR
+}
+
+<IN_TAG_VALUE_PAIR> SKIP:
+{
+    <TAG_COLON: ":"((" ")*)> : IN_TAG_VALUE
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+////
+////
+////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+<IN_TAG_VALUE> SKIP:
+{
+    <QUOTED_STRING_START: "\""> : IN_QUOTED_STRING
+}
+
+<IN_QUOTED_STRING> TOKEN :
+{
+    <QUOTED_STRING: ("\\\""|"\\\n"|"\\\r"|~["\"","\r","\n"])+>
+}
+
+<IN_QUOTED_STRING> SKIP :
+{
+    <QUOTED_STRING_DBL_QUOTE_TERMINATOR: (["\""])> : IN_TAG_VALUE  // To allow for malformed files - they do exist!
+}
+
+<IN_QUOTED_STRING> SKIP :
+{
+    <QUOTED_STRING_NEW_LINE_TERMINATOR: (["\n","\r"])> : DEFAULT
+}
+
+
+
+
+<IN_TAG_VALUE> TOKEN:
+{
+    <STRING: (~["\n","\r"," ","\t","!"])+>
+}
+
+
+<IN_TAG_VALUE> TOKEN :
+{
+    <TAG_VALUE_WS: (" "|"\t")+>
+}
+
+
+<IN_TAG_VALUE> SKIP:
+{
+    <TAG_END: ("\n"|"\r")> : DEFAULT
+}
+
+
+<IN_TAG_VALUE> SKIP:
+{
+    <COMMENT_START: "!"> : IN_COMMENT
+}
+
+<IN_COMMENT> TOKEN:
+{
+    <COMMENT: ("\\\n"|"\\\r"|~["\n","\r"])+>
+}
+
+<IN_COMMENT> SKIP :
+{
+    <COMMENT_END: ("\n"|"\r")+> : DEFAULT
+}
+
+
+
+
+TOKEN:
+{
+    <ERROR: (~[])>
+}
+
+
+public void parse() :
+{
+}
+{
+    Header()(Stanza())+<EOF>
+}
+
+void Header() :
+{
+}
+{
+    {handler.startHeader();}
+    ((TagValuePair())*)
+    {handler.endHeader();}
+}
+
+
+
+
+void Stanza() :
+{
+    Token t;
+}
+{
+
+
+    (<OPEN_SQUARE_BRACKET>t=<STANZA_TYPE>{handler.startFrame(t.image);}<CLOSE_SQUARE_BRACKET> (TagValuePair())*)
+    {handler.endFrame();}
+}
+
+
+void TagValuePair() :
+{
+    Token tagToken = null;
+    Token valToken = null;
+    String qualifierBlock = "";
+    String comment = "";
+    Token t;
+    StringBuilder sb = new StringBuilder();
+
+}
+{
+    tagToken=<TAG_NAME> ((t=<QUOTED_STRING>{sb.append(t.image);} | t=<STRING>{sb.append(t.image);} | t=<TAG_VALUE_WS>{sb.append(t.image);}))* (comment=Comment())? {
+        String name = tagToken.image.trim();
+        String val = sb.toString().trim();
+        // This a real mess.  The OBO format allows qualifier blocks at the end of lines.  However, things that look
+        // like qualifier blocks can appear in the middle of values for comment tags.
+        if(val.endsWith("}")) {
+            int qualifierStart = val.lastIndexOf("{");
+            if(qualifierStart != -1) {
+                qualifierBlock = val.substring(qualifierStart);
+                val = val.substring(0, qualifierStart).trim();
+            }
+        }
+        handler.handleTagValue(name, val, qualifierBlock, comment);
+    }
+
+
+}
+
+
+String Comment() :
+{
+    Token t;
+}
+{
+     t=<COMMENT> {return t.image;}
+}
+
+

@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,37 +36,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.coode.owlapi.obo.parser;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br>
- * <br> */
-public class OBOOntologyFormat extends OWLOntologyFormat {
-    private static final long serialVersionUID = 30406L;
-    private IDSpaceManager idSpaceManager = new IDSpaceManager();
+/**
+ * Author: Matthew Horridge<br>
+ * Stanford University<br>
+ * Bio-Medical Informatics Research Group<br>
+ * Date: 19/04/2012
+ */
+@SuppressWarnings("javadoc")
+public class OBOFrame {
 
-    @Override
-    public String toString() {
-        return "OBO Format";
+    private String frameType;
+    
+    private List<OBOTagValuePair> tagValuePairs;
+
+    public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
+        this.tagValuePairs = tagValuePairs;
     }
 
-    /** @param m
-     *            An {@link IDSpaceManager} which specifies mappings between id
-     *            prefixes and IRI prefixes. */
-    public void setIDSpaceManager(IDSpaceManager m) {
-        idSpaceManager = m;
+    public OBOFrame(String frameType, List<OBOTagValuePair> tagValuePairs) {
+        this.frameType = frameType;
+        this.tagValuePairs = new ArrayList<OBOTagValuePair>(tagValuePairs);
     }
 
-    /**
-     * Gets the OBO id-space manager.  This is NOT the same as a prefix manager.
-     * @return The {@link IDSpaceManager} for this format.  For ontologies parsed from an OBO file this will contain
-     * any id prefix to IRI prefix mappings that were parsed out of the file (from id-space tags).  Not null.
-     */
-    public IDSpaceManager getIdSpaceManager() {
-        return idSpaceManager;
+    public String getFrameType() {
+        return frameType;
     }
+
+    public List<OBOTagValuePair> getTagValuePairs() {
+        return Collections.unmodifiableList(tagValuePairs);
+    }
+    
+    public boolean isHeaderFrame() {
+        return frameType == null;
+    }
+
+    public boolean isTypeDefFrame() {
+        return OBOVocabulary.TYPEDEF.getName().equals(frameType);
+    }
+
+
 }
