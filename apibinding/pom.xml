@@ -27,7 +27,7 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>oboformat-included-owlapi</artifactId>
+			<artifactId>owlapi-oboformat</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
