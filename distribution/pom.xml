@@ -39,6 +39,11 @@
 			<artifactId>owlapi-parsers</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-oboformat</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -57,7 +62,8 @@
 							de.uulm.*,
 							org.coode.*,
 							org.semanticweb.owlapi.*;-split-package:=merge-first,
-							uk.ac.manchester.*;-split-package:=merge-first
+							uk.ac.manchester.*;-split-package:=merge-first,
+							org.obolibrary.*
 						</Export-Package>
 					</instructions>
 					<executions>
@@ -88,6 +94,7 @@
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-parsers</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-tools</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboparser</dependencySourceInclude>
 							</dependencySourceIncludes>
 						</configuration>
 					</execution>
