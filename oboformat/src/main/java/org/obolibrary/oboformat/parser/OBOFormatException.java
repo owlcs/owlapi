@@ -1,23 +1,22 @@
 package org.obolibrary.oboformat.parser;
 
-public class OBOFormatException extends Exception {
+import org.semanticweb.owlapi.io.OWLParserException;
 
-	// generated
-	private static final long serialVersionUID = 6785258968276915779L;
+public class OBOFormatException extends OWLParserException {
+    // generated
+    private static final long serialVersionUID = 6785258968276915779L;
 
-	public OBOFormatException() {
-	}
+    public OBOFormatException() {}
 
-	public OBOFormatException(String message) {
-		super(message);
-	}
+    public OBOFormatException(String message) {
+        super(message);
+    }
 
-	public OBOFormatException(Throwable e) {
-		super(e);
-	}
+    public OBOFormatException(Throwable e) {
+        super(e);
+    }
 
-	public OBOFormatException(String message, Throwable e) {
-		super(message, e);
-	}
-
+    public OBOFormatException(String message, Throwable e) {
+        super(message, e);
+    }
 }
