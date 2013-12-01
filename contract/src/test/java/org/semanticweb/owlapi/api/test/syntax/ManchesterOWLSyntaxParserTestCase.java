@@ -135,8 +135,6 @@ public class ManchesterOWLSyntaxParserTestCase {
                 + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
                 + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "Ontology: <http://www.owl-ontologies.com/Ontology1307394066.owl>\n"
-                + "Import: <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl>\n"
-                + "Import: <http://swrl.stanford.edu/ontologies/3.3/swrla.owl>\n"
                 + "Datatype: xsd:decimal\n"
                 + "Datatype: xsd:int\n"
                 + "Datatype: xsd:dateTime\n"
