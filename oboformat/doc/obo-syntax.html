@@ -530,7 +530,7 @@ the canonical prefixed ID pattern.
               An XrefList is a comma-separated list of zero or more
               Xrefs inside square brackets (these are manditory). Each
               Xref is a string of characters, optionally followed by a
-              auoted description. Note that commans in the xref need
+              auoted description. Note that commas in the xref need
               to be escaped. We include an extra production rule for
               when solitary Xrefs are provided (i.e. with the 'xref'
               tag) - in this case commas do not need to be escaped.
@@ -539,7 +539,8 @@ the canonical prefixed ID pattern.
 <p class="grammar" style="white-space: pre;">
 
 <span class="nonterminal">XrefList</span> ::=  '[' [ <span class="nonterminal">Xref</span> { ',' <span class="nonterminal">ws</span> <span class="nonterminal">XrefNoComma</span> } ] { <span class="nonterminal">ws</span> } ']'
-<span class="nonterminal">XrefNoComma</span> ::= { ( <span class="nonterminal">NonWsChar</span> - ',') }  [ <span class="nonterminal">ws</span> <span class="nonterminal">QuotedString</span> ]
+<span class="nonterminal">XrefNoComma</span> ::= <span class="nonterminal">XrefChar</span> {  <span class="nonterminal">XrefChar</span> }  [ <span class="nonterminal">ws</span> <span class="nonterminal">QuotedString</span> ]
+<span class="nonterminal">XrefChar</span> ::= (<span class="nonterminal">NonWsChar</span> - ',')
 <span class="nonterminal">Xref</span> ::= <span class="nonterminal">ID</span>  [ <span class="nonterminal">ws</span> <span class="nonterminal">QuotedString</span> ]
 
 </p>
@@ -1118,6 +1119,9 @@ Prefix: dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 Prefix: rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
 </span>
 
+It is recommended that writers use this set of prefixes to write
+CURIES (shortened URIs), but this is not required.
+
 </p>
 
 <h4 style="color: red;">Example</h4>
@@ -1182,7 +1186,7 @@ owl-axioms: DisjointClasses(ObjectSomeValuesFrom(:BFO_0000050 :GO_0005737) Objec
 <p style="color: red;">
 It is strongly recommended that writers only generate owl-axioms
 clauses for axioms that fall outside of the OBO-subset of
-OWL2-DL. Remember that most applications that consume obo-format will
+OWL2-DL. Remember that most applications which consume obo-format will
 ignore the owl-axioms headers.
 </p>
 
@@ -2407,6 +2411,21 @@ no Axiom Annotations <i>except</i> those axiom annotations required to
 support OBO metadata constructs, such as definitions and synonyms.
 </p>
 
+<h3><a name="6.1.12"></a>6.1.12 No owl-axioms header</h3>
+
+<p>
+See <a href="#5.0.4">5.0.4</a>. An ontology has no owl-axioms header
+if the header does not contain an "owl-axioms:" tag.
+</p>
+
+<h3><a name="6.1.13"></a>6.1.13 No imports</h3>
+
+<p>
+An ontology has no imports if the header does not contain any
+"import:" tags
+</p>
+
+
 <h3><a name="6.2"></a>6.2 OBO Basic</h3>
 
 <p>
@@ -2453,6 +2472,12 @@ An ontology is OBO Basic if and only if it has the following characteristics:
                   </li>
                   <li>
                     No disjointness axioms
+                  </li>
+                  <li>
+                    No owl-axioms header
+                  </li>
+                  <li>
+                    No imports
                   </li>
                 </ul>
 </div>
@@ -2798,6 +2823,74 @@ Individuals are retained in OBOF1.4 for compatibility with previous
                   for modeling using individuals. Ontologies should
                   not contain individuals, and OBOF is not a good
                   choice for knowledge bases that use individuals.
+</p>
+
+<h3><a name="8.4"></a>8.4 Imports</h3>
+<p>
+When translating between OBO and OWL, owl:imports in an OWL ontology
+hader are translated directly to an 'import:' header in an OBO
+document. The contents of the field MUST not be modified during
+translation (normative).
+</p>
+<p>
+As a consequence of this, URIs that resolve to OWL documents must be
+used if the resulting OWL is to be consumed by an OWL parser. Here is
+an example of a valid OBO document header (taken from the GO editors file):
+<pre>
+import: http://purl.obolibrary.org/obo/go/extensions/chebi_import.owl
+import: http://purl.obolibrary.org/obo/go/extensions/cl_import.owl
+import: http://purl.obolibrary.org/obo/go/extensions/po_import.owl
+ontology: go
+</pre>
+
+The onus is on the OBO parser to be able to handle these OWL documents
+- either by translating them or mapping the URIs to OBO documents that
+have been translated in advance
+
+</p>
+<p>
+
+Most OBO tools are not equipped to do this, so imports should be used
+with caution in OBO format. We strongly recommend using OWL whenever
+imports are required, and providing OBO versions with the imports
+closure merged. Note that this can be done with owltools:
+
+<pre>
+owltools myont.owl --merge-imports-closure -o -f obo myont.obo
+</pre>
+
+Note that all versions of OBO-Edit prior to 2.3b7 should be considered
+broken for imports. 2.3b7 introduces the use of oboedit.catalog files
+which allow OWL URIs to be used in import directives. These are not
+part of the OBOFormat spec, but details are included here for completeness
+
+<h4><a name="8.4.1"></a>8.4.1 OBO-Edit catalog files</h4>
+
+An OBO-Edit catalog file contains newline separated entries mapping an
+OWL URI to a local file containing an OBO document, such that the OBO
+document can be substituted for the OWL URI with no loss of
+content. Each mapping uses a single line, and is separated by
+whitespace.
+
+The file can optionally include lines starting with "#"
+which are ignored and for human consumption.
+
+An example:
+
+<pre>
+# GO imports mappings
+http://purl.obolibrary.org/obo/go/extensions/chebi_import.owl ../extensions/chebi_import.obo
+http://purl.obolibrary.org/obo/go/extensions/cl_import.owl ../extensions/cl_import.obo
+http://purl.obolibrary.org/obo/go/extensions/po_import.owl ../extensions/po_import.obo
+</pre>
+
+When an OBO parser encounters an import directive it may choose to
+load the document obtained via mapping the URI on the left with the
+OBO document found in the file on the right.
+
+The oboedit.catalog file should live in the same directory as the
+source OBO ontology.
+
 </p>
 
 <a name="References"></a><h2> <span class="mw-headline">9  References </span></h2>

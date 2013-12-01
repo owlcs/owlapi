@@ -15,10 +15,18 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Saves an OWL ontology consisting only of labels argument 1: a file path to an
- * input obo file argument 2: a file path to an output owl file Example: <code>
+/**
+ * Saves an OWL ontology consisting only of labels
+ * 
+ * argument 1: a file path to an input obo file
+ * argument 2: a file path to an output owl file
+ * 
+ * Example:
+ * <code>
  * java org.obolibrary.examples.ExportLabelsAsOWL human-phenotype-ontology.obo labels.owl
- * </code> */
+ * </code>
+ *
+ */
 public class ExportLabelsAsOWL {
     public static void main(String[] args) throws Exception {
         // *** obo to owl ***

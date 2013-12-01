@@ -169,7 +169,7 @@ public class ManchesterSyntaxTool {
 
 		parser.setOWLEntityChecker(entityChecker);
 
-        if (log.isLoggable(Level.FINE)) {
+        if (log.isLoggable(Level.WARNING)) {
             log.log(Level.WARNING, "parsing:" + expression);
         }
 		return parser;
